@@ -12,26 +12,26 @@
 
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/catppuccin/youtube/main/assets/cat-youtube.png"/>
+  <img src="assets/cat-youtube.png"/>
 </p>
 
 ## Previews
 
 <details>
 <summary>🌻 Latte</summary>
-  <img src="https://raw.githubusercontent.com/catppuccin/youtube/main/assets/youtube-latte.png"/>
+  <img src="assets/youtube-latte.webp"/>
 </details>
 <details>
 <summary>🪴 Frappé</summary>
-  <img src="https://raw.githubusercontent.com/catppuccin/youtube/main/assets/youtube-frappe.png"/>
+  <img src="assets/youtube-frappe.webp"/>
 </details>
 <details>
 <summary>🌺 Macchiato</summary>
-  <img src="https://raw.githubusercontent.com/catppuccin/youtube/main/assets/youtube-macchiato.png"/>
+  <img src="assets/youtube-macchiato.webp"/>
 </details>
 <details>
 <summary>🌿 Mocha</summary>
-  <img src="https://raw.githubusercontent.com/catppuccin/youtube/main/assets/youtube-mocha.png"/>
+  <img src="assets/youtube-mocha.webp"/>
 </details>
 
 

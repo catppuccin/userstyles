@@ -13,26 +13,26 @@
 </p>
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/thismoon/modrinth/main/assets/res.webp"/>
+	<img src="assets/res.webp"/>
 </p>
 
 ## Previews
 
 <details>
 <summary>🌻 Latte</summary>
-<img src="https://raw.githubusercontent.com/thismoon/modrinth/main/assets/latte.png"/>
+<img src="assets/latte.webp"/>
 </details>
 <details>
 <summary>🪴 Frappé</summary>
-<img src="https://raw.githubusercontent.com/thismoon/modrinth/main/assets/frappe.png"/>
+<img src="assets/frappe.webp"/>
 </details>
 <details>
 <summary>🌺 Macchiato</summary>
-<img src="https://raw.githubusercontent.com/thismoon/modrinth/main/assets/macchiato.png"/>
+<img src="assets/macchiato.webp"/>
 </details>
 <details>
 <summary>🌿 Mocha</summary>
-<img src="https://raw.githubusercontent.com/thismoon/modrinth/main/assets/mocha.png"/>
+<img src="assets/mocha.webp"/>
 </details>
 
 ## Usage
