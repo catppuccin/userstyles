@@ -12,7 +12,7 @@
 
 
 <p align="center">
-  <img src="assets/cat-youtube.png"/>
+  <img src="assets/cat-youtube.webp"/>
 </p>
 
 ## Previews

@@ -12,10 +12,10 @@
 </p>
 
 <p align="center">
-	<img src="assets/anilistpreview.png"/>
+	<img src="assets/anilistpreview.webp"/>
 </p>
 <p align="center">
-	<img src="assets/anichartpreview.png"/>
+	<img src="assets/anichartpreview.webp"/>
 </p>
 
 ## Usage

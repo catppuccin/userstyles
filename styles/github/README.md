@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-	<img src="assets/screenshot.png"/>
+	<img src="assets/screenshot.webp"/>
 </p>
 
 ## Usage

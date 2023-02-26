@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-	<img src="assets/lastfmpreview.png"/>
+	<img src="assets/lastfmpreview.webp"/>
 </p>
 
 ## Usage
