@@ -29,7 +29,6 @@
 <summary>🔎 Search Engines</summary>
 
 - [Brave Search](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/brave-search)
-- [DuckDuckGo](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/duckduckgo)
 - [NixOS Search](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/nixos-search)
 - [SearXNG](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/SearXNG)
 - [Whoogle](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/whoogle)
@@ -66,7 +65,6 @@
 - [AniList](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/anilist)
 - [Last.fm](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/lastfm)
 - [monkeytype](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/monkeytype)
-- [Stable Diffusion WebUI](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/stable-diffusion-web-ui)
 - [YouTube Music](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/youtubemusic)
 
 </details>
