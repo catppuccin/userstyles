@@ -11,7 +11,7 @@
     <a href="https://github.com/catppuccin/whoogle/contributors"><img src="https://img.shields.io/github/contributors/catppuccin/whoogle?colorA=363a4f&colorB=a6da95&style=for-the-badge"></a>
 </p>
 
-![Whoogle Theme Preview](assets/preview.png)
+![Whoogle Theme Preview](assets/preview.webp)
 
 ## Usage
 
