@@ -6,11 +6,9 @@
 </h3>
 
 <h6 align="center">
-  <a href="https://github.com/catppuccin-rfc/userstyles#-palette">Palette</a>
+  <a href="#-userstyles">Userstyles</a>
   ·
-  <a href="https://github.com/catppuccin-rfc/userstyles#-userstyles">Userstyles</a>
-  ·
-  <a href="https://github.com/catppuccin-rfc/userstyles/tree/main/docs">Docs</a>
+  <a href="#install">Install</a>
 </h6>
 
 &nbsp;
@@ -22,61 +20,70 @@
 <details open>
 <summary>💭 Development tools</summary>
 
-- [Vercel](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/vercel)
+- [Vercel](styles/vercel)
 
 </details>
 <details open>
 <summary>🔎 Search Engines</summary>
 
-- [Brave Search](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/brave-search)
-- [NixOS Search](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/nixos-search)
-- [SearXNG](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/SearXNG)
-- [Whoogle](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/whoogle)
+- [Brave Search](styles/brave-search)
+- [NixOS Search](styles/nixos-search)
+- [SearXNG](styles/SearXNG)
 
 </details>
 <details open>
 <summary>🗂️ Productivity</summary>
 
-- [Codeberg](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/codeberg)
-- [DeepL](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/deepl)
-- [GitHub](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/github)
-- [ichi.moe](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/ichi.moe)
-- [Proton](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/proton)
-- [Tutanota](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/tutanota)
-- [WikiWand](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/wikiwand)
+- [Codeberg](styles/codeberg)
+- [DeepL](styles/deepl)
+- [GitHub](styles/github)
+- [ichi.moe](styles/ichi.moe)
+- [Proton](styles/proton)
+- [Tutanota](styles/tutanota)
+- [WikiWand](styles/wikiwand)
 
 </details>
 <details open>
 <summary>✨ Social</summary>
 
-- [Hacker News](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/hacker-news)
-- [Invidious](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/invidious)
-- [Libreddit](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/libreddit)
-- [Mastodon](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/mastodon)
-- [Nitter](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/nitter)
-- [Reddit](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/reddit)
-- [Twitch](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/twitch)
-- [YouTube](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/youtube)
+- [Hacker News](styles/hacker-news)
+- [Invidious](styles/invidious)
+- [Libreddit](styles/libreddit)
+- [Mastodon](styles/mastodon)
+- [Nitter](styles/nitter)
+- [Reddit](styles/reddit)
+- [Twitch](styles/twitch)
+- [YouTube](styles/youtube)
 
 </details>
 <details open>
 <summary>🌈 Leisure</summary>
 
-- [AniList](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/anilist)
-- [Last.fm](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/lastfm)
-- [monkeytype](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/monkeytype)
-- [YouTube Music](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/youtubemusic)
+- [AniList](styles/anilist)
+- [Last.fm](styles/lastfm)
+- [monkeytype](styles/monkeytype)
+- [YouTube Music](styles/youtubemusic)
 
 </details>
 <details open>
 <summary>🎮 Games</summary>
 
-- [Modrinth](https://github.com/catppuccin-rfc/userstyles/tree/main/styles/modrinth)
+- [Modrinth](styles/modrinth)
 
 </details>
 <!-- AUTOGEN:USERSTYLES END -->
 
 &nbsp;
+
+### Install
+To install these userstyles:
+1. Install [Stylus](https://github.com/openstyles/stylus)
+    - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
+2. Enable CSP Patching from Stylus Settings > Advanced.
+3. Install the theme from this url:
+    - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
+    - Replacing `<name>` with the name of the userstyle.
+4. Enjoy!
 
 ### Contributing
 
