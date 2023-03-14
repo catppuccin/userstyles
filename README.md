@@ -46,6 +46,7 @@
 <details open>
 <summary>✨ Social</summary>
 
+- [Elk](styles/elk)
 - [Hacker News](styles/hacker-news)
 - [Invidious](styles/invidious)
 - [Libreddit](styles/libreddit)
