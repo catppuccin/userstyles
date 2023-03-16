@@ -32,6 +32,12 @@
 
 </details>
 <details open>
+<summary>💬 Messaging</summary>
+
+- [Cinny](styles/cinny)
+
+</details>
+<details open>
 <summary>🗂️ Productivity</summary>
 
 - [Codeberg](styles/codeberg)
