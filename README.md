@@ -62,7 +62,6 @@
 
 - [AniList](styles/anilist)
 - [Last.fm](styles/lastfm)
-- [monkeytype](styles/monkeytype)
 - [YouTube Music](styles/youtubemusic)
 
 </details>
