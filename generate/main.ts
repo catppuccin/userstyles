@@ -31,7 +31,7 @@ const categorized = Object.entries(data.ports)
   .reduce((acc, [slug, port]) => {
     !acc[port.category] && (acc[port.category] = []);
     acc[port.category].push({
-      html_url: `https://github.com/catppuccin-rfc/userstyles/tree/main/styles/${slug}`,
+      html_url: `styles/${slug}`,
       ...port,
     });
     acc[port.category].sort((a, b) => a.name.localeCompare(b.name));

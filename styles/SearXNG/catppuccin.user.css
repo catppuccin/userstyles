@@ -1,16 +1,17 @@
 /* ==UserStyle==
 @name           SearXNG Catppuccin
-@namespace      github.com/catppuccin/searxng
-@homepageURL    https://github.com/catppuccin/searxng
-@version        0.2.0
+@namespace      github.com/catppuccin/userstyles/styles/searxng
+@homepageURL    https://github.com/catppuccin/userstyles/tree/main/styles/searxng
+@version        0.2.1
 @description    Soothing pastel theme for SearXNG
 @author         Catppuccin
-@updateURL      https://github.com/catppuccin/searxng/raw/main/catppuccin.user.css
+@updateURL      https://github.com/catppuccin/userstyles/raw/main/styles/searxng/catppuccin.user.css
 @preprocessor   stylus
 @var select lighttheme "Light Variant" ["Latte*", "Frappe", "Macchiato", "Mocha"]
 @var select darktheme "Dark Variant" ["Latte", "Frappe", "Macchiato", "Mocha*"]
 @var checkbox additions "Additional Tweaks" 0
 ==/UserStyle== */
+
 @-moz-document url-prefix("http://ransack.i2p/"),
 url-prefix("https://darmarit.org/searx/"),
 url-prefix("https://de.xcxc.ml/"),
@@ -256,7 +257,23 @@ url-prefix("https://xo.wtf/") {
     if (darktheme=="Mocha")     { colourscheme(Mocha) }
   }
 
-    :root.theme-dark, :root.theme-light {
+  .theme-auto {
+    if (lighttheme=="Latte")     { colourscheme(Latte) }
+    if (lighttheme=="Frappe")    { colourscheme(Frappe) }
+    if (lighttheme=="Macchiato") { colourscheme(Macchiato) }
+    if (lighttheme=="Mocha")     { colourscheme(Mocha) }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .theme-auto {
+      if (darktheme=="Latte")     { colourscheme(Latte) }
+      if (darktheme=="Frappe")    { colourscheme(Frappe) }
+      if (darktheme=="Macchiato") { colourscheme(Macchiato) }
+      if (darktheme=="Mocha")     { colourscheme(Mocha) }
+    }
+  }
+
+    :root.theme-auto, :root.theme-dark, :root.theme-light {
         --color-base-font: var(--ctp-text);
         --color-base-background: var(--ctp-base);
         --color-base-background-mobile: var(--ctp-base);
