@@ -3,10 +3,10 @@ name: Generate READMEs
 on:
   push:
     paths:
-      - "generate/**"
+      - "src/generate/**"
   pull_request:
     paths:
-      - "generate/**"
+      - "src/generate/**"
   workflow_dispatch:
 
 env:
@@ -28,10 +28,10 @@ jobs:
       - name: Cache Deno dependencies
         uses: actions/cache@v3
         with:
-          key: ${{ hashFiles('generate/deno.lock') }}
+          key: ${{ hashFiles('src/generate/deno.lock') }}
           path: ${{ env.DENO_DIR }}
       - name: Update READMEs
-        working-directory: generate
+        working-directory: src/generate
         run: ./main.ts
       - name: Push changes
         uses: stefanzweifel/git-auto-commit-action@v4
