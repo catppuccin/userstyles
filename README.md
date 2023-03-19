@@ -68,7 +68,6 @@
 
 - [AniList](styles/anilist)
 - [Last.fm](styles/lastfm)
-- [YouTube Music](styles/youtubemusic)
 
 </details>
 <details open>
