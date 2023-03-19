@@ -28,7 +28,7 @@
 
 - [Brave Search](styles/brave-search)
 - [NixOS Search](styles/nixos-search)
-- [SearXNG](styles/SearXNG)
+- [SearXNG](styles/searxng)
 
 </details>
 <details open>
