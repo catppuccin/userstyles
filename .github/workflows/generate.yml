@@ -1,12 +1,8 @@
-name: Generate READMEs
+name: Generate
 
 on:
   push:
-    paths:
-      - "src/generate/**"
   pull_request:
-    paths:
-      - "src/generate/**"
   workflow_dispatch:
 
 env:
@@ -15,12 +11,12 @@ env:
 jobs:
   readme:
     runs-on: ubuntu-latest
-    name: Re-generate README sections
+    name: Re-generate README, CODEOWNERS & labeler.yml
 
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.ref }}
       - name: Set up Deno
         uses: denoland/setup-deno@v1
         with:
@@ -30,14 +26,12 @@ jobs:
         with:
           key: ${{ hashFiles('src/generate/deno.lock') }}
           path: ${{ env.DENO_DIR }}
-      - name: Update READMEs
+      - name: Update README, CODEOWNERS & labeler.yml
         working-directory: src/generate
-        run: ./readme.ts
+        run: ./generate.ts
       - name: Push changes
         uses: stefanzweifel/git-auto-commit-action@v4
-        # skip pushing on forks
-        if: ${{ !github.event.pull_request.head.repo.fork }}
         with:
-          commit_message: "chore: re-generate README sections"
-          branch: ${{ github.head_ref }}
+          commit_message: "chore: README, CODEOWNERS & labeler.yml"
+          branch: ${{ github.ref }}
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
