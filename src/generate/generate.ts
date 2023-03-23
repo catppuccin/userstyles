@@ -19,14 +19,14 @@ const validate = ajv.compile<Metadata>(schema);
 const validatePorts = ajv.compile<PortMetadata>(portsSchema);
 
 const userstylesYaml = Deno.readTextFileSync(path.join(ROOT, "../userstyles.yml"));
-const userstylesData = parseYaml(userstylesYaml) as Metadata;
+const userstylesData = parseYaml(userstylesYaml);
 if (!validate(userstylesData)) {
   console.log(validate.errors);
   Deno.exit(1);
 }
 
 const portsYaml = await fetch("https://raw.githubusercontent.com/catppuccin/catppuccin/main/resources/ports.yml");
-const portsData = parseYaml(await portsYaml.text()) as PortMetadata;
+const portsData = parseYaml(await portsYaml.text());
 if (!validatePorts(portsData)) {
   console.log(validate.errors);
   Deno.exit(1);
@@ -35,7 +35,7 @@ if (!validatePorts(portsData)) {
 const categorized = Object.entries(userstylesData.userstyles).reduce(
   (acc, [ slug, { category, ...port } ]) => {
     acc[category] ||= [];
-    acc[category].push({ path: `styles/${slug}`, ...port });
+    acc[category].push({ path: `styles/${slug}`, category, ...port });
     acc[category].sort((a, b) => a.name.localeCompare(b.name));
     return acc;
   },
