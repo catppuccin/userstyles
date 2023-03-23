@@ -52,6 +52,10 @@ export type Color =
  */
 export type Icon = string;
 /**
+ * The hyperlink of the app that is being themed
+ */
+export type ApplicationLink = string;
+/**
  * Set this to true if styles contain images or fonts which fail to load on sites with a strict CSP (Content-­Security-­Policy).
  */
 export type CSPStylePatching = boolean;
@@ -150,6 +154,7 @@ export interface Userstyle {
  * Options to help in the auto-generation of the userstyle README
  */
 export interface README {
+  "app-link": ApplicationLink;
   "csp-patching"?: CSPStylePatching;
   usage?: Usage;
   faq?: FAQ;

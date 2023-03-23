@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run --allow-env --allow-read --allow-write --allow-net
 import { Ajv, parseYaml, path, portsSchema, schema, PortCategories } from "./deps.ts";
-import { Userstyle, Userstyles } from "./types.d.ts";
+import { FAQ, Userstyle, UserstyleMaintainers, Userstyles } from "./types.d.ts";
 
 const ROOT = new URL(".", import.meta.url).pathname;
 
@@ -96,10 +96,9 @@ try {
     section: "userstyles",
     newContent: portContent,
   });
+  updateFile(readmePath, readmeContent, false);
 } catch (e) {
   console.log("Failed to update the README:", e);
-} finally {
-  updateFile(readmePath, readmeContent, false);
 }
 
 const labelerPath = path.join(ROOT, "../../.github/labeler.yml");
@@ -115,3 +114,52 @@ const ownersContent = Object.entries(userstylesData.userstyles)
     return `# /styles/${key} ${maintainers}`;
   }).join("\n#\n");
 updateFile(ownersPath, ownersContent);
+
+const usageContent = (csp_patching?: boolean) => {
+  return `
+## Usage
+
+1. Install Stylus [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
+${csp_patching ? "1. Enable CSP Patching from Stylus Settings > Advanced." : ""}
+1. [Click here to install.](catppuccin.user.css?raw=1)
+`
+}
+
+const faqContent = (faq?: FAQ) => {
+  if (!faq) {
+    return "";
+  }
+  return `## 🙋 FAQ
+${faq.map(({ question, answer }) => `- Q: ${question}  \n\tA: ${answer}`).join("\n")}`;
+}
+
+const maintainersContent = (maintainers: UserstyleMaintainers) => {
+  return maintainers.map(({ name, url }) => {
+    return `- [${name === undefined ? url.split("/").pop() : name}](${url})`
+  }).join("\n");
+}
+
+const updateStylesReadmeContent = (readme: string, key: string, userstyle: Userstyle) => {
+  return readme.replaceAll("$PORT", userstyle.name)
+    .replaceAll("$APP-LINK", userstyle.readme["app-link"])
+    .replaceAll("$LOWERCASE-PORT", key)
+    .replaceAll("$USAGE", usageContent(userstyle.readme["csp-patching"]))
+    .replaceAll("$FAQ", faqContent(userstyle.readme.faq))
+    .replaceAll("$MAINTAINERS", maintainersContent(userstyle.readme.maintainers))
+}
+
+const stylesReadmePath = path.join(ROOT, "README.md");
+const stylesReadmeContent = Deno.readTextFileSync(stylesReadmePath);
+for (const [ key, userstyle ] of Object.entries(userstylesData.userstyles)) {
+  try {
+    console.log(`Generating README for ${key}`);
+    readmeContent = updateStylesReadmeContent(
+      stylesReadmeContent,
+      key,
+      userstyle
+    );
+    Deno.writeTextFileSync(path.join(ROOT, "../../styles", key, "README.md"), readmeContent);
+  } catch (e) {
+    console.log(`Failed to update ${userstyle} README:`, e);
+  }
+}
