@@ -39,6 +39,9 @@
 1. Install Stylus [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
 
 1. [Click here to install.](catppuccin.user.css?raw=1)
+> **Note** <br>
+> Set Tutanota's built-in theme to either **light** if you're using Latte or **dark** if you're using the others.
+
 
 
 

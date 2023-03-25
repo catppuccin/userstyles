@@ -39,6 +39,7 @@
 1. Install Stylus [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
 
 1. [Click here to install.](catppuccin.user.css?raw=1)
+Set theme to dark or light in Brave Search settings, the automatic setting will not work
 
 
 

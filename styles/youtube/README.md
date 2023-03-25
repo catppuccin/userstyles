@@ -39,6 +39,9 @@
 1. Install Stylus [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
 
 1. [Click here to install.](catppuccin.user.css?raw=1)
+> **Note** <br>
+> Make sure your base YouTube theme is set to **light** mode!
+
 
 
 ## 🙋 FAQ

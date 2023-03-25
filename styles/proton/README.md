@@ -39,6 +39,7 @@
 1. Install Stylus [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
 
 1. [Click here to install.](catppuccin.user.css?raw=1)
+Open Proton Mail and click the settings in the top right, then set the base theme to `Proton` if you are using the Latte flavor, otherwise set it to `Carbon`
 
 
 
