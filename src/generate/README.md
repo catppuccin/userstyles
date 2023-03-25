@@ -33,6 +33,13 @@
 <img src="assets/mocha.webp"/>
 </details>
 
+## Installation
+
+1. Install Stylus [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
+<!-- TODO: Remove this from every README and include it at the top -->
+2. Enable CSP Patching from Stylus Settings > Advanced.
+3. [Click here to install.](catppuccin.user.css?raw=1)
+
 $USAGE
 
 $FAQ
