@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run --allow-env --allow-read --allow-write --allow-net
 import { Ajv, parseYaml, path, portsSchema, schema, PortCategories } from "./deps.ts";
-import { FAQ, Userstyle, UserstyleMaintainers, Userstyles } from "./types.d.ts";
+import { FAQ, Userstyle, UserstyleMaintainers, Userstyles, Usage } from "./types.d.ts";
 
 const ROOT = new URL(".", import.meta.url).pathname;
 
@@ -115,13 +115,14 @@ const ownersContent = Object.entries(userstylesData.userstyles)
   }).join("\n#\n");
 updateFile(ownersPath, ownersContent);
 
-const usageContent = (csp_patching?: boolean) => {
+const usageContent = (csp_patching?: boolean, usage?: Usage) => {
   return `
 ## Usage
 
 1. Install Stylus [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
 ${csp_patching ? "1. Enable CSP Patching from Stylus Settings > Advanced." : ""}
 1. [Click here to install.](catppuccin.user.css?raw=1)
+${usage ? usage : ""}
 `
 }
 
@@ -143,7 +144,7 @@ const updateStylesReadmeContent = (readme: string, key: string, userstyle: Users
   return readme.replaceAll("$PORT", userstyle.name)
     .replaceAll("$APP-LINK", userstyle.readme["app-link"])
     .replaceAll("$LOWERCASE-PORT", key)
-    .replaceAll("$USAGE", usageContent(userstyle.readme["csp-patching"]))
+    .replaceAll("$USAGE", usageContent(userstyle.readme["csp-patching"], userstyle.readme.usage))
     .replaceAll("$FAQ", faqContent(userstyle.readme.faq))
     .replaceAll("$MAINTAINERS", maintainersContent(userstyle.readme.maintainers))
 }
