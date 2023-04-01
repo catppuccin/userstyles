@@ -96,6 +96,9 @@ To install these userstyles:
     - Replacing `<name>` with the name of the userstyle.
 4. Enjoy!
 
+> **Note** <br>
+> If you are using Oprea please see [oprea.md](docs\oprea.md) for instructions as it differs from the normal process.
+
 &nbsp;
 ### 👐 Contributing
 

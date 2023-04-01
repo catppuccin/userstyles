@@ -1,6 +1,6 @@
 ## Requesting a new port
 
-1. Create a new discussion with the [port request](https://github.com/catppuccin/userstyles/discussions/new?category=port-requests) template.
+1. Create a new discussion with the [port request](https://github.com/catppuccin/catppuccin/discussions/new?category=port-requests) template.
 2. Fill out the discussion template with the details of the program you want to port.
 3. How the website can be themed.
 4. If you have made the port yourself, you can add a link to your fork.
@@ -12,7 +12,7 @@
 3. Copy the contents [`template`](../styles/template/) folder into the new folder you created.
 4. Edit the `catppuccin.user.css` file and replace all the words wrapped with `<>` to fit the details of your port.
 5. Edit the `userstyle.yml` file (located in the src folder) and put in the details of your port.
-6. Create a [port request](https://github.com/catppuccin/userstyles/discussions/new?category=port-requests) disscussion and link to your forked repo.
+6. Create a [port request](https://github.com/catppuccin/catppuccin/discussions/new?category=port-requests) disscussion and link to your forked repo.
 
 ### userstyle.yml
 
