@@ -51,6 +51,7 @@ If you are unsure what category to put your port in, you can use the following l
   - games
   - development
   - search_engine
+  - messaging
 
 #### Color (optional)
 
