@@ -13,6 +13,12 @@
 
 &nbsp;
 
+<p align="center">
+Catppuccin userstyles are a collection of userstyles for various websites and web applications that are themed with the smoothing pastel colors that we all love.
+</p>
+
+&nbsp;
+
 ### 🖌 Userstyles
 
 <!-- AUTOGEN:USERSTYLES START -->
@@ -90,9 +96,12 @@ To install these userstyles:
     - Replacing `<name>` with the name of the userstyle.
 4. Enjoy!
 
-### Contributing
+&nbsp;
+### 👐 Contributing
 
-TODO
+> **Note** <br>
+> if you would like to submit a port or learn how to port Catppuccin to a program, please refer to the [port-creation.md](docs/port-creation.md) file.
+See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 &nbsp;
 
