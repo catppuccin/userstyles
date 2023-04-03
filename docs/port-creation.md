@@ -12,7 +12,10 @@
 3. Copy the contents [`template`](../styles/template/) folder into the new folder you created.
 4. Edit the `catppuccin.user.css` file and replace all the words wrapped with `<>` to fit the details of your port.
 5. Edit the `userstyle.yml` file (located in the src folder) and put in the details of your port.
-6. Create your previews in a folder called `assets/` and please use [catwalk](https://github.com/catppuccin/toolbox#catwalk) to generate them, please save this file as `catwalk.webp`.
+6. Create your previews in a folder called `assets/`
+    - All previews **must** be `.webp` files.
+    - use [catwalk](https://github.com/catppuccin/toolbox#catwalk) to generate a composite or grid image of all the flavors.
+    - save this file as `catwalk.webp`.
 7. Create a [port request](https://github.com/catppuccin/catppuccin/discussions/new?category=port-requests) disscussion and link to your forked repo.
 
 ### userstyle.yml
