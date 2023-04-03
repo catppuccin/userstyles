@@ -14,7 +14,7 @@
 &nbsp;
 
 <p align="center">
-Catppuccin userstyles is a collection of userstyles for various websites and web applications that are themed with the smoothing pastel colors that we all love.
+Catppuccin userstyles is a collection of userstyles for various websites and web applications that are themed with the soothing pastel colors that we all love.
 </p>
 
 &nbsp;
@@ -103,7 +103,7 @@ To install these userstyles:
 ### 👐 Contributing
 
 > **Note** <br>
-> if you would like to submit a port or learn how to port Catppuccin to a program, please refer to the [port-creation.md](docs/port-creation.md) file.
+> if you would like to submit a userstyle or learn how to port Catppuccin to a website, please refer to the [port-creation.md](docs/port-creation.md) file.
 See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 &nbsp;

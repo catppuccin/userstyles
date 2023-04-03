@@ -1,18 +1,19 @@
 ## Requesting a new port
 
 1. Create a new discussion with the [port request](https://github.com/catppuccin/catppuccin/discussions/new?category=port-requests) template.
-2. Fill out the discussion template with the details of the program you want to port.
+2. Fill out the discussion template with the details of the website you want to port.
 3. How the website can be themed.
 4. If you have made the port yourself, you can add a link to your fork.
 
 ## Creating a new port
 
 1. Fork this repository and clone your fork.
-2. Create a new folder in the `styles` directory with the name of the program you are porting.
+2. Create a new folder in the `styles` directory with the name of the website you are porting. The name must be `lower-kebab-case` (e.g. `nixos-search` instead of NixOS Search).
 3. Copy the contents [`template`](../styles/template/) folder into the new folder you created.
 4. Edit the `catppuccin.user.css` file and replace all the words wrapped with `<>` to fit the details of your port.
 5. Edit the `userstyle.yml` file (located in the src folder) and put in the details of your port.
-6. Create a [port request](https://github.com/catppuccin/catppuccin/discussions/new?category=port-requests) disscussion and link to your forked repo.
+6. Create your previews in a folder called `assets/` and please use [catwalk](https://github.com/catppuccin/toolbox#catwalk) to generate them, please save this file as `catwalk.webp`.
+7. Create a [port request](https://github.com/catppuccin/catppuccin/discussions/new?category=port-requests) disscussion and link to your forked repo.
 
 ### userstyle.yml
 
@@ -55,7 +56,7 @@ If you are unsure what category to put your port in, you can use the following l
 
 #### Color (optional)
 
-If you are unsure what color to put your port in, it should be the closest color to the main color of the program you are porting.
+If you are unsure what color to put your port in, it should be the closest color to the main color of the website you are porting.
 
 The following list is here to help you:
   - rosewater
@@ -82,7 +83,7 @@ The icon to use on the website. This should be the same name as the SVG file on 
 
 ##### App Link
 
-This is the link to the program you are porting.
+This is the link to the website you are porting. Always set it to its source if it is open source, else link to its main page.
 
 ##### Usage (optional)
 
