@@ -8,6 +8,8 @@
 <h6 align="center">
   <a href="#-userstyles">Userstyles</a>
   ·
+  <a href="#-contributing">Contributing</a>
+  .
   <a href="#install">Install</a>
 </h6>
 
