@@ -1,4 +1,4 @@
-## Oprea userstyles
+## Opera userstyles
 
 ### Install
 
