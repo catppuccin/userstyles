@@ -18,5 +18,5 @@ The following is a set of guidelines for contributing to this repository. Use yo
 3. Ensure that your PR has been tested and that it does not break any existing functionality.
 4. Now you can create your PR! 🎉
 5. Wait for a maintainer(s) to review your PR. 
-6.  - If your PR is approved, it will be merged into the `main` branch.
-    - If your PR is rejected, you will be notified of the reason(s) why it was rejected. You can then make the necessary changes and re-submit your PR.
+6. If your PR is approved, it will be merged into the `main` branch.
+  - If your PR is rejected, you will be notified of the reason(s) why it was rejected. You can then make the necessary changes and re-submit your PR.

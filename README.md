@@ -1,8 +1,8 @@
 <h3 align="center">
-	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
-	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-	Catppuccin Userstyles
-	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
+  <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
+  <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
+  Catppuccin Userstyles
+  <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
 <h6 align="center">
@@ -91,11 +91,11 @@ Catppuccin userstyles is a collection of userstyles for various websites and web
 ### Install
 To install these userstyles:
 1. Install [Stylus](https://github.com/openstyles/stylus)
-    - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
+  - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
 2. Enable CSP Patching from Stylus Settings > Advanced.
 3. Install the theme from this url:
-    - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
-    - Replacing `<name>` with the name of the userstyle.
+  - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
+  - Replacing `<name>` with the name of the userstyle.
 4. Enjoy!
 
 > **Note** <br>
