@@ -66,7 +66,7 @@
 <details open>
 <summary>🌈 Leisure</summary>
 
-- [AniList](styles/anilist)
+- [AniList,AniChart](styles/anilistco)
 - [Last.fm](styles/lastfm)
 
 </details>
