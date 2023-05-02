@@ -143,7 +143,7 @@ const pullRequestLabelerContent = Object.entries(userstylesData.userstyles)
   .join("\n");
 updateFile(pullRequestLabelerPath, pullRequestLabelerContent);
 
-const issuesLabelerPath = path.join(REPO_ROOT, ".github/issues-labeler.yml");
+const issuesLabelerPath = path.join(REPO_ROOT, ".github/issue-labeler.yml");
 const issuesLabelerContent = Object.entries(userstylesData.userstyles)
   .map(([key]) => {
     return `${key}:
