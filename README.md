@@ -6,15 +6,26 @@
 </h3>
 
 <h6 align="center">
-  <a href="#-userstyles">Userstyles</a>
-  ·
   <a href="#install">Install</a>
+  ·
+  <a href="#-userstyles">Userstyles</a>
 </h6>
 
 &nbsp;
 
-### 🖌 Userstyles
+## Install
+To install these userstyles:
+1. Install [Stylus](https://github.com/openstyles/stylus)
+    - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
+2. Enable CSP Patching from `Stylus Settings` > `Advanced`.
+3. Install the theme:
+    - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
+    - Replacing `<name>` with the name of the userstyle.
+4. Enjoy!
 
+&nbsp;
+
+## 🖌 Userstyles
 <!-- AUTOGEN:USERSTYLES START -->
 <!-- the following section is auto-generated, do not edit -->
 <details open>
@@ -66,7 +77,7 @@
 <details open>
 <summary>🌈 Leisure</summary>
 
-- [AniList,AniChart](styles/anilistco)
+- [AniList, AniChart](styles/anilist)
 - [Last.fm](styles/lastfm)
 
 </details>
@@ -79,16 +90,6 @@
 <!-- AUTOGEN:USERSTYLES END -->
 
 &nbsp;
-
-### Install
-To install these userstyles:
-1. Install [Stylus](https://github.com/openstyles/stylus)
-    - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
-2. Enable CSP Patching from Stylus Settings > Advanced.
-3. Install the theme from this url:
-    - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
-    - Replacing `<name>` with the name of the userstyle.
-4. Enjoy!
 
 ### Contributing
 

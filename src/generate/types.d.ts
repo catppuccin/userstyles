@@ -6,9 +6,9 @@
  */
 
 /**
- * The name of the userstyle.
+ * The name of the userstyle(s).
  */
-export type Name = string;
+export type Name = [unknown, unknown, ...unknown[]] | string;
 /**
  * The category that fits the port the most.
  */
@@ -51,6 +51,10 @@ export type Color =
  * The icon to use on the website. This should be the same name as the SVG file on https://simpleicons.org/. If a `.svg` suffix is present, it's taken from the local website repository resources.
  */
 export type Icon = string;
+/**
+ * The hyperlink of the app that is being themed
+ */
+export type ApplicationLink = [unknown, unknown, ...unknown[]] | string;
 /**
  * The Usage section of the userstyle README
  */
@@ -123,6 +127,10 @@ export type AllMaintainers = [
   }[]
 ];
 
+export interface Demo {
+  userstyles?: Userstyles;
+  maintainers?: AllMaintainers;
+}
 /**
  * All userstyles in the Catppuccin org.
  */
@@ -146,6 +154,8 @@ export interface Userstyle {
  * Options to help in the auto-generation of the userstyle README
  */
 export interface README {
+  "app-link": ApplicationLink;
+  usage?: Usage;
   faq?: FAQ;
   maintainers: UserstyleMaintainers;
   [k: string]: unknown;
