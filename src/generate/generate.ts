@@ -18,6 +18,7 @@ import {
 } from "./types.d.ts";
 
 const ROOT = new URL(".", import.meta.url).pathname;
+const REPO_ROOT = path.join(ROOT, "../..");
 
 type Metadata = {
   userstyles: Userstyles;
@@ -123,7 +124,7 @@ const updateFile = (filePath: string, fileContent: string, comment = true) => {
   Deno.writeTextFileSync(filePath, preamble + fileContent);
 };
 
-const readmePath = path.join(ROOT, "../../README.md");
+const readmePath = path.join(REPO_ROOT, "README.md");
 let readmeContent = Deno.readTextFileSync(readmePath);
 try {
   readmeContent = updateReadme({
@@ -136,13 +137,22 @@ try {
   console.log("Failed to update the README:", e);
 }
 
-const labelerPath = path.join(ROOT, "../../.github/labeler.yml");
-const labelerContent = Object.entries(userstylesData.userstyles)
+const pullRequestLabelerPath = path.join(REPO_ROOT, ".github/pr-labeler.yml");
+const pullRequestLabelerContent = Object.entries(userstylesData.userstyles)
   .map(([key]) => `${key}: styles/${key}/**/*`)
   .join("\n");
-updateFile(labelerPath, labelerContent);
+updateFile(pullRequestLabelerPath, pullRequestLabelerContent);
 
-const ownersPath = path.join(ROOT, "../../.github/CODEOWNERS");
+const issuesLabelerPath = path.join(REPO_ROOT, ".github/issues-labeler.yml");
+const issuesLabelerContent = Object.entries(userstylesData.userstyles)
+  .map(([key]) => {
+    return `${key}:
+  - '(${key})'`;
+  })
+  .join("\n");
+updateFile(issuesLabelerPath, issuesLabelerContent);
+
+const ownersPath = path.join(REPO_ROOT, ".github/CODEOWNERS");
 const ownersContent = Object.entries(userstylesData.userstyles)
   .map(([key, style]) => {
     const maintainers = style.readme.maintainers
@@ -220,7 +230,7 @@ for (const [key, userstyle] of Object.entries(userstylesData.userstyles)) {
       userstyle
     );
     Deno.writeTextFileSync(
-      path.join(ROOT, "../../styles", key, "README.md"),
+      path.join(REPO_ROOT, "styles", key, "README.md"),
       readmeContent
     );
   } catch (e) {

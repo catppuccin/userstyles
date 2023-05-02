@@ -1,17 +1,17 @@
-name: Labeler
+name: Pull Request Labeler
+
 on:
-  workflow_run:
-    workflows: ["Generate"]
-    types:
-      - completed
+  pull_request_target:
 
 jobs:
-  auto-label:
-    name: Label
+  triage:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/labeler@v4.0.3
+        with:
+          configuration-path: .github/pr-labeler.yml
+          sync-labels: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
