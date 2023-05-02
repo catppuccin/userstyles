@@ -8,7 +8,7 @@
 /**
  * The name of the userstyle(s).
  */
-export type Name = [unknown, unknown, ...unknown[]] | string;
+export type Name = [string, string, ...string[]] | string;
 /**
  * The category that fits the port the most.
  */

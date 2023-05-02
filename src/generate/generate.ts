@@ -56,11 +56,9 @@ const categorized = Object.entries(userstylesData.userstyles).reduce(
     acc[category] ||= [];
     acc[category].push({ path: `styles/${slug}`, category, ...port });
     acc[category].sort((a, b) => {
-      if (typeof a.name === "string" && typeof b.name === "string") {
-        return a.name.localeCompare(b.name)
-      } else {
-        return 0
-      }
+      const a_name = typeof a.name === "string" ? a.name : a.name.join(", ");
+      const b_name = typeof b.name === "string" ? b.name : b.name.join(", ");
+      return a_name.localeCompare(b_name)
     });
     return acc;
   },
