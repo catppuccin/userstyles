@@ -4,13 +4,13 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-  Catppuccin for <a href="https://codeberg.org">Codeberg</a>
+  $TITLE
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
 <p align="center">
-	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is+label%3Acodeberg"><img src="https://img.shields.io/github/issues/catppuccin/mastodon?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/codeberg/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is+label%3A$LOWERCASE-PORT"><img src="https://img.shields.io/github/issues/catppuccin/mastodon?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/$LOWERCASE-PORT/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 <p align="center">
@@ -36,15 +36,13 @@
 <img src="assets/mocha.webp"/>
 </details>
 
+$USAGE
 
-
-## 🙋 FAQ
-- Q: How do I change the accent color?  
-	A: Changing `--color-primary` to any other color should change the accent color in most places
+$FAQ
 
 ## 💝 Thanks to
 
-- [justTOBBI](https://github.com/justTOBBI)
+$MAINTAINERS
 
 &nbsp;
 

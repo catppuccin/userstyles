@@ -6,9 +6,9 @@
  */
 
 /**
- * The name of the userstyle.
+ * The name of the userstyle(s).
  */
-export type Name = string;
+export type Name = [unknown, unknown, ...unknown[]] | string;
 /**
  * The category that fits the port the most.
  */
@@ -54,11 +54,7 @@ export type Icon = string;
 /**
  * The hyperlink of the app that is being themed
  */
-export type ApplicationLink = string;
-/**
- * Set this to true if styles contain images or fonts which fail to load on sites with a strict CSP (Content-­Security-­Policy).
- */
-export type CSPStylePatching = boolean;
+export type ApplicationLink = [unknown, unknown, ...unknown[]] | string;
 /**
  * The Usage section of the userstyle README
  */
@@ -131,6 +127,10 @@ export type AllMaintainers = [
   }[]
 ];
 
+export interface Demo {
+  userstyles?: Userstyles;
+  maintainers?: AllMaintainers;
+}
 /**
  * All userstyles in the Catppuccin org.
  */
@@ -155,7 +155,6 @@ export interface Userstyle {
  */
 export interface README {
   "app-link": ApplicationLink;
-  "csp-patching"?: CSPStylePatching;
   usage?: Usage;
   faq?: FAQ;
   maintainers: UserstyleMaintainers;
