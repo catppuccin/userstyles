@@ -1,6 +1,6 @@
 <!-- Replace <Website> with a markdown link to the website that you have themed. -->
 
-# 🎉 Theme for <Website> 🎉
+## 🎉 Theme for \<Website\> 🎉
 
 <!--
 You should give a short description of the website that you have themed.
@@ -11,7 +11,7 @@ YouTube is a video sharing platform that allows users to upload, view, and share
 You should also attach some additional screenshots of the themed website.
 -->
 
-## Additional Comments
+## 💬 Additional Comments 💬
 
 <!--
 Include any difficulties you had theming this port, or any general comments that would be useful for the reviewer to know.
