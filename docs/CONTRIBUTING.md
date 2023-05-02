@@ -8,6 +8,7 @@ The following is a set of guidelines for contributing to this repository. Use yo
 ## Recommendations
 
 - Create a [topic branch](git-scm.com/book/en/v2/Git-Branching-Branching-Workflows#_topic_branch) on your fork for your specific PR. 
+- Please use the **appropriate tags** for the issues and PRs to help us keep track of them and speed up wether we can accept them or not.
 - Consider using [conventionalcommits.org](https://www.conventionalcommits.org/en/v1.0.0/)'s rules for creating explicit and meaningful commit messages.
 - If it's your first time contributing to a project then you should look to the popular [first-contributions](https://github.com/firstcontributions/first-contributions) repository on GitHub. This will give you hands-on experience with the features of GitHub required to make a contribution. As always, feel free to join our [Discord](https://discord.com/invite/r6Mdz5dpFc) to ask any questions and clarify your understanding, we are more than happy to help!
 

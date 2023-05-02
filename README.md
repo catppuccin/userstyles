@@ -21,6 +21,21 @@ Catppuccin userstyles is a collection of userstyles for various websites and web
 
 &nbsp;
 
+### Install
+To install these userstyles:
+1. Install [Stylus](https://github.com/openstyles/stylus)
+  - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
+2. Enable CSP Patching from Stylus Settings > Advanced.
+3. Install the theme from this url:
+  - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
+  - Replacing `<name>` with the name of the userstyle.
+4. Enjoy!
+
+> **Note** <br>
+> If you are using Opera please see [opera.md](docs\opera.md) for instructions as it differs from the normal process.
+
+&nbsp;
+
 ### 🖌 Userstyles
 
 <!-- AUTOGEN:USERSTYLES START -->
@@ -85,21 +100,6 @@ Catppuccin userstyles is a collection of userstyles for various websites and web
 
 </details>
 <!-- AUTOGEN:USERSTYLES END -->
-
-&nbsp;
-
-### Install
-To install these userstyles:
-1. Install [Stylus](https://github.com/openstyles/stylus)
-  - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
-2. Enable CSP Patching from Stylus Settings > Advanced.
-3. Install the theme from this url:
-  - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
-  - Replacing `<name>` with the name of the userstyle.
-4. Enjoy!
-
-> **Note** <br>
-> If you are using Opera please see [opera.md](docs\opera.md) for instructions as it differs from the normal process.
 
 &nbsp;
 ### 👐 Contributing

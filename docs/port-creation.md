@@ -14,19 +14,20 @@
 5. Edit the `userstyle.yml` file (located in the src folder) and put in the details of your port.
 6. Create your previews in a folder called `assets/`
   - All previews **must** be `.webp` files.
-  - use [catwalk](https://github.com/catppuccin/toolbox#catwalk) to generate a composite or grid image of all the flavors.
-  - save this file as `catwalk.webp`.
+  - create a preview image for each flavor and save the preview as `flavor.webp` where the word flavor is the name of the flavor.
+  - use [catwalk](https://github.com/catppuccin/toolbox#catwalk) to generate a composite or grid image of all the flavors save this file as `catwalk.webp`.
 7. Create a [port request](https://github.com/catppuccin/catppuccin/discussions/new?category=port-requests) disscussion and link to your forked repo.
+8. Create a Pull Request to this repo from your fork, and link this in the discussion
 
 ### userstyle.yml
 
 1. Add your name to the list of maintainers.
 ```yaml
 maintainers:
-  - &<your name>
+  - &<your name optional>
   url: https://github.com/<your name>
 ```
-  replace `<your name>` with your github username.
+  replace `<your name>` with your github username (this is optional).
 
 2. locate the `userstyles` section and add your port to the list.
 ```yaml
