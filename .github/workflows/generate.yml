@@ -1,9 +1,10 @@
 name: Generate Health Files
 
 on:
-  push:
-  pull_request:
   workflow_dispatch:
+  push:
+    paths:
+      - "src/generate/**/*"
 
 env:
   DENO_DIR: deno_cache
@@ -11,7 +12,7 @@ env:
 jobs:
   generate-health-files:
     runs-on: ubuntu-latest
-    name: Re-generate README, CODEOWNERS & labeler.yml
+    name: Re-generate README, CODEOWNERS, pr-labeler.yml & issue-labeler.yml
     steps:
       - uses: actions/checkout@v3
         with:
@@ -28,11 +29,11 @@ jobs:
           key: ${{ hashFiles('src/generate/deno.lock') }}
           path: ${{ env.DENO_DIR }}
 
-      - name: Update README, CODEOWNERS & labeler.yml
+      - name: Update README, CODEOWNERS, pr-labeler.yml & issue-labeler.yml
         working-directory: src/generate
         run: ./generate.ts
 
-      - name: Push changes
+      - name: Push Changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "chore: README, CODEOWNERS & labeler.yml"
