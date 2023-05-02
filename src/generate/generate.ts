@@ -36,7 +36,7 @@ const validatePorts = ajv.compile<PortMetadata>(portsSchema);
 const userstylesYaml = Deno.readTextFileSync(
   path.join(ROOT, "../userstyles.yml")
 );
-const userstylesData: Metadata = parseYaml(userstylesYaml);
+const userstylesData = parseYaml(userstylesYaml);
 if (!validate(userstylesData)) {
   console.log(validate.errors);
   Deno.exit(1);
@@ -45,7 +45,7 @@ if (!validate(userstylesData)) {
 const portsYaml = await fetch(
   "https://raw.githubusercontent.com/catppuccin/catppuccin/main/resources/ports.yml"
 );
-const portsData: PortMetadata = parseYaml(await portsYaml.text());
+const portsData = parseYaml(await portsYaml.text());
 if (!validatePorts(portsData)) {
   console.log(validate.errors);
   Deno.exit(1);
