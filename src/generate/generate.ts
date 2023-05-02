@@ -29,7 +29,7 @@ type PortMetadata = {
 
 export type MappedPort = Userstyle & { path: string };
 
-const ajv = new Ajv();
+const ajv = new (Ajv as unknown as typeof Ajv["default"])();
 const validate = ajv.compile<Metadata>(schema);
 const validatePorts = ajv.compile<PortMetadata>(portsSchema);
 
@@ -55,7 +55,13 @@ const categorized = Object.entries(userstylesData.userstyles).reduce(
   (acc, [slug, { category, ...port }]) => {
     acc[category] ||= [];
     acc[category].push({ path: `styles/${slug}`, category, ...port });
-    acc[category].sort((a, b) => a.name.localeCompare(b.name));
+    acc[category].sort((a, b) => {
+      if (typeof a.name === "string" && typeof b.name === "string") {
+        return a.name.localeCompare(b.name)
+      } else {
+        return 0
+      }
+    });
     return acc;
   },
   {} as Record<string, MappedPort[]>
