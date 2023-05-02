@@ -31,21 +31,26 @@ maintainers:
 
 2. locate the `userstyles` section and add your port to the list.
 ```yaml
-name: <name>
-category: <category>
-color: <color>
-icon: <icon>
-readme:
-  app-link: "<url>"
-  usage: |+
-    > **Note** <br>
-    > <your notes>
-  faq: <faq>
-  maintainers: [ *<your name> ]
+<port>:
+  name: <name>
+  category: <category>
+  color: <color>
+  icon: <icon>
+  readme:
+    app-link: "<url>"
+    usage: |+
+      > **Note** <br>
+      > <your notes>
+    faq: <faq>
+    maintainers: [ *<your name> ]
 ```
+#### Port
+
+This should be the lower kebab case name of your port. e.g. `nixos-search` instead of NixOS Search.
+
 #### Name
 
-This is the name of your port. It should be the same as the name of the folder you created.
+This is the name of your port. It should be the same as the name of the port. (This can be an array if needed)
 
 #### Category
 
