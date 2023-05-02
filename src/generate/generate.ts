@@ -29,14 +29,14 @@ type PortMetadata = {
 
 export type MappedPort = Userstyle & { path: string };
 
-const ajv = new Ajv();
+const ajv = new (Ajv as unknown as typeof Ajv["default"])();
 const validate = ajv.compile<Metadata>(schema);
 const validatePorts = ajv.compile<PortMetadata>(portsSchema);
 
 const userstylesYaml = Deno.readTextFileSync(
   path.join(ROOT, "../userstyles.yml")
 );
-const userstylesData: Metadata = parseYaml(userstylesYaml);
+const userstylesData = parseYaml(userstylesYaml);
 if (!validate(userstylesData)) {
   console.log(validate.errors);
   Deno.exit(1);
@@ -45,7 +45,7 @@ if (!validate(userstylesData)) {
 const portsYaml = await fetch(
   "https://raw.githubusercontent.com/catppuccin/catppuccin/main/resources/ports.yml"
 );
-const portsData: PortMetadata = parseYaml(await portsYaml.text());
+const portsData = parseYaml(await portsYaml.text());
 if (!validatePorts(portsData)) {
   console.log(validate.errors);
   Deno.exit(1);
@@ -55,7 +55,11 @@ const categorized = Object.entries(userstylesData.userstyles).reduce(
   (acc, [slug, { category, ...port }]) => {
     acc[category] ||= [];
     acc[category].push({ path: `styles/${slug}`, category, ...port });
-    acc[category].sort((a, b) => a.name.localeCompare(b.name));
+    acc[category].sort((a, b) => {
+      const aName = typeof a.name === "string" ? a.name : a.name.join(", ");
+      const bName = typeof b.name === "string" ? b.name : b.name.join(", ");
+      return aName.localeCompare(bName)
+    });
     return acc;
   },
   {} as Record<string, MappedPort[]>

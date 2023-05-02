@@ -8,7 +8,7 @@
 /**
  * The name of the userstyle(s).
  */
-export type Name = [unknown, unknown, ...unknown[]] | string;
+export type Name = [string, string, ...string[]] | string;
 /**
  * The category that fits the port the most.
  */
@@ -54,7 +54,7 @@ export type Icon = string;
 /**
  * The hyperlink of the app that is being themed
  */
-export type ApplicationLink = [unknown, unknown, ...unknown[]] | string;
+export type ApplicationLink = [string, string, ...string[]] | string;
 /**
  * The Usage section of the userstyle README
  */
@@ -127,7 +127,7 @@ export type AllMaintainers = [
   }[]
 ];
 
-export interface Demo {
+export interface UserstylesSchema {
   userstyles?: Userstyles;
   maintainers?: AllMaintainers;
 }
