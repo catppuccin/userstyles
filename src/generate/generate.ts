@@ -147,7 +147,7 @@ const issuesLabelerPath = path.join(REPO_ROOT, ".github/issues-labeler.yml");
 const issuesLabelerContent = Object.entries(userstylesData.userstyles)
   .map(([key]) => {
     return `${key}:
-  - '(${key})'`;
+  - '(::${key}::)'`;
   })
   .join("\n");
 updateFile(issuesLabelerPath, issuesLabelerContent);
