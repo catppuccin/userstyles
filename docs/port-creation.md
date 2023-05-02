@@ -44,15 +44,8 @@ maintainers:
     faq: <faq>
     maintainers: [ *<your name> ]
 ```
-#### Port
 
-This should be the lower kebab case name of your port. e.g. `nixos-search` instead of NixOS Search.
-
-#### Name
-
-This is the name of your port. It should be the same as the name of the port. (This can be an array if needed)
-
-#### Category
+You should make changes to everything wrapped in `<>` and remove the `<>` characters. If you need help with any of the fields, you should refer to other ports in the `userstyle.yml` file. If you still cannot figure it out, you can ask for help in the discussion you created or join the [discord server](https://discord.gg/catppuccin).
 
 If you are unsure what category to put your port in, you can use the following list:
   - social
@@ -62,46 +55,3 @@ If you are unsure what category to put your port in, you can use the following l
   - development
   - search_engine
   - messaging
-
-#### Color (optional)
-
-If you are unsure what color to put your port in, it should be the closest color to the main color of the website you are porting.
-
-The following list is here to help you:
-  - rosewater
-  - flamingo
-  - pink
-  - mauve
-  - red
-  - maroon
-  - peach
-  - yellow
-  - green
-  - teal
-  - sky
-  - sapphire
-  - blue
-  - lavender
-  - text
-
-#### Icon (optional)
-
-The icon to use on the website. This should be the same name as the SVG file on https://simpleicons.org/ (without the .svg extension).
-
-#### Readme
-
-##### App Link
-
-This is the link to the website you are porting. Always set it to its source if it is open source, else link to its main page.
-
-##### Usage (optional)
-
-This is a short description of how to use your port. This should be in place of the `<your notes>` in the template.
-
-##### FAQ (optional)
-
-This is a short description of any frequently asked questions about your port.
-
-##### Maintainers
-
-This is a list of the maintainers of your port. You should add your github username to this list.
