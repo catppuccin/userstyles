@@ -32,7 +32,7 @@ To install these userstyles:
 4. Enjoy!
 
 > **Note** <br>
-> If you are using Opera please see [opera.md](docs\opera.md) for instructions as it differs from the normal process.
+> If you are having browser based issues please see: [browsers.md](docs\browsers.md).
 
 &nbsp;
 
