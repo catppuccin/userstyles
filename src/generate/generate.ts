@@ -19,6 +19,7 @@ import {
 
 const ROOT = new URL(".", import.meta.url).pathname;
 const REPO_ROOT = path.join(ROOT, "../..");
+const ISSUE_PREFIX = "lbl:"
 
 type Metadata = {
   userstyles: Userstyles;
@@ -147,7 +148,7 @@ const issuesLabelerPath = path.join(REPO_ROOT, ".github/issue-labeler.yml");
 const issuesLabelerContent = Object.entries(userstylesData.userstyles)
   .map(([key]) => {
     return `${key}:
-  - '(lbl:${key})'`;
+  - '(${ISSUE_PREFIX + key})'`;
   })
   .join("\n");
 updateFile(issuesLabelerPath, issuesLabelerContent);
@@ -168,7 +169,7 @@ const userstyleIssueContent = Deno.readTextFileSync(userstyleIssuePath);
 const replacedUserstyleIssueContent = userstyleIssueContent.replace(
   "$PORTS",
   `${Object.entries(userstylesData.userstyles)
-    .map(([key]) => `- ${key}`)
+    .map(([key]) => `- ${ISSUE_PREFIX + key}`)
     .join("\n        ")}`
 );
 Deno.writeTextFileSync(
