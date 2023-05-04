@@ -19,6 +19,7 @@ import {
 
 const ROOT = new URL(".", import.meta.url).pathname;
 const REPO_ROOT = path.join(ROOT, "../..");
+const ISSUE_PREFIX = "lbl:"
 
 type Metadata = {
   userstyles: Userstyles;
@@ -30,7 +31,7 @@ type PortMetadata = {
 
 export type MappedPort = Userstyle & { path: string };
 
-const ajv = new (Ajv as unknown as typeof Ajv["default"])();
+const ajv = new (Ajv as unknown as (typeof Ajv)["default"])();
 const validate = ajv.compile<Metadata>(schema);
 const validatePorts = ajv.compile<PortMetadata>(portsSchema);
 
@@ -59,7 +60,7 @@ const categorized = Object.entries(userstylesData.userstyles).reduce(
     acc[category].sort((a, b) => {
       const aName = typeof a.name === "string" ? a.name : a.name.join(", ");
       const bName = typeof b.name === "string" ? b.name : b.name.join(", ");
-      return aName.localeCompare(bName)
+      return aName.localeCompare(bName);
     });
     return acc;
   },
@@ -147,7 +148,7 @@ const issuesLabelerPath = path.join(REPO_ROOT, ".github/issue-labeler.yml");
 const issuesLabelerContent = Object.entries(userstylesData.userstyles)
   .map(([key]) => {
     return `${key}:
-  - '(::${key}::)'`;
+  - '(${ISSUE_PREFIX + key})'`;
   })
   .join("\n");
 updateFile(issuesLabelerPath, issuesLabelerContent);
@@ -162,6 +163,19 @@ const ownersContent = Object.entries(userstylesData.userstyles)
   })
   .join("\n#\n");
 updateFile(ownersPath, ownersContent);
+
+const userstyleIssuePath = path.join(ROOT, "templates/userstyle-issue.yml");
+const userstyleIssueContent = Deno.readTextFileSync(userstyleIssuePath);
+const replacedUserstyleIssueContent = userstyleIssueContent.replace(
+  "$PORTS",
+  `${Object.entries(userstylesData.userstyles)
+    .map(([key]) => `- ${ISSUE_PREFIX + key}`)
+    .join("\n        ")}`
+);
+Deno.writeTextFileSync(
+  path.join(REPO_ROOT, ".github/ISSUE_TEMPLATE/userstyle.yml"),
+  replacedUserstyleIssueContent
+);
 
 const heading = (name: Name, link: ApplicationLink) => {
   const nameArray = Array.isArray(name) ? name : [name];
@@ -209,17 +223,14 @@ const updateStylesReadmeContent = (
   userstyle: Userstyle
 ) => {
   return readme
-    .replaceAll("$TITLE", heading(userstyle.name, userstyle.readme["app-link"]))
+    .replace("$TITLE", heading(userstyle.name, userstyle.readme["app-link"]))
     .replaceAll("$LOWERCASE-PORT", key)
-    .replaceAll("$USAGE", usageContent(userstyle.readme.usage))
-    .replaceAll("$FAQ", faqContent(userstyle.readme.faq))
-    .replaceAll(
-      "$MAINTAINERS",
-      maintainersContent(userstyle.readme.maintainers)
-    );
+    .replace("$USAGE", usageContent(userstyle.readme.usage))
+    .replace("$FAQ", faqContent(userstyle.readme.faq))
+    .replace("$MAINTAINERS", maintainersContent(userstyle.readme.maintainers));
 };
 
-const stylesReadmePath = path.join(ROOT, "template.md");
+const stylesReadmePath = path.join(ROOT, "templates/userstyle.md");
 const stylesReadmeContent = Deno.readTextFileSync(stylesReadmePath);
 for (const [key, userstyle] of Object.entries(userstylesData.userstyles)) {
   try {
