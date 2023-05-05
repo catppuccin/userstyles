@@ -30,6 +30,8 @@ To install these userstyles:
     - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
     - Replacing `<name>` with the name of the userstyle.
 4. Enjoy!
+> **Note** <br>
+> If the website has an inbuilt light theme, make sure to **enable it before using the Latte theme**, and **dark** if using the others.
 
 > **Note** <br>
 > If you are having browser based issues please see: [browsers.md](docs\browsers.md).
