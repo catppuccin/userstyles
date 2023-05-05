@@ -6,11 +6,11 @@
 </h3>
 
 <h6 align="center">
-  <a href="#-userstyles">Userstyles</a>
-  ·
-  <a href="#-contributing">Contributing</a>
+  <a href="#%EF%B8%8F-install">Install</a>
   .
-  <a href="#install">Install</a>
+  <a href="#-contributing">Contributing</a>
+  ·
+  <a href="#-userstyles">Userstyles</a>
 </h6>
 
 &nbsp;
@@ -21,7 +21,7 @@ Catppuccin userstyles is a collection of userstyles for various websites and web
 
 &nbsp;
 
-## Install
+## 🖥️ Install
 To install these userstyles:
 1. Install [Stylus](https://github.com/openstyles/stylus)
     - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
@@ -33,6 +33,14 @@ To install these userstyles:
 
 > **Note** <br>
 > If you are having browser based issues please see: [browsers.md](docs\browsers.md).
+
+&nbsp;
+
+## 👐 Contributing
+
+> **Note** <br>
+> if you would like to submit a userstyle or learn how to port Catppuccin to a website, please refer to the [port-creation.md](docs/port-creation.md) file.
+See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 &nbsp;
 
@@ -99,14 +107,6 @@ To install these userstyles:
 
 </details>
 <!-- AUTOGEN:USERSTYLES END -->
-
-&nbsp;
-
-### 👐 Contributing
-
-> **Note** <br>
-> if you would like to submit a userstyle or learn how to port Catppuccin to a website, please refer to the [port-creation.md](docs/port-creation.md) file.
-See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 &nbsp;
 
