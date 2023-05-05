@@ -24,10 +24,10 @@
 1. Add your name to the list of maintainers.
 ```yaml
 maintainers:
-  - &<your name optional>
-  url: https://github.com/<your name>
+  - &<your github username in lower case>
+  name: <your name, this is optional>
+  url: https://github.com/<your github username>
 ```
-  replace `<your name>` with your github username (this is optional).
 
 2. locate the `userstyles` section and add your port to the list.
 ```yaml
@@ -41,8 +41,10 @@ maintainers:
     usage: |+
       > **Note** <br>
       > <your notes>
-    faq: <faq>
-    maintainers: [ *<your name> ]
+    faq:
+      - question: <question>
+        answer: <answer>
+    maintainers: [ *<your github username> ]
 ```
 
 You should make changes to everything wrapped in `<>` and remove the `<>` characters. If you need help with any of the fields, you should refer to other ports in the `userstyle.yml` file. If you still cannot figure it out, you can ask for help in the discussion you created or join the [discord server](https://discord.gg/catppuccin).
