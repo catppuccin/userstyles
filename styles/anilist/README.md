@@ -35,9 +35,6 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Usage  
-> **Note** <br>
-> This theme applies to [AniChart](https://anichart.net/) as well, which is an extension of AniList.
 
 
 
