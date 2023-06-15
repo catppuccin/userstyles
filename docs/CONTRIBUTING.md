@@ -8,7 +8,7 @@ The following is a set of guidelines for contributing to this repository. Use yo
 ## Types of PRs
 
 - New ports: please see [port-creation.md](port-creation.md)
-- Other improvments: Theses should follow the recomendations below, to help improve the chances of a merged PR.
+- Other improvements: Theses should follow the recommendations below, to help improve the chances of a merged PR.
 
 ## Recommendations
 
