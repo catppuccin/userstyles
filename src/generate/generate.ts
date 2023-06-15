@@ -19,7 +19,7 @@ import {
 
 const ROOT = new URL(".", import.meta.url).pathname;
 const REPO_ROOT = path.join(ROOT, "../..");
-const ISSUE_PREFIX = "lbl:"
+const ISSUE_PREFIX = "lbl:";
 
 type Metadata = {
   userstyles: Userstyles;
@@ -193,10 +193,7 @@ const heading = (name: Name, link: ApplicationLink) => {
 };
 
 const usageContent = (usage?: Usage) => {
-  if (!usage) {
-    return "";
-  }
-  return `## Usage  \n${usage}`;
+  return !usage ? "" : `## Usage  \n${usage}`;
 };
 
 const faqContent = (faq?: FAQ) => {
