@@ -1,16 +1,14 @@
 ## Requesting a new port
 
-1. Create a new discussion with the [port request](https://github.com/catppuccin/catppuccin/discussions/new?category=port-requests) template.
-2. Fill out the discussion template with the details of the website you want to port.
-3. How the website can be themed.
-4. If you have made the port yourself, you can add a link to your fork.
+To request a port creation please create a [port request](https://github.com/catppuccin/catppuccin/discussions/new?category=port-requests) discussion.
+However, if the port is already made please create a new pull request.
 
 ## Creating a new port
 
 1. Fork this repository and clone your fork.
 2. Create a new branch under the name `feat/userstyle-to-add`, this maybe done like (e.g. `feat/nixos-search` instead of NixOS Search).
 3. Create a new folder in the `styles` directory with the name of the website you are porting. The name must be `lower-kebab-case`.
-4. Copy the contents [`template`](../styles/template/) folder into the new folder you created.
+4. Copy the contents [`template`](../template/) folder into the new folder you created.
 5. Edit the `catppuccin.user.css` file and replace all the words wrapped with `<>` to fit the details of your port.
 6. Edit the `userstyle.yml` file (located in the src folder) and put in the details of your port.
 7. Create your previews in a folder called `assets/`
@@ -49,12 +47,3 @@ maintainers:
 ```
 
 You should make changes to everything wrapped in `<>` and remove the `<>` characters. If you need help with any of the fields, you should refer to other ports in the `userstyle.yml` file. If you still cannot figure it out, you can ask for help in the discussion you created or join the [discord server](https://discord.gg/catppuccin).
-
-If you are unsure what category to put your port in, you can use the following list:
-  - social
-  - leisure
-  - productivity
-  - games
-  - development
-  - search_engine
-  - messaging
