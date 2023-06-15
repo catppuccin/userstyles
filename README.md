@@ -13,10 +13,21 @@
   <a href="#-userstyles">Userstyles</a>
 </h6>
 
-&nbsp;
+<p align="center">
+  <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="400" />
+</p>
 
 <p align="center">
-Catppuccin userstyles is a collection of userstyles for various websites and web applications that are themed with the soothing pastel colors that we all love.
+	<a href="https://github.com/catppuccin/catppuccin/stargazers">
+		<img alt="Stargazers" src="https://img.shields.io/github/stars/catppuccin/userstyles?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41"></a>
+	<a href="https://github.com/catppuccin/catppuccin/releases/latest">
+		<img alt="Releases" src="https://img.shields.io/github/release/catppuccin/userstyles.svg?style=for-the-badge&logo=github&color=F2CDCD&logoColor=D9E0EE&labelColor=302D41"/></a>
+	<a href="https://github.com/catppuccin/catppuccin/issues">
+		<img alt="Issues" src="https://img.shields.io/github/issues/catppuccin/userstyles?style=for-the-badge&logo=gitbook&color=B5E8E0&logoColor=D9E0EE&labelColor=302D41"></a>
+</p>
+
+<p align="center">
+A userstyle is a theme that applies to a given website with alterations to the css of the site.
 </p>
 
 &nbsp;
