@@ -52,7 +52,7 @@ To install these userstyles:
 ## 👐 Contributing
 
 > **Note** <br>
-> if you would like to submit a userstyle or learn how to port Catppuccin to a website, please refer to the [port-creation.md](docs/port-creation.md) file.
+> if you would like to submit an userstyle or learn how to port Catppuccin to a website, please refer to the [port-creation.md](docs/port-creation.md) file.
 See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 &nbsp;
