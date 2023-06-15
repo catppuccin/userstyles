@@ -8,16 +8,17 @@
 ## Creating a new port
 
 1. Fork this repository and clone your fork.
-2. Create a new folder in the `styles` directory with the name of the website you are porting. The name must be `lower-kebab-case` (e.g. `nixos-search` instead of NixOS Search).
-3. Copy the contents [`template`](../styles/template/) folder into the new folder you created.
-4. Edit the `catppuccin.user.css` file and replace all the words wrapped with `<>` to fit the details of your port.
-5. Edit the `userstyle.yml` file (located in the src folder) and put in the details of your port.
-6. Create your previews in a folder called `assets/`
+2. Create a new branch under the name `feat/userstyle-to-add`, this maybe done like (e.g. `feat/nixos-search` instead of NixOS Search).
+3. Create a new folder in the `styles` directory with the name of the website you are porting. The name must be `lower-kebab-case`.
+4. Copy the contents [`template`](../styles/template/) folder into the new folder you created.
+5. Edit the `catppuccin.user.css` file and replace all the words wrapped with `<>` to fit the details of your port.
+6. Edit the `userstyle.yml` file (located in the src folder) and put in the details of your port.
+7. Create your previews in a folder called `assets/`
   - All previews **must** be `.webp` files.
   - create a preview image for each flavor and save the preview as `flavor.webp` where the word flavor is the name of the flavor.
   - use [catwalk](https://github.com/catppuccin/toolbox#catwalk) to generate a composite or grid image of all the flavors save this file as `catwalk.webp`.
-7. Create a [port request](https://github.com/catppuccin/catppuccin/discussions/new?category=port-requests) disscussion and link to your forked repo.
-8. Create a Pull Request to this repo from your fork, and link this in the discussion
+8. Create a [port request](https://github.com/catppuccin/catppuccin/discussions/new?category=port-requests) disscussion and link to your forked repo.
+9. Create a Pull Request to this repo from your fork, and link this in the discussion
 
 ### userstyle.yml
 
