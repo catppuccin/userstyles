@@ -45,7 +45,8 @@
 
 ## 💝 Thanks to
 
-- [mustafakhalaf-git](https://github.com/mustafakhalaf-git)
+- [GitMuslim](https://github.com/GitMuslim)
+- [Isabel](https://github.com/isabelroses)
 
 &nbsp;
 
