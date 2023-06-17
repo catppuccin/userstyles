@@ -19,8 +19,10 @@ Feel free to leave this section empty if you don't have anything more to say.
 
 ## 🗒 Checklist 🗒
 
-- [ ] I have read and followed Catppuccin's [submission guidelines]().
-- [ ] I have made a new directory underneath `/styles` with the name of the themed website.
+- [ ] I have read and followed Catppuccin's [submission guidelines](../docs/userstyle-creation.md).
+- [ ] I have made a new directory underneath `/styles/<name-of-website>` containing the contents of the [`/template`](../template/) directory.
+  - [ ] I have ensured that the new directory is in **lower-kebab-case**.
+- [ ] I have made sure to update the [`userstyles.yml`](../src/userstyles.yml) file with information about the new directory.
 - [ ] I have included the following files:
   - `catppuccin.user.css` - all stylus code.
   - `mocha.webp`, `macchiato.webp`, `frappe.webp` and `latte.webp` - individual screenshots of the themed website, in all 4 Catppuccin flavors.
