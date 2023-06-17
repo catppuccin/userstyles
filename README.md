@@ -27,37 +27,37 @@
 </p>
 
 <p align="center">
-A userstyle is a theme that applies to a given website with alterations to the css of the site.
-</p>
+This repository is a curated collection of customized themes for different websites and web applications. 
+These themes feature delightful pastel colors that create a soothing and visually pleasing experience. 
+A userstyle, which is essentially a modified CSS file, is applied to a specific website to give it a unique and appealing aesthetic in accordance with Catppuccin's palette.
 
 &nbsp;
 
 ## 🖥️ Install
+
 To install these userstyles:
+
 1. Install [Stylus](https://github.com/openstyles/stylus)
-    - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
+   - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
 2. Enable CSP Patching from `Stylus Settings` > `Advanced`.
 3. Install the theme:
-    - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
-    - Replacing `<name>` with the name of the userstyle.
+   - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
+   - Replacing `<name>` with the name of the userstyle.
 4. Enjoy!
-> **Note** <br>
-> If the website has an inbuilt light theme, make sure to **enable it before using the Latte theme**, and **dark** if using the others.
-
-> **Note** <br>
-> If you are having browser based issues please see: [browsers.md](docs\browsers.md).
 
 &nbsp;
 
 ## 👐 Contributing
 
 > **Note** <br>
-> if you would like to submit an userstyle or learn how to port Catppuccin to a website, please refer to the [port-creation.md](docs/port-creation.md) file.
+> If you would like to submit a userstyle or learn how to port Catppuccin to a website, please refer to the [userstyle-creation.md](docs/userstyle-creation.md).
+
 See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 &nbsp;
 
 ## 🖌 Userstyles
+
 <!-- AUTOGEN:USERSTYLES START -->
 <!-- the following section is auto-generated, do not edit -->
 <details open>
