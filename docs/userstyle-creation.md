@@ -72,7 +72,8 @@ This file, `userstyles.yml`, is responsible for holding the necessary data to au
    `All Fields:`
 
    These extra `usage` & `faq` fields will ensure that you can add important information about the port to the README.
-   Do note that they are **optional**.
+   The fields `color` & `icon` are best explained the schema specification itself.
+   Note that these 4 fields are **optional**.
 
    ```yaml
     <port>:
