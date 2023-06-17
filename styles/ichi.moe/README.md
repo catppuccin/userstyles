@@ -9,7 +9,7 @@
 </h3>
 
 <p align="center">
-	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is+label%3Aichi.moe"><img src="https://img.shields.io/github/issues/catppuccin/mastodon?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is+label%3Aichi.moe"><img src="https://img.shields.io/github/issues/catppuccin/userstyles?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
 	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/ichi.moe/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
