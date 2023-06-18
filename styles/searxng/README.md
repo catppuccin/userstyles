@@ -43,7 +43,6 @@
 ## 💝 Thanks to
 
 - [Sekki](https://github.com/Sekki21956)
-- [winston](https://github.com/nekowinston)
 - [Andreas Grafen](https://github.com/andreasgrafen)
 - [Ryan Cao](https://github.com/ryanccn)
 
