@@ -43,7 +43,6 @@
 ## 💝 Thanks to
 
 - [Tnixc](https://github.com/tnixc)
-- [rubyowo](https://github.com/rubyowo)
 
 &nbsp;
 

@@ -48,7 +48,6 @@
 ## 💝 Thanks to
 
 - [Isabel](https://github.com/isabelroses)
-- [rubyowo](https://github.com/rubyowo)
 - [Elkrien](https://github.com/elkrien)
 
 &nbsp;

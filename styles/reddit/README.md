@@ -43,7 +43,6 @@
 ## 💝 Thanks to
 
 - [jayylmao](https://github.com/jayylmao)
-- [rubyowo](https://github.com/rubyowo)
 
 &nbsp;
 
