@@ -7,7 +7,7 @@
 
 <h6 align="center">
   <a href="#-install">Install</a>
-  .
+  ·
   <a href="#-contributing">Contributing</a>
   ·
   <a href="#-userstyles">Userstyles</a>
