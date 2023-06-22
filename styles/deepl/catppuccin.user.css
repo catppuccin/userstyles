@@ -17,6 +17,7 @@
 @var checkbox tabs "Remove Tabs" 0
 @var checkbox dictionary "Remove Dictionary" 0
 @var checkbox removeAds "Remove DeepL Ads" 0
+@var checkbox removeGlossaryButton "Remove Glossary Button" 0
 ==/UserStyle== */
 @-moz-document url-prefix("https://www.deepl.com/translator") {
   :root {
@@ -441,6 +442,10 @@
       }
     }
 
+    .dl_body--redesign .lmt--web .lmt__source_textarea__length_marker {
+      color: @subtext0;
+    }
+
     .dl_help-popup_assist-text {
       color: @overlay1;
     }
@@ -854,30 +859,30 @@
       }
     } /////
     // options
-    if (quotes) {
+    & when (@quotes =1) {
       #dl_quotes_container {
         display: none;
       }
     }
 
-    if (header) {
+    & when (@header=1) {
       .dl_header {
         display: none;
       }
     }
 
-    if (footer) {
+    & when (@footer=1) {
       .dl_footerV2_container,
       .showSeoText .eSEOtericText {
         display: none;
       }
     }
 
-    if (tabs) {
+    & when (@tabs=1) {
       .lmt__doc {
         margin-bottom: 0;
 
-        &Trans-tab-container {
+        & Trans-tab-container {
           display: none !important;
           min-height: 100vh;
         }
@@ -894,19 +899,21 @@
       }
     }
 
-    if (dictionary) {
+    & when (@dictionary=1) {
       #lmt__dict_container {
         display: none !important;
       }
     }
 
-    if (quotes !=footer) {
+    & when not (@quotes=@footer) {
       .showSeoText .eSEOtericText {
         margin-bottom: 70px;
       }
     }
 
-    if (quotes && header && footer) {
+    & when (@footer =1),
+    (@header=1),
+    (@quotes=1) {
       body {
         display: flex;
         flex-direction: column;
@@ -925,14 +932,23 @@
       }
     }
 
-    if (quotes && header && footer && tabs) {
+    & when (@quotes=1),
+    (@header=1),
+    (@footer=1),
+    (@tabs=1) {
       body {
         min-height: 100vh;
       }
     }
 
-    if (removeAds) {
+    & when (@removeAds=1) {
       #lmt_pro_ad_container {
+        display: none;
+      }
+    }
+
+    & when (@removeGlossaryButton=1) {
+      .lmt__glossaryButton__desktop {
         display: none;
       }
     }

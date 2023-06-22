@@ -42,7 +42,6 @@
 ## 💝 Thanks to
 
 - [AnubisNekhet](https://github.com/AnubisNekhet)
-- [Gingeh](https://github.com/Gingeh)
 
 &nbsp;
 

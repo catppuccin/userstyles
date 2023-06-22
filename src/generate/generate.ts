@@ -188,7 +188,9 @@ const heading = (name: Name, link: ApplicationLink) => {
   }`;
 };
 
-const usageContent = (usage?: Usage) => usage ? `## Usage  \n${usage}` : "";
+const usageContent = (usage?: Usage) => {
+  return !usage ? "" : `## Usage  \n${usage}`;
+};
 
 const faqContent = (faq?: FAQ) => faq
     ? `## 🙋 FAQ\n${faq.map(({ question, answer }) => `- Q: ${question}  \n\tA: ${answer}`)

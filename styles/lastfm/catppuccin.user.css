@@ -11,7 +11,7 @@
 @var checkbox removepromos "Remove Advertisements" 1
 ==/UserStyle== */
 @-moz-document domain("last.fm") {
-    
+
     #catppuccin(@flavour, @accentColour);
 
     @catppuccin: {
@@ -162,11 +162,34 @@
         @mantle: @catppuccin[@@lookup][@mantle];
         @crust: @catppuccin[@@lookup][@crust];
         @accent: @catppuccin[@@lookup][@@accentColour];
-        
+
         @accent-dim: fadeout(@accent, 0.5);
 
         & not when (@lookup = latte) {
             color-scheme: dark;
+            .layout-image {
+                background: @base;
+                .layout-image-image {
+                    &[src="https://lastfm.freetls.fastly.net/i/u/300x300/4128a6eb29f94943c9d206c08e625904.jpg"],
+                    &[src="https://lastfm.freetls.fastly.net/i/u/237x178/2a96cbd8b46e442fc41c2b86b821562f.jpg"],
+                    &[src="https://lastfm.freetls.fastly.net/i/u/300x300/c6f59c1e5e7240a4c0d427abd71f3dbb.jpg"] {
+                        mix-blend-mode: screen;
+                        filter: invert(1);
+                    }
+                }
+            }
+            [src="https://lastfm.freetls.fastly.net/i/u/avatar70s/2a96cbd8b46e442fc41c2b86b821562f.jpg"],
+            [src="https://lastfm.freetls.fastly.net/i/u/64s/4128a6eb29f94943c9d206c08e625904.jpg"],
+            [src="https://lastfm.freetls.fastly.net/i/u/64s/c6f59c1e5e7240a4c0d427abd71f3dbb.jpg"] {
+                mix-blend-mode: screen;
+                filter: invert(1);
+            }
+            .cover-art {
+                background: @base;
+            }
+            .avatar:after, .cover-art:after, .image-list-item:after, .video-thumbnail:after {
+                box-shadow: inset 0 0 0 1px rgb(@subtext0, 7%);
+            }
         }
 
         /*------UNIVERSAL STYLES INCASE SOME GET MISSED------*/
@@ -243,7 +266,7 @@
             background-color: @accent-dim;
         }
         .recs-feed .recs-feed-cover-image-wrap:after {
-            background-image: linear-gradient(180deg, transparent 0, fade(@mantle, 0.4) 50%, fade(@mantle, 0.7) 50%, fade(@mantle, 0.7) 100%);
+            background-image: linear-gradient(180deg, transparent 0, rgba(@mantle, 0.4) 50%, rgba(@mantle, 0.7) 50%, rgba(@mantle, 0.7) 100%);
         }
 
         .recs-feed .context {
@@ -633,7 +656,7 @@
         .chartlist-row--highlight,
         .chartlist-row--now-scrobbling {
             /*background-color: #5a1717;*/
-            background: linear-gradient(270deg, @base 60%, fade(@accent, 0.2));
+            background: linear-gradient(270deg, @base 60%, rgba(@accent, 0.2));
             background-size: 200% 200%;
             -webkit-animation: AnimationName 10s ease infinite;
             -moz-animation: AnimationName 10s ease infinite;
@@ -1681,6 +1704,24 @@
             mask-image: url("/static/images/icons/add_link_16.637996ed0e2f.png");
             -webkit-mask-image: url("/static/images/icons/add_link_16.637996ed0e2f.png");
             background-color: @accent;
+        }
+
+        .masthead-logo-loading {
+            -webkit-mask-image: url("/static/images/logo_animate@2x.e93e5b7db3de.gif");
+            mask-image: url("/static/images/logo_animate@2x.e93e5b7db3de.gif");
+            -webkit-mask-size: contain;
+            mask-position: 50% 50%;
+            -webkit-mask-position: 50% 50%;
+            mask-repeat: no-repeat;
+            -webkit-mask-repeat: no-repeat;
+            background: @accent !important;
+        }
+
+        .layout-image {
+            background: @crust;
+            .layout-image-image {
+                mix-blend-mode: screen;
+            }
         }
     }
 }
