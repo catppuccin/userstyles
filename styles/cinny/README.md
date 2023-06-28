@@ -40,9 +40,8 @@
 
 
 
-## 💝 Thanks to
-
-- [jan Sena](https://github.com/jn-sena)
+## 💝 Current Maintainers
+- jan Sena](https://github.com/jn-sena)
 
 &nbsp;
 

@@ -47,10 +47,11 @@ Add urls to `@-moz-document domain("url")` with url being the chosen server
 	A: One solution might be changing the theme from the `preferences > application > theme` to light or dark.
 
 
-## 💝 Thanks to
+## 💝 Current Maintainers
+- Isabel](https://github.com/isabelroses)
 
-- [Andreas Grafen](https://github.com/andreasgrafen)
-- [Isabel](https://github.com/isabelroses)
+## 💖 Past Maintainers
+- Andreas Grafen](https://github.com/andreasgrafen)
 
 &nbsp;
 

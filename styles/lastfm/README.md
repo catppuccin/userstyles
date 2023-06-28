@@ -40,9 +40,11 @@
 
 
 
-## 💝 Thanks to
+## 💝 Current Maintainers
+- AnubisNekhet](https://github.com/AnubisNekhet)
 
-- [AnubisNekhet](https://github.com/AnubisNekhet)
+## 💖 Past Maintainers
+- Gingeh](https://github.com/Gingeh)
 
 &nbsp;
 

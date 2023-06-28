@@ -40,9 +40,8 @@
 
 
 
-## 💝 Thanks to
-
-- [thismoon](https://github.com/thismoon)
+## 💝 Current Maintainers
+- thismoon](https://github.com/thismoon)
 
 &nbsp;
 
