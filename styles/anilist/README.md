@@ -44,7 +44,7 @@
 
 
 ## 💝 Current Maintainers
-- AnubisNekhet](https://github.com/AnubisNekhet)
+- [AnubisNekhet](https://github.com/AnubisNekhet)
 
 &nbsp;
 

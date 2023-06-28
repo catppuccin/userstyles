@@ -41,10 +41,10 @@
 
 
 ## 💝 Current Maintainers
-- winston](https://github.com/nekowinston)
+- [winston](https://github.com/nekowinston)
 
 ## 💖 Past Maintainers
-- Andreas Grafen](https://github.com/andreasgrafen)
+- [Andreas Grafen](https://github.com/andreasgrafen)
 
 &nbsp;
 

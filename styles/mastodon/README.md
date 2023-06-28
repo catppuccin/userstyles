@@ -48,10 +48,10 @@ Add urls to `@-moz-document domain("url")` with url being the chosen server
 
 
 ## 💝 Current Maintainers
-- Isabel](https://github.com/isabelroses)
+- [Isabel](https://github.com/isabelroses)
 
 ## 💖 Past Maintainers
-- Andreas Grafen](https://github.com/andreasgrafen)
+- [Andreas Grafen](https://github.com/andreasgrafen)
 
 &nbsp;
 

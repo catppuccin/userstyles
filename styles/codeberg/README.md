@@ -43,7 +43,7 @@
 	A: Changing `--color-primary` to any other color should change the accent color in most places
 
 ## 💝 Current Maintainers
-- justTOBBI](https://github.com/justTOBBI)
+- [justTOBBI](https://github.com/justTOBBI)
 
 &nbsp;
 
