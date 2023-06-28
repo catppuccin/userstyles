@@ -40,9 +40,7 @@ $USAGE
 
 $FAQ
 
-## 💝 Thanks to
-
-$MAINTAINERS
+$COLLABORATORS
 
 &nbsp;
 

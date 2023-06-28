@@ -10,7 +10,9 @@ import {
 import {
   FAQ,
   Userstyle,
-  UserstyleMaintainers,
+  CurrentMaintainers,
+  PastMaintainers,
+  OtherContributors,
   Userstyles,
   Usage,
   ApplicationLink,
@@ -27,6 +29,11 @@ type Metadata = {
 
 type PortMetadata = {
   categories: PortCategories;
+};
+
+type CollaboratorsData = {
+  collaborators: CurrentMaintainers | PastMaintainers | OtherContributors;
+  heading: string;
 };
 
 export type MappedPort = Userstyle & { path: string };
@@ -156,10 +163,10 @@ updateFile(issuesLabelerPath, issuesLabelerContent);
 const ownersPath = path.join(REPO_ROOT, ".github/CODEOWNERS");
 const ownersContent = Object.entries(userstylesData.userstyles)
   .map(([key, style]) => {
-    const maintainers = style.readme.maintainers
+    const currentMaintainers = style.readme["current-maintainers"]
       .map((maintainer) => `@${maintainer.url.split("/").pop()}`)
       .join(" ");
-    return `# /styles/${key} ${maintainers}`;
+    return `# /styles/${key} ${currentMaintainers}`;
   })
   .join("\n#\n");
 updateFile(ownersPath, ownersContent);
@@ -206,12 +213,16 @@ ${faq
   .join("\n")}`;
 };
 
-const maintainersContent = (maintainers: UserstyleMaintainers) => {
-  return maintainers
-    .map(({ name, url }) => {
-      return `- [${name === undefined ? url.split("/").pop() : name}](${url})`;
+const collaboratorsContent = (allCollaborators: CollaboratorsData[]) => {
+  return allCollaborators
+    .filter(({ collaborators }) => collaborators !== undefined)
+    .map(({ collaborators, heading }) => {
+      const collaboratorBody = collaborators
+        .map(({ name, url }) => `- ${name ?? url.split("/").pop()}](${url})`)
+        .join("\n");
+      return `${heading}\n${collaboratorBody}`;
     })
-    .join("\n");
+    .join("\n\n");
 };
 
 const updateStylesReadmeContent = (
@@ -224,7 +235,23 @@ const updateStylesReadmeContent = (
     .replaceAll("$LOWERCASE-PORT", key)
     .replace("$USAGE", usageContent(userstyle.readme.usage))
     .replace("$FAQ", faqContent(userstyle.readme.faq))
-    .replace("$MAINTAINERS", maintainersContent(userstyle.readme.maintainers));
+    .replace(
+      "$COLLABORATORS",
+      collaboratorsContent([
+        {
+          collaborators: userstyle.readme["current-maintainers"],
+          heading: "## 💝 Current Maintainers",
+        },
+        {
+          collaborators: userstyle.readme["past-maintainers"],
+          heading: "## 💖 Past Maintainers",
+        },
+        {
+          collaborators: userstyle.readme["other-contributors"],
+          heading: "## 💓 Other Contributors",
+        },
+      ])
+    );
 };
 
 const stylesReadmePath = path.join(ROOT, "templates/userstyle.md");

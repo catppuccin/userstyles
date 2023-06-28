@@ -52,15 +52,15 @@ export type Color =
  */
 export type Icon = string;
 /**
- * The hyperlink of the app that is being themed
+ * The hyperlink of the app that is being themed.
  */
 export type ApplicationLink = [string, string, ...string[]] | string;
 /**
- * The Usage section of the userstyle README
+ * The Usage section of the userstyle README.
  */
 export type Usage = string;
 /**
- * The FAQ section of the userstyle README
+ * The FAQ section of the userstyle README.
  *
  * @minItems 1
  */
@@ -77,19 +77,19 @@ export type FAQ = [
   }[]
 ];
 /**
- * A question that a user may have about the userstyle
+ * A question that a user may have about the userstyle.
  */
 export type Question = string;
 /**
- * An answer to the question about the userstyle
+ * An answer to the question about the userstyle.
  */
 export type Answer = string;
 /**
- * List of all maintainers for this specific userstyle
+ * List of all active maintainers for this userstyle.
  *
  * @minItems 1
  */
-export type UserstyleMaintainers = [
+export type CurrentMaintainers = [
   {
     name?: DisplayName;
     url: GitHubProfile;
@@ -102,19 +102,53 @@ export type UserstyleMaintainers = [
   }[]
 ];
 /**
- * The display name of the maintainer to show in the userstyle README
+ * The display name of the collaborator to show in the userstyle README.
  */
 export type DisplayName = string;
 /**
- * The GitHub profile link of the maintainer to show in the userstyle README
+ * The GitHub profile link of the collaborator to show in the userstyle README.
  */
 export type GitHubProfile = string;
 /**
- * List of all maintainers within the userstyles repository
+ * List of all maintainers that have maintained on this userstyle in the past.
  *
  * @minItems 1
  */
-export type AllMaintainers = [
+export type PastMaintainers = [
+  {
+    name?: DisplayName;
+    url: GitHubProfile;
+    [k: string]: unknown;
+  },
+  ...{
+    name?: DisplayName;
+    url: GitHubProfile;
+    [k: string]: unknown;
+  }[]
+];
+/**
+ * List of all other contributors that have contributed to this userstyle.
+ *
+ * @minItems 1
+ */
+export type OtherContributors = [
+  {
+    name?: DisplayName;
+    url: GitHubProfile;
+    [k: string]: unknown;
+  },
+  ...{
+    name?: DisplayName;
+    url: GitHubProfile;
+    [k: string]: unknown;
+  }[]
+];
+/**
+ * Represents all maintainers and contributors to all userstyles.
+ *
+ * @minItems 1
+ */
+export type AllCollaborators = [
   {
     name?: DisplayName;
     url: GitHubProfile;
@@ -129,7 +163,7 @@ export type AllMaintainers = [
 
 export interface UserstylesSchema {
   userstyles?: Userstyles;
-  maintainers?: AllMaintainers;
+  collaborators?: AllCollaborators;
 }
 /**
  * All userstyles in the Catppuccin org.
@@ -151,12 +185,14 @@ export interface Userstyle {
   readme: README;
 }
 /**
- * Options to help in the auto-generation of the userstyle README
+ * Options to help in the auto-generation of the userstyle README.
  */
 export interface README {
   "app-link": ApplicationLink;
   usage?: Usage;
   faq?: FAQ;
-  maintainers: UserstyleMaintainers;
+  "current-maintainers": CurrentMaintainers;
+  "past-maintainers"?: PastMaintainers;
+  "other-contributors"?: OtherContributors;
   [k: string]: unknown;
 }
