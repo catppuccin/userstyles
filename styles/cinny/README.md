@@ -40,7 +40,7 @@
 
 
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer(s)
 - [jan Sena](https://github.com/jn-sena)
 
 &nbsp;

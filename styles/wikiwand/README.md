@@ -40,10 +40,10 @@
 
 
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer(s)
 - [Tnixc](https://github.com/tnixc)
 
-## 💓 Other Contributors
+## 💓 Other Contributor(s)
 - [rubyowo](https://github.com/rubyowo)
 - [Isabel](https://github.com/isabelroses)
 

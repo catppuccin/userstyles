@@ -41,7 +41,7 @@ Open Proton Mail and click the settings in the top right, then set the base them
 
 
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer(s)
 - [soya_daizu](https://github.com/soya-daizu)
 
 &nbsp;

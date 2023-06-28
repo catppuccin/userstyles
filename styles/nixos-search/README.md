@@ -40,7 +40,7 @@
 
 
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer(s)
 - [alaidriel](https://github.com/alaidriel)
 
 &nbsp;

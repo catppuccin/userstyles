@@ -40,10 +40,10 @@
 
 
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer(s)
 - [jayylmao](https://github.com/jayylmao)
 
-## 💓 Other Contributors
+## 💓 Other Contributor(s)
 - [rubyowo](https://github.com/rubyowo)
 
 &nbsp;

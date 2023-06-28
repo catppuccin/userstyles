@@ -40,7 +40,7 @@
 
 
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer(s)
 - [Ryan Cao](https://github.com/ryanccn)
 
 &nbsp;

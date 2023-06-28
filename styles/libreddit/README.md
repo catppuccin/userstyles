@@ -40,7 +40,7 @@
 
 
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer(s)
 - [Andreas Grafen](https://github.com/andreasgrafen)
 
 &nbsp;

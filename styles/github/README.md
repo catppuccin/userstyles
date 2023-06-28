@@ -40,11 +40,11 @@
 
 
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer(s)
 - [Pocco81](https://github.com/Pocco81)
 - [Umbreon](https://github.com/GlowingUmbreon)
 
-## 💖 Past Maintainers
+## 💖 Past Maintainer(s)
 - [Andreas Grafen](https://github.com/andreasgrafen)
 
 &nbsp;

@@ -40,7 +40,7 @@
 
 
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer(s)
 - [AnubisNekhet](https://github.com/AnubisNekhet)
 
 &nbsp;

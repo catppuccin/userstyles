@@ -45,13 +45,13 @@
 - Q: **What does the 'Enable for black bars' option mean?**  
 	A: It is there in-case you have an OLED display. If you have one, you might want to enable this.
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer(s)
 - [Isabel](https://github.com/isabelroses)
 
-## 💖 Past Maintainers
+## 💖 Past Maintainer(s)
 - [Elkrien](https://github.com/elkrien)
 
-## 💓 Other Contributors
+## 💓 Other Contributor(s)
 - [rubyowo](https://github.com/rubyowo)
 
 &nbsp;
