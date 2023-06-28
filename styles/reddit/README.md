@@ -41,10 +41,10 @@
 
 
 ## 💝 Current Maintainers
-- jayylmao](https://github.com/jayylmao)
+- [jayylmao](https://github.com/jayylmao)
 
 ## 💓 Other Contributors
-- rubyowo](https://github.com/rubyowo)
+- [rubyowo](https://github.com/rubyowo)
 
 &nbsp;
 

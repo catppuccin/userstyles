@@ -41,7 +41,7 @@
 
 
 ## 💝 Current Maintainers
-- Andreas Grafen](https://github.com/andreasgrafen)
+- [Andreas Grafen](https://github.com/andreasgrafen)
 
 &nbsp;
 

@@ -41,7 +41,7 @@
 
 
 ## 💝 Current Maintainers
-- thismoon](https://github.com/thismoon)
+- [thismoon](https://github.com/thismoon)
 
 &nbsp;
 

@@ -46,13 +46,13 @@
 	A: It is there in-case you have an OLED display. If you have one, you might want to enable this.
 
 ## 💝 Current Maintainers
-- Isabel](https://github.com/isabelroses)
+- [Isabel](https://github.com/isabelroses)
 
 ## 💖 Past Maintainers
-- Elkrien](https://github.com/elkrien)
+- [Elkrien](https://github.com/elkrien)
 
 ## 💓 Other Contributors
-- rubyowo](https://github.com/rubyowo)
+- [rubyowo](https://github.com/rubyowo)
 
 &nbsp;
 
