@@ -218,7 +218,7 @@ const collaboratorsContent = (allCollaborators: CollaboratorsData[]) => {
     .filter(({ collaborators }) => collaborators !== undefined)
     .map(({ collaborators, heading }) => {
       const collaboratorBody = collaborators
-        .map(({ name, url }) => `- ${name ?? url.split("/").pop()}](${url})`)
+        .map(({ name, url }) => `- [${name ?? url.split("/").pop()}](${url})`)
         .join("\n");
       return `${heading}\n${collaboratorBody}`;
     })
