@@ -40,7 +40,7 @@
 
 
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer(s)
 - [Lucas Melin](https://github.com/lucasmelin)
 
 &nbsp;

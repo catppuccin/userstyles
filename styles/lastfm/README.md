@@ -40,10 +40,10 @@
 
 
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer(s)
 - [AnubisNekhet](https://github.com/AnubisNekhet)
 
-## 💖 Past Maintainers
+## 💖 Past Maintainer(s)
 - [Gingeh](https://github.com/Gingeh)
 
 &nbsp;

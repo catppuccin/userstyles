@@ -40,7 +40,7 @@
 
 
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer(s)
 - [Ren](https://github.com/watatomo)
 
 &nbsp;
