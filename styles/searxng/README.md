@@ -40,11 +40,13 @@
 
 
 
-## 💝 Thanks to
+## 💝 Current Maintainers
+- Sekki](https://github.com/Sekki21956)
+- Ryan Cao](https://github.com/ryanccn)
 
-- [Sekki](https://github.com/Sekki21956)
-- [Andreas Grafen](https://github.com/andreasgrafen)
-- [Ryan Cao](https://github.com/ryanccn)
+## 💓 Other Contributors
+- winston](https://github.com/nekowinston)
+- Andreas Grafen](https://github.com/andreasgrafen)
 
 &nbsp;
 

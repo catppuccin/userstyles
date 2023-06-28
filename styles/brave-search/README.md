@@ -41,9 +41,8 @@ Set theme to dark or light in Brave Search settings, the automatic setting will 
 
 
 
-## 💝 Thanks to
-
-- [ndsboy](https://github.com/ndsboy)
+## 💝 Current Maintainers
+- ndsboy](https://github.com/ndsboy)
 
 &nbsp;
 

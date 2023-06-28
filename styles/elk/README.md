@@ -40,9 +40,8 @@
 
 
 
-## 💝 Thanks to
-
-- [Ryan Cao](https://github.com/ryanccn)
+## 💝 Current Maintainers
+- Ryan Cao](https://github.com/ryanccn)
 
 &nbsp;
 

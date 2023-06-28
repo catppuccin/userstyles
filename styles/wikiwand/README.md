@@ -40,9 +40,12 @@
 
 
 
-## 💝 Thanks to
+## 💝 Current Maintainers
+- Tnixc](https://github.com/tnixc)
 
-- [Tnixc](https://github.com/tnixc)
+## 💓 Other Contributors
+- rubyowo](https://github.com/rubyowo)
+- Isabel](https://github.com/isabelroses)
 
 &nbsp;
 

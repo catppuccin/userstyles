@@ -40,9 +40,8 @@
 
 
 
-## 💝 Thanks to
-
-- [Ren](https://github.com/watatomo)
+## 💝 Current Maintainers
+- Ren](https://github.com/watatomo)
 
 &nbsp;
 

@@ -41,9 +41,8 @@ Open Proton Mail and click the settings in the top right, then set the base them
 
 
 
-## 💝 Thanks to
-
-- [soya_daizu](https://github.com/soya-daizu)
+## 💝 Current Maintainers
+- soya_daizu](https://github.com/soya-daizu)
 
 &nbsp;
 

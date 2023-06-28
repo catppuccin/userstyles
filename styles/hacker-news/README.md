@@ -40,9 +40,8 @@
 
 
 
-## 💝 Thanks to
-
-- [Lucas Melin](https://github.com/lucasmelin)
+## 💝 Current Maintainers
+- Lucas Melin](https://github.com/lucasmelin)
 
 &nbsp;
 

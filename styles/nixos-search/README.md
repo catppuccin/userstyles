@@ -40,9 +40,8 @@
 
 
 
-## 💝 Thanks to
-
-- [alaidriel](https://github.com/alaidriel)
+## 💝 Current Maintainers
+- alaidriel](https://github.com/alaidriel)
 
 &nbsp;
 

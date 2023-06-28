@@ -40,9 +40,8 @@
 
 
 
-## 💝 Thanks to
-
-- [Andreas Grafen](https://github.com/andreasgrafen)
+## 💝 Current Maintainers
+- Andreas Grafen](https://github.com/andreasgrafen)
 
 &nbsp;
 
