@@ -240,15 +240,15 @@ const updateStylesReadmeContent = (
       collaboratorsContent([
         {
           collaborators: userstyle.readme["current-maintainers"],
-          heading: "## 💝 Current Maintainers",
+          heading: "## 💝 Current Maintainer(s)",
         },
         {
           collaborators: userstyle.readme["past-maintainers"],
-          heading: "## 💖 Past Maintainers",
+          heading: "## 💖 Past Maintainer(s)",
         },
         {
           collaborators: userstyle.readme["other-contributors"],
-          heading: "## 💓 Other Contributors",
+          heading: "## 💓 Other Contributor(s)",
         },
       ])
     );
