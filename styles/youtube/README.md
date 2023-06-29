@@ -51,9 +51,6 @@
 ## 💖 Past Maintainer(s)
 - [Elkrien](https://github.com/elkrien)
 
-## 💓 Other Contributor(s)
-- [rubyowo](https://github.com/rubyowo)
-
 &nbsp;
 
 <p align="center">

@@ -127,23 +127,6 @@ export type PastMaintainers = [
   }[]
 ];
 /**
- * List of all other contributors that have contributed to this userstyle.
- *
- * @minItems 1
- */
-export type OtherContributors = [
-  {
-    name?: DisplayName;
-    url: GitHubProfile;
-    [k: string]: unknown;
-  },
-  ...{
-    name?: DisplayName;
-    url: GitHubProfile;
-    [k: string]: unknown;
-  }[]
-];
-/**
  * Represents all maintainers and contributors to all userstyles.
  *
  * @minItems 1
@@ -193,6 +176,5 @@ export interface README {
   faq?: FAQ;
   "current-maintainers": CurrentMaintainers;
   "past-maintainers"?: PastMaintainers;
-  "other-contributors"?: OtherContributors;
   [k: string]: unknown;
 }

@@ -43,10 +43,6 @@
 ## 💝 Current Maintainer(s)
 - [Tnixc](https://github.com/tnixc)
 
-## 💓 Other Contributor(s)
-- [rubyowo](https://github.com/rubyowo)
-- [Isabel](https://github.com/isabelroses)
-
 &nbsp;
 
 <p align="center">

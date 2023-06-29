@@ -12,7 +12,6 @@ import {
   Userstyle,
   CurrentMaintainers,
   PastMaintainers,
-  OtherContributors,
   Userstyles,
   Usage,
   ApplicationLink,
@@ -32,7 +31,7 @@ type PortMetadata = {
 };
 
 type CollaboratorsData = {
-  collaborators: CurrentMaintainers | PastMaintainers | OtherContributors;
+  collaborators: CurrentMaintainers | PastMaintainers;
   heading: string;
 };
 
@@ -245,10 +244,6 @@ const updateStylesReadmeContent = (
         {
           collaborators: userstyle.readme["past-maintainers"],
           heading: "## 💖 Past Maintainer(s)",
-        },
-        {
-          collaborators: userstyle.readme["other-contributors"],
-          heading: "## 💓 Other Contributor(s)",
         },
       ])
     );

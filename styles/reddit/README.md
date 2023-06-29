@@ -43,9 +43,6 @@
 ## 💝 Current Maintainer(s)
 - [jayylmao](https://github.com/jayylmao)
 
-## 💓 Other Contributor(s)
-- [rubyowo](https://github.com/rubyowo)
-
 &nbsp;
 
 <p align="center">
