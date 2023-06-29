@@ -44,10 +44,6 @@
 - [Sekki](https://github.com/Sekki21956)
 - [Ryan Cao](https://github.com/ryanccn)
 
-## 💓 Other Contributor(s)
-- [winston](https://github.com/nekowinston)
-- [Andreas Grafen](https://github.com/andreasgrafen)
-
 &nbsp;
 
 <p align="center">
