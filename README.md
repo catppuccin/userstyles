@@ -27,9 +27,14 @@
 </p>
 
 <p align="center">
-This repository is a curated collection of customized themes for different websites and web applications. 
-These themes feature delightful pastel colors that create a soothing and visually pleasing experience. 
-A userstyle, which is essentially a modified CSS file, is applied to a specific website to give it a unique and appealing aesthetic in accordance with Catppuccin's palette.
+This repository is a curated collection of customized themes designed for various websites and web applications. 
+These themes showcase delightful pastel colors, creating a soothing and visually pleasing experience when browsing the web.
+</p>
+
+<p align="center">
+<strong>Userstyles are essentially modified CSS files which can be applied to a specific website, 
+giving it a unique and appealing aesthetic in line with Catppuccino's color palette.</strong>
+</p>
 
 &nbsp;
 
