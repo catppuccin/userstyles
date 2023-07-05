@@ -93,6 +93,6 @@ This file, `userstyles.yml`, is responsible for holding the necessary data to au
         faq:                                          # OPTIONAL
           - question: <question>
             answer: <answer>
-        current-maintainers: [ *<github-userame> ]
-        past-maintainers: [ *<github-userame> ]       # OPTIONAL
+        current-maintainers: [ *<github-username> ]
+        past-maintainers: [ *<github-username> ]       # OPTIONAL
    ```
