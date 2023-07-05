@@ -26,9 +26,9 @@ Creating userstyles should be very simple if you follow the instructions given b
 2. Create a new branch under the name `feat/<name-of-website>`, (e.g. `feat/nixos-search` instead of NixOS Search).
 3. Create a new folder `styles/<name-of-website>`. The name must be `lower-kebab-case`.
 4. Copy the contents of the [`template`](../template/) folder into `styles/<name-of-website>`.
-5. Edit the [`catppuccin.user.css`]() file and replace all the words wrapped with `<>` to fit the details of your port.
-6. Edit the [`userstyle.yml`]() file and put in the details of your port. **More details given below.**
-7. Create your image previews in the [`assets/`]() folder
+5. Edit the [`catppuccin.user.css`](../template/catppuccin.user.css) file and replace all the words wrapped with `<>` to fit the details of your port.
+6. Edit the [`userstyle.yml`](../src/userstyles.yml) file and put in the details of your port. **More details given below.**
+7. Create your image previews in the [`assets/`](../template/assets/) folder
    - **All previews must be `.webp` files.**
    - Create a preview image for each flavor. (e.g. `mocha.webp`, `macchiato.webp`, `frappe.webp` & `latte.webp`)
    - Use [catwalk](https://github.com/catppuccin/toolbox#catwalk) to generate a composite or grid image of all the flavors. **This must be saved as `catwalk.webp`.**
