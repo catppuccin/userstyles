@@ -43,10 +43,10 @@ This file, `userstyles.yml`, is responsible for holding the necessary data to au
 
 [`userstyles.schema.json`](../src/userstyles.schema.json) is the schema specification for this file. The fields in the following instructions are based on the schema:
 
-1. Add your name to the list of maintainers.
+1. Add your name to the list of collaborators.
 
    ```yaml
-   maintainers:
+   collaborators:
      - &<github-username>
      name: <your name, this is optional>
      url: https://github.com/<github-username>
@@ -58,7 +58,7 @@ This file, `userstyles.yml`, is responsible for holding the necessary data to au
    If you need help with any of the fields, you should refer to other ports in the `userstyle.yml` file.
    If you still cannot figure it out, you can ask for help in the pull request or join our [Discord](https://discord.com/servers/catppuccin-907385605422448742).
 
-   `Only Required Fields:`
+   `Required Fields:`
 
    ```yaml
     <port>:
@@ -66,28 +66,33 @@ This file, `userstyles.yml`, is responsible for holding the necessary data to au
       category: <category>
       readme:
         app-link: <url>
-        maintainers: [ *<github-username> ]
+        current-maintainers: [ *<github-username> ]
    ```
 
    `All Fields:`
 
-   These extra `usage` & `faq` fields will ensure that you can add important information about the port to the README.
-   The fields `color` & `icon` are best explained the schema specification itself.
-   Note that these 4 fields are **optional**.
+   These extra `usage` & `faq` keys will ensure that you can add important information about the port to the README.
+
+   The keys `color` & `icon` are best explained the schema specification itself.
+
+   The key `past-maintainers` is a list of people who have maintained the port in the past. We encourage all maintainers to add/remove themselves from this list as they see fit.
+
+   Remember that these 5 fields are **optional**.
 
    ```yaml
     <port>:
       name: <name>
       category: <category>
-      color: <color>
-      icon: <icon>
+      color: <color>                                  # OPTIONAL
+      icon: <icon>                                    # OPTIONAL
       readme:
         app-link: "<url>"
-        usage: |+
+        usage: |+                                     # OPTIONAL
           > **Note** <br>
           > <your notes>
-        faq:
+        faq:                                          # OPTIONAL
           - question: <question>
             answer: <answer>
-        maintainers: [ *<github-userame> ]
+        current-maintainers: [ *<github-userame> ]
+        past-maintainers: [ *<github-userame> ]       # OPTIONAL
    ```
