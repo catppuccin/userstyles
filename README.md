@@ -33,7 +33,7 @@ These themes showcase delightful pastel colors, creating a soothing and visually
 
 <p align="center">
 <strong>Userstyles are essentially modified CSS files which can be applied to a specific website, 
-giving it a unique and appealing aesthetic in line with Catppuccino's color palette.</strong>
+giving it a unique and appealing aesthetic in line with Catppuccin's color palette.</strong>
 </p>
 
 &nbsp;
