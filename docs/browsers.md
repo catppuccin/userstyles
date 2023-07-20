@@ -1,6 +1,6 @@
 # Browsers
 
-> **Note**:
+> **Note** <br>
 > If you see a popular browser that hasn't been added, please create a pull request to do so!
 
 Find your browser version by following the instructions below:
@@ -23,4 +23,8 @@ Find your browser version by following the instructions below:
  <td> Type <code>edge://version/</code>
 </table>
 
-TODO: Populate this document with common issues that are run into with these browsers
+## Common Issues
+
+> **Note** <br>
+> If you are running into any compatibility issues with your browser, please consider opening 
+> a pull request and documenting your issue here!
