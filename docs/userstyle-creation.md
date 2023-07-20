@@ -25,6 +25,8 @@ To create a userstyle, follow the instructions listed below:
 1. Fork this repository.
 2. Create a new branch under the name `feat/<name-of-website>`, (e.g. `feat/nixos-search` instead of NixOS Search).
 3. Create a new folder `styles/<name-of-website>`. The name must be `lower-kebab-case`.
+   - **If your website includes special characters, such as `.`, as part of its branding. Please replace this with `dotcom` instead.**
+     For example, `chess.com` would become `styles/chessdotcom`.
 4. Copy the contents of the [`template`](../template/) folder into `styles/<name-of-website>`.
    - **The template uses [LESS](https://lesscss.org/#overview) as the preprocessor for Stylus. Please do not change this as we will only accept userstyles based on the template.**
 5. Edit the [`catppuccin.user.css`](../template/catppuccin.user.css) file and replace all the words wrapped with `<>` to fit the details of your port.
