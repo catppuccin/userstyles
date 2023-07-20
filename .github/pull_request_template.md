@@ -22,8 +22,9 @@ Feel free to leave this section empty if you don't have anything more to say.
 - [ ] I have read and followed Catppuccin's [submission guidelines](https://github.com/catppuccin/userstyles/blob/main/docs/userstyle-creation.md).
 - [ ] I have made a new directory underneath `/styles/<name-of-website>` containing the contents of the [`/template`](https://github.com/catppuccin/userstyles/blob/main/template/) directory.
   - [ ] I have ensured that the new directory is in **lower-kebab-case**.
-- [ ] I have made sure to update the [`userstyles.yml`](https://github.com/catppuccin/userstyles/blob/main/src/userstyles.yml) file with information about the new directory.
+  - [ ] I have followed the template and kept the preprocessor as [LESS](https://lesscss.org/#overview).
+- [ ] I have made sure to update the [`userstyles.yml`](https://github.com/catppuccin/userstyles/blob/main/src/userstyles.yml) file with information about the new userstyle.
 - [ ] I have included the following files:
-  - `catppuccin.user.css` - all stylus code.
-  - `mocha.webp`, `macchiato.webp`, `frappe.webp` and `latte.webp` - individual screenshots of the themed website, in all 4 Catppuccin flavors.
+  - `catppuccin.user.css` - all the CSS for the userstyle, based on the template.
+  - `assets/mocha.webp`, `assets/macchiato.webp`, `assets/frappe.webp` and `assets/latte.webp` - individual screenshots of the themed website, in all 4 Catppuccin flavors.
   - `catwalk.webp` - image of all individual screenshots stitched together, generated via [catwalk](https://github.com/catppuccin/toolbox#-catwalk).
