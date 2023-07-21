@@ -77,6 +77,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <summary>🔎 Search Engines</summary>
 
 - [Brave Search](styles/brave-search)
+- [Ecosia](styles/ecosia)
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
 
@@ -99,6 +100,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [ichi.moe](styles/ichi.moe)
 - [InvokeAI](styles/invokeai)
 - [Proton](styles/proton)
+- [Quizlet](styles/quizlet)
 - [Tutanota](styles/tutanota)
 - [WikiWand](styles/wikiwand)
 
