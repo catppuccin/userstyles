@@ -172,7 +172,7 @@ const ownersContent = Object.entries(userstylesData.userstyles)
       .join(" ");
     return `/styles/${key} ${currentMaintainers}`;
   })
-  .join("\n#\n");
+  .join("\n");
 updateFile(ownersPath, ownersContent);
 
 const userstyleIssuePath = path.join(ROOT, "templates/userstyle-issue.yml");
