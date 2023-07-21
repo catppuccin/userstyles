@@ -68,6 +68,8 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <details open>
 <summary>💭 Development tools</summary>
 
+- [Advent Of Code](styles/advent-of-code)
+- [paste.rs](styles/paste.rs)
 - [Vercel](styles/vercel)
 
 </details>
@@ -88,10 +90,14 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <details open>
 <summary>🗂️ Productivity</summary>
 
+- [ChatGPT](styles/chatgpt)
 - [Codeberg](styles/codeberg)
+- [Crowdin](styles/crowdin)
 - [DeepL](styles/deepl)
 - [GitHub](styles/github)
+- [homepage](styles/homepage)
 - [ichi.moe](styles/ichi.moe)
+- [InvokeAI](styles/invokeai)
 - [Proton](styles/proton)
 - [Tutanota](styles/tutanota)
 - [WikiWand](styles/wikiwand)
@@ -108,6 +114,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [Nitter](styles/nitter)
 - [Reddit](styles/reddit)
 - [Twitch](styles/twitch)
+- [WhatsApp Web](styles/whatsapp-web)
 - [YouTube](styles/youtube)
 
 </details>
