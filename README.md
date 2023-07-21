@@ -131,6 +131,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <details open>
 <summary>🎮 Games</summary>
 
+- [Chess.com](styles/chess.com)
 - [Modrinth](styles/modrinth)
 
 </details>
