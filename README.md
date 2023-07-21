@@ -89,6 +89,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <summary>🗂️ Productivity</summary>
 
 - [Codeberg](styles/codeberg)
+- [Crowdin](styles/crowdin)
 - [DeepL](styles/deepl)
 - [GitHub](styles/github)
 - [ichi.moe](styles/ichi.moe)
@@ -108,6 +109,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [Nitter](styles/nitter)
 - [Reddit](styles/reddit)
 - [Twitch](styles/twitch)
+- [WhatsApp Web](styles/whatsapp-web)
 - [YouTube](styles/youtube)
 
 </details>
