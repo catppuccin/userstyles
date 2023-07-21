@@ -89,6 +89,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <summary>🗂️ Productivity</summary>
 
 - [Codeberg](styles/codeberg)
+- [Crowdin](styles/crowdin)
 - [DeepL](styles/deepl)
 - [GitHub](styles/github)
 - [ichi.moe](styles/ichi.moe)
