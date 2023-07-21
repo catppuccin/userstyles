@@ -27,12 +27,12 @@
 </p>
 
 <p align="center">
-This repository is a curated collection of customized themes designed for various websites and web applications. 
+This repository is a curated collection of customized themes designed for various websites and web applications.
 These themes showcase delightful pastel colors, creating a soothing and visually pleasing experience when browsing the web.
 </p>
 
 <p align="center">
-<strong>Userstyles are essentially modified CSS files which can be applied to a specific website, 
+<strong>Userstyles are essentially modified CSS files which can be applied to a specific website,
 giving it a unique and appealing aesthetic in line with Catppuccin's color palette.</strong>
 </p>
 
@@ -43,7 +43,8 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 To install these userstyles:
 
 1. Install [Stylus](https://github.com/openstyles/stylus)
-   - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension.
+   - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
+     extension.
 2. Enable CSP Patching from `Stylus Settings` > `Advanced`.
 3. Install the theme:
    - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`

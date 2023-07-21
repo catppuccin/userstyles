@@ -74,7 +74,7 @@ export type FAQ = [
     question: Question;
     answer: Answer;
     [k: string]: unknown;
-  }[]
+  }[],
 ];
 /**
  * A question that a user may have about the userstyle.
@@ -99,7 +99,7 @@ export type CurrentMaintainers = [
     name?: DisplayName;
     url: GitHubProfile;
     [k: string]: unknown;
-  }[]
+  }[],
 ];
 /**
  * The display name of the collaborator to show in the userstyle README.
@@ -124,7 +124,7 @@ export type PastMaintainers = [
     name?: DisplayName;
     url: GitHubProfile;
     [k: string]: unknown;
-  }[]
+  }[],
 ];
 /**
  * Represents all maintainers and contributors to all userstyles.
@@ -141,7 +141,7 @@ export type AllCollaborators = [
     name?: DisplayName;
     url: GitHubProfile;
     [k: string]: unknown;
-  }[]
+  }[],
 ];
 
 export interface UserstylesSchema {
