@@ -68,6 +68,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <details open>
 <summary>💭 Development tools</summary>
 
+- [Advent Of Code](styles/advent-of-code)
 - [Vercel](styles/vercel)
 
 </details>
