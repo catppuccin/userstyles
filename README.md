@@ -68,7 +68,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <details open>
 <summary>💭 Development tools</summary>
 
-- [Advent Of Code](styles/advent-of-code)
 - [paste.rs](styles/paste.rs)
 - [Vercel](styles/vercel)
 
@@ -91,6 +90,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <details open>
 <summary>🗂️ Productivity</summary>
 
+- [Advent Of Code](styles/advent-of-code)
 - [Canvas LMS](styles/canvas-lms)
 - [ChatGPT](styles/chatgpt)
 - [Codeberg](styles/codeberg)
