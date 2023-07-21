@@ -91,6 +91,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <details open>
 <summary>🗂️ Productivity</summary>
 
+- [Canvas LMS](styles/canvas-lms)
 - [ChatGPT](styles/chatgpt)
 - [Codeberg](styles/codeberg)
 - [Crowdin](styles/crowdin)
