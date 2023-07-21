@@ -31,9 +31,6 @@ To create a userstyle, follow the instructions listed below:
    `feat/nixos-search` instead of NixOS Search).
 3. Create a new folder `styles/<name-of-website>`. The name must be
    `lower-kebab-case`.
-   - **If your website includes special characters, such as `.`, as part of its
-     branding. Please replace this with `dotcom` instead.** For example,
-     `chess.com` would become `styles/chessdotcom`.
 4. Copy the contents of the [`template`](../template/) folder into
    `styles/<name-of-website>`.
    - **The template uses [LESS](https://lesscss.org/#overview) as the
