@@ -4,13 +4,13 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-  Catppuccin for <a href="https://news.ycombinator.com">Hacker News</a>
+  Catppuccin for <a href="https://github.com/benphelps/homepage">homepage</a>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
 <p align="center">
-	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is+label%3Ahacker-news"><img src="https://img.shields.io/github/issues/catppuccin/userstyles?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/hacker-news/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is+label%3Ahomepage"><img src="https://img.shields.io/github/issues/catppuccin/userstyles?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/homepage/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 <p align="center">
@@ -41,7 +41,7 @@
 
 
 ## 💝 Current Maintainer(s)
-- [Lucas Melin](https://github.com/lucasmelin)
+- [Gandalf the Blue](https://github.com/Gandalf-the-Blue)
 
 &nbsp;
 
