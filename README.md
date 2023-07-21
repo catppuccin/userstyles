@@ -109,6 +109,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [Nitter](styles/nitter)
 - [Reddit](styles/reddit)
 - [Twitch](styles/twitch)
+- [WhatsApp Web](styles/whatsapp-web)
 - [YouTube](styles/youtube)
 
 </details>
