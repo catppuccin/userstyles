@@ -181,8 +181,8 @@ const replacedUserstyleIssueContent = userstyleIssueContent.replace(
   "$PORTS",
   `${
     Object.entries(userstylesData.userstyles)
-      .map(([key]) => `- ${ISSUE_PREFIX + key}`)
-      .join("\n        ")
+      .map(([key]) => `'${ISSUE_PREFIX + key}'`)
+      .join(", ")
   }`,
 );
 Deno.writeTextFileSync(
