@@ -12,8 +12,8 @@ request.
 
 It is important to note that there are **two types of PRs** for this repository:
 
-1. New Userstyles: Please see [userstyle-creation.md](userstyle-creation.md)
-2. Other improvements: These should follow the recommendations below, to help
+1. **New Userstyles:** Please see [userstyle-creation.md](userstyle-creation.md)
+2. **Other improvements:** These should follow the recommendations below, to help
    improve the chances of a merged PR.
 
 ## General Recommendations
