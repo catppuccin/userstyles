@@ -92,7 +92,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <details open>
 <summary>🗂️ Productivity</summary>
 
-- [Advent Of Code](styles/advent-of-code)
 - [Canvas LMS](styles/canvas-lms)
 - [ChatGPT](styles/chatgpt)
 - [Codeberg](styles/codeberg)
@@ -132,6 +131,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <details open>
 <summary>🎮 Games</summary>
 
+- [Advent Of Code](styles/advent-of-code)
 - [Chess.com](styles/chess.com)
 - [Modrinth](styles/modrinth)
 
