@@ -1,0 +1,49 @@
+name: Required Files Checker
+
+on:
+  workflow_dispatch:
+  pull_request_target:
+
+jobs:
+  file-checker:
+    name: Check for Missing Files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check
+        run: |
+          MISSING_FILES=0
+          echo "# Missing Files Found 😠" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          required_files=(
+            "catppuccin.user.css"
+            "assets/mocha.webp"
+            "assets/macchiato.webp"
+            "assets/frappe.webp"
+            "assets/latte.webp"
+            "assets/catwalk.webp"
+          )
+
+          find_files() {
+            local path=$1
+            for file in "${required_files[@]}"; do
+              if [ ! -f "$path/$file" ]; then
+                MISSING_FILES=1
+                echo "- $path/$file" >> $GITHUB_STEP_SUMMARY
+              fi
+            done
+          }
+
+          for dir in styles/*; do
+            if [ -d "$dir" ]; then
+              find_files "$dir"
+            fi
+          done
+
+          if [ $MISSING_FILES -eq 0 ]; then
+            echo "# No Missing Files 🙌" > $GITHUB_STEP_SUMMARY
+          fi
+
+          exit $MISSING_FILES
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
