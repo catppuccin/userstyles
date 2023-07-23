@@ -9,7 +9,7 @@
 </h3>
 
 <p align="center">
-	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is+label%3Aproton"><img src="https://img.shields.io/github/issues/catppuccin/userstyles?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Aproton"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/proton?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
 	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/proton/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 

@@ -2,15 +2,15 @@
 @name           DeepL Catppuccin
 @namespace      github.com/catppuccin/userstyles/styles/deepl
 @homepageURL    https://github.com/catppuccin/userstyles/tree/main/styles/deepl
-@version        0.2.1
+@version        0.2.2
 @description    Soothing pastel theme for DeepL
 @author         Catppuccin
 @updateURL      https://github.com/catppuccin/userstyles/raw/main/styles/deepl/catppuccin.user.css
+@license 		MIT
+
 @preprocessor   less
-
-@var select theme "Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent"["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
-
+@var select flavor "Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 @var checkbox quotes "Remove Quotes" 0
 @var checkbox header "Remove Header" 0
 @var checkbox footer "Remove Footer" 0
@@ -21,7 +21,7 @@
 ==/UserStyle== */
 @-moz-document url-prefix("https://www.deepl.com/translator") {
   :root {
-    #catppuccin(@theme, @accentColor);
+    #catppuccin(@flavor, @accentColor);
   }
 
   @catppuccin: {
@@ -169,6 +169,17 @@
     @accent-Color: @catppuccin[@@lookup][@@accent];
 
     @accent2: mix(@accent-Color, @text, 60%);
+
+    /* text highlight */
+    ::selection {
+      background: fadeout(@accent-Color, 80%) !important;
+      color: @text !important;
+    }
+
+    ::-moz-selection {
+      background: fadeout(@accent-Color, 80%) !important;
+      color: @text !important;
+    }
 
     .dl_body {
       color: @subtext1;
@@ -442,6 +453,18 @@
       }
     }
 
+    /* new popup */
+    .root--Frqwa {
+      background-color: @surface0;
+    }
+    .selected--bDLH4 {
+      background-color: @surface1;
+    }
+    .divider--v710V {
+      color: @surface2;
+    }
+
+
     .dl_body--redesign .lmt--web .lmt__source_textarea__length_marker {
       color: @subtext0;
     }
@@ -537,7 +560,7 @@
     .lmt__toolbar_container,
     [data-testid="deepl-ui-tooltip-container"] {
       span > button:hover {
-        background-color: fadeout(@text, 15%) !important;
+        background-color: @surface0 !important;
       }
     }
 
@@ -846,7 +869,7 @@
           color: @crust;
         }
       }
-    } /////
+    }
     & when (@lookup ="latte") {
       #dl_menu_logo img,
       #dl_menu_translator_simplified img,
@@ -857,7 +880,7 @@
       [class^="socialMediaContainer--"] a > img {
         filter: invert(100%) hue-rotate(180deg);
       }
-    } /////
+    }
     // options
     & when (@quotes =1) {
       #dl_quotes_container {
