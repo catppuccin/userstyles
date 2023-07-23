@@ -2,7 +2,7 @@
 @name           SearXNG Catppuccin
 @namespace      github.com/catppuccin/userstyles/styles/searxng
 @homepageURL    https://github.com/catppuccin/userstyles/tree/main/styles/searxng
-@version        0.2.2
+@version        0.3.0
 @description    Soothing pastel theme for SearXNG
 @author         Catppuccin
 @updateURL      https://github.com/catppuccin/userstyles/raw/main/styles/searxng/catppuccin.user.css
@@ -11,7 +11,7 @@
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappe", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappe", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accent "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red*", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Grey"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red*", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Grey"]
 @var checkbox additions "Additional Tweaks" 0
 ==/UserStyle== */
 @-moz-document url-prefix("http://ransack.i2p/"),
@@ -245,23 +245,23 @@ url-prefix("https://xo.wtf/")
   };
 
   :root.theme-auto {
-    #catppuccin(@lightFlavor);
+    #catppuccin(@lightFlavor, @accentColor);
   }
 
   @media (prefers-color-scheme: dark) {
     :root.theme-auto {
-      #catppuccin(@darkFlavor);
+      #catppuccin(@darkFlavor, @accentColor);
     }
   }
 
   :root.theme-dark {
-    #catppuccin(@darkFlavor);
+    #catppuccin(@darkFlavor, @accentColor);
   }
   :root.theme-light {
-    #catppuccin(@lightFlavor);
+    #catppuccin(@lightFlavor, @accentColor);
   }
 
-  #catppuccin(@lookup) {
+  #catppuccin(@lookup, @accent-color) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
     @pink: @catppuccin[@@lookup][@pink];
@@ -288,14 +288,14 @@ url-prefix("https://xo.wtf/")
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+    @accent: @catppuccin[@@lookup][@@accent-color];
 
     & {
       --color-base-font: @text;
       --color-base-background: @base;
       --color-base-background-mobile: @base;
-      --color-url-font: @accent-color;
-      --color-url-visited-font: @mauve;
+      --color-url-font: @accent;
+      --color-url-visited-font: @accent;
       --color-header-background: @mantle;
       --color-header-border: @mantle;
       --color-footer-background: @mantle;
@@ -306,15 +306,15 @@ url-prefix("https://xo.wtf/")
       --color-backtotop-font: @subtext1;
       --color-backtotop-border: @surface0;
       --color-backtotop-background: @surface0;
-      --color-btn-background: @accent-color;
+      --color-btn-background: @accent;
       --color-btn-font: @base;
-      --color-show-btn-background: @accent-color;
+      --color-show-btn-background: @accent;
       --color-show-btn-font: @base;
       --color-search-border: @surface0;
       --color-search-shadow: 0 2px 8px @crust;
       --color-search-background: @surface0;
       --color-search-font: @text;
-      --color-search-background-hover: @accent-color;
+      --color-search-background-hover: @accent;
       --color-error: @red;
       --color-error-background: @surface0;
       --color-warning: @yellow;
@@ -322,7 +322,7 @@ url-prefix("https://xo.wtf/")
       --color-success: @green;
       --color-success-background: @surface0;
       --color-categories-item-selected-font: @text;
-      --color-categories-item-border-selected: @accent-color;
+      --color-categories-item-border-selected: @accent;
       --color-autocomplete-font: @subtext1;
       --color-autocomplete-border: @surface0;
       --color-autocomplete-shadow: 0 2px 8px @crust;
@@ -334,11 +334,11 @@ url-prefix("https://xo.wtf/")
       --color-result-border: @base;
       --color-result-url-font: @subtext1;
       --color-result-vim-selected: @surface0;
-      --color-result-vim-arrow: @accent-color;
+      --color-result-vim-arrow: @accent;
       --color-result-description-highlight-font: @text;
-      --color-result-link-font: @accent-color;
-      --color-result-link-font-highlight: @accent-color;
-      --color-result-link-visited-font: @accent-color;
+      --color-result-link-font: @accent;
+      --color-result-link-font-highlight: @accent;
+      --color-result-link-visited-font: @accent;
       --color-result-publishdate-font: @surface2;
       --color-result-engines-font: @surface2;
       --color-result-search-url-border: @surface2;
@@ -347,7 +347,7 @@ url-prefix("https://xo.wtf/")
       --color-result-detail-label-font: @surface1;
       --color-result-detail-background: @base;
       --color-result-detail-hr: @base;
-      --color-result-detail-link: @accent-color;
+      --color-result-detail-link: @accent;
       --color-result-detail-loader-border: rgba(255, 255, 255, 0.2);
       --color-result-detail-loader-borderleft: @crust;
       --color-result-image-span-font: @text;
@@ -376,13 +376,20 @@ url-prefix("https://xo.wtf/")
       --color-toolkit-checkbox-onoff-off-mark-color: @mantle;
       --color-toolkit-checkbox-label-background: @base;
       --color-toolkit-checkbox-label-border: @mantle;
-      --color-toolkit-checkbox-input-border: @blue;
+      --color-toolkit-checkbox-input-border: @accent;
       --color-toolkit-engine-tooltip-border: @surface0;
       --color-toolkit-engine-tooltip-background: @surface0;
       --color-toolkit-loader-border: rgba(255, 255, 255, 0.2);
       --color-toolkit-loader-borderleft: @crust;
       --color-doc-code: @rosewater;
       --color-doc-code-background: @mantle;
+    }
+
+    #search_logo svg :not([fill="none"]) {
+      fill: @accent;
+    }
+    #search_logo svg :not([stroke="none"]) {
+      stroke: @accent;
     }
 
     if (additions) {
