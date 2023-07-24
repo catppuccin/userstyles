@@ -14,7 +14,7 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 @-moz-document regexp("https:\/\/(.+\.)?substack.com/.*") {
-  #catppuccin(@lookup, @accent) {
+  #catppuccin(@lookup, @accent-color) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
     @pink: @catppuccin[@@lookup][@pink];
@@ -41,13 +41,7 @@
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
-    @accentColor: @catppuccin[@@lookup][@@accent];
-    @linkColor: @accentColor;
-    @linkHover: if(
-      @lookup=latte,
-      darken(@accentColor, 5%),
-      lighten(@accentColor, 5%)
-    );
+    @accent: @catppuccin[@@lookup][@@accent-color];
 
     html {
       background-color: @base !important;
@@ -67,13 +61,13 @@
       --color-dark-primary: @text;
       --color-bg-elevated: @surface0;
       --color-bg-elevated-hover: mix(@surface1, @surface0, 50%);
-      --color-accent-themed: @accentColor;
+      --color-accent-themed: @accent;
       --color-bg-secondary-opacity: @surface0;
       --color-bg-secondary-themed: @surface0;
       --color-accent-inverse-themed: @crust;
       --color-light-bg-primary: @crust;
-      --color-accent-primary: @accentColor;
-      --color-accent-substack: @accentColor;
+      --color-accent-primary: @accent;
+      --color-accent-substack: @accent;
       --color-accent-blue: @blue;
       --color-accent-red: @red;
       --color-accent-purple: @mauve;
@@ -105,7 +99,7 @@
       --color_theme_bg_contrast_5: @surface2;
 
       // used for podcast play controls
-      --color_theme_bg_pop_rgb: #rgbify(@accentColor) [];
+      --color_theme_bg_pop_rgb: #rgbify(@accent) [];
       --color_theme_print_on_pop: @crust;
     }
 
