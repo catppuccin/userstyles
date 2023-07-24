@@ -14,9 +14,16 @@ jobs:
       uses: actions/checkout@v3
 
     - uses: crate-ci/typos@master
+      id: typos
       continue-on-error: true
 
-    # We don't want this check to fail on `main` but continue to fail on PRs
-    - name: Successfully Exit When Branch 'main'
+    # 'continue-on-error' will always succeed, we should exit based on the outcome and not the conclusion
+    # ref: https://docs.github.com/en/actions/learn-github-actions/contexts#steps-context
+    - name: Fail When Typos Are Found in Pull Request
+      if: ${{ github.repository == 'catppuccin/userstyles' && github.event_name == 'pull_request' && steps.typos.outcome != 'success' }}
+      run: "exit 1"
+
+    # We always want this check to pass on branch 'main' but continue to fail on PRs
+    - name: Pass When Branch 'main'
       if: ${{ github.repository == 'catppuccin/userstyles' && github.ref == 'refs/heads/main' }}
       run: "exit 0"
