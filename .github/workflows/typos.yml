@@ -1,0 +1,21 @@
+name: Typos
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  run:
+    name: Spell Check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Actions Repository
+      uses: actions/checkout@v3
+
+    - uses: crate-ci/typos@master
+
+    # We don't want this check to fail on `main` but continue to fail on PRs
+    - name: Successfully Exit When Branch 'main'
+      if: ${{ github.repository == 'catppuccin/userstyles' && github.ref == 'refs/heads/main' }}
+      run: "exit 0"
