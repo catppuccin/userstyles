@@ -117,6 +117,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
 - [Reddit](styles/reddit)
+- [Substack](styles/substack)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
 
