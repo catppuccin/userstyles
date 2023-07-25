@@ -12,20 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          # using the USERSTYLES_TOKEN for main (branch protection),
-          # and general github.token for PRs
           token: ${{ github.ref == 'refs/heads/main' && secrets.USERSTYLES_TOKEN || github.token }}
+          # Make sure the actual branch is checked out when running on pull requests
+          ref: ${{ github.head_ref }}
 
       - name: Run prettier
-        uses: actionsx/prettier@v2
+        uses: creyD/prettier_action@v4.3
         with:
-          args: "--write styles/**/*.css"
-
-      - name: Push Changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        if: ${{ github.repository == 'catppuccin/userstyles' && github.ref == 'refs/heads/main' }}
-        with:
+          commit_options: "--author 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'"
           commit_message: "style: format code with prettier"
-          commit_author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
-          branch: ${{ github.ref }}
-# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+          prettier_options: "--write styles/**/*.css"
