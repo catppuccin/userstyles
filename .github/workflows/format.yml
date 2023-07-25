@@ -12,12 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.USERSTYLES_TOKEN }}
+          token: ${{ github.ref == 'refs/heads/main' && secrets.USERSTYLES_TOKEN || github.token }}
           # Make sure the actual branch is checked out when running on pull requests
           ref: ${{ github.head_ref }}
 
       - name: Run prettier
         uses: creyD/prettier_action@v4.3
         with:
+          commit_options: "--author 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'"
           commit_message: "style: format code with prettier"
           prettier_options: "--write styles/**/*.css"
