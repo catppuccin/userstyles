@@ -6,6 +6,7 @@ import {
   PortCategories,
   portsSchema,
   schema,
+  labels,
 } from "./deps.ts";
 import {
   ApplicationLink,
@@ -154,6 +155,17 @@ const pullRequestLabelerContent = Object.entries(userstylesData.userstyles)
   .map(([key]) => `${key}: styles/${key}/**/*`)
   .join("\n");
 updateFile(pullRequestLabelerPath, pullRequestLabelerContent);
+
+const syncLabels = path.join(REPO_ROOT, ".github/labels.yml");
+const syncLabelsContent = Object.entries(userstylesData.userstyles)
+  .map(
+    ([key, style]) =>
+      `- name: ${key}
+  description: ${style.name}
+  color: "${labels[style.color ?? "text"].macchiato.hex}"`
+  )
+  .join("\n");
+updateFile(syncLabels, syncLabelsContent);
 
 const issuesLabelerPath = path.join(REPO_ROOT, ".github/issue-labeler.yml");
 const issuesLabelerContent = Object.entries(userstylesData.userstyles)
