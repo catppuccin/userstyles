@@ -126,6 +126,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <summary>🌈 Leisure</summary>
 
 - [AniList, AniChart](styles/anilist)
+- [ChatReplay](styles/chatreplay)
 - [Last.fm](styles/lastfm)
 
 </details>
