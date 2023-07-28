@@ -162,45 +162,106 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-Color: @catppuccin[@@lookup][@@accent];
 
+    svg.logo {
+      @accentH: hue(@accent-Color);
+      @protonH: hue(#6d4aff);
+
+      .replaceColor(@org, @property) {
+        &[@{property}="@{org}"] {
+          @hDiff: @protonH - hue(@org);
+          @{property}: hsl(
+            @accentH - @hDiff,
+            saturation(@org) - 30%,
+            lightness(@org)
+          );
+        }
+      }
+
+      /* prettier-ignore */
+      > path {
+        .replaceColor(#B8D7FF, fill);
+        .replaceColor(#8F69FF, fill);
+      }
+
+      /* prettier-ignore */
+      > defs stop {
+        .replaceColor(#E3D9FF, stop-color);
+        .replaceColor(#7341FF, stop-color);
+        .replaceColor(#6D4AFF, stop-color);
+        .replaceColor(#AA8EFF, stop-color);
+        .replaceColor(#06B8FF, stop-color);
+        .replaceColor(#BFE8FF, stop-color);
+        .replaceColor(#BFABFF, stop-color);
+        .replaceColor(#FF50C3, stop-color);
+        .replaceColor(#B487FF, stop-color);
+        .replaceColor(#FFC8FF, stop-color);
+        .replaceColor(#8EFFEE, stop-color);
+        .replaceColor(#C9C7FF, stop-color);
+        .replaceColor(#00F0C3, stop-color);
+        .replaceColor(#FFD580, stop-color);
+        .replaceColor(#F6C592, stop-color);
+        .replaceColor(#EBB6A2, stop-color);
+        .replaceColor(#DFA5AF, stop-color);
+        .replaceColor(#D397BE, stop-color);
+        .replaceColor(#C486CB, stop-color);
+        .replaceColor(#B578D9, stop-color);
+        .replaceColor(#A166E5, stop-color);
+        .replaceColor(#8B57F2, stop-color);
+        .replaceColor(#704CFF, stop-color);
+        .replaceColor(#B39FFB, stop-color);
+        .replaceColor(#FFE8DB, stop-color);
+      }
+    }
+
     &,
     .ui-prominent,
     .ui-standard {
+      .lightenOrDarken(@color, @value) {
+        @result: if(
+          @flavor=latte,
+          lighten(@color, @value),
+          darken(@color, @value)
+        );
+      }
+
       --primary: @accent-Color;
       --primary-contrast: @mantle;
-      --signal-danger-minor-2: darken(@maroon, 50%);
-      --signal-danger-minor-1: darken(@maroon, 30%);
+      --signal-danger-minor-2: .lightenOrDarken(@maroon, 40%) [ @result];
+      --signal-danger-minor-1: .lightenOrDarken(@maroon, 30%) [ @result];
       --signal-danger: @maroon;
       --signal-danger-major-1: saturate(@maroon, 40%);
       --signal-danger-major-2: saturate(@maroon, 30%);
       --signal-danger-major-3: saturate(@maroon, 20%);
       --signal-danger-contrast: @mantle;
-      --signal-warning-minor-2: darken(@peach, 50%);
-      --signal-warning-minor-1: darken(@peach, 30%);
+      --signal-warning-minor-2: .lightenOrDarken(@peach, 40%) [ @result];
+      --signal-warning-minor-1: .lightenOrDarken(@peach, 30%) [ @result];
       --signal-warning: @peach;
       --signal-warning-major-1: saturate(@peach, 40%);
       --signal-warning-major-2: saturate(@peach, 30%);
       --signal-warning-major-3: saturate(@peach, 20%);
       --signal-warning-contrast: @mantle;
-      --signal-success-minor-2: darken(@green, 50%);
-      --signal-success-minor-1: darken(@green, 30%);
+      --signal-success-minor-2: .lightenOrDarken(@green, 40%) [ @result];
+      --signal-success-minor-1: .lightenOrDarken(@green, 30%) [ @result];
       --signal-success: @green;
       --signal-success-major-1: saturate(@green, 40%);
       --signal-success-major-2: saturate(@green, 30%);
       --signal-success-major-3: saturate(@green, 20%);
       --signal-success-contrast: @mantle;
-      --signal-info-minor-2: darken(@blue, 50%);
-      --signal-info-minor-1: darken(@blue, 30%);
+      --signal-info-minor-2: .lightenOrDarken(@blue, 40%) [ @result];
+      --signal-info-minor-1: .lightenOrDarken(@blue, 30%) [ @result];
       --signal-info: @blue;
       --signal-info-major-1: saturate(@blue, 40%);
       --signal-info-major-2: saturate(@blue, 30%);
       --signal-info-major-3: saturate(@blue, 20%);
       --signal-info-contrast: @mantle;
-      --interaction-norm-minor-2: darken(@accent-Color, 50%);
-      --interaction-norm-minor-1: darken(@accent-Color, 30%);
+      --interaction-norm-minor-2: .lightenOrDarken(@accent-Color, 40%) [
+        @result];
+      --interaction-norm-minor-1: .lightenOrDarken(@accent-Color, 30%) [
+        @result];
       --interaction-norm: @accent-Color;
-      --interaction-norm-major-1: lighten(@accent-Color, 30%);
-      --interaction-norm-major-2: lighten(@accent-Color, 20%);
-      --interaction-norm-major-3: lighten(@accent-Color, 10%);
+      --interaction-norm-major-1: saturate(@accent-Color, 30%);
+      --interaction-norm-major-2: saturate(@accent-Color, 20%);
+      --interaction-norm-major-3: saturate(@accent-Color, 10%);
       --interaction-norm-contrast: @mantle;
       --interaction-weak-minor-2: darken(@overlay0, 50%);
       --interaction-weak-minor-1: darken(@overlay0, 30%);
@@ -213,7 +274,7 @@
       --text-weak: @subtext0;
       --text-hint: @subtext1;
       --text-disabled: @overlay1;
-      --text-invert: invert(@text);
+      --text-invert: @crust;
       --field-norm: @overlay2;
       --field-hover: @overlay1;
       --field-disabled: @overlay0;
@@ -226,6 +287,7 @@
       --background-norm: @base;
       --background-weak: @mantle;
       --background-strong: @crust;
+      --background-invert: @text;
       --interaction-default: transparent;
       --interaction-default-hover: fadeout(@overlay1, 80%);
       --interaction-default-active: fadeout(@overlay1, 60%);
@@ -243,8 +305,7 @@
       --optional-mini-calendar-today-color: @text;
       --optional-logo-text-proton-color: @text;
       --optional-logo-text-product-color: @text;
-      --optional-tooltip-background-color: var(--background-weak);
-      --favorite-icon-color: var(--optional-favorite-icon-color, @peach);
+      --favorite-icon-color: @peach;
     }
 
     .ui-prominent {
