@@ -6,7 +6,7 @@
 @description    Soothing pastel theme for Mastodon
 @author         Catppuccin
 @updateURL      https://github.com/catppuccin/userstyles/raw/main/styles/mastodon/catppuccin.user.css
-@license        MIT
+@license 		    MIT
 
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
@@ -16,23 +16,31 @@
 @-moz-document domain("mstdn.social"),
 domain("fosstodon.org"),
 domain("tech.lgbt"),
-domain("mastodon.social") {
+domain("mastodon.social"),
+domain("piaille.fr") {
+
   .theme-mastodon-light,
-  :root:has(.theme-mastodon-light),
-  .skin-mastodon-light,
-  :root:has(.skin-mastodon-light) {
+  .skin-mastodon-light {
     #mastodon(@lightFlavor, @accentColor);
   }
 
-  .theme-default,
   .theme-contrast,
-  :root:has(.theme-default),
-  :root:has(.theme-contrast),
-  .skin-default,
-  .skin-contrast,
-  :root:has(.skin-default),
-  :root:has(.skin-contrast) {
+  .skin-contrast {
     #mastodon(@darkFlavor, @accentColor);
+  }
+
+  @media (prefers-color-scheme: light) {
+    .theme-default,
+    .skin-default {
+      #mastodon(@lightFlavor, @accentColor);
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .theme-default,
+    .skin-default {
+      #mastodon(@darkFlavor, @accentColor);
+    }
   }
 
   #mastodon(@lookup, @accent) {
@@ -64,7 +72,7 @@ domain("mastodon.social") {
         @base: #eff1f5;
         @mantle: #e6e9ef;
         @crust: #dce0e8;
-      };
+      }
       @frappe: {
         @rosewater: #f2d5cf;
         @flamingo: #eebebe;
@@ -92,7 +100,7 @@ domain("mastodon.social") {
         @base: #303446;
         @mantle: #292c3c;
         @crust: #232634;
-      };
+      }
       @macchiato: {
         @rosewater: #f4dbd6;
         @flamingo: #f0c6c6;
@@ -120,7 +128,7 @@ domain("mastodon.social") {
         @base: #24273a;
         @mantle: #1e2030;
         @crust: #181926;
-      };
+      }
       @mocha: {
         @rosewater: #f5e0dc;
         @flamingo: #f2cdcd;
@@ -148,8 +156,8 @@ domain("mastodon.social") {
         @base: #1e1e2e;
         @mantle: #181825;
         @crust: #11111b;
-      };
-    };
+      }
+    }
 
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -177,9 +185,9 @@ domain("mastodon.social") {
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
-    @accent-Color: @catppuccin[@@lookup][@@accent];
+    @accent-color: @catppuccin[@@lookup][@@accent];
 
-    body,
+    &,
     .tabs-bar__wrapper,
     .admin-wrapper .sidebar-wrapper__inner {
       background: @crust;
@@ -193,6 +201,7 @@ domain("mastodon.social") {
     .search-popout,
     .search-popout em,
     .dismissable-banner__message,
+    .dismissable-banner__message h1,
     .account__header__bio .account__header__fields dt,
     .account__section-headline a.active,
     .account__section-headline button.active,
@@ -212,6 +221,7 @@ domain("mastodon.social") {
       color: @text;
     }
 
+
     .search-popout span,
     .link-footer p,
     .link-footer p a {
@@ -228,12 +238,12 @@ domain("mastodon.social") {
     .label_input .search__input,
     .search__input:focus,
     .account__header__fields dt {
-      color: @subtext0;
+      color: @subtext0
     }
 
     .compose-panel hr,
     .navigation-panel hr {
-      border-top-color: @subtext0;
+      border-top-color: @subtext0
     }
 
     .trends__item,
@@ -241,8 +251,9 @@ domain("mastodon.social") {
     .getting-started__trends h4,
     .trends__item__name span,
     .story {
-      border-color: @surface0;
+      border-color: @surface0
     }
+
 
     .account__header__tabs__name h1,
     .account__header__content a,
@@ -258,13 +269,14 @@ domain("mastodon.social") {
     .navigation-bar strong,
     .reply-indicator__content a.unhandled-link,
     .status__content a.unhandled-link {
-      color: @accent-Color;
+      color: @accent-color;
     }
 
     .icon-button,
     .notification__message .fa {
       color: @surface2;
     }
+
 
     .icon-button:active,
     .icon-button:focus,
@@ -276,7 +288,7 @@ domain("mastodon.social") {
     .icon-button.inverted:focus,
     .icon-button.inverted:hover,
     .public-layout .public-account-bio .account__header__fields a:hover {
-      color: @accent-Color;
+      color: @accent-color;
     }
 
     .ui__header,
@@ -298,8 +310,7 @@ domain("mastodon.social") {
     .public-layout .public-account-header__bar::before,
     .account__header__fields,
     .account__header__fields dt,
-    .account__header__fields
-      dd:not(.account__header__bio .account__header__fields dd),
+    .account__header__fields dd:not(.account__header__bio .account__header__fields dd),
     .focusable:focus,
     .admin-wrapper .sidebar ul .simple-navigation-active-leaf .selected {
       border-color: @mantle;
@@ -325,19 +336,20 @@ domain("mastodon.social") {
     .nothing-here,
     .public-layout .public-account-bio,
     .hero-widget__text,
-    body.admin,
+    &.admin,
     .admin-wrapper .sidebar ul a.selected,
     .admin-wrapper .sidebar ul ul {
       border-color: @mantle;
       background: @base;
     }
 
+
     .public-layout .public-account-header__tabs__tabs .counter::after {
-      border-color: @accent-Color;
+      border-color: @accent-color;
     }
 
     .public-layout .public-account-header__tabs__tabs .counter.active::after {
-      border-color: @accent-Color;
+      border-color: @accent-color;
     }
 
     .account,
@@ -372,22 +384,18 @@ domain("mastodon.social") {
     .column-link--transparent.active,
     .column-link--transparent:focus,
     .column-link:focus {
-      color: @accent-Color;
+      color: @accent-color;
     }
 
     .column-link--transparent:hover,
     .column-link:hover {
-      color: @accent-Color;
+      color: @accent-color;
     }
 
-    .follow_requests-unlocked_explanation {
-      background: @base;
-    }
-  
     .status.collapsed .status__content:after {
       background: linear-gradient(fadeout(@base, 100), @base);
     }
-  
+
     .button.button-tertiary:focus,
     .button.button-tertiary:hover,
     .button.button-tertiary:active {
@@ -395,19 +403,20 @@ domain("mastodon.social") {
     }
 
     .button.button-tertiary {
-      border-color: @accent-Color;
+      border-color: @accent-color;
     }
 
     .button,
     .button.button-tertiary,
     .button.logo-button {
-      background: @accent-Color;
+      background: @accent-color;
       color: @base;
     }
 
     .button.logo-button svg {
       fill: currentColor;
     }
+
 
     .public-layout .header .nav-button {
       background-color: @surface1;
@@ -420,9 +429,9 @@ domain("mastodon.social") {
     .button.button-secondary:active,
     .button.button-secondary:focus,
     .button.button-secondary:hover {
-      border-color: @accent-Color;
+      border-color: @accent-color;
       color: @base;
-      transition: 0.4s;
+      transition: .4s;
     }
 
     .button:active,
@@ -434,7 +443,7 @@ domain("mastodon.social") {
     .button.logo-button:active,
     .button.logo-button:focus,
     .button.logo-button:hover {
-      background: @accent-Color;
+      background: @accent-color;
     }
 
     .drawer__inner,
@@ -444,13 +453,14 @@ domain("mastodon.social") {
 
     .compose-form .compose-form__modifiers,
     .compose-form .autosuggest-textarea__textarea,
+    .compose-form .compose-form__autosuggest-wrapper,
     .compose-form .spoiler-input__input {
-      background: @surface1;
-      color: @text;
+      background: @surface1 !important;
+      color: @text !important;
     }
 
     .compose-form .autosuggest-textarea__textarea::placeholder {
-      color: @subtext0;
+      color: @subtext0
     }
 
     .compose-form .compose-form__buttons-wrapper {
@@ -460,10 +470,9 @@ domain("mastodon.social") {
     .load-more:hover {
       background-color: @mantle;
     }
-  
 
     .character-counter {
-      color: @subtext0;
+      color: @subtext0
     }
 
     .public-layout .header,
@@ -473,38 +482,7 @@ domain("mastodon.social") {
     .nothing-here {
       box-shadow: none;
     }
-  
-    .emoji-picker-dropdown__menu {
-      background: @surface1;
-      color: @text;
-      * {
-        border-color: @overlay0;
-      }
-      .emoji-mart-anchor-bar {
-        background: @accent-Color;
-      }
-      .emoji-mart-anchor-selected {
-        color: @accent-Color !important;
-      }
-      .emoji-mart-anchor  {
-        color: @surface2;
-      }
-      .emoji-mart-search input {
-        color: @text;
-        &::placeholder {
-          color: @text;
-        }
-      }
-      .emoji-mart-bar:first-child {
-        color: @text;
-        background: @surface0;
-      }
-      .emoji-mart-search, .emoji-mart-scroll, .emoji-mart-category-label span {
-        color: @text;
-        background: @surface1;
-      }
-    }
-  
+
     .dropdown-menu__arrow:before,
     .dropdown-menu__item a,
     .dropdown-menu__item button,
@@ -520,7 +498,7 @@ domain("mastodon.social") {
     }
 
     .input-copy,
-    .simple_form input[type="text"],
+    .simple_form input[type=text],
     .simple_form textarea,
     .simple_form .block-button,
     .simple_form .button,
@@ -543,58 +521,54 @@ domain("mastodon.social") {
     }
 
     .simple_form textarea,
-    .simple_form input[type="password"],
-    .simple_form input[type="number"],
-    .simple_form input[type="text"] {
+    .simple_form input[type=password],
+    .simple_form input[type=number],
+    .simple_form input[type=text] {
       border: 1px solid @crust;
     }
 
-    .simple_form input[type="email"]:required:valid {
-      border: 1px solid @green;
+    .simple_form input[type=email]:required:valid {
+      border: 1px solid @green
     }
 
-    .simple_form input[type="password"],
-    .simple_form input[type="number"],
-    .simple_form input[type="email"]:required:valid,
-    .simple_form
-      input[type="password"]:required:invalid:not(:placeholder-shown) {
+    .simple_form input[type=password],
+    .simple_form input[type=number],
+    .simple_form input[type=email]:required:valid,
+    .simple_form input[type=password]:required:invalid:not(:placeholder-shown) {
       color: @text;
       background: @mantle;
     }
 
-    .simple_form
-      input[type="password"]:required:invalid:not(:placeholder-shown) {
+    .simple_form input[type=password]:required:invalid:not(:placeholder-shown) {
       border: 1px solid @red;
     }
 
     .simple_form select {
-      background: @mantle
-        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.933 18.467' height='19.698' width='15.929'><path d='M3.467 14.967l-3.393-3.5H14.86l-3.392 3.5c-1.866 1.925-3.666 3.5-4 3.5-.335 0-2.135-1.575-4-3.5zm.266-11.234L7.467 0 11.2 3.733l3.733 3.734H0l3.733-3.734z' fill='%2342485A'/></svg>")
-        no-repeat right 8px center/auto 16px;
+      background: @mantle url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.933 18.467' height='19.698' width='15.929'><path d='M3.467 14.967l-3.393-3.5H14.86l-3.392 3.5c-1.866 1.925-3.666 3.5-4 3.5-.335 0-2.135-1.575-4-3.5zm.266-11.234L7.467 0 11.2 3.733l3.733 3.734H0l3.733-3.734z' fill='%2342485A'/></svg>") no-repeat right 8px center/auto 16px;
       border: 1px solid @crust;
     }
 
-    .simple_form input[type="datetime-local"]:active,
-    .simple_form input[type="datetime-local"]:focus,
-    .simple_form input[type="email"]:active,
-    .simple_form input[type="email"]:focus,
-    .simple_form input[type="number"]:active,
-    .simple_form input[type="number"]:focus,
-    .simple_form input[type="password"]:active,
-    .simple_form input[type="password"]:focus,
-    .simple_form input[type="text"]:active,
-    .simple_form input[type="text"]:focus,
-    .simple_form input[type="url"]:active,
-    .simple_form input[type="url"]:focus,
+    .simple_form input[type=datetime-local]:active,
+    .simple_form input[type=datetime-local]:focus,
+    .simple_form input[type=email]:active,
+    .simple_form input[type=email]:focus,
+    .simple_form input[type=number]:active,
+    .simple_form input[type=number]:focus,
+    .simple_form input[type=password]:active,
+    .simple_form input[type=password]:focus,
+    .simple_form input[type=text]:active,
+    .simple_form input[type=text]:focus,
+    .simple_form input[type=url]:active,
+    .simple_form input[type=url]:focus,
     .simple_form textarea:active,
     .simple_form textarea:focus {
-      border-color: @accent-Color !important;
+      border-color: @accent-color !important;
       background: @mantle !important;
       color: @text !important;
     }
 
     .table > thead > tr > th {
-      border-color: @accent-Color !important;
+      border-color: @accent-color !important;
     }
 
     .batch-table__toolbar,
@@ -603,15 +577,15 @@ domain("mastodon.social") {
       color: @text !important;
     }
 
-    .simple_form input[type="datetime-local"]:hover,
-    .simple_form input[type="email"]:hover,
-    .simple_form input[type="number"]:hover,
-    .simple_form input[type="password"]:hover,
-    .simple_form input[type="text"]:hover,
-    .simple_form input[type="url"]:hover,
+    .simple_form input[type=datetime-local]:hover,
+    .simple_form input[type=email]:hover,
+    .simple_form input[type=number]:hover,
+    .simple_form input[type=password]:hover,
+    .simple_form input[type=text]:hover,
+    .simple_form input[type=url]:hover,
     .simple_form textarea:hover {
       background: @mantle !important;
-      border-color: @accent-Color !important;
+      border-color: @accent-color !important;
       transition: 0.4s;
     }
 
@@ -639,44 +613,6 @@ domain("mastodon.social") {
 
     .card__bar {
       background: @surface0;
-    }
-  
-    .reply-indicator {
-      background: @surface0;
-      color: @text;
-      a,
-      .display-name__html {
-        color: @accent-Color;
-      }
-    }
-  
-    /* glitch support */
-    .glitch {
-      .local-settings__navigation {
-        background: @base;
-        .active {
-          background: @accent-Color;
-          color: @base;
-        }
-        .close {
-          background: @red;
-          color: @base;
-        }
-        .local-settings__navigation__item {
-          border-bottom-color: @surface1;
-          &:not(.active, .close) {
-            background: @base;
-            color: @text;
-          }
-      }
-      }
-      .local-settings, .local-settings__page {
-        background: @surface0;
-        color: @text;
-        span.hint {
-          color: @subtext0;
-        }
-      }
     }
   }
 }
