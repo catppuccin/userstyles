@@ -6,7 +6,6 @@ import {
   PortCategories,
   portsSchema,
   schema,
-  labels,
 } from "./deps.ts";
 import {
   ApplicationLink,
@@ -158,7 +157,7 @@ const syncLabelsContent = Object.entries(userstylesData.userstyles)
     ([key, style]) =>
       `- name: ${key}
   description: ${style.name}
-  color: "${labels[style.color ?? "text"].macchiato.hex}"`
+  color: "#8aadf4"`
   )
   .join("\n");
 updateFile(syncLabels, syncLabelsContent);
