@@ -1,0 +1,18 @@
+name: Sync Labels
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/labels.yml"
+
+jobs:
+  update:
+    name: Update
+    runs-on: ubuntu-latest
+    steps:
+      - uses: r7kamura/github-label-sync-action@v0
+        if: ${{ github.repository == 'catppuccin/userstyles' }}
+        with:
+          allow_added_labels: "true"

@@ -42,7 +42,7 @@ const validate = ajv.compile<Metadata>(schema);
 const validatePorts = ajv.compile<PortMetadata>(portsSchema);
 
 const userstylesYaml = Deno.readTextFileSync(
-  path.join(ROOT, "../userstyles.yml"),
+  path.join(ROOT, "../userstyles.yml")
 );
 const userstylesData = parseYaml(userstylesYaml);
 if (!validate(userstylesData)) {
@@ -51,7 +51,7 @@ if (!validate(userstylesData)) {
 }
 
 const portsYaml = await fetch(
-  "https://raw.githubusercontent.com/catppuccin/catppuccin/main/resources/ports.yml",
+  "https://raw.githubusercontent.com/catppuccin/catppuccin/main/resources/ports.yml"
 );
 const portsData = parseYaml(await portsYaml.text());
 if (!validatePorts(portsData)) {
@@ -70,7 +70,7 @@ const categorized = Object.entries(userstylesData.userstyles).reduce(
     });
     return acc;
   },
-  {} as Record<string, MappedPort[]>,
+  {} as Record<string, MappedPort[]>
 );
 
 const portListData = portsData.categories
@@ -88,18 +88,14 @@ const portContent = portListData
       `<details open>
 <summary>${data.meta.emoji} ${data.meta.name}</summary>
 
-${
-        data.ports
-          .map((port) => {
-            const name = Array.isArray(port.name)
-              ? port.name.join(", ")
-              : port.name;
-            return `- [${name}](${port.path})`;
-          })
-          .join("\n")
-      }
+${data.ports
+  .map((port) => {
+    const name = Array.isArray(port.name) ? port.name.join(", ") : port.name;
+    return `- [${name}](${port.path})`;
+  })
+  .join("\n")}
 
-</details>`,
+</details>`
   )
   .join("\n");
 
@@ -155,6 +151,17 @@ const pullRequestLabelerContent = Object.entries(userstylesData.userstyles)
   .join("\n");
 updateFile(pullRequestLabelerPath, pullRequestLabelerContent);
 
+const syncLabels = path.join(REPO_ROOT, ".github/labels.yml");
+const syncLabelsContent = Object.entries(userstylesData.userstyles)
+  .map(
+    ([key, style]) =>
+      `- name: ${key}
+  description: ${style.name}
+  color: "#8aadf4"`
+  )
+  .join("\n");
+updateFile(syncLabels, syncLabelsContent);
+
 const issuesLabelerPath = path.join(REPO_ROOT, ".github/issue-labeler.yml");
 const issuesLabelerContent = Object.entries(userstylesData.userstyles)
   .map(([key]) => `${key}: ['(${ISSUE_PREFIX + key})']`)
@@ -176,15 +183,13 @@ const userstyleIssuePath = path.join(ROOT, "templates/userstyle-issue.yml");
 const userstyleIssueContent = Deno.readTextFileSync(userstyleIssuePath);
 const replacedUserstyleIssueContent = userstyleIssueContent.replace(
   "$PORTS",
-  `${
-    Object.entries(userstylesData.userstyles)
-      .map(([key]) => `'${ISSUE_PREFIX + key}'`)
-      .join(", ")
-  }`,
+  `${Object.entries(userstylesData.userstyles)
+    .map(([key]) => `'${ISSUE_PREFIX + key}'`)
+    .join(", ")}`
 );
 Deno.writeTextFileSync(
   path.join(REPO_ROOT, ".github/ISSUE_TEMPLATE/userstyle.yml"),
-  replacedUserstyleIssueContent,
+  replacedUserstyleIssueContent
 );
 
 const heading = (name: Name, link: ApplicationLink) => {
@@ -193,15 +198,13 @@ const heading = (name: Name, link: ApplicationLink) => {
 
   if (nameArray.length !== linkArray.length) {
     throw new Error(
-      'The "name" and "app-link" arrays must have the same length',
+      'The "name" and "app-link" arrays must have the same length'
     );
   }
 
-  return `Catppuccin for ${
-    nameArray
-      .map((name, index) => `<a href="${linkArray[index]}">${name}</a>`)
-      .join(", ")
-  }`;
+  return `Catppuccin for ${nameArray
+    .map((name, index) => `<a href="${linkArray[index]}">${name}</a>`)
+    .join(", ")}`;
 };
 
 const usageContent = (usage?: Usage) => {
@@ -213,11 +216,9 @@ const faqContent = (faq?: FAQ) => {
     return "";
   }
   return `## 🙋 FAQ
-${
-    faq
-      .map(({ question, answer }) => `- Q: ${question}  \n\tA: ${answer}`)
-      .join("\n")
-  }`;
+${faq
+  .map(({ question, answer }) => `- Q: ${question}  \n\tA: ${answer}`)
+  .join("\n")}`;
 };
 
 const collaboratorsContent = (allCollaborators: CollaboratorsData[]) => {
@@ -235,7 +236,7 @@ const collaboratorsContent = (allCollaborators: CollaboratorsData[]) => {
 const updateStylesReadmeContent = (
   readme: string,
   key: string,
-  userstyle: Userstyle,
+  userstyle: Userstyle
 ) => {
   return readme
     .replace("$TITLE", heading(userstyle.name, userstyle.readme["app-link"]))
@@ -253,7 +254,7 @@ const updateStylesReadmeContent = (
           collaborators: userstyle.readme["past-maintainers"],
           heading: "## 💖 Past Maintainer(s)",
         },
-      ]),
+      ])
     );
 };
 
@@ -265,11 +266,11 @@ for (const [key, userstyle] of Object.entries(userstylesData.userstyles)) {
     readmeContent = updateStylesReadmeContent(
       stylesReadmeContent,
       key,
-      userstyle,
+      userstyle
     );
     Deno.writeTextFileSync(
       path.join(REPO_ROOT, "styles", key, "README.md"),
-      readmeContent,
+      readmeContent
     );
   } catch (e) {
     console.log(`Failed to update ${userstyle} README:`, e);
