@@ -36,7 +36,8 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-
+## Usage  
+Switch to a default GitHub light/dark theme for the best experience!
 
 
 
