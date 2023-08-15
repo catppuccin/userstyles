@@ -1,0 +1,38 @@
+name: Sync Maintainers
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "src/userstyles.yml"
+
+env:
+  DENO_DIR: deno_cache
+
+jobs:
+  sync-maintainers:
+    runs-on: ubuntu-latest
+    name: Sync Maintainers
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.USERSTYLES_TOKEN }}
+          ref: ${{ github.ref }}
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Cache Deno dependencies
+        uses: actions/cache@v3
+        with:
+          key: ${{ hashFiles('src/generate/deno.lock') }}
+          path: ${{ env.DENO_DIR }}
+
+      - name: Sync Maintainers
+        working-directory: src/generate
+        run: ./syncMaintainers.ts
+
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
