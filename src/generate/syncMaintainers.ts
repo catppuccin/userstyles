@@ -27,7 +27,7 @@ const requestGH = async (endpoint, method = "GET", returnJson = true, body?) => 
   const res = await fetch("https://api.github.com/orgs/catppuccin/teams/userstyles-maintainers" + endpoint, {
     method,
     headers: {
-      "Authorization": `Bearer ${Deno.env.get("GITHUB_TOKEN")}`
+      "Authorization": `Bearer ${Deno.args[0]}`
     },
     body,
   })
