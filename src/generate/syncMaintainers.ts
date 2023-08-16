@@ -19,9 +19,9 @@ if (!validate(userstylesData)) {
   Deno.exit(1);
 }
 
-const maintainers = Object.values(userstylesData.userstyles).flatMap((style) =>
+const maintainers = [...new Set(Object.values(userstylesData.userstyles).flatMap((style) =>
   style.readme["current-maintainers"].map((m) => m.url.split("/").pop())
-);
+))];
 
 const requestGH = async (endpoint, method = "GET", returnJson = true, body?) => {
   const res = await fetch("https://api.github.com/orgs/catppuccin/teams/userstyles-maintainers" + endpoint, {
