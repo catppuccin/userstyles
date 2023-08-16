@@ -20,10 +20,10 @@ if (!validate(userstylesData)) {
 }
 
 const maintainers = [...new Set(Object.values(userstylesData.userstyles).flatMap((style) =>
-  style.readme["current-maintainers"].map((m) => m.url.split("/").pop())
+  style.readme["current-maintainers"].map((m) => m.url.split("/").pop().toLowerCase())
 ))];
 
-const requestGH = async (endpoint, method = "GET", returnJson = true, body?) => {
+const requestGH = async (endpoint: string, method = "GET", returnJson = true, body?: string) => {
   const res = await fetch("https://api.github.com/orgs/catppuccin/teams/userstyles-maintainers" + endpoint, {
     method,
     headers: {
@@ -34,25 +34,26 @@ const requestGH = async (endpoint, method = "GET", returnJson = true, body?) => 
   return returnJson ? res.json() : res
 }
 
-const teamMembersQuery = await requestGH("/members");
-const teamMembers = teamMembersQuery.map(l => l.login);
+const teamMembers = (await requestGH("/members")).map(l => l.login.toLowerCase());
 
-// check if two arrays are equal, disregarding the order
-const checkEquality = (a, b) => a.length === b.length && a.every(e => b.includes(e));
-const getExtra = (a, b) => a.filter(e => !b.includes(e))
+const checkEquality = (a, b) => a.length === b.length && a.every((e: string) => b.includes(e));
+const getExtra = (a, b) => a.filter((e: string) => !b.includes(e))
 
-if (!checkEquality(maintainers, teamMembers)) {
+const syncMaintainers = async () => {
+  if (checkEquality(maintainers, teamMembers)) {
+    console.log("Maintainers are in sync");
+    return;
+  }
   if (maintainers.length > teamMembers.length) {
     for (const m of getExtra(maintainers, teamMembers)) {
-      requestGH(`/memberships/${m}`, 'PUT', false, JSON.stringify({ role: "member" }))
+      await requestGH(`/memberships/${m}`, 'PUT', false, JSON.stringify({ role: "member" }))
       console.log(`Added ${m} to the team`)
     }
   } else {
     for (const m of getExtra(teamMembers, maintainers)) {
-      requestGH(`/memberships/${m}`, 'DELETE', false)
+      await requestGH(`/memberships/${m}`, 'DELETE', false)
       console.log(`Removed ${m} from the team`)
     }
   }
-} else {
-  console.log("Maintainers are in sync")
 }
+await syncMaintainers()
