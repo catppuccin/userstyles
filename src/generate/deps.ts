@@ -8,7 +8,7 @@ export * from "npm:@octokit/rest";
 
 import Ajv from "npm:ajv@8.12.0";
 import schema from "../userstyles.schema.json" assert { type: "json" };
-import portsSchema from "https://raw.githubusercontent.com/catppuccin/catppuccin/main/resources/ports.schema.json" assert {
+import portsSchema from "https://raw.githubusercontent.com/catppuccin/catppuccin/cad3fe6c9eb2476f9787c386a6b9c70de8e6d468/resources/ports.schema.json" assert {
   type: "json",
 };
 
