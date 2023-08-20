@@ -2,7 +2,7 @@
 import { Ajv, assert, Octokit, parseYaml, path, schema } from "./deps.ts";
 import { UserstylesSchema } from "./types.d.ts";
 
-const octokit = new Octokit({ auth: Deno.env.get("USERSTYLES_TOKEN") });
+const octokit = new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") });
 const team = { org: "catppuccin", team_slug: "userstyles-maintainers" };
 
 const ROOT = new URL(".", import.meta.url).pathname;
