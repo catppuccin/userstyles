@@ -1,78 +1,61 @@
 #!/usr/bin/env -S deno run --allow-read --allow-net --allow-env
-import { Ajv, parseYaml, path, schema } from "./deps.ts";
-import { Userstyles } from "./types.d.ts";
+import { Ajv, assert, Octokit, parseYaml, path, schema } from "./deps.ts";
+import { UserstylesSchema } from "./types.d.ts";
+
+const octokit = new Octokit({ auth: Deno.env.get("USERSTYLES_TOKEN") });
+const team = { org: "catppuccin", team_slug: "userstyles-maintainers" };
 
 const ROOT = new URL(".", import.meta.url).pathname;
-type Metadata = {
-  userstyles: Userstyles;
-};
 
-const ajv = new (Ajv as unknown as (typeof Ajv)["default"])();
-const validate = ajv.compile<Metadata>(schema);
+const ajv = new Ajv.default();
+const validate = ajv.compile<UserstylesSchema>(schema);
 
-const userstylesYaml = Deno.readTextFileSync(path.join(ROOT, "../userstyles.yml"));
+const userstylesYaml = Deno.readTextFileSync(
+  path.join(ROOT, "../userstyles.yml"),
+);
 const userstylesData = parseYaml(userstylesYaml);
 if (!validate(userstylesData)) {
   console.error(validate.errors);
   Deno.exit(1);
 }
 
-const maintainers = [
-  ...new Set(
-    Object.values(userstylesData.userstyles).flatMap((style) =>
-      style.readme["current-maintainers"].map((m) =>
-        m.url.split("/").pop().toLowerCase()
-      )
-    )
-  )
-];
+// lowercase usernames of all maintainers in the file
+const maintainers = userstylesData.collaborators?.map((c) => {
+  const username = c.url.split("github.com/")?.pop();
+  // check that they follow github.com/username pattern
+  assert.assertExists(username);
+  return username.toLowerCase();
+});
 
-const requestGH = async (
-  endpoint: string,
-  method = "GET",
-  returnJson = true,
-  body?: string,
-) => {
-  const res = await fetch(
-    "https://api.github.com/orgs/catppuccin/teams/userstyles-maintainers" +
-    endpoint,
-    {
-      method,
-      headers: {
-        "Authorization": `Bearer ${Deno.args[0]}`,
-      },
-      body,
-    },
-  );
-  return returnJson ? res.json() : res;
-};
-
-const teamMembers = (await requestGH("/members")).map((l: { login: string; }) => l.login.toLowerCase());
-
-const checkEquality = (a: string[], b: string[]) =>
-  a.length === b.length && a.every((e) => b.includes(e));
-const getExtra = (a: string[], b: string[]) => a.filter((e) => !b.includes(e));
+// lowercase usernames of all maintainers in the current GH team
+const teamMembers = await octokit.teams.listMembersInOrg({
+  ...team,
+  per_page: 100,
+}).then((res) => res.data.map((m) => m.login.toLowerCase()));
 
 const syncMaintainers = async () => {
-  if (checkEquality(maintainers, teamMembers)) {
+  if (!maintainers) return;
+  if (assert.equal(maintainers, teamMembers)) {
     console.log("Maintainers are in sync");
     return;
   }
-  if (maintainers.length > teamMembers.length) {
-    for (const m of getExtra(maintainers, teamMembers)) {
-      await requestGH(
-        `/memberships/${m}`,
-        "PUT",
-        false,
-        JSON.stringify({ role: "member" }),
-      );
-      console.log(`Added ${m} to the team`);
-    }
-  } else {
-    for (const m of getExtra(teamMembers, maintainers)) {
-      await requestGH(`/memberships/${m}`, "DELETE", false);
-      console.log(`Removed ${m} from the team`);
-    }
+
+  const toAdd = maintainers.filter((m) => !teamMembers.includes(m));
+  const toRemove = teamMembers.filter((m) => !maintainers.includes(m));
+
+  for (const m of toAdd) {
+    await octokit.teams.addOrUpdateMembershipForUserInOrg({
+      ...team,
+      username: m,
+    });
+  }
+
+  for (const m of toRemove) {
+    await octokit.teams.removeMembershipForUserInOrg({
+      ...team,
+      username: m,
+    });
   }
 };
+
 await syncMaintainers();
