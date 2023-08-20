@@ -13,11 +13,14 @@ jobs:
   generate-health-files:
     runs-on: ubuntu-latest
     name: Generate Health Files
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
 
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.USERSTYLES_TOKEN }}
           ref: ${{ github.ref }}
 
       - name: Set up Deno
