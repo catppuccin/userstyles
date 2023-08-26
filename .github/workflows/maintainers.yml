@@ -17,7 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.USERSTYLES_TOKEN }}
           ref: ${{ github.ref }}
 
       - name: Set up Deno
@@ -32,6 +31,7 @@ jobs:
           path: ${{ env.DENO_DIR }}
 
       - name: Sync Maintainers
+        if: ${{ github.repository == 'catppuccin/userstyles' && github.ref == 'refs/heads/main' }}
         working-directory: src/generate
         run: ./syncMaintainers.ts
         env:
