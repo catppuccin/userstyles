@@ -8,6 +8,7 @@ on:
 
 env:
   DENO_DIR: deno_cache
+  HAS_USERSTYLES_TOKEN: ${{ secrets.USERSTYLES_TOKEN != '' }}
 
 jobs:
   generate-health-files:
@@ -19,7 +20,16 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Check Out Repository
+        uses: actions/checkout@v3
+        if: ${{ env.HAS_USERSTYLES_TOKEN }}
+        with:
+          token: ${{ secrets.USERSTYLES_TOKEN }}
+          ref: ${{ github.ref }}
+
+      - name: Check Out Repository (Fork)
+        uses: actions/checkout@v3
+        if: "!${{ env.HAS_USERSTYLES_TOKEN }}"
         with:
           ref: ${{ github.ref }}
 
@@ -40,7 +50,7 @@ jobs:
 
       - name: Push Changes
         uses: stefanzweifel/git-auto-commit-action@v4
-        if: ${{ github.repository == 'catppuccin/userstyles' && github.ref == 'refs/heads/main' }}
+        if: ${{ github.repository == 'catppuccin/userstyles' && github.ref == 'refs/heads/main' && env.HAS_USERSTYLES_TOKEN }}
         with:
           commit_message: "chore: generate health files"
           commit_author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
