@@ -92,6 +92,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <details open>
 <summary>🗂️ Productivity</summary>
 
+- [boringproxy](styles/boringproxy)
 - [Canvas LMS](styles/canvas-lms)
 - [ChatGPT](styles/chatgpt)
 - [Codeberg](styles/codeberg)
@@ -106,7 +107,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [Quizlet](styles/quizlet)
 - [Tutanota](styles/tutanota)
 - [WikiWand](styles/wikiwand)
-- [boringproxy](styles/boringproxy)
 
 </details>
 <details open>
