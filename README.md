@@ -114,14 +114,11 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 - [Elk](styles/elk)
 - [Hacker News](styles/hacker-news)
-- [Invidious](styles/invidious)
 - [Libreddit](styles/libreddit)
 - [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
 - [Reddit](styles/reddit)
 - [Substack](styles/substack)
-- [Twitch](styles/twitch)
-- [YouTube](styles/youtube)
 
 </details>
 <details open>
@@ -129,7 +126,10 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 - [AniList, AniChart](styles/anilist)
 - [ChatReplay](styles/chatreplay)
+- [Invidious](styles/invidious)
 - [Last.fm](styles/lastfm)
+- [Twitch](styles/twitch)
+- [YouTube](styles/youtube)
 
 </details>
 <details open>
