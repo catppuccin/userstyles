@@ -2,7 +2,7 @@
 @name           Mastodon Catppuccin
 @namespace      github.com/catppuccin/userstyles/styles/mastodon
 @homepageURL    https://github.com/catppuccin/userstyles/tree/main/styles/mastodon
-@version        1.1.6
+@version        1.1.9
 @description    Soothing pastel theme for Mastodon
 @author         Catppuccin
 @updateURL      https://github.com/catppuccin/userstyles/raw/main/styles/mastodon/catppuccin.user.css
@@ -189,9 +189,18 @@ domain("piaille.fr") {
 
     &,
     .tabs-bar__wrapper,
-    .admin-wrapper .sidebar-wrapper__inner {
+    .admin-wrapper .sidebar-wrapper__inner,
+    .ui__header{
       background: @crust;
       color: @text;
+    }
+    
+    .ui__header {
+        border-bottom: none;
+    }
+    
+    .navigation-panel, .column-link{
+        background: transparent;
     }
 
     .account__header__bio .account__header__fields dt {
@@ -254,7 +263,7 @@ domain("piaille.fr") {
       border-color: @surface0
     }
 
-
+    .mention,
     .account__header__tabs__name h1,
     .account__header__content a,
     .account__header__bio .account__header__fields a,
@@ -268,12 +277,33 @@ domain("piaille.fr") {
     .column-header__back-button,
     .navigation-bar strong,
     .reply-indicator__content a.unhandled-link,
-    .status__content a.unhandled-link {
+    .status__content a.unhandled-link,
+    .announcements__item__content a.unhandled-link,
+    .reactions-bar__item.active .reactions-bar__item__count,
+    .column-header.active .column-header__icon{
       color: @accent-color;
+    }
+    
+    .conversation__unread,
+    .react-toggle--checked .react-toggle-track, .react-toggle--checked:hover .react-toggle-track,
+    .pillbar-button:not([disabled]).active, .pillbar-button:not([disabled]).active:focus, .pillbar-button:not([disabled]).active:hover,
+    .radio-button__input.checked{
+        background-color: @accent-color;
+    }
+    
+    .reactions-bar__item.active {
+        background-color: rgba(@accent-color, .25);
+    }
+    
+    .trends__item__sparkline path:last-child {
+        stroke: @accent-color !important;
+    }
+    .trends__item__sparkline path:first-child {
+        fill: rgba(@accent-color, .25) !important;
     }
 
     .icon-button,
-    .notification__message .fa {
+    .notification__message .fa{
       color: @surface2;
     }
 
@@ -291,13 +321,11 @@ domain("piaille.fr") {
       color: @accent-color;
     }
 
-    .ui__header,
     .column-header,
     .column-header__button,
     .column-header__back-button,
     .column-back-button,
     .drawer__header,
-    .account__section-headline,
     .notification__filter-bar,
     .account__section-headline button,
     .notification__filter-bar button,
@@ -311,20 +339,48 @@ domain("piaille.fr") {
     .account__header__fields,
     .account__header__fields dt,
     .account__header__fields dd:not(.account__header__bio .account__header__fields dd),
-    .focusable:focus,
-    .admin-wrapper .sidebar ul .simple-navigation-active-leaf .selected {
-      border-color: @mantle;
-      background: @surface1;
+    .admin-wrapper .sidebar ul .simple-navigation-active-leaf .selected,
+    .explore__search-header,
+    .column-inline-form,
+    .follow_requests-unlocked_explanation,
+    .conversation--unread,
+    .column-header__collapsible-inner,
+    .announcements,
+    .status-card__image,
+    .account__header__bar{
+      border-color: @crust;
+      background: @surface0;
+    }
+    
+    .account__section-headline {
+        background: @mantle;
+        border-color: @crust
+    }
+    
+    .focusable:focus {
+        background: unset;
     }
 
     .admin-wrapper .sidebar ul a:hover,
-    .admin-wrapper .sidebar ul .simple-navigation-active-leaf a:hover {
+    .admin-wrapper .sidebar ul .simple-navigation-active-leaf a:hover,
+    .detailed-status, .detailed-status__action-bar{
       background: @surface0;
+    }
+    
+    .detailed-status__wrapper > div:first-child .detailed-status {
+        border-top: none;
     }
 
     .dismissable-banner {
       border-color: @surface1;
       background: @base;
+    }
+    
+    .column-header__wrapper.active {
+        box-shadow: 0 1px 0 rgba(@accent-color,.3);
+    }
+    .column-header__wrapper.active::before {
+        background: radial-gradient(ellipse,rgba(@accent-color,.23) 0,rgba(99,100,255,0) 60%);
     }
 
     .theme-mastodon-light .account__header__bar,
@@ -344,11 +400,11 @@ domain("piaille.fr") {
     }
 
 
-    .public-layout .public-account-header__tabs__tabs .counter::after {
-      border-color: @accent-color;
-    }
-
-    .public-layout .public-account-header__tabs__tabs .counter.active::after {
+    .public-layout .public-account-header__tabs__tabs .counter::after,
+    .public-layout .public-account-header__tabs__tabs .counter.active::after ,
+    .react-toggle--checked .react-toggle-thumb,
+    .radio-button__input.checked,
+    .account__action-bar__tab.active{
       border-color: @accent-color;
     }
 
@@ -408,7 +464,8 @@ domain("piaille.fr") {
 
     .button,
     .button.button-tertiary,
-    .button.logo-button {
+    .button.logo-button,
+    .icon-with-badge__badge {
       background: @accent-color;
       color: @base;
     }
@@ -426,12 +483,17 @@ domain("piaille.fr") {
       background-color: @surface2;
     }
 
+    .button.button-secondary {
+        background-color: transparent;
+        color: @text;
+        border-color: @accent-color;
+    }
     .button.button-secondary:active,
     .button.button-secondary:focus,
     .button.button-secondary:hover {
       border-color: @accent-color;
       color: @base;
-      transition: .4s;
+      transition: .2s;
     }
 
     .button:active,
@@ -447,7 +509,8 @@ domain("piaille.fr") {
     }
 
     .drawer__inner,
-    .drawer__inner__mastodon {
+    .drawer__inner__mastodon,
+    .explore__search-header .search__input{
       background-color: @base;
     }
 
@@ -460,7 +523,7 @@ domain("piaille.fr") {
     }
 
     .compose-form .autosuggest-textarea__textarea::placeholder {
-      color: @subtext0
+      color: @subtext0 !important
     }
 
     .compose-form .compose-form__buttons-wrapper {
@@ -568,7 +631,8 @@ domain("piaille.fr") {
       color: @text !important;
     }
 
-    .table > thead > tr > th {
+    .table > thead > tr > th,
+    .setting-text:active, .setting-text:focus{
       border-color: @accent-color !important;
     }
 
