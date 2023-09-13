@@ -2,7 +2,7 @@
 @name           Tutanota Catppuccin
 @namespace      github.com/catppuccin/userstyles/styles/tutanota
 @homepageURL 	https://github.com/catppuccin/userstyles/tree/main/styles/tutanota
-@version        0.0.3
+@version        0.0.4
 @description    Soothing pastel theme for Tutanota
 @author         Catppuccin
 @updateURL      https://github.com/catppuccin/userstyles/raw/main/styles/tutanota/catppuccin.user.css
@@ -10,11 +10,12 @@
 
 @preprocessor less
 @var select flavor "Flavor" ["latte:Latte", "frappe:Frappe", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red*", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select accentSelect "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red*", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
+
 @-moz-document domain("mail.tutanota.com") {
   :root {
-    #catppuccin(@flavor, @accentColor);
+    #catppuccin(@flavor, @accentSelect);
   }
 
   @catppuccin: {
@@ -132,7 +133,7 @@
     };
   };
 
-  #catppuccin(@lookup, @accent) {
+  #catppuccin(@lookup, @accentSelect) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
     @pink: @catppuccin[@@lookup][@pink];
@@ -159,12 +160,12 @@
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
-    @accent-Color: @catppuccin[@@lookup][@@accent];
+    @accent: @catppuccin[@@lookup][@@accentSelect];
 
     body,
     drawer-menu,
     .list-bg {
-      background-color: @base !important;
+      background-color: @mantle !important;
       color: @text;
     }
 
@@ -177,13 +178,12 @@
 
     .header-nav {
       background-color: @base;
-      box-shadow: 0 2px 4px 0 @surface0;
     }
 
     .elevated-bg,
     .folder-column,
     div[aria-modal] {
-      background-color: @surface0 !important;
+      background-color: @base !important;
     }
 
     .dropdown-button,
@@ -218,27 +218,57 @@
       fill: @subtext0 !important;
     }
 
-    [style*="0"][style*="210"][style*="167"] {
-      color: @accent !important;
-      fill: @accent !important;
-      border-color: @accent !important;
+    .bubble {
+      background-color: @base;
+      color: @text;
     }
 
-    :is([style*="color"], [style*="fill"])[style*="78"] {
+    :where(.mouse-nav) .state-bg:hover,
+    :where(.keyboard-nav) .state-bg:hover,
+    [style*="background: rgba(139, 139, 139, 0.22)"] {
+      background-color: @surface0 !important;
+    }
+
+    .nav-bg,
+    .content-bg,
+    [style*="background-color: rgb(35, 35, 35)"] {
+      background-color: @base !important;
+    }
+    [style*="background-color: rgb(17, 17, 17);"] {
+      background-color: @mantle !important;
+    }
+    [style*="background-color: rgba(139, 139, 139, 0.22);"] {
+      background-color: @surface0 !important;
+    }
+    [style*="background-color: rgba(139, 139, 139, 0.38);"] {
+      background-color: @surface1 !important;
+    }
+
+    [style*="color: rgb(221, 221, 221);"] {
+      color: @text !important;
+    }
+
+    [style*="color: rgb(174, 174, 174);"] {
       color: @subtext1 !important;
-      fill: @subtext1 !important;
+    }
+
+    .teamLabel {
+      background-color: @accent;
+      color: @mantle;
+    }
+
+    [style*="border: 2px solid rgb(0, 210, 167);"] {
+      border-color: @accent !important;
+    }
+    [style*="color: rgb(0, 210, 167);"] {
+      color: @accent !important;
     }
 
     button.expander {
       color: @subtext0 !important;
     }
 
-    div
-      > div.header-nav.overflow-hidden.flex.items-end.flex-center
-      > div.header-left.pl-l.ml-negative-s.flex-start.items-center
-      > div
-      > svg
-      > path {
+    .logo-height > svg:nth-child(1) > path:nth-child(2) {
       fill: @accent !important;
     }
 
