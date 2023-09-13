@@ -136,6 +136,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <summary>🎮 Games</summary>
 
 - [Advent Of Code](styles/advent-of-code)
+- [bStats](styles/bstats)
 - [Chess.com](styles/chess.com)
 - [Modrinth](styles/modrinth)
 
