@@ -69,6 +69,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <details open>
 <summary>💭 Development tools</summary>
 
+- [Hoppscotch](styles/hoppscotch)
 - [paste.rs](styles/paste.rs)
 - [Vercel](styles/vercel)
 
