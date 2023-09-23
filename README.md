@@ -80,6 +80,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 - [Brave Search](styles/brave-search)
 - [Ecosia](styles/ecosia)
+- [Google](styles/google)
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
 
