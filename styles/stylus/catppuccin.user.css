@@ -2,7 +2,7 @@
 @name           Stylus Catppuccin
 @namespace      github.com/catppuccin/userstyles/styles/stylus
 @homepageURL    https://github.com/catppuccin/userstyles/tree/main/styles/stylus
-@version        1.0.6
+@version        1.0.7
 @updateURL 	https://github.com/catppuccin/userstyles/raw/main/styles/stylus/catppuccin.user.css
 @description    Soothing pastel theme for Stylus
 @author         Catppuccin
@@ -11,6 +11,7 @@
 @preprocessor   less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappe", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappe", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
 @-moz-document url-prefix("moz-extension://"), url-prefix(chrome-extension://) {
@@ -30,7 +31,6 @@
             @sapphire: #209fb5;
             @blue: #1e66f5;
             @lavender: #7287fd;
-            @teala: rgba(23, 146, 153, 0.25);
             @text: #4c4f69;
             @subtext1: #5c5f77;
             @subtext0: #6c6f85;
@@ -59,7 +59,6 @@
             @sapphire: #85c1dc;
             @blue: #8caaee;
             @lavender: #babbf1;
-            @teala: rgba(129, 200, 190, 0.25);
             @text: #c6d0f5;
             @subtext1: #b5bfe2;
             @subtext0: #a5adce;
@@ -88,7 +87,6 @@
             @sapphire: #7dc4e4;
             @blue: #8aadf4;
             @lavender: #b7bdf8;
-            @teala: rgba(139, 213, 202, 0.25);
             @text: #cad3f5;
             @subtext1: #b8c0e0;
             @subtext0: #a5adcb;
@@ -117,7 +115,6 @@
             @sapphire: #74c7ec;
             @blue: #89b4fa;
             @lavender: #b4befe;
-            @teala: rgba(148, 226, 213, 0.25);
             @text: #cdd6f4;
             @subtext1: #bac2de;
             @subtext0: #a6adc8;
@@ -133,7 +130,7 @@
         }
     }
 
-    #catppuccin(@lookup) {
+    #catppuccin(@lookup, @accent) {
         @rosewater: @catppuccin[@@lookup][@rosewater];
         @flamingo: @catppuccin[@@lookup][@flamingo];
         @pink: @catppuccin[@@lookup][@pink];
@@ -144,7 +141,6 @@
         @yellow: @catppuccin[@@lookup][@yellow];
         @green: @catppuccin[@@lookup][@green];
         @teal: @catppuccin[@@lookup][@teal];
-        @teala: @catppuccin[@@lookup][@teala];
         @sky: @catppuccin[@@lookup][@sky];
         @sapphire: @catppuccin[@@lookup][@sapphire];
         @blue: @catppuccin[@@lookup][@blue];
@@ -161,6 +157,7 @@
         @base: @catppuccin[@@lookup][@base];
         @mantle: @catppuccin[@@lookup][@mantle];
         @crust: @catppuccin[@@lookup][@crust];
+        @color: @catppuccin[@@lookup][@@accent];
         
         &:root {
             --bg: @base;
@@ -175,14 +172,14 @@
             --c80: @surface1;
             --c85: @surface0;
             --c95: @mantle;
-            --accent-1: @sky;
-            --accent-2: @teal;
-            --accent-3: @teal;
+            --accent-1: @color;
+            --accent-2: @color;
+            --accent-3: @color;
         }
 
         .active #filters-stats {
-          background-color: @teal;
-          border-color: @teal;
+          background-color: @color;
+          border-color: @color;
           color: @base;
         }
         #header-resizer {
@@ -192,7 +189,7 @@
           background-color: @surface0;
         }
         .oldUI .disabled h2::after, .entry.usercss .style-name-link::after {
-          background-color: @teala;
+          background-color: fade(@color, 25%);
         }
         .CodeMirror-linenumber {
           color: @subtext0;
@@ -255,32 +252,35 @@
           fill: @overlay0;
         }
         .onoffswitch input:checked + span {
-          background-color: @teala
+          background-color: fade(@color, 25%)
         }
         .onoffswitch input:checked + span::before {
-          background-color: @teal;
+          background-color: @color;
         }
         #options-title {
-            color: @base;
+          color: @base;
         }
         h2 {
-            color: @teal !important;
+          color: @color !important;
         }
         .installed .configure-usercss svg {
-          fill: @teal !important;
+          fill: @color !important;
         }
         .installed .configure-usercss:hover svg {
-          fill: @teal !important;
+          fill: @color !important;
+        }
+        .cm-s-default .cm-variable {
+          color: @text;
         }
     }
     @media (prefers-color-scheme: light) {
         :root {
-          #catppuccin(@lightFlavor);
+          #catppuccin(@lightFlavor, @accentColor);
         }
     }
     @media (prefers-color-scheme: dark) {
         :root {
-          #catppuccin(@darkFlavor);
+          #catppuccin(@darkFlavor, @accentColor);
         }
     }
 }
