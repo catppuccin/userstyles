@@ -36,9 +36,6 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Usage  
-> **Note** <br>
-> Make sure your base YouTube theme is set to **light** mode!
 
 
 ## 🙋 FAQ
