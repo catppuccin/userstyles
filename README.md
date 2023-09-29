@@ -71,7 +71,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 - [Hoppscotch](styles/hoppscotch)
 - [paste.rs](styles/paste.rs)
-- [Stylus](styles/stylus)
 - [Vercel](styles/vercel)
 
 </details>
