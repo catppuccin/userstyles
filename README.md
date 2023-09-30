@@ -69,6 +69,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 <details open>
 <summary>💭 Development tools</summary>
 
+- [Hoppscotch](styles/hoppscotch)
 - [paste.rs](styles/paste.rs)
 - [Vercel](styles/vercel)
 
@@ -80,6 +81,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [Ecosia](styles/ecosia)
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
+- [Startpage](styles/startpage)
 
 </details>
 <details open>
