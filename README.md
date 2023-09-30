@@ -141,6 +141,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [bStats](styles/bstats)
 - [Chess.com](styles/chess.com)
 - [Modrinth](styles/modrinth)
+- [Planet Minecraft](styles/planet-minecraft)
 
 </details>
 <!-- AUTOGEN:USERSTYLES END -->
