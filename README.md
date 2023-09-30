@@ -81,6 +81,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [Ecosia](styles/ecosia)
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
+- [Startpage](styles/startpage)
 
 </details>
 <details open>
