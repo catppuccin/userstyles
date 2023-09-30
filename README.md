@@ -107,6 +107,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [InvokeAI](styles/invokeai)
 - [Proton](styles/proton)
 - [Quizlet](styles/quizlet)
+- [Stylus](styles/stylus)
 - [Tutanota](styles/tutanota)
 - [WikiWand](styles/wikiwand)
 
