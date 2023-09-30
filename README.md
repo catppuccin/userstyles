@@ -81,6 +81,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [Ecosia](styles/ecosia)
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
+- [Startpage](styles/startpage)
 
 </details>
 <details open>
@@ -140,6 +141,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [bStats](styles/bstats)
 - [Chess.com](styles/chess.com)
 - [Modrinth](styles/modrinth)
+- [Planet Minecraft](styles/planet-minecraft)
 
 </details>
 <!-- AUTOGEN:USERSTYLES END -->
