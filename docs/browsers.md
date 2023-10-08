@@ -3,7 +3,7 @@
 > [!NOTE]
 > If you see a popular browser that hasn't been added, please create a pull request to do so!
 
-Find your browser version by following the instructions below:
+Find your browser version by following the link for your browser.
 
 <table>
   <thead>
