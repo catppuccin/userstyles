@@ -29,6 +29,10 @@ Find your browser version by following the link for your browser.
       <td>Microsoft Edge</td>
       <td><code>edge://version/</code></td>
     </tr>
+    <tr>
+      <td>Arc</td>
+      <td><code>arc://version/</code></td>
+    </tr>
   </tbody>
 </table>
 
