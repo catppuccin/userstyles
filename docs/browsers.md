@@ -6,26 +6,30 @@
 Find your browser version by following the instructions below:
 
 <table>
-<tr>
- <td>Browser</td>
- <td>URL</td>
-</tr>
-<tr>
- <td>Chromium</td>
- <td><code>chrome://version/</code></td>
-</tr>
-<tr>
- <td>Firefox</td>
- <td><code>about:support</code></td>
-</tr>
-<tr>
- <td>Opera (GX)</td>
- <td><code>opera://about/</code></td>
-</tr>
-<tr>
- <td>Microsoft Edge</td>
- <td><code>edge://version/</code></td>
-</tr>
+  <thead>
+    <tr>
+      <th>Browser</th>
+      <th>URL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Chromium</td>
+      <td><code>chrome://version/</code></td>
+    </tr>
+    <tr>
+      <td>Firefox</td>
+      <td><code>about:support</code></td>
+    </tr>
+    <tr>
+      <td>Opera (GX)</td>
+      <td><code>opera://about/</code></td>
+    </tr>
+    <tr>
+      <td>Microsoft Edge</td>
+      <td><code>edge://version/</code></td>
+    </tr>
+  </tbody>
 </table>
 
 ## Common Issues
