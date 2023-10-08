@@ -55,8 +55,8 @@ To install these userstyles:
 
 ## 👐 Contributing
 
-> **Note** <br>
-> If you would like to submit a userstyle or learn how to port Catppuccin to a website, please refer to the [userstyle-creation.md](docs/userstyle-creation.md).
+> [!NOTE]
+> If you would like to submit a userstyle or learn how to port Catppuccin to a website, please refer to [userstyle-creation.md](docs/userstyle-creation.md).
 
 See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
