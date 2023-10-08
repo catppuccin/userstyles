@@ -108,6 +108,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [Proton](styles/proton)
 - [Quizlet](styles/quizlet)
 - [Stylus](styles/stylus)
+- [Syncthing](styles/syncthing)
 - [Tutanota](styles/tutanota)
 - [WikiWand](styles/wikiwand)
 
