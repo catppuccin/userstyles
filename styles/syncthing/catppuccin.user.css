@@ -2,7 +2,7 @@
 @name Syncthing Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/syncthing
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/syncthing
-@version 0.1.0
+@version 0.1.1
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/syncthing/catppuccin.user.css
 @description Soothing pastel theme for Syncthing
 @author Catppuccin
@@ -12,11 +12,15 @@
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
-@var number port "Syncthing Port" 8384
+@var text urls "URL(s) for Syncthing" "127\.0\.0\.1\:8384,localhost\:8384"
 
 ==/UserStyle== */
 
-@-moz-document regexp(%("https?://.*:%d/.*", @port))
+/*
+  `replace(<stuff> ," ", "", "g")` is here to remove extra spaces (if any)
+*/
+
+@-moz-document regexp(replace(replace(%("https?://(%s)/.*", @urls), ",", "|"), " ", "", "g"))
 {
   @catppuccin: {
     @latte: {
