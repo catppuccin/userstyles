@@ -37,8 +37,8 @@
 </details>
 
 ## Usage  
-> **Note** <br>
-> This theme is designed to be used with the default WebGUI and default theme provided by Syncthing. This doesn't theme syncthing.net
+> [!NOTE]
+> This theme is designed to be used with the default WebGUI and default theme provided by Syncthing. This does not theme syncthing.net.
 
 
 

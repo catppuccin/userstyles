@@ -37,7 +37,7 @@
 </details>
 
 ## Usage  
-> **Note** <br>
+> [!NOTE]
 > This theme applies to [AniChart](https://anichart.net/) as well, which is an extension of AniList.
 
 
