@@ -42,6 +42,9 @@ This userstyle is applied by default on a few common Mastodon server URLs, liste
 @-moz-document domain("mastodon.social"), domain("mstdn.social"), domain("fosstodon.org"), domain("piaille.fr"), domain("tech.lgbt") {
 ```
 If you don't see your Mastodon server URL, feel free to add it to the list with the `domain("<URL>")` syntax.
+> [!WARNING]
+> On update your custom `@-moz-document domain("url")` will be removed so will have to re applied upon update. 
+> Therefore we strongly encorage users to contribute to the project with their instances.
 
 
 ## 🙋 FAQ
