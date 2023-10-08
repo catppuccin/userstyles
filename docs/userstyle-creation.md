@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-	Guidelines for requesting and creating userstyles
+	Guidelines for requesting and creating userstyles.
 </p>
 
 &nbsp;
