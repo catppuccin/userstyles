@@ -6,23 +6,23 @@ on:
     branches: [main]
 
 jobs:
-  run:
-    name: Spell Check
+  spellcheck:
+    name: Spellcheck
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: crate-ci/typos@master
       id: typos
       continue-on-error: true
 
     # 'continue-on-error' will always succeed, we should exit based on the outcome and not the conclusion
     # ref: https://docs.github.com/en/actions/learn-github-actions/contexts#steps-context
-    - name: Fail When Typos Are Found in Pull Request
+    - name: Fail when typos are found in pull request
       if: ${{ github.event_name == 'pull_request' && steps.typos.outcome != 'success' }}
       run: "exit 1"
 
     # We always want this check to pass on branch 'main' but continue to fail on PRs
-    - name: Pass When Branch 'main'
+    - name: Pass on 'main' branch
       if: ${{ github.repository == 'catppuccin/userstyles' && github.ref == 'refs/heads/main' }}
       run: "exit 0"
