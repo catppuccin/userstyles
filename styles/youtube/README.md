@@ -36,14 +36,11 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Usage  
-> **Note** <br>
-> Make sure your base YouTube theme is set to **light** mode!
 
 
 ## 🙋 FAQ
 - Q: **What does the 'Enable for black bars' option mean?**  
-	A: It is there in-case you have an OLED display. If you have one, you might want to enable this.
+	A: It's available in case you have an OLED display. If you have one, you might want to enable this.
 
 ## 💝 Current Maintainer(s)
 - [Isabel](https://github.com/isabelroses)

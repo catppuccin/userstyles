@@ -37,7 +37,7 @@
 </details>
 
 ## Usage  
-Set theme to dark or light in Brave Search settings, the automatic setting will not work
+Make sure to set the theme to either dark or light in Brave Search settings, as the automatic setting will not work.
 
 
 

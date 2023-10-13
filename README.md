@@ -42,7 +42,7 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 To install these userstyles:
 
-1. Install [Stylus](https://github.com/openstyles/stylus)
+1. Install [Stylus](https://github.com/openstyles/stylus).
    - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
      extension.
 2. Enable CSP Patching from `Stylus Settings` > `Advanced`.
@@ -55,10 +55,10 @@ To install these userstyles:
 
 ## 👐 Contributing
 
-> **Note** <br>
-> If you would like to submit a userstyle or learn how to port Catppuccin to a website, please refer to the [userstyle-creation.md](docs/userstyle-creation.md).
+> [!NOTE]
+> If you would like to submit a userstyle or learn how to port Catppuccin to a website, please refer to [userstyle-creation.md](docs/userstyle-creation.md).
 
-See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
+See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 &nbsp;
 
@@ -82,6 +82,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [Ecosia](styles/ecosia)
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
+- [Startpage](styles/startpage)
 
 </details>
 <details open>
@@ -107,6 +108,8 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [InvokeAI](styles/invokeai)
 - [Proton](styles/proton)
 - [Quizlet](styles/quizlet)
+- [Stylus](styles/stylus)
+- [Syncthing](styles/syncthing)
 - [Tutanota](styles/tutanota)
 - [WikiWand](styles/wikiwand)
 
@@ -141,6 +144,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md)
 - [bStats](styles/bstats)
 - [Chess.com](styles/chess.com)
 - [Modrinth](styles/modrinth)
+- [Planet Minecraft](styles/planet-minecraft)
 
 </details>
 <!-- AUTOGEN:USERSTYLES END -->
