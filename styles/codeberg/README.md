@@ -40,7 +40,9 @@
 
 ## 🙋 FAQ
 - Q: How do I change the accent color?  
-	A: Changing `--color-primary` to any other color should change the accent color in most places
+	A: You can change the Accent color via the option menu, where you also select your Flavor
+- Q: My top-bar looks ugly (tinted in the accent color), how do I change that?
+	A: Please head over to the `Settings` (on Codeberg) and change the theme to `forgejo-auto` or `gitea`
 
 ## 💝 Current Maintainer(s)
 - [justTOBBI](https://github.com/justTOBBI)
