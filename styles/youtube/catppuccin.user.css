@@ -2,7 +2,7 @@
 @name YouTube Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/youtube
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/youtube
-@version 3.0.9
+@version 3.0.12
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/youtube/catppuccin.user.css
 @description Soothing pastel theme for YouTube
 @author Catppuccin
@@ -150,7 +150,7 @@
       --yt-spec-text-primary-inverse: @crust !important;
       --yt-spec-call-to-action: @accent-Color !important;
       --yt-spec-call-to-action-inverse: @accent-Color !important;
-      --yt-spec-suggested-action: @surface1 !important;
+      --yt-spec-suggested-action: fadeout(@accent-Color, 80%) !important;
       --yt-spec-suggested-action-inverse: @text !important;
       --yt-spec-icon-active-other: @overlay0 !important;
       --yt-spec-icon-inactive: @overlay1 !important;
@@ -219,10 +219,14 @@
       --yt-spec-general-background-b: @mantle !important;
       --yt-spec-general-background-c: @crust !important;
       --yt-spec-error-background: @base !important;
-      --yt-spec-10-percent-layer: @surface0 !important;
+      --yt-spec-10-percent-layer: @surface2 !important;
       --yt-spec-snackbar-background: @mantle !important;
       --yt-spec-snackbar-background-updated: @mantle !important;
-      --yt-spec-badge-chip-background: @surface0 !important;
+      --yt-spec-badge-chip-background: if(
+        @lookup = latte,
+        @crust,
+        @surface1
+      ) !important;
       --yt-spec-verified-badge-background: @overlay0 !important;
       --yt-spec-call-to-action-fadeoutd: fadeout(@sapphire, 0.3) !important;
       --yt-spec-call-to-action-hover: @accent-Color !importantr;
@@ -510,14 +514,9 @@
       }
     }
 
+    .ytp-right-controls svg path,
     .ytp-svg-fill {
-      fill: @text;
-    }
-
-    .ytp-right-controls {
-      svg path {
-        fill: @text !important;
-      }
+      fill: #fff !important;
     }
 
     .ytp-time-current,
@@ -525,7 +524,15 @@
     .ytp-time-duration,
     .ytp-menu-label-secondary,
     .ytp-menuitem-label-count {
-      color: @subtext0;
+      color: #fff;
+    }
+
+    .ytp-tooltip:not([aria-hidden="true"]) {
+      color: @text;
+    }
+
+    .style-scope.ytd-thumbnail-overlay-toggle-button-renderer:hover {
+      fill: @accent-Color !important;
     }
 
     .style-scope.ytd-thumbnail-overlay-toggle-button-renderer:hover {
@@ -730,7 +737,7 @@
       color: @crust !important;
     }
     .yt-spec-icon-badge-shape--style-overlay .yt-spec-icon-badge-shape__icon {
-      color: @text !important;
+      color: var(--yt-spec-icon-active-other) !important;
     }
 
     /* creator badges */

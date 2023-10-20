@@ -2,7 +2,7 @@
 @name           Github Catppuccin
 @namespace      github.com/catppuccin/userstyles/styles/github
 @homepageURL 	https://github.com/catppuccin/userstyles/tree/main/styles/github
-@version        1.2.5
+@version        1.2.7
 @description    Soothing pastel theme for GitHub
 @author         Catppuccin
 @updateURL      https://github.com/catppuccin/userstyles/raw/main/styles/github/catppuccin.user.css
@@ -44,7 +44,7 @@
     @base: #eff1f5;
     @mantle: #e6e9ef;
     @crust: #dce0e8;
-  }
+  };
   @frappe: {
     @rosewater: #f2d5cf;
     @flamingo: #eebebe;
@@ -72,7 +72,7 @@
     @base: #303446;
     @mantle: #292c3c;
     @crust: #232634;
-  }
+  };
   @macchiato: {
     @rosewater: #f4dbd6;
     @flamingo: #f0c6c6;
@@ -100,7 +100,7 @@
     @base: #24273a;
     @mantle: #1e2030;
     @crust: #181926;
-  }
+  };
   @mocha: {
     @rosewater: #f5e0dc;
     @flamingo: #f2cdcd;
@@ -128,11 +128,10 @@
     @base: #1e1e2e;
     @mantle: #181825;
     @crust: #11111b;
-  }
-}
+  };
+};
 
-@-moz-document regexp("https:\/\/(gist\.)*github\.com(?!\/(marketplace|organizations\/plan)).*") {
-
+@-moz-document regexp("https:\/\/(gist\.)*github\.com(?!\/(home|marketplace|organizations\/plan)).*") {
   [data-color-mode="light"],
   [data-color-mode="auto"] > .theme-light {
     #catppuccin(@lightFlavor, @accentColor);
@@ -152,10 +151,11 @@
     }
   }
 
-  html:not([data-light-theme="light"]) body::after, html:not([data-dark-theme="dark"]) body::after {
+  html:not([data-light-theme="light"]) body:not(.logged-out)::after,
+  html:not([data-dark-theme="dark"]) body:not(.logged-out)::after {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     padding: 1rem;
     margin: 1rem;
     font-size: 0.9rem;
@@ -164,7 +164,7 @@
     max-width: 40ch;
     background-color: var(--color-danger-fg);
     color: var(--color-header-bg);
-    content: "You're using an unsupported GitHub theme! Please switch to the default light/dark theme to get the best experience for the Catppuccin GitHub userstyle.";
+    content: "Unsupported GitHub theme detected! Please switch to the default light/dark theme via the GitHub Appearance settings to get the best experience for the Catppuccin GitHub userstyle.";
     z-index: 9999;
   }
 
@@ -219,7 +219,7 @@
 
     &,
     & body {
-	    accent-color: @accent-color;
+      accent-color: @accent-color;
       --bgColor-default: @base;
       --color-canvas-default-transparent: rgba(13, 17, 23, 0);
       --color-page-header-bg: @base;
@@ -383,12 +383,11 @@
       --color-mktg-btn-shadow-outline: rgb(255, 255, 255 / 25%) 0 0 0 1px inset;
       --color-mktg-btn-shadow-focus: rgb(255, 255, 255 / 25%) 0 0 0 4px;
       --color-mktg-btn-shadow-hover: 0 4px 7px rgba(0, 0, 0, 0.15),
-      0 100px 80px rgba(255, 255, 255, 0.02),
-      0 42px 33px rgba(255, 255, 255, 0.024),
-      0 22px 18px rgba(255, 255, 255, 0.028),
-      0 12px 10px rgba(255, 255, 255, 0.034),
-      0 7px 5px rgba(255, 255, 255, 0.04),
-      0 3px 2px rgba(255, 255, 255, 0.07);
+        0 100px 80px rgba(255, 255, 255, 0.02),
+        0 42px 33px rgba(255, 255, 255, 0.024),
+        0 22px 18px rgba(255, 255, 255, 0.028),
+        0 12px 10px rgba(255, 255, 255, 0.034),
+        0 7px 5px rgba(255, 255, 255, 0.04), 0 3px 2px rgba(255, 255, 255, 0.07);
       --color-mktg-btn-shadow-hover-muted: rgb(255, 255, 255) 0 0 0 2px inset;
       --color-avatar-bg: rgba(255, 255, 255, 0.1);
       --color-avatar-border: rgba(240, 246, 252, 0.1);
@@ -400,8 +399,7 @@
       --color-select-menu-backdrop-border: #484f58;
       --color-select-menu-tap-highlight: rgba(48, 54, 61, 0.5);
       --color-select-menu-tap-focus-bg: #0c2d6b;
-      --color-overlay-shadow: 0 0 0 1px #30363d,
-      0 16px 32px rgba(1, 4, 9, 0.85);
+      --color-overlay-shadow: 0 0 0 1px #30363d, 0 16px 32px rgba(1, 4, 9, 0.85);
       --color-header-text: var(--subtext2);
       --color-header-bg: @base;
 
@@ -457,7 +455,8 @@
       --color-btn-outline-hover-bg: #30363d;
       --color-btn-outline-hover-border: rgba(240, 246, 252, 0.1);
       --color-btn-outline-hover-shadow: 0 1px 0 rgba(1, 4, 9, 0.1);
-      --color-btn-outline-hover-inset-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      --color-btn-outline-hover-inset-shadow: inset 0 1px 0
+        rgba(255, 255, 255, 0.03);
       --color-btn-outline-hover-counter-bg: rgba(255, 255, 255, 0.2);
       --color-btn-outline-selected-text: #ffffff;
       --color-btn-outline-selected-bg: #0d419d;
@@ -634,15 +633,15 @@
       --color-scale-pink-7: #7d2457;
       --color-scale-pink-8: #5e103e;
       --color-scale-pink-9: #42062a;
-      --color-scale-coral-0: #FFDDD2;
-      --color-scale-coral-1: #FFC2B2;
-      --color-scale-coral-2: #FFA28B;
-      --color-scale-coral-3: #F78166;
-      --color-scale-coral-4: #EA6045;
-      --color-scale-coral-5: #CF462D;
-      --color-scale-coral-6: #AC3220;
+      --color-scale-coral-0: #ffddd2;
+      --color-scale-coral-1: #ffc2b2;
+      --color-scale-coral-2: #ffa28b;
+      --color-scale-coral-3: #f78166;
+      --color-scale-coral-4: #ea6045;
+      --color-scale-coral-5: #cf462d;
+      --color-scale-coral-6: #ac3220;
       --color-scale-coral-7: #872012;
-      --color-scale-coral-8: #640D04;
+      --color-scale-coral-8: #640d04;
       --color-scale-coral-9: #460701;
     }
     --color-workflow-card-connector: @overlay0;
@@ -687,11 +686,13 @@
     /* Buttons */
     .btn-danger,
     .Button--danger {
-      background: var(--color-btn-danger-bg)
+      background: var(--color-btn-danger-bg);
     }
 
     /* Create PR button & New branch button */
-    .iRoQzU, .ifkUYV, .bOZDzN {
+    .iRoQzU,
+    .ifkUYV,
+    .bOZDzN {
       background-color: @green;
       color: @base;
     }
@@ -728,20 +729,52 @@
     .hx_IssueLabel not when (@lookup =latte) {
       --lightness-threshold: 0.453;
       --border-threshold: 0.96;
-      --border-fadeout: max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1)); //color: hsl(0deg, 0%, calc(var(--lightness-switch) * 100%)) !important;
+      --border-fadeout: max(
+        0,
+        min(
+          calc((var(--perceived-lightness) - var(--border-threshold)) * 100),
+          1
+        )
+      ); //color: hsl(0deg, 0%, calc(var(--lightness-switch) * 100%)) !important;
       color: var(--text) !important;
-      background: rgb(var(--label-r), var(--label-g), var(--label-b)) !important;
-      border-color: hsla(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 25) * 1%), var(--border-fadeout)) !important;
+      background: rgb(
+        var(--label-r),
+        var(--label-g),
+        var(--label-b)
+      ) !important;
+      border-color: hsla(
+        var(--label-h),
+        calc(var(--label-s) * 1%),
+        calc((var(--label-l) - 25) * 1%),
+        var(--border-fadeout)
+      ) !important;
     }
 
     .hx_IssueLabel when (@lookup =latte) {
       --lightness-threshold: 0.6;
       --background-fadeout: 0.18;
       --border-fadeout: 0.3;
-      --lighten-by: calc(((var(--lightness-threshold) - var(--perceived-lightness)) * 100) * var(--lightness-switch));
-      color: hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%)) !important;
-      background: rgba(var(--label-r), var(--label-g), var(--label-b), var(--background-fadeout)) !important;
-      border-color: hsla(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) + var(--lighten-by)) * 1%), var(--border-fadeout)) !important;
+      --lighten-by: calc(
+        ((var(--lightness-threshold) - var(--perceived-lightness)) * 100) *
+          var(--lightness-switch)
+      );
+      color: hsl(
+        var(--label-h),
+        calc(var(--label-s) * 1%),
+        calc((var(--label-l) + var(--lighten-by)) * 1%)
+      ) !important;
+      background: rgba(
+        var(--label-r),
+        var(--label-g),
+        var(--label-b),
+        var(--background-fadeout)
+      ) !important;
+      border-color: hsla(
+        var(--label-h),
+        calc(var(--label-s) * 1%),
+        calc((var(--label-l) + var(--lighten-by)) * 1%),
+        var(--border-fadeout)
+      ) !important;
     }
 
     /* Labels */
@@ -793,7 +826,8 @@
       background-color: @base;
     }
 
-    .user-mention, .team-mention {
+    .user-mention,
+    .team-mention {
       color: @accent-color;
     }
 
@@ -836,7 +870,7 @@
     h4,
     h5,
     h6 {
-      color: @subtext1
+      color: @subtext1;
     }
 
     body,
@@ -869,7 +903,10 @@
     }
 
     /* New change visibility box danger buttons Fix */
-    :where(#repo-visibility-proceed-button-public, #repo-visibility-proceed-button-private):not([data-next-stage]) {
+    :where(
+        #repo-visibility-proceed-button-public,
+        #repo-visibility-proceed-button-private
+      ):not([data-next-stage]) {
       color: var(--color-btn-danger-text);
       background-color: var(--color-btn-danger-bg);
     }
@@ -878,7 +915,6 @@
     body.session-authentication div.Box-header {
       background-color: inherit;
     }
-
 
     /* Footer Logo Fix */
     .footer-octicon > svg:nth-child(1) > path:nth-child(1) {
@@ -898,7 +934,8 @@
 
     /* Keyboard hint */
     .bdgUpN,
-    .hZMmEi .TextInput-icon, .hZMmEi .TextInput-action {
+    .hZMmEi .TextInput-icon,
+    .hZMmEi .TextInput-action {
       color: @text;
       background-color: @mantle;
       border-color: @surface0;
@@ -1012,7 +1049,7 @@
       background-color: @surface0;
       &:hover:not([disabled]) {
         border-color: @surface2;
-        background-color: @surface1
+        background-color: @surface1;
       }
     }
 
@@ -1065,7 +1102,9 @@
       border-bottom-color: @surface0;
     }
 
-    .hLwWNO .PRIVATE_TreeView-item[aria-current="true"] > .PRIVATE_TreeView-item-container {
+    .hLwWNO
+      .PRIVATE_TreeView-item[aria-current="true"]
+      > .PRIVATE_TreeView-item-container {
       background-color: @surface0;
       &::after {
         background-color: @accent-color;
@@ -1077,7 +1116,7 @@
     .bFrOJy {
       .segmentedControl-content {
         background-color: @mantle;
-        color: @text
+        color: @text;
       }
     }
 
@@ -1185,7 +1224,8 @@
     }
 
     .Tnbrt {
-      &:active, &[aria-expanded="true"] {
+      &:active,
+      &[aria-expanded="true"] {
         background-color: @surface2;
       }
       &:hover {
@@ -1213,8 +1253,8 @@
     }
 
     .cnIHxk {
-        background-color: @surface0;
-        color: @text;
+      background-color: @surface0;
+      color: @text;
       &:disabled {
         background-color: @overlay0;
         color: @crust;
@@ -1258,7 +1298,9 @@
       background-color: @accent-color;
     }
 
-    .joxhcl, .hXyJIp, .fMkBhb > .segmentedControl-content {
+    .joxhcl,
+    .hXyJIp,
+    .fMkBhb > .segmentedControl-content {
       background-color: @mantle;
     }
 
@@ -1277,8 +1319,8 @@
     }
 
     .hJMtSk {
-        color: @crust;
-        background-color: @green;
+      color: @crust;
+      background-color: @green;
       &:disabled {
         color: @crust;
         background-color: @overlay0;
@@ -1309,7 +1351,7 @@
     }
 
     .UHWYv:hover {
-      background-color: fade(@red, 20)
+      background-color: fade(@red, 20);
     }
 
     .lmmHGT:hover {
@@ -1360,7 +1402,9 @@
 
     .jykkjb {
       background-color: @base;
-      box-shadow: @crust 0px -2px 0px inset, @crust 0px 1px 0px inset;
+      box-shadow:
+        @crust 0px -2px 0px inset,
+        @crust 0px 1px 0px inset;
     }
 
     .jhjELj,
@@ -1434,252 +1478,264 @@
     /* Tree Fix */
 
     /* Weird barely visible outlines | Can be removed if intentional*/
-    .brFBoI, .ldUAkr, .gtXnmh {
-        border-color: @surface1;
+    .brFBoI,
+    .ldUAkr,
+    .gtXnmh {
+      border-color: @surface1;
     }
-    
+
     /* New Repository Overview Fix */
-    .gWjhfa, .jMdYTc {
-        background-color: @mantle;
-    }
-    
+    .gWjhfa,
     .jMdYTc {
-        border: 1px solid @surface1;
-      
-        & button {
-            color: @subtext1;
-          
-            &:hover {
-                background-color: @surface0;
-            }
-          
-            &[aria-expanded="true"] {
-                background-color: @surface0;
-            }
-        }
+      background-color: @mantle;
     }
-    
-    .gwuIGu > a {
+
+    .jMdYTc {
+      border: 1px solid @surface1;
+
+      & button {
+        color: @subtext1;
+
         &:hover {
-            background-color: @surface0;
+          background-color: @surface0;
         }
-      
-        & span {
-            color: @subtext1;;
+
+        &[aria-expanded="true"] {
+          background-color: @surface0;
         }
+      }
+    }
+
+    .gwuIGu > a {
+      &:hover {
+        background-color: @surface0;
+      }
+
+      & span {
+        color: @subtext1;
+      }
     }
 
     /* Buttons */
     .bJYdrf:hover {
-        background-color: @mantle;
+      background-color: @mantle;
     }
 
     .dSlCya:hover {
-        color: @accent-color;
+      color: @accent-color;
     }
-      
-    .hNNRLM, .hGgJQu, .hTcsdJ {
-        background-color: @surface0;
-        border-color: @surface0;
-        color: @text;
-          
-        &:hover {
-          background-color: @surface1;
-          border-color: @surface1;
-        }
+
+    .hNNRLM,
+    .hGgJQu,
+    .hTcsdJ {
+      background-color: @surface0;
+      border-color: @surface0;
+      color: @text;
+
+      &:hover {
+        background-color: @surface1;
+        border-color: @surface1;
+      }
     }
 
     .eOIzRT {
-        background-color: @base;
-      
-        &:hover {
-            background-color: @surface0;
-        }
+      background-color: @base;
+
+      &:hover {
+        background-color: @surface0;
+      }
     }
 
-    
-
     .hNNRLM svg {
-        color: @text;
+      color: @text;
     }
 
     .react-last-commit-history-group:hover {
-        background-color: @base;
-        color: @text;
+      background-color: @base;
+      color: @text;
     }
-  
+
     .hfRvxg {
-        color: @subtext1;
-      
-        &:hover {
-            color: @text;
-        }
+      color: @subtext1;
+
+      &:hover {
+        color: @text;
+      }
     }
 
     /* Scrolling top menu */
     .lbYguI {
-        border-radius: 6px;
-    }
-  
-    .hPsWZB, .bOUZZs {
-        background-color: @mantle;
+      border-radius: 6px;
     }
 
-    .react-blob-header-edit-and-raw-actions > div > a, .react-blob-header-edit-and-raw-actions > div > span > a,  .react-blob-header-edit-and-raw-actions > div > span > button {
-        background-color: @base;
-        color: @subtext0;
-      
-        &:hover {
-            background-color: @surface1;
-        }
+    .hPsWZB,
+    .bOUZZs {
+      background-color: @mantle;
+    }
+
+    .react-blob-header-edit-and-raw-actions > div > a,
+    .react-blob-header-edit-and-raw-actions > div > span > a,
+    .react-blob-header-edit-and-raw-actions > div > span > button {
+      background-color: @base;
+      color: @subtext0;
+
+      &:hover {
+        background-color: @surface1;
+      }
     }
 
     .hMOAua {
-        color: @subtext1;
-      
-        &:hover {
-            background-color: @mantle;
-            border: 1px solid @surface1;
-            color: @text;
-        }
+      color: @subtext1;
+
+      &:hover {
+        background-color: @mantle;
+        border: 1px solid @surface1;
+        color: @text;
+      }
     }
 
     /* Fullscreen Sidebar Fixes*/
-    .hMCjFU, .jcKsih , .hpgNiv {
-        background-color: @base;
-        color: @text;
-        border: 1px solid @surface1;
-      
-        &:hover {
-            background-color: @surface0;
-        }
+    .hMCjFU,
+    .jcKsih,
+    .hpgNiv {
+      background-color: @base;
+      color: @text;
+      border: 1px solid @surface1;
+
+      &:hover {
+        background-color: @surface0;
+      }
     }
 
     /* Dropdown Menus */
-    .jfOCiu, .gNXjVV, .iGzDhH, .Overlay  {
-        background-color: @mantle;
-        border: 1px solid @surface1;
-        border-radius: 6px;
-        box-shadow: var(--shadow-floating-large, var(--color-shadow-large));
-    }
-      
-    .jfOCiu li {
-        color: @text;
-    }
-      
-    .kRbyXo {
-        color: @text;
-    }
-      
-    .VgnWi {
-        background-color: @base;
-        border: 1px solid @surface1;
-          
-        &:focus-within {
-            border-color: @accent-color;
-            box-shadow: @accent-color 0px 0px 0px 1px inset;
-        }
-    }
-      
-    .bAKGFC {
-        background-color: @surface1;
-    }
-      
-    .bdMlHy {
-        border-color: @surface1;
-    }
-      
-    .jMyfUO.selected {
-        border-color: @surface1;
-        background-color: @mantle;
-    }
-      
-    .bPgnBp {
-        color: @accent-color;
-    }
-      
-    kbd {
-        background-color: @surface1;
-    }
-
-    select option, optgroup {
+    .jfOCiu,
+    .gNXjVV,
+    .iGzDhH,
+    .Overlay {
       background-color: @mantle;
       border: 1px solid @surface1;
       border-radius: 6px;
       box-shadow: var(--shadow-floating-large, var(--color-shadow-large));
-       
     }
-   
+
+    .jfOCiu li {
+      color: @text;
+    }
+
+    .kRbyXo {
+      color: @text;
+    }
+
+    .VgnWi {
+      background-color: @base;
+      border: 1px solid @surface1;
+
+      &:focus-within {
+        border-color: @accent-color;
+        box-shadow: @accent-color 0px 0px 0px 1px inset;
+      }
+    }
+
+    .bAKGFC {
+      background-color: @surface1;
+    }
+
+    .bdMlHy {
+      border-color: @surface1;
+    }
+
+    .jMyfUO.selected {
+      border-color: @surface1;
+      background-color: @mantle;
+    }
+
+    .bPgnBp {
+      color: @accent-color;
+    }
+
+    kbd {
+      background-color: @surface1;
+    }
+
+    select option,
+    optgroup {
+      background-color: @mantle;
+      border: 1px solid @surface1;
+      border-radius: 6px;
+      box-shadow: var(--shadow-floating-large, var(--color-shadow-large));
+    }
+
     .hUQSCH {
-        background-color: @base;
-        color: @subtext1;
+      background-color: @base;
+      color: @subtext1;
+      border-color: @surface1;
+
+      &:hover {
+        background-color: @mantle;
         border-color: @surface1;
-       
-        &:hover {
-             background-color: @mantle;
-            border-color: @surface1;
-        }
+      }
     }
 
     /* Add File Menu */
     .dQPLyc {
-        background-color: transparent;
-        border: 1px solid @surface1;
+      background-color: transparent;
+      border: 1px solid @surface1;
     }
-  
+
     .ktGGEf {
-        background-color: @base;
-        border: 1px solid @surface1;
+      background-color: @base;
+      border: 1px solid @surface1;
     }
-  
+
     .gkfBtX {
-        background-color: @mantle;
-        border-radius: 6px 0px 0px 0px;
-        border-bottom: 1px solid @surface1;
+      background-color: @mantle;
+      border-radius: 6px 0px 0px 0px;
+      border-bottom: 1px solid @surface1;
     }
-  
+
     .jproXT {
-        background-color: transparent;
+      background-color: transparent;
+      border-color: transparent;
+      color: @subtext1;
+
+      &:hover {
+        color: @text;
+      }
+
+      &:focus-within {
         border-color: transparent;
-        color: @subtext1;
-      
-        &:hover {
-            color: @text;
-        }
-      
-        &:focus-within {
-            border-color: transparent;
-            box-shadow: none;
-            color: @text;
-        }
+        box-shadow: none;
+        color: @text;
+      }
     }
-  
+
     .wLDmP {
-        background-color: @mantle;
-        border: 1px solid @surface1;
+      background-color: @mantle;
+      border: 1px solid @surface1;
     }
-  
-    .eNSiNz .segmentedControl-content, .gKuCoB .segmentedControl-content {
-        background-color: @base;
+
+    .eNSiNz .segmentedControl-content,
+    .gKuCoB .segmentedControl-content {
+      background-color: @base;
     }
 
     /* Notification Menu Fix */
-    .notifications-list-item.notification-read, .notifications-list-item.notification-archived {
-        background-color: @base !important;
-      
-        &:last-child {
-          border-bottom-left-radius: 6px;
-        }
+    .notifications-list-item.notification-read,
+    .notifications-list-item.notification-archived {
+      background-color: @base !important;
+
+      &:last-child {
+        border-bottom-left-radius: 6px;
+      }
     }
 
     /* Loading Bar Color */
     .turbo-progress-bar {
-        background-color: @accent-color;
+      background-color: @accent-color;
     }
   }
 }
 @-moz-document regexp("https:\/\/notebooks\.githubusercontent\.com\/view\/ipynb.*") {
-
   :root {
     #catppuccin(@darkFlavor, @accentColor);
   }
@@ -1796,15 +1852,15 @@
     --color-scale-pink-7: #7d2457;
     --color-scale-pink-8: #5e103e;
     --color-scale-pink-9: #42062a;
-    --color-scale-coral-0: #FFDDD2;
-    --color-scale-coral-1: #FFC2B2;
-    --color-scale-coral-2: #FFA28B;
-    --color-scale-coral-3: #F78166;
-    --color-scale-coral-4: #EA6045;
-    --color-scale-coral-5: #CF462D;
-    --color-scale-coral-6: #AC3220;
+    --color-scale-coral-0: #ffddd2;
+    --color-scale-coral-1: #ffc2b2;
+    --color-scale-coral-2: #ffa28b;
+    --color-scale-coral-3: #f78166;
+    --color-scale-coral-4: #ea6045;
+    --color-scale-coral-5: #cf462d;
+    --color-scale-coral-6: #ac3220;
     --color-scale-coral-7: #872012;
-    --color-scale-coral-8: #640D04;
+    --color-scale-coral-8: #640d04;
     --color-scale-coral-9: #460701;
 
     --jp-border-color0: var(--color-scale-gray-7);

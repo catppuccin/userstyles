@@ -37,7 +37,7 @@
 </details>
 
 ## Usage  
-Switch to a default GitHub light/dark theme for the best experience!
+Switch to a default GitHub light/dark theme via **Settings** > **Appearance** for the best experience!
 
 
 
