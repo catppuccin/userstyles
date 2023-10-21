@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run --allow-read --allow-net --allow-env
 import { Ajv, assert, Octokit, parseYaml, path, schema } from "./deps.ts";
-import { UserstylesSchema } from "./types.d.ts";
+import { Userstyle, UserstylesSchema } from "./types.d.ts";
 
 const octokit = new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") });
 const team = { org: "catppuccin", team_slug: "userstyles-maintainers" };
@@ -19,13 +19,20 @@ if (!validate(userstylesData)) {
   Deno.exit(1);
 }
 
-// lowercase usernames of all maintainers in the file
-const maintainers = userstylesData.collaborators?.map((c) => {
-  const username = c.url.split("github.com/")?.pop();
-  // check that they follow github.com/username pattern
-  assert.assertExists(username);
-  return username.toLowerCase();
-});
+// lowercase usernames of all the "current-maintainers" in the file
+const maintainers = [
+  ...new Set(
+    Object.values(userstylesData.userstyles).flatMap((style: Userstyle) =>
+      style.readme["current-maintainers"].map((m) => {
+          const username = m.url.split("github.com/")?.pop();
+          // check that they follow github.com/username pattern
+          assert.assertExists(username);
+          return username.toLowerCase();
+        }
+      )
+    )
+  )
+];
 
 // lowercase usernames of all maintainers in the current GH team
 const teamMembers = await octokit.teams.listMembersInOrg({
