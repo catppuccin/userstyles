@@ -37,14 +37,21 @@
 </details>
 
 ## Usage  
-Add urls to `@-moz-document domain("url")` with url being the chosen server
+This userstyle is applied by default on a few common Mastodon server URLs, listed at the top:
+```css
+@-moz-document domain("mastodon.social"), domain("mstdn.social"), domain("fosstodon.org"), domain("piaille.fr"), domain("tech.lgbt") {
+```
+If you don't see your Mastodon server URL, feel free to add it to the list with the `domain("<URL>")` syntax.
+> [!WARNING]
+> On update your custom `@-moz-document domain("url")` will be removed so will have to re applied upon update. 
+> Therefore we strongly encorage users to contribute to the project with their instances.
 
 
 ## 🙋 FAQ
 - Q: **The theme does not look the same as the preview?**  
-	A: Your Mastodon instance may be using its own custom CSS, which is changing the look of the theme
-- Q: **Theme is not working?**  
-	A: One solution might be changing the theme from the `preferences > application > theme` to light or dark.
+	A: Your Mastodon instance may be using its own custom CSS, which is changing the look of the theme.
+- Q: **The theme is not working?**  
+	A: One solution might be changing the theme to either light or dark via **Preferences** > **Appearance** > **Site theme**.
 
 
 ## 💝 Current Maintainer(s)
