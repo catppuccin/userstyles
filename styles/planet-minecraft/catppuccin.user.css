@@ -196,7 +196,6 @@
     .site_btn,
     .site_btn_alt,
     #subscribe_full .site_btn,
-    .content-actions li,
     .pagination p a.pagination_page,
     .pagination p > span.pagination_page,
     .vert_menu > ul > li:only-child > a.current_select,
@@ -204,15 +203,6 @@
       color: @catppuccin[@@lookup][@base];
       background: @catppuccin[@@lookup][@@accent];
       &:not(:disabled):not([data-disabled="disabled"]):hover {
-        background: fade(@catppuccin[@@lookup][@@accent], 80%);
-      }
-    }
-
-    .content-actions li {
-      color: @catppuccin[@@lookup][@base];
-      background: @catppuccin[@@lookup][@@accent];
-      &:not(:only-child):not(:first-child):hover {
-        color: @catppuccin[@@lookup][@base];
         background: fade(@catppuccin[@@lookup][@@accent], 80%);
       }
     }
@@ -344,6 +334,67 @@
       }
     }
 
+    .content-actions li:not(:only-child):not(:first-child) {
+      border-top: none;
+    }
+
+    & when (@lookup = latte) {
+      .content-actions li {
+        background: @catppuccin[@@lookup][@surface0];
+
+        & a,
+        .link,
+        .js_link,
+        .js_link_m {
+          color: @catppuccin[@@lookup][@text];
+        }
+      }
+
+      .content-actions li .js_link:hover,
+      .content-actions li .js_link_m:hover,
+      .content-actions li .link:hover,
+      .content-actions li a:hover {
+        & .material-icons {
+          color: @catppuccin[@@lookup][@text] !important;
+        }
+
+        color: @catppuccin[@@lookup][@text] !important;
+        background: @catppuccin[@@lookup][@@accent] !important;
+      }
+
+      .content-actions li .material-icons {
+        color: @catppuccin[@@lookup][@subtext0] !important;
+      }
+    }
+
+    & when not (@lookup = latte) {
+      .content-actions li {
+        background: @catppuccin[@@lookup][@surface0];
+
+        & a,
+        .link,
+        .js_link,
+        .js_link_m {
+          color: @catppuccin[@@lookup][@text];
+        }
+      }
+
+      .content-actions li .js_link:hover,
+      .content-actions li .js_link_m:hover,
+      .content-actions li .link:hover,
+      .content-actions li a:hover {
+        & .material-icons {
+          color: @catppuccin[@@lookup][@@accent] !important;
+        }
+        color: @catppuccin[@@lookup][@@accent] !important;
+        background: @catppuccin[@@lookup][@surface1] !important;
+      }
+
+      .content-actions li .material-icons {
+        color: @catppuccin[@@lookup][@subtext0] !important;
+      }
+    }
+
     .tipso_content,
     .member_profile_card_right {
       background: @catppuccin[@@lookup][@surface0];
@@ -388,7 +439,10 @@
       text-shadow: none;
     }
 
-    .custom_input:focus, input:focus, select:focus, textarea:focus {
+    .custom_input:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
       border: 1px solid @catppuccin[@@lookup][@@accent];
     }
   }
