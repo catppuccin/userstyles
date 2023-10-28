@@ -1,4 +1,4 @@
-<!-- DELETE THIS IF YOUR PULL REQUEST DOES NOT ADD AN USERSTYLE" -->
+<!-- DELETE THIS TEMPLATE IF YOUR PULL REQUEST DOES NOT ADD A USERSTYLE -->
 
 <!-- Replace "Website" with a markdown link to the website that you have themed. -->
 
