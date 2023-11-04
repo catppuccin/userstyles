@@ -121,6 +121,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Libreddit](styles/libreddit)
 - [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
+- [Pinterest](styles/pinterest)
 - [Reddit](styles/reddit)
 - [Substack](styles/substack)
 
