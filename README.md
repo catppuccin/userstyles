@@ -102,6 +102,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [DeepL](styles/deepl)
 - [Formative](styles/formative)
 - [GitHub](styles/github)
+- [Gmail](styles/gmail)
 - [homepage](styles/homepage)
 - [ichi.moe](styles/ichi.moe)
 - [InvokeAI](styles/invokeai)
