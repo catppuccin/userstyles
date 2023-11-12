@@ -120,6 +120,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Elk](styles/elk)
 - [Hacker News](styles/hacker-news)
 - [Libreddit](styles/libreddit)
+- [LinkedIn](styles/linkedin)
 - [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
 - [Pinterest](styles/pinterest)
