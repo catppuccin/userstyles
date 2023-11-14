@@ -1,5 +1,11 @@
 #!/usr/bin/env -S deno run --allow-read --allow-net --allow-env
-import { Ajv, assert, Octokit, parseYaml, path, schema } from "./deps.ts";
+import * as assert from "std/assert/mod.ts";
+import * as path from "std/path/mod.ts";
+import { parse as parseYaml } from "std/yaml/parse.ts";
+import Ajv from "ajv";
+import { Octokit } from "octokit";
+
+import { schema } from "./deps.ts";
 import { Userstyle, UserstylesSchema } from "./types.d.ts";
 
 const octokit = new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") });
@@ -24,21 +30,22 @@ const maintainers = [
   ...new Set(
     Object.values(userstylesData.userstyles).flatMap((style: Userstyle) =>
       style.readme["current-maintainers"].map((m) => {
-          const username = m.url.split("github.com/")?.pop();
-          // check that they follow github.com/username pattern
-          assert.assertExists(username);
-          return username.toLowerCase();
-        }
-      )
-    )
-  )
+        const username = m.url.split("github.com/")?.pop();
+        // check that they follow github.com/username pattern
+        assert.assertExists(username);
+        return username.toLowerCase();
+      })
+    ),
+  ),
 ];
 
 // lowercase usernames of all maintainers in the current GH team
-const teamMembers = await octokit.teams.listMembersInOrg({
-  ...team,
-  per_page: 100,
-}).then((res) => res.data.map((m) => m.login.toLowerCase()));
+const teamMembers = await octokit.teams
+  .listMembersInOrg({
+    ...team,
+    per_page: 100,
+  })
+  .then((res) => res.data.map((m) => m.login.toLowerCase()));
 
 const syncMaintainers = async () => {
   if (!maintainers) return;
