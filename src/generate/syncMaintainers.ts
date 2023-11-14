@@ -1,7 +1,7 @@
 #!/usr/bin/env -S deno run --allow-read --allow-net --allow-env
 import * as assert from "std/assert/mod.ts";
 import * as path from "std/path/mod.ts";
-import { parse as parseYaml } from "std/yaml/parse.ts";
+import { parse as parseYaml } from "std/yaml/mod.ts";
 import Ajv from "ajv";
 import { Octokit } from "octokit";
 
@@ -22,6 +22,9 @@ const userstylesYaml = Deno.readTextFileSync(
 const userstylesData = parseYaml(userstylesYaml);
 if (!validate(userstylesData)) {
   console.error(validate.errors);
+  Deno.exit(1);
+}
+if (userstylesData.userstyles === undefined) {
   Deno.exit(1);
 }
 

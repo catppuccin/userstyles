@@ -30,7 +30,7 @@ type PortMetadata = {
 };
 
 type CollaboratorsData = {
-  collaborators: CurrentMaintainers | PastMaintainers;
+  collaborators: CurrentMaintainers | PastMaintainers | undefined;
   heading: string;
 };
 
@@ -60,7 +60,7 @@ if (!validatePorts(portsData)) {
 
 const categorized = Object.entries(userstylesData.userstyles).reduce(
   (acc, [slug, { category, ...port }]) => {
-    acc[category] ||= [];
+    acc[category] ??= [];
     acc[category].push({ path: `styles/${slug}`, category, ...port });
     acc[category].sort((a, b) => {
       const aName = typeof a.name === "string" ? a.name : a.name.join(", ");
@@ -235,7 +235,7 @@ const collaboratorsContent = (allCollaborators: CollaboratorsData[]) => {
     .filter(({ collaborators }) => collaborators !== undefined)
     .map(({ collaborators, heading }) => {
       const collaboratorBody = collaborators
-        .map(({ name, url }) => `- [${name ?? url.split("/").pop()}](${url})`)
+        ?.map(({ name, url }) => `- [${name ?? url.split("/").pop()}](${url})`)
         .join("\n");
       return `${heading}\n${collaboratorBody}`;
     })
