@@ -72,5 +72,21 @@ for await (const entry of iterator) {
         });
       },
     );
+
+    lint(css).then(({ results }) => {
+      results.sort(
+        (a, b) => (a.source ?? "").localeCompare(b.source ?? ""),
+      ).map((result) => {
+        result.warnings.map((warning) => {
+          core.warning(warning.text ?? "unspecified", {
+            file: entry.relative,
+            startLine: warning.line,
+            endLine: warning.endLine,
+            startColumn: warning.column,
+            endColumn: warning.endColumn,
+          });
+        });
+      });
+    });
   });
 }
