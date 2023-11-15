@@ -18,6 +18,8 @@ const iterator = globber({
   cwd: REPO_ROOT,
 });
 
+let total_missing_files = 0;
+
 const assertions = (repo: string) => {
   const pfx = "https://github.com/catppuccin/userstyles";
   return {
@@ -100,6 +102,7 @@ for await (const entry of iterator) {
   ].map(async (fp) => {
     await Deno.stat(join(repodir, fp)).catch(() => {
       missing_files.push(fp);
+      total_missing_files++;
     });
   });
 
@@ -109,6 +112,12 @@ for await (const entry of iterator) {
   }
 }
 
+// only write summary if running in github actions
 if (Deno.env.has("GITHUB_STEP_SUMMARY")) {
   summary.write();
+}
+
+// missing files are a fatal error
+if (total_missing_files !== 0) {
+  Deno.exit(1);
 }
