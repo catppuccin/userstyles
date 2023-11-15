@@ -3,10 +3,10 @@
 // TODO: remove this once types for usercss-meta are available
 // deno-lint-ignore-file no-explicit-any
 
-import { basename, dirname } from "std/path/mod.ts";
+import { basename, dirname, join } from "std/path/mod.ts";
 import { globber } from "globber";
 
-import core from "@actions/core";
+import core, { summary } from "@actions/core";
 // @deno-types="npm:@types/less";
 import less from "less";
 import usercssMeta from "usercss-meta";
@@ -31,9 +31,10 @@ const assertions = (repo: string) => {
 };
 
 for await (const entry of iterator) {
-  Deno.readTextFile(entry.absolute).then((css) => {
-    const repo = basename(dirname(entry.absolute));
+  const repodir = dirname(entry.absolute);
+  const repo = basename(entry.absolute);
 
+  Deno.readTextFile(entry.absolute).then((css) => {
     let metadata: Record<string, any> = {};
     try {
       metadata = usercssMeta.parse(css).metadata;
@@ -89,4 +90,25 @@ for await (const entry of iterator) {
       });
     });
   });
+
+  const missing_files: string[] = [];
+  [
+    "catppuccin.user.css",
+    ...["latte", "frappe", "macchiato", "mocha", "catwalk"].map((f) =>
+      `assets/${f}.webp`
+    ),
+  ].map(async (fp) => {
+    await Deno.stat(join(repodir, fp)).catch(() => {
+      missing_files.push(fp);
+    });
+  });
+
+  if (missing_files.length !== 0) {
+    summary.addHeading("Missing Files");
+    summary.addList(missing_files, true);
+  }
+}
+
+if (Deno.env.has("GITHUB_STEP_SUMMARY")) {
+  summary.write();
 }
