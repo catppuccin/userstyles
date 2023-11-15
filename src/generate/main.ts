@@ -1,9 +1,10 @@
 #!/usr/bin/env -S deno run --allow-env --allow-read --allow-write --allow-net
+
 import * as path from "std/path/mod.ts";
 import { parse as parseYaml } from "std/yaml/mod.ts";
 import Ajv from "ajv";
 
-import { portsSchema, schema } from "./deps.ts";
+import { portsSchema, REPO_ROOT, schema } from "@/deps.ts";
 
 import {
   ApplicationLink,
@@ -15,10 +16,9 @@ import {
   Usage,
   Userstyle,
   Userstyles,
-} from "./types.d.ts";
+} from "@/types.d.ts";
 
 const ROOT = new URL(".", import.meta.url).pathname;
-const REPO_ROOT = path.join(ROOT, "../..");
 const ISSUE_PREFIX = "lbl:";
 
 type Metadata = {
@@ -41,7 +41,7 @@ const validate = ajv.compile<Metadata>(schema);
 const validatePorts = ajv.compile<PortMetadata>(portsSchema);
 
 const userstylesYaml = Deno.readTextFileSync(
-  path.join(ROOT, "../userstyles.yml"),
+  path.join(REPO_ROOT, "src/userstyles.yml"),
 );
 const userstylesData = parseYaml(userstylesYaml);
 if (!validate(userstylesData)) {

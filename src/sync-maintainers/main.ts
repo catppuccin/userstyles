@@ -1,23 +1,22 @@
 #!/usr/bin/env -S deno run --allow-read --allow-net --allow-env
+
 import * as assert from "std/assert/mod.ts";
 import * as path from "std/path/mod.ts";
 import { parse as parseYaml } from "std/yaml/mod.ts";
 import Ajv from "ajv";
-import { Octokit } from "octokit";
+import { Octokit } from "@octokit/rest";
 
-import { schema } from "./deps.ts";
-import { Userstyle, UserstylesSchema } from "./types.d.ts";
+import { REPO_ROOT, schema } from "@/deps.ts";
+import { Userstyle, UserstylesSchema } from "@/types.d.ts";
 
 const octokit = new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") });
 const team = { org: "catppuccin", team_slug: "userstyles-maintainers" };
-
-const ROOT = new URL(".", import.meta.url).pathname;
 
 const ajv = new Ajv.default();
 const validate = ajv.compile<UserstylesSchema>(schema);
 
 const userstylesYaml = Deno.readTextFileSync(
-  path.join(ROOT, "../userstyles.yml"),
+  path.join(REPO_ROOT, "src/userstyles.yml"),
 );
 const userstylesData = parseYaml(userstylesYaml);
 if (!validate(userstylesData)) {
