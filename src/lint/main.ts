@@ -34,60 +34,61 @@ const assertions = (repo: string) => {
 
 for await (const entry of iterator) {
   const repodir = dirname(entry.absolute);
-  const repo = basename(entry.absolute);
+  const repo = basename(repodir);
 
-  Deno.readTextFile(entry.absolute).then((css) => {
-    let metadata: Record<string, any> = {};
-    try {
-      metadata = usercssMeta.parse(css).metadata;
-    } catch (err) {
-      core.error(err, { file: entry.relative });
+  const content = await Deno.readTextFile(entry.absolute);
+
+  let metadata: Record<string, any> = {};
+  try {
+    metadata = usercssMeta.parse(content).metadata;
+  } catch (err) {
+    core.error(err, { file: entry.relative });
+  }
+
+  const assert = assertions(repo);
+
+  Object.entries(assert).forEach(([k, v]) => {
+    const defacto = metadata[k];
+    if (defacto !== v) {
+      const line = content.split("\n").findIndex((line) => line.includes(k)) +
+        1;
+      core.warning(`Metadata \`${k}\` should be ${v} but is \`${defacto}\``, {
+        file: entry.relative,
+        startLine: line !== 0 ? line : undefined,
+      });
     }
+  });
 
-    const assert = assertions(repo);
+  // don't attempt to compile or lint non-less files
+  if (metadata.preprocessor !== assert.preprocessor) continue;
 
-    Object.entries(assert).forEach(([k, v]) => {
-      const defacto = metadata[k];
-      if (defacto !== v) {
-        const line = css.split("\n").findIndex((line) => line.includes(k)) + 1;
-        core.warning(`Metadata \`${k}\` should be ${v} but is \`${defacto}\``, {
+  const globalVars = Object.entries(metadata.vars)
+    .reduce((acc, [k, v]) => {
+      // @ts-expect-error untyped
+      return { ...acc, [k]: v.default };
+    }, {});
+
+  less.render(content, { lint: true, globalVars }).then().catch(
+    (err: any) => {
+      core.error(err.message, {
+        file: entry.relative,
+        startLine: err.line,
+        endLine: err.line,
+      });
+    },
+  );
+
+  lint(content).then(({ results }) => {
+    results.sort(
+      (a, b) => (a.source ?? "").localeCompare(b.source ?? ""),
+    ).map((result) => {
+      result.warnings.map((warning) => {
+        core.warning(warning.text ?? "unspecified", {
           file: entry.relative,
-          startLine: line !== 0 ? line : undefined,
-        });
-      }
-    });
-
-    // don't attempt to compile or lint non-less files
-    if (metadata.preprocessor !== assert.preprocessor) return;
-
-    const globalVars = Object.entries(metadata.vars)
-      .reduce((acc, [k, v]) => {
-        // @ts-expect-error untyped
-        return { ...acc, [k]: v.default };
-      }, {});
-
-    less.render(css, { lint: true, globalVars }).then().catch(
-      (err: any) => {
-        core.error(err.message, {
-          file: entry.relative,
-          startLine: err.line,
-          endLine: err.line,
-        });
-      },
-    );
-
-    lint(css).then(({ results }) => {
-      results.sort(
-        (a, b) => (a.source ?? "").localeCompare(b.source ?? ""),
-      ).map((result) => {
-        result.warnings.map((warning) => {
-          core.warning(warning.text ?? "unspecified", {
-            file: entry.relative,
-            startLine: warning.line,
-            endLine: warning.endLine,
-            startColumn: warning.column,
-            endColumn: warning.endColumn,
-          });
+          startLine: warning.line,
+          endLine: warning.endLine,
+          startColumn: warning.column,
+          endColumn: warning.endColumn,
         });
       });
     });
@@ -119,5 +120,5 @@ if (Deno.env.has("GITHUB_STEP_SUMMARY")) {
 
 // missing files are a fatal error
 if (total_missing_files !== 0) {
-  Deno.exit(1);
+  core.error(`Found ${total_missing_files} missing files`);
 }
