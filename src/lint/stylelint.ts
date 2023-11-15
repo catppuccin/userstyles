@@ -1,11 +1,11 @@
+import { deepMerge } from "std/collections/mod.ts";
+
 import stylelint from "npm:stylelint";
 import stylelintConfigStandard from "npm:stylelint-config-standard";
 import stylelintConfigRecommended from "npm:stylelint-config-recommended";
 import postcssLess from "npm:postcss-less";
 
-const config = {
-  ...stylelintConfigRecommended,
-  ...{ ...stylelintConfigStandard, extends: {} },
+const config: stylelint.Config = {
   customSyntax: postcssLess,
   rules: {
     "selector-class-pattern": null,
@@ -127,4 +127,13 @@ const config = {
   },
 };
 
-export const lint = (code: string) => stylelint.lint({ config, code });
+const base = deepMerge(
+  stylelintConfigRecommended,
+  { ...stylelintConfigStandard, extends: {} },
+);
+
+export const lint = (code: string) =>
+  stylelint.lint({
+    config: deepMerge(base, config),
+    code,
+  });
