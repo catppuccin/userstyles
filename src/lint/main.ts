@@ -115,10 +115,10 @@ for await (const entry of iterator) {
 
 // only write summary if running in github actions
 if (Deno.env.has("GITHUB_STEP_SUMMARY")) {
-  summary.write();
+  await summary.write();
 }
 
 // missing files are a fatal error
 if (total_missing_files !== 0) {
-  core.error(`Found ${total_missing_files} missing files`);
+  Deno.exit(1);
 }
