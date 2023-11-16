@@ -24,6 +24,8 @@ const config: stylelint.Config = {
     "hue-degree-notation": null,
     "length-zero-no-unit": null,
 
+    "no-invalid-double-slash-comments": null,
+
     "function-no-unknown": [
       true,
       {
