@@ -26,12 +26,19 @@ const config: stylelint.Config = {
 
     "no-invalid-double-slash-comments": null,
 
+    // disallow setting animations, fonts, etc.
+    "property-disallowed-list": [
+      "/animation.*/",
+      "/font.*/",
+      "/transition.*/",
+    ],
+
     "function-no-unknown": [
       true,
       {
-        // generated from https://lesscss.org/functions/
-        // via `Array.from(document.querySelectorAll('.section-content h3.docs-heading'), heading => heading.textContent.replace('\n', ''))`
         ignoreFunctions: [
+          // generated from https://lesscss.org/functions/
+          // via `Array.from(document.querySelectorAll('.section-content h3.docs-heading'), heading => heading.textContent.replace('\n', ''))`
           "%",
           "abs",
           "acos",
@@ -121,6 +128,9 @@ const config: stylelint.Config = {
           "tan",
           "tint",
           "unit",
+
+          // custom function for darkmode ternary
+          "lightenOrDarken",
         ],
       },
     ],
