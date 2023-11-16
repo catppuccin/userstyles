@@ -26,12 +26,24 @@ const config: stylelint.Config = {
 
     "no-invalid-double-slash-comments": null,
 
-    // disallow setting animations, fonts, etc.
-    "property-disallowed-list": [
+    "property-disallowed-list": [[
+      // disallow setting animations, fonts, etc.
       "/animation.*/",
       "/font.*/",
       "/transition.*/",
-    ],
+
+      // prefer `border-color` over `border`, `outline-color` over `outline`, etc.
+      "border",
+      "outline",
+    ], {
+      message: (property: string) => {
+        if (["border", "outline"].includes(property)) {
+          return `Use \`${property}-color\` instead of \`${property}\``;
+        } else {
+          return `\`${property}\` is not allowed in Catppuccin userstyles`;
+        }
+      },
+    }],
 
     "function-no-unknown": [
       true,
