@@ -4,6 +4,7 @@
 // deno-lint-ignore-file no-explicit-any
 
 import { basename, dirname, join, relative } from "std/path/mod.ts";
+import { parse as parseFlags } from "std/flags/mod.ts";
 import { globber } from "globber";
 
 import core from "@actions/core";
@@ -12,6 +13,8 @@ import less from "less";
 import usercssMeta from "usercss-meta";
 import { lint } from "./stylelint.ts";
 import { REPO_ROOT } from "@/deps.ts";
+
+const flags = parseFlags(Deno.args, { boolean: ["fix"] });
 
 const iterator = globber({
   include: ["styles/**/catppuccin.user.css"],
@@ -78,7 +81,7 @@ for await (const entry of iterator) {
     },
   );
 
-  lint(content).then(({ results }) => {
+  lint(entry.absolute, flags.fix).then(({ results }) => {
     results.sort(
       (a, b) => (a.source ?? "").localeCompare(b.source ?? ""),
     ).map((result) => {

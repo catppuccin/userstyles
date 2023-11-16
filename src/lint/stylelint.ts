@@ -134,8 +134,9 @@ const base = deepMerge(
   { ...stylelintConfigStandard, extends: {} },
 );
 
-export const lint = (code: string) =>
+export const lint = (files: string, fix: boolean) =>
   stylelint.lint({
     config: deepMerge(base, config),
-    code,
+    files,
+    fix,
   });
