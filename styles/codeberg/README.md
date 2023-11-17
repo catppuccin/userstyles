@@ -40,7 +40,7 @@
 
 ## 🙋 FAQ
 - Q: How do I change the accent color?  
-	A: Changing `--color-primary` to any other color should change the accent color in most places
+	A: Changing `--color-primary` to any other color should change the accent color in most places.
 
 ## 💝 Current Maintainer(s)
 - [justTOBBI](https://github.com/justTOBBI)

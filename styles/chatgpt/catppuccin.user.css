@@ -2,13 +2,13 @@
 @name ChatGPT Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/chatgpt
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/chatgpt
-@version 0.0.3
+@version 0.0.6
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/chatgpt/catppuccin.user.css
 @description Soothing pastel theme for ChatGPT
 @author Catppuccin
 @license MIT
 
-@preprocessor   less
+@preprocessor  less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappe", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappe", "macchiato:Macchiato", "mocha:Mocha*"]
 ==/UserStyle== */
@@ -201,6 +201,11 @@
     --ctp-mantle: #rgbify(@mantle) [];
     --ctp-curst: #rgbify(@crust) [];
 
+    body,
+    html {
+      background: @base !important;
+    }
+
     /* Main page */
     div[class*="bg-gray-"]:not([class*="bg-gray-900"]):not(
         [class*="bg-gray-700"]
@@ -229,7 +234,7 @@
 
     /* Search */
     div[class*="bg-gray-700"] {
-      background-color: @surface0 !important;
+      background-color: if(@lookup = latte, @base, @surface0) !important;
     }
 
     [class*="text-gray-"],
@@ -289,7 +294,7 @@
 
     /* Buttons */
     .btn-neutral {
-      background-color: @surface1 !important;
+      background-color: if(@lookup = latte, @base, @surface1) !important;
       color: @text !important;
     }
 
@@ -321,6 +326,26 @@
 
     [class*="text-green"] {
       color: @green !important;
+    }
+
+    .dark .dark\:hover\:bg-\[\#2A2B32\]:hover {
+      background-color: @surface0;
+    }
+
+    .dark .dark\:bg-gray-900 {
+      background-color: @mantle;
+    }
+
+    .dark .dark\:bg-gray-800 {
+      background-color: @surface0;
+    }
+
+    .dark .dark\:hover\:bg-gray-800:hover {
+      background-color: @surface1;
+    }
+
+    .radix-state-active\:bg-gray-800[data-state="active"] {
+      background-color: @surface0;
     }
   }
 }

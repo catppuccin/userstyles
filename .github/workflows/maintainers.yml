@@ -12,10 +12,10 @@ env:
 jobs:
   sync-maintainers:
     runs-on: ubuntu-latest
-    name: Sync Maintainers
+    name: Sync maintainers
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
 
@@ -27,13 +27,13 @@ jobs:
       - name: Cache Deno dependencies
         uses: actions/cache@v3
         with:
-          key: ${{ hashFiles('src/generate/deno.lock') }}
+          key: ${{ hashFiles('src/deno.lock') }}
           path: ${{ env.DENO_DIR }}
 
-      - name: Sync Maintainers
+      - name: Sync maintainers
         if: ${{ github.repository == 'catppuccin/userstyles' && github.ref == 'refs/heads/main' }}
-        working-directory: src/generate
-        run: ./syncMaintainers.ts
+        working-directory: ./src
+        run: deno task sync-maintainers
         env:
           GITHUB_TOKEN: ${{ secrets.USERSTYLES_TOKEN }}
 

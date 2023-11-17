@@ -2,7 +2,7 @@
 @name           Mastodon Catppuccin
 @namespace      github.com/catppuccin/userstyles/styles/mastodon
 @homepageURL    https://github.com/catppuccin/userstyles/tree/main/styles/mastodon
-@version        1.1.9
+@version        1.1.12
 @description    Soothing pastel theme for Mastodon
 @author         Catppuccin
 @updateURL      https://github.com/catppuccin/userstyles/raw/main/styles/mastodon/catppuccin.user.css
@@ -13,17 +13,20 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
-@-moz-document domain("mstdn.social"),
+@-moz-document domain("mastodon.social"),
+domain("mstdn.social"),
 domain("fosstodon.org"),
+domain("piaille.fr"),
 domain("tech.lgbt"),
-domain("mastodon.social"),
-domain("piaille.fr") {
+domain("wetdry.world") {
   .theme-mastodon-light,
+  .skin-modern-light,
   .skin-mastodon-light {
     #mastodon(@lightFlavor, @accentColor);
   }
 
   .theme-contrast,
+  .skin-modern-dark,
   .skin-contrast {
     #mastodon(@darkFlavor, @accentColor);
   }
@@ -348,8 +351,7 @@ domain("piaille.fr") {
     .conversation--unread,
     .column-header__collapsible-inner,
     .announcements,
-    .status-card__image,
-    .account__header__bar {
+    .status-card__image {
       border-color: @crust;
       background: @surface0;
     }
@@ -615,9 +617,11 @@ domain("piaille.fr") {
     }
 
     .simple_form select {
-      background: @mantle
-        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14.933 18.467' height='19.698' width='15.929'><path d='M3.467 14.967l-3.393-3.5H14.86l-3.392 3.5c-1.866 1.925-3.666 3.5-4 3.5-.335 0-2.135-1.575-4-3.5zm.266-11.234L7.467 0 11.2 3.733l3.733 3.734H0l3.733-3.734z' fill='%2342485A'/></svg>")
-        no-repeat right 8px center/auto 16px;
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.933 18.467" height="19.698" width="15.929"><path d="M3.467 14.967l-3.393-3.5H14.86l-3.392 3.5c-1.866 1.925-3.666 3.5-4 3.5-.335 0-2.135-1.575-4-3.5zm.266-11.234L7.467 0 11.2 3.733l3.733 3.734H0l3.733-3.734z" fill="@{overlay2}"/></svg>'
+      );
+      background: @mantle url("data:image/svg+xml,@{svg}") no-repeat right 8px
+        center/auto 16px;
       border: 1px solid @crust;
     }
 

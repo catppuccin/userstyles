@@ -1,25 +1,28 @@
-name: Prettier
+name: Format
 
 on:
   push:
     branches: [main]
 
 jobs:
-  prettier:
+  format:
     name: Format Code
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.USERSTYLES_TOKEN }}
       - uses: actions/setup-node@v3
 
-      - name: Run Prettier
+      - name: Format files
         run: npx prettier --write styles/**/*.css
 
-      - name: Push Changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Pull changes
+        run: git pull
+
+      - name: Push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "style: format code with prettier"
           commit_author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"

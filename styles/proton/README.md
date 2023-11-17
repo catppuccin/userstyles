@@ -37,7 +37,9 @@
 </details>
 
 ## Usage  
-Open Proton Mail and click the settings in the top right, then set the base theme to `Snow` if you are using the Latte flavor, otherwise set it to `Carbon`
+> [!NOTE]
+> Set Proton Mail's built-in theme to 'Snow' if you're using Latte or 'Carbon' if you're using the others.
+
 
 
 
