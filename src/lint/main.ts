@@ -14,6 +14,7 @@ import less from "less";
 import usercssMeta from "usercss-meta";
 import { lint } from "./stylelint.ts";
 import { REPO_ROOT } from "@/deps.ts";
+import { log, LoggerProps } from "./logger.ts";
 
 const flags = parseFlags(Deno.args, { boolean: ["fix"] });
 
@@ -46,7 +47,7 @@ for await (const entry of iterator) {
   try {
     metadata = usercssMeta.parse(content).metadata;
   } catch (err) {
-    core.error(err, { file: entry.relative });
+    log(err, { file: entry.relative, content }, "error");
   }
 
   const assert = assertions(repo);
@@ -57,7 +58,7 @@ for await (const entry of iterator) {
       const line = content.split("\n").findIndex((line) => line.includes(k)) +
         1;
 
-      core.warning(
+      log(
         [
           "Metadata",
           chalk.bold(k),
@@ -69,7 +70,9 @@ for await (const entry of iterator) {
         {
           file: entry.relative,
           startLine: line !== 0 ? line : undefined,
+          content,
         },
+        "warning",
       );
     }
   });
@@ -85,11 +88,16 @@ for await (const entry of iterator) {
 
   less.render(content, { lint: true, globalVars }).then().catch(
     (err: any) => {
-      core.error(err.message, {
-        file: entry.relative,
-        startLine: err.line,
-        endLine: err.line,
-      });
+      log(
+        err.message,
+        {
+          file: entry.relative,
+          startLine: err.line,
+          endLine: err.line,
+          content,
+        },
+        "error",
+      );
     },
   );
 
@@ -110,17 +118,10 @@ for await (const entry of iterator) {
           endLine: warning.endLine,
           startColumn: warning.column,
           endColumn: warning.endColumn,
-        };
+          content,
+        } satisfies LoggerProps;
 
-        switch (warning.severity) {
-          case "error":
-            core.error(msg, props);
-            break;
-          default:
-          case "warning":
-            core.warning(msg, props);
-            break;
-        }
+        log(msg, props, warning.severity);
       });
     });
   });
