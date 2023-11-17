@@ -22,7 +22,6 @@ const config: stylelint.Config = {
     "alpha-value-notation": null,
     "color-function-notation": null,
     "hue-degree-notation": null,
-    "length-zero-no-unit": null,
 
     // less doesn't care about these
     "no-invalid-position-at-import-rule": null,
