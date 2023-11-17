@@ -33,10 +33,12 @@ const config: stylelint.Config = {
         `At-rule ${atRule} is not allowed in Catppuccin userstyles`,
     }],
     "property-disallowed-list": [[
-      // disallow setting animations, fonts, etc.
-      "/animation.*/",
+      // disallow setting fonts
       "/font.*/",
-      "/transition.*/",
+
+      // ideally we could disallow these, but CSS continues to be gross
+      // "/animation.*/",
+      // "/transition.*/",
 
       // prefer `border-color` over `border`, `outline-color` over `outline`, etc.
       "border",
