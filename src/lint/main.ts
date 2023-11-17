@@ -3,11 +3,12 @@
 // TODO: remove this once types for usercss-meta are available
 // deno-lint-ignore-file no-explicit-any
 
-import { basename, dirname, join, relative } from "std/path/mod.ts";
 import { parse as parseFlags } from "std/flags/mod.ts";
+import { basename, dirname, join, relative } from "std/path/mod.ts";
 import { globber } from "globber";
 
 import core from "@actions/core";
+import chalk from "chalk";
 // @deno-types="npm:@types/less";
 import less from "less";
 import usercssMeta from "usercss-meta";
@@ -55,10 +56,21 @@ for await (const entry of iterator) {
     if (defacto !== v) {
       const line = content.split("\n").findIndex((line) => line.includes(k)) +
         1;
-      core.warning(`Metadata \`${k}\` should be ${v} but is \`${defacto}\``, {
-        file: entry.relative,
-        startLine: line !== 0 ? line : undefined,
-      });
+
+      core.warning(
+        [
+          "Metadata",
+          chalk.bold(k),
+          "should be",
+          chalk.green(v),
+          "but is",
+          chalk.red(defacto),
+        ].join(" "),
+        {
+          file: entry.relative,
+          startLine: line !== 0 ? line : undefined,
+        },
+      );
     }
   });
 
@@ -86,13 +98,29 @@ for await (const entry of iterator) {
       (a, b) => (a.source ?? "").localeCompare(b.source ?? ""),
     ).map((result) => {
       result.warnings.map((warning) => {
-        core.warning(warning.text ?? "unspecified", {
+        const msg = warning.text?.replace(
+          new RegExp(`\\(?${warning.rule}\\)?`),
+          chalk.dim(`(${warning.rule})`),
+        ) ??
+          "unspecified stylelint error";
+
+        const props = {
           file: entry.relative,
           startLine: warning.line,
           endLine: warning.endLine,
           startColumn: warning.column,
           endColumn: warning.endColumn,
-        });
+        };
+
+        switch (warning.severity) {
+          case "error":
+            core.error(msg, props);
+            break;
+          default:
+          case "warning":
+            core.warning(msg, props);
+            break;
+        }
       });
     });
   });
