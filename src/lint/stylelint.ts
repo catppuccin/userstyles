@@ -146,9 +146,6 @@ const config: stylelint.Config = {
           "tan",
           "tint",
           "unit",
-
-          // custom function for darkmode ternary
-          "lightenOrDarken",
         ],
       },
     ],
