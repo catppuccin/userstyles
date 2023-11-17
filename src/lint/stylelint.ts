@@ -28,7 +28,6 @@ const config: stylelint.Config = {
 
     "at-rule-disallowed-list": [[
       "/^font.*/",
-      "keyframes",
     ], {
       message: (atRule: string) =>
         `At-rule ${atRule} is not allowed in Catppuccin userstyles`,
