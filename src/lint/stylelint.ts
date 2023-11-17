@@ -26,6 +26,13 @@ const config: stylelint.Config = {
 
     "no-invalid-double-slash-comments": null,
 
+    "at-rule-disallowed-list": [[
+      "/^font.*/",
+      "keyframes",
+    ], {
+      message: (atRule: string) =>
+        `At-rule ${atRule} is not allowed in Catppuccin userstyles`,
+    }],
     "property-disallowed-list": [[
       // disallow setting animations, fonts, etc.
       "/animation.*/",
@@ -36,11 +43,11 @@ const config: stylelint.Config = {
       "border",
       "outline",
     ], {
-      message: (property: string) => {
-        if (["border", "outline"].includes(property)) {
-          return `Use \`${property}-color\` instead of \`${property}\``;
+      message: (prop: string) => {
+        if (["border", "outline"].includes(prop)) {
+          return `Use \`${prop}-color\` instead of \`${prop}\``;
         } else {
-          return `\`${property}\` is not allowed in Catppuccin userstyles`;
+          return `Property \`${prop}\` is not allowed in Catppuccin userstyles`;
         }
       },
     }],
