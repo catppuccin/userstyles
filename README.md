@@ -71,7 +71,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Hoppscotch](styles/hoppscotch)
 - [paste.rs](styles/paste.rs)
-- [Stylus](styles/stylus)
 - [Vercel](styles/vercel)
 
 </details>
@@ -80,7 +79,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Brave Search](styles/brave-search)
 - [Ecosia](styles/ecosia)
-- [Google](styles/google)
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
 - [Startpage](styles/startpage)
