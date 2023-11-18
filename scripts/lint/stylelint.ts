@@ -1,9 +1,15 @@
 import { deepMerge } from "std/collections/mod.ts";
 
+import chalk from "chalk";
 import stylelint from "npm:stylelint";
 import stylelintConfigStandard from "npm:stylelint-config-standard";
 import stylelintConfigRecommended from "npm:stylelint-config-recommended";
 import postcssLess from "npm:postcss-less";
+
+import { log } from "./logger.ts";
+import { relative } from "https://deno.land/std@0.150.0/path/mod.ts";
+import { REPO_ROOT } from "@/deps.ts";
+import { WalkEntry } from "std/fs/walk.ts";
 
 const config: stylelint.Config = {
   customSyntax: postcssLess,
@@ -162,9 +168,32 @@ const base = deepMerge(
   { ...stylelintConfigStandard, extends: {} },
 );
 
-export const lint = (files: string, fix: boolean) =>
+export const lint = (entry: WalkEntry, content: string, fix: boolean) => {
+  const file = relative(REPO_ROOT, entry.path);
+
   stylelint.lint({
     config: deepMerge(base, config),
-    files,
+    files: entry.path,
     fix,
-  });
+  })
+    .then(({ results }) => {
+      results.map((result) => {
+        result.warnings.map((warning) => {
+          // some cleanup for fancier logging, dims the rule name
+          const message = warning.text?.replace(
+            new RegExp(`\\(?${warning.rule}\\)?`),
+            chalk.dim(`(${warning.rule})`),
+          ) ?? "unspecified stylelint error";
+
+          log(message, {
+            file,
+            startLine: warning.line,
+            endLine: warning.endLine,
+            startColumn: warning.column,
+            endColumn: warning.endColumn,
+            content,
+          }, warning.severity);
+        });
+      });
+    });
+};

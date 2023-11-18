@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "src/**/*"
+      - "scripts/**/*"
 
 env:
-  DENO_DIR: deno_cache
+  DENO_DIR: /tmp/deno_cache
   HAS_USERSTYLES_TOKEN: ${{ secrets.USERSTYLES_TOKEN != '' }}
 
 jobs:
@@ -38,12 +38,11 @@ jobs:
       - name: Cache Deno dependencies
         uses: actions/cache@v3
         with:
-          key: ${{ hashFiles('src/deno.lock') }}
+          key: ${{ hashFiles('./deno.lock') }}
           path: ${{ env.DENO_DIR }}
 
       - name: Generate health files
-        working-directory: ./src
-        run: deno task generate
+        run: deno task ci:generate
 
       - name: Push changes
         uses: stefanzweifel/git-auto-commit-action@v5
