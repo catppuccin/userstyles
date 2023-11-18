@@ -1,0 +1,37 @@
+name: Deno Check
+
+on:
+  push:
+    branches: [main]
+    paths: ["**/*.ts"]
+  pull_request:
+    branches: [main]
+    paths: ["**/*.ts"]
+
+env:
+  DENO_DIR: /tmp/deno_cache
+
+jobs:
+  deno-check:
+    name: Check Deno code
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+      - name: Cache Deno dependencies
+        uses: actions/cache@v3
+        with:
+          key: ${{ hashFiles('./deno.lock') }}
+          path: ${{ env.DENO_DIR }}
+
+      - name: Check
+        run: |
+          deno lint
+          deno check **/*.ts
+          deno fmt --check **/*.ts

@@ -102,6 +102,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [DeepL](styles/deepl)
 - [Formative](styles/formative)
 - [GitHub](styles/github)
+- [Gmail](styles/gmail)
 - [homepage](styles/homepage)
 - [ichi.moe](styles/ichi.moe)
 - [InvokeAI](styles/invokeai)
@@ -119,7 +120,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Elk](styles/elk)
 - [Hacker News](styles/hacker-news)
+- [Instagram](styles/instagram)
 - [Libreddit](styles/libreddit)
+- [LinkedIn](styles/linkedin)
 - [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
 - [Pinterest](styles/pinterest)

@@ -2,7 +2,7 @@
 @name           Invidious Catppuccin
 @namespace      github.com/catppuccin/userstyles/styles/invidious
 @homepageURL    https://github.com/catppuccin/userstyles/tree/main/styles/invidious
-@version        0.3.1
+@version        0.3.2
 @description    Soothing pastel theme for Invidious
 @author         Catppuccin
 @updateURL      https://github.com/catppuccin/userstyles/raw/main/styles/invidious/catppuccin.user.css
@@ -81,19 +81,6 @@
       lighten(@accentColor, 5%)
     );
 
-    & when (@lookup = latte) {
-      input[type="checkbox"]:checked {
-        border: 1px solid @crust;
-        background-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTYgMTYiIGZpbGw9ImJsYWNrIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMi4yMDcgNC43OTNhMSAxIDAgMDEwIDEuNDE0bC01IDVhMSAxIDAgMDEtMS40MTQgMGwtMi0yYTEgMSAwIDAxMS40MTQtMS40MTRMNi41IDkuMDg2bDQuMjkzLTQuMjkzYTEgMSAwIDAxMS40MTQgMHoiLz48L3N2Zz4K");
-      }
-    }
-    & when not (@lookup = latte) {
-      input[type="checkbox"]:checked {
-        border: 1px solid @crust;
-        background-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTYgMTYiIGZpbGw9IndoaXRlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMi4yMDcgNC43OTNhMSAxIDAgMDEwIDEuNDE0bC01IDVhMSAxIDAgMDEtMS40MTQgMGwtMi0yYTEgMSAwIDAxMS40MTQtMS40MTRMNi41IDkuMDg2bDQuMjkzLTQuMjkzYTEgMSAwIDAxMS40MTQgMHoiLz48L3N2Zz4=");
-      }
-    }
-
     color-scheme: if(@lookup = latte, light, dark);
     background-color: @base !important;
     color: @text !important;
@@ -168,10 +155,6 @@
     .video-js .vjs-control-bar,
     .vjs-menu-button-popup .vjs-menu .vjs-menu-content {
       background-color: @crust !important;
-    }
-
-    .video-js .vjs-control-bar,
-    .vjs-menu-button-popup .vjs-menu .vjs-menu-content {
       color: @text !important;
     }
 
@@ -261,26 +244,36 @@
     }
     input[type="checkbox"] {
       background-color: @surface2;
-      border: 1px solid @crust;
+      border-color: @crust;
       height: 1rem;
       width: 1rem;
       -webkit-appearance: none;
       appearance: none;
-      outline: none;
       cursor: pointer;
+      &:checked {
+        @svg: escape(
+          '<svg viewBox="0 0 16 16" fill="@{accentColor}" xmlns="http://www.w3.org/2000/svg"><path d="M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
     }
 
-    // video player background
+    /* video player background */
     #player-container > .video-js > video,
-    // placeholder for loading thumbnails
+    /* placeholder for loading thumbnails */
     .vjs-poster {
       & when (@styleVideoPlayer = 1) {
         background-color: @mantle !important;
       }
     }
+
+    /* watch progress on videos */
+    div.watched-indicator {
+      background-color: @red;
+    }
   }
 
-  // synced colorscheme
+  /* synced colorscheme */
   @media (prefers-color-scheme: light) {
     .no-theme {
       #catppuccin(@lightFlavor, @accentColor);
@@ -292,7 +285,7 @@
     }
   }
 
-  // manually set colorscheme
+  /* manually set colorscheme */
   .light-theme {
     #catppuccin(@lightFlavor, @accentColor);
   }

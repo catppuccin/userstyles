@@ -2,7 +2,7 @@
 @name YouTube Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/youtube
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/youtube
-@version 3.1.3
+@version 3.1.10
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/youtube/catppuccin.user.css
 @description Soothing pastel theme for YouTube
 @author Catppuccin
@@ -154,14 +154,11 @@
       --yt-spec-suggested-action: fadeout(@accent-color, 80%) !important;
       --yt-spec-suggested-action-inverse: @text !important;
       --yt-spec-icon-active-other: @overlay0 !important;
-      --yt-spec-icon-inactive: @overlay1 !important;
-      --yt-spec-icon-disabled: @overlay2 !important;
       --yt-spec-button-chip-background-hover: @surface1 !important;
       --yt-spec-touch-response: @surface0 !important;
 
       --yt-spec-touch-response-inverse: @accent-color !important;
       --yt-spec-brand-icon-active: @accent-color !important;
-      --yt-spec-brand-icon-inactive: @overlay1 !important;
       --yt-spec-brand-button-background: @accent-color !important;
       --yt-spec-brand-link-text: @sapphire !important;
       --yt-spec-wordmark-text: @text !important;
@@ -214,7 +211,7 @@
       --yt-spec-assistive-feed-themed-gradient-2: @lavender !important;
       --yt-spec-assistive-feed-themed-gradient-3: @red !important;
       --yt-spec-brand-background-solid: @base !important;
-      --yt-spec-brand-background-primary: @surface0 !important;
+      --yt-spec-brand-background-primary: @base !important;
       --yt-spec-brand-background-secondary: @mantle !important;
       --yt-spec-general-background-a: @base !important;
       --yt-spec-general-background-b: @mantle !important;
@@ -270,12 +267,7 @@
       /* Yt video Page */
       --yt-live-chat-background-color: @base !important;
       --yt-live-chat-action-panel-background-color: @base !important;
-      --yt-live-chat-action-panel-background-color-transparent: @base !important;
       --yt-live-chat-secondary-background-color: @surface1;
-      --yt-live-chat-banner-gradient-scrim: linear-gradient(
-        @mantle,
-        transparent
-      ) !important;
       --yt-live-chat-toast-background-color: @surface2 !important;
       --yt-live-chat-mode-change-background-color: @base !important;
       --yt-live-chat-secondary-text-color: @subtext0 !important;
@@ -452,7 +444,7 @@
     .html5-ypc-purchase {
       background: @accent-color !important;
       &:hover {
-        background: ligten(@accent-color, 10%) !important;
+        background: lighten(@accent-color, 10%) !important;
       }
     }
 
@@ -478,17 +470,17 @@
     }
 
     /* subtitle */
-    .ytp-chrome-controls .ytp-button[aria-pressed]:after {
+    .ytp-chrome-controls .ytp-button[aria-pressed]::after {
       background-color: @accent-color !important;
     }
 
     /* menu items */
     /* checkbox subitem */
     .ytp-menuitem[aria-checked="true"] .ytp-menuitem-toggle-checkbox {
-      background: @accent-color !important;
-      &::after {
-        background: @overlay1 !important;
-      }
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" version="1.1"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="@{accent-color}"/></svg>'
+      );
+      background: url("data:image/svg+xml,@{svg}");
     }
     .ytp-menuitem:not([aria-disabled="true"]):hover {
       background: @surface1 !important;
@@ -536,10 +528,6 @@
       fill: @accent-color !important;
     }
 
-    .style-scope.ytd-thumbnail-overlay-toggle-button-renderer:hover {
-      fill: @accent-color !important;
-    }
-
     .yt-spec-button-shape-next--overlay.yt-spec-button-shape-next--filled,
     .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--filled {
       background-color: @accent-color !important;
@@ -556,9 +544,14 @@
       }
     }
 
+    /* private video warning */
+    .WARNING.yt-alert-renderer {
+      background-color: @yellow;
+    }
+
     /* search results */
-    .sbpqs_a:before,
-    .sbqs_c:before {
+    .sbpqs_a::before,
+    .sbqs_c::before {
       filter: invert(1);
     }
 
@@ -566,7 +559,17 @@
     .sbsb_a,
     .sbdd_b {
       background: @mantle !important;
-      border: none !important;
+    }
+
+    /* Transcript Button */
+    .yt-spec-button-shape-next--call-to-action.yt-spec-button-shape-next--outline {
+      color: @accent-color !important;
+      border-color: @surface2 !important;
+
+      &:hover {
+        background-color: fadeout(@accent-color, 80) !important;
+        border-color: fadeout(@accent-color, 80) !important;
+      }
     }
 
     /* text color */
@@ -652,11 +655,6 @@
       text-shadow: none !important;
     }
 
-    /* Popup for when you hover over the channel avatar in the video */
-    .iv-branding .branding-context-container-inner {
-      background-color: @base !important;
-    }
-
     /* Cards */
     .iv-drawer-content {
       background-color: fadeout(@mantle, 5%) !important;
@@ -673,11 +671,6 @@
       background-color: @base !important;
     }
 
-    .ytp-cards-teaser .ytp-cards-teaser-box,
-    .iv-card-image {
-      border: 0px !important;
-    }
-
     .iv-card-content > :first-child,
     .html5-video-player a,
     .iv-card h2,
@@ -685,7 +678,7 @@
       color: @text !important;
     }
 
-    /*Player tooltip background*/
+    /* Player tooltip background */
     .ytp-tooltip-text {
       background: @surface0 !important;
     }
@@ -706,9 +699,9 @@
     /* Temporary fix */
     .yt-core-attributed-string--link-inherit-color {
       color: @text !important;
-      /*&:hover {
+      /* &:hover {
        * color: @teal !important;
-      }*/
+      } */
     }
 
     /* live badges */
@@ -723,10 +716,10 @@
       }
     }
     .ytp-live-badge {
-      &:before {
+      &::before {
         background: @subtext1 !important;
       }
-      &[disabled]:before {
+      &[disabled]::before {
         background: @accent-color !important;
       }
     }
@@ -739,6 +732,17 @@
     }
     .yt-spec-icon-badge-shape--style-overlay .yt-spec-icon-badge-shape__icon {
       color: var(--yt-spec-icon-active-other) !important;
+    }
+    .yt-spec-icon-badge-shape {
+      color: var(--yt-spec-icon-active-other) !important;
+    }
+
+    /* bell next to subscription button */
+    .yt-animated-icon svg {
+      g path,
+      path {
+        fill: @text !important;
+      }
     }
 
     /* creator badges */
@@ -760,14 +764,31 @@
     /* badges e.g. popular */
     yt-chip-cloud-chip-renderer[chip-style="STYLE_DEFAULT"][selected],
     yt-chip-cloud-chip-renderer[chip-style="STYLE_HOME_FILTER"][selected] {
-      background: @surface0 !important;
-      border: 1px solid @accent-color !important;
-      color: @text !important;
+      background: @accent-color !important;
+      color: @crust !important;
     }
 
     /* Search border */
     ytd-searchbox[has-focus] #container.ytd-searchbox {
       border-color: @accent-color !important;
+    }
+
+    /* New Feature inline banner */
+    .ytd-brand-video-singleton-renderer {
+      background: @surface0 !important;
+      color: @text !important;
+    }
+    yt-button-shape a {
+      border-color: @text !important;
+      color: @text !important;
+    }
+
+    /* Chapter overview buttons */
+    #share-button,
+    #repeat-button {
+      button {
+        color: @text !important;
+      }
     }
 
     /* Error page */
@@ -784,7 +805,7 @@
         text-shadow: none;
       }
       #masthead-search-terms.masthead-search-terms-border {
-        border: 1px solid @accent-color !important;
+        border-color: @accent-color !important;
         box-shadow: none !important;
       }
       #yt-masthead {
@@ -844,6 +865,14 @@
       color: @text;
     }
 
+    .yt-spec-button-shape-next--call-to-action.yt-spec-button-shape-next--filled {
+      color: @crust;
+      background-color: @accent-color;
+      &:hover {
+        background-color: darken(@accent-color, 20);
+      }
+    }
+
     .yt-spec-button-shape-next--call-to-action.yt-spec-button-shape-next--text {
       color: @accent-color;
       &:hover {
@@ -851,6 +880,7 @@
       }
     }
 
+    .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--outline,
     .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--text {
       color: @text;
       &:hover {
@@ -858,11 +888,11 @@
       }
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar-thumb {
-      background: @accent-color !important;
+    .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--outline {
+      border-color: @surface0;
     }
 
+    /* Scrollbar */
     ::-webkit-scrollbar {
       width: @scrollbar_width !important;
     }
@@ -880,13 +910,9 @@
       background: fadeout(@accent-color, 80%) !important;
       color: @text !important;
     }
-
-    ::-moz-selection {
-      background: fadeout(@accent-color, 80%) !important;
-      color: @text !important;
-    }
   }
 }
+
 @-moz-document url-prefix('https://www.youtube.com/redirect')
 {
   /* youtube.com-redirect */
@@ -944,7 +970,7 @@
       box-shadow: fadeout(@crust, 10%) !important;
     }
 
-    /*Community Cross-posting*/
+    /* Community Cross-posting */
     ytd-shared-post-renderer[uses-compact-lockup]
       #repost-context.ytd-shared-post-renderer {
       background-color: var(--second-background);
@@ -976,11 +1002,6 @@
 
     /* text highlight */
     ::selection {
-      background: fadeout(@accent-color, 80%) !important;
-      color: @text !important;
-    }
-
-    ::-moz-selection {
       background: fadeout(@accent-color, 80%) !important;
       color: @text !important;
     }
@@ -1163,125 +1184,14 @@
       background: fadeout(@accent-color, 80%) !important;
       color: @text !important;
     }
-
-    ::-moz-selection {
-      background: fadeout(@accent-color, 80%) !important;
-      color: @text !important;
-    }
   }
 }
 
+/* prettier-ignore */
 @catppuccin: {
-  @latte: {
-    @rosewater: #dc8a78;
-    @flamingo: #dd7878;
-    @pink: #ea76cb;
-    @mauve: #8839ef;
-    @red: #d20f39;
-    @maroon: #e64553;
-    @peach: #fe640b;
-    @yellow: #df8e1d;
-    @green: #40a02b;
-    @teal: #179299;
-    @sky: #04a5e5;
-    @sapphire: #209fb5;
-    @blue: #1e66f5;
-    @lavender: #7287fd;
-    @text: #4c4f69;
-    @subtext1: #5c5f77;
-    @subtext0: #6c6f85;
-    @overlay2: #7c7f93;
-    @overlay1: #8c8fa1;
-    @overlay0: #9ca0b0;
-    @surface2: #acb0be;
-    @surface1: #bcc0cc;
-    @surface0: #ccd0da;
-    @base: #eff1f5;
-    @mantle: #e6e9ef;
-    @crust: #dce0e8;
-  };
-  @frappe: {
-    @rosewater: #f2d5cf;
-    @flamingo: #eebebe;
-    @pink: #f4b8e4;
-    @mauve: #ca9ee6;
-    @red: #e78284;
-    @maroon: #ea999c;
-    @peach: #ef9f76;
-    @yellow: #e5c890;
-    @green: #a6d189;
-    @teal: #81c8be;
-    @sky: #99d1db;
-    @sapphire: #85c1dc;
-    @blue: #8caaee;
-    @lavender: #babbf1;
-    @text: #c6d0f5;
-    @subtext1: #b5bfe2;
-    @subtext0: #a5adce;
-    @overlay2: #949cbb;
-    @overlay1: #838ba7;
-    @overlay0: #737994;
-    @surface2: #626880;
-    @surface1: #51576d;
-    @surface0: #414559;
-    @base: #303446;
-    @mantle: #292c3c;
-    @crust: #232634;
-  };
-  @macchiato: {
-    @rosewater: #f4dbd6;
-    @flamingo: #f0c6c6;
-    @pink: #f5bde6;
-    @mauve: #c6a0f6;
-    @red: #ed8796;
-    @maroon: #ee99a0;
-    @peach: #f5a97f;
-    @yellow: #eed49f;
-    @green: #a6da95;
-    @teal: #8bd5ca;
-    @sky: #91d7e3;
-    @sapphire: #7dc4e4;
-    @blue: #8aadf4;
-    @lavender: #b7bdf8;
-    @text: #cad3f5;
-    @subtext1: #b8c0e0;
-    @subtext0: #a5adcb;
-    @overlay2: #939ab7;
-    @overlay1: #8087a2;
-    @overlay0: #6e738d;
-    @surface2: #5b6078;
-    @surface1: #494d64;
-    @surface0: #363a4f;
-    @base: #24273a;
-    @mantle: #1e2030;
-    @crust: #181926;
-  };
-  @mocha: {
-    @rosewater: #f5e0dc;
-    @flamingo: #f2cdcd;
-    @pink: #f5c2e7;
-    @mauve: #cba6f7;
-    @red: #f38ba8;
-    @maroon: #eba0ac;
-    @peach: #fab387;
-    @yellow: #f9e2af;
-    @green: #a6e3a1;
-    @teal: #94e2d5;
-    @sky: #89dceb;
-    @sapphire: #74c7ec;
-    @blue: #89b4fa;
-    @lavender: #b4befe;
-    @text: #cdd6f4;
-    @subtext1: #bac2de;
-    @subtext0: #a6adc8;
-    @overlay2: #9399b2;
-    @overlay1: #7f849c;
-    @overlay0: #6c7086;
-    @surface2: #585b70;
-    @surface1: #45475a;
-    @surface0: #313244;
-    @base: #1e1e2e;
-    @mantle: #181825;
-    @crust: #11111b;
-  };
-};
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+}
+// vim:ft=less

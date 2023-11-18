@@ -4,16 +4,16 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "src/**/*"
+      - "scripts/**/*"
 
 env:
-  DENO_DIR: deno_cache
+  DENO_DIR: /tmp/deno_cache
   HAS_USERSTYLES_TOKEN: ${{ secrets.USERSTYLES_TOKEN != '' }}
 
 jobs:
   generate-health-files:
-    runs-on: ubuntu-latest
     name: Generate health files
+    runs-on: ubuntu-latest
     permissions:
       # Give the default GITHUB_TOKEN write permission to commit and push the
       # added or changed files to the repository.
@@ -38,12 +38,11 @@ jobs:
       - name: Cache Deno dependencies
         uses: actions/cache@v3
         with:
-          key: ${{ hashFiles('src/generate/deno.lock') }}
+          key: ${{ hashFiles('./deno.lock') }}
           path: ${{ env.DENO_DIR }}
 
       - name: Generate health files
-        working-directory: src/generate
-        run: ./generate.ts
+        run: deno task ci:generate
 
       - name: Push changes
         uses: stefanzweifel/git-auto-commit-action@v5
@@ -52,4 +51,3 @@ jobs:
           commit_message: "chore: generate health files"
           commit_author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
           branch: ${{ github.ref }}
-# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
