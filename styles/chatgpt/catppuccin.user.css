@@ -2,7 +2,7 @@
 @name ChatGPT Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/chatgpt
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/chatgpt
-@version 0.0.6
+@version 0.0.7
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/chatgpt/catppuccin.user.css
 @description Soothing pastel theme for ChatGPT
 @author Catppuccin
@@ -11,19 +11,20 @@
 @preprocessor  less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappe", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappe", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green*", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 @-moz-document domain("chat.openai.com") {
   @import url("https://unpkg.com/@catppuccin/highlightjs@0.1.2/css/catppuccin.variables.css");
 
   .light body,
   .light html {
-    #catppuccin(@lightFlavor);
+    #catppuccin(@lightFlavor, @accentColor);
   }
 
   :root,
   .dark body,
   .dark html {
-    #catppuccin(@darkFlavor);
+    #catppuccin(@darkFlavor, @accentColor);
   }
 
   /* prettier-ignore */
@@ -39,7 +40,7 @@
     @rgb-raw: red(@color), green(@color), blue(@color);
   }
 
-  #catppuccin(@lookup) {
+  #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
     @pink: @catppuccin[@@lookup][@pink];
@@ -66,6 +67,7 @@
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
 
     --ctp-rosewater: #rgbify(@rosewater) [];
     --ctp-flamingo: #rgbify(@flamingo) [];
@@ -94,37 +96,139 @@
     --ctp-mantle: #rgbify(@mantle) [];
     --ctp-curst: #rgbify(@crust) [];
 
-    body,
-    html {
-      background: @base !important;
-    }
+    --text-primary: @text;
+    --text-secondary: @subtext0;
+    --text-tertiary: @subtext1;
+    --surface-primary: @mantle;
+    --surface-secondary: @base;
+    --surface-tertiary: @surface0;
+    --border-light: fade(@overlay2, 10%);
+    --border-medium: fade(@overlay2, 15%);
+    --border-heavy: fade(@overlay2, 20%);
+    --border-xheavy: fade(@overlay2, 25%);
+
+    background: @base !important;
+    color: @text;
 
     /* Main page */
     div[class*="bg-gray-"]:not(
         [class*="bg-gray-900"],
         [class*="bg-gray-700"],
-        .bg-black .bg-gray-800
+        .bg-black .bg-gray-800,
+        [class*="bg-gray-600/70"], /* Modal background */
+        [id^="headlessui-menu-items-"], /* Help menu */
+        [class*=":radix-highlighted:hover:bg-[#2E2F33]"] /* Settings > Theme selector drop down */
       ),
     div[class*="bg-vert-dark-gradient"] {
       background: @base !important;
     }
 
+    /* ToS violating message. Don't ask how this was tested. */
+    .text-orange-500 {
+      color: @peach;
+
+      .bg-orange-500\/10.border-orange-500 {
+        background-color: fade(@peach, 10%);
+        border-color: @peach;
+      }
+    }
+
+    /* Chatbox */
+    [class*=":shadow-[0_0_0_2px_"] {
+      --tw-shadow: 0 0 0 2px @overlay0 !important;
+      ::placeholder {
+        color: @overlay0 !important;
+      }
+    }
+
+    /* Go to end arrow */
+    [class*=":bg-white/10"] {
+      background-color: @surface0;
+      border-color: @overlay0;
+    }
+
+    /* Message suggestions */
+    [class*=":from-gray-700"] {
+      --tw-gradient-from: if(@lookup = latte, @crust, @surface2)
+        var(--tw-gradient-from-position);
+      --tw-gradient-to: transparent var(--tw-gradient-to-position);
+    }
+
+    /* Help Menu */
+    [id^="headlessui-menu-items-"] {
+      background-color: @mantle !important;
+      [id^="headlessui-menu-item-"]:hover {
+        background-color: @surface0 !important;
+      }
+    }
+
+    /* Modal Background */
+    [class*="bg-gray-600/70"] {
+      background: fade(@base, 70%) !important;
+    }
+
     /* Sidebar */
-    div[class*="bg-gray-900"] {
+    [class*="bg-gray-900"]:not(.\!bg-transparent) {
+      /* Also, Shared Links */
       background-color: @mantle !important;
     }
 
-    .bg-gray-900 .bg-gray-800 {
-      background-color: @surface0 !important;
+    div {
+      --text-primary: @text;
+      --text-secondary: @subtext0;
+      --text-tertiary: @subtext1;
+      --surface-primary: @surface0;
+      --surface-secondary: @surface1;
+      --surface-tertiary: @surface2;
+      --border-light: fade(@overlay2, 10%);
+      --border-medium: fade(@overlay2, 15%);
+      --border-heavy: fade(@overlay2, 20%);
+      --border-xheavy: fade(@overlay2, 25%);
     }
 
-    .bg-gradient-to-l {
-      background: none;
+    nav {
+      .sticky.bg-black, /* New Chat */
+      h3[class*=":bg-black"] /* Today, Yesterday */ {
+        background-color: transparent !important;
+      }
+
+      /* TODO: is it used? */
+      .bg-gray-900 .bg-gray-800 {
+        background-color: @surface0 !important;
+      }
+
+      /* Conversation */
+      .group {
+        /* Rename */
+        a[href^="/c/"] ~ .absolute {
+          input {
+            border-color: @accent-color;
+            --tw-ring-color: @accent-color;
+          }
+        }
+        /* Gradient */
+        a[href^="/c/"] .bg-gradient-to-l {
+          --tw-gradient-from: @mantle var(--tw-gradient-from-position);
+        }
+        &:hover a[href^="/c/"] .bg-gradient-to-l {
+          --tw-gradient-from: var(--surface-primary)
+            var(--tw-gradient-from-position);
+        }
+      }
+
+      /* TODO: is it used? */
+      /* Upgrade Plan */
+      .shim-yellow {
+        display: none;
+      }
     }
 
-    /* Upgrade Plan */
-    .shim-yellow {
-      display: none;
+    [class*=":hover:bg-white/5"][class*="hover:bg-black/5"] {
+      /* ... Menu */
+      background-color: var(--surface-primary) !important;
+      &:hover {
+        background-color: var(--surface-tertiary) !important;
+      }
     }
 
     /* Search */
@@ -132,9 +236,13 @@
       background-color: if(@lookup = latte, @base, @surface0) !important;
     }
 
-    [class*="text-gray-"],
-    [class*="text-white"]:not(.btn-primary .text-white) {
+    [class*="text-gray-"]:not(.text-gray-500),
+    [class*="text-white"]:not(.btn-primary .text-white, .bg-green-600) {
       color: @text !important;
+    }
+
+    .text-gray-500 {
+      color: @subtext0;
     }
 
     div[class*="border-gray"],
@@ -142,28 +250,18 @@
       border-color: @overlay0 !important;
     }
 
-    input::placeholder,
-    textarea::placeholder {
-      color: @overlay0;
-    }
-
     input,
     textarea {
       color: @text;
+      &::placeholder {
+        color: @overlay0;
+      }
     }
 
     [class*="bg-white/5"] {
       background-color: @surface0 !important;
     }
 
-    .px-3.py-3,
-    .pt-3 {
-      background: @mantle !important;
-    }
-
-    .px-3.py-3:hover {
-      background: @base !important;
-    }
     /* Bot messages */
     .prose {
       --tw-prose-body: @text !important;
@@ -173,7 +271,8 @@
       --tw-prose-headings: @overlay1 !important;
     }
 
-    .bg-black {
+    .bg-black,
+    [class*=":bg-black"] {
       background-color: @crust !important;
     }
 
@@ -187,14 +286,42 @@
       color: @text !important;
     }
 
+    .markdown {
+      [type="checkbox"]:checked {
+        background-color: @accent-color;
+        @svg: escape(
+          '<svg viewBox="0 0 16 16" fill="@{base}" xmlns="http://www.w3.org/2000/svg"><path d="M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0z"/></svg>'
+        );
+        background-image: ~"url('data:image/svg+xml;charset=utf-8,@{svg}')";
+      }
+
+      a {
+        color: @accent-color;
+        &:hover {
+          color: lighten(@accent-color, 5%);
+          text-decoration-line: underline;
+        }
+      }
+
+      th {
+        background: @mantle;
+        color: @text;
+      }
+    }
+
     /* Buttons */
-    .btn-neutral {
+    .btn-neutral,
+    .btn-dark {
       background-color: if(@lookup = latte, @base, @surface1) !important;
       color: @text !important;
+      border-color: @overlay0;
+      &:hover {
+        background-color: if(@lookup = latte, @crust, @surface2) !important;
+      }
     }
 
     .btn-primary {
-      background-color: @green !important;
+      background-color: @accent-color !important;
       color: @crust !important;
     }
 
@@ -207,40 +334,155 @@
       color: @crust !important;
     }
 
+    .btn-disabled,
+    .btn-disabled:hover {
+      background-color: @surface0;
+      color: @text;
+    }
+
+    /* TODO: is it used? */
     .text-2xl {
       color: @text !important;
     }
 
+    /* TODO: is it used? */
     .dark [class*="bg-yellow-"] {
       color: @crust !important;
     }
 
+    /* TODO: is it used? */
     .light [class*="bg-yellow-"] {
       color: @text !important;
     }
 
+    /* TODO: is it used? */
     [class*="text-green"] {
-      color: @green !important;
+      color: @accent-color !important;
     }
 
     .dark .dark\:hover\:bg-\[\#2A2B32\]:hover {
       background-color: @surface0;
     }
 
-    .dark .dark\:bg-gray-900 {
-      background-color: @mantle;
-    }
-
-    .dark .dark\:bg-gray-800 {
+    [class*=":bg-gray-800"]:not(
+        [class*="hover:bg-gray-800"],
+        [class*="group-ui-open:bg-gray-800"]
+      ) {
       background-color: @surface0;
     }
 
-    .dark .dark\:hover\:bg-gray-800:hover {
+    [class*=":hover:bg-gray-800"]:hover {
       background-color: @surface1;
     }
 
     .radix-state-active\:bg-gray-800[data-state="active"] {
       background-color: @surface0;
+    }
+
+    /* Settings > Theme selector drop down */
+    [class*=":hover:bg-[#494A54]"].bg-white {
+      background-color: @mantle;
+      &:hover {
+        background-color: @surface0;
+      }
+    }
+
+    [class*=":focus-visible:border-green-500"]:focus-visible {
+      border-color: @accent-color;
+    }
+
+    [class*=":radix-highlighted:hover:bg-[#2E2F33]"]:hover {
+      background-color: @surface0 !important;
+    }
+
+    /* Shared Links */
+    a[href^="/share/"][class*="text-blue-400"] {
+      color: @accent-color;
+    }
+
+    [class*=":border-white/10"] {
+      border-color: fade(@overlay0, 10%);
+    }
+
+    .text-red-500 {
+      color: @red;
+    }
+
+    /* Custom Instructions */
+    .border-gray-100 {
+      border-color: @overlay0;
+    }
+
+    .focus\:border-brand-green:focus {
+      border-color: @accent-color;
+    }
+
+    /* Toggle button */
+    .radix-state-checked\:bg-green-600 {
+      &[data-state="checked"] {
+        background-color: @accent-color;
+        & > span {
+          background-color: @surface0;
+        }
+      }
+      &[data-state="unchecked"] {
+        background-color: @surface0;
+        & > span {
+          background-color: @text;
+        }
+      }
+    }
+
+    /* ChatGPT Icon
+      (Needs `layout.css.has-selector.enabled`. If it's disabled, no changes are made)
+    */
+    div:has(> [role="img"]) {
+      background-color: @accent-color !important;
+      & > [role="img"] {
+        color: @base;
+      }
+    }
+
+    /* SVG chat avatars (ChatGPT, and Anonymous)
+      (Needs `layout.css.has-selector.enabled`. If it's disabled, no changes are made)
+    */
+    div:has(> svg.icon-sm:only-child) {
+      background-color: @accent-color !important;
+      & > svg {
+        color: @base;
+      }
+    }
+
+    /* Send button */
+    [data-testid="send-button"][class*="bg-gray-900"] {
+      background-color: @base !important;
+      border-color: @overlay0;
+      svg[class*="text-white"] {
+        color: @accent-color !important;
+      }
+    }
+
+    /* Notification Popup (Copied to clipboard) */
+    .bg-green-600.text-white.border-green-600 {
+      background-color: @accent-color;
+      color: @base !important;
+      border-color: @overlay0;
+    }
+
+    /* Share page > "Upgrade to Plus" button */
+    a[href="/gpts/discovery"].bg-green-600.text-white {
+      background-color: @accent-color;
+      color: @base !important;
+    }
+
+    /* Login Page > buttons */
+    .bg-\[\#3C46FF\] {
+      background-color: @accent-color;
+      color: @base;
+    }
+
+    .hover\:bg-\[\#0000FF\]:hover {
+      background-color: lighten(@accent-color, 5%);
     }
   }
 }
