@@ -16,7 +16,7 @@ const ajv = new Ajv.default();
 const validate = ajv.compile<UserstylesSchema>(schema);
 
 const userstylesYaml = Deno.readTextFileSync(
-  path.join(REPO_ROOT, "src/userstyles.yml"),
+  path.join(REPO_ROOT, "scripts/userstyles.yml"),
 );
 const userstylesData = parseYaml(userstylesYaml);
 if (!validate(userstylesData)) {
