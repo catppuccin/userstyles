@@ -30,7 +30,19 @@ for await (const entry of stylesheets) {
 
   // verify the usercss metadata
   const { globalVars, isLess } = await verifyMetadata(entry, content, repo)
-    .catch(() => ({ globalVars: {}, isLess: false }));
+    .catch((e) => {
+      const lines = content.split("\n");
+      let startLine = -1;
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        if (e.index >= line.length) {
+          e.index -= line.length;
+          startLine++;
+        } else break;
+      }
+      log(e.message, { file, startLine, content }, "error");
+      throw e;
+    });
   // don't attempt to compile or lint non-less files
   if (!isLess) continue;
 
