@@ -1,16 +1,17 @@
+import { sprintf } from "std/fmt/printf.ts";
 import chalk from "chalk";
 import core from "@actions/core";
 
-export type LoggerProps = core.AnnotationProperties & {
-  content?: string;
-};
+export type LoggerProps = core.AnnotationProperties & { content?: string };
 
 const pretty_print = (
   message: string,
   props: LoggerProps,
   severity: "error" | "warning" = "warning",
 ) => {
-  const startLine = props.startLine ?? 0;
+  const { file, startColumn, startLine } = props;
+  if (!startLine) return console.log(message);
+
   const lines = (props.content ?? "").split("\n");
 
   const error = [
@@ -29,13 +30,33 @@ const pretty_print = (
     }
   }).join("");
 
+  const pad = startLine.toString().length;
   console.log(
     [
-      `${props.file}:${chalk.grey(`${props.startLine}:${props.startColumn}`)}`,
-      ` ┃${chalk.dim(lines[startLine - 2])}`,
-      ` ┃${chalk.grey(line)}`,
-      ` ┃${chalk.dim(lines[startLine])}`,
-      error,
+      chalk.underline(
+        sprintf(
+          "%s%s%d%s%d",
+          file,
+          startLine ? ":" : "",
+          startLine ?? "",
+          startColumn ? ":" : "",
+          startColumn ?? "",
+        ),
+      ),
+      sprintf(
+        "%*s│ %s",
+        pad,
+        chalk.dim(startLine - 1),
+        chalk.dim(lines[startLine - 2]),
+      ),
+      sprintf("%*s│ %s", pad, chalk.bold(startLine), line),
+      sprintf(
+        "%*s│ %s",
+        pad,
+        chalk.dim(startLine + 1),
+        chalk.dim(lines[startLine]),
+      ),
+      sprintf("%*s╰─► %s", pad, "", error),
       undefined,
     ].join("\n"),
   );
