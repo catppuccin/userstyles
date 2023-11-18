@@ -3,15 +3,20 @@
 // TODO: remove this once types for usercss-meta are available
 // deno-lint-ignore-file no-explicit-any
 
+import { parse as parseFlags } from "std/flags/mod.ts";
 import { basename, dirname, join, relative } from "std/path/mod.ts";
 import { globber } from "globber";
 
 import core from "@actions/core";
+import chalk from "chalk";
 // @deno-types="npm:@types/less";
 import less from "less";
 import usercssMeta from "usercss-meta";
 import { lint } from "./stylelint.ts";
 import { REPO_ROOT } from "@/deps.ts";
+import { log, LoggerProps } from "./logger.ts";
+
+const flags = parseFlags(Deno.args, { boolean: ["fix"] });
 
 const iterator = globber({
   include: ["styles/**/catppuccin.user.css"],
@@ -42,7 +47,7 @@ for await (const entry of iterator) {
   try {
     metadata = usercssMeta.parse(content).metadata;
   } catch (err) {
-    core.error(err, { file: entry.relative });
+    log(err, { file: entry.relative, content }, "error");
   }
 
   const assert = assertions(repo);
@@ -52,10 +57,23 @@ for await (const entry of iterator) {
     if (defacto !== v) {
       const line = content.split("\n").findIndex((line) => line.includes(k)) +
         1;
-      core.warning(`Metadata \`${k}\` should be ${v} but is \`${defacto}\``, {
-        file: entry.relative,
-        startLine: line !== 0 ? line : undefined,
-      });
+
+      log(
+        [
+          "Metadata",
+          chalk.bold(k),
+          "should be",
+          chalk.green(v),
+          "but is",
+          chalk.red(defacto),
+        ].join(" "),
+        {
+          file: entry.relative,
+          startLine: line !== 0 ? line : undefined,
+          content,
+        },
+        "warning",
+      );
     }
   });
 
@@ -70,26 +88,40 @@ for await (const entry of iterator) {
 
   less.render(content, { lint: true, globalVars }).then().catch(
     (err: any) => {
-      core.error(err.message, {
-        file: entry.relative,
-        startLine: err.line,
-        endLine: err.line,
-      });
+      log(
+        err.message,
+        {
+          file: entry.relative,
+          startLine: err.line,
+          endLine: err.line,
+          content,
+        },
+        "error",
+      );
     },
   );
 
-  lint(content).then(({ results }) => {
+  lint(entry.absolute, flags.fix).then(({ results }) => {
     results.sort(
       (a, b) => (a.source ?? "").localeCompare(b.source ?? ""),
     ).map((result) => {
       result.warnings.map((warning) => {
-        core.warning(warning.text ?? "unspecified", {
+        const msg = warning.text?.replace(
+          new RegExp(`\\(?${warning.rule}\\)?`),
+          chalk.dim(`(${warning.rule})`),
+        ) ??
+          "unspecified stylelint error";
+
+        const props = {
           file: entry.relative,
           startLine: warning.line,
           endLine: warning.endLine,
           startColumn: warning.column,
           endColumn: warning.endColumn,
-        });
+          content,
+        } satisfies LoggerProps;
+
+        log(msg, props, warning.severity);
       });
     });
   });

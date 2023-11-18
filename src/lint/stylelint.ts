@@ -22,14 +22,44 @@ const config: stylelint.Config = {
     "alpha-value-notation": null,
     "color-function-notation": null,
     "hue-degree-notation": null,
-    "length-zero-no-unit": null,
+
+    // less doesn't care about these
+    "no-invalid-position-at-import-rule": null,
+    "no-invalid-double-slash-comments": null,
+
+    "at-rule-disallowed-list": [[
+      "/^font.*/",
+    ], {
+      message: (atRule: string) =>
+        `At-rule ${atRule} is not allowed in Catppuccin userstyles`,
+    }],
+    "property-disallowed-list": [[
+      // disallow setting fonts
+      "/font.*/",
+
+      // ideally we could disallow these, but CSS continues to be gross
+      // "/animation.*/",
+      // "/transition.*/",
+
+      // prefer `border-color` over `border`, `outline-color` over `outline`, etc.
+      "border",
+      "outline",
+    ], {
+      message: (prop: string) => {
+        if (["border", "outline"].includes(prop)) {
+          return `Use \`${prop}-color\` instead of \`${prop}\``;
+        } else {
+          return `Property \`${prop}\` is not allowed in Catppuccin userstyles`;
+        }
+      },
+    }],
 
     "function-no-unknown": [
       true,
       {
-        // generated from https://lesscss.org/functions/
-        // via `Array.from(document.querySelectorAll('.section-content h3.docs-heading'), heading => heading.textContent.replace('\n', ''))`
         ignoreFunctions: [
+          // generated from https://lesscss.org/functions/
+          // via `Array.from(document.querySelectorAll('.section-content h3.docs-heading'), heading => heading.textContent.replace('\n', ''))`
           "%",
           "abs",
           "acos",
@@ -132,8 +162,9 @@ const base = deepMerge(
   { ...stylelintConfigStandard, extends: {} },
 );
 
-export const lint = (code: string) =>
+export const lint = (files: string, fix: boolean) =>
   stylelint.lint({
     config: deepMerge(base, config),
-    code,
+    files,
+    fix,
   });
