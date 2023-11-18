@@ -14,7 +14,8 @@ import { verifyMetadata } from "./metadata.ts";
 import { lint } from "./stylelint.ts";
 
 const flags = parseFlags(Deno.args, { boolean: ["fix"] });
-const stylesheets = walk(join(REPO_ROOT, "styles"), {
+const subDir = flags._[0]?.toString() ?? "";
+const stylesheets = walk(join(REPO_ROOT, "styles", subDir), {
   includeFiles: true,
   includeDirs: false,
   includeSymlinks: false,
