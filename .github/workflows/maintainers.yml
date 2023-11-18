@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "scripts/userstyles.yml"
+      - "src/userstyles.yml"
 
 env:
-  DENO_DIR: /tmp/deno_cache
+  DENO_DIR: deno_cache
 
 jobs:
   sync-maintainers:
@@ -27,11 +27,12 @@ jobs:
       - name: Cache Deno dependencies
         uses: actions/cache@v3
         with:
-          key: ${{ hashFiles('./deno.lock') }}
+          key: ${{ hashFiles('src/deno.lock') }}
           path: ${{ env.DENO_DIR }}
 
       - name: Sync maintainers
         if: ${{ github.repository == 'catppuccin/userstyles' && github.ref == 'refs/heads/main' }}
-        run: deno task ci:sync-maintainers
+        working-directory: ./src
+        run: deno task sync-maintainers
         env:
           GITHUB_TOKEN: ${{ secrets.USERSTYLES_TOKEN }}

@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  DENO_DIR: /tmp/deno_cache
+  DENO_DIR: deno_cache
 
 jobs:
   lint:
@@ -25,8 +25,9 @@ jobs:
       - name: Cache Deno dependencies
         uses: actions/cache@v3
         with:
-          key: ${{ hashFiles('./deno.lock') }}
+          key: ${{ hashFiles('src/deno.lock') }}
           path: ${{ env.DENO_DIR }}
 
       - name: Run Lint
+        working-directory: src
         run: deno task lint

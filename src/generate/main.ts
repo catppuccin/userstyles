@@ -41,7 +41,7 @@ const validate = ajv.compile<Metadata>(schema);
 const validatePorts = ajv.compile<PortMetadata>(portsSchema);
 
 const userstylesYaml = Deno.readTextFileSync(
-  path.join(REPO_ROOT, "scripts/userstyles.yml"),
+  path.join(REPO_ROOT, "src/userstyles.yml"),
 );
 const userstylesData = parseYaml(userstylesYaml);
 if (!validate(userstylesData)) {
