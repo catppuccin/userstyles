@@ -14,7 +14,8 @@ import { verifyMetadata } from "./metadata.ts";
 import { lint } from "./stylelint.ts";
 
 const flags = parseFlags(Deno.args, { boolean: ["fix"] });
-const stylesheets = walk(join(REPO_ROOT, "styles"), {
+const subDir = flags._[0]?.toString() ?? "";
+const stylesheets = walk(join(REPO_ROOT, "styles", subDir), {
   includeFiles: true,
   includeDirs: false,
   includeSymlinks: false,
@@ -29,20 +30,7 @@ for await (const entry of stylesheets) {
   const content = await Deno.readTextFile(entry.path);
 
   // verify the usercss metadata
-  const { globalVars, isLess } = await verifyMetadata(entry, content, repo)
-    .catch((e) => {
-      const lines = content.split("\n");
-      let startLine = -1;
-      for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
-        if (e.index >= line.length) {
-          e.index -= line.length;
-          startLine++;
-        } else break;
-      }
-      log(e.message, { file, startLine, content }, "error");
-      throw e;
-    });
+  const { globalVars, isLess } = verifyMetadata(entry, content, repo);
   // don't attempt to compile or lint non-less files
   if (!isLess) continue;
 
