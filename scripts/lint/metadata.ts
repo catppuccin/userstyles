@@ -1,9 +1,9 @@
-// @deno-types="../usercss-meta.d.ts";
+// @deno-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
 import { log } from "./logger.ts";
 import * as color from "std/fmt/colors.ts";
 import { sprintf } from "std/fmt/printf.ts";
-import type { WalkEntry } from "std/fs/mod.ts";
+import type { WalkEntry } from "std/fs/walk.ts";
 import { relative } from "std/path/mod.ts";
 import { REPO_ROOT } from "@/deps.ts";
 

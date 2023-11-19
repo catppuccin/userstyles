@@ -1,177 +1,100 @@
 #!/usr/bin/env -S deno run --allow-env --allow-read --allow-write --allow-net
 
-import * as path from "std/path/mod.ts";
-import { parse as parseYaml } from "std/yaml/mod.ts";
-import Ajv from "ajv";
+import { join } from "std/path/mod.ts";
+import Handlebars from "handlebars";
 
 import { portsSchema, REPO_ROOT, schema } from "@/deps.ts";
-
-import {
-  ApplicationLink,
-  CurrentMaintainers,
-  FAQ,
-  Name,
-  PastMaintainers,
-  PortCategories,
-  Usage,
-  Userstyle,
-  Userstyles,
-} from "@/types.d.ts";
-
-const ROOT = new URL(".", import.meta.url).pathname;
-const ISSUE_PREFIX = "lbl:";
+import { PortsSchema, UserStylesSchema } from "@/types/mod.d.ts";
+import { syncIssueLabels } from "./labels.ts";
+import { updateFile, updateReadme, validateYaml } from "./utils.ts";
+import { generateStyleReadmes } from "./readme-styles.ts";
 
 type Metadata = {
-  userstyles: Userstyles;
+  userstyles: UserStylesSchema.Userstyles;
 };
+type PortMetadata = { categories: PortsSchema.Categories };
 
-type PortMetadata = {
-  categories: PortCategories;
-};
-
-type CollaboratorsData = {
-  collaborators: CurrentMaintainers | PastMaintainers | undefined;
-  heading: string;
-};
-
-export type MappedPort = Userstyle & { path: string };
-
-const ajv = new (Ajv as unknown as (typeof Ajv)["default"])();
-const validate = ajv.compile<Metadata>(schema);
-const validatePorts = ajv.compile<PortMetadata>(portsSchema);
+export type MappedPort = UserStylesSchema.Userstyle & { path: string };
 
 const userstylesYaml = Deno.readTextFileSync(
-  path.join(REPO_ROOT, "scripts/userstyles.yml"),
+  join(REPO_ROOT, "scripts/userstyles.yml"),
 );
-const userstylesData = parseYaml(userstylesYaml);
-if (!validate(userstylesData)) {
-  console.log(validate.errors);
-  Deno.exit(1);
-}
-
 const portsYaml = await fetch(
   "https://raw.githubusercontent.com/catppuccin/catppuccin/main/resources/ports.yml",
-);
-const portsData = parseYaml(await portsYaml.text());
-if (!validatePorts(portsData)) {
-  console.log(validate.errors);
+).then((res) => res.text());
+
+const [portsData, userstylesData] = await Promise.all([
+  await validateYaml<PortMetadata>(portsYaml, portsSchema),
+  await validateYaml<Metadata>(userstylesYaml, schema),
+]).catch((e) => {
+  console.error(e);
+  Deno.exit(1);
+});
+
+if (!userstylesData.userstyles) {
+  console.error("No userstyles found");
   Deno.exit(1);
 }
 
-const categorized = Object.entries(userstylesData.userstyles).reduce(
-  (acc, [slug, { category, ...port }]) => {
+const categorized = Object.entries(userstylesData.userstyles)
+  .reduce((acc, [slug, { category, ...port }]) => {
+    // initialize category array if it doesn't exist
     acc[category] ??= [];
+
     acc[category].push({ path: `styles/${slug}`, category, ...port });
-    acc[category].sort((a, b) => {
-      const aName = typeof a.name === "string" ? a.name : a.name.join(", ");
-      const bName = typeof b.name === "string" ? b.name : b.name.join(", ");
-      return aName.localeCompare(bName);
-    });
+
+    // Sort by name, first array entry if necessary
+    acc[category].sort((a, b) =>
+      [a.name].flat()[0].localeCompare([b.name].flat()[0])
+    );
     return acc;
-  },
-  {} as Record<string, MappedPort[]>,
-);
+  }, {} as Record<string, MappedPort[]>);
 
 const portListData = portsData.categories
   .filter((category) => categorized[category.key] !== undefined)
   .map((category) => {
-    return {
-      meta: category,
-      ports: categorized[category.key],
-    };
+    return { meta: category, ports: categorized[category.key] };
   });
 
-const portContent = portListData
-  .map(
-    (data) =>
-      `<details open>
-<summary>${data.meta.emoji} ${data.meta.name}</summary>
+const portContent = Handlebars.compile(`{{#each category}}
+<details open>
+<summary>{{emoji}} {{name}}</summary>
 
-${
-        data.ports
-          .map((port) => {
-            const name = Array.isArray(port.name)
-              ? port.name.join(", ")
-              : port.name;
-            return `- [${name}](${port.path})`;
-          })
-          .join("\n")
-      }
+{{#each ports}}
+- [{{#each name}}{{ this }}{{#unless @last}}, {{/unless}}{{/each}}]({{ path }})
+{{/each}}
 
-</details>`,
-  )
-  .join("\n");
+</details>
+{{/each}}`)({
+  category: portListData.map(({ meta, ports }) => {
+    return {
+      emoji: meta.emoji,
+      name: meta.name,
+      ports: ports.map(({ name, path }) => {
+        return {
+          name: [name].flat(),
+          path,
+        };
+      }),
+    };
+  }),
+});
 
-const updateReadme = ({
-  readme,
-  section,
-  newContent,
-}: {
-  readme: string;
-  section: string;
-  newContent: string;
-}): string => {
-  const preamble =
-    "<!-- the following section is auto-generated, do not edit -->";
-  const startMarker = `<!-- AUTOGEN:${section.toUpperCase()} START -->`;
-  const endMarker = `<!-- AUTOGEN:${section.toUpperCase()} END -->`;
-  const wrapped = `${startMarker}\n${preamble}\n${newContent}\n${endMarker}`;
-
-  if (
-    !(readmeContent.includes(startMarker) && readmeContent.includes(endMarker))
-  ) {
-    throw new Error("Markers not found in README.md");
-  }
-
-  const pre = readme.split(startMarker)[0];
-  const end = readme.split(endMarker)[1];
-  return pre + wrapped + end;
-};
-
-const updateFile = (filePath: string, fileContent: string, comment = true) => {
-  const preamble = comment
-    ? "# THIS FILE IS AUTOGENERATED. DO NOT EDIT IT BY HAND.\n"
-    : "";
-  Deno.writeTextFileSync(filePath, preamble + fileContent);
-};
-
-const readmePath = path.join(REPO_ROOT, "README.md");
-let readmeContent = Deno.readTextFileSync(readmePath);
-try {
-  readmeContent = updateReadme({
-    readme: readmeContent,
+const readmePath = join(REPO_ROOT, "README.md");
+await updateFile(
+  readmePath,
+  updateReadme({
+    readme: Deno.readTextFileSync(readmePath),
     section: "userstyles",
     newContent: portContent,
-  });
-  updateFile(readmePath, readmeContent, false);
-} catch (e) {
-  console.log("Failed to update the README:", e);
-}
+  }),
+  false,
+).catch((e) => console.error(e));
 
-const pullRequestLabelerPath = path.join(REPO_ROOT, ".github/pr-labeler.yml");
-const pullRequestLabelerContent = Object.entries(userstylesData.userstyles)
-  .map(([key]) => `${key}: styles/${key}/**/*`)
-  .join("\n");
-updateFile(pullRequestLabelerPath, pullRequestLabelerContent);
+syncIssueLabels(userstylesData.userstyles);
+generateStyleReadmes(userstylesData.userstyles);
 
-const syncLabels = path.join(REPO_ROOT, ".github/labels.yml");
-const syncLabelsContent = Object.entries(userstylesData.userstyles)
-  .map(
-    ([key, style]) =>
-      `- name: ${key}
-  description: ${style.name}
-  color: "#8aadf4"`,
-  )
-  .join("\n");
-updateFile(syncLabels, syncLabelsContent);
-
-const issuesLabelerPath = path.join(REPO_ROOT, ".github/issue-labeler.yml");
-const issuesLabelerContent = Object.entries(userstylesData.userstyles)
-  .map(([key]) => `${key}: ['(${ISSUE_PREFIX + key})']`)
-  .join("\n");
-updateFile(issuesLabelerPath, issuesLabelerContent);
-
-const ownersPath = path.join(REPO_ROOT, ".github/CODEOWNERS");
+const ownersPath = join(REPO_ROOT, ".github/CODEOWNERS");
 const ownersContent = Object.entries(userstylesData.userstyles)
   .map(([key, style]) => {
     const currentMaintainers = style.readme["current-maintainers"]
@@ -181,107 +104,3 @@ const ownersContent = Object.entries(userstylesData.userstyles)
   })
   .join("\n");
 updateFile(ownersPath, ownersContent);
-
-const userstyleIssuePath = path.join(ROOT, "templates/userstyle-issue.yml");
-const userstyleIssueContent = Deno.readTextFileSync(userstyleIssuePath);
-const replacedUserstyleIssueContent = userstyleIssueContent.replace(
-  "$PORTS",
-  `${
-    Object.entries(userstylesData.userstyles)
-      .map(([key]) => `'${ISSUE_PREFIX + key}'`)
-      .join(", ")
-  }`,
-);
-Deno.writeTextFileSync(
-  path.join(REPO_ROOT, ".github/ISSUE_TEMPLATE/userstyle.yml"),
-  replacedUserstyleIssueContent,
-);
-
-const heading = (name: Name, link: ApplicationLink) => {
-  const nameArray = Array.isArray(name) ? name : [name];
-  const linkArray = Array.isArray(link) ? link : [link];
-
-  if (nameArray.length !== linkArray.length) {
-    throw new Error(
-      'The "name" and "app-link" arrays must have the same length',
-    );
-  }
-
-  return `Catppuccin for ${
-    nameArray
-      .map((name, index) => `<a href="${linkArray[index]}">${name}</a>`)
-      .join(", ")
-  }`;
-};
-
-const usageContent = (usage?: Usage) => {
-  return !usage ? "" : `## Usage  \n${usage}`;
-};
-
-const faqContent = (faq?: FAQ) => {
-  if (!faq) {
-    return "";
-  }
-  return `## 🙋 FAQ
-${
-    faq
-      .map(({ question, answer }) => `- Q: ${question}  \n\tA: ${answer}`)
-      .join("\n")
-  }`;
-};
-
-const collaboratorsContent = (allCollaborators: CollaboratorsData[]) => {
-  return allCollaborators
-    .filter(({ collaborators }) => collaborators !== undefined)
-    .map(({ collaborators, heading }) => {
-      const collaboratorBody = collaborators
-        ?.map(({ name, url }) => `- [${name ?? url.split("/").pop()}](${url})`)
-        .join("\n");
-      return `${heading}\n${collaboratorBody}`;
-    })
-    .join("\n\n");
-};
-
-const updateStylesReadmeContent = (
-  readme: string,
-  key: string,
-  userstyle: Userstyle,
-) => {
-  return readme
-    .replace("$TITLE", heading(userstyle.name, userstyle.readme["app-link"]))
-    .replaceAll("$LOWERCASE-PORT", key)
-    .replace("$USAGE", usageContent(userstyle.readme.usage))
-    .replace("$FAQ", faqContent(userstyle.readme.faq))
-    .replace(
-      "$COLLABORATORS",
-      collaboratorsContent([
-        {
-          collaborators: userstyle.readme["current-maintainers"],
-          heading: "## 💝 Current Maintainer(s)",
-        },
-        {
-          collaborators: userstyle.readme["past-maintainers"],
-          heading: "## 💖 Past Maintainer(s)",
-        },
-      ]),
-    );
-};
-
-const stylesReadmePath = path.join(ROOT, "templates/userstyle.md");
-const stylesReadmeContent = Deno.readTextFileSync(stylesReadmePath);
-for (const [key, userstyle] of Object.entries(userstylesData.userstyles)) {
-  try {
-    console.log(`Generating README for ${key}`);
-    readmeContent = updateStylesReadmeContent(
-      stylesReadmeContent,
-      key,
-      userstyle,
-    );
-    Deno.writeTextFileSync(
-      path.join(REPO_ROOT, "styles", key, "README.md"),
-      readmeContent,
-    );
-  } catch (e) {
-    console.log(`Failed to update ${userstyle} README:`, e);
-  }
-}

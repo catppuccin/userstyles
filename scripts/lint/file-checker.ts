@@ -1,4 +1,4 @@
-import { exists } from "std/fs/mod.ts";
+import { exists } from "std/fs/exists.ts";
 import { join, relative } from "std/path/mod.ts";
 import core from "@actions/core";
 

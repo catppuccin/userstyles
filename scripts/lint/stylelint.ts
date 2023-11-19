@@ -1,4 +1,4 @@
-import { deepMerge } from "std/collections/mod.ts";
+import { deepMerge } from "std/collections/deep_merge.ts";
 
 import * as color from "std/fmt/colors.ts";
 import stylelint from "npm:stylelint";

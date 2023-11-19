@@ -2,18 +2,18 @@
 
 import * as assert from "std/assert/mod.ts";
 import * as path from "std/path/mod.ts";
-import { parse as parseYaml } from "std/yaml/mod.ts";
+import { parse as parseYaml } from "std/yaml/parse.ts";
 import Ajv from "ajv";
 import { Octokit } from "@octokit/rest";
 
 import { REPO_ROOT, schema } from "@/deps.ts";
-import { Userstyle, UserstylesSchema } from "@/types.d.ts";
+import { UserStylesSchema } from "../types/mod.d.ts";
 
 const octokit = new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") });
 const team = { org: "catppuccin", team_slug: "userstyles-maintainers" };
 
 const ajv = new Ajv.default();
-const validate = ajv.compile<UserstylesSchema>(schema);
+const validate = ajv.compile<UserStylesSchema.Userstyles>(schema);
 
 const userstylesYaml = Deno.readTextFileSync(
   path.join(REPO_ROOT, "scripts/userstyles.yml"),
@@ -30,7 +30,9 @@ if (userstylesData.userstyles === undefined) {
 // lowercase usernames of all the "current-maintainers" in the file
 const maintainers = [
   ...new Set(
-    Object.values(userstylesData.userstyles).flatMap((style: Userstyle) =>
+    Object.values(userstylesData.userstyles).flatMap((
+      style: UserStylesSchema.Userstyle,
+    ) =>
       style.readme["current-maintainers"].map((m) => {
         const username = m.url.split("github.com/")?.pop();
         // check that they follow github.com/username pattern
