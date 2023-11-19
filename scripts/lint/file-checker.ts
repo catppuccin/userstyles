@@ -4,7 +4,7 @@ import core from "@actions/core";
 
 import { REPO_ROOT } from "@/deps.ts";
 import { log } from "./logger.ts";
-import chalk from "chalk";
+import * as color from "std/fmt/colors.ts";
 
 const requiredFiles = [
   "catppuccin.user.css",
@@ -39,7 +39,7 @@ export const checkForMissingFiles = async () => {
       .write();
   } else {
     missingFiles.map((f) => {
-      log(chalk.red(`Missing file:`) + ` ${f}`, { file: f }, "error");
+      log(color.red(`Missing file:`) + ` ${f}`, { file: f }, "error");
     });
   }
 
