@@ -42,9 +42,6 @@ export const generateStyleReadmes = (
   const stylesReadmeContent = Deno.readTextFileSync(stylesReadmePath);
 
   Object.entries(userstyles).map(([slug, { name, readme }]) => {
-    // can't generate a readme if there's no readme
-    if (!readme) return;
-
     console.log(`Generating README for ${slug}`);
     const readmeContent = Handlebars.compile(stylesReadmeContent)({
       heading: heading(name, readme["app-link"]),
