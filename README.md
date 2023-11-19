@@ -109,6 +109,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [NixOS Wiki](styles/nixos.wiki)
 - [Proton](styles/proton)
 - [Quizlet](styles/quizlet)
+- [Skiff](styles/skiff)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
 - [Tutanota](styles/tutanota)
