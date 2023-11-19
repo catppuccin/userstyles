@@ -137,6 +137,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [ChatReplay](styles/chatreplay)
 - [Invidious](styles/invidious)
 - [Last.fm](styles/lastfm)
+- [Spotify Web](styles/spotify-web)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
 
