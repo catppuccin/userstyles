@@ -1,0 +1,2153 @@
+/* ==UserStyle==
+@name Crunchyroll Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/crunchyroll
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/crunchyroll
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/crunchyroll/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Acrunchyroll
+@description Soothing pastel theme for Crunchyroll
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach*", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select playerFlavor "Player: Flavor" ["auto:Auto*", "latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select playerSetting "Player: Setting" ["none:None", "minimal:Minimal", "medium:Medium*", "full:Full"]
+@var select playerBackground "Player: Themed Background" ["never:Never", "notfullscreen:Not Fullscreen*", "always:Always"]
+==/UserStyle== */
+/* If you need any help with the information above, please see: https://github.com/openstyles/stylus/wiki/Writing-UserCSS#var */
+
+//  Palette Lookup Table
+/* prettier-ignore */
+@catppuccin: {
+  @latte:     {
+    @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8;
+    @text_filter: brightness(0) saturate(100%) invert(28%) sepia(17%) saturate(835%) hue-rotate(196deg) brightness(97%) contrast(85%);
+  };
+  @frappe:    {
+    @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634;
+    @text_filter: brightness(0) saturate(100%) invert(84%) sepia(5%) saturate(1519%) hue-rotate(192deg) brightness(100%) contrast(93%);
+  };
+  @macchiato: {
+    @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926;
+    @text_filter: brightness(0) saturate(100%) invert(80%) sepia(18%) saturate(377%) hue-rotate(192deg) brightness(103%) contrast(92%);
+  };
+  @mocha:     {
+    @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b;
+    @text_filter: brightness(0) saturate(100%) invert(85%) sepia(6%) saturate(1356%) hue-rotate(194deg) brightness(103%) contrast(91%);
+  };
+}
+
+#catppuccinColors(@lookup, @accent) {
+  @rosewater: @catppuccin[@@lookup][@rosewater];
+  @flamingo: @catppuccin[@@lookup][@flamingo];
+  @pink: @catppuccin[@@lookup][@pink];
+  @mauve: @catppuccin[@@lookup][@mauve];
+  @red: @catppuccin[@@lookup][@red];
+  @maroon: @catppuccin[@@lookup][@maroon];
+  @peach: @catppuccin[@@lookup][@peach];
+  @yellow: @catppuccin[@@lookup][@yellow];
+  @green: @catppuccin[@@lookup][@green];
+  @teal: @catppuccin[@@lookup][@teal];
+  @sky: @catppuccin[@@lookup][@sky];
+  @sapphire: @catppuccin[@@lookup][@sapphire];
+  @blue: @catppuccin[@@lookup][@blue];
+  @lavender: @catppuccin[@@lookup][@lavender];
+  @text: @catppuccin[@@lookup][@text];
+  @subtext1: @catppuccin[@@lookup][@subtext1];
+  @subtext0: @catppuccin[@@lookup][@subtext0];
+  @overlay2: @catppuccin[@@lookup][@overlay2];
+  @overlay1: @catppuccin[@@lookup][@overlay1];
+  @overlay0: @catppuccin[@@lookup][@overlay0];
+  @surface2: @catppuccin[@@lookup][@surface2];
+  @surface1: @catppuccin[@@lookup][@surface1];
+  @surface0: @catppuccin[@@lookup][@surface0];
+  @base: @catppuccin[@@lookup][@base];
+  @mantle: @catppuccin[@@lookup][@mantle];
+  @crust: @catppuccin[@@lookup][@crust];
+  @accent-color: @catppuccin[@@lookup][@@accent];
+
+  @accent-dim: if(
+    (@lookup = latte),
+    desaturate(lighten(@accent-color, 8%), 10%),
+    desaturate(darken(@accent-color, 8%), 10%)
+  );
+}
+
+/* Apply Theme To Site
+ * For help with URL rules, please see https://github.com/openstyles/stylus/wiki/Writing-styles#valid--moz-document-rules */
+@-moz-document regexp('^https:\/\/(www\.)?crunchyroll\.com(\/(?!(..\/)?(comics|games|news|simulcastcalendar|about|tos|welcome)).*)?$') {
+  /*  Userstyle as Mixin
+   *  This takes the following Parameters:
+   *  @lookup – which is the desired Flavor
+   *  @accent – which is the desired Accent Color */
+  #catppuccinMain(@lookup, @accent) {
+    #catppuccinColors(@lookup, @accent);
+
+    // MIXINS - START
+
+    // Prettier does not really like rules as parameters in
+    // the following mixins so they are disabled for now.
+    // But they are still here for future reference.
+
+    // // Applies @rules when hovered or focused
+    // .highlight(@rules) {
+    //   @media (hover: hover) {
+    //     &:focus,
+    //     &:hover {
+    //       @rules();
+    //     }
+    //   }
+    // }
+
+    // // Applies @rules when hovered, focused or when the element also has a class that contains @{active-class}--
+    // .highlight(@rules, @selector) {
+    //   .highlight(@rules);
+
+    //   &@{selector} {
+    //     @rules();
+    //   }
+    // }
+
+    .clickable(@property, @hover-value) {
+      @media (hover: hover) {
+        &:focus,
+        &:hover {
+          @{property}: @hover-value;
+        }
+      }
+    }
+
+    .clickable(@property, @base-value, @hover-value) {
+      @{property}: @base-value;
+
+      .clickable(@property, @hover-value);
+    }
+
+    .clickable-text(@hover-value) {
+      .clickable(color, @hover-value);
+    }
+
+    .clickable-text(@base-value, @hover-value) {
+      .clickable(color, @base-value, @hover-value);
+    }
+
+    .clickable-text-subtle() {
+      .clickable-text(@overlay2, @text);
+    }
+
+    .clickable-text-accent() {
+      .clickable-text(@accent-color, @accent-dim);
+    }
+
+    .clickable-background(@hover-value) {
+      .clickable(background-color, @hover-value);
+    }
+
+    .clickable-background(@base-value, @hover-value) {
+      .clickable(background-color, @base-value, @hover-value);
+    }
+
+    .clickable-background-accent() {
+      .clickable-background(@accent-color, @accent-dim);
+    }
+
+    .clickable-fill(@hover-value) {
+      .clickable(fill, @hover-value);
+    }
+
+    .clickable-fill(@base-value, @hover-value) {
+      .clickable(fill, @base-value, @hover-value);
+    }
+
+    .card(@cardname) {
+      [class*="@{cardname}--"] {
+        [class*="@{cardname}-title--"],
+        [class*="@{cardname}__title--"],
+        [class*="@{cardname}__title-link--"] {
+          color: @text;
+        }
+
+        [class*="@{cardname}-subtitle--"],
+        [class*="@{cardname}__subtitle--"],
+        [class*="@{cardname}__footer--"] {
+          color: @subtext0;
+        }
+      }
+    }
+
+    .card-hover(@shadow-size: var(--hover-shadow-size)) {
+      background-color: @mantle;
+      box-shadow: 0 0 0 @shadow-size $background-color;
+    }
+
+    .clickable-card(@cardname) {
+      .card(@cardname);
+
+      [class*="@{cardname}--"] {
+        @highlight: {
+          .card-hover();
+        };
+
+        @media (hover: hover) {
+          &:focus,
+          &:hover {
+            @highlight();
+          }
+        }
+
+        &[class*="@{cardname}--is-now-playing--"] {
+          @highlight();
+        }
+      }
+
+      [class*="@{cardname}-actions--"] {
+        [class*="@{cardname}-actions__icon-button--"] {
+          .clickable-text-subtle();
+        }
+      }
+    }
+
+    // Clickable card that shows additional information on hover
+    // where @hover-elem is the sub-element that the hover background is applied to
+    .clickable-card-hover(@cardname, @hover-elem: "hover") {
+      .card(@cardname);
+
+      [class*="@{cardname}--"] {
+        [class*="@{cardname}-@{hover-elem}--"] {
+          .card-hover(0.5rem);
+
+          [class*="@{cardname}-hover__title--"],
+          [class*="@{cardname}-hover__title-link--"],
+          [class*="@{cardname}-hover__description--"] {
+            color: @text;
+          }
+
+          [class*="@{cardname}-hover__meta--"] {
+            color: @subtext0;
+          }
+        }
+      }
+    }
+    // MIXINS - END
+
+    // NAVBAR - START
+    .erc-large-header {
+      .header-content {
+        background-color: @mantle;
+
+        .erc-header-tile {
+          color: @subtext0;
+
+          .erc-header-svg {
+            color: @subtext0;
+          }
+
+          @highlight: {
+            &,
+            .erc-header-svg {
+              color: @text;
+            }
+            background-color: @surface0;
+          };
+
+          @media (hover: hover) {
+            &:focus,
+            &:hover {
+              @highlight();
+            }
+          }
+
+          &.state-active {
+            @highlight();
+          }
+        }
+
+        .header-logo .erc-logo {
+          .logo-icon {
+            fill: @accent-color;
+          }
+
+          &:hover {
+            .logo-icon {
+              fill: @accent-dim;
+            }
+          }
+        }
+
+        .header-menu {
+          .erc-browse-menu-dropdown,
+          .erc-news-menu-dropdown,
+          .erc-vertical-menu-dropdown {
+            background-color: @crust;
+
+            .section-title,
+            .menu-section-title {
+              color: @subtext0;
+            }
+
+            .erc-submenu-dropdown {
+              background-color: @mantle;
+            }
+
+            .erc-menu-item-title,
+            .erc-submenu-item .submenu-item-title {
+              color: @text;
+
+              &:hover {
+                background-color: @surface0;
+              }
+            }
+          }
+
+          .erc-browse-menu-dropdown .menu-wrapper .genres-wrapper {
+            border-left-color: @surface0;
+          }
+
+          .erc-vertical-menu-dropdown .menu-section:first-child {
+            border-bottom-color: @surface0;
+          }
+        }
+
+        .header-actions {
+          .erc-user-menu {
+            background-color: @crust;
+
+            .erc-user-menu-account-item {
+              .account-item-title {
+                color: @text;
+              }
+
+              .account-item-premium-icon {
+                fill: @yellow;
+              }
+
+              .account-item-premium-label {
+                color: @yellow;
+              }
+            }
+
+            .erc-user-menu-nav-item {
+              color: @text;
+
+              .description-text {
+                color: @subtext0;
+              }
+
+              &:hover {
+                background-color: @surface0;
+              }
+            }
+          }
+
+          .erc-authenticated-user-menu .user-menu-section:not(:first-child) {
+            border-top-color: @surface0;
+          }
+        }
+      }
+
+      .erc-page-overlay {
+        background-color: fade(@base, 80%);
+      }
+    }
+    // NAVBAR - END
+
+    // STICKY HEADER - START
+    .erc-sticky-header {
+      &.state-static {
+        background-color: @base;
+      }
+
+      &.state-sticky {
+        background-color: @crust;
+      }
+    }
+    // STICKY HEADER - END
+
+    // HOME PAGE - START
+    .erc-feed {
+      /* HERO CAROUSEL - START */
+      [class*="hero-carousel--"] {
+        background-color: @base;
+
+        [class*="hero-carousel__arrows--"] [class*="hero-carousel__arrow--"] {
+          fill: @text;
+
+          &:hover {
+            fill: @accent-color;
+          }
+        }
+
+        [class*="hero-carousel__item--"] {
+          [class*="hero-content-card__description--"] {
+            color: @text;
+          }
+
+          [class*="hero-background--"]::after {
+            background: linear-gradient(
+              180deg,
+              fade(@base, 0%),
+              fade(@base, 20%) 20%,
+              fade(@base, 60%) 56%,
+              @base
+            );
+
+            @media (min-width: 50em) {
+              background: linear-gradient(
+                  to bottom,
+                  #0000 ~"min(40vh, 50%)",
+                  @base 100%
+                ),
+                linear-gradient(
+                  to var(--cr-end-direction),
+                  fade(@base, 80%) 0,
+                  fade(@base, 60%) 30%,
+                  #0000 70%
+                );
+            }
+          }
+        }
+
+        /* HERO CAROUSEL PAGINATION PILLS - START */
+        [class*="hero-carousel__pagination--"]
+          [class*="hero-carousel__page--"] {
+          .clickable(--pill-color, @surface2, @accent-color);
+
+          [class*="hero-carousel__page-loader--"],
+          [class*="hero-carousel__page--is-active--"] {
+            background-color: @accent-color;
+          }
+        }
+
+        &[class*="hero-carousel--is-paused--"] {
+          --active-page-color: @accent-color;
+        }
+        /* HERO CAROUSEL PAGINATION PILLS - END */
+      }
+      /* HERO CAROUSEL - END */
+
+      /* FEED - START */
+      [class*="feed-header--"] {
+        [class*="feed-header__description--"],
+        [class*="feed-header__view-link--"] {
+          .clickable-text-subtle();
+        }
+      }
+      /* FEED - END */
+
+      /* RELEASE EPISODES SECTION - START */
+      [class*="release-episodes-section--"] {
+        [class*="release-episodes-section__group--"] {
+          [class*="release-episodes-section__group-heading-divider--"] {
+            background-color: @overlay0;
+          }
+
+          [class*="release-episodes-section__group-content--"] {
+            /* RELEASE EPISODE CARD BASE - START */
+            [class*="release-episode-card-base--"] {
+              [class*="release-episode-card-body--"] {
+                [class*="release-episode-card-media-type--"] {
+                  [class*="release-episode-card-media-type__label--"] {
+                    color: @subtext0;
+                  }
+                }
+
+                [class*="release-episode-card-meta-data--"]
+                  [class*="release-episode-card-publish-time--"] {
+                  color: @accent-color;
+                }
+              }
+            }
+            /* RELEASE EPISODE CARD BASE - END */
+
+            /* RELEASE EPISODE CARD - START */
+            .clickable-card-hover("release-episode-card");
+
+            [class*="release-episode-card--"]
+              [class*="release-episode-card-hover--"]
+              [class*="release-episode-card-hover__body--"]
+              [class*="release-episode-card-hover__play-label--"] {
+              color: @accent-color;
+            }
+            /* RELEASE EPISODE CARD - END */
+
+            /* RELEASE EPISODE CARD STACK - START */
+            [class*="release-episode-card-stack--"] {
+              [class*="release-episode-card-stack__thumbnail--"]
+                [class*="release-episode-card-stack__thumbnail-image--"],
+              [class*="release-episode-card-stack-hover__thumbnail--"]
+                [class*="release-episode-card-stack-hover__thumbnail-image--"] {
+                box-shadow: var(--first-layer-offset) 0 0 fade(@text, 60%),
+                  var(--first-layer-offset) 0 0 @base,
+                  var(--second-layer-offset) 0 0 fade(@text, 40%),
+                  var(--second-layer-offset) 0 0 @base,
+                  var(--third-layer-offset) 0 0 fade(@text, 20%),
+                  var(--third-layer-offset) 0 0 @base;
+              }
+
+              [class*="release-episode-card-body--"]
+                [class*="release-episode-card-title--"]
+                [class*="release-episode-card-stack__title-link--"] {
+                color: @text;
+              }
+
+              [class*="release-episode-card-stack-hover--"] {
+                .card-hover(0.5rem);
+              }
+            }
+            /* RELEASE EPISODE CARD STACK - END */
+          }
+        }
+      }
+      /* RELEASE EPISODES SECTION - END */
+
+      /* NEWS AND EDITORIAL SECTION - START */
+      [class*="news-and-editorial--"] {
+        [class*="news-and-editorial-background--"] {
+          &[class*="news-and-editorial-background--is-even--"] {
+            background-image: linear-gradient(
+              180deg,
+              spin(@accent-color, 20),
+              spin(@accent-color, -20)
+            );
+          }
+
+          svg[class*="news-and-editorial-background__illustration--"] {
+            #news-and-editorial-orange-a {
+              stop[offset="0"] {
+                stop-color: spin(@accent-color, 20);
+              }
+
+              stop[offset=".313151595"] {
+                stop-color: spin(@accent-color, 0);
+              }
+
+              stop[offset=".38184216"] {
+                stop-color: spin(@accent-color, 10);
+              }
+
+              stop[offset="1"] {
+                stop-color: spin(@accent-color, -20);
+              }
+            }
+
+            #news-and-editorial-orange-b {
+              stop[offset="0"] {
+                stop-color: spin(@accent-color, 20);
+              }
+
+              stop[offset="1"] {
+                stop-color: @accent-color;
+              }
+            }
+          }
+        }
+
+        [class*="news-and-editorial__content-wrapper--"] {
+          &::before {
+            background-color: @base;
+          }
+        }
+      }
+      /* NEWS AND EDITORIAL SECTION - END */
+    }
+    // HOME PAGE - END
+
+    // BROWSE PAGE - START
+    .erc-browse {
+      .erc-alphabetical-slider {
+        .letters-item {
+          .letter {
+            color: @text;
+          }
+
+          &.state-active .letter {
+            color: @accent-color;
+          }
+
+          &.state-inactive .letter {
+            color: @overlay0;
+          }
+        }
+      }
+
+      .erc-alphabetical-letter-separator .letter-separator {
+        border-top-color: @overlay0;
+      }
+    }
+    // BROWSE PAGE - END
+
+    // GENRE PAGE - START
+    .erc-genres-header {
+      .icon {
+        filter: @catppuccin[@@lookup][@text_filter];
+      }
+    }
+
+    .erc-genres-collection {
+      .view-all-link {
+        .clickable-text-subtle();
+      }
+    }
+    // GENRE PAGE - END
+
+    // SUB GENRE PAGE - START
+    .erc-subgenres-header {
+      .breadcrumbs-with-filters {
+        --fade-color: @base;
+      }
+
+      .subgenres-header-sticky.state-sticky .breadcrumbs-with-filters {
+        --fade-color: @crust;
+      }
+    }
+    // SUB GENRE PAGE - END
+
+    // WATCH EPISODE PAGE - START
+    .erc-watch-episode {
+      // CURRENT MEDIA INFO - START
+      .erc-current-media-info {
+        .show-title-link {
+          .clickable-text-accent();
+
+          &::after {
+            background-color: @overlay0;
+          }
+        }
+
+        svg[class*="watchlist-toggle__icon--"] {
+          fill: @text;
+        }
+
+        .episode-actions {
+          [class*="episode-rate-action--"] {
+            svg[class*="episode-rate-action__icon--"] {
+              fill: @text;
+            }
+
+            [class*="episode-rate-action__text--"] {
+              color: @text;
+            }
+          }
+        }
+      }
+      // CURRENT MEDIA INFO - END
+
+      // COMMENTING SECTION - START
+      .erc-commenting-section {
+        .create-comment {
+          [class*="comment-textarea__signature--"] {
+            [class*="comment-textarea__info-text--"] {
+              color: @subtext0;
+            }
+          }
+
+          textarea[class*="comment-textarea__editable-area--"] {
+            background-color: @mantle;
+            border-color: @overlay0;
+            color: @text;
+          }
+        }
+
+        .erc-comments {
+          [class*="comment--"] {
+            [class*="comment__signature--"] {
+              [class*="comment__publication-date--"] {
+                color: @subtext0;
+              }
+            }
+
+            [class*="comment__body--"] {
+              [class*="comment-deleted--"] {
+                color: @overlay1;
+              }
+
+              button[class*="comment-spoiler-section__toggle--"] {
+                .clickable-text-subtle();
+              }
+            }
+
+            [class*="comment-actions--"] {
+              [class*="comment-actions__item--"] {
+                .clickable-text-subtle();
+
+                &[class*="comment-actions__item--is-open--"] {
+                  color: @text;
+                  background-color: @surface0;
+                }
+              }
+
+              [class*="comment-actions__options--"] {
+                background-color: @mantle;
+
+                [class*="comment-actions__options-item--"] {
+                  color: @text;
+
+                  .clickable-background(@surface0);
+                }
+              }
+            }
+          }
+
+          .erc-replies {
+            .erc-replies-button .replies-button {
+              .clickable-text-accent();
+            }
+          }
+        }
+      }
+      // COMMENTING SECTION - END
+
+      // WATCH MORE (SIDEBAR) - START
+      .erc-watch-more-episodes {
+        .erc-prev-next-episode .title {
+          color: @text;
+        }
+      }
+      // WATCH MORE (SIDEBAR) - END
+    }
+    // WATCH EPISODE PAGE - END
+
+    // WATCH MUSIC PAGE - START
+    .erc-watch-music {
+      .erc-current-music-info {
+        .artist-name-link {
+          .clickable-text-accent();
+
+          &::after {
+            background-color: @overlay0;
+          }
+        }
+
+        .copyright {
+          color: @overlay0;
+        }
+      }
+
+      .erc-watch-more-music {
+        .erc-prev-next-music .title {
+          color: @text;
+        }
+      }
+    }
+    // WATCH MUSIC PAGE - END
+
+    // SERIES PAGE - START
+    .erc-series {
+      .erc-reviews-section {
+        .erc-reviews-header {
+          .average-rating-title {
+            color: @text;
+          }
+        }
+
+        .erc-write-review-section {
+          background-color: @mantle;
+
+          .write-review-section-signature-text {
+            color: @subtext0;
+          }
+        }
+
+        [class*="review-form--"] {
+          background-color: @mantle;
+
+          [class*="review-form__info-text--"] {
+            color: @text;
+          }
+
+          [class*="review-form__rating-text--"],
+          [class*="character-counter--"] {
+            color: @subtext0;
+          }
+
+          [class*="review-form__title-input--"],
+          [class*="review-form__textarea--"] {
+            background-color: @crust;
+            border-color: @overlay0;
+            color: @text;
+          }
+        }
+
+        .erc-reviews {
+          [class*="review--"] > [class*="review__content--"] {
+            [class*="review__details--"] {
+              [class*="review__meta--"] {
+                color: @subtext0;
+              }
+
+              [class*="review-spoiler-body__toggle--"] {
+                .clickable-text-subtle();
+              }
+            }
+
+            [class*="review__footer--"] {
+              [class*="review-votings--"] {
+                color: @subtext0;
+
+                [class*="review-votings__options--"] {
+                  [class*="review-votings__option--"] {
+                    color: @accent-color;
+
+                    &[class*="review-votings__option--is-disabled--"] {
+                      color: @overlay0;
+                    }
+
+                    &:not([class*="review-votings__option--is-disabled--"]) {
+                      .clickable-text(@text);
+                    }
+                  }
+                }
+              }
+
+              [class*="review-actions--"] {
+                [class*="review-actions__item--"] {
+                  .clickable-text-subtle();
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    // SERIES PAGE - END
+
+    // SEARCH PAGE - START
+    .erc-search-page {
+      // SEARCH FIELD - START
+      .search-field-wrapper {
+        background-color: @base;
+
+        .erc-search-field .search-input-wrapper {
+          border-bottom-color: @overlay0;
+
+          &.state-focused {
+            border-bottom-color: @accent-color;
+          }
+
+          .search-input {
+            color: @text;
+          }
+        }
+      }
+      // SEARCH FIELD - END
+
+      .erc-search-results-back-button {
+        .clickable-text-subtle();
+      }
+    }
+    // SEARCH PAGE - END
+
+    // CRUNCHYLISTS PAGE - START
+    .erc-empty-list-info-box {
+      border-color: @overlay2;
+
+      .description {
+        color: @text;
+      }
+    }
+
+    .erc-create-custom-list-form .modal-description {
+      color: @subtext0;
+    }
+
+    .erc-single-custom-list {
+      .single-custom-list-navigation .navigation-link {
+        .clickable-text-subtle();
+      }
+
+      .erc-empty-single-custom-list-description .description-link {
+        .clickable-text-accent();
+      }
+
+      .settings-dropdown-item {
+        .clickable-text-subtle();
+      }
+
+      .card-separator {
+        border-bottom-color: @overlay0;
+      }
+    }
+
+    .erc-custom-lists-content {
+      [class*="custom-list-item--"] {
+        background-color: @surface0;
+
+        [class*="custom-list-item__dropdown-option--"] {
+          .clickable-text-subtle();
+        }
+      }
+    }
+    // CRUNCHYLISTS PAGE - END
+
+    // ACCOUNT PAGES - START
+    .erc-account-old {
+      .erc-account-user-info .user-status {
+        color: @yellow;
+      }
+
+      .erc-account-nav-link {
+        .clickable-text(@overlay2, @text);
+        .clickable-background(@surface1);
+
+        &.state-active {
+          color: @accent-color;
+        }
+      }
+
+      .account-content {
+        background-color: @surface0;
+
+        .erc-membership-info {
+          .header-description {
+            color: @subtext0;
+          }
+
+          .membership-info-content {
+            border-bottom-color: @overlay0;
+
+            .erc-premium {
+              .title-wrapper {
+                color: @yellow;
+              }
+
+              .price-wrapper {
+                color: @text;
+
+                .taxes {
+                  color: @subtext1;
+                }
+              }
+
+              .renewal-date {
+                color: @subtext0;
+              }
+
+              .premium-cta {
+                .clickable-text-subtle();
+              }
+            }
+          }
+
+          .membership-info-order-history {
+            .order-history-description {
+              color: @subtext1;
+            }
+
+            .order-history-link {
+              .clickable-text-accent();
+            }
+          }
+        }
+
+        .erc-account-preferences {
+          .preferences-description {
+            color: @subtext0;
+          }
+        }
+      }
+    }
+    // ACCOUNT PAGES - END
+
+    // FOOTER - START
+    .erc-footer {
+      background: @base linear-gradient(180deg, #0000, fade(@accent-color, 40%));
+
+      .footer-top-wrapper {
+        border-bottom-color: @overlay0;
+
+        .erc-footer-section .erc-footer-section-item .as {
+          .clickable-text-subtle();
+        }
+      }
+
+      .erc-footer-copyright-section {
+        .footer-copyright {
+          color: @subtext0;
+        }
+      }
+    }
+    // FOOTER - END
+
+    // BROWSE CARD
+    .clickable-card-hover("browse-card", "hover__content");
+
+    // WATCHLIST CARD
+    .clickable-card("watchlist-card");
+
+    // PLAYABLE CARD - START
+    .card("playable-card");
+
+    [class*="playable-card--"] {
+      [class*="playable-card__body--"] {
+        [class*="playable-card__show-link--"] {
+          .clickable-text-accent();
+        }
+
+        [class*="playable-card__show-title--"] {
+          color: @accent-color;
+        }
+      }
+
+      [class*="playable-card-hover--"],
+      &[class*="playable-card--is-now-playing--"] {
+        .card-hover();
+
+        [class*="playable-card-hover__body--"] {
+          [class*="playable-card-hover__secondary-title-link--"] {
+            color: @accent-color;
+          }
+
+          [class*="playable-card-hover__release--"] {
+            color: @subtext0;
+          }
+
+          [class*="playable-card-hover__play--"] {
+            color: @accent-color;
+          }
+        }
+      }
+    }
+    // PLAYABLE CARD - END
+
+    // PLAYABLE CARD MINI
+    .clickable-card("playable-card-mini-static");
+
+    // HISTORY PLAYABLE CARD - START
+    .clickable-card("history-playable-card");
+
+    [class*="history-playable-card--"]
+      [class*="history-playable-card__body--"]
+      [class*="history-playable-card__footer--"]
+      [class*="history-playable-card__trash-button--"] {
+      .clickable-text-subtle();
+    }
+    // HISTORY PLAYABLE CARD - END
+
+    // SQUARE NEWS CARD - START
+    .clickable-card("square-news-card");
+
+    [class*="square-news-card--"] {
+      [class*="square-news-card__posted-date--"],
+      [class*="square-news-card__meta--"] {
+        color: @subtext0;
+      }
+    }
+    // SQUARE NEWS CARD - END
+
+    // WIDE NEWS CARD - START
+    .clickable-card("wide-news-card");
+
+    [class*="wide-news-card--"]
+      [class*="wide-news-card__content--"]
+      [class*="wide-news-card__information--"] {
+      color: @subtext0;
+    }
+    // WIDE NEWS CARD - END
+
+    // SINGLE SHOW CARD
+    .card("single-show-card");
+
+    // SINGLE PROMO SHOW CARD - START
+    [class*="single-promo-show-card--"] {
+      [class*="single-promo-show-card__background-wrapper--"] {
+        [class*="single-promo-background--"] {
+          &[class*="single-promo-background--is-even--"] {
+            background-image: linear-gradient(
+              to var(--cr-start-direction),
+              spin(@accent-color, 30),
+              (@accent-color) 47%,
+              spin(@accent-color, -30)
+            );
+          }
+
+          [class*="single-promo-background__assets-wrapper--"] {
+            [class*="single-promo-background__even-bottom-asset--"] {
+              linearGradient#a {
+                stop[offset="0"] {
+                  stop-color: spin(@accent-color, 10);
+                }
+
+                stop[offset="1"] {
+                  stop-color: spin(@accent-color, 30);
+                }
+              }
+
+              linearGradient#b {
+                stop[offset="0"] {
+                  stop-color: spin(@accent-color, -10);
+                }
+
+                stop[offset="1"] {
+                  stop-color: @accent-color;
+                }
+              }
+            }
+
+            [class*="single-promo-background__even-top-asset--"] {
+              linearGradient#a {
+                stop[offset="0"] {
+                  stop-color: @accent-color;
+                }
+
+                stop[offset="1"] {
+                  stop-color: spin(@accent-color, -10);
+                }
+              }
+            }
+          }
+        }
+
+        [class*="single-promo-show-card__content-background--"] {
+          &::before {
+            background-color: @mantle;
+          }
+        }
+      }
+
+      [class*="single-promo-show-card__info--"] {
+        [class*="single-promo-show-card__title--"] {
+          color: @text;
+        }
+
+        [class*="single-promo-show-card__watchlist-button--"]
+          [class*="single-promo-show-card__watchlist-icon--"] {
+          fill: @text;
+
+          &[class*="single-promo-show-card__watchlist-icon--is-filled--"] {
+            fill: @accent-color;
+          }
+        }
+      }
+    }
+    // SINGLE PROMO SHOW CARD - END
+
+    // HORIZONTAL CARD - START
+    .card("horizontal-card");
+
+    [class*="horizontal-card--"] {
+      [class*="horizontal-card-hover--"]
+        [class*="horizontal-card-hover__content--"] {
+        .card-hover();
+
+        [class*="horizontal-card-hover__body--"] {
+          [class*="horizontal-card-hover__title-link--"] {
+            color: @accent-color;
+          }
+        }
+      }
+    }
+    // HORIZONTAL CARD - END
+
+    // MUSIC CARD
+    .clickable-card("music-card");
+
+    // MUSIC CARD MINI
+    .clickable-card("music-card-mini");
+
+    // SEARCH SHOW CARD
+    .clickable-card-hover("search-show-card", "hover__content");
+
+    // SEARCH SHOW CARD STATIC
+    .clickable-card("search-show-card-static");
+
+    [class*="search-show-card-static--"] {
+      [class*="search-show-card-static__action-button--"] {
+        .clickable-text-accent();
+      }
+    }
+
+    // SEARCH EPISODE CARD - START
+    .clickable-card-hover("search-episode-card");
+
+    [class*="search-episode-card--"] {
+      [class*="search-episode-card__episode-name--"]
+        [class*="search-episode-card__episode-link--"],
+      [class*="search-episode-card-hover__episode-name--"]
+        [class*="search-episode-card-hover__episode-link--"] {
+        color: @text;
+      }
+
+      [class*="search-episode-card-hover__play--"] {
+        color: @accent-color;
+      }
+
+      [class*="search-episode-card-hover__link--"] {
+        @media (hover: hover) {
+          &:focus,
+          &:hover {
+            &
+              ~ [class*="search-episode-card-hover__body--"]
+              [class*="search-episode-card-hover__play--"] {
+              color: @accent-dim;
+            }
+          }
+        }
+      }
+    }
+    // SEARCH EPISODE CARD - END
+
+    // CUSTOM LIST CARD - START
+    .clickable-card-hover("custom-list-card");
+
+    [class*="custom-list-card--"] {
+      [class*="custom-list-card-hover--"] {
+        outline-color: @mantle;
+      }
+
+      [class*="custom-list-card-delete-button--"] {
+        .clickable-text-subtle();
+      }
+    }
+    // CUSTOM LIST CARD - END
+
+    // SEARCH MUSIC CARD - START
+    .clickable-card("search-music-card");
+
+    [class*="search-music-card--"] {
+      [class*="search-music-card__music-name--"]
+        [class*="search-music-card__music-link--"] {
+        color: @text;
+      }
+    }
+    // SEARCH MUSIC CARD - END
+
+    // CARD WATCHLIST LABEL - START
+    // Watchlist label on the top right of the card
+    [class*="card-watchlist-label--"] {
+      color: @base;
+
+      svg[class*="card-watchlist-label__icon--"] {
+        fill: @accent-color;
+      }
+    }
+    // CARD WATCHLIST LABEL - END
+
+    // PLAYABLE THUMBNAIL - START
+    [class*="playable-thumbnail--"] {
+      [class*="playable-thumbnail-icon__play-overlay--"]
+        [class*="play-media-icon--"] {
+        background-color: fade(@base, 40%);
+
+        svg[class*="play-media-icon__symbol--"] {
+          fill: @text;
+        }
+      }
+
+      [class*="progress-bar--"] {
+        background-color: @surface0;
+
+        [class*="progress-bar__progress--"] {
+          background-color: @accent-color;
+        }
+      }
+
+      [class*="playable-thumbnail__duration--"] {
+        background-color: fade(@base, 60%);
+        color: @text;
+      }
+    }
+    // PLAYABLE THUMBNAIL - END
+
+    // BUTTONS - START
+    [class*="button--"] {
+      &[class*="tooltip-icon__action-icon-button--"],
+      &[class*="button--is-type-one-weak--"] {
+        .clickable-text-accent();
+      }
+
+      &[class*="button--is-type-one--"],
+      &[class*="button--is-type-four--"] {
+        .clickable-background-accent();
+        color: @base;
+      }
+
+      &[class*="expandable-section__button--"],
+      &[class*="button--is-type-two-weak--"] {
+        .clickable-text-subtle();
+      }
+
+      &[class*="button--is-disabled--"] {
+        color: @overlay0;
+      }
+    }
+
+    .erc-add-to-watchlist-button.remove-from-watchlist .remove-hover {
+      color: @accent-color;
+    }
+
+    .erc-add-to-custom-list-button .add-to-list-button {
+      .clickable-text-subtle();
+      .clickable-background(@surface0);
+    }
+
+    .erc-share-button {
+      .clickable-text-subtle();
+    }
+    // BUTTONS - END
+
+    // DROPDOWN - START
+    [class*="dropdown--"] {
+      [class*="dropdown-trigger--"] {
+        @highlight: {
+          color: @text;
+          background-color: @surface1;
+
+          .down-arrow-icon {
+            fill: @text;
+          }
+        };
+
+        @media (hover: hover) {
+          &:focus,
+          &:hover {
+            @highlight();
+          }
+        }
+
+        &[class*="dropdown-trigger--is-open--"] {
+          @highlight();
+        }
+
+        color: @overlay2;
+
+        .down-arrow-icon {
+          fill: @overlay2;
+        }
+      }
+
+      [class*="dropdown-content--"] {
+        background-color: @surface0;
+
+        [class*="dropdown-content__fade--"] {
+          &::before {
+            background-image: linear-gradient(180deg, @surface0, #0000);
+          }
+
+          &::after {
+            background-image: linear-gradient(0deg, @surface0, #0000);
+          }
+        }
+
+        [class*="dropdown-content__children--"] {
+          // DROPDOWN OPTIONS - START
+          .option-with-active(@basename) {
+            [class*="@{basename}--"] {
+              color: @text;
+
+              &[class*="@{basename}--is-active--"] {
+                color: @accent-color;
+              }
+
+              .clickable-background(@surface1);
+            }
+          }
+
+          .option-with-active("select-content__option");
+          .option-with-active("extended-option");
+
+          [class*="dropdown-radio-option--"]
+            [class*="dropdown-radio-option__label--"]:not(
+              [class*="dropdown-radio-option__label--is-disabled--"]
+            ),
+          [class*="dropdown-checkbox-option--"]
+            [class*="dropdown-checkbox-option__label--"],
+          [class*="dropdown-text-option---"] {
+            .clickable-background(@surface1);
+          }
+          // DROPDOWN OPTIONS - END
+
+          .erc-add-item-dropdown-empty {
+            color: @overlay0;
+          }
+
+          .erc-add-item-dropdown {
+            .search-series-card-wrapper {
+              border-bottom-color: @overlay0;
+            }
+          }
+        }
+      }
+    }
+    // DROPDOWN - END
+
+    // BASIC INPUT - START
+    [class*="basic-input--"] {
+      [class*="input--"] {
+        color: @text;
+      }
+
+      [class*="clear-input__clear-action--"] {
+        background-color: @overlay0;
+
+        [class*="clear-input__icon--"] {
+          fill: @text;
+        }
+      }
+    }
+    // BASIC INPUT - END
+
+    // CHECKBOX - START
+    [class*="checkbox--"] {
+      [class*="checkbox__label--"] {
+        color: @overlay2;
+
+        [class*="checkbox__checkmark--"] {
+          background-color: @crust;
+          border-color: @overlay2;
+        }
+
+        &[class*="checkbox__label--is-checked--"] {
+          color: @text;
+
+          [class*="checkbox__checkmark--"] {
+            border-color: @accent-color;
+          }
+
+          path[class*="checkbox__path--"] {
+            stroke: @accent-color;
+          }
+        }
+
+        &:not([class*="checkbox__label--is-checked--"]) {
+          &:focus,
+          &:hover {
+            color: @text;
+
+            [class*="checkbox__checkmark--"] {
+              border-color: @text;
+            }
+          }
+        }
+      }
+    }
+    // CHECKBOX - END
+
+    // RADIO BUTTON - START
+    [class*="radio-button--"] {
+      [class*="radio-button__label--"] {
+        color: @overlay2;
+
+        &[class*="radio-button__label--is-checked--"] {
+          color: @accent-color;
+        }
+
+        [class*="radio-button__checkmark--"] {
+          border-color: @overlay2;
+          background-color: @crust;
+
+          &::after {
+            background-color: @accent-color;
+          }
+        }
+
+        [class*="radio-button__input--"]:checked
+          ~ [class*="radio-button__checkmark--"] {
+          border-color: @accent-color;
+        }
+
+        @media (hover: hover) {
+          &:focus,
+          &:hover {
+            &:not([class*="radio-button__label--is-checked--"]) {
+              color: @text;
+
+              [class*="radio-button__checkmark--"] {
+                border-color: @text;
+              }
+            }
+          }
+        }
+      }
+    }
+    // RADIO BUTTON - END
+
+    // SELECT - START
+    [class*="select-label__label--"] {
+      color: @subtext0;
+    }
+    // SELECT - END
+
+    // TOGGLE - START
+    [class*="toggle--"] {
+      [class*="toggle__controls--"] {
+        .clickable-text-subtle();
+
+        [class*="toggle__switch--"] {
+          background-color: @crust;
+        }
+
+        [class*="toggle__label--"] {
+          color: @subtext0;
+        }
+
+        @media (hover: hover) {
+          &:focus,
+          &:hover {
+            [class*="toggle__label--"] {
+              color: @text;
+            }
+          }
+        }
+      }
+
+      &[class*="toggle--is-checked--"] {
+        [class*="toggle__controls--"] {
+          color: @accent-color;
+
+          [class*="toggle__label--"] {
+            color: @accent-color;
+          }
+        }
+      }
+
+      [class*="toggle__description--"] {
+        color: @subtext0;
+      }
+    }
+
+    // MODAL - START
+    .erc-modal {
+      .close-button {
+        fill: @text;
+      }
+
+      .content {
+        background-color: @base;
+        color: @text;
+
+        .erc-episode-list-modal,
+        .erc-music-list-modal {
+          .modal-heading {
+            background-color: @mantle;
+          }
+
+          .scrollable-section-fade {
+            &::before {
+              background-image: linear-gradient(180deg, @mantle, #0000);
+            }
+
+            &::after {
+              background-image: linear-gradient(0deg, @mantle, #0000);
+            }
+          }
+        }
+      }
+
+      @media (min-width: 50em) {
+        .overlay {
+          background-color: fade(@base, 50%);
+        }
+      }
+    }
+    // MODAL - END
+
+    // FLASH MESSAGE - START
+    [class*="flash-message--"] {
+      &[class*="flash-message--is-success--"] {
+        background-color: @green;
+      }
+
+      [class*="flash-message__text--"] {
+        color: @base;
+      }
+
+      [class*="flash-message__close-icon--"] {
+        fill: @base;
+      }
+    }
+    // FLASH MESSAGE - END
+
+    // CAROUSEL - START
+    [class*="carousel--"]:not([class*="wide-cards-carousel--"]) {
+      [class*="cards-carousel__arrow-wrapper--"] {
+        [class*="cards-carousel__arrow--"] {
+          background-color: @surface0;
+          color: @text;
+
+          @media (min-width: 35.5em) {
+            .clickable-background(initial, @surface0);
+          }
+        }
+      }
+
+      [class*="carousel-pagination--"] {
+        [class*="carousel-pagination__page--"]::after {
+          background-color: @overlay0;
+        }
+
+        [class*="carousel-pagination__page--is-active--"]::after,
+        [class*="carousel-pagination__page--"]:active::after {
+          background-color: @accent-color;
+        }
+      }
+    }
+
+    [class*="wide-cards-carousel--"] {
+      [class*="wide-cards-carousel__arrow-wrapper--"] {
+        [class*="wide-cards-carousel__arrow--"] {
+          color: @text;
+
+          &::before {
+            background: linear-gradient(
+              var(--gradient-dir),
+              fade(@base, 0%),
+              fade(@base, 50%) calc(var(--arrow-width) / 2),
+              fade(@base, 70%)
+            );
+          }
+        }
+      }
+    }
+    // CAROUSEL - END
+
+    // TOOLTIP - START
+    [class*="tooltip-content--"] {
+      background-color: @surface0;
+      color: @text;
+
+      [class*="tooltip-content__arrow--"] {
+        border-top-color: @surface0;
+      }
+    }
+    // TOOLTIP - END
+
+    // STAR RATING - START
+    [class*="star-rating--"] {
+      [class*="star-rating__stars-controls--"] {
+        &::after {
+          background-color: @overlay0;
+        }
+      }
+
+      [class*="star-rating__meta--"] {
+        color: @subtext0;
+
+        [class*="star-rating-average-data--"] {
+          button[class*="star-rating-average-data__toggletip-trigger--"] {
+            .clickable-text(@subtext0, @text);
+
+            &::after {
+              background-color: @overlay0;
+            }
+          }
+
+          [class*="star-rating-average-data__label--"] {
+            color: @text;
+          }
+
+          svg[class*="star-rating-average-data__toggletip-trigger-icon--"] {
+            fill: @text;
+          }
+        }
+
+        [class*="star-rating__reviews-link--lkG9-"] {
+          .clickable-text(@subtext0, @text);
+        }
+      }
+    }
+    // STAR RATING - END
+
+    // STAR RATING SHORT - START
+    [class*="star-rating-short--"] {
+      &,
+      [class*="star-rating-short-static__rating--"],
+      svg[class*="star-rating-short-static__star-icon--"],
+      [class*="star-rating-short-static__votes-count--"] {
+        color: @subtext0;
+      }
+
+      &:hover {
+        color: @text;
+      }
+
+      [class*="star-rating-short__trigger--"] {
+        [class*="star-rating-short-static--"] {
+          color: @subtext0;
+        }
+
+        svg[class*="star-rating-short__trigger-icon--"] {
+          fill: @subtext0;
+        }
+      }
+
+      [class*="star-rating-short__content--"]
+        [class*="rating-data-toggletip--"] {
+        background-color: @mantle;
+        color: @text;
+
+        [class*="rating-data-toggletip-scale--"] {
+          color: @text;
+
+          [class*="rating-data-toggletip-scale-bar--"] {
+            background-color: @crust;
+
+            [class*="rating-data-toggletip-scale-bar__percentage--"] {
+              background-color: @text;
+            }
+          }
+        }
+      }
+    }
+    // STAR RATING SHORT - END
+
+    // STAR RATING SHORT STATIC - START
+    [class*="star-rating-short-static--"]
+      [class*="star-rating-short-static__rating--"],
+    [class*="star-rating-short-static__star-icon--"],
+    [class*="star-rating-short-static__votes-count--"] {
+      color: @subtext0;
+    }
+    // STAR RATING SHORT STATIC - END
+
+    // STAR RATING CONTROLS - START
+    [class*="star-rating-controls--"] {
+      color: @text;
+
+      button[class*="star-rating-controls__star-button--"] {
+        color: @text;
+      }
+
+      &:hover {
+        [class*="star-rating-controls__star-icon--"] {
+          fill: @accent-color;
+        }
+      }
+    }
+    // STAR RATING CONTROLS - END
+
+    // BADGE - START
+    [class*="badge--"] {
+      background-color: @accent-color;
+
+      [class*="badge__text-wrapper--"] {
+        &[class*="badge__text-wrapper--is-link--"] {
+          border-right-color: @accent-dim;
+        }
+
+        .clickable-background(#ffffff40);
+      }
+
+      [class*="badge__text--"] {
+        color: @base;
+      }
+    }
+    // BADGE - END
+
+    // DETAILS TABLE
+    [class*="details-table__table-row--"] {
+      box-shadow: inset 0 -0.0625rem 0 0 @overlay0;
+    }
+
+    // TABS - START
+    [class*="tabs--"] [class*="tabs__content-wrapper--"] {
+      &::before {
+        background-color: @overlay0;
+      }
+
+      [class*="tabs-item--"] {
+        color: @subtext0;
+
+        @media (hover: hover) {
+          &:focus,
+          &:hover {
+            background-color: @crust;
+            box-shadow: inset 0 -0.125rem 0 0 @overlay2;
+          }
+        }
+
+        &[class*="tabs-item--is-active--"] {
+          color: @text;
+
+          &::after {
+            background-color: @accent-color;
+          }
+        }
+      }
+    }
+    // TABS - END
+
+    // BREADCRUMBS - START
+    [class*="breadcrumbs--"] {
+      [class*="breadcrumbs__link--"] {
+        .clickable-text-subtle();
+      }
+
+      [class*="breadcrumbs__divider--"] {
+        color: @overlay0;
+      }
+    }
+    // BREADCRUMBS - END
+
+    // MISC - START
+    background-color: @base;
+
+    color: @text;
+
+    a {
+      .clickable-text(@text);
+    }
+
+    ::selection {
+      background-color: fade(@surface2, 60%);
+      color: @text;
+    }
+
+    [class*="meta-tags--"] {
+      color: @subtext0;
+
+      span[class*="meta-tags__type--is-one--"] {
+        color: @accent-color;
+      }
+
+      span[class*="meta-tags__type--is-three--"] {
+        color: @red;
+      }
+    }
+
+    [class*="info-tag--is-one--"] {
+      background-color: @accent-color;
+      color: @base;
+    }
+
+    [class*="info-tag--is-six--"] {
+      background-color: @base;
+      color: @accent-color;
+    }
+
+    [class*="loader__icon--"] {
+      color: @accent-color;
+    }
+
+    [class*="username--"] {
+      color: @text;
+    }
+
+    [class*="username--is-premium--"] {
+      color: @yellow;
+    }
+
+    svg[class*="premium-filled-icon--"] {
+      fill: @yellow;
+    }
+
+    [class*="label--"] {
+      border-color: @overlay0;
+
+      &[class*="label--is-focus--"] {
+        border-color: @accent-color;
+      }
+
+      &[class*="label--is-dirty--"] [class*="label__text--"],
+      &[class*="label--is-focus--"] [class*="label__text--"] {
+        color: @subtext0;
+      }
+    }
+
+    .erc-season-navigation {
+      .divider {
+        background-color: @overlay0;
+      }
+
+      .cta-wrapper {
+        color: @overlay2;
+
+        &:not(.state-disabled) {
+          .clickable-text(@text);
+        }
+      }
+
+      .state-disabled {
+        color: @overlay0;
+      }
+    }
+
+    .erc-see-more {
+      .clickable-text-subtle();
+    }
+
+    .erc-history-content .clear-history-button {
+      .clickable-text-subtle();
+    }
+
+    [class*="loading--"] {
+      color: @overlay0;
+    }
+
+    [class*="content-image__figure-sizer--is-background-type-one--"],
+    [class*="content-image__figure-sizer--is-background-type-two--"] {
+      background-color: @overlay0;
+    }
+    // MISC - END
+  }
+
+  /*  Application of the Theme */
+  // synced colorscheme
+  @media (prefers-color-scheme: light) {
+    body {
+      #catppuccinMain(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    body {
+      #catppuccinMain(@darkFlavor, @accentColor);
+    }
+  }
+} /* /@-moz-document */
+
+// PLAYER - START
+@-moz-document url("https://static.crunchyroll.com/vilos-v2/web/vilos/player.html")
+{
+  #catppuccinPlayer(@lookup, @accent, @setting) {
+    #vilosRoot {
+      & when (@setting = minimal) {
+        #catppuccinPlayerMinimal(@lookup, @accent);
+      }
+
+      & when (@setting = medium) {
+        #catppuccinPlayerMedium(@lookup, @accent);
+      }
+
+      & when (@setting = full) {
+        #catppuccinPlayerFull(@lookup, @accent);
+      }
+    }
+  }
+
+  #catppuccinPlayerMinimal(@lookup, @accent) {
+    #catppuccinColors(@lookup, @accent);
+
+    // PLAYER BACKGROUND - START
+    .playerBackground(@background-color) {
+      &,
+      #velocity-player-package,
+      #velocity-overlay-package div:has(> [data-testid="vilos-loading"]) {
+        background-color: @background-color;
+      }
+    }
+
+    & when (not (@playerBackground = never)) {
+      .playerBackground(@crust);
+    }
+
+    & when (@playerBackground = notfullscreen) {
+      // sth like @media (not (display-mode: fullscreen)) does not work in stylus currently
+      @media (display-mode: fullscreen) {
+        .playerBackground(unset);
+      }
+
+      // alternative if the above does not work
+      &.r-1pi2tsx.r-13qz1uu {
+        .playerBackground(unset);
+      }
+    }
+    // PLAYER BACKGROUND - END
+
+    #vilosControlsContainer {
+      // TIMELINE PROGRESS + CURRENT POSITION + CURRENT VOLUME
+      [style*="background-color: rgb(244, 117, 33);"] {
+        background-color: @accent-color !important;
+      }
+    }
+
+    // LOADING CIRCLE
+    path[stroke="rgb(228,106,22)"] {
+      stroke: @accent-color !important;
+    }
+  }
+
+  #catppuccinPlayerMedium(@lookup, @accent) {
+    #catppuccinPlayerMinimal(@lookup, @accent);
+
+    // rplaces white icons with @text colored icons
+    .iconTextFilter() {
+      img,
+      [style*='background-image: url("data:image/svg+xml;utf8,'] {
+        filter: @catppuccin[@@lookup][@text_filter] !important;
+      }
+    }
+
+    #velocity-controls-package {
+      // whole player darkens on hover
+      [style*="background-color: rgba(0, 0, 0, 0.2);"] {
+        background-color: fade(@base, 20%) !important;
+      }
+
+      // SHADOW ON TOP when video starts playing
+      [style*="background-image: linear-gradient(rgb(20, 21, 25), rgba(20, 21, 25, 0));"] {
+        background-image: linear-gradient(@base, fade(@base, 0%)) !important;
+      }
+
+      // SKIP BUTTON
+      [data-testid="skipButton"] {
+        * {
+          color: @text !important;
+        }
+
+        & > div {
+          background-color: @surface0 !important;
+        }
+
+        // SKIP ICON
+        .iconTextFilter();
+      }
+    }
+
+    #velocity-settings-menu {
+      background-color: @mantle !important;
+
+      * {
+        color: @text !important;
+      }
+
+      // HOVER BACKGROUND
+      [style*="background-color: rgb(35, 37, 43);"] {
+        background-color: @surface0 !important;
+      }
+
+      // TOGGLE ACTIVE BORDER
+      [style*="border-color: rgb(40, 189, 187);"] {
+        border-color: @accent-color !important;
+        background-color: @crust;
+      }
+
+      // TOGGLE INACTIVE BORDER
+      [style*="border-color: rgb(160, 160, 160);"] {
+        border-color: @overlay2 !important;
+        background-color: @crust;
+      }
+
+      // TOGGLE HOVER BORDER
+      [style*="border-color: rgb(255, 255, 255);"] {
+        border-color: @text !important;
+        background-color: @crust;
+      }
+
+      // TOGGLE ACTIVE DOT
+      [style*="background-color: rgb(40, 189, 187);"] {
+        background-color: @accent-color !important;
+      }
+
+      // TOGGLE INACTIVE DOT
+      [style*="background-color: rgb(160, 160, 160);"] {
+        background-color: @overlay2 !important;
+      }
+
+      // TOGGLE HOVER DOT
+      [style*="background-color: rgb(255, 255, 255);"] {
+        background-color: @text !important;
+      }
+
+      // RADIO BUTTON ACTIVE
+      [style*="fill: rgb(68, 195, 171);"] {
+        fill: @accent-color !important;
+      }
+
+      // RADIO BUTTON BACKGROUND
+      [style*="fill: rgb(25, 46, 56);"] {
+        fill: @crust !important;
+      }
+
+      // RADIO BUTTON INACTIVE
+      [style*="fill: rgb(160, 160, 160);"] {
+        fill: @overlay2 !important;
+      }
+
+      // RADIO BUTTON HOVER
+      [style*="fill: rgb(255, 255, 255);"] {
+        fill: @text !important;
+      }
+
+      // CHEVRONS
+      .iconTextFilter();
+
+      [style*="color: rgb(244, 117, 33);"] {
+        color: @accent-color !important;
+      }
+    }
+  }
+
+  #catppuccinPlayerFull(@lookup, @accent) {
+    #catppuccinPlayerMedium(@lookup, @accent);
+
+    #velocity-controls-package {
+      #vilosControlsContainer {
+        * {
+          color: @text !important;
+        }
+
+        // TIMELINE CACHED
+        [style*="background-color: rgb(216, 216, 216);"] {
+          background-color: @subtext0 !important;
+        }
+
+        // TIMELINE & VOLUME SLIDER BACKGROUND
+        [style*="background-color: rgb(160, 160, 160);"] {
+          background-color: @overlay1 !important;
+        }
+
+        // THUMBNAIL BACKGROUND
+        [style*="background-color: rgb(35, 37, 43);"] {
+          background-color: @base !important;
+        }
+
+        // VOLUME SLIDER ACTIVE
+        [style*="background-color: rgb(198, 198, 205);"] {
+          background-color: @text !important;
+        }
+
+        // BACKDROP
+        [style*="background-image: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.738) 19%, rgba(0, 0, 0, 0.54) 34%, rgba(0, 0, 0, 0.38) 47%, rgba(0, 0, 0, 0.28) 56.5%, rgba(0, 0, 0, 0.194) 65%, rgba(0, 0, 0, 0.126) 73%, rgba(0, 0, 0, 0.075) 80.2%, rgba(0, 0, 0, 0.042) 86.1%, rgba(0, 0, 0, 0.02) 91%, rgba(0, 0, 0, 0.008) 95.2%, rgba(0, 0, 0, 0.002) 98.2%, rgba(0, 0, 0, 0) 100%);"] {
+          background-image: linear-gradient(
+            0deg,
+            fade(@base, 100%) 0%,
+            fade(@base, 73.8%) 19%,
+            fade(@base, 54%) 34%,
+            fade(@base, 38%) 47%,
+            fade(@base, 28%) 56.5%,
+            fade(@base, 19.4%) 65%,
+            fade(@base, 12.6%) 73%,
+            fade(@base, 7.5%) 80.2%,
+            fade(@base, 4.2%) 86.1%,
+            fade(@base, 2%) 91%,
+            fade(@base, 0.8%) 95.2%,
+            fade(@base, 0.2%) 98.2%,
+            fade(@base, 0%) 100%
+          ) !important;
+        }
+
+        // ICONS
+        .iconTextFilter();
+
+        // ICON BACKGROUND HOVER
+        [style*="background-color: rgba(0, 0, 0, 0.6);"] {
+          background-color: fade(@base, 60%) !important;
+        }
+
+        // ICON BACKGROUND ACTIVE
+        [style*="background-color: rgb(20, 21, 25);"] {
+          background-color: @base !important;
+        }
+      }
+    }
+  }
+
+  & when (@playerFlavor = auto) {
+    @media (prefers-color-scheme: light) {
+      #catppuccinPlayer(@lightFlavor, @accentColor, @playerSetting);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccinPlayer(@darkFlavor, @accentColor, @playerSetting);
+    }
+  }
+
+  & when not (@playerFlavor = auto) {
+    #catppuccinPlayer(@playerFlavor, @accentColor, @playerSetting);
+  }
+}
+// PLAYER - END
+
+// vim:ft=less
