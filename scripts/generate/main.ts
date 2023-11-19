@@ -1,12 +1,14 @@
 #!/usr/bin/env -S deno run -A
 import { join } from "std/path/mod.ts";
 
-import { portsSchema, REPO_ROOT, schema } from "@/deps.ts";
-import { PortsSchema, UserStylesSchema } from "@/types/mod.d.ts";
-import { syncIssueLabels } from "./labels.ts";
-import { updateFile, validateYaml } from "./utils.ts";
-import { generateMainReadme } from "./readme-repo.ts";
-import { generateStyleReadmes } from "./readme-styles.ts";
+import { portsSchema, REPO_ROOT, userStylesSchema } from "@/deps.ts";
+import type { PortsSchema, UserStylesSchema } from "@/types/mod.d.ts";
+
+import { syncIssueLabels } from "@/generate/labels.ts";
+import { generateMainReadme } from "@/generate/readme-repo.ts";
+import { generateStyleReadmes } from "@/generate/readme-styles.ts";
+import { updateFile } from "@/generate/utils.ts";
+import { validateYaml } from "@/utils.ts";
 
 const userstylesYaml = Deno.readTextFileSync(
   join(REPO_ROOT, "scripts/userstyles.yml"),
@@ -16,12 +18,15 @@ const portsYaml = await fetch(
 ).then((res) => res.text());
 
 const [portsData, userstylesData] = await Promise.all([
-  await validateYaml<PortsSchema.PortsSchema>(portsYaml, portsSchema),
-  await validateYaml<UserStylesSchema.UserstylesSchema>(userstylesYaml, schema),
-]).catch((e) => {
-  console.error(e);
-  Deno.exit(1);
-});
+  await validateYaml<PortsSchema.PortsSchema>(
+    portsYaml,
+    portsSchema,
+  ),
+  await validateYaml<UserStylesSchema.UserstylesSchema>(
+    userstylesYaml,
+    userStylesSchema,
+  ),
+]);
 
 if (!userstylesData.userstyles) {
   console.error("No userstyles found");

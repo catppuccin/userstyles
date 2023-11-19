@@ -1,8 +1,8 @@
 #!/usr/bin/env -S deno run -A
-
+// deno-lint-ignore-file no-explicit-any
 import { join } from "std/path/mod.ts";
 import { compile, Options } from "npm:json-schema-to-typescript";
-import { REPO_ROOT } from "@/deps.ts";
+import { gitHubIssueFormsSchema, REPO_ROOT, userStylesSchema } from "@/deps.ts";
 
 const options = {
   bannerComment: "// deno-fmt-ignore-file",
@@ -10,20 +10,12 @@ const options = {
 
 const TYPES_ROOT = join(REPO_ROOT, "scripts/types");
 
-import UserStylesSchemaJSON from "./userstyles.schema.json" assert {
-  type: "json",
-};
+compile(userStylesSchema as any, "UserstylesSchema", options)
+  .then((ts) =>
+    Deno.writeTextFileSync(join(TYPES_ROOT, "userstyles.d.ts"), ts)
+  );
 
-compile(
-  // deno-lint-ignore no-explicit-any
-  UserStylesSchemaJSON as any,
-  "UserstylesSchema",
-  options,
-).then((ts) => Deno.writeTextFileSync(join(TYPES_ROOT, "userstyles.d.ts"), ts));
-
-fetch("https://json.schemastore.org/github-issue-forms.json")
-  .then((res) => res.json())
-  .then((schema) => compile(schema, "github-issue-forms.json", options))
+compile(gitHubIssueFormsSchema as any, "github-issue-forms.json", options)
   .then((ts) =>
     Deno.writeTextFileSync(join(TYPES_ROOT, "github-issue-forms.d.ts"), ts)
   );

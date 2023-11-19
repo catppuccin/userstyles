@@ -1,28 +1,21 @@
-#!/usr/bin/env -S deno run --allow-read --allow-net --allow-env
+#!/usr/bin/env -S deno run -A
 
 import * as assert from "std/assert/mod.ts";
 import * as path from "std/path/mod.ts";
-import { parse as parseYaml } from "std/yaml/parse.ts";
-import Ajv from "ajv";
 import { Octokit } from "@octokit/rest";
 
-import { REPO_ROOT, schema } from "@/deps.ts";
-import { UserStylesSchema } from "../types/mod.d.ts";
+import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
+import type { UserStylesSchema } from "../types/mod.d.ts";
+import { validateYaml } from "@/utils.ts";
+import { UserstylesSchema } from "@/types/userstyles.d.ts";
 
 const octokit = new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") });
 const team = { org: "catppuccin", team_slug: "userstyles-maintainers" };
 
-const ajv = new Ajv.default();
-const validate = ajv.compile<UserStylesSchema.Userstyles>(schema);
-
-const userstylesYaml = Deno.readTextFileSync(
-  path.join(REPO_ROOT, "scripts/userstyles.yml"),
+const userstylesData = await validateYaml<UserstylesSchema>(
+  Deno.readTextFileSync(path.join(REPO_ROOT, "scripts/userstyles.yml")),
+  userStylesSchema,
 );
-const userstylesData = parseYaml(userstylesYaml);
-if (!validate(userstylesData)) {
-  console.error(validate.errors);
-  Deno.exit(1);
-}
 if (userstylesData.userstyles === undefined) {
   Deno.exit(1);
 }
