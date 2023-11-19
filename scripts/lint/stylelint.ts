@@ -160,6 +160,8 @@ const config: stylelint.Config = {
     ],
     "function-name-case": null,
     "no-descending-specificity": null,
+
+    "media-feature-range-notation": "prefix",
   },
 };
 
