@@ -3,48 +3,74 @@ import { join } from "std/path/mod.ts";
 import { REPO_ROOT } from "@/deps.ts";
 import { updateFile } from "@/generate/utils.ts";
 import { UserStylesSchema } from "@/types/mod.d.ts";
+import { stringify } from "std/yaml/stringify.ts";
+import palette from "https://raw.githubusercontent.com/catppuccin/palette/v0.2.0/palette-porcelain.json" assert {
+  type: "json",
+};
 
-export const syncIssueLabels = (userstyles: UserStylesSchema.Userstyles) => {
-  const ISSUE_PREFIX = "lbl:";
+/**
+ * Macchiato color definitions as hex values.
+ */
+const macchiatoHex = Object.entries(palette.macchiato)
+  .reduce((acc, [k, v]) => {
+    acc[k] = `#${v.hex}`;
+    return acc;
+  }, {} as Record<keyof typeof palette.macchiato, string>);
 
-  const issuesLabelerPath = join(REPO_ROOT, ".github/issue-labeler.yml");
-  const issuesLabelerContent = Object.entries(userstyles)
-    .map(([key]) => `${key}: ["(${ISSUE_PREFIX + key})"]`)
-    .join("\n");
-  updateFile(issuesLabelerPath, issuesLabelerContent);
+const toIssueLabel = (slug: string | number) => `lbl:${slug}`;
 
-  const userstyleIssuePath = join(
+export const syncIssueLabels = async (
+  userstyles: UserStylesSchema.Userstyles,
+) => {
+  updateFile(
+    join(REPO_ROOT, ".github/issue-labeler.yml"),
+    stringify(
+      Object.entries(userstyles)
+        .reduce((acc, [key]) => {
+          acc[key.toString()] = [`(${toIssueLabel(key)})`];
+          return acc;
+        }, {} as Record<string, string[]>),
+    ),
+  );
+
+  const userstyleIssueContent = Deno.readTextFileSync(join(
     REPO_ROOT,
     "scripts/generate/templates/userstyle-issue.yml",
-  );
-  const userstyleIssueContent = Deno.readTextFileSync(userstyleIssuePath);
-
-  const replacedUserstyleIssueContent = userstyleIssueContent.replace(
-    "$PORTS",
-    `${
-      Object.entries(userstyles)
-        .map(([key]) => `'${ISSUE_PREFIX + key}'`)
-        .join(", ")
-    }`,
-  );
+  ));
   Deno.writeTextFileSync(
     join(REPO_ROOT, ".github/ISSUE_TEMPLATE/userstyle.yml"),
-    replacedUserstyleIssueContent,
+    userstyleIssueContent.replace(
+      `"$LABELS"`,
+      `${
+        Object.entries(userstyles)
+          .map(([key]) => `"${toIssueLabel(key)}"`)
+          .join(", ")
+      }`,
+    ),
   );
 
-  const pullRequestLabelerPath = join(REPO_ROOT, ".github/pr-labeler.yml");
-  const pullRequestLabelerContent = Object.entries(userstyles)
-    .map(([key]) => `${key}: styles/${key}/**/*`)
-    .join("\n");
-  updateFile(pullRequestLabelerPath, pullRequestLabelerContent);
+  // .github/pr-labeler.yml
+  updateFile(
+    join(REPO_ROOT, ".github/pr-labeler.yml"),
+    stringify(
+      Object.entries(userstyles)
+        .reduce((acc, [key]) => {
+          acc[`${key}`] = `styles/${key}/**/*`;
+          return acc;
+        }, {} as Record<string, string>),
+    ),
+  );
 
-  const syncLabels = join(REPO_ROOT, ".github/labels.yml");
+  // .github/labels.yml
   const syncLabelsContent = Object.entries(userstyles)
-    .map(
-      ([key, style]) =>
-        `- name: ${key}
-  description: ${style.name}
-  color: "#8aadf4"`,
-    ).join("\n");
-  updateFile(syncLabels, syncLabelsContent);
+    .map(([slug, style]) => {
+      return {
+        name: slug,
+        description: [style.name].flat().join(", "),
+        color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
+      };
+    });
+  const syncLabels = join(REPO_ROOT, ".github/labels.yml");
+  // deno-lint-ignore no-explicit-any
+  await updateFile(syncLabels, stringify(syncLabelsContent as any));
 };

@@ -48,7 +48,7 @@ generateStyleReadmes(userstylesData.userstyles);
  * - `.github/pr-labeler.yml`
  * in sync with the userstyle metadata.
  */
-syncIssueLabels(userstylesData.userstyles);
+await syncIssueLabels(userstylesData.userstyles);
 
 /**
  * Keep `.github/CODEOWNERS` in sync with the userstyle metadata.
