@@ -1,4 +1,4 @@
-    /* ==UserStyle==
+/* ==UserStyle==
 @name lichess Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/lichess
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/lichess
@@ -26,10 +26,6 @@
         @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
     }
 
-        /*  Userstyle as Mixin
-   *  This takes the following Parameters:
-   *  @lookup – which is the desired Flavor
-   *  @accent – which is the desired Accent Color */
         #catppuccin(@lookup, @accent) {
             @rosewater: @catppuccin[@@lookup][@rosewater];
             @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -73,20 +69,35 @@
             
             /* Topbar */
             #topnav.hover section:hover>a, #topnav section:active>a,
-            #topnav div {
+            #topnav div,
+            .site-buttons .shown .toggle,
+            .site-buttons .dropdown {
                 background: @crust;
             }
             #topnav section>a {
                 color: @subtext0;
             }
             #topnav.hover section:hover>a, #topnav section:active>a,
-            #topnav div a{
+            #topnav div a,
+            #dasher_app .selector button, #dasher_app .head, #dasher_app .piece .no-square, #dasher_app .theme .list button, #dasher_app .links a, #dasher_app .links button, #dasher_app .subs .sub,
+            .site-buttons .dropdown a, .site-buttons .dropdown button {
                 color: @text;
             }
             #topnav.hover section:hover>a, #topnav section:active>a,
             #topnav div {
                 border-left-color: @accent-color;
             }
+            signal>i {
+                background-color: @green;
+            }
+            #dasher_app .sub::before,
+            .is-green::before{
+                color: @green;
+            }
+            #challenge-app .empty{
+                background: @crust;
+            }
+            #dasher_app .links a:hover, #dasher_app .links a:hover::before, #dasher_app .links button:hover, #dasher_app .subs .sub:hover 
             
             /* Popup skining */
             dialog {
@@ -98,7 +109,6 @@
             .game-setup group.radio input:checked+label {
                 background: @green;
             }
-            
             
             /* Text */
             .site-buttons .link,
@@ -150,7 +160,6 @@
                 color: @accent-color;
             }
             
-            
             /* Homepage cards */
             .lobby__app__content,
             .box {
@@ -168,8 +177,12 @@
             .lobby__box__top, #hook .opponent,
             .lobby__box__content,
             .ublog-post-card,
-            .button {
-                background: @mantle;
+            .button,
+            .tour-spotlight {
+                background: @mantle !important;
+            }
+            .unread {
+                background: @red;
             }
             
             /* Non-main page sidebar nav colors */
@@ -190,7 +203,6 @@
                 background-color: ~'@{accent-color}33'; /* Using 8 digit hex codes to replace argb */
             }
 
-
             /* Learn tab */
             .learn-stages .stage.done {
                 background: @green;
@@ -205,31 +217,106 @@
 
             /* Chess Game */
             .brown .is2d cg-board {
-                background-image: url("https://media.githubusercontent.com/media/catppuccin/userstyles/main/styles/chess.com/assets/@{lookup}/@{accent}.png") !important;
+                background-image: url("https://raw.githubusercontent.com/coopw1/userstyles/7c605c5434657c15577fa425fa2512c3562c2a1f/styles/lichess/assets/boards/@{lookup}.svg") !important;
             }
             .orientation-white .files coord:nth-child(2n+1), .orientation-white .ranks coord:nth-child(2n), .orientation-black .files coord:nth-child(2n), .orientation-black .ranks coord:nth-child(2n+1) {
-                
+                color: @base;
+            }
+            .orientation-white .files coord:nth-child(2n), .orientation-white .ranks coord:nth-child(2n+1), .orientation-black .files coord:nth-child(2n+1), .orientation-black .ranks coord:nth-child(2n) {
+                color: @crust;
             }
             square.move-dest {
                 background: radial-gradient(~'@{accent-color}7F' 19%, rgba(0, 0, 0, 0) 20%);
             }
             square.selected {
-                background: ~'@{accent-color}7F'
+                background: ~'@{accent-color}7F';
             }
             square.last-move {
-                background: ~'@{accent-color}68'
+                background: ~'@{accent-color}68';
+            }
+            .rclock .time {
+                background: @mantle;
+                color: @text;
+            }
+            .rclock.running .time {
+                background: #384722; /* putting it back to default so that the time on the clock is readable */
+            }
+            .rclock .bar {
+                background: @accent-color;
+            }
+            
+            /* Game Cards */
+            .game__meta,
+            .round__app__table {
+                background: @crust;
+            }
+            rm6 {
+                background: @mantle;
+            }
+            rm6 .buttons,
+            rm6 i5z{
+                background: @base;
             }
 
-
-            /*         @media (prefers-color-scheme: light) {
-            .no-theme {
-                #catppuccin(@lightFlavor, @accentColor);
+            /* Messages */
+            .msg-app__convo__head,
+            .msg-app__side__search,
+            .msg-app__convo__reply{
+                background: @crust;
             }
-        }
-        @media (prefers-color-scheme: dark) {
-            .no-theme {
-                #catppuccin(@darkFlavor, @accentColor);
-            } 
-        }*/
+            .msg-app__side {
+                background: @mantle;
+            }
+            .msg-app__side__search input,
+            .msg-app__convo__post__text {
+                background: @base;
+            }
+            .msg-app__side__contact__name {
+                color: @text;
+            }
+            .msg-app__side__contact__msg,
+            .msg-app__side__contact__date time {
+                color: @subtext0;
+            }
+            
+            /* User dropdown */
+            #powerTip, #miniGame, #miniBoard {
+                background: @crust;
+            }
+            .btn-rack__btn, .btn-rack form, #friend_box .friend_box_title, .button.button-metal, .button.button-empty:not(.disabled):hover, .button.button-empty.button-green:not(.disabled):hover, .button.button-empty.button-red:not(.disabled):hover {
+                background: @base;
+            }
+            
+            /* User Page */
+            .user-show__header,
+            .user-show__social,
+            .user-show .angles, .cmn-toggle:hover:not(:disabled)+label::after, .cmn-toggle+label::after, .crosstable povs:hover, .crosstable__users, .crosstable__score,
+            .game-row:nth-child(odd),
+            .number-menu--tabs .nm-item.active {
+                background: @crust;
+            }
+            .number-menu--tabs .nm-item.active,
+            .user-show .number-menu .to-games.active, .user-show #games.number-menu{
+                background: @mantle !important;
+            }
+            
+            /* Analysis page */
+            .analyse__clock, #analyse-cm .title, .explorer__config .choices button, .mselect__label, .cmn-toggle:hover:not(:disabled) + label::after, .cmn-toggle + label::after, .crosstable povs:hover, .crosstable__users, .crosstable__score,
+            .mselect__list,
+            .analyse__tools .comp-off__hint, .ceval {
+                background: @crust;
+            }
+            .analyse__tools,
+            .copyable,
+            .pv_box,
+            #ceval-settings {
+                background: @mantle;
+            }
+            .ceval .settings-gear.active {
+                background-color: @accent-color;
+            }
+            #ceval-settings {
+                border-top-color: @accent-color;
+            }
         }
     }
