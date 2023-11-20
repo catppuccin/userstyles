@@ -49,13 +49,13 @@
 {{/each}}
 {{/if}}
 
-## 💝 Current Maintainer(s)
+## 💝 Current {{pluralize collaborators.currentMaintainers 'Maintainer'}}
 {{#each collaborators.currentMaintainers}}
 - [{{name}}]({{url}})
 {{/each}}
 
 {{#if collaborators.pastMaintainers}}
-## 💝 Past Maintainer(s)
+## 💖 Past {{pluralize collaborators.pastMaintainers 'Maintainer'}}
 {{#each collaborators.pastMaintainers}}
 - [{{name}}]({{url}})
 {{/each}}

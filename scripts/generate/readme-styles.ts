@@ -3,6 +3,16 @@ import { join } from "std/path/mod.ts";
 import { REPO_ROOT } from "@/deps.ts";
 import Handlebars from "handlebars";
 
+// we can have some nice things :)
+Handlebars.registerHelper(
+  "pluralize",
+  (c: number | unknown[], str: string): string => {
+    if (typeof c === "undefined") return str;
+    const num = Array.isArray(c) ? c.length : c;
+    return num === 1 ? str : `${str}s`;
+  },
+);
+
 const heading = (
   name: UserStylesSchema.Name,
   link: UserStylesSchema.ApplicationLink,
