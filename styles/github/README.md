@@ -40,11 +40,11 @@
 Switch to a default GitHub light/dark theme via **Settings** > **Appearance** for the best experience!
 
 
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainers
 - [Pocco81](https://github.com/Pocco81)
 - [Umbreon](https://github.com/GlowingUmbreon)
 
-## 💝 Past Maintainer(s)
+## 💖 Past Maintainer
 - [Andreas Grafen](https://github.com/andreasgrafen)
 
 &nbsp;

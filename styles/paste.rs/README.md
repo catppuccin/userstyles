@@ -38,7 +38,7 @@
 
 
 
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [Stonks3141](https://github.com/Stonks3141)
 
 

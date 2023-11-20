@@ -38,7 +38,7 @@
 
 
 
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [GitMuslim](https://github.com/GitMuslim)
 
 

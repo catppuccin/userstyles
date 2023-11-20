@@ -45,7 +45,7 @@ If the theme isn't being applied to your instance, go to the userstyle's **Setti
 
 
 
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainers
 - [Sekki](https://github.com/Sekki21956)
 - [Ryan Cao](https://github.com/ryanccn)
 

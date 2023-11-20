@@ -42,7 +42,7 @@
 
 
 
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainers
 - [GitMuslim](https://github.com/GitMuslim)
 - [Isabel](https://github.com/isabelroses)
 

@@ -51,10 +51,10 @@ If the theme isn't being applied to your instance, go to the userstyle's **Setti
   A: One solution might be changing the theme to either light or dark via **Preferences** > **Appearance** > **Site theme**.
 
 
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [Isabel](https://github.com/isabelroses)
 
-## 💝 Past Maintainer(s)
+## 💖 Past Maintainer
 - [Andreas Grafen](https://github.com/andreasgrafen)
 
 &nbsp;

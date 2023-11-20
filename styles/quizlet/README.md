@@ -38,7 +38,7 @@
 
 
 
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [spaghettiosareyummy](https://github.com/spaghettiosareyummy)
 
 

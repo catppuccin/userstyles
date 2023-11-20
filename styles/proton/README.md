@@ -42,7 +42,7 @@
 
 
 
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [soya_daizu](https://github.com/soya-daizu)
 
 

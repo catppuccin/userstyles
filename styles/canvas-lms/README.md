@@ -38,7 +38,7 @@
 
 
 
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [TheMemeSniper](https://github.com/TheMemeSniper)
 
 

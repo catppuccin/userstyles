@@ -42,7 +42,7 @@
 
 
 
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [BlankParticle](https://github.com/BlankParticle)
 
 
