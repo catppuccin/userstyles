@@ -1,4 +1,4 @@
-export * as UserStylesSchema from "./userstyles.d.ts";
+export * as UserStylesSchema from "@/types/userstyles.d.ts";
 export * as PortsSchema from "catppuccin-repo/resources/generate/types.d.ts";
 
 import { Entries } from "https://esm.sh/type-fest@4.8.1";

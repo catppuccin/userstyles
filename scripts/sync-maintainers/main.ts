@@ -1,11 +1,10 @@
 #!/usr/bin/env -S deno run -A
-
 import * as assert from "std/assert/mod.ts";
 import * as path from "std/path/mod.ts";
 import { Octokit } from "@octokit/rest";
 
 import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
-import type { UserStylesSchema } from "../types/mod.d.ts";
+import type { UserStylesSchema } from "@/types/mod.ts";
 import { validateYaml } from "@/utils.ts";
 import { UserstylesSchema } from "@/types/userstyles.d.ts";
 

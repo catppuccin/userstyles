@@ -6,7 +6,7 @@ import stylelintConfigStandard from "npm:stylelint-config-standard";
 import stylelintConfigRecommended from "npm:stylelint-config-recommended";
 import postcssLess from "npm:postcss-less";
 
-import { log } from "./logger.ts";
+import { log } from "@/lint/logger.ts";
 import { relative } from "https://deno.land/std@0.150.0/path/mod.ts";
 import { REPO_ROOT } from "@/deps.ts";
 import { WalkEntry } from "std/fs/walk.ts";

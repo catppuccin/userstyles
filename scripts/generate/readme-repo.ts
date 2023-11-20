@@ -2,7 +2,7 @@ import { join } from "std/path/mod.ts";
 import Handlebars from "handlebars";
 
 import { REPO_ROOT } from "@/deps.ts";
-import { PortsSchema, UserStylesSchema } from "@/types/mod.d.ts";
+import { PortsSchema, UserStylesSchema } from "@/types/mod.ts";
 import { updateFile, updateReadme } from "@/generate/utils.ts";
 
 type MappedPorts = {
