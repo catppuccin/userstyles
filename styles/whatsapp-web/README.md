@@ -38,10 +38,9 @@
 
 
 
-
-
 ## 💝 Current Maintainer(s)
 - [FrancoRav](https://github.com/FrancoRav)
+
 
 &nbsp;
 

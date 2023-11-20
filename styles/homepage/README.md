@@ -38,10 +38,9 @@
 
 
 
-
-
 ## 💝 Current Maintainer(s)
 - [Gandalf the Blue](https://github.com/Gandalf-the-Blue)
+
 
 &nbsp;
 

@@ -36,15 +36,15 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Usage  
+## Usage
 > [!NOTE]
 > This theme applies to [AniChart](https://anichart.net/) as well, which is an extension of AniList.
 
 
 
-
 ## 💝 Current Maintainer(s)
 - [AnubisNekhet](https://github.com/AnubisNekhet)
+
 
 &nbsp;
 

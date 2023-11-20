@@ -36,13 +36,13 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Usage  
+## Usage
 Switch to a default Skiff light/dark theme via **Settings** > **Appearance** for the best experience!
-
 
 
 ## 💝 Current Maintainer(s)
 - [coopw](https://github.com/coopw1)
+
 
 &nbsp;
 

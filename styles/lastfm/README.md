@@ -38,12 +38,10 @@
 
 
 
-
-
 ## 💝 Current Maintainer(s)
 - [AnubisNekhet](https://github.com/AnubisNekhet)
 
-## 💖 Past Maintainer(s)
+## 💝 Past Maintainer(s)
 - [Gingeh](https://github.com/Gingeh)
 
 &nbsp;

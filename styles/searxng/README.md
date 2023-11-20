@@ -36,7 +36,7 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Usage  
+## Usage
 This userstyle is applied by default on a few commonly used Searxng servers, listed at the top:
 ```css
 @-moz-document url-prefix("https://searx.baczek.me/"), url-prefix("https://searx.be/") {
@@ -45,10 +45,10 @@ If the theme isn't being applied to your instance, go to the userstyle's **Setti
 
 
 
-
 ## 💝 Current Maintainer(s)
 - [Sekki](https://github.com/Sekki21956)
 - [Ryan Cao](https://github.com/ryanccn)
+
 
 &nbsp;
 

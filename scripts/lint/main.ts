@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run -A
 
-import { walk } from "std/fs/mod.ts";
+import { walk } from "std/fs/walk.ts";
 import { parse as parseFlags } from "std/flags/mod.ts";
 import { basename, dirname, join, relative } from "std/path/mod.ts";
 

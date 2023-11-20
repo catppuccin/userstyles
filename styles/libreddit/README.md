@@ -38,12 +38,10 @@
 
 
 
-
-
 ## 💝 Current Maintainer(s)
 - [Isabel](https://github.com/isabelroses)
 
-## 💖 Past Maintainer(s)
+## 💝 Past Maintainer(s)
 - [Andreas Grafen](https://github.com/andreasgrafen)
 
 &nbsp;

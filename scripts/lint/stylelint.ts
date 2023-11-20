@@ -1,6 +1,6 @@
-import { deepMerge } from "std/collections/mod.ts";
+import { deepMerge } from "std/collections/deep_merge.ts";
 
-import chalk from "chalk";
+import * as color from "std/fmt/colors.ts";
 import stylelint from "npm:stylelint";
 import stylelintConfigStandard from "npm:stylelint-config-standard";
 import stylelintConfigRecommended from "npm:stylelint-config-recommended";
@@ -184,7 +184,7 @@ export const lint = (entry: WalkEntry, content: string, fix: boolean) => {
           // some cleanup for fancier logging, dims the rule name
           const message = warning.text?.replace(
             new RegExp(`\\(?${warning.rule}\\)?`),
-            chalk.dim(`(${warning.rule})`),
+            color.dim(`(${warning.rule})`),
           ) ?? "unspecified stylelint error";
 
           log(message, {

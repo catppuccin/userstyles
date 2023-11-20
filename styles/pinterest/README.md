@@ -38,10 +38,9 @@
 
 
 
-
-
 ## 💝 Current Maintainer(s)
 - [Sena](https://github.com/jn-sena)
+
 
 &nbsp;
 
