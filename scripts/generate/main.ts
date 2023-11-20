@@ -1,8 +1,7 @@
 #!/usr/bin/env -S deno run -A
 import { join } from "std/path/mod.ts";
-
 import { portsSchema, REPO_ROOT, userStylesSchema } from "@/deps.ts";
-import type { PortsSchema, UserStylesSchema } from "@/types/mod.d.ts";
+import type { PortsSchema, UserStylesSchema } from "@/types/mod.ts";
 
 import { syncIssueLabels } from "@/generate/labels.ts";
 import { generateMainReadme } from "@/generate/readme-repo.ts";

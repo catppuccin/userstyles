@@ -1,4 +1,4 @@
-import { UserStylesSchema } from "@/types/mod.d.ts";
+import { UserStylesSchema } from "@/types/mod.ts";
 import { join } from "std/path/mod.ts";
 import { REPO_ROOT } from "@/deps.ts";
 import Handlebars from "handlebars";

@@ -3,7 +3,7 @@ import { join, relative } from "std/path/mod.ts";
 import core from "@actions/core";
 
 import { REPO_ROOT } from "@/deps.ts";
-import { log } from "./logger.ts";
+import { log } from "@/lint/logger.ts";
 import * as color from "std/fmt/colors.ts";
 
 const requiredFiles = [
