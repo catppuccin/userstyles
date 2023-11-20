@@ -38,12 +38,10 @@
 
 
 
-
-
 ## 💝 Current Maintainer(s)
 - [winston](https://github.com/nekowinston)
 
-## 💖 Past Maintainer(s)
+## 💝 Past Maintainer(s)
 - [Andreas Grafen](https://github.com/andreasgrafen)
 
 &nbsp;

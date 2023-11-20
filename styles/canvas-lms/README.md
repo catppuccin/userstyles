@@ -38,10 +38,9 @@
 
 
 
-
-
 ## 💝 Current Maintainer(s)
 - [TheMemeSniper](https://github.com/TheMemeSniper)
+
 
 &nbsp;
 

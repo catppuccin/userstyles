@@ -38,10 +38,9 @@
 
 
 
-
-
 ## 💝 Current Maintainer(s)
 - [Bart Libert](https://github.com/bartlibert)
+
 
 &nbsp;
 

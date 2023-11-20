@@ -38,10 +38,9 @@
 
 
 
-
-
 ## 💝 Current Maintainer(s)
 - [Amelia Katherine](https://github.com/night-lake)
+
 
 &nbsp;
 

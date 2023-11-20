@@ -153,6 +153,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Planet Minecraft](styles/planet-minecraft)
 
 </details>
+
 <!-- AUTOGEN:USERSTYLES END -->
 
 &nbsp;
