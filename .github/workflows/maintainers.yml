@@ -6,9 +6,6 @@ on:
     paths:
       - "scripts/userstyles.yml"
 
-env:
-  DENO_DIR: /tmp/deno_cache
-
 jobs:
   sync-maintainers:
     name: Sync maintainers
@@ -19,16 +16,10 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-      - name: Set up Deno
-        uses: denoland/setup-deno@v1
+      - name: Setup Deno
+        uses: nekowinston/setup-deno@main
         with:
           deno-version: v1.x
-
-      - name: Cache Deno dependencies
-        uses: actions/cache@v3
-        with:
-          key: ${{ hashFiles('./deno.lock') }}
-          path: ${{ env.DENO_DIR }}
 
       - name: Sync maintainers
         if: ${{ github.repository == 'catppuccin/userstyles' && github.ref == 'refs/heads/main' }}
