@@ -28,8 +28,9 @@ const config: stylelint.Config = {
     "alpha-value-notation": null,
     "color-function-notation": null,
     "hue-degree-notation": null,
+    "media-feature-range-notation": "prefix",
 
-    // less doesn't care about these
+    // These are not invalid with Less.
     "no-invalid-position-at-import-rule": null,
     "no-invalid-double-slash-comments": null,
 
@@ -40,14 +41,14 @@ const config: stylelint.Config = {
         `At-rule ${atRule} is not allowed in Catppuccin userstyles`,
     }],
     "property-disallowed-list": [[
-      // disallow setting fonts
+      // Disallow setting custom fonts.
       "/font.*/",
 
-      // ideally we could disallow these, but CSS continues to be gross
+      // Ideally we could disallow these, but CSS continues to be gross.
       // "/animation.*/",
       // "/transition.*/",
 
-      // prefer `border-color` over `border`, `outline-color` over `outline`, etc.
+      // Prefer `border-color` over `border`, `outline-color` over `outline`, etc.
       "border",
       "outline",
     ], {
@@ -60,12 +61,12 @@ const config: stylelint.Config = {
       },
     }],
 
+    "selector-type-no-unknown": null,
     "function-no-unknown": [
       true,
       {
         ignoreFunctions: [
-          // generated from https://lesscss.org/functions/
-          // via `Array.from(document.querySelectorAll('.section-content h3.docs-heading'), heading => heading.textContent.replace('\n', ''))`
+          // Generated from https://lesscss.org/functions/ via `Array.from(document.querySelectorAll('.section-content h3.docs-heading'), heading => heading.textContent.replace('\n', ''))`.
           "%",
           "abs",
           "acos",
@@ -159,9 +160,8 @@ const config: stylelint.Config = {
       },
     ],
     "function-name-case": null,
-    "no-descending-specificity": null,
 
-    "media-feature-range-notation": "prefix",
+    "no-descending-specificity": null,
   },
 };
 
