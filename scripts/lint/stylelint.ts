@@ -1,17 +1,17 @@
 import { deepMerge } from "std/collections/deep_merge.ts";
-
 import * as color from "std/fmt/colors.ts";
+import { exists, WalkEntry } from "std/fs/mod.ts";
+import { dirname, relative } from "std/path/mod.ts";
+
+import postcssLess from "npm:postcss-less";
 import stylelint from "npm:stylelint";
 import stylelintConfigStandard from "npm:stylelint-config-standard";
 import stylelintConfigRecommended from "npm:stylelint-config-recommended";
-import postcssLess from "npm:postcss-less";
 
-import { log } from "@/lint/logger.ts";
-import { relative } from "https://deno.land/std@0.150.0/path/mod.ts";
 import { REPO_ROOT } from "@/deps.ts";
-import { WalkEntry } from "std/fs/walk.ts";
+import { log } from "@/lint/logger.ts";
 
-const config: stylelint.Config = {
+const baseConfig: stylelint.Config = {
   customSyntax: postcssLess,
   rules: {
     "selector-class-pattern": null,
@@ -28,6 +28,8 @@ const config: stylelint.Config = {
     "alpha-value-notation": null,
     "color-function-notation": null,
     "hue-degree-notation": null,
+
+    // needed for Stylus v1.5.35 workaround, see #341
     "media-feature-range-notation": "prefix",
 
     // These are not invalid with Less.
@@ -61,7 +63,6 @@ const config: stylelint.Config = {
       },
     }],
 
-    "selector-type-no-unknown": null,
     "function-no-unknown": [
       true,
       {
@@ -165,16 +166,27 @@ const config: stylelint.Config = {
   },
 };
 
-const base = deepMerge(
+const stylelintCfg = deepMerge(
   stylelintConfigRecommended,
   { ...stylelintConfigStandard, extends: {} },
 );
+const config = deepMerge(stylelintCfg, baseConfig);
 
-export const lint = (entry: WalkEntry, content: string, fix: boolean) => {
+export const lint = async (entry: WalkEntry, content: string, fix: boolean) => {
   const file = relative(REPO_ROOT, entry.path);
+  let styleCfg = config;
+
+  // merge with a style specific config if it exists
+  const styleCfgPath = dirname(entry.path) + "/.stylelintrc.json";
+  if (await exists(styleCfgPath, { isFile: true, isReadable: true })) {
+    const localCfg = JSON.parse(await Deno.readTextFile(styleCfgPath));
+    styleCfg = deepMerge(styleCfg, localCfg, {
+      arrays: "replace",
+    });
+  }
 
   stylelint.lint({
-    config: deepMerge(base, config),
+    config: styleCfg,
     files: entry.path,
     fix,
   })
