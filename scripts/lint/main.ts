@@ -44,7 +44,7 @@ for await (const entry of stylesheets) {
   );
 
   // advanced linting with stylelint
-  lint(entry, content, flags.fix);
+  await lint(entry, content, flags.fix);
 }
 
 // if any files are missing, cause the workflow to fail
