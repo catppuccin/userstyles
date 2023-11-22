@@ -40,7 +40,7 @@ To create a userstyle, follow the instructions listed below:
    replace all the words wrapped with `<>` to fit the details of your port.
 6. Edit the [`userstyle.yml`](../src/userstyles.yml) file and put in the details
    of your port. **More details given below.**
-7. [Write the userstyle](./how-to-write-a-userstyle).
+7. [Write the userstyle](./how-to-write-a-userstyle.md).
 8. Create your image previews in the [`assets/`](../template/assets/) folder
    - **All previews must be `.webp` files.**
    - Create a preview image for each flavor. (e.g. `mocha.webp`,
