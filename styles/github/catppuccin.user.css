@@ -57,14 +57,47 @@
     z-index: 9999;
   }
 
-  #coloredButton(@name, @color) {
-    --color-btn-@{name}-text: @base;
-    --color-btn-@{name}-bg: @color;
-    --color-btn-@{name}-hover-bg: mix(@color, @text, 30%);
-    --color-btn-@{name}-selected-bg: mix(@color, @text, 50%);
-    --color-btn-@{name}-disabled-text: @crust;
-    --color-btn-@{name}-disabled-bg: mix(@color, @base, 60%);
-    --color-btn-@{name}-icon: @base;
+  #coloredButton(@name, @color, @flat) {
+    & when (@flat) {
+      --color-btn-@{name}-text: @color;
+      --color-btn-@{name}-bg: @base;
+      --color-btn-@{name}-icon: @color;
+
+      --color-btn-@{name}-hover-text: @base;
+      --color-btn-@{name}-hover-bg: @color;
+      --color-btn-@{name}-hover-border: @color;
+
+      --color-btn-@{name}-selected-text: @base;
+      --color-btn-@{name}-selected-bg: @color;
+      --color-btn-@{name}-selected-border: @color;
+
+      --color-btn-@{name}-disabled-text: @text;
+      --color-btn-@{name}-disabled-bg: @curst;
+    }
+
+    & when not (@flat) {
+      --color-btn-@{name}-text: @base;
+      --color-btn-@{name}-bg: @color;
+      --color-btn-@{name}-icon: @base;
+
+      --color-btn-@{name}-hover-text: @base;
+      --color-btn-@{name}-hover-bg: lighten(@color, 10%);
+      --color-btn-@{name}-hover-border: lighten(@color, 10%);
+
+      --color-btn-@{name}-selected-text: @base;
+      --color-btn-@{name}-selected-bg: lighten(@color, 10%);
+      --color-btn-@{name}-selected-border: lighten(@color, 10%);
+
+      --color-btn-@{name}-disabled-text: @crust;
+      --color-btn-@{name}-disabled-bg: fadeout(@color, 60%);
+    }
+
+    /* set these to transparent for the looks */
+    --color-btn-@{name}-border: transparent;
+    --color-btn-@{name}-shadow: 0 0 transparent;
+    --color-btn-@{name}-inset-shadow: 0 0 transparent;
+    --color-btn-@{name}-selected-shadow: 0 0 transparent;
+    --color-btn-@{name}-disabled-border: transparent;
   }
 
   #catppuccin(@lookup, @accent) {
@@ -234,8 +267,8 @@
       --color-btn-active-bg: @surface2;
       --color-btn-selected-bg: @surface2;
       --color-btn-counter-bg: @surface2;
-      #coloredButton(primary, @green);
-      #coloredButton(danger, @red);
+      #coloredButton(primary, @green, false);
+      #coloredButton(danger, @red, true);
       --color-action-list-item-inline-divider: @surface2;
       --color-action-list-item-default-hover-bg: @surface0;
       --color-action-list-item-default-selected-bg: @surface1;
@@ -265,6 +298,7 @@
       --color-severe-fg: @maroon;
       --color-severe-emphasis: @maroon;
       --color-danger-fg: @red;
+      --color-danger-muted: fadeout(@red, 60%);
       --color-danger-emphasis: @red;
       --color-open-fg: @green;
       --color-open-emphasis: @green;
@@ -314,18 +348,12 @@
     --color-user-mention-fg: @accent-color;
     --color-user-mention-bg: @crust;
     --color-text-white: @text;
-      
+
     // .AppHeader {
     //     --AppHeader-bg: @base;
     // }
 
-    /* Buttons */
-    .btn-danger,
-    .Button--danger {
-      background: var(--color-btn-danger-bg);
-    }
-
-    /* Create PR button & New branch button & Fork repo button & Commit Changes button */
+    /* New PR, new branch, fork repository, and commit changes buttons */
     .iRoQzU,
     .ifkUYV,
     .bOZDzN,
@@ -364,28 +392,6 @@
       --text: @text;
     }
 
-    /* Labels */
-    .Label {
-      color: var(--color-accent-fg);
-      background-color: @surface0;
-      border-color: transparent;
-    }
-
-    .Label--secondary {
-      background-color: @surface0;
-      color: @text;
-    }
-
-    .Label--success {
-      color: @base;
-      background-color: @green;
-    }
-
-    .Label--danger {
-      background-color: var(--color-danger-emphasis);
-      color: var(--color-btn-danger-text);
-    }
-
     /* Search */
     .header-search-input {
       color: @text !important;
@@ -412,11 +418,6 @@
     /* Links */
     .fIqerb {
       color: @accent-color;
-    }
-
-    /* Committer */
-    .ftOYgF {
-      color: @text;
     }
 
     /* Misc */
