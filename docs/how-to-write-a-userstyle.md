@@ -23,7 +23,7 @@ Assuming you have completed steps 1-6 of [Creating Userstyles](./userstyle-creat
 
 I'll start by filling out the "metadata block" at the very top of the template. Replace `<port name>` with the name of the website you are porting, and please ensure it is capitalized when needed. For `example.org`, it looks like this:
 
-```css
+```less
 /* ==UserStyle==
 @name example.org Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/example.org
@@ -47,7 +47,7 @@ The rest of the metadata block details the preprocessor and the options of the u
 
 Next, we'll want to tell Stylus to apply this userstyle on our specific website. Just replace `<domain of your website>` with... you guess it! The domain of your website. For our `example.org` example, it looks like this:
 
-```css
+```less
 @-moz-document domain('example.org') {
 ```
 
@@ -58,7 +58,7 @@ Next, we'll want to tell Stylus to apply this userstyle on our specific website.
 
 The next section of the template — we'll refer to it as the "lookup table — doesn't need any changes from you,, as it just contains the Catppuccin palette for each of the flavors.
 
-```css
+```less
 /* prettier-ignore */
 @catppuccin: {
     @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
@@ -73,7 +73,7 @@ The next section of the template — we'll refer to it as the "lookup table — 
 We'll refer to this next section of the template as the "`#catppuccin` mixin". You can ignore the first half of this section with all of the `@<color>: @catppuccin[@@lookup][@<color>];` lines and skip right to the comment where it says `// Start styling your website here:`. As the comment suggests, you can start adding your styles here. For `example.org`, I added a few basic declarations for colors and background colors:
 
 <!-- prettier-ignore -->
-```css
+```less
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     /* ... */
@@ -100,7 +100,7 @@ We'll refer to this next section of the template as the "`#catppuccin` mixin". Y
 The final section of the template is about applying the user's light/dark flavors. Read the comments thoroughly and decide which of the two options works best for your site. In our case, `example.org` doesn't have a light/dark mode toggle, so we'll just apply it based on the user's preferences.
 
 <!-- prettier-ignore -->
-```css
+```less
   @media (prefers-color-scheme: light) {
     :root {
       #catppuccin(@lightFlavor, @accentColor);
@@ -117,7 +117,7 @@ The final section of the template is about applying the user's light/dark flavor
 
 If we combine all of the previous steps, we have a working userstyle!
 
-```css
+```less
 /* ==UserStyle==
 @name example.org Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/example.org
