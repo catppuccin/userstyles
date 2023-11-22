@@ -38,7 +38,7 @@ To create a userstyle, follow the instructions listed below:
      userstyles based on the template.**
 5. Edit the [`catppuccin.user.css`](../template/catppuccin.user.css) file and
    replace all the words wrapped with `<>` to fit the details of your port.
-6. Edit the [`userstyle.yml`](../src/userstyles.yml) file and put in the details
+6. Edit the [`userstyle.yml`](../scripts/userstyles.yml) file and put in the details
    of your port. **More details given below.**
 7. [Write the userstyle](./how-to-write-a-userstyle.md).
 8. Create your image previews in the [`assets/`](../template/assets/) folder
