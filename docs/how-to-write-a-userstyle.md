@@ -45,13 +45,14 @@ The rest of the metadata block details the preprocessor and the options of the u
 
 #### `@-moz-document`
 
-Next, we'll want to tell Stylus to apply this userstyle on our website. Just replace `<domain of your website>` with... you guess it! The domain of your website. For our `example.org` example, it looks like this:
+Next, we'll want to tell Stylus to apply this userstyle on our specific website. Just replace `<domain of your website>` with... you guess it! The domain of your website. For our `example.org` example, it looks like this:
 
 ```css
 @-moz-document domain('example.org') {
 ```
 
-While `domain('<domain>')` works for most cases, you may need to use [`regexp('<your regex>')`](https://github.com/openstyles/stylus/wiki/Writing-styles#regexp).
+> [!NOTE]
+> While `domain('<domain>')` works for most cases, you may need to use [`regexp('<your regex>')`](https://github.com/openstyles/stylus/wiki/Writing-styles#regexp).
 
 #### The lookup table
 
@@ -69,7 +70,7 @@ The next section of the template — we'll refer to it as the "lookup table — 
 
 ### The `#catppuccin` mixin
 
-We'll refer to this next section of the template as the "`#catppuccin` mixin". You can ignore the first half of this section with all of the `@<color>: @catppuccin[@@lookup][@<color>];` lines and skip right to the comment where it says `// Start styling your website here:`. As the comment suggests, you can start adding your styles here. For `example.org`, this looks like this:
+We'll refer to this next section of the template as the "`#catppuccin` mixin". You can ignore the first half of this section with all of the `@<color>: @catppuccin[@@lookup][@<color>];` lines and skip right to the comment where it says `// Start styling your website here:`. As the comment suggests, you can start adding your styles here. For `example.org`, I added a few basic declarations for colors and background colors:
 
 <!-- prettier-ignore -->
 ```css
@@ -79,11 +80,11 @@ We'll refer to this next section of the template as the "`#catppuccin` mixin". Y
     @accent-color: @catppuccin[@@lookup][@@accent];
 
     body {
-      background-color: @base;
+      background-color: @surface0;
 
       & > div {
         color: @text;
-        background-color: @surface0;
+        background-color: @base;
       }
     }
 
@@ -96,7 +97,7 @@ We'll refer to this next section of the template as the "`#catppuccin` mixin". Y
 
 #### Applying the theme
 
-The final section of the template is about applying the user's light/dark flavors. Read the comments thoroughly and decide which of the two options works best for your site. In our example case for `example.org`, there isn't a light/dark mode toggle, so we'll just apply it based on the user's preferences.
+The final section of the template is about applying the user's light/dark flavors. Read the comments thoroughly and decide which of the two options works best for your site. In our case, `example.org` doesn't have a light/dark mode toggle, so we'll just apply it based on the user's preferences.
 
 <!-- prettier-ignore -->
 ```css
@@ -172,11 +173,11 @@ If we combine all of the previous steps, we have a working userstyle!
     @accent-color: @catppuccin[@@lookup][@@accent];
 
     body {
-      background-color: @base;
+      background-color: @surface0;
 
       & > div {
         color: @text;
-        background-color: @surface0;
+        background-color: @base;
       }
     }
 
