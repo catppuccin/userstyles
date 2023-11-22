@@ -40,14 +40,15 @@ To create a userstyle, follow the instructions listed below:
    replace all the words wrapped with `<>` to fit the details of your port.
 6. Edit the [`userstyle.yml`](../src/userstyles.yml) file and put in the details
    of your port. **More details given below.**
-7. Create your image previews in the [`assets/`](../template/assets/) folder
+7. [Write the userstyle](./how-to-write-a-userstyle).
+8. Create your image previews in the [`assets/`](../template/assets/) folder
    - **All previews must be `.webp` files.**
    - Create a preview image for each flavor. (e.g. `mocha.webp`,
      `macchiato.webp`, `frappe.webp` & `latte.webp`)
    - Use [catwalk](https://github.com/catppuccin/toolbox#catwalk) to generate a
      composite or grid image of all the flavors. **This must be saved as
      `catwalk.webp`.**
-8. Raise a [Pull Request](https://github.com/catppuccin/userstyles/compare),
+9. Raise a [Pull Request](https://github.com/catppuccin/userstyles/compare),
    making sure to read and fill out the template properly.
 
 &nbsp;
