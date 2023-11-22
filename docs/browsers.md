@@ -39,5 +39,5 @@ Find your browser version by following the link for your browser.
 ## Common Issues
 
 > [!NOTE]
-> If you are running into any compatibility issues with your browser, please consider opening 
+> If you are running into any compatibility issues with your browser, please consider opening
 > a pull request and documenting your issue here!

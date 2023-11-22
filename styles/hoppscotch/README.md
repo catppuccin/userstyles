@@ -38,10 +38,9 @@
 
 
 
-
-
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [justTOBBI](https://github.com/justTOBBI)
+
 
 &nbsp;
 

@@ -36,15 +36,15 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Usage  
+## Usage
 > [!NOTE]
 > Set Proton Mail's built-in theme to 'Snow' if you're using Latte or 'Carbon' if you're using the others.
 
 
 
-
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [soya_daizu](https://github.com/soya-daizu)
+
 
 &nbsp;
 

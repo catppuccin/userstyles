@@ -38,10 +38,9 @@
 
 
 
-
-
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [r58Playz](https://github.com/r58Playz)
+
 
 &nbsp;
 

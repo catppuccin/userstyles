@@ -38,10 +38,9 @@
 
 
 
-
-
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [jayylmao](https://github.com/jayylmao)
+
 
 &nbsp;
 

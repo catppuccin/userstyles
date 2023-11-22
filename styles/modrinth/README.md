@@ -38,10 +38,9 @@
 
 
 
-
-
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [thismoon](https://github.com/thismoon)
+
 
 &nbsp;
 

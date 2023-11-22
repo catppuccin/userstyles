@@ -4,13 +4,13 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-  $TITLE
+  Catppuccin for {{#each heading}}<a href="{{ this.url }}">{{ this.title }}</a>{{#unless @last}}, {{/unless}}{{/each}}
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
 <p align="center">
-	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3A$LOWERCASE-PORT"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/$LOWERCASE-PORT?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/$LOWERCASE-PORT/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3A{{ slug }}"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/{{ slug }}?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/{{ slug }}/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 <p align="center">
@@ -36,11 +36,30 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-$USAGE
+{{#if usage}}
+## Usage
+{{{ usage }}}
+{{/if}}
 
-$FAQ
+{{#if faq}}
+## 🙋 FAQ
+{{#each faq}}
+- Q: {{{ question }}}\
+  A: {{{ answer }}}
+{{/each}}
+{{/if}}
 
-$COLLABORATORS
+## 💝 Current {{pluralize collaborators.currentMaintainers 'Maintainer'}}
+{{#each collaborators.currentMaintainers}}
+- [{{name}}]({{url}})
+{{/each}}
+
+{{#if collaborators.pastMaintainers}}
+## 💖 Past {{pluralize collaborators.pastMaintainers 'Maintainer'}}
+{{#each collaborators.pastMaintainers}}
+- [{{name}}]({{url}})
+{{/each}}
+{{/if}}
 
 &nbsp;
 

@@ -1,5 +1,5 @@
 import { sprintf } from "std/fmt/printf.ts";
-import chalk from "chalk";
+import * as color from "std/fmt/colors.ts";
 import core from "@actions/core";
 
 export type LoggerProps = core.AnnotationProperties & { content?: string };
@@ -15,7 +15,7 @@ const pretty_print = (
   const lines = (props.content ?? "").split("\n");
 
   const error = [
-    chalk[severity === "error" ? "red" : "yellow"](severity),
+    color[severity === "error" ? "red" : "yellow"](severity),
     message,
   ].join(" ");
 
@@ -24,7 +24,7 @@ const pretty_print = (
     const endCol = (props.endColumn ?? Infinity) - 1;
 
     if (i >= startCol && i <= endCol) {
-      return chalk[severity === "error" ? "red" : "yellow"](char);
+      return color[severity === "error" ? "red" : "yellow"](char);
     } else {
       return char;
     }
@@ -33,7 +33,7 @@ const pretty_print = (
   const pad = startLine.toString().length;
   console.log(
     [
-      chalk.underline(
+      color.underline(
         sprintf(
           "%s%s%d%s%d",
           file,
@@ -46,15 +46,15 @@ const pretty_print = (
       sprintf(
         "%*s│ %s",
         pad,
-        chalk.dim(startLine - 1),
-        chalk.dim(lines[startLine - 2]),
+        color.dim(String(startLine - 1)),
+        color.dim(lines[startLine - 2]),
       ),
-      sprintf("%*s│ %s", pad, chalk.bold(startLine), line),
+      sprintf("%*s│ %s", pad, color.bold(String(startLine)), line),
       sprintf(
         "%*s│ %s",
         pad,
-        chalk.dim(startLine + 1),
-        chalk.dim(lines[startLine]),
+        color.dim(String(startLine + 1)),
+        color.dim(lines[startLine]),
       ),
       sprintf("%*s╰─► %s", pad, "", error),
       undefined,

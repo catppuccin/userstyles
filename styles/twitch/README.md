@@ -36,16 +36,16 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Usage  
+## Usage
 > [!NOTE]
 > Set Twitch's built-in theme to either **light** if you're using Latte or **dark** if you're using the others.
 
 
 
-
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainers
 - [GitMuslim](https://github.com/GitMuslim)
 - [Isabel](https://github.com/isabelroses)
+
 
 &nbsp;
 
