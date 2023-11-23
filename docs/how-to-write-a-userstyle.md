@@ -17,11 +17,11 @@
 
 ### Setup
 
-Assuming you have completed steps 1-6 of [Creating Userstyles](./userstyle-creation.md#creating-userstyles), you should have the template somewhat filled out. In this guide we'll be theming [example.org](http://example.org/), a _very_ important website that I use all the time.
+Assuming you have completed steps 1-6 of [Creating Userstyles](./userstyle-creation.md#creating-userstyles), you should have the template somewhat filled out. Follow along with your userstyle as we write one for [example.org](http://example.org/).
 
 #### Usercss Metadata
 
-I'll start by filling out the "metadata block" at the very top of the template. Replace `<port name>` with the name of the website you are porting, and please ensure it is capitalized when needed. For `example.org`, it looks like this:
+Start by filling out the "metadata block" at the very top of the template. Replace `<port-name>` with the name of the website you are porting, and please ensure it is capitalized when needed. For `example.org`, it looks like this:
 
 ```less
 /* ==UserStyle==
@@ -41,22 +41,22 @@ I'll start by filling out the "metadata block" at the very top of the template. 
 ==/UserStyle== */
 ```
 
-The rest of the metadata block details the preprocessor and the options of the userstyle. You won't need to change any of this (other than `<port name>`), but if you are curious you can [read the specification](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#usercss-metadata).
+The rest of the metadata block details the preprocessor and the options of the userstyle. This won't need to be changed. For more information, see [Writing UserCSS - Usercss Metadata](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#usercss-metadata).
 
 #### `@-moz-document`
 
-Next, we'll want to tell Stylus to apply this userstyle on our specific website. Just replace `<domain of your website>` with... you guess it! The domain of your website. For our `example.org` example, it looks like this:
+To tell Stylus which website(s) to apply this userstyle on, replace `<website-domain>` with the domain of your port. For `example.org`, it looks like this:
 
 ```less
 @-moz-document domain('example.org') {
 ```
 
 > [!NOTE]
-> While `domain('<domain>')` works for most cases, you may need to use [`regexp('<your regex>')`](https://github.com/openstyles/stylus/wiki/Writing-styles#regexp).
+> While `domain()` works for most cases, you may need to use [`regexp()`](https://github.com/openstyles/stylus/wiki/Writing-styles#regexp) instead.
 
 #### The lookup table
 
-The next section of the template — we'll refer to it as the "lookup table — doesn't need any changes from you,, as it just contains the Catppuccin palette for each of the flavors.
+The next section of the template — the "lookup table" — contains the Catppuccin color palette for each of the flavors, and doesn't require any changes.
 
 ```less
 /* prettier-ignore */
@@ -70,7 +70,7 @@ The next section of the template — we'll refer to it as the "lookup table — 
 
 ### The `#catppuccin` mixin
 
-We'll refer to this next section of the template as the "`#catppuccin` mixin". You can ignore the first half of this section with all of the `@<color>: @catppuccin[@@lookup][@<color>];` lines and skip right to the comment where it says `// Start styling your website here:`. As the comment suggests, you can start adding your styles here. For `example.org`, I added a few basic declarations for colors and background colors:
+We'll refer to this next section of the template as the "`#catppuccin` mixin". You can ignore the first half of this section with all of the `@<color>: @catppuccin[@@lookup][@<color>];` lines and skip to the comment where it says `// Start styling your website here:`. As the comment suggests, you will write the CSS rules for your port here. Here is what it looks like for our `example.org` port:
 
 <!-- prettier-ignore -->
 ```less
@@ -97,7 +97,7 @@ We'll refer to this next section of the template as the "`#catppuccin` mixin". Y
 
 #### Applying the theme
 
-The final section of the template is about applying the user's light/dark flavors. Read the comments thoroughly and decide which of the two options works best for your site. In our case, `example.org` doesn't have a light/dark mode toggle, so we'll just apply it based on the user's preferences.
+The final section of the template is about applying the user's light/dark flavors. Read the comments thoroughly and decide which of the two options works best for your port. `example.org` doesn't have a light/dark mode toggle, so we'll apply it based on the user's preferences.
 
 <!-- prettier-ignore -->
 ```less
@@ -115,7 +115,7 @@ The final section of the template is about applying the user's light/dark flavor
 
 #### Putting it all together
 
-If we combine all of the previous steps, we have a working userstyle!
+Combining all of the previous steps, we have a working userstyle!
 
 ```less
 /* ==UserStyle==
@@ -205,4 +205,4 @@ If we combine all of the previous steps, we have a working userstyle!
 | --------------------------------------- | ------------------------------------- |
 | ![](./images/example.org-original.webp) | ![](./images/example.org-themed.webp) |
 
-Make sure to complete the rest of the steps in [Creating Userstyles](./userstyle-creation.md#creating-userstyles), and then submit your PR!
+Complete the rest of the steps in [Creating Userstyles](./userstyle-creation.md#creating-userstyles), and then submit your PR!
