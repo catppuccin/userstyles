@@ -1,17 +1,15 @@
 #!/usr/bin/env -S deno run -A
-
-import { walk } from "std/fs/mod.ts";
+import { walk } from "std/fs/walk.ts";
 import { parse as parseFlags } from "std/flags/mod.ts";
 import { basename, dirname, join, relative } from "std/path/mod.ts";
-
 // @deno-types="npm:@types/less";
 import less from "less";
 
 import { REPO_ROOT } from "@/deps.ts";
-import { checkForMissingFiles } from "./file-checker.ts";
-import { log } from "./logger.ts";
-import { verifyMetadata } from "./metadata.ts";
-import { lint } from "./stylelint.ts";
+import { checkForMissingFiles } from "@/lint/file-checker.ts";
+import { log } from "@/lint/logger.ts";
+import { verifyMetadata } from "@/lint/metadata.ts";
+import { lint } from "@/lint/stylelint.ts";
 
 const flags = parseFlags(Deno.args, { boolean: ["fix"] });
 const subDir = flags._[0]?.toString() ?? "";
@@ -46,7 +44,7 @@ for await (const entry of stylesheets) {
   );
 
   // advanced linting with stylelint
-  lint(entry, content, flags.fix);
+  await lint(entry, content, flags.fix);
 }
 
 // if any files are missing, cause the workflow to fail

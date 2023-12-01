@@ -36,15 +36,15 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Usage  
+## Usage
 > [!NOTE]
 > Set Tutanota's built-in theme to either **light** if you're using Latte or **dark** if you're using the others.
 
 
 
-
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [Ryan Cao](https://github.com/ryanccn)
+
 
 &nbsp;
 

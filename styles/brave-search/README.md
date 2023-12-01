@@ -36,13 +36,13 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Usage  
+## Usage
 Make sure to set the theme to either dark or light in Brave Search settings, as the automatic setting will not work.
 
 
-
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [ndsboy](https://github.com/ndsboy)
+
 
 &nbsp;
 

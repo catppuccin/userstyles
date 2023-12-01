@@ -109,6 +109,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [NixOS Wiki](styles/nixos.wiki)
 - [Proton](styles/proton)
 - [Quizlet](styles/quizlet)
+- [Skiff](styles/skiff)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
 - [Tutanota](styles/tutanota)
@@ -137,6 +138,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [ChatReplay](styles/chatreplay)
 - [Invidious](styles/invidious)
 - [Last.fm](styles/lastfm)
+- [Spotify Web](styles/spotify-web)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
 
@@ -147,10 +149,12 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Advent Of Code](styles/advent-of-code)
 - [bStats](styles/bstats)
 - [Chess.com](styles/chess.com)
+- [lichess](styles/lichess)
 - [Modrinth](styles/modrinth)
 - [Planet Minecraft](styles/planet-minecraft)
 
 </details>
+
 <!-- AUTOGEN:USERSTYLES END -->
 
 &nbsp;

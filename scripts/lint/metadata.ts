@@ -1,9 +1,9 @@
-import chalk from "chalk";
-// @deno-types="../usercss-meta.d.ts";
+// @deno-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
-import { log } from "./logger.ts";
+import { log } from "@/lint/logger.ts";
+import * as color from "std/fmt/colors.ts";
 import { sprintf } from "std/fmt/printf.ts";
-import type { WalkEntry } from "std/fs/mod.ts";
+import type { WalkEntry } from "std/fs/walk.ts";
 import { relative } from "std/path/mod.ts";
 import { REPO_ROOT } from "@/deps.ts";
 
@@ -39,9 +39,9 @@ export const verifyMetadata = (
 
       const message = sprintf(
         "Metadata %s should be %s but is %s",
-        chalk.bold(k),
-        chalk.green(v),
-        chalk.red(defacto),
+        color.bold(k),
+        color.green(v),
+        color.red(String(defacto)),
       );
 
       log(message, {

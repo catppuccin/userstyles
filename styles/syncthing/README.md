@@ -36,15 +36,15 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Usage  
+## Usage
 > [!NOTE]
 > This theme is designed to be used with the default WebGUI and default theme provided by Syncthing. This does not theme syncthing.net.
 
 
 
-
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [BlankParticle](https://github.com/BlankParticle)
+
 
 &nbsp;
 

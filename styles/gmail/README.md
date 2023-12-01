@@ -36,13 +36,13 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Usage  
+## Usage
 Switch to either the dark or default themes via the **gear icon** > **themes** > **view all** for the best experience!
 
 
-
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainer
 - [Isabel](https://github.com/isabelroses)
+
 
 &nbsp;
 

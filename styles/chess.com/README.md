@@ -38,12 +38,11 @@
 
 
 
-
-
-## 💝 Current Maintainer(s)
+## 💝 Current Maintainers
 - [coldenate](https://github.com/coldenate)
 - [Isabel](https://github.com/isabelroses)
 - [skele](https://github.com/skelebro1)
+
 
 &nbsp;
 
