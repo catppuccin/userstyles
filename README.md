@@ -113,7 +113,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Skiff](styles/skiff)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
-- [Tutanota](styles/tutanota)
+- [Tuta](styles/tuta)
 - [WikiWand](styles/wikiwand)
 
 </details>
