@@ -38,9 +38,11 @@
 
 
 
-## 💝 Current Maintainer
-- [rubyowo](https://github.com/rubyowo)
+## 🚧 Looking for Maintainers 🚧
+- If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
 
+## 💖 Past Maintainer
+- [rubyowo](https://github.com/rubyowo)
 
 &nbsp;
 

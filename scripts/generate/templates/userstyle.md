@@ -49,10 +49,15 @@
 {{/each}}
 {{/if}}
 
+{{#if collaborators.currentMaintainers}}
 ## 💝 Current {{pluralize collaborators.currentMaintainers 'Maintainer'}}
 {{#each collaborators.currentMaintainers}}
 - [{{name}}]({{url}})
 {{/each}}
+{{else}}
+## 🚧 Looking for Maintainers 🚧
+- If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
+{{/if}}
 
 {{#if collaborators.pastMaintainers}}
 ## 💖 Past {{pluralize collaborators.pastMaintainers 'Maintainer'}}
