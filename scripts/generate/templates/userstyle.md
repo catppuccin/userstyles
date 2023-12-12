@@ -49,7 +49,7 @@
 {{/each}}
 {{/if}}
 
-{{#if collaborators.currentMaintainers}}
+{{#if collaborators.currentMaintainers.length}}
 ## 💝 Current {{pluralize collaborators.currentMaintainers 'Maintainer'}}
 {{#each collaborators.currentMaintainers}}
 - [{{name}}]({{url}})
