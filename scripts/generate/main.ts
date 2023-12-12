@@ -56,7 +56,7 @@ await updateFile(
   join(REPO_ROOT, ".github/CODEOWNERS"),
   Object.entries(userstylesData.userstyles)
     .map(([slug, { readme }]) => {
-      if (!readme["current-maintainers"]) return "";
+      if (readme["current-maintainers"].length === 0) return;
       const currentMaintainers = readme["current-maintainers"]
         .map((maintainer) => `@${maintainer.url.split("/").pop()}`)
         .join(" ");
