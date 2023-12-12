@@ -17,14 +17,14 @@ While this may seem odd, this ensures to keep all of our requests in one place
 and makes it easier for all people to request what they want without needing to
 learn what "Stylus" exactly is.
 
-**If you have already created a userstyle, please raise a
+**If you have already created an userstyle, please raise a
 [Pull Request](https://github.com/catppuccin/userstyles/compare)!**
 
 &nbsp;
 
 ### Creating Userstyles
 
-To create a userstyle, follow the instructions listed below:
+To create an userstyle, follow the instructions listed below:
 
 1. Fork this repository.
 2. Create a new branch under the name `feat/<name-of-website>`, (e.g.
@@ -33,7 +33,7 @@ To create a userstyle, follow the instructions listed below:
    `lower-kebab-case`.
 4. Copy the contents of the [`template`](../template/) folder into
    `styles/<name-of-website>`.
-   - **The template uses [LESS](https://lesscss.org/#overview) as the
+   - **The template uses [LESS](https://lesscss.org/#overview) a
      preprocessor for Stylus. Please do not change this as we will only accept
      userstyles based on the template.**
 5. Edit the [`catppuccin.user.css`](../template/catppuccin.user.css) file and
