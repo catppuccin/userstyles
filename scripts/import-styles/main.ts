@@ -26,6 +26,7 @@ const settings = {
 };
 
 const data = [settings];
+
 for await (const entry of stylesheets) {
   const content = await Deno.readTextFile(entry.path);
   const {metadata} = usercssMeta.parse(content);
