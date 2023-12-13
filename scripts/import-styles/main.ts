@@ -33,7 +33,7 @@ for await (const entry of stylesheets) {
 }
 
 for (let i = 0; i < entries.length; i++) {
-  let content = await Deno.readTextFile(entries[i].path);
+  const content = await Deno.readTextFile(entries[i].path);
 
   const {metadata} = usercssMeta.parse(content);
 
