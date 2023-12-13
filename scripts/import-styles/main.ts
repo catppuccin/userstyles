@@ -56,7 +56,7 @@ for (let i = 0; i < entries.length; i++) {
   data += final + closingTag;
 }
 
-Deno.writeFile("compiled.json", new TextEncoder().encode(data))
+Deno.writeTextFile("compiled.json", data)
 
 // if any files are missing, cause the workflow to fail
 if (await checkForMissingFiles() === false) {
