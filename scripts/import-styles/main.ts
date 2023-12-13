@@ -16,7 +16,7 @@ const stylesheets = walk(join(REPO_ROOT, "styles", subDir), {
   match: [/\.user.css$/],
 });
 
-// settings that we want for each user to apply
+// Recommended settings.
 const settings = JSON.stringify({
     settings: {
       updateInterval: 24,
