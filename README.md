@@ -40,15 +40,15 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 ## 🖥️ Install
 
-To install all userstyles with recomended settings:
+To install all userstyles with the recommended settings:
 
-1. Download [this](./compiled.json?raw=true).
-2. Open the stylus manage page.
+1. Download [the Stylus export](./compiled.json?raw=true).
+2. Open the Stylus "manage" page.
 3. Locate backup (on the left bar) and select import.
-   - And select the downloaded file.
+   - Select the downloaded file.
 4. Enjoy!
 
-To install these indvidual userstyles:
+To install individual userstyles:
 
 1. Install [Stylus](https://github.com/openstyles/stylus).
    - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
