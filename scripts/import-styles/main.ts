@@ -17,27 +17,20 @@ const stylesheets = walk(join(REPO_ROOT, "styles", subDir), {
 });
 
 // Recommended settings.
-const settings = JSON.stringify({
-    settings: {
-      updateInterval: 24,
-      updateOnlyEnabled: true,
-      patchCsp: true
-    }
-  })
+const settings = {
+  settings: {
+    updateInterval: 24,
+    updateOnlyEnabled: true,
+    patchCsp: true
+  }
+};
 
-var data = '[' + settings + ',';
-
-const entries = [];
+const data = [settings];
 for await (const entry of stylesheets) {
-  entries.push(entry);
-}
-
-for (let i = 0; i < entries.length; i++) {
-  const content = await Deno.readTextFile(entries[i].path);
-
+  const content = await Deno.readTextFile(entry.path);
   const {metadata} = usercssMeta.parse(content);
-
-  const final = JSON.stringify({
+  
+  data.push({
     enabled: true,
     name: metadata.name,
     description: metadata.description,
@@ -47,16 +40,9 @@ for (let i = 0; i < entries.length; i++) {
     usercssData: metadata,
     sourceCode: content
   });
-  
-  let closingTag = ',';
-  if (i === entries.length - 1) {
-    closingTag = ']';
-  }
-
-  data += final + closingTag;
 }
 
-Deno.writeTextFile("compiled.json", data)
+Deno.writeTextFile("compiled.json", JSON.stringify(data))
 
 // if any files are missing, cause the workflow to fail
 if (await checkForMissingFiles() === false) {
