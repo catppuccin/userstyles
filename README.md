@@ -44,7 +44,7 @@ Install [Stylus](https://github.com/openstyles/stylus) for your chosen browser.
    - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)
    - [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
 
-### To install all userstyles with the recommended settings:
+### All Userstyles:
 
 1. Download [the Stylus export](./scripts/dist/import.json?raw=true).
 2. Open the Stylus "manage" page.
@@ -52,7 +52,7 @@ Install [Stylus](https://github.com/openstyles/stylus) for your chosen browser.
    - Select the downloaded file.
 4. Enjoy!
 
-### To install individual userstyles:
+### Individual Userstyles:
 
 1. Enable CSP Patching from `Stylus Settings` > `Advanced`.
 2. Install the theme:
