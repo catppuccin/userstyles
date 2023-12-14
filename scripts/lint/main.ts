@@ -28,7 +28,7 @@ for await (const entry of stylesheets) {
   const content = await Deno.readTextFile(entry.path);
 
   // verify the usercss metadata
-  const { globalVars, isLess } = verifyMetadata(entry, content, repo);
+  const { globalVars, isLess } = await verifyMetadata(entry, content, repo);
   // don't attempt to compile or lint non-less files
   if (!isLess) continue;
 

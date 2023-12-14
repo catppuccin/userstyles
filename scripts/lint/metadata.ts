@@ -2,17 +2,20 @@
 import usercssMeta from "usercss-meta";
 import { log } from "@/lint/logger.ts";
 import * as color from "std/fmt/colors.ts";
+import * as path from "std/path/mod.ts";
 import { sprintf } from "std/fmt/printf.ts";
 import type { WalkEntry } from "std/fs/walk.ts";
 import { relative } from "std/path/mod.ts";
-import { REPO_ROOT } from "@/deps.ts";
+import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
+import { UserstylesSchema } from "@/types/userstyles.d.ts";
+import { validateYaml } from "@/utils.ts";
 
-export const verifyMetadata = (
+export const verifyMetadata = async (
   entry: WalkEntry,
   content: string,
   repo: string,
 ) => {
-  const assert = assertions(repo);
+  const assert = await assertions(repo);
   const file = relative(REPO_ROOT, entry.path);
 
   const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {
@@ -67,9 +70,23 @@ export const verifyMetadata = (
   };
 };
 
-const assertions = (repo: string) => {
+const assertions = async (repo: string) => {
   const prefix = "https://github.com/catppuccin/userstyles";
+
+  const { userstyles } = await validateYaml<UserstylesSchema>(
+    Deno.readTextFileSync(path.join(REPO_ROOT, "scripts/userstyles.yml")),
+    userStylesSchema,
+  );
+  if (userstyles === undefined) {
+    Deno.exit(1);
+  }
+
   return {
+    name: `${
+      Array.isArray(userstyles[repo].name)
+        ? (userstyles[repo].name as string[]).join("/")
+        : userstyles[repo].name
+    } Catppuccin`,
     namespace: `github.com/catppuccin/userstyles/styles/${repo}`,
     author: "Catppuccin",
     license: "MIT",
