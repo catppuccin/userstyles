@@ -2,8 +2,10 @@ name: Import File Generator
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: 0 0 * * 1 # At 00:00 on Monday
+  push:
+    paths:
+      - "scripts/**/*"
+      - "styles/**/catppuccin.user.css"
 
 env:
   HAS_USERSTYLES_TOKEN: ${{ secrets.USERSTYLES_TOKEN != '' }}
@@ -18,31 +20,24 @@ jobs:
       contents: write
 
     steps:
-      - uses: google-github-actions/release-please-action@v3
-        id: release
-        with:
-          release-type: simple
-
       - uses: actions/checkout@v4
-        if: env.HAS_USERSTYLES_TOKEN && ${{ steps.release.outputs.release_created }}
+        if: env.HAS_USERSTYLES_TOKEN
         with:
           token: ${{ secrets.USERSTYLES_TOKEN }}
           ref: ${{ github.ref }}
       - uses: actions/checkout@v4
-        if: env.HAS_USERSTYLES_TOKEN == 'false' && ${{ steps.release.outputs.release_created }}
+        if: env.HAS_USERSTYLES_TOKEN == 'false'
         with:
           ref: ${{ github.ref }}
 
       - name: Setup Deno
-        if: ${{ steps.release.outputs.release_created }}
         uses: nekowinston/setup-deno@main
         with:
           deno-version: v1.x
 
       - name: Generate import file
-        if: ${{ steps.release.outputs.release_created }}
         run: deno task ci:generate-import
 
       - name: Upload Release Artifacts
-        if: ${{ github.repository == 'catppuccin/userstyles' && github.ref == 'refs/heads/main' && env.HAS_USERSTYLES_TOKEN }} && ${{ steps.release.outputs.release_created }}
-        run: gh release upload ${{ steps.release.outputs.tag_name }} ./dist
+        if: ${{ github.repository == 'catppuccin/userstyles' && github.ref == 'refs/heads/main' && env.HAS_USERSTYLES_TOKEN }}
+        run: gh release upload --clobber import-styles ./dist
