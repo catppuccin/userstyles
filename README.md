@@ -40,7 +40,11 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 ## 🖥️ Install
 
-To install all userstyles with the recommended settings:
+Install [Stylus](https://github.com/openstyles/stylus) for your chosen browser.
+   - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)
+   - [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
+
+### To install all userstyles with the recommended settings:
 
 1. Download [the Stylus export](./scripts/dist/import.json?raw=true).
 2. Open the Stylus "manage" page.
@@ -48,16 +52,13 @@ To install all userstyles with the recommended settings:
    - Select the downloaded file.
 4. Enjoy!
 
-To install individual userstyles:
+### To install individual userstyles:
 
-1. Install [Stylus](https://github.com/openstyles/stylus).
-   - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
-     extension.
-2. Enable CSP Patching from `Stylus Settings` > `Advanced`.
-3. Install the theme:
+1. Enable CSP Patching from `Stylus Settings` > `Advanced`.
+2. Install the theme:
    - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
    - Replacing `<name>` with the name of the userstyle.
-4. Enjoy!
+3. Enjoy!
 
 &nbsp;
 
