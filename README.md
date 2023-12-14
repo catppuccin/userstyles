@@ -42,7 +42,7 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 To install all userstyles with the recommended settings:
 
-1. Download [the Stylus export](./compiled.json?raw=true).
+1. Download [the Stylus export](./scripts/dist/import.json?raw=true).
 2. Open the Stylus "manage" page.
 3. Locate backup (on the left bar) and select import.
    - Select the downloaded file.

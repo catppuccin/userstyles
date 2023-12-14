@@ -1,5 +1,6 @@
 #!/usr/bin/env -S deno run -A
 import usercssMeta from "usercss-meta";
+import { ensureDir } from "https://deno.land/std/fs/mod.ts";
 import { walk } from "std/fs/walk.ts";
 import { parse as parseFlags } from "std/flags/mod.ts";
 import { join } from "std/path/mod.ts";
@@ -21,16 +22,16 @@ const settings = {
   settings: {
     updateInterval: 24,
     updateOnlyEnabled: true,
-    patchCsp: true
-  }
+    patchCsp: true,
+  },
 };
 
 const data = [settings];
 
 for await (const entry of stylesheets) {
   const content = await Deno.readTextFile(entry.path);
-  const {metadata} = usercssMeta.parse(content);
-  
+  const { metadata } = usercssMeta.parse(content);
+
   data.push({
     enabled: true,
     name: metadata.name,
@@ -39,11 +40,12 @@ for await (const entry of stylesheets) {
     url: metadata.url,
     updateUrl: metadata.updateURL,
     usercssData: metadata,
-    sourceCode: content
+    sourceCode: content,
   });
 }
 
-Deno.writeTextFile("compiled.json", JSON.stringify(data))
+ensureDir("scripts/dist");
+Deno.writeTextFile("scripts/dist/import.json", JSON.stringify(data));
 
 // if any files are missing, cause the workflow to fail
 if (await checkForMissingFiles() === false) {
