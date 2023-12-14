@@ -123,7 +123,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
 - [Tuta](styles/tuta)
-- [WikiWand](styles/wikiwand)
+- [Wikiwand](styles/wikiwand)
 
 </details>
 <details open>
@@ -159,7 +159,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Advent Of Code](styles/advent-of-code)
 - [bStats](styles/bstats)
 - [Chess.com](styles/chess.com)
-- [lichess](styles/lichess)
+- [Lichess](styles/lichess)
 - [Modrinth](styles/modrinth)
 - [Planet Minecraft](styles/planet-minecraft)
 
