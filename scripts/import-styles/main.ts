@@ -44,8 +44,8 @@ for await (const entry of stylesheets) {
   });
 }
 
-ensureDir("scripts/dist");
-Deno.writeTextFile("scripts/dist/import.json", JSON.stringify(data));
+ensureDir("dist");
+Deno.writeTextFile("dist/import.json", JSON.stringify(data));
 
 // if any files are missing, cause the workflow to fail
 if (await checkForMissingFiles() === false) {
