@@ -1,14 +1,13 @@
 // @deno-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
-import { log } from "@/lint/logger.ts";
 import * as color from "std/fmt/colors.ts";
-import * as path from "std/path/mod.ts";
 import { sprintf } from "std/fmt/printf.ts";
 import type { WalkEntry } from "std/fs/walk.ts";
 import { relative } from "std/path/mod.ts";
-import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
-import { UserstylesSchema } from "@/types/userstyles.d.ts";
-import { validateYaml } from "@/utils.ts";
+
+import { REPO_ROOT } from "@/deps.ts";
+import { log } from "@/lint/logger.ts";
+import { getUserstylesData } from "@/utils.ts";
 
 export const verifyMetadata = async (
   entry: WalkEntry,
@@ -73,13 +72,10 @@ export const verifyMetadata = async (
 const assertions = async (repo: string) => {
   const prefix = "https://github.com/catppuccin/userstyles";
 
-  const { userstyles } = await validateYaml<UserstylesSchema>(
-    Deno.readTextFileSync(path.join(REPO_ROOT, "scripts/userstyles.yml")),
-    userStylesSchema,
-  );
-  if (userstyles === undefined) {
+  const { userstyles } = await getUserstylesData().catch((err) => {
+    console.error(err);
     Deno.exit(1);
-  }
+  });
 
   return {
     name: `${
