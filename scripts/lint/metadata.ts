@@ -76,5 +76,6 @@ const assertions = (repo: string) => {
     preprocessor: "less",
     homepageURL: `${prefix}/tree/main/styles/${repo}`,
     updateURL: `${prefix}/raw/main/styles/${repo}/catppuccin.user.css`,
+    supportURL: `${prefix}/issues?q=is%3Aopen+is%3Aissue+label%3A${repo}`,
   };
 };
