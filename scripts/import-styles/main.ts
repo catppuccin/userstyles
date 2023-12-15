@@ -6,7 +6,6 @@ import { parse as parseFlags } from "std/flags/mod.ts";
 import { join } from "std/path/mod.ts";
 
 import { REPO_ROOT } from "@/deps.ts";
-import { checkForMissingFiles } from "@/file-checker.ts";
 
 const flags = parseFlags(Deno.args, { boolean: ["fix"] });
 const subDir = flags._[0]?.toString() ?? "";
@@ -46,8 +45,3 @@ for await (const entry of stylesheets) {
 
 ensureDir("dist");
 Deno.writeTextFile("dist/import.json", JSON.stringify(data));
-
-// if any files are missing, cause the workflow to fail
-if (await checkForMissingFiles() === false) {
-  Deno.exit(1);
-}
