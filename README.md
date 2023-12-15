@@ -41,8 +41,9 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 ## 🖥️ Install
 
 Install [Stylus](https://github.com/openstyles/stylus) for your chosen browser.
-   - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)
-   - [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
+
+- [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)
+- [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
 
 ### All Userstyles
 
