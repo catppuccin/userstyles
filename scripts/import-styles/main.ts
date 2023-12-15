@@ -2,14 +2,11 @@
 import usercssMeta from "usercss-meta";
 import { ensureDir } from "std/fs/mod.ts";
 import { walk } from "std/fs/walk.ts";
-import { parse as parseFlags } from "std/flags/mod.ts";
 import { join } from "std/path/mod.ts";
 
 import { REPO_ROOT } from "@/deps.ts";
 
-const flags = parseFlags(Deno.args, { boolean: ["fix"] });
-const subDir = flags._[0]?.toString() ?? "";
-const stylesheets = walk(join(REPO_ROOT, "styles", subDir), {
+const stylesheets = walk(join(REPO_ROOT, "styles"), {
   includeFiles: true,
   includeDirs: false,
   includeSymlinks: false,
@@ -25,7 +22,7 @@ const settings = {
   },
 };
 
-const data = [settings];
+const data: Record<string, unknown>[] = [settings];
 
 for await (const entry of stylesheets) {
   const content = await Deno.readTextFile(entry.path);
