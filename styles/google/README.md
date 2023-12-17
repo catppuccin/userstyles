@@ -4,13 +4,13 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-  Catppuccin for <a href="https://lichess.org/">Lichess</a>
+  Catppuccin for <a href="https://google.com">Google</a>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
 <p align="center">
-	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Alichess"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/lichess?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/lichess/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Agoogle"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/google?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/google/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 <p align="center">
@@ -36,12 +36,10 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Usage
-Switch to a default Lichess light/dark theme via **Username** > **Background** for the best experience!
 
 
 ## 💝 Current Maintainer
-- [coopw](https://github.com/coopw1)
+- [GitMuslim](https://github.com/GitMuslim)
 
 
 &nbsp;

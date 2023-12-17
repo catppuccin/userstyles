@@ -40,16 +40,26 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 ## 🖥️ Install
 
-To install these userstyles:
+Install [Stylus](https://github.com/openstyles/stylus) for your chosen browser.
 
-1. Install [Stylus](https://github.com/openstyles/stylus).
-   - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
-     extension.
-2. Enable CSP Patching from `Stylus Settings` > `Advanced`.
-3. Install the theme:
+- [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)
+- [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
+
+### All Userstyles
+
+1. Download [the Stylus export](https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json).
+2. Open the Stylus "manage" page.
+3. Locate backup (on the left bar) and select import.
+   - Select the downloaded file.
+4. Enjoy!
+
+### Individual Userstyles
+
+1. Enable CSP Patching from `Stylus Settings` > `Advanced`.
+2. Install the theme:
    - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
    - Replacing `<name>` with the name of the userstyle.
-4. Enjoy!
+3. Enjoy!
 
 &nbsp;
 
@@ -79,6 +89,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Brave Search](styles/brave-search)
 - [Ecosia](styles/ecosia)
+- [Google](styles/google)
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
 - [Startpage](styles/startpage)
@@ -112,8 +123,8 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Skiff](styles/skiff)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
-- [Tutanota](styles/tutanota)
-- [WikiWand](styles/wikiwand)
+- [Tuta](styles/tuta)
+- [Wikiwand](styles/wikiwand)
 
 </details>
 <details open>
@@ -149,7 +160,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Advent Of Code](styles/advent-of-code)
 - [bStats](styles/bstats)
 - [Chess.com](styles/chess.com)
-- [lichess](styles/lichess)
+- [Lichess](styles/lichess)
 - [Modrinth](styles/modrinth)
 - [Planet Minecraft](styles/planet-minecraft)
 
