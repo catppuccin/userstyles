@@ -38,11 +38,9 @@
 
 
 
-## 🚧 Looking for Maintainers 🚧
-- If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
-
-## 💖 Past Maintainer
+## 💝 Current Maintainer
 - [FrancoRav](https://github.com/FrancoRav)
+
 
 &nbsp;
 
