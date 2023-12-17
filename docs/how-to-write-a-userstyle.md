@@ -17,7 +17,7 @@
 
 ### Setup
 
-Assuming you have completed steps 1-6 of [Creating Userstyles](./userstyle-creation.md#creating-userstyles), you should have the template somewhat filled out. Follow along with your userstyle as we write one for [example.org](http://example.org/).
+Assuming you have completed steps 1-4 of [Creating Userstyles](./userstyle-creation.md#creating-userstyles), you should have the `catppuccin.user.css` template. Follow along in that `catppuccin.user.css` file e as we write an example userstyle for [example.org](http://example.org/).
 
 #### Usercss Metadata
 
