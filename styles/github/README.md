@@ -40,12 +40,13 @@
 Switch to a default GitHub light/dark theme via **Settings** > **Appearance** for the best experience!
 
 
-## 💝 Current Maintainers
+## 🚧 Looking for Maintainers 🚧
+- If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
+
+## 💖 Past Maintainers
+- [Andreas Grafen](https://github.com/andreasgrafen)
 - [Pocco81](https://github.com/Pocco81)
 - [Umbreon](https://github.com/GlowingUmbreon)
-
-## 💖 Past Maintainer
-- [Andreas Grafen](https://github.com/andreasgrafen)
 
 &nbsp;
 
