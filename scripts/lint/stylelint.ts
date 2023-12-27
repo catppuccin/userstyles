@@ -13,9 +13,15 @@ import { log } from "@/lint/logger.ts";
 export const lint = async (entry: WalkEntry, content: string, fix: boolean) => {
   const file = relative(REPO_ROOT, entry.path);
 
+  let success = true;
+
   await stylelint.lint({ files: entry.path, fix })
     .then(({ results }) => {
       results.map((result) => {
+        if (result.warnings.length > 0) {
+          success = false;
+        }
+
         result.warnings.map((warning) => {
           // Some cleanup for fancier logging, dims the rule name
           const message = warning.text?.replace(
@@ -34,4 +40,6 @@ export const lint = async (entry: WalkEntry, content: string, fix: boolean) => {
         });
       });
     });
+
+  return success;
 };
