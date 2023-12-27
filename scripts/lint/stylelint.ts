@@ -13,13 +13,13 @@ import { log } from "@/lint/logger.ts";
 export const lint = async (entry: WalkEntry, content: string, fix: boolean) => {
   const file = relative(REPO_ROOT, entry.path);
 
-  let success = true;
+  let failed = false;
 
   await stylelint.lint({ files: entry.path, fix })
     .then(({ results }) => {
       results.map((result) => {
         if (result.warnings.length > 0) {
-          success = false;
+          failed = true;
         }
 
         result.warnings.map((warning) => {
@@ -41,5 +41,5 @@ export const lint = async (entry: WalkEntry, content: string, fix: boolean) => {
       });
     });
 
-  return success;
+  return !failed;
 };
