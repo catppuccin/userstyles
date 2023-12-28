@@ -29,12 +29,12 @@ for await (const entry of stylesheets) {
 
   const content = await Deno.readTextFile(entry.path);
 
-  // verify the usercss metadata
+  // Verify the UserCSS metadata.
   const { globalVars, isLess } = await verifyMetadata(entry, content, repo);
-  // don't attempt to compile or lint non-less files
+  // Don't attempt to compile or lint non-LESS files.
   if (!isLess) continue;
 
-  // try to compile the less file, report any errors
+  // Try to compile the LESS file, report any errors.
   less.render(content, { lint: true, globalVars }).catch(
     (err: Less.RenderError) => {
       failed = true;
@@ -46,15 +46,15 @@ for await (const entry of stylesheets) {
     },
   );
 
-  // advanced linting with stylelint
+  // Lint with Stylelint.
   await lint(entry, content, flags.fix).catch(() => failed = true);
 }
 
-// if any files are missing, cause the workflow to fail
 if (await checkForMissingFiles() === false) {
   failed = true;
 }
 
+// Cause the workflow to fail if any issues were found.
 if (failed) {
   Deno.exit(1);
 }

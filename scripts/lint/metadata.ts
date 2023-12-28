@@ -20,7 +20,7 @@ export const verifyMetadata = async (
     allowErrors: true,
   });
 
-  // pretty print / annotate the parsing errors
+  // Pretty print / annotate the parsing errors.
   parsingErrors.map((e) => {
     let startLine = 0;
     for (const line of content.split("\n")) {
@@ -50,10 +50,10 @@ export const verifyMetadata = async (
     }
   }
 
-  // parse the usercss variables to less global variables, e.g.
+  // Parse the UserCSS variables to LESS global variables, e.g.
   // `@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]`
   // gets parsed as
-  // `lightFlavor: "latte"`
+  // `lightFlavor: "latte"`.
   const globalVars = Object.entries(metadata.vars)
     .reduce((acc, [k, v]) => {
       return { ...acc, [k]: v.default };
