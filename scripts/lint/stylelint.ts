@@ -1,5 +1,5 @@
 import * as color from "std/fmt/colors.ts";
-import { WalkEntry } from "std/fs/mod.ts";
+import type { WalkEntry } from "std/fs/walk.ts";
 import { relative } from "std/path/mod.ts";
 
 import "npm:postcss-less";
