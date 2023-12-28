@@ -10,18 +10,10 @@ import "npm:stylelint-config-recommended";
 import { REPO_ROOT } from "@/deps.ts";
 import { log } from "@/lint/logger.ts";
 
-export const lint = async (entry: WalkEntry, content: string, fix: boolean) => {
-  const file = relative(REPO_ROOT, entry.path);
-
-  let failed = false;
-
-  await stylelint.lint({ files: entry.path, fix })
+export const lint = (entry: WalkEntry, content: string, fix: boolean) =>
+  stylelint.lint({ files: entry.path, fix })
     .then(({ results }) => {
       results.map((result) => {
-        if (result.warnings.length > 0) {
-          failed = true;
-        }
-
         result.warnings.map((warning) => {
           // Some cleanup for fancier logging, dims the rule name
           const message = warning.text?.replace(
@@ -30,7 +22,7 @@ export const lint = async (entry: WalkEntry, content: string, fix: boolean) => {
           ) ?? "unspecified stylelint error";
 
           log(message, {
-            file,
+            file: relative(REPO_ROOT, entry.path),
             startLine: warning.line,
             endLine: warning.endLine,
             startColumn: warning.column,
@@ -38,8 +30,6 @@ export const lint = async (entry: WalkEntry, content: string, fix: boolean) => {
             content,
           }, warning.severity);
         });
+        if (result.warnings.length > 0) throw new Error("stylelint error");
       });
     });
-
-  return !failed;
-};

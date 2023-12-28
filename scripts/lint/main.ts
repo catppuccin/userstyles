@@ -20,7 +20,7 @@ const stylesheets = walk(join(REPO_ROOT, "styles", subDir), {
   match: [/\.user.css$/],
 });
 
-let failed;
+let failed = false;
 
 for await (const entry of stylesheets) {
   const repodir = dirname(entry.path);
@@ -35,8 +35,8 @@ for await (const entry of stylesheets) {
   if (!isLess) continue;
 
   // try to compile the less file, report any errors
-  less.render(content, { lint: true, globalVars }).then().catch(
-    (err) => {
+  less.render(content, { lint: true, globalVars }).catch(
+    (err: Less.RenderError) => {
       failed = true;
       log(
         err.message,
@@ -47,9 +47,7 @@ for await (const entry of stylesheets) {
   );
 
   // advanced linting with stylelint
-  if (await lint(entry, content, flags.fix) === false) {
-    failed = true;
-  }
+  await lint(entry, content, flags.fix).catch(() => failed = true);
 }
 
 // if any files are missing, cause the workflow to fail
