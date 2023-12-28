@@ -23,19 +23,19 @@ const stylesheets = walk(join(REPO_ROOT, "styles", subDir), {
 let failed = false;
 
 for await (const entry of stylesheets) {
-  const repodir = dirname(entry.path);
-  const repo = basename(repodir);
+  const repo = basename(dirname(entry.path));
   const file = relative(REPO_ROOT, entry.path);
 
   const content = await Deno.readTextFile(entry.path);
 
   // Verify the UserCSS metadata.
   const { globalVars, isLess } = await verifyMetadata(entry, content, repo);
+
   // Don't attempt to compile or lint non-LESS files.
   if (!isLess) continue;
 
   // Try to compile the LESS file, report any errors.
-  less.render(content, { lint: true, globalVars }).catch(
+  less.render(content, { lint: true, globalVars: globalVars }).catch(
     (err: Less.RenderError) => {
       failed = true;
       log(
