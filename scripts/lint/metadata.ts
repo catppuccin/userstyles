@@ -1,7 +1,6 @@
 // @deno-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
 import * as color from "std/fmt/colors.ts";
-import { sprintf } from "std/fmt/printf.ts";
 import type { WalkEntry } from "std/fs/walk.ts";
 import { relative } from "std/path/mod.ts";
 
@@ -32,19 +31,16 @@ export const verifyMetadata = async (
     log(e.message, { file, startLine, content });
   });
 
-  Object.entries(assert).forEach(([k, v]) => {
-    const defacto = metadata[k];
-    if (defacto !== v) {
+  for (const [key, value] of Object.entries(assert)) {
+    const defacto = metadata[key];
+    if (defacto !== value) {
       const line = content
         .split("\n")
-        .findIndex((line) => line.includes(k)) + 1;
+        .findIndex((line) => line.includes(key)) + 1;
 
-      const message = sprintf(
-        "Metadata %s should be %s but is %s",
-        color.bold(k),
-        color.green(v),
-        color.red(String(defacto)),
-      );
+      const message = `Metadata ${color.bold(key)} should be ${
+        color.green(value)
+      } but is ${color.red(String(defacto))}`;
 
       log(message, {
         file,
@@ -52,7 +48,7 @@ export const verifyMetadata = async (
         content,
       }, "warning");
     }
-  });
+  }
 
   // parse the usercss variables to less global variables, e.g.
   // `@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]`
