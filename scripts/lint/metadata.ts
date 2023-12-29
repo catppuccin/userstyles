@@ -11,9 +11,9 @@ import { getUserstylesData } from "@/utils.ts";
 export const verifyMetadata = async (
   entry: WalkEntry,
   content: string,
-  userstyleDir: string,
+  userstyle: string,
 ) => {
-  const assert = await assertions(userstyleDir);
+  const assert = await assertions(userstyle);
   const file = relative(REPO_ROOT, entry.path);
 
   const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {
@@ -65,7 +65,7 @@ export const verifyMetadata = async (
   };
 };
 
-const assertions = async (repo: string) => {
+const assertions = async (userstyle: string) => {
   const prefix = "https://github.com/catppuccin/userstyles";
 
   const { userstyles } = await getUserstylesData().catch((err) => {
@@ -75,16 +75,16 @@ const assertions = async (repo: string) => {
 
   return {
     name: `${
-      Array.isArray(userstyles[repo].name)
-        ? (userstyles[repo].name as string[]).join("/")
-        : userstyles[repo].name
+      Array.isArray(userstyles[userstyle].name)
+        ? (userstyles[userstyle].name as string[]).join("/")
+        : userstyles[userstyle].name
     } Catppuccin`,
-    namespace: `github.com/catppuccin/userstyles/styles/${repo}`,
+    namespace: `github.com/catppuccin/userstyles/styles/${userstyle}`,
     author: "Catppuccin",
     license: "MIT",
     preprocessor: "less",
-    homepageURL: `${prefix}/tree/main/styles/${repo}`,
-    updateURL: `${prefix}/raw/main/styles/${repo}/catppuccin.user.css`,
-    supportURL: `${prefix}/issues?q=is%3Aopen+is%3Aissue+label%3A${repo}`,
+    homepageURL: `${prefix}/tree/main/styles/${userstyle}`,
+    updateURL: `${prefix}/raw/main/styles/${userstyle}/catppuccin.user.css`,
+    supportURL: `${prefix}/issues?q=is%3Aopen+is%3Aissue+label%3A${userstyle}`,
   };
 };
