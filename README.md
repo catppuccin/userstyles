@@ -117,7 +117,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [homepage](styles/homepage)
 - [ichi.moe](styles/ichi.moe)
 - [InvokeAI](styles/invokeai)
-- [Linvga](styles/lingva)
+- [Lingva](styles/lingva)
 - [NixOS Wiki](styles/nixos.wiki)
 - [Proton](styles/proton)
 - [Quizlet](styles/quizlet)
