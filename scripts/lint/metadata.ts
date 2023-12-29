@@ -11,9 +11,9 @@ import { getUserstylesData } from "@/utils.ts";
 export const verifyMetadata = async (
   entry: WalkEntry,
   content: string,
-  repo: string,
+  userstyleDir: string,
 ) => {
-  const assert = await assertions(repo);
+  const assert = await assertions(userstyleDir);
   const file = relative(REPO_ROOT, entry.path);
 
   const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {

@@ -23,13 +23,13 @@ const stylesheets = walk(join(REPO_ROOT, "styles", subDir), {
 let failed = false;
 
 for await (const entry of stylesheets) {
-  const repo = basename(dirname(entry.path));
+  const dir = basename(dirname(entry.path));
   const file = relative(REPO_ROOT, entry.path);
 
   const content = await Deno.readTextFile(entry.path);
 
   // Verify the UserCSS metadata.
-  const { globalVars, isLess } = await verifyMetadata(entry, content, repo);
+  const { globalVars, isLess } = await verifyMetadata(entry, content, dir);
 
   // Don't attempt to compile or lint non-LESS files.
   if (!isLess) continue;
@@ -50,11 +50,7 @@ for await (const entry of stylesheets) {
   await lint(entry, content, flags.fix).catch(() => failed = true);
 }
 
-if (await checkForMissingFiles() === false) {
-  failed = true;
-}
+if (await checkForMissingFiles() === false) failed = true;
 
 // Cause the workflow to fail if any issues were found.
-if (failed) {
-  Deno.exit(1);
-}
+if (failed) Deno.exit(1);
