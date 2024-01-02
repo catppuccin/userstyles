@@ -4,13 +4,13 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-  Catppuccin for <a href="https://tutanota.com/">Tutanota</a>
+  Catppuccin for <a href="https://github.com/thedaviddelta/lingva-translate">Lingva</a>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
 <p align="center">
-	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Atutanota"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/tutanota?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/tutanota/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Alingva"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/lingva?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/lingva/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 <p align="center">
@@ -36,14 +36,10 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Usage
-> [!NOTE]
-> Set Tutanota's built-in theme to either **light** if you're using Latte or **dark** if you're using the others.
-
 
 
 ## 💝 Current Maintainer
-- [Ryan Cao](https://github.com/ryanccn)
+- [rubyowo](https://github.com/rubyowo)
 
 
 &nbsp;
