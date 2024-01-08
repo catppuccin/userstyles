@@ -1,23 +1,17 @@
 #!/usr/bin/env -S deno run -A
 import * as assert from "std/assert/mod.ts";
-import * as path from "std/path/mod.ts";
 import { Octokit } from "@octokit/rest";
 
-import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
 import type { UserStylesSchema } from "@/types/mod.ts";
-import { validateYaml } from "@/utils.ts";
-import { UserstylesSchema } from "@/types/userstyles.d.ts";
+import { getUserstylesData } from "@/utils.ts";
 
 const octokit = new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") });
 const team = { org: "catppuccin", team_slug: "userstyles-maintainers" };
 
-const userstylesData = await validateYaml<UserstylesSchema>(
-  Deno.readTextFileSync(path.join(REPO_ROOT, "scripts/userstyles.yml")),
-  userStylesSchema,
-);
-if (userstylesData.userstyles === undefined) {
+const userstylesData = await getUserstylesData().catch((err) => {
+  console.error(err);
   Deno.exit(1);
-}
+});
 
 // lowercase usernames of all the "current-maintainers" in the file
 const maintainers = [
@@ -58,14 +52,18 @@ const syncMaintainers = async () => {
       ...team,
       username: m,
     });
+    console.log(`Added ${m} to the ${team.org}/${team.team_slug} team.`);
   }
+  console.log(`${toAdd.length} users added to the ${team.org}/${team.team_slug} team.`)
 
   for (const m of toRemove) {
     await octokit.teams.removeMembershipForUserInOrg({
       ...team,
       username: m,
     });
+    console.log(`Removed ${m} from the ${team.org}/${team.team_slug} team.`);
   }
+  console.log(`${toRemove.length} users removed from the ${team.org}/${team.team_slug} team.`)
 };
 
 await syncMaintainers();

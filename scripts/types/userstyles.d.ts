@@ -80,23 +80,6 @@ export type Question = string;
  */
 export type Answer = string;
 /**
- * List of all active maintainers for this userstyle.
- *
- * @minItems 1
- */
-export type CurrentMaintainers = [
-  {
-    name?: DisplayName;
-    url: GitHubProfile;
-    [k: string]: unknown;
-  },
-  ...{
-    name?: DisplayName;
-    url: GitHubProfile;
-    [k: string]: unknown;
-  }[]
-];
-/**
  * The display name of the collaborator to show in the userstyle README.
  */
 export type DisplayName = string;
@@ -104,6 +87,14 @@ export type DisplayName = string;
  * The GitHub profile link of the collaborator to show in the userstyle README.
  */
 export type GitHubProfile = string;
+/**
+ * List of all active maintainers for this userstyle.
+ */
+export type CurrentMaintainers = {
+  name?: DisplayName;
+  url: GitHubProfile;
+  [k: string]: unknown;
+}[];
 /**
  * List of all maintainers that have maintained on this userstyle in the past.
  *
