@@ -131,6 +131,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>✨ Social</summary>
 
+- [Bluesky Social](styles/bsky)
 - [Elk](styles/elk)
 - [Hacker News](styles/hacker-news)
 - [Instagram](styles/instagram)
