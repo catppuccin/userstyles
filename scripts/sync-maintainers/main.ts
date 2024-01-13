@@ -52,14 +52,18 @@ const syncMaintainers = async () => {
       ...team,
       username: m,
     });
+    console.log(`Added ${m} to the ${team.org}/${team.team_slug} team.`);
   }
+  console.log(`${toAdd.length} users added to the ${team.org}/${team.team_slug} team.`)
 
   for (const m of toRemove) {
     await octokit.teams.removeMembershipForUserInOrg({
       ...team,
       username: m,
     });
+    console.log(`Removed ${m} from the ${team.org}/${team.team_slug} team.`);
   }
+  console.log(`${toRemove.length} users removed from the ${team.org}/${team.team_slug} team.`)
 };
 
 await syncMaintainers();
