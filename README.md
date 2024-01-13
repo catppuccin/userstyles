@@ -119,6 +119,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [ichi.moe](styles/ichi.moe)
 - [InvokeAI](styles/invokeai)
 - [Lingva](styles/lingva)
+- [Microsoft Word](styles/microsoft-word)
 - [NixOS Wiki](styles/nixos.wiki)
 - [Proton](styles/proton)
 - [Quizlet](styles/quizlet)
