@@ -4,7 +4,7 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-  Catppuccin for <a href="https://lemmy.world/">Lemmy</a>
+  Catppuccin for <a href="https://lemmy.world">Lemmy</a>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
@@ -36,9 +36,7 @@
 <img src="assets/mocha.webp"/>
 </details>
 
-## Instructions
 
-Change Lemmy theme to darkly
 
 ## 💝 Current Maintainer
 - [Gandalf the Blue](https://github.com/Gandalf-the-Blue)
