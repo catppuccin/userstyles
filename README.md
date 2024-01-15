@@ -137,6 +137,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Elk](styles/elk)
 - [Hacker News](styles/hacker-news)
 - [Instagram](styles/instagram)
+- [Lemmy](styles/lemmy)
 - [Libreddit](styles/libreddit)
 - [LinkedIn](styles/linkedin)
 - [Mastodon](styles/mastodon)
