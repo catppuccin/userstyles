@@ -98,6 +98,8 @@ We'll refer to this next section of the template as the "`#catppuccin` mixin". Y
   }
 
   /* ... */
+
+}
 ```
 
 #### Applying the theme
