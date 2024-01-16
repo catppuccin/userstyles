@@ -81,16 +81,17 @@ We'll refer to this next section of the template as the "`#catppuccin` mixin". Y
   @accent-color: @catppuccin[@@lookup][@@accent];
 
   body {
-    background-color: @surface0;
+    background-color: @base;
 
     & > div {
       color: @text;
-      background-color: @base;
+      background-color: @surface0;
     }
   }
 
-  a:link, a:visited {
-    color: @blue;
+  a:link,
+  a:visited {
+    color: @accent-color;
   }
 
   /* ... */
@@ -175,17 +176,17 @@ Combining all of the previous steps, we have a working userstyle!
     @accent-color: @catppuccin[@@lookup][@@accent];
 
     body {
-      background-color: @surface0;
+      background-color: @base;
 
       & > div {
         color: @text;
-        background-color: @base;
+        background-color: @surface0;
       }
     }
 
     a:link,
     a:visited {
-      color: @blue;
+      color: @accent-color;
     }
   }
 
@@ -200,7 +201,6 @@ Combining all of the previous steps, we have a working userstyle!
     }
   }
 }
-// vim:ft=less
 ```
 
 | Original                                | Themed                                |
