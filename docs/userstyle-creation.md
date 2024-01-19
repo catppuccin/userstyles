@@ -33,12 +33,11 @@ To create a userstyle, follow the instructions listed below:
    `lower-kebab-case`.
 4. Copy the contents of the [`template`](../template/) folder into
    `styles/<name-of-website>`.
-   - **The template uses [LESS](https://lesscss.org/#overview) as the
+   - **The template uses [LESS](https://lesscss.org/#overview), a
      preprocessor for Stylus. Please do not change this as we will only accept
      userstyles based on the template.**
-5. Edit the [`catppuccin.user.css`](../template/catppuccin.user.css) file and
-   replace all the words wrapped with `<>` to fit the details of your port.
-6. Edit the [`userstyle.yml`](../scripts/userstyles.yml) file and put in the details
+5. [Write the userstyle](./how-to-write-a-userstyle.md).
+6. Edit the [`userstyles.yml`](../scripts/userstyles.yml) file and put in the details
    of your port. **More details given below.**
 7. Create your image previews in the [`assets/`](../template/assets/) folder
    - **All previews must be `.webp` files.**
