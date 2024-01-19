@@ -54,6 +54,7 @@ To tell Stylus which website(s) to apply this userstyle on, replace `<website-do
 
 > [!NOTE]
 > While `domain()` works for most cases, you may need to use [`regexp()`](https://github.com/openstyles/stylus/wiki/Writing-styles#regexp) for websites with more complex URLs. For example:
+>
 > ```less
 > @-moz-document regexp('http://example.(com|net|org|edu)/') {
 > ```
