@@ -58,9 +58,10 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent: @catppuccin[@@lookup][@@accentColor];
 
-    @accent-dim: fadeout(@accent, 50);
+    @accent-dim: darken(@accent, 3%);
 
     & when not (@lookup = latte) {
+      @accent-dim: fadeout(@accent, 50);
       color-scheme: dark;
       .layout-image {
         background: @base;
@@ -352,6 +353,26 @@
       color: @subtext0;
     }
 
+    /* RECAP PROMOS */
+    .promo-v3 .listening-report-promo {
+      background: @mantle;
+      border-color: rgba(@mantle, 0.5);
+      &:hover, &:focus {
+        background: @crust;
+        border-color: rgba(@crust, 0.5);
+      }
+      &-date::after {
+        -webkit-mask-image: url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg");
+        mask-image: url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg");
+        background: @text;
+        height: 0;
+        width: 0;
+        -webkit-mask-size: contain;
+        padding: 7px;
+        filter: none;
+      }
+    }
+
     /* CHARTS */
     .adaptive-skin-wrapper,
     .row {
@@ -592,20 +613,6 @@
       color: @text;
     }
 
-    .listening-report-promo {
-      background-color: @mantle;
-    }
-    .listening-report-promo:focus,
-    .listening-report-promo:hover {
-      background-color: @crust;
-    }
-    .listening-report-promo-title {
-      color: @subtext0;
-    }
-    .listening-report-promo-date {
-      color: @accent-dim;
-    }
-
     .shout-form textarea {
       background-color: @crust;
     }
@@ -619,154 +626,216 @@
     }
 
     /* LISTENING REPORT */
-    .user-dashboard-module {
-      background-color: @base !important;
-      border-color: @accent-dim;
-    }
-    .highcharts-background {
-      fill: @base !important;
-    }
-    .header-metadata-display,
-    .scrobble-stats-info {
-      color: @text;
-    }
-    .user-dashboard-legend-item::before {
-      background: transparent !important;
-    }
-    .user-dashboard-legend-item--current::before {
-      background-image: linear-gradient(159deg, @accent, @accent) !important;
-    }
-    .user-dashboard-legend-item--comparison::before {
-      background-image: linear-gradient(
-        159deg,
-        @accent-dim,
-        @accent-dim
-      ) !important;
-    }
-    .header-metadata-title,
-    .user-dashboard-scrobble-stats-meta-description,
-    .user-dashboard-scrobble-stats-previous {
-      color: var(--subtext1);
-    }
-    .user-dashboard-heading {
-      color: @accent;
-    }
 
-    .listening-report-top .secondary-nav {
-      border-bottom-color: @overlay0;
-    }
-    .listening-report-brick {
-      border-color: @overlay0;
-      &:focus,
-      &:hover {
-        border-color: @overlay0;
-        box-shadow: none;
+    // Mixin to dynamically set colors of album, artist and track categories
+
+    .category-colors() {
+      &artist {
+        --category-background: @yellow;
+      }
+      &album {
+        --category-background: @green;
+      }
+      &track {
+        --category-background: @blue;
       }
     }
-    .listening-report-library-link {
-      &,
-      &:hover {
-        color: @crust !important;
-        background-color: @accent !important;
+
+    // Set color for containers
+
+    .report-box-container {
+      background: @mantle;
+      color: @text;
+    }
+
+    // Topmost report box
+
+    .report-box-container--overview {
+      background: @accent;
+      color: @base;
+      // Top border design (////)
+      .report-headline-border {
+        -webkit-mask-image: url("/static/images/listening-report/v3/bg-lines.73682e46b8be.svg");
+        mask-image: url("/static/images/listening-report/v3/bg-lines.73682e46b8be.svg");
+        background: @base;
+      }
+      .report-headline-top {
+        color: @base;
+        border-bottom-color: @base;
+      }
+      // Comparison badge colors
+      .report-headline-meta .badge-container .report-badge.report-badge--comparison {
+        border-color: @base;
+        .report-arrow {
+          background: @base;
+        }
+      }
+      // Topmost report chart styling
+      .report-headline__chart {
+        .highcharts-series-0 .highcharts-point {
+          fill: @base;
+          stroke: rgba(@base, 0.5);
+        }
+        .highcharts-series-1 .highcharts-point {
+          fill: rgba(@base, 0.5);
+          stroke: transparent;
+        }
+        .highcharts-axis-labels {
+          stroke: @base;
+        }
       }
     }
-    .user-dashboard-history-subscribe-banner-cta {
-      display: none;
+    // Middle report containers
+    .user-dashboard-layout--version-3 .main-content,
+    .user-dashboard-layout--version-3 .user-dashboard > .container {
+      // Set background
+      background: @base;
+      .listening-report-row {
+        // Header divider colors follow accent
+        border-bottom-color: @accent;
+      }
+      .top-item-overview {
+        // Style category boxes
+        &-- {
+          .category-colors();
+        }
+        background: var(--category-background);
+        color: @base;
+        // Badge color is base on accent
+        .badge-container {
+            .report-badge {
+                border-color: @base;
+            }
+            .report-badge--comparison .report-arrow {
+                background: @base;
+            }
+        }
+        // Chart styling
+        .highcharts-series-group .highcharts-point {
+          fill: @base;
+        }
+      }
+      // Set color for badges
+      .listening-report-top-item {
+        &-- {
+          .category-colors();
+        }
+        .listening-report-top-item-badge {
+          background: var(--category-background);
+        }
+        color: @text;
+      }
+      .top-new-item-type {
+        &__ {
+          .category-colors();
+        }
+        background: var(--category-background);
+      }
+      // Triangle visualizer comparison subtext
+      .triangle-ratio--details .comparison {
+        color: @subtext0;
+      }
+      // Style badges on mantle backgorund
+      .badge-container .report-badge--comparison {
+        border-color: @text;
+        .report-arrow {
+          background: @text;
+          vertical-align: initial;
+        }
+      }
+      // Style subtext
+      .quick-fact-row {
+        color: @subtext1;
+        &:hover {
+          color: @text;
+        }
+      }
+      .listening-report-highlight-comparison,
+      .quick-fact-comparison-text {
+        color: @subtext0;
+      }
+      // User comparison icons
+      .tag-label {
+        background: linear-gradient(90deg,darken(@accent,5%),@accent);
+        // Total scrobbles header
+        &--total-scrobbles:before {
+          mask-image: url("/static/images/icons/icon-scrobble.66a5e6978c62.svg");
+          -webkit-mask-image: url("/static/images/icons/icon-scrobble.66a5e6978c62.svg");
+          background: @base;
+        }
+        // Highest discovery header
+        &--discovery:before {
+          mask-image: url("/static/images/icons/icon-compass.ce30ab3b6240.svg");
+          -webkit-mask-image: url("/static/images/icons/icon-compass.ce30ab3b6240.svg");
+          background: @base;
+        }
+      }
+      .header-metadata-title {
+        color: @text;
+      }
+      .listening-report-brick{
+        &-divider {
+          border-color: @surface0;
+        }
+        &-head {
+          border-bottom-color: @crust;
+        }
+        &-inner:hover {
+          background: mix(@mantle, @base);
+        }
+        &-item-scrobbles {
+          color: @overlay1;
+        }
+        // Highlight self for higher or lower position on chart
+        &-inner--highlight {
+          &.listening-report-highlight--down {
+            background: rgba(@red, 0.1);
+            &:hover {
+              background: rgba(@red, 0.15);
+            }
+          }
+          &.listening-report-highlight--up {
+            background: rgba(@green, 0.1);
+            &:hover {
+              background: rgba(@green, 0.15);
+            }
+          }
+        }
+      }
     }
 
-    .duration-data,
-    .duration-data-value > .js-ticker,
-    .user-dashboard-small-data-point-value > .js-ticker {
-      color: @text;
+    // Top tags visualizer: Rainbow colors implemented from Catppuccin Palette
+
+    @gradient-colors: @rosewater, @flamingo, @pink, @mauve, @red, @maroon, @peach, @yellow, @green, @teal, @sky, @sapphire, @blue, @lavender;
+    each(range(0, 11), {
+      .report-box-container--top-tags-over-time .top-tags-over-time-colour-@{value} {
+        fill: extract(@gradient-colors, @value + 1);
+        stroke: extract(@gradient-colors, @value + 1);
+      }
+    });
+    .highcharts-radial-axis-grid .highcharts-grid-line {
+      stroke: @surface0;
     }
 
-    .highcharts-series.highcharts-series-1.highcharts-column-series.highcharts-color-undefined.highcharts-tracker
-      > a
-      > rect {
-      fill: @accent;
+    // universal report arrows
+    .report-arrow {
+      mask-image: url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg");
+      -webkit-mask-image: url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg");
+      background: @base;
+      background-size: contain;
+      padding: 4px;
+      margin: 2px;
+      height: 0;
+      width: 0;
+      filter: invert(0) !important;
     }
 
-    .user-dashboard-loved-tracks .user-dashboard-big-datapoint-value a {
-      color: @crust;
-    }
+      .music-decades-chart-container {
+          .highcharts-series-1 .highcharts-point {
+              fill: rgba(@accent, 0.5);
+          }
+      }
 
-    .user-dashboard-catalogue-item-total a {
-      text-shadow:
-        -1px -1px 0 @crust,
-        1px -1px 0 @crust,
-        -1px 1px 0 @crust,
-        1px 1px 0 @crust;
-    }
-
-    .user-dashboard-module .user-dashboard-module-share:hover,
-    body:not([data-whatinput="mouse"])
-      .user-dashboard-module
-      .user-dashboard-module-share:focus,
-    .user-dashboard-module:hover .user-dashboard-module-share,
-    body:not([data-whatinput="mouse"])
-      .user-dashboard-module:focus
-      .user-dashboard-module-share {
-      opacity: 0.1;
-    }
-
-    .highcharts-text-outline {
-      fill: @crust;
-      stroke: @crust;
-    }
-
-    tspan {
-      color: @text;
-      fill: @text;
-    }
-
-    .user-dashboard-catalogue-item-name.user-dashboard-catalogue-item-link.link-block-target {
-      color: @text;
-    }
-
-    .user-dashboard-catalogue-item-artist-name.user-dashboard-catalogue-item-link {
-      color: @subtext0;
-    }
-
-    .user-dashboard-module-title.js-user-dashboard-module-title {
-      color: @accent;
-    }
-
-    .discovery-stat-top-item-artist:focus,
-    .discovery-stat-top-item-artist:hover,
-    .discovery-stat-top-item-artist a,
-    .discovery-stat-top-item-artist a:focus,
-    .discovery-stat-top-item-artist a:hover {
-      color: @subtext0;
-    }
-
-    .link-block-target.user-dashboard-leaderboard-profile-link {
-      color: @text;
-    }
-
-    .user-dashboard-leaderboard-item--highlight
-      .user-dashboard-leaderboard-stat {
-      color: @subtext0;
-    }
-
-    /* Listening Clock */
-    #SvgjsG1144 {
-      stroke: @crust;
-    }
-    #SvgjsCircle1169 {
-      fill: @crust;
-    }
-    #SvgjsText1199,
-    #SvgjsText1200,
-    #SvgjsText1201,
-    #SvgjsText1202 {
-      fill: @subtext0;
-    }
-    #SvgjsSvg1203 #Layer_1 g path {
-      fill: @accent;
-    }
-    #SvgjsG1023 g circle {
-      fill: @accent;
-    }
 
     /* LIBRARY */
     .col-sidebar._buffer-sidebar
@@ -780,6 +849,9 @@
 
     .highcharts-point {
       fill: @accent-dim;
+      &-select {
+        fill: @accent;
+      }
     }
 
     .highcharts-axis-labels > text {
@@ -895,9 +967,7 @@
     .about-artist-name,
     .catalogue-overview-similar-artists-item-name {
       a {
-        &,
-        &:focus,
-        &:hover {
+        &, &:focus, &:hover {
           color: @text;
         }
       }
@@ -1214,9 +1284,7 @@
     .api-session-disconnect:hover,
     .api-session-disconnect:active,
     .clipboard-button,
-    body:not(.js-focus-visible)
-      body:not([data-whatinput="touch"])
-      .clipboard-button:focus,
+    body:not(.js-focus-visible) body:not([data-whatinput="touch"]) .clipboard-button:focus,
     body:not([data-whatinput="touch"]) .clipboard-button .focus-visible,
     body:not([data-whatinput="touch"]) .clipboard-button:hover {
       background-color: @accent !important;
@@ -1296,8 +1364,7 @@
     .masthead-nav .masthead-nav-control,
     .masthead-nav .navlist-more,
     .site-auth-control {
-      &:focus,
-      &:hover {
+      &:focus, &:hover {
         background-color: transparent;
         color: @accent !important;
       }
@@ -1405,8 +1472,8 @@
         mask-image: url("/static/images/icons/love_animation_tracklist_24.3c884b0287d4.png");
         -webkit-mask-image: url("/static/images/icons/love_animation_tracklist_24.3c884b0287d4.png");
         background-color: @text;
-        mask-position: 0 0;
-        -webkit-mask-position: 0 0;
+        mask-position: -24px 0;
+        -webkit-mask-position: -24px 0;
       }
       &:focus::before,
       &:hover::before {
@@ -1418,9 +1485,7 @@
 
     [data-toggle-button-current-state="loved"] .chartlist-love-button,
     [data-toggle-button-current-state="loved"] .header-new-love-button {
-      &::before,
-      &:focus::before,
-      &:hover::before {
+      &::before, &:focus::before, &:hover::before {
         mask-position: -552px 0;
         -webkit-mask-position: -552px 0;
         transition: mask-position 0.7s steps(22) !important;
