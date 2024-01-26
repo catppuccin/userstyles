@@ -1,6 +1,7 @@
 // @deno-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
 import * as color from "std/fmt/colors.ts";
+import { sprintf } from "std/fmt/printf.ts";
 import type { WalkEntry } from "std/fs/walk.ts";
 import { relative } from "std/path/mod.ts";
 
@@ -38,9 +39,12 @@ export const verifyMetadata = async (
         .split("\n")
         .findIndex((line) => line.includes(key)) + 1;
 
-      const message = `Metadata ${color.bold(key)} should be ${
-        color.green(value)
-      } but is ${color.red(String(defacto))}`;
+      const message = sprintf(
+        "Metadata %s should be %s but is %s",
+        color.bold(key),
+        color.green(value),
+        color.red(String(defacto)),
+      );
 
       log(message, {
         file,
