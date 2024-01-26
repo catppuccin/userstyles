@@ -40,7 +40,7 @@ export const verifyMetadata = async (
         .findIndex((line) => line.includes(key)) + 1;
 
       const message = sprintf(
-        "Metadata %s should be %s but is %s",
+        'Metadata `%s` should be "%s" but is "%s"',
         color.bold(key),
         color.green(value),
         color.red(String(defacto)),
