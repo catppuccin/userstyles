@@ -1,5 +1,5 @@
 import * as color from "std/fmt/colors.ts";
-import { WalkEntry } from "std/fs/mod.ts";
+import type { WalkEntry } from "std/fs/walk.ts";
 import { relative } from "std/path/mod.ts";
 
 import "npm:postcss-less";
@@ -15,7 +15,7 @@ export const lint = (entry: WalkEntry, content: string, fix: boolean) =>
     .then(({ results }) => {
       results.map((result) => {
         result.warnings.map((warning) => {
-          // Some cleanup for fancier logging, dims the rule name
+          // Some cleanup for fancier logging - dims the rule name.
           const message = warning.text?.replace(
             new RegExp(`\\(?${warning.rule}\\)?`),
             color.dim(`(${warning.rule})`),
@@ -30,6 +30,7 @@ export const lint = (entry: WalkEntry, content: string, fix: boolean) =>
             content,
           }, warning.severity);
         });
+
         if (result.warnings.length > 0) throw new Error("stylelint error");
       });
     });

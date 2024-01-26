@@ -1,7 +1,7 @@
-import portsSchema from "catppuccin-repo/resources/ports.schema.json" assert {
+import portsSchema from "catppuccin-repo/resources/ports.schema.json" with {
   type: "json",
 };
-import userStylesSchema from "@/userstyles.schema.json" assert {
+import userStylesSchema from "@/userstyles.schema.json" with {
   type: "json",
 };
 
