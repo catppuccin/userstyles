@@ -44,4 +44,16 @@ export const getUserstylesData = (): Promise<Userstyles> => {
   });
 };
 
+/**
+ * Utility function that formats a list of items into the "x, y, ..., and z" format.
+ */
+export const formatListOfItems = (items: unknown[]): string => {
+  if (items.length === 2) return items.join(" and ");
+  return items.reduce((prev, curr, idx, arr) => {
+    if (idx === 0) return curr;
+    if (curr === arr.at(-1)) return prev + `, and ${curr}`;
+    return prev + `, ${curr}`;
+  }) as string;
+};
+
 type Userstyles = SetRequired<UserstylesSchema, "userstyles" | "collaborators">;
