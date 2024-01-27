@@ -7,7 +7,7 @@ import { relative } from "std/path/mod.ts";
 
 import { REPO_ROOT } from "@/deps.ts";
 import { log } from "@/lint/logger.ts";
-import { getUserstylesData } from "@/utils.ts";
+import { formatListOfItems, getUserstylesData } from "@/utils.ts";
 
 export const verifyMetadata = async (
   entry: WalkEntry,
@@ -40,7 +40,7 @@ export const verifyMetadata = async (
         .findIndex((line) => line.includes(key)) + 1;
 
       const message = sprintf(
-        "Metadata %s should be %s but is %s",
+        'Metadata `%s` should be "%s" but is "%s"',
         color.bold(key),
         color.green(value),
         color.red(String(defacto)),
@@ -77,6 +77,13 @@ const assertions = async (userstyle: string) => {
     Deno.exit(1);
   });
 
+  if (!userstyles[userstyle]) {
+    log("Metadata section for this userstyle has not been added", {
+      file: "scripts/userstyles.yml",
+    }, "error");
+    Deno.exit(1);
+  }
+
   return {
     name: `${
       Array.isArray(userstyles[userstyle].name)
@@ -85,6 +92,11 @@ const assertions = async (userstyle: string) => {
     } Catppuccin`,
     namespace: `github.com/catppuccin/userstyles/styles/${userstyle}`,
     author: "Catppuccin",
+    description: `Soothing pastel theme for ${
+      Array.isArray(userstyles[userstyle].name)
+        ? formatListOfItems(userstyles[userstyle].name as string[])
+        : userstyles[userstyle].name
+    }`,
     license: "MIT",
     preprocessor: "less",
     homepageURL: `${prefix}/tree/main/styles/${userstyle}`,
