@@ -2,7 +2,7 @@
 @name Last.fm Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/lastfm
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/lastfm
-@version 1.1.3
+@version 1.1.4
 @description Soothing pastel theme for Last.fm
 @author Catppuccin
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/lastfm/catppuccin.user.css
@@ -812,11 +812,13 @@
     @gradient-colors: @rosewater, @flamingo, @pink, @mauve, @red, @maroon,
       @peach, @yellow, @green, @teal, @sky, @sapphire, @blue, @lavender;
     each(range(0, 11), {
-      .report-box-container--top-tags-over-time .top-tags-over-time-colour-@{value} {
+
+           .report-box-container--top-tags-over-time .top-tags-over-time-colour-@{value} {
         fill: extract(@gradient-colors, @value + 1);
         stroke: extract(@gradient-colors, @value + 1);
       }
     });
+
     .highcharts-radial-axis-grid .highcharts-grid-line {
       stroke: @surface0;
     }
@@ -838,6 +840,64 @@
       .highcharts-series-1 .highcharts-point {
         fill: rgba(@accent, 0.5);
       }
+    }
+
+    /*-----------------SHOUT BOX--------------------*/
+
+    .shout {
+    &--active {
+      background-color: fadeout(@surface1, 0.3);
+        }
+
+        &, &-form {
+            border-bottom-color: @surface0;
+        }
+        &-user a {
+            color: @text;
+        }
+        &-timestamp, &-reply {
+            color: @subtext0;
+            &:hover {
+                color: @overlay2;
+            }
+        }
+        &-reply::before {
+            background: @subtext0;
+   -mask-image: url("/static/images/icons/reply_sprite_16@2x.a145ef7db2f5.png");
+             -webkit-mask-image: url("/static/images/icons/reply_sprite_16@2x.a145ef7db2f5.png");
+   -webkit-mask-size: 16px 32px;
+             mask-size: 16px 32px;
+}
+
+        &-form {
+             border-color: none;
+        }
+        &-permalink.shout-permalink {
+            &:focus, &:hover {
+                color: @overlay2;
+            }
+        }
+        .vote-button {
+            color: @overlay1;
+          &::before {
+              background-image: none;
+              background-color: @overlay1;
+              mask-image: url("/static/images/icons/upvote_sprite_16@2x.5e02a31189da.png");
+              -webkit-mask-image: url("/static/images/icons/upvote_sprite_16@2x.5e02a31189da.png");
+              mask-size: 16px 32px;
+              -webkit-mask-size: 16px 32px;
+              mask-position: 0 0;
+              -webkit-mask-position: 0 0;
+          }
+        &--voted {
+          color: @green;
+          &::before {
+              background-color: @green;
+              mask-position: 0 -16px;
+              -webkit-mask-position: 0 -16px;
+          }
+        }
+        }
     }
 
     /* LIBRARY */
@@ -989,18 +1049,6 @@
     .resource-external-link,
     .resource-external-link:hover {
       color: @text;
-    }
-    .shout {
-      border-bottom-color: @surface0;
-    }
-    .shout-container--active {
-      background-color: fadeout(@surface1, 0.3);
-    }
-    .shout-user a {
-      color: @text;
-    }
-    .shout-form {
-      border-color: none;
     }
     .js-playlink-station.desktop-playlink.inline-section-control.stationlink {
       color: @text;
