@@ -79,6 +79,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>💭 Development tools</summary>
 
+- [Graphite](styles/graphite)
 - [Hoppscotch](styles/hoppscotch)
 - [paste.rs](styles/paste.rs)
 - [Vercel](styles/vercel)
@@ -118,7 +119,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [ichi.moe](styles/ichi.moe)
 - [InvokeAI](styles/invokeai)
 - [Lingva](styles/lingva)
+- [Microsoft Word](styles/microsoft-word)
 - [NixOS Wiki](styles/nixos.wiki)
+- [OpenMediaVault](styles/openmediavault)
 - [Proton](styles/proton)
 - [Quizlet](styles/quizlet)
 - [Skiff](styles/skiff)
@@ -131,9 +134,11 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>✨ Social</summary>
 
+- [Bluesky Social](styles/bsky)
 - [Elk](styles/elk)
 - [Hacker News](styles/hacker-news)
 - [Instagram](styles/instagram)
+- [Lemmy](styles/lemmy)
 - [Libreddit](styles/libreddit)
 - [LinkedIn](styles/linkedin)
 - [Mastodon](styles/mastodon)

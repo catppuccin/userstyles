@@ -2,7 +2,7 @@
 @name Last.fm Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/lastfm
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/lastfm
-@version 1.1.1
+@version 1.1.4
 @description Soothing pastel theme for Last.fm
 @author Catppuccin
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/lastfm/catppuccin.user.css
@@ -58,9 +58,10 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent: @catppuccin[@@lookup][@@accentColor];
 
-    @accent-dim: fadeout(@accent, 50);
+    @accent-dim: darken(@accent, 3%);
 
     & when not (@lookup = latte) {
+      @accent-dim: fadeout(@accent, 50);
       color-scheme: dark;
       .layout-image {
         background: @base;
@@ -352,6 +353,27 @@
       color: @subtext0;
     }
 
+    /* RECAP PROMOS */
+    .promo-v3 .listening-report-promo {
+      background: @mantle;
+      border-color: rgba(@mantle, 0.5);
+      &:hover,
+      &:focus {
+        background: @crust;
+        border-color: rgba(@crust, 0.5);
+      }
+      &-date::after {
+        -webkit-mask-image: url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg");
+        mask-image: url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg");
+        background: @text;
+        height: 0;
+        width: 0;
+        -webkit-mask-size: contain;
+        padding: 7px;
+        filter: none;
+      }
+    }
+
     /* CHARTS */
     .adaptive-skin-wrapper,
     .row {
@@ -592,20 +614,6 @@
       color: @text;
     }
 
-    .listening-report-promo {
-      background-color: @mantle;
-    }
-    .listening-report-promo:focus,
-    .listening-report-promo:hover {
-      background-color: @crust;
-    }
-    .listening-report-promo-title {
-      color: @subtext0;
-    }
-    .listening-report-promo-date {
-      color: @accent-dim;
-    }
-
     .shout-form textarea {
       background-color: @crust;
     }
@@ -619,158 +627,280 @@
     }
 
     /* LISTENING REPORT */
-    .user-dashboard-module {
-      background-color: @base !important;
-      border-color: @accent-dim;
-    }
-    .highcharts-background {
-      fill: @base !important;
-    }
-    .header-metadata-display,
-    .scrobble-stats-info {
-      color: @text;
-    }
-    .user-dashboard-legend-item::before {
-      background: transparent !important;
-    }
-    .user-dashboard-legend-item--current::before {
-      background-image: linear-gradient(159deg, @accent, @accent) !important;
-    }
-    .user-dashboard-legend-item--comparison::before {
-      background-image: linear-gradient(
-        159deg,
-        @accent-dim,
-        @accent-dim
-      ) !important;
-    }
-    .header-metadata-title,
-    .user-dashboard-scrobble-stats-meta-description,
-    .user-dashboard-scrobble-stats-previous {
-      color: var(--subtext1);
-    }
-    .user-dashboard-heading {
-      color: @accent;
-    }
 
-    .listening-report-top .secondary-nav {
-      border-bottom-color: @overlay0;
-    }
-    .listening-report-brick {
-      border-color: @overlay0;
-      &:focus,
-      &:hover {
-        border-color: @overlay0;
-        box-shadow: none;
+    // Mixin to dynamically set colors of album, artist and track categories
+
+    .category-colors() {
+      &artist {
+        --category-background: @yellow;
+      }
+      &album {
+        --category-background: @green;
+      }
+      &track {
+        --category-background: @blue;
       }
     }
-    .listening-report-library-link {
+
+    // Set color for containers
+
+    .report-box-container {
+      background: @mantle;
+      color: @text;
+    }
+
+    // Topmost report box
+
+    .report-box-container--overview {
+      background: @accent;
+      color: @base;
+      // Top border design (////)
+      .report-headline-border {
+        -webkit-mask-image: url("/static/images/listening-report/v3/bg-lines.73682e46b8be.svg");
+        mask-image: url("/static/images/listening-report/v3/bg-lines.73682e46b8be.svg");
+        background: @base;
+      }
+      .report-headline-top {
+        color: @base;
+        border-bottom-color: @base;
+      }
+      // Comparison badge colors
+      .report-headline-meta
+        .badge-container
+        .report-badge.report-badge--comparison {
+        border-color: @base;
+        .report-arrow {
+          background: @base;
+        }
+      }
+      // Topmost report chart styling
+      .report-headline__chart {
+        .highcharts-series-0 .highcharts-point {
+          fill: @base;
+          stroke: rgba(@base, 0.5);
+        }
+        .highcharts-series-1 .highcharts-point {
+          fill: rgba(@base, 0.5);
+          stroke: transparent;
+        }
+        .highcharts-axis-labels {
+          stroke: @base;
+        }
+      }
+    }
+    // Middle report containers
+    .user-dashboard-layout--version-3 .main-content,
+    .user-dashboard-layout--version-3 .user-dashboard > .container {
+      // Set background
+      background: @base;
+      .listening-report-row {
+        // Header divider colors follow accent
+        border-bottom-color: @accent;
+      }
+      .top-item-overview {
+        // Style category boxes
+        &-- {
+          .category-colors();
+        }
+        background: var(--category-background);
+        color: @base;
+        // Badge color is base on accent
+        .badge-container {
+          .report-badge {
+            border-color: @base;
+          }
+          .report-badge--comparison .report-arrow {
+            background: @base;
+          }
+        }
+        // Chart styling
+        .highcharts-series-group .highcharts-point {
+          fill: @base;
+        }
+      }
+      // Set color for badges
+      .listening-report-top-item {
+        &-- {
+          .category-colors();
+        }
+        .listening-report-top-item-badge {
+          background: var(--category-background);
+        }
+        color: @text;
+      }
+      .top-new-item-type {
+        &__ {
+          .category-colors();
+        }
+        background: var(--category-background);
+      }
+      // Triangle visualizer comparison subtext
+      .triangle-ratio--details .comparison {
+        color: @subtext0;
+      }
+      // Style badges on mantle background
+      .badge-container .report-badge--comparison {
+        border-color: @text;
+        .report-arrow {
+          background: @text;
+          vertical-align: initial;
+        }
+      }
+      // Style subtext
+      .quick-fact-row {
+        color: @subtext1;
+        &:hover {
+          color: @text;
+        }
+      }
+      .listening-report-highlight-comparison,
+      .quick-fact-comparison-text {
+        color: @subtext0;
+      }
+      // User comparison icons
+      .tag-label {
+        background: linear-gradient(90deg, darken(@accent, 5%), @accent);
+        // Total scrobbles header
+        &--total-scrobbles::before {
+          mask-image: url("/static/images/icons/icon-scrobble.66a5e6978c62.svg");
+          -webkit-mask-image: url("/static/images/icons/icon-scrobble.66a5e6978c62.svg");
+          background: @base;
+        }
+        // Highest discovery header
+        &--discovery::before {
+          mask-image: url("/static/images/icons/icon-compass.ce30ab3b6240.svg");
+          -webkit-mask-image: url("/static/images/icons/icon-compass.ce30ab3b6240.svg");
+          background: @base;
+        }
+      }
+      .header-metadata-title {
+        color: @text;
+      }
+      .listening-report-brick {
+        &-divider {
+          border-color: @surface0;
+        }
+        &-head {
+          border-bottom-color: @crust;
+        }
+        &-inner:hover {
+          background: mix(@mantle, @base);
+        }
+        &-item-scrobbles {
+          color: @overlay1;
+        }
+        // Highlight self for higher or lower position on chart
+        &-inner--highlight {
+          &.listening-report-highlight--down {
+            background: rgba(@red, 0.1);
+            &:hover {
+              background: rgba(@red, 0.15);
+            }
+          }
+          &.listening-report-highlight--up {
+            background: rgba(@green, 0.1);
+            &:hover {
+              background: rgba(@green, 0.15);
+            }
+          }
+        }
+      }
+    }
+
+    // Top tags visualizer: Rainbow colors implemented from Catppuccin Palette
+
+    @gradient-colors: @rosewater, @flamingo, @pink, @mauve, @red, @maroon,
+      @peach, @yellow, @green, @teal, @sky, @sapphire, @blue, @lavender;
+    each(range(0, 11), {
+
+           .report-box-container--top-tags-over-time .top-tags-over-time-colour-@{value} {
+        fill: extract(@gradient-colors, @value + 1);
+        stroke: extract(@gradient-colors, @value + 1);
+      }
+    });
+
+    .highcharts-radial-axis-grid .highcharts-grid-line {
+      stroke: @surface0;
+    }
+
+    // universal report arrows
+    .report-arrow {
+      mask-image: url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg");
+      -webkit-mask-image: url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg");
+      background: @base;
+      background-size: contain;
+      padding: 4px;
+      margin: 2px;
+      height: 0;
+      width: 0;
+      filter: invert(0) !important;
+    }
+
+    .music-decades-chart-container {
+      .highcharts-series-1 .highcharts-point {
+        fill: rgba(@accent, 0.5);
+      }
+    }
+
+    /* SHOUT BOX */
+
+    .shout {
+      &--active {
+        background-color: fadeout(@surface1, 0.3);
+      }
+
       &,
-      &:hover {
-        color: @crust !important;
-        background-color: @accent !important;
+      &-form {
+        border-bottom-color: @surface0;
       }
-    }
-    .user-dashboard-history-subscribe-banner-cta {
-      display: none;
-    }
+      &-user a {
+        color: @text;
+      }
+      &-timestamp,
+      &-reply {
+        color: @subtext0;
+        &:hover {
+          color: @overlay2;
+        }
+      }
+      &-reply::before {
+        background: @subtext0;
+        -mask-image: url("/static/images/icons/reply_sprite_16@2x.a145ef7db2f5.png");
+        -webkit-mask-image: url("/static/images/icons/reply_sprite_16@2x.a145ef7db2f5.png");
+        -webkit-mask-size: 16px 32px;
+        mask-size: 16px 32px;
+      }
 
-    .duration-data,
-    .duration-data-value > .js-ticker,
-    .user-dashboard-small-data-point-value > .js-ticker {
-      color: @text;
-    }
-
-    .highcharts-series.highcharts-series-1.highcharts-column-series.highcharts-color-undefined.highcharts-tracker
-      > a
-      > rect {
-      fill: @accent;
-    }
-
-    .user-dashboard-loved-tracks .user-dashboard-big-datapoint-value a {
-      color: @crust;
-    }
-
-    .user-dashboard-catalogue-item-total a {
-      text-shadow:
-        -1px -1px 0 @crust,
-        1px -1px 0 @crust,
-        -1px 1px 0 @crust,
-        1px 1px 0 @crust;
-    }
-
-    .user-dashboard-module .user-dashboard-module-share:hover,
-    body:not([data-whatinput="mouse"])
-      .user-dashboard-module
-      .user-dashboard-module-share:focus,
-    .user-dashboard-module:hover .user-dashboard-module-share,
-    body:not([data-whatinput="mouse"])
-      .user-dashboard-module:focus
-      .user-dashboard-module-share {
-      opacity: 0.1;
-    }
-
-    .highcharts-text-outline {
-      fill: @crust;
-      stroke: @crust;
-    }
-
-    tspan {
-      color: @text;
-      fill: @text;
-    }
-
-    .user-dashboard-catalogue-item-name.user-dashboard-catalogue-item-link.link-block-target {
-      color: @text;
-    }
-
-    .user-dashboard-catalogue-item-artist-name.user-dashboard-catalogue-item-link {
-      color: @subtext0;
-    }
-
-    .user-dashboard-module-title.js-user-dashboard-module-title {
-      color: @accent;
-    }
-
-    .discovery-stat-top-item-name a,
-    .discovery-stat-top-item-name a:focus,
-    .discovery-stat-top-item-name a:hover {
-      color: @text;
-    }
-    .discovery-stat-top-item-artist:focus,
-    .discovery-stat-top-item-artist:hover,
-    .discovery-stat-top-item-artist a,
-    .discovery-stat-top-item-artist a:focus,
-    .discovery-stat-top-item-artist a:hover {
-      color: @subtext0;
-    }
-
-    .link-block-target.user-dashboard-leaderboard-profile-link {
-      color: @text;
-    }
-
-    .user-dashboard-leaderboard-item--highlight
-      .user-dashboard-leaderboard-stat {
-      color: @subtext0;
-    }
-
-    /* Listening Clock */
-    #SvgjsG1144 {
-      stroke: @crust;
-    }
-    #SvgjsCircle1169 {
-      fill: @crust;
-    }
-    #SvgjsText1199,
-    #SvgjsText1200,
-    #SvgjsText1201,
-    #SvgjsText1202 {
-      fill: @subtext0;
-    }
-    #SvgjsSvg1203 #Layer_1 g path {
-      fill: @accent;
-    }
-    #SvgjsG1023 g circle {
-      fill: @accent;
+      &-form {
+        border-color: none;
+      }
+      &-permalink.shout-permalink {
+        &:focus,
+        &:hover {
+          color: @overlay2;
+        }
+      }
+      .vote-button {
+        color: @overlay1;
+        &::before {
+          background-image: none;
+          background-color: @overlay1;
+          mask-image: url("/static/images/icons/upvote_sprite_16@2x.5e02a31189da.png");
+          -webkit-mask-image: url("/static/images/icons/upvote_sprite_16@2x.5e02a31189da.png");
+          mask-size: 16px 32px;
+          -webkit-mask-size: 16px 32px;
+          mask-position: 0 0;
+          -webkit-mask-position: 0 0;
+        }
+        &--voted {
+          color: @green;
+          &::before {
+            background-color: @green;
+            mask-position: 0 -16px;
+            -webkit-mask-position: 0 -16px;
+          }
+        }
+      }
     }
 
     /* LIBRARY */
@@ -785,6 +915,9 @@
 
     .highcharts-point {
       fill: @accent-dim;
+      &-select {
+        fill: @accent;
+      }
     }
 
     .highcharts-axis-labels > text {
@@ -858,36 +991,24 @@
     .section-with-separator::after {
       background-color: @base;
     }
-    .header-new-bookmark-button,
-    .header-new-download-button,
-    .header-new-love-button,
-    .header-new-more-button,
-    body:not(.js-focus-visible)
-      body:not([data-whatinput="touch"])
-      .header-new-bookmark-button:focus,
-    body:not(.js-focus-visible)
-      body:not([data-whatinput="touch"])
-      .header-new-download-button:focus,
-    body:not(.js-focus-visible)
-      body:not([data-whatinput="touch"])
-      .header-new-love-button:focus,
-    body:not(.js-focus-visible)
-      body:not([data-whatinput="touch"])
-      .header-new-more-button:focus,
-    body:not([data-whatinput="touch"])
-      .header-new-bookmark-button
-      .focus-visible,
-    body:not([data-whatinput="touch"]) .header-new-bookmark-button:hover,
-    body:not([data-whatinput="touch"])
-      .header-new-download-button
-      .focus-visible,
-    body:not([data-whatinput="touch"]) .header-new-download-button:hover,
-    body:not([data-whatinput="touch"]) .header-new-love-button .focus-visible,
-    body:not([data-whatinput="touch"]) .header-new-love-button:hover,
-    body:not([data-whatinput="touch"]) .header-new-more-button .focus-visible,
-    body:not([data-whatinput="touch"]) .header-new-more-button:hover {
+    body .header-new-bookmark-button,
+    body .header-new-download-button,
+    body .header-new-love-button,
+    body .header-new-more-button {
       color: @base;
       background-color: @accent;
+    }
+    body:not([data-whatinput="touch"]) {
+      .header-new-bookmark-button,
+      .header-new-download-button,
+      .header-new-love-button,
+      .header-new-more-button {
+        .focus-visible,
+        &:hover {
+          color: @base;
+          background-color: @accent;
+        }
+      }
     }
     .wiki-block-inner,
     .catalogue-metadata-heading,
@@ -896,20 +1017,28 @@
       color: @subtext0;
     }
 
-    .similar-albums-item-name a,
-    .similar-albums-item-name a:focus,
-    .similar-albums-item-name a:hover {
-      color: @text;
-    }
-
     .text-18 {
       color: @accent;
     }
 
-    .artist-similar-artists-sidebar-item-name a,
-    .artist-similar-artists-sidebar-item-name a:focus,
-    .artist-similar-artists-sidebar-item-name a:hover {
-      color: @text;
+    .artist-similar-artists-sidebar-item-name,
+    .artist-top-albums-item-name,
+    .listeners-section-item-name,
+    .catalogue-overview-similar-artists-full-width-item-name,
+    .similar-albums-item-name,
+    .discovery-stat-top-item-name,
+    .source-album-artist,
+    .source-album-name,
+    .track-similar-tracks-item-name,
+    .about-artist-name,
+    .catalogue-overview-similar-artists-item-name {
+      a {
+        &,
+        &:focus,
+        &:hover {
+          color: @text;
+        }
+      }
     }
 
     .events-list-item-event-name.link-block-target > span {
@@ -920,39 +1049,9 @@
       color: @subtext0;
     }
 
-    .artist-top-albums-item-name a,
-    .artist-top-albums-item-name a:focus,
-    .artist-top-albums-item-name a:hover {
-      color: @text;
-    }
-
-    .listeners-section-item-name a,
-    .listeners-section-item-name a:focus,
-    .listeners-section-item-name a:hover {
-      color: @text;
-    }
-
-    .catalogue-overview-similar-artists-full-width-item-name a,
-    .catalogue-overview-similar-artists-full-width-item-name a:focus,
-    .catalogue-overview-similar-artists-full-width-item-name a:hover {
-      color: @text;
-    }
-
     .resource-external-link,
     .resource-external-link:hover {
       color: @text;
-    }
-    .shout {
-      border-bottom-color: @surface0;
-    }
-    .shout-container--active {
-      background-color: fadeout(@surface1, 0.3);
-    }
-    .shout-user a {
-      color: @text;
-    }
-    .shout-form {
-      border-color: none;
     }
     .js-playlink-station.desktop-playlink.inline-section-control.stationlink {
       color: @text;
@@ -993,34 +1092,6 @@
     }
 
     .section-playlink.js-playlink-station {
-      color: @text;
-    }
-
-    /* TRACK */
-    .source-album-artist a,
-    .source-album-artist a:focus,
-    .source-album-artist a:hover,
-    .source-album-name a,
-    .source-album-name a:focus,
-    .source-album-name a:hover {
-      color: @text;
-    }
-
-    .track-similar-tracks-item-name a,
-    .track-similar-tracks-item-name a:focus,
-    .track-similar-tracks-item-name a:hover {
-      color: @text;
-    }
-
-    .about-artist-name a,
-    .about-artist-name a:focus,
-    .about-artist-name a:hover {
-      color: @text;
-    }
-
-    .catalogue-overview-similar-artists-item-name a,
-    .catalogue-overview-similar-artists-item-name a:focus,
-    .catalogue-overview-similar-artists-item-name a:hover {
       color: @text;
     }
 
@@ -1094,45 +1165,28 @@
       background-color: @crust;
     }
 
-    .content-form .form-control,
-    .content-form input[type="date"],
-    .content-form input[type="email"],
-    .content-form input[type="number"],
-    .content-form input[type="password"],
-    .content-form input[type="text"],
-    .content-form input[type="url"],
-    .content-form select,
-    .content-form textarea {
-      background-color: @crust;
-      border-color: @crust;
-      color: @subtext0;
-    }
-
-    .content-form .form-control:focus,
-    .content-form input[type="date"]:focus,
-    .content-form input[type="email"]:focus,
-    .content-form input[type="number"]:focus,
-    .content-form input[type="password"]:focus,
-    .content-form input[type="text"]:focus,
-    .content-form input[type="url"]:focus,
-    .content-form select:focus,
-    .content-form textarea:focus {
-      box-shadow: none;
-      border-color: @crust;
-    }
-    .content-form .form-control:hover:not([disabled]),
-    .content-form input[type="date"]:hover:not([disabled]),
-    .content-form input[type="email"]:hover:not([disabled]),
-    .content-form input[type="number"]:hover:not([disabled]),
-    .content-form input[type="password"]:hover:not([disabled]),
-    .content-form input[type="text"]:hover:not([disabled]),
-    .content-form input[type="url"]:hover:not([disabled]),
-    .content-form select:hover:not([disabled]),
-    .content-form textarea:hover:not([disabled]),
-    .content-form .inplace-field,
-    .inplace-field {
-      border-color: @crust;
-      color: @text;
+    .content-form {
+      .form-control,
+      input[type="date"],
+      input[type="email"],
+      input[type="number"],
+      input[type="password"],
+      input[type="text"],
+      input[type="url"],
+      select,
+      textarea {
+        background-color: @crust;
+        border-color: @crust;
+        color: @subtext0;
+        &:focus {
+          box-shadow: none;
+          border-color: @crust;
+        }
+        &:hover:not([disabled]) {
+          border-color: @crust;
+          color: @text;
+        }
+      }
     }
     .control-label {
       color: @accent;
@@ -1365,14 +1419,14 @@
       background-color: @overlay0 !important;
       color: @text !important;
     }
-    .masthead-nav .masthead-nav-control:focus,
-    .masthead-nav .masthead-nav-control:hover,
-    .masthead-nav .navlist-more:focus,
-    .masthead-nav .navlist-more:hover,
-    .site-auth-control:focus,
-    .site-auth-control:hover {
-      background-color: transparent;
-      color: @accent !important;
+    .masthead-nav .masthead-nav-control,
+    .masthead-nav .navlist-more,
+    .site-auth-control {
+      &:focus,
+      &:hover {
+        background-color: transparent;
+        color: @accent !important;
+      }
     }
     .site-auth-control.btn-secondary {
       color: @base !important;
@@ -1470,42 +1524,35 @@
       background-color: @subtext0;
     }
 
-    .chartlist-love-button::before,
-    .header-new-love-button::before {
-      background-image: none !important;
-      mask-image: url("/static/images/icons/love_animation_tracklist_24.3c884b0287d4.png");
-      -webkit-mask-image: url("/static/images/icons/love_animation_tracklist_24.3c884b0287d4.png");
-      background-color: @text;
-      mask-position: 0 0;
-      -webkit-mask-position: 0 0;
+    .chartlist-love-button,
+    .header-new-love-button {
+      &::before {
+        background-image: none !important;
+        mask-image: url("/static/images/icons/love_animation_tracklist_24.3c884b0287d4.png");
+        -webkit-mask-image: url("/static/images/icons/love_animation_tracklist_24.3c884b0287d4.png");
+        background-color: @text;
+        mask-position: -24px 0;
+        -webkit-mask-position: -24px 0;
+      }
+      &:focus::before,
+      &:hover::before {
+        mask-position: -24px 0;
+        -webkit-mask-position: -24px 0;
+        background-color: @red;
+      }
     }
 
-    .chartlist-love-button:focus::before,
-    .chartlist-love-button:hover::before,
-    .header-new-love-button:focus::before,
-    .header-new-love-button:hover::before {
-      mask-position: -24px 0;
-      background-color: @red;
-    }
-
-    [data-toggle-button-current-state="loved"] .chartlist-love-button::before,
-    [data-toggle-button-current-state="loved"] .header-new-love-button::before {
-      mask-position: -552px 0;
-      transition: mask-position 0.7s steps(23) !important;
-      -webkit-transition: -webkit-mask-position 0.7s steps(23) !important;
-      background-color: @red;
-    }
-
-    [data-toggle-button-current-state="loved"]
-      .chartlist-love-button:focus::before,
-    [data-toggle-button-current-state="loved"]
-      .chartlist-love-button:hover::before,
-    [data-toggle-button-current-state="loved"]
-      .header-new-love-button:focus::before,
-    [data-toggle-button-current-state="loved"]
-      .header-new-love-button:hover::before {
-      transition: mask-position 0.7s steps(22) !important;
-      -webkit-transition: -webkit-mask-position 0.7s steps(22) !important;
+    [data-toggle-button-current-state="loved"] .chartlist-love-button,
+    [data-toggle-button-current-state="loved"] .header-new-love-button {
+      &::before,
+      &:focus::before,
+      &:hover::before {
+        mask-position: -552px 0;
+        -webkit-mask-position: -552px 0;
+        transition: mask-position 0.7s steps(22) !important;
+        -webkit-transition: -webkit-mask-position 0.7s steps(22) !important;
+        background-color: @red;
+      }
     }
 
     .section-settings-toggle::before {

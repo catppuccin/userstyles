@@ -23,19 +23,19 @@ const stylesheets = walk(join(REPO_ROOT, "styles", subDir), {
 let failed = false;
 
 for await (const entry of stylesheets) {
-  const repodir = dirname(entry.path);
-  const repo = basename(repodir);
+  const dir = basename(dirname(entry.path));
   const file = relative(REPO_ROOT, entry.path);
 
   const content = await Deno.readTextFile(entry.path);
 
-  // verify the usercss metadata
-  const { globalVars, isLess } = await verifyMetadata(entry, content, repo);
-  // don't attempt to compile or lint non-less files
+  // Verify the UserCSS metadata.
+  const { globalVars, isLess } = await verifyMetadata(entry, content, dir);
+
+  // Don't attempt to compile or lint non-LESS files.
   if (!isLess) continue;
 
-  // try to compile the less file, report any errors
-  less.render(content, { lint: true, globalVars }).catch(
+  // Try to compile the LESS file, report any errors.
+  less.render(content, { lint: true, globalVars: globalVars }).catch(
     (err: Less.RenderError) => {
       failed = true;
       log(
@@ -46,15 +46,11 @@ for await (const entry of stylesheets) {
     },
   );
 
-  // advanced linting with stylelint
+  // Lint with Stylelint.
   await lint(entry, content, flags.fix).catch(() => failed = true);
 }
 
-// if any files are missing, cause the workflow to fail
-if (await checkForMissingFiles() === false) {
-  failed = true;
-}
+if (await checkForMissingFiles() === false) failed = true;
 
-if (failed) {
-  Deno.exit(1);
-}
+// Cause the workflow to fail if any issues were found.
+if (failed) Deno.exit(1);
