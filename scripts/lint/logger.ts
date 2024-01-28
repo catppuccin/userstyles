@@ -4,7 +4,7 @@ import core from "@actions/core";
 
 export type LoggerProps = core.AnnotationProperties & { content?: string };
 
-const pretty_print = (
+const prettyPrint = (
   message: string,
   props: LoggerProps,
   severity: "error" | "warning" = "warning",
@@ -77,6 +77,6 @@ export const log = (
         break;
     }
   } else {
-    pretty_print(message, props, severity);
+    prettyPrint(message, props, severity);
   }
 };

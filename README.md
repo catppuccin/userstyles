@@ -121,6 +121,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Lingva](styles/lingva)
 - [Microsoft Word](styles/microsoft-word)
 - [NixOS Wiki](styles/nixos.wiki)
+- [OpenMediaVault](styles/openmediavault)
 - [Proton](styles/proton)
 - [Quizlet](styles/quizlet)
 - [Skiff](styles/skiff)
