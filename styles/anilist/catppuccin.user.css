@@ -2,8 +2,8 @@
 @name AniList/AniChart Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/anilist
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/anilist
-@version 2.1.1
-@description Soothing pastel theme for AniList and AniChart
+@version 2.2.0
+@description Soothing pastel theme for AniList
 @author Catppuccin
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/anilist/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aanilist
@@ -12,10 +12,10 @@
 @preprocessor   less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent Color" [ "rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green*", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray" ]
-@var select contrastColor "Contrast Color" [ "rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green*", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray" ]
+@var select accentColor "Accent Color" [ "rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue*", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray" ]
+@var select contrastColor "Contrast Color" [ "rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red*", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray" ]
 ==/UserStyle== */
-@-moz-document domain("anilist.co") {
+@-moz-document domain("anilist.co"), domain("anichart.net") {
   body:not(.site-theme-dark) {
     #catppuccin(@lightFlavor, @accentColor);
   }
@@ -55,11 +55,20 @@
 
     & when (@lookup =latte) {
       --color-blue-dim: #rgbify(desaturate(lighten(@accent, 10%), 10%)) [];
+
       .nav[data-v-62eacfff],
       .solid[data-v-62eacfff],
       .transparent[data-v-62eacfff]:hover {
         background: darken(@text, 10%);
         color: @base;
+      }
+
+      .nav-unscoped.transparent {
+        background: fade(darken(@text, 10%), 50%);
+      }
+
+      .banner-content .name {
+        --color-text-bright: #rgbify(#fff) [];
       }
     }
 
@@ -67,13 +76,13 @@
     --color-background: #rgbify(@crust) [];
     --color-foreground: #rgbify(@base) [];
     --color-foreground-grey: #rgbify(@surface0) [];
-    --color-foreground-grey-dark: #rgbify(@surface0) [];
+    --color-foreground-grey-dark: #rgbify(darken(@surface0, 5%)) [];
     --color-foreground-blue: #rgbify(@mantle) [];
     --color-foreground-blue-dark: #rgbify(@mantle) [];
     --color-background-blue-dark: #rgbify(@subtext1) [];
-    --color-overlay: #rgbify(@crust) [];
+    --color-overlay: #rgbify(@surface0) [];
     --color-shadow: #rgbify(@mantle) [];
-    --color-shadow-dark: #rgbify(@crust) [];
+    --color-shadow-dark: #rgbify(darken(@text, 10%)) [];
     --color-shadow-blue: #rgbify(@blue) [];
     --color-text: #rgbify(@text) [];
     --color-text-light: #rgbify(@subtext1) [];
@@ -142,12 +151,13 @@
       --color-background: #rgbify(@crust) [];
       --color-foreground: #rgbify(@base) [];
       --color-foreground-grey: #rgbify(@surface0) [];
-      --color-foreground-grey-dark: #rgbify(@surface0) [];
+      --color-foreground-grey-dark: #rgbify(darken(@surface0, 5%)) [];
       --color-foreground-blue: #rgbify(@mantle) [];
       --color-foreground-blue-dark: #rgbify(@mantle) [];
       --color-text: #rgbify(@text) [];
       --color-text-light: #rgbify(@subtext0) [];
       --color-text-lighter: #rgbify(@subtext1) [];
+      --color-shadow-dark: #rgbify(@crust) [];
       --color-shadow-blue: #rgbify(@crust) [];
       --color-background-1200: #rgbify(@text) [];
       --color-background-1100: #rgbify(@text) [];
@@ -176,10 +186,19 @@
 
       --color-blue-dim: #rgbify(desaturate(darken(@accent, 10%), 10%)) [];
     }
+
     /* DARK THEME NAV BAR */
     .nav-unscoped when not (@lookup =latte) {
-      background-color: @mantle !important;
+      background-color: @mantle;
     }
+    .nav-unscoped.transparent when not (@lookup =latte) {
+      background-color: fade(@mantle, 50);
+    }
+    .nav-unscoped.transparent:hover when not (@lookup =latte) {
+      background-color: @mantle;
+      color: @subtext0;
+    }
+
     /* -----------------PROFILE FIXES----------------- */
     #profileColor(@color) {
       --color-blue: #rgbify(@color) [];
@@ -214,39 +233,76 @@
     .user-page-unscoped.gray {
       #profileColor(@overlay1);
     }
-
-    /* --------------Tags---------------- */
-    .tag {
-      background: @accent !important;
-      color: @base !important;
+    .history-day {
+      --color-foreground-grey-dark: #rgbify(@crust) [];
     }
-    .genre {
-      color: @base !important;
+    .x-axis {
+      --color-background-300: #rgbify(@surface0) [];
+    }
+    /* Fixes gap between stats */
+    @media (max-width: 1540px) {
+      .stats-wrap {
+        grid-row-gap: 25px;
+      }
     }
 
     /* ----Tracking Status List Stuff---- */
-    .list[data-v-5776f768],
-    .el-icon-arrow-down::before {
+    .list[data-v-5776f768] {
       color: @mantle !important;
+    }
+    .banner .el-icon-arrow-down::before {
+      color: @text !important;
+    }
+    .el-textarea__inner::placeholder {
+      color: @overlay1;
     }
     .el-dropdown-menu,
     .el-dropdown-menu__item--divided::before,
     .el-select-dropdown {
-      background-color: @base !important;
+      background-color: @surface0 !important;
+    }
+    .el-popper[x-placement^="bottom"] .popper__arrow::after,
+    .el-popper[x-placement^="bottom"] .popper__arrow,
+    .el-tooltip__popper[x-placement^="bottom"] .popper__arrow::after,
+    .el-tooltip__popper[x-placement^="bottom"] .popper__arrow {
+      border-bottom-color: @surface0;
+    }
+    .el-popper[x-placement^="top"] .popper__arrow::after,
+    .el-popper[x-placement^="top"] .popper__arrow,
+    .el-tooltip__popper[x-placement^="top"] .popper__arrow,
+    .el-tooltip__popper[x-placement^="top"] .popper__arrow::after {
+      border-top-color: @surface0;
+    }
+    .el-dropdown .feed-filter {
+      color: @overlay0;
     }
     .el-dropdown-menu {
       border-color: @text !important;
     }
-    .el-dropdown-menu__item:focus,
-    .el-dropdown-menu__item:not(.is-disabled):hover {
-      color: @crust !important;
-    }
     .el-dropdown-menu__item--divided when not (@lookup =latte) {
-      border-top-color: rgb(21, 31, 46);
+      border-top-color: @surface1;
     }
     .el-select-dropdown__item.hover,
     .el-select-dropdown__item:hover {
-      background-color: @mantle;
+      background-color: @base;
+    }
+    .el-select-dropdown__item.selected {
+      color: @accent;
+    }
+    .el-tooltip__popper.is-dark {
+      background: @surface0;
+      color: @text;
+    }
+    .tooltip > div {
+      --color-white: #rgbify(@text) [];
+    }
+    .dropdown {
+      --color-gray-100: #rgbify(@base) [];
+      --color-background-100: #rgbify(@base) [];
+      --color-background-200: #rgbify(@mantle) [];
+    }
+    .medialist .notes {
+      --color-overlay: #rgbify(@surface0) [];
     }
 
     /* ---------SCORE TWEAKS-------------- */
@@ -254,13 +310,49 @@
       color: @base;
     }
 
-    /* --------------FOOTER (It's hardcoded idk why anilist dumdum)---------- */
+    /* --------------FOOTER--------------- */
     .footer[data-v-0f519cab] {
-      background: @crust;
-      color: @subtext0;
+      background: @text;
+      color: @crust;
+
+      h2 {
+        color: rgb(var(--color-blue));
+      }
+
+      & when (@lookup =latte) {
+        --color-blue: #rgbify(lighten(@accent, 30%)) [];
+      }
+
+      & when not (@lookup =latte) {
+        background: @mantle;
+        color: @subtext0;
+      }
+    }
+
+    /* ------------------SEARCH PAGES------------------ */
+    .search,
+    .expand-description,
+    .studio {
+      --color-background-200: #rgbify(@crust) [];
+    }
+    .search-wrap,
+    .filters,
+    .extra-filters-wrap,
+    .select,
+    .options {
+      --color-background-100: #rgbify(@base) [];
+    }
+    .filter.select-wrap .options {
+      --color-background-100: #rgbify(@mantle) [];
     }
 
     /* ------------------MISC EDITS-------------------- */
+    .list-editor-wrap .header::after {
+      background: fade(@mantle, 50%);
+    }
+    .filter.clear-all {
+      --color-background-500: #rgbify(@overlay1) [];
+    }
     /* --Reset button in notifications----- */
     .reset-btn {
       color: @base !important;
@@ -268,6 +360,85 @@
     /* Publish Button in Replies and Messages */
     .save {
       color: @base !important;
+    }
+    .el-radio {
+      color: @overlay1;
+    }
+
+    /* Accent Text */
+    .input .hint {
+      --color-white: #rgbify(@text) [];
+    }
+    .el-checkbox__input.is-checked + .el-checkbox__label {
+      color: @accent;
+    }
+    .button,
+    .option.active,
+    .new-badge,
+    .submissions .user .stats > div,
+    .actions .icon,
+    .submissions .status,
+    .adult-label,
+    .header .btn,
+    .media-tag-editor .btn,
+    [data-v-843c77a2] .btn,
+    [data-v-22855988] .btn,
+    .btn[data-v-156b3973],
+    .btn[data-v-dceb4a66],
+    .favourite-btn,
+    .dialog .btn,
+    .tag,
+    .filter,
+    .media .header div,
+    .list-editor-wrap .header .save-btn,
+    .actions > div:not(.donator-badge),
+    .banner-content .mod-badge-wrap,
+    .external-link.no-color,
+    .count.circle,
+    .el-dropdown-menu__item,
+    .delete,
+    .list-editor-wrap .list-editor .body .delete-btn,
+    .open-user-search {
+      & when not (@lookup =latte) {
+        --color-white: #rgbify(@crust) [];
+      }
+    }
+    .button.comment,
+    .settings .button,
+    .el-message-box .el-button--primary,
+    .mod-badge-wrap,
+    .medialist.cards .entry-card .edit {
+      & when not (@lookup =latte) {
+        --color-text-bright: #rgbify(@crust) [];
+      }
+    }
+    .submit-btn,
+    .random-btn {
+      & when not (@lookup =latte) {
+        color: @crust;
+      }
+    }
+    .user .notification-dot,
+    .create-btn {
+      & when not (@lookup =latte) {
+        color: @crust !important;
+      }
+    }
+    .el-radio__inner::after {
+      & when not (@lookup =latte) {
+        background-color: @crust;
+      }
+    }
+    .icon,
+    .check {
+      & when not (@lookup =latte) {
+        --color-blue-300: #rgbify(@crust) [];
+      }
+    }
+    .settings .button {
+      & when (@lookup =latte) {
+        --color-text-bright: #rgbify(#fff) [];
+      }
     }
     /* ------------IMAGE COVER------------ */
     .cover .image-text,
@@ -279,9 +450,9 @@
     .medialist.table .entry .edit {
       color: @base !important;
     }
-    /* --------Settings button-------- */
-    .settings[data-v-3deab077] .button {
-      color: @crust;
+    /* --------SETTINGS-------- */
+    .el-radio__inner when not (@lookup =latte) {
+      background-color: @text;
     }
     .el-checkbox__input.is-checked .el-checkbox__inner,
     .el-radio__input.is-checked .el-radio__inner {
@@ -305,9 +476,9 @@
       scrollbar-width: none;
     }
     /* --------REMOVE DROPDOWN SHADOWS----- */
-    .dropdown.dropdown {
-      box-shadow: none;
-    }
+    // .dropdown.dropdown {
+    //   box-shadow: none;
+    // }
     /* ---------ANILIST LIKER PLUGIN------ */
     #AnilistLikerPlugin .btntop {
       margin-bottom: -4px;
@@ -315,6 +486,83 @@
     }
     #AnilistLikerPlugin .btnbottom {
       margin-top: -2px;
+    }
+    /* ---------AUTOMAIL TWEAKS--------- */
+    // .site-theme-dark .el-popper .el-dropdown-menu__item:focus,
+    // .el-popper .el-dropdown-menu__item:not(.is-disabled):hover {
+    //   color: @accent !important;
+    // }
+    .hohMediaScore {
+      border-color: @surface0;
+      padding: 4px;
+      border-radius: 10px;
+      margin-left: 0;
+      background-color: @base;
+      color: @accent;
+    }
+    .activity-feed .hohNoteSuffix:not(:empty),
+    .activity-feed .hohRewatchSuffix:not(:empty),
+    .activity-feed .hohScore:not(.hohSmiley) {
+      padding: 2.5px 5px 1px 5px !important;
+    }
+    .hohExtraFilters button {
+      margin-bottom: 20px;
+    }
+    .filter-group.compare-btn,
+    .hohButton {
+      color: @base;
+    }
+    .hohButton,
+    .hohCheckbox input:checked + .el-checkbox__inner {
+      background-color: @accent;
+    }
+    .hohCheckbox input:checked + .el-checkbox__inner {
+      border-color: @accent;
+    }
+    .medialist.table .entry:hover,
+    .medialist.table .entry .title a:hover,
+    .compare-btn[data-v-170179fc]:hover {
+      color: @base;
+    }
+    .hohCompare table {
+      background-color: @crust;
+    }
+    .hohAnimeTable,
+    .hohAnimeTable td,
+    .hohUserRow td,
+    .hohUserRow th,
+    .hohHeaderRow td,
+    .hohHeaderRow th {
+      border-color: @surface0 !important;
+    }
+    .hohUserRow td {
+      border-top-color: @surface0 !important;
+    }
+    .hohUserRow tr {
+      border-right-color: @surface0 !important;
+    }
+    .activity-feed .hohNoteSuffix:not(:empty),
+    .activity-feed .hohRewatchSuffix:not(:empty),
+    .activity-feed .hohScore:not(.hohSmiley) {
+      color: @subtext1 !important;
+      background-color: @surface0;
+    }
+    hr {
+      color: @surface0;
+    }
+    .hohCheckbox
+      input:checked
+      + .el-checkbox__inner
+      .like-wrap.thread
+      .button.liked
+      .fa-heart,
+    .actions .favourite.liked .fa-heart,
+    .like-wrap.thread .button.isFavourite .fa-heart,
+    .actions .favourite.isFavourite .fa-heart,
+    .actions .favourite {
+      & when not (@lookup =latte) {
+        --color-white: #rgbify(@crust) [];
+      }
     }
   }
 }
@@ -357,271 +605,6 @@
     @accent: @catppuccin[@@lookup][@@accentColor];
     @contrast-color: @catppuccin[@@lookup][@@contrastColor];
 
-    & when (@lookup =latte) {
-      --color-blue-dim: #rgbify(desaturate(lighten(@accent, 10%), 10%)) [];
-      .nav[data-v-62eacfff],
-      .solid[data-v-62eacfff],
-      .transparent[data-v-62eacfff]:hover {
-        background: darken(@text, 10%);
-        color: @base;
-      }
-    }
-
-    /* BASE VARIABLES */
-    --color-background: #rgbify(@crust) [];
-    --color-foreground: #rgbify(@base) [];
-    --color-foreground-grey: #rgbify(@surface0) [];
-    --color-foreground-grey-dark: #rgbify(@surface0) [];
-    --color-foreground-blue: #rgbify(@mantle) [];
-    --color-foreground-blue-dark: #rgbify(@mantle) [];
-    --color-background-blue-dark: #rgbify(@subtext1) [];
-    --color-overlay: #rgbify(@crust) [];
-    --color-shadow: #rgbify(@mantle) [];
-    --color-shadow-dark: #rgbify(@crust) [];
-    --color-shadow-blue: #rgbify(@blue) [];
-    --color-text: #rgbify(@text) [];
-    --color-text-light: #rgbify(@subtext1) [];
-    --color-text-lighter: #rgbify(@subtext0) [];
-    --color-text-bright: #rgbify(@text) [];
-    --color-blue: #rgbify(@accent) [];
-    --color-white: 255, 255, 255;
-    --color-black: 0, 0, 0;
-    --color-red: #rgbify(@contrast-color) [];
-    --color-peach: #rgbify(@maroon) [];
-    --color-orange: #rgbify(@peach) [];
-    --color-yellow: #rgbify(@yellow) [];
-    --color-green: #rgbify(@green) [];
-    --color-background-1200: #rgbify(@text) [];
-    --color-background-1100: #rgbify(@text) [];
-    --color-background-1000: #rgbify(@text) [];
-    --color-background-900: #rgbify(@subtext1) [];
-    --color-background-800: #rgbify(@subtext0) [];
-    --color-background-700: #rgbify(@surface1) [];
-    --color-background-600: #rgbify(@surface0) [];
-    --color-background-500: #rgbify(@surface0) [];
-    --color-background-400: #rgbify(@surface0) [];
-    --color-background-300: #rgbify(@base) [];
-    --color-background-200: #rgbify(@mantle) [];
-    --color-background-100: #rgbify(@crust) [];
-    --color-gray-1200: #rgbify(@text) [];
-    --color-gray-1100: #rgbify(@text) [];
-    --color-gray-1000: #rgbify(@text) [];
-    --color-gray-900: #rgbify(@text) [];
-    --color-gray-800: #rgbify(@overlay2) [];
-    --color-gray-700: #rgbify(@overlay1) [];
-    --color-gray-600: #rgbify(@overlay0) [];
-    --color-gray-500: #rgbify(@surface2) [];
-    --color-gray-400: #rgbify(@surface1) [];
-    --color-gray-300: #rgbify(@surface0) [];
-    --color-gray-200: #rgbify(@mantle) [];
-    --color-gray-100: #rgbify(@crust) [];
-    --color-blue-100: #rgbify(@text) [];
-    --color-blue-200: #rgbify(@text) [];
-    --color-blue-300: #rgbify(@text) [];
-    --color-blue-400: #rgbify(@sapphire) [];
-    --color-blue-500: #rgbify(@sapphire) [];
-    --color-blue-600: #rgbify(@blue) [];
-    --color-blue-700: #rgbify(@blue) [];
-    --color-blue-800: #rgbify(@blue) [];
-    --color-blue-900: #rgbify(@blue) [];
-    --color-blue-1000: #rgbify(@blue) [];
-    --color-green-100: #rgbify(@teal) [];
-    --color-green-200: #rgbify(@green) [];
-    --color-green-300: #rgbify(@green) [];
-    --color-green-400: #rgbify(@green) [];
-    --color-green-500: #rgbify(@green) [];
-    --color-green-600: #rgbify(@green) [];
-    --color-green-700: #rgbify(@green) [];
-    --color-green-800: #rgbify(@green) [];
-    --color-red-100: #rgbify(@text) [];
-    --color-red-200: #rgbify(@flamingo) [];
-    --color-red-300: #rgbify(@maroon) [];
-    --color-red-400: #rgbify(@red) [];
-    --color-red-500: #rgbify(@red) [];
-    --color-red-600: #rgbify(@red) [];
-    --color-red-700: #rgbify(@red) [];
-
-    /* DARK THEME SPECIFIC TWEAKS */
-    & when not (@lookup =latte) {
-      --color-background: #rgbify(@crust) [];
-      --color-foreground: #rgbify(@base) [];
-      --color-foreground-grey: #rgbify(@surface0) [];
-      --color-foreground-grey-dark: #rgbify(@surface0) [];
-      --color-foreground-blue: #rgbify(@mantle) [];
-      --color-foreground-blue-dark: #rgbify(@mantle) [];
-      --color-text: #rgbify(@text) [];
-      --color-text-light: #rgbify(@subtext0) [];
-      --color-text-lighter: #rgbify(@subtext1) [];
-      --color-shadow-blue: #rgbify(@crust) [];
-      --color-background-1200: #rgbify(@text) [];
-      --color-background-1100: #rgbify(@text) [];
-      --color-background-1000: #rgbify(@text) [];
-      --color-background-900: #rgbify(@subtext1) [];
-      --color-background-800: #rgbify(@subtext0) [];
-      --color-background-700: #rgbify(@surface1) [];
-      --color-background-600: #rgbify(@surface0) [];
-      --color-background-500: #rgbify(@surface0) [];
-      --color-background-400: #rgbify(@surface0) [];
-      --color-background-300: #rgbify(@base) [];
-      --color-background-200: #rgbify(@mantle) [];
-      --color-background-100: #rgbify(@crust) [];
-      --color-gray-1200: #rgbify(@text) [];
-      --color-gray-1100: #rgbify(@text) [];
-      --color-gray-1000: #rgbify(@text) [];
-      --color-gray-900: #rgbify(@text) [];
-      --color-gray-800: #rgbify(@overlay2) [];
-      --color-gray-700: #rgbify(@overlay1) [];
-      --color-gray-600: #rgbify(@overlay0) [];
-      --color-gray-500: #rgbify(@surface2) [];
-      --color-gray-400: #rgbify(@surface1) [];
-      --color-gray-300: #rgbify(@surface0) [];
-      --color-gray-200: #rgbify(@mantle) [];
-      --color-gray-100: #rgbify(@crust) [];
-
-      --color-blue-dim: #rgbify(desaturate(darken(@accent, 10%), 10%)) [];
-    }
-
-    /* DARK THEME NAV BAR */
-    .nav-unscoped when not (@lookup =latte) {
-      background-color: @mantle !important;
-    }
-    /* -----------------PROFILE FIXES----------------- */
-    #profileColor(@color) {
-      --color-blue: #rgbify(@color) [];
-      & when (@lookup =latte) {
-        --color-blue-dim: #rgbify(lighten(@color, 10%)) [];
-      }
-      & when not (@lookup =latte) {
-        --color-blue-dim: #rgbify(darken(@color, 10%)) [];
-      }
-      .progress .bar {
-        background: linear-gradient(270deg, darken(@color, 10%), @color);
-      }
-    }
-    .user-page-unscoped.orange {
-      #profileColor(@peach);
-    }
-    .user-page-unscoped.green {
-      #profileColor(@green);
-    }
-    .user-page-unscoped.purple {
-      #profileColor(@mauve);
-    }
-    .user-page-unscoped.red {
-      #profileColor(@red);
-    }
-    .user-page-unscoped.blue {
-      #profileColor(@blue);
-    }
-    .user-page-unscoped.pink {
-      #profileColor(@pink);
-    }
-    .user-page-unscoped.gray {
-      #profileColor(@overlay1);
-    }
-
-    /* --------------Tags---------------- */
-    .tag {
-      background: @accent !important;
-      color: @base !important;
-    }
-    .genre {
-      color: @base !important;
-    }
-
-    /* ----Tracking Status List Stuff---- */
-    .list[data-v-5776f768],
-    .el-icon-arrow-down::before {
-      color: @mantle !important;
-    }
-    .el-dropdown-menu,
-    .el-dropdown-menu__item--divided::before,
-    .el-select-dropdown {
-      background-color: @base !important;
-    }
-    .el-dropdown-menu {
-      border-color: @text !important;
-    }
-    .el-dropdown-menu__item:focus,
-    .el-dropdown-menu__item:not(.is-disabled):hover {
-      color: @crust !important;
-    }
-    .el-dropdown-menu__item--divided when not (@lookup =latte) {
-      border-top-color: rgb(21, 31, 46);
-    }
-    .el-select-dropdown__item.hover,
-    .el-select-dropdown__item:hover {
-      background-color: @mantle;
-    }
-
-    /* ---------SCORE TWEAKS-------------- */
-    .score[data-v-5ca094da] {
-      color: @base;
-    }
-
-    /* --------------FOOTER (It's hardcoded idk why anilist dumdum)---------- */
-    .footer[data-v-0f519cab] {
-      background: @crust;
-      color: @subtext0;
-    }
-
-    /* ------------------MISC EDITS-------------------- */
-    /* --Reset button in notifications----- */
-    .reset-btn {
-      color: @base !important;
-    }
-    /* Publish Button in Replies and Messages */
-    .save {
-      color: @base !important;
-    }
-    /* ------------IMAGE COVER------------ */
-    .cover .image-text,
-    .plus-progress {
-      color: @text !important;
-    }
-
-    .entry .plus-progress,
-    .medialist.table .entry .edit {
-      color: @base !important;
-    }
-    /* --------Settings button-------- */
-    .settings[data-v-3deab077] .button {
-      color: @crust;
-    }
-    .el-checkbox__input.is-checked .el-checkbox__inner,
-    .el-radio__input.is-checked .el-radio__inner {
-      background-color: @accent;
-      border-color: @accent;
-    }
-    .el-checkbox__inner::after {
-      border-color: @crust;
-      border-width: 2px;
-      left: 3px;
-    }
-    .el-radio__input.is-checked + .el-radio__label {
-      color: @accent;
-    }
-    /* --------HIDE SCROLLBAR IN BIO----- */
-    .section::-webkit-scrollbar {
-      display: none;
-    }
-    .section {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-    /* --------REMOVE DROPDOWN SHADOWS----- */
-    .dropdown.dropdown {
-      box-shadow: none;
-    }
-    /* ---------ANILIST LIKER PLUGIN------ */
-    #AnilistLikerPlugin .btntop {
-      margin-bottom: -4px;
-      margin-top: 5px;
-    }
-    #AnilistLikerPlugin .btnbottom {
-      margin-top: -2px;
-    }
-
     /* --------ANICHART SPECIFIC TWEAKS---- */
     .login[data-v-0d5bfbcd],
     .login[data-v-0d5bfbcd]:hover {
@@ -646,48 +629,6 @@
     }
     .settings[data-v-3deab077] .button.danger {
       color: @base;
-    }
-    /* AUTOMAIL TWEAK */
-    .site-theme-dark .el-popper .el-dropdown-menu__item:focus,
-    .el-popper .el-dropdown-menu__item:not(.is-disabled):hover {
-      color: @accent !important;
-    }
-    .hohMediaScore {
-      border-color: @surface0;
-      padding: 4px;
-      border-radius: 10px;
-      margin-left: 0;
-      background-color: @base;
-      color: @accent;
-    }
-    .filter-group.compare-btn,
-    .hohButton {
-      color: @base;
-    }
-    .hohButton {
-      background-color: @accent;
-    }
-    .medialist.table .entry:hover,
-    .medialist.table .entry .title a:hover,
-    .compare-btn[data-v-170179fc]:hover {
-      color: @base;
-    }
-    .hohCompare table {
-      background-color: @crust;
-    }
-    .hohAnimeTable,
-    .hohAnimeTable td,
-    .hohUserRow td,
-    .hohUserRow th,
-    .hohHeaderRow td,
-    .hohHeaderRow th {
-      border-color: @surface0 !important;
-    }
-    .hohUserRow td {
-      border-top-color: @surface0 !important;
-    }
-    .hohUserRow tr {
-      border-right-color: @surface0 !important;
     }
   }
 }
