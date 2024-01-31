@@ -47,7 +47,7 @@ To create a userstyle, follow the instructions listed below:
      composite or grid image of all the flavors. **This must be saved as
      `catwalk.webp`.**
 8. Raise a [Pull Request](https://github.com/catppuccin/userstyles/compare),
-   making sure to read and fill out the template properly.
+   making sure to read and fill out the template properly. The title of your PR should follow the format of `feat(<port-name>): init`.
 
 &nbsp;
 
