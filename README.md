@@ -92,6 +92,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Ecosia](styles/ecosia)
 - [Google](styles/google)
 - [NixOS Search](styles/nixos-search)
+- [Perplexity](styles/perplexity)
 - [SearXNG](styles/searxng)
 - [Startpage](styles/startpage)
 
@@ -106,6 +107,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🗂️ Productivity</summary>
 
+- [Arch Wiki](styles/arch-wiki)
 - [boringproxy](styles/boringproxy)
 - [Canvas LMS](styles/canvas-lms)
 - [ChatGPT](styles/chatgpt)
@@ -121,6 +123,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Lingva](styles/lingva)
 - [Microsoft Word](styles/microsoft-word)
 - [NixOS Wiki](styles/nixos.wiki)
+- [OpenMediaVault](styles/openmediavault)
 - [Proton](styles/proton)
 - [Quizlet](styles/quizlet)
 - [Skiff](styles/skiff)

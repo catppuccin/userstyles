@@ -2,7 +2,7 @@
 @name Last.fm Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/lastfm
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/lastfm
-@version 1.1.3
+@version 1.1.5
 @description Soothing pastel theme for Last.fm
 @author Catppuccin
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/lastfm/catppuccin.user.css
@@ -114,6 +114,47 @@
       }
     }
 
+    // Mixin to dynamically set colors of album, artist and track categories
+
+    .category-colors() {
+      &artist {
+        --category-background: @yellow;
+      }
+      &album {
+        --category-background: @green;
+      }
+      &track {
+        --category-background: @blue;
+      }
+    }
+
+    // Evil image mask hack
+    // Use as follows:
+    // .maskimage(mask-image, background-color, mask-position, mask-size, mask-repeat);
+    // Setting any value to "skip" skips that attribute
+    .mask-image(@mask-image: url(""), @mask-color: skip, @mask-position: skip, @mask-size: skip, @mask-repeat: skip) {
+      & when not (@mask-color = skip) {
+        background-image: none !important;
+        background-color: @mask-color;
+      }
+      & when not (@mask-image = skip) {
+        mask-image: @mask-image;
+        -webkit-mask-image: @mask-image;
+      }
+      & when not (@mask-position = skip) {
+        mask-position: @mask-position;
+        -webkit-mask-position: @mask-position;
+      }
+      & when not (@mask-size = skip) {
+        mask-size: @mask-size;
+        -webkit-mask-size: @mask-size;
+      }
+      & when not (@mask-repeat = skip) {
+        mask-repeat: @mask-repeat;
+        -webkit-mask-repeat: @mask-repeat;
+      }
+    }
+
     /* -----------CHECKBOXES AND RADIOS---------- */
     .lfm-form-radio input[type="radio"]:checked + label::before {
       border-color: @accent;
@@ -154,37 +195,37 @@
       color: @text;
     }
 
-    .homefeed
-      .content-top
-      .secondary-nav-item--artists
-      .secondary-nav-item-link:hover::after,
-    .homefeed
-      .content-top
-      .secondary-nav-item--albums
-      .secondary-nav-item-link:hover::after,
-    .homefeed
-      .content-top
-      .secondary-nav-item--tracks
-      .secondary-nav-item-link:hover::after,
-    .homefeed
-      .content-top
-      .secondary-nav-item--events
-      .secondary-nav-item-link:hover::after,
-    .homefeed--artists .content-top .secondary-nav-item-link--active::after,
-    .homefeed--albums .content-top .secondary-nav-item-link--active::after,
-    .homefeed--tracks .content-top .secondary-nav-item-link--active::after,
-    .homefeed--events .content-top .secondary-nav-item-link--active::after {
-      background-color: @accent-dim;
+    .homefeed {
+      .content-top .secondary-nav-item {
+        &--artists,
+        &--albums,
+        &--tracks,
+        &--events {
+          .secondary-nav-item-link:hover::after {
+            background-color: @accent-dim;
+          }
+        }
+      }
+      &--artists,
+      &--albums,
+      &--tracks,
+      &--events {
+        .content-top .secondary-nav-item-link--active::after {
+          background-color: @accent-dim;
+        }
+      }
     }
-    .recs-feed .recs-feed-cover-image-wrap::after,
-    .grid-items-cover-image-image::after {
-      background-image: linear-gradient(
-        180deg,
-        transparent 0,
-        rgba(@mantle, 0.4) 50%,
-        rgba(@mantle, 0.7) 50%,
-        rgba(@mantle, 0.7) 100%
-      );
+    .recs-feed .recs-feed,
+    .grid-items {
+      &-cover-image-wrap::after {
+        background-image: linear-gradient(
+          180deg,
+          transparent 0,
+          rgba(@mantle, 0.4) 50%,
+          rgba(@mantle, 0.7) 50%,
+          rgba(@mantle, 0.7) 100%
+        );
+      }
     }
 
     .recs-feed .context {
@@ -202,26 +243,21 @@
 
     .stationlink-list .stationlink {
       color: @subtext0;
-    }
-
-    .stationlink-list .stationlink:focus,
-    .stationlink-list .stationlink:hover {
-      color: @text;
-    }
-
-    .stationlink-list .stationlink::after {
-      border-bottom-color: @accent-dim;
-    }
-
-    .stationlink-list .stationlink::before {
-      background-color: @accent;
-      -webkit-filter: invert(0%);
-      filter: invert(0%);
-    }
-
-    .stationlink-list .stationlink:focus::before,
-    .stationlink-list .stationlink:hover::before {
-      background-color: @subtext0;
+      &:focus,
+      &:hover {
+        color: @text;
+        &::before {
+          background-color: @subtext0;
+        }
+      }
+      &::after {
+        border-bottom-color: @accent-dim;
+      }
+      &::before {
+        background-color: @accent;
+        -webkit-filter: invert(0%);
+        filter: invert(0%);
+      }
     }
 
     .subscribe-cta,
@@ -250,29 +286,23 @@
       color: @accent;
     }
 
-    .minimal-navigation-item-link,
-    .minimal-navigation-item-link:focus,
-    .minimal-navigation-item-link:hover {
-      color: @subtext0;
+    .minimal-navigation-item-link {
+      &,
+      &:focus,
+      &:hover {
+        color: @subtext0;
+      }
     }
 
     .minimal-navigation-item-link--active,
-    .minimal-navigation-item-link--active:focus,
-    .minimal-navigation-item-link--active:hover {
-      color: @text;
-    }
-
-    .music-section-heading {
-      color: @text;
-    }
-
+    .music-section-heading,
     .music-more-artists-item-name a,
-    .music-more-artists-item-name a:focus,
-    .music-more-artists-item-name a:hover,
-    .music-releases-item-name a,
-    .music-releases-item-name a:focus,
-    .music-releases-item-name a:hover {
-      color: @text;
+    .music-releases-item-name a {
+      &,
+      &:focus,
+      &:hover {
+        color: @text;
+      }
     }
 
     .music-releases-item-artist,
@@ -293,10 +323,7 @@
     }
 
     /* SEARCH */
-    .artist-result-heading {
-      color: @text;
-    }
-
+    .artist-result-heading,
     .album-result-heading {
       color: @text;
     }
@@ -312,17 +339,15 @@
         color: @crust !important;
       }
     }
-    .recs-feed-item--artist .context::after,
-    .recs-feed .recs-feed-item--artist .recs-feed-avatar::after {
-      background-color: fadeout(@yellow, 1) !important;
+    .recs-feed-item,
+    .recs-feed .recs-feed-item {
+      &-- {
+        .category-colors();
+      }
     }
-    .recs-feed-item--album .context::after,
-    .recs-feed .recs-feed-item--album .recs-feed-avatar::after {
-      background-color: fadeout(@green, 1) !important;
-    }
-    .recs-feed-item--track .context::after,
-    .recs-feed .recs-feed-item--track .recs-feed-avatar::after {
-      background-color: fadeout(@blue, 1) !important;
+    .recs-feed-item .context::after,
+    .recs-feed .recs-feed-item .recs-feed-avatar::after {
+      background-color: var(--category-background) !important;
     }
     .secondary-nav {
       box-shadow: inset 0 -1px @accent;
@@ -334,17 +359,16 @@
       color: @text;
     }
 
-    .music-recommended-albums-item-name,
-    .music-recommended-albums-album-artist,
-    .music-recommended-albums-album-context {
-      color: @text;
+    .music-recommended-albums- {
+      &item-name,
+      &album-artist,
+      &album-context {
+        color: @text;
+      }
     }
 
     .recommended-tracks-item-name,
-    .recommended-tracks-item-artist {
-      color: @text;
-    }
-
+    .recommended-tracks-item-artist,
     .big-tags-item-context {
       color: @text;
     }
@@ -363,12 +387,9 @@
         border-color: rgba(@crust, 0.5);
       }
       &-date::after {
-        -webkit-mask-image: url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg");
-        mask-image: url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg");
-        background: @text;
+        .mask-image(url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg"), @text, skip, contain);
         height: 0;
         width: 0;
-        -webkit-mask-size: contain;
         padding: 7px;
         filter: none;
       }
@@ -468,10 +489,12 @@
     }
 
     /* PROFILE */
-    .header-avatar-add,
-    .header-avatar-add:not(.cta--inactive):focus,
-    .header-avatar-add:not(.cta--inactive):hover {
-      background-color: @accent-dim;
+    .header-avatar-add {
+      &,
+      &:not(.cta--inactive):focus,
+      &:not(.cta--inactive):hover {
+        background-color: @accent-dim;
+      }
     }
     .dropdown-menu-clickable,
     #share-library-artist,
@@ -493,7 +516,6 @@
       -webkit-filter: invert(0%);
       filter: invert(0%);
     }
-
     .chartlist-play-button:focus:focus::before,
     .chartlist-play-button:focus:hover::before,
     .chartlist-play-button:hover:focus::before,
@@ -504,14 +526,16 @@
 
     .text-Color-link,
     h2,
-    .dropdown-menu-clickable-item--selected,
-    .dropdown-menu-clickable-item--selected:focus,
-    .dropdown-menu-clickable-item--selected:hover,
-    .dropdown-menu-clickable-button,
-    .dropdown-menu-clickable-button:hover,
-    .dropdown-menu-clickable-button:active,
     .dropdown-menu-clickable-button.disclose-active {
       color: @accent;
+    }
+    .dropdown-menu-clickable-button,
+    .dropdown-menu-clickable-item--selected {
+      &,
+      &:focus,
+      &:hover {
+        color: @accent;
+      }
     }
     .dropdown-menu-clickable-item,
     .dropdown-menu-clickable-item:active,
@@ -608,10 +632,12 @@
       background-color: @accent-dim;
     }
 
-    .chartlist-count-bar-link,
-    .chartlist-count-bar-link:focus,
-    .chartlist-count-bar-link:hover {
-      color: @text;
+    .chartlist-count-bar-link {
+      &,
+      &:focus,
+      &:hover {
+        color: @text;
+      }
     }
 
     .shout-form textarea {
@@ -628,20 +654,6 @@
 
     /* LISTENING REPORT */
 
-    // Mixin to dynamically set colors of album, artist and track categories
-
-    .category-colors() {
-      &artist {
-        --category-background: @yellow;
-      }
-      &album {
-        --category-background: @green;
-      }
-      &track {
-        --category-background: @blue;
-      }
-    }
-
     // Set color for containers
 
     .report-box-container {
@@ -656,8 +668,7 @@
       color: @base;
       // Top border design (////)
       .report-headline-border {
-        -webkit-mask-image: url("/static/images/listening-report/v3/bg-lines.73682e46b8be.svg");
-        mask-image: url("/static/images/listening-report/v3/bg-lines.73682e46b8be.svg");
+        .mask-image(url("/static/images/listening-report/v3/bg-lines.73682e46b8be.svg"));
         background: @base;
       }
       .report-headline-top {
@@ -762,15 +773,11 @@
         background: linear-gradient(90deg, darken(@accent, 5%), @accent);
         // Total scrobbles header
         &--total-scrobbles::before {
-          mask-image: url("/static/images/icons/icon-scrobble.66a5e6978c62.svg");
-          -webkit-mask-image: url("/static/images/icons/icon-scrobble.66a5e6978c62.svg");
-          background: @base;
+          .mask-image(url("/static/images/icons/icon-scrobble.66a5e6978c62.svg"), @base);
         }
         // Highest discovery header
         &--discovery::before {
-          mask-image: url("/static/images/icons/icon-compass.ce30ab3b6240.svg");
-          -webkit-mask-image: url("/static/images/icons/icon-compass.ce30ab3b6240.svg");
-          background: @base;
+          .mask-image(url("/static/images/icons/icon-compass.ce30ab3b6240.svg"), @base);
         }
       }
       .header-metadata-title {
@@ -807,25 +814,30 @@
       }
     }
 
+    // footer
+    .user-dashboard-layout--version-3 .footer {
+      background-color: @mantle;
+    }
+
     // Top tags visualizer: Rainbow colors implemented from Catppuccin Palette
 
     @gradient-colors: @rosewater, @flamingo, @pink, @mauve, @red, @maroon,
       @peach, @yellow, @green, @teal, @sky, @sapphire, @blue, @lavender;
     each(range(0, 11), {
-      .report-box-container--top-tags-over-time .top-tags-over-time-colour-@{value} {
+
+           .report-box-container--top-tags-over-time .top-tags-over-time-colour-@{value} {
         fill: extract(@gradient-colors, @value + 1);
         stroke: extract(@gradient-colors, @value + 1);
       }
     });
+
     .highcharts-radial-axis-grid .highcharts-grid-line {
       stroke: @surface0;
     }
 
     // universal report arrows
     .report-arrow {
-      mask-image: url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg");
-      -webkit-mask-image: url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg");
-      background: @base;
+      .mask-image(url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg"), @base, skip, contain);
       background-size: contain;
       padding: 4px;
       margin: 2px;
@@ -837,6 +849,54 @@
     .music-decades-chart-container {
       .highcharts-series-1 .highcharts-point {
         fill: rgba(@accent, 0.5);
+      }
+    }
+
+    /* SHOUT BOX */
+
+    .shout {
+      &--active {
+        background-color: fadeout(@surface1, 0.3);
+      }
+
+      &,
+      &-form {
+        border-bottom-color: @surface0;
+      }
+      &-user a {
+        color: @text;
+      }
+      &-timestamp,
+      &-reply {
+        color: @subtext0;
+        &:hover {
+          color: @overlay2;
+        }
+      }
+      &-reply::before {
+        .mask-image(url("/static/images/icons/reply_sprite_16@2x.a145ef7db2f5.png"), @subtext0, skip, 16px 32px);
+      }
+
+      &-form {
+        border-color: none;
+      }
+      &-permalink.shout-permalink {
+        &:focus,
+        &:hover {
+          color: @overlay2;
+        }
+      }
+      .vote-button {
+        color: @overlay1;
+        &::before {
+          .mask-image(url("/static/images/icons/upvote_sprite_16@2x.5e02a31189da.png"), @overlay2, 0 0, 16px 32px);
+        }
+        &--voted {
+          color: @green;
+          &::before {
+            .mask-image(skip, green, 0 -16px, skip);
+          }
+        }
       }
     }
 
@@ -989,18 +1049,6 @@
     .resource-external-link,
     .resource-external-link:hover {
       color: @text;
-    }
-    .shout {
-      border-bottom-color: @surface0;
-    }
-    .shout-container--active {
-      background-color: fadeout(@surface1, 0.3);
-    }
-    .shout-user a {
-      color: @text;
-    }
-    .shout-form {
-      border-color: none;
     }
     .js-playlink-station.desktop-playlink.inline-section-control.stationlink {
       color: @text;
@@ -1453,17 +1501,11 @@
 
     /* ----ICONS---- */
     .lazy-buylinks-toggle::before {
-      background-image: none !important;
-      mask-image: url("/static/images/icons/download_sprite_16.2d7999c89e09.png");
-      -webkit-mask-image: url("/static/images/icons/download_sprite_16.2d7999c89e09.png");
-      background-color: @text;
+      .mask-image(url("/static/images/icons/download_sprite_16.2d7999c89e09.png"), @text);
     }
 
     .chartlist-more-button::before {
-      background-image: none !important;
-      mask-image: url("/static/images/icons/more_sprite_16.bceb4a93c77a.png");
-      -webkit-mask-image: url("/static/images/icons/more_sprite_16.bceb4a93c77a.png");
-      background-color: @text;
+      .mask-image(url("/static/images/icons/more_sprite_16.bceb4a93c77a.png"), @text);
     }
 
     .lazy-buylinks-toggle:hover::before,
@@ -1476,18 +1518,11 @@
     .chartlist-love-button,
     .header-new-love-button {
       &::before {
-        background-image: none !important;
-        mask-image: url("/static/images/icons/love_animation_tracklist_24.3c884b0287d4.png");
-        -webkit-mask-image: url("/static/images/icons/love_animation_tracklist_24.3c884b0287d4.png");
-        background-color: @text;
-        mask-position: -24px 0;
-        -webkit-mask-position: -24px 0;
+        .mask-image(url("/static/images/icons/love_animation_tracklist_24.3c884b0287d4.png"), @text, -24px 0);
       }
       &:focus::before,
       &:hover::before {
-        mask-position: -24px 0;
-        -webkit-mask-position: -24px 0;
-        background-color: @red;
+        .mask-image(skip, @red, -24px 0);
       }
     }
 
@@ -1496,26 +1531,18 @@
       &::before,
       &:focus::before,
       &:hover::before {
-        mask-position: -552px 0;
-        -webkit-mask-position: -552px 0;
+        .mask-image(skip, @red, -24px 0);
         transition: mask-position 0.7s steps(22) !important;
         -webkit-transition: -webkit-mask-position 0.7s steps(22) !important;
-        background-color: @red;
       }
     }
 
     .section-settings-toggle::before {
-      background-image: none !important;
-      mask-image: url("/static/images/icons/settings_222_16.f63779d3cbad.png");
-      -webkit-mask-image: url("/static/images/icons/settings_222_16.f63779d3cbad.png");
-      background-color: @text;
+      .mask-image(url("/static/images/icons/settings_222_16.f63779d3cbad.png"), @text);
     }
 
     .share-button-profile::before {
-      background-image: none !important;
-      mask-image: url("/static/images/icons/share_222_16.9aba752fb1e9.png");
-      -webkit-mask-image: url("/static/images/icons/share_222_16.9aba752fb1e9.png");
-      background-color: @text;
+      .mask-image(url("/static/images/icons/share_222_16.9aba752fb1e9.png"), @text);
     }
 
     .section-settings-toggle:hover::before,
@@ -1529,38 +1556,23 @@
     .lyrics-snippet-more-link ::before,
     .trending-tracks-more-link ::before,
     .more-link-fullwidth-right ::before {
-      background-image: none !important;
-      mask-image: url("/static/images/icons/arrow_small_right_005399_12.8f025ef116be.png");
-      -webkit-mask-image: url("/static/images/icons/arrow_small_right_005399_12.8f025ef116be.png");
-      background-color: @accent;
+      .mask-image(url("/static/images/icons/arrow_small_right_005399_12.8f025ef116be.png"), @accent);
     }
 
     .play-this-track-playlink--itunes::before {
-      background-image: none !important;
-      mask-image: url("/static/images/icons/apple_music_color_24.17c0b1b9e185.png");
-      -webkit-mask-image: url("/static/images/icons/apple_music_color_24.17c0b1b9e185.png");
-      background-color: @text;
+      .mask-image(url("/static/images/icons/apple_music_color_24.17c0b1b9e185.png"), @text);
     }
 
     .resource-external-link--homepage::before {
-      background-image: none !important;
-      mask-image: url("/static/images/icons/external_links_16.3d45e81fa3fc.png");
-      -webkit-mask-image: url("/static/images/icons/external_links_16.3d45e81fa3fc.png");
-      background-color: @text;
+      .mask-image(url("/static/images/icons/external_links_16.3d45e81fa3fc.png"), @text);
     }
 
     .alert-warning::before {
-      background-image: none;
-      mask-image: url("/static/images/icons/alert/warning_16.93f2fe437139.png");
-      -webkit-mask-image: url("/static/images/icons/alert/warning_16.93f2fe437139.png");
-      background-color: @peach;
+      .mask-image(url("/static/images/icons/alert/warning_16.93f2fe437139.png"), @peach);
     }
 
     .masthead-search-toggle::before {
-      background-image: none !important;
-      mask-image: url("/static/images/icons/search_16.bde37072495a.png");
-      -webkit-mask-image: url("/static/images/icons/search_16.bde37072495a.png");
-      background-color: @text;
+      .mask-image(url("/static/images/icons/search_16.bde37072495a.png"), @text);
     }
 
     .masthead-search-toggle:hover::before,
@@ -1569,10 +1581,7 @@
     }
 
     .masthead-search-toggle.disclose-active::before {
-      background-image: none !important;
-      mask-image: url("/static/images/icons/delete_999_24.78e2a3de3ab8.png");
-      -webkit-mask-image: url("/static/images/icons/delete_999_24.78e2a3de3ab8.png");
-      background-color: @text;
+      .mask-image(url("/static/images/icons/delete_999_24.78e2a3de3ab8.png"), @text);
     }
 
     .masthead-search-toggle.disclose-active:hover::before,
@@ -1581,32 +1590,15 @@
     }
 
     .masthead-logo {
-      background-image: none !important;
-      mask-image: url("/static/images/logo_static.adb61955725c.png");
-      -webkit-mask-image: url("/static/images/logo_static.adb61955725c.png");
-      mask-position: 50% 50%;
-      -webkit-mask-position: 50% 50%;
-      mask-repeat: no-repeat;
-      -webkit-mask-repeat: no-repeat;
-      background-color: @red;
+      .mask-image(url("/static/images/logo_static.adb61955725c.png"), @red, 50% 50%, skip, no-repeat);
     }
 
     .catalogue-tags .tags-add::before {
-      background-image: none;
-      mask-image: url("/static/images/icons/add_link_16.637996ed0e2f.png");
-      -webkit-mask-image: url("/static/images/icons/add_link_16.637996ed0e2f.png");
-      background-color: @accent;
+      .mask-image(url("/static/images/icons/add_link_16.637996ed0e2f.png"), @accent);
     }
 
     .masthead-logo-loading {
-      -webkit-mask-image: url("/static/images/logo_animate@2x.e93e5b7db3de.gif");
-      mask-image: url("/static/images/logo_animate@2x.e93e5b7db3de.gif");
-      -webkit-mask-size: contain;
-      mask-position: 50% 50%;
-      -webkit-mask-position: 50% 50%;
-      mask-repeat: no-repeat;
-      -webkit-mask-repeat: no-repeat;
-      background: @accent !important;
+      .mask-image(url("/static/images/logo_animate@2x.e93e5b7db3de.gif"), @red, 50% 50%, contain, no-repeat);
     }
 
     .layout-image {
