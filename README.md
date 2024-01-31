@@ -106,6 +106,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🗂️ Productivity</summary>
 
+- [Arch Wiki](styles/arch-wiki)
 - [boringproxy](styles/boringproxy)
 - [Canvas LMS](styles/canvas-lms)
 - [ChatGPT](styles/chatgpt)
