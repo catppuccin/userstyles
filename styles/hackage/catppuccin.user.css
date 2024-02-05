@@ -57,12 +57,12 @@
       color-scheme: if(@lookup = latte, light, dark);
     }
 
-    html {
+    html,
+    body {
       background-color: @base;
     }
 
     body {
-      background-color: @base;
       color: @text;
     }
 
@@ -73,7 +73,6 @@
     a[href]:link {
       color: @accent-color;
     }
-
     a[href]:visited {
       color: mix(@text, @accent-color, 75%);
     }
@@ -82,7 +81,6 @@
     a[href].def:visited {
       color: @subtext0;
     }
-
     a[href].def:hover {
       color: mix(@text, @subtext0, 40%);
     }
@@ -146,32 +144,30 @@
       background-color: inherit;
     }
 
-    #package-header #page-menu a:link,
-    #package-header #page-menu a:visited,
-    #package-header a:link,
-    #package-header a:visited {
-      color: @base;
-    }
+    #package-header {
+      &,
+      #page-menu {
+        a:link,
+        a:visited {
+          color: @base;
+        }
+      }
+      a:hover {
+        background-color: transparent;
+      }
 
-    #package-header a:hover {
-      background-color: transparent;
-    }
+      ul.links li {
+        border-color: @overlay0;
 
-    /*
-     * Header links
-     */
+        &:hover {
+          background-color: transparent;
+        }
 
-    #package-header ul.links li {
-      border-color: @overlay0;
-    }
-
-    #package-header ul.links li:hover {
-      background-color: transparent;
-    }
-
-    ul.links li form input,
-    ul.links li form button {
-      color: @base;
+        form input,
+        form button {
+          color: @base;
+        }
+      }
     }
 
     /*
@@ -180,15 +176,16 @@
 
     #style-menu {
       background-color: @mantle;
-    }
 
-    #style-menu li,
-    #style-menu li a {
-      color: @text !important;
-    }
-
-    #style-menu li + li {
-      border-color: @overlay2;
+      li {
+        &,
+        a {
+          color: @text !important;
+        }
+        & + li {
+          border-color: @overlay2;
+        }
+      }
     }
 
     /*
@@ -205,9 +202,11 @@
       color: @red;
     }
 
-    .versions a.normal[href]:link,
-    .versions a.normal[href]:visited {
-      color: @green;
+    .versions {
+      a.normal[href]:link,
+      a.normal[href]:visited {
+        color: @green;
+      }
     }
 
     /*
@@ -231,48 +230,58 @@
       border-color: @surface1;
     }
 
-    #synopsis summary {
-      color: transparent;
-    }
+    #synopsis {
+      summary {
+        color: transparent;
+      }
 
-    #synopsis ul,
-    #synopsis ul li.src {
-      background-color: @surface0;
+      ul {
+        &,
+        li.src {
+          background-color: @surface0;
+        }
+      }
     }
 
     /*
      * Tables
      */
 
-    table.info {
-      background-color: @base;
-      color: @subtext1;
-      border-color: @surface1;
+    table {
+      &.info {
+        background-color: @base;
+        color: @subtext1;
+        border-color: @surface1;
+      }
+
+      &.fancy {
+        &,
+        tr {
+          border-color: @surface1;
+        }
+        tr.even td {
+          background-color: @mantle;
+        }
+      }
+
+      &.fancy,
+      &.properties,
+      &.dataTable.compact.fancy tbody {
+        th,
+        td {
+          background-color: @base;
+        }
+      }
     }
 
-    .doc th,
-    .doc td table.fancy,
-    table.fancy tr {
-      border-color: @surface1;
-    }
-
-    .doc th,
-    table.fancy tr.even td {
-      background-color: @mantle;
-    }
-
-    table.fancy td,
-    table.properties td,
-    table.fancy th,
-    table.properties th,
-    table.dataTable.compact.fancy tbody th,
-    table.dataTable.compact.fancy tbody td {
-      background-color: @base;
-    }
-
-    table.fancy,
-    table.fancy tr {
-      border-color: @surface1;
+    .doc {
+      th,
+      td {
+        border-color: @surface1;
+      }
+      th {
+        background-color: @mantle;
+      }
     }
 
     div#table_length.dataTables_length,
@@ -280,72 +289,77 @@
       color: @text;
     }
 
-    div #description table,
-    div #description table tr td {
-      border-color: @surface1;
-    }
-
-    div #description table th {
-      background-color: @mantle;
+    div #description table {
+      &,
+      tr td {
+        border-color: @surface1;
+      }
+      th {
+        background-color: @mantle;
+      }
     }
 
     /*
      * Source links
      */
 
-    #interface .src .selflink,
-    #interface .src .link {
-      color: @overlay2;
+    #interface {
+      .src {
+        .selflink .link {
+          color: @overlay2;
+        }
+      }
+      p.src .link {
+        background-color: transparent;
+        color: @overlay2;
+        border-color: @overlay1;
+      }
+
+      span.fixity,
+      span.rightedge {
+        color: @overlay1;
+        border-left-color: @overlay1;
+      }
+      span.fixity {
+        color: @overlay1;
+      }
     }
 
-    #interface span.fixity {
-      color: @overlay1;
-      border-left-color: @overlay1;
-    }
+    /*
+     * Paginator
+     */
 
-    #interface span.rightedge {
-      border-left-color: @overlay1;
-    }
+    .paginator {
+      span {
+        color: @text;
+      }
 
-    #interface p.src .link {
-      background-color: transparent;
-      color: @overlay2;
-      border-color: @overlay1;
-    }
+      a {
+        color: @overlay1;
 
-    /* Paginator */
+        &[href]:link,
+        &:link:hover {
+          color: @accent-color;
+        }
+        &:visited,
+        &:visited:hover {
+          color: mix(@text, @accent-color, 75);
+        }
+        &:link:hover,
+        &:visited:hover {
+          background-image: none;
+          background-color: @surface1;
+          border-color: transparent;
+        }
+      }
 
-    .paginator span {
-      color: @text;
-    }
-
-    .paginator a {
-      color: @overlay1;
-    }
-
-    .paginator a[href]:link,
-    .paginator a:link:hover {
-      color: @accent-color;
-    }
-
-    .paginator a:visited,
-    .paginator a:visited:hover {
-      color: mix(@text, @accent-color, 75%);
-    }
-
-    .paginator a:link:hover,
-    .paginator a:visited:hover {
-      background-image: none;
-      background-color: @surface1;
-      border-color: transparent;
-    }
-
-    .paginator .current,
-    .paginator .current:hover {
-      background-image: none;
-      background-color: @surface0;
-      color: @accent-color;
-      border-color: transparent;
+      .current,
+      .current:hover {
+        background-image: none;
+        background-color: @surface0;
+        color: @accent-color;
+        border-color: transparent;
+      }
     }
 
     .paginate_button {
@@ -382,13 +396,13 @@
       appearance: none;
       background-color: @mantle;
       height: 0.2em !important;
-    }
 
-    input[type="range"]::-moz-range-thumb,
-    input[type="range"]::-webkit-slider-thumb {
-      background-color: @text;
-      border-color: @surface0;
-      height: 1em !important;
+      &::-moz-range-thumb,
+      &::-webkit-slider-thumb {
+        background-color: @text;
+        border-color: @surface0;
+        height: 1em !important;
+      }
     }
 
     input[type="range"]:hover,
@@ -441,7 +455,7 @@
 
     small.info,
     .flags-table .flag-disabled {
-      color: @subtext0; /* #888 */
+      color: @subtext0;
     }
 
     .text-button {
@@ -461,7 +475,6 @@
         mix(@base, @yellow, 40%) 100%
       );
     }
-
     :target:hover {
       background-image: linear-gradient(
         to bottom,
@@ -478,11 +491,6 @@
       border-color: @overlay0;
     }
 
-    /* .methods, .constructors {
-      background-color: @base; border-color: @surface0;
-    } */
-
-    /* MathJax */
     #MathJax_Message {
       background-color: @mantle;
       border-color: @surface1;
@@ -542,24 +550,28 @@
       color: @pink;
     }
 
-    pre a:link,
-    pre a:visited {
-      border-bottom-color: @surface0;
-    }
-    pre a:hover,
-    pre a.hover-highlight {
-      background-color: @surface0;
+    pre {
+      a:link,
+      a:visited {
+        border-bottom-color: @surface0;
+      }
+      a:hover,
+      a.hover-highlight {
+        background-color: @surface0;
+      }
     }
 
     span.annot {
       color: @text;
-    }
-    span.annot:hover {
-      background-color: @surface1;
-    }
-    span.annot span.annottext {
-      background-color: @surface0;
-      border-color: @accent-color;
+
+      &:hover {
+        background-color: @surface1;
+      }
+
+      span.annottext {
+        background-color: @surface0;
+        border-color: @accent-color;
+      }
     }
   }
 
