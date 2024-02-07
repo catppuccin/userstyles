@@ -149,6 +149,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Pinterest](styles/pinterest)
 - [Reddit](styles/reddit)
 - [Substack](styles/substack)
+- [Twitter](styles/twitter)
 
 </details>
 <details open>
