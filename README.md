@@ -80,6 +80,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>💭 Development tools</summary>
 
 - [Graphite](styles/graphite)
+- [Hackage](styles/hackage)
 - [Hoppscotch](styles/hoppscotch)
 - [paste.rs](styles/paste.rs)
 - [Vercel](styles/vercel)
