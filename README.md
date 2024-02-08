@@ -102,6 +102,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>💬 Messaging</summary>
 
 - [Cinny](styles/cinny)
+- [Snapchat Web](styles/snapchat-web)
 - [WhatsApp Web](styles/whatsapp-web)
 
 </details>
