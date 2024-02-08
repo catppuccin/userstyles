@@ -96,6 +96,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Perplexity](styles/perplexity)
 - [SearXNG](styles/searxng)
 - [Startpage](styles/startpage)
+- [Wikipedia](styles/wikipedia)
 
 </details>
 <details open>
