@@ -2,7 +2,7 @@
 @name YouTube Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/youtube
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/youtube
-@version 3.3.0
+@version 3.3.6
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/youtube/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ayoutube
 @description Soothing pastel theme for YouTube
@@ -221,7 +221,7 @@
       --yt-spec-general-background-b: @base !important;
       --yt-spec-general-background-c: @crust !important;
       --yt-spec-error-background: @base !important;
-      --yt-spec-10-percent-layer: @surface2 !important;
+      --yt-spec-10-percent-layer: @surface0 !important;
       --yt-spec-snackbar-background: @mantle !important;
       --yt-spec-snackbar-background-updated: @mantle !important;
       --yt-spec-badge-chip-background: if(
@@ -480,12 +480,21 @@
 
     /* menu items */
     /* checkbox subitem */
-    .ytp-menuitem[aria-checked="true"] .ytp-menuitem-toggle-checkbox {
-      @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" version="1.1"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="@{accent-color}"/></svg>'
-      );
-      background: url("data:image/svg+xml,@{svg}");
+    .ytp-menuitem-toggle-checkbox {
+      background-color: @overlay1;
+
+      &::after {
+        background-color: @subtext0;
+      }
     }
+    .ytp-menuitem[aria-checked="true"] .ytp-menuitem-toggle-checkbox {
+      background-color: @accent-color;
+
+      &::after {
+        background-color: @text;
+      }
+    }
+
     .ytp-menuitem:not([aria-disabled="true"]):hover {
       background: @surface1 !important;
     }
@@ -537,6 +546,9 @@
       background-color: @accent-color !important;
       .yt-spec-button-shape-next__icon yt-icon svg g path {
         fill: @base !important;
+      }
+      &:hover {
+        background-color: darken(@accent-color, 20%) !important;
       }
     }
 
@@ -630,6 +642,22 @@
       color: @crust !important;
     }
 
+    /* history tab header */
+    .page-header-view-model-wiz__page-header-title {
+      color: @text;
+    }
+
+    /* Video Music Names */
+    .yt-video-attribute-view-model__title {
+      color: @text;
+    }
+    .yt-video-attribute-view-model__subtitle {
+      color: @subtext0;
+    }
+    .yt-video-attribute-view-model__secondary-subtitle {
+      color: @subtext0;
+    }
+
     /* custom likes + anims */
     yt-animated-icon[animated-icon-type="LIKE"]
       > ytd-lottie-player
@@ -706,14 +734,6 @@
 
     tp-yt-paper-dialog {
       background-color: @base !important;
-    }
-
-    /* Temporary fix */
-    .yt-core-attributed-string--link-inherit-color {
-      color: @text !important;
-      /* &:hover {
-       * color: @teal !important;
-      } */
     }
 
     /* live badges */
@@ -890,18 +910,28 @@
       color: @accent-color !important;
     }
 
-    /* hopefully temporary */
+    /* hopefully temporary (buttons) */
     .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal {
       background-color: @surface0;
       color: @text;
+      &:hover {
+        background-color: @surface1;
+      }
     }
-
     .yt-spec-button-shape-next--call-to-action.yt-spec-button-shape-next--filled {
       color: @crust;
       background-color: @accent-color;
       &:hover {
         background-color: darken(@accent-color, 20);
       }
+    }
+    .yt-spec-touch-feedback-shape--touch-response
+      .yt-spec-touch-feedback-shape__stroke {
+      border-color: @surface1;
+    }
+    .yt-spec-touch-feedback-shape--touch-response-inverse
+      .yt-spec-touch-feedback-shape__stroke {
+      border-color: @accent-color;
     }
 
     ytd-guide-section-renderer.style-scope:nth-child(3) > div:nth-child(2),
@@ -968,6 +998,10 @@
     [fill="red"],
     [fill="#FF0000"] {
       fill: @accent-color;
+    }
+
+    svg > g > polygon[fill="#fff"] {
+      fill: @base !important;
     }
 
     .yt-spec-button-shape-next--call-to-action.yt-spec-button-shape-next--text {

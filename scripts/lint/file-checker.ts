@@ -31,7 +31,7 @@ export const checkForMissingFiles = async () => {
     }));
   }
 
-  // only write summary if running in github actions
+  // Only write summary if running in GitHub Actions.
   if (Deno.env.has("GITHUB_ACTIONS")) {
     await core.summary
       .addHeading("Missing files")
