@@ -82,6 +82,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Graphite](styles/graphite)
 - [Hackage](styles/hackage)
 - [Hoppscotch](styles/hoppscotch)
+- [Next.js](styles/nextjs)
 - [paste.rs](styles/paste.rs)
 - [Vercel](styles/vercel)
 
