@@ -2,7 +2,7 @@
 @name ChatGPT Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/chatgpt
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/chatgpt
-@version 0.1.0
+@version 0.2.0
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/chatgpt/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Achatgpt
 @description Soothing pastel theme for ChatGPT
@@ -17,14 +17,11 @@
 @-moz-document domain("chat.openai.com") {
   @import url("https://unpkg.com/@catppuccin/highlightjs@0.1.2/css/catppuccin.variables.css");
 
-  .light body,
-  .light html {
+  :root.light {
     #catppuccin(@lightFlavor, @accentColor);
   }
 
-  :root,
-  .dark body,
-  .dark html {
+  :root.dark {
     #catppuccin(@darkFlavor, @accentColor);
   }
 
@@ -34,11 +31,6 @@
     @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
     @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
     @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-  }
-
-  @color: white;
-  #rgbify(@color) {
-    @rgb-raw: red(@color), green(@color), blue(@color);
   }
 
   #catppuccin(@lookup, @accent) {
@@ -70,6 +62,11 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
+    /* Syntax highlighting */
+    @color: white;
+    #rgbify(@color) {
+      @rgb-raw: red(@color), green(@color), blue(@color);
+    }
     --ctp-rosewater: #rgbify(@rosewater) [];
     --ctp-flamingo: #rgbify(@flamingo) [];
     --ctp-pink: #rgbify(@pink) [];
@@ -96,472 +93,766 @@
     --ctp-base: #rgbify(@crust) [];
     --ctp-mantle: #rgbify(@mantle) [];
     --ctp-crust: #rgbify(@crust) [];
-
-    --text-primary: @text;
-    --text-secondary: @subtext0;
-    --text-tertiary: @subtext1;
-    --surface-primary: @mantle;
-    --surface-secondary: @base;
-    --surface-tertiary: @surface0;
-    --border-light: fade(@overlay2, 10%);
-    --border-medium: fade(@overlay2, 15%);
-    --border-heavy: fade(@overlay2, 20%);
-    --border-xheavy: fade(@overlay2, 25%);
-
-    background: @base !important;
-    color: @text;
-
-    /* Main page */
-    div[class*="bg-gray-"]:not(
-        [class*="bg-gray-900"],
-        [class*="bg-gray-700"],
-        .bg-black .bg-gray-800,
-        [class*="bg-gray-600/70"], /* Modal background */
-        [id^="headlessui-menu-items-"], /* Help menu */
-        [class*=":radix-highlighted:hover:bg-[#2E2F33]"] /* Settings > Theme selector drop down */
-      ),
-    div[class*="bg-vert-dark-gradient"] {
-      background: @base !important;
+    code.hljs {
+      background: none;
     }
 
-    /* ToS violating message. Don't ask how this was tested. */
-    .text-orange-500 {
-      color: @peach;
+    @white: if(@lookup=latte, @base, @text);
+    @black: if(@lookup=latte, @text, @base);
+    --white: @white;
+    --black: @black;
 
-      .bg-orange-500\/10.border-orange-500 {
-        background-color: fade(@peach, 10%);
-        border-color: @peach;
-      }
+    & when not (@lookup = latte) {
+      --gray-50: lighten(mix(@text, @subtext0), 5%);
+      --gray-100: @text;
+      --gray-200: @subtext1;
+      --gray-300: @subtext0;
+      --gray-400: @overlay2;
+      --gray-500: @overlay1;
+      --gray-600: @overlay0;
+      --gray-700: @surface2;
+      --gray-800: @surface1;
+      --gray-850: @surface0;
+      --gray-900: @mantle;
+      --gray-950: @crust;
+      --brand-purple: @accent-color;
+    }
+    & when (@lookup = latte) {
+      --gray-50: @crust;
+      --gray-100: @mantle;
+      --gray-200: @surface0;
+      --gray-300: @surface1;
+      --gray-400: @surface2;
+      --gray-500: @overlay0;
+      --gray-600: @overlay1;
+      --gray-700: @overlay2;
+      --gray-800: @subtext0;
+      --gray-850: @subtext1;
+      --gray-900: @black;
+      --gray-950: @black;
+      --brand-purple: @accent-color;
     }
 
-    /* Chatbox */
-    [class*=":shadow-[0_0_0_2px_"] {
-      --tw-shadow: 0 0 0 2px @overlay0 !important;
-      ::placeholder {
-        color: @overlay0 !important;
-      }
-    }
+    --border-light: @overlay0;
+    --border-medium: @surface2;
+    --border-heavy: @surface1;
+    --border-xheavy: @surface0;
+    --link: @accent-color;
+    --link-hover: if(
+      @lookup=latte,
+      lighten(@accent-color, 10%),
+      darken(@accent-color, 10%)
+    );
 
-    /* Go to end arrow */
-    [class*=":bg-white/10"] {
-      background-color: @surface0;
-      border-color: @overlay0;
-    }
-
-    /* Message suggestions */
-    [class*=":from-gray-700"] {
-      --tw-gradient-from: if(@lookup = latte, @crust, @surface2)
-        var(--tw-gradient-from-position);
-      --tw-gradient-to: transparent var(--tw-gradient-to-position);
-    }
-
-    /* Help Menu */
-    [id^="headlessui-menu-items-"] {
-      background-color: @mantle !important;
-      [id^="headlessui-menu-item-"]:hover {
-        background-color: @surface0 !important;
-      }
-    }
-
-    /* Modal Background */
-    [class*="bg-gray-600/70"] {
-      background: fade(@base, 70%) !important;
-    }
-
-    /* Sidebar */
-    [class*="bg-gray-900"]:not(.\!bg-transparent) {
-      /* Also, Shared Links */
-      background-color: @mantle !important;
-    }
-
-    div {
-      --text-primary: @text;
-      --text-secondary: @subtext0;
-      --text-tertiary: @subtext1;
-      --surface-primary: @surface0;
-      --surface-secondary: @surface1;
-      --surface-tertiary: @surface2;
-      --border-light: fade(@overlay2, 10%);
-      --border-medium: fade(@overlay2, 15%);
-      --border-heavy: fade(@overlay2, 20%);
-      --border-xheavy: fade(@overlay2, 25%);
-    }
-
-    nav {
-      .sticky.bg-black, /* New Chat */
-      h3[class*=":bg-black"] /* Today, Yesterday */ {
-        background-color: transparent !important;
-      }
-
-      .text-gizmo-gray-600 {
-        color: @subtext0;
-      }
-
-      /* TODO: is it used? */
-      .bg-gray-900 .bg-gray-800 {
-        background-color: @surface0 !important;
-      }
-
-      /* Conversation */
-      .group {
-        /* Rename */
-        a[href^="/c/"] ~ .absolute {
-          input {
-            border-color: @accent-color;
-            --tw-ring-color: @accent-color;
-          }
-        }
-        /* Gradient */
-        .from-token-surface-secondary {
-          --tw-gradient-from: @surface1 var(--tw-gradient-from-position) !important;
-        }
-        a[href^="/c/"] .bg-gradient-to-l {
-          --tw-gradient-from: @crust var(--tw-gradient-from-position);
-        }
-        &:hover a[href^="/c/"] .bg-gradient-to-l {
-          --tw-gradient-from: var(--surface-primary)
-            var(--tw-gradient-from-position);
-        }
-      }
-
-      /* TODO: is it used? */
-      /* Upgrade Plan */
-      .shim-yellow {
-        display: none;
-      }
-    }
-
-    [class*=":hover:bg-white/5"][class*="hover:bg-black/5"] {
-      /* ... Menu */
-      background-color: var(--surface-primary) !important;
-      &:hover {
-        background-color: var(--surface-tertiary) !important;
-      }
-    }
-
-    /* Search */
-    div[class*="bg-gray-700"] {
-      background-color: if(@lookup = latte, @base, @surface0) !important;
-    }
-
-    [class*="text-gray-"]:not(.text-gray-500),
-    [class*="text-white"]:not(.btn-primary .text-white, .bg-green-600) {
-      color: @text !important;
-    }
-
-    .text-gray-500 {
-      color: @subtext0;
-    }
-
-    div[class*="border-gray"],
-    div[class*="border-white"] {
-      border-color: @overlay0 !important;
-    }
-
-    input,
-    textarea {
-      color: @text;
-      &::placeholder {
-        color: @overlay0;
-      }
-    }
-
-    [class*="bg-white/5"] {
-      background-color: @surface0 !important;
-    }
-
-    /* Bot messages */
     .prose {
-      --tw-prose-body: @text !important;
-      --tw-prose-bold: @text !important;
-      --tw-prose-code: @text !important;
-      --tw-prose-links: @text !important;
-      --tw-prose-headings: @overlay1 !important;
+      --tw-prose-quote-borders: #e5e7eb;
+      --tw-prose-pre-code: #e5e7eb;
+      --tw-prose-pre-bg: #1f2937;
+      --tw-prose-th-borders: #d1d5db;
+      --tw-prose-td-borders: #e5e7eb;
+      --tw-prose-invert-quote-borders: #374151;
+      --tw-prose-invert-pre-code: #d1d5db;
+      --tw-prose-invert-pre-bg: rgba(0, 0, 0, 0.5);
+      --tw-prose-invert-th-borders: #4b5563;
+      --tw-prose-invert-td-borders: #374151;
     }
 
-    .bg-black,
-    [class*=":bg-black"] {
-      background-color: @crust !important;
+    *:focus {
+      --tw-ring-offset-color: @base;
+      --tw-ring-color: @accent-color;
     }
 
-    .bg-black .bg-gray-800 {
-      background-color: @surface0 !important;
+    /* Input */
+
+    input::placeholder,
+    textarea::placeholder {
+      color: @overlay2 !important;
     }
 
-    code.hljs,
-    code[class*="language-"],
-    pre[class*="language-"] {
-      color: @text !important;
+    select {
+      @svg: escape(
+        "<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'><path stroke='@{overlay2}' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/></svg>"
+      );
+      background-image: url("data:image/svg+xml;@{svg}");
     }
 
-    .markdown {
-      [type="checkbox"]:checked {
-        background-color: @accent-color;
-        @svg: escape(
-          '<svg viewBox="0 0 16 16" fill="@{base}" xmlns="http://www.w3.org/2000/svg"><path d="M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0z"/></svg>'
-        );
-        background-image: ~"url('data:image/svg+xml;charset=utf-8,@{svg}')";
-      }
+    [multiple],
+    [type="date"],
+    [type="datetime-local"],
+    [type="email"],
+    [type="month"],
+    [type="number"],
+    [type="password"],
+    [type="search"],
+    [type="tel"],
+    [type="text"],
+    [type="time"],
+    [type="url"],
+    [type="week"],
+    select,
+    textarea {
+      background-color: @base;
+      border-color: @overlay2;
+    }
 
-      a {
-        color: @accent-color;
-        &:hover {
-          color: lighten(@accent-color, 5%);
-          text-decoration-line: underline;
-        }
-      }
+    [type="checkbox"],
+    [type="radio"] {
+      background-color: @base;
+      border-color: @overlay2;
+      color: @accent-color;
+    }
 
-      th {
-        background: @mantle;
-        color: @text;
-      }
+    .form-input,
+    .form-multiselect,
+    .form-select,
+    .form-textarea {
+      background-color: @base;
+      border-color: @overlay2;
+    }
+
+    .form-input:focus,
+    .form-multiselect:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: @accent-color;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: @overlay2;
     }
 
     /* Buttons */
-    .btn-neutral,
-    .btn-dark {
-      background-color: if(@lookup = latte, @base, @surface1) !important;
-      color: @text !important;
-      border-color: @overlay0;
-      &:hover {
-        background-color: if(@lookup = latte, @crust, @surface2) !important;
-      }
-    }
 
     .btn-primary {
-      background-color: @accent-color !important;
-      color: @crust !important;
+      background-color: @green;
+      color: @base;
     }
 
-    .btn-primary .text-white {
-      color: @crust !important;
+    .btn-primary:hover {
+      background-color: darken(@green, 10%);
+    }
+
+    .btn-primary.focus-visible {
+      --tw-ring-color: lighten(@green, 10%) !important;
+    }
+
+    .btn-primary:focus-visible {
+      --tw-ring-color: lighten(@green, 10%) !important;
     }
 
     .btn-danger {
-      background-color: @red !important;
-      color: @crust !important;
+      background-color: @red;
+      color: @base;
+    }
+
+    .btn-danger:hover {
+      background-color: darken(@red, 10%);
+    }
+
+    .btn-danger.focus-visible {
+      --tw-ring-color: lighten(@red, 10%) !important;
+    }
+
+    .btn-danger:focus-visible {
+      --tw-ring-color: lighten(@red, 10%) !important;
+    }
+
+    .btn-danger:disabled:hover {
+      background-color: @red;
+    }
+
+    .btn-danger-outline {
+      border-color: @red;
+      color: @red;
+    }
+
+    .btn-danger-outline.focus-visible {
+      --tw-ring-color: lighten(@red, 10%) !important;
+    }
+
+    .btn-danger-outline:focus-visible {
+      --tw-ring-color: lighten(@red, 10%) !important;
+    }
+
+    .btn-neutral {
+      background-color: @base;
+      border-color: @surface0;
+      color: @text;
+    }
+
+    .btn-neutral.focus-visible {
+      --tw-ring-color: @overlay0 !important;
+    }
+
+    .btn-neutral:focus-visible {
+      --tw-ring-color: @overlay0 !important;
+    }
+
+    .btn-dark {
+      background-color: @crust;
+      border-color: @overlay0;
+      color: @base;
+    }
+
+    .btn-dark:hover {
+      background-color: @surface1;
+    }
+
+    .btn-light {
+      background-color: @text;
+      color: @black;
+    }
+
+    .btn-light:hover {
+      background-color: @base;
     }
 
     .btn-disabled,
     .btn-disabled:hover {
+      background-color: @text;
+    }
+
+    /* Borders */
+
+    .border-black,
+    .border-black\/10,
+    .border-black\/20,
+    .border-black\/30,
+    .border-black\/5 {
+      border-color: var(--border-light);
+    }
+
+    .border-gray-100 {
+      border-color: @text;
+    }
+
+    .border-gray-200 {
+      border-color: rgba(227, 227, 227, 1);
+    }
+
+    .border-gray-300 {
+      border-color: rgba(205, 205, 205, 1);
+    }
+
+    .border-gray-400 {
+      border-color: rgba(180, 180, 180, 1);
+    }
+
+    .border-gray-500 {
+      border-color: rgba(155, 155, 155, 1);
+    }
+
+    .border-gray-700 {
+      border-color: rgba(78, 78, 78, 1);
+    }
+
+    .border-gray-950 {
+      border-color: rgba(13, 13, 13, 1);
+    }
+
+    .border-green-500 {
+      border-color: lighten(@green, 10%);
+    }
+
+    .border-green-600 {
+      border-color: @green;
+    }
+
+    .border-orange-400 {
+      border-color: lighten(mix(@red, @yellow), 10%);
+    }
+
+    .border-orange-500 {
+      border-color: mix(@red, @yellow);
+    }
+
+    .border-red-500 {
+      border-color: darken(@red, 10%);
+    }
+
+    .border-white {
+      border-color: @base;
+    }
+
+    .border-white\/20 {
+      border-color: fade(@base, 20%);
+    }
+
+    .border-t-[\#0077FF] {
+      border-top-color: @blue;
+    }
+
+    /* Backgrounds */
+
+    .\!bg-brand-purple {
+      background-color: @accent-color !important;
+    }
+
+    .\!bg-gray-200 {
+      background-color: @subtext1 !important;
+    }
+
+    .bg-[\#0077FF] {
+      background-color: @blue;
+    }
+
+    .bg-[\#10A37F] {
+      background-color: @green;
+    }
+
+    .bg-[\#3C46FF] {
+      background-color: @blue;
+    }
+
+    .bg-[\#4046EC] {
+      background-color: @blue;
+    }
+
+    .bg-[\#B161FD] {
+      background-color: @accent-color;
+    }
+
+    .bg-[\#F8CA27] {
+      background-color: @yellow;
+    }
+
+    .bg-[\#FF5588] {
+      background-color: mix(@red, @pink);
+    }
+
+    .bg-[\#FF6E3C] {
+      background-color: saturate(mix(@red, @yellow), 10%);
+    }
+    .dark\:radix-highlighted\:bg-\[\#2E2F33\][data-highlighted] {
       background-color: @surface0;
-      color: @text;
     }
 
-    /* TODO: is it used? */
-    .text-2xl {
-      color: @text !important;
+    .bg-black {
+      background-color: @black;
     }
 
-    /* TODO: is it used? */
-    .dark [class*="bg-yellow-"] {
-      color: @crust !important;
+    .bg-black\/20 {
+      background-color: fade(@black, 20%);
     }
 
-    /* TODO: is it used? */
-    .light [class*="bg-yellow-"] {
-      color: @text !important;
+    .bg-black\/5 {
+      background-color: fade(@black, 5%);
     }
 
-    /* TODO: is it used? */
-    [class*="text-green"] {
-      color: @accent-color !important;
+    .bg-black\/50 {
+      background-color: fade(@black, 50%);
     }
 
-    .dark .dark\:hover\:bg-\[\#2A2B32\]:hover {
+    .bg-black\/90 {
+      background-color: fade(@black, 90%);
+    }
+
+    .bg-black\/\[\.04\] {
+      background-color: fade(@black, 4%);
+    }
+
+    .bg-black\/\[\.08\] {
+      background-color: fade(@black, 8%);
+    }
+
+    .bg-black\/\[\.12\] {
+      background-color: fade(@black, 12%);
+    }
+
+    .bg-blue-100 {
+      background-color: lighten(@blue, 30%);
+    }
+
+    .bg-blue-200 {
+      background-color: lighten(@blue, 20%);
+    }
+
+    .bg-blue-300 {
+      background-color: lighten(@blue, 10%);
+    }
+
+    .bg-blue-400 {
+      background-color: @blue;
+    }
+
+    .bg-blue-500 {
+      background-color: darken(@blue, 5%);
+    }
+
+    .bg-blue-700 {
+      background-color: darken(@blue, 10%);
+    }
+
+    .bg-brand-blue-800 {
+      background-color: darken(@blue, 20%);
+    }
+
+    .bg-blue-950 {
+      background-color: darken(@blue, 30%);
+    }
+
+    .bg-brand-green {
+      background-color: lighten(@green, 10%);
+    }
+
+    .bg-brand-green\/20 {
+      background-color: fade(lighten(@green, 10%), 20%);
+    }
+
+    .bg-brand-green\/40 {
+      background-color: fade(lighten(@green, 10%), 40%);
+    }
+
+    .bg-brand-purple {
+      background-color: @accent-color;
+    }
+
+    .bg-gray-100 {
+      background-color: @text;
+    }
+
+    .bg-gray-200 {
+      background-color: lighten(@subtext1, 10%);
+    }
+
+    .bg-gray-300 {
+      background-color: @subtext1;
+    }
+
+    .bg-gray-400 {
+      background-color: @subtext0;
+    }
+
+    .bg-gray-50 {
+      background-color: @text;
+    }
+
+    .bg-gray-500 {
+      background-color: @overlay2;
+    }
+
+    .bg-gray-600 {
+      background-color: @overlay0;
+    }
+
+    .bg-gray-700 {
       background-color: @surface0;
     }
 
-    [class*=":bg-gray-800"]:not(
-        [class*="hover:bg-gray-800"],
-        [class*="group-ui-open:bg-gray-800"]
-      ) {
-      background-color: @surface0;
+    .bg-gray-900 {
+      background-color: @base;
     }
 
-    [class*=":hover:bg-gray-800"]:hover {
-      background-color: @surface1;
+    .bg-gray-950 {
+      background-color: @base;
     }
 
-    .radix-state-active\:bg-gray-800[data-state="active"] {
-      background-color: @surface0;
+    .bg-green-100 {
+      background-color: lighten(@green, 30%);
     }
 
-    /* Settings > Theme selector drop down */
-    [class*=":hover:bg-[#494A54]"].bg-white {
-      background-color: @mantle;
-      &:hover {
-        background-color: @surface0;
-      }
+    .bg-green-200 {
+      background-color: lighten(@green, 20%);
     }
 
-    [class*=":focus-visible:border-green-500"]:focus-visible {
-      border-color: @accent-color;
+    .bg-green-500 {
+      background-color: lighten(@green, 10%);
     }
 
-    [class*=":radix-highlighted:hover:bg-[#2E2F33]"]:hover {
-      background-color: @surface0 !important;
+    .bg-green-500\/10 {
+      background-color: fade(lighten(@green, 10%), 10%);
     }
 
-    /* Shared Links */
-    a[href^="/share/"][class*="text-blue-400"] {
+    .bg-green-600 {
+      background-color: @green;
+    }
+
+    .bg-orange-500 {
+      background-color: mix(@yellow, @red);
+    }
+
+    .bg-orange-500\/10 {
+      background-color: fade(mix(@yellow, @red), 10%);
+    }
+
+    .bg-red-100 {
+      background-color: lighten(@red, 30%);
+    }
+
+    .bg-red-200 {
+      background-color: lighten(@red, 20%);
+    }
+
+    .bg-red-500 {
+      background-color: @red;
+    }
+
+    .bg-red-500\/10 {
+      background-color: fade(@red, 10%);
+    }
+
+    .bg-red-600 {
+      background-color: lighten(@red, 10%);
+    }
+
+    .bg-white {
+      background-color: @white;
+    }
+
+    .bg-white\/20 {
+      background-color: fade(@white, 20%);
+    }
+
+    .bg-white\/25 {
+      background-color: fade(@white, 25%);
+    }
+
+    .bg-yellow-100 {
+      background-color: lighten(@yellow, 20%);
+    }
+
+    .bg-yellow-200 {
+      background-color: lighten(@yellow, 10%);
+    }
+
+    .bg-yellow-400 {
+      background-color: @yellow;
+    }
+
+    .bg-yellow-500 {
+      background-color: darken(@yellow, 10%);
+    }
+
+    .radix-state-checked\:bg-green-600[data-state="checked"] {
+      background-color: darken(@green, 10%);
+    }
+
+    .hover\:bg-blue-700:hover {
+      background-color: darken(@blue, 25%);
+    }
+
+    [class*="bg-transparent"] {
+      background-color: transparent;
+    }
+
+    /* Gradients */
+
+    .from-gray-900\/0 {
+      --tw-gradient-from: hsla(0, 0%, 9%, 0) var(--tw-gradient-from-position);
+      --tw-gradient-to: hsla(0, 0%, 9%, 0) var(--tw-gradient-to-position);
+    }
+
+    .from-token-main-surface-secondary {
+      --tw-gradient-to: hsla(0, 0%, 100%, 0) var(--tw-gradient-to-position);
+    }
+
+    .from-token-sidebar-surface-primary {
+      --tw-gradient-to: hsla(0, 0%, 100%, 0) var(--tw-gradient-to-position);
+    }
+
+    .from-token-sidebar-surface-secondary {
+      --tw-gradient-to: hsla(0, 0%, 100%, 0) var(--tw-gradient-to-position);
+    }
+
+    .from-white {
+      --tw-gradient-from: #fff var(--tw-gradient-from-position);
+      --tw-gradient-to: hsla(0, 0%, 100%, 0) var(--tw-gradient-to-position);
+    }
+
+    .to-gray-900 {
+      --tw-gradient-to: #171717 var(--tw-gradient-to-position);
+    }
+
+    /* Fill/stroke */
+
+    .fill-yellow-500 {
+      fill: @yellow;
+    }
+
+    .stroke-black {
+      stroke: @black;
+    }
+
+    .stroke-brand-purple\/25 {
+      stroke: fade(@accent-color, 25%);
+    }
+
+    .stroke-gray-400 {
+      stroke: @subtext0;
+    }
+
+    /* Text */
+
+    .\!text-black {
+      color: @black !important;
+    }
+
+    .text-\[\#FE7600\] {
+      color: mix(@yellow, @red);
+    }
+
+    .text-\[\#fff\] {
+      color: @base;
+    }
+
+    .text-black {
+      color: @black;
+    }
+
+    .text-black\/60 {
+      color: fade(@black, 60%);
+    }
+
+    .text-black\/70 {
+      color: fade(@black, 70%);
+    }
+
+    .text-blue-500 {
+      color: lighten(@blue, 10%);
+    }
+
+    .text-blue-600 {
+      color: @blue;
+    }
+
+    .text-brand-blue-800 {
+      color: @blue;
+    }
+
+    .text-brand-purple {
       color: @accent-color;
     }
 
-    [class*=":border-white/10"] {
-      border-color: fade(@overlay0, 10%);
+    .text-gray-100 {
+      color: @text;
+    }
+
+    .text-gray-300 {
+      color: rgba(205, 205, 205, 1);
+    }
+
+    .text-gray-400 {
+      color: rgba(180, 180, 180, 1);
+    }
+
+    .text-gray-500 {
+      color: rgba(155, 155, 155, 1);
+    }
+
+    .text-gray-600 {
+      color: @overlay0;
+    }
+
+    .text-gray-700 {
+      color: rgba(78, 78, 78, 1);
+    }
+
+    .text-gray-800 {
+      color: rgba(38, 38, 38, 1);
+    }
+
+    .text-gray-900 {
+      color: rgba(23, 23, 23, 1);
+    }
+
+    .text-green-500 {
+      color: lighten(@green, 10%);
+    }
+
+    .text-green-600 {
+      color: @green;
+    }
+
+    .text-green-700 {
+      color: darken(@green, 10%);
+    }
+
+    .text-green-800 {
+      color: darken(@green, 20%);
+    }
+
+    .text-green-900 {
+      color: darken(@green, 30%);
+    }
+
+    .text-orange-300 {
+      color: lighten(mix(@yellow, @red), 15%);
+    }
+
+    .text-orange-400 {
+      color: lighten(mix(@yellow, @red), 10%);
+    }
+
+    .text-orange-500 {
+      color: mix(@yellow, @red);
     }
 
     .text-red-500 {
       color: @red;
     }
 
-    /* Custom Instructions */
-    .border-gray-100 {
-      border-color: @overlay0;
+    .text-red-600 {
+      color: lighten(@red, 10%);
     }
 
-    .focus\:border-brand-green:focus {
-      border-color: @accent-color;
+    .text-red-700 {
+      color: @red;
     }
 
-    /* Toggle button */
-    .radix-state-checked\:bg-green-600 {
-      &[data-state="checked"] {
-        background-color: @accent-color;
-        & > span {
-          background-color: @surface0;
-        }
-      }
-      &[data-state="unchecked"] {
-        background-color: @surface0;
-        & > span {
-          background-color: @text;
-        }
-      }
+    .text-red-800 {
+      color: darken(@red, 10%);
     }
 
-    /* ChatGPT Icon
-      (Needs `layout.css.has-selector.enabled`. If it's disabled, no changes are made)
-    */
-    div:has(> [role="img"]) {
-      background-color: @accent-color !important;
-      & > [role="img"] {
-        color: @base;
-      }
+    .dark\:text-white,
+    .text-white {
+      color: @white;
     }
 
-    /* SVG chat avatars (ChatGPT, and Anonymous)
-      (Needs `layout.css.has-selector.enabled`. If it's disabled, no changes are made)
-    */
-    div:has(> svg.icon-sm:only-child) {
-      background-color: @accent-color !important;
-      & > svg {
-        color: @base;
-      }
+    .text-white\/25 {
+      color: fade(@white, 25%);
     }
 
-    /* Send button */
-    [data-testid="send-button"][class*="bg-gray-900"] {
-      background-color: @base !important;
-      border-color: @overlay0;
-      svg[class*="text-white"] {
-        color: @accent-color !important;
-      }
+    .text-white\/50 {
+      color: fade(@white, 50%);
     }
 
-    /* Notification Popup (Copied to clipboard) */
-    .bg-green-600.text-white.border-green-600 {
-      background-color: @accent-color;
-      color: @base !important;
-      border-color: @overlay0;
+    .text-white\/80 {
+      color: fade(@white, 80%);
     }
 
-    /* Share page > "Upgrade to Plus" button */
-    a[href="/gpts/discovery"].bg-green-600.text-white {
-      background-color: @accent-color;
-      color: @base !important;
+    .text-yellow-500 {
+      color: @yellow;
     }
 
-    /* Login Page > buttons */
-    .bg-\[\#3C46FF\] {
-      background-color: @accent-color;
-      color: @base;
+    .text-yellow-700 {
+      color: darken(@yellow, 10%);
     }
 
-    .hover\:bg-\[\#0000FF\]:hover {
-      background-color: lighten(@accent-color, 5%);
+    .text-yellow-800 {
+      color: darken(@yellow, 20%);
     }
-  }
-}
 
-/* Sign-in page */
-@-moz-document domain("auth0.openai.com") {
-  :root {
-    #catppuccin(@lightFlavor, @accentColor);
-  }
-
-  /* prettier-ignore */
-  @catppuccin: {
-    @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-    @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-    @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-    @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-  }
-
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
-
-    --primary-color: @accent-color;
-    --primary-color-no-override: @accent-color;
-    --action-primary-color: @accent-color;
-    --link-color: @accent-color;
-    --page-background-color: @base;
-    --info-color: @blue;
-    --success-color: @green;
-    --error-color: @red;
-    --error-text-color: @text;
-    --warning-color: @yellow;
-    --button-font-color: @text;
-    --widget-background-color: @base;
-    --presentational-content-color: @overlay2;
-    --gray-lightest: @base;
-    --gray-light: @crust;
-    --gray-mid: @surface0;
-    --gray-dark: @overlay2;
-    --gray-darkest: @text;
-
-    .c4ca43590 {
-      background-color: @accent-color;
+    .text-yellow-900 {
+      color: darken(@yellow, 30%);
     }
-    .oai-header svg {
-      fill: @text;
+
+    /* Other */
+
+    .ring-black {
+      --tw-ring-color: @black;
+    }
+
+    .ring-black\/10 {
+      --tw-ring-color: fade(@black, 10%);
+    }
+
+    .ring-white {
+      --tw-ring-color: @base;
+    }
+
+    .ring-offset-black {
+      --tw-ring-offset-color: @base;
     }
   }
 }
