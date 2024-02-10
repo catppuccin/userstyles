@@ -96,6 +96,17 @@
     code.hljs {
       background: none;
     }
+    pre {
+      .bg-token-main-surface-secondary {
+        background-color: @surface0;
+      }
+      .bg-gray-950 {
+        background-color: @crust;
+      }
+      .text-token-text-secondary {
+        color: @subtext0;
+      }
+    }
 
     @white: if(@lookup=latte, @base, @text);
     @black: if(@lookup=latte, @text, @base);
@@ -128,8 +139,8 @@
       --gray-700: @overlay2;
       --gray-800: @subtext0;
       --gray-850: @subtext1;
-      --gray-900: @black;
-      --gray-950: @black;
+      --gray-900: @text;
+      --gray-950: darken(mix(@text, @subtext0), 5%);
       --brand-purple: @accent-color;
     }
 
@@ -545,7 +556,7 @@
     }
 
     .bg-gray-950 {
-      background-color: @base;
+      background-color: var(--gray-950);
     }
 
     .bg-green-100 {
@@ -634,6 +645,16 @@
 
     [class*="bg-transparent"] {
       background-color: transparent;
+    }
+
+    /* DARK OVERRIDES */
+
+    .dark\:bg-black {
+      background-color: @black;
+    }
+
+    .dark\:bg-white {
+      background-color: @white;
     }
 
     /* Gradients */
@@ -804,7 +825,6 @@
       color: darken(@red, 10%);
     }
 
-    .dark\:text-white,
     .text-white {
       color: @white;
     }
@@ -837,6 +857,20 @@
       color: darken(@yellow, 30%);
     }
 
+    /* DARK OVERRIDES */
+
+    .dark\:text-white {
+      color: @white;
+    }
+
+    .dark\:text-black {
+      color: @black;
+    }
+
+    .dark\:text-\[\#D292FF\] {
+      color: @mauve;
+    }
+
     /* Other */
 
     .ring-black {
@@ -853,6 +887,120 @@
 
     .ring-offset-black {
       --tw-ring-offset-color: @base;
+    }
+
+    [style="background-color: rgb(0, 0, 46);"] {
+      background-color: @crust !important;
+    }
+  }
+}
+
+/* Sign-in page */
+@-moz-document domain("auth0.openai.com") {
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+
+  /* prettier-ignore */
+  @catppuccin: {
+    @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+    @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+    @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+    @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    --primary-color: @accent-color;
+    --primary-color-no-override: @accent-color;
+    --action-primary-color: @accent-color;
+    --link-color: @accent-color;
+    --page-background-color: @base;
+    --info-color: @blue;
+    --success-color: @green;
+    --error-color: @red;
+    --error-text-color: @text;
+    --warning-color: @yellow;
+    --button-font-color: @text;
+    --widget-background-color: @base;
+    --presentational-content-color: @overlay2;
+    --gray-lightest: @base;
+    --gray-light: @crust;
+    --gray-mid: @surface0;
+    --gray-dark: @overlay2;
+    --gray-darkest: @text;
+
+    .c4ca43590 {
+      background-color: @accent-color;
+      color: @base;
+    }
+
+    .password-icon-tooltip {
+      background-color: @text;
+
+      &::before {
+        border-top-color: @text;
+      }
+    }
+
+    .oai-header svg {
+      fill: @text;
+    }
+
+    @orange: mix(@red, @yellow);
+
+    .c7e427425[data-provider^="google"] {
+      @svg: escape(
+        "<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 48 48'><defs><path id='a' d='M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z'/></defs><clipPath id='b'><use xlink:href='#a' overflow='visible'/></clipPath><path clip-path='url(#b)' fill='@{orange}' d='M0 37V11l17 13z'/><path clip-path='url(#b)' fill='@{red}' d='M0 11l17 13 7-6.1L48 14V0H0z'/><path clip-path='url(#b)' fill='@{green}' d='M0 37l30-23 7.9 1L48 0v48H0z'/><path clip-path='url(#b)' fill='@{blue}' d='M48 48L17 24l-4-3 35-10z'/></svg>"
+      );
+      background-image: url("data:image/svg+xml;charset=utf-8,@{svg}");
+    }
+    .c7e427425[data-provider^="windowslive"] {
+      @svg: escape(
+        "<svg xmlns='http://www.w3.org/2000/svg' width='21' height='21'><path fill='@{orange}' d='M1 1h9v9H1z'/><path fill='@{sapphire}' d='M1 11h9v9H1z'/><path fill='@{green}' d='M11 1h9v9h-9z'/><path fill='@{yellow}' d='M11 11h9v9h-9z'/></svg>"
+      );
+      background-image: url("data:image/svg+xml;charset=utf-8,@{svg}");
+    }
+    .c7e427425[data-provider^="apple"] {
+      @svg: escape(
+        "<svg width='170' xmlns='http://www.w3.org/2000/svg' height='170'><path fill='@{text}' d='M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.197-2.12-9.973-3.17-14.34-3.17-4.58 0-9.492 1.05-14.746 3.17-5.262 2.13-9.501 3.24-12.742 3.35-4.929.21-9.842-1.96-14.746-6.52-3.13-2.73-7.045-7.41-11.735-14.04-5.032-7.08-9.169-15.29-12.41-24.65-3.471-10.11-5.211-19.9-5.211-29.378 0-10.857 2.346-20.221 7.045-28.068 3.693-6.303 8.606-11.275 14.755-14.925s12.793-5.51 19.948-5.629c3.915 0 9.049 1.211 15.429 3.591 6.362 2.388 10.447 3.599 12.238 3.599 1.339 0 5.877-1.416 13.57-4.239 7.275-2.618 13.415-3.702 18.445-3.275 13.63 1.1 23.87 6.473 30.68 16.153-12.19 7.386-18.22 17.731-18.1 31.002.11 10.337 3.86 18.939 11.23 25.769 3.34 3.17 7.07 5.62 11.22 7.36-.9 2.61-1.85 5.11-2.86 7.51zM119.11 7.24c0 8.102-2.96 15.667-8.86 22.669-7.12 8.324-15.732 13.134-25.071 12.375a25.222 25.222 0 0 1-.188-3.07c0-7.778 3.386-16.102 9.399-22.908 3.002-3.446 6.82-6.311 11.45-8.597 4.62-2.252 8.99-3.497 13.1-3.71.12 1.083.17 2.166.17 3.24z'/></svg>"
+      );
+      background-image: url("data:image/svg+xml;charset=utf-8,@{svg}");
     }
   }
 }
