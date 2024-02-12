@@ -50,14 +50,10 @@
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
-    & when (@lookup = latte) {
-      --contrast-accent-color: @catppuccin[@@lookup][@text];
-    }
-    & when not (@lookup = latte) {
-      --contrast-accent-color: @catppuccin[@@lookup][@base];
-    }
+    @contrast-accent-color: if(@lookup=latte, @text, @base);
 
     .MainAppSideMenu__LogoLink-sc-11gwnv8-2,
+    .MainAppHeader__LogoLink-sc-1gw0bt9-2,
     .SplitColumnLayout__StyledLogo-sc-4mcl10-4 {
       svg {
         path:nth-child(1) {
@@ -81,8 +77,6 @@
       }
     }
 
-    width: 100%;
-    height: 100%;
     background: @base;
     body {color: @text;}
 
@@ -112,13 +106,17 @@
     }
     .notifications-count {
       background: @accent-color;
-      color: var(--contrast-accent-color);
+      color: @contrast-accent-color;
     }
     .NotificationCenterAlert__TriggerDiv-sc-165xmi4-0 {
       background-color: @surface0;
       .material-icons-outlined {
         color: @text;
       }
+    }
+    
+    .MainAppHeader__RootDiv-sc-1gw0bt9-0 {
+      background-color: @surface0;
     }
 
     .SecondaryHeader__RootDiv-sc-p36xe7-0 {
@@ -234,7 +232,7 @@
     .ClassAvatar__RootDiv-sc-1ihhtbf-0,
     .avatar > div {
       background: @accent-color;
-      color: var(--contrast-accent-color);
+      color: @contrast-accent-color;
     }
     .ReactSelect__control {
       background: @surface0;
@@ -260,7 +258,7 @@
       }
       .ReactSelect__option--is-selected {
         background: @accent-color;
-        color: var(--contrast-accent-color);
+        color: @contrast-accent-color;
       }
     }
 
@@ -369,7 +367,7 @@
     .notification {
       &.notification-success {
         background: @green !important;
-        color: var(--contrast-accent-color) !important;
+        color: @contrast-accent-color !important;
       }
     }
     .Tooltip__Content-sc-1k6bq57-0 {
@@ -491,10 +489,10 @@
         background: @accent-color !important;
       }
       .Checkbox__RadioCircleDiv-sc-1oy0ey9-3 {
-        background: var(--contrast-accent-color) !important;
+        background: @contrast-accent-color !important;
       }
       .Checkbox__IndicatorIcon-sc-1oy0ey9-5 {
-        color: var(--contrast-accent-color);
+        color: @contrast-accent-color;
       }
     }
     .FormativeItemViewable__RootDiv-sc-m0kwch-0 {
@@ -508,7 +506,7 @@
         &[style*="rgb(32, 213, 171)"] {
           background-color: @green !important;
           .material-icons-outlined {
-            color: var(--contrast-accent-color) !important;
+            color: @contrast-accent-color !important;
           }
         }
         &[style*="rgb(255, 222, 51)"] {
@@ -520,7 +518,7 @@
         &[style*="rgb(255, 76, 77)"] {
           background-color: @red !important;
           .material-icons-outlined {
-            color: var(--contrast-accent-color) !important;
+            color: @contrast-accent-color !important;
           }
         }
         border-color: @overlay2 !important;
@@ -568,8 +566,7 @@
         }
       }
       .ChoiceElement__RootDiv-sc-1mbtxfk-1 {
-        border-radius: 4px;
-        background: @surface0;
+        background: transparent;
       }
       .ChoiceElement__StyledRawButton-sc-1mbtxfk-0 {
         .ChoiceElement__LabelRichText-sc-1mbtxfk-3,
@@ -594,7 +591,7 @@
         .DrawingCardButton__IncompleteIndicatorDiv-sc-u2qprg-4 {
           background: @yellow;
           svg path {
-            fill: var(--contrast-accent-color);
+            fill: @contrast-accent-color;
           }
         }
         &:hover .DrawingCardButton__ShowYourWorkPseudoButtonDiv-sc-u2qprg-0 {
@@ -627,7 +624,7 @@
           background: @green;
         }
         .material-icons-outlined {
-          color: var(--contrast-accent-color);
+          color: @contrast-accent-color;
         }
       }
       .ShortAnswerViewableDetails__InputAutosizeTextarea-sc-1ugk4gk-0 {
@@ -756,10 +753,10 @@
           fill: @red !important;
         }
         path[fill="rgb(255,255,255)"] {
-          fill: var(--contrast-accent-color) !important;
+          fill: @contrast-accent-color !important;
         }
         path[fill="rgb(242,242,242)"] {
-          fill: var(--contrast-accent-color) !important;
+          fill: @contrast-accent-color !important;
         }
         path[stroke="rgb(32,213,171)"] {
           stroke: @green !important;
@@ -774,10 +771,10 @@
           stroke: @red !important;
         }
         path[stroke="rgb(255,255,255)"] {
-          stroke: var(--contrast-accent-color) !important;
+          stroke: @contrast-accent-color !important;
         }
         path[stroke="rgb(242,242,242)"] {
-          stroke: var(--contrast-accent-color) !important;
+          stroke: @contrast-accent-color !important;
         }
       }
     }
@@ -821,7 +818,7 @@
         background: @green;
       }
       &, .material-icons-outlined {
-        color: var(--contrast-accent-color);
+        color: @contrast-accent-color;
       }
     }
     .FloatingToolButton__FloatingButton-sc-1gy4xsl-0 {
@@ -919,4 +916,3 @@
   }
 }
 // vim:ft=less
-
