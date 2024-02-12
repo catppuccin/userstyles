@@ -80,7 +80,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>💭 Development tools</summary>
 
 - [Graphite](styles/graphite)
+- [Hackage](styles/hackage)
 - [Hoppscotch](styles/hoppscotch)
+- [Next.js](styles/nextjs)
 - [paste.rs](styles/paste.rs)
 - [Vercel](styles/vercel)
 
@@ -95,12 +97,14 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Perplexity](styles/perplexity)
 - [SearXNG](styles/searxng)
 - [Startpage](styles/startpage)
+- [Wikipedia](styles/wikipedia)
 
 </details>
 <details open>
 <summary>💬 Messaging</summary>
 
 - [Cinny](styles/cinny)
+- [Snapchat Web](styles/snapchat-web)
 - [WhatsApp Web](styles/whatsapp-web)
 
 </details>
@@ -148,6 +152,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Pinterest](styles/pinterest)
 - [Reddit](styles/reddit)
 - [Substack](styles/substack)
+- [Twitter](styles/twitter)
 
 </details>
 <details open>
