@@ -21,10 +21,9 @@ It is important to note that there are **two types of PRs** for this repository:
 - Create a
   [topic branch](https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows#_topic_branch)
   on your fork for your specific PR.
-- Consider using
-  [conventionalcommits.org](https://www.conventionalcommits.org/en/v1.0.0/)'s
-  rules for creating explicit and meaningful commit messages.
-- Update the version in the `==UserStyle==` header of the css-file. This is to enable version control of the style.
+- Catppuccin uses the [Conventional Commits
+  ](https://www.conventionalcommits.org/en/v1.0.0/) standard for creating explicit and meaningful commit messages. This repository requires pull request _titles_ to be in the conventional commit format, however we do not require it for individual commits within a pull request.
+- Update the version in the `==UserStyle==` header of the `catppuccin.user.css` file. This is to enable version control of the style.
 - If it's your first time contributing to a project then you should look to the
   popular
   [first-contributions](https://github.com/firstcontributions/first-contributions)
