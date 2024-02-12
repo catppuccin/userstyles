@@ -2,7 +2,7 @@
 @name         GitHub Catppuccin
 @namespace    github.com/catppuccin/userstyles/styles/github
 @homepageURL  https://github.com/catppuccin/userstyles/tree/main/styles/github
-@version      1.3.5
+@version      1.3.6
 @description  Soothing pastel theme for GitHub
 @author       Catppuccin
 @updateURL    https://github.com/catppuccin/userstyles/raw/main/styles/github/catppuccin.user.css
@@ -15,7 +15,6 @@
 @var select accentColor "Accent" ["rosewater:Rosewater*", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 
 @var checkbox search-beta "[BETA]: Enable Search" 1
-@var checkbox repo-beta "[BETA]: Enable New Repository Code View" 1
 ==/UserStyle== */
 
 /* prettier-ignore */
@@ -27,21 +26,21 @@
 }
 
 @-moz-document regexp("https:\/\/(gist\.)*github\.com(?!((\/.+?\/.+?\/commit\/[A-Fa-f0-9]+\.(patch|diff)$)|\/home$|\/features($|\/.*)|\/marketplace($|\?.*|\/.*)|\/organizations\/plan)).*$") {
-  [data-color-mode="light"],
-  [data-color-mode="auto"] > .theme-light {
+  :root[data-color-mode="light"],
+  :root[data-color-mode="auto"] > .theme-light {
     #catppuccin(@lightFlavor, @accentColor);
   }
   @media (prefers-color-scheme: light) {
-    [data-color-mode="auto"] {
+    :root[data-color-mode="auto"] {
       #catppuccin(@lightFlavor, @accentColor);
     }
   }
-  [data-color-mode="dark"],
-  [data-color-mode="auto"] > .theme-dark {
+  :root[data-color-mode="dark"],
+  :root[data-color-mode="auto"] > .theme-dark {
     #catppuccin(@darkFlavor, @accentColor);
   }
   @media (prefers-color-scheme: dark) {
-    [data-color-mode="auto"] {
+    :root[data-color-mode="auto"] {
       #catppuccin(@darkFlavor, @accentColor);
     }
   }
@@ -139,6 +138,7 @@
     & body {
       accent-color: @accent-color;
       --bgColor-default: @base;
+      --rgh-heat-color: @red;
       --color-page-header-bg: @base;
       --color-marketing-icon-primary: @sky;
       --color-marketing-icon-secondary: @blue;
@@ -234,10 +234,9 @@
       --color-checks-ansi-white-bright: @subtext0;
       --divider-color: @surface1;
       --underlineNav-borderColor-active: @accent-color;
-      --color-scale-yellow-2: @yellow; //star
+      --color-scale-yellow-2: @yellow; /* used for stars */
 
       & when (@lookup =latte) {
-        // When using a light theme use the light colors instead of the dark
         --color-checks-ansi-black: @subtext1;
         --color-checks-ansi-black-bright: @subtext0;
         --color-checks-ansi-white: @surface2;
@@ -356,11 +355,31 @@
     --color-calendar-graph-day-border: transparent !important;
     --color-calendar-graph-day-bg: @surface0 !important;
 
+    --color-segmented-control-button-hover-bg: @surface0;
+
+    /* Focus states */
+    *:focus-visible,
+    *:focus-within {
+      outline-color: @blue !important;
+    }
+
+    /* Adds styling for primary buttons that lack the .btn-primary class. */
+    /* In use at: "Code", "Compare & pull request", "New repository secret" buttons. */
+    .hBMKRG,
+    .jWTzpl,
+    #repository-secrets + div a[href$="settings/secrets/actions/new"] {
+      background-color: var(--color-btn-primary-bg);
+      color: var(--color-btn-primary-text);
+
+      &:hover {
+        background-color: var(--color-btn-primary-hover-bg) !important;
+      }
+    }
+
     /* Search */
     .header-search-input {
       color: @text !important;
     }
-
     .header-search-button.placeholder,
     .header-search-input::placeholder {
       color: @subtext1 !important;
@@ -374,7 +393,7 @@
       --color-accent-subtle: fadeout(@accent-color, 85%);
     }
 
-    /* user/team mentions */
+    /* User/team mentions */
     .user-mention,
     .team-mention {
       color: @accent-color;
@@ -386,87 +405,147 @@
       --bgColor-attention-muted: fadeout(@accent-color, 60%);
       --color-attention-subtle: fadeout(@accent-color, 85%);
     }
-
-    /* fix for notis shadow */
     .notifications-list .Box-header {
       box-shadow: none;
     }
 
-    ::selection {
-      background: @surface2 !important;
+    /* Header above repo documents (README, CoC, LICENSE, etc) */
+    .Box-sc-g0xbh4-0.jMdYTc {
+      background-color: @base;
+      border-bottom-color: @surface1;
     }
 
-    & when (@repo-beta = 1) {
-      /* New repo layout button, pr button on repo, tick */
-      .dvJnjZ,
-      .types__StyledButton-sc-ws60qy-0.gHIvvy,
-      .ldavJa {
-        background-color: @green;
-        color: @crust;
-        &:hover {
-          background-color: darken(@green, 15%);
-        }
+    /* Currently selected "tab" */
+    .gcnonJ::after,
+    .cnHXaE::after {
+      background-color: @accent-color;
+    }
+
+    /* Tooltip */
+    [id^="tooltip-"],
+    .tooltipped,
+    span[role="tooltip"]::after {
+      --color-fg-on-emphasis: @text !important;
+    }
+
+    /* Code explorer/viewer */
+    .bESQXL,
+    .fzMvzt,
+    .hAuZAP {
+      background-color: @mantle;
+    }
+    .etfROT,
+    .brFBoI {
+      border-color: @surface1;
+    }
+    .cvKirU {
+      background-color: @surface1;
+    }
+    #repos-header-breadcrumb-mobile a {
+      color: @accent-color;
+    }
+    /* Preview/code/blame tabs */
+    [aria-label="File view"],
+    [aria-label="Edit mode"] {
+      button[aria-current="true"] .segmentedControl-content {
+        background-color: @base;
       }
-      .ezbPok * {
-        fill: @text;
+    }
+
+    /* Edit file */
+    .cm-placeholder {
+      color: @overlay1 !important;
+    }
+
+    /* -- 🚧 DANGER ZONE 🚧-- */
+    /* Cleaning up unknown code here... */
+
+    /* New repo layout button, pr button on repo, tick */
+    .dvJnjZ,
+    .types__StyledButton-sc-ws60qy-0.gHIvvy,
+    .ldavJa {
+      background-color: @green;
+      color: @crust;
+      &:hover {
+        background-color: darken(@green, 15%);
       }
-      .jMEWXM > * > *,
-      #branch-picker-repos-header-ref-selector,
+    }
+    .ezbPok * {
+      fill: @text;
+    }
+    .jMEWXM > * > *,
+      /* Code view file tree */
+      #repos-file-tree #branch-picker-repos-header-ref-selector,
+      #repos-file-tree button[aria-label="Search this repository"],
+      #repos-file-tree span[aria-label="Add file"] a,
       .gtXnmh .Box-sc-g0xbh4-0.jGfYmh > * {
-        background-color: @surface0;
-        border-color: @surface1;
-        &:hover {
-          background-color: @surface1;
-          border-color: @surface2;
-        }
-        & * {
-          fill: @text;
-          color: @text;
-        }
+      background-color: @surface0;
+      border-color: @surface1;
+      &:hover {
+        background-color: @surface1;
+        border-color: @surface2;
       }
-      .cPEOjV {
-        background-color: @mantle;
-      }
-      .Box-sc-g0xbh4-0.bUCzHg,
-      .ehcSsh > * {
-        border-color: @surface1 !important;
-      }
-      .eYedVD .Box-sc-g0xbh4-0.jGfYmh *,
-      .Text-sc-17v1xeu-0.foaUgQ {
-        color: @subtext0;
-      }
-      .hRMLtq,
-      .ilcYjX *,
-      .lcModf,
-      button.types__StyledButton-sc-ws60qy-0.kRuNkv {
+      & * {
+        fill: @text;
         color: @text;
       }
-      .Flash__StyledFlash-sc-hzrzfc-0.kUDiXM {
-        background-color: fadeout(@peach, 90%);
-        border-color: @peach;
-      }
-      .kUDiXM svg {
-        fill: @peach;
-      }
-      /* Some popup */
-      .iGzDhH,
-      .hBobmI,
-      #__primerPortalRoot__ > div > div > div {
-        background-color: @mantle;
-      }
-      .Text-sc-17v1xeu-0.gPDEWA {
-        color: @subtext1;
-      }
-      .TabNav__TabNavTabList-sc-pwdi4r-1.gFzOft {
-        & * {
-          border-color: @surface0;
+    }
+    .cPEOjV,
+    .gtXnmh {
+      background-color: @mantle;
+    }
+    /* GitHub decided to manually override these links' colors for whatever reason */
+    .GCHqa,
+    .QBrkF {
+      color: @accent-color;
+    }
+    .QBrkF {
+      background-color: fade(@accent-color, 10%);
+    }
+    .Box-sc-g0xbh4-0.bUCzHg,
+    .ehcSsh > * {
+      border-color: @surface1 !important;
+    }
+    .eYedVD .Box-sc-g0xbh4-0.jGfYmh *,
+    .Text-sc-17v1xeu-0.foaUgQ {
+      color: @subtext0;
+    }
+    .hRMLtq,
+    .ilcYjX *,
+    .lcModf,
+    button.types__StyledButton-sc-ws60qy-0.kRuNkv {
+      color: @text;
+    }
+    .Flash__StyledFlash-sc-hzrzfc-0.kUDiXM {
+      background-color: fadeout(@peach, 90%);
+      border-color: @peach;
+    }
+    .kUDiXM svg {
+      fill: @peach;
+    }
+    /* Some popup */
+    .iGzDhH,
+    .hBobmI,
+    #__primerPortalRoot__ > div > div > div {
+      background-color: @mantle;
+      [class^="TabNav__TabNavTabList-"] button {
+        &.selected {
+          background-color: @mantle;
+          border-color: @surface1;
+        }
+        &:not(.selected) {
+          color: @overlay2;
         }
         &:hover {
-          & * {
-            background: @mantle;
-          }
+          background-color: @surface1;
         }
       }
+      .eJLRZa {
+        border-color: @surface1;
+      }
+    }
+    .Text-sc-17v1xeu-0.gPDEWA {
+      color: @subtext1;
     }
 
     & when (@search-beta = 1) {
@@ -479,6 +558,8 @@
       }
       // Search page buttons
       .cxcvTj,
+      .rDvrp,
+      .fvQAVN,
       .Box-sc-g0xbh4-0.grSspY button {
         background-color: @mantle;
         border-color: @surface1;
@@ -531,7 +612,6 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    /* Colors */
     --jp-border-color0: var(--color-scale-gray-7);
     --jp-border-color1: var(--color-scale-gray-7);
     --jp-border-color2: var(--color-scale-gray-8);
