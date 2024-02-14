@@ -2,7 +2,7 @@
 @name Bluesky Social Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/bsky
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/bsky
-@version 0.0.2
+@version 0.0.5
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/bsky/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Absky
 @description Soothing pastel theme for Bluesky Social
@@ -55,30 +55,37 @@
 
     /* they dont even use this, get real */
     --text: @text;
-    --background: @mantle;
+    --background: @base; /* they do use this, kind of! */
     --backgroundLight: @base;
 
     /* generic text */
     [style*="color: rgb(255, 255, 255)"] {
       color: @text !important;
+      & when (@lookup = latte) {
+        /* fix button text in latte */
+        color: @base !important;
+      }
     }
 
     /* secondary text */
-    [style*="rgb(185, 185, 193)"] {
+    [style*="rgb(163, 178, 194)"] {
       color: @subtext1 !important;
     }
 
     /* generic blue inline */
-    [style*="color: rgb(0, 133, 255)"] {
+    [style*="color: rgb(16, 131, 254)"] {
       color: @accent-color !important;
     }
 
     /* blue svg inline */
-    [fill="#0085ff"] {
-      fill: @accent-color;
-    }
+    [stroke="hsl(211, 99%, 53%)"],
     [stroke="#0085ff"] {
       stroke: @accent-color;
+    }
+
+    [fill="hsl(211, 99%, 53%)"],
+    [fill="#0085ff"] {
+      fill: @accent-color;
     }
 
     /* a lot of blue things (buttons etc) */
@@ -100,12 +107,22 @@
     }
 
     /* generic background color */
-    [style*="background-color: rgb(0, 0, 0)"] {
+    .css-175oi2r.r-13awgt0,
+    [style*="background-color: rgb(255, 255, 255)"],
+    [style*="background-color: rgb(0, 0, 0)"],
+    [style*="background-color: rgb(8, 10, 12)"] {
       background-color: @base !important;
+
+      & when (@lookup = latte) {
+        /* fix button colors in latte */
+        [style*="background-color: rgb(0, 0, 0)"] {
+          background-color: @text !important;
+        }
+      }
     }
 
     /* secondary background color */
-    [style*="background-color: rgb(38, 39, 45)"] {
+    [style*="background-color: rgb(20, 25, 31)"] {
       background-color: @mantle !important;
     }
 
@@ -252,11 +269,13 @@
     }
 
     /* small icons */
-    path[fill="#ffffff"] {
+    path[fill="#ffffff"],
+    path[fill="hsl(211, 20%, 100%)"] {
       fill: @text;
-    }
-    path[fill="#fff"] {
-      fill: @text;
+
+      & when (@lookup = latte) {
+        fill: @base;
+      }
     }
 
     /* more gray small icons (seems to only be the trash can/delete icon) */
@@ -265,11 +284,12 @@
     }
 
     /* settings button at the top of the timeline */
-    path[fill="#B9B9C1"] {
+    path[fill="hsl(211, 20%, 70%)"] {
       fill: @subtext1;
     }
 
     /* x invite codes available icon */
+    div[style*="background-color: rgb(191, 225, 255)"],
     div[style*="background-color: rgb(1, 37, 97)"] {
       background-color: fadeout(@accent-color, 70%) !important;
       & > svg > path[fill="#52acfe"] {
@@ -278,7 +298,7 @@
     }
 
     /* likes, reposts and comment counts under posts */
-    [style*="color: rgb(112, 116, 137)"] {
+    [style*="color: rgb(102, 127, 153)"] {
       color: @subtext0 !important;
     }
 
@@ -294,7 +314,7 @@
     }
 
     /* ... button under posts */
-    path[fill="#707489"] {
+    path[fill="hsl(211, 20%, 50%)"] {
       fill: @subtext0;
     }
 
@@ -336,6 +356,11 @@
     circle[fill="#20BC07"] {
       fill: @green;
     }
+
+    /* toggle circle */
+    [style*="background-color: rgb(185, 185, 193)"] {
+      background-color: @overlay2 !important;
+    }
   }
 
   @media (prefers-color-scheme: light) {
@@ -350,10 +375,11 @@
   }
 
   /* manually set colorscheme */
-  html.colorMode--light {
+  html.theme--light {
     #catppuccin(@lightFlavor, @accentColor);
   }
-  html.colorMode--dark {
+  html.theme--dim,
+  html.theme--dark {
     #catppuccin(@darkFlavor, @accentColor);
   }
 } /* /@-moz-document */

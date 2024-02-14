@@ -2,7 +2,7 @@
 @name         GitHub Catppuccin
 @namespace    github.com/catppuccin/userstyles/styles/github
 @homepageURL  https://github.com/catppuccin/userstyles/tree/main/styles/github
-@version      1.3.5
+@version      1.3.9
 @description  Soothing pastel theme for GitHub
 @author       Catppuccin
 @updateURL    https://github.com/catppuccin/userstyles/raw/main/styles/github/catppuccin.user.css
@@ -13,6 +13,8 @@
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater*", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var checkbox search-beta "[BETA]: Enable Search" 1
 ==/UserStyle== */
 
 /* prettier-ignore */
@@ -23,22 +25,22 @@
   @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
 }
 
-@-moz-document regexp("https:\/\/(gist\.)*github\.com(?!((\/.+?\/.+?\/commit\/[A-Fa-f0-9]+\.(patch|diff)$)|\/home$|\/features($|\/.*)|\/marketplace($|\/.*)|\/organizations\/plan)).*$") {
-  [data-color-mode="light"],
-  [data-color-mode="auto"] > .theme-light {
+@-moz-document regexp("https:\/\/(gist\.)*github\.com(?!((\/.+?\/.+?\/commit\/[A-Fa-f0-9]+\.(patch|diff)$)|\/home$|\/features($|\/.*)|\/marketplace($|\?.*|\/.*)|\/organizations\/plan)).*$") {
+  :root[data-color-mode="light"],
+  :root[data-color-mode="auto"] > .theme-light {
     #catppuccin(@lightFlavor, @accentColor);
   }
   @media (prefers-color-scheme: light) {
-    [data-color-mode="auto"] {
+    :root[data-color-mode="auto"] {
       #catppuccin(@lightFlavor, @accentColor);
     }
   }
-  [data-color-mode="dark"],
-  [data-color-mode="auto"] > .theme-dark {
+  :root[data-color-mode="dark"],
+  :root[data-color-mode="auto"] > .theme-dark {
     #catppuccin(@darkFlavor, @accentColor);
   }
   @media (prefers-color-scheme: dark) {
-    [data-color-mode="auto"] {
+    :root[data-color-mode="auto"] {
       #catppuccin(@darkFlavor, @accentColor);
     }
   }
@@ -136,6 +138,7 @@
     & body {
       accent-color: @accent-color;
       --bgColor-default: @base;
+      --rgh-heat-color: @red;
       --color-page-header-bg: @base;
       --color-marketing-icon-primary: @sky;
       --color-marketing-icon-secondary: @blue;
@@ -176,6 +179,16 @@
       --color-codemirror-gutters-bg: @base;
       --color-codemirror-guttermarker-text: @base;
       --color-codemirror-lines-bg: @base;
+      --color-codemirror-guttermarker-subtle-text: @overlay0;
+      --color-codemirror-linenumber-text: @subtext1;
+      --color-codemirror-matchingbracket-text: @text;
+      --color-codemirror-syntax-comment: @overlay0;
+      --color-codemirror-syntax-constant: @blue;
+      --color-codemirror-syntax-entity: @blue;
+      --color-codemirror-syntax-keyword: @pink;
+      --color-codemirror-syntax-storage: @peach;
+      --color-codemirror-syntax-string: @green;
+      --color-codemirror-syntax-variable: @peach;
       --color-checks-bg: @mantle;
       --color-checks-text-primary: @text;
       --color-checks-text-secondary: @subtext1;
@@ -231,9 +244,9 @@
       --color-checks-ansi-white-bright: @subtext0;
       --divider-color: @surface1;
       --underlineNav-borderColor-active: @accent-color;
+      --color-scale-yellow-2: @yellow; /* used for stars */
 
       & when (@lookup =latte) {
-        // When using a light theme use the light colors instead of the dark
         --color-checks-ansi-black: @subtext1;
         --color-checks-ansi-black-bright: @subtext0;
         --color-checks-ansi-white: @surface2;
@@ -268,6 +281,7 @@
       --color-btn-active-bg: @surface2;
       --color-btn-selected-bg: @surface2;
       --color-btn-counter-bg: @surface2;
+      --color-btn-outline-text: @accent-color;
       #coloredButton(primary, @green, false);
       #coloredButton(danger, @red, true);
       --color-action-list-item-inline-divider: @surface2;
@@ -334,7 +348,7 @@
     --color-checks-step-error-icon: var(--color-scale-red-4);
 
     --color-user-mention-fg: @accent-color;
-    --color-user-mention-bg: @crust;
+    --color-user-mention-bg: fade(@accent-color, 30%);
     --color-text-white: @text;
 
     --color-calendar-halloween-graph-day-L1-bg: fadeout(@accent-color, 3);
@@ -352,50 +366,32 @@
     --color-calendar-graph-day-border: transparent !important;
     --color-calendar-graph-day-bg: @surface0 !important;
 
-    /* New PR, new branch, fork repository, and commit changes buttons */
-    .iRoQzU,
-    .ifkUYV,
-    .bOZDzN,
-    .cYGUCw,
-    .bbZPuV {
-      background-color: @green;
-      color: @base;
+    --color-segmented-control-button-hover-bg: @surface0;
+
+    /* Focus states */
+    *:focus-visible,
+    *:focus-within {
+      outline-color: @blue !important;
     }
 
-    /* New branch dialog */
-    .jenxrv {
-      background-color: @mantle;
-      color: @text;
-    }
+    /* Adds styling for primary buttons that lack the .btn-primary class. */
+    /* In use at: "Code", "Compare & pull request", "New repository secret" buttons. */
+    .hBMKRG,
+    .jWTzpl,
+    #repository-secrets + div a[href$="settings/secrets/actions/new"] {
+      background-color: var(--color-btn-primary-bg);
+      color: var(--color-btn-primary-text);
 
-    /* Branch drop down */
-    .fHiIQb {
-      background-color: @surface0;
-    }
-
-    /* Compare button & Cancel new branch button */
-    .idPXPh,
-    .epAEYw {
-      background-color: @surface0;
-      color: @text;
-      border-color: @surface1;
-    }
-
-    /* search btn */
-    .header-search-button.placeholder {
-      color: @text;
-    }
-
-    /* Issue tags */
-    .hx_IssueLabel {
-      --text: @text;
+      &:hover {
+        background-color: var(--color-btn-primary-hover-bg) !important;
+      }
     }
 
     /* Search */
     .header-search-input {
       color: @text !important;
     }
-
+    .header-search-button.placeholder,
     .header-search-input::placeholder {
       color: @subtext1 !important;
     }
@@ -408,30 +404,10 @@
       --color-accent-subtle: fadeout(@accent-color, 85%);
     }
 
-    /* Slug */
-    .dYxKVs,
-    .eVjWum {
-      color: @accent-color;
-    }
-
-    /* Links */
-    .fIqerb,
-    .bJroUH {
-      color: @accent-color;
-    }
-
-    /* Misc */
+    /* User/team mentions */
     .user-mention,
     .team-mention {
       color: @accent-color;
-    }
-
-    .kSmUFR[data-size="small"][data-no-visuals="true"] svg,
-    .gaMHBv[data-size="small"][data-no-visuals] svg {
-      color: @green;
-    }
-    .starred .starred-button-icon {
-      color: @yellow;
     }
 
     /* Large notification */
@@ -440,883 +416,61 @@
       --bgColor-attention-muted: fadeout(@accent-color, 60%);
       --color-attention-subtle: fadeout(@accent-color, 85%);
     }
-
-    /* Headers */
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      color: @subtext1;
+    .notifications-list .Box-header {
+      box-shadow: none;
     }
 
-    #check-step-header-title {
-      color: var(--color-checks-text-link) !important;
-    }
-
-    ::selection {
-      background: @surface2 !important;
-    }
-
-    /* New change visibility box star and watcher preview buttons Fix */
-    .btn.color-fg-danger.cursor-default {
-      color: var(--color-btn-danger-text) !important;
-      background-color: var(--color-btn-danger-bg);
-
-      &:hover {
-        background-color: var(--color-btn-danger-hover-bg);
-      }
-
-      & > svg.octicon {
-        color: var(--color-btn-danger-text) !important;
-      }
-    }
-
-    /* New change visibility box danger buttons Fix */
-    :where(
-        #repo-visibility-proceed-button-public,
-        #repo-visibility-proceed-button-private
-      ):not([data-next-stage]) {
-      color: var(--color-btn-danger-text);
-      background-color: var(--color-btn-danger-bg);
-    }
-
-    /* 2FA authentication box header Fix */
-    body.session-authentication div.Box-header {
-      background-color: inherit;
-    }
-
-    /* Footer Logo Fix */
-    .footer-octicon > svg:nth-child(1) > path:nth-child(1) {
-      fill: @text;
-    }
-
-    /* Footer text hover fix */
-    .footer nav.col-12 * {
-      color: @subtext1 !important;
-    }
-
-    /* Notifications */
-    .notification-indicator .mail-status {
-      background-image: none;
-      background-color: @accent-color;
-    }
-
-    /* Keyboard hint */
-    .bdgUpN,
-    .hZMmEi .TextInput-icon,
-    .hZMmEi .TextInput-action {
-      color: @text;
-      background-color: @mantle;
-      border-color: @surface0;
-    }
-
-    /* Merge icon */
-    .fMJQEf {
-      color: @text;
-      background-color: @overlay0;
-    }
-
-    /* Branch indicator */
-    .iVNDSi {
-      color: @accent-color;
-      background-color: fade(@accent-color, 10);
-    }
-
-    /* File view */
-    .hwnsNO {
-      color: @text;
-      th {
-        background: @mantle;
-      }
-    }
-
-    .dXveNa[data-no-visuals="true"] {
-      color: @subtext0;
-    }
-
-    .dXveNa,
-    .kbjJSF {
-      background-color: @surface0;
-      border-color: @surface1;
-    }
-
-    .gUecKw,
-    .lcpiaz,
-    .jolsUx,
-    .fsSggy {
-      background-color: @mantle;
-    }
-
-    .Cxvmo,
-    .dhYcqs {
-      color: @red;
-    }
-
-    .byJIBD,
-    .dMLfZp[data-size="small"][data-no-visuals="true"] svg {
-      color: @green;
-    }
-
-    .lmmHGT:not(:first-of-type),
-    .fOEJrA,
-    .fnFdxN,
-    .huABLg,
-    .dMLfZp[data-component="IconButton"][data-no-visuals],
-    .cwSUxL,
-    .iXnXki[data-size="small"][data-no-visuals="true"],
-    .jvzHAP,
-    .hPIyzG,
-    .gTeenv[data-no-visuals="true"],
-    .VplrY[data-no-visuals="true"],
-    .bqDKPR[data-component="IconButton"][data-no-visuals],
-    .icOaJE[data-size="small"][data-no-visuals="true"],
-    .kKFNhh,
-    .lnXbGs,
-    .dTxwit {
-      color: @subtext0;
-    }
-
-    .gssqTz {
-      color: @text !important;
-    }
-
-    .bPgnBp,
-    .jMyfUO,
-    .cBrzIN {
-      color: @text;
-    }
-
-    .eLaeIt:hover:not([disabled]),
-    .dMLfZp[data-size="small"][data-no-visuals="true"]:hover:not([disabled]),
-    .bqDKPR[data-component="IconButton"][data-no-visuals],
-    .bDSYgZ:hover:not([disabled]),
-    .icOaJE:hover:not([disabled]) {
-      background-color: @surface0;
-    }
-
-    .icOaJE[aria-pressed="true"] {
-      background-color: @surface0;
-    }
-
-    .cZRqXf {
-      background-color: @surface0;
-      &:active:not([disabled]),
-      &[aria-expanded="true"] {
-        border-color: @surface2;
-      }
-      &:hover:not([disabled]) {
-        border-color: @surface2;
-        background-color: @surface1;
-      }
-    }
-
-    .kdEavw,
-    .ddNLNa,
-    .jepClM,
-    .gTeenv,
-    .VplrY {
-      background-color: @surface0;
-      &:hover:not([disabled]) {
-        border-color: @surface2;
-        background-color: @surface1;
-      }
-    }
-
-    .feVXyu,
-    .ecdhqS,
-    .iwGxyT,
-    .kLxXov,
-    .flDsrw {
-      border-color: @surface0;
-    }
-
-    .juEfKr {
-      border-color: @surface2;
-    }
-
-    .eUqMHM,
-    .hSXtjz {
+    /* Header above repo documents (README, CoC, LICENSE, etc) */
+    .Box-sc-g0xbh4-0.jMdYTc {
       background-color: @base;
-    }
-
-    .gtXnmh,
-    .ukUXs,
-    .giEfVQ,
-    .cKvNNO,
-    .evdFFE,
-    .kTUxDY {
-      background-color: @mantle;
-    }
-
-    .hLwWNO .PRIVATE_TreeView-item-container,
-    .dycbWg,
-    .hYaoHV,
-    .rLhXz,
-    .gtXnmh,
-    .lmmHGT,
-    .dEmXPQ {
-      color: @text;
-    }
-
-    .bJBoUI,
-    .iJtJJh {
-      color: @accent-color;
-    }
-
-    .lhyFLG {
-      background-color: @mantle;
-      border-color: @surface1;
-    }
-
-    .hUWqlv,
-    .bJcMWH {
-      color: @blue;
-    } // search menu links
-    .Link__StyledLink-sc-14289xe-0.ifbDxt {
-      color: @blue;
-    }
-    .Link__StyledLink-sc-14289xe-0.ifbDxt:hover {
-      background-color: fadeout(@blue, 60%);
-    } // Search page buttons
-    .cxcvTj,
-    .Box-sc-g0xbh4-0.grSspY button {
-      background-color: @mantle;
-      border-color: @surface1;
-    }
-
-    .gxGEao {
-      border-bottom-color: @surface0;
-    }
-
-    .hLwWNO
-      .PRIVATE_TreeView-item[aria-current="true"]
-      > .PRIVATE_TreeView-item-container {
-      background-color: @surface0;
-      &::after {
-        background-color: @accent-color;
-      }
-    }
-
-    .dfAUyE,
-    .gKuCoB,
-    .bFrOJy {
-      .segmentedControl-content {
-        background-color: @mantle;
-        color: @text;
-      }
-    }
-
-    .cuqBaK,
-    .fCAAcl,
-    .dAXkSP {
-      color: @text;
-      background-color: @base;
-      &:hover .segmentedControl-content {
-        background: @surface0;
-      }
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-      .rLhXz:hover:not([aria-disabled]) {
-        background-color: @surface0;
-      }
-    }
-
-    /* Projects */
-    .ksbilD,
-    .cuaLcW,
-    .joCMLT,
-    .jClMHS,
-    .jhjELj,
-    .diDjDG,
-    .gFuKCf,
-    .dHdESs,
-    .hpfKPO,
-    .jdgyJn,
-    .iInViE,
-    .brqMal,
-    .AbCTW {
-      background-color: @mantle;
-    }
-
-    .jEgFtJ,
-    .lixtXZ:hover,
-    .eNIoFu,
-    .idPXPh:hover,
-    .fdORwV,
-    .cjFogo,
-    .gIOnJa {
-      background-color: @surface0;
-    }
-
-    .jBCpbB {
-      color: @text;
-      background-color: @surface0;
-    }
-
-    .kzrUhn.selected {
-      background-color: @base;
-      border-color: @surface0;
-      color: @text;
-    }
-
-    .esIQoN,
-    .kbjJSF:disabled {
-      color: @subtext1;
-    }
-
-    .eJTCnd,
-    .eTthoV {
-      border-color: @surface0;
-      background-color: @base;
-      color: @text;
-      .fixINc,
-      .eDZJqt {
-        color: @subtext0;
-      }
-      .bniVFX,
-      .jtlytA {
-        color: @text;
-      }
-    }
-
-    .ikTPpF {
-      box-shadow: @base 0 3px 6px;
-      border-color: @surface0;
-    }
-
-    .cvveTk,
-    .dwoION {
-      background-color: @base;
-    }
-
-    .FKGWN {
-      background-color: @base;
-      border-color: @surface0;
-    }
-
-    .jPHlsW::after {
-      background-color: @accent-color;
-    }
-
-    .khCtfm:hover {
-      background-color: @surface0;
-    }
-    .bWlbEI,
-    .hzIORV {
-      background-color: @mantle;
-    }
-
-    .khCtfm,
-    .khCtfm[data-component="leadingVisual"],
-    .Tnbrt[data-component="IconButton"][data-no-visuals] {
-      color: @subtext0;
-    }
-
-    .Tnbrt {
-      &:active,
-      &[aria-expanded="true"] {
-        background-color: @surface2;
-      }
-      &:hover {
-        background-color: @surface1;
-      }
-    }
-
-    .imsxCM {
-      color: @text;
-
-      .is-selected::after {
-        background-color: @accent-color;
-      }
-    }
-
-    .pxYjU {
-      background-color: @mantle;
-      color: @text;
-      border-color: @surface0;
-    }
-
-    .ilLRrZ {
-      color: @text;
-      background-color: @surface1;
-    }
-
-    .cnIHxk {
-      background-color: @surface0;
-      color: @text;
-      &:disabled {
-        background-color: @overlay0;
-        color: @crust;
-      }
-    }
-
-    .ghFpol {
-      background-color: @base;
-    }
-
-    .hVmCdl,
-    .fqKZNC,
-    .fZFWUy,
-    .kbjJSF,
-    .flKHtV,
-    .jolsUx,
-    .ekNmOn {
-      color: @text;
-    }
-
-    .lixtXZ[data-component="IconButton"][data-no-visuals],
-    .klUZzf:not(:first-of-type) {
-      color: @subtext0;
-    }
-
-    .jvpWzR {
-      &:hover {
-        background-color: @surface1;
-      }
-      &[data-size="large"][data-block="block"] {
-        color: @subtext0;
-      }
-    }
-
-    .fZFWUy,
-    .fzjwje {
-      background-color: @base;
-    }
-
-    .cEYXBH {
-      background-color: @accent-color;
-    }
-
-    .joxhcl,
-    .hXyJIp,
-    .fMkBhb > .segmentedControl-content {
-      background-color: @mantle;
-    }
-
-    .dVFmxu,
-    .gbKtit,
-    .lnKxja,
-    .jzwNMs {
-      color: @subtext0;
-      svg {
-        fill: @subtext0;
-      }
-      &:hover .segmentedControl-content {
-        background-color: @surface1;
-        border-color: @surface0;
-      }
-    }
-
-    .hJMtSk {
-      color: @crust;
-      background-color: @green;
-      &:disabled {
-        color: @crust;
-        background-color: @overlay0;
-      }
-    }
-
-    .iDiUTR {
-      color: @text;
-      background-color: @base;
-      border-color: @surface0;
-      &:hover {
-        border-color: @surface1;
-      }
-    }
-
-    .eQfJKc,
-    .UHWYv {
-      color: @red;
-    }
-
-    .jVIqnb {
-      color: @red;
-      background-color: @surface0;
-      &:hover {
-        color: @base;
-        background-color: @red;
-      }
-    }
-
-    .UHWYv:hover {
-      background-color: fade(@red, 20);
-    }
-
-    .lmmHGT:hover {
-      background-color: @surface0;
-    }
-
-    /* Project table view */
-    .hYdbWk,
-    .gkeKEr,
-    .jzcCeu,
-    .iGxiw,
-    .ixFSpw,
-    .koxWOe,
-    .gkWKRr,
-    .ikaTJo > svg,
-    .dcGHGc,
-    .dzMFih,
-    .hYdbWk::before,
-    .ixFSpw::before,
-    .dSHKOE {
-      background-color: @base;
-    }
-
-    .gkWKRr {
-      border-top-color: @surface0;
-      border-right-color: @surface0;
-      border-left-color: @surface0;
-    }
-
-    .bJYdrf td {
-      border-top-color: @surface1;
-    }
-
-    .hPQRKh {
-      background-color: @surface0;
-      &:hover:not([disabled]) {
-        background-color: @surface1;
-      }
-      &[data-component="IconButton"][data-no-visuals] {
-        color: @subtext0;
-      }
-    }
-
-    .kfwhFa {
-      &:hover:not([disabled]) {
-        background-color: @surface0;
-      }
-      &[data-size="small"][data-no-visuals="true"] {
-        color: @subtext0;
-      }
-    }
-
-    .jykkjb {
-      background-color: @base;
-      box-shadow:
-        @crust 0 -2px 0 inset,
-        @crust 0 1px 0 inset;
-    }
-
-    .jhjELj,
-    .ixTUPS {
-      border-color: @surface1;
-    }
-
-    .gmscZx,
-    .fUaEiu {
-      &:hover:not([disabled]) {
-        background-color: @surface1;
-      }
-      &[aria-expanded="true"] {
-        background-color: @surface0;
-      }
-      & [data-component="leadingVisual"],
-      &[data-size="small"],
-      &[data-size="small"][data-no-visuals="true"] {
-        color: @subtext0;
-      }
-    }
-
-    .cBssZb,
-    .caTTzX {
-      color: @text;
-    }
-
-    .jhjELj::before {
-      border-color: transparent transparent @surface1;
-    }
-
-    .fHpqaf,
-    .bfQVnA,
-    .iGxiw,
-    .fUzagb,
-    .gisjeK,
-    .iQkwAM {
-      color: @subtext0;
-    }
-
-    .dtTTcd {
-      background-color: @base;
-      &.hoverable:hover {
-        background-color: @surface0;
-      }
-    }
-
-    .pQcjM {
-      border-color: @surface1;
-      &.hoverable:hover {
-        background-color: @surface0;
-      }
-    }
-
-    .eTSXcP {
-      background-color: @red;
-    }
-
-    .iGxiw {
       border-bottom-color: @surface1;
     }
 
-    /* Tree Fix */
-    /* Weird barely visible outlines | Can be removed if intentional */
-    .brFBoI,
-    .ldUAkr,
-    .gtXnmh {
-      border-color: @surface1;
-    }
-
-    /* New Repository Overview Fix */
-    .gWjhfa,
-    .klBOTR,
-    .jMdYTc {
-      background-color: @mantle;
-    }
-
-    .jMdYTc {
-      border-color: @surface1;
-
-      & button {
-        color: @subtext1;
-
-        &:hover {
-          background-color: @surface0;
-        }
-
-        &[aria-expanded="true"] {
-          background-color: @surface0;
-        }
-      }
-    }
-
-    .gwuIGu > a {
-      &:hover {
-        background-color: @surface0;
-      }
-
-      & span {
-        color: @subtext1;
-      }
-    }
-
-    /* Buttons */
-    .bJYdrf:hover {
-      background-color: @mantle;
-    }
-
-    .dSlCya:hover {
-      color: @accent-color;
-    }
-
-    .hNNRLM,
-    .hGgJQu,
-    .hTcsdJ {
-      background-color: @surface0;
-      border-color: @surface0;
-      color: @text;
-
-      &:hover {
-        background-color: @surface1;
-        border-color: @surface1;
-      }
-    }
-
-    .eOIzRT {
-      background-color: @base;
-
-      &:hover {
-        background-color: @surface0;
-      }
-    }
-
-    .hNNRLM svg {
-      color: @text;
-    }
-
-    .react-last-commit-history-group:hover {
-      background-color: @base;
-      color: @text;
-    }
-
-    .tooltipped.tooltipped-s rect {
-      fill: @green !important;
-    }
-    .hfRvxg {
-      color: @subtext1;
-
-      &:hover {
-        color: @text;
-      }
-    }
-
-    /* Scrolling top menu */
-    .lbYguI {
-      border-radius: 6px;
-    }
-
-    .hPsWZB,
-    .bOUZZs {
-      background-color: @mantle;
-    }
-
-    .react-blob-header-edit-and-raw-actions > div > a,
-    .react-blob-header-edit-and-raw-actions > div > span > a,
-    .react-blob-header-edit-and-raw-actions > div > span > button {
-      background-color: @base;
-      color: @subtext0;
-
-      &:hover {
-        background-color: @surface1;
-      }
-    }
-
-    .hMOAua {
-      color: @subtext1;
-
-      &:hover {
-        background-color: @mantle;
-        border-color: @surface1;
-        color: @text;
-      }
-    }
-
-    /* Fullscreen Sidebar Fixes */
-    .hMCjFU,
-    .jcKsih,
-    .hpgNiv {
-      background-color: @base;
-      color: @text;
-      border-color: @surface1;
-
-      &:hover {
-        background-color: @surface0;
-      }
-    }
-
-    .jfOCiu li {
-      color: @text;
-    }
-
-    .kRbyXo {
-      color: @text;
-    }
-
-    .VgnWi {
-      background-color: @base;
-      border-color: @surface1;
-
-      &:focus-within {
-        border-color: @accent-color;
-        box-shadow: @accent-color 0 0 0 1px inset;
-      }
-    }
-
-    .bAKGFC {
-      background-color: @surface1;
-    }
-
-    .bdMlHy {
-      border-color: @surface1;
-    }
-
-    .jMyfUO.selected {
-      border-color: @surface1;
-      background-color: @mantle;
-    }
-
-    .bPgnBp {
-      color: @accent-color;
-    }
-
-    kbd {
-      background-color: @surface1;
-    }
-
-    select option,
-    optgroup {
-      background-color: @mantle;
-      border-color: @surface1;
-      border-radius: 6px;
-      box-shadow: var(--shadow-floating-large, var(--color-shadow-large));
-    }
-
-    .hUQSCH {
-      background-color: @base;
-      color: @subtext1;
-      border-color: @surface1;
-
-      &:hover {
-        background-color: @mantle;
-        border-color: @surface1;
-      }
-    }
-
-    /* Add File Menu */
-    .dQPLyc {
-      background-color: transparent;
-      border-color: @surface1;
-    }
-
-    .ktGGEf {
-      background-color: @base;
-      border-color: @surface1;
-    }
-
-    .gkfBtX {
-      background-color: @mantle;
-      border-radius: 6px 0 0;
-      border-bottom-color: @surface1;
-    }
-
-    .jproXT {
-      background-color: transparent;
-      border-color: transparent;
-      color: @subtext1;
-
-      &:hover {
-        color: @text;
-      }
-
-      &:focus-within {
-        border-color: transparent;
-        box-shadow: none;
-        color: @text;
-      }
-    }
-
-    .wLDmP,
-    .rDvrp {
-      background-color: @mantle;
-      border-color: @surface1;
-    }
-
-    .eNSiNz .segmentedControl-content,
-    .gKuCoB .segmentedControl-content {
-      background-color: @base;
-    }
-
-    /* Notification Menu Fix */
-    .notifications-list-item.notification-read,
-    .notifications-list-item.notification-archived {
-      background-color: @base !important;
-
-      &:last-child {
-        border-bottom-left-radius: 6px;
-      }
-    }
-
-    /* Loading Bar Color */
-    .turbo-progress-bar {
+    /* Currently selected "tab" */
+    .gcnonJ::after,
+    .cnHXaE::after {
       background-color: @accent-color;
     }
-    .search-results-page {
-      background-color: @base;
+
+    /* Tooltip */
+    [id^="tooltip-"],
+    .tooltipped:hover::after,
+    span[role="tooltip"]::after {
+      --color-fg-on-emphasis: @text !important;
     }
+
+    /* Code explorer/viewer */
+    .bESQXL,
+    .fzMvzt,
+    .hAuZAP {
+      background-color: @mantle;
+    }
+    .etfROT,
+    .brFBoI {
+      border-color: @surface1;
+    }
+    .cvKirU {
+      background-color: @surface1;
+    }
+    #repos-header-breadcrumb-mobile a {
+      color: @accent-color;
+    }
+    /* Preview/code/blame tabs */
+    [aria-label="File view"],
+    [aria-label="Edit mode"] {
+      button[aria-current="true"] .segmentedControl-content {
+        background-color: @base;
+      }
+    }
+
+    /* Edit file */
+    .cm-placeholder {
+      color: @overlay1 !important;
+    }
+
+    /* -- 🚧 DANGER ZONE 🚧-- */
+    /* Cleaning up unknown code here... */
+
     /* New repo layout button, pr button on repo, tick */
     .dvJnjZ,
     .types__StyledButton-sc-ws60qy-0.gHIvvy,
@@ -1331,18 +485,11 @@
       fill: @text;
     }
     .jMEWXM > * > *,
-    .vhlgx,
-    .vhlgx:hover:not([disabled], [data-inactive]),
-    .QqKiN,
-    .QqKiN:hover:not([disabled], [data-inactive]),
-    .wxyGP,
-    .wxyGP:hover:not([disabled], [data-inactive]),
-    .bTTPJZ,
-    .bTTPJZ:hover:not([disabled], [data-inactive]),
-    .eYCGbj,
-    .eYCGbj:hover:not([disabled], [data-inactive]),
-    #branch-picker-repos-header-ref-selector,
-    .gtXnmh .Box-sc-g0xbh4-0.jGfYmh > * {
+      /* Code view file tree */
+      #repos-file-tree #branch-picker-repos-header-ref-selector,
+      #repos-file-tree button[aria-label="Search this repository"],
+      #repos-file-tree span[aria-label="Add file"] a,
+      .gtXnmh .Box-sc-g0xbh4-0.jGfYmh > * {
       background-color: @surface0;
       border-color: @surface1;
       &:hover {
@@ -1354,14 +501,22 @@
         color: @text;
       }
     }
-    .cPEOjV {
+    .cPEOjV,
+    .gtXnmh {
       background-color: @mantle;
+    }
+    /* GitHub decided to manually override these links' colors for whatever reason */
+    .GCHqa,
+    .QBrkF {
+      color: @accent-color;
+    }
+    .QBrkF {
+      background-color: fade(@accent-color, 10%);
     }
     .Box-sc-g0xbh4-0.bUCzHg,
     .ehcSsh > * {
       border-color: @surface1 !important;
     }
-
     .eYedVD .Box-sc-g0xbh4-0.jGfYmh *,
     .Text-sc-17v1xeu-0.foaUgQ {
       color: @subtext0;
@@ -1384,19 +539,51 @@
     .hBobmI,
     #__primerPortalRoot__ > div > div > div {
       background-color: @mantle;
+      [class^="TabNav__TabNavTabList-"] button {
+        &.selected {
+          background-color: @mantle;
+          border-color: @surface1;
+        }
+        &:not(.selected) {
+          color: @overlay2;
+        }
+        &:hover {
+          background-color: @surface1;
+        }
+      }
+      .eJLRZa {
+        border-color: @surface1;
+      }
     }
     .Text-sc-17v1xeu-0.gPDEWA {
       color: @subtext1;
     }
-    .TabNav__TabNavTabList-sc-pwdi4r-1.gFzOft {
-      & * {
-        border-color: @surface0;
+
+    & when (@search-beta = 1) {
+      // search menu links
+      .Link__StyledLink-sc-14289xe-0.ifbDxt {
+        color: @blue;
+      }
+      .Link__StyledLink-sc-14289xe-0.ifbDxt:hover {
+        background-color: fadeout(@blue, 60%);
+      }
+      // Search page buttons
+      .cxcvTj,
+      .rDvrp,
+      .fvQAVN,
+      .Box-sc-g0xbh4-0.grSspY button {
+        background-color: @mantle;
+        border-color: @surface1;
       }
 
-      &:hover {
-        & * {
-          background: @mantle;
-        }
+      .lpbCdH,
+      .ibvJxz,
+      .fjInzX {
+        background-color: @mantle;
+      }
+
+      .search-results-page {
+        background-color: @base;
       }
     }
   }
@@ -1436,7 +623,6 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    /* Colors */
     --jp-border-color0: var(--color-scale-gray-7);
     --jp-border-color1: var(--color-scale-gray-7);
     --jp-border-color2: var(--color-scale-gray-8);
