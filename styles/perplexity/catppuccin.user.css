@@ -2,7 +2,7 @@
 @name Perplexity Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/perplexity
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/perplexity
-@version 0.0.2
+@version 0.0.3
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/perplexity/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aperplexity
 @description Soothing pastel theme for Perplexity
@@ -56,12 +56,17 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
+    // Fixes original background color showing when you overscroll
+    body {
+      background-color: @mantle;
+    }
+
     .bg-offset,
     .bg-offsetDark,
     :is(:where(.dark) .dark\:\!bg-offsetDark) {
       background-color: @mantle !important;
     }
-    1 .bg-offset:hover,
+    .bg-offset:hover,
     :is(:where(.dark) .md\:dark\:hover\:bg-offsetDark:hover) {
       background-color: @mantle !important;
     }
@@ -135,20 +140,71 @@
       & > div:nth-child(1):hover,
       & > div:nth-child(2):hover,
       & > div:nth-child(3) > div > div:hover {
-        background: @surface1;
+        background: @surface1 !important;
       }
       & path {
         fill: @accent-color;
       }
     }
 
+    .bg-offsetPlusDark {
+      background: @surface0 !important;
+    }
+    // most hover states
+    *[class*=":hover:dark:bg-offsetPlusDark"]:hover,
+    *[class*="hover:bg-offsetPlus"]:hover,
+    *[class*="md:dark:hover:bg-offsetDark"]:hover {
+      background: @surface0 !important;
+    }
+    // setting menu selector, and others
+    .bg-textMainDark {
+      background-color: @text;
+    }
+
+    .sc-aXZVg {
+      background: @mantle;
+      & path {
+        fill: @text !important;
+      }
+    }
+
     // code block
-    .ePundr,
-    [style^="font-size: inherit; font-family: inherit; background: rgb(45, 45, 45); color: rgb(204, 204, 204); border-radius: 3px; display: flex; line-height: 1.42857; overflow-x: auto; white-space: pre;"] {
+    .sc-gEvEer.ePundr,
+    .sc-gEvEer.ePundr > span {
       background: @surface0 !important;
       color: @text !important;
     }
-
+    // syntax highlighting
+    span.token[style^="color: rgb(204, 153, 204);"] {
+      color: @pink !important;
+    }
+    span.token[style^="color: rgb(102, 153, 204);"] {
+      color: @blue !important;
+    }
+    span.token[style^="color: rgb(153, 153, 153);"] {
+      color: @subtext0 !important;
+    }
+    span.token[style^="color: rgb(204, 204, 204);"] {
+      color: @text !important;
+    }
+    span.token[style^="color: rgb(153, 204, 153);"] {
+      color: @green !important;
+    }
+    span.token[style^="color: rgb(249, 145, 87);"] {
+      color: @peach !important;
+    }
+    span.token.interpolation-punctuation.punctuation {
+      color: @red;
+    }
+    span.token.parameter {
+      color: @mauve;
+    }
+    span.token.punctuation {
+      color: @subtext1;
+    }
+    span.token.operator {
+      color: @teal;
+    }
     // darker text on light bg
     :is(:where(.dark) .dark\:bg-textMainDark),
     :is(:where(.dark) .dark\:text-backgroundDark) {
