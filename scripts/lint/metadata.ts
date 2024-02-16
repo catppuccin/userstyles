@@ -8,6 +8,7 @@ import { relative } from "std/path/mod.ts";
 import { REPO_ROOT } from "@/deps.ts";
 import { log } from "@/lint/logger.ts";
 import { formatListOfItems, getUserstylesData } from "@/utils.ts";
+import stringify from "npm:json-oneline-stringify";
 
 export const verifyMetadata = async (
   entry: WalkEntry,
@@ -32,25 +33,94 @@ export const verifyMetadata = async (
     log(e.message, { file, startLine, content });
   });
 
-  for (const [key, value] of Object.entries(assert)) {
-    const defacto = metadata[key];
-    if (defacto !== value) {
+  for (const [key, expected] of Object.entries(assert)) {
+    const current = metadata[key];
+
+    if (current !== expected) {
       const line = content
         .split("\n")
         .findIndex((line) => line.includes(key)) + 1;
 
-      const message = sprintf(
-        'Metadata `%s` should be "%s" but is "%s"',
-        color.bold(key),
-        color.green(value),
-        color.red(String(defacto)),
-      );
+      const message = current === undefined
+        ? sprintf("Metadata `%s` should not be undefined", color.bold(key))
+        : sprintf(
+          'Metadata `%s` should be "%s" but is "%s"',
+          color.bold(key),
+          color.green(expected),
+          color.red(String(current)),
+        );
 
       log(message, {
         file,
         startLine: line !== 0 ? line : undefined,
         content,
       }, "warning");
+    }
+  }
+
+  for (const [variable, expected] of Object.entries(vars)) {
+    let current = metadata.vars[variable];
+
+    if (current === undefined) {
+
+      const line = content
+        .split("\n")
+        .findIndex((line) =>
+          line.includes('@var')
+        ) + 1;
+
+      log(
+        sprintf(
+          "Metadata variable `%s` should not be undefined",
+          color.bold(variable),
+        ),
+        {
+          file,
+          startLine: line !== 0 ? line : undefined,
+          content,
+        },
+        "warning",
+      );
+    } else {
+      for (const [key, value] of Object.entries(expected)) {
+        if ((Array.isArray(value) && Array.isArray(current[key])) ? (new Set([
+          ...value.map(stringify),
+          ...current[key].map(stringify),
+        ]).size !== value.length) :
+          (current[key] !== value)) {
+          const line = content
+            .split("\n")
+            .findIndex((line) =>
+              line.includes(`@var ${expected.type} ${variable}`)
+            ) + 1;
+
+          const message =
+            (Array.isArray(value) && Array.isArray(current[key]))
+              ? sprintf(
+                'Found mismatch in array elements of property "%s" of metadata variable `%s`:\n' +
+                value.map((el, i) =>
+                  stringify(el) === stringify(current[key][i])
+                    ? ""
+                    : color.green(`+ Expected: ${stringify(el)}\n`) +
+                    color.red(`- Recieved: ${stringify(current[key][i])}`)
+                ).join(''),
+                color.bold(key),
+                color.bold(variable),
+              )
+              : sprintf(
+                'Property "%s" of metadata variable `%s` should be %s but is %s',
+                color.bold(key),
+                color.bold(variable),
+                color.green(stringify(value)),
+                color.red(stringify(current[key])),
+              );
+          log(message, {
+            file,
+            startLine: line !== 0 ? line : undefined,
+            content,
+          }, "warning");
+        }
+      }
     }
   }
 
@@ -85,22 +155,80 @@ const assertions = async (userstyle: string) => {
   }
 
   return {
-    name: `${
-      Array.isArray(userstyles[userstyle].name)
-        ? (userstyles[userstyle].name as string[]).join("/")
-        : userstyles[userstyle].name
-    } Catppuccin`,
+    name: `${Array.isArray(userstyles[userstyle].name)
+      ? (userstyles[userstyle].name as string[]).join("/")
+      : userstyles[userstyle].name
+      } Catppuccin`,
     namespace: `github.com/catppuccin/userstyles/styles/${userstyle}`,
-    author: "Catppuccin",
-    description: `Soothing pastel theme for ${
-      Array.isArray(userstyles[userstyle].name)
-        ? formatListOfItems(userstyles[userstyle].name as string[])
-        : userstyles[userstyle].name
-    }`,
-    license: "MIT",
-    preprocessor: "less",
     homepageURL: `${prefix}/tree/main/styles/${userstyle}`,
+    description: `Soothing pastel theme for ${Array.isArray(userstyles[userstyle].name)
+      ? formatListOfItems(userstyles[userstyle].name as string[])
+      : userstyles[userstyle].name
+      }`,
+    author: "Catppuccin",
     updateURL: `${prefix}/raw/main/styles/${userstyle}/catppuccin.user.css`,
     supportURL: `${prefix}/issues?q=is%3Aopen+is%3Aissue+label%3A${userstyle}`,
+    license: "MIT",
+    preprocessor: "less",
   };
 };
+
+const vars = {
+  lightFlavor: {
+    type: "select",
+    label: "Light Flavor",
+    name: "lightFlavor",
+    value: null,
+    default: "latte",
+    options: [
+      { name: "latte", label: "Latte", value: "latte" },
+      { name: "frappe", label: "Frappé", value: "frappe" },
+      { name: "macchiato", label: "Macchiato", value: "macchiato" },
+      { name: "mocha", label: "Mocha", value: "mocha" },
+    ],
+  },
+  darkFlavor: {
+    type: "select",
+    label: "Dark Flavor",
+    name: "darkFlavor",
+    value: null,
+    default: "mocha",
+    options: [
+      { name: "latte", label: "Latte", value: "latte" },
+      { name: "frappe", label: "Frappé", value: "frappe" },
+      { name: "macchiato", label: "Macchiato", value: "macchiato" },
+      { name: "mocha", label: "Mocha", value: "mocha" },
+    ],
+  },
+  accentColor: {
+    type: "select",
+    label: "Accent",
+    name: "accentColor",
+    value: null,
+    default: "sapphire",
+    options: [
+      { name: "rosewater", label: "Rosewater", value: "rosewater" },
+      { name: "flamingo", label: "Flamingo", value: "flamingo" },
+      { name: "pink", label: "Pink", value: "pink" },
+      { name: "mauve", label: "Mauve", value: "mauve" },
+      { name: "red", label: "Red", value: "red" },
+      { name: "maroon", label: "Maroon", value: "maroon" },
+      { name: "peach", label: "Peach", value: "peach" },
+      { name: "yellow", label: "Yellow", value: "yellow" },
+      { name: "green", label: "Green", value: "green" },
+      { name: "teal", label: "Teal", value: "teal" },
+      { name: "blue", label: "Blue", value: "blue" },
+      { name: "sapphire", label: "Sapphire", value: "sapphire" },
+      { name: "sky", label: "Sky", value: "sky" },
+      { name: "lavender", label: "Lavender", value: "lavender" },
+      { name: "subtext0", label: "Gray", value: "subtext0" },
+    ],
+  },
+} as Record<string, {
+  type: string;
+  label: string;
+  name: string;
+  value: null | string;
+  default: string;
+  options: { name: string; label: string; value: string }[];
+}>;
