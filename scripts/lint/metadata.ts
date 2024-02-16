@@ -62,11 +62,11 @@ export const verifyMetadata = async (
     let current = metadata.vars[variable];
 
     if (current === undefined) {
-
+      // This variable is undefined so there isn't a line for it, so we just put it at the bottom of the variables section.
       const line = content
         .split("\n")
-        .findIndex((line) =>
-          line.includes('@var')
+        .findLastIndex((line: string) =>
+          line.includes('==/UserStyle== */')
         ) + 1;
 
       log(
@@ -83,6 +83,7 @@ export const verifyMetadata = async (
       );
     } else {
       for (const [key, value] of Object.entries(expected)) {
+        // If this property is an array (such as `options`) and there is a difference in the stringified representation of the values...
         if ((Array.isArray(value) && Array.isArray(current[key])) ? (new Set([
           ...value.map(stringify),
           ...current[key].map(stringify),
