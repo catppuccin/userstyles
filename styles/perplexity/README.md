@@ -40,7 +40,7 @@
 
 ## 💝 Current Maintainer
 - [Isabel](https://github.com/isabelroses)
-
+- [Tnixc](https://github.com/Tnixc)
 
 &nbsp;
 
