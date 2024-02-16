@@ -103,7 +103,7 @@ export const verifyMetadata = async (
                   stringify(el) === stringify(current[key][i])
                     ? ""
                     : color.green(`+ Expected: ${stringify(el)}\n`) +
-                    color.red(`- Recieved: ${stringify(current[key][i])}`)
+                    color.red(`- Received: ${stringify(current[key][i])}`)
                 ).join(''),
                 color.bold(key),
                 color.bold(variable),
