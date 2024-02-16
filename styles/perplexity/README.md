@@ -41,7 +41,6 @@
 ## 💝 Current Maintainer
 - [Isabel](https://github.com/isabelroses)
 
-
 &nbsp;
 
 <p align="center">
