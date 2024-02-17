@@ -8,7 +8,6 @@ import { relative } from "std/path/mod.ts";
 import { REPO_ROOT } from "@/deps.ts";
 import { log } from "@/lint/logger.ts";
 import { formatListOfItems, getUserstylesData } from "@/utils.ts";
-import stringify from "npm:json-oneline-stringify";
 
 export const verifyMetadata = async (
   entry: WalkEntry,
@@ -59,19 +58,21 @@ export const verifyMetadata = async (
   }
 
   for (const [variable, expected] of Object.entries(vars)) {
-    let current = metadata.vars[variable];
+    const current = metadata
+      .vars[variable as keyof typeof metadata["vars"]] as typeof vars[
+        keyof typeof vars
+      ];
 
     if (current === undefined) {
       // This variable is undefined so there isn't a line for it, so we just put it at the bottom of the variables section.
       const line = content
         .split("\n")
-        .findLastIndex((line: string) =>
-          line.includes('==/UserStyle== */')
-        ) + 1;
+        .findLastIndex((line: string) => line.includes("==/UserStyle== */")) +
+        1;
 
       log(
         sprintf(
-          "Metadata variable `%s` should not be undefined",
+          "Metadata variable `%s` should exist",
           color.bold(variable),
         ),
         {
@@ -82,45 +83,64 @@ export const verifyMetadata = async (
         "warning",
       );
     } else {
-      for (const [key, value] of Object.entries(expected)) {
-        // If this property is an array (such as `options`) and there is a difference in the stringified representation of the values...
-        if ((Array.isArray(value) && Array.isArray(current[key])) ? (new Set([
-          ...value.map(stringify),
-          ...current[key].map(stringify),
-        ]).size !== value.length) :
-          (current[key] !== value)) {
-          const line = content
-            .split("\n")
-            .findIndex((line) =>
-              line.includes(`@var ${expected.type} ${variable}`)
-            ) + 1;
+      // If this property is an array (such as `options`) and there is a difference in the stringified representation of the values...
+      const line = content.split("\n")
+        .findIndex((line: string) => line.includes(`@var select ${variable}`)) +
+        1;
 
-          const message =
-            (Array.isArray(value) && Array.isArray(current[key]))
-              ? sprintf(
-                'Found mismatch in array elements of property "%s" of metadata variable `%s`:\n' +
-                value.map((el, i) =>
-                  stringify(el) === stringify(current[key][i])
-                    ? ""
-                    : color.green(`+ Expected: ${stringify(el)}\n`) +
-                    color.red(`- Received: ${stringify(current[key][i])}`)
-                ).join(''),
-                color.bold(key),
-                color.bold(variable),
-              )
-              : sprintf(
-                'Property "%s" of metadata variable `%s` should be %s but is %s',
-                color.bold(key),
-                color.bold(variable),
-                color.green(stringify(value)),
-                color.red(stringify(current[key])),
+      if (JSON.stringify(current) !== JSON.stringify(expected)) {
+        const errors = [];
+        for (const [property, value] of Object.entries(expected)) {
+          if (current[property] !== value) {
+            if (Array.isArray(value) && Array.isArray(current[property])) {
+              for (const option of value) {
+                const currentOption = current[property as "options"].find((o) =>
+                  o.name === option.name || o.label === option.label
+                );
+                if (!currentOption) {
+                  errors.push(
+                    sprintf(
+                      "expected option `%s` to exist",
+                      color.bold(option.name),
+                      color.bold(variable),
+                    ),
+                  );
+                } else {
+                  for (const [k, v] of Object.entries(option)) {
+                    if (v === currentOption[k]) continue;
+                    errors.push(
+                      sprintf(
+                        'expected %s of option `%s` to be "%s" but is "%s"',
+                        k,
+                        color.bold(option.name),
+                        color.green(v),
+                        color.red(currentOption[k]),
+                      ),
+                    );
+                  }
+                }
+              }
+            } else {
+              errors.push(
+                sprintf(
+                  'expected %s to be "%s" but is "%s"',
+                  property,
+                  color.green(value as string),
+                  color.red(current[property] as string),
+                ),
               );
-          log(message, {
-            file,
-            startLine: line !== 0 ? line : undefined,
-            content,
-          }, "warning");
+            }
+          }
         }
+        const message =
+          sprintf("Metadata variable `%s`: ", color.bold(variable)) +
+          errors.join(" and ");
+
+        log(message, {
+          file,
+          startLine: line !== 0 ? line : undefined,
+          content,
+        }, "warning");
       }
     }
   }
@@ -156,16 +176,18 @@ const assertions = async (userstyle: string) => {
   }
 
   return {
-    name: `${Array.isArray(userstyles[userstyle].name)
-      ? (userstyles[userstyle].name as string[]).join("/")
-      : userstyles[userstyle].name
-      } Catppuccin`,
+    name: `${
+      Array.isArray(userstyles[userstyle].name)
+        ? (userstyles[userstyle].name as string[]).join("/")
+        : userstyles[userstyle].name
+    } Catppuccin`,
     namespace: `github.com/catppuccin/userstyles/styles/${userstyle}`,
     homepageURL: `${prefix}/tree/main/styles/${userstyle}`,
-    description: `Soothing pastel theme for ${Array.isArray(userstyles[userstyle].name)
-      ? formatListOfItems(userstyles[userstyle].name as string[])
-      : userstyles[userstyle].name
-      }`,
+    description: `Soothing pastel theme for ${
+      Array.isArray(userstyles[userstyle].name)
+        ? formatListOfItems(userstyles[userstyle].name as string[])
+        : userstyles[userstyle].name
+    }`,
     author: "Catppuccin",
     updateURL: `${prefix}/raw/main/styles/${userstyle}/catppuccin.user.css`,
     supportURL: `${prefix}/issues?q=is%3Aopen+is%3Aissue+label%3A${userstyle}`,
