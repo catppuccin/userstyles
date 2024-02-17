@@ -39,7 +39,7 @@
 
 
 ## 💝 Current Maintainer
-- [alaidriel](https://github.com/alaidriel)
+- [alythical](https://github.com/alythical)
 
 
 &nbsp;
