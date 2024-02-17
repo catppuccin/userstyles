@@ -100,7 +100,7 @@ export const verifyMetadata = async (
                 if (!currentOption) {
                   errors.push(
                     sprintf(
-                      "expected option `%s` to exist",
+                      "option `%s` should exist",
                       color.bold(option.name),
                       color.bold(variable),
                     ),
@@ -110,7 +110,7 @@ export const verifyMetadata = async (
                     if (v === currentOption[k]) continue;
                     errors.push(
                       sprintf(
-                        'expected %s of option `%s` to be "%s" but is "%s"',
+                        '%s of option `%s` should be "%s" but is "%s"',
                         k,
                         color.bold(option.name),
                         color.green(v),
@@ -123,7 +123,7 @@ export const verifyMetadata = async (
             } else {
               errors.push(
                 sprintf(
-                  'expected %s to be "%s" but is "%s"',
+                  '%s should be "%s" but is "%s"',
                   property,
                   color.green(value as string),
                   color.red(current[property] as string),
