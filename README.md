@@ -91,6 +91,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🔎 Search Engines</summary>
 
 - [Brave Search](styles/brave-search)
+- [DuckDuckGo](styles/duckduckgo)
 - [Ecosia](styles/ecosia)
 - [Google](styles/google)
 - [NixOS Search](styles/nixos-search)
