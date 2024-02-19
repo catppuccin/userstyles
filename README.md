@@ -74,6 +74,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 ## 🖌 Userstyles
 
+> [!NOTE]
+> Userstyles labeled with the 🚧 emoji currently do not have any maintainers. They may or may not work as intended. We welcome contributions for these (and all others), and you could even begin maintaining one yourself if you want to.
+
 <!-- AUTOGEN:USERSTYLES START -->
 <!-- the following section is auto-generated, do not edit -->
 <details open>
