@@ -23,7 +23,7 @@ Feel free to leave this section empty if you don't have anything more to say.
   - [ ] I have ensured that the new directory is in **lower-kebab-case**.
   - [ ] I have followed the template and kept the preprocessor as [LESS](https://lesscss.org/#overview).
 - [ ] I have made sure to update the
-      [`userstyles.yml`](https://github.com/catppuccin/userstyles/blob/main/src/userstyles.yml)
+      [`userstyles.yml`](https://github.com/catppuccin/userstyles/blob/main/scripts/userstyles.yml)
       file with information about the new userstyle.
 - [ ] I have included the following files:
   - `catppuccin.user.css` - all the CSS for the userstyle, based on the
@@ -32,4 +32,4 @@ Feel free to leave this section empty if you don't have anything more to say.
     `assets/latte.webp` - individual screenshots of the themed website, in all 4
     Catppuccin flavors.
   - `catwalk.webp` - image of all individual screenshots stitched together,
-    generated via [catwalk](https://github.com/catppuccin/toolbox#-catwalk).
+    generated via [Catwalk](https://github.com/catppuccin/toolbox/tree/main/catwalk#readme).

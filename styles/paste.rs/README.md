@@ -38,9 +38,11 @@
 
 
 
-## 💝 Current Maintainer
-- [Stonks3141](https://github.com/Stonks3141)
+## 🚧 Looking for Maintainers 🚧
+- If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
 
+## 💖 Past Maintainer
+- [Stonks3141](https://github.com/Stonks3141)
 
 &nbsp;
 

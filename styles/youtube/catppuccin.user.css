@@ -2,8 +2,9 @@
 @name YouTube Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/youtube
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/youtube
-@version 3.2.7
+@version 3.3.9
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/youtube/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ayoutube
 @description Soothing pastel theme for YouTube
 @author Catppuccin
 @license MIT
@@ -153,7 +154,7 @@
       --yt-spec-call-to-action-inverse: @accent-color !important;
       --yt-spec-suggested-action: fadeout(@accent-color, 80%) !important;
       --yt-spec-suggested-action-inverse: @text !important;
-      --yt-spec-icon-active-other: @overlay0 !important;
+      --yt-spec-icon-active-other: @text !important;
       --yt-spec-button-chip-background-hover: @surface1 !important;
       --yt-spec-touch-response: @surface0 !important;
 
@@ -220,7 +221,7 @@
       --yt-spec-general-background-b: @base !important;
       --yt-spec-general-background-c: @crust !important;
       --yt-spec-error-background: @base !important;
-      --yt-spec-10-percent-layer: @surface2 !important;
+      --yt-spec-10-percent-layer: @surface0 !important;
       --yt-spec-snackbar-background: @mantle !important;
       --yt-spec-snackbar-background-updated: @mantle !important;
       --yt-spec-badge-chip-background: if(
@@ -230,7 +231,7 @@
       ) !important;
       --yt-spec-verified-badge-background: @overlay0 !important;
       --yt-spec-call-to-action-fadeoutd: fadeout(@sapphire, 0.3) !important;
-      --yt-spec-call-to-action-hover: @accent-color !importantr;
+      --yt-spec-call-to-action-hover: @accent-color !important;
       --yt-spec-brand-button-background-hover: @accent-color !important;
       --yt-spec-brand-link-text-fadeoutd: fadeout(
         @accent-color,
@@ -263,7 +264,7 @@
       --ytd-searchbox-text-color: @text !important;
 
       /* System icons */
-      --yt-spec-icon-inactive: @overlay0 !important;
+      --yt-spec-icon-inactive: @text !important;
       --yt-spec-icon-disabled: @overlay1 !important;
       --yt-spec-brand-icon-inactive: @overlay2 !important;
 
@@ -446,9 +447,16 @@
 
     .html5-ypc-purchase {
       background: @accent-color !important;
+      color: @mantle !important;
       &:hover {
         background: lighten(@accent-color, 10%) !important;
       }
+    }
+
+    .html5-ypc-description,
+    .html5-ypc-title,
+    .html5-ypc-action-heading {
+      color: @text;
     }
 
     yt-notification-action-renderer[darker-dark-theme]
@@ -479,12 +487,21 @@
 
     /* menu items */
     /* checkbox subitem */
-    .ytp-menuitem[aria-checked="true"] .ytp-menuitem-toggle-checkbox {
-      @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" version="1.1"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="@{accent-color}"/></svg>'
-      );
-      background: url("data:image/svg+xml,@{svg}");
+    .ytp-menuitem-toggle-checkbox {
+      background-color: @overlay1;
+
+      &::after {
+        background-color: @subtext0;
+      }
     }
+    .ytp-menuitem[aria-checked="true"] .ytp-menuitem-toggle-checkbox {
+      background-color: @accent-color;
+
+      &::after {
+        background-color: @text;
+      }
+    }
+
     .ytp-menuitem:not([aria-disabled="true"]):hover {
       background: @surface1 !important;
     }
@@ -492,6 +509,7 @@
     .ytp-settings-button.ytp-4k-quality-badge,
     .ytp-settings-button.ytp-5k-quality-badge,
     .ytp-settings-button.ytp-8k-quality-badge,
+    .ytp-settings-button.ytp-hdr-quality-badge,
     .ytp-settings-button.ytp-3d-badge {
       &::after {
         background-color: @accent-color !important;
@@ -537,6 +555,9 @@
       .yt-spec-button-shape-next__icon yt-icon svg g path {
         fill: @base !important;
       }
+      &:hover {
+        background-color: darken(@accent-color, 20%) !important;
+      }
     }
 
     .yt-spec-button-shape-next--overlay.yt-spec-button-shape-next--text {
@@ -554,6 +575,11 @@
     /* private video warning */
     .WARNING.yt-alert-renderer {
       background-color: @yellow;
+    }
+
+    /* search input placeholder */
+    #search-input.ytd-searchbox-spt #search::placeholder {
+      color: @overlay0;
     }
 
     /* search results */
@@ -627,6 +653,22 @@
     /* exmplation box */
     .explanation-box[correct] * {
       color: @crust !important;
+    }
+
+    /* history tab header */
+    .page-header-view-model-wiz__page-header-title {
+      color: @text;
+    }
+
+    /* Video Music Names */
+    .yt-video-attribute-view-model__title {
+      color: @text;
+    }
+    .yt-video-attribute-view-model__subtitle {
+      color: @subtext0;
+    }
+    .yt-video-attribute-view-model__secondary-subtitle {
+      color: @subtext0;
     }
 
     /* custom likes + anims */
@@ -707,14 +749,6 @@
       background-color: @base !important;
     }
 
-    /* Temporary fix */
-    .yt-core-attributed-string--link-inherit-color {
-      color: @text !important;
-      /* &:hover {
-       * color: @teal !important;
-      } */
-    }
-
     /* live badges */
     .badge-style-type-live-now-alternate,
     ytd-thumbnail-overlay-time-status-renderer[overlay-style="LIVE"] {
@@ -767,9 +801,9 @@
       padding-left: 8px;
     }
 
-    /* disable ambient mode */
-    #cinematics > div > canvas {
-      visibility: hidden;
+    /* ambient mode */
+    #cinematics {
+      mix-blend-mode: lighten;
     }
 
     /* badges e.g. popular */
@@ -889,12 +923,14 @@
       color: @accent-color !important;
     }
 
-    /* hopefully temporary */
+    /* hopefully temporary (buttons) */
     .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal {
       background-color: @surface0;
       color: @text;
+      &:hover {
+        background-color: @surface1;
+      }
     }
-
     .yt-spec-button-shape-next--call-to-action.yt-spec-button-shape-next--filled {
       color: @crust;
       background-color: @accent-color;
@@ -902,8 +938,16 @@
         background-color: darken(@accent-color, 20);
       }
     }
+    .yt-spec-touch-feedback-shape--touch-response
+      .yt-spec-touch-feedback-shape__stroke {
+      border-color: @surface1;
+    }
+    .yt-spec-touch-feedback-shape--touch-response-inverse
+      .yt-spec-touch-feedback-shape__stroke {
+      border-color: @accent-color;
+    }
 
-    ytd-guide-section-renderer.style-scope:nth-child(3),
+    ytd-guide-section-renderer.style-scope:nth-child(3) > div:nth-child(2),
     ytd-guide-section-renderer.style-scope:nth-child(4) > div:nth-child(2) {
       > ytd-guide-entry-renderer:nth-child(1)
         > a:nth-child(1)
@@ -914,9 +958,6 @@
         > div:nth-child(1)
         > svg:nth-child(1) {
         > g:nth-child(2) > g:nth-child(2) > path {
-          &:nth-child(1) {
-            fill: @accent-color !important;
-          }
           &:nth-child(2) {
             fill: @base !important;
           }
@@ -930,14 +971,8 @@
         > icon-shape:nth-child(1)
         > div:nth-child(1)
         > svg:nth-child(1) {
-        > path:nth-child(1) {
-          fill: @accent-color !important;
-        }
         > path:nth-child(2) {
           fill: @base !important;
-        }
-        > path:nth-child(3) {
-          fill: @accent-color !important;
         }
         > path:nth-child(4) {
           fill: @base !important;
@@ -951,9 +986,6 @@
         > icon-shape:nth-child(1)
         > div:nth-child(1)
         > svg:nth-child(1) {
-        > circle:nth-child(1) {
-          fill: @accent-color !important;
-        }
         > polygon:nth-child(2) {
           fill: @base !important;
         }
@@ -969,13 +1001,20 @@
         > icon-shape:nth-child(1)
         > div:nth-child(1)
         > svg:nth-child(1) {
-        > path:nth-child(1) {
-          fill: @accent-color !important;
-        }
         > path:nth-child(4) {
           fill: @base !important;
         }
       }
+    }
+
+    [fill="#F00"],
+    [fill="red"],
+    [fill="#FF0000"] {
+      fill: @accent-color;
+    }
+
+    svg > g > polygon[fill="#fff"] {
+      fill: @base !important;
     }
 
     .yt-spec-button-shape-next--call-to-action.yt-spec-button-shape-next--text {

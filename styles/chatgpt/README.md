@@ -39,8 +39,10 @@
 
 
 ## 💝 Current Maintainer
-- [rubyowo](https://github.com/rubyowo)
+- [uncenter](https://github.com/uncenter)
 
+## 💖 Past Maintainer
+- [rubyowo](https://github.com/rubyowo)
 
 &nbsp;
 

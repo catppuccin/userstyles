@@ -1,25 +1,27 @@
 // @deno-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
-import { log } from "@/lint/logger.ts";
 import * as color from "std/fmt/colors.ts";
 import { sprintf } from "std/fmt/printf.ts";
 import type { WalkEntry } from "std/fs/walk.ts";
 import { relative } from "std/path/mod.ts";
-import { REPO_ROOT } from "@/deps.ts";
 
-export const verifyMetadata = (
+import { REPO_ROOT } from "@/deps.ts";
+import { log } from "@/lint/logger.ts";
+import { formatListOfItems, getUserstylesData } from "@/utils.ts";
+
+export const verifyMetadata = async (
   entry: WalkEntry,
   content: string,
-  repo: string,
+  userstyle: string,
 ) => {
-  const assert = assertions(repo);
+  const assert = await assertions(userstyle);
   const file = relative(REPO_ROOT, entry.path);
 
   const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {
     allowErrors: true,
   });
 
-  // pretty print / annotate the parsing errors
+  // Pretty print / annotate the parsing errors.
   parsingErrors.map((e) => {
     let startLine = 0;
     for (const line of content.split("\n")) {
@@ -30,17 +32,17 @@ export const verifyMetadata = (
     log(e.message, { file, startLine, content });
   });
 
-  Object.entries(assert).forEach(([k, v]) => {
-    const defacto = metadata[k];
-    if (defacto !== v) {
+  for (const [key, value] of Object.entries(assert)) {
+    const defacto = metadata[key];
+    if (defacto !== value) {
       const line = content
         .split("\n")
-        .findIndex((line) => line.includes(k)) + 1;
+        .findIndex((line) => line.includes(key)) + 1;
 
       const message = sprintf(
-        "Metadata %s should be %s but is %s",
-        color.bold(k),
-        color.green(v),
+        'Metadata `%s` should be "%s" but is "%s"',
+        color.bold(key),
+        color.green(value),
         color.red(String(defacto)),
       );
 
@@ -50,12 +52,12 @@ export const verifyMetadata = (
         content,
       }, "warning");
     }
-  });
+  }
 
-  // parse the usercss variables to less global variables, e.g.
+  // Parse the UserCSS variables to LESS global variables, e.g.
   // `@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]`
   // gets parsed as
-  // `lightFlavor: "latte"`
+  // `lightFlavor: "latte"`.
   const globalVars = Object.entries(metadata.vars)
     .reduce((acc, [k, v]) => {
       return { ...acc, [k]: v.default };
@@ -67,14 +69,38 @@ export const verifyMetadata = (
   };
 };
 
-const assertions = (repo: string) => {
+const assertions = async (userstyle: string) => {
   const prefix = "https://github.com/catppuccin/userstyles";
+
+  const { userstyles } = await getUserstylesData().catch((err) => {
+    console.error(err);
+    Deno.exit(1);
+  });
+
+  if (!userstyles[userstyle]) {
+    log("Metadata section for this userstyle has not been added", {
+      file: "scripts/userstyles.yml",
+    }, "error");
+    Deno.exit(1);
+  }
+
   return {
-    namespace: `github.com/catppuccin/userstyles/styles/${repo}`,
+    name: `${
+      Array.isArray(userstyles[userstyle].name)
+        ? (userstyles[userstyle].name as string[]).join("/")
+        : userstyles[userstyle].name
+    } Catppuccin`,
+    namespace: `github.com/catppuccin/userstyles/styles/${userstyle}`,
     author: "Catppuccin",
+    description: `Soothing pastel theme for ${
+      Array.isArray(userstyles[userstyle].name)
+        ? formatListOfItems(userstyles[userstyle].name as string[])
+        : userstyles[userstyle].name
+    }`,
     license: "MIT",
     preprocessor: "less",
-    homepageURL: `${prefix}/tree/main/styles/${repo}`,
-    updateURL: `${prefix}/raw/main/styles/${repo}/catppuccin.user.css`,
+    homepageURL: `${prefix}/tree/main/styles/${userstyle}`,
+    updateURL: `${prefix}/raw/main/styles/${userstyle}/catppuccin.user.css`,
+    supportURL: `${prefix}/issues?q=is%3Aopen+is%3Aissue+label%3A${userstyle}`,
   };
 };

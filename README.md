@@ -40,16 +40,26 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 ## 🖥️ Install
 
-To install these userstyles:
+Install [Stylus](https://github.com/openstyles/stylus) for your chosen browser.
 
-1. Install [Stylus](https://github.com/openstyles/stylus).
-   - [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)/[Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
-     extension.
-2. Enable CSP Patching from `Stylus Settings` > `Advanced`.
-3. Install the theme:
+- [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)
+- [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
+
+### All Userstyles
+
+1. Download [the Stylus export](https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json).
+2. Open the Stylus "manage" page.
+3. Locate backup (on the left bar) and select import.
+   - Select the downloaded file.
+4. Enjoy!
+
+### Individual Userstyles
+
+1. Enable CSP Patching from `Stylus Settings` > `Advanced`.
+2. Install the theme:
    - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
    - Replacing `<name>` with the name of the userstyle.
-4. Enjoy!
+3. Enjoy!
 
 &nbsp;
 
@@ -69,7 +79,10 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>💭 Development tools</summary>
 
+- [Graphite](styles/graphite)
+- [Hackage](styles/hackage)
 - [Hoppscotch](styles/hoppscotch)
+- [Next.js](styles/nextjs)
 - [paste.rs](styles/paste.rs)
 - [Vercel](styles/vercel)
 
@@ -78,23 +91,28 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🔎 Search Engines</summary>
 
 - [Brave Search](styles/brave-search)
+- [DuckDuckGo](styles/duckduckgo)
 - [Ecosia](styles/ecosia)
 - [Google](styles/google)
 - [NixOS Search](styles/nixos-search)
+- [Perplexity](styles/perplexity)
 - [SearXNG](styles/searxng)
 - [Startpage](styles/startpage)
+- [Wikipedia](styles/wikipedia)
 
 </details>
 <details open>
 <summary>💬 Messaging</summary>
 
 - [Cinny](styles/cinny)
+- [Snapchat Web](styles/snapchat-web)
 - [WhatsApp Web](styles/whatsapp-web)
 
 </details>
 <details open>
 <summary>🗂️ Productivity</summary>
 
+- [Arch Wiki](styles/arch-wiki)
 - [boringproxy](styles/boringproxy)
 - [Canvas LMS](styles/canvas-lms)
 - [ChatGPT](styles/chatgpt)
@@ -107,22 +125,27 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [homepage](styles/homepage)
 - [ichi.moe](styles/ichi.moe)
 - [InvokeAI](styles/invokeai)
+- [Lingva](styles/lingva)
+- [Microsoft Word](styles/microsoft-word)
 - [NixOS Wiki](styles/nixos.wiki)
+- [OpenMediaVault](styles/openmediavault)
 - [Proton](styles/proton)
 - [Quizlet](styles/quizlet)
 - [Skiff](styles/skiff)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
 - [Tuta](styles/tuta)
-- [WikiWand](styles/wikiwand)
+- [Wikiwand](styles/wikiwand)
 
 </details>
 <details open>
 <summary>✨ Social</summary>
 
+- [Bluesky Social](styles/bsky)
 - [Elk](styles/elk)
 - [Hacker News](styles/hacker-news)
 - [Instagram](styles/instagram)
+- [Lemmy](styles/lemmy)
 - [Libreddit](styles/libreddit)
 - [LinkedIn](styles/linkedin)
 - [Mastodon](styles/mastodon)
@@ -130,6 +153,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Pinterest](styles/pinterest)
 - [Reddit](styles/reddit)
 - [Substack](styles/substack)
+- [Twitter](styles/twitter)
 
 </details>
 <details open>
@@ -150,7 +174,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Advent Of Code](styles/advent-of-code)
 - [bStats](styles/bstats)
 - [Chess.com](styles/chess.com)
-- [lichess](styles/lichess)
+- [Lichess](styles/lichess)
 - [Modrinth](styles/modrinth)
 - [Planet Minecraft](styles/planet-minecraft)
 

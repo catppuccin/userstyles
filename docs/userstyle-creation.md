@@ -33,12 +33,11 @@ To create a userstyle, follow the instructions listed below:
    `lower-kebab-case`.
 4. Copy the contents of the [`template`](../template/) folder into
    `styles/<name-of-website>`.
-   - **The template uses [LESS](https://lesscss.org/#overview) as the
+   - **The template uses [LESS](https://lesscss.org/#overview), a
      preprocessor for Stylus. Please do not change this as we will only accept
      userstyles based on the template.**
-5. Edit the [`catppuccin.user.css`](../template/catppuccin.user.css) file and
-   replace all the words wrapped with `<>` to fit the details of your port.
-6. Edit the [`userstyle.yml`](../scripts/userstyles.yml) file and put in the details
+5. [Write the userstyle](./how-to-write-a-userstyle.md).
+6. Edit the [`userstyles.yml`](../scripts/userstyles.yml) file and put in the details
    of your port. **More details given below.**
 7. Create your image previews in the [`assets/`](../template/assets/) folder
    - **All previews must be `.webp` files.**
@@ -47,8 +46,8 @@ To create a userstyle, follow the instructions listed below:
    - Use [catwalk](https://github.com/catppuccin/toolbox#catwalk) to generate a
      composite or grid image of all the flavors. **This must be saved as
      `catwalk.webp`.**
-8. Raise a [Pull Request](https://github.com/catppuccin/userstyles/compare),
-   making sure to read and fill out the template properly.
+8. Raise a [pull request](https://github.com/catppuccin/userstyles/compare),
+   making sure to read and fill out the template properly. The title of your pull request should follow the format of `feat(<port-name>): init`.
 
 &nbsp;
 

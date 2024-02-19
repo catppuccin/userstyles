@@ -2,8 +2,9 @@
 @name ChatGPT Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/chatgpt
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/chatgpt
-@version 0.0.7
+@version 0.2.1
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/chatgpt/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Achatgpt
 @description Soothing pastel theme for ChatGPT
 @author Catppuccin
 @license MIT
@@ -16,14 +17,11 @@
 @-moz-document domain("chat.openai.com") {
   @import url("https://unpkg.com/@catppuccin/highlightjs@0.1.2/css/catppuccin.variables.css");
 
-  .light body,
-  .light html {
+  :root.light {
     #catppuccin(@lightFlavor, @accentColor);
   }
 
-  :root,
-  .dark body,
-  .dark html {
+  :root.dark {
     #catppuccin(@darkFlavor, @accentColor);
   }
 
@@ -33,11 +31,6 @@
     @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
     @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
     @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-  }
-
-  @color: white;
-  #rgbify(@color) {
-    @rgb-raw: red(@color), green(@color), blue(@color);
   }
 
   #catppuccin(@lookup, @accent) {
@@ -69,6 +62,13 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
+    color-scheme: if(@lookup=latte, light, dark);
+
+    /* Syntax highlighting */
+    @color: white;
+    #rgbify(@color) {
+      @rgb-raw: red(@color), green(@color), blue(@color);
+    }
     --ctp-rosewater: #rgbify(@rosewater) [];
     --ctp-flamingo: #rgbify(@flamingo) [];
     --ctp-pink: #rgbify(@pink) [];
@@ -95,395 +95,900 @@
     --ctp-base: #rgbify(@crust) [];
     --ctp-mantle: #rgbify(@mantle) [];
     --ctp-crust: #rgbify(@crust) [];
+    code.hljs {
+      background: none;
+    }
+    pre {
+      .bg-token-main-surface-secondary {
+        background-color: @surface0;
+      }
+      .bg-gray-950 {
+        background-color: @crust;
+      }
+      .text-token-text-secondary {
+        color: @subtext0;
+      }
+    }
 
-    --text-primary: @text;
-    --text-secondary: @subtext0;
-    --text-tertiary: @subtext1;
-    --surface-primary: @mantle;
-    --surface-secondary: @base;
-    --surface-tertiary: @surface0;
-    --border-light: fade(@overlay2, 10%);
-    --border-medium: fade(@overlay2, 15%);
-    --border-heavy: fade(@overlay2, 20%);
-    --border-xheavy: fade(@overlay2, 25%);
-
-    background: @base !important;
     color: @text;
 
-    /* Main page */
-    div[class*="bg-gray-"]:not(
-        [class*="bg-gray-900"],
-        [class*="bg-gray-700"],
-        .bg-black .bg-gray-800,
-        [class*="bg-gray-600/70"], /* Modal background */
-        [id^="headlessui-menu-items-"], /* Help menu */
-        [class*=":radix-highlighted:hover:bg-[#2E2F33]"] /* Settings > Theme selector drop down */
-      ),
-    div[class*="bg-vert-dark-gradient"] {
-      background: @base !important;
+    @white: lighten(if(@lookup=latte, @base, @text), 10%);
+    @black: darken(if(@lookup=latte, @text, @base), 10%);
+    --white: @white;
+    --black: @black;
+
+    & when not (@lookup = latte) {
+      --gray-50: lighten(mix(@text, @subtext0), 5%);
+      --gray-100: @text;
+      --gray-200: @subtext1;
+      --gray-300: @subtext0;
+      --gray-400: @overlay2;
+      --gray-500: @overlay1;
+      --gray-600: @overlay0;
+      --gray-700: @surface2;
+      --gray-800: @surface1;
+      --gray-900: @surface0;
+      --gray-950: @base;
+      --brand-purple: @accent-color;
+    }
+    & when (@lookup = latte) {
+      --gray-50: @mantle;
+      --gray-100: @base;
+      --gray-200: @surface0;
+      --gray-300: @surface1;
+      --gray-400: @surface2;
+      --gray-500: @overlay0;
+      --gray-600: @overlay1;
+      --gray-700: @overlay2;
+      --gray-800: @subtext0;
+      --gray-900: @subtext1;
+      --gray-950: @text;
+      --brand-purple: @accent-color;
     }
 
-    /* ToS violating message. Don't ask how this was tested. */
-    .text-orange-500 {
-      color: @peach;
+    --border-light: fade(@text, 10%);
+    --border-medium: fade(@text, 15%);
+    --border-heavy: fade(@text, 20%);
+    --border-xheavy: fade(@text, 25%);
+    --link: @accent-color;
+    --link-hover: if(
+      @lookup=latte,
+      lighten(@accent-color, 10%),
+      darken(@accent-color, 10%)
+    );
 
-      .bg-orange-500\/10.border-orange-500 {
-        background-color: fade(@peach, 10%);
-        border-color: @peach;
-      }
+    *:focus {
+      --tw-ring-offset-color: @base;
+      --tw-ring-color: @accent-color;
     }
 
-    /* Chatbox */
-    [class*=":shadow-[0_0_0_2px_"] {
-      --tw-shadow: 0 0 0 2px @overlay0 !important;
-      ::placeholder {
-        color: @overlay0 !important;
-      }
+    /* ChatGPT logo */
+    [style*="background-color: rgb(25, 195, 125);"] {
+      background-color: @green !important;
+      color: @base !important;
     }
 
-    /* Go to end arrow */
-    [class*=":bg-white/10"] {
-      background-color: @surface0;
-      border-color: @overlay0;
+    /* Input */
+
+    input::placeholder,
+    textarea::placeholder {
+      color: @overlay2 !important;
     }
 
-    /* Message suggestions */
-    [class*=":from-gray-700"] {
-      --tw-gradient-from: if(@lookup = latte, @crust, @surface2)
-        var(--tw-gradient-from-position);
-      --tw-gradient-to: transparent var(--tw-gradient-to-position);
+    select {
+      @svg: escape(
+        "<svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'><path stroke='@{overlay2}' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/></svg>"
+      );
+      background-image: url("data:image/svg+xml;@{svg}");
     }
 
-    /* Help Menu */
-    [id^="headlessui-menu-items-"] {
-      background-color: @mantle !important;
-      [id^="headlessui-menu-item-"]:hover {
-        background-color: @surface0 !important;
-      }
-    }
-
-    /* Modal Background */
-    [class*="bg-gray-600/70"] {
-      background: fade(@base, 70%) !important;
-    }
-
-    /* Sidebar */
-    [class*="bg-gray-900"]:not(.\!bg-transparent) {
-      /* Also, Shared Links */
-      background-color: @mantle !important;
-    }
-
-    div {
-      --text-primary: @text;
-      --text-secondary: @subtext0;
-      --text-tertiary: @subtext1;
-      --surface-primary: @surface0;
-      --surface-secondary: @surface1;
-      --surface-tertiary: @surface2;
-      --border-light: fade(@overlay2, 10%);
-      --border-medium: fade(@overlay2, 15%);
-      --border-heavy: fade(@overlay2, 20%);
-      --border-xheavy: fade(@overlay2, 25%);
-    }
-
-    nav {
-      .sticky.bg-black, /* New Chat */
-      h3[class*=":bg-black"] /* Today, Yesterday */ {
-        background-color: transparent !important;
-      }
-
-      /* TODO: is it used? */
-      .bg-gray-900 .bg-gray-800 {
-        background-color: @surface0 !important;
-      }
-
-      /* Conversation */
-      .group {
-        /* Rename */
-        a[href^="/c/"] ~ .absolute {
-          input {
-            border-color: @accent-color;
-            --tw-ring-color: @accent-color;
-          }
-        }
-        /* Gradient */
-        a[href^="/c/"] .bg-gradient-to-l {
-          --tw-gradient-from: @mantle var(--tw-gradient-from-position);
-        }
-        &:hover a[href^="/c/"] .bg-gradient-to-l {
-          --tw-gradient-from: var(--surface-primary)
-            var(--tw-gradient-from-position);
-        }
-      }
-
-      /* TODO: is it used? */
-      /* Upgrade Plan */
-      .shim-yellow {
-        display: none;
-      }
-    }
-
-    [class*=":hover:bg-white/5"][class*="hover:bg-black/5"] {
-      /* ... Menu */
-      background-color: var(--surface-primary) !important;
-      &:hover {
-        background-color: var(--surface-tertiary) !important;
-      }
-    }
-
-    /* Search */
-    div[class*="bg-gray-700"] {
-      background-color: if(@lookup = latte, @base, @surface0) !important;
-    }
-
-    [class*="text-gray-"]:not(.text-gray-500),
-    [class*="text-white"]:not(.btn-primary .text-white, .bg-green-600) {
-      color: @text !important;
-    }
-
-    .text-gray-500 {
-      color: @subtext0;
-    }
-
-    div[class*="border-gray"],
-    div[class*="border-white"] {
-      border-color: @overlay0 !important;
-    }
-
-    input,
+    [multiple],
+    [type="date"],
+    [type="datetime-local"],
+    [type="email"],
+    [type="month"],
+    [type="number"],
+    [type="password"],
+    [type="search"],
+    [type="tel"],
+    [type="text"],
+    [type="time"],
+    [type="url"],
+    [type="week"],
+    select,
     textarea {
-      color: @text;
-      &::placeholder {
-        color: @overlay0;
-      }
+      background-color: @base;
+      border-color: @overlay2;
     }
 
-    [class*="bg-white/5"] {
-      background-color: @surface0 !important;
+    [type="checkbox"],
+    [type="radio"] {
+      background-color: @base;
+      border-color: @overlay2;
+      color: @accent-color;
     }
 
-    /* Bot messages */
-    .prose {
-      --tw-prose-body: @text !important;
-      --tw-prose-bold: @text !important;
-      --tw-prose-code: @text !important;
-      --tw-prose-links: @text !important;
-      --tw-prose-headings: @overlay1 !important;
+    .form-input,
+    .form-multiselect,
+    .form-select,
+    .form-textarea {
+      background-color: @base;
+      border-color: @overlay2;
     }
 
-    .bg-black,
-    [class*=":bg-black"] {
-      background-color: @crust !important;
+    .form-input:focus,
+    .form-multiselect:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: @accent-color;
     }
 
-    .bg-black .bg-gray-800 {
-      background-color: @surface0 !important;
-    }
-
-    code.hljs,
-    code[class*="language-"],
-    pre[class*="language-"] {
-      color: @text !important;
-    }
-
-    .markdown {
-      [type="checkbox"]:checked {
-        background-color: @accent-color;
-        @svg: escape(
-          '<svg viewBox="0 0 16 16" fill="@{base}" xmlns="http://www.w3.org/2000/svg"><path d="M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0z"/></svg>'
-        );
-        background-image: ~"url('data:image/svg+xml;charset=utf-8,@{svg}')";
-      }
-
-      a {
-        color: @accent-color;
-        &:hover {
-          color: lighten(@accent-color, 5%);
-          text-decoration-line: underline;
-        }
-      }
-
-      th {
-        background: @mantle;
-        color: @text;
-      }
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: @overlay2;
     }
 
     /* Buttons */
-    .btn-neutral,
-    .btn-dark {
-      background-color: if(@lookup = latte, @base, @surface1) !important;
-      color: @text !important;
-      border-color: @overlay0;
-      &:hover {
-        background-color: if(@lookup = latte, @crust, @surface2) !important;
-      }
-    }
 
     .btn-primary {
-      background-color: @accent-color !important;
-      color: @crust !important;
+      background-color: @green;
+      color: @base;
     }
 
-    .btn-primary .text-white {
-      color: @crust !important;
+    .btn-primary:hover {
+      background-color: darken(@green, 10%);
+    }
+
+    .btn-primary.focus-visible {
+      --tw-ring-color: lighten(@green, 10%) !important;
+    }
+
+    .btn-primary:focus-visible {
+      --tw-ring-color: lighten(@green, 10%) !important;
     }
 
     .btn-danger {
-      background-color: @red !important;
-      color: @crust !important;
+      background-color: @red;
+      color: @base;
+    }
+
+    .btn-danger:hover {
+      background-color: darken(@red, 10%);
+    }
+
+    .btn-danger.focus-visible {
+      --tw-ring-color: lighten(@red, 10%) !important;
+    }
+
+    .btn-danger:focus-visible {
+      --tw-ring-color: lighten(@red, 10%) !important;
+    }
+
+    .btn-danger:disabled:hover {
+      background-color: @red;
+    }
+
+    .btn-danger-outline {
+      border-color: @red;
+      color: @red;
+    }
+
+    .btn-danger-outline.focus-visible {
+      --tw-ring-color: lighten(@red, 10%) !important;
+    }
+
+    .btn-danger-outline:focus-visible {
+      --tw-ring-color: lighten(@red, 10%) !important;
+    }
+
+    .btn-neutral.focus-visible {
+      --tw-ring-color: @overlay0 !important;
+    }
+
+    .btn-neutral:focus-visible {
+      --tw-ring-color: @overlay0 !important;
+    }
+
+    .btn-dark {
+      background-color: @surface0;
+      border-color: @overlay0;
+      color: @text;
+    }
+
+    .btn-dark:hover {
+      background-color: @surface1;
+    }
+
+    .btn-light {
+      background-color: @text;
+      color: @black;
+    }
+
+    .btn-light:hover {
+      background-color: @base;
     }
 
     .btn-disabled,
     .btn-disabled:hover {
+      background-color: @text;
+    }
+
+    /* Borders */
+
+    .border-black,
+    .border-black\/10,
+    .border-black\/20,
+    .border-black\/30,
+    .border-black\/5 {
+      border-color: var(--border-light);
+    }
+
+    .border-gray-100 {
+      border-color: var(--gray-100);
+    }
+
+    .border-gray-200 {
+      border-color: var(--gray-200);
+    }
+
+    .border-gray-300 {
+      border-color: var(--gray-300);
+    }
+
+    .border-gray-400 {
+      border-color: var(--gray-400);
+    }
+
+    .border-gray-500 {
+      border-color: var(--gray-500);
+    }
+
+    .border-gray-700 {
+      border-color: var(--gray-700);
+    }
+
+    .border-gray-950 {
+      border-color: var(--gray-950);
+    }
+
+    .border-green-500 {
+      border-color: lighten(@green, 10%);
+    }
+
+    .border-green-600 {
+      border-color: @green;
+    }
+
+    .border-orange-400 {
+      border-color: lighten(mix(@red, @yellow), 10%);
+    }
+
+    .border-orange-500 {
+      border-color: mix(@red, @yellow);
+    }
+
+    .border-red-500 {
+      border-color: darken(@red, 10%);
+    }
+
+    .border-white {
+      border-color: @white;
+    }
+
+    .border-white\/20 {
+      border-color: fade(@white, 20%);
+    }
+
+    .border-t-[\#0077FF] {
+      border-top-color: @blue;
+    }
+
+    /* Backgrounds */
+
+    .\!bg-brand-purple {
+      background-color: @accent-color !important;
+    }
+
+    .\!bg-gray-200 {
+      background-color: var(--gray-200) !important;
+    }
+
+    .bg-[\#0077FF],
+    .bg-\[\#3C46FF\] {
+      background-color: @blue;
+    }
+
+    .hover\:bg-\[\#0000FF\]:hover {
+      background-color: darken(@blue, 10%);
+    }
+
+    .bg-[\#10A37F] {
+      background-color: @green;
+    }
+
+    .bg-[\#3C46FF] {
+      background-color: @blue;
+    }
+
+    .bg-[\#4046EC] {
+      background-color: @blue;
+    }
+
+    .bg-[\#B161FD] {
+      background-color: @accent-color;
+    }
+
+    .bg-[\#F8CA27] {
+      background-color: @yellow;
+    }
+
+    .bg-[\#FF5588] {
+      background-color: mix(@red, @pink);
+    }
+
+    .bg-[\#FF6E3C] {
+      background-color: saturate(mix(@red, @yellow), 10%);
+    }
+    .dark\:radix-highlighted\:bg-\[\#2E2F33\][data-highlighted] {
       background-color: @surface0;
-      color: @text;
     }
 
-    /* TODO: is it used? */
-    .text-2xl {
-      color: @text !important;
+    .bg-black {
+      background-color: @black;
     }
 
-    /* TODO: is it used? */
-    .dark [class*="bg-yellow-"] {
-      color: @crust !important;
+    .bg-black\/20 {
+      background-color: fade(@black, 20%);
     }
 
-    /* TODO: is it used? */
-    .light [class*="bg-yellow-"] {
-      color: @text !important;
+    .bg-black\/5 {
+      background-color: fade(@black, 5%);
     }
 
-    /* TODO: is it used? */
-    [class*="text-green"] {
-      color: @accent-color !important;
+    .bg-black\/50 {
+      background-color: fade(@black, 50%);
     }
 
-    .dark .dark\:hover\:bg-\[\#2A2B32\]:hover {
-      background-color: @surface0;
+    .bg-black\/90 {
+      background-color: fade(@black, 90%);
     }
 
-    [class*=":bg-gray-800"]:not(
-        [class*="hover:bg-gray-800"],
-        [class*="group-ui-open:bg-gray-800"]
-      ) {
-      background-color: @surface0;
+    .bg-black\/\[\.04\] {
+      background-color: fade(@black, 4%);
     }
 
-    [class*=":hover:bg-gray-800"]:hover {
-      background-color: @surface1;
+    .bg-black\/\[\.08\] {
+      background-color: fade(@black, 8%);
     }
 
-    .radix-state-active\:bg-gray-800[data-state="active"] {
-      background-color: @surface0;
+    .bg-black\/\[\.12\] {
+      background-color: fade(@black, 12%);
     }
 
-    /* Settings > Theme selector drop down */
-    [class*=":hover:bg-[#494A54]"].bg-white {
-      background-color: @mantle;
-      &:hover {
-        background-color: @surface0;
-      }
+    .bg-blue-100 {
+      background-color: lighten(@blue, 30%);
     }
 
-    [class*=":focus-visible:border-green-500"]:focus-visible {
-      border-color: @accent-color;
+    .bg-blue-200 {
+      background-color: lighten(@blue, 20%);
     }
 
-    [class*=":radix-highlighted:hover:bg-[#2E2F33]"]:hover {
-      background-color: @surface0 !important;
+    .bg-blue-300 {
+      background-color: lighten(@blue, 10%);
     }
 
-    /* Shared Links */
-    a[href^="/share/"][class*="text-blue-400"] {
+    .bg-blue-400 {
+      background-color: @blue;
+    }
+
+    .bg-blue-500 {
+      background-color: darken(@blue, 5%);
+    }
+
+    .bg-blue-700 {
+      background-color: darken(@blue, 10%);
+    }
+
+    .bg-brand-blue-800 {
+      background-color: darken(@blue, 20%);
+    }
+
+    .bg-blue-950 {
+      background-color: darken(@blue, 30%);
+    }
+
+    .checked\:bg-blue-600:checked {
+      background-color: @accent-color;
+    }
+
+    .bg-brand-green {
+      background-color: lighten(@green, 10%);
+    }
+
+    .bg-brand-green\/20 {
+      background-color: fade(lighten(@green, 10%), 20%);
+    }
+
+    .bg-brand-green\/40 {
+      background-color: fade(lighten(@green, 10%), 40%);
+    }
+
+    .bg-brand-purple {
+      background-color: @accent-color;
+    }
+
+    .bg-gray-100 {
+      background-color: var(--gray-100);
+    }
+
+    .bg-gray-200 {
+      background-color: var(--gray-200);
+    }
+
+    .bg-gray-300 {
+      background-color: var(--gray-300);
+    }
+
+    .bg-gray-400 {
+      background-color: var(--gray-400);
+    }
+
+    .bg-gray-50 {
+      background-color: var(--gray-50);
+    }
+
+    .bg-gray-500 {
+      background-color: var(--gray-500);
+    }
+
+    .bg-gray-600 {
+      background-color: var(--gray-600);
+    }
+
+    .bg-gray-700 {
+      background-color: var(--gray-700);
+    }
+
+    .bg-gray-900 {
+      background-color: var(--gray-900);
+    }
+
+    .bg-gray-950 {
+      background-color: var(--gray-950);
+    }
+
+    .bg-green-100 {
+      background-color: lighten(@green, 30%);
+    }
+
+    .bg-green-200 {
+      background-color: lighten(@green, 20%);
+    }
+
+    .bg-green-500 {
+      background-color: lighten(@green, 10%);
+    }
+
+    .bg-green-500\/10 {
+      background-color: fade(lighten(@green, 10%), 10%);
+    }
+
+    .bg-green-600 {
+      background-color: @green;
+    }
+
+    .bg-orange-500 {
+      background-color: mix(@yellow, @red);
+    }
+
+    .bg-orange-500\/10 {
+      background-color: fade(mix(@yellow, @red), 10%);
+    }
+
+    .bg-red-100 {
+      background-color: fade(lighten(@red, 10%), 30%);
+    }
+
+    .bg-red-200 {
+      background-color: lighten(@red, 20%);
+    }
+
+    .bg-red-500 {
+      background-color: @red;
+    }
+
+    .bg-red-500\/10 {
+      background-color: fade(@red, 10%);
+    }
+
+    .bg-red-600 {
+      background-color: lighten(@red, 10%);
+    }
+
+    .bg-white {
+      background-color: @white;
+    }
+
+    .bg-white\/20 {
+      background-color: fade(@white, 20%);
+    }
+
+    .bg-white\/25 {
+      background-color: fade(@white, 25%);
+    }
+
+    .bg-yellow-100 {
+      background-color: lighten(@yellow, 20%);
+    }
+
+    .bg-yellow-200 {
+      background-color: lighten(@yellow, 10%);
+    }
+
+    .bg-yellow-400 {
+      background-color: @yellow;
+    }
+
+    .bg-yellow-500 {
+      background-color: darken(@yellow, 10%);
+    }
+
+    .radix-state-checked\:bg-green-600[data-state="checked"] {
+      background-color: darken(@green, 10%);
+    }
+
+    .hover\:bg-blue-700:hover {
+      background-color: darken(@blue, 25%);
+    }
+
+    [class*="bg-transparent"] {
+      background-color: transparent;
+    }
+
+    /* Gradients */
+
+    .from-white {
+      --tw-gradient-from: @white var(--tw-gradient-from-position);
+    }
+
+    /* Fill/stroke */
+
+    .fill-yellow-500 {
+      fill: @yellow;
+    }
+
+    .stroke-black {
+      stroke: @black;
+    }
+
+    .stroke-brand-purple\/25 {
+      stroke: fade(@accent-color, 25%);
+    }
+
+    .stroke-gray-400 {
+      stroke: @subtext0;
+    }
+
+    /* Text */
+
+    .\!text-black {
+      color: @black !important;
+    }
+
+    .text-\[\#FE7600\] {
+      color: mix(@yellow, @red);
+    }
+
+    .text-\[\#fff\] {
+      color: @base;
+    }
+
+    .text-black {
+      color: @black;
+    }
+
+    .text-black\/60 {
+      color: fade(@black, 60%);
+    }
+
+    .text-black\/70 {
+      color: fade(@black, 70%);
+    }
+
+    .text-blue-500 {
+      color: lighten(@blue, 10%);
+    }
+
+    .text-blue-600 {
+      color: @blue;
+    }
+
+    .text-brand-blue-800 {
+      color: @blue;
+    }
+
+    .text-brand-purple {
       color: @accent-color;
     }
 
-    [class*=":border-white/10"] {
-      border-color: fade(@overlay0, 10%);
+    .text-gray-100 {
+      color: var(--gray-100);
+    }
+
+    .text-gray-300 {
+      color: var(--gray-300);
+    }
+
+    .text-gray-400 {
+      color: var(--gray-400);
+    }
+
+    .text-gray-500 {
+      color: var(--gray-500);
+    }
+
+    .text-gray-600 {
+      color: var(--gray-600);
+    }
+
+    .text-gray-700 {
+      color: var(--gray-700);
+    }
+
+    .text-gray-800 {
+      color: var(--gray-800);
+    }
+
+    .text-gray-900 {
+      color: var(--gray-900);
+    }
+
+    .text-green-500 {
+      color: lighten(@green, 10%);
+    }
+
+    .text-green-600 {
+      color: @green;
+    }
+
+    .text-green-700 {
+      color: darken(@green, 10%);
+    }
+
+    .text-green-800 {
+      color: darken(@green, 20%);
+    }
+
+    .text-green-900 {
+      color: darken(@green, 30%);
+    }
+
+    .text-orange-300 {
+      color: lighten(mix(@yellow, @red), 15%);
+    }
+
+    .text-orange-400 {
+      color: lighten(mix(@yellow, @red), 10%);
+    }
+
+    .text-orange-500 {
+      color: mix(@yellow, @red);
     }
 
     .text-red-500 {
       color: @red;
     }
 
-    /* Custom Instructions */
-    .border-gray-100 {
-      border-color: @overlay0;
+    .text-red-600 {
+      color: lighten(@red, 10%);
     }
 
-    .focus\:border-brand-green:focus {
-      border-color: @accent-color;
+    .text-red-700 {
+      color: @red;
     }
 
-    /* Toggle button */
-    .radix-state-checked\:bg-green-600 {
-      &[data-state="checked"] {
-        background-color: @accent-color;
-        & > span {
-          background-color: @surface0;
-        }
+    .text-red-800 {
+      color: darken(@red, 10%);
+    }
+
+    .text-white {
+      color: @white;
+    }
+
+    .text-white\/25 {
+      color: fade(@white, 25%);
+    }
+
+    .text-white\/50 {
+      color: fade(@white, 50%);
+    }
+
+    .text-white\/80 {
+      color: fade(@white, 80%);
+    }
+
+    .text-yellow-500 {
+      color: @yellow;
+    }
+
+    .text-yellow-700 {
+      color: darken(@yellow, 10%);
+    }
+
+    .text-yellow-800 {
+      color: darken(@yellow, 20%);
+    }
+
+    .text-yellow-900 {
+      color: darken(@yellow, 30%);
+    }
+
+    /* Dark mode overrides */
+    /* stylelint-disable-next-line no-duplicate-selectors */
+    & when not (@lookup = latte) {
+      .dark\:bg-black {
+        background-color: @black;
       }
-      &[data-state="unchecked"] {
-        background-color: @surface0;
-        & > span {
-          background-color: @text;
-        }
+
+      .dark\:bg-white {
+        background-color: @white;
+      }
+
+      /* "Was this response better or worse" dialog button hover */
+      .dark\:hover\:bg-gray-800:hover {
+        background-color: transparent;
+      }
+
+      .dark\:text-white {
+        color: @white;
+      }
+
+      .dark\:text-black {
+        color: @black;
+      }
+
+      .dark\:text-\[\#D292FF\] {
+        color: @mauve;
+      }
+
+      .dark\:focus\:border-white:focus {
+        border-color: @text;
       }
     }
 
-    /* ChatGPT Icon
-      (Needs `layout.css.has-selector.enabled`. If it's disabled, no changes are made)
-    */
-    div:has(> [role="img"]) {
-      background-color: @accent-color !important;
-      & > [role="img"] {
-        color: @base;
-      }
+    /* Other */
+
+    .ring-black {
+      --tw-ring-color: @black;
     }
 
-    /* SVG chat avatars (ChatGPT, and Anonymous)
-      (Needs `layout.css.has-selector.enabled`. If it's disabled, no changes are made)
-    */
-    div:has(> svg.icon-sm:only-child) {
-      background-color: @accent-color !important;
-      & > svg {
-        color: @base;
-      }
+    .ring-black\/10 {
+      --tw-ring-color: fade(@black, 10%);
     }
 
-    /* Send button */
-    [data-testid="send-button"][class*="bg-gray-900"] {
-      background-color: @base !important;
-      border-color: @overlay0;
-      svg[class*="text-white"] {
-        color: @accent-color !important;
-      }
+    .ring-white {
+      --tw-ring-color: @base;
     }
 
-    /* Notification Popup (Copied to clipboard) */
-    .bg-green-600.text-white.border-green-600 {
-      background-color: @accent-color;
-      color: @base !important;
-      border-color: @overlay0;
+    .ring-offset-black {
+      --tw-ring-offset-color: @base;
     }
 
-    /* Share page > "Upgrade to Plus" button */
-    a[href="/gpts/discovery"].bg-green-600.text-white {
-      background-color: @accent-color;
-      color: @base !important;
+    [style="background-color: rgb(0, 0, 46);"],
+    [style="background-color: rgb(255, 255, 219);"] {
+      background-color: @crust !important;
     }
+  }
+}
 
-    /* Login Page > buttons */
-    .bg-\[\#3C46FF\] {
+/* Sign-in page */
+@-moz-document domain("auth0.openai.com") {
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+
+  /* prettier-ignore */
+  @catppuccin: {
+    @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+    @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+    @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+    @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    --primary-color: @accent-color;
+    --primary-color-no-override: @accent-color;
+    --action-primary-color: @accent-color;
+    --link-color: @accent-color;
+    --page-background-color: @base;
+    --info-color: @blue;
+    --success-color: @green;
+    --error-color: @red;
+    --error-text-color: @text;
+    --warning-color: @yellow;
+    --button-font-color: @text;
+    --widget-background-color: @base;
+    --presentational-content-color: @overlay2;
+    --gray-lightest: @base;
+    --gray-light: @crust;
+    --gray-mid: @surface0;
+    --gray-dark: @overlay2;
+    --gray-darkest: @text;
+
+    .c4ca43590 {
       background-color: @accent-color;
       color: @base;
     }
 
-    .hover\:bg-\[\#0000FF\]:hover {
-      background-color: lighten(@accent-color, 5%);
+    .password-icon-tooltip {
+      background-color: @text;
+
+      &::before {
+        border-top-color: @text;
+      }
+    }
+
+    .oai-header svg {
+      fill: @text;
+    }
+
+    @orange: mix(@red, @yellow);
+
+    .c7e427425[data-provider^="google"] {
+      @svg: escape(
+        "<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 48 48'><defs><path id='a' d='M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z'/></defs><clipPath id='b'><use xlink:href='#a' overflow='visible'/></clipPath><path clip-path='url(#b)' fill='@{orange}' d='M0 37V11l17 13z'/><path clip-path='url(#b)' fill='@{red}' d='M0 11l17 13 7-6.1L48 14V0H0z'/><path clip-path='url(#b)' fill='@{green}' d='M0 37l30-23 7.9 1L48 0v48H0z'/><path clip-path='url(#b)' fill='@{blue}' d='M48 48L17 24l-4-3 35-10z'/></svg>"
+      );
+      background-image: url("data:image/svg+xml;charset=utf-8,@{svg}");
+    }
+    .c7e427425[data-provider^="windowslive"] {
+      @svg: escape(
+        "<svg xmlns='http://www.w3.org/2000/svg' width='21' height='21'><path fill='@{orange}' d='M1 1h9v9H1z'/><path fill='@{sapphire}' d='M1 11h9v9H1z'/><path fill='@{green}' d='M11 1h9v9h-9z'/><path fill='@{yellow}' d='M11 11h9v9h-9z'/></svg>"
+      );
+      background-image: url("data:image/svg+xml;charset=utf-8,@{svg}");
+    }
+    .c7e427425[data-provider^="apple"] {
+      @svg: escape(
+        "<svg width='170' xmlns='http://www.w3.org/2000/svg' height='170'><path fill='@{text}' d='M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.197-2.12-9.973-3.17-14.34-3.17-4.58 0-9.492 1.05-14.746 3.17-5.262 2.13-9.501 3.24-12.742 3.35-4.929.21-9.842-1.96-14.746-6.52-3.13-2.73-7.045-7.41-11.735-14.04-5.032-7.08-9.169-15.29-12.41-24.65-3.471-10.11-5.211-19.9-5.211-29.378 0-10.857 2.346-20.221 7.045-28.068 3.693-6.303 8.606-11.275 14.755-14.925s12.793-5.51 19.948-5.629c3.915 0 9.049 1.211 15.429 3.591 6.362 2.388 10.447 3.599 12.238 3.599 1.339 0 5.877-1.416 13.57-4.239 7.275-2.618 13.415-3.702 18.445-3.275 13.63 1.1 23.87 6.473 30.68 16.153-12.19 7.386-18.22 17.731-18.1 31.002.11 10.337 3.86 18.939 11.23 25.769 3.34 3.17 7.07 5.62 11.22 7.36-.9 2.61-1.85 5.11-2.86 7.51zM119.11 7.24c0 8.102-2.96 15.667-8.86 22.669-7.12 8.324-15.732 13.134-25.071 12.375a25.222 25.222 0 0 1-.188-3.07c0-7.778 3.386-16.102 9.399-22.908 3.002-3.446 6.82-6.311 11.45-8.597 4.62-2.252 8.99-3.497 13.1-3.71.12 1.083.17 2.166.17 3.24z'/></svg>"
+      );
+      background-image: url("data:image/svg+xml;charset=utf-8,@{svg}");
     }
   }
 }
+
 // vim:ft=less

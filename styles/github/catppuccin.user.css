@@ -1,12 +1,13 @@
 /* ==UserStyle==
-@name           Github Catppuccin
-@namespace      github.com/catppuccin/userstyles/styles/github
-@homepageURL 	https://github.com/catppuccin/userstyles/tree/main/styles/github
-@version        1.3.1
-@description    Soothing pastel theme for GitHub
-@author         Catppuccin
-@updateURL      https://github.com/catppuccin/userstyles/raw/main/styles/github/catppuccin.user.css
-@license 		MIT
+@name         GitHub Catppuccin
+@namespace    github.com/catppuccin/userstyles/styles/github
+@homepageURL  https://github.com/catppuccin/userstyles/tree/main/styles/github
+@version      1.3.12
+@description  Soothing pastel theme for GitHub
+@author       Catppuccin
+@updateURL    https://github.com/catppuccin/userstyles/raw/main/styles/github/catppuccin.user.css
+@supportURL   https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agithub
+@license      MIT
 
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
@@ -22,24 +23,31 @@
   @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
 }
 
-@-moz-document regexp("https:\/\/(gist\.)*github\.com(?!\/(home|marketplace|organizations\/plan))(?!\/.+?\/.+?\/commit\/[A-Fa-f0-9]+\.).*") {
-  [data-color-mode="light"],
-  [data-color-mode="auto"] > .theme-light {
-    #catppuccin(@lightFlavor, @accentColor);
-  }
+@-moz-document regexp("https:\/\/(gist\.)*github\.com(?!((\/.+?\/.+?\/commit\/[A-Fa-f0-9]+\.(patch|diff)$)|\/home$|\/features($|\/.*)|\/marketplace($|\?.*|\/.*)|\/organizations\/plan)).*$") {
   @media (prefers-color-scheme: light) {
-    [data-color-mode="auto"] {
+    [data-color-mode="auto"][data-dark-theme="light"],
+    [data-color-mode="light"][data-light-theme="light"],
+    [data-color-mode="dark"][data-dark-theme="light"] {
       #catppuccin(@lightFlavor, @accentColor);
     }
   }
-  [data-color-mode="dark"],
-  [data-color-mode="auto"] > .theme-dark {
-    #catppuccin(@darkFlavor, @accentColor);
-  }
   @media (prefers-color-scheme: dark) {
-    [data-color-mode="auto"] {
+    [data-color-mode="auto"][data-dark-theme="dark"],
+    [data-color-mode="light"][data-light-theme="dark"],
+    [data-color-mode="dark"][data-dark-theme="dark"] {
       #catppuccin(@darkFlavor, @accentColor);
     }
+  }
+
+  [data-color-mode="auto"][data-dark-theme="light"],
+  [data-color-mode="light"][data-light-theme="light"],
+  [data-color-mode="dark"][data-dark-theme="light"] {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+  [data-color-mode="auto"][data-dark-theme="dark"],
+  [data-color-mode="light"][data-light-theme="dark"],
+  [data-color-mode="dark"][data-dark-theme="dark"] {
+    #catppuccin(@darkFlavor, @accentColor);
   }
 
   html:not([data-light-theme="light"]) body:not(.logged-out)::after,
@@ -57,49 +65,49 @@
     z-index: 9999;
   }
 
-  #coloredButton(@name, @color, @flat) {
+  #coloredButton(@item, @color, @flat) {
     & when (@flat) {
-      --color-btn-@{name}-text: @color;
-      --color-btn-@{name}-bg: @base;
-      --color-btn-@{name}-icon: @color;
+      --color-btn-@{item}-text: @color;
+      --color-btn-@{item}-bg: @base;
+      --color-btn-@{item}-icon: @color;
 
-      --color-btn-@{name}-hover-text: @base;
-      --color-btn-@{name}-hover-bg: @color;
-      --color-btn-@{name}-hover-border: @color;
+      --color-btn-@{item}-hover-text: @base;
+      --color-btn-@{item}-hover-bg: @color;
+      --color-btn-@{item}-hover-border: @color;
 
-      --color-btn-@{name}-selected-text: @base;
-      --color-btn-@{name}-selected-bg: @color;
-      --color-btn-@{name}-selected-border: @color;
+      --color-btn-@{item}-selected-text: @base;
+      --color-btn-@{item}-selected-bg: @color;
+      --color-btn-@{item}-selected-border: @color;
 
-      --color-btn-@{name}-disabled-text: fadeout(@color, 60%);
-      --color-btn-@{name}-disabled-bg: @mantle;
+      --color-btn-@{item}-disabled-text: fadeout(@color, 60%);
+      --color-btn-@{item}-disabled-bg: @mantle;
     }
 
     & when not (@flat) {
-      --color-btn-@{name}-text: @base;
-      --color-btn-@{name}-bg: @color;
-      --color-btn-@{name}-icon: @base;
+      --color-btn-@{item}-text: @base;
+      --color-btn-@{item}-bg: @color;
+      --color-btn-@{item}-icon: @base;
 
-      --color-btn-@{name}-hover-text: @base;
-      --color-btn-@{name}-hover-bg: lighten(@color, 10%);
-      --color-btn-@{name}-hover-border: lighten(@color, 10%);
+      --color-btn-@{item}-hover-text: @base;
+      --color-btn-@{item}-hover-bg: lighten(@color, 10%);
+      --color-btn-@{item}-hover-border: lighten(@color, 10%);
 
-      --color-btn-@{name}-selected-text: @base;
-      --color-btn-@{name}-selected-bg: lighten(@color, 10%);
-      --color-btn-@{name}-selected-border: lighten(@color, 10%);
+      --color-btn-@{item}-selected-text: @base;
+      --color-btn-@{item}-selected-bg: lighten(@color, 10%);
+      --color-btn-@{item}-selected-border: lighten(@color, 10%);
 
-      --color-btn-@{name}-disabled-text: @crust;
-      --color-btn-@{name}-disabled-bg: fadeout(@color, 60%);
+      --color-btn-@{item}-disabled-text: @crust;
+      --color-btn-@{item}-disabled-bg: fadeout(@color, 60%);
     }
 
-    --color-btn-@{name}-hover-icon: @base;
+    --color-btn-@{item}-hover-icon: @base;
 
     /* set these to transparent for the looks */
-    --color-btn-@{name}-border: transparent;
-    --color-btn-@{name}-shadow: 0 0 transparent;
-    --color-btn-@{name}-inset-shadow: 0 0 transparent;
-    --color-btn-@{name}-selected-shadow: 0 0 transparent;
-    --color-btn-@{name}-disabled-border: transparent;
+    --color-btn-@{item}-border: transparent;
+    --color-btn-@{item}-shadow: 0 0 transparent;
+    --color-btn-@{item}-inset-shadow: 0 0 transparent;
+    --color-btn-@{item}-selected-shadow: 0 0 transparent;
+    --color-btn-@{item}-disabled-border: transparent;
   }
 
   #catppuccin(@lookup, @accent) {
@@ -131,187 +139,190 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    &,
-    & body {
-      accent-color: @accent-color;
-      --bgColor-default: @base;
-      --color-page-header-bg: @base;
-      --color-marketing-icon-primary: @sky;
-      --color-marketing-icon-secondary: @blue;
-      --color-diff-blob-addition-num-text: @text;
-      --color-diff-blob-addition-fg: @text;
-      --color-diff-blob-addition-num-bg: fadeout(@green, 70%);
-      --color-diff-blob-addition-line-bg: fadeout(@green, 85%);
-      --color-diff-blob-addition-word-bg: fadeout(@green, 70%);
-      --color-diff-blob-deletion-num-text: @text;
-      --color-diff-blob-deletion-fg: @text;
-      --color-diff-blob-deletion-num-bg: fadeout(@red, 70%);
-      --color-diff-blob-deletion-line-bg: fadeout(@red, 85%);
-      --color-diff-blob-deletion-word-bg: fadeout(@red, 70%);
-      --color-diff-blob-hunk-num-bg: fadeout(@blue, 60%);
-      --color-diffstat-addition-bg: @green;
-      --color-prettylights-syntax-comment: @overlay1;
-      --color-prettylights-syntax-constant: @blue;
-      --color-prettylights-syntax-entity: @blue;
-      --color-prettylights-syntax-storage-modifier-import: @peach;
-      --color-prettylights-syntax-entity-tag: @teal;
-      --color-prettylights-syntax-keyword: @pink;
-      --color-prettylights-syntax-string: @green;
-      --color-prettylights-syntax-variable: @peach;
-      --color-prettylights-syntax-invalid-illegal-text: @red;
-      --color-prettylights-syntax-invalid-illegal-bg: fadeout(@red, 85%);
-      --color-prettylights-syntax-markup-heading: @teal;
-      --color-prettylights-syntax-markup-italic: @yellow;
-      --color-prettylights-syntax-markup-bold: @yellow;
-      --color-prettylights-syntax-markup-deleted-text: @text;
-      --color-prettylights-syntax-markup-deleted-bg: fadeout(@red, 60%);
-      --color-prettylights-syntax-markup-inserted-text: @text;
-      --color-prettylights-syntax-markup-inserted-bg: fadeout(@green, 60%);
-      --color-prettylights-syntax-markup-changed-text: @text;
-      --color-prettylights-syntax-markup-changed-bg: fadeout(@yellow, 60%);
-      --color-prettylights-syntax-markup-ignored-text: @text;
-      --color-codemirror-text: @text;
-      --color-codemirror-bg: @base;
-      --color-codemirror-gutters-bg: @base;
-      --color-codemirror-guttermarker-text: @base;
-      --color-codemirror-lines-bg: @base;
-      --color-checks-bg: @mantle;
-      --color-checks-text-primary: @text;
-      --color-checks-text-secondary: @subtext1;
-      --color-checks-text-link: @sapphire;
-      --color-checks-btn-icon: @text;
-      --color-checks-btn-hover-icon: @text;
-      --color-checks-btn-hover-bg: @crust;
-      --color-checks-input-text: @surface1;
-      --color-checks-input-placeholder-text: @subtext1;
-      --color-checks-input-focus-text: @text;
-      --color-checks-input-bg: @surface0;
-      --color-checks-donut-error: @red;
-      --color-checks-donut-pending: @peach;
-      --color-checks-donut-success: @green;
-      --color-checks-donut-neutral: @overlay2;
-      --color-checks-dropdown-text: @text;
-      --color-checks-dropdown-bg: @surface0;
-      --color-checks-dropdown-border: @surface1;
-      --color-checks-dropdown-shadow: @crust;
-      --color-checks-dropdown-hover-text: @subtext0;
-      --color-checks-dropdown-hover-bg: @mantle;
-      --color-checks-dropdown-btn-hover-text: @text;
-      --color-checks-dropdown-btn-hover-bg: @mantle;
-      --color-checks-scrollbar-thumb-bg: @mantle;
-      --color-checks-header-label-text: @text;
-      --color-checks-header-label-open-text: @accent-color;
-      --color-checks-header-border: @surface0;
-      --color-checks-header-icon: @text;
-      --color-checks-line-text: @subtext0;
-      --color-checks-line-num-text: @subtext0;
-      --color-checks-line-timestamp-text: @subtext0;
-      --color-checks-line-hover-bg: @surface0;
-      --color-checks-line-selected-bg: @surface0;
-      --color-checks-gate-text: @text;
-      --color-checks-gate-waiting-text: @yellow;
-      --color-checks-step-header-open-bg: @surface0;
-      --color-checks-step-error-text: @maroon;
-      --color-checks-step-warning-text: @peach;
-      --color-checks-logline-text: @text;
-      --color-checks-logline-num-text: @text;
-      --color-checks-logline-debug-text: @mauve;
-      --color-checks-logline-error-text: @text;
-      --color-checks-logline-error-num-text: @maroon;
-      --color-checks-logline-error-bg: fadeout(@maroon, 85%);
-      --color-checks-logline-warning-text: @subtext1;
-      --color-checks-logline-warning-num-text: @peach;
-      --color-checks-logline-warning-bg: fadeout(@peach, 85%);
-      --color-checks-logline-command-text: @blue;
-      --color-checks-logline-section-text: @green;
-      --color-checks-ansi-black: @surface1;
-      --color-checks-ansi-black-bright: @surface2;
-      --color-checks-ansi-white: @subtext1;
-      --color-checks-ansi-white-bright: @subtext0;
-      --divider-color: @surface1;
-      --underlineNav-borderColor-active: @accent-color;
-
-      & when (@lookup =latte) {
-        // When using a light theme use the light colors instead of the dark
-        --color-checks-ansi-black: @subtext1;
-        --color-checks-ansi-black-bright: @subtext0;
-        --color-checks-ansi-white: @surface2;
-        --color-checks-ansi-white-bright: @surface1;
-      }
-
-      --color-checks-ansi-red: @red;
-      --color-checks-ansi-red-bright: @red;
-      --color-checks-ansi-green: @green;
-      --color-checks-ansi-green-bright: @green;
-      --color-checks-ansi-yellow: @yellow;
-      --color-checks-ansi-yellow-bright: @yellow;
-      --color-checks-ansi-blue: @blue;
-      --color-checks-ansi-blue-bright: @blue;
-      --color-checks-ansi-magenta: @pink;
-      --color-checks-ansi-magenta-bright: @pink;
-      --color-checks-ansi-cyan: @teal;
-      --color-checks-ansi-cyan-bright: @teal;
-      --color-header-text: var(--subtext2);
-      --color-header-bg: @mantle;
-      --color-header-logo: @text;
-      --color-header-search-bg: @surface0;
-      --color-header-search-border: @surface1;
-      --color-sidenav-selected-bg: @surface1;
-      --color-menu-bg-active: @surface2;
-      --color-timeline-badge-bg: @surface0;
-      --color-btn-text: @text;
-      --color-btn-bg: @surface0;
-      --color-btn-border: @surface1;
-      --color-btn-hover-bg: @surface1;
-      --color-btn-hover-border: @surface2;
-      --color-btn-active-bg: @surface2;
-      --color-btn-selected-bg: @surface2;
-      --color-btn-counter-bg: @surface2;
-      #coloredButton(primary, @green, false);
-      #coloredButton(danger, @red, true);
-      --color-action-list-item-inline-divider: @surface2;
-      --color-action-list-item-default-hover-bg: @surface1;
-      --color-action-list-item-default-selected-bg: @surface1;
-      --color-fg-default: @text;
-      --color-fg-muted: @subtext1;
-      --color-fg-subtle: @subtext1;
-      --color-fg-on-emphasis: @base;
-      --color-canvas-default: @base;
-      --color-canvas-overlay: @surface0;
-      --color-canvas-inset: @mantle; // background
-      --color-canvas-subtle: @surface0;
-      --color-border-default: @surface1;
-      --color-border-muted: @surface0;
-      --color-shadow-medium: 0 3px 6px @crust;
-      --color-shadow-large: 0 8px 24px @crust;
-      --color-shadow-extra-large: 0 12px 48px @crust;
-      --color-neutral-emphasis-plus: @overlay0;
-      --color-neutral-emphasis: @overlay2;
-      --color-neutral-muted: fadeout(@overlay0, 60%);
-      --color-accent-fg: @accent-color;
-      --color-accent-emphasis: @accent-color;
-      --color-accent-muted: fadeout(@accent-color, 60%);
-      --color-accent-subtle: fadeout(@accent-color, 85%);
-      --color-success-fg: @green;
-      --color-success-emphasis: @green;
-      --color-attention-fg: @peach;
-      --color-attention-emphasis: @peach;
-      --color-severe-fg: @maroon;
-      --color-severe-emphasis: @maroon;
-      --color-danger-fg: @red;
-      --color-danger-muted: fadeout(@red, 60%);
-      --color-danger-emphasis: @red;
-      --color-open-fg: @green;
-      --color-open-emphasis: @green;
-      --color-closed-fg: @red;
-      --color-closed-emphasis: @red;
-      --color-done-fg: @mauve;
-      --color-done-emphasis: @mauve;
-      --color-sponsors-fg: @mauve;
-      --color-sponsors-emphasis: @mauve;
-      --color-primer-fg-disabled: fadeout(@accent-color, 50%);
-      --color-primer-border-active: @red;
+    accent-color: @accent-color;
+    --bgColor-default: @base;
+    --color-page-header-bg: @base;
+    --color-marketing-icon-primary: @sky;
+    --color-marketing-icon-secondary: @blue;
+    --color-diff-blob-addition-num-text: @text;
+    --color-diff-blob-addition-fg: @text;
+    --color-diff-blob-addition-num-bg: fadeout(@green, 70%);
+    --color-diff-blob-addition-line-bg: fadeout(@green, 85%);
+    --color-diff-blob-addition-word-bg: fadeout(@green, 70%);
+    --color-diff-blob-deletion-num-text: @text;
+    --color-diff-blob-deletion-fg: @text;
+    --color-diff-blob-deletion-num-bg: fadeout(@red, 70%);
+    --color-diff-blob-deletion-line-bg: fadeout(@red, 85%);
+    --color-diff-blob-deletion-word-bg: fadeout(@red, 70%);
+    --color-diff-blob-hunk-num-bg: fadeout(@blue, 60%);
+    --color-diffstat-addition-bg: @green;
+    --color-prettylights-syntax-comment: @overlay1;
+    --color-prettylights-syntax-constant: @blue;
+    --color-prettylights-syntax-entity: @blue;
+    --color-prettylights-syntax-storage-modifier-import: @peach;
+    --color-prettylights-syntax-entity-tag: @teal;
+    --color-prettylights-syntax-keyword: @pink;
+    --color-prettylights-syntax-string: @green;
+    --color-prettylights-syntax-variable: @peach;
+    --color-prettylights-syntax-invalid-illegal-text: @red;
+    --color-prettylights-syntax-invalid-illegal-bg: fadeout(@red, 85%);
+    --color-prettylights-syntax-markup-heading: @teal;
+    --color-prettylights-syntax-markup-italic: @yellow;
+    --color-prettylights-syntax-markup-bold: @yellow;
+    --color-prettylights-syntax-markup-deleted-text: @text;
+    --color-prettylights-syntax-markup-deleted-bg: fadeout(@red, 60%);
+    --color-prettylights-syntax-markup-inserted-text: @text;
+    --color-prettylights-syntax-markup-inserted-bg: fadeout(@green, 60%);
+    --color-prettylights-syntax-markup-changed-text: @text;
+    --color-prettylights-syntax-markup-changed-bg: fadeout(@yellow, 60%);
+    --color-prettylights-syntax-markup-ignored-text: @text;
+    --color-codemirror-text: @text;
+    --color-codemirror-bg: @base;
+    --color-codemirror-gutters-bg: @base;
+    --color-codemirror-guttermarker-text: @base;
+    --color-codemirror-lines-bg: @base;
+    --color-codemirror-guttermarker-subtle-text: @overlay0;
+    --color-codemirror-linenumber-text: @subtext1;
+    --color-codemirror-matchingbracket-text: @text;
+    --color-codemirror-syntax-comment: @overlay0;
+    --color-codemirror-syntax-constant: @blue;
+    --color-codemirror-syntax-entity: @blue;
+    --color-codemirror-syntax-keyword: @pink;
+    --color-codemirror-syntax-storage: @peach;
+    --color-codemirror-syntax-string: @green;
+    --color-codemirror-syntax-variable: @peach;
+    --color-checks-bg: @mantle;
+    --color-checks-text-primary: @text;
+    --color-checks-text-secondary: @subtext1;
+    --color-checks-text-link: @sapphire;
+    --color-checks-btn-icon: @text;
+    --color-checks-btn-hover-icon: @text;
+    --color-checks-btn-hover-bg: @crust;
+    --color-checks-input-text: @surface1;
+    --color-checks-input-placeholder-text: @subtext1;
+    --color-checks-input-focus-text: @text;
+    --color-checks-input-bg: @surface0;
+    --color-checks-donut-error: @red;
+    --color-checks-donut-pending: @peach;
+    --color-checks-donut-success: @green;
+    --color-checks-donut-neutral: @overlay2;
+    --color-checks-dropdown-text: @text;
+    --color-checks-dropdown-bg: @surface0;
+    --color-checks-dropdown-border: @surface1;
+    --color-checks-dropdown-shadow: @crust;
+    --color-checks-dropdown-hover-text: @subtext0;
+    --color-checks-dropdown-hover-bg: @mantle;
+    --color-checks-dropdown-btn-hover-text: @text;
+    --color-checks-dropdown-btn-hover-bg: @mantle;
+    --color-checks-scrollbar-thumb-bg: @mantle;
+    --color-checks-header-label-text: @text;
+    --color-checks-header-label-open-text: @accent-color;
+    --color-checks-header-border: @surface0;
+    --color-checks-header-icon: @text;
+    --color-checks-line-text: @subtext0;
+    --color-checks-line-num-text: @subtext0;
+    --color-checks-line-timestamp-text: @subtext0;
+    --color-checks-line-hover-bg: @surface0;
+    --color-checks-line-selected-bg: @surface0;
+    --color-checks-gate-text: @text;
+    --color-checks-gate-waiting-text: @yellow;
+    --color-checks-step-header-open-bg: @surface0;
+    --color-checks-step-error-text: @maroon;
+    --color-checks-step-warning-text: @peach;
+    --color-checks-logline-text: @text;
+    --color-checks-logline-num-text: @text;
+    --color-checks-logline-debug-text: @mauve;
+    --color-checks-logline-error-text: @text;
+    --color-checks-logline-error-num-text: @maroon;
+    --color-checks-logline-error-bg: fadeout(@maroon, 85%);
+    --color-checks-logline-warning-text: @subtext1;
+    --color-checks-logline-warning-num-text: @peach;
+    --color-checks-logline-warning-bg: fadeout(@peach, 85%);
+    --color-checks-logline-command-text: @blue;
+    --color-checks-logline-section-text: @green;
+    --color-checks-ansi-black: @surface1;
+    --color-checks-ansi-black-bright: @surface2;
+    --color-checks-ansi-white: @subtext1;
+    --color-checks-ansi-white-bright: @subtext0;
+    & when (@lookup =latte) {
+      --color-checks-ansi-black: @subtext1;
+      --color-checks-ansi-black-bright: @subtext0;
+      --color-checks-ansi-white: @surface2;
+      --color-checks-ansi-white-bright: @surface1;
     }
+    --color-checks-ansi-red: @red;
+    --color-checks-ansi-red-bright: @red;
+    --color-checks-ansi-green: @green;
+    --color-checks-ansi-green-bright: @green;
+    --color-checks-ansi-yellow: @yellow;
+    --color-checks-ansi-yellow-bright: @yellow;
+    --color-checks-ansi-blue: @blue;
+    --color-checks-ansi-blue-bright: @blue;
+    --color-checks-ansi-magenta: @pink;
+    --color-checks-ansi-magenta-bright: @pink;
+    --color-checks-ansi-cyan: @teal;
+    --color-checks-ansi-cyan-bright: @teal;
+    --color-header-text: var(--subtext2);
+    --color-header-bg: @mantle;
+    --color-header-logo: @text;
+    --color-header-search-bg: @surface0;
+    --color-header-search-border: @surface1;
+    --color-sidenav-selected-bg: @surface1;
+    --color-menu-bg-active: @surface2;
+    --color-timeline-badge-bg: @surface0;
+    --color-btn-text: @text;
+    --color-btn-bg: @surface0;
+    --color-btn-border: @surface1;
+    --color-btn-hover-bg: @surface1;
+    --color-btn-hover-border: @surface2;
+    --color-btn-active-bg: @surface2;
+    --color-btn-selected-bg: @surface2;
+    --color-btn-counter-bg: @surface2;
+    --color-btn-outline-text: @accent-color;
+    #coloredButton(primary, @green, false);
+    #coloredButton(danger, @red, true);
+    --color-action-list-item-inline-divider: @surface2;
+    --color-action-list-item-default-hover-bg: @surface1;
+    --color-action-list-item-default-selected-bg: @surface1;
+    --color-fg-default: @text;
+    --color-fg-muted: @subtext1;
+    --color-fg-subtle: @subtext1;
+    --color-fg-on-emphasis: @base;
+    --color-canvas-default: @base;
+    --color-canvas-overlay: @surface0;
+    --color-canvas-inset: @mantle; // background
+    --color-canvas-subtle: @surface0;
+    --color-border-default: @surface1;
+    --color-border-muted: @surface0;
+    --color-shadow-medium: 0 3px 6px @crust;
+    --color-shadow-large: 0 8px 24px @crust;
+    --color-shadow-extra-large: 0 12px 48px @crust;
+    --color-neutral-emphasis-plus: @overlay0;
+    --color-neutral-emphasis: @overlay2;
+    --color-neutral-muted: fadeout(@overlay0, 60%);
+    --color-accent-fg: @accent-color;
+    --color-accent-emphasis: @accent-color;
+    --color-accent-muted: fadeout(@accent-color, 60%);
+    --color-accent-subtle: fadeout(@accent-color, 85%);
+    --color-success-fg: @green;
+    --color-success-emphasis: @green;
+    --color-attention-fg: @peach;
+    --color-attention-emphasis: @peach;
+    --color-severe-fg: @maroon;
+    --color-severe-emphasis: @maroon;
+    --color-danger-fg: @red;
+    --color-danger-muted: fadeout(@red, 60%);
+    --color-danger-emphasis: @red;
+    --color-open-fg: @green;
+    --color-open-emphasis: @green;
+    --color-closed-fg: @red;
+    --color-closed-emphasis: @red;
+    --color-done-fg: @mauve;
+    --color-done-emphasis: @mauve;
+    --color-sponsors-fg: @mauve;
+    --color-sponsors-emphasis: @mauve;
+    --color-primer-fg-disabled: fadeout(@accent-color, 50%);
+    --color-primer-border-active: @red;
     --color-workflow-card-connector: @overlay0;
     --color-workflow-card-connector-bg: @overlay0;
     --color-workflow-card-connector-inactive: @surface1;
@@ -331,69 +342,60 @@
     --color-notifications-row-bg: var(--color-canvas-subtle);
     --color-icon-directory: @text;
     --color-checks-step-error-icon: var(--color-scale-red-4);
+    --color-user-mention-fg: @accent-color;
+    --color-user-mention-bg: fade(@accent-color, 30%);
+    --color-text-white: @text;
     --color-calendar-halloween-graph-day-L1-bg: fadeout(@accent-color, 3);
     --color-calendar-halloween-graph-day-L2-bg: fadeout(@accent-color, 2);
     --color-calendar-halloween-graph-day-L3-bg: @accent-color;
     --color-calendar-halloween-graph-day-L4-bg: @mantle;
-    --color-calendar-graph-day-bg: @surface0;
-    --color-calendar-graph-day-border: transparent;
-    /* These could do with a bit of refining */
-    --color-calendar-graph-day-L1-bg: spin(fade(@green, 40%), 15deg);
-    --color-calendar-graph-day-L2-bg: spin(fade(@green, 60%), 10deg);
-    --color-calendar-graph-day-L3-bg: spin(fade(@green, 80%), 5deg);
-    --color-calendar-graph-day-L4-bg: @green;
-    --color-calendar-graph-day-L1-border: transparent;
-    --color-calendar-graph-day-L2-border: transparent;
-    --color-calendar-graph-day-L3-border: transparent;
-    --color-calendar-graph-day-L4-border: transparent;
-    --color-user-mention-fg: @accent-color;
-    --color-user-mention-bg: @crust;
-    --color-text-white: @text;
+    --color-calendar-graph-day-L1-bg: fadeout(@accent-color, 60%) !important;
+    --color-calendar-graph-day-L2-bg: fadeout(@accent-color, 40%) !important;
+    --color-calendar-graph-day-L3-bg: fadeout(@accent-color, 20%) !important;
+    --color-calendar-graph-day-L4-bg: @accent-color !important;
+    --color-calendar-graph-day-L1-border: transparent !important;
+    --color-calendar-graph-day-L2-border: transparent !important;
+    --color-calendar-graph-day-L3-border: transparent !important;
+    --color-calendar-graph-day-L4-border: transparent !important;
+    --color-calendar-graph-day-border: transparent !important;
+    --color-calendar-graph-day-bg: @surface0 !important;
+    --color-segmented-control-button-bg: @base;
+    --color-segmented-control-button-hover-bg: @surface0;
+    --color-segmented-control-button-active-bg: @mantle;
+    --color-segmented-control-button-selected-border: @overlay0;
+    --color-social-reaction-bg-hover: @surface0;
+    --color-social-reaction-bg-reacted-hover: fade(@accent-color, 30%);
 
-    /* New PR, new branch, fork repository, and commit changes buttons */
-    .iRoQzU,
-    .ifkUYV,
-    .bOZDzN,
-    .cYGUCw,
-    .bbZPuV {
-      background-color: @green;
-      color: @base;
+    /* Other */
+    --rgh-heat-color: @red;
+    --divider-color: @surface1;
+    --underlineNav-borderColor-active: @accent-color;
+    --color-scale-yellow-2: @yellow;
+
+    /* Focus states */
+    *:focus-visible,
+    *:focus-within {
+      outline-color: @blue !important;
     }
 
-    /* New branch dialog */
-    .jenxrv {
-      background-color: @mantle;
-      color: @text;
-    }
+    /* Adds styling for primary buttons that lack the .btn-primary class. */
+    /* In use at: "Code", "Compare & pull request", "New repository secret" buttons. */
+    .hBMKRG,
+    .jWTzpl,
+    #repository-secrets + div a[href$="settings/secrets/actions/new"] {
+      background-color: var(--color-btn-primary-bg);
+      color: var(--color-btn-primary-text);
 
-    /* Branch drop down */
-    .fHiIQb {
-      background-color: @surface0;
-    }
-
-    /* Compare button & Cancel new branch button */
-    .idPXPh,
-    .epAEYw {
-      background-color: @surface0;
-      color: @text;
-      border-color: @surface1;
-    }
-
-    /* search btn */
-    .header-search-button.placeholder {
-      color: @text;
-    }
-
-    /* Issue tags */
-    .hx_IssueLabel {
-      --text: @text;
+      &:hover {
+        background-color: var(--color-btn-primary-hover-bg) !important;
+      }
     }
 
     /* Search */
     .header-search-input {
       color: @text !important;
     }
-
+    .header-search-button.placeholder,
     .header-search-input::placeholder {
       color: @subtext1 !important;
     }
@@ -406,28 +408,10 @@
       --color-accent-subtle: fadeout(@accent-color, 85%);
     }
 
-    /* Slug */
-    .dYxKVs,
-    .eVjWum {
-      color: @accent-color;
-    }
-
-    /* Links */
-    .fIqerb {
-      color: @accent-color;
-    }
-
-    /* Misc */
+    /* User/team mentions */
     .user-mention,
     .team-mention {
       color: @accent-color;
-    }
-
-    .kSmUFR[data-size="small"][data-no-visuals="true"] svg {
-      color: @green;
-    }
-    .starred .starred-button-icon {
-      color: @yellow;
     }
 
     /* Large notification */
@@ -436,959 +420,29 @@
       --bgColor-attention-muted: fadeout(@accent-color, 60%);
       --color-attention-subtle: fadeout(@accent-color, 85%);
     }
-
-    /* Headers */
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      color: @subtext1;
+    .notifications-list .Box-header {
+      box-shadow: none;
     }
-
-    #check-step-header-title {
-      color: var(--color-checks-text-link) !important;
-    }
-
-    ::selection {
-      background: @surface2 !important;
-    }
-
-    /* New change visibility box star and watcher preview buttons Fix */
-    .btn.color-fg-danger.cursor-default {
-      color: var(--color-btn-danger-text) !important;
-      background-color: var(--color-btn-danger-bg);
-
-      &:hover {
-        background-color: var(--color-btn-danger-hover-bg);
-      }
-
-      & > svg.octicon {
-        color: var(--color-btn-danger-text) !important;
-      }
-    }
-
-    /* New change visibility box danger buttons Fix */
-    :where(
-        #repo-visibility-proceed-button-public,
-        #repo-visibility-proceed-button-private
-      ):not([data-next-stage]) {
-      color: var(--color-btn-danger-text);
-      background-color: var(--color-btn-danger-bg);
-    }
-
-    /* 2FA authentication box header Fix */
-    body.session-authentication div.Box-header {
-      background-color: inherit;
-    }
-
-    /* Footer Logo Fix */
-    .footer-octicon > svg:nth-child(1) > path:nth-child(1) {
-      fill: @text;
-    }
-
-    /* Footer text hover fix */
-    .footer nav.col-12 * {
-      color: @subtext1 !important;
-    }
-
-    /* Notifications */
-    .notification-indicator .mail-status {
-      background-image: none;
-      background-color: @accent-color;
-    }
-
-    /* Keyboard hint */
-    .bdgUpN,
-    .hZMmEi .TextInput-icon,
-    .hZMmEi .TextInput-action {
-      color: @text;
-      background-color: @mantle;
-      border-color: @surface0;
-    }
-
-    /* Merge icon */
-    .fMJQEf {
-      color: @text;
-      background-color: @overlay0;
-    }
-
-    /* Branch indicator */
-    .iVNDSi {
-      color: @accent-color;
-      background-color: fade(@accent-color, 10);
-    }
-
-    /* File view */
-    .hwnsNO {
-      color: @text;
-      th {
-        background: @mantle;
-      }
-    }
-
-    .dXveNa[data-no-visuals="true"] {
-      color: @subtext0;
-    }
-
-    .dXveNa,
-    .kbjJSF {
-      background-color: @surface0;
-      border-color: @surface1;
-    }
-
-    .gUecKw,
-    .lcpiaz,
-    .jolsUx,
-    .fsSggy {
-      background-color: @mantle;
-    }
-
-    .Cxvmo,
-    .dhYcqs {
-      color: @red;
-    }
-
-    .byJIBD,
-    .dMLfZp[data-size="small"][data-no-visuals="true"] svg {
-      color: @green;
-    }
-
-    .lmmHGT:not(:first-of-type),
-    .fOEJrA,
-    .fnFdxN,
-    .huABLg,
-    .dMLfZp[data-component="IconButton"][data-no-visuals],
-    .cwSUxL,
-    .iXnXki[data-size="small"][data-no-visuals="true"],
-    .jvzHAP,
-    .hPIyzG,
-    .gTeenv[data-no-visuals="true"],
-    .VplrY[data-no-visuals="true"],
-    .bqDKPR[data-component="IconButton"][data-no-visuals],
-    .icOaJE[data-size="small"][data-no-visuals="true"],
-    .kKFNhh,
-    .lnXbGs,
-    .dTxwit {
-      color: @subtext0;
-    }
-
-    .gssqTz {
-      color: @text !important;
-    }
-
-    .bPgnBp,
-    .jMyfUO,
-    .cBrzIN {
-      color: @text;
-    }
-
-    .eLaeIt:hover:not([disabled]),
-    .dMLfZp[data-size="small"][data-no-visuals="true"]:hover:not([disabled]),
-    .bqDKPR[data-component="IconButton"][data-no-visuals],
-    .bDSYgZ:hover:not([disabled]),
-    .icOaJE:hover:not([disabled]) {
-      background-color: @surface0;
-    }
-
-    .icOaJE[aria-pressed="true"] {
-      background-color: @surface0;
-    }
-
-    .cZRqXf {
-      background-color: @surface0;
-      &:active:not([disabled]),
-      &[aria-expanded="true"] {
-        border-color: @surface2;
-      }
-      &:hover:not([disabled]) {
-        border-color: @surface2;
-        background-color: @surface1;
-      }
-    }
-
-    .kdEavw,
-    .ddNLNa,
-    .jepClM,
-    .gTeenv,
-    .VplrY {
-      background-color: @surface0;
-      &:hover:not([disabled]) {
-        border-color: @surface2;
-        background-color: @surface1;
-      }
-    }
-
-    .feVXyu,
-    .ecdhqS,
-    .iwGxyT,
-    .kLxXov,
-    .flDsrw {
-      border-color: @surface0;
-    }
-
-    .juEfKr {
-      border-color: @surface2;
-    }
-
-    .eUqMHM,
-    .hSXtjz {
-      background-color: @base;
-    }
-
-    .gtXnmh,
-    .ukUXs,
-    .giEfVQ,
-    .cKvNNO,
-    .evdFFE,
-    .kTUxDY {
-      background-color: @mantle;
-    }
-
-    .hLwWNO .PRIVATE_TreeView-item-container,
-    .dycbWg,
-    .hYaoHV,
-    .rLhXz,
-    .gtXnmh,
-    .lmmHGT,
-    .dEmXPQ {
-      color: @text;
-    }
-
-    .bJBoUI,
-    .iJtJJh {
-      color: @accent-color;
-    }
-
-    .lhyFLG {
-      background-color: @mantle;
-      border-color: @surface1;
-    }
-
-    .hUWqlv,
-    .bJcMWH {
-      color: @blue;
-    } // search menu links
-    .Link__StyledLink-sc-14289xe-0.ifbDxt {
-      color: @blue;
-    }
-    .Link__StyledLink-sc-14289xe-0.ifbDxt:hover {
-      background-color: fadeout(@blue, 60%);
-    } // Search page buttons
-    .cxcvTj,
-    .Box-sc-g0xbh4-0.grSspY button {
-      background-color: @mantle;
-      border-color: @surface1;
-    }
-
-    .gxGEao {
-      border-bottom-color: @surface0;
-    }
-
-    .hLwWNO
-      .PRIVATE_TreeView-item[aria-current="true"]
-      > .PRIVATE_TreeView-item-container {
-      background-color: @surface0;
-      &::after {
-        background-color: @accent-color;
-      }
-    }
-
-    .dfAUyE,
-    .gKuCoB,
-    .bFrOJy {
-      .segmentedControl-content {
-        background-color: @mantle;
-        color: @text;
-      }
-    }
-
-    .cuqBaK,
-    .fCAAcl,
-    .dAXkSP {
-      color: @text;
-      background-color: @base;
-      &:hover .segmentedControl-content {
-        background: @surface0;
-      }
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-      .rLhXz:hover:not([aria-disabled]) {
-        background-color: @surface0;
-      }
-    }
-
-    /* Projects */
-    .ksbilD,
-    .cuaLcW,
-    .joCMLT,
-    .jClMHS,
-    .jhjELj,
-    .diDjDG,
-    .gFuKCf,
-    .dHdESs,
-    .hpfKPO,
-    .jdgyJn,
-    .iInViE,
-    .brqMal,
-    .AbCTW {
-      background-color: @mantle;
-    }
-
-    .jEgFtJ,
-    .lixtXZ:hover,
-    .eNIoFu,
-    .idPXPh:hover,
-    .fdORwV,
-    .cjFogo,
-    .gIOnJa {
-      background-color: @surface0;
-    }
-
-    .jBCpbB {
-      color: @text;
-      background-color: @surface0;
-    }
-
-    .kzrUhn.selected {
-      background-color: @base;
-      border-color: @surface0;
-      color: @text;
-    }
-
-    .esIQoN,
-    .kbjJSF:disabled {
-      color: @subtext1;
-    }
-
-    .eJTCnd,
-    .eTthoV {
-      border-color: @surface0;
-      background-color: @base;
-      color: @text;
-      .fixINc,
-      .eDZJqt {
-        color: @subtext0;
-      }
-      .bniVFX,
-      .jtlytA {
-        color: @text;
-      }
-    }
-
-    .ikTPpF {
-      box-shadow: @base 0 3px 6px;
-      border-color: @surface0;
-    }
-
-    .cvveTk,
-    .dwoION {
-      background-color: @base;
-    }
-
-    .FKGWN {
-      background-color: @base;
-      border-color: @surface0;
-    }
-
-    .jPHlsW::after {
-      background-color: @accent-color;
-    }
-
-    .khCtfm:hover {
-      background-color: @surface0;
-    }
-    .bWlbEI,
-    .hzIORV {
-      background-color: @mantle;
-    }
-
-    .khCtfm,
-    .khCtfm[data-component="leadingVisual"],
-    .Tnbrt[data-component="IconButton"][data-no-visuals] {
-      color: @subtext0;
-    }
-
-    .Tnbrt {
-      &:active,
-      &[aria-expanded="true"] {
-        background-color: @surface2;
-      }
-      &:hover {
-        background-color: @surface1;
-      }
-    }
-
-    .imsxCM {
-      color: @text;
-
-      .is-selected::after {
-        background-color: @accent-color;
-      }
-    }
-
-    .pxYjU {
-      background-color: @mantle;
-      color: @text;
-      border-color: @surface0;
-    }
-
-    .ilLRrZ {
-      color: @text;
-      background-color: @surface1;
-    }
-
-    .cnIHxk {
-      background-color: @surface0;
-      color: @text;
-      &:disabled {
-        background-color: @overlay0;
-        color: @crust;
-      }
-    }
-
-    .ghFpol {
-      background-color: @base;
-    }
-
-    .hVmCdl,
-    .fqKZNC,
-    .fZFWUy,
-    .kbjJSF,
-    .flKHtV,
-    .jolsUx,
-    .ekNmOn {
-      color: @text;
-    }
-
-    .lixtXZ[data-component="IconButton"][data-no-visuals],
-    .klUZzf:not(:first-of-type) {
-      color: @subtext0;
-    }
-
-    .jvpWzR {
-      &:hover {
-        background-color: @surface1;
-      }
-      &[data-size="large"][data-block="block"] {
-        color: @subtext0;
-      }
-    }
-
-    .fZFWUy,
-    .fzjwje {
-      background-color: @base;
-    }
-
-    .cEYXBH {
-      background-color: @accent-color;
-    }
-
-    .joxhcl,
-    .hXyJIp,
-    .fMkBhb > .segmentedControl-content {
-      background-color: @mantle;
-    }
-
-    .dVFmxu,
-    .gbKtit,
-    .lnKxja,
-    .jzwNMs {
-      color: @subtext0;
-      svg {
-        fill: @subtext0;
-      }
-      &:hover .segmentedControl-content {
-        background-color: @surface1;
-        border-color: @surface0;
-      }
-    }
-
-    .hJMtSk {
-      color: @crust;
-      background-color: @green;
-      &:disabled {
-        color: @crust;
-        background-color: @overlay0;
-      }
-    }
-
-    .iDiUTR {
-      color: @text;
-      background-color: @base;
-      border-color: @surface0;
-      &:hover {
-        border-color: @surface1;
-      }
-    }
-
-    .eQfJKc,
-    .UHWYv {
-      color: @red;
-    }
-
-    .jVIqnb {
-      color: @red;
-      background-color: @surface0;
-      &:hover {
-        color: @base;
-        background-color: @red;
-      }
-    }
-
-    .UHWYv:hover {
-      background-color: fade(@red, 20);
-    }
-
-    .lmmHGT:hover {
-      background-color: @surface0;
-    }
-
-    /* Project table view */
-    .hYdbWk,
-    .gkeKEr,
-    .jzcCeu,
-    .iGxiw,
-    .ixFSpw,
-    .koxWOe,
-    .gkWKRr,
-    .ikaTJo > svg,
-    .dcGHGc,
-    .dzMFih,
-    .hYdbWk::before,
-    .ixFSpw::before,
-    .dSHKOE {
-      background-color: @base;
-    }
-
-    .gkWKRr {
-      border-top-color: @surface0;
-      border-right-color: @surface0;
-      border-left-color: @surface0;
-    }
-
-    .hPQRKh {
-      background-color: @surface0;
-      &:hover:not([disabled]) {
-        background-color: @surface1;
-      }
-      &[data-component="IconButton"][data-no-visuals] {
-        color: @subtext0;
-      }
-    }
-
-    .kfwhFa {
-      &:hover:not([disabled]) {
-        background-color: @surface0;
-      }
-      &[data-size="small"][data-no-visuals="true"] {
-        color: @subtext0;
-      }
-    }
-
-    .jykkjb {
-      background-color: @base;
-      box-shadow:
-        @crust 0 -2px 0 inset,
-        @crust 0 1px 0 inset;
-    }
-
-    .jhjELj,
-    .ixTUPS {
-      border-color: @surface1;
-    }
-
-    .gmscZx,
-    .fUaEiu {
-      &:hover:not([disabled]) {
-        background-color: @surface1;
-      }
-      &[aria-expanded="true"] {
-        background-color: @surface0;
-      }
-      & [data-component="leadingVisual"],
-      &[data-size="small"],
-      &[data-size="small"][data-no-visuals="true"] {
-        color: @subtext0;
-      }
-    }
-
-    .cBssZb {
-      color: @text;
-    }
-
-    .jhjELj::before {
-      border-color: transparent transparent @surface1;
-    }
-
-    .fHpqaf,
-    .bfQVnA,
-    .iGxiw,
-    .fUzagb,
-    .gisjeK,
-    .iQkwAM {
-      color: @subtext0;
-    }
-
-    .dtTTcd {
-      background-color: @base;
-      &.hoverable:hover {
-        background-color: @surface0;
-      }
-    }
-
-    .pQcjM {
-      border-color: @surface1;
-      &.hoverable:hover {
-        background-color: @surface0;
-      }
-    }
-
-    .eTSXcP {
-      background-color: @red;
-    }
-
-    .iGxiw {
-      border-bottom-color: @surface1;
-    }
-
-    /* Tree Fix */
-    /* Weird barely visible outlines | Can be removed if intentional */
-    .brFBoI,
-    .ldUAkr,
-    .gtXnmh {
-      border-color: @surface1;
-    }
-
-    /* New Repository Overview Fix */
-    .gWjhfa,
-    .klBOTR,
-    .jMdYTc {
-      background-color: @mantle;
-    }
-
-    .jMdYTc {
-      border-color: @surface1;
-
-      & button {
-        color: @subtext1;
-
-        &:hover {
-          background-color: @surface0;
-        }
-
-        &[aria-expanded="true"] {
-          background-color: @surface0;
-        }
-      }
-    }
-
-    .gwuIGu > a {
-      &:hover {
-        background-color: @surface0;
-      }
-
-      & span {
-        color: @subtext1;
-      }
-    }
-
-    /* Buttons */
-    .bJYdrf:hover {
-      background-color: @mantle;
-    }
-
-    .dSlCya:hover {
-      color: @accent-color;
-    }
-
-    .hNNRLM,
-    .hGgJQu,
-    .hTcsdJ {
-      background-color: @surface0;
-      border-color: @surface0;
-      color: @text;
-
-      &:hover {
-        background-color: @surface1;
-        border-color: @surface1;
-      }
-    }
-
-    .eOIzRT {
-      background-color: @base;
-
-      &:hover {
-        background-color: @surface0;
-      }
-    }
-
-    .hNNRLM svg {
-      color: @text;
-    }
-
-    .react-last-commit-history-group:hover {
-      background-color: @base;
-      color: @text;
-    }
-    .ContributionCalendar-day {
-      --color-calendar-graph-day-L1-bg: spin(fade(@green, 40%), 15deg);
-      --color-calendar-graph-day-L2-bg: spin(fade(@green, 60%), 10deg);
-      --color-calendar-graph-day-L3-bg: spin(fade(@green, 80%), 5deg);
-      --color-calendar-graph-day-L4-bg: @green;
-      --color-calendar-graph-day-L1-border: transparent;
-      --color-calendar-graph-day-L2-border: transparent;
-      --color-calendar-graph-day-L3-border: transparent;
-      --color-calendar-graph-day-L4-border: transparent;
-      --color-calendar-graph-day-bg: @surface0;
-    }
-
-    .tooltipped.tooltipped-s rect {
-      fill: @green !important;
-    }
-    .hfRvxg {
-      color: @subtext1;
-
-      &:hover {
-        color: @text;
-      }
-    }
-
-    /* Scrolling top menu */
-    .lbYguI {
-      border-radius: 6px;
-    }
-
-    .hPsWZB,
-    .bOUZZs {
-      background-color: @mantle;
-    }
-
-    .react-blob-header-edit-and-raw-actions > div > a,
-    .react-blob-header-edit-and-raw-actions > div > span > a,
-    .react-blob-header-edit-and-raw-actions > div > span > button {
-      background-color: @base;
-      color: @subtext0;
-
-      &:hover {
-        background-color: @surface1;
-      }
-    }
-
-    .hMOAua {
-      color: @subtext1;
-
-      &:hover {
-        background-color: @mantle;
-        border-color: @surface1;
-        color: @text;
-      }
-    }
-
-    /* Fullscreen Sidebar Fixes */
-    .hMCjFU,
-    .jcKsih,
-    .hpgNiv {
-      background-color: @base;
-      color: @text;
-      border-color: @surface1;
-
-      &:hover {
-        background-color: @surface0;
-      }
-    }
-
-    .jfOCiu li {
-      color: @text;
-    }
-
-    .kRbyXo {
-      color: @text;
-    }
-
-    .VgnWi {
-      background-color: @base;
-      border-color: @surface1;
-
-      &:focus-within {
-        border-color: @accent-color;
-        box-shadow: @accent-color 0 0 0 1px inset;
-      }
-    }
-
-    .bAKGFC {
-      background-color: @surface1;
-    }
-
-    .bdMlHy {
-      border-color: @surface1;
-    }
-
-    .jMyfUO.selected {
-      border-color: @surface1;
-      background-color: @mantle;
-    }
-
-    .bPgnBp {
-      color: @accent-color;
-    }
-
-    kbd {
-      background-color: @surface1;
-    }
-
-    select option,
-    optgroup {
-      background-color: @mantle;
-      border-color: @surface1;
-      border-radius: 6px;
-      box-shadow: var(--shadow-floating-large, var(--color-shadow-large));
-    }
-
-    .hUQSCH {
-      background-color: @base;
-      color: @subtext1;
-      border-color: @surface1;
-
-      &:hover {
-        background-color: @mantle;
-        border-color: @surface1;
-      }
-    }
-
-    /* Add File Menu */
-    .dQPLyc {
-      background-color: transparent;
-      border-color: @surface1;
-    }
-
-    .ktGGEf {
-      background-color: @base;
-      border-color: @surface1;
-    }
-
-    .gkfBtX {
-      background-color: @mantle;
-      border-radius: 6px 0 0;
-      border-bottom-color: @surface1;
-    }
-
-    .jproXT {
-      background-color: transparent;
-      border-color: transparent;
-      color: @subtext1;
-
-      &:hover {
-        color: @text;
-      }
-
-      &:focus-within {
-        border-color: transparent;
-        box-shadow: none;
-        color: @text;
-      }
-    }
-
-    .wLDmP {
-      background-color: @mantle;
-      border-color: @surface1;
-    }
-
-    .eNSiNz .segmentedControl-content,
-    .gKuCoB .segmentedControl-content {
-      background-color: @base;
-    }
-
-    /* Notification Menu Fix */
-    .notifications-list-item.notification-read,
-    .notifications-list-item.notification-archived {
-      background-color: @base !important;
-
-      &:last-child {
-        border-bottom-left-radius: 6px;
-      }
-    }
-
-    /* Loading Bar Color */
     .turbo-progress-bar {
+      background: @accent-color;
+    }
+
+    /* Currently selected "tab" */
+    .gcnonJ::after,
+    .cnHXaE::after {
       background-color: @accent-color;
     }
-    .search-results-page {
-      background-color: @base;
-    }
-    /* New repo layout button, pr button on repo, tick */
-    .dvJnjZ,
-    .types__StyledButton-sc-ws60qy-0.gHIvvy,
-    .ldavJa {
-      background-color: @green;
-      color: @crust;
-      &:hover {
-        background-color: darken(@green, 15%);
-      }
-    }
-    .ezbPok * {
-      fill: @text;
-    }
-    .jMEWXM > * > *,
-    #branch-picker-repos-header-ref-selector,
-    .gtXnmh .Box-sc-g0xbh4-0.jGfYmh > * {
-      background-color: @surface0;
-      border-color: @surface1;
-      &:hover {
-        background-color: @surface1;
-        border-color: @surface2;
-      }
-      & * {
-        fill: @text;
-        color: @text;
-      }
-    }
-    .cPEOjV {
-      background-color: @mantle;
-    }
-    .Box-sc-g0xbh4-0.bUCzHg,
-    .ehcSsh > * {
-      border-color: @surface1 !important;
+
+    /* Tooltip */
+    [id^="tooltip-"],
+    .tooltipped::after,
+    span[role="tooltip"]::after {
+      --color-fg-on-emphasis: @text !important;
     }
 
-    .eYedVD .Box-sc-g0xbh4-0.jGfYmh *,
-    .Text-sc-17v1xeu-0.foaUgQ {
-      color: @subtext0;
-    }
-    .hRMLtq,
-    .ilcYjX *,
-    .lcModf,
-    button.types__StyledButton-sc-ws60qy-0.kRuNkv {
-      color: @text;
-    }
-    .Flash__StyledFlash-sc-hzrzfc-0.kUDiXM {
-      background-color: fadeout(@peach, 90%);
-      border-color: @peach;
-    }
-    .kUDiXM svg {
-      fill: @peach;
-    }
-    /* Some popup */
-    .iGzDhH,
-    .hBobmI,
-    #__primerPortalRoot__ > div > div > div {
-      background-color: @mantle;
-    }
-    .Text-sc-17v1xeu-0.gPDEWA {
-      color: @subtext1;
-    }
-    .TabNav__TabNavTabList-sc-pwdi4r-1.gFzOft {
-      & * {
-        border-color: @surface0;
-      }
-
-      &:hover {
-        & * {
-          background: @mantle;
-        }
-      }
+    /* Edit file */
+    .cm-placeholder {
+      color: @overlay1 !important;
     }
   }
 }
@@ -1427,7 +481,6 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    /* Colors */
     --jp-border-color0: var(--color-scale-gray-7);
     --jp-border-color1: var(--color-scale-gray-7);
     --jp-border-color2: var(--color-scale-gray-8);
