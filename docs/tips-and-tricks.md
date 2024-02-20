@@ -12,7 +12,7 @@ If you want to see your changes in real-time while using an external editor:
 2. Locate the stylus extension and click on the `Details` button.
 3. Enable `Allow access to file URLs`.
 4. Now you can open the `catppuccin.user.css` file in your browser by typing `file:///path/to/catppuccin.user.css` in the address bar.
-5. Then you should notice stylus will load on that page, at this point ensure `live preview` is enabled.
+5. Stylus will load on that page, and at this point ensure that `live preview` is enabled.
 6. Now you can make changes in your preferred editor and see real-time changes.
 
 > [!TIP]
