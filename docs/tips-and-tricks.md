@@ -18,6 +18,8 @@ If you want to see your changes in real-time while using an external editor:
 > [!TIP]
 > See [Stylus Wiki - Initial installation and live reload](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#initial-installation-and-live-reload) for further reference.
 
+&nbsp;
+
 ### Hiding sensitive information in screenshots
 
 When taking screenshots of userstyles, you may want to hide sensitive information (such as your username, email, etc.).
@@ -33,6 +35,8 @@ Use this snippet at the top of your userstyle to import and use the font:
   font-family: 'Flow Circular', cursive;
 }
 ```
+
+&nbsp;
 
 ### Converting images to WebP
 
@@ -56,6 +60,8 @@ cwebp -lossless old-image.png -o new-image.webp
 ```
 
 The command above is converting the input image `old-image.png` to the output file `new-image-webp`, with a lossless quality conversion.
+
+&nbsp;
 
 ### Theming images and SVGs
 
