@@ -15,14 +15,16 @@ If you want to see your changes in real-time while using an external editor:
 5. Then you should notice stylus will load on that page, at this point ensure `live preview` is enabled.
 6. Now you can make changes in your preferred editor and see real-time changes.
 
+> [!TIP]
+> Further reading: [Stylus Wiki (Initial installation and live reload)](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#initial-installation-and-live-reload)
 
 ### Hiding sensitive information in screenshots
 
-When taking screenshots of your userstyle, you may want to hide sensitive information such as your username, email, or any other personal information.
+When taking screenshots of userstyles, you may want to hide sensitive information such as your username, email, or other personal information.
 
-To do this we use the [Flow Circular font](https://fonts.google.com/specimen/Flow+Circular). 
+To do this, you we usually use the [Flow Circular](https://fonts.google.com/specimen/Flow+Circular) font to redact the details.
 
-We achieve this by placing the following snippet at the top of your userstyle, this will change the fonts to use flow circular.
+Use this snippet at the top of your userstyle to import and use the font:
 
 ```less
 @import url('https://fonts.googleapis.com/css2?family=Flow+Circular&display=swap');
