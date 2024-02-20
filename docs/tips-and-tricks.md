@@ -22,7 +22,7 @@ If you want to see your changes in real-time while using an external editor:
 
 When taking screenshots of userstyles, you may want to hide sensitive information such as your username, email, or other personal information.
 
-To do this, you we usually use the [Flow Circular](https://fonts.google.com/specimen/Flow+Circular) font to redact the details.
+You may use the [Flow Circular](https://fonts.google.com/specimen/Flow+Circular) font to redact details by obscuring any text on the page.
 
 Use this snippet at the top of your userstyle to import and use the font:
 
