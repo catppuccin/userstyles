@@ -6,7 +6,7 @@
 
 ### Live reloading
 
-If you want to see your changes in real-time and not have to use the stylus editor. This is the tip for you.
+If you want to see your changes in real-time while using an external:
 
 1. Head to `chrome://extensions/` or your browser's equivalent.
 2. Locate the stylus extension and click on the `Details` button.
@@ -20,7 +20,7 @@ If you want to see your changes in real-time and not have to use the stylus edit
 
 When taking screenshots of your userstyle, you may want to hide sensitive information such as your username, email, or any other personal information.
 
-To do this we use the [flow circular font](https://fonts.google.com/specimen/Flow+Circular). 
+To do this we use the [Flow Circular font](https://fonts.google.com/specimen/Flow+Circular). 
 
 We achieve this by placing the following snippet at the top of your userstyle, this will change the fonts to use flow circular.
 
