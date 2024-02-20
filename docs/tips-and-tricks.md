@@ -16,7 +16,7 @@ If you want to see your changes in real-time while using an external editor:
 6. Now you can make changes in your preferred editor and see real-time changes.
 
 > [!TIP]
-> Further reading: [Stylus Wiki (Initial installation and live reload)](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#initial-installation-and-live-reload)
+> See [Stylus Wiki - Initial installation and live reload](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#initial-installation-and-live-reload) for further reference.
 
 ### Hiding sensitive information in screenshots
 
@@ -48,7 +48,8 @@ The Catppuccin project prefers to use the [WebP image format](https://en.wikiped
 
 #### Usage
 
-> _See [the full documentation on `cwebp`](https://developers.google.com/speed/webp/docs/cwebp) for further reference._
+> [!TIP]
+> See [the full documentation on `cwebp`](https://developers.google.com/speed/webp/docs/cwebp) for further reference.
 
 ```
 cwebp -lossless old-image.png -o new-image.webp
