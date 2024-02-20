@@ -86,7 +86,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Hackage](styles/hackage)
 - [Hoppscotch](styles/hoppscotch)
 - [Next.js](styles/nextjs)
-- [paste.rs](styles/paste.rs)
+- 🚧 [paste.rs](styles/paste.rs)
 - [Vercel](styles/vercel)
 
 </details>
@@ -154,8 +154,8 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [LinkedIn](styles/linkedin)
 - [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
-- [Pinterest](styles/pinterest)
-- [Reddit](styles/reddit)
+- 🚧 [Pinterest](styles/pinterest)
+- 🚧 [Reddit](styles/reddit)
 - [Substack](styles/substack)
 - [Twitter](styles/twitter)
 
