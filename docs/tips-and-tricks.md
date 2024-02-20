@@ -16,7 +16,7 @@ If you want to see your changes in real-time while using an external:
 6. Now you can make changes in your preferred editor and see real-time changes.
 
 
-### Hideing sensitive information in screenshots
+### Hiding sensitive information in screenshots
 
 When taking screenshots of your userstyle, you may want to hide sensitive information such as your username, email, or any other personal information.
 
