@@ -9,7 +9,7 @@
 If you want to see your changes in real-time while using an external editor:
 
 1. Head to `chrome://extensions/` or your browser's equivalent.
-2. Locate the stylus extension and click on the `Details` button.
+2. Locate the Stylus extension and click on the `Details` button.
 3. Enable `Allow access to file URLs`.
 4. Now you can open the `catppuccin.user.css` file in your browser by typing `file:///path/to/catppuccin.user.css` in the address bar.
 5. Stylus will load on that page, and at this point ensure that `live preview` is enabled.
