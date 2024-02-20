@@ -1,5 +1,5 @@
 <p align="center">
-  <h2 align="center">📖 Tips and Tricks for writing a userstyle</h2>
+  <h2 align="center">📖 Tips and tricks for writing a userstyle</h2>
 </p>
 
 &nbsp;
