@@ -6,7 +6,7 @@
 
 ### Live reloading
 
-If you want to see your changes in real-time while using an external:
+If you want to see your changes in real-time while using an external editor:
 
 1. Head to `chrome://extensions/` or your browser's equivalent.
 2. Locate the stylus extension and click on the `Details` button.
