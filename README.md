@@ -127,6 +127,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [InvokeAI](styles/invokeai)
 - [Lingva](styles/lingva)
 - [Microsoft Word](styles/microsoft-word)
+- [Migadu Webmail](styles/migadu-webmail)
 - [NixOS Wiki](styles/nixos.wiki)
 - [OpenMediaVault](styles/openmediavault)
 - [Proton](styles/proton)
