@@ -20,7 +20,7 @@ If you want to see your changes in real-time while using an external editor:
 
 ### Hiding sensitive information in screenshots
 
-When taking screenshots of userstyles, you may want to hide sensitive information such as your username, email, or other personal information.
+When taking screenshots of userstyles, you may want to hide sensitive information (such as your username, email, etc.).
 
 You may use the [Flow Circular](https://fonts.google.com/specimen/Flow+Circular) font to redact details by obscuring any text on the page.
 
