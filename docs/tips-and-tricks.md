@@ -4,7 +4,7 @@
 
 &nbsp;
 
-### Live reloading
+### How can I see my changes in real time?
 
 If you want to see your changes in real-time while using an external editor:
 
@@ -20,7 +20,7 @@ If you want to see your changes in real-time while using an external editor:
 
 &nbsp;
 
-### Hiding sensitive information in screenshots
+### How can I hide sensitive information in preview screenshots?
 
 When taking screenshots of userstyles, you may want to hide sensitive information (such as your username, email, etc.).
 
@@ -38,7 +38,7 @@ Use this snippet at the top of your userstyle to import and use the font:
 
 &nbsp;
 
-### Converting images to WebP
+### How do I convert preview images to WebP?
 
 The Catppuccin project prefers to use the [WebP image format](https://en.wikipedia.org/wiki/WebP) for the asset preview images. We recommend using Google's [`cwebp`](https://developers.google.com/speed/webp/docs/cwebp) conversion utility to convert images to WebP.
 
@@ -63,7 +63,7 @@ The command above is converting the input image `old-image.png` to the output fi
 
 &nbsp;
 
-### Theming images and SVGs
+### How do I theme images and SVGs?
 
 #### SVG background images
 
