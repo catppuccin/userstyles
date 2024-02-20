@@ -74,8 +74,8 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 ## 🖌 Userstyles
 
-> [!NOTE]
-> Userstyles labeled with the 🚧 emoji are looking for maintainers. Feel free to contribute or request to maintain any you are passionate about!
+> [!IMPORTANT]
+> Userstyles labeled with the "🚧" emoji are looking for maintainers, and may not work as intended. Contributions are still welcome and encouraged. If you would like to become a maintainer, add your username to the `current-maintainers` array in the [userstyles.yml](./scripts/userstyles.yml) file.
 
 <!-- AUTOGEN:USERSTYLES START -->
 <!-- the following section is auto-generated, do not edit -->
