@@ -60,25 +60,14 @@ export const verifyMetadata = async (
   const template =
     (await Deno.readTextFile(join(REPO_ROOT, "template/catppuccin.user.css")))
       .split("\n");
+  const varPfx = (variable) => `@var select ${variable}`;
 
-  const vars = {
-    lightFlavor: template.find((line) =>
-      line.includes("@var select lightFlavor")
-    ),
-    darkFlavor: template.find((line) =>
-      line.includes("@var select darkFlavor")
-    ),
-    accentColor: template.find((line) =>
-      line.includes("@var select accentColor")
-    ),
-  };
+  for (const variable of ["darkFlavor", "lightFlavor", "accentColor"]) {
+    const expected = template.find((line) => line.includes(varPfx(variable)));
+    const current = lines.findIndex((line) => line.includes(varPfx(variable))) +
+      1;
 
-  for (const [variable, expected] of Object.entries(vars)) {
-    const line = lines.findIndex((line) =>
-      line.includes("@var select " + variable)
-    ) + 1;
-
-    if (line === 0) {
+    if (current === 0) {
       // This variable is undefined so there isn't a line for it, so we just put it at the bottom of the variables section.
       const line = lines
         .findLastIndex((line: string) => line.includes("==/UserStyle== */")) +
@@ -96,16 +85,16 @@ export const verifyMetadata = async (
         },
         "warning",
       );
-    } else {
+    } else if (expected.trim() !== lines[current].trim()) {
       const message = sprintf(
-        "Metadata variable `%s` should be `%s`",
+        "Options for metadata variable `%s` should be `%s`",
         color.bold(variable),
-        expected,
+        expected.replace(varPfx(variable), "").trim(),
       );
 
       log(message, {
         file,
-        startLine: line !== 0 ? line : undefined,
+        startLine: current,
         content,
       }, "warning");
     }
