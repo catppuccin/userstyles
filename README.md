@@ -47,7 +47,7 @@ Install [Stylus](https://github.com/openstyles/stylus) for your chosen browser.
 
 ### All Userstyles
 
-See the [release page](https://github.com/catppuccin/userstyles/releases/tag/all-userstyles-export).
+See instructions on the [GitHub release page](https://github.com/catppuccin/userstyles/releases/tag/all-userstyles-export).
 
 ### Individual Userstyles
 
