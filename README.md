@@ -47,11 +47,7 @@ Install [Stylus](https://github.com/openstyles/stylus) for your chosen browser.
 
 ### All Userstyles
 
-1. Download [the Stylus export](https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json).
-2. Open the Stylus "manage" page.
-3. Locate backup (on the left bar) and select import.
-   - Select the downloaded file.
-4. Enjoy!
+See instructions on the [GitHub release page](https://github.com/catppuccin/userstyles/releases/tag/all-userstyles-export).
 
 ### Individual Userstyles
 
@@ -74,6 +70,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 ## 🖌 Userstyles
 
+> [!IMPORTANT]
+> Userstyles labeled with the "🚧" emoji are looking for maintainers, and may not work as intended. Contributions are still welcome and encouraged. If you would like to become a maintainer, add your username to the `current-maintainers` array in the [userstyles.yml](./scripts/userstyles.yml) file.
+
 <!-- AUTOGEN:USERSTYLES START -->
 <!-- the following section is auto-generated, do not edit -->
 <details open>
@@ -82,8 +81,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Graphite](styles/graphite)
 - [Hackage](styles/hackage)
 - [Hoppscotch](styles/hoppscotch)
+- [MDN](styles/mdn)
 - [Next.js](styles/nextjs)
-- [paste.rs](styles/paste.rs)
+- 🚧 [paste.rs](styles/paste.rs)
 - [Vercel](styles/vercel)
 
 </details>
@@ -91,6 +91,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🔎 Search Engines</summary>
 
 - [Brave Search](styles/brave-search)
+- [DuckDuckGo](styles/duckduckgo)
 - [Ecosia](styles/ecosia)
 - [Google](styles/google)
 - [NixOS Search](styles/nixos-search)
@@ -126,6 +127,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [InvokeAI](styles/invokeai)
 - [Lingva](styles/lingva)
 - [Microsoft Word](styles/microsoft-word)
+- [Migadu Webmail](styles/migadu-webmail)
 - [NixOS Wiki](styles/nixos.wiki)
 - [OpenMediaVault](styles/openmediavault)
 - [Proton](styles/proton)
@@ -149,8 +151,8 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [LinkedIn](styles/linkedin)
 - [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
-- [Pinterest](styles/pinterest)
-- [Reddit](styles/reddit)
+- 🚧 [Pinterest](styles/pinterest)
+- 🚧 [Reddit](styles/reddit)
 - [Substack](styles/substack)
 - [Twitter](styles/twitter)
 

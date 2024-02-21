@@ -42,7 +42,7 @@ export const generateMainReadme = async (
 <summary>{{emoji}} {{name}}</summary>
 
 {{#each ports}}
-- [{{#each name}}{{ this }}{{#unless @last}}, {{/unless}}{{/each}}]({{ path }})
+- {{#unless maintained}}🚧 {{/unless}}[{{#each name}}{{ this }}{{#unless @last}}, {{/unless}}{{/each}}]({{ path }})
 {{/each}}
 
 </details>
@@ -51,9 +51,10 @@ export const generateMainReadme = async (
       return {
         emoji: meta.emoji,
         name: meta.name,
-        ports: ports.map(({ name, path }) => {
+        ports: ports.map(({ name, path, readme }) => {
           return {
             name: [name].flat(),
+            maintained: readme["current-maintainers"].length > 0,
             path,
           };
         }),
