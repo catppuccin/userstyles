@@ -98,7 +98,7 @@ export const verifyMetadata = async (
       );
     } else {
       const message = sprintf(
-        'Metadata variable `%s` should be "%s"',
+        "Metadata variable `%s` should be `%s`",
         color.bold(variable),
         expected,
       );
