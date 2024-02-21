@@ -3,7 +3,7 @@ import usercssMeta from "usercss-meta";
 import * as color from "std/fmt/colors.ts";
 import { sprintf } from "std/fmt/printf.ts";
 import type { WalkEntry } from "std/fs/walk.ts";
-import { relative } from "std/path/mod.ts";
+import { join, relative } from "std/path/mod.ts";
 
 import { REPO_ROOT } from "@/deps.ts";
 import { log } from "@/lint/logger.ts";
@@ -20,11 +20,12 @@ export const verifyMetadata = async (
   const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {
     allowErrors: true,
   });
+  const lines = content.split("\n");
 
   // Pretty print / annotate the parsing errors.
   parsingErrors.map((e) => {
     let startLine = 0;
-    for (const line of content.split("\n")) {
+    for (const line of lines) {
       startLine++;
       e.index -= line.length + 1;
       if (e.index < 0) break;
@@ -36,8 +37,7 @@ export const verifyMetadata = async (
     const current = metadata[key];
 
     if (current !== expected) {
-      const line = content
-        .split("\n")
+      const line = lines
         .findIndex((line) => line.includes(key)) + 1;
 
       const message = current === undefined
@@ -57,16 +57,30 @@ export const verifyMetadata = async (
     }
   }
 
-  for (const [variable, expected] of Object.entries(vars)) {
-    const current = metadata
-      .vars[variable as keyof typeof metadata["vars"]] as typeof vars[
-        keyof typeof vars
-      ];
+  const template =
+    (await Deno.readTextFile(join(REPO_ROOT, "template/catppuccin.user.css")))
+      .split("\n");
 
-    if (current === undefined) {
+  const vars = {
+    lightFlavor: template.find((line) =>
+      line.includes("@var select lightFlavor")
+    ),
+    darkFlavor: template.find((line) =>
+      line.includes("@var select darkFlavor")
+    ),
+    accentColor: template.find((line) =>
+      line.includes("@var select accentColor")
+    ),
+  };
+
+  for (const [variable, expected] of Object.entries(vars)) {
+    const line = lines.findIndex((line) =>
+      line.includes("@var select " + variable)
+    ) + 1;
+
+    if (line === 0) {
       // This variable is undefined so there isn't a line for it, so we just put it at the bottom of the variables section.
-      const line = content
-        .split("\n")
+      const line = lines
         .findLastIndex((line: string) => line.includes("==/UserStyle== */")) +
         1;
 
@@ -83,65 +97,17 @@ export const verifyMetadata = async (
         "warning",
       );
     } else {
-      // If this property is an array (such as `options`) and there is a difference in the stringified representation of the values...
-      const line = content.split("\n")
-        .findIndex((line: string) => line.includes(`@var select ${variable}`)) +
-        1;
+      const message = sprintf(
+        'Metadata variable `%s` should be "%s"',
+        color.bold(variable),
+        expected,
+      );
 
-      if (JSON.stringify(current) !== JSON.stringify(expected)) {
-        const errors = [];
-        for (const [property, value] of Object.entries(expected)) {
-          if (current[property] !== value) {
-            if (Array.isArray(value) && Array.isArray(current[property])) {
-              for (const option of value) {
-                const currentOption = current[property as "options"].find((o) =>
-                  o.name === option.name || o.label === option.label
-                );
-                if (!currentOption) {
-                  errors.push(
-                    sprintf(
-                      "option `%s` should exist",
-                      color.bold(option.name),
-                      color.bold(variable),
-                    ),
-                  );
-                } else {
-                  for (const [k, v] of Object.entries(option)) {
-                    if (v === currentOption[k]) continue;
-                    errors.push(
-                      sprintf(
-                        '%s of option `%s` should be "%s" but is "%s"',
-                        k,
-                        color.bold(option.name),
-                        color.green(v),
-                        color.red(currentOption[k]),
-                      ),
-                    );
-                  }
-                }
-              }
-            } else {
-              errors.push(
-                sprintf(
-                  '%s should be "%s" but is "%s"',
-                  property,
-                  color.green(value as string),
-                  color.red(current[property] as string),
-                ),
-              );
-            }
-          }
-        }
-        const message =
-          sprintf("Metadata variable `%s`: ", color.bold(variable)) +
-          errors.join(" and ");
-
-        log(message, {
-          file,
-          startLine: line !== 0 ? line : undefined,
-          content,
-        }, "warning");
-      }
+      log(message, {
+        file,
+        startLine: line !== 0 ? line : undefined,
+        content,
+      }, "warning");
     }
   }
 
@@ -195,63 +161,3 @@ const assertions = async (userstyle: string) => {
     preprocessor: "less",
   };
 };
-
-const vars = {
-  lightFlavor: {
-    type: "select",
-    label: "Light Flavor",
-    name: "lightFlavor",
-    value: null,
-    default: "latte",
-    options: [
-      { name: "latte", label: "Latte", value: "latte" },
-      { name: "frappe", label: "Frappé", value: "frappe" },
-      { name: "macchiato", label: "Macchiato", value: "macchiato" },
-      { name: "mocha", label: "Mocha", value: "mocha" },
-    ],
-  },
-  darkFlavor: {
-    type: "select",
-    label: "Dark Flavor",
-    name: "darkFlavor",
-    value: null,
-    default: "mocha",
-    options: [
-      { name: "latte", label: "Latte", value: "latte" },
-      { name: "frappe", label: "Frappé", value: "frappe" },
-      { name: "macchiato", label: "Macchiato", value: "macchiato" },
-      { name: "mocha", label: "Mocha", value: "mocha" },
-    ],
-  },
-  accentColor: {
-    type: "select",
-    label: "Accent",
-    name: "accentColor",
-    value: null,
-    default: "sapphire",
-    options: [
-      { name: "rosewater", label: "Rosewater", value: "rosewater" },
-      { name: "flamingo", label: "Flamingo", value: "flamingo" },
-      { name: "pink", label: "Pink", value: "pink" },
-      { name: "mauve", label: "Mauve", value: "mauve" },
-      { name: "red", label: "Red", value: "red" },
-      { name: "maroon", label: "Maroon", value: "maroon" },
-      { name: "peach", label: "Peach", value: "peach" },
-      { name: "yellow", label: "Yellow", value: "yellow" },
-      { name: "green", label: "Green", value: "green" },
-      { name: "teal", label: "Teal", value: "teal" },
-      { name: "blue", label: "Blue", value: "blue" },
-      { name: "sapphire", label: "Sapphire", value: "sapphire" },
-      { name: "sky", label: "Sky", value: "sky" },
-      { name: "lavender", label: "Lavender", value: "lavender" },
-      { name: "subtext0", label: "Gray", value: "subtext0" },
-    ],
-  },
-} as Record<string, {
-  type: string;
-  label: string;
-  name: string;
-  value: null | string;
-  default: string;
-  options: { name: string; label: string; value: string }[];
-}>;
