@@ -60,11 +60,12 @@ export const verifyMetadata = async (
   const template =
     (await Deno.readTextFile(join(REPO_ROOT, "template/catppuccin.user.css")))
       .split("\n");
-  const varPfx = (variable) => `@var select ${variable}`;
 
   for (const variable of ["darkFlavor", "lightFlavor", "accentColor"]) {
-    const expected = template.find((line) => line.includes(varPfx(variable)));
-    const current = lines.findIndex((line) => line.includes(varPfx(variable))) +
+    const declaration = `@var select ${variable}`;
+
+    const expected = template.find((line) => line.includes(declaration));
+    const current = lines.findIndex((line) => line.includes(declaration)) +
       1;
 
     if (current === 0) {
