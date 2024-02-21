@@ -89,7 +89,7 @@ export const verifyMetadata = async (
       const message = sprintf(
         "Options for metadata variable `%s` should be `%s`",
         color.bold(variable),
-        expected.replace(varPfx(variable), "").trim(),
+        (/\[[^\]]+\]/.exec(expected) as RegExpExecArray)[0],
       );
 
       log(message, {
