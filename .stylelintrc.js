@@ -48,6 +48,10 @@ const config = {
 
         // Prefer `border-color` over `border`, `outline-color` over `outline`, etc.
         "border",
+        "border-top",
+        "border-right",
+        "border-bottom",
+        "border-left",
         "outline",
       ],
       {
