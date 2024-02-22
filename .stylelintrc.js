@@ -59,10 +59,10 @@ const config = {
          * @param {string} prop
          */
         message: (prop) => {
-          if (["border", "outline"].includes(prop)) {
+          if (prop.includes("border") || ["outline"].includes(prop)) {
             return `Use \`${prop}-color\` instead of \`${prop}\``;
           } else {
-            return `Property \`${prop}\` is not allowed in Catppuccin userstyles`;
+            return `Property \`${prop}\` is not allowed`;
           }
         },
       },
