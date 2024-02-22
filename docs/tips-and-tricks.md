@@ -6,17 +6,7 @@
 
 ### How can I see my changes in real time?
 
-If you want to see your changes in real-time while using an external editor:
-
-1. Head to `chrome://extensions/` or your browser's equivalent.
-2. Locate the Stylus extension and click on the `Details` button.
-3. Enable `Allow access to file URLs`.
-4. Now you can open the `catppuccin.user.css` file in your browser by typing `file:///path/to/catppuccin.user.css` in the address bar.
-5. Stylus will load on that page, and at this point ensure that `live preview` is enabled.
-6. Now you can make changes in your preferred editor and see real-time changes.
-
-> [!TIP]
-> See [Stylus Wiki - Initial installation and live reload](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#initial-installation-and-live-reload) for further reference.
+See [Stylus Wiki - Initial installation and live reload](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#initial-installation-and-live-reload).
 
 &nbsp;
 
