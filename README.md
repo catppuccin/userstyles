@@ -47,11 +47,7 @@ Install [Stylus](https://github.com/openstyles/stylus) for your chosen browser.
 
 ### All Userstyles
 
-1. Download [the Stylus export](https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json).
-2. Open the Stylus "manage" page.
-3. Locate backup (on the left bar) and select import.
-   - Select the downloaded file.
-4. Enjoy!
+See instructions on the [GitHub release page](https://github.com/catppuccin/userstyles/releases/tag/all-userstyles-export).
 
 ### Individual Userstyles
 
