@@ -33,8 +33,7 @@ const config = {
         /**
          * @param {string} atRule
          */
-        message: (atRule) =>
-          `At-rule ${atRule} is not allowed in Catppuccin userstyles`,
+        message: (atRule) => `At-rule ${atRule} is not allowed`,
       },
     ],
     "property-disallowed-list": [
