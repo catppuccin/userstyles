@@ -33,8 +33,7 @@ const config = {
         /**
          * @param {string} atRule
          */
-        message: (atRule) =>
-          `At-rule ${atRule} is not allowed in Catppuccin userstyles`,
+        message: (atRule) => `At-rule ${atRule} is not allowed`,
       },
     ],
     "property-disallowed-list": [
@@ -48,6 +47,10 @@ const config = {
 
         // Prefer `border-color` over `border`, `outline-color` over `outline`, etc.
         "border",
+        "border-top",
+        "border-right",
+        "border-bottom",
+        "border-left",
         "outline",
       ],
       {
@@ -55,10 +58,10 @@ const config = {
          * @param {string} prop
          */
         message: (prop) => {
-          if (["border", "outline"].includes(prop)) {
+          if (prop.includes("border") || ["outline"].includes(prop)) {
             return `Use \`${prop}-color\` instead of \`${prop}\``;
           } else {
-            return `Property \`${prop}\` is not allowed in Catppuccin userstyles`;
+            return `Property \`${prop}\` is not allowed`;
           }
         },
       },
