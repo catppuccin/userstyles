@@ -56,7 +56,12 @@ const prettyPrint = (
         color.dim(String(startLine + 1)),
         color.dim(lines[startLine]),
       ),
-      sprintf("%*s╰─► %s", pad, "", error),
+      sprintf(
+        "%*s╰─► %s",
+        pad,
+        "",
+        error,
+      ),
       undefined,
     ].join("\n"),
   );
