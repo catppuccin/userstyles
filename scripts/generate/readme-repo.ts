@@ -18,14 +18,14 @@ export const generateMainReadme = async (
   if (!portsData.categories) throw ("Ports data is missing categories");
 
   const categorized = Object.entries(userstyles)
-    .reduce((acc, [slug, { category, ...port }]) => {
+    .reduce((acc, [slug, { categories, ...port }]) => {
       // initialize category array if it doesn't exist
-      acc[category] ??= [];
+      acc[categories[0]] ??= [];
 
-      acc[category].push({ path: `styles/${slug}`, category, ...port });
+      acc[categories[0]].push({ path: `styles/${slug}`, categories, ...port });
 
       // Sort by name, first array entry if necessary
-      acc[category].sort((a, b) =>
+      acc[categories[0]].sort((a, b) =>
         [a.name].flat()[0].localeCompare([b.name].flat()[0])
       );
       return acc;

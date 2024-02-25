@@ -13,7 +13,7 @@ const userstylesYaml = Deno.readTextFileSync(
   join(REPO_ROOT, "scripts/userstyles.yml"),
 );
 const portsYaml = await fetch(
-  "https://raw.githubusercontent.com/catppuccin/catppuccin/main/resources/ports.yml",
+  "https://raw.githubusercontent.com/catppuccin/catppuccin/docs/allow-multiple-categories/resources/ports.yml",
 ).then((res) => res.text());
 
 const [portsData, userstylesData] = await Promise.all([

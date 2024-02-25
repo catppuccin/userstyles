@@ -76,7 +76,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <!-- AUTOGEN:USERSTYLES START -->
 <!-- the following section is auto-generated, do not edit -->
 <details open>
-<summary>💭 Development tools</summary>
+<summary>💭 Development Tools</summary>
 
 - [Graphite](styles/graphite)
 - [Hackage](styles/hackage)
@@ -99,21 +99,20 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Perplexity](styles/perplexity)
 - [SearXNG](styles/searxng)
 - [Startpage](styles/startpage)
-- [Wikipedia](styles/wikipedia)
 
 </details>
 <details open>
-<summary>💬 Messaging</summary>
-
-- [Cinny](styles/cinny)
-- [Snapchat Web](styles/snapchat-web)
-- [WhatsApp Web](styles/whatsapp-web)
-
-</details>
-<details open>
-<summary>🗂️ Productivity</summary>
+<summary>🧠 Wikis</summary>
 
 - [Arch Wiki](styles/arch-wiki)
+- [NixOS Wiki](styles/nixos.wiki)
+- [Wikipedia](styles/wikipedia)
+- [Wikiwand](styles/wikiwand)
+
+</details>
+<details open>
+<summary>📖 Productivity</summary>
+
 - [boringproxy](styles/boringproxy)
 - [Canvas LMS](styles/canvas-lms)
 - [ChatGPT](styles/chatgpt)
@@ -122,28 +121,32 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [DeepL](styles/deepl)
 - [Formative](styles/formative)
 - [GitHub](styles/github)
-- [Gmail](styles/gmail)
 - [homepage](styles/homepage)
 - [ichi.moe](styles/ichi.moe)
 - [InvokeAI](styles/invokeai)
 - [Lingva](styles/lingva)
 - [Microsoft Word](styles/microsoft-word)
-- [Migadu Webmail](styles/migadu-webmail)
-- [NixOS Wiki](styles/nixos.wiki)
 - [OpenMediaVault](styles/openmediavault)
 - [Proton](styles/proton)
 - [Quizlet](styles/quizlet)
-- [Skiff](styles/skiff)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
 - [Tuta](styles/tuta)
-- [Wikiwand](styles/wikiwand)
 
 </details>
 <details open>
-<summary>✨ Social</summary>
+<summary>💌 Email Clients</summary>
+
+- [Gmail](styles/gmail)
+- [Migadu Webmail](styles/migadu-webmail)
+- [Skiff](styles/skiff)
+
+</details>
+<details open>
+<summary>✨ Social Networking</summary>
 
 - [Bluesky Social](styles/bsky)
+- [Cinny](styles/cinny)
 - [Elk](styles/elk)
 - [Hacker News](styles/hacker-news)
 - [Instagram](styles/instagram)
@@ -154,20 +157,27 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Nitter](styles/nitter)
 - 🚧 [Pinterest](styles/pinterest)
 - 🚧 [Reddit](styles/reddit)
+- [Snapchat Web](styles/snapchat-web)
 - [Substack](styles/substack)
 - [Twitter](styles/twitter)
+- [WhatsApp Web](styles/whatsapp-web)
 
 </details>
 <details open>
-<summary>🌈 Leisure</summary>
+<summary>🌈 Entertainment</summary>
 
 - [AniList, AniChart](styles/anilist)
 - [ChatReplay](styles/chatreplay)
 - [Invidious](styles/invidious)
-- [Last.fm](styles/lastfm)
-- [Spotify Web](styles/spotify-web)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
+
+</details>
+<details open>
+<summary>🎵 Music</summary>
+
+- [Last.fm](styles/lastfm)
+- [Spotify Web](styles/spotify-web)
 
 </details>
 <details open>
