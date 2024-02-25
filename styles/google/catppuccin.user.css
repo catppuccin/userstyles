@@ -10,14 +10,14 @@
 @license MIT
 
 @preprocessor less
-@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappe", "macchiato:Macchiato", "mocha:Mocha"]
-@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappe", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
 @-moz-document regexp("^https?://(www\\.|images\\.)?google\\..*")
 {
-  #catppuccin(@lookup) {
+  #catppuccin(@lookup, @accent) {
     @flamingo: @catppuccin[@@lookup][@flamingo];
     @pink: @catppuccin[@@lookup][@pink];
     @mauve: @catppuccin[@@lookup][@mauve];
@@ -43,6 +43,7 @@
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
 
     background: @base !important;
     --uv-styles-color-surface: @crust;
@@ -1638,12 +1639,12 @@
   }
   @media (prefers-color-scheme: light) {
     body {
-      #catppuccin(@lightFlavor);
+      #catppuccin(@lightFlavor, @accentColor);
     }
   }
   @media (prefers-color-scheme: dark) {
     body {
-      #catppuccin(@darkFlavor);
+      #catppuccin(@darkFlavor, @accentColor);
     }
   }
 }
