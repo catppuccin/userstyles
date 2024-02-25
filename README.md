@@ -78,6 +78,8 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>💭 Development Tools</summary>
 
+- [Codeberg](styles/codeberg)
+- [GitHub](styles/github)
 - [Graphite](styles/graphite)
 - [Hackage](styles/hackage)
 - [Hoppscotch](styles/hoppscotch)
@@ -116,11 +118,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [boringproxy](styles/boringproxy)
 - [Canvas LMS](styles/canvas-lms)
 - [ChatGPT](styles/chatgpt)
-- [Codeberg](styles/codeberg)
 - [Crowdin](styles/crowdin)
 - [DeepL](styles/deepl)
 - [Formative](styles/formative)
-- [GitHub](styles/github)
 - [homepage](styles/homepage)
 - [ichi.moe](styles/ichi.moe)
 - [InvokeAI](styles/invokeai)
@@ -131,7 +131,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Quizlet](styles/quizlet)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
-- [Tuta](styles/tuta)
 
 </details>
 <details open>
@@ -140,6 +139,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Gmail](styles/gmail)
 - [Migadu Webmail](styles/migadu-webmail)
 - [Skiff](styles/skiff)
+- [Tuta](styles/tuta)
 
 </details>
 <details open>
@@ -150,15 +150,10 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Elk](styles/elk)
 - [Hacker News](styles/hacker-news)
 - [Instagram](styles/instagram)
-- [Lemmy](styles/lemmy)
-- [Libreddit](styles/libreddit)
 - [LinkedIn](styles/linkedin)
 - [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
-- 🚧 [Pinterest](styles/pinterest)
-- 🚧 [Reddit](styles/reddit)
 - [Snapchat Web](styles/snapchat-web)
-- [Substack](styles/substack)
 - [Twitter](styles/twitter)
 - [WhatsApp Web](styles/whatsapp-web)
 
@@ -169,6 +164,11 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [AniList, AniChart](styles/anilist)
 - [ChatReplay](styles/chatreplay)
 - [Invidious](styles/invidious)
+- [Lemmy](styles/lemmy)
+- [Libreddit](styles/libreddit)
+- 🚧 [Pinterest](styles/pinterest)
+- 🚧 [Reddit](styles/reddit)
+- [Substack](styles/substack)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
 
