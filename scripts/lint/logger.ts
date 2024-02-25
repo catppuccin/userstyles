@@ -35,12 +35,10 @@ const prettyPrint = (
     [
       color.underline(
         sprintf(
-          "%s%s%d%s%d",
+          "%s%s%s",
           file,
-          startLine ? ":" : "",
-          startLine ?? "",
-          startColumn ? ":" : "",
-          startColumn ?? "",
+          startLine ? ":" + startLine : "",
+          startColumn ? ":" + startColumn : "",
         ),
       ),
       sprintf(
