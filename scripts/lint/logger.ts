@@ -35,12 +35,10 @@ const prettyPrint = (
     [
       color.underline(
         sprintf(
-          "%s%s%d%s%d",
+          "%s%s%s",
           file,
-          startLine ? ":" : "",
-          startLine ?? "",
-          startColumn ? ":" : "",
-          startColumn ?? "",
+          startLine ? ":" + startLine : "",
+          startColumn ? ":" + startColumn : "",
         ),
       ),
       sprintf(
@@ -56,7 +54,12 @@ const prettyPrint = (
         color.dim(String(startLine + 1)),
         color.dim(lines[startLine]),
       ),
-      sprintf("%*s╰─► %s", pad, "", error),
+      sprintf(
+        "%*s╰─► %s",
+        pad,
+        "",
+        error,
+      ),
       undefined,
     ].join("\n"),
   );

@@ -10,12 +10,13 @@
 @license MIT
 
 @preprocessor less
-@var select flavor "Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
-@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green*", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Grey"]
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 
 @var checkbox graphUseAccentColor "Graphs Use Accent" 0
-
 ==/UserStyle== */
+
 @-moz-document domain('bstats.org') {
   /* prettier-ignore */
   @catppuccin: {
@@ -25,8 +26,15 @@
     @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
   }
 
-  :root {
-    #catppuccin(@flavor, @accentColor);
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
   }
 
   #catppuccin(@lookup, @accent) {
@@ -186,18 +194,18 @@
     }
 
     /* discord logo on homepage */
-    img[src="/images/discord.svg"] when (@flavor=latte) {
+    img[src="/images/discord.svg"] when (@lookup=latte) {
       filter: saturate(210%) hue-rotate(-20deg) brightness(82%);
     }
-    img[src="/images/discord.svg"] when (@flavor=frappe) {
+    img[src="/images/discord.svg"] when (@lookup=frappe) {
       filter: saturate(53%) hue-rotate(-10deg) brightness(147%) contrast(90%)
         sepia(15%) invert(2%);
     }
-    img[src="/images/discord.svg"] when (@flavor=macchiato) {
+    img[src="/images/discord.svg"] when (@lookup=macchiato) {
       filter: saturate(52%) hue-rotate(-15deg) brightness(157%) contrast(90%)
         sepia(10%);
     }
-    img[src="/images/discord.svg"] when (@flavor=mocha) {
+    img[src="/images/discord.svg"] when (@lookup=mocha) {
       filter: saturate(38%) hue-rotate(-25deg) brightness(153%) sepia(6%);
     }
 
@@ -382,7 +390,7 @@
     }
     .switch label input[type="checkbox"]:checked + .lever {
       background-color: desaturate(darken(@accent-color, 25%), 50%);
-      & when (@flavor=latte) {
+      & when (@lookup=latte) {
         background-color: desaturate(lighten(@accent-color, 12%), 30%);
       }
       &::after {
@@ -433,7 +441,7 @@
     /* map blends in with background on latte flavor */
     .highcharts-map-series .highcharts-point {
       stroke: @base !important;
-      & when (@flavor=latte) {
+      & when (@lookup=latte) {
         stroke: @overlay0 !important;
       }
     }

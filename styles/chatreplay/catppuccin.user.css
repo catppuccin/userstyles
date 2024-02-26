@@ -12,7 +12,7 @@
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent Color" [ "rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green*", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Grey" ]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 
 @var range bg-opacity "Background Opacity" [0.2 , -0.05 , 1 , 0.05]
 @var range bg-blur "Background Blur" [20, 0, 100, 1, 'px']
@@ -44,7 +44,7 @@
     @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
   }
 
-  #catppuccin(@lookup, @accent-color, @platform) {
+  #catppuccin(@lookup, @accent, @platform) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
     @pink: @catppuccin[@@lookup][@pink];
@@ -71,12 +71,12 @@
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
-    @accent: @catppuccin[@@lookup][@@accent-color];
+    @accent-color: @catppuccin[@@lookup][@@accent];
 
     & when (@platform = chat) {
       a,
       i {
-        color: @accent;
+        color: @accent-color;
       }
       color: @text;
       --text-color: @text;
@@ -88,18 +88,18 @@
       --bg-color-highlight: @surface0;
       --scrollbar-thumb: @surface0;
       --btn-hover-bg: @surface1;
-      --link-color: @accent;
+      --link-color: @accent-color;
       --border-color: @surface0;
       --settings-shadow: 0 4px 8px rgba(@crust, 0.4), 0 0 4px rgba(@crust, 0.4);
       .message-notice {
-        border-left-color: @accent;
+        border-left-color: @accent-color;
       }
       .message--highlighted a {
-        color: @accent;
+        color: @accent-color;
       }
       .message--highlighted {
-        background: @accent;
-        border-color: @accent;
+        background: @accent-color;
+        border-color: @accent-color;
         color: @base;
         text-shadow: none;
       }
@@ -148,11 +148,15 @@
       }
       a,
       i {
-        color: @accent;
+        color: @accent-color;
       }
       button.gradient,
       .btn.gradient {
-        background: linear-gradient(45deg, @accent, spin(@accent, 45));
+        background: linear-gradient(
+          45deg,
+          @accent-color,
+          spin(@accent-color, 45)
+        );
         color: @base;
         text-shadow: none;
       }
@@ -172,7 +176,7 @@
       }
       [d="M 4,0 1,3 v 10 h 4 v 3 l 3,-3 h 2 L 15,8 V 0 Z m 10,7 -3,3 H 9 L 7,12 V 10 H 5 V 1 h 9 z"],
       [d="m 8.5,3 3,2 -3,2 z"] {
-        fill: @accent;
+        fill: @accent-color;
       }
       [d="m 4,1 h 10 v 7 l -4,4 H 4 Z"] {
         fill: @base;
@@ -181,7 +185,7 @@
         border-color: @red;
       }
       .mark.z8oy0d.z8oy0d {
-        background: @accent;
+        background: @accent-color;
         color: @base;
       }
       .bg.c1ejz165.c1ejz165 {
