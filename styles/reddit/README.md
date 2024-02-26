@@ -41,8 +41,9 @@
 ## 🚧 Looking for Maintainers 🚧
 - If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
 
-## 💖 Past Maintainer
+## 💖 Past Maintainers
 - [jayylmao](https://github.com/jayylmao)
+- [rubyowo](https://github.com/rubyowo)
 
 &nbsp;
 
