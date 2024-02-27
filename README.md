@@ -98,9 +98,15 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Ecosia](styles/ecosia)
 - [Google](styles/google)
 - [NixOS Search](styles/nixos-search)
-- [Perplexity](styles/perplexity)
 - [SearXNG](styles/searxng)
 - [Startpage](styles/startpage)
+
+</details>
+<details open>
+<summary>🗺️ Translation Tools</summary>
+
+- [DeepL](styles/deepl)
+- [ichi.moe](styles/ichi.moe)
 
 </details>
 <details open>
@@ -113,18 +119,34 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 </details>
 <details open>
+<summary>🗣️ Discussion Forums</summary>
+
+- [Hacker News](styles/hacker-news)
+- [Lemmy](styles/lemmy)
+- [Libreddit](styles/libreddit)
+- 🚧 [Reddit](styles/reddit)
+
+</details>
+<details open>
+<summary>📸 Photo &amp; Video</summary>
+
+- 🚧 [Pinterest](styles/pinterest)
+
+</details>
+<details open>
+<summary>🎵 Music</summary>
+
+- [Last.fm](styles/lastfm)
+- [Spotify Web](styles/spotify-web)
+
+</details>
+<details open>
 <summary>📖 Productivity</summary>
 
 - [boringproxy](styles/boringproxy)
 - [Canvas LMS](styles/canvas-lms)
-- [ChatGPT](styles/chatgpt)
-- [Crowdin](styles/crowdin)
-- [DeepL](styles/deepl)
 - [Formative](styles/formative)
 - [homepage](styles/homepage)
-- [ichi.moe](styles/ichi.moe)
-- [InvokeAI](styles/invokeai)
-- [Lingva](styles/lingva)
 - [Microsoft Word](styles/microsoft-word)
 - [OpenMediaVault](styles/openmediavault)
 - [Proton](styles/proton)
@@ -148,7 +170,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Bluesky Social](styles/bsky)
 - [Cinny](styles/cinny)
 - [Elk](styles/elk)
-- [Hacker News](styles/hacker-news)
 - [Instagram](styles/instagram)
 - [LinkedIn](styles/linkedin)
 - [Mastodon](styles/mastodon)
@@ -164,20 +185,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [AniList, AniChart](styles/anilist)
 - [ChatReplay](styles/chatreplay)
 - [Invidious](styles/invidious)
-- [Lemmy](styles/lemmy)
-- [Libreddit](styles/libreddit)
-- 🚧 [Pinterest](styles/pinterest)
-- 🚧 [Reddit](styles/reddit)
 - [Substack](styles/substack)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
-
-</details>
-<details open>
-<summary>🎵 Music</summary>
-
-- [Last.fm](styles/lastfm)
-- [Spotify Web](styles/spotify-web)
 
 </details>
 <details open>
@@ -189,6 +199,16 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Lichess](styles/lichess)
 - [Modrinth](styles/modrinth)
 - [Planet Minecraft](styles/planet-minecraft)
+
+</details>
+<details open>
+<summary>🤖 Artificial Intelligence</summary>
+
+- [ChatGPT](styles/chatgpt)
+- [Crowdin](styles/crowdin)
+- [InvokeAI](styles/invokeai)
+- [Lingva](styles/lingva)
+- [Perplexity](styles/perplexity)
 
 </details>
 
