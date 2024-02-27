@@ -132,6 +132,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>📸 Photo &amp; Video</summary>
 
+- [Google Photos](styles/google-photos)
 - 🚧 [Pinterest](styles/pinterest)
 
 </details>
@@ -186,7 +187,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [AniList, AniChart](styles/anilist)
 - [ChatReplay](styles/chatreplay)
-- [Google Photos](styles/google-photos)
 - [Invidious](styles/invidious)
 - [Substack](styles/substack)
 - [Twitch](styles/twitch)
