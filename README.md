@@ -186,6 +186,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [AniList, AniChart](styles/anilist)
 - [ChatReplay](styles/chatreplay)
+- [Google Photos](styles/google-photos)
 - [Invidious](styles/invidious)
 - [Substack](styles/substack)
 - [Twitch](styles/twitch)
