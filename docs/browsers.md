@@ -3,38 +3,19 @@
 > [!NOTE]
 > If you see a popular browser that hasn't been added, please create a pull request to do so!
 
-Find your browser version by following the link for your browser.
+**To find your browser's version:**
 
-<table>
-  <thead>
-    <tr>
-      <th>Browser</th>
-      <th>URL</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Chromium</td>
-      <td><code>chrome://version/</code></td>
-    </tr>
-    <tr>
-      <td>Firefox</td>
-      <td><code>about:support</code></td>
-    </tr>
-    <tr>
-      <td>Opera (GX)</td>
-      <td><code>opera://about/</code></td>
-    </tr>
-    <tr>
-      <td>Microsoft Edge</td>
-      <td><code>edge://version/</code></td>
-    </tr>
-    <tr>
-      <td>Arc</td>
-      <td><code>arc://version/</code></td>
-    </tr>
-  </tbody>
-</table>
+- Find your browser in the table below and follow the matching link to visit the page with the version.
+  - _Chrome/Chromium_: the version should be the first entry in the table that appears. There is a copy to clipboard button after the version number which you can use.
+  - _Firefox_: the version is under the "Application Basics" section in the row labeled "Version".
+
+| Browser        | Version             |
+| -------------- | ------------------- |
+| Chromium       | `chrome://version/` |
+| Firefox        | `about:support`     |
+| Opera (GX)     | `opera://about/`    |
+| Microsoft Edge | `edge://version/`   |
+| Arc            | `arc://version/`    |
 
 ## Common Issues
 
