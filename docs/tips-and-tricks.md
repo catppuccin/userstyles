@@ -19,10 +19,10 @@ You may use the [Flow Circular](https://fonts.google.com/specimen/Flow+Circular)
 Use this snippet at the top of your userstyle to import and use the font:
 
 ```less
-@import url('https://fonts.googleapis.com/css2?family=Flow+Circular&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Flow+Circular&display=swap");
 
 * {
-  font-family: 'Flow Circular', cursive;
+  font-family: "Flow Circular", cursive;
 }
 ```
 
