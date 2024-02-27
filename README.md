@@ -105,8 +105,10 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🗺️ Translation Tools</summary>
 
+- [Crowdin](styles/crowdin)
 - [DeepL](styles/deepl)
 - [ichi.moe](styles/ichi.moe)
+- [Lingva](styles/lingva)
 
 </details>
 <details open>
@@ -205,9 +207,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🤖 Artificial Intelligence</summary>
 
 - [ChatGPT](styles/chatgpt)
-- [Crowdin](styles/crowdin)
 - [InvokeAI](styles/invokeai)
-- [Lingva](styles/lingva)
 - [Perplexity](styles/perplexity)
 
 </details>
