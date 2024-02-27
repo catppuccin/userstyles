@@ -163,6 +163,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [AniList, AniChart](styles/anilist)
 - [ChatReplay](styles/chatreplay)
+- [Google Photos](styles/google-photos)
 - [Invidious](styles/invidious)
 - [Last.fm](styles/lastfm)
 - [Spotify Web](styles/spotify-web)
