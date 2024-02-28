@@ -5,24 +5,48 @@
  */
 export type Name = [string, string, ...string[]] | string;
 /**
- * The category that fits the port the most.
+ * The categories that fit the userstyle the most, the first category is the primary category which the port will be listed under on the README.
+ *
+ * @minItems 1
+ * @maxItems 3
  */
+export type Categories = [Category] | [Category, Category] | [Category, Category, Category];
 export type Category =
+  | "3d_modelling"
+  | "analytics"
+  | "application_launcher"
+  | "artificial_intelligence"
+  | "boot_loader"
   | "browser"
   | "browser_extension"
   | "cli"
   | "code_editor"
+  | "desktop_environment"
   | "development"
+  | "discussion_forum"
+  | "document_viewer"
+  | "education"
+  | "email_client"
+  | "entertainment"
+  | "file_manager"
   | "game"
-  | "leisure"
+  | "game_development"
+  | "health_and_fitness"
   | "library"
-  | "messaging"
+  | "music"
   | "note_taking"
+  | "notification_daemon"
+  | "photo_and_video"
   | "productivity"
   | "search_engine"
-  | "social"
+  | "self_hosted"
+  | "social_networking"
   | "system"
-  | "terminal";
+  | "terminal"
+  | "translation_tool"
+  | "userstyle"
+  | "wiki"
+  | "window_manager";
 /**
  * The fill color for the icon on the Catppuccin website.
  */
@@ -148,7 +172,7 @@ export interface Userstyles {
  */
 export interface Userstyle {
   name: Name;
-  category: Category;
+  categories: Categories;
   color?: Color;
   icon?: Icon;
   readme: README;
