@@ -84,7 +84,7 @@ on the schema:
    ```yaml
    <port>:
      name: <name>
-     category: <category>
+     categories: [ <category> ] # Up to 3 categories are allowed
      readme:
        app-link: <url>
        current-maintainers: [ *<github-username> ]
@@ -106,7 +106,7 @@ on the schema:
    ```yaml
    <port>:
      name: <name>
-     category: <category>
+     categories: [ <category 1>, <category 2> ]
      color: <color>                                  # OPTIONAL
      icon: <icon>                                    # OPTIONAL
      readme:
