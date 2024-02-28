@@ -20,6 +20,7 @@ export const generateMainReadme = async (
   const categorized = Object.entries(userstyles)
     .reduce((acc, [slug, { categories, ...port }]) => {
       // initialize category array if it doesn't exist
+      // only care about the first (primary) category in the categories array
       acc[categories[0]] ??= [];
 
       acc[categories[0]].push({ path: `styles/${slug}`, categories, ...port });
