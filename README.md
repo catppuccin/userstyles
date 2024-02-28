@@ -121,15 +121,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 </details>
 <details open>
-<summary>🗣️ Discussion Forums</summary>
-
-- [Hacker News](styles/hacker-news)
-- [Lemmy](styles/lemmy)
-- [Libreddit](styles/libreddit)
-- 🚧 [Reddit](styles/reddit)
-
-</details>
-<details open>
 <summary>📸 Photo &amp; Video</summary>
 
 - [Google Photos](styles/google-photos)
@@ -147,13 +138,10 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>📖 Productivity</summary>
 
 - [boringproxy](styles/boringproxy)
-- [Canvas LMS](styles/canvas-lms)
-- [Formative](styles/formative)
 - [homepage](styles/homepage)
 - [Microsoft Word](styles/microsoft-word)
 - [OpenMediaVault](styles/openmediavault)
 - [Proton](styles/proton)
-- [Quizlet](styles/quizlet)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
 
@@ -165,6 +153,14 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Migadu Webmail](styles/migadu-webmail)
 - [Skiff](styles/skiff)
 - [Tuta](styles/tuta)
+
+</details>
+<details open>
+<summary>🎓 Education</summary>
+
+- [Canvas LMS](styles/canvas-lms)
+- [Formative](styles/formative)
+- [Quizlet](styles/quizlet)
 
 </details>
 <details open>
@@ -180,6 +176,15 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Snapchat Web](styles/snapchat-web)
 - [Twitter](styles/twitter)
 - [WhatsApp Web](styles/whatsapp-web)
+
+</details>
+<details open>
+<summary>🗣️ Discussion Forums</summary>
+
+- [Hacker News](styles/hacker-news)
+- [Lemmy](styles/lemmy)
+- [Libreddit](styles/libreddit)
+- 🚧 [Reddit](styles/reddit)
 
 </details>
 <details open>

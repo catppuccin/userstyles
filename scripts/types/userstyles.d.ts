@@ -25,6 +25,7 @@ export type Category =
   | "development"
   | "discussion_forum"
   | "document_viewer"
+  | "education"
   | "email_client"
   | "entertainment"
   | "file_manager"
