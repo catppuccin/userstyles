@@ -34,7 +34,7 @@ export const generateMainReadme = async (
   const portListData = portsData.categories
     .filter((category) => categorized[category.key] !== undefined)
     .map((category) => {
-      return { meta: category, ports: categorized[category.key] ?? [] };
+      return { meta: category, ports: categorized[category.key] };
     });
 
   const portContent = Handlebars.compile(`{{#each category}}

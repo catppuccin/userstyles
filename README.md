@@ -78,6 +78,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>💭 Development Tools</summary>
 
+- [boringproxy](styles/boringproxy)
 - [Codeberg](styles/codeberg)
 - [GitHub](styles/github)
 - [Graphite](styles/graphite)
@@ -137,7 +138,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>📖 Productivity</summary>
 
-- [boringproxy](styles/boringproxy)
 - [homepage](styles/homepage)
 - [Microsoft Word](styles/microsoft-word)
 - [OpenMediaVault](styles/openmediavault)
