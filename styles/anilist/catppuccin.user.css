@@ -3,18 +3,20 @@
 @namespace github.com/catppuccin/userstyles/styles/anilist
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/anilist
 @version 2.2.0
-@description Soothing pastel theme for AniList and AniChart
-@author Catppuccin
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/anilist/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aanilist
+@description Soothing pastel theme for AniList and AniChart
+@author Catppuccin
 @license MIT
 
-@preprocessor   less
+@preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent Color" [ "rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue*", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray" ]
-@var select contrastColor "Contrast Color" [ "rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red*", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray" ]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var select contrastColor "Contrast Color" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red*", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
+
 @-moz-document domain("anilist.co"), domain("anichart.net") {
   body:not(.site-theme-dark) {
     #catppuccin(@lightFlavor, @accentColor);
@@ -50,11 +52,11 @@
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
-    @accent: @catppuccin[@@lookup][@@accentColor];
+    @accent-color: @catppuccin[@@lookup][@@accent];
     @contrast-color: @catppuccin[@@lookup][@@contrastColor];
 
     & when (@lookup =latte) {
-      --color-blue-dim: #rgbify(desaturate(lighten(@accent, 10%), 10%)) [];
+      --color-blue-dim: #rgbify(desaturate(lighten(@accent-color, 10%), 10%)) [];
 
       .nav[data-v-62eacfff],
       .solid[data-v-62eacfff],
@@ -88,7 +90,7 @@
     --color-text-light: #rgbify(@subtext1) [];
     --color-text-lighter: #rgbify(@subtext0) [];
     --color-text-bright: #rgbify(@text) [];
-    --color-blue: #rgbify(@accent) [];
+    --color-blue: #rgbify(@accent-color) [];
     --color-white: 255, 255, 255;
     --color-black: 0, 0, 0;
     --color-red: #rgbify(@contrast-color) [];
@@ -184,7 +186,7 @@
       --color-gray-200: #rgbify(@mantle) [];
       --color-gray-100: #rgbify(@crust) [];
 
-      --color-blue-dim: #rgbify(desaturate(darken(@accent, 10%), 10%)) [];
+      --color-blue-dim: #rgbify(desaturate(darken(@accent-color, 10%), 10%)) [];
     }
 
     /* DARK THEME NAV BAR */
@@ -287,7 +289,7 @@
       background-color: @base;
     }
     .el-select-dropdown__item.selected {
-      color: @accent;
+      color: @accent-color;
     }
     .el-tooltip__popper.is-dark {
       background: @surface0;
@@ -320,7 +322,7 @@
       }
 
       & when (@lookup =latte) {
-        --color-blue: #rgbify(lighten(@accent, 30%)) [];
+        --color-blue: #rgbify(lighten(@accent-color, 30%)) [];
       }
 
       & when not (@lookup =latte) {
@@ -370,7 +372,7 @@
       --color-white: #rgbify(@text) [];
     }
     .el-checkbox__input.is-checked + .el-checkbox__label {
-      color: @accent;
+      color: @accent-color;
     }
     .button,
     .option.active,
@@ -456,8 +458,8 @@
     }
     .el-checkbox__input.is-checked .el-checkbox__inner,
     .el-radio__input.is-checked .el-radio__inner {
-      background-color: @accent;
-      border-color: @accent;
+      background-color: @accent-color;
+      border-color: @accent-color;
     }
     .el-checkbox__inner::after {
       border-color: @crust;
@@ -465,7 +467,7 @@
       left: 3px;
     }
     .el-radio__input.is-checked + .el-radio__label {
-      color: @accent;
+      color: @accent-color;
     }
     /* --------HIDE SCROLLBAR IN BIO----- */
     .section::-webkit-scrollbar {
@@ -490,7 +492,7 @@
     /* ---------AUTOMAIL TWEAKS--------- */
     // .site-theme-dark .el-popper .el-dropdown-menu__item:focus,
     // .el-popper .el-dropdown-menu__item:not(.is-disabled):hover {
-    //   color: @accent !important;
+    //   color: @accent-color !important;
     // }
     .hohMediaScore {
       border-color: @surface0;
@@ -498,7 +500,7 @@
       border-radius: 10px;
       margin-left: 0;
       background-color: @base;
-      color: @accent;
+      color: @accent-color;
     }
     .activity-feed .hohNoteSuffix:not(:empty),
     .activity-feed .hohRewatchSuffix:not(:empty),
@@ -516,10 +518,10 @@
     }
     .hohButton,
     .hohCheckbox input:checked + .el-checkbox__inner {
-      background-color: @accent;
+      background-color: @accent-color;
     }
     .hohCheckbox input:checked + .el-checkbox__inner {
-      border-color: @accent;
+      border-color: @accent-color;
     }
     .medialist.table .entry:hover,
     .medialist.table .entry .title a:hover,
@@ -598,7 +600,7 @@
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
-    @accent: @catppuccin[@@lookup][@@accentColor];
+    @accent-color: @catppuccin[@@lookup][@@accentColor];
     @contrast-color: @catppuccin[@@lookup][@@contrastColor];
 
     /* --------ANICHART SPECIFIC TWEAKS---- */
@@ -621,7 +623,7 @@
     .charts a:hover .svg-icon[data-v-e2f25004],
     .season[data-v-e2f25004]:hover,
     .charts .router-link-active .svg-icon[data-v-e2f25004] {
-      color: @accent;
+      color: @accent-color;
     }
     .settings[data-v-3deab077] .button.danger {
       color: @base;

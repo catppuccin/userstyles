@@ -3,19 +3,20 @@
 @namespace github.com/catppuccin/userstyles/styles/substack
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/substack
 @version 0.1.1
-@description Soothing pastel theme for Substack
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/substack/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Asubstack
+@description Soothing pastel theme for Substack
 @author Catppuccin
 @license MIT
 
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
-@var select darkFlavor  "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
+
 @-moz-document regexp("https:\/\/(.+\.)?substack.com/.*") {
-  #catppuccin(@lookup, @accent-color) {
+  #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
     @pink: @catppuccin[@@lookup][@pink];
@@ -42,7 +43,7 @@
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
-    @accent: @catppuccin[@@lookup][@@accent-color];
+    @accent-color: @catppuccin[@@lookup][@@accent];
 
     html {
       background-color: @base !important;
@@ -63,13 +64,13 @@
       --color-dark-primary: @text;
       --color-bg-elevated: @surface0;
       --color-bg-elevated-hover: mix(@surface1, @surface0, 50%);
-      --color-accent-themed: @accent;
+      --color-accent-themed: @accent-color;
       --color-bg-secondary-opacity: @surface0;
       --color-bg-secondary-themed: @surface0;
       --color-accent-inverse-themed: @crust;
       --color-light-bg-primary: @crust;
-      --color-accent-primary: @accent;
-      --color-accent-substack: @accent;
+      --color-accent-primary: @accent-color;
+      --color-accent-substack: @accent-color;
       --color-accent-blue: @blue;
       --color-accent-red: @red;
       --color-accent-purple: @mauve;
@@ -100,7 +101,7 @@
       --input_background: @surface0;
 
       // used for podcast play controls
-      --color_theme_bg_pop_rgb: #rgbify(@accent) [];
+      --color_theme_bg_pop_rgb: #rgbify(@accent-color) [];
       --color_theme_print_on_pop: @crust;
     }
 
@@ -154,7 +155,7 @@
       width: 0.25rem;
     }
     ::-webkit-scrollbar-thumb {
-      background: @accent;
+      background: @accent-color;
       border-radius: 9999px;
     }
   }
