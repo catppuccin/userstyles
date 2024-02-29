@@ -76,8 +76,11 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <!-- AUTOGEN:USERSTYLES START -->
 <!-- the following section is auto-generated, do not edit -->
 <details open>
-<summary>💭 Development tools</summary>
+<summary>💭 Development Tools</summary>
 
+- [boringproxy](styles/boringproxy)
+- [Codeberg](styles/codeberg)
+- [GitHub](styles/github)
 - [Graphite](styles/graphite)
 - [Hackage](styles/hackage)
 - [Hoppscotch](styles/hoppscotch)
@@ -96,76 +99,101 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Ecosia](styles/ecosia)
 - [Google](styles/google)
 - [NixOS Search](styles/nixos-search)
-- [Perplexity](styles/perplexity)
 - [SearXNG](styles/searxng)
 - [Startpage](styles/startpage)
-- [Wikipedia](styles/wikipedia)
 
 </details>
 <details open>
-<summary>💬 Messaging</summary>
+<summary>🗺️ Translation Tools</summary>
 
-- [Cinny](styles/cinny)
-- [Snapchat Web](styles/snapchat-web)
-- [WhatsApp Web](styles/whatsapp-web)
-
-</details>
-<details open>
-<summary>🗂️ Productivity</summary>
-
-- [Arch Wiki](styles/arch-wiki)
-- [boringproxy](styles/boringproxy)
-- [Canvas LMS](styles/canvas-lms)
-- [ChatGPT](styles/chatgpt)
-- [Codeberg](styles/codeberg)
 - [Crowdin](styles/crowdin)
 - [DeepL](styles/deepl)
-- [Formative](styles/formative)
-- [GitHub](styles/github)
-- [Gmail](styles/gmail)
-- [homepage](styles/homepage)
 - [ichi.moe](styles/ichi.moe)
-- [InvokeAI](styles/invokeai)
 - [Lingva](styles/lingva)
-- [Microsoft Word](styles/microsoft-word)
-- [Migadu Webmail](styles/migadu-webmail)
+
+</details>
+<details open>
+<summary>🧠 Wikis</summary>
+
+- [Arch Wiki](styles/arch-wiki)
 - [NixOS Wiki](styles/nixos.wiki)
-- [OpenMediaVault](styles/openmediavault)
-- [Proton](styles/proton)
-- [Quizlet](styles/quizlet)
-- [Skiff](styles/skiff)
-- [Stylus](styles/stylus)
-- [Syncthing](styles/syncthing)
-- [Tuta](styles/tuta)
+- [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
 
 </details>
 <details open>
-<summary>✨ Social</summary>
+<summary>📸 Photo &amp; Video</summary>
 
-- [Bluesky Social](styles/bsky)
-- [Elk](styles/elk)
-- [Hacker News](styles/hacker-news)
-- [Instagram](styles/instagram)
-- [Lemmy](styles/lemmy)
-- [Libreddit](styles/libreddit)
-- [LinkedIn](styles/linkedin)
-- [Mastodon](styles/mastodon)
-- [Nitter](styles/nitter)
+- [Google Photos](styles/google-photos)
 - 🚧 [Pinterest](styles/pinterest)
-- 🚧 [Reddit](styles/reddit)
-- [Substack](styles/substack)
-- [Twitter](styles/twitter)
 
 </details>
 <details open>
-<summary>🌈 Leisure</summary>
+<summary>🎵 Music</summary>
+
+- [Last.fm](styles/lastfm)
+- [Spotify Web](styles/spotify-web)
+
+</details>
+<details open>
+<summary>📖 Productivity</summary>
+
+- [homepage](styles/homepage)
+- [Microsoft Word](styles/microsoft-word)
+- [OpenMediaVault](styles/openmediavault)
+- [Proton](styles/proton)
+- [Stylus](styles/stylus)
+- [Syncthing](styles/syncthing)
+
+</details>
+<details open>
+<summary>💌 Email Clients</summary>
+
+- [Gmail](styles/gmail)
+- [Migadu Webmail](styles/migadu-webmail)
+- [Skiff](styles/skiff)
+- [Tuta](styles/tuta)
+
+</details>
+<details open>
+<summary>🎓 Education</summary>
+
+- [Canvas LMS](styles/canvas-lms)
+- [Formative](styles/formative)
+- [Quizlet](styles/quizlet)
+
+</details>
+<details open>
+<summary>✨ Social Networking</summary>
+
+- [Bluesky Social](styles/bsky)
+- [Cinny](styles/cinny)
+- [Elk](styles/elk)
+- [Instagram](styles/instagram)
+- [LinkedIn](styles/linkedin)
+- [Mastodon](styles/mastodon)
+- [Nitter](styles/nitter)
+- [Snapchat Web](styles/snapchat-web)
+- [Twitter](styles/twitter)
+- [WhatsApp Web](styles/whatsapp-web)
+
+</details>
+<details open>
+<summary>🗣️ Discussion Forums</summary>
+
+- [Hacker News](styles/hacker-news)
+- [Lemmy](styles/lemmy)
+- [Libreddit](styles/libreddit)
+- 🚧 [Reddit](styles/reddit)
+
+</details>
+<details open>
+<summary>🌈 Entertainment</summary>
 
 - [AniList, AniChart](styles/anilist)
 - [ChatReplay](styles/chatreplay)
 - [Invidious](styles/invidious)
-- [Last.fm](styles/lastfm)
-- [Spotify Web](styles/spotify-web)
+- [Substack](styles/substack)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
 
@@ -179,6 +207,14 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Lichess](styles/lichess)
 - [Modrinth](styles/modrinth)
 - [Planet Minecraft](styles/planet-minecraft)
+
+</details>
+<details open>
+<summary>🤖 Artificial Intelligence</summary>
+
+- [ChatGPT](styles/chatgpt)
+- [InvokeAI](styles/invokeai)
+- [Perplexity](styles/perplexity)
 
 </details>
 

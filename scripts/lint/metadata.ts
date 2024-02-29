@@ -86,7 +86,7 @@ export const verifyMetadata = async (
         },
         "warning",
       );
-    } else if (expected.trim() !== lines[current].trim()) {
+    } else if (expected.trim() !== lines[current - 1].trim()) {
       const message = sprintf(
         "Options for metadata variable `%s` should be `%s`",
         color.bold(variable),
