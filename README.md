@@ -192,6 +192,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [AniList, AniChart](styles/anilist)
 - [ChatReplay](styles/chatreplay)
+- [Holodex](styles/holodex)
 - [Invidious](styles/invidious)
 - [Substack](styles/substack)
 - [Twitch](styles/twitch)
