@@ -106,7 +106,7 @@ on the schema:
    ```yaml
    <port>:
      name: <name>
-     categories: [ <category 1>, <category 2> ]
+     categories: [ <category-a>, <category-b> ]
      color: <color>                                  # OPTIONAL
      icon: <icon>                                    # OPTIONAL
      readme:
