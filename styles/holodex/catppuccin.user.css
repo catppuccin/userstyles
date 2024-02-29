@@ -10,8 +10,9 @@
 @license MIT
 
 @preprocessor less
-@var select lightFlavor "Light Flavor" ["latte:Latte*"]
-@var select darkFlavor "Dark Flavor" ["frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 @-moz-document domain('holodex.net') {
   /* prettier-ignore */
@@ -22,7 +23,7 @@
     @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
   }
 
-  #catppuccin(@lookup) {
+  #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
     @pink: @catppuccin[@@lookup][@pink];
@@ -49,6 +50,104 @@
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+    
+    & {
+      --v-anchor-base: @accent-color;
+      --v-primary-base: @accent-color;
+      --v-primary-lighten1: lighten(@accent-color, 4%);
+      --v-primary-lighten2: lighten(@accent-color, 8%);
+      --v-primary-lighten3: lighten(@accent-color, 9%);
+      --v-primary-lighten4: lighten(@accent-color, 18%);
+      --v-primary-lighten5: lighten(@accent-color, 19%);
+      --v-primary-darken1: darken(@accent-color, 14%);
+      --v-primary-darken2: darken(@accent-color, 31%);
+      --v-primary-darken3: darken(@accent-color, 35%);
+      --v-primary-darken4: darken(@accent-color, 43%);
+      
+      --v-accent-base: @accent-color;
+      --v-accent-lighten1: lighten(@accent-color, 4%);
+      --v-accent-lighten2: lighten(@accent-color, 8%);
+      --v-accent-lighten3: lighten(@accent-color, 9%);
+      --v-accent-lighten4: lighten(@accent-color, 18%);
+      --v-accent-lighten5: lighten(@accent-color, 19%);
+      --v-accent-darken1: darken(@accent-color, 14%);
+      --v-accent-darken2: darken(@accent-color, 31%);
+      --v-accent-darken3: darken(@accent-color, 35%);
+      --v-accent-darken4: darken(@accent-color, 43%);
+
+      --v-secondary-base: @accent-color;
+      --v-secondary-lighten1: lighten(@accent-color, 4%);
+      --v-secondary-lighten2: lighten(@accent-color, 8%);
+      --v-secondary-lighten3: lighten(@accent-color, 9%);
+      --v-secondary-lighten4: lighten(@accent-color, 18%);
+      --v-secondary-lighten5: lighten(@accent-color, 19%);
+      --v-secondary-darken1: darken(@accent-color, 14%);
+      --v-secondary-darken2: darken(@accent-color, 31%);
+      --v-secondary-darken3: darken(@accent-color, 35%);
+      --v-secondary-darken4: darken(@accent-color, 43%);
+
+      --v-error-base: @red;
+      --v-error-lighten1: lighten(@red, 4%);
+      --v-error-lighten2: lighten(@red, 8%);
+      --v-error-lighten3: lighten(@red, 9%);
+      --v-error-lighten4: lighten(@red, 18%);
+      --v-error-lighten5: lighten(@red, 19%);
+      --v-error-darken1: darken(@red, 14%);
+      --v-error-darken2: darken(@red, 31%);
+      --v-error-darken3: darken(@red, 35%);
+      --v-error-darken4: darken(@red, 43%);
+
+      --v-info-base: @blue;
+      --v-info-lighten1: lighten(@blue, 4%);
+      --v-info-lighten2: lighten(@blue, 8%);
+      --v-info-lighten3: lighten(@blue, 9%);
+      --v-info-lighten4: lighten(@blue, 18%);
+      --v-info-lighten5: lighten(@blue, 19%);
+      --v-info-darken1: darken(@blue, 14%);
+      --v-info-darken2: darken(@blue, 31%);
+      --v-info-darken3: darken(@blue, 35%);
+      --v-info-darken4: darken(@blue, 43%);
+
+      --v-success-base: @green;
+      --v-success-lighten1: lighten(@green, 4%);
+      --v-success-lighten2: lighten(@green, 8%);
+      --v-success-lighten3: lighten(@green, 9%);
+      --v-success-lighten4: lighten(@green, 18%);
+      --v-success-lighten5: lighten(@green, 19%);
+      --v-success-darken1: darken(@green, 14%);
+      --v-success-darken2: darken(@green, 31%);
+      --v-success-darken3: darken(@green, 35%);
+      --v-success-darken4: darken(@green, 43%);
+
+      --v-warning-base: @yellow;
+      --v-warning-lighten1: lighten(@yellow, 4%);
+      --v-warning-lighten2: lighten(@yellow, 8%);
+      --v-warning-lighten3: lighten(@yellow, 9%);
+      --v-warning-lighten4: lighten(@yellow, 18%);
+      --v-warning-lighten5: lighten(@yellow, 19%);
+      --v-warning-darken1: darken(@yellow, 14%);
+      --v-warning-darken2: darken(@yellow, 31%);
+      --v-warning-darken3: darken(@yellow, 35%);
+      --v-warning-darken4: darken(@yellow, 43%);
+
+      --v-background-base: @base;
+      --v-background-lighten1: lighten(@base, 4%);
+      --v-background-lighten2: lighten(@base, 8%);
+      --v-background-lighten3: lighten(@base, 9%);
+      --v-background-lighten4: lighten(@base, 18%);
+      --v-background-lighten5: lighten(@base, 19%);
+      --v-background-darken1: darken(@base, 14%);
+      --v-background-darken2: darken(@base, 31%);
+      --v-background-darken3: darken(@base, 35%);
+      --v-background-darken4: darken(@base, 43%);
+    }
+    
+        
+    div.v-application {
+      background: @base !important;
+      color: @text;
+    }
 
     header#top-bar,
     header.v-toolbar,
@@ -63,12 +162,6 @@
     div.v-overlay__scrim {
       background: @base !important;
     }
-    div.v-input {
-      padding: 0.2rem;
-    }
-    div.v-toolbar__content > div.v-input.v-select--is-menu-active {
-      border: 1px solid;
-    }
     div.v-sheet {
       background: @base;
       border-color: @base;
@@ -76,14 +169,43 @@
     button.v-btn.v-btn--has-bg {
       background-color: @surface0 !important;
     }
+    
+    .v-list,
+    .v-list-item,
+    .v-card,
+    .v-sheet,
+    .v-select__selections,
+    .v-input__slot input {
+      color: @text !important;
+      & path {
+        fill: @text;
+      }
+    }
+    
+    .v-chip {
+      background: @blue;
+    }
+    
+    .primary--text,
+    .name-vtuber {
+      color: @accent-color !important;
+    }
+    
+    .text-live {
+      color: @red;
+    }
+    
+    .stream-count-chip {
+      color: @crust !important;
+    }
   }
 
-  div.v-application.theme--dark {
-    #catppuccin(@darkFlavor);
-    background: @base !important;
+  :root:has(.theme--dark) {
+    #catppuccin(@darkFlavor, @accentColor);
   }
-  div.v-application.theme--light {
-    #catppuccin(@lightFlavor);
-    background: @base !important;
+
+  :root:has(.theme--light) {
+    #catppuccin(@lightFlavor, @accentColor);
   }
 }
+// vim:ft=less
