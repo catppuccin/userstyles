@@ -206,6 +206,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [bStats](styles/bstats)
 - [Chess.com](styles/chess.com)
 - [Lichess](styles/lichess)
+- [Minesweeper Online](styles/minesweeper)
 - [Modrinth](styles/modrinth)
 - [Planet Minecraft](styles/planet-minecraft)
 
