@@ -87,7 +87,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [MDN](styles/mdn)
 - [Next.js](styles/nextjs)
 - [npm](styles/npm)
-- 🚧 [paste.rs](styles/paste.rs)
+- [paste.rs](styles/paste.rs)
 - [Vercel](styles/vercel)
 
 </details>
