@@ -84,7 +84,8 @@ on the schema:
    ```yaml
    <port>:
      name: <name>
-     categories: [ <category> ] # Up to 3 categories are allowed
+     # Up to 3 categories are allowed, where the left most category is the primary category.
+     categories: [ <category> ]
      readme:
        app-link: <url>
        current-maintainers: [ *<github-username> ]
