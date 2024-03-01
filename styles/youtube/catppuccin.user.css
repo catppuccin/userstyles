@@ -1340,10 +1340,10 @@
 
 @-moz-document domain('m.youtube.com')
 {
-  :root[darker-dark-theme] {
+  html[darker-dark-theme] {
     #catppuccin(@darkFlavor, @accentColor);
   }
-  :root {
+  html {
     #catppuccin(@lightFlavor, @accentColor);
   }
 
@@ -1376,14 +1376,35 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    // FIX: not currently applying
-    html {
-      background-color: @base !important;
-      color: @text !important;
+    background-color: @base !important;
+    color: @text !important;
+
+    /* ambient mode */
+    #cinematics {
+      mix-blend-mode: lighten;
     }
 
     /* tobar */
     ytm-mobile-topbar-renderer:not([ambient-topbar]) {
+      background: @mantle;
+    }
+
+    /* some transpartent buttons */
+    .yt-spec-bottom-sheet-layout__bottom-sheet-renderer-container,
+    .modern-styling {
+      background: @surface0;
+    }
+
+    .yt-spec-bottom-sheet-layout__bottom-sheet-layout-header-wrapper {
+      border-bottom-color: @surface0;
+    }
+
+    .yt-spec-bottom-sheet-layout__bottom-sheet-content {
+      color: @text;
+    }
+
+    /* comment box */
+    .engagement-panel-container {
       background: @mantle;
     }
 
@@ -1411,13 +1432,29 @@
       background-color: @surface0;
     }
 
-    /* white button */
+    /* buttons */
     .yt-spec-touch-feedback-shape--touch-response .yt-spec-touch-feedback-shape__fill {
       background-color: @text;
     }
-
     .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--text {
       color: @text;
+    }
+    .yt-spec-touch-feedback-shape--touch-response .yt-spec-touch-feedback-shape__stroke {
+      border-color: @surface1;
+    }
+    .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal {
+      color: @text;
+      background-color: @surface0;
+    }
+    .yt-spec-button-shape-next--overlay.yt-spec-button-shape-next--filled {
+      color: @crust;
+      background-color: @accent-color;
+    }
+    .yt-spec-touch-feedback-shape--overlay-touch-response-inverse .yt-spec-touch-feedback-shape__fill {
+      background-color: @accent-color;
+    }
+    .yt-spec-touch-feedback-shape--overlay-touch-response .yt-spec-touch-feedback-shape__fill {
+      background-color: @text;
     }
   }
 }
