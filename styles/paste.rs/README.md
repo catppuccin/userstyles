@@ -38,8 +38,8 @@
 
 
 
-## 🚧 Looking for Maintainers 🚧
-- If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
+## 💝 Current Maintainer
+- [Guaxinim5573](https://github.com/Guaxinim5573)
 
 ## 💖 Past Maintainer
 - [Stonks3141](https://github.com/Stonks3141)

@@ -2,7 +2,7 @@
 @name Twitter Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/twitter
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/twitter
-@version 1.0.0
+@version 1.0.1
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/twitter/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Atwitter
 @description Soothing pastel theme for Twitter
@@ -19,17 +19,6 @@
 ==/UserStyle== */
 
 @-moz-document domain("twitter.com") {
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
-    }
-  }
-
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -96,6 +85,24 @@
           filter: if(@lookup=latte, @latte-shadow, @black-shadow);
         }
       }
+
+      .r-1uusn97 {
+        @default-shadow:
+          fade(@text, 20%) 0 0 5px,
+          fade(@text, 15%) 0 1px 4px 1px;
+        @latte-shadow:
+          @crust 0 0 5px,
+          fade(@crust, 95%) 0 1px 4px 1px;
+        @black-shadow:
+          rgba(0, 0, 0, 0.4) 0 0 5px,
+          rgba(0, 0, 0, 0.35) 0 1px 4px 1px;
+
+        box-shadow: @default-shadow;
+
+        & when (@darkenShadows = 1) {
+          box-shadow: if(@lookup=latte, @latte-shadow, @black-shadow);
+        }
+      }
     }
 
     body,
@@ -153,6 +160,13 @@
     // white text, seems to appear on accent colors
     .r-jwli3a {
       color: if(@lookup=latte, #fff, @crust);
+
+      // cw svg
+      &:has(
+          path[d="M3.693 21.707l-1.414-1.414 2.429-2.429c-2.479-2.421-3.606-5.376-3.658-5.513l-.131-.352.131-.352c.133-.353 3.331-8.648 10.937-8.648 2.062 0 3.989.621 5.737 1.85l2.556-2.557 1.414 1.414L3.693 21.707zm-.622-9.706c.356.797 1.354 2.794 3.051 4.449l2.417-2.418c-.361-.609-.553-1.306-.553-2.032 0-2.206 1.794-4 4-4 .727 0 1.424.192 2.033.554l2.263-2.264C14.953 5.434 13.512 5 11.986 5c-5.416 0-8.258 5.535-8.915 7.001zM11.986 10c-1.103 0-2 .897-2 2 0 .178.023.352.067.519l2.451-2.451c-.167-.044-.341-.067-.519-.067zm10.951 1.647l.131.352-.131.352c-.133.353-3.331 8.648-10.937 8.648-.709 0-1.367-.092-2-.223v-2.047c.624.169 1.288.27 2 .27 5.415 0 8.257-5.533 8.915-7-.252-.562-.829-1.724-1.746-2.941l1.438-1.438c1.53 1.971 2.268 3.862 2.33 4.027z"]
+        ) {
+        color: @text;
+      }
     }
 
     // borders
@@ -169,8 +183,13 @@
       border-top-color: @surface0;
     }
 
+    .r-1aihyag {
+      border-right-color: @surface0;
+    }
+
     // is this post relevant to you?
-    .r-1ccsd61 {
+    .r-1ccsd61,
+    .r-xzxzvz {
       border-color: @surface2;
     }
 
@@ -255,6 +274,11 @@
       background-color: darken(@text, 8%);
     }
 
+    // tooltips
+    .r-1pr99xn {
+      background-color: @surface1;
+    }
+
     // new notifications
     .r-1eltapf {
       background-color: fade(@sapphire, 10%);
@@ -273,6 +297,11 @@
     // spaces
     .r-1blqq69 {
       border-color: @mauve;
+    }
+
+    // reactions on dms
+    .r-qazpri {
+      color: @overlay1;
     }
 
     @keyframes r-1wvy3k1 {
@@ -397,6 +426,37 @@
       color: @overlay0;
     }
 
+    // cw button
+    .r-n94g0g {
+      background-color: fade(@text, 30%); // when hovered
+    }
+
+    .r-z9i421 {
+      background-color: fade(@text, 27%); // when active
+    }
+
+    .r-19130f6 {
+      background-color: @crust; // when hovered
+    }
+
+    .r-l8tqsx {
+      background-color: fade(@text, 10%); // when active
+    }
+
+    // lock svg when you try to write a commu note but can't
+    .r-3gvs5h {
+      background-color: @overlay1;
+    }
+
+    // sunglasses commu note
+    .r-1fkb3t2 {
+      background-color: @surface1;
+    }
+
+    .r-1kwlb9n {
+      background-color: fade(@red, 12%);
+    }
+
     // hard-coded shit
     // ugly-ass twitter blue/premium bg. why.
     [style*="https://abs.twimg.com/responsive-web/client-web/background-premiumplus-web"]
@@ -432,18 +492,26 @@
     }
 
     // yellow verified badge
-    [stop-color="#f4e72a"],
-    [stop-color="#cd8105"],
-    [stop-color="#cb7b00"],
-    [stop-color="#f4ec26"],
-    [stop-color="#f9e87f"],
-    [stop-color="#e2b719"] {
+    [stop-color="#f4e72a" i],
+    [stop-color="#cd8105" i],
+    [stop-color="#cb7b00" i],
+    [stop-color="#f4ec26" i],
+    [stop-color="#f9e87f" i],
+    [stop-color="#e2b719" i] {
       stop-color: @yellow !important;
     }
 
-    [fill="#d18800"] {
+    [fill="#d18800" i] {
       fill: @yellow !important;
     }
+
+    // [fill="#333333" i] {
+    //   fill: @crust !important;
+    //
+    //   ~ [fill="white"] {
+    //     fill: @text !important;
+    //   }
+    // }
 
     [style*="border-color: rgb(83, 100, 113)"] {
       border-color: @surface1 !important;
@@ -483,6 +551,9 @@
     // faded text
     [style*="color: rgb(113, 118, 123)"]:not(
         [style*="background-color: rgb(113, 118, 123)"]
+      ),
+    [style*="color: rgb(182, 185, 188)"]:not(
+        [style*="background-color: rgb(182, 185, 188)"]
       ) {
       color: @overlay1 !important;
     }
@@ -510,6 +581,24 @@
       color: @pink !important;
     }
 
+    [style*="color: rgb(255, 212, 0)"]:not(
+        [style*="background-color: rgb(255, 212, 0)"]
+      ) {
+      color: @yellow !important;
+    }
+
+    [style*="color: rgb(120, 86, 255)"]:not(
+        [style*="background-color: rgb(120, 86, 255)"]
+      ) {
+      color: @mauve !important;
+    }
+
+    [style*="color: rgb(255, 122, 0)"]:not(
+        [style*="background-color: rgb(255, 122, 0)"]
+      ) {
+      color: @peach !important;
+    }
+
     // accent color (blue)
     [style*="color: rgb(29, 155, 240)"]:not(
         [style*="background-color: rgb(29, 155, 240)"]
@@ -524,6 +613,22 @@
 
     [style*="background-color: rgb(2, 17, 61)"] {
       background-color: fade(@accent-color, 15%) !important;
+    }
+
+    [style*="background-color: rgba(255, 255, 255, 0.25)"] {
+      background-color: fade(@text, 25%) !important;
+    }
+
+    [style*="background-color: rgb(147, 147, 147)"] {
+      background-color: @overlay0 !important;
+
+      // for toggle circle
+      + [style*="background-color: rgb(250, 250, 250)"]
+        when
+        not
+        (@lookup = latte) {
+        background-color: @text !important;
+      }
     }
 
     [style*="background-color: rgb(29, 155, 240)"] {
@@ -570,18 +675,27 @@
     .r-12d83nn,
     .r-oybae9,
     .r-yuvema,
+    .r-3gvs5h,
     [style="background-image: linear-gradient(61.63deg, rgb(45, 66, 255) -15.05%, rgb(156, 99, 250) 104.96%);"] {
       [style*="color: rgb(255, 255, 255)"]:not(
           [style*="background-color: rgb(255, 255, 255)"]
         ),
       &[style*="color: rgb(255, 255, 255)"]:not(
           [style*="background-color: rgb(255, 255, 255)"]
-        ) {
+        ),
+      [style*="color: rgb(231, 233, 234)"]:not(
+          [style*="background-color: rgb(231, 233, 234)"]
+        ),
+      &[style*="color: rgb(231, 233, 234)"]:not(
+          [style*="background-color: rgb(231, 233, 234)"]
+        ),
+      [color="white"] {
         color: if(@lookup=latte, #fff, @crust) !important;
       }
     }
 
-    [data-testid="videoComponent"],
+    [data-testid="videoComponent"]:not(.r-4nw3r4),
+    .r-loe9s5,
     .r-drfeu3:has(
         [style="background-color: rgba(255, 255, 255, 0.25); border-color: rgba(0, 0, 0, 0); backdrop-filter: blur(4px);"]
       ) {
@@ -596,6 +710,27 @@
       }
     }
 
+    // dms have to be here bc of the above
+    .r-eff69c {
+      background-color: darken(@accent-color, 5%);
+
+      [style*="color: rgb(255, 255, 255)"] {
+        color: @crust !important;
+      }
+    }
+
+    // follow button
+    [data-testid$="-follow"] {
+      [style*="color: rgb(15, 20, 25)"] {
+        color: if(@lookup=latte, #fff, @crust) !important;
+      }
+    }
+
+    // sports stuff on explore page
+    // a[href^="/i/events"] > div > div > div[style^="background-color"] > div[style*="color: rgb(255, 255, 255)"] span {
+    //   color: #fff !important;
+    // }
+
     // options
     & when (@colorizeLogo = 1) {
       path[d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"] {
@@ -603,9 +738,7 @@
       }
     }
   }
-}
 
-@-moz-document domain("api.twitter.com") {
   @media (prefers-color-scheme: light) {
     :root {
       #catppuccin(@lightFlavor, @accentColor);
@@ -616,7 +749,9 @@
       #catppuccin(@darkFlavor, @accentColor);
     }
   }
+}
 
+@-moz-document domain("api.twitter.com") {
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -724,10 +859,6 @@
       }
     }
   }
-}
-
-@-moz-document domain("twitter.com") {
-  // idk man
 
   @media (prefers-color-scheme: light) {
     :root {
@@ -739,7 +870,10 @@
       #catppuccin(@darkFlavor, @accentColor);
     }
   }
+}
 
+@-moz-document domain("twitter.com") {
+  // idk man
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -861,6 +995,17 @@
     .dropdown-caret .caret-outer,
     .dropdown-caret .caret-inner {
       border-bottom-color: @surface0;
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
     }
   }
 }
