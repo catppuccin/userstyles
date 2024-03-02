@@ -183,7 +183,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Hacker News](styles/hacker-news)
 - [Lemmy](styles/lemmy)
-- [Libreddit](styles/libreddit)
+- [Libreddit, Redlib](styles/libreddit)
 - 🚧 [Reddit](styles/reddit)
 
 </details>
