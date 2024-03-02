@@ -84,7 +84,7 @@ on the schema:
    ```yaml
    <port>:
      name: <name>
-     # Up to 3 categories are allowed. Keep in mind that the left most category is considered the "primary" category.
+     # Up to 3 categories are allowed. Keep in mind that the first category is considered the "primary" category.
      categories: [ <category> ]
      readme:
        app-link: <url>
