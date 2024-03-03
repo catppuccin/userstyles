@@ -86,6 +86,7 @@ on the schema:
      name: <name>
      # Up to 3 categories are allowed. Keep in mind that the first category is considered the "primary" category.
      categories: [ <category> ]
+     color: <color>
      readme:
        app-link: <url>
        current-maintainers: [ *<github-username> ]
@@ -96,9 +97,9 @@ on the schema:
    These extra `usage` & `faq` keys will ensure that you can add important
    information about the port to the README.
 
-   The keys `color` & `icon` are best explained the schema specification itself.
+   The `icon` key is best explained the schema specification itself.
 
-   The key `past-maintainers` is a list of people who have maintained the port
+   The `past-maintainers` key is a list of people who have maintained the port
    in the past. We encourage all maintainers to add/remove themselves from this
    list as they see fit.
 
@@ -108,7 +109,7 @@ on the schema:
    <port>:
      name: <name>
      categories: [ <category-a>, <category-b> ]
-     color: <color>                                  # OPTIONAL
+     color: <color>
      icon: <icon>                                    # OPTIONAL
      readme:
        app-link: "<url>"
