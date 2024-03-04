@@ -8,7 +8,7 @@ import * as color from "std/fmt/colors.ts";
 
 const requiredFiles = [
   "catppuccin.user.css",
-  "assets/preview.webp",
+  "preview.webp",
 ];
 
 export const checkForMissingFiles = async () => {
