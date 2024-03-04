@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/preview.webp"/>
+  <img src="preview.webp"/>
 </p>
 
 {{#if usage}}
