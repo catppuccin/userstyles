@@ -23,6 +23,6 @@ def generate_boards():
             }
             replace_colors(
                 image_path="../../assets/base/colorboard.png",
-                output_path=f"../../assets/{flavor.name}/{color.name}.png",
+                output_path=f"../../assets/{flavor.identifier}/{color.identifier}.png",
                 color_dict=color_dict,
             )
