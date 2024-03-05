@@ -185,6 +185,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Lemmy](styles/lemmy)
 - [Libreddit, Redlib](styles/libreddit)
 - 🚧 [Reddit](styles/reddit)
+- [TabNews](styles/tabnews)
 
 </details>
 <details open>
