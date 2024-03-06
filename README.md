@@ -116,7 +116,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🧠 Wikis</summary>
 
 - [Arch Wiki](styles/arch-wiki)
-- [NixOS Wiki](styles/nixos.wiki)
+- 🚧 [NixOS Wiki](styles/nixos.wiki)
 - [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
 
@@ -185,6 +185,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Lemmy](styles/lemmy)
 - [Libreddit, Redlib](styles/libreddit)
 - 🚧 [Reddit](styles/reddit)
+- [TabNews](styles/tabnews)
 
 </details>
 <details open>
@@ -193,8 +194,8 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [AniList, AniChart](styles/anilist)
 - [ChatReplay](styles/chatreplay)
 - [Holodex](styles/holodex)
-- [Invidious](styles/invidious)
-- [Substack](styles/substack)
+- 🚧 [Invidious](styles/invidious)
+- 🚧 [Substack](styles/substack)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
 
