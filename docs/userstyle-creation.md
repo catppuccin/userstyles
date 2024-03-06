@@ -39,13 +39,12 @@ To create a userstyle, follow the instructions listed below:
 5. [Write the userstyle](./how-to-write-a-userstyle.md).
 6. Edit the [`userstyles.yml`](../scripts/userstyles.yml) file and put in the details
    of your port. **More details given below.**
-7. Create your image previews in the [`assets/`](../template/assets/) folder
-   - **All previews must be `.webp` files.**
-   - Create a preview image for each flavor. (e.g. `mocha.webp`,
-     `macchiato.webp`, `frappe.webp` & `latte.webp`)
-   - Use [catwalk](https://github.com/catppuccin/toolbox#catwalk) to generate a
-     composite or grid image of all the flavors. **This must be saved as
-     `catwalk.webp`.**
+7. Create your image preview.
+   - Take a screenshot of the themed website in each flavor, and then convert all four images [to WebP](./tips-and-tricks.md#how-do-i-convert-preview-images-to-webp) (e.g. `mocha.webp`,
+     `macchiato.webp`, `frappe.webp` & `latte.webp`).
+   - Use [Catwalk](https://github.com/catppuccin/toolbox#catwalk) to generate a
+     composite or grid image of all the images. **This must be saved as
+     `styles/<name-of-website>/preview.webp`.**
 8. Raise a [pull request](https://github.com/catppuccin/userstyles/compare),
    making sure to read and fill out the template properly. The title of your pull request should follow the format of `feat(<port-name>): init`.
 
@@ -84,7 +83,8 @@ on the schema:
    ```yaml
    <port>:
      name: <name>
-     category: <category>
+     # Up to 3 categories are allowed. Keep in mind that the first category is considered the "primary" category.
+     categories: [ <category> ]
      readme:
        app-link: <url>
        current-maintainers: [ *<github-username> ]
@@ -106,7 +106,7 @@ on the schema:
    ```yaml
    <port>:
      name: <name>
-     category: <category>
+     categories: [ <category-a>, <category-b> ]
      color: <color>                                  # OPTIONAL
      icon: <icon>                                    # OPTIONAL
      readme:

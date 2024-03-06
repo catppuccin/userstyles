@@ -14,32 +14,13 @@
 </p>
 
 <p align="center">
-  <img src="assets/catwalk.webp"/>
+  <img src="preview.webp"/>
 </p>
 
-## Previews
-
-<details>
-<summary>🌻 Latte</summary>
-<img src="assets/latte.webp"/>
-</details>
-<details>
-<summary>🪴 Frappé</summary>
-<img src="assets/frappe.webp"/>
-</details>
-<details>
-<summary>🌺 Macchiato</summary>
-<img src="assets/macchiato.webp"/>
-</details>
-<details>
-<summary>🌿 Mocha</summary>
-<img src="assets/mocha.webp"/>
-</details>
 
 
-
-## 🚧 Looking for Maintainers 🚧
-- If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
+## 💝 Current Maintainer
+- [Guaxinim5573](https://github.com/Guaxinim5573)
 
 ## 💖 Past Maintainer
 - [Stonks3141](https://github.com/Stonks3141)

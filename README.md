@@ -87,7 +87,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [MDN](styles/mdn)
 - [Next.js](styles/nextjs)
 - [npm](styles/npm)
-- 🚧 [paste.rs](styles/paste.rs)
+- [paste.rs](styles/paste.rs)
 - [Vercel](styles/vercel)
 
 </details>
@@ -116,7 +116,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🧠 Wikis</summary>
 
 - [Arch Wiki](styles/arch-wiki)
-- [NixOS Wiki](styles/nixos.wiki)
+- 🚧 [NixOS Wiki](styles/nixos.wiki)
 - [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
 
@@ -183,8 +183,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Hacker News](styles/hacker-news)
 - [Lemmy](styles/lemmy)
-- [Libreddit](styles/libreddit)
+- [Libreddit, Redlib](styles/libreddit)
 - 🚧 [Reddit](styles/reddit)
+- [TabNews](styles/tabnews)
 
 </details>
 <details open>
@@ -192,8 +193,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [AniList, AniChart](styles/anilist)
 - [ChatReplay](styles/chatreplay)
-- [Invidious](styles/invidious)
-- [Substack](styles/substack)
+- [Holodex](styles/holodex)
+- 🚧 [Invidious](styles/invidious)
+- 🚧 [Substack](styles/substack)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
 
@@ -205,6 +207,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [bStats](styles/bstats)
 - [Chess.com](styles/chess.com)
 - [Lichess](styles/lichess)
+- [Minesweeper Online](styles/minesweeper)
 - [Modrinth](styles/modrinth)
 - [Planet Minecraft](styles/planet-minecraft)
 
