@@ -74,7 +74,7 @@ on the schema:
 
    You should make changes to everything wrapped in `<>` and remove the `<>`
    characters. If you need help with any of the fields, you should refer to
-   other ports in the `userstyle.yml` file. If you still cannot figure it out,
+   other ports in the `userstyle.yml` file. If you would like extra guidance,
    you can ask for help in the pull request or join our
    [Discord](https://discord.com/servers/catppuccin-907385605422448742).
 
@@ -83,8 +83,10 @@ on the schema:
    ```yaml
    <port>:
      name: <name>
-     # Up to 3 categories are allowed. Keep in mind that the first category is considered the "primary" category.
+     # Up to 3 categories are allowed.
+     # The first category is considered the "primary" category and impacts where the userstyle appears on the README.
      categories: [ <category> ]
+     color: <color>
      readme:
        app-link: <url>
        current-maintainers: [ *<github-username> ]
@@ -95,9 +97,9 @@ on the schema:
    These extra `usage` & `faq` keys will ensure that you can add important
    information about the port to the README.
 
-   The keys `color` & `icon` are best explained the schema specification itself.
+   The `icon` key is best explained the schema specification itself.
 
-   The key `past-maintainers` is a list of people who have maintained the port
+   The `past-maintainers` key is a list of people who have maintained the port
    in the past. We encourage all maintainers to add/remove themselves from this
    list as they see fit.
 
@@ -107,7 +109,7 @@ on the schema:
    <port>:
      name: <name>
      categories: [ <category-a>, <category-b> ]
-     color: <color>                                  # OPTIONAL
+     color: <color>
      icon: <icon>                                    # OPTIONAL
      readme:
        app-link: "<url>"
@@ -118,5 +120,5 @@ on the schema:
          - question: <question>
            answer: <answer>
        current-maintainers: [ *<github-username> ]
-       past-maintainers: [ *<github-username> ]       # OPTIONAL
+       past-maintainers: [ *<github-username> ]      # OPTIONAL
    ```
