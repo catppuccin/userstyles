@@ -74,7 +74,7 @@ on the schema:
 
    You should make changes to everything wrapped in `<>` and remove the `<>`
    characters. If you need help with any of the fields, you should refer to
-   other ports in the `userstyle.yml` file. If you still cannot figure it out,
+   other ports in the `userstyle.yml` file. If you would like extra guidance,
    you can ask for help in the pull request or join our
    [Discord](https://discord.com/servers/catppuccin-907385605422448742).
 
@@ -83,7 +83,8 @@ on the schema:
    ```yaml
    <port>:
      name: <name>
-     # Up to 3 categories are allowed. Keep in mind that the first category is considered the "primary" category.
+     # Up to 3 categories are allowed.
+     # The first category is considered the "primary" category and impacts where the userstyle appears on the README.
      categories: [ <category> ]
      color: <color>
      readme:
@@ -119,5 +120,5 @@ on the schema:
          - question: <question>
            answer: <answer>
        current-maintainers: [ *<github-username> ]
-       past-maintainers: [ *<github-username> ]       # OPTIONAL
+       past-maintainers: [ *<github-username> ]      # OPTIONAL
    ```
