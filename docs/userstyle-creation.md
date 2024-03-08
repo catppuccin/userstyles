@@ -39,13 +39,12 @@ To create a userstyle, follow the instructions listed below:
 5. [Write the userstyle](./how-to-write-a-userstyle.md).
 6. Edit the [`userstyles.yml`](../scripts/userstyles.yml) file and put in the details
    of your port. **More details given below.**
-7. Create your image previews in the [`assets/`](../template/assets/) folder
-   - **All previews must be `.webp` files.**
-   - Create a preview image for each flavor. (e.g. `mocha.webp`,
-     `macchiato.webp`, `frappe.webp` & `latte.webp`)
-   - Use [catwalk](https://github.com/catppuccin/toolbox#catwalk) to generate a
-     composite or grid image of all the flavors. **This must be saved as
-     `catwalk.webp`.**
+7. Create your image preview.
+   - Take a screenshot of the themed website in each flavor, and then convert all four images [to WebP](./tips-and-tricks.md#how-do-i-convert-preview-images-to-webp) (e.g. `mocha.webp`,
+     `macchiato.webp`, `frappe.webp` & `latte.webp`).
+   - Use [Catwalk](https://github.com/catppuccin/toolbox#catwalk) to generate a
+     composite or grid image of all the images. **This must be saved as
+     `styles/<name-of-website>/preview.webp`.**
 8. Raise a [pull request](https://github.com/catppuccin/userstyles/compare),
    making sure to read and fill out the template properly. The title of your pull request should follow the format of `feat(<port-name>): init`.
 
@@ -75,7 +74,7 @@ on the schema:
 
    You should make changes to everything wrapped in `<>` and remove the `<>`
    characters. If you need help with any of the fields, you should refer to
-   other ports in the `userstyle.yml` file. If you still cannot figure it out,
+   other ports in the `userstyle.yml` file. If you would like extra guidance,
    you can ask for help in the pull request or join our
    [Discord](https://discord.com/servers/catppuccin-907385605422448742).
 
@@ -84,7 +83,10 @@ on the schema:
    ```yaml
    <port>:
      name: <name>
-     category: <category>
+     # Up to 3 categories are allowed.
+     # The first category is considered the "primary" category and impacts where the userstyle appears on the README.
+     categories: [ <category> ]
+     color: <color>
      readme:
        app-link: <url>
        current-maintainers: [ *<github-username> ]
@@ -95,9 +97,9 @@ on the schema:
    These extra `usage` & `faq` keys will ensure that you can add important
    information about the port to the README.
 
-   The keys `color` & `icon` are best explained the schema specification itself.
+   The `icon` key is best explained the schema specification itself.
 
-   The key `past-maintainers` is a list of people who have maintained the port
+   The `past-maintainers` key is a list of people who have maintained the port
    in the past. We encourage all maintainers to add/remove themselves from this
    list as they see fit.
 
@@ -106,8 +108,8 @@ on the schema:
    ```yaml
    <port>:
      name: <name>
-     category: <category>
-     color: <color>                                  # OPTIONAL
+     categories: [ <category-a>, <category-b> ]
+     color: <color>
      icon: <icon>                                    # OPTIONAL
      readme:
        app-link: "<url>"
@@ -118,5 +120,5 @@ on the schema:
          - question: <question>
            answer: <answer>
        current-maintainers: [ *<github-username> ]
-       past-maintainers: [ *<github-username> ]       # OPTIONAL
+       past-maintainers: [ *<github-username> ]      # OPTIONAL
    ```

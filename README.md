@@ -116,7 +116,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🧠 Wikis</summary>
 
 - [Arch Wiki](styles/arch-wiki)
-- [NixOS Wiki](styles/nixos.wiki)
+- 🚧 [NixOS Wiki](styles/nixos.wiki)
 - [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
 
@@ -131,6 +131,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🎵 Music</summary>
 
+- [Hyperpipe](styles/hyperpipe)
 - [Last.fm](styles/lastfm)
 - [Spotify Web](styles/spotify-web)
 
@@ -183,8 +184,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Hacker News](styles/hacker-news)
 - [Lemmy](styles/lemmy)
-- [Libreddit](styles/libreddit)
+- [Libreddit, Redlib](styles/libreddit)
 - 🚧 [Reddit](styles/reddit)
+- [TabNews](styles/tabnews)
 
 </details>
 <details open>
@@ -193,8 +195,8 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [AniList, AniChart](styles/anilist)
 - [ChatReplay](styles/chatreplay)
 - [Holodex](styles/holodex)
-- [Invidious](styles/invidious)
-- [Substack](styles/substack)
+- 🚧 [Invidious](styles/invidious)
+- 🚧 [Substack](styles/substack)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
 

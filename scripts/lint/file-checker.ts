@@ -8,9 +8,7 @@ import * as color from "std/fmt/colors.ts";
 
 const requiredFiles = [
   "catppuccin.user.css",
-  ...["latte", "frappe", "macchiato", "mocha", "catwalk"].map((f) =>
-    join("assets", `${f}.webp`)
-  ),
+  "preview.webp",
 ];
 
 export const checkForMissingFiles = async () => {
