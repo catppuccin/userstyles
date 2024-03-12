@@ -28,8 +28,5 @@ Feel free to leave this section empty if you don't have anything more to say.
 - [ ] I have included the following files:
   - `catppuccin.user.css` - all the CSS for the userstyle, based on the
     template.
-  - `assets/mocha.webp`, `assets/macchiato.webp`, `assets/frappe.webp` and
-    `assets/latte.webp` - individual screenshots of the themed website, in all 4
-    Catppuccin flavors.
-  - `catwalk.webp` - image of all individual screenshots stitched together,
+  - `preview.webp` - composite image of all four individual flavor screenshots stitched together,
     generated via [Catwalk](https://github.com/catppuccin/toolbox/tree/main/catwalk#readme).

@@ -5,7 +5,7 @@
  */
 export type Name = [string, string, ...string[]] | string;
 /**
- * The categories that fit the userstyle the most, the first category is the primary category which the port will be listed under on the README.
+ * The categories that fit the userstyle the most, the first category is the primary category which the userstyle will be listed under on the README.
  *
  * @minItems 1
  * @maxItems 3
@@ -173,7 +173,7 @@ export interface Userstyles {
 export interface Userstyle {
   name: Name;
   categories: Categories;
-  color?: Color;
+  color: Color;
   icon?: Icon;
   readme: README;
 }
