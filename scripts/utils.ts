@@ -47,27 +47,33 @@ export const validateYaml = <T>(
  * Fails when data.userstyles is undefined.
  */
 export const getUserstylesData = (): Userstyles => {
+  const content = Deno.readTextFileSync(
+    join(REPO_ROOT, "scripts/userstyles.yml"),
+  );
+
   try {
     const data = validateYaml<UserstylesSchema>(
-      Deno.readTextFileSync(join(REPO_ROOT, "scripts/userstyles.yml")),
+      content,
       userStylesSchema,
     );
 
     if (data.userstyles === undefined || data.collaborators === undefined) {
-      log("userstyles.yml is missing required fields", {
-        file: "scripts/userstyles.yml",
-      }, "error");
+      console.log("userstyles.yml is missing required fields");
+      Deno.exit(1);
     }
 
-    return (data as Userstyles);
+    return data as Userstyles;
   } catch (err) {
     if (err instanceof YAMLError) {
+      const groups =
+        /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
+          .exec(err.message)?.groups;
       log(
-        err.message.replace(/ at line \d+, column \d+:[\S\s]*/gm, ""),
+        groups!.message,
         {
           file: "scripts/userstyles.yml",
-          startLine: err.mark.line,
-          content: err.mark.buffer,
+          startLine: Number(groups!.line),
+          content: content,
         },
         "error",
       );
