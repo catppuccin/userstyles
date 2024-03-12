@@ -48,7 +48,7 @@ export const getUserstylesData = (): Promise<Userstyles> => {
         startLine: err.mark.line,
         startColumn: err.mark.column,
         content: err.buffer,
-      }, "error"); // <--- this outputs nothing
+      }, "error");
 
       Deno.exit(1);
     });
