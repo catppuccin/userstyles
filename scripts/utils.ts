@@ -42,8 +42,8 @@ export const getUserstylesData = (): Promise<Userstyles> => {
         return reject("userstyles.yml is missing required fields");
       }
       return resolve(data as Userstyles);
-    }).catch(async (err: YAMLError) => {
-      await log(err.message.replace(/ at line \d+, column \d+:[\S\s]*/gm, ""), {
+    }).catch((err: YAMLError) => {
+      log(err.message.replace(/ at line \d+, column \d+:[\S\s]*/gm, ""), {
         file: "scripts/userstyles.yml",
         startLine: err.mark.line,
         startColumn: err.mark.column,
