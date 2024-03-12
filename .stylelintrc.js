@@ -27,6 +27,9 @@ const config = {
     "no-invalid-position-at-import-rule": null,
     "no-invalid-double-slash-comments": null,
 
+    // font-* properties are disallowed anyway.
+    "font-family-no-missing-generic-family-keyword": null,
+
     "at-rule-disallowed-list": [
       ["/^font.*/"],
       {

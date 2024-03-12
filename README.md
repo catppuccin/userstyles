@@ -131,6 +131,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🎵 Music</summary>
 
+- [Hyperpipe](styles/hyperpipe)
 - [Last.fm](styles/lastfm)
 - [Spotify Web](styles/spotify-web)
 
