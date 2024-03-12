@@ -7,6 +7,7 @@ import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
 import { UserstylesSchema } from "@/types/userstyles.d.ts";
 import { YAMLError } from "std/yaml/_error.ts";
 import { log } from "@/lint/logger.ts";
+import { sprintf } from "std/fmt/printf.ts";
 
 /**
  * @param content A string of YAML content
@@ -16,43 +17,66 @@ import { log } from "@/lint/logger.ts";
 export const validateYaml = <T>(
   content: string,
   schema: Schema,
-): Promise<T> => {
-  return new Promise((resolve, reject) => {
-    const ajv = new Ajv.default();
-    const validate = ajv.compile<T>(schema);
-    const data = parse(content);
+): T => {
+  const ajv = new Ajv.default();
+  const validate = ajv.compile<T>(schema);
+  const data = parse(content);
 
-    if (!validate(data)) return reject(validate.errors);
+  if (!validate(data)) {
+    console.log(
+      "Found schema errors in scripts/userstyles.yml: " +
+        validate.errors?.map((err) =>
+          sprintf(
+            "%s %s%s",
+            err.instancePath.slice(1).replaceAll("/", "."),
+            err.message,
+            err.params.allowedValues
+              ? ` (${JSON.stringify(err.params.allowedValues, undefined)})`
+              : "",
+          )
+        ).join(" and "),
+    );
+    Deno.exit(1);
+  }
 
-    return resolve(data);
-  });
+  return data as T;
 };
 
 /**
  * Utility function that calls {@link validateYaml} on the userstyles.yml file.
  * Fails when data.userstyles is undefined.
  */
-export const getUserstylesData = (): Promise<Userstyles> => {
-  return new Promise((resolve, reject) => {
-    validateYaml<UserstylesSchema>(
+export const getUserstylesData = (): Userstyles => {
+  try {
+    const data = validateYaml<UserstylesSchema>(
       Deno.readTextFileSync(join(REPO_ROOT, "scripts/userstyles.yml")),
       userStylesSchema,
-    ).then((data) => {
-      if (data.userstyles === undefined || data.collaborators === undefined) {
-        return reject("userstyles.yml is missing required fields");
-      }
-      return resolve(data as Userstyles);
-    }).catch((err: YAMLError) => {
-      log(err.message.replace(/ at line \d+, column \d+:[\S\s]*/gm, ""), {
-        file: "scripts/userstyles.yml",
-        startLine: err.mark.line,
-        startColumn: err.mark.column,
-        content: err.buffer,
-      }, "error");
+    );
 
-      Deno.exit(1);
-    });
-  });
+    if (data.userstyles === undefined || data.collaborators === undefined) {
+      log("userstyles.yml is missing required fields", {
+        file: "scripts/userstyles.yml",
+      }, "error");
+    }
+
+    return (data as Userstyles);
+  } catch (err) {
+    if (err instanceof YAMLError) {
+      log(
+        err.message.replace(/ at line \d+, column \d+:[\S\s]*/gm, ""),
+        {
+          file: "scripts/userstyles.yml",
+          startLine: err.mark.line,
+          content: err.mark.buffer,
+        },
+        "error",
+      );
+    } else {
+      console.log(err);
+    }
+
+    Deno.exit(1);
+  }
 };
 
 /**
