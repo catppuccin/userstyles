@@ -5,6 +5,8 @@ import { SetRequired } from "type-fest/source/set-required.d.ts";
 
 import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
 import { UserstylesSchema } from "@/types/userstyles.d.ts";
+import { YAMLError } from "std/yaml/_error.ts";
+import { log } from "@/lint/logger.ts";
 
 /**
  * @param content A string of YAML content
@@ -40,6 +42,15 @@ export const getUserstylesData = (): Promise<Userstyles> => {
         return reject("userstyles.yml is missing required fields");
       }
       return resolve(data as Userstyles);
+    }).catch(async (err: YAMLError) => {
+      await log(err.message.replace(/ at line \d+, column \d+:[\S\s]*/gm, ""), {
+        file: "scripts/userstyles.yml",
+        startLine: err.mark.line,
+        startColumn: err.mark.column,
+        content: err.buffer,
+      }, "error"); // <--- this outputs nothing
+
+      Deno.exit(1);
     });
   });
 };
