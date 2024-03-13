@@ -7,14 +7,16 @@ import { join, relative } from "std/path/mod.ts";
 
 import { REPO_ROOT } from "@/deps.ts";
 import { log } from "@/lint/logger.ts";
-import { formatListOfItems, getUserstylesData } from "@/utils.ts";
+import { formatListOfItems } from "@/utils.ts";
+import type { Userstyles } from "@/types/userstyles.d.ts";
 
 export const verifyMetadata = async (
   entry: WalkEntry,
   content: string,
   userstyle: string,
+  userstyles: Userstyles,
 ) => {
-  const assert = await assertions(userstyle);
+  const assert = assertions(userstyle, userstyles);
   const file = relative(REPO_ROOT, entry.path);
 
   const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {
@@ -116,13 +118,8 @@ export const verifyMetadata = async (
   };
 };
 
-const assertions = async (userstyle: string) => {
+const assertions = (userstyle: string, userstyles: Userstyles) => {
   const prefix = "https://github.com/catppuccin/userstyles";
-
-  const { userstyles } = await getUserstylesData().catch((err) => {
-    console.error(err);
-    Deno.exit(1);
-  });
 
   if (!userstyles[userstyle]) {
     log("Metadata section for this userstyle has not been added", {
