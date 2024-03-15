@@ -10,6 +10,7 @@ import { checkForMissingFiles } from "@/lint/file-checker.ts";
 import { log } from "@/lint/logger.ts";
 import { verifyMetadata } from "@/lint/metadata.ts";
 import { lint } from "@/lint/stylelint.ts";
+import { getUserstylesData } from "@/utils.ts";
 
 const flags = parseFlags(Deno.args, { boolean: ["fix"] });
 const subDir = flags._[0]?.toString() ?? "";
@@ -19,6 +20,7 @@ const stylesheets = walk(join(REPO_ROOT, "styles", subDir), {
   includeSymlinks: false,
   match: [/\.user.css$/],
 });
+const { userstyles } = getUserstylesData();
 
 let failed = false;
 
@@ -29,7 +31,12 @@ for await (const entry of stylesheets) {
   const content = await Deno.readTextFile(entry.path);
 
   // Verify the UserCSS metadata.
-  const { globalVars, isLess } = await verifyMetadata(entry, content, dir);
+  const { globalVars, isLess } = await verifyMetadata(
+    entry,
+    content,
+    dir,
+    userstyles,
+  );
 
   // Don't attempt to compile or lint non-LESS files.
   if (!isLess) continue;
