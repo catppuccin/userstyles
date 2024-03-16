@@ -8,15 +8,12 @@ import { getUserstylesData } from "@/utils.ts";
 const octokit = new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") });
 const team = { org: "catppuccin", team_slug: "userstyles-maintainers" };
 
-const userstylesData = await getUserstylesData().catch((err) => {
-  console.error(err);
-  Deno.exit(1);
-});
+const { userstyles } = getUserstylesData();
 
 // Lowercase usernames of all the "current-maintainers" in the file.
 const maintainers = [
   ...new Set(
-    Object.values(userstylesData.userstyles).flatMap((
+    Object.values(userstyles).flatMap((
       style: UserStylesSchema.Userstyle,
     ) =>
       style.readme["current-maintainers"].map((m) => {
