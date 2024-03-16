@@ -7,6 +7,7 @@
 ### Table of Contents
 
 <!--toc:start-->
+
 - [Table of Contents](#table-of-contents)
 - [How can I see my changes in real time?](#how-can-i-see-my-changes-in-real-time)
 - [How can I hide sensitive information in preview screenshots?](#how-can-i-hide-sensitive-information-in-preview-screenshots)
@@ -16,6 +17,7 @@
 - [How do I theme images and SVGs?](#how-do-i-theme-images-and-svgs)
   - [SVG background images](#svg-background-images)
   - [`<img>` elements](#img-elements)
+
 <!--toc:end-->
 
 ### How can I see my changes in real time?
@@ -156,4 +158,17 @@ img.twitter-icon {
   padding-top: 24px !important;
   background: url("data:image/svg+xml,@{svg}") no-repeat !important;
 }
+```
+
+### How to get raw RGB values from a color
+
+You can use the following snippet to get the raw RGB values from a color:
+
+```less
+#rgbify(@color) {
+  @rgb-raw: red(@color), green(@color), blue(@color);
+}
+
+// Below is an example of how to use the above snippet, where @rosewater is a color variable
+#rgbify(@rosewater)[];
 ```
