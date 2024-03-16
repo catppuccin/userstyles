@@ -8,6 +8,15 @@
 
 &nbsp;
 
+### Table of Contents
+
+<!--toc:start-->
+- [Table of Contents](#table-of-contents)
+- [Requesting Userstyles](#requesting-userstyles)
+- [Creating Userstyles](#creating-userstyles)
+- [`userstyles.yml`](#userstylesyml)
+<!--toc:end-->
+
 ### Requesting Userstyles
 
 To request a website to be themed, please create a
