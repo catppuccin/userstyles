@@ -11,9 +11,11 @@
 ### Table of Contents
 
 <!--toc:start-->
+
 - [Table of Contents](#table-of-contents)
 - [Adding yourself as a maintainer](#adding-yourself-as-a-maintainer)
 - [Removing yourself as a maintainer](#removing-yourself-as-a-maintainer)
+
 <!--toc:end-->
 
 ### Adding yourself as a maintainer
@@ -27,7 +29,7 @@ which is your preferred name.
 ```yaml
 maintainers:
   - &your-username
-    name: Your Prefered Name
+    name: Your Preferred Name
     url: https://github.com/your-username
 ```
 
