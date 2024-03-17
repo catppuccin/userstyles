@@ -140,6 +140,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>📖 Productivity</summary>
 
 - [homepage](styles/homepage)
+- [inoreader](styles/inoreader)
 - [Microsoft Word](styles/microsoft-word)
 - [OpenMediaVault](styles/openmediavault)
 - [Proton](styles/proton)
