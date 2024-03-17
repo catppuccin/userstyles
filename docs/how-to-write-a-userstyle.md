@@ -11,7 +11,6 @@
 ### Table of Contents
 
 <!--toc:start-->
-- [Table of Contents](#table-of-contents)
 - [Prerequisites](#prerequisites)
 - [Setup](#setup)
   - [Usercss Metadata](#usercss-metadata)

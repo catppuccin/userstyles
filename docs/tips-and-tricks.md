@@ -8,7 +8,6 @@
 
 <!--toc:start-->
 
-- [Table of Contents](#table-of-contents)
 - [How can I see my changes in real time?](#how-can-i-see-my-changes-in-real-time)
 - [How can I hide sensitive information in preview screenshots?](#how-can-i-hide-sensitive-information-in-preview-screenshots)
 - [How do I convert preview images to WebP?](#how-do-i-convert-preview-images-to-webp)
