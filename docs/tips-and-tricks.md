@@ -64,8 +64,8 @@ utility to convert images to WebP.
 
 #### Usage
 
-> [!TIP] See
-> [the full documentation on `cwebp`](https://developers.google.com/speed/webp/docs/cwebp)
+> [!TIP] 
+> See [the full documentation on `cwebp`](https://developers.google.com/speed/webp/docs/cwebp)
 > for further reference.
 
 ```
