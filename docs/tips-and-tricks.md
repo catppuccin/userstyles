@@ -158,6 +158,7 @@ img.twitter-icon {
   background: url("data:image/svg+xml,@{svg}") no-repeat !important;
 }
 ```
+&nbsp;
 
 ### How to get raw RGB values from a color
 
