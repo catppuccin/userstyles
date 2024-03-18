@@ -140,6 +140,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>📖 Productivity</summary>
 
 - [homepage](styles/homepage)
+- [inoreader](styles/inoreader)
 - [Microsoft Word](styles/microsoft-word)
 - [OpenMediaVault](styles/openmediavault)
 - [Proton](styles/proton)
@@ -196,6 +197,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [ChatReplay](styles/chatreplay)
 - [Holodex](styles/holodex)
 - 🚧 [Invidious](styles/invidious)
+- [Picrew](styles/picrew)
 - 🚧 [Substack](styles/substack)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
