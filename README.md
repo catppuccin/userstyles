@@ -197,6 +197,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [ChatReplay](styles/chatreplay)
 - [Holodex](styles/holodex)
 - 🚧 [Invidious](styles/invidious)
+- [Picrew](styles/picrew)
 - 🚧 [Substack](styles/substack)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
