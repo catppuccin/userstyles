@@ -2,7 +2,7 @@
 @name Last.fm Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/lastfm
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/lastfm
-@version 1.1.7
+@version 1.1.8
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/lastfm/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Alastfm
 @description Soothing pastel theme for Last.fm
@@ -368,10 +368,30 @@
         .category-colors();
       }
     }
-    .recs-feed-item .context::after,
-    .recs-feed .recs-feed-item .recs-feed-avatar::after {
-      background-color: var(--category-background) !important;
+    @media (min-width: 768px) {
+        .recs-feed .context:before {
+        border-radius: 50%;
+        content: "";
+        height: 32px;
+        left: auto;
+        position: absolute;
+        right: 15px;
+        top: -16px;
+        width: 32px;
+        background: var(--category-background) !important;
+        z-index: 1;
     }
+      .recs-feed .recs-feed-item .context::after {
+          .mask-image(url("/static/images/icons/rec_types_16.93a8040cce71.png"), @crust, 0 0, 32px 160px, no-repeat);
+          z-index: 2;
+      }
+      .recs-feed .recs-feed-item--album .context::after {
+          -webkit-mask-position: 0 -64px;
+      }
+      .recs-feed .recs-feed-item--artist .context::after {
+          -webkit-mask-position: 0 -32px;
+      }
+      }
     .secondary-nav {
       box-shadow: inset 0 -1px @accent-color;
     }
