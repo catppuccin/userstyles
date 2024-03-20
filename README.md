@@ -88,6 +88,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Next.js](styles/nextjs)
 - [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
+- [PyPI](styles/pypi)
 - [Vercel](styles/vercel)
 
 </details>
