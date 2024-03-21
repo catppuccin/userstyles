@@ -93,7 +93,7 @@ on the schema:
 ### Adding yourself as a maintainer
 
 To add yourself as a maintainer, you need to add your GitHub username to the
-`maintainers` array in the `userstyles.yml` file. This file is located in the
+`collaborators` array in the `userstyles.yml` file. This file is located in the
 `scripts` directory. The `collaborators` array, is an array of objects, each
 object should contain a `name` and a `url` key. And optionally a `name` key,
 which is your preferred name.
