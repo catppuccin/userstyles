@@ -123,6 +123,10 @@ userstyles:
 
 If the change is accepted, you will receive a invite to the `catppuccin` organization, 
 and become a member of the [`userstyles-maintainers` team](https://github.com/orgs/catppuccin/teams/userstyles-maintainers).
+As a maintainer you will be expected to:
+  - Review and merge PRs for the userstyle you maintain.
+  - Keep the userstyle up to date with the latest changes, if you no longer wish to maintain the userstyle see [Removing yourself as a maintainer](#removing-yourself-as-a-maintainer).
+  - Follow our code of conduct and guidelines.
 
 ### Removing yourself as a maintainer
 
