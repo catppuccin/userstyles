@@ -121,7 +121,7 @@ userstyles:
       past-maintainers: [*elkrien]
 ```
 
-If the change is accepted, you will recive a invite to the `catppuccin` organization, 
+If the change is accepted, you will receive a invite to the `catppuccin` organization, 
 and become a member of the [`userstyles-maintainers` team](https://github.com/orgs/catppuccin/teams/userstyles-maintainers).
 
 ### Removing yourself as a maintainer
@@ -146,5 +146,5 @@ userstyles:
 ```
 
 If you prefer not to be listed as a past maintainer, you can remove yourself for
-maintainers array entirely. Futhermore, removing yourself from the `collaborators` 
+maintainers array entirely. Furthermore, removing yourself from the `collaborators` 
 array will also remove you from the `userstyles-maintainers` team.
