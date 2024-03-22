@@ -69,50 +69,6 @@
     z-index: 9999;
   }
 
-  #coloredButton(@item, @color, @flat) {
-    & when (@flat) {
-      --color-btn-@{item}-text: @color;
-      --color-btn-@{item}-bg: @base;
-      --color-btn-@{item}-icon: @color;
-
-      --color-btn-@{item}-hover-text: @base;
-      --color-btn-@{item}-hover-bg: @color;
-      --color-btn-@{item}-hover-border: @color;
-
-      --color-btn-@{item}-selected-text: @base;
-      --color-btn-@{item}-selected-bg: @color;
-      --color-btn-@{item}-selected-border: @color;
-
-      --color-btn-@{item}-disabled-text: fadeout(@color, 60%);
-      --color-btn-@{item}-disabled-bg: @mantle;
-    }
-
-    & when not (@flat) {
-      --color-btn-@{item}-text: @base;
-      --color-btn-@{item}-bg: @color;
-      --color-btn-@{item}-icon: @base;
-
-      --color-btn-@{item}-hover-text: @base;
-      --color-btn-@{item}-hover-bg: lighten(@color, 10%);
-      --color-btn-@{item}-hover-border: lighten(@color, 10%);
-
-      --color-btn-@{item}-selected-text: @base;
-      --color-btn-@{item}-selected-bg: lighten(@color, 10%);
-      --color-btn-@{item}-selected-border: lighten(@color, 10%);
-
-      --color-btn-@{item}-disabled-text: @crust;
-      --color-btn-@{item}-disabled-bg: fadeout(@color, 60%);
-    }
-
-    --color-btn-@{item}-hover-icon: @base;
-
-    --color-btn-@{item}-border: transparent;
-    --color-btn-@{item}-shadow: 0 0 transparent;
-    --color-btn-@{item}-inset-shadow: 0 0 transparent;
-    --color-btn-@{item}-selected-shadow: 0 0 transparent;
-    --color-btn-@{item}-disabled-border: transparent;
-  }
-
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -143,9 +99,10 @@
     @accent-color: @catppuccin[@@lookup][@@accent];
 
     accent-color: @accent-color;
+    color-scheme: if(@lookup = latte, light, dark);
     color: @text;
 
-    /* NEW */
+    --color-notifications-button-hover-bg: fade(@accent-color, 60%);
     --color-workflow-card-header-shadow: rgba(27, 31, 35, 0.04);
     --color-icon-directory: var(--fgColor-muted, var(--color-fg-muted));
     --color-calendar-halloween-graph-day-L1-bg: fadeout(
@@ -324,7 +281,7 @@
     --display-indigo-borderColor-muted: #25215f;
     --display-indigo-borderColor-emphasis: #7070e1;
     --avatar-bgColor: fade(@text, 26%);
-    --avatar-borderColor: #30363db3;
+    --avatar-borderColor: @surface0;
     --avatar-shadow: 0px 0px 0px 2px #0d1117;
     --avatarStack-fade-bgColor-default: @surface1
       --avatarStack-fade-bgColor-muted: #21262d;
@@ -404,8 +361,8 @@
     --button-primary-borderColor-active: #f0f6fc1a;
     --button-primary-borderColor-disabled: #77c982;
     --button-primary-shadow-selected: 0px 0px 0px 0px #000000;
-    --button-invisible-fgColor-rest: #4493f8;
-    --button-invisible-fgColor-hover: #58a6ff;
+    --button-invisible-fgColor-rest: @accent-color;
+    --button-invisible-fgColor-hover: lighten(@accent-color, 10%);
     --button-invisible-fgColor-disabled: #6e7681;
     --button-invisible-iconColor-rest: #848d97;
     --button-invisible-iconColor-hover: #e6edf3;
@@ -463,13 +420,13 @@
     --focus-outlineColor: @blue;
     --menu-bgColor-active: #161b22;
     --overlay-bgColor: @mantle;
-    --overlay-borderColor: #30363db3;
+    --overlay-borderColor: @surface0;
     --overlay-backdrop-bgColor: #161b2266;
     --selectMenu-borderColor: #484f58;
     --selectMenu-bgColor-active: #0c2d6b;
     --sideNav-bgColor-selected: #21262d;
     --skeletonLoader-bgColor: #161b22;
-    --timelineBadge-bgColor: @crust;
+    --timelineBadge-bgColor: @mantle;
     --treeViewItem-leadingVisual-iconColor-rest: #848d97;
     --underlineNav-borderColor-active: @accent-color;
     --underlineNav-borderColor-hover: #6e768166;
@@ -480,7 +437,7 @@
     --fgColor-onEmphasis: @base;
     --fgColor-white: @text;
     --fgColor-disabled: @surface2;
-    --fgColor-link: @blue;
+    --fgColor-link: @accent-color;
     --fgColor-neutral: #6e7681;
     --fgColor-accent: @accent-color;
     --fgColor-success: @green;
@@ -494,11 +451,11 @@
     --bgColor-default: @base;
     --bgColor-muted: @mantle;
     --bgColor-inset: @crust;
-    --bgColor-emphasis: #6e7681;
+    --bgColor-emphasis: @overlay2;
     --bgColor-inverse: @text;
     --bgColor-disabled: #21262db3;
     --bgColor-transparent: #00000000;
-    --bgColor-neutral-muted: @surface1;
+    --bgColor-neutral-muted: @surface0;
     --bgColor-neutral-emphasis: @subtext0;
     --bgColor-accent-muted: fade(@accent-color, 20%);
     --bgColor-accent-emphasis: @accent-color;
@@ -519,7 +476,7 @@
     --bgColor-sponsors-muted: #db61a21a;
     --bgColor-sponsors-emphasis: @pink;
     --borderColor-default: @surface1;
-    --borderColor-muted: #30363db3;
+    --borderColor-muted: fade(@crust, 66%);
     --borderColor-emphasis: #484f58;
     --borderColor-disabled: #21262db3;
     --borderColor-transparent: #00000000;
@@ -682,20 +639,21 @@
     --color-scale-coral-7: #872012;
     --color-scale-coral-8: #640d04;
     --color-scale-coral-9: #460701;
-    --shadow-inset: inset 0px 1px 0px 0px #0104093d;
-    --shadow-resting-xsmall: 0px 1px 0px 0px #010409cc;
-    --shadow-resting-small: 0px 1px 0px 0px #01040966, 0px 1px 3px 0px #01040966;
-    --shadow-resting-medium: 0px 3px 6px 0px #010409cc;
-    --shadow-floating-small: 0px 0px 0px 1px #30363d,
-      0px 6px 12px -3px #01040966, 0px 6px 18px 0px #01040966;
-    --shadow-floating-medium: 0px 0px 0px 1px #30363d,
-      0px 8px 16px -4px #01040966, 0px 4px 32px -4px #01040966,
-      0px 24px 48px -12px #01040966, 0px 48px 96px -24px #01040966;
-    --shadow-floating-large: 0px 0px 0px 1px #30363d, 0px 24px 48px 0px #010409;
-    --shadow-floating-xlarge: 0px 0px 0px 1px #30363d, 0px 32px 64px 0px #010409;
-    --shadow-floating-legacy: 0px 6px 12px -3px #01040966,
-      0px 6px 18px 0px #01040966;
-    --outline-focus: #1f6feb solid 2px;
+    --shadow-inset: inset 0px 1px 0px 0px @crust;
+    --shadow-resting-xsmall: 0px 1px 0px 0px @crust;
+    --shadow-resting-small: 0px 1px 0px 0px @crust, 0px 1px 3px 0px @crust;
+    --shadow-resting-medium: 0px 3px 6px 0px @crust;
+    --shadow-floating-small: 0px 0px 0px 1px @base, 0px 6px 12px -3px @crust,
+      0px 6px 18px 0px @crust;
+    --shadow-floating-medium: 0px 0px 0px 1px @surface0,
+      0px 8px 16px -4px @crust, 0px 4px 32px -4px @crust,
+      0px 24px 48px -12px @crust, 0px 48px 96px -24px @crust;
+    --shadow-floating-large: 0px 0px 0px 1px @surface0,
+      0px 24px 48px 0px #010409;
+    --shadow-floating-xlarge: 0px 0px 0px 1px @surface0,
+      0px 32px 64px 0px #010409;
+    --shadow-floating-legacy: 0px 6px 12px -3px @crust, 0px 6px 18px 0px @crust;
+    --outline-focus: @blue solid 2px;
 
     .turbo-progress-bar {
       background-color: @accent-color;
