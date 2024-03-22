@@ -11,12 +11,11 @@ const ruleName = "catppuccin/optimized-svgs";
 
 const meta = {
   fixable: true,
-}
+};
 
 const messages = ruleMessages(ruleName, {
   rejected: () => `Unoptimized SVG detected`,
 });
-
 
 /** @type {import('npm:stylelint').Rule} */
 const ruleFunction = (primary, secondary, context) => {
@@ -33,31 +32,31 @@ const ruleFunction = (primary, secondary, context) => {
         if (node.type === "rule") {
           for (const subnode of node.nodes) {
             if (subnode.type === "atrule" && subnode.name === "svg") {
-              const parsed = valueParser(subnode.value).nodes;
-
+              const parsed = valueParser(subnode.value);
 
               if (
-                parsed.length === 1 && parsed[0].type === "function" &&
-                parsed[0].value === "escape" &&
-                parsed[0].nodes.length === 1 &&
-                parsed[0].nodes[0].type === "string"
+                parsed.nodes.length === 1 && parsed.nodes[0].type === "function" &&
+                parsed.nodes[0].value === "escape" &&
+                parsed.nodes[0].nodes.length === 1 &&
+                parsed.nodes[0].nodes[0].type === "string"
               ) {
-
-                const svg = parsed[0].nodes[0].value;
-                const optimized = optimize(svg).data;
+                const svg = parsed.nodes[0].nodes[0].value;
+                const optimized = optimize(svg, {multipass: true}).data;
 
                 if (optimized !== svg) {
                   if (context.fix) {
-                    subnode.value = subnode.value.replace(svg, optimized)
-                    return;
+                    parsed.nodes[0].nodes[0].quote = "'"
+                    parsed.nodes[0].nodes[0].value = optimized
+                    subnode.value = parsed.toString()
+                  } else {
+                    report({
+                      result,
+                      ruleName,
+                      message: messages.rejected(),
+                      node: subnode,
+                    });
                   }
-                  report({
-                    result,
-                    ruleName,
-                    message: messages.rejected(),
-                    node: subnode,
-                  });
-                };
+                }
               }
             }
           }
