@@ -54,6 +54,7 @@ const ruleFunction = (primary, secondary, context) => {
                     "mergePaths",
                     "removeComments",
                     "removeUselessDefs",
+                    "removeScriptElement"
                   ],
                 }).data;
 
