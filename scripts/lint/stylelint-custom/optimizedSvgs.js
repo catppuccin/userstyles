@@ -35,19 +35,33 @@ const ruleFunction = (primary, secondary, context) => {
               const parsed = valueParser(subnode.value);
 
               if (
-                parsed.nodes.length === 1 && parsed.nodes[0].type === "function" &&
+                parsed.nodes.length === 1 &&
+                parsed.nodes[0].type === "function" &&
                 parsed.nodes[0].value === "escape" &&
                 parsed.nodes[0].nodes.length === 1 &&
                 parsed.nodes[0].nodes[0].type === "string"
               ) {
                 const svg = parsed.nodes[0].nodes[0].value;
-                const optimized = optimize(svg, {multipass: true}).data;
+                const optimized = optimize(svg, {
+                  multipass: true,
+                  plugins: [
+                    "cleanupAttrs",
+                    "cleanupIds",
+                    "collapseGroups",
+                    "convertPathData",
+                    "convertTransform",
+                    "convertStyleToAttrs",
+                    "mergePaths",
+                    "removeComments",
+                    "removeUselessDefs",
+                  ],
+                }).data;
 
                 if (optimized !== svg) {
                   if (context.fix) {
-                    parsed.nodes[0].nodes[0].quote = "'"
-                    parsed.nodes[0].nodes[0].value = optimized
-                    subnode.value = parsed.toString()
+                    parsed.nodes[0].nodes[0].quote = "'";
+                    parsed.nodes[0].nodes[0].value = optimized;
+                    subnode.value = parsed.toString();
                   } else {
                     report({
                       result,
