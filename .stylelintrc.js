@@ -1,10 +1,15 @@
+// @ts-check
+
 /**
  * @type {import('npm:stylelint').Config}
  */
 const config = {
   extends: "stylelint-config-standard",
+  plugins: ["./scripts/lint/stylelint-custom/optimizedSvgs.js"],
   customSyntax: "postcss-less",
   rules: {
+    "catppuccin/optimized-svgs": true,
+
     "selector-class-pattern": null,
     "custom-property-pattern": null,
     "selector-id-pattern": null,
