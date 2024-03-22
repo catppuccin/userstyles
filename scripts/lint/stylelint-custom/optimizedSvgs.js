@@ -18,7 +18,7 @@ const messages = ruleMessages(ruleName, {
 });
 
 /** @type {import('npm:stylelint').Rule} */
-const ruleFunction = (primary, secondary, context) => {
+const ruleFunction = (primary, _secondary, context) => {
   return (root, result) => {
     const validOptions = validateOptions(result, ruleName, {
       actual: primary,
