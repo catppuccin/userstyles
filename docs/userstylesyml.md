@@ -24,8 +24,7 @@
 specification for `userstyles.yml`. The properties in the following instructions are based
 on the schema. Please refer to it for clarification.
 
-1. Add your name to the list of collaborators, please refer to the
-   [Adding yourself as a maintainer](#adding-yourself-as-a-maintainer) section for more information.
+1. See [Adding yourself as a maintainer](#adding-yourself-as-a-maintainer).
 
 2. Locate the `userstyles` section and add your port to the list, following the
     existing alphabetical order.
@@ -138,6 +137,6 @@ userstyles:
 +     current-maintainers: [*isabelroses]
 +     past-maintainers: [*elkrien]
 
-If you would not like to be listed as a past maintainer, you can remove yourself form
+If you would not like to be listed as a past maintainer, you can remove yourself from
 `collaborators` array entirely. Upon removal, you will also be removed from the 
 `userstyles-maintainers` team.
