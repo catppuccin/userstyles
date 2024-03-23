@@ -162,7 +162,7 @@ img.twitter-icon {
 
 ### How to get raw RGB values from a color
 
-You can use the following snippet to get the raw RGB values from a color:
+You can use the following snippet to get the raw RGB values from a color.
 
 ```less
 #rgbify(@color) {
