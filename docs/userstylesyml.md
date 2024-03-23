@@ -130,11 +130,8 @@ As a maintainer you will be expected to:
 
 ### Removing yourself as a maintainer
 
-To remove yourself as a maintainer, you need to remove your username from the
-`current-maintainers` array for the userstyles you wish to no longer maintain,
-and add yourself to the `past-maintainers` array. In the example of youtube
-below, `elkrien` has been removed from the `current-maintainers` array and added
-to the `past-maintainers` array.
+To remove yourself as a maintainer, you will need to move your username from the
+`current-maintainers` array to the `past-maintainers` array for each of the userstyles you no longer wish to maintain. In the example for YouTube below, the user `elkrien` has been moved from the `current-maintainers` array to the `past-maintainers` array.
 
 ```diff
 userstyles:
