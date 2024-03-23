@@ -160,7 +160,7 @@ img.twitter-icon {
 ```
 &nbsp;
 
-### How to get raw RGB values from a color
+### How do I set a variable to RGB values?
 
 You can use the following snippet to get the raw RGB values from a color.
 
