@@ -24,16 +24,7 @@ While writing a userstyle, you may have come across [custom properties / CSS var
 
 ### Opinionated Changes
 
-When making changes to the userstyle, it is important to remember that different
-users would like to have different things. This is why we have a set of rules
-that we follow when making changes to the userstyle. This is why we have the
-linter to flag any changes that do not follow these rules. These rules include:
-
-- No font changes
-- No layout changes
-  - Padding, margin, and width changes
-  - Hiding elements
-  - Changes to the position of elements
+When writing or updating a userstyle, it is important to keep in mind that different users have different preferences. To avoid lengthy discussion over user interface aesthetics, we have a set of rules for what a userstyle may include; importantly, **changes to font or layout (padding, margin, hiding/moving elements) are prohibited.**
 
 
 ### General Recommendations
