@@ -38,8 +38,8 @@ on the schema. Please refer to it for clarification.
 2. Locate the `userstyles` section and add your port to the list.
 
    You should make changes to everything wrapped in `<>` and remove the `<>`
-   characters. If you need help with any of the fields, you should refer to
-   other ports in the `userstyle.yml` file. If you would like extra guidance,
+   characters. If you need help with any of the fields, refer to
+   other ports in the `userstyles.yml` file. If you would like extra guidance,
    you can ask for help in the pull request or join our
    [Discord](https://discord.com/servers/catppuccin-907385605422448742).
 
