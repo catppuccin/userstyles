@@ -1,10 +1,15 @@
+// @ts-check
+
 /**
  * @type {import('npm:stylelint').Config}
  */
-const config = {
+export default {
   extends: "stylelint-config-standard",
+  plugins: ["./scripts/lint/stylelint-custom/optimizedSvgs.js"],
   customSyntax: "postcss-less",
   rules: {
+    "catppuccin/optimized-svgs": true,
+
     "selector-class-pattern": null,
     "custom-property-pattern": null,
     "selector-id-pattern": null,
@@ -70,6 +75,7 @@ const config = {
       },
     ],
 
+    "selector-type-no-unknown": null,
     "function-no-unknown": [
       true,
       {
@@ -172,5 +178,3 @@ const config = {
     "no-descending-specificity": null,
   },
 };
-
-module.exports = config;
