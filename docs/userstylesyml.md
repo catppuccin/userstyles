@@ -31,7 +31,7 @@ on the schema. Please refer to it for clarification.
    ```yaml
    collaborators:
      - &<github-username>
-     name: <your name, this is optional>
+     name: <preferred-name> # OPTIONAL
      url: https://github.com/<github-username>
    ```
 
