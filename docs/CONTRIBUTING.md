@@ -20,11 +20,7 @@ It is important to note that there are **two types of PRs** for this repository:
 
 ### Root Variables
 
-Whilst writing an userstyle, its likely you have come across something like
-`--black: #000;` in the `:root` selector. These are called root variables, and
-they are used to store values that can be reused throughout the userstyle. In
-userstyles, its important that we prefer using these over theming individual
-elements, as it allows for a more consistent and maintainable userstyle.
+While writing a userstyle, you may have come across [custom properties / CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*), typically wrapped in a `:root` selector. We refer to these variables as "root variables", and they are sort of global variables used all across a website. For Catppuccin userstyles, we prefer that these variables are themed rather than individual elements. As the website likely uses these variables themselves, it saves yourself a lot of work in theming and maintaining the userstyle.
 
 ### Opinionated Changes
 
