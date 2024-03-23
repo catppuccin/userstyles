@@ -136,7 +136,7 @@ and add yourself to the `past-maintainers` array. In the example of youtube
 below, `elkrien` has been removed from the `current-maintainers` array and added
 to the `past-maintainers` array.
 
-```yaml
+```diff
 userstyles:
   youtube:
     name: YouTube
@@ -145,9 +145,10 @@ userstyles:
     color: red
     readme:
       app-link: "https://youtube.com"
-      current-maintainers: [*isabelroses]
-      past-maintainers: [*elkrien]
-```
+-     current-maintainers: [*isabelroses, *elkrien]
+-     past-maintainers: []
++     current-maintainers: [*isabelroses]
++     past-maintainers: [*elkrien]
 
 If you prefer not to be listed as a past maintainer, you can remove yourself for
 maintainers array entirely. Furthermore, removing yourself from the `collaborators` 
