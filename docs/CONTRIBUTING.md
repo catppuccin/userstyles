@@ -65,4 +65,4 @@ graph TD;
 ```
 
 *A waiting period is assigned only for styles that could not be tested, this
-period is usually 1-2 days.
+period is usually 1–2 days.

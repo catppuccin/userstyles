@@ -11,11 +11,9 @@
 ### Table of Contents
 
 <!--toc:start-->
-
 - [Adding a new userstyle](#adding-a-new-userstyle)
 - [Adding yourself as a maintainer](#adding-yourself-as-a-maintainer)
 - [Removing yourself as a maintainer](#removing-yourself-as-a-maintainer)
-
 <!--toc:end-->
 
 ### Adding a new userstyle
@@ -26,16 +24,11 @@
 specification for `userstyles.yml`. The properties in the following instructions are based
 on the schema. Please refer to it for clarification.
 
-1. Add your name to the list of collaborators.
+1. Add your name to the list of collaborators, please refer to the
+   [Adding yourself as a maintainer](#adding-yourself-as-a-maintainer) section for more information.
 
-   ```yaml
-   collaborators:
-     - &<github-username>
-     name: <preferred-name> # OPTIONAL
-     url: https://github.com/<github-username>
-   ```
-
-2. Locate the `userstyles` section and add your port to the list.
+2. Locate the `userstyles` section and add your port to the list, following the
+    existing alphabetical order.
 
    You should make changes to everything wrapped in `<>` and remove the `<>`
    characters. If you need help with any of the fields, refer to
@@ -98,13 +91,13 @@ which is your preferred name.
 
 ```yaml
 collaborators:
-  - &your-username
-    name: Your Preferred Name
-    url: https://github.com/your-username
+  - &<github-username>
+    name: <preferred-name> # OPTIONAL
+    url: https://github.com/<github-username>
 ```
 
 Then you need to add your username to the `current-maintainers` array in for the
-userstyle you want to maintain, in this case `youtube`..
+userstyle you want to maintain, in this case `youtube`.
 
 ```yaml
 userstyles:
@@ -119,7 +112,7 @@ userstyles:
       past-maintainers: [*elkrien]
 ```
 
-If the change is accepted, you will receive a invite to the `catppuccin` organization, 
+If the change is accepted, you will receive an invitation to the `catppuccin` organization, 
 and become a member of the [`userstyles-maintainers` team](https://github.com/orgs/catppuccin/teams/userstyles-maintainers).
 As a maintainer you will be expected to:
   - Review and merge PRs for the userstyle you maintain.
@@ -145,6 +138,6 @@ userstyles:
 +     current-maintainers: [*isabelroses]
 +     past-maintainers: [*elkrien]
 
-If you prefer not to be listed as a past maintainer, you can remove yourself for
-maintainers array entirely. Furthermore, removing yourself from the `collaborators` 
-array will also remove you from the `userstyles-maintainers` team.
+If you would not like to be listed as a past maintainer, you can remove yourself form
+`collaborators` array entirely. Upon removal, you will also be removed from the 
+`userstyles-maintainers` team.

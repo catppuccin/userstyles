@@ -7,7 +7,6 @@
 ### Table of Contents
 
 <!--toc:start-->
-
 - [How can I see my changes in real time?](#how-can-i-see-my-changes-in-real-time)
 - [How can I hide sensitive information in preview screenshots?](#how-can-i-hide-sensitive-information-in-preview-screenshots)
 - [How do I convert preview images to WebP?](#how-do-i-convert-preview-images-to-webp)
@@ -16,7 +15,7 @@
 - [How do I theme images and SVGs?](#how-do-i-theme-images-and-svgs)
   - [SVG background images](#svg-background-images)
   - [`<img>` elements](#img-elements)
-
+- [How do I set a variable to RGB values?](#how-do-i-set-a-variable-to-rgb-values)
 <!--toc:end-->
 
 ### How can I see my changes in real time?
