@@ -169,6 +169,5 @@ You can use the following snippet to get the raw RGB values from a color:
   @rgb-raw: red(@color), green(@color), blue(@color);
 }
 
-// Below is an example of how to use the above snippet, where @rosewater is a color variable
-#rgbify(@rosewater)[];
+--ctp-base: #rgbify(@base) []; // -> 30, 30, 46
 ```
