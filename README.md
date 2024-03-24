@@ -82,7 +82,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Codeberg](styles/codeberg)
 - [GitHub](styles/github)
 - [Graphite](styles/graphite)
-- [Hackage](styles/hackage)
+- 🚧 [Hackage](styles/hackage)
 - [Hoppscotch](styles/hoppscotch)
 - [MDN](styles/mdn)
 - [Next.js](styles/nextjs)
@@ -132,7 +132,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🎵 Music</summary>
 
-- [Hyperpipe](styles/hyperpipe)
+- 🚧 [Hyperpipe](styles/hyperpipe)
 - [Last.fm](styles/lastfm)
 - [Spotify Web](styles/spotify-web)
 
@@ -170,7 +170,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>✨ Social Networking</summary>
 
 - [Bluesky Social](styles/bsky)
-- [Cinny](styles/cinny)
+- 🚧 [Cinny](styles/cinny)
 - [Elk](styles/elk)
 - [Instagram](styles/instagram)
 - [LinkedIn](styles/linkedin)
