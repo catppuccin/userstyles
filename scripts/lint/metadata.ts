@@ -16,6 +16,8 @@ export const verifyMetadata = async (
   userstyle: string,
   userstyles: Userstyles,
 ) => {
+  content = content.replaceAll('\r\n', '\n');
+
   const assert = assertions(userstyle, userstyles);
   const file = relative(REPO_ROOT, entry.path);
 
