@@ -101,7 +101,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Google](styles/google)
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
-- [Startpage](styles/startpage)
+- 🚧 [Startpage](styles/startpage)
 
 </details>
 <details open>
