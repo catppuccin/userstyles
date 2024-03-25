@@ -8,5 +8,13 @@ on:
 
 jobs:
   deploy:
-    uses: catppuccin/catppuccin/.github/workflows/website.yml@main
+    runs-on: ubuntu-latest
+    environment: website
+    name: Vercel Deploy
+    steps:
+      - name: Deploy via cURL
+        shell: bash
+        env:
+          DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: curl -X POST "$DEPLOY_HOOK"
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
