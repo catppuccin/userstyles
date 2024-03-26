@@ -8,6 +8,19 @@
 
 &nbsp;
 
+### Table of Contents
+
+<!--toc:start-->
+- [Prerequisites](#prerequisites)
+- [Setup](#setup)
+  - [Usercss Metadata](#usercss-metadata)
+  - [`@-moz-document`](#moz-document)
+  - [The lookup table](#the-lookup-table)
+- [The `#catppuccin` mixin](#the-catppuccin-mixin)
+  - [Applying the theme](#applying-the-theme)
+  - [Putting it all together](#putting-it-all-together)
+<!--toc:end-->
+
 ### Prerequisites
 
 - [Stylus](https://github.com/openstyles/stylus) ([Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/) / [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
