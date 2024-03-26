@@ -21,11 +21,11 @@ It is important to note that there are **two types of PRs** for this repository:
 
 ### Root Variables
 
-While writing an userstyle, you may have come across [custom properties / CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*), typically wrapped in a `:root` selector. We refer to these variables as "root variables", and they are sort of global variables used all across a website. For Catppuccin userstyles, we prefer that these variables are themed rather than individual elements. As the website likely uses these variables themselves, it saves yourself a lot of work in theming and maintaining the userstyle.
+While writing a userstyle, you may have come across [custom properties / CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*), typically wrapped in a `:root` selector. We refer to these variables as "root variables", and they are sort of global variables used all across a website. For Catppuccin userstyles, we prefer that these variables are themed rather than individual elements. As the website likely uses these variables themselves, it saves yourself a lot of work in theming and maintaining the userstyle.
 
 ### Opinionated Changes
 
-When writing or updating an userstyle, it is important to keep in mind that different users have different preferences. To avoid lengthy discussion over user interface aesthetics, we have a set of rules for what a userstyle may include; importantly, **changes to font or layout (padding, margin, hiding/moving elements) are prohibited.**
+When writing or updating a userstyle, it is important to keep in mind that different users have different preferences. To avoid lengthy discussion over user interface aesthetics, we have a set of rules for what a userstyle may include; importantly, **changes to font or layout (padding, margin, hiding/moving elements) are prohibited.**
 
 
 ### General Recommendations
