@@ -143,7 +143,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
 - [Microsoft Word](styles/microsoft-word)
-- [OpenMediaVault](styles/openmediavault)
+- [openmediavault](styles/openmediavault)
 - [Proton](styles/proton)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
