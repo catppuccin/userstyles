@@ -28,9 +28,6 @@ If the theme isn't being applied to your instance, go to the userstyle's **Setti
 ## 🙋 FAQ
 - Q: **The theme does not look the same as the preview?**\
   A: Your Mastodon instance may be using its own custom CSS, which is changing the look of the theme.
-- Q: **The theme is not working?**\
-  A: One solution might be changing the theme to either light or dark via **Preferences** > **Appearance** > **Site theme**.
-
 
 ## 💝 Current Maintainer
 - [Isabel](https://github.com/isabelroses)
