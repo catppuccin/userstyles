@@ -59,6 +59,36 @@
 
       // second child is the rest of the app
       & > div:nth-child(2) {
+        // honeygain-jumptask switcher
+        #hjswitcher() {
+          background-color: @surface0;
+          border-color: @surface1;
+          & > div > div > span {
+            color: @text;
+          }
+
+          // enabled text
+          svg[fill="#232836"] * {
+            fill: @text;
+          }
+          // disabled text
+          svg[fill="#A8B3BF"] * {
+            fill: @overlay1;
+          }
+          div[color="#A8B3BF"] span {
+            color: @overlay1;
+          }
+          // bonus badge
+          button > div {
+            &[color="#CED7E0"] {
+              background-color: @surface2;
+              span {
+                color: @subtext0;
+              }
+            }
+          }
+        }
+
         // navbar
         & > div:first-child {
           background-color: @base;
@@ -87,6 +117,44 @@
             background-size: contain;
             background-repeat: no-repeat;
           }
+
+          // small screen layout (has more content)
+          & > [style] {
+            // top section
+            & > :first-child {
+              div[weight] {
+                color: @text;
+              }
+              // "no active devices"
+              [style*="line-height"] {
+                color: @subtext0;
+                a {
+                  color: @accent-color !important;
+                  // needed because of the selector for page links
+                  background-color: unset;
+                }
+              }
+              // X icon
+              & > :first-child > :last-child {
+                &:hover {
+                  background-color: @mantle;
+                }
+                svg * {
+                  stroke: @subtext0;
+                }
+              }
+            }
+
+            & > div > div[style*="margin-top"] {
+              #hjswitcher();
+            }
+
+            // lines
+            div[spacingbottom][spacingtop],
+            div[spacing] {
+              background: @mantle;
+            }
+          }
         }
         // main page content
         & > div:last-child {
@@ -95,40 +163,36 @@
           & header > div {
             // regular layout
             & > :first-child {
-              // honeygain-jumptask switcher
               & > :nth-child(2) > div {
-                background-color: @surface0;
-                border-color: @surface1;
-                & > div > div > span {
-                  color: @text;
-                }
-
-                // enabled text
-                svg[fill="#232836"] * {
-                  fill: @text;
-                }
-                // disabled text
-                svg[fill="#A8B3BF"] * {
-                  fill: @overlay1;
-                }
-                div[color="#A8B3BF"] span {
-                  color: @overlay1;
-                }
-                // bonus badge
-                button > div {
-                  &[color="#CED7E0"] {
-                    background-color: @surface2;
-                    span {
-                      color: @subtext0;
-                    }
-                  }
-                }
+                #hjswitcher();
               }
 
               // avatar and buttons
               & > :last-child {
                 svg * {
                   fill: @subtext0;
+                }
+
+                // avatar dropdown
+                & > :last-child > div[top] > div {
+                  background-color: @crust;
+
+                  // titles and links
+                  div[weight],
+                  a {
+                    color: @text;
+                  }
+                  // "no active devices"
+                  [style*="line-height"] {
+                    color: @subtext0;
+                    a {
+                      color: @accent-color !important;
+                    }
+                  }
+                  // lines
+                  div[spacing] {
+                    background-color: @mantle;
+                  }
                 }
               }
             }
