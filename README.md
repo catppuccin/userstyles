@@ -58,7 +58,7 @@ See instructions on the [GitHub release page](https://github.com/catppuccin/user
 3. Enjoy!
 
 > [!TIP]
-> For decentralized or self-hosted apps applications, you can save your instance long term by going to the userstyle's **Settings > Custom included sites** and adding your instance to the list, for example, `*://example.org/*`.
+> For decentralized or self-hosted applications, you can apply a theme your instance across updates by going to the userstyle's **Settings** > **Custom included sites** and adding your instance to the list.
 
 &nbsp;
 
