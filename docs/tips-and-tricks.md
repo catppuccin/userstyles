@@ -20,8 +20,7 @@
 
 ### How can I see my changes in real time?
 
-See
-[Stylus Wiki - Initial installation and live reload](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#initial-installation-and-live-reload).
+See [Stylus Wiki - Initial installation and live reload](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#initial-installation-and-live-reload).
 
 &nbsp;
 
@@ -30,8 +29,7 @@ See
 When taking screenshots of userstyles, you may want to hide sensitive
 information (such as your username, email, etc.).
 
-You may use the [Flow Circular](https://fonts.google.com/specimen/Flow+Circular)
-font to redact details by obscuring any text on the page.
+You may use the [Flow Circular](https://fonts.google.com/specimen/Flow+Circular) font to redact details by obscuring any text on the page.
 
 Use this snippet at the top of your userstyle to import and use the font:
 
@@ -47,11 +45,8 @@ Use this snippet at the top of your userstyle to import and use the font:
 
 ### How do I convert preview images to WebP?
 
-The Catppuccin project prefers to use the
-[WebP image format](https://en.wikipedia.org/wiki/WebP) for the asset preview
-images. We recommend using Google's
-[`cwebp`](https://developers.google.com/speed/webp/docs/cwebp) conversion
-utility to convert images to WebP.
+The Catppuccin project prefers to use the [WebP image format](https://en.wikipedia.org/wiki/WebP) for the asset preview images. We recommend using Google's 
+[`cwebp`](https://developers.google.com/speed/webp/docs/cwebp) conversion utility to convert images to WebP.
 
 #### Installation
 
