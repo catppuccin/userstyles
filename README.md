@@ -58,7 +58,7 @@ See instructions on the [GitHub release page](https://github.com/catppuccin/user
 3. Enjoy!
 
 > [!TIP]
-> For decentralized or self-hosted applications, you can apply a theme your instance across updates by going to the userstyle's **Settings** > **Custom included sites** and adding your instance to the list.
+> For decentralized or self-hosted applications, you can apply a theme to one or multiple instances across updates by going to the userstyle's **Settings** > **Custom included sites** and entering URL patterns for your instance(s).
 
 &nbsp;
 
