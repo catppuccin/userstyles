@@ -58,7 +58,7 @@ See instructions on the [GitHub release page](https://github.com/catppuccin/user
 3. Enjoy!
 
 > [!TIP]
-> For instance based applications, you can save your insance long term by
+> For instance based applications, you can save your instance long term by
 > going to the userstyle's **Settings > Custom included sites** and adding your instance to the list, for example, `*://example.org/*`.
 
 &nbsp;
