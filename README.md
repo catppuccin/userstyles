@@ -59,6 +59,7 @@ See instructions on the [GitHub release page](https://github.com/catppuccin/user
 
 > [!TIP]
 > For decentralized or self-hosted applications, you can apply a theme to one or multiple instances across updates by following the instructions below.
+>
 > 1. Open the Stylus "Manage" page.
 > 2. Click on the userstyle's name in the list.
 > 3. Click on **Style settings** in the left panel.
