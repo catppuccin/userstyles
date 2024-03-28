@@ -9,9 +9,8 @@ import { join } from "std/path/mod.ts";
 
 const ROOT = import.meta.dirname;
 if (!ROOT) {
-  throw new Error("ROOT was not located.")
+  throw new Error("ROOT was not located.");
 }
-
 
 /**
  * absolute path to the repository
