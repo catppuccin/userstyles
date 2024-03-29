@@ -4,6 +4,21 @@
 
 &nbsp;
 
+### Table of Contents
+
+<!--toc:start-->
+
+- [How can I see my changes in real time?](#how-can-i-see-my-changes-in-real-time)
+- [How can I hide sensitive information in preview screenshots?](#how-can-i-hide-sensitive-information-in-preview-screenshots)
+- [How do I convert preview images to WebP?](#how-do-i-convert-preview-images-to-webp)
+  - [Installation](#installation)
+  - [Usage](#usage)
+- [How do I theme images and SVGs?](#how-do-i-theme-images-and-svgs)
+  - [SVG background images](#svg-background-images)
+  - [`<img>` elements](#img-elements)
+- [How do I set a variable to RGB values?](#how-do-i-set-a-variable-to-rgb-values)
+<!--toc:end-->
+
 ### How can I see my changes in real time?
 
 See [Stylus Wiki - Initial installation and live reload](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#initial-installation-and-live-reload).
@@ -119,4 +134,18 @@ img.twitter-icon {
   padding-top: 24px !important;
   background: url("data:image/svg+xml,@{svg}") no-repeat !important;
 }
+```
+
+&nbsp;
+
+### How do I set a variable to RGB values?
+
+You can use the following snippet to get the raw RGB values from a color.
+
+```less
+#rgbify(@color) {
+  @rgb-raw: red(@color), green(@color), blue(@color);
+}
+
+--ctp-base: #rgbify(@base) []; // -> 30, 30, 46
 ```
