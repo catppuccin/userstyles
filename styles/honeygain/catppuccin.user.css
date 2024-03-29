@@ -16,6 +16,16 @@
 ==/UserStyle== */
 
 @-moz-document domain('dashboard.honeygain.com') {
+  // use big css when width is big, otherwise use small css
+  #media(@max-width, @big, @small) {
+    @media (max-width: @max-width) {
+      @small();
+    }
+    @media (min-width: @max-width) {
+      @big();
+    }
+  }
+
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -214,12 +224,27 @@
             }
           }
 
-          // main content columns (contains individual cards
-          & main > div > div > div {
-            #selectedButton() {
-              box-shadow: @accent-color 0px 2px 0px inset;
-              background-color: darken(@base, 3%);
+          #cardFAQ() {
+            .slick-arrow::before {
+              color: @text;
             }
+            .slick-dots {
+              li button {
+                border-color: @accent-color;
+              }
+              .slick-active button {
+                background-color: @accent-color;
+              }
+            }
+            h2 {
+              color: @text;
+            }
+          }
+
+          // main content columns (contains individual cards)
+          main > div[style] > div > div,
+          // for mobile
+          main > div:not([style]) {
             progress {
               background-color: @surface0;
               color: @accent-color;
@@ -231,6 +256,10 @@
 
             // earnings card
             &:first-child > div > :nth-child(1) > div {
+              #selectedButton() {
+                box-shadow: @accent-color 0px 2px 0px inset;
+                background-color: darken(@base, 3%);
+              }
               // wish there was a better way to do this
               // this determines if the current card is the "jumptask" one so we can style which button is currently active
               // browsers that dont support the :has selector will show both tabs as selected
@@ -412,22 +441,17 @@
               }
             }
             // faq card
-            &:last-child > div > :last-child > div .slick-slider {
-              .slick-arrow::before {
-                color: @text;
+            @small: {
+              &:last-child > div > :last-child > div .slick-slider {
+                #cardFAQ();
               }
-              .slick-dots {
-                li button {
-                  border-color: @accent-color;
-                }
-                .slick-active button {
-                  background-color: @accent-color;
-                }
+            };
+            @big: {
+              &:first-child > div > :nth-last-child(2) > div .slick-slider {
+                #cardFAQ();
               }
-              h2 {
-                color: @text;
-              }
-            }
+            };
+            #media(880px, @small, @big);
 
             // every card
             // ignores the "enable jumptask" promo image
