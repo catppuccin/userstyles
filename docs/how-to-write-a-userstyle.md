@@ -11,6 +11,7 @@
 ### Table of Contents
 
 <!--toc:start-->
+
 - [Prerequisites](#prerequisites)
 - [Setup](#setup)
   - [Usercss Metadata](#usercss-metadata)
@@ -19,7 +20,7 @@
 - [The `#catppuccin` mixin](#the-catppuccin-mixin)
   - [Applying the theme](#applying-the-theme)
   - [Putting it all together](#putting-it-all-together)
-<!--toc:end-->
+  <!--toc:end-->
 
 ### Prerequisites
 

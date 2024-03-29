@@ -7,6 +7,7 @@
 ### Table of Contents
 
 <!--toc:start-->
+
 - [How can I see my changes in real time?](#how-can-i-see-my-changes-in-real-time)
 - [How can I hide sensitive information in preview screenshots?](#how-can-i-hide-sensitive-information-in-preview-screenshots)
 - [How do I convert preview images to WebP?](#how-do-i-convert-preview-images-to-webp)
@@ -50,8 +51,8 @@ The Catppuccin project prefers to use the [WebP image format](https://en.wikiped
 
 | Method                                | Instructions                                                                           |
 | ------------------------------------- | -------------------------------------------------------------------------------------- |
-| [Homebrew](https://brew.sh/)          | `brew install webp` [[view cask]](https://formulae.brew.sh/formula/webp)                 |
-| [MacPorts](https://www.macports.org/) | `sudo port install webp` [[view port]](https://ports.macports.org/port/webp/)            |
+| [Homebrew](https://brew.sh/)          | `brew install webp` [[view cask]](https://formulae.brew.sh/formula/webp)               |
+| [MacPorts](https://www.macports.org/) | `sudo port install webp` [[view port]](https://ports.macports.org/port/webp/)          |
 | Binaries                              | See https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html. |
 
 #### Usage
@@ -134,6 +135,7 @@ img.twitter-icon {
   background: url("data:image/svg+xml,@{svg}") no-repeat !important;
 }
 ```
+
 &nbsp;
 
 ### How do I set a variable to RGB values?

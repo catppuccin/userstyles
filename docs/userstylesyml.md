@@ -11,6 +11,7 @@
 ### Table of Contents
 
 <!--toc:start-->
+
 - [Adding a new userstyle](#adding-a-new-userstyle)
 - [Adding yourself as a maintainer](#adding-yourself-as-a-maintainer)
 - [Removing yourself as a maintainer](#removing-yourself-as-a-maintainer)
@@ -25,7 +26,7 @@ on the schema. Please refer to it for clarification.
 1. See [Adding yourself as a maintainer](#adding-yourself-as-a-maintainer).
 
 2. Locate the `userstyles` section and add your port to the list, following the
-    existing alphabetical order.
+   existing alphabetical order.
 
    You should make changes to everything wrapped in `<>` and remove the `<>`
    characters. If you need help with any of the fields, refer to
@@ -109,12 +110,13 @@ userstyles:
       past-maintainers: [*elkrien]
 ```
 
-If the change is accepted, you will receive an invitation to the `catppuccin` organization, 
+If the change is accepted, you will receive an invitation to the `catppuccin` organization,
 and become a member of the [`userstyles-maintainers` team](https://github.com/orgs/catppuccin/teams/userstyles-maintainers).
 As a maintainer you will be expected to:
-  - Review and merge PRs for the userstyle you maintain.
-  - Keep the userstyle up to date with the latest changes. If you no longer wish to maintain a userstyle, see [Removing yourself as a maintainer](#removing-yourself-as-a-maintainer).
-  - Follow our code of conduct and guidelines.
+
+- Review and merge PRs for the userstyle you maintain.
+- Keep the userstyle up to date with the latest changes. If you no longer wish to maintain a userstyle, see [Removing yourself as a maintainer](#removing-yourself-as-a-maintainer).
+- Follow our code of conduct and guidelines.
 
 ### Removing yourself as a maintainer
 
@@ -136,5 +138,6 @@ userstyles:
 +     past-maintainers: [*elkrien]
 
 If you would not like to be listed as a past maintainer, you can remove yourself from
-`collaborators` array entirely. Upon removal, you will also be removed from the 
+`collaborators` array entirely. Upon removal, you will also be removed from the
 `userstyles-maintainers` team.
+```

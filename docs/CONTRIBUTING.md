@@ -25,11 +25,10 @@ While writing a userstyle, you may have come across [custom properties / CSS var
 
 When writing or updating a userstyle, it is important to keep in mind that different users have different preferences. To avoid lengthy discussion over user interface aesthetics, we have a set of rules for what a userstyle may include; importantly, **changes to font or layout (padding, margin, hiding/moving elements) are prohibited.**
 
-
 ### General Recommendations
 
 - Create a [topic branch](https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows#_topic_branch) on your fork for your specific PR.
-- Catppuccin uses the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) 
+- Catppuccin uses the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
   standard for creating explicit and meaningful commit messages. This repository
   requires pull request _titles_ to be in the conventional commit format,
   however we do not require it for individual commits within a pull request.
@@ -59,4 +58,4 @@ graph TD;
     K[Waiting period*] --> M[Merged by userstyles staff];
 ```
 
-*A waiting period is usually started if a website is particularly complex or for any other reason could not be thoroughly/completely tested. Waiting periods typically last between 1 and 2 days.
+\*A waiting period is usually started if a website is particularly complex or for any other reason could not be thoroughly/completely tested. Waiting periods typically last between 1 and 2 days.
