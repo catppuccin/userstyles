@@ -19,7 +19,7 @@ It is important to note that there are **two types of PRs** for this repository:
 
 ### Root Variables
 
-While writing a userstyle, you may have come across [custom properties / CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*), typically wrapped in a `:root` selector. We refer to these variables as "root variables", and they are sort of global variables used all across a website. For Catppuccin userstyles, we prefer that these variables are themed rather than individual elements. As the website likely uses these variables themselves, it saves yourself a lot of work in theming and maintaining the userstyle.
+While writing a userstyle, you may have come across [custom properties / CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*), typically wrapped in a `:root` selector. We refer to these variables as "root variables", and they can be thought of as global variables used all across a website. For Catppuccin userstyles, we prefer that these variables are themed (if they exist) rather than individual elements. As the website hopefully uses these variables themselves, it saves yourself a lot of work in theming and maintaining the userstyle.
 
 ### Opinionated Changes
 
@@ -59,5 +59,4 @@ graph TD;
     K[Waiting period*] --> M[Merged by userstyles staff];
 ```
 
-*A waiting period is assigned only for styles that could not be tested, this
-period is usually 1–2 days.
+*A waiting period is usually started if a website is particularly complex or for any other reason could not be thoroughly/completely tested. Waiting periods typically last between 1 and 2 days.
