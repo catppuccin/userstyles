@@ -16,8 +16,9 @@
 ==/UserStyle== */
 
 @-moz-document domain('dashboard.honeygain.com') {
-  // use big css when width is big, otherwise use small css
-  #media(@max-width, @big, @small) {
+  // use @big when screen is normal, @small when its mobile layout
+  #media(@big, @small) {
+    @max-width: 880px;
     @media (max-width: @max-width) {
       @small();
     }
@@ -224,6 +225,187 @@
             }
           }
 
+          #cardEarnings() {
+            #selectedButton() {
+              box-shadow: @accent-color 0px 2px 0px inset;
+              background-color: darken(@base, 3%);
+            }
+            // wish there was a better way to do this
+            // this determines if the current card is the "jumptask" one so we can style which button is currently active
+            // browsers that dont support the :has selector will show both tabs as selected
+            &:has(:nth-child(2) > div > div button > svg) {
+              & > :first-child > div {
+                &:first-child {
+                  box-shadow: none !important;
+                  background-color: @base !important;
+                }
+                &:last-child {
+                  #selectedButton();
+                }
+              }
+            }
+            // switcher buttons
+            & > :first-child > div {
+              // apply selection on first child (can be overriden above)
+              &:first-child {
+                #selectedButton();
+              }
+              // show second button as selected if :has isnt supported
+              @supports not selector(:has(*)) {
+                &:last-child {
+                  #selectedButton();
+                }
+              }
+              background-color: @base;
+              span {
+                color: @text;
+              }
+              // checkmark on icon
+              svg > g {
+                & > circle[fill="#0B82E3"] {
+                  fill: @accent-color !important;
+                  & + path[fill="white"] {
+                    fill: @crust !important;
+                  }
+                }
+              }
+            }
+            & > :last-child {
+              // "10% bonus gift" badge
+              div[color="#232836"] span {
+                color: unset;
+              }
+              & > div > div {
+                & button:last-child:not([data-state]) {
+                  // "JumpTask Dashboard" button
+                  background-color: @accent-color;
+                  div[color="#fff"] > span {
+                    color: @crust;
+                  }
+                }
+                // progress bar
+                & > div:last-child div:last-child:not([class]) {
+                  div > span {
+                    color: darken(@surface0, 25%);
+                  }
+                  & > div:last-child {
+                    background-color: @surface0;
+                  }
+                }
+              }
+
+              & when not (@lookup = latte) {
+                // makes the svg a little less eye-bleed
+                // cant style the individual hexagons
+                button > div > div > div > svg:first-child {
+                  filter: brightness(0.5);
+                }
+              }
+            }
+          }
+          #cardEarningsGraph() {
+            // title and buttons
+            & > div:first-child > :first-child {
+              & > :first-child div {
+                color: @text;
+              }
+              & > :last-child > div {
+                & > div {
+                  & > div > span {
+                    color: @subtext1;
+                  }
+                  background-color: unset;
+                  &:hover {
+                    background-color: fade(@accent-color, 5%);
+                  }
+                }
+                // is selected
+                // if browser doesnt support :has both buttons will just be unselected
+                & > div:has([color="#0B82E3"]) {
+                  background-color: fade(@accent-color, 10%);
+                  & > div > span {
+                    color: @accent-color;
+                  }
+                }
+              }
+            }
+            // chart timeframe text
+            & > :nth-child(2) > :last-child > div {
+              color: @subtext0;
+            }
+            // legend text
+            #traffic-legend-container .legend-list-item {
+              // lines
+              &:not(:last-child) {
+                box-shadow: @mantle 0px 1px 0px;
+              }
+              p {
+                color: @text;
+              }
+            }
+          }
+          #cardToday() {
+            // entries (nth-2 is an empty div)
+            & > div:not(:first-child):not(:nth-child(2)):not(:last-child) {
+              box-shadow: @mantle 0px 1px 0px;
+            }
+            // progress bar and pot
+            & > :last-child > div > div:first-child {
+              // progress bar
+              & > :first-child > div {
+                // X/15mb badge
+                & > :first-child {
+                  background-color: @accent-color;
+                  &::after {
+                    border-top-color: @accent-color;
+                  }
+                  span {
+                    color: @crust;
+                  }
+                }
+              }
+              // text by pot
+              & > :last-child {
+                background-color: @surface1;
+                p {
+                  color: @text;
+                }
+              }
+            }
+          }
+          #cardAchievements() {
+            // title
+            & > div:first-child p {
+              color: @text;
+            }
+            // "view details" link
+            & > a > div > span {
+              color: @accent-color;
+            }
+            & > div > div:not([borderradius]),
+            & > div > div[borderradius] > div > div {
+              background-color: @surface0;
+              p,
+              h3 {
+                color: @text;
+              }
+              progress {
+                background-color: @surface1;
+              }
+              &
+                > div:first-child
+                > div
+                > div:last-child
+                > div:last-child
+                > div
+                > div {
+                background-color: darken(@accent-color, 25%);
+                & > div > span {
+                  color: @crust;
+                }
+              }
+            }
+          }
           #cardFAQ() {
             .slick-arrow::before {
               color: @text;
@@ -255,203 +437,66 @@
             }
 
             // earnings card
-            &:first-child > div > :nth-child(1) > div {
-              #selectedButton() {
-                box-shadow: @accent-color 0px 2px 0px inset;
-                background-color: darken(@base, 3%);
+            @er-big: {
+              &:first-child > div > :nth-child(1) > div {
+                #cardEarnings();
               }
-              // wish there was a better way to do this
-              // this determines if the current card is the "jumptask" one so we can style which button is currently active
-              // browsers that dont support the :has selector will show both tabs as selected
-              &:has(:nth-child(2) > div > div button > svg) {
-                & > :first-child > div {
-                  &:first-child {
-                    box-shadow: none !important;
-                    background-color: @base !important;
-                  }
-                  &:last-child {
-                    #selectedButton();
-                  }
-                }
+            };
+            @er-small: {
+              & > div > :nth-child(1) > div {
+                #cardEarnings();
               }
-              // switcher buttons
-              & > :first-child > div {
-                // apply selection on first child (can be overriden above)
-                &:first-child {
-                  #selectedButton();
-                }
-                // show second button as selected if :has isnt supported
-                @supports not selector(:has(*)) {
-                  &:last-child {
-                    #selectedButton();
-                  }
-                }
-                background-color: @base;
-                span {
-                  color: @text;
-                }
-                // checkmark on icon
-                svg > g {
-                  & > circle[fill="#0B82E3"] {
-                    fill: @accent-color !important;
-                    & + path[fill="white"] {
-                      fill: @crust !important;
-                    }
-                  }
-                }
-              }
-              & > :last-child {
-                // "10% bonus gift" badge
-                div[color="#232836"] span {
-                  color: unset;
-                }
-                & > div > div {
-                  & button:last-child:not([data-state]) {
-                    // "JumpTask Dashboard" button
-                    background-color: @accent-color;
-                    div[color="#fff"] > span {
-                      color: @crust;
-                    }
-                  }
-                  // progress bar
-                  & > div:last-child div:last-child:not([class]) {
-                    div > span {
-                      color: darken(@surface0, 25%);
-                    }
-                    & > div:last-child {
-                      background-color: @surface0;
-                    }
-                  }
-                }
-
-                & when not (@lookup = latte) {
-                  // makes the svg a little less eye-bleed
-                  // cant style the individual hexagons
-                  button > div > div > div > svg:first-child {
-                    filter: brightness(0.5);
-                  }
-                }
-              }
-            }
+            };
+            #media(@er-big, @er-small);
             // earnings graph card
-            &:first-child > div > :nth-child(2) > div > div > div {
-              // title and buttons
-              & > div:first-child > :first-child {
-                & > :first-child div {
-                  color: @text;
-                }
-                & > :last-child > div {
-                  & > div {
-                    & > div > span {
-                      color: @subtext1;
-                    }
-                    background-color: unset;
-                    &:hover {
-                      background-color: fade(@accent-color, 5%);
-                    }
-                  }
-                  // is selected
-                  // if browser doesnt support :has both buttons will just be unselected
-                  & > div:has([color="#0B82E3"]) {
-                    background-color: fade(@accent-color, 10%);
-                    & > div > span {
-                      color: @accent-color;
-                    }
-                  }
-                }
+            @ergraph-big: {
+              &:first-child > div > :nth-child(2) > div > div > div {
+                #cardEarningsGraph();
               }
-              // chart timeframe text
-              & > :nth-child(2) > :last-child > div {
-                color: @subtext0;
+            };
+            @ergraph-small: {
+              & > div > :nth-last-child(6) > div {
+                #cardEarningsGraph();
               }
-              // legend text
-              #traffic-legend-container .legend-list-item {
-                // lines
-                &:not(:last-child) {
-                  box-shadow: @mantle 0px 1px 0px;
-                }
-                p {
-                  color: @text;
-                }
-              }
-            }
+            };
+            #media(@ergraph-big, @ergraph-small);
 
             // earned today card
-            &:last-child > div > :nth-child(1) > div > div > div {
-              // entries (nth-2 is an empty div)
-              & > div:not(:first-child):not(:nth-child(2)):not(:last-child) {
-                box-shadow: @mantle 0px 1px 0px;
+            @today-big: {
+              &:last-child > div > :nth-child(1) > div > div > div {
+                #cardToday();
               }
-              // progress bar and pot
-              & > :last-child > div > div:first-child {
-                // progress bar
-                & > :first-child > div {
-                  // X/15mb badge
-                  & > :first-child {
-                    background-color: @accent-color;
-                    &::after {
-                      border-top-color: @accent-color;
-                    }
-                    span {
-                      color: @crust;
-                    }
-                  }
-                }
-                // text by pot
-                & > :last-child {
-                  background-color: @surface1;
-                  p {
-                    color: @text;
-                  }
-                }
+            };
+            @today-small: {
+              & > div > :nth-last-child(8) > div {
+                #cardToday();
               }
-            }
+            };
+            #media(@today-big, @today-small);
             // achievements card
-            &:last-child > div > :nth-child(2) > div {
-              // title
-              & > div:first-child p {
-                color: @text;
+            @achievements-big: {
+              &:last-child > div > :nth-child(2) > div {
+                #cardAchievements();
               }
-              // "view details" link
-              & > a > div > span {
-                color: @accent-color;
+            };
+            @achievements-small: {
+              & > div > :nth-last-child(7) > div {
+                #cardAchievements();
               }
-              & > div > div:not([borderradius]),
-              & > div > div[borderradius] > div > div {
-                background-color: @surface0;
-                p,
-                h3 {
-                  color: @text;
-                }
-                progress {
-                  background-color: @surface1;
-                }
-                &
-                  > div:first-child
-                  > div
-                  > div:last-child
-                  > div:last-child
-                  > div
-                  > div {
-                  background-color: darken(@accent-color, 25%);
-                  & > div > span {
-                    color: @crust;
-                  }
-                }
-              }
-            }
+            };
+            #media(@achievements-big, @achievements-small);
             // faq card
-            @small: {
+            @faq-small: {
               &:last-child > div > :last-child > div .slick-slider {
                 #cardFAQ();
               }
             };
-            @big: {
-              &:first-child > div > :nth-last-child(2) > div .slick-slider {
+            @faq-big: {
+              & > div > :nth-last-child(2) > div .slick-slider {
                 #cardFAQ();
               }
             };
-            #media(880px, @small, @big);
+            #media(@faq-small, @faq-big);
 
             // every card
             // ignores the "enable jumptask" promo image
