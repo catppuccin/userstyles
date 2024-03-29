@@ -322,12 +322,14 @@
                   }
                   // is selected
                   // if browser doesnt support :has both buttons will just be unselected
-                  & > div:has([color="#0B82E3"]) {
+                  // syntax highlighting tweaks out in vscode without this (stupid) level of nesting????
+                  /* prettier-ignore */
+                  & { & { & { & { & > div:has([color="#0B82E3"]) {
                     background-color: fade(@accent-color, 10%);
                     & > div > span {
                       color: @accent-color;
                     }
-                  }
+                  }}}}}
                 }
               };
               @small: {
@@ -432,6 +434,76 @@
               }
             }
           }
+          #cardReferrals() {
+            // top gradient
+            & > :first-child {
+              @drk1: if((@lookup = latte), 5%, 25%);
+              @drk2: if((@lookup = latte), 15%, 40%);
+              background-color: @accent-color;
+              background-image: linear-gradient(
+                100deg,
+                darken(@accent-color, @drk2) 50%,
+                darken(@accent-color, @drk1) 100%
+              );
+              &::before {
+                background-color: @accent-color;
+                background-image: linear-gradient(
+                  110.85deg,
+                  darken(@accent-color, @drk2) 80%,
+                  darken(@accent-color, @drk1) 100%
+                );
+              }
+              @txt: if((@lookup = latte), @crust, @text);
+              & > div > :first-child {
+                svg {
+                  fill: @txt;
+                }
+                div span {
+                  color: inherit;
+                }
+              }
+              div[color="#F9FBFD"] span {
+                color: @txt;
+              }
+            }
+            // inside text
+            & > :last-child > div > div > div {
+              div:not([color]) > div:not([class]) {
+                color: @text;
+              }
+              div[color="#4E7294"] > div {
+                color: @subtext0;
+              }
+              a {
+                color: @accent-color;
+              }
+              // avatars
+              & > :nth-child(2) > div {
+                div[size] {
+                  border-color: @base;
+                }
+                & > :last-child:not([size]) {
+                  background-color: @base;
+                  color: @text;
+                  border-color: @accent-color;
+                }
+              }
+              ul {
+                & > :first-child {
+                  box-shadow: @mantle 0px 1px 0px 0px;
+                }
+                div[color="#2E3643"] > div {
+                  color: @text;
+                }
+              }
+              & > button:last-child {
+                background-color: @accent-color;
+                span div div {
+                  color: @crust;
+                }
+              }
+            }
+          }
           #cardFAQ() {
             .slick-arrow::before {
               color: @text;
@@ -516,6 +588,18 @@
               }
             };
             #media(@achievements-big, @achievements-small);
+            // referral card
+            @ref-big: {
+              &:last-child > div > :nth-last-child(2) {
+                #cardReferrals();
+              }
+            };
+            @ref-small: {
+              & > div > :nth-last-child(3) {
+                #cardReferrals();
+              }
+            };
+            #media(@ref-big, @ref-small);
             // faq card
             @faq-small: {
               &:last-child > div > :last-child > div .slick-slider {
