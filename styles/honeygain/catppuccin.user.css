@@ -160,44 +160,120 @@
         & > div:last-child {
           background-color: @mantle;
 
-          & header > div {
-            // regular layout
-            & > :first-child {
-              & > :nth-child(2) > div {
-                #hjswitcher();
-              }
-
-              // avatar and buttons
-              & > :last-child {
-                svg * {
-                  fill: @subtext0;
+          & header {
+            background-color: @mantle;
+            & > div {
+              // regular layout
+              & > :first-child {
+                & > :nth-child(2) > div {
+                  #hjswitcher();
                 }
 
-                // avatar dropdown
-                & > :last-child > div[top] > div {
-                  background-color: @crust;
-
-                  // titles and links
-                  div[weight],
-                  a {
-                    color: @text;
+                // avatar and buttons
+                & > :last-child {
+                  svg * {
+                    fill: @subtext0;
                   }
-                  // "no active devices"
-                  [style*="line-height"] {
-                    color: @subtext0;
+
+                  // avatar dropdown
+                  & > :last-child > div[top] > div {
+                    background-color: @crust;
+
+                    // titles and links
+                    div[weight],
                     a {
-                      color: @accent-color !important;
+                      color: @text;
+                    }
+                    // "no active devices"
+                    [style*="line-height"] {
+                      color: @subtext0;
+                      a {
+                        color: @accent-color !important;
+                      }
+                    }
+                    // lines
+                    div[spacing] {
+                      background-color: @mantle;
                     }
                   }
-                  // lines
-                  div[spacing] {
-                    background-color: @mantle;
+                }
+              }
+              // small layout
+              & > :last-child {
+                // header image
+                a[href="/"] img {
+                  width: 0 !important;
+                  height: 0 !important;
+                  padding-left: 140px !important;
+                  padding-top: 22px !important;
+                  background-image: url("data:image/svg+xml,@{logo-svg}") !important;
+                  background-size: contain;
+                  background-repeat: no-repeat;
+                }
+              }
+            }
+          }
+
+          // main content columns (contains individual cards
+          & main > div > div > div {
+            #selectedButton() {
+              box-shadow: @accent-color 0px 2px 0px inset;
+              background-color: darken(@base, 3%);
+            }
+            // earnings card
+            &:first-child > div > :nth-child(1) > div {
+              // wish there was a better way to do this
+              // this determines if the current card is the "jumptask" one so we can style which button is currently active
+              // browsers that dont support the :has selector will show both tabs as selected
+              &:has(
+                  :nth-child(2)
+                    > div
+                    > div
+                    > div:nth-child(2)
+                    > div:first-child
+                    > button
+                    > svg
+                ) {
+                & > :first-child > div {
+                  &:first-child {
+                    box-shadow: none !important;
+                    background-color: @base !important;
+                  }
+                  &:last-child {
+                    #selectedButton();
+                  }
+                }
+              }
+              // switcher buttons
+              & > :first-child > div {
+                // apply selection on first child (can be overriden above)
+                &:first-child {
+                  #selectedButton();
+                }
+                // show second button as selected if :has isnt supported
+                @supports not selector(:has(*)) {
+                  &:last-child {
+                    #selectedButton();
+                  }
+                }
+                background-color: @base;
+                span {
+                  color: @text;
+                }
+                // checkmark on icon
+                svg > g {
+                  & > circle[fill="#0B82E3"] {
+                    fill: @accent-color !important;
+                    & + path[fill="white"] {
+                      fill: @crust !important;
+                    }
                   }
                 }
               }
             }
-            // small layout
-            & > :last-child {
+            // every card
+            & > div > div > div {
+              background-color: @base;
             }
           }
         }
