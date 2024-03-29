@@ -309,25 +309,51 @@
               & > :first-child div {
                 color: @text;
               }
-              & > :last-child > div {
-                & > div {
-                  & > div > span {
-                    color: @subtext1;
+              @big: {
+                & > :last-child > div {
+                  & > div {
+                    & > div > span {
+                      color: @subtext1;
+                    }
+                    background-color: unset;
+                    &:hover {
+                      background-color: fade(@accent-color, 5%);
+                    }
                   }
-                  background-color: unset;
-                  &:hover {
-                    background-color: fade(@accent-color, 5%);
+                  // is selected
+                  // if browser doesnt support :has both buttons will just be unselected
+                  & > div:has([color="#0B82E3"]) {
+                    background-color: fade(@accent-color, 10%);
+                    & > div > span {
+                      color: @accent-color;
+                    }
                   }
                 }
-                // is selected
-                // if browser doesnt support :has both buttons will just be unselected
-                & > div:has([color="#0B82E3"]) {
-                  background-color: fade(@accent-color, 10%);
-                  & > div > span {
-                    color: @accent-color;
+              };
+              @small: {
+                // dropdown button
+                & > :last-child > div > div[mode="dropdown"] {
+                  svg {
+                    fill: @text;
+                  }
+                  &:hover svg {
+                    fill: @subtext0;
+                  }
+                  // dropdown menu
+                  & > :last-child > div {
+                    background-color: @crust;
+                    & > div > div {
+                      &:hover {
+                        background-color: @mantle;
+                      }
+                      &.selected span {
+                        color: @accent-color;
+                      }
+                    }
                   }
                 }
-              }
+              };
+              #media(@big, @small);
             }
             // chart timeframe text
             & > :nth-child(2) > :last-child > div {
@@ -436,6 +462,11 @@
               }
             }
 
+            /*
+              They have a mobile layout that basically changes the entire page layout.
+              The #media mixin is used here to change the selectors based on which layout is being used.
+            */
+
             // earnings card
             @er-big: {
               &:first-child > div > :nth-child(1) > div {
@@ -455,7 +486,7 @@
               }
             };
             @ergraph-small: {
-              & > div > :nth-last-child(6) > div {
+              & > div > :nth-last-child(6) > div > div > div {
                 #cardEarningsGraph();
               }
             };
@@ -468,7 +499,7 @@
               }
             };
             @today-small: {
-              & > div > :nth-last-child(8) > div {
+              & > div > :nth-last-child(8) > div > div > div {
                 #cardToday();
               }
             };
