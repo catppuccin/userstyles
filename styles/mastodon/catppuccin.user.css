@@ -14,11 +14,11 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
-
 @-moz-document domain("mastodon.social"),
 domain("mstdn.social"),
 domain("fosstodon.org"),
 domain("piaille.fr"),
+domain("meow.lgbt"),
 domain("tech.lgbt"),
 domain("wetdry.world"),
 domain("toot.wales") {
@@ -84,21 +84,24 @@ domain("toot.wales") {
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
-  
+
     --background-color-alt: @base;
-    
+
     --dropdown-border-color: @surface1;
     --dropdown-background-color: @surface0;
     --modal-background-color: @mantle;
     --modal-border-color: @crust;
-  
-  &, .column-header__wrapper, .column > *:not(.loading-indicator), body.flavour-glitch.skin-default .column-header__wrapper {
-    --background-border-color: @surface0 !important;
-  }
-  
-  .column-header {
-    background-color: @base;
-  }
+
+    &,
+    .column-header__wrapper,
+    .column > *:not(.loading-indicator),
+    body.flavour-glitch.skin-default .column-header__wrapper {
+      --background-border-color: @surface0 !important;
+    }
+
+    .column-header {
+      background-color: @base;
+    }
 
     &,
     .tabs-bar__wrapper,
@@ -117,6 +120,10 @@ domain("toot.wales") {
       background: transparent;
     }
 
+    .reply-indicator__content a {
+      color: @accent-color !important;
+    }
+
     .search-popout,
     .search-popout em,
     .dismissable-banner__message,
@@ -129,6 +136,7 @@ domain("toot.wales") {
     .account__header__bio .account__header__content,
     .navigation-bar,
     .column-link__badge,
+    .display-name__html,
     .column-subheading,
     .account__display-name strong,
     .status__display-name strong,
@@ -167,8 +175,7 @@ domain("toot.wales") {
     .mention,
     .icon-button.inverted,
     .icon-button.inverted:focus,
-    .icon-button.inverted:hover 
-    .account__header__tabs__name h1,
+    .icon-button.inverted:hover .account__header__tabs__name h1,
     .account__header__content a,
     .account__header__bio .account__header__fields a,
     .empty-column-indicator a,
@@ -186,9 +193,77 @@ domain("toot.wales") {
     .column-header.active .column-header__icon {
       color: @accent-color;
     }
-  
+
+    .privacy-dropdown__option:hover {
+      background: @accent-color !important;
+      .privacy-dropdown__option__content,
+      strong,
+      i {
+        color: @crust;
+      }
+    }
+
+    .privacy-dropdown__option {
+      background: @surface0;
+      .privacy-dropdown__option__content,
+      strong,
+      i {
+        color: @text;
+      }
+    }
+
+    .privacy-dropdown__option.active {
+      background: @accent-color !important;
+      .privacy-dropdown__option__content,
+      strong,
+      i {
+        color: @crust;
+      }
+    }
+
+    .privacy-dropdown.active .privacy-dropdown__value {
+      background: @accent-color !important;
+    }
+
+    .privacy-dropdown.active .privacy-dropdown__value > button {
+      color: @crust !important;
+    }
+
+    .privacy-dropdown__value-icon.active > {
+      color: @crust !important;
+    }
+
     .emoji-mart-anchor-selected {
       color: @accent-color !important;
+    }
+
+    .emoji-mart-search > input, ::placeholder {
+      color: @text !important;
+    }
+
+    .emoji-mart-search, .language-dropdown__dropdown__results {
+      background: @surface0;
+    }
+
+    .language-dropdown__dropdown {
+      background: @surface1 !important;
+    }
+
+    .language-dropdown__dropdown__results__item > span {
+      color: @text;
+    }
+    .language-dropdown__dropdown__results__item:hover {
+      background: @accent-color;
+      > span {
+        color: @crust;
+      }
+    }
+
+    .language-dropdown__dropdown__results__item.active {
+      background: @accent-color;
+      > span {
+        color: @crust;
+      }
     }
 
     .conversation__unread,
@@ -218,11 +293,6 @@ domain("toot.wales") {
     .notification__message .fa {
       color: @surface2;
     }
-  
-  
-  .icon-button.inverted.active {
-    color: @crust;
-  }
 
     .icon-button:active,
     .icon-button:focus,
@@ -301,15 +371,15 @@ domain("toot.wales") {
     .admin-wrapper .sidebar ul ul {
       background: @base;
     }
-  
-  .compose-form__highlightable {
-   background-color: @base;
-  }
-  
-  .dropdown-button {
-    border-color: @accent-color;
-    color: @accent-color;
-  }
+
+    .compose-form__highlightable {
+      background-color: @base;
+    }
+
+    .dropdown-button {
+      border-color: @accent-color;
+      color: @accent-color;
+    }
 
     .public-layout .public-account-header__tabs__tabs .counter::after,
     .public-layout .public-account-header__tabs__tabs .counter.active::after,
@@ -348,7 +418,7 @@ domain("toot.wales") {
     }
 
     .column-link .active,
-  .compose-form__poll__select__value,
+    .compose-form__poll__select__value,
     .column-link--transparent.active,
     .column-link--transparent:focus,
     .column-link:focus {
@@ -428,14 +498,55 @@ domain("toot.wales") {
       background-color: @base;
     }
 
+    .autosuggest-textarea__textarea {
+      background-color: @surface1 !important;
+      color: @text !important;
+    }
+
     .compose-form .compose-form__modifiers,
     .compose-form .compose-form__autosuggest-wrapper,
+    .autosuggest-textarea__suggestions,
     .compose-form .spoiler-input__input {
       background: @surface1 !important;
       color: @text !important;
     }
 
-    .compose-form .autosuggest-textarea__textarea::placeholder {
+    .autosuggest-textarea__suggestions__item.selected {
+      background: @accent-color !important;
+    }
+
+    .autosuggest-textarea__suggestions__item.selected
+      > .account.small
+      .display-name {
+      > span {
+        color: @crust !important;
+      }
+      > bdi > strong {
+        color: @crust !important;
+      }
+    }
+
+    .autosuggest-textarea__suggestions__item
+      > .account.small
+      .display-name
+      > span {
+      color: @text !important;
+    }
+
+    .autosuggest-textarea__suggestions__item:hover {
+      background: @accent-color !important;
+      .account.small .display-name {
+        > span {
+          color: @crust !important;
+        }
+        > bdi > strong {
+          color: @crust !important;
+        }
+      }
+    }
+
+    .compose-form .autosuggest-textarea__textarea::placeholder,
+    .spoiler-input__input::placeholder {
       color: @subtext0 !important;
     }
 
@@ -599,6 +710,10 @@ domain("toot.wales") {
 
     .card__bar {
       background: @surface0;
+    }
+
+    .reply-indicator {
+      background: @surface1;
     }
   }
 }
