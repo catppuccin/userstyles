@@ -155,6 +155,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Proton](styles/proton)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
+- [tldraw](styles/tldraw)
 
 </details>
 <details open>
