@@ -184,6 +184,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [LinkedIn](styles/linkedin)
 - [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
+- [Pronouns.page](styles/pronouns.page)
 - [Snapchat Web](styles/snapchat-web)
 - [Twitter](styles/twitter)
 - [WhatsApp Web](styles/whatsapp-web)
