@@ -57,6 +57,14 @@ See instructions on the [GitHub release page](https://github.com/catppuccin/user
    - Replacing `<name>` with the name of the userstyle.
 3. Enjoy!
 
+> [!TIP]
+> For decentralized or self-hosted applications, you can apply a theme to one or multiple instances across updates by following the instructions below.
+>
+> 1. Open the Stylus "Manage" page.
+> 2. Click on the userstyle's name in the list.
+> 3. Click on **Style settings** in the left panel.
+> 4. Enter the URL patterns for your instance(s) in the text box labeled **Custom included sites**.
+
 &nbsp;
 
 ## 👐 Contributing
@@ -143,7 +151,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
 - [Microsoft Word](styles/microsoft-word)
-- [OpenMediaVault](styles/openmediavault)
+- [openmediavault](styles/openmediavault)
 - [Proton](styles/proton)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)

@@ -17,20 +17,10 @@
   <img src="preview.webp"/>
 </p>
 
-## Usage
-This userstyle is applied by default on a few commonly used Mastodon servers, listed at the top:
-```css
-@-moz-document domain("mastodon.social"), domain("mstdn.social"), domain("fosstodon.org"), domain("piaille.fr"), domain("tech.lgbt") {
-```
-If the theme isn't being applied to your instance, go to the userstyle's **Settings > Custom included sites** and add your instance to the list, for instance, `*://floss.social/*`.
-
 
 ## 🙋 FAQ
 - Q: **The theme does not look the same as the preview?**\
   A: Your Mastodon instance may be using its own custom CSS, which is changing the look of the theme.
-- Q: **The theme is not working?**\
-  A: One solution might be changing the theme to either light or dark via **Preferences** > **Appearance** > **Site theme**.
-
 
 ## 💝 Current Maintainer
 - [Isabel](https://github.com/isabelroses)

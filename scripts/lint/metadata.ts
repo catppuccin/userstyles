@@ -16,6 +16,9 @@ export const verifyMetadata = async (
   userstyle: string,
   userstyles: Userstyles,
 ) => {
+  // `usercss-meta` prohibits any '\r' characters, which seem to be present on Windows.
+  content = content.replaceAll("\r\n", "\n");
+
   const assert = assertions(userstyle, userstyles);
   const file = relative(REPO_ROOT, entry.path);
 
