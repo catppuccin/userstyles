@@ -2,7 +2,7 @@
 @name YouTube Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/youtube
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/youtube
-@version 3.5.2
+@version 3.5.3
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/youtube/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ayoutube
 @description Soothing pastel theme for YouTube
@@ -435,7 +435,6 @@
     }
 
     yt-live-chat-renderer {
-      --yt-emoji-picker-renderer-height: 180px;
       --yt-button-default-text-color: @text !important;
       --yt-button-default-background-color: @base !important;
       --yt-button-dark-text-color: @base !important;
@@ -470,14 +469,11 @@
       background: @overlay0 !important;
     }
 
-    /* volume bar */
+    /* volume slider */
     .ytp-volume-slider-handle {
       background: @accent-color !important;
       &::before {
         background: @accent-color !important;
-      }
-      &::after {
-        z-index: -1;
       }
     }
 
@@ -534,19 +530,6 @@
       }
     }
 
-    .ytp-right-controls svg path,
-    .ytp-svg-fill {
-      fill: #fff !important;
-    }
-
-    .ytp-time-current,
-    .ytp-time-separator,
-    .ytp-time-duration,
-    .ytp-menu-label-secondary,
-    .ytp-menuitem-label-count {
-      color: #fff;
-    }
-
     .ytp-tooltip:not([aria-hidden="true"]) {
       color: @text;
     }
@@ -592,7 +575,7 @@
     .sbpqs_a::before,
     .sbqs_c::before {
       @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="1 1 27 27" width="24" focusable="false" style="width:100%;height:100%" pointer-events="none" display="block"><path fill="@{text}" d="m20.87 20.17-5.59-5.59A6.96 6.96 0 0 0 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7a6.995 6.995 0 0 0 11.58 5.29l5.59 5.59zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6"/></svg>'
+        '<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="1 1 27 27" width="24" focusable="false" style="pointer-events: none; display: block; width: 100%; height: 100%;"><path fill="@{text}" d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"></path></svg>'
       );
       content: url("data:image/svg+xml,@{svg}");
       background: none;
@@ -615,7 +598,7 @@
       }
     }
 
-    /* text color */
+    /* search results */
     .gsfs {
       color: @text !important;
     }
@@ -816,8 +799,6 @@
       --ytd-author-comment-badge-background-color: @surface0 !important;
       --ytd-author-comment-badge-name-color: @text !important;
       --ytd-author-comment-badge-icon-color: @text !important;
-      padding-right: 6px;
-      padding-left: 8px;
     }
 
     /* ambient mode */
@@ -942,7 +923,13 @@
       color: @accent-color !important;
     }
 
-    /* hopefully temporary (buttons) */
+    /* theme short - we do it accent beacuse anything else is hard to read */
+    reel-player-header-renderer #text.complex-string.ytd-channel-name a,
+    reel-player-header-renderer {
+      color: @accent-color;
+    }
+
+    /* buttons */
     .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal {
       background-color: @surface0;
       color: @text;
@@ -964,6 +951,22 @@
     .yt-spec-touch-feedback-shape--touch-response-inverse
       .yt-spec-touch-feedback-shape__stroke {
       border-color: @accent-color;
+    }
+    .yt-spec-button-shape-next--call-to-action.yt-spec-button-shape-next--text {
+      color: @accent-color;
+      &:hover {
+        background-color: fadeout(@accent-color, 90);
+      }
+    }
+    .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--outline,
+    .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--text {
+      color: @text;
+      &:hover {
+        background-color: @surface0;
+      }
+    }
+    .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--outline {
+      border-color: @surface0;
     }
 
     ytd-guide-section-renderer.style-scope:nth-child(3) > div:nth-child(2),
@@ -1036,25 +1039,6 @@
       fill: @base !important;
     }
 
-    .yt-spec-button-shape-next--call-to-action.yt-spec-button-shape-next--text {
-      color: @accent-color;
-      &:hover {
-        background-color: fadeout(@accent-color, 90);
-      }
-    }
-
-    .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--outline,
-    .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--text {
-      color: @text;
-      &:hover {
-        background-color: @surface0;
-      }
-    }
-
-    .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--outline {
-      border-color: @surface0;
-    }
-
     /* Scrollbar */
     ::-webkit-scrollbar {
       width: @scrollbar_width !important;
@@ -1070,8 +1054,8 @@
 
     /* text highlight */
     ::selection {
-      background: fadeout(@accent-color, 80%) !important;
-      color: @text !important;
+      background: @accent-color !important;
+      color: @base !important;
     }
   }
 }
