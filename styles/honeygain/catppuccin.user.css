@@ -102,6 +102,23 @@
             }
           }
         }
+        // confirm email button/icon
+        div
+          > div:has(button:first-child):has(
+            button:last-child[data-state] > svg
+          ) {
+          & > button:first-child {
+            color: @accent-color;
+            border-color: @accent-color;
+            &:hover,
+            &:active {
+              background-color: fade(@accent-color, 15%);
+            }
+          }
+          & > button:last-child > svg {
+            fill: @subtext0;
+          }
+        }
 
         // navbar
         & > div:first-child {
@@ -253,7 +270,7 @@
                 }
               }
               // small layout
-              & > :last-child {
+              & > :last-child > div > div > div {
                 // header image
                 a[href="/"] img {
                   width: 0 !important;
@@ -263,6 +280,23 @@
                   background-image: url("data:image/svg+xml,@{logo-svg}") !important;
                   background-size: contain;
                   background-repeat: no-repeat;
+                }
+                // for hamburger menu
+                @keyframes -cp-pulse {
+                  0% {
+                    box-shadow: @accent-color 0 0 0 0;
+                  }
+                  100% {
+                    box-shadow: transparent 0 0 0 5px;
+                  }
+                }
+                // dot on hamburger menu
+                &
+                  > div:last-child
+                  > div:last-child
+                  > div:first-child:empty:not(:last-child) {
+                  background-color: @accent-color;
+                  animation-name: -cp-pulse;
                 }
               }
             }
@@ -880,6 +914,28 @@
               background-color: @base;
             }
           }
+        }
+      }
+    }
+
+    // svg colors
+    // checkmark
+    svg polygon[fill="#83DA25"] {
+      fill: @green;
+    }
+
+    // announcekit (notification dot)
+    .announcekit-widget-badge {
+      svg circle {
+        fill: @overlay0;
+      }
+      &[class*="announcekit-badgeanim"] {
+        svg circle {
+          fill: @red;
+        }
+        &::before,
+        &::after {
+          background-color: @red;
         }
       }
     }
