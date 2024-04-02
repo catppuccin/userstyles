@@ -405,53 +405,86 @@
               }
             }
             // "x devices havent been connected in x days" banner
-            & > div:nth-child(2):not(:last-child) {
+            & > div:nth-child(2):not(:last-child),
+            // "show device's ip address" switch
+            & > div:nth-child(3):not(:last-child) {
               background-color: @mantle;
               & > svg {
                 fill: @overlay0;
               }
             }
             // rest of the content
-            //! sc-bdnyFh irVyKh
             & > :last-child {
-              & > svg:first-child {
-                // notch on phone
-                [fill="#F4F7FA"] {
-                  fill: @base;
-                }
-                // bottom of laptop
-                [fill="#E7EAED"] {
-                  fill: @overlay0;
-                }
-                // device outlines
-                [fill="#E7ECF1"] {
-                  fill: @overlay0;
-                }
-                // back screen and laptop keyboard
-                [fill="#F1F4F7"] {
-                  fill: darken(@overlay1, 0.5%);
-                }
-                // laptop screen right
-                [fill="#F5F8FA"] {
-                  fill: @overlay1;
-                }
-                // mobile screens
-                [fill="#F5F7F9"] {
-                  fill: @overlay2;
+              &:not(:has(.target-download-for-os)) {
+                & > div:not(:last-child) {
+                  box-shadow: @mantle 0px 1px 0px;
+                  // name/ip
+                  & > div:first-child {
+                    & > div:first-child > div {
+                      background-color: @mantle;
+                      & > svg path {
+                        fill: @text;
+                      }
+                    }
+                    // status indicator
+                    & > div:last-child > div:last-child > div[status] {
+                      &[status="active"] {
+                        background: @green;
+                      }
+                      &[status="inactive"] {
+                        background: @subtext0;
+                      }
+                    }
+                    button > div > svg {
+                      fill: @accent-color;
+                    }
+                    div[color="#A8B3BF"] > span {
+                      color: @overlay1;
+                    }
+                  }
                 }
               }
-              // download button
-              & > a.target-download-for-os > span > div > span {
-                color: @h-text;
-              }
-              // other downloads
-              &
-                > div:last-child
-                > div
-                > button[class*="target-download-also-available-"] {
-                background-color: @mantle;
-                & > span > svg > path {
-                  fill: @text;
+              // when you have no active devices
+              &:has(.target-download-for-os) {
+                & > svg:first-child {
+                  // notch on phone
+                  [fill="#F4F7FA"] {
+                    fill: @base;
+                  }
+                  // bottom of laptop
+                  [fill="#E7EAED"] {
+                    fill: @overlay0;
+                  }
+                  // device outlines
+                  [fill="#E7ECF1"] {
+                    fill: @overlay0;
+                  }
+                  // back screen and laptop keyboard
+                  [fill="#F1F4F7"] {
+                    fill: darken(@overlay1, 0.5%);
+                  }
+                  // laptop screen right
+                  [fill="#F5F8FA"] {
+                    fill: @overlay1;
+                  }
+                  // mobile screens
+                  [fill="#F5F7F9"] {
+                    fill: @overlay2;
+                  }
+                }
+                // download button
+                & > a.target-download-for-os > span > div > span {
+                  color: @h-text;
+                }
+                // other downloads
+                &
+                  > div:last-child
+                  > div
+                  > button[class*="target-download-also-available-"] {
+                  background-color: @mantle;
+                  & > span > svg > path {
+                    fill: @text;
+                  }
                 }
               }
             }
@@ -822,6 +855,30 @@
             }
           }
         }
+      }
+    }
+
+    // switches
+    .react-toggle {
+      .react-toggle-track {
+        background-color: @overlay1;
+      }
+      &:hover:not(.react-toggle--disabled) {
+        .react-toggle-track {
+          background-color: @overlay2;
+        }
+        &.react-toggle--checked .react-toggle-track {
+          background-color: darken(@accent-color, -10%);
+        }
+      }
+      &.react-toggle--checked .react-toggle-track {
+        background-color: @accent-color;
+      }
+      &.react-toggle--focus .react-toggle-track {
+        box-shadow: fade(@accent-color, 20%) 0px 0px 0px 4px;
+      }
+      .react-toggle-thumb {
+        background-color: @base;
       }
     }
 
