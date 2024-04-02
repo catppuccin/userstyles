@@ -66,7 +66,44 @@
     // base text color for
     @h-text: #181d2b;
 
-    #root {
+    // root has up to 3 children, first is toastify, second is content, third is cookie consent
+    // cookie consent is optional. the error page is only a single child in the root element
+    // "something went wrong" screen
+    #root:not(:has(> :nth-child(2))) > div {
+      background-color: @base;
+      & > div > div {
+        // navbar
+        & > div:first-child {
+          background-color: inherit;
+          // logo
+          .logo > a > img {
+            width: 0 !important;
+            height: 0 !important;
+            padding-left: 140px !important;
+            padding-top: 22px !important;
+            background-image: url("data:image/svg+xml,@{logo-svg}") !important;
+            background-size: contain;
+            background-repeat: no-repeat;
+            @media (min-width: 561px) {
+              padding-left: 168px !important;
+              padding-top: 26px !important;
+            }
+          }
+        }
+        h2,
+        p {
+          color: @text;
+        }
+        button {
+          background-color: @accent-color;
+          & span {
+            color: @base;
+          }
+        }
+      }
+    }
+    // something didnt go wrong (any other screen)
+    #root:has(> :nth-child(2)) {
       background-color: @base;
 
       // first div child is for toasts
@@ -916,6 +953,59 @@
           }
         }
       }
+
+      // cookie consent
+      & > div:nth-child(3) {
+        background-color: @crust;
+
+        div {
+          color: @text;
+        }
+
+        button:first-child {
+          background-color: @accent-color;
+          & > span {
+            color: @crust;
+          }
+          &:hover,
+          &:active {
+            background-color: darken(@accent-color, -8%);
+          }
+        }
+        button:last-child {
+          border-color: @accent-color;
+          & > span {
+            color: @accent-color;
+          }
+          &:hover,
+          &:active {
+            background-color: fade(@accent-color, 10%);
+          }
+        }
+
+        .check-sign > svg > polygon {
+          fill: @crust;
+        }
+        // the input shows behind the label
+        input[type="checkbox"] {
+          visibility: hidden;
+        }
+        .check-sign {
+          background-color: @crust;
+          border-color: @overlay2;
+          &:hover {
+            border-color: @accent-color;
+          }
+        }
+        input:checked ~ .check-sign {
+          background-color: @accent-color;
+          border-color: @accent-color;
+        }
+        input:disabled ~ .check-sign {
+          background-color: @overlay0;
+          border-color: @overlay0;
+        }
+      }
     }
 
     // svg colors
@@ -936,6 +1026,84 @@
         &::before,
         &::after {
           background-color: @red;
+        }
+      }
+    }
+
+    // modals
+    div[class="Modal"] .ReactModal__Content {
+      background-color: @base;
+
+      // close button
+      [class*="ExitIconView"] {
+        &:hover,
+        &:active,
+        &:focus {
+          background-color: @mantle;
+        }
+        svg {
+          stroke: @overlay1;
+        }
+      }
+      [class*="ContentView"] > :last-child {
+        &,
+        span {
+          color: @text;
+        }
+        button {
+          background-color: @accent-color;
+          & > span {
+            color: @base;
+          }
+          svg > [fill="white"] {
+            fill: @base;
+          }
+        }
+      }
+    }
+
+    // toasts
+    .Toastify {
+      .Toastify__toast.toast-container {
+        background-color: @crust;
+        &,
+        div > span {
+          color: @text;
+        }
+
+        .Toastify__toast-body {
+          // icon
+          svg:first-child {
+            [fill="#659E10"] {
+              fill: @green;
+            }
+            [fill="#C90036"] {
+              fill: @red;
+            }
+            [fill="white"] {
+              fill: @crust;
+            }
+          }
+        }
+        // close button
+        & > div:not([class])[style*="position"] > a {
+          &:hover,
+          &:active,
+          &:focus {
+            background-color: @mantle;
+          }
+          & > svg path {
+            stroke: @overlay0;
+          }
+        }
+        // progress
+        .Toastify__progress-bar {
+          &--success {
+            background-color: @green;
+          }
+          &--error {
+            background-color: @red;
+          }
         }
       }
     }
