@@ -141,6 +141,41 @@
             }
           }
         }
+        // select between multiple badges
+        #multiSelectPills() {
+          & > div {
+            & > div > span {
+              color: @subtext1;
+            }
+            &:hover {
+              background-color: fade(@accent-color, 5%);
+            }
+          }
+          // is selected
+          & > div:has([color="#0B82E3"]) {
+            background-color: fade(@accent-color, 10%);
+            & > div > span {
+              color: @accent-color;
+            }
+          }
+        }
+        // style loading spinner
+        #styleLoader() {
+          & > div[class*="Wrapper--"] {
+            // dots
+            & > div[class*="BubbleWrap--"] > div[class*="Bubble--"] {
+              background-color: @accent-color;
+            }
+            // moving dot
+            & > div[class*="SatelliteWrapper--"] > div[class*="Satellite--"] {
+              // the dot is a little lighter than the rest
+              @clr: darken(@accent-color, -10%);
+              background-color: @clr;
+              box-shadow: @clr 0 0 50px -4px;
+            }
+          }
+        }
+
         // confirm email button/icon
         header
           + div
@@ -402,20 +437,8 @@
                 color: @subtext1;
               }
               // spinner
-              & > div > div[class*="Wrapper--"] {
-                // dots
-                & > div[class*="BubbleWrap--"] > div[class*="Bubble--"] {
-                  background-color: @accent-color;
-                }
-                // moving dot
-                &
-                  > div[class*="SatelliteWrapper--"]
-                  > div[class*="Satellite--"] {
-                  // the dot is a little lighter than the rest
-                  @clr: darken(@accent-color, -10%);
-                  background-color: @clr;
-                  box-shadow: @clr 0 0 50px -4px;
-                }
+              & > div {
+                #styleLoader();
               }
             }
           }
@@ -502,21 +525,7 @@
                 }
                 @big: {
                   & > :last-child > div {
-                    & > div {
-                      & > div > span {
-                        color: @subtext1;
-                      }
-                      &:hover {
-                        background-color: fade(@accent-color, 5%);
-                      }
-                    }
-                    // is selected
-                    & > div:has([color="#0B82E3"]) {
-                      background-color: fade(@accent-color, 10%);
-                      & > div > span {
-                        color: @accent-color;
-                      }
-                    }
+                    #multiSelectPills();
                   }
                 };
                 @small: {
@@ -1257,6 +1266,106 @@
                   }
                   button > svg[fill="#979797"] {
                     fill: @overlay0;
+                  }
+                }
+              }
+            }
+          }
+
+          // apply on statistics page
+          // look for date picker icon (desktop)
+          &:has(
+            div[class*="DatePickerView--"]
+              .react-datepicker-wrapper
+              div[class*="TabPill--"]
+              > svg
+          ),
+          // look for date dropdown icon (for mobile)
+          &:has(
+              main > div > div > div:not([class])
+                > div[wrap="wrap"]
+                > div[class*="DropdownView--"]
+                > div.dropdown-indicator[class*="IndicatorView--"]
+                > svg[fill="#7B8694"]
+            ) {
+            main > div {
+              // style loader
+              & > :first-child:has([class*="SatelliteWrapper--"]) {
+                background-color: @base;
+                & > div > div:first-child > div {
+                  #styleLoader();
+                }
+                span {
+                  color: @text;
+                }
+              }
+
+              // title and picker
+              & > :first-child:not(:has([class*="SatelliteWrapper--"])),
+              // loader is appended before this section so select the second element if so
+              &
+                > :first-child:has([class*="SatelliteWrapper--"])
+                + div:nth-child(2) {
+                h1 {
+                  color: @text;
+                }
+                // if stats graph
+                &:has(canvas) > :first-child > :last-child {
+                  #multiSelectPills();
+                }
+                // if no stats
+                &:not(:has(canvas)) > :last-child {
+                  #multiSelectPills();
+                }
+              }
+
+              // no statistics, only download app card
+              &:has(.target-download-for-os) {
+                // card
+                & > :last-child {
+                  background-color: @base;
+                  & > div {
+                    // icon and text
+                    & > :first-child {
+                      // recolor icon
+                      svg {
+                        // background
+                        path[fill="white"] {
+                          fill: @base;
+                        }
+                        // dashed lines
+                        [stroke="#F5F8FA"] {
+                          stroke: @surface0;
+                        }
+                        // right squares and magnifying glass
+                        [fill="#F5F8FA"] {
+                          fill: @surface1;
+                        }
+                        // bars
+                        [fill="#E7ECF1"] {
+                          fill: @surface2;
+                        }
+                        // magnifying glass lens
+                        stop[stop-color="white"] {
+                          stop-color: @surface2;
+                        }
+                      }
+                    }
+
+                    // ignore download button
+                    div:not([color="#232836"]) > span {
+                      color: @text;
+                    }
+                    div[color="#7B8694"] > span {
+                      color: @subtext0;
+                    }
+
+                    button[class*="target-download-also-available-"] {
+                      background-color: @mantle;
+                      svg path {
+                        fill: @text;
+                      }
+                    }
                   }
                 }
               }
