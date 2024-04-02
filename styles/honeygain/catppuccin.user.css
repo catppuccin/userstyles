@@ -589,7 +589,7 @@
               &:hover {
                 color: @accent-color;
               }
-              &:first-child > div {
+              &:not(:last-child) > div {
                 box-shadow: @mantle 0 1px 0;
               }
             }
@@ -773,146 +773,217 @@
             }
           }
 
-          // main content columns (contains individual cards)
-          main > div[style] > div > div,
-          // for mobile
-          main > div:not([style]) {
-            progress {
-              background-color: @surface0;
-              color: @accent-color;
-              &::-moz-progress-bar,
-              &::-webkit-progress-value {
-                background: @accent-color;
-              }
+          // progress bars
+          main progress {
+            background-color: @surface0;
+            color: @accent-color;
+            &::-moz-progress-bar,
+            &::-webkit-progress-value {
+              background: @accent-color;
             }
+          }
 
-            /*
-              They have a mobile layout that basically changes the entire page layout.
-              The #media mixin is used here to change the selectors based on which layout is being used.
-            */
+          /*
+            They have a mobile layout that basically changes the entire page layout.
+            The #media mixin is used here to change the selectors based on which layout is being used.
 
-            // earnings card
-            @er-big: {
-              &:first-child > div > :nth-child(1) > div {
-                #cardEarnings();
-              }
-            };
-            @er-small: {
-              & > div > :nth-child(1) > div {
-                #cardEarnings();
-              }
-            };
-            #media(@er-big, @er-small);
-            // earnings graph card
-            @ergraph-big: {
-              &:first-child > div > :nth-child(2) > div > div > div {
-                #cardEarningsGraph();
-              }
-            };
-            @ergraph-small: {
-              & > div > :nth-last-child(6) > div > div > div {
-                #cardEarningsGraph();
-              }
-            };
-            #media(@ergraph-big, @ergraph-small);
-            // devices card
-            @devices-big: {
-              &:first-child > div > :nth-last-child(2) > div > div > div {
-                #cardDevices();
-              }
-            };
-            @devices-small: {
-              & > div > :nth-last-child(4) > div > div > div {
-                #cardDevices();
-              }
-            };
-            #media(@devices-big, @devices-small);
-            // links card
-            @links-big: {
-              &:first-child > div > :last-child > div > div > div {
-                #cardLinks();
-              }
-            };
-            @links-small: {
-              & > div > :last-child > div > div > div {
-                #cardLinks();
-              }
-            };
-            #media(@links-big, @links-small);
+            If you haven't added a device yet the card layout is also drastically changed.
 
-            // earned today card
-            @today-big: {
-              &:last-child > div > :nth-child(1) > div > div > div {
-                #cardToday();
-              }
-            };
-            @today-small: {
-              & > div > :nth-last-child(8) > div > div > div {
-                #cardToday();
-              }
-            };
-            #media(@today-big, @today-small);
-            // achievements card
-            @achievements-big: {
-              &:last-child > div > :nth-child(2) > div {
-                #cardAchievements();
-              }
-            };
-            @achievements-small: {
-              & > div > :nth-last-child(7) > div {
-                #cardAchievements();
-              }
-            };
-            #media(@achievements-big, @achievements-small);
-            // earnings pie card
-            @erpie-big: {
-              &:last-child > div > :nth-last-child(3) > div > div > div {
-                #cardEarningsPie();
-              }
-            };
-            @erpie-small: {
-              & > div > :nth-last-child(5) > div > div > div {
-                #cardEarningsPie();
-              }
-            };
-            #media(@erpie-big, @erpie-small);
-            // referral card
-            @ref-big: {
-              &:last-child > div > :nth-last-child(2) {
-                #cardReferrals();
-              }
-            };
-            @ref-small: {
-              & > div > :nth-last-child(3) {
-                #cardReferrals();
-              }
-            };
-            #media(@ref-big, @ref-small);
-            // faq card
-            @faq-small: {
-              &:last-child > div > :last-child > div .slick-slider {
-                #cardFAQ();
-              }
-            };
-            @faq-big: {
-              & > div > :nth-last-child(2) > div .slick-slider {
-                #cardFAQ();
-              }
-            };
-            #media(@faq-small, @faq-big);
+            The tutorial_bees svg is used to determine if a device was added or not.
+          */
 
-            // every card
-            // ignores the "enable jumptask" promo image
-            & > div > div > div:not([style]) {
-              background-color: @base;
-              div > span {
-                color: @text;
-              }
-              div[color="#7B8694"] > span {
-                color: @subtext0;
-              }
-              button > svg[fill="#979797"] {
-                fill: @overlay0;
+          // selects each div that contains the cards
+          // expects 'main' to be the parent
+          //           V   main content columns    V   for mobile
+          @selector: ~"& > div[style] > div > div, & > div:not([style])";
+
+          // if account hasn't added a device
+          main:has([clip-path*="url(#tutorial_bees"]) {
+            @{selector} {
+              // devices card
+              @devices-big: {
+                &:first-child > div > :nth-child(1) > div > div > div {
+                  #cardDevices();
+                }
+              };
+              @devices-small: {
+                & > div > :nth-child(1) > div > div > div {
+                  #cardDevices();
+                }
+              };
+              #media(@devices-big, @devices-small);
+              // links card
+              @links-big: {
+                &:first-child > div > :last-child > div > div > div {
+                  #cardLinks();
+                }
+              };
+              @links-small: {
+                & > div > :last-child > div > div > div {
+                  #cardLinks();
+                }
+              };
+              #media(@links-big, @links-small);
+
+              // referral card
+              @ref-big: {
+                &:last-child > div > :nth-child(1) {
+                  #cardReferrals();
+                  background: red !important;
+                }
+              };
+              @ref-small: {
+                & > div > :nth-child(2) {
+                  #cardReferrals();
+                  background: red;
+                }
+              };
+              #media(@ref-big, @ref-small);
+              // faq card
+              @faq-small: {
+                &:last-child > div > :last-child > div .slick-slider {
+                  #cardFAQ();
+                }
+              };
+              @faq-big: {
+                & > div > :nth-last-child(2) > div .slick-slider {
+                  #cardFAQ();
+                }
+              };
+              #media(@faq-small, @faq-big);
+            }
+          }
+
+          // if account added a device
+          main:not(:has([clip-path*="url(#tutorial_bees"])) {
+            @{selector} {
+              // earnings card
+              @er-big: {
+                &:first-child > div > :nth-child(1) > div {
+                  #cardEarnings();
+                }
+              };
+              @er-small: {
+                & > div > :nth-child(1) > div {
+                  #cardEarnings();
+                }
+              };
+              #media(@er-big, @er-small);
+              // earnings graph card
+              @ergraph-big: {
+                &:first-child > div > :nth-child(2) > div > div > div {
+                  #cardEarningsGraph();
+                }
+              };
+              @ergraph-small: {
+                & > div > :nth-last-child(6) > div > div > div {
+                  #cardEarningsGraph();
+                }
+              };
+              #media(@ergraph-big, @ergraph-small);
+              // devices card
+              @devices-big: {
+                &:first-child > div > :nth-last-child(2) > div > div > div {
+                  #cardDevices();
+                }
+              };
+              @devices-small: {
+                & > div > :nth-last-child(4) > div > div > div {
+                  #cardDevices();
+                }
+              };
+              #media(@devices-big, @devices-small);
+              // links card
+              @links-big: {
+                &:first-child > div > :last-child > div > div > div {
+                  #cardLinks();
+                }
+              };
+              @links-small: {
+                & > div > :last-child > div > div > div {
+                  #cardLinks();
+                }
+              };
+              #media(@links-big, @links-small);
+
+              // earned today card
+              @today-big: {
+                &:last-child > div > :nth-child(1) > div > div > div {
+                  #cardToday();
+                }
+              };
+              @today-small: {
+                & > div > :nth-last-child(8) > div > div > div {
+                  #cardToday();
+                }
+              };
+              #media(@today-big, @today-small);
+              // achievements card
+              @achievements-big: {
+                &:last-child > div > :nth-child(2) > div {
+                  #cardAchievements();
+                }
+              };
+              @achievements-small: {
+                & > div > :nth-last-child(7) > div {
+                  #cardAchievements();
+                }
+              };
+              #media(@achievements-big, @achievements-small);
+              // earnings pie card
+              @erpie-big: {
+                &:last-child > div > :nth-last-child(3) > div > div > div {
+                  #cardEarningsPie();
+                }
+              };
+              @erpie-small: {
+                & > div > :nth-last-child(5) > div > div > div {
+                  #cardEarningsPie();
+                }
+              };
+              #media(@erpie-big, @erpie-small);
+              // referral card
+              @ref-big: {
+                &:last-child > div > :nth-last-child(2) {
+                  #cardReferrals();
+                }
+              };
+              @ref-small: {
+                & > div > :nth-last-child(3) {
+                  #cardReferrals();
+                }
+              };
+              #media(@ref-big, @ref-small);
+              // faq card
+              @faq-small: {
+                &:last-child > div > :last-child > div .slick-slider {
+                  #cardFAQ();
+                }
+              };
+              @faq-big: {
+                & > div > :nth-last-child(2) > div .slick-slider {
+                  #cardFAQ();
+                }
+              };
+              #media(@faq-small, @faq-big);
+            }
+          }
+
+          // apply to every card
+          // ignores the "enable jumptask" promo image
+          main {
+            @{selector} {
+              & > div > div > div:not([style]) {
+                background-color: @base;
+                div > span {
+                  color: @text;
+                }
+                div[color="#7B8694"] > span {
+                  color: @subtext0;
+                }
+                button > svg[fill="#979797"] {
+                  fill: @overlay0;
+                }
               }
             }
           }
