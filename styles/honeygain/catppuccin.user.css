@@ -251,7 +251,6 @@
             }
             // wish there was a better way to do this
             // this determines if the current card is the "jumptask" one so we can style which button is currently active
-            // browsers that dont support the :has selector will show both tabs as selected
             &:has(:nth-child(2) > div > div button > svg) {
               & > :first-child > div {
                 &:first-child {
@@ -268,12 +267,6 @@
               // apply selection on first child (can be overriden above)
               &:first-child {
                 #selectedButton();
-              }
-              // show second button as selected if :has isnt supported
-              @supports not selector(:has(*)) {
-                &:last-child {
-                  #selectedButton();
-                }
               }
               background-color: @base;
               span {
@@ -334,21 +327,17 @@
                     & > div > span {
                       color: @subtext1;
                     }
-                    background-color: unset;
                     &:hover {
                       background-color: fade(@accent-color, 5%);
                     }
                   }
                   // is selected
-                  // if browser doesnt support :has both buttons will just be unselected
-                  // syntax highlighting tweaks out in vscode without this (stupid) level of nesting????
-                  /* prettier-ignore */
-                  & { & { & { & { & > div:has([color="#0B82E3"]) {
+                  & > div:has([color="#0B82E3"]) {
                     background-color: fade(@accent-color, 10%);
                     & > div > span {
                       color: @accent-color;
                     }
-                  }}}}}
+                  }
                 }
               };
               @small: {
@@ -405,9 +394,9 @@
               }
             }
             // "x devices havent been connected in x days" banner
-            & > div:nth-child(2):not(:last-child),
+            & > div:has(svg:first-child):has(div:last-child > span > b),  
             // "show device's ip address" switch
-            & > div:nth-child(3):not(:last-child) {
+            & > div:has(.react-toggle) {
               background-color: @mantle;
               & > svg {
                 fill: @overlay0;
@@ -441,6 +430,18 @@
                     div[color="#A8B3BF"] > span {
                       color: @overlay1;
                     }
+                  }
+                }
+                // "add more devices" text
+                & > div:last-child > div {
+                  & > :first-child {
+                    background-color: @mantle;
+                    & > svg path {
+                      fill: @overlay2;
+                    }
+                  }
+                  a {
+                    color: @accent-color;
                   }
                 }
               }
