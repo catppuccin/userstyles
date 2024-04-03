@@ -143,7 +143,7 @@
         }
         // select between multiple badges
         #multiSelectPills() {
-          & > div {
+          & > div:not([class*="DatePickerView--"]) {
             & > div > span {
               color: @subtext1;
             }
@@ -151,8 +151,8 @@
               background-color: fade(@accent-color, 5%);
             }
           }
-          // is selected
-          & > div:has([color="#0B82E3"]) {
+          // is selected (ignore date picker)
+          & > div:has([color="#0B82E3"]):not([class*="DatePickerView--"]) {
             background-color: fade(@accent-color, 10%);
             & > div > span {
               color: @accent-color;
@@ -1309,13 +1309,89 @@
                 h1 {
                   color: @text;
                 }
-                // if stats graph
-                &:has(canvas) > :first-child > :last-child {
-                  #multiSelectPills();
-                }
-                // if no stats
-                &:not(:has(canvas)) > :last-child {
-                  #multiSelectPills();
+
+                // no stats
+                &:not(:has(canvas)),
+                // stats graph exists
+                &:has(canvas) > :first-child {
+                  & > :last-child {
+                    #multiSelectPills();
+                    // dropdown
+                    & > :last-child {
+                      // hovering has no background
+                      &:has(.dropdown-indicator):hover {
+                        background: none;
+                      }
+                      // mobile dropdown
+                      .dropdown-indicator {
+                        span {
+                          color: @subtext0;
+                        }
+                        svg {
+                          fill: @subtext0;
+                        }
+                      }
+                      .dropdown-panel > div[class*="PanelView--"] {
+                        background-color: @crust;
+                        & > div > div {
+                          &:hover {
+                            background-color: @mantle;
+                          }
+                          span {
+                            color: @text;
+                          }
+                          &.selected span {
+                            color: @accent-color;
+                          }
+                        }
+                      }
+                      // desktop dropdown below
+                      .react-datepicker__aria-live {
+                        color: @text;
+                      }
+                      .react-datepicker-wrapper div[class*="TabPill--"] {
+                        div > span {
+                          color: @subtext1;
+                        }
+                        svg {
+                          fill: @subtext1;
+                        }
+                        &:hover {
+                          background-color: fade(@accent-color, 5%);
+                        }
+                        &:has(div[color="#0B82E3"]) {
+                          background-color: fade(@accent-color, 10%);
+                          div > span {
+                            color: @accent-color;
+                          }
+                          svg {
+                            fill: @accent-color;
+                          }
+                        }
+                      }
+                      .react-datepicker-popper .react-datepicker {
+                        background-color: @crust;
+                        .react-datepicker__header {
+                          color: @text;
+                        }
+                        .react-datepicker__month-text {
+                          color: @text;
+                          &:hover {
+                            background-color: @mantle;
+                          }
+                        }
+                        .react-datepicker__month--selected {
+                          background-color: @mantle !important;
+                        }
+                        .react-datepicker__month--disabled {
+                          color: @subtext0;
+                        }
+                        .react-datepicker__navigation-icon::before {
+                          border-color: @text;
+                        }
+                      }
+                    }
+                  }
                 }
               }
 
