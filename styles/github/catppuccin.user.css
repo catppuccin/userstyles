@@ -2,7 +2,7 @@
 @name         GitHub Catppuccin
 @namespace    github.com/catppuccin/userstyles/styles/github
 @homepageURL  https://github.com/catppuccin/userstyles/tree/main/styles/github
-@version      1.5.4
+@version      1.6.0
 @updateURL    https://github.com/catppuccin/userstyles/raw/main/styles/github/catppuccin.user.css
 @supportURL   https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agithub
 @description  Soothing pastel theme for GitHub
@@ -355,7 +355,7 @@
     --fgColor-default: @text;
     --fgColor-muted: @subtext1;
     --fgColor-onEmphasis: @base;
-    --fgColor-white: @text;
+    --fgColor-white: @base;
     --fgColor-disabled: @surface2;
     --fgColor-link: @accent-color;
     --fgColor-neutral: #6e7681;
@@ -532,6 +532,116 @@
     }
     .header-search-button.placeholder {
       color: @subtext0;
+    }
+
+    ::selection {
+      background-color: fade(@accent-color, 20%);
+    }
+  }
+}
+
+@-moz-document url-prefix("https://viewscreen.githubusercontent.com/markdown/mermaid")
+{
+  [data-color-mode="auto"] {
+    @media (prefers-color-scheme: light) {
+      &[data-light-theme="light"] {
+        #catppuccin(@lightFlavor, @accentColor);
+      }
+      &[data-light-theme="dark"] {
+        #catppuccin(@darkFlavor, @accentColor);
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      &[data-dark-theme="light"] {
+        #catppuccin(@lightFlavor, @accentColor);
+      }
+      &[data-dark-theme="dark"] {
+        #catppuccin(@darkFlavor, @accentColor);
+      }
+    }
+  }
+  [data-color-mode="light"][data-light-theme="dark"],
+  [data-color-mode="dark"][data-dark-theme="dark"] {
+    #catppuccin(@darkFlavor, @accentColor);
+  }
+  [data-color-mode="light"][data-light-theme="light"],
+  [data-color-mode="dark"][data-dark-theme="light"] {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    background-color: @base;
+
+    --color-btn-text: @text;
+    --color-btn-bg: @surface0;
+    --color-btn-border: @surface1;
+    --color-btn-hover-bg: @surface1;
+    --color-btn-hover-border: @surface2;
+    --color-btn-active-bg: @surface2;
+    --color-btn-selected-bg: @surface2;
+    --color-btn-counter-bg: @surface2;
+    --color-btn-outline-text: @accent-color;
+    --color-fg-muted: @subtext1;
+
+    #diagram {
+      .node rect,
+      .node circle,
+      .node ellipse,
+      .node polygon,
+      .node path {
+        fill: fade(@accent-color, 10%);
+        stroke: @accent-color;
+      }
+
+      .label text,
+      span,
+      p {
+        fill: @text;
+        color: @text;
+      }
+
+      .flowchart-link,
+      .marker {
+        stroke: @subtext0;
+        fill: @subtext0;
+      }
+
+      .edgeLabel {
+        background-color: @crust;
+      }
+    }
+
+    .octicon {
+      fill: var(--color-fg-muted) !important;
     }
   }
 }
