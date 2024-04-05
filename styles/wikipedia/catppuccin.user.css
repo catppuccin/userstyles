@@ -2,7 +2,7 @@
 @name Wikipedia Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/wikipedia
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/wikipedia
-@version 0.0.10
+@version 0.0.13
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/wikipedia/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Awikipedia
 @description Soothing pastel theme for Wikipedia
@@ -78,7 +78,7 @@
     --ctp-surface2: @surface2;
     --ctp-surface1: @surface1;
     --ctp-surface0: @surface0;
-    --ctp-base: @crust;
+    --ctp-base: @base;
     --ctp-mantle: @mantle;
     --ctp-crust: @crust;
 
@@ -104,7 +104,8 @@
     .vector-pinned-container,
     .vector-header-container .vector-sticky-header,
     .mw-mmv-image,
-    .mw-body {
+    .mw-body,
+    .frb-form-wrapper {
       background-color: @base;
     }
 
@@ -161,6 +162,7 @@
     .uls-no-results-found-title,
     .mw-mmv-post-image,
     .mw-mmv-credit,
+    .frb-form-wrapper,
     #contentSub:not(:empty) {
       color: @text;
     }
@@ -175,11 +177,26 @@
     }
 
     /* maths */
-    & when not (@lookup = latte) {
-      .mwe-math-fallback-image-inline img,
-      .mwe-math-element img,
-      img[src*="LaTeX"] {
-        filter: invert(100%);
+    img.mwe-math-fallback-image-display,
+    img.mwe-math-fallback-image-inline {
+      & when (@lookup = latte) {
+        filter: brightness(0) saturate(100%) invert(31%) sepia(9%)
+          saturate(1499%) hue-rotate(196deg) brightness(90%) contrast(85%);
+      }
+
+      & when (@lookup = frappe) {
+        filter: brightness(0) saturate(100%) invert(92%) sepia(6%)
+          saturate(3753%) hue-rotate(184deg) brightness(93%) contrast(106%);
+      }
+
+      & when (@lookup = macchiato) {
+        filter: brightness(0) saturate(100%) invert(82%) sepia(7%)
+          saturate(1042%) hue-rotate(193deg) brightness(103%) contrast(92%);
+      }
+
+      & when (@lookup = mocha) {
+        filter: brightness(0) saturate(100%) invert(83%) sepia(28%)
+          saturate(223%) hue-rotate(190deg) brightness(99%) contrast(93%);
       }
     }
 
@@ -1004,6 +1021,169 @@
 
     .catlinks li {
       border-left-color: @surface2;
+    }
+
+    /* Fundraising banner */
+    .frb-btn,
+    .frb-label {
+      color: @text;
+      background-color: @base;
+      border-color: @overlay0;
+    }
+
+    input[type="radio"]:checked + .frb-btn,
+    input[type="radio"]:checked + .frb-label,
+    .frb-btn:hover,
+    .frb-label:hover {
+      color: @base;
+      background-color: @accent-color;
+      border-color: @accent-color;
+    }
+
+    #frb-main {
+      --wmui-base100: @base;
+      --wmui-base0: @text;
+      --frb-body: @text;
+      --frb-muted: @subtext0;
+      --frb-link: @subtext0;
+      --frb-link-hover: @text;
+      --frb-error: @red;
+      --frb-submit: @accent-color;
+      --frb-submit-hover: darken(@accent-color, 10%);
+
+      svg.frb-message-icon > g {
+        circle {
+          fill: @yellow;
+        }
+        path {
+          fill: @base;
+        }
+      }
+
+      .frb-message {
+        background-color: @green;
+        border-color: @green;
+      }
+
+      .frb-message::after {
+        border-left-color: @green;
+      }
+    }
+
+    #frb-inline {
+      --wmui-base100: @base;
+      --frb-primary: @red;
+      --frb-link: @accent-color;
+      --frb-muted: @subtext0;
+      --frb-muted-hover: @text;
+      --frb-body: @text;
+      --frb-error: @red;
+      --wmui-red-dark: @red;
+      --wmui-red-light: @red;
+      --wmui-green-dark: @green;
+      --wmui-green-light: @green;
+      --frb-submit: @accent-color;
+      --frb-submit-hover: darken(@accent-color, 10%);
+
+      .frb-inline-topbar {
+        color: @text;
+
+        svg circle {
+          fill: @yellow;
+        }
+
+        svg path {
+          fill: @base;
+        }
+      }
+
+      .frb-btn-cta {
+        background-color: @accent-color !important;
+        border-color: @accent-color !important;
+        color: @base !important;
+      }
+
+      .frb-btn-simple {
+        color: @accent-color !important;
+      }
+
+      .frb-monthly-pitch {
+        color: @blue;
+      }
+
+      .frb-optin-no-prompt {
+        color: @base;
+      }
+
+      .frb-cta-hiddenmessage {
+        background-color: @red;
+        color: @base;
+      }
+    }
+
+    #frb-nag {
+      --frb-primary-light: @base;
+      --frb-body: @text;
+      --wmui-accent-dark: @subtext0;
+      --frb-link-hover: @text;
+
+      span.frb-donate-button {
+        color: @base;
+        background-color: @red;
+
+        &:hover {
+          color: @base;
+          background-color: darken(@red, 10%);
+        }
+      }
+
+      svg.frb-icon-close > g {
+        stroke: @subtext0;
+
+        &:hover {
+          stroke: @text;
+        }
+      }
+    }
+
+    .frb-nag:not(#frb-nag) {
+      --frb-message-background: @base;
+      --frb-message-border: @red;
+      --frb-message: @text;
+      border-color: @surface0;
+      background: @base;
+      box-shadow: none;
+
+      #nag-rml-btn {
+        background-color: transparent;
+        border-color: transparent;
+        color: @subtext0;
+      }
+
+      #nag-yes-btn {
+        background-color: @accent-color;
+        border-color: @accent-color;
+        color: @base;
+      }
+    }
+
+    .frb-btn-cta-label::after {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6.7 12"><path d="M.9 0 0 .9 5.1 6 0 11.1l.9.9 5.5-5.5c.3-.3.3-.7 0-.9z" fill="@{base}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    .frb-back {
+      @svg-raw: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 16"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><path stroke="@{subtext0}" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.778" d="M7.181 13.285.753 7 7.181.715"/><rect fill="@{subtext0}" width="18.182" height="1.778" x=".818" y="6.111" rx=".889"/></g></svg>';
+      @svg: escape(@svg-raw);
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    .frb-close {
+      @svg-raw: '<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><g stroke="@{subtext0}" fill="none" stroke-linecap="round"><path d="M1 1 l8 8 M9 1 l-8 8"></path></g></svg>';
+      @svg: escape(@svg-raw);
+      background-image: url("data:image/svg+xml,@{svg}") !important;
     }
 
     .sprite {

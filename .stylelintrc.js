@@ -24,6 +24,7 @@ export default {
     "alpha-value-notation": null,
     "color-function-notation": null,
     "hue-degree-notation": null,
+    "keyframes-name-pattern": null,
 
     // Needed for Stylus v1.5.35 workaround, see #341
     "media-feature-range-notation": "prefix",
