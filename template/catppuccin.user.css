@@ -14,9 +14,7 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
-/* If you need any help with the information above, please see: https://github.com/openstyles/stylus/wiki/Writing-UserCSS#var */
 
-/* For help with URL rules, please see https://github.com/openstyles/stylus/wiki/Writing-styles#valid--moz-document-rules. */
 @-moz-document domain('<website-domain>') {
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
@@ -50,6 +48,10 @@
     /* Recommended base styles: */
     color-scheme: if(@lookup = latte, light, dark);
 
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
     /* Start styling your website here: */
     background-color: @base;
 
@@ -66,8 +68,9 @@
   }
 
   /* This section applies the light/dark themes automatically based on the user's system theme.
-     Uncomment this *only* if the website you are theming doesn't have a light/dark mode toggle.
+     Use the below example CSS to start if the website you are theming doesn't have a light/dark mode toggle.
      For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/brave-search/catppuccin.user.css#L16-L29.
+  */
   @media (prefers-color-scheme: light) {
     :root {
       #catppuccin(@lightFlavor, @accentColor);
@@ -78,22 +81,21 @@
       #catppuccin(@darkFlavor, @accentColor);
     }
   }
-  */
 
   /* If the website you are theming *does* have a light/dark mode toggle,
      you can conditionally enable light/dark flavors by targeting whatever
      attribute that website uses to indicate the theme. *The example below gives you an idea of what
      to look for. The website you are themeing may use a class-based approach (e.g. :root.theme-dark),
      or any of the myriad of other methods like this.*
-     Un-comment this block if that is the case.
+     Use the below example CSS to start if this is the case.
      For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/youtube/catppuccin.user.css#L21-L30.
+  */
   :root[data-theme="dark"] {
     #catppuccin(@darkFlavor, @accentColor);
   }
   :root[data-theme="light"] {
     #catppuccin(@lightFlavor, @accentColor);
   }
-  */
 }
 
 /* prettier-ignore */
