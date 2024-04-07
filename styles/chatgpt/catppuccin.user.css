@@ -26,10 +26,6 @@
     #catppuccin(@darkFlavor, @accentColor);
   }
 
-  #rgbify(@color) {
-    @rgb-raw: red(@color), green(@color), blue(@color);
-  }
-
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -59,8 +55,6 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    color-scheme: if(@lookup = latte, light, dark);
-
     --ctp-rosewater: #rgbify(@rosewater) [];
     --ctp-flamingo: #rgbify(@flamingo) [];
     --ctp-pink: #rgbify(@pink) [];
@@ -87,6 +81,19 @@
     --ctp-base: #rgbify(@base) [];
     --ctp-mantle: #rgbify(@mantle) [];
     --ctp-crust: #rgbify(@crust) [];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
 
     code.hljs {
       background: none;
@@ -187,7 +194,7 @@
     --border-xheavy: fade(@text, 25%);
     --link: @accent-color;
     --link-hover: if(
-      @lookup=latte,
+      @lookup = latte,
       lighten(@accent-color, 10%),
       darken(@accent-color, 10%)
     );
@@ -204,11 +211,6 @@
     }
 
     /* Input */
-
-    input::placeholder,
-    textarea::placeholder {
-      color: @overlay2 !important;
-    }
 
     select {
       @svg: escape(
@@ -970,6 +972,18 @@
     @accent-color: @catppuccin[@@lookup][@@accent];
 
     color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
     color: @text;
     caret-color: @text;
 
@@ -1169,6 +1183,10 @@
       }
     }
   }
+}
+
+#rgbify(@color) {
+  @rgb-raw: red(@color), green(@color), blue(@color);
 }
 
 /* prettier-ignore */

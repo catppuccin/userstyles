@@ -16,15 +16,13 @@
 ==/UserStyle== */
 
 @-moz-document domain('instagram.com') {
-  #rgbify(@color) {
-    @rgb-raw: red(@color), green(@color), blue(@color);
-  }
   ._aa4d {
     #catppuccin(@darkFlavor, @accentColor);
   }
   ._aa4c {
     #catppuccin(@lightFlavor, @accentColor);
   }
+
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -53,9 +51,23 @@
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
+
     @text-filter: @catppuccin[@@lookup][@text-filter];
     @dark-color: if(@lookup = latte, @text, @crust);
     @light-color: if(@lookup = latte, @crust, @text);
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
 
     &,
     .x1qjc9v5,
@@ -629,14 +641,6 @@
       box-shadow: 0 5px 10px 0 fadeout(@dark-color, 0.5);
     }
 
-    /* Input placeholders */
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
-
     /* Settings */
     ._ab81 {
       background-color: @mantle;
@@ -796,6 +800,10 @@
       color: @text;
     }
   }
+}
+
+#rgbify(@color) {
+  @rgb-raw: red(@color), green(@color), blue(@color);
 }
 
 /* prettier-ignore */
