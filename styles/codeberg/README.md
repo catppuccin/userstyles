@@ -20,8 +20,10 @@
 
 
 ## 💝 Current Maintainer
-- [justTOBBI](https://github.com/justTOBBI)
+- [Isabel](https://github.com/isabelroses)
 
+## 💖 Past Maintainer
+- [justTOBBI](https://github.com/justTOBBI)
 
 &nbsp;
 

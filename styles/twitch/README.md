@@ -21,7 +21,7 @@
 
 ## 💝 Current Maintainers
 - [GitMuslim](https://github.com/GitMuslim)
-- [Isabel](https://github.com/isabelroses)
+- [uncenter](https://github.com/uncenter)
 
 
 &nbsp;
