@@ -14,7 +14,7 @@
 
 - [Prerequisites](#prerequisites)
 - [Usercss Metadata](#usercss-metadata)
-- [`@-moz-document`](#moz-document)
+- [`@-moz-document`](#-moz-document)
 - [Applying the theme](#applying-the-theme)
 - [The `#catppuccin` mixin](#the-catppuccin-mixin)
 - [Putting it all together](#putting-it-all-together)
