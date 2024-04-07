@@ -53,7 +53,21 @@
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
+
     @contrast-color: @catppuccin[@@lookup][@@contrastColor];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
 
     & when (@lookup =latte) {
       --color-blue-dim: #rgbify(desaturate(lighten(@accent-color, 10%), 10%)) [];
@@ -74,7 +88,6 @@
       }
     }
 
-    /* BASE VARIABLES */
     --color-background: #rgbify(@crust) [];
     --color-foreground: #rgbify(@base) [];
     --color-foreground-grey: #rgbify(@surface0) [];
@@ -148,7 +161,6 @@
     --color-red-600: #rgbify(@red) [];
     --color-red-700: #rgbify(@red) [];
 
-    /* DARK THEME SPECIFIC TWEAKS */
     & when not (@lookup =latte) {
       --color-background: #rgbify(@crust) [];
       --color-foreground: #rgbify(@base) [];
@@ -670,7 +682,19 @@
     @accent-color: @catppuccin[@@lookup][@@accentColor];
     @contrast-color: @catppuccin[@@lookup][@@contrastColor];
 
-    /* --------ANICHART SPECIFIC TWEAKS---- */
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
     .login[data-v-0d5bfbcd],
     .login[data-v-0d5bfbcd]:hover {
       color: @base;
@@ -721,6 +745,10 @@
   }
 }
 
+#rgbify(@color) {
+  @rgb-raw: red(@color), green(@color), blue(@color);
+}
+
 /* prettier-ignore */
 @catppuccin: {
   @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
@@ -729,7 +757,4 @@
   @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
 }
 
-#rgbify(@color) {
-  @rgb-raw: red(@color), green(@color), blue(@color);
-}
 // vim:ft=less
