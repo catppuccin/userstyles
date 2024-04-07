@@ -2,7 +2,7 @@
 @name YouTube Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/youtube
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/youtube
-@version 3.5.1
+@version 3.5.8
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/youtube/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ayoutube
 @description Soothing pastel theme for YouTube
@@ -56,10 +56,8 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    /* apply everywhere */
     &,
     [dark],
-    html,
     html[system-icons][dark],
     html[system-icons] [dark],
     html[darker-dark-theme][dark],
@@ -316,11 +314,7 @@
         null
       ) !important;
 
-      /* Tooltip */
-      --paper-tooltip-background: @overlay0 !important;
-      --paper-tooltip-text-color: @text !important;
-
-      /* links */
+      /* Links */
       --yt-endpoint-color: @accent-color !important;
       --yt-endpoint-visited-color: @accent-color !important;
       --yt-endpoint-hover-color: @accent-color !important;
@@ -333,7 +327,6 @@
       --sb-red-bg-color: @accent-color !important;
     }
 
-    /* general colors */
     &:not(.style-scope) {
       --primary-text-color: @text !important;
       --primary-background-color: @base !important;
@@ -361,17 +354,7 @@
       --dark-theme-divider-color: @overlay0 !important;
     }
 
-    /* logo */
-    ytd-topbar-logo-renderer.style-scope a svg > g,
-    svg.ytd-consent-bump-v2-lightbox > g:nth-child(1) {
-      path[fill="#FF0000"] {
-        fill: @accent-color !important;
-      }
-      path[fill="white"] {
-        fill: @base !important;
-      }
-    }
-    & when (@logo =0) {
+    & when (@logo = 0) {
       ytd-topbar-logo-renderer,
       svg.ytd-consent-bump-v2-lightbox {
         display: none;
@@ -407,10 +390,9 @@
       background-color: @base !important;
     }
 
-    /* transparent header bar */
+    /* header bar icons */
     #container.ytd-masthead {
       --iron-icon-fill-color: @text !important;
-      background-color: @base !important;
     }
 
     ytd-feed-filter-chip-bar-renderer[expand-instead-of-scroll]
@@ -421,10 +403,10 @@
 
     /* change color of the player edges */
     #ytd-player #container when (@oledOn =0) {
-      background: @base !important;
+      background: @crust !important;
     }
 
-    /* explandable meta */
+    /* expandable meta */
     ytd-expandable-metadata-renderer {
       --yt-lightsource-section1-color: @base !important;
       --yt-lightsource-section2-color: @surface0 !important;
@@ -435,7 +417,6 @@
     }
 
     yt-live-chat-renderer {
-      --yt-emoji-picker-renderer-height: 180px;
       --yt-button-default-text-color: @text !important;
       --yt-button-default-background-color: @base !important;
       --yt-button-dark-text-color: @base !important;
@@ -470,14 +451,11 @@
       background: @overlay0 !important;
     }
 
-    /* volume bar */
+    /* volume slider */
     .ytp-volume-slider-handle {
       background: @accent-color !important;
       &::before {
         background: @accent-color !important;
-      }
-      &::after {
-        z-index: -1;
       }
     }
 
@@ -522,33 +500,43 @@
       }
     }
 
-    .ytp-panel-menu {
+    .ytp-panel-menu,
+    .ytp-panel-header,
+    .ytp-panel-footer,
+    .ytp-menuitem-label,
+    .ytp-premium-label,
+    .ytp-menuitem-content,
+    .ytp-menuitem-label-count,
+    .ytp-menu-label-secondary {
       color: @text;
-
-      & .ytp-menuitem:not(:last-child) svg > path {
-        fill: @text;
-      }
-
-      & .ytp-menuitem:last-child svg:last-child {
-        fill: @text;
-      }
     }
 
-    .ytp-right-controls svg path,
-    .ytp-svg-fill {
-      fill: #fff !important;
+    .ytp-panel-header {
+      border-bottom-color: @surface2;
     }
 
-    .ytp-time-current,
-    .ytp-time-separator,
-    .ytp-time-duration,
-    .ytp-menu-label-secondary,
-    .ytp-menuitem-label-count {
-      color: #fff;
+    .ytp-menuitem svg > path:not([fill="none"]) {
+      fill: @text !important;
     }
 
-    .ytp-tooltip:not([aria-hidden="true"]) {
-      color: @text;
+    .ytp-menuitem[aria-haspopup="true"] .ytp-menuitem-content {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 32 32" version="1.1"><path d="m12.59 20.34 4.58-4.59-4.58-4.59L14 9.75l6 6-6 6z" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+    .ytp-panel-back-button {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 32 32" version="1.1"><path d="m19.41 20.09-4.58-4.59 4.58-4.59L18 9.5l-6 6 6 6z" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+    .ytp-menuitem[role="menuitemradio"][aria-checked="true"]
+      .ytp-menuitem-label {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" version="1.1"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
     }
 
     .style-scope.ytd-thumbnail-overlay-toggle-button-renderer:hover {
@@ -604,18 +592,7 @@
       background: @mantle !important;
     }
 
-    /* Transcript Button */
-    .yt-spec-button-shape-next--call-to-action.yt-spec-button-shape-next--outline {
-      color: @accent-color !important;
-      border-color: @surface2 !important;
-
-      &:hover {
-        background-color: fadeout(@accent-color, 80) !important;
-        border-color: fadeout(@accent-color, 80) !important;
-      }
-    }
-
-    /* text color */
+    /* search results */
     .gsfs {
       color: @text !important;
     }
@@ -744,15 +721,15 @@
     }
 
     .iv-card-content > :first-child,
-    .html5-video-player a,
     .iv-card h2,
     .ytp-cards-teaser .ytp-cards-teaser-text {
       color: @text !important;
     }
 
-    /* Player tooltip background */
     .ytp-tooltip-text {
       background: @surface0 !important;
+      color: @text;
+      text-shadow: none !important;
     }
 
     .iv-card:hover .iv-card-primary-link,
@@ -762,6 +739,7 @@
 
     .ytp-popup {
       background: @surface0 !important;
+      text-shadow: none;
     }
 
     tp-yt-paper-dialog {
@@ -816,8 +794,6 @@
       --ytd-author-comment-badge-background-color: @surface0 !important;
       --ytd-author-comment-badge-name-color: @text !important;
       --ytd-author-comment-badge-icon-color: @text !important;
-      padding-right: 6px;
-      padding-left: 8px;
     }
 
     /* ambient mode */
@@ -942,28 +918,70 @@
       color: @accent-color !important;
     }
 
-    /* hopefully temporary (buttons) */
-    .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal {
-      background-color: @surface0;
-      color: @text;
-      &:hover {
-        background-color: @surface1;
-      }
+    /* theme short - we do it accent beacuse anything else is hard to read */
+    reel-player-header-renderer #text.complex-string.ytd-channel-name a,
+    reel-player-header-renderer {
+      color: @accent-color;
     }
-    .yt-spec-button-shape-next--call-to-action.yt-spec-button-shape-next--filled {
-      color: @crust;
-      background-color: @accent-color;
-      &:hover {
-        background-color: darken(@accent-color, 20);
+
+    /* buttons */
+    .yt-spec-touch-feedback-shape--touch-response
+      .yt-spec-touch-feedback-shape__fill {
+      background-color: @text;
+    }
+    .yt-spec-button-shape-next--mono {
+      &.yt-spec-button-shape-next--outline,
+      &.yt-spec-button-shape-next--text {
+        color: @text;
+        &:hover {
+          background-color: @surface0;
+        }
+      }
+      &.yt-spec-button-shape-next--tonal {
+        color: @text;
+        background-color: @surface0;
+      }
+      &.yt-spec-button-shape-next--outline {
+        border-color: @surface2 !important;
+      }
+      &.yt-spec-button-shape-next--filled {
+        color: @crust;
+        background-color: @accent-color;
       }
     }
     .yt-spec-touch-feedback-shape--touch-response
       .yt-spec-touch-feedback-shape__stroke {
       border-color: @surface1;
     }
-    .yt-spec-touch-feedback-shape--touch-response-inverse
-      .yt-spec-touch-feedback-shape__stroke {
-      border-color: @accent-color;
+    .yt-spec-button-shape-next--overlay.yt-spec-button-shape-next--filled {
+      color: @crust;
+      background-color: @accent-color;
+    }
+    .yt-spec-touch-feedback-shape--overlay-touch-response-inverse
+      .yt-spec-touch-feedback-shape__fill {
+      background-color: @accent-color;
+    }
+    .yt-spec-touch-feedback-shape--overlay-touch-response
+      .yt-spec-touch-feedback-shape__fill {
+      background-color: @text;
+    }
+    .yt-spec-button-shape-next--call-to-action {
+      /* Reply Button */
+      &.yt-spec-button-shape-next--text {
+        color: @accent-color;
+        &:hover {
+          background-color: fadeout(@accent-color, 80) !important;
+        }
+      }
+      /* Transcript Button */
+      &.yt-spec-button-shape-next--outline {
+        color: @accent-color !important;
+        border-color: @surface2 !important;
+        &:hover {
+          background-color: fadeout(@accent-color, 80) !important;
+          border-color: fadeout(@accent-color, 80) !important;
+        }
+      }
     }
 
     ytd-guide-section-renderer.style-scope:nth-child(3) > div:nth-child(2),
@@ -1029,49 +1047,30 @@
     [fill="#F00"],
     [fill="red"],
     [fill="#FF0000"] {
-      fill: @accent-color;
+      fill: @accent-color !important;
     }
 
-    svg > g > polygon[fill="#fff"] {
-      fill: @base !important;
+    [fill="white"] {
+      fill: if(@lookup = latte, @base, @text) !important;
     }
 
-    .yt-spec-button-shape-next--call-to-action.yt-spec-button-shape-next--text {
-      color: @accent-color;
-      &:hover {
-        background-color: fadeout(@accent-color, 90);
-      }
+    yt-icon.ytd-logo [fill="white"] {
+      fill: @crust !important;
     }
 
-    .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--outline,
-    .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--text {
-      color: @text;
-      &:hover {
-        background-color: @surface0;
-      }
-    }
-
-    .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--outline {
-      border-color: @surface0;
-    }
-
-    /* Scrollbar */
     ::-webkit-scrollbar {
       width: @scrollbar_width !important;
     }
-
     ::-webkit-scrollbar-track {
       background: @base !important;
     }
-
     ::-webkit-scrollbar-thumb {
       background: @accent-color !important;
     }
 
-    /* text highlight */
     ::selection {
-      background: fadeout(@accent-color, 80%) !important;
-      color: @text !important;
+      background: @accent-color !important;
+      color: @base !important;
     }
   }
 }
@@ -1163,7 +1162,6 @@
       color: @text !important;
     }
 
-    /* text highlight */
     ::selection {
       background: fadeout(@accent-color, 80%) !important;
       color: @text !important;
@@ -1342,7 +1340,6 @@
       color: @text !important;
     }
 
-    /* text highlight */
     ::selection {
       background: fadeout(@accent-color, 80%) !important;
       color: @text !important;

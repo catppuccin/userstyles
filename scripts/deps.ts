@@ -6,7 +6,12 @@ import userStylesSchema from "@/userstyles.schema.json" with {
 };
 
 import { join } from "std/path/mod.ts";
-const ROOT = new URL(".", import.meta.url).pathname;
+
+const ROOT = import.meta.dirname;
+if (!ROOT) {
+  throw new Error("ROOT was not located.");
+}
+
 /**
  * absolute path to the repository
  */

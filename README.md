@@ -57,6 +57,14 @@ See instructions on the [GitHub release page](https://github.com/catppuccin/user
    - Replacing `<name>` with the name of the userstyle.
 3. Enjoy!
 
+> [!TIP]
+> For decentralized or self-hosted applications, you can apply a theme to one or multiple instances across updates by following the instructions below.
+>
+> 1. Open the Stylus "Manage" page.
+> 2. Click on the userstyle's name in the list.
+> 3. Click on **Style settings** in the left panel.
+> 4. Enter the URL patterns for your instance(s) in the text box labeled **Custom included sites**.
+
 &nbsp;
 
 ## 👐 Contributing
@@ -71,7 +79,10 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 ## 🖌 Userstyles
 
 > [!IMPORTANT]
-> Userstyles labeled with the "🚧" emoji are looking for maintainers, and may not work as intended. Contributions are still welcome and encouraged. If you would like to become a maintainer, add your username to the `current-maintainers` array in the [userstyles.yml](./scripts/userstyles.yml) file.
+> Userstyles labeled with the "🚧" emoji are looking for maintainers, and may
+> not work as intended. Contributions are still welcome and encouraged. If you
+> would like to become a maintainer, follow the instructions outlined in
+> "[Adding yourself as a maintainer](https://github.com/catppuccin/userstyles/blob/main/docs/userstylesyml.md#adding-yourself-as-a-maintainer)."
 
 <!-- AUTOGEN:USERSTYLES START -->
 <!-- the following section is auto-generated, do not edit -->
@@ -89,6 +100,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
+- [Trinket](styles/trinket)
 - [Vercel](styles/vercel)
 
 </details>
@@ -143,10 +155,11 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
 - [Microsoft Word](styles/microsoft-word)
-- [OpenMediaVault](styles/openmediavault)
+- [openmediavault](styles/openmediavault)
 - [Proton](styles/proton)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
+- [tldraw](styles/tldraw)
 
 </details>
 <details open>
@@ -176,6 +189,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [LinkedIn](styles/linkedin)
 - [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
+- [Pronouns.page](styles/pronouns.page)
 - [Snapchat Web](styles/snapchat-web)
 - [Twitter](styles/twitter)
 - [WhatsApp Web](styles/whatsapp-web)
