@@ -16,6 +16,13 @@
 ==/UserStyle== */
 
 @-moz-document domain('tldraw.com') {
+  .tl-theme__dark {
+    #catppuccin(@darkFlavor, @accentColor);
+  }
+  .tl-theme__light {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -46,6 +53,17 @@
     @accent-color: @catppuccin[@@lookup][@@accent];
 
     color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
 
     --color-accent: @accent-color !important;
     --color-background: @base !important;
@@ -400,13 +418,6 @@
         background-color: var(--color-light-violet) !important;
       }
     }
-  }
-
-  .tl-theme__dark {
-    #catppuccin(@darkFlavor, @accentColor);
-  }
-  .tl-theme__light {
-    #catppuccin(@lightFlavor, @accentColor);
   }
 }
 

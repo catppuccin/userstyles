@@ -16,6 +16,36 @@
 ==/UserStyle== */
 
 @-moz-document domain('<website-domain>') {
+  /* This section applies the light/dark themes automatically based on the user's system theme.
+     Use the below example CSS to start if the website you are theming doesn't have a light/dark mode toggle.
+     For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/brave-search/catppuccin.user.css#L16-L29.
+  */
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+
+  /* If the website you are theming *does* have a light/dark mode toggle,
+     you can conditionally enable light/dark flavors by targeting whatever
+     attribute that website uses to indicate the theme. *The example below gives you an idea of what
+     to look for. The website you are themeing may use a class-based approach (e.g. :root.theme-dark),
+     or any of the myriad of other methods like this.*
+     Use the below example CSS to start if this is the case.
+     For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/youtube/catppuccin.user.css#L21-L30.
+  */
+  :root[data-theme="dark"] {
+    #catppuccin(@darkFlavor, @accentColor);
+  }
+  :root[data-theme="light"] {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -45,11 +75,17 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    /* Recommended base styles: */
     color-scheme: if(@lookup = latte, light, dark);
 
     ::selection {
       background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
     }
 
     /* Start styling your website here: */
@@ -65,36 +101,6 @@
     & when not (@lookup = latte) {
       /* ... */
     }
-  }
-
-  /* This section applies the light/dark themes automatically based on the user's system theme.
-     Use the below example CSS to start if the website you are theming doesn't have a light/dark mode toggle.
-     For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/brave-search/catppuccin.user.css#L16-L29.
-  */
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
-    }
-  }
-
-  /* If the website you are theming *does* have a light/dark mode toggle,
-     you can conditionally enable light/dark flavors by targeting whatever
-     attribute that website uses to indicate the theme. *The example below gives you an idea of what
-     to look for. The website you are themeing may use a class-based approach (e.g. :root.theme-dark),
-     or any of the myriad of other methods like this.*
-     Use the below example CSS to start if this is the case.
-     For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/youtube/catppuccin.user.css#L21-L30.
-  */
-  :root[data-theme="dark"] {
-    #catppuccin(@darkFlavor, @accentColor);
-  }
-  :root[data-theme="light"] {
-    #catppuccin(@lightFlavor, @accentColor);
   }
 }
 
