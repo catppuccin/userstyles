@@ -165,7 +165,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>💌 Email Clients</summary>
 
-- [Gmail](styles/gmail)
+- 🚧 [Gmail](styles/gmail)
 - [Migadu Webmail](styles/migadu-webmail)
 - [Skiff](styles/skiff)
 - [Tuta](styles/tuta)
@@ -200,7 +200,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Hacker News](styles/hacker-news)
 - [Lemmy](styles/lemmy)
-- [Libreddit, Redlib](styles/libreddit)
+- 🚧 [Libreddit, Redlib](styles/libreddit)
 - 🚧 [Reddit](styles/reddit)
 - [TabNews](styles/tabnews)
 
