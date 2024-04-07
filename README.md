@@ -97,6 +97,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
+- [Trinket](styles/trinket)
 - [Vercel](styles/vercel)
 
 </details>
