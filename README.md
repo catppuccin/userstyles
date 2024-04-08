@@ -79,7 +79,10 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 ## 🖌 Userstyles
 
 > [!IMPORTANT]
-> Userstyles labeled with the "🚧" emoji are looking for maintainers, and may not work as intended. Contributions are still welcome and encouraged. If you would like to become a maintainer, add your username to the `current-maintainers` array in the [userstyles.yml](./scripts/userstyles.yml) file.
+> Userstyles labeled with the "🚧" emoji are looking for maintainers, and may
+> not work as intended. Contributions are still welcome and encouraged. If you
+> would like to become a maintainer, follow the instructions outlined in
+> "[Adding yourself as a maintainer](https://github.com/catppuccin/userstyles/blob/main/docs/userstylesyml.md#adding-yourself-as-a-maintainer)."
 
 <!-- AUTOGEN:USERSTYLES START -->
 <!-- the following section is auto-generated, do not edit -->
@@ -97,6 +100,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
+- [Trinket](styles/trinket)
 - [Vercel](styles/vercel)
 
 </details>
@@ -161,7 +165,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>💌 Email Clients</summary>
 
-- [Gmail](styles/gmail)
+- 🚧 [Gmail](styles/gmail)
 - [Migadu Webmail](styles/migadu-webmail)
 - [Skiff](styles/skiff)
 - [Tuta](styles/tuta)
@@ -196,7 +200,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Hacker News](styles/hacker-news)
 - [Lemmy](styles/lemmy)
-- [Libreddit, Redlib](styles/libreddit)
+- 🚧 [Libreddit, Redlib](styles/libreddit)
 - 🚧 [Reddit](styles/reddit)
 - [TabNews](styles/tabnews)
 
