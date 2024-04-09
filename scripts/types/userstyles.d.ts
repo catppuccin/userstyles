@@ -48,7 +48,7 @@ export type Category =
   | "wiki"
   | "window_manager";
 /**
- * The fill color for the icon on the Catppuccin website.
+ * The fill color for the icon on the Catppuccin website, which should match the color used by Simple Icons. If the icon does not exist in Simple Icons, choose the most suitable color from the branding.
  */
 export type Color =
   | "rosewater"
