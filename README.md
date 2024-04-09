@@ -20,7 +20,7 @@
 <p align="center">
 	<a href="https://github.com/catppuccin/userstyles/stargazers"><img src="https://img.shields.io/github/stars/catppuccin/userstyles?colorA=363a4f&colorB=b7bdf8&style=for-the-badge"></a>
   <a href="https://github.com/catppuccin/userstyles/blob/main/styles"><img src="https://img.shields.io/github/directory-file-count/catppuccin/userstyles/styles?label=Userstyles&colorA=363a4f&colorB=cba6f7&style=for-the-badge"></a>
-	<a href="https://github.com/catppuccin/userstyles/contributors"><img src="https://img.shields.io/github/contributors/catppuccin/userstyles?colorA=363a4f&colorB=a6da95&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/contributors"><img src="https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fcatppuccin%2Fuserstyles%2Fmain%2Fscripts%2Fuserstyles.yml&query=%24.collaborators.length&label=Maintainers&colorA=363a4f&colorB=a6da95&style=for-the-badge"></a>
 </p>
 
 <p align="center">
