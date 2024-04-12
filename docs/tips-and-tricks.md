@@ -4,9 +4,25 @@
 
 &nbsp;
 
+### Table of Contents
+
+<!--toc:start-->
+
+- [How can I see my changes in real time?](#how-can-i-see-my-changes-in-real-time)
+- [How can I hide sensitive information in preview screenshots?](#how-can-i-hide-sensitive-information-in-preview-screenshots)
+- [How do I convert preview images to WebP?](#how-do-i-convert-preview-images-to-webp)
+  - [Installation](#installation)
+  - [Usage](#usage)
+- [How do I theme images and SVGs?](#how-do-i-theme-images-and-svgs)
+  - [SVG background images](#svg-background-images)
+  - [`<img>` elements](#img-elements)
+- [How do I set a variable to RGB values?](#how-do-i-set-a-variable-to-rgb-values)
+- [How can I inspect hard-to-grab elements?](#how-can-i-inspect-hard-to-grab-elements)
+<!--toc:end-->
+
 ### How can I see my changes in real time?
 
-See [Stylus Wiki - Initial installation and live reload](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#initial-installation-and-live-reload).
+See ["Initial installation and live reload" - Stylus Wiki](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#initial-installation-and-live-reload).
 
 &nbsp;
 
@@ -120,3 +136,31 @@ img.twitter-icon {
   background: url("data:image/svg+xml,@{svg}") no-repeat !important;
 }
 ```
+
+&nbsp;
+
+### How do I set a variable to RGB values?
+
+You can use the following snippet to get the raw RGB values from a color.
+
+```less
+#rgbify(@color) {
+  @rgb-raw: red(@color), green(@color), blue(@color);
+}
+
+--ctp-base: #rgbify(@base) []; // -> 30, 30, 46
+```
+
+### How can I inspect hard-to-grab elements?
+
+Paste the following snippet into your browser console, then trigger the event. Adjust the delay (in milliseconds) as needed.
+
+```js
+setTimeout(function () {
+  debugger;
+}, 3000);
+```
+
+![](https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/02/debugger.gif?ssl=1)
+
+<span>Gif via <a href="https://css-tricks.com/set-timed-debugger-web-inspect-hard-grab-elements/">"Set a Timed Debugger To Web Inspect Hard-To-Grab Elements" - CSS Tricks</a>.</span>
