@@ -2,7 +2,7 @@
 @name npm Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/npm
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/npm
-@version 0.0.4
+@version 0.0.5
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/npm/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Anpm
 @description Soothing pastel theme for npm
@@ -16,12 +16,15 @@
 ==/UserStyle== */
 
 @-moz-document domain("www.npmjs.com") {
-  /* prettier-ignore */
-  @catppuccin: {
-    @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-    @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-    @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-    @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
   }
 
   #catppuccin(@lookup, @accent) {
@@ -53,7 +56,28 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
+    color-scheme: if(@lookup = latte, light, dark);
+    accent-color: @accent-color;
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      background-color: transparent;
+
+      &:focus {
+        box-shadow: 0 0 0 2px @accent-color;
+      }
+
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
     @npmGradient: linear-gradient(139deg, @peach, @maroon, @red, @pink);
+
     --color-fg-default: @text;
     --color-fg-muted: @subtext1;
     --color-fg-subtle: @subtext0;
@@ -69,9 +93,6 @@
     main {
       background-color: @base !important;
     }
-
-    color-scheme: if(@lookup=latte, light, dark);
-    accent-color: @accent-color;
 
     /* Primary background */
     .bg-white,
@@ -190,10 +211,6 @@
 
             input[type="search"] {
               color: @text;
-
-              &::placeholder {
-                color: @overlay1;
-              }
 
               &:focus {
                 box-shadow: none;
@@ -526,7 +543,7 @@
         padding-top: 16px;
         padding-left: 12px;
         @svg: escape(
-          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125" fill="@{text}"><path d="M50.4 74.7L23.7 50l26.7-24.7-5.4-5.9L11.9 50 45 80.6l5.4-5.9z"/><path d="M82.6 19.4L49.6 50l33 30.6 5.5-5.9L61.4 50l26.7-24.7-5.5-5.9z"/></svg>'
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125" fill="@{text}"><path d="M50.4 74.7 23.7 50l26.7-24.7-5.4-5.9L11.9 50 45 80.6z"/><path d="M82.6 19.4 49.6 50l33 30.6 5.5-5.9L61.4 50l26.7-24.7z"/></svg>'
         );
         background: url("data:image/svg+xml,@{svg}") no-repeat;
       }
@@ -970,14 +987,6 @@
     }
 
     /* Input elements  */
-    input,
-    textarea {
-      background-color: transparent;
-
-      &:focus {
-        box-shadow: 0 0 0 2px @accent-color;
-      }
-    }
     #signup_email_error_message {
       color: @red;
     }
@@ -1136,22 +1145,14 @@
     div.highlight pre {.pl-mb,.pl-mdr,.pl-c{color:var(--color-prettylights-syntax-comment)}.pl-c1,.pl-s .pl-v{color:var(--color-prettylights-syntax-constant)}.pl-e,.pl-en{color:var(--color-prettylights-syntax-entity)}.pl-s .pl-s1,.pl-smi{color:var(--color-prettylights-syntax-storage-modifier-import)}.pl-ent{color:var(--color-prettylights-syntax-entity-tag)}.pl-k{color:var(--color-prettylights-syntax-keyword)}.pl-pds,.pl-s,.pl-s .pl-pse .pl-s1,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre{color:var(--color-prettylights-syntax-string)}.pl-smw,.pl-v{color:var(--color-prettylights-syntax-variable)}.pl-bu{color:var(--color-prettylights-syntax-brackethighlighter-unmatched)}.pl-ii{color:var(--color-prettylights-syntax-invalid-illegal-text);background-color:var(--color-prettylights-syntax-invalid-illegal-bg)}.pl-c2{color:var(--color-prettylights-syntax-carriage-return-text);background-color:var(--color-prettylights-syntax-carriage-return-bg)}.pl-sr .pl-cce{color:var(--color-prettylights-syntax-string-regexp)}.pl-ml{color:var(--color-prettylights-syntax-markup-list)}.pl-mh,.pl-mh .pl-en,.pl-ms{color:var(--color-prettylights-syntax-markup-heading)}.pl-mi{color:var(--color-prettylights-syntax-markup-italic)}.pl-mb{color:var(--color-prettylights-syntax-markup-bold)}.pl-md{color:var(--color-prettylights-syntax-markup-deleted-text);background-color:var(--color-prettylights-syntax-markup-deleted-bg)}.pl-mi1{color:var(--color-prettylights-syntax-markup-inserted-text);background-color:var(--color-prettylights-syntax-markup-inserted-bg)}.pl-mc{color:var(--color-prettylights-syntax-markup-changed-text);background-color:var(--color-prettylights-syntax-markup-changed-bg)}.pl-mi2{color:var(--color-prettylights-syntax-markup-ignored-text);background-color:var(--color-prettylights-syntax-markup-ignored-bg)}.pl-mdr{color:var(--color-prettylights-syntax-meta-diff-range)}.pl-ba{color:var(--color-prettylights-syntax-brackethighlighter-angle)}.pl-sg{color:var(--color-prettylights-syntax-sublimelinter-gutter-mark)}.pl-corl{text-decoration:underline;color:var(--color-prettylights-syntax-constant-other-reference-link)}}
     /* stylelint-enable declaration-block-single-line-max-declarations */
   }
-
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
-    }
-  }
 }
 
-/* Todos:
-- https://www.npmjs.com/org/create
-- https://www.npmjs.com/products/pro
-- https://www.npmjs.com/products/teams
-- https://www.npmjs.com/products
-*/
+/* prettier-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+}
+
+// vim:ft=less

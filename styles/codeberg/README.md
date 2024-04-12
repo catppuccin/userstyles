@@ -18,13 +18,12 @@
 </p>
 
 
-## 🙋 FAQ
-- Q: How do I change the accent color?\
-  A: Changing `--color-primary` to any other color should change the accent color in most places.
 
 ## 💝 Current Maintainer
-- [justTOBBI](https://github.com/justTOBBI)
+- [Isabel](https://github.com/isabelroses)
 
+## 💖 Past Maintainer
+- [justTOBBI](https://github.com/justTOBBI)
 
 &nbsp;
 

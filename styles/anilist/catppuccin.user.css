@@ -2,7 +2,7 @@
 @name AniList/AniChart Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/anilist
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/anilist
-@version 2.2.0
+@version 2.2.3
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/anilist/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aanilist
 @description Soothing pastel theme for AniList and AniChart
@@ -53,7 +53,21 @@
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
+
     @contrast-color: @catppuccin[@@lookup][@@contrastColor];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
 
     & when (@lookup =latte) {
       --color-blue-dim: #rgbify(desaturate(lighten(@accent-color, 10%), 10%)) [];
@@ -74,7 +88,6 @@
       }
     }
 
-    /* BASE VARIABLES */
     --color-background: #rgbify(@crust) [];
     --color-foreground: #rgbify(@base) [];
     --color-foreground-grey: #rgbify(@surface0) [];
@@ -148,7 +161,6 @@
     --color-red-600: #rgbify(@red) [];
     --color-red-700: #rgbify(@red) [];
 
-    /* DARK THEME SPECIFIC TWEAKS */
     & when not (@lookup =latte) {
       --color-background: #rgbify(@crust) [];
       --color-foreground: #rgbify(@base) [];
@@ -252,6 +264,9 @@
     .list[data-v-5776f768] {
       color: @mantle !important;
     }
+    .media-card .list-status[status="Repeating"] {
+      background: @pink;
+    }
     .banner .el-icon-arrow-down::before {
       color: @text !important;
     }
@@ -305,6 +320,44 @@
     }
     .medialist .notes {
       --color-overlay: #rgbify(@surface0) [];
+    }
+    .el-input__inner::placeholder,
+    .el-input__prefix {
+      color: @overlay1;
+    }
+    .el-picker-panel {
+      color: @text;
+      background-color: @surface0;
+      border-color: @surface1;
+    }
+    .el-date-table th {
+      color: @overlay1;
+      border-bottom-color: @surface1;
+    }
+    .el-date-picker__header-label {
+      color: @subtext0;
+
+      &:hover {
+        color: @accent-color;
+      }
+    }
+    .el-picker-panel__icon-btn {
+      color: @overlay1;
+
+      &:hover {
+        color: @accent-color;
+      }
+    }
+    .el-date-table td.available:hover {
+      color: @accent-color;
+    }
+    .el-date-table td.current:not(.disabled) span {
+      color: @crust;
+      background-color: @accent-color;
+    }
+    .el-date-table td.next-month,
+    .el-date-table td.prev-month {
+      color: @surface2;
     }
 
     /* ---------SCORE TWEAKS-------------- */
@@ -366,7 +419,27 @@
     .el-radio {
       color: @overlay1;
     }
+    /* Mod Stuff */
+    .el-color-dropdown__link-btn {
+      color: @accent-color;
+    }
+    .el-color-picker__color {
+      border-color: @surface1;
+    }
+    .el-color-picker__panel {
+      background-color: @surface0;
+      border-color: @surface1;
+    }
+    .el-color-dropdown__btn {
+      border-color: @surface2;
+      color: @subtext1;
 
+      &:hover {
+        background-color: transparent;
+        border-color: @accent-color;
+        color: @accent-color;
+      }
+    }
     /* Accent Text */
     .input .hint {
       --color-white: #rgbify(@text) [];
@@ -400,7 +473,8 @@
     .el-dropdown-menu__item,
     .delete,
     .list-editor-wrap .list-editor .body .delete-btn,
-    .open-user-search {
+    .open-user-search,
+    .save-btn {
       & when not (@lookup =latte) {
         --color-white: #rgbify(@crust) [];
       }
@@ -478,9 +552,9 @@
       scrollbar-width: none;
     }
     /* --------REMOVE DROPDOWN SHADOWS----- */
-    // .dropdown.dropdown {
-    //   box-shadow: none;
-    // }
+    .dropdown.dropdown {
+      box-shadow: none;
+    }
     /* ---------ANILIST LIKER PLUGIN------ */
     #AnilistLikerPlugin .btntop {
       margin-bottom: -4px;
@@ -490,10 +564,6 @@
       margin-top: -2px;
     }
     /* ---------AUTOMAIL TWEAKS--------- */
-    // .site-theme-dark .el-popper .el-dropdown-menu__item:focus,
-    // .el-popper .el-dropdown-menu__item:not(.is-disabled):hover {
-    //   color: @accent-color !important;
-    // }
     .hohMediaScore {
       border-color: @surface0;
       padding: 4px;
@@ -504,10 +574,19 @@
     }
     .activity-feed .hohNoteSuffix:not(:empty),
     .activity-feed .hohRewatchSuffix:not(:empty),
-    .activity-feed .hohScore:not(.hohSmiley) {
+    .activity-feed .hohScore:not(.hohSmiley),
+    .hohFeedScore .hohScore {
+      border-radius: 5px;
       padding: 2.5px 5px 1px !important;
       color: @subtext1 !important;
       background-color: @surface0;
+
+      &:not(:first-of-type) {
+        margin: 3px;
+      }
+    }
+    .activity-feed .hohRewatchSuffix:not(:empty) {
+      padding-left: 2px !important;
     }
     .hohExtraFilters button {
       margin-bottom: 20px;
@@ -603,32 +682,71 @@
     @accent-color: @catppuccin[@@lookup][@@accentColor];
     @contrast-color: @catppuccin[@@lookup][@@contrastColor];
 
-    /* --------ANICHART SPECIFIC TWEAKS---- */
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
     .login[data-v-0d5bfbcd],
     .login[data-v-0d5bfbcd]:hover {
       color: @base;
     }
 
-    .nav[data-v-e2f25004] {
-      background: @crust;
+    [fill="#3db4f2" i] {
+      fill: @accent !important;
     }
-    .season[data-v-e2f25004],
-    .charts .label[data-v-e2f25004],
-    .charts .svg-icon[data-v-e2f25004],
-    .section:first-of-type .section-heading[data-v-309146c2],
-    a.title[data-v-09928904] {
-      color: @text;
+
+    & when not (@lookup =latte) {
+      .nav {
+        background: @mantle;
+      }
+
+      .external-link {
+        background: @surface1;
+
+        [stroke="#fff" i] {
+          stroke: @text !important;
+        }
+      }
+
+      .external-link .icon,
+      .dropdown-menu:hover {
+        --color-white: #rgbify(@crust) [];
+      }
+
+      [fill="#fff" i] {
+        fill: @crust !important;
+      }
     }
-    .season.router-link-active[data-v-e2f25004],
-    .charts a:hover .svg-icon[data-v-e2f25004],
-    .season[data-v-e2f25004]:hover,
-    .charts .router-link-active .svg-icon[data-v-e2f25004] {
-      color: @accent-color;
-    }
-    .settings[data-v-3deab077] .button.danger {
-      color: @base;
+
+    & when (@lookup =latte) {
+      --color-overlay: #rgbify(@text) [];
+
+      .external-link {
+        background: @subtext0;
+      }
+
+      .nav {
+        background: @text;
+      }
+
+      a.title {
+        --color-white: #rgbify(@base) [];
+      }
     }
   }
+}
+
+#rgbify(@color) {
+  @rgb-raw: red(@color), green(@color), blue(@color);
 }
 
 /* prettier-ignore */
@@ -639,7 +757,4 @@
   @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
 }
 
-#rgbify(@color) {
-  @rgb-raw: red(@color), green(@color), blue(@color);
-}
 // vim:ft=less

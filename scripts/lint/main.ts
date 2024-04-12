@@ -11,6 +11,7 @@ import { log } from "@/lint/logger.ts";
 import { verifyMetadata } from "@/lint/metadata.ts";
 import { lint } from "@/lint/stylelint.ts";
 import { getUserstylesData } from "@/utils.ts";
+import stylelintConfig from "../../.stylelintrc.js";
 
 const flags = parseFlags(Deno.args, { boolean: ["fix"] });
 const subDir = flags._[0]?.toString() ?? "";
@@ -54,7 +55,9 @@ for await (const entry of stylesheets) {
   );
 
   // Lint with Stylelint.
-  await lint(entry, content, flags.fix).catch(() => failed = true);
+  await lint(entry, content, flags.fix, stylelintConfig).catch(() =>
+    failed = true
+  );
 }
 
 if (await checkForMissingFiles() === false) failed = true;

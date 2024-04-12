@@ -2,7 +2,7 @@
 @name Twitch Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/twitch
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/twitch
-@version 1.1.18
+@version 1.2.1
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/twitch/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Atwitch
 @description Soothing pastel theme for Twitch
@@ -52,6 +52,19 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
     & body {
       background-color: @base;
     }
@@ -94,10 +107,6 @@
     div.hype-train-expanded-layout p,
     div.hype-train-expanded-layout svg {
       color: @text;
-    }
-
-    div.hype-train-progress-bar-info-view__progress-value span {
-      color: @accent-color;
     }
 
     path[d="m18 17 4-4V2H6v15h4v4l4-4h4zM12 6h2v6h-2V6zm7 0h-2v6h2V6z"] {
@@ -442,7 +451,7 @@
       --color-text-button-primary: @crust;
       --color-text-overlay: @base;
       --color-text-base: @subtext1;
-      --color-text-alt: @subtext1;
+      --color-text-alt: @text;
       --color-text-alt-2: @text;
       --color-text-interactable-selected: @crust;
       --color-background-alt-2: @crust;
@@ -498,7 +507,7 @@
       --color-error: @red;
       --color-warn: @yellow;
       --color-success: @green;
-      --color-white: @mantle;
+      --color-white: @text;
       --color-info: @blue;
       --color-accent: @accent-color;
       --color-twitch-purple: @accent-color;
@@ -595,9 +604,63 @@
       --color-text-button-overlay-hover: @text !important;
       --color-text-tooltip: @base !important;
       --color-background-tooltip: @text !important;
+      --color-hinted-grey-2: @surface0;
+      --color-background-overlay-alt: @mantle;
+      --color-background-button-overlay-text-hover: @crust;
+      --color-border-overlay: @surface0;
+      --color-background-button-disabled: @surface0;
+      --color-text-button-disabled: @subtext0;
+    }
+
+    /* Predictions */
+    .fixed-prediction-button {
+      color: @text !important;
+
+      .channel-points-icon svg {
+        color: @text !important;
+      }
+    }
+    [style*="rgb(255, 255, 255)"] {
+      color: @base !important;
+    }
+    [style="color: rgb(56, 122, 255);"] {
+      color: @blue !important;
+    }
+    [style="color: rgb(245, 0, 155);"] {
+      color: @pink !important;
+    }
+    .fixed-prediction-button--blue,
+    [style*="background-color: rgb(56, 122, 255);"],
+    [style*="background: rgb(56, 122, 255);"] {
+      background-color: @blue !important;
+    }
+    .fixed-prediction-button--pink,
+    [style*="background-color: rgb(245, 0, 155);"],
+    [style*="background: rgb(245, 0, 155);"] {
+      background-color: @pink !important;
+    }
+
+    input[disabled] {
+      background-color: @surface0;
+    }
+    .chat-wysiwyg-input__placeholder {
+      color: @subtext0;
+    }
+
+    button[aria-label="Play"],
+    button[aria-label="Pause"] {
+      & + div svg {
+        color: @subtext0;
+      }
+    }
+
+    [data-a-target="video-ad-label"],
+    [data-a-target="video-ad-countdown"] {
+      color: @text !important;
     }
   }
 }
+
 @-moz-document domain("dashboard.twitch.tv") {
   .tw-root--theme-dark {
     #catppuccin(@darkFlavor);
@@ -628,4 +691,5 @@
   @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
   @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
 }
+
 // vim:ft=less

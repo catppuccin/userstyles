@@ -2,7 +2,7 @@
 @name Invidious Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/invidious
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/invidious
-@version 0.4.0
+@version 0.4.1
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/invidious/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ainvidious
 @description Soothing pastel theme for Invidious
@@ -53,7 +53,25 @@
                domain("yt.artemislena.eu"),
                domain("yt.cdaut.de"),
                domain("yt.drgnz.club"),
-               domain("yt.oelrichsgarcia.de"), {
+               domain("yt.oelrichsgarcia.de") {
+  @media (prefers-color-scheme: light) {
+    .no-theme {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    .no-theme {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+
+  .light-theme {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+  .dark-theme {
+    #catppuccin(@darkFlavor, @accentColor);
+  }
+
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -82,8 +100,6 @@
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
-    @link-color: @accent-color;
-    @link-hover: #lightenOrDarken(@accent-color, 5%) [ @result];
 
     #lightenOrDarken(@color, @value) {
       @result: if(
@@ -93,13 +109,24 @@
       );
     }
 
+    @link-color: @accent-color;
+    @link-hover: #lightenOrDarken(@accent-color, 5%) [ @result];
+
     color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
     background-color: @base !important;
     color: @text !important;
-
-    ::placeholder {
-      color: @subtext0;
-    }
 
     &::-webkit-scrollbar {
       width: 0.25rem;
@@ -287,7 +314,7 @@
       cursor: pointer;
       &:checked {
         @svg: escape(
-          '<svg viewBox="0 0 16 16" fill="@{accentColor}" xmlns="http://www.w3.org/2000/svg"><path d="M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z"/></svg>'
+          '<svg viewBox="0 0 16 16" fill="@{accent-color}" xmlns="http://www.w3.org/2000/svg"><path d="M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0"/></svg>'
         );
         background-image: url("data:image/svg+xml,@{svg}");
       }
@@ -312,24 +339,6 @@
       color: @crust;
       background-color: @accent-color;
     }
-  }
-
-  @media (prefers-color-scheme: light) {
-    .no-theme {
-      #catppuccin(@lightFlavor, @accentColor);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    .no-theme {
-      #catppuccin(@darkFlavor, @accentColor);
-    }
-  }
-
-  .light-theme {
-    #catppuccin(@lightFlavor, @accentColor);
-  }
-  .dark-theme {
-    #catppuccin(@darkFlavor, @accentColor);
   }
 }
 
