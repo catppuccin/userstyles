@@ -52,7 +52,7 @@ Start by filling out the "metadata block" at the very top of the template. Repla
 ==/UserStyle== */
 ```
 
-The rest of the metadata block details the preprocessor and the options of the userstyle. This won't need to be changed. For more information, see [Writing UserCSS - Usercss Metadata](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#usercss-metadata).
+The rest of the metadata block details the preprocessor and the options of the userstyle. This won't need to be changed. For more information, see ["Usercss Metadata" - Stylus Wiki](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#usercss-metadata).
 
 ### `@-moz-document`
 
