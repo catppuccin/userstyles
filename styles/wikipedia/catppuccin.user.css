@@ -2,7 +2,7 @@
 @name Wikipedia Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/wikipedia
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/wikipedia
-@version 0.0.8
+@version 0.0.14
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/wikipedia/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Awikipedia
 @description Soothing pastel theme for Wikipedia
@@ -18,12 +18,15 @@
 @-moz-document domain('wikipedia.org') {
   @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
 
-  /* prettier-ignore */
-  @catppuccin: {
-    @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-    @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-    @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-    @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
   }
 
   #catppuccin(@lookup, @accent) {
@@ -78,7 +81,7 @@
     --ctp-surface2: @surface2;
     --ctp-surface1: @surface1;
     --ctp-surface0: @surface0;
-    --ctp-base: @crust;
+    --ctp-base: @base;
     --ctp-mantle: @mantle;
     --ctp-crust: @crust;
 
@@ -104,7 +107,8 @@
     .vector-pinned-container,
     .vector-header-container .vector-sticky-header,
     .mw-mmv-image,
-    .mw-body {
+    .mw-body,
+    .frb-form-wrapper {
       background-color: @base;
     }
 
@@ -161,6 +165,7 @@
     .uls-no-results-found-title,
     .mw-mmv-post-image,
     .mw-mmv-credit,
+    .frb-form-wrapper,
     #contentSub:not(:empty) {
       color: @text;
     }
@@ -172,6 +177,30 @@
 
     .cdx-thumbnail__image {
       border-color: @text;
+    }
+
+    /* maths */
+    img.mwe-math-fallback-image-display,
+    img.mwe-math-fallback-image-inline {
+      & when (@lookup = latte) {
+        filter: brightness(0) saturate(100%) invert(31%) sepia(9%)
+          saturate(1499%) hue-rotate(196deg) brightness(90%) contrast(85%);
+      }
+
+      & when (@lookup = frappe) {
+        filter: brightness(0) saturate(100%) invert(92%) sepia(6%)
+          saturate(3753%) hue-rotate(184deg) brightness(93%) contrast(106%);
+      }
+
+      & when (@lookup = macchiato) {
+        filter: brightness(0) saturate(100%) invert(82%) sepia(7%)
+          saturate(1042%) hue-rotate(193deg) brightness(103%) contrast(92%);
+      }
+
+      & when (@lookup = mocha) {
+        filter: brightness(0) saturate(100%) invert(83%) sepia(28%)
+          saturate(223%) hue-rotate(190deg) brightness(99%) contrast(93%);
+      }
     }
 
     .mwe-popups .mwe-popups-extract[dir="ltr"]::after {
@@ -649,6 +678,11 @@
       border-color: @surface2;
     }
 
+    td[style*="background-color"],
+    td[style*="background-color"] * {
+      color: @crust !important;
+    }
+
     #toc-Services > a:nth-child(1) > div:nth-child(1) {
       color: @text !important;
     }
@@ -850,7 +884,7 @@
       border-top-color: @surface2;
       border-left-color: @surface2;
       border-right-color: @surface2;
-      & > figcaption {
+      > figcaption {
         background-color: @mantle !important;
         color: @text !important;
         border-bottom-color: @surface2;
@@ -990,6 +1024,169 @@
 
     .catlinks li {
       border-left-color: @surface2;
+    }
+
+    /* Fundraising banner */
+    .frb-btn,
+    .frb-label {
+      color: @text;
+      background-color: @base;
+      border-color: @overlay0;
+    }
+
+    input[type="radio"]:checked + .frb-btn,
+    input[type="radio"]:checked + .frb-label,
+    .frb-btn:hover,
+    .frb-label:hover {
+      color: @base;
+      background-color: @accent-color;
+      border-color: @accent-color;
+    }
+
+    #frb-main {
+      --wmui-base100: @base;
+      --wmui-base0: @text;
+      --frb-body: @text;
+      --frb-muted: @subtext0;
+      --frb-link: @subtext0;
+      --frb-link-hover: @text;
+      --frb-error: @red;
+      --frb-submit: @accent-color;
+      --frb-submit-hover: darken(@accent-color, 10%);
+
+      svg.frb-message-icon > g {
+        circle {
+          fill: @yellow;
+        }
+        path {
+          fill: @base;
+        }
+      }
+
+      .frb-message {
+        background-color: @green;
+        border-color: @green;
+      }
+
+      .frb-message::after {
+        border-left-color: @green;
+      }
+    }
+
+    #frb-inline {
+      --wmui-base100: @base;
+      --frb-primary: @red;
+      --frb-link: @accent-color;
+      --frb-muted: @subtext0;
+      --frb-muted-hover: @text;
+      --frb-body: @text;
+      --frb-error: @red;
+      --wmui-red-dark: @red;
+      --wmui-red-light: @red;
+      --wmui-green-dark: @green;
+      --wmui-green-light: @green;
+      --frb-submit: @accent-color;
+      --frb-submit-hover: darken(@accent-color, 10%);
+
+      .frb-inline-topbar {
+        color: @text;
+
+        svg circle {
+          fill: @yellow;
+        }
+
+        svg path {
+          fill: @base;
+        }
+      }
+
+      .frb-btn-cta {
+        background-color: @accent-color !important;
+        border-color: @accent-color !important;
+        color: @base !important;
+      }
+
+      .frb-btn-simple {
+        color: @accent-color !important;
+      }
+
+      .frb-monthly-pitch {
+        color: @blue;
+      }
+
+      .frb-optin-no-prompt {
+        color: @base;
+      }
+
+      .frb-cta-hiddenmessage {
+        background-color: @red;
+        color: @base;
+      }
+    }
+
+    #frb-nag {
+      --frb-primary-light: @base;
+      --frb-body: @text;
+      --wmui-accent-dark: @subtext0;
+      --frb-link-hover: @text;
+
+      span.frb-donate-button {
+        color: @base;
+        background-color: @red;
+
+        &:hover {
+          color: @base;
+          background-color: darken(@red, 10%);
+        }
+      }
+
+      svg.frb-icon-close > g {
+        stroke: @subtext0;
+
+        &:hover {
+          stroke: @text;
+        }
+      }
+    }
+
+    .frb-nag:not(#frb-nag) {
+      --frb-message-background: @base;
+      --frb-message-border: @red;
+      --frb-message: @text;
+      border-color: @surface0;
+      background: @base;
+      box-shadow: none;
+
+      #nag-rml-btn {
+        background-color: transparent;
+        border-color: transparent;
+        color: @subtext0;
+      }
+
+      #nag-yes-btn {
+        background-color: @accent-color;
+        border-color: @accent-color;
+        color: @base;
+      }
+    }
+
+    .frb-btn-cta-label::after {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6.7 12"><path d="M.9 0 0 .9 5.1 6 0 11.1l.9.9 5.5-5.5c.3-.3.3-.7 0-.9z" fill="@{base}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    .frb-back {
+      @svg-raw: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 16"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><path stroke="@{subtext0}" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.778" d="M7.181 13.285.753 7 7.181.715"/><rect fill="@{subtext0}" width="18.182" height="1.778" x=".818" y="6.111" rx=".889"/></g></svg>';
+      @svg: escape(@svg-raw);
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    .frb-close {
+      @svg-raw: '<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><g stroke="@{subtext0}" fill="none" stroke-linecap="round"><path d="M1 1 l8 8 M9 1 l-8 8"></path></g></svg>';
+      @svg: escape(@svg-raw);
+      background-image: url("data:image/svg+xml,@{svg}") !important;
     }
 
     .sprite {
@@ -1309,15 +1506,14 @@
       content: url("data:image/svg+xml,@{svg}");
     }
   }
-
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
-    }
-  }
 }
+
+/* prettier-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+}
+
+// vim:ft=less

@@ -2,7 +2,7 @@
 @name DuckDuckGo Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/duckduckgo
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/duckduckgo
-@version 0.1.3
+@version 0.1.6
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/duckduckgo/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aduckduckgo
 @description Soothing pastel theme for DuckDuckGo
@@ -16,23 +16,12 @@
 ==/UserStyle== */
 
 @-moz-document domain(duckduckgo.com) {
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
-    }
+  :root:not(.dark-bg) {
+    #catppuccin(@lightFlavor, @accentColor);
   }
 
-  /* prettier-ignore */
-  @catppuccin: {
-    @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-    @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-    @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-    @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+  :root.dark-bg {
+    #catppuccin(@darkFlavor, @accentColor);
   }
 
   #catppuccin(@lookup, @accent) {
@@ -63,6 +52,19 @@
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
 
     --sds-color-text-02: @text !important;
     --theme-col-txt-page-separator: @text!important;
@@ -170,15 +172,32 @@
       .metabar:not(.is-stuck) {
       background-color: @base !important;
     }
+
+    /* lyrics box */
+    .js-lyrics-module {
+      color: @subtext1 !important;
+    }
+    .module--lyrics__subtitle-box {
+      border-color: @surface2;
+    }
+    .module__inner-toggle--chevron {
+      color: @accent-color !important;
+      background-color: @surface1 !important;
+      border-color: @surface2;
+    }
+    .module__inner-toggle::before,
+    .module__inner-toggle::after {
+      background-color: @surface2 !important;
+    }
+
     // translation boxes
     .module--translations .dropdown--translation-select,
     .module--translations-translatedtext {
       background: @surface0 !important;
       border-color: @surface0;
     }
-    .module--translations .module--translations-translatedtext.is-placeholder,
-    .module--translations-original textarea::placeholder {
-      color: @subtext1;
+    .module--translations .module--translations-translatedtext.is-placeholder {
+      color: @subtext0;
     }
     .module--translations-swap-svg {
       fill: @text !important;
@@ -492,13 +511,8 @@
     .howItWorksSection_downloadsCard__U3Ph9,
     .metabar__grid-btn,
     .feedback-btn__icon-wrap .set-bookmarklet__input .btn,
-    .btn:visited,
-    .btn:active,
-    .btn.btn--primary,
     .btn.btn--secondary,
-    .btn--primary:hover,
     .btn.is-disabled,
-    .btn.is-disabled:hover,
     input,
     textarea,
     .frm__input,
@@ -509,10 +523,8 @@
     .zci--json_validator textarea,
     .colorpicker,
     .feedback-modal__submit.is-disabled,
-    .feedback-modal__submit.is-disabled:hover,
     .feedback-modal__submit.is-disabled:active,
     .feedback-modal__submit.is-disabled:focus,
-    .btn.btn--skeleton:hover,
     .module__section,
     .module--carousel__item,
     .is-related-search-exp.dark-bg,
@@ -524,7 +536,37 @@
     .js-definitions-internal {
       background-color: @surface0 !important;
     }
+    .module--carousel__item {
+      border-color: @surface1 !important;
+    }
 
+    .btn.is-disabled:hover,
+    .frm__switch__label:hover,
+    .feedback-modal__submit.is-disabled:hover,
+    .btn.btn--skeleton:hover,
+    .module__footer-carousel__label:hover {
+      background-color: @surface2 !important;
+      border-color: @surface2 !important;
+    }
+    .is-checked .frm__switch__label.btn {
+      background-color: @accent-color !important;
+      color: @mantle !important;
+    }
+    .js-set-exit {
+      background-color: @accent-color !important;
+      border-color: @accent-color !important;
+      color: @base !important;
+    }
+    .js-set-exit:hover {
+      background-color: fade(@accent-color, 80%) !important;
+      border-color: fade(@accent-color, 80%) !important;
+      color: @base !important;
+    }
+    .frm__switch__label {
+      background-color: @surface0;
+      border-color: @surface0;
+      color: @text !important;
+    }
     .set-bookmarklet__data {
       background-color: @surface2;
       color: @text;
@@ -608,7 +650,6 @@
     .c-detail__desc,
     .c-detail__filemeta,
     .c-detail__more,
-    .btn,
     .frm__label,
     .js-cloudsave-new-suggestion {
       color: @text !important;
@@ -683,10 +724,10 @@
       color: @base !important;
     }
 
-    .settings-page-wrapper .btn--primary {
+    .settings-page-wrapper.is-checked {
       border-color: @blue;
-      background-color: @blue !important;
-      color: @crust !important;
+      background-color: @sapphire !important;
+      color: @mantle !important;
     }
     .modal--dropdown--settings
       .settings-dropdown--section
@@ -696,24 +737,24 @@
         color: @text !important;
       }
     }
+    .ddgsi-check::before {
+      color: @mantle !important;
+    }
+    .set-bookmarklet__title,
+    .set-reset__title {
+      color: @text !important;
+    }
     .frm__select::after {
       color: @accent-color !important;
     }
 
-    .js-region-filter-switch,
-    .frm__switch__label {
-      background-color: @overlay0 !important;
-      border-color: @accent-color !important;
-    }
     .switch__knob {
       background: @text !important;
     }
     .switch.is-on {
       background-color: @accent-color;
     }
-
-    .dropdown__switch.is-on::before,
-    .frm__switch__label {
+    .dropdown__switch.is-on::before {
       color: @base !important;
     }
     .search--header {
@@ -781,4 +822,14 @@
       background: url("data:image/svg+xml,@{svg}") no-repeat !important;
     }
   }
-} // vim:ft=less
+}
+
+/* prettier-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+}
+
+// vim:ft=less

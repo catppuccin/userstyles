@@ -2,7 +2,7 @@
 @name ChatGPT Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/chatgpt
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/chatgpt
-@version 0.2.6
+@version 0.2.8
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/chatgpt/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Achatgpt
 @description Soothing pastel theme for ChatGPT
@@ -24,10 +24,6 @@
 
   :root.dark {
     #catppuccin(@darkFlavor, @accentColor);
-  }
-
-  #rgbify(@color) {
-    @rgb-raw: red(@color), green(@color), blue(@color);
   }
 
   #catppuccin(@lookup, @accent) {
@@ -59,8 +55,6 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    color-scheme: if(@lookup = latte, light, dark);
-
     --ctp-rosewater: #rgbify(@rosewater) [];
     --ctp-flamingo: #rgbify(@flamingo) [];
     --ctp-pink: #rgbify(@pink) [];
@@ -84,9 +78,22 @@
     --ctp-surface2: #rgbify(@surface2) [];
     --ctp-surface1: #rgbify(@surface1) [];
     --ctp-surface0: #rgbify(@surface0) [];
-    --ctp-base: #rgbify(@crust) [];
+    --ctp-base: #rgbify(@base) [];
     --ctp-mantle: #rgbify(@mantle) [];
     --ctp-crust: #rgbify(@crust) [];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
 
     code.hljs {
       background: none;
@@ -187,7 +194,7 @@
     --border-xheavy: fade(@text, 25%);
     --link: @accent-color;
     --link-hover: if(
-      @lookup=latte,
+      @lookup = latte,
       lighten(@accent-color, 10%),
       darken(@accent-color, 10%)
     );
@@ -204,11 +211,6 @@
     }
 
     /* Input */
-
-    input::placeholder,
-    textarea::placeholder {
-      color: @overlay2 !important;
-    }
 
     select {
       @svg: escape(
@@ -970,6 +972,18 @@
     @accent-color: @catppuccin[@@lookup][@@accent];
 
     color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
     color: @text;
     caret-color: @text;
 
@@ -1008,7 +1022,7 @@
       &:valid {
         border-color: @accent-color;
 
-        & + .email-label {
+        + .email-label {
           color: @accent-color;
           background-color: @base;
         }
@@ -1169,6 +1183,10 @@
       }
     }
   }
+}
+
+#rgbify(@color) {
+  @rgb-raw: red(@color), green(@color), blue(@color);
 }
 
 /* prettier-ignore */
