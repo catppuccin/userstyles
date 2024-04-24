@@ -1,4 +1,3 @@
-# broken until https://github.com/nekowinston/nix-deno/issues/11
 {
   lib,
   denoPlatform,

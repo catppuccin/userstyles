@@ -4,7 +4,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
-    nix-deno.url = "github:nekowinston/nix-deno";
+
+    # broken until https://github.com/nekowinston/nix-deno/issues/11
+    nix-deno.url = "github:nekowinston/nix-deno/fix/npm-semver-dash";
   };
 
   outputs = {
