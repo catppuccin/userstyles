@@ -173,7 +173,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🎓 Education</summary>
 
-- [Canvas LMS](styles/canvas-lms)
+- 🚧 [Canvas LMS](styles/canvas-lms)
 - [Formative](styles/formative)
 - [Quizlet](styles/quizlet)
 
