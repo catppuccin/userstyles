@@ -21,9 +21,11 @@
 Switch to either the dark or default themes via the **gear icon** > **themes** > **view all** for the best experience!
 
 
-## 💝 Current Maintainer
-- [Isabel](https://github.com/isabelroses)
+## 🚧 Looking for Maintainers 🚧
+- If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
 
+## 💖 Past Maintainer
+- [Isabel](https://github.com/isabelroses)
 
 &nbsp;
 

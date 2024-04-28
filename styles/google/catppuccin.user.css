@@ -2,7 +2,7 @@
 @name Google Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/google
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/google
-@version 0.2.0
+@version 0.2.2
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/google/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agoogle
 @description Soothing pastel theme for Google
@@ -12,11 +12,22 @@
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
 @-moz-document regexp("^https?://(www\\.|images\\.)?google\\..*")
 {
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+
   #catppuccin(@lookup, @accent) {
     @flamingo: @catppuccin[@@lookup][@flamingo];
     @pink: @catppuccin[@@lookup][@pink];
@@ -45,40 +56,56 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    background: @base !important;
-    --uv-styles-color-surface: @crust;
-    --uv-styles-color-tertiary: @surface0;
-    --uv-styles-color-secondary: fade(@blue, 25%);
-    --uv-styles-color-text-primary: @blue;
-    --uv-styles-color-icon-default: @text;
-    --uv-styles-color-text-emphasis: @text;
-    --uv-styles-color-icon-on-secondary: @subtext0;
-    --uv-styles-color-on-tertiary: @text;
-    --uv-styles-color-icon-on-tertiary: @text;
-    --xhUGwc: @base;
-    --bbQxAb: @text;
-    --IXoxUe: @subtext0;
-    --COEmY: @text;
-    --YLNNHc: @text;
-    --gS5jXb: @surface0;
-    --EpFNW: @mantle;
-    --tefdc5886c2f04483: @text;
-    --te8f1ea4d4928be48: @text !important;
-    --ta884a309a24f44f4: @subtext0 !important;
-    --tdee01b39543f1cac: @base !important;
-    --tcc8c9ef487836e2b: @surface0 !important;
-    --ta83cba65577ef850: @blue !important;
-    --t7d1a3050c2c1c0a5: @text !important;
-    --t6a0469853a1a02c1: @text !important;
-    --t5feec22832a0fdd6: @surface0 !important;
-    --t342c96645d13ae13: @accent-color !important;
-    --t6c7325fca9d536d4: @text !important;
-    --tf7148cf5018d5074: @text !important;
-    --t9ab8d922307d428d: @text;
-    --t62e84c71989f1975: @red !important;
-    --tc9db399ed82142e1: @green !important;
-    --uv-styles-color-text-default: @subtext0 !important;
-    --uv-styles-color-review-stars: @yellow !important;
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    &,
+    body {
+      background: @base !important;
+      --uv-styles-color-surface: @crust;
+      --uv-styles-color-tertiary: @surface0;
+      --uv-styles-color-secondary: fade(@blue, 25%);
+      --uv-styles-color-text-primary: @blue;
+      --uv-styles-color-icon-default: @text;
+      --uv-styles-color-text-emphasis: @text;
+      --uv-styles-color-icon-on-secondary: @subtext0;
+      --uv-styles-color-on-tertiary: @text;
+      --uv-styles-color-icon-on-tertiary: @text;
+      --xhUGwc: @base;
+      --bbQxAb: @text;
+      --IXoxUe: @subtext0;
+      --COEmY: @text;
+      --YLNNHc: @text;
+      --gS5jXb: @surface0;
+      --EpFNW: @mantle;
+      --tefdc5886c2f04483: @text;
+      --te8f1ea4d4928be48: @text !important;
+      --ta884a309a24f44f4: @subtext0 !important;
+      --tdee01b39543f1cac: @base !important;
+      --tcc8c9ef487836e2b: @surface0 !important;
+      --ta83cba65577ef850: @blue !important;
+      --t7d1a3050c2c1c0a5: @text !important;
+      --t6a0469853a1a02c1: @text !important;
+      --t5feec22832a0fdd6: @surface0 !important;
+      --t342c96645d13ae13: @accent-color !important;
+      --t6c7325fca9d536d4: @text !important;
+      --tf7148cf5018d5074: @text !important;
+      --t9ab8d922307d428d: @text;
+      --t62e84c71989f1975: @red !important;
+      --tc9db399ed82142e1: @green !important;
+      --uv-styles-color-text-default: @subtext0 !important;
+      --uv-styles-color-review-stars: @yellow !important;
+    }
 
     /* safe search toggle dropdown */
     .z4R3Z.yb2zA {
@@ -158,6 +185,9 @@
     .pno7A.rfUaPd .SwDSDf {
       color: @subtext1;
     }
+    .pno7A.rfUaPd .Tqvz7b {
+      color: @text;
+    }
     .tR3EBc {
       background-color: @mantle;
     }
@@ -166,6 +196,10 @@
       background: @surface0 !important;
       color: @text !important;
       border-color: @surface0 !important;
+      &:hover {
+        background-color: @surface1;
+        border-color: @surface1;
+      }
     }
     .zbvg1c {
       color: @text;
@@ -174,6 +208,13 @@
       background-color: @blue;
       color: @mantle;
       border-color: @blue;
+      &:hover {
+        background-color: @sky;
+        border-color: @sky;
+      }
+    }
+    .tw-lliw.item-selected .language_list_item {
+      color: @blue;
     }
     .qv3Wpe {
       color: @text;
@@ -190,6 +231,10 @@
       background: @surface2;
       color: @text;
       border-color: @surface2;
+      &:hover {
+        background-color: @overlay0;
+        border-color: @overlay0;
+      }
     }
     /* knowoledge panel uwu */
     .H73aad {
@@ -279,12 +324,33 @@
       background-color: @base !important;
     }
 
-    .ttBXeb {
+    .ttBXeb,
+    .NDTw3e.K7R36c,
+    .knowledge-finance-wholepage-chart__fw-uch .uch-svg {
       color: @subtext0;
     }
 
     .sQ6RSc {
       fill: @text;
+    }
+
+    .egcvbb {
+      border-color: @surface2;
+      &:hover {
+        border-color: @text;
+      }
+    }
+
+    .knowledge-finance-wholepage-chart__hover-card {
+      background-color: @base;
+    }
+    .knowledge-finance-wholepage-chart__hover-card-time {
+      color: @subtext0;
+    }
+
+    .fw-ch-sel .KWk7r.qUjgX {
+      background-color: @surface0;
+      color: @blue;
     }
 
     .gb_Ka.gb_f,
@@ -577,9 +643,13 @@
     .wwUB2c {
       color: @subtext0;
     }
-    .z1asCe {
+    .dhERQc {
+      color: @base !important;
+      background-color: @blue !important;
+    }
+    .z1asCe,
+    .ikb4Bb {
       color: @text !important;
-      fill: @text !important;
     }
     .rsGxI.Ww4FFb,
     .Ww4FFb {
@@ -606,21 +676,43 @@
     .VuuXrf {
       color: @text;
     }
-    .hb8SAc {
+    .hb8SAc,
+    .gb_Oc a.gb_H,
+    .gb_Oc span.gb_H {
       color: @text;
     }
     .TQc1id .I6TXqe {
       border-color: @surface2;
     }
-    .I6TXqe {
+    .I6TXqe,
+    .zaokob {
       background: @base;
+    }
+    .tw-lliw:hover,
+    .tw-lliw:focus {
+      background-color: @surface0;
+    }
+    .language_list_languages.tw-ll-top::after {
+      background: linear-gradient(
+        to bottom,
+        rgba(red(@base), green(@base), blue(@base), 0),
+        rgba(red(@base), green(@base), blue(@base), 1)
+      );
     }
     .HsZQAe {
       border-bottom-color: @surface2;
     }
+    .KLEmSd {
+      border-bottom-color: @surface1;
+    }
     .NtaMpb .niO4u,
-    .nZWEZc .ttwCMe {
+    .nZWEZc .ttwCMe,
+    .xNzW0d,
+    .lWzCpb {
       background-color: @base;
+    }
+    .aURkK {
+      border-left-color: @surface1;
     }
     .iRPzcb {
       border-bottom-color: @surface1;
@@ -753,6 +845,17 @@
       > g-fab:nth-child(1),
     g-right-button.wgbRNb > g-fab:nth-child(1) {
       background-color: @crust !important;
+    }
+    .gb_2e {
+      background-color: @surface0;
+    }
+    .gb_Ec {
+      div:first-child {
+        color: @text;
+      }
+      > * {
+        color: @subtext0;
+      }
     }
     .kLhEKe {
       background-color: @base;
@@ -1007,9 +1110,13 @@
     .T8VaVe {
       color: @blue;
     }
+    .tw-ta,
     #tw-source-text-container .tw-ta,
     #tw-source-rmn-container .tw-ta {
       color: @text;
+    }
+    .tw-bilingual-marked {
+      border-color: @blue;
     }
     #tw-target {
       background-color: @surface0;
@@ -1870,15 +1977,22 @@
     .nz9sqb.o07G5 .tX9u1b:active:hover .Rq5Gcb {
       background-color: @surface0;
     }
-  }
-  @media (prefers-color-scheme: light) {
-    body {
-      #catppuccin(@lightFlavor, @accentColor);
+    .aRDKUe .pRjiJb,
+    .aRDKUe .DmSTqc {
+      color: @text;
     }
-  }
-  @media (prefers-color-scheme: dark) {
-    body {
-      #catppuccin(@darkFlavor, @accentColor);
+    .aRDKUe .idKC9b,
+    .aRDKUe .MbHqJ {
+      color: @subtext0;
+    }
+    .aRDKUe .GXg3Le {
+      color: @blue;
+    }
+    .aRDKUe .G5bXNb {
+      background-color: @mantle;
+      &:hover {
+        background-color: @base;
+      }
     }
   }
 }
@@ -1890,3 +2004,5 @@
   @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
   @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
 }
+
+// vim:ft=less

@@ -1,0 +1,432 @@
+/* ==UserStyle==
+@name tldraw Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/tldraw
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/tldraw
+@version 0.0.2
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/tldraw/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Atldraw
+@description Soothing pastel theme for tldraw
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain('tldraw.com') {
+  .tl-theme__dark {
+    #catppuccin(@darkFlavor, @accentColor);
+  }
+  .tl-theme__light {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    --color-accent: @accent-color !important;
+    --color-background: @base !important;
+    --color-brush-fill: @surface0 !important;
+    --color-brush-stroke: @surface2 !important;
+    --color-grid: @overlay0 !important;
+    --color-low: @surface0 !important;
+    --color-low-border: @overlay2 !important;
+    --color-culled: @subtext1 !important;
+    --color-muted-none: fade(@surface0, 70%);
+    --color-muted-0: @surface0;
+    --color-muted-1: @surface1;
+    --color-muted-2: @surface2 !important;
+    --color-hint: @surface2 !important;
+    --color-overlay: fade(@base, 50%) !important;
+    --color-divider: @surface1 !important;
+    --color-panel-contrast: @surface2 !important;
+    --color-panel-overlay: fade(@overlay0, 80%);
+    --color-panel: @surface0 !important;
+    --color-focus: @sky !important;
+    --color-selected: @accent-color !important;
+    --color-selected-contrast: @crust !important;
+    --color-selection-fill: fade(@blue, 50%);
+    --color-selection-stroke: @sapphire !important;
+    --color-text-0: @text !important;
+    --color-text-1: @text !important;
+    --color-text-3: @subtext1 !important;
+    --color-text-shadow: @subtext0 !important;
+    --color-primary: @blue !important;
+    --color-warn: @maroon !important;
+    --color-text: @text !important;
+    --color-laser: @red !important;
+
+    --shadow-1-1: fade(@crust, 16%);
+    --shadow-1-2: fade(@crust, 22%);
+    --shadow-2-1: fade(@crust, 66%);
+    --shadow-2-2: fade(@crust, 33%);
+    --shadow-3-1: fade(@crust, 50%);
+
+    --shadow-1: 0px 1px 2px var(--shadow-1-1), 0px 1px 3px var(--shadow-1-2);
+    --shadow-2: 0px 1px 3px var(--shadow-2-1), 0px 2px 6px var(--shadow-2-2),
+      inset 0px 0px 0px 1px var(--color-panel-contrast);
+    --shadow-3: 0px 1px 3px var(--shadow-3-1), 0px 2px 12px var(--shadow-3-1),
+      inset 0px 0px 0px 1px var(--color-panel-contrast);
+
+    .tlui-menu__submenu__trigger[data-state="open"]:not(:hover)::after {
+      border-radius: var(--radius-1);
+      background: linear-gradient(
+        90deg,
+        @surface0 0%,
+        var(--color-muted-2) 100%
+      );
+    }
+    .tlui-menu-zone *[data-state="open"]::after {
+      background: linear-gradient(
+        180deg,
+        @surface0 0%,
+        var(--color-muted-2) 100%
+      );
+    }
+    .tlui-people-menu__avatar {
+      background-color: @green !important;
+    }
+
+    --color-black: @text;
+    --color-gray: if(@lookup = latte, @subtext0, @subtext0);
+    --color-red: @red;
+    --color-light-red: lighten(@red, 5%);
+    --color-orange: @peach;
+    --color-yellow: @yellow;
+    --color-green: darken(@green, 5%);
+    --color-light-green: lighten(@green, 5%);
+    --color-blue: @blue;
+    --color-light-blue: @sky;
+    --color-violet: darken(@mauve, 10%);
+    --color-light-violet: @mauve;
+
+    [title="Color — Black"] {
+      color: var(--color-black) !important;
+    }
+    [title="Color — Grey"] {
+      color: var(--color-gray) !important;
+    }
+    [title="Color — Red"] {
+      color: var(--color-red) !important;
+    }
+    [title="Color — Light red"] {
+      color: var(--color-light-red) !important;
+    }
+    [title="Color — Orange"] {
+      color: var(--color-orange) !important;
+    }
+    [title="Color — Yellow"] {
+      color: var(--color-yellow) !important;
+    }
+    [title="Color — Green"] {
+      color: var(--color-green) !important;
+    }
+    [title="Color — Light green"] {
+      color: var(--color-light-green) !important;
+    }
+    [title="Color — Blue"] {
+      color: var(--color-blue) !important;
+    }
+    [title="Color — Light blue"] {
+      color: var(--color-light-blue) !important;
+    }
+    [title="Color — Violet"] {
+      color: var(--color-violet) !important;
+    }
+    [title="Color — Light violet"] {
+      color: var(--color-light-violet) !important;
+    }
+    .tl-svg-container {
+      [fill="#e1e1e1"],
+      [fill="#1d1d1d"],
+      [fill="#494949"],
+      [fill="#989898"] {
+        fill: var(--color-black) !important;
+      }
+      [fill="#010403"] {
+        fill: @crust !important;
+      }
+      [fill="#9398b0"],
+      [fill="#adb5bd"],
+      [fill="#bcc3c9"],
+      [fill="#7c8187"] {
+        fill: var(--color-gray) !important;
+      }
+      [fill="#e03131"],
+      [fill="#e55959"],
+      [fill="#8f3734"] {
+        fill: var(--color-red) !important;
+      }
+      [fill="#ff8787"],
+      [fill="#fe9e9e"],
+      [fill="#a56767"] {
+        fill: var(--color-light-red) !important;
+      }
+      [fill="#f76707"],
+      [fill="#f78438"],
+      [fill="#9f552d"] {
+        fill: var(--color-orange) !important;
+      }
+      [fill="#ffc034"],
+      [fill="#ffc078"],
+      [fill="#fecb92"] {
+        fill: var(--color-yellow) !important;
+      }
+      [fill="#099268"],
+      [fill="#39a785"],
+      [fill="#366a53"] {
+        fill: var(--color-green) !important;
+      }
+      [fill="#40c057"],
+      [fill="#65cb78"],
+      [fill="#4e874e"] {
+        fill: var(--color-light-green) !important;
+      }
+      [fill="#4263eb"],
+      [fill="#6681ee"],
+      [fill="#3a4b9e"] {
+        fill: var(--color-blue) !important;
+      }
+      [fill="#4dabf7"],
+      [fill="#6fbbf8"],
+      [fill="#4d7aa9"] {
+        fill: var(--color-light-blue) !important;
+      }
+      [fill="#ae3ec9"],
+      [fill="#bd63d3"],
+      [fill="#763a8b"] {
+        fill: var(--color-violet) !important;
+      }
+      [fill="#e599f7"],
+      [fill="#e9acf8"],
+      [fill="#9770a9"] {
+        fill: var(--color-light-violet) !important;
+      }
+      [stroke="#e1e1e1"],
+      [stroke="#1d1d1d"] {
+        stroke: var(--color-black) !important;
+      }
+      [stroke="#9398b0"],
+      [stroke="#adb5bd"] {
+        stroke: var(--color-gray) !important;
+      }
+      [stroke="#e03131"] {
+        stroke: var(--color-red) !important;
+      }
+      [stroke="#ff8787"] {
+        stroke: var(--color-light-red) !important;
+      }
+      [stroke="#f76707"] {
+        stroke: var(--color-orange) !important;
+      }
+      [stroke="#ffc034"],
+      [stroke="#ffc078"] {
+        stroke: var(--color-yellow) !important;
+      }
+      [stroke="#099268"] {
+        stroke: var(--color-green) !important;
+      }
+      [stroke="#40c057"] {
+        stroke: var(--color-light-green) !important;
+      }
+      [stroke="#4263eb"] {
+        stroke: var(--color-blue) !important;
+      }
+      [stroke="#4dabf7"] {
+        stroke: var(--color-light-blue) !important;
+      }
+      [stroke="#ae3ec9"] {
+        stroke: var(--color-violet) !important;
+      }
+      [stroke="#e599f7"] {
+        stroke: var(--color-light-violet) !important;
+      }
+      [stroke="color(display-p3 0.8078 0.7225 0.0312)"],
+      [stroke="color(display-p3 0.972 0.8705 0.05)"] {
+        stroke: var(--color-yellow) !important;
+      }
+      [stroke="color(display-p3 0.6299 0.7012 0.7856)"],
+      [stroke="color(display-p3 0.8163 0.9023 0.9416)"] {
+        stroke: var(--color-text-3) !important;
+      }
+      [stroke="color(display-p3 0.7024 0.0403 0.753)"],
+      [stroke="color(display-p3 0.9676 0.5652 0.9999)"] {
+        stroke: var(--color-light-violet) !important;
+      }
+      [stroke="color(display-p3 0.5651 0.0079 0.8986)"],
+      [stroke="color(display-p3 0.7469 0.5089 0.9995)"] {
+        stroke: var(--color-violet) !important;
+      }
+      [stroke="color(display-p3 0.0032 0.4655 0.7991)"],
+      [stroke="color(display-p3 0.308 0.6632 0.9996)"] {
+        stroke: var(--color-blue) !important;
+      }
+      [stroke="color(display-p3 0.0023 0.7259 0.7735)"],
+      [stroke="color(display-p3 0.1512 0.9414 0.9996)"] {
+        stroke: var(--color-light-blue) !important;
+      }
+      [stroke="color(display-p3 0.7699 0.4937 0.0085)"],
+      [stroke="color(display-p3 0.9988 0.6905 0.266)"] {
+        stroke: var(--color-orange) !important;
+      }
+      [stroke="color(display-p3 0.0085 0.582 0.4604)"],
+      [stroke="color(display-p3 0.2536 0.984 0.7981)"] {
+        stroke: var(--color-green) !important;
+      }
+      [stroke="color(display-p3 0.2711 0.6172 0.0195)"],
+      [stroke="color(display-p3 0.563 0.9495 0.3857)"] {
+        stroke: var(--color-light-green) !important;
+      }
+      [stroke="color(display-p3 0.7849 0.0585 0.3589)"],
+      [stroke="color(display-p3 0.9988 0.5301 0.6397)"] {
+        stroke: var(--color-light-red) !important;
+      }
+      [stroke="color(display-p3 0.7978 0.0509 0.2035)"],
+      [stroke="color(display-p3 0.9992 0.4376 0.45)"] {
+        stroke: var(--color-red) !important;
+      }
+    }
+
+    [data-testid="mobile-styles.button"] {
+      &[style*="color: rgb(229, 153, 247);"] {
+        color: var(--color-light-violet) !important;
+      }
+      &[style*="color: rgb(147, 152, 176);"],
+      &[style*="color: rgb(173, 181, 189);"] {
+        color: var(--color-gray) !important;
+      }
+      &[style*="color: rgb(224, 49, 49);"] {
+        color: var(--color-red) !important;
+      }
+      &[style*="color: rgb(247, 103, 7);"] {
+        color: var(--color-orange) !important;
+      }
+      &[style*="color: rgb(255, 192, 52);"],
+      &[style*="color: rgb(255, 192, 120);"] {
+        color: var(--color-yellow) !important;
+      }
+      &[style*="color: rgb(9, 146, 104);"] {
+        color: var(--color-green) !important;
+      }
+      &[style*="color: rgb(64, 192, 87);"] {
+        color: var(--color-light-green) !important;
+      }
+      &[style*="color: rgb(66, 99, 235);"] {
+        color: var(--color-blue) !important;
+      }
+      &[style*="color: rgb(77, 171, 247);"] {
+        color: var(--color-light-blue) !important;
+      }
+      &[style*="color: rgb(174, 62, 201);"] {
+        color: var(--color-violet) !important;
+      }
+      &[style*="color: rgb(255, 135, 135);"] {
+        color: var(--color-light-red) !important;
+      }
+    }
+
+    div:has(.tl-text.tl-text-content) {
+      &[style*="color: rgb(225, 225, 225);"],
+      &[style*="color: rgb(29, 29, 29);"] {
+        color: var(--color-black) !important;
+      }
+      &[style*="color: rgb(147, 152, 176);"],
+      &[style*="color: rgb(173, 181, 189);"] {
+        color: var(--color-gray) !important;
+        background-color: var(--color-gray) !important;
+      }
+      &[style*="color: rgb(224, 49, 49);"] {
+        color: var(--color-red) !important;
+        background-color: var(--color-red) !important;
+      }
+      &[style*="color: rgb(255, 135, 135);"] {
+        color: var(--color-light-red) !important;
+        background-color: var(--color-light-red) !important;
+      }
+      &[style*="color: rgb(247, 103, 7);"] {
+        color: var(--color-orange) !important;
+        background-color: var(--color-orange) !important;
+      }
+      &[style*="color: rgb(255, 192, 52);"],
+      &[style*="color: rgb(255, 192, 120);"] {
+        color: var(--color-yellow) !important;
+        background-color: var(--color-yellow) !important;
+      }
+      &[style*="color: rgb(9, 146, 104);"] {
+        color: var(--color-green) !important;
+        background-color: var(--color-green) !important;
+      }
+      &[style*="color: rgb(64, 192, 87);"] {
+        color: var(--color-light-green) !important;
+        background-color: var(--color-light-green) !important;
+      }
+      &[style*="color: rgb(66, 99, 235);"] {
+        color: var(--color-blue) !important;
+        background-color: var(--color-blue) !important;
+      }
+      &[style*="color: rgb(77, 171, 247);"] {
+        color: var(--color-light-blue) !important;
+        background-color: var(--color-light-blue) !important;
+      }
+      &[style*="color: rgb(174, 62, 201);"] {
+        color: var(--color-violet) !important;
+        background-color: var(--color-violet) !important;
+      }
+      &[style*="color: rgb(229, 153, 247);"] {
+        color: var(--color-light-violet) !important;
+        background-color: var(--color-light-violet) !important;
+      }
+    }
+  }
+}
+
+/* prettier-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+}
+
+// vim:ft=less

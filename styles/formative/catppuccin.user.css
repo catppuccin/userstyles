@@ -2,7 +2,7 @@
 @name Formative Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/formative
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/formative
-@version 0.2.1
+@version 0.2.3
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/formative/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aformative
 @description Soothing pastel theme for Formative
@@ -12,16 +12,19 @@
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
 @-moz-document domain('app.formative.com'), domain("goformative.com") {
-  /* prettier-ignore */
-  @catppuccin: {
-    @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-    @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-    @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-    @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
   }
 
   #catppuccin(@lookup, @accent) {
@@ -52,7 +55,26 @@
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
-    @contrast-accent-color: if(@lookup=latte, @text, @base);
+
+    @contrast-accent-color: if(@lookup = latte, @text, @base);
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+      border-color: @overlay0;
+      color: @text;
+    }
+    .input {
+      border-color: @overlay0;
+    }
 
     .MainAppSideMenu__LogoLink-sc-11gwnv8-2,
     .MainAppHeader__LogoLink-sc-1gw0bt9-2,
@@ -205,7 +227,9 @@
     .LaunchRespondusBrowser__DetailsParagraph-sc-1ymzzc2-4,
     .PracticeSession__PopoverContentDiv-sc-1t2vn9a-4,
     .ExpandableAccordionHeader__HeaderRow-sc-cu02pz-1,
-    .VerticalButton__StyledSpan-sc-1h2we7r-1 {
+    .VerticalButton__StyledSpan-sc-1h2we7r-1,
+    .ShelfTile__LabelDiv-sc-1oc4c00-3,
+    .PracticeSet__AddItemCardContents-sc-1wup6tb-10 {
       color: @text;
     }
     .TabsItem__TabDiv-sc-tj1og8-4:hover,
@@ -227,7 +251,7 @@
       &.IconWarningButton__RootButton-sc-1b683n6-0:hover {
         border-color: @red;
       }
-      & > svg[width="16"] {
+      > svg[width="16"] {
         path {
           stroke: @red;
         }
@@ -365,6 +389,9 @@
       .Popover__PopoverArrow-sc-1x169li-3 {
         fill: @surface2;
       }
+      .StrokePicker__InnerDiv-sc-8widgm-4 {
+        background: @surface2;
+      }
     }
     .DropdownList__TriggerButton-sc-1hvvmg1-0,
     .EmptyExplainer__StyledMaterialIcon-sc-1ixiesy-4 {
@@ -458,6 +485,9 @@
             .ErrorExplainer__ErrorIdParagraph-sc-7nq4if-4 {
               color: @subtext0;
             }
+          }
+          .PracticeItemImport__StyledTextarea-sc-4fopem-2 {
+            background: @surface0;
           }
         }
         .ModalTitle {
@@ -642,11 +672,16 @@
         }
         border-color: @overlay2 !important;
       }
-      .BlankOutput__FillableEntity-sc-15mzaww-2,
-      .BlankOutput__FillableNumericDiv-sc-15mzaww-1 {
+      .BlankOutput__FillableEntity-sc-15mzaww-3,
+      .BlankOutput__FillableNumericDiv-sc-15mzaww-2 {
         outline-color: @accent-color;
         color: @text;
         background: @surface0;
+        .KatexOutput__RootDiv-sc-gu2jna-0 {
+          [style*="color: rgb(204, 0, 0)"] {
+            color: @red !important;
+          }
+        }
       }
       .match-table-grid-container table {
         th,
@@ -705,6 +740,18 @@
         .ChoiceElement__LabelRichText-sc-1mbtxfk-3,
         .material-icons-outlined {
           background: transparent;
+        }
+      }
+      .ChoiceOptionViewable__RightSideDiv-sc-a2vwy6-2 {
+        border-color: @overlay0;
+        .ChoiceOptionViewable__StrickenOverlayDiv-sc-a2vwy6-7 {
+          background-image: repeating-linear-gradient(
+            315deg,
+            transparent,
+            transparent 16px,
+            @text 16px,
+            @text 18px
+          );
         }
       }
       .InlineChoiceOutput__InlineChoiceOutputDiv-sc-1694w84-2 {
@@ -1065,17 +1112,12 @@
         background: @surface1;
         border-color: @overlay0 !important;
         color: @text;
-        &::placeholder {
-          color: @subtext0;
-        }
       }
     }
     .FormativeStudentFooter__BottomDiv-sc-6tj89c-3 {
       border-color: @overlay0;
     }
-    .ModalBody__RootDiv-sc-1lg094f-0:has(
-        .SubmitModal__ContentTitleH3-sc-7oq9dj-1
-      )
+    .ModalBody__RootDiv-sc-1lg094f-0:has(.Submit__ContentTitleH3-sc-1vceatk-1)
       svg
       path {
       fill: @accent-color;
@@ -1106,7 +1148,8 @@
       border-color: @overlay0;
       input.ReactiveTextInput__StyledInput-sc-g83bxq-2 {
         color: @text !important;
-        &::placeholder {
+        &::placeholder,
+        &:focus::placeholder {
           color: @subtext0 !important;
         }
       }
@@ -1126,9 +1169,7 @@
       .AutoSizeInput__StyledInput-sc-ops4en-2 {
         color: @text;
         background: transparent !important;
-        &::placeholder {
-          color: @subtext0 !important;
-        }
+
         &:focus {
           border-color: @subtext0;
         }
@@ -1147,9 +1188,6 @@
           border-color: @overlay0;
           textarea {
             color: @text;
-            &::placeholder {
-              color: @subtext0;
-            }
           }
         }
         .MediaButton__StyledButton-sc-12h2vjb-0 {
@@ -1444,17 +1482,40 @@
         transform: scale(1);
       }
     }
-  }
-
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
+    .Shelf__RootDiv-sc-5aism7-0 {
+      background: @surface0;
+      .ShelfTile__RootButton-sc-1oc4c00-0 {
+        background: @surface1;
+        &:hover {
+          background: @surface2;
+          box-shadow: @accent-color 0 0 0 1px;
+          .label {
+            color: @accent-color;
+          }
+        }
+        .ShelfTile__IconDiv-sc-1oc4c00-1 {
+          background: @accent-color !important;
+          i {
+            color: @contrast-accent-color;
+          }
+        }
+      }
     }
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
+    img.spinner {
+      @svg: escape(
+        '<svg width="140" height="140" version="1.1" viewBox="0 0 1400 1400" xmlns="http://www.w3.org/2000/svg"><path d="M1035 1226c-13-13-27-40-31-60-6-35-3-40 60-106 116-120 162-254 145-423-9-93-55-201-114-266l-37-41h44c60 0 83-24 79-86-3-55 3-53 64 26 97 126 148 276 148 430 0 155-52 305-148 430-91 118-158 148-210 96" fill="@{yellow}"/><path d="M1105 362c-11-2-41-24-68-49-102-95-263-143-409-123-87 12-198 62-257 115l-41 37v-40c0-61-26-86-85-83-56 3-54-3 25-64 72-55 182-108 270-131 85-22 235-22 320 0 124 32 298 132 345 199s-19 159-100 139" fill="@{green}"/><path d="M612 1389c-158-21-341-117-431-226-56-68-31-143 53-159 35-6 40-3 106 60 121 118 272 168 433 146 76-11 178-53 236-97l34-26-6 23c-8 30 15 85 41 99 12 6 35 11 53 11h32l-47 36c-134 102-337 156-504 133" fill="@{red}"/><path d="M142 1113c-45-59-98-173-118-253-22-85-22-235 0-320 32-124 132-298 199-345 46-32 110-14 132 39 19 45 10 73-42 129-95 102-143 264-123 410 11 76 53 178 97 236l26 34-23-6c-26-7-83 14-96 34-5 8-11 30-14 50l-5 36z" fill="@{blue}"/></svg>'
+      );
+      content: url("data:image/svg+xml,@{svg}");
     }
   }
 }
+
+/* prettier-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+}
+
 // vim:ft=less
