@@ -2,7 +2,7 @@
 @name Instagram Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/instagram
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/instagram
-@version 0.2.1
+@version 0.2.4
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/instagram/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ainstagram
 @description Soothing pastel theme for Instagram
@@ -12,19 +12,17 @@
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
 @-moz-document domain('instagram.com') {
-  #rgbify(@color) {
-    @rgb-raw: red(@color), green(@color), blue(@color);
-  }
   ._aa4d {
     #catppuccin(@darkFlavor, @accentColor);
   }
   ._aa4c {
     #catppuccin(@lightFlavor, @accentColor);
   }
+
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -53,9 +51,23 @@
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
+
     @text-filter: @catppuccin[@@lookup][@text-filter];
     @dark-color: if(@lookup = latte, @text, @crust);
     @light-color: if(@lookup = latte, @crust, @text);
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
 
     &,
     .x1qjc9v5,
@@ -65,6 +77,7 @@
     .x1iyjqo2,
     .xl56j7k {
       --web-always-black: #rgbify(@dark-color) [];
+      --ig-primary-icon: #rgbify(@text) [];
       --web-always-white: #rgbify(@light-color) [];
       --always-white: #rgbify(@light-color) [];
       --overlay-alpha-80: fadeout(@dark-color, 50);
@@ -105,16 +118,11 @@
       --ig-toggle-outline-prism: #rgbify(@text) [];
       --ig-toggle-background-on-prism: #rgbify(@text) [];
       --ig-stroke-prism: #rgbify(@crust) [];
+      --barcelona-logo: #rgbify (@text) [];
       scrollbar-color: @accent-color @crust;
     }
-
     #splash-screen {
       background-color: @base !important;
-    }
-
-    ::selection {
-      color: @dark-color;
-      background-color: @accent-color;
     }
 
     /* Sidebar */
@@ -224,6 +232,12 @@
     }
     span[data-bloks-name="bk.components.TextSpan"] {
       color: @accent-color !important;
+    }
+    .xs7f9wi {
+      background-color: @mantle !important;
+    }
+    .x1d72o {
+      background-color: @surface0;
     }
     /* Log In With Facebook text */
     ._ab37 {
@@ -538,23 +552,14 @@
       @svg: escape(
         '<svg width="76" height="76" viewBox="0 0 76 76" fill="@{blue}" xmlns="http://www.w3.org/2000/svg"><path d="M38.49.004c-4.62-.066-9.374.71-14.079 2.456C7.41 8.766-2.782 27.015.672 44.969c2.997 15.573 14.442 27.16 29.91 30.28 23.375 4.714 45.416-13.374 45.416-37.271C75.998 16.38 58.508.288 38.49.004m-.503 3.098c3.374 0 6.747.41 9.379 1.231C59.724 8.187 67.739 16.208 71.63 28.616c1.644 5.24 1.645 13.474.002 18.741-3.825 12.263-11.866 20.357-24.019 24.174-6.902 2.169-15.31 1.747-22.419-1.125C5.896 62.611-2.438 40.654 6.89 22.181c4.408-8.729 11.704-14.725 21.717-17.848 2.632-.82 6.006-1.231 9.38-1.231m15.47 1.416.082.04q-.02.04-.037.081a1 1 0 0 0-.045-.12m-.011.872q.015.042.034.08l-.093-.041a.3.3 0 0 0 .059-.039M37.987 21.69c-4.812 0-7.402 2.806-7.404 8.02 0 2.714-.056 2.839-1.26 2.839-1.61 0-3.961 1.21-4.358 2.243-.168.44-.306 3.79-.306 7.446 0 6.398.045 6.692 1.211 7.858l1.212 1.211h21.81l1.212-1.21c1.167-1.167 1.212-1.46 1.212-7.859 0-3.655-.139-7.006-.307-7.446-.397-1.033-2.748-2.243-4.359-2.243-1.203 0-1.259-.125-1.26-2.838 0-5.215-2.59-8.021-7.403-8.021m0 3.208c3.374 0 4.443 1.201 4.443 4.99v2.66h-8.885v-2.66c0-3.789 1.07-4.99 4.442-4.99m.084 10.563c4.69.023 9.362.276 9.745.738.378.455.524 2.583.431 6.294l-.14 5.606-9.904.133c-5.447.073-10.057-.019-10.244-.205-.613-.614-.386-11.284.254-11.924.458-.458 5.167-.665 9.858-.642M38 39.723a1.05 1.05 0 0 0-1.05 1.049 1.05 1.05 0 0 0 .617.957v2.225h.865v-2.225a1.05 1.05 0 0 0 .617-.957 1.05 1.05 0 0 0-1.05-1.05m15.607 30.662a1 1 0 0 0-.084.14.2.2 0 0 0-.068-.072zm-.122.923q.031.056.078.098-.06.028-.123.053c.016-.05.029-.088.045-.151"/></svg>'
       );
-      background: url("data:image/svg+xml,@{svg}") no-repeat !important;
-      height: 0 !important;
-      width: 0 !important;
-      padding-left: 76px !important;
-      padding-top: 76px !important;
-      background-size: unset !important;
+      content: url("data:image/svg+xml,@{svg}");
     }
     /* "All caught up" icon */
     img[src="/images/instagram/xig/web/illo-confirm-refresh-light.png"] {
       @svg: escape(
         '<svg width="96" height="95.986" viewBox="0 0 25.4 25.397" xmlns="http://www.w3.org/2000/svg" fill="@{accent-color}"><path d="M12.591.001c-1.934.008-2.265.045-3.353.374-.664.201-1.703.612-2.308.914s-1.582.931-2.172 1.396c-.589.466-1.436 1.287-1.883 1.825-.468.564-1.127 1.604-1.554 2.455C.913 7.777.45 8.923.292 9.514c-.234.872-.288 1.461-.292 3.152-.004 1.575.053 2.291.231 2.951.13.479.353 1.192.497 1.582.143.391.389.964.546 1.274s.581.994.943 1.519a14.4 14.4 0 0 0 1.558 1.82c.496.476 1.263 1.109 1.706 1.408s1.112.698 1.487.887 1.069.477 1.543.638c.473.161 1.282.371 1.799.466s1.513.178 2.214.184 1.667-.05 2.146-.125 1.355-.293 1.945-.485 1.375-.501 1.744-.687a17 17 0 0 0 1.475-.88c.443-.298 1.21-.932 1.706-1.408s1.197-1.295 1.559-1.82.81-1.257.995-1.626.494-1.154.685-1.744.41-1.465.485-1.945.136-1.385.136-2.012-.061-1.533-.136-2.012-.293-1.355-.485-1.945-.5-1.375-.685-1.744-.633-1.1-.994-1.626a14.4 14.4 0 0 0-1.559-1.82c-.496-.476-1.286-1.125-1.757-1.443-.471-.317-1.289-.778-1.82-1.023S16.49.466 15.868.297c-.969-.261-1.437-.304-3.277-.296m-.515.555.001.003h-.004q.002 0 .003-.003m.65.254c1.324.011 2.002.084 2.817.303.59.158 1.58.531 2.2.827s1.435.763 1.811 1.036.972.764 1.324 1.09.938.995 1.302 1.486.906 1.402 1.203 2.025c.297.622.671 1.614.831 2.205.23.851.29 1.448.29 2.884 0 1.426-.061 2.039-.287 2.884-.158.59-.586 1.677-.95 2.414s-1 1.748-1.412 2.245-1.155 1.241-1.652 1.652c-.497.412-1.507 1.047-2.245 1.412s-1.824.787-2.414.937c-.599.153-1.696.299-2.482.331-.874.035-1.772-.013-2.369-.127a17 17 0 0 1-1.677-.418 16 16 0 0 1-1.656-.7c-.517-.256-1.271-.709-1.677-1.006s-.999-.789-1.317-1.092c-.319-.303-.875-.948-1.235-1.432s-.899-1.39-1.197-2.012c-.297-.622-.667-1.615-.821-2.205s-.312-1.707-.35-2.482c-.055-1.1-.011-1.693.2-2.71.148-.716.474-1.772.723-2.348s.692-1.408.984-1.849.919-1.214 1.392-1.716S5.417 3.202 6.022 2.8s1.515-.903 2.024-1.112a18 18 0 0 1 1.931-.637c.76-.194 1.432-.253 2.75-.242m3.229.115v.002l.006.004-.012-.003zm3.312 6.912c-.129 0-2.197 1.962-4.596 4.36l-4.363 4.361-2.077-2.08c-1.456-1.459-2.167-2.08-2.38-2.08-.225 0-.304.078-.304.3 0 .21.679.98 2.245 2.549 1.413 1.415 2.345 2.248 2.514 2.248.174 0 1.838-1.568 4.73-4.459 3.7-3.699 4.461-4.523 4.461-4.829 0-.262-.068-.369-.234-.369m5.624 2.252.004.015q-.003-.004-.008-.007zm-.303.013.006.003-.004.005zM7.614 23.749l.019.009-.004.016q-.006-.013-.014-.024m8.544.584-.001.003-.004-.002zm.004.306.003.001-.005.001z"/></svg>'
       );
-      height: 0 !important;
-      width: 0 !important;
-      padding-left: 96px !important;
-      padding-top: 96px !important;
-      background: url("data:image/svg+xml,@{svg}") no-repeat !important;
+      content: url("data:image/svg+xml,@{svg}");
     }
 
     [style*='background-image: url("https://static.cdninstagram.com/rsrc.php/v3/y4/r/ewSyA8IItw_.png")']
@@ -628,14 +633,6 @@
     /* Dialog overlay */
     .x7r02ix[role="dialog"] {
       box-shadow: 0 5px 10px 0 fadeout(@dark-color, 0.5);
-    }
-
-    /* Input placeholders */
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
     }
 
     /* Settings */
@@ -730,9 +727,11 @@
 }
 
 @-moz-document regexp('^.*instagram.com/direct.*') {
-  :root {
-    #catppuccin(@darkFlavor,
-        @accentColor);
+  ._aa4d {
+    #catppuccin(@darkFlavor, @accentColor);
+  }
+  ._aa4c {
+    #catppuccin(@lightFlavor, @accentColor);
   }
   #catppuccin(@lookup,
     @accent) {
@@ -770,7 +769,7 @@
     }
     [style*="background-color: rgb(55, 151, 240);"] {
       background-color: @blue !important;
-      color: @mantle;
+      color: @mantle !important;
     }
     .xvbhtw8 {
       background-color: @mantle;
@@ -797,6 +796,10 @@
       color: @text;
     }
   }
+}
+
+#rgbify(@color) {
+  @rgb-raw: red(@color), green(@color), blue(@color);
 }
 
 /* prettier-ignore */

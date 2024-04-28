@@ -2,7 +2,7 @@
 @name DuckDuckGo Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/duckduckgo
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/duckduckgo
-@version 0.1.5
+@version 0.1.7
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/duckduckgo/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aduckduckgo
 @description Soothing pastel theme for DuckDuckGo
@@ -12,7 +12,7 @@
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
 @-moz-document domain(duckduckgo.com) {
@@ -22,14 +22,6 @@
 
   :root.dark-bg {
     #catppuccin(@darkFlavor, @accentColor);
-  }
-
-  /* prettier-ignore */
-  @catppuccin: {
-    @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-    @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-    @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-    @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
   }
 
   #catppuccin(@lookup, @accent) {
@@ -60,6 +52,19 @@
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
 
     --sds-color-text-02: @text !important;
     --theme-col-txt-page-separator: @text!important;
@@ -168,6 +173,33 @@
       background-color: @base !important;
     }
 
+    /* privacy reminders */
+    .privacy-reminder__text {
+      color: @green !important;
+    }
+    .privacy-reminder__icon-circle {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.572-1.562a.675.675 0 1 0-1.006-.9L7.123 9.224 5.597 7.36a.675.675 0 0 0-1.044.855l2.025 2.475a.675.675 0 0 0 1.025.023z" fill="@{green}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+    .privacy-reminder__icon-shield {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.452.99a3 3 0 0 1 .655-.482c.242-.13.563-.259.894-.258.329 0 .65.128.891.258.251.135.488.311.659.485.683.696 1.162.933 1.836 1.142.645.2 1.409.242 2.45.11a2.03 2.03 0 0 1 1.471.378c.42.315.686.794.69 1.324.034 3.86-.53 6.343-1.723 8.126-1.26 1.886-3.14 2.838-5.113 3.838l-.238.12a2.06 2.06 0 0 1-1.848 0l-.176-.089-.062-.031c-1.973-1-3.852-1.952-5.113-3.838C.532 10.29-.032 7.807 0 3.947c.005-.53.271-1.008.69-1.323.416-.313.95-.445 1.469-.38 1.049.133 1.816.082 2.46-.124.677-.216 1.159-.452 1.832-1.13m5.03 5.419a.686.686 0 0 0-1.021-.915L7.108 9.24 5.56 7.346a.686.686 0 0 0-1.061.868l2.057 2.515a.686.686 0 0 0 1.042.023z" fill="@{green}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+    .privacy-reminder__icon-check {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.375 5.484a.675.675 0 0 1 .053.954l-3.825 4.275a.675.675 0 0 1-1.025-.023L4.553 8.215a.675.675 0 1 1 1.044-.855l1.526 1.865 3.299-3.688a.675.675 0 0 1 .953-.053" fill="@{crust}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+    .privacy-reminder__modal-hide,
+    .privacy-reminder__modal-link {
+      color: @text !important;
+    }
+
     /* lyrics box */
     .js-lyrics-module {
       color: @subtext1 !important;
@@ -191,9 +223,8 @@
       background: @surface0 !important;
       border-color: @surface0;
     }
-    .module--translations .module--translations-translatedtext.is-placeholder,
-    .module--translations-original textarea::placeholder {
-      color: @subtext1;
+    .module--translations .module--translations-translatedtext.is-placeholder {
+      color: @subtext0;
     }
     .module--translations-swap-svg {
       fill: @text !important;
@@ -344,11 +375,7 @@
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M8.339 4.317 5.487 0 2.65 4.307a3.67 3.67 0 0 0 .533 4.784 3.434 3.434 0 0 0 4.645.01 3.66 3.66 0 0 0 .513-4.78z" fill="@{blue}"/></svg>'
       );
-      height: 0 !important;
-      width: 0 !important;
-      padding-left: 10px !important;
-      padding-top: 10px !important;
-      background: url("data:image/svg+xml,@{svg}") no-repeat !important;
+      content: url("data:image/svg+xml,@{svg}");
     }
 
     //calculator
@@ -743,12 +770,14 @@
     .frm__select::after {
       color: @accent-color !important;
     }
-
+    .switch {
+      background-color: @mantle !important;
+    }
     .switch__knob {
       background: @text !important;
     }
     .switch.is-on {
-      background-color: @accent-color;
+      background-color: @accent-color !important;
     }
     .dropdown__switch.is-on::before {
       color: @base !important;
@@ -782,11 +811,7 @@
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 120 120"><g clip-path="url(#logo_header_v109_svg__a)"><path fill="@{peach}" fill-rule="evenodd" d="M60.186 120.373c33.24 0 60.187-26.947 60.187-60.187S93.426 0 60.186 0 0 26.946 0 60.186s26.946 60.187 60.186 60.187" clip-rule="evenodd"/><path fill="#DDD" fill-rule="evenodd" d="M68.65 105.091c0-.47.115-.578-1.38-3.557-3.972-7.954-7.964-19.17-6.148-26.402.33-1.314-3.742-48.66-6.62-50.185-3.2-1.705-7.138-4.41-10.739-5.012-1.827-.292-4.223-.154-6.096.098-.332.045-.346.643-.028.751 1.23.417 2.722 1.14 3.602 2.233.167.207-.057.533-.322.543-.83.03-2.334.378-4.32 2.064-.229.195-.038.557.257.499 4.267-.844 8.623-.428 11.191 1.906.167.151.08.423-.137.482-22.283 6.055-17.872 25.438-11.94 49.224 5.284 21.188 7.272 28.017 7.899 30.097a.67.67 0 0 0 .398.439c7.67 3.055 24.383 3.19 24.383-2.005z" clip-rule="evenodd"/><path fill="#fff" d="M71.706 109.558c-2.703 1.058-7.993 1.528-11.05 1.528-4.48 0-10.932-.705-13.283-1.763-1.452-4.469-5.797-18.32-10.088-35.91l-.42-1.718-.004-.014c-5.101-20.836-9.267-37.854 13.568-43.2.208-.05.31-.3.172-.463-2.62-3.108-7.528-4.127-13.734-1.986-.255.088-.476-.169-.318-.387 1.217-1.677 3.596-2.967 4.77-3.532.242-.117.228-.473-.03-.553a26 26 0 0 0-3.546-.846c-.348-.056-.38-.652-.03-.7 8.798-1.183 17.986 1.459 22.596 7.266a.3.3 0 0 0 .175.108c16.883 3.625 18.092 30.314 16.147 31.53-.384.239-1.612.102-3.233-.08-6.57-.735-19.578-2.19-8.842 17.818.106.198-.034.46-.256.494-6.054.941 1.704 19.912 7.406 32.408"/><path fill="#3CA82B" d="M79.258 85.293c-1.285-.595-6.227 2.949-9.507 5.67-.686-.97-1.978-1.675-4.894-1.168-2.551.443-3.96 1.058-4.589 2.12-4.027-1.528-10.803-3.884-12.44-1.608-1.79 2.487.447 14.257 2.824 15.785 1.24.798 7.175-3.017 10.275-5.648.5.705 1.305 1.108 2.96 1.069 2.503-.058 6.563-.64 7.193-1.806a1.3 1.3 0 0 0 .099-.25c3.186 1.191 8.792 2.451 10.045 2.263 3.264-.49-.455-15.726-1.966-16.427"/><path fill="@{green}" d="M70.051 91.31c.135.242.244.496.337.754.454 1.27 1.194 5.31.634 6.309-.56.998-4.194 1.48-6.436 1.519s-2.746-.782-3.2-2.052c-.364-1.016-.542-3.405-.538-4.773-.092-2.028.65-2.742 4.076-3.296 2.535-.41 3.876.067 4.65.883 3.6-2.686 9.606-6.478 10.192-5.785 2.92 3.455 3.29 11.68 2.657 14.99-.207 1.082-9.879-1.072-9.879-2.239 0-4.844-1.257-6.174-2.493-6.31m-21.187-1.512c.792-1.254 7.216.305 10.743 1.874 0 0-.725 3.284.429 7.151.337 1.132-8.113 6.167-9.216 5.301-1.275-1.001-3.621-11.691-1.956-14.326"/><path fill="@{yellow}" fill-rule="evenodd" d="M51.975 64.33c.52-2.26 2.941-6.519 11.587-6.415 4.371-.018 9.801-.002 13.4-.411a48.2 48.2 0 0 0 11.969-2.91c3.742-1.428 5.07-1.11 5.536-.256.512.939-.091 2.56-1.399 4.052-2.498 2.85-6.989 5.06-14.92 5.715-7.93.655-13.185-1.472-15.446 1.991-.976 1.494-.222 5.015 7.448 6.124 10.364 1.496 18.876-1.803 19.928.19 1.052 1.991-5.007 6.044-15.388 6.129s-16.865-3.635-19.164-5.484c-2.918-2.346-4.223-5.766-3.55-8.725Z" clip-rule="evenodd"/><g fill="@{blue}" opacity=".8"><path d="M65.196 39.617c.579-.948 1.863-1.68 3.964-1.68s3.09.836 3.774 1.768c.14.19-.071.413-.287.32l-.158-.069c-.769-.336-1.712-.748-3.329-.77-1.729-.025-2.819.408-3.505.781-.232.126-.596-.125-.46-.35ZM41.539 40.83c2.04-.853 3.644-.743 4.777-.474.24.056.405-.2.214-.355-.88-.71-2.85-1.59-5.418-.633-2.29.854-3.37 2.63-3.377 3.796-.002.276.564.299.71.066.396-.63 1.053-1.547 3.094-2.4"/><path fill-rule="evenodd" d="M70.945 52.588a3.263 3.263 0 0 1-3.267-3.255 3.263 3.263 0 0 1 3.267-3.255 3.26 3.26 0 0 1 3.267 3.255 3.26 3.26 0 0 1-3.267 3.255m2.301-4.334a.845.845 0 0 0-1.692 0 .845.845 0 0 0 1.692 0M49.3 51.585a3.8 3.8 0 0 1-3.809 3.796c-2.1 0-3.808-1.7-3.808-3.796a3.804 3.804 0 0 1 3.808-3.796c2.1 0 3.809 1.7 3.809 3.796m-1.123-1.258a.987.987 0 0 0-1.972 0c0 .54.44.982.986.982a.985.985 0 0 0 .986-.982" clip-rule="evenodd"/></g><path fill="#fff" fill-rule="evenodd" d="M60.186 110.733c27.917 0 50.548-22.63 50.548-50.547S88.103 9.639 60.186 9.639C32.27 9.64 9.64 32.27 9.64 60.186c0 27.917 22.631 50.547 50.547 50.547Zm0 4.702c30.514 0 55.25-24.735 55.25-55.249 0-30.513-24.736-55.249-55.25-55.249S4.937 29.673 4.937 60.187s24.736 55.248 55.25 55.248Z" clip-rule="evenodd"/></g></svg>'
       );
-      height: 0 !important;
-      width: 0 !important;
-      padding-left: 32px !important;
-      padding-top: 32px !important;
-      background-image: url("data:image/svg+xml,@{svg}") !important;
+      content: url("data:image/svg+xml,@{svg}");
     }
 
     //duckduckgo search too long icon
@@ -806,16 +831,21 @@
     }
 
     // ddg header logo
-    .header_headerLeft__gTUAg,
     .header_logoImg__PFezv {
       @svg: escape(
         '<svg fill="none" viewBox="0 0 189 53" xmlns="http://www.w3.org/2000/svg"><path fill="@{text}" d="M110.045 24.224h-2.405l-4.378 4.502v-9.003h-1.85v15.354h1.85v-5.056l4.995 4.994.061.062h2.22v-.185l-5.611-5.55zm-11.898 8.223c-.679.678-1.666 1.048-2.775 1.048-1.912 0-3.824-1.172-3.824-3.885 0-2.281 1.604-3.885 3.824-3.885.986 0 1.911.37 2.651 1.049l.062.061 1.171-1.233-.061-.062C98.085 24.492 96.79 24 95.31 24c-3.392 0-5.673 2.281-5.673 5.611 0 3.885 2.836 5.612 5.673 5.612h.062c1.48 0 2.898-.555 3.884-1.604l.062-.061-1.233-1.234zm-12.581-2.404c0 1.973-1.356 3.453-3.268 3.515-2.035 0-3.268-1.233-3.268-3.33v-5.981h-1.85v5.981c0 3.083 1.85 5.057 4.748 5.057h.062c1.418 0 2.713-.679 3.576-1.727l.062-.123.062 1.665h1.726V24.247h-1.85zM67.298 19.66h-5.612v15.417h5.612c5.365 0 7.708-3.947 7.708-7.832 0-3.638-2.405-7.585-7.708-7.585m5.796 7.524c0 2.96-1.788 5.92-5.735 5.92h-3.7V21.571h3.639c3.946 0 5.796 2.898 5.796 5.612zm96.018 1.17h4.748v3.577c-1.171.986-2.59 1.541-4.131 1.541-4.193 0-6.105-3.021-6.105-5.981 0-3.022 1.912-6.29 6.043-6.29 1.665 0 3.207.617 4.44 1.727l.062.061 1.11-1.295-.062-.061c-1.48-1.48-3.453-2.22-5.611-2.22-2.344 0-4.317.74-5.735 2.22-1.48 1.48-2.282 3.576-2.22 5.92 0 3.638 2.096 7.831 8.016 7.831h.124a7.72 7.72 0 0 0 5.796-2.59V26.69h-6.536v1.665zm-51.181-8.694h-5.612v15.417h5.612c5.365 0 7.708-3.947 7.708-7.832 0-3.638-2.405-7.584-7.708-7.584zm5.796 7.524c0 2.96-1.788 5.92-5.735 5.92h-3.638V21.572h3.638c3.885 0 5.735 2.898 5.735 5.612m59.463-3.185c-3.269 0-5.612 2.405-5.612 5.673s2.343 5.611 5.612 5.611c3.268 0 5.673-2.343 5.673-5.611 0-3.33-2.343-5.673-5.673-5.673m3.823 5.673c0 2.282-1.603 3.885-3.823 3.885-2.159 0-3.762-1.603-3.762-3.885 0-2.343 1.542-4.008 3.823-4.008 2.159.061 3.762 1.726 3.762 4.008m-50.814.371c0 1.973-1.356 3.453-3.268 3.515-2.035 0-3.268-1.233-3.268-3.33v-5.981h-1.85v5.981c0 3.083 1.85 5.057 4.686 5.057h.062c1.418 0 2.713-.679 3.576-1.727l.062-.123.062 1.665h1.726V24.247h-1.85v5.796zm12.58 2.404c-.678.678-1.665 1.048-2.775 1.048-1.911 0-3.823-1.172-3.823-3.885 0-2.281 1.603-3.885 3.823-3.885.987 0 1.912.37 2.652 1.049l.062.061 1.171-1.233-.061-.062c-1.11-1.048-2.405-1.541-3.885-1.541-3.392 0-5.673 2.281-5.673 5.611 0 3.885 2.836 5.612 5.673 5.612h.061c1.48 0 2.899-.555 3.885-1.604l.062-.061-1.233-1.234zm11.899-8.223h-2.405l-4.378 4.502v-9.003h-1.85v15.354h1.85v-5.056l4.994 4.994.062.062h2.22v-.185l-5.611-5.55z"/><path fill="@{red}" fill-rule="evenodd" d="M26.5 53C41.136 53 53 41.136 53 26.5S41.136 0 26.5 0 0 11.864 0 26.5 11.864 53 26.5 53" clip-rule="evenodd"/><path fill="@{overlay2}" fill-rule="evenodd" d="M30.227 46.272c0-.207.05-.255-.608-1.566-1.749-3.503-3.507-8.44-2.707-11.625.146-.579-1.648-21.425-2.915-22.097-1.41-.75-3.143-1.942-4.728-2.207-.805-.128-1.86-.067-2.684.044-.147.02-.153.283-.013.33.542.184 1.2.502 1.587.984.073.09-.026.234-.142.239-.366.013-1.028.166-1.902.908-.101.086-.017.246.113.22 1.878-.372 3.797-.189 4.927.84.073.066.035.185-.06.211-9.811 2.667-7.87 11.2-5.257 21.674 2.213 8.875 3.113 12.028 3.433 13.103a.6.6 0 0 0 .366.398c3.438 1.29 10.59 1.316 10.59-.939z" clip-rule="evenodd"/><path fill="#fff" d="M31.572 48.238c-1.19.466-3.52.673-4.865.673-1.973 0-4.814-.31-5.849-.776-.639-1.968-2.552-8.066-4.442-15.811l-.185-.757-.001-.006c-2.246-9.174-4.08-16.667 5.974-19.021.091-.022.136-.131.076-.204-1.154-1.368-3.315-1.817-6.048-.874-.112.039-.209-.074-.14-.17.536-.739 1.584-1.307 2.1-1.556.107-.051.101-.208-.012-.243a11.5 11.5 0 0 0-1.562-.372c-.153-.025-.167-.288-.013-.309 3.874-.52 7.92.642 9.95 3.2q.029.036.076.047c7.434 1.596 7.966 13.347 7.11 13.882-.17.106-.71.045-1.424-.035-2.893-.323-8.62-.964-3.893 7.846.047.087-.015.202-.113.217-2.665.415.75 8.767 3.261 14.27z"/><path fill="#3ca82b" d="M34.897 37.555c-.566-.263-2.742 1.298-4.186 2.496-.302-.427-.87-.738-2.154-.515-1.124.196-1.744.467-2.021.934-1.773-.672-4.757-1.71-5.478-.708-.787 1.095.197 6.277 1.244 6.95.546.351 3.16-1.328 4.524-2.487.22.31.575.488 1.303.471 1.102-.025 2.89-.282 3.167-.795a.6.6 0 0 0 .044-.11c1.403.524 3.871 1.08 4.423.996 1.437-.216-.2-6.924-.866-7.232"/><path fill="@{green}" d="M30.844 40.204q.088.16.148.332c.2.56.525 2.338.28 2.778-.247.439-1.847.651-2.835.668s-1.209-.344-1.409-.903c-.16-.447-.238-1.5-.237-2.101-.04-.894.286-1.208 1.795-1.452 1.116-.18 1.707.03 2.047.39 1.585-1.184 4.23-2.853 4.488-2.548 1.286 1.521 1.448 5.143 1.17 6.6-.091.476-4.35-.472-4.35-.986 0-2.133-.553-2.718-1.097-2.778m-9.329-.666c.349-.552 3.177.135 4.73.825 0 0-.32 1.446.189 3.149.148.498-3.572 2.715-4.058 2.334-.561-.441-1.594-5.148-.861-6.308"/><path fill="@{yellow}" fill-rule="evenodd" d="M22.885 28.325c.228-.995 1.295-2.87 5.101-2.825 1.925-.008 4.315-.001 5.9-.181a21.2 21.2 0 0 0 5.27-1.282c1.648-.628 2.233-.488 2.438-.112.225.413-.04 1.127-.616 1.784-1.1 1.255-3.077 2.228-6.57 2.516s-5.805-.648-6.8.877c-.43.658-.098 2.208 3.279 2.696 4.563.659 8.311-.793 8.774.084s-2.204 2.661-6.775 2.698c-4.57.038-7.426-1.6-8.438-2.414-1.285-1.033-1.86-2.539-1.563-3.841" clip-rule="evenodd"/><g fill="@{crust}" opacity=".8"><path d="M28.706 17.443c.255-.417.82-.74 1.745-.74s1.36.369 1.662.78c.061.083-.032.181-.127.14l-.07-.03c-.338-.148-.753-.33-1.465-.34-.761-.01-1.241.18-1.544.344-.101.056-.262-.055-.201-.154m-10.416.534c.898-.375 1.604-.327 2.103-.208.105.024.178-.089.094-.156-.387-.313-1.254-.7-2.385-.28-1.01.377-1.485 1.159-1.487 1.672-.001.122.248.132.312.03.174-.278.464-.682 1.362-1.058z"/><path fill-rule="evenodd" d="M31.237 23.154c-.794 0-1.438-.642-1.438-1.433s.644-1.433 1.438-1.433 1.438.642 1.438 1.433-.644 1.433-1.438 1.433m1.013-1.908a.372.372 0 0 0-.745 0 .372.372 0 0 0 .745 0m-10.544 1.467c0 .923-.75 1.671-1.676 1.671a1.675 1.675 0 0 1-1.677-1.67c0-.924.752-1.672 1.677-1.672.924 0 1.676.748 1.676 1.671m-.494-.554a.434.434 0 1 0-.867.002.434.434 0 0 0 .867-.002" clip-rule="evenodd"/></g><path fill="@{text}" fill-rule="evenodd" d="M26.5 48.756c12.292 0 22.256-9.964 22.256-22.256S38.792 4.244 26.5 4.244 4.244 14.208 4.244 26.5 14.208 48.756 26.5 48.756m0 2.07c13.435 0 24.326-10.891 24.326-24.326S39.935 2.174 26.5 2.174 2.174 13.065 2.174 26.5 13.065 50.826 26.5 50.826" clip-rule="evenodd"/><path fill="#fff" fill-rule="evenodd" d="M26.497 48.438c12.118 0 21.941-9.823 21.941-21.94S38.615 4.555 26.498 4.555 4.555 14.38 4.555 26.497s9.824 21.941 21.941 21.941zm24.292-21.94c0 13.415-10.876 24.29-24.292 24.29S2.206 39.914 2.206 26.499 13.08 2.205 26.497 2.205 50.79 13.08 50.79 26.497z" clip-rule="evenodd"/></svg>'
       );
-      height: 0 !important;
-      width: 0 !important;
-      padding-left: 157px !important;
-      padding-top: 44px !important;
-      background: url("data:image/svg+xml,@{svg}") no-repeat !important;
+      content: url("data:image/svg+xml,@{svg}");
     }
   }
-} // vim:ft=less
+}
+
+/* prettier-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+}
+
+// vim:ft=less

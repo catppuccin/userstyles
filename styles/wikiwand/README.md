@@ -20,7 +20,7 @@
 
 
 ## 💝 Current Maintainer
-- [Tnixc](https://github.com/tnixc)
+- [Tnixc](https://github.com/Tnixc)
 
 
 &nbsp;

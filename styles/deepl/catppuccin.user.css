@@ -2,7 +2,7 @@
 @name DeepL Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/deepl
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/deepl
-@version 0.3.3
+@version 0.3.5
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/deepl/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Adeepl
 @description Soothing pastel theme for DeepL
@@ -12,13 +12,22 @@
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 
 @var checkbox zenMode "Zen Mode" 0
 ==/UserStyle== */
 
 @-moz-document regexp("https:\\/\\/www.deepl.com\\/?(.*\\/)translator.*$") {
-  #catppuccin(@darkFlavor, @accentColor);
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
 
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
@@ -48,684 +57,689 @@
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
-  }
 
-  @accent-text: @crust; // if(@lookup=latte, #fff, @crust) * this doesn't work for some reason. find fix
+    @accent-text: @crust; // if(@lookup=latte, #fff, @crust) * this doesn't work for some reason. find fix
 
-  body,
-  button {
-    color: @text;
-  }
+    color-scheme: if(@lookup = latte, light, dark);
 
-  p {
-    color: @subtext1;
-  }
-
-  a {
-    color: @accent-color;
-
-    &:hover {
-      color: darken(@accent-color, 8%);
-    }
-  }
-
-  input {
-    background-color: @base;
-  }
-
-  input::placeholder,
-  textarea::placeholder {
-    color: @overlay1;
-  }
-
-  // dammit tailwind
-  .bg-neutral-next-50,
-  .bg-deprecated-grey {
-    background-color: @mantle;
-  }
-
-  .bg-white,
-  .bg-blue-100 {
-    background-color: @base;
-  }
-
-  .bg-dark-8 {
-    background-color: @surface0;
-  }
-
-  .bg-mosque {
-    background-color: spin(@accent-color, 30);
-
-    &.text-white {
-      color: @accent-text;
-    }
-  }
-
-  .bg-blue-next-500 {
-    background-color: @accent-color;
-
-    &.text-white {
-      color: @accent-text;
-    }
-  }
-
-  .border-dark-7,
-  .border-neutral-300 {
-    border-color: @surface0;
-  }
-
-  .border-blue-chill,
-  .bg-blue-next-500 {
-    border-color: @accent-color;
-  }
-
-  .border-neutral-next-900 {
-    border-color: @overlay1;
-  }
-
-  .text-deepl-blue,
-  .text-blue-600 {
-    color: @accent-color;
-  }
-
-  .text-blue-chill {
-    color: spin(@accent-color, 30);
-  }
-
-  .text-deprecated-mid-grey {
-    color: @text;
-  }
-
-  .text-neutral-600 {
-    color: @subtext0;
-  }
-
-  .text-dark-1,
-  .text-deprecated-almost-black {
-    color: @subtext1;
-  }
-
-  .text-white,
-  .text-black {
-    color: @text;
-  }
-
-  .text-neutral-next-800 {
-    color: @overlay1;
-  }
-
-  [class*="hover:bg-dark-8"]:hover,
-  [class*="enabled:hover:bg-dark-8"]:hover:enabled,
-  [class*="hover:bg-neutral-200"]:hover,
-  [class*="hover:bg-neutral-next-100"]:hover {
-    background-color: @surface0;
-  }
-
-  [class*="hover:bg-blue-200"]:hover {
-    background-color: mix(@accent-color, @base, 8%);
-  }
-
-  [class*="hover:bg-blue-next-700"]:hover {
-    background-color: darken(@accent-color, 8%);
-  }
-
-  [class*="hover:border-blue-next-700"]:hover {
-    border-color: darken(@accent-color, 8%);
-  }
-
-  [class*="disabled:text-dark-5:disabled"],
-  [class*="disabled:text-neutral-500:disabled"] {
-    color: @overlay1;
-  }
-
-  [class*="hover:text-blue-chill"]:hover {
-    color: darken(@accent-color, 15%);
-  }
-
-  [class*="bg-[#E1F0F5]"] {
-    background-color: fadeout(@accent-color, 70%);
-  }
-
-  // span[class*="hover:bg-[#B4DAE8]"],
-  [class*="bg-[#B4DAE8]"] {
-    // background-color: fadeout(@accent-color, 55%);
-
-    &[class*="text-[#01557C]"] {
-      color: darken(@accent-color, 50%);
-    }
-  }
-
-  [class*="text-[#25282D]"] {
-    color: @text;
-  }
-
-  [class*="text-[#01557C]"] {
-    color: @accent-color;
-  }
-
-  .divide-dark-7 > :not([hidden]) ~ :not([hidden]) {
-    border-color: @surface1;
-  }
-
-  // general stuff
-  [class*="button--"] {
-    &[class*="variant_contained--"],
-    &[class*="variant_contained--"]:hover {
-      color: @accent-text;
+    ::selection {
+      background-color: fade(@accent-color, 30%);
     }
 
-    &[class*="color_primary--"] {
-      background-color: @accent-color;
-      border-color: @accent-color;
-
-      &:hover {
-        background-color: darken(@accent-color, 15%);
-        border-color: darken(@accent-color, 15%);
-        color: @accent-text;
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
       }
     }
-  }
 
-  [class*="IconAnchor-module--anchor--"] {
-    color: @accent-color;
-
-    &:hover {
-      background-color: @surface0;
-    }
-  }
-
-  [stroke="#0F2B46"] {
-    stroke: @accent-color !important;
-  }
-
-  [stroke="#006494"] {
-    stroke: @subtext0 !important;
-  }
-
-  // header
-  [class^="BasePageHeader-module--container"] {
-    background-color: @crust;
-  }
-
-  [class|="PageHeaderLink-module--pageHeaderLink"],
-  [class|="FlyoutMenuButton-module--flyoutMenuButton"],
-  [class|="LoginButton-module--loginButton"] {
-    color: darken(@accent-color, 8%);
-  }
-
-  [class|="SideMenuButton-module--menuButton"] {
-    &,
-    &::before,
-    &::after {
-      border-top-color: darken(@accent-color, 8%);
-    }
-
-    &:hover {
-      &,
-      &::before,
-      &::after {
-        border-top-color: @accent-color;
-      }
-    }
-  }
-
-  [class*="PageHeaderLink-module--pageHeaderLink--"]:not(
-      [class*="PageHeaderLink-module--nohover--"]
-    ):hover {
-    color: @accent-color;
-    border-color: @accent-color;
-  }
-
-  [class|="LoginButton-module--loginButton"]:hover {
-    color: @accent-color;
-  }
-
-  [class*="badge-module--badge--"][class*="badge-module--proDark--"] {
-    background-color: spin(@accent-color, 30);
-    color: @accent-text;
-  }
-
-  [class*="StartFreeTrialButton-module--startFreeTrialButton--"] {
-    background-color: @accent-color;
-    border-color: @accent-color;
-    color: @accent-text;
-
-    &:hover {
-      background-color: darken(@accent-color, 8%);
-      border-color: darken(@accent-color, 8%);
-      color: @accent-text;
-    }
-  }
-
-  [class|="ProductUpdateButton-module--updateToolTip"] {
-    background-color: @surface0;
-    color: @text;
-
-    &::after {
-      border-bottom-color: @surface0;
-    }
-  }
-
-  // buttons above translation container
-  [class|="cardButton"] {
-    background-color: @base;
-    border-color: @surface0;
-
-    &:not([class*="active--"]):hover {
-      background-color: @surface0;
-    }
-  }
-
-  [class|="textLower"] {
-    color: @overlay1;
-  }
-
-  [class|="logo"],
-  [class|="textUpper"] {
-    color: @accent-color;
-  }
-
-  [class*="active--"] {
-    [class|="logo"],
-    [class|="textUpper"] {
+    body,
+    button {
       color: @text;
     }
 
-    [class|="innerLower"] {
-      background-color: @accent-color;
+    p {
+      color: @subtext1;
     }
-  }
 
-  // translation container
-  [class*="SourceTranslatorArea-module--focusBorder--"]:has(
-      div[contenteditable="true"]:focus
-    ) {
-    border-color: @accent-color;
-  }
+    a {
+      color: @accent-color;
 
-  [class*="focus-within:border-blue-chill"] {
-    // border-color: @accent-color;
-  }
-
-  d-textarea > [data-placeholder],
-  d-textarea > div[data-content="true"]::before {
-    color: @subtext0;
-  }
-
-  [class*="enabled:hover-capable:hover:bg-dark-8"]:hover:enabled {
-    background-color: @surface0;
-  }
-
-  // alternatives
-  [data-testid="word-alternatives-list"] {
-    [class*="root--"] {
-      background-color: @base;
-
-      &[class*="selected--"] {
-        background-color: @surface0;
+      &:hover {
+        color: darken(@accent-color, 8%);
       }
     }
-  }
 
-  div:has(> [class^="DictionaryContent-module--content--"].embedded) {
-    background-color: @base;
-
-    .tag_lemma .dictLink {
-      color: @subtext1;
+    input {
+      background-color: @base;
     }
 
-    .translation_group .translation_group_line .notascommon,
-    .translation_group .translation_group_line .translation.sortablemg .sep {
-      color: @overlay2;
-    }
-  }
-
-  // dictionary
-  [class*="DictionaryContent-module--content--"] {
-    .isForeignTerm .inflectioninfo,
-    .isForeignTerm .tag_lemma,
-    .isForeignTerm .tag_lemma a,
-    .isForeignTerm .tag_s,
-    .isForeignTerm .tag_s a,
-    .isForeignTerm .tag_trans_src_context,
-    .tag_trans {
-      color: @subtext1;
+    // dammit tailwind
+    .bg-neutral-next-50,
+    .bg-deprecated-grey {
+      background-color: @mantle;
     }
 
-    .isForeignTerm .tag_t,
-    .isForeignTerm .tag_t a,
-    .isForeignTerm .tag_trans,
-    .isForeignTerm .tag_trans a,
-    .tag_lemma a {
+    &,
+    .bg-white,
+    .bg-blue-100 {
+      background-color: @base;
+    }
+
+    .bg-dark-8 {
+      background-color: @surface0;
+    }
+
+    .bg-mosque {
+      background-color: spin(@accent-color, 30);
+
+      &.text-white {
+        color: @accent-text;
+      }
+    }
+
+    .bg-blue-next-500 {
+      background-color: @accent-color;
+
+      &.text-white {
+        color: @accent-text;
+      }
+    }
+
+    .border-dark-7,
+    .border-neutral-300 {
+      border-color: @surface0;
+    }
+
+    .border-blue-chill,
+    .bg-blue-next-500 {
+      border-color: @accent-color;
+    }
+
+    .border-neutral-next-900 {
+      border-color: @overlay1;
+    }
+
+    .text-deepl-blue,
+    .text-blue-600 {
       color: @accent-color;
     }
 
-    .notascommon,
-    .sep {
-      color: @overlay2;
-    }
-  }
-
-  // glossary
-  .lmt__glossary_dialog--arrow {
-    &::before {
-      border-color: @surface1 transparent transparent;
+    .text-blue-chill {
+      color: spin(@accent-color, 30);
     }
 
-    &::after {
-      border-color: @surface0 transparent transparent;
+    .text-deprecated-mid-grey {
+      color: @text;
     }
-  }
 
-  .lmt__glossary_onOffSwitch_container {
-    label[class|="label"] {
-      --background: @overlay1;
-      --backgroundHover: darken(@overlay1, 8%);
-      --inlineLabelColor: @accent-text;
-      --outline-color: @accent-color;
+    .text-neutral-600 {
+      color: @subtext0;
+    }
 
-      &[class*="selected--"] {
-        --background: @green;
-        --backgroundHover: darken(@green, 8%);
+    .text-dark-1,
+    .text-deprecated-almost-black {
+      color: @subtext1;
+    }
+
+    .text-white,
+    .text-black {
+      color: @text;
+    }
+
+    .text-neutral-next-800 {
+      color: @overlay1;
+    }
+
+    [class*="hover:bg-dark-8"]:hover,
+    [class*="enabled:hover:bg-dark-8"]:hover:enabled,
+    [class*="hover:bg-neutral-200"]:hover,
+    [class*="hover:bg-neutral-next-100"]:hover {
+      background-color: @surface0;
+    }
+
+    [class*="hover:bg-blue-200"]:hover {
+      background-color: mix(@accent-color, @base, 8%);
+    }
+
+    [class*="hover:bg-blue-next-700"]:hover {
+      background-color: darken(@accent-color, 8%);
+    }
+
+    [class*="hover:border-blue-next-700"]:hover {
+      border-color: darken(@accent-color, 8%);
+    }
+
+    [class*="disabled:text-dark-5:disabled"],
+    [class*="disabled:text-neutral-500:disabled"] {
+      color: @overlay1;
+    }
+
+    [class*="hover:text-blue-chill"]:hover {
+      color: darken(@accent-color, 15%);
+    }
+
+    [class*="bg-[#E1F0F5]"] {
+      background-color: fadeout(@accent-color, 70%);
+    }
+
+    // span[class*="hover:bg-[#B4DAE8]"],
+    [class*="bg-[#B4DAE8]"] {
+      // background-color: fadeout(@accent-color, 55%);
+
+      &[class*="text-[#01557C]"] {
+        color: darken(@accent-color, 50%);
+      }
+    }
+
+    [class*="text-[#25282D]"] {
+      color: @text;
+    }
+
+    [class*="text-[#01557C]"] {
+      color: @accent-color;
+    }
+
+    .divide-dark-7 > :not([hidden]) ~ :not([hidden]) {
+      border-color: @surface1;
+    }
+
+    // general stuff
+    [class*="button--"] {
+      &[class*="variant_contained--"],
+      &[class*="variant_contained--"]:hover {
+        color: @accent-text;
       }
 
-      [class|="toggle"] [class|="knob"] {
-        background: @accent-text;
-      }
-    }
-  }
-
-  [class|="modal"],
-  .lmt__glossary_editor {
-    background-color: @base;
-
-    [class*="Form-module--form--"] [class*="Form-module--submit--"] {
-      background: @accent-color;
-      color: @accent-text;
-
-      &:disabled {
-        background: fadeout(@accent-color, 50%);
-      }
-    }
-  }
-
-  .lmt__glossary_editor {
-    color: @text;
-    border-color: @accent-color;
-
-    form.bg-deprecated-grey
-      [class|="wrapper"][class*="Form-module--inputSource--"],
-    form.bg-deprecated-grey
-      [class|="wrapper"][class*="Form-module--inputTarget--"] {
-      --input-background: @base;
-      --input-border-color: @surface1;
-      --input-color: @subtext1;
-
-      [class|="button"][aria-expanded="true"] {
+      &[class*="color_primary--"] {
+        background-color: @accent-color;
         border-color: @accent-color;
-      }
 
-      [class|="controls"] [class|="wrapper"] {
-        --button-background: @base;
-        --button-border-color: @surface1;
-        --button-color: @subtext1;
-
-        [class|="flyout"] {
-          background: @base;
-          --option-color: @subtext1;
-          --option-selected-color: @subtext1;
-          --option-background: fadeout(@yellow, 80%);
-          --option-disabled-color: @overlay1;
-          --option-icon-color: @accent-color;
+        &:hover {
+          background-color: darken(@accent-color, 15%);
+          border-color: darken(@accent-color, 15%);
+          color: @accent-text;
         }
       }
     }
-  }
 
-  .lmt__glossary_editor_mainBar {
-    background-color: @accent-color;
-    color: @accent-text;
+    [class*="IconAnchor-module--anchor--"] {
+      color: @accent-color;
 
-    .lmt__glossary_editorClose {
-      color: inherit;
-    }
-  }
-
-  .lmt__glossary_editor .lmt__glossary_editor_subBar_top,
-  .lmt__glossary_editor_subBar_bottom {
-    background-color: @mantle;
-  }
-
-  .lmt__glossary_editor
-    .lmt__glossary_editor_subBar_top
-    .lmt__glossary_editor_glossarySelect
-    .lmt__glossary_editor_glossaryNameWrapper
-    .lmt__glossary_editor_glossaryName {
-    color: inherit;
-  }
-
-  .lmt__glossary_editor
-    .lmt__glossary_editor_subBar_top
-    .lmt__glossary_editor_glossarySelect
-    .lmt__glossary_editor_glossaryNameWrapper
-    .lmt__glossary_editor_glossarySelectChevron.lmt__glossary_arrowDown {
-    border-right-color: darken(@accent-color, 8%);
-    border-bottom-color: darken(@accent-color, 8%);
-  }
-
-  .lmt__glossary_button .lmt__glossary_button_label:hover,
-  .lmt__glossary_highlight,
-  .lmt__glossary_editor_subBar_bottom
-    .lmt__glossary_editor_glossaryAddNewWrapper
-    .lmt__glossary_editor_glossaryAddNew {
-    color: @accent-color;
-  }
-
-  .lmt_firstEntry-content .lmt__glossary_newEntry_inputSource,
-  .lmt_firstEntry-content .lmt__glossary_newEntry_inputTarget {
-    border-color: @surface1;
-    color: @subtext1;
-
-    &:focus {
-      border-color: @accent-color;
-    }
-  }
-
-  .lmt__glossary_editor_langPairHeadline {
-    color: inherit;
-    border-bottom-color: @surface1;
-  }
-
-  .lmt__glossary_editorRow {
-    color: inherit;
-
-    .iconButton {
-      color: @subtext0;
-    }
-  }
-
-  .lmt__glossary_arrowRightWrapper .lmt__glossary_arrowRight {
-    border-bottom-color: @surface1;
-    border-right-color: @surface1;
-  }
-
-  .lmt__glossary_dialog {
-    background-color: @surface0;
-    border-color: @surface1;
-    color: @text;
-  }
-
-  .lmt__glossary_dialog__line--suggestions,
-  .lmt__glossary_dialog__line .choice .option {
-    color: @accent-color;
-  }
-
-  // this this appears when you click on a word on the translated container...
-  .root--Te5J3 {
-    background-color: @base;
-  }
-
-  .divider--CI8JQ {
-    color: @surface1;
-  }
-
-  // translate files
-  [class^="UploadPanel-module--docTrans__help_popup--"] {
-    background-color: @base;
-  }
-
-  // quotes
-  [class|="Quote-module--quote"] {
-    background-color: @base !important;
-    border-color: @surface0;
-    color: @text;
-  }
-
-  [class|="Quote-module--quoteSource"] {
-    > a {
-      color: darken(@accent-color, 8%);
-    }
-  }
-
-  [class|="Quotes-module--quotesNavigationEntry"] {
-    background-color: @surface1;
-  }
-
-  [class*="Quotes-module--quotesNavigationEntryActive--"] {
-    background-color: @accent-color;
-  }
-
-  // aside
-  [class^="ProBanner2021-module--wrapper--"],
-  [class|="CareerBanner-module--container"] {
-    background: @base;
-  }
-
-  [class|="CareerBanner-module--text"] {
-    h2 {
-      color: @overlay1;
-    }
-  }
-
-  [class|="PopularLangPairList-module--seoText"] {
-    color: @overlay0;
-
-    p[class|="PopularLangPairList-module--title"] {
-      color: @overlay2;
-    }
-  }
-
-  // footer
-  footer [class|="pageFooterV2-module--footerOuterContainer"] {
-    background-color: @base;
-  }
-
-  [class|="ProBanner2021-module--textLink"] {
-    color: spin(@accent-color, 30);
-  }
-
-  [class|="pageFooterV2-module--footerOuterContainer"]
-    [class|="pageFooterV2-module--footerContainer"]
-    [class|="pageFooterV2-module--footerContentContainer"]
-    [class|="pageFooterV2-module--linksContainer"]
-    [class|="pageFooterV2-module--linkList"]
-    li {
-    &:first-of-type {
-      color: @overlay1;
-    }
-
-    &:not(:first-of-type) a {
-      color: @text !important;
-    }
-  }
-
-  [class|="LanguageSelector-module--wrapper"] {
-    --button-background: @surface0;
-    --button-border-color: @surface1;
-    --button-color: @subtext1;
-
-    [class|="LanguageSelector-module--flyout"] {
-      background: @surface0;
-      // --option-background: @surface0;
-      --option-color: @subtext1;
-      --option-icon-color: @accent-color;
-
-      [class|="LanguageSelector-module--option"][class*="LanguageSelector-module--active--"] {
-        --option-background: fadeout(@yellow, 80%);
+      &:hover {
+        background-color: @surface0;
       }
     }
-  }
 
-  // side menu
-  [class|="classicSidemenu-module--menuContainer"] {
-    background-color: @base;
+    [stroke="#0F2B46"] {
+      stroke: @accent-color !important;
+    }
 
-    [class|="closeButton-module--closeButton"] {
+    [stroke="#006494"] {
+      stroke: @subtext0 !important;
+    }
+
+    // header
+    [class*="BasePageHeader-module--"] {
+      background-color: @crust;
+    }
+
+    .border-\[\#f1f1f1\] {
+      border-color: @surface0;
+    }
+
+    [class|="PageHeaderLink-module--pageHeaderLink"],
+    [class|="FlyoutMenuButton-module--flyoutMenuButton"],
+    [class|="LoginButton-module--loginButton"] {
+      color: darken(@accent-color, 8%);
+    }
+
+    [class|="SideMenuButton-module--menuButton"] {
+      &,
       &::before,
       &::after {
+        border-top-color: darken(@accent-color, 8%);
+      }
+
+      &:hover {
+        &,
+        &::before,
+        &::after {
+          border-top-color: @accent-color;
+        }
+      }
+    }
+
+    [class*="PageHeaderLink-module--pageHeaderLink--"]:not(
+        [class*="PageHeaderLink-module--nohover--"]
+      ):hover {
+      color: @accent-color;
+      border-color: @accent-color;
+    }
+
+    [class|="LoginButton-module--loginButton"]:hover {
+      color: @accent-color;
+    }
+
+    [class*="badge-module--badge--"][class*="badge-module--proDark--"] {
+      background-color: spin(@accent-color, 30);
+      color: @accent-text;
+    }
+
+    [class*="StartFreeTrialButton-module--startFreeTrialButton--"] {
+      background-color: @accent-color !important;
+      border-color: @accent-color !important;
+      color: @accent-text !important;
+
+      &:hover {
+        background-color: darken(@accent-color, 8%);
+        border-color: darken(@accent-color, 8%);
+        color: @accent-text;
+      }
+    }
+
+    [class|="ProductUpdateButton-module--updateToolTip"] {
+      background-color: @surface0;
+      color: @text;
+
+      &::after {
+        border-bottom-color: @surface0;
+      }
+    }
+
+    // buttons above translation container
+    .bg-\[\#EDF8FC\],
+    [class|="cardButton"] {
+      background-color: @base;
+      border-color: @surface0;
+
+      &:not([class*="active--"]):hover {
+        background-color: @surface0;
+      }
+    }
+
+    [class|="textLower"] {
+      color: @overlay1;
+    }
+
+    [class|="logo"],
+    [class|="textUpper"] {
+      color: @accent-color;
+    }
+
+    [class*="active--"] {
+      [class|="logo"],
+      [class|="textUpper"] {
+        color: @text;
+      }
+
+      [class|="innerLower"] {
         background-color: @accent-color;
       }
     }
-  }
 
-  [class|="classicSidemenu-module--mainContent"] {
-    border-bottom-color: @surface0;
-  }
-
-  [class|="mainMenu-module--container"] a {
-    color: @text;
-
-    &:hover {
-      color: @accent-color;
-    }
-  }
-
-  [class|="subMenu-module--container"] {
-    button {
-      color: @text !important;
+    // translation container
+    [class*="SourceTranslatorArea-module--focusBorder--"]:has(
+        div[contenteditable="true"]:focus
+      ) {
+      border-color: @accent-color;
     }
 
-    [class|="button-module--button"][class*="button-module--variant_text--"] {
-      &,
-      &:hover {
-        background-color: transparent;
+    d-textarea > [data-placeholder],
+    d-textarea > div[data-content="true"]::before {
+      color: @subtext0;
+    }
+
+    [class*="enabled:hover-capable:hover:bg-dark-8"]:hover:enabled {
+      background-color: @surface0;
+    }
+
+    // alternatives
+    [data-testid="word-alternatives-list"] {
+      [class*="root--"] {
+        background-color: @base;
+
+        &[class*="selected--"] {
+          background-color: @surface0;
+        }
       }
     }
-  }
 
-  // whatever
-  .lmt__glossary_ad_checkmark {
-    border-bottom-color: @green;
-    border-right-color: @green;
-  }
+    div:has(> [class^="DictionaryContent-module--content--"].embedded) {
+      background-color: @base;
 
-  // zen mode
-  & when (@zenMode = 1) {
-    header,
-    [class="w-full bg-white px-8 lg:px-[70px]"],
-    [class="p-8 lg:px-[70px]"],
-    footer,
-    [href="/write"].block {
-      display: none;
+      .tag_lemma .dictLink {
+        color: @subtext1;
+      }
+
+      .translation_group .translation_group_line .notascommon,
+      .translation_group .translation_group_line .translation.sortablemg .sep {
+        color: @overlay2;
+      }
     }
 
-    body {
-      background: @mantle;
+    // dictionary
+    [class*="DictionaryContent-module--content--"] {
+      .isForeignTerm .inflectioninfo,
+      .isForeignTerm .tag_lemma,
+      .isForeignTerm .tag_lemma a,
+      .isForeignTerm .tag_s,
+      .isForeignTerm .tag_s a,
+      .isForeignTerm .tag_trans_src_context,
+      .tag_trans {
+        color: @subtext1;
+      }
+
+      .isForeignTerm .tag_t,
+      .isForeignTerm .tag_t a,
+      .isForeignTerm .tag_trans,
+      .isForeignTerm .tag_trans a,
+      .tag_lemma a {
+        color: @accent-color;
+      }
+
+      .notascommon,
+      .sep {
+        color: @overlay2;
+      }
     }
 
-    [class="relative pr-0 false"] {
-      height: 100%;
+    // glossary
+    .lmt__glossary_dialog--arrow {
+      &::before {
+        border-color: @surface1 transparent transparent;
+      }
+
+      &::after {
+        border-color: @surface0 transparent transparent;
+      }
     }
 
-    [data-testid="translator"] {
-      // height: 100%;
-      // width: 100vw;
-      // display: flex;
-      place-content: center center;
-      align-items: center;
+    .lmt__glossary_onOffSwitch_container {
+      label[class|="label"] {
+        --background: @overlay1;
+        --backgroundHover: darken(@overlay1, 8%);
+        --inlineLabelColor: @accent-text;
+        --outline-color: @accent-color;
 
-      > div:first-of-type {
-        width: 100vw;
+        &[class*="selected--"] {
+          --background: @green;
+          --backgroundHover: darken(@green, 8%);
+        }
+
+        [class|="toggle"] [class|="knob"] {
+          background: @accent-text;
+        }
+      }
+    }
+
+    [class|="modal"],
+    .lmt__glossary_editor {
+      background-color: @base;
+
+      [class*="Form-module--form--"] [class*="Form-module--submit--"] {
+        background: @accent-color;
+        color: @accent-text;
+
+        &:disabled {
+          background: fadeout(@accent-color, 50%);
+        }
+      }
+    }
+
+    .lmt__glossary_editor {
+      color: @text;
+      border-color: @accent-color;
+
+      form.bg-deprecated-grey
+        [class|="wrapper"][class*="Form-module--inputSource--"],
+      form.bg-deprecated-grey
+        [class|="wrapper"][class*="Form-module--inputTarget--"] {
+        --input-background: @base;
+        --input-border-color: @surface1;
+        --input-color: @subtext1;
+
+        [class|="button"][aria-expanded="true"] {
+          border-color: @accent-color;
+        }
+
+        [class|="controls"] [class|="wrapper"] {
+          --button-background: @base;
+          --button-border-color: @surface1;
+          --button-color: @subtext1;
+
+          [class|="flyout"] {
+            background: @base;
+            --option-color: @subtext1;
+            --option-selected-color: @subtext1;
+            --option-background: fadeout(@yellow, 80%);
+            --option-disabled-color: @overlay1;
+            --option-icon-color: @accent-color;
+          }
+        }
+      }
+    }
+
+    .lmt__glossary_editor_mainBar {
+      background-color: @accent-color;
+      color: @accent-text;
+
+      .lmt__glossary_editorClose {
+        color: inherit;
+      }
+    }
+
+    .lmt__glossary_editor .lmt__glossary_editor_subBar_top,
+    .lmt__glossary_editor_subBar_bottom {
+      background-color: @mantle;
+    }
+
+    .lmt__glossary_editor
+      .lmt__glossary_editor_subBar_top
+      .lmt__glossary_editor_glossarySelect
+      .lmt__glossary_editor_glossaryNameWrapper
+      .lmt__glossary_editor_glossaryName {
+      color: inherit;
+    }
+
+    .lmt__glossary_editor
+      .lmt__glossary_editor_subBar_top
+      .lmt__glossary_editor_glossarySelect
+      .lmt__glossary_editor_glossaryNameWrapper
+      .lmt__glossary_editor_glossarySelectChevron.lmt__glossary_arrowDown {
+      border-right-color: darken(@accent-color, 8%);
+      border-bottom-color: darken(@accent-color, 8%);
+    }
+
+    .lmt__glossary_button .lmt__glossary_button_label:hover,
+    .lmt__glossary_highlight,
+    .lmt__glossary_editor_subBar_bottom
+      .lmt__glossary_editor_glossaryAddNewWrapper
+      .lmt__glossary_editor_glossaryAddNew {
+      color: @accent-color;
+    }
+
+    .lmt_firstEntry-content .lmt__glossary_newEntry_inputSource,
+    .lmt_firstEntry-content .lmt__glossary_newEntry_inputTarget {
+      border-color: @surface1;
+      color: @subtext1;
+
+      &:focus {
+        border-color: @accent-color;
+      }
+    }
+
+    .lmt__glossary_editor_langPairHeadline {
+      color: inherit;
+      border-bottom-color: @surface1;
+    }
+
+    .lmt__glossary_editorRow {
+      color: inherit;
+
+      .iconButton {
+        color: @subtext0;
+      }
+    }
+
+    .lmt__glossary_arrowRightWrapper .lmt__glossary_arrowRight {
+      border-bottom-color: @surface1;
+      border-right-color: @surface1;
+    }
+
+    .lmt__glossary_dialog {
+      background-color: @surface0;
+      border-color: @surface1;
+      color: @text;
+    }
+
+    .lmt__glossary_dialog__line--suggestions,
+    .lmt__glossary_dialog__line .choice .option {
+      color: @accent-color;
+    }
+
+    // this this appears when you click on a word on the translated container...
+    .root--Te5J3 {
+      background-color: @base;
+    }
+
+    .divider--CI8JQ {
+      color: @surface1;
+    }
+
+    // translate files
+    [class^="UploadPanel-module--docTrans__help_popup--"] {
+      background-color: @base;
+    }
+
+    // quotes
+    [class|="Quote-module--quote"] {
+      background-color: @base !important;
+      border-color: @surface0;
+      color: @text;
+    }
+
+    [class|="Quote-module--quoteSource"] {
+      > a {
+        color: darken(@accent-color, 8%);
+      }
+    }
+
+    [class|="Quotes-module--quotesNavigationEntry"] {
+      background-color: @surface1;
+    }
+
+    [class*="Quotes-module--quotesNavigationEntryActive--"] {
+      background-color: @accent-color;
+    }
+
+    // aside
+    [class^="ProBanner2021-module--wrapper--"],
+    [class|="CareerBanner-module--container"] {
+      background: @base;
+    }
+
+    [class|="CareerBanner-module--text"] {
+      h2 {
+        color: @overlay1;
+      }
+    }
+
+    [class|="PopularLangPairList-module--seoText"] {
+      color: @overlay0;
+
+      p[class|="PopularLangPairList-module--title"] {
+        color: @overlay2;
+      }
+    }
+
+    // footer
+    footer [class|="pageFooterV2-module--footerOuterContainer"] {
+      background-color: @base;
+    }
+
+    [class|="ProBanner2021-module--textLink"] {
+      color: spin(@accent-color, 30);
+    }
+
+    [class|="pageFooterV2-module--footerOuterContainer"]
+      [class|="pageFooterV2-module--footerContainer"]
+      [class|="pageFooterV2-module--footerContentContainer"]
+      [class|="pageFooterV2-module--linksContainer"]
+      [class|="pageFooterV2-module--linkList"]
+      li {
+      &:first-of-type {
+        color: @overlay1;
+      }
+
+      &:not(:first-of-type) a {
+        color: @text !important;
+      }
+    }
+
+    [class|="LanguageSelector-module--wrapper"] {
+      --button-background: @surface0;
+      --button-border-color: @surface1;
+      --button-color: @subtext1;
+
+      [class|="LanguageSelector-module--flyout"] {
+        background: @surface0;
+        // --option-background: @surface0;
+        --option-color: @subtext1;
+        --option-icon-color: @accent-color;
+
+        [class|="LanguageSelector-module--option"][class*="LanguageSelector-module--active--"] {
+          --option-background: fadeout(@yellow, 80%);
+        }
+      }
+    }
+
+    // side menu
+    [class|="classicSidemenu-module--menuContainer"] {
+      background-color: @base;
+
+      [class|="closeButton-module--closeButton"] {
+        &::before,
+        &::after {
+          background-color: @accent-color;
+        }
+      }
+    }
+
+    [class|="classicSidemenu-module--mainContent"] {
+      border-bottom-color: @surface0;
+    }
+
+    [class|="mainMenu-module--container"] a {
+      color: @text;
+
+      &:hover {
+        color: @accent-color;
+      }
+    }
+
+    [class|="subMenu-module--container"] {
+      button {
+        color: @text !important;
+      }
+
+      [class|="button-module--button"][class*="button-module--variant_text--"] {
+        &,
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+
+    .lmt__glossary_ad_checkmark {
+      border-bottom-color: @green;
+      border-right-color: @green;
+    }
+
+    & when (@zenMode = 1) {
+      header,
+      [class="w-full bg-white px-8 lg:px-[70px]"],
+      [class="p-8 lg:px-[70px]"],
+      footer,
+      [href="/write"].block {
+        display: none;
+      }
+
+      body {
+        background: @mantle;
+      }
+
+      [class="relative pr-0 false"] {
+        height: 100%;
+      }
+
+      [data-testid="translator"] {
+        place-content: center center;
+        align-items: center;
+
+        > div:first-of-type {
+          width: 100vw;
+        }
       }
     }
   }
@@ -738,4 +752,5 @@
   @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
   @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
 }
+
 // vim:ft=less
