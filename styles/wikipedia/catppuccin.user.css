@@ -2,7 +2,7 @@
 @name Wikipedia Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/wikipedia
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/wikipedia
-@version 0.0.14
+@version 0.0.16
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/wikipedia/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Awikipedia
 @description Soothing pastel theme for Wikipedia
@@ -12,7 +12,8 @@
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var checkbox highlight-redirect "Highlight redirect links" 0
 ==/UserStyle== */
 
 @-moz-document domain('wikipedia.org') {
@@ -347,7 +348,7 @@
       box-shadow: inset 2.75em 0 0 @surface1;
     }
 
-    .mw-redirect {
+    .mw-redirect when (@highlight-redirect = 1) {
       color: @green !important;
     }
 
@@ -387,6 +388,19 @@
 
     .ambox-style {
       border-left-color: @yellow !important;
+    }
+
+    .mw-parser-output .mainpage-frame {
+      background: @surface0 !important;
+      border-color: @surface0 !important;
+    }
+
+    .mw-parser-output .mainpage-heading-title {
+      background: linear-gradient(
+        to right,
+        rgba(saturate(lighten(@accent-color, 4%), -3%), 0.4),
+        @surface0
+      ) !important;
     }
 
     .hidden-title {
@@ -884,7 +898,7 @@
       border-top-color: @surface2;
       border-left-color: @surface2;
       border-right-color: @surface2;
-      & > figcaption {
+      > figcaption {
         background-color: @mantle !important;
         color: @text !important;
         border-bottom-color: @surface2;

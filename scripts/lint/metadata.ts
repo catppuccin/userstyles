@@ -15,6 +15,7 @@ export const verifyMetadata = async (
   content: string,
   userstyle: string,
   userstyles: Userstyles,
+  fix: boolean,
 ) => {
   // `usercss-meta` prohibits any '\r' characters, which seem to be present on Windows.
   content = content.replaceAll("\r\n", "\n");
@@ -69,7 +70,7 @@ export const verifyMetadata = async (
   for (const variable of ["darkFlavor", "lightFlavor", "accentColor"]) {
     const declaration = `@var select ${variable}`;
 
-    const expected = template.find((line) => line.includes(declaration));
+    const expected = template.find((line) => line.includes(declaration))!;
     const current = lines.findIndex((line) => line.includes(declaration)) +
       1;
 
@@ -103,6 +104,10 @@ export const verifyMetadata = async (
         startLine: current,
         content,
       }, "warning");
+
+      if (fix) {
+        content = content.replace(lines[current - 1], expected);
+      }
     }
   }
 
@@ -118,6 +123,7 @@ export const verifyMetadata = async (
   return {
     globalVars,
     isLess: metadata.preprocessor === assert.preprocessor,
+    fixed: content,
   };
 };
 

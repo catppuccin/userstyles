@@ -92,6 +92,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [GitHub](styles/github)
 - [Graphite](styles/graphite)
 - 🚧 [Hackage](styles/hackage)
+- [Home Manager Options Search](styles/home-manager-options-search)
 - [Hoppscotch](styles/hoppscotch)
 - [MDN](styles/mdn)
 - [Next.js](styles/nextjs)
@@ -172,7 +173,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🎓 Education</summary>
 
-- [Canvas LMS](styles/canvas-lms)
+- 🚧 [Canvas LMS](styles/canvas-lms)
 - [Formative](styles/formative)
 - [Quizlet](styles/quizlet)
 
