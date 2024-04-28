@@ -29,15 +29,18 @@ for await (const entry of stylesheets) {
   const dir = basename(dirname(entry.path));
   const file = relative(REPO_ROOT, entry.path);
 
-  const content = await Deno.readTextFile(entry.path);
+  let content = await Deno.readTextFile(entry.path);
 
   // Verify the UserCSS metadata.
-  const { globalVars, isLess } = await verifyMetadata(
+  const { globalVars, isLess, fixed } = await verifyMetadata(
     entry,
     content,
     dir,
     userstyles,
+    flags.fix,
   );
+
+  content = fixed;
 
   // Don't attempt to compile or lint non-LESS files.
   if (!isLess) continue;
