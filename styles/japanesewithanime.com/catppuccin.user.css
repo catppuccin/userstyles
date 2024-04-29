@@ -5,7 +5,7 @@
 @version 0.0.1
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/japanesewithanime.com/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ajapanesewithanime.com
-@description Soothing pastel theme for paste.rs
+@description Soothing pastel theme for japanesewithanime.com
 @author Catppuccin
 @license MIT
 
@@ -13,17 +13,18 @@
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select linkColor "Link color" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
 @-moz-document domain("japanesewithanime.com") {
 	@media (prefers-color-scheme: light) {
-		#catppuccin(@lightFlavor, @accentColor);
+		#catppuccin(@lightFlavor, @accentColor, @linkColor);
 	}
 	@media (prefers-color-scheme: dark) {
-		#catppuccin(@darkFlavor, @accentColor);
+		#catppuccin(@darkFlavor, @accentColor, @linkColor);
 	}
 
-  #catppuccin(@lookup, @accent) {
+  #catppuccin(@lookup, @accent, @lnk) {
 	@rosewater: @catppuccin[@@lookup][@rosewater];
 	@flamingo: @catppuccin[@@lookup][@flamingo];
 	@pink: @catppuccin[@@lookup][@pink];
@@ -51,12 +52,14 @@
 	@mantle: @catppuccin[@@lookup][@mantle];
 	@crust: @catppuccin[@@lookup][@crust];
 	@accent-color: @catppuccin[@@lookup][@@accent];
+	@link-color: @catppuccin[@@lookup][@@lnk];
 
 	color-scheme: if(@lookup = latte, light, dark);
 
 	::selection {
 		background-color: fade(@accent-color, 30%);
 	}
+
 
 	body, html{
 		color: #cdd6f4 !important;
@@ -69,38 +72,133 @@
 	}
 	.post-body i,
 	.featured-posts i{
-		color: @accent-color !important;
+		color: @accent-color
 	}
 	a.placeholder-link{
 		color: @red !important;
 	}
 	a:link,
 	a:visited{
+		color: @link-color !important;
+	}
+
+
+	input.gsc-search-button{
+		color: @text !important;
+		background-color: @surface1 !important;
+		border: 4px solid @surface1 !important;
+		// border-radius: 2px;
+
+		border-top-right-radius: 2px;
+		border-bottom-right-radius: 2px;
+	}
+
+	input.gsc-input{
+		color: @text !important;
+		background-color: @surface0 !important;
+		border: 4px solid @surface0 !important;
+		// border-radius: 2px;
+		border-top-left-radius: 2px;
+		border-bottom-left-radius: 2px;
+	}
+
+	#sidebar-divider{
+		border-left: 1px solid @surface0 !important;
+	}
+
+	#myTopSearchFormInput{
+		color: @text !important;
+		background-color: @surface0 !important;
+		border: 6px solid @surface0 !important;
+		border-radius: 4px;
+	}
+
+	.status-msg-body,
+	.post-footer{
+		color: @text !important;
+		background-color: @surface0 !important;
+		border: 1px solid @surface0 !important;
+		border-radius: 2px;
+	}
+
+	.post-header-warning-nsfw{
+		color: @text !important;
+		background-color: @surface0 !important;
+		border: 1px solid @surface0 !important;
+		border-radius: 2px;
+    box-shadow: 0px 0px rgba(0, 0, 0, 0)
+	}
+
+	#fallback-wrapper{
+		background-color: @base !important;
 		color: @accent-color !important;
 	}
 
-	input.gsc-input,
-    input.gsc-search-button{
+	.megaNav__Particles > a, .megaNav__Symbols > a{
+		background-color: @surface0 !important;
+		border: 4px solid @surface0 !important;
+		border-radius: 2px;
+	}
+
+	#jwa-header{
+		// background: fade(@red, 50%) !important;
+		background: @surface0 !important;
+		border-bottom: 0px !important;
+	}
+	.megaNav__toptab,
+	a.megaNav__toptab{
+		// background: @red !important;
+		background: @surface1 !important;
+		color: @text !important;
+		border: 0px !important;
+	}
+	#blog-title,
+	#blog-title>a,
+	.date-header,
+	.widget .title, .widget>h2,{
+		color: @text !important;
+	}
+
+	.small-ads-label{
+		color: @subtext0 !important;
+	}
+
+	.visualNav > a{
+		color: transparent !important;
+	}
+
+	.navboxBody ,
+	.navboxLabel{
+		color: @text !important;
+		background-color: @surface0 !important;
+	}
+
+	.categoryNavbox{
 		color: @text !important;
 		background-color: @surface0 !important;
 		border: 2px solid @surface0 !important;
 		border-radius: 2px;
 	}
 
-	#jwa-header{
-		background: fade(@red, 50%) !important;
-		border-bottom: 0px !important;
+	.post-donation-cta{
+		color: @text !important;
+		background-color: @surface0 !important;
+		border: 4px solid @surface0 !important;
+		border-radius: 4px;
 	}
-	.megaNav__toptab{
-		background: #f38ba8 !important;
-		border: 0px !important;
+
+	.my-breadcrumb-path{
+		background-color: @base !important;
 	}
-	#blog-title,
-	#blog-title>a,
-	.date-header,
-	.widget .title, .widget>h2{
+
+	.post-tags-slot>a::before{
 		color: @text !important;
 	}
+
+	.my-breadcrumb-node.crumb-to-here{
+		color: @text !important;
+	}
+
 
 	#archive-year-select,
 	#archive-month-select{
@@ -110,9 +208,24 @@
 		border-radius: 2px;
 	}
 
-	select {
-		color: white; /* Text color */
-		background-color: #333; /* Background color */
+	// .T4LgNb,
+	// .kFwPee,
+	// c-wiz{
+	// 	color: @text !important;
+	// 	background-color: @base !important;
+	// }
+
+	.x5vlw,
+  .kFwPee,
+  .Pc9Gce,
+  .K5XaHb,
+  .SSPGKf,
+  .T4LgNb,
+  .T4LgNb .eejsDc,
+  .EIlDfe,
+  .EIlDfe body {
+		color: @text !important;
+		background-color: @surface0 !important;
 	}
 
 	.jwa-share-btn__icon{
@@ -127,6 +240,10 @@
 		color: @text !important;
 		background-color: @surface0 !important;
 		border: 0px
+	}
+
+	dfn{
+		border-color: @accent-color
 	}
 
   }
