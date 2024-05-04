@@ -21,7 +21,7 @@ When editing a userstyle, we suggest setting up live reloading so your local cha
 
 ### Assessing websites
 
-Some websites are, unfortunately, simply not meant for userstyles. For example, websites that have auto-generated classes (`aeN WR baA nH oy8Mbf`, `cfb2a888`, etc.) lead to unreadable and unmaintainable userstyles — they break quickly and are difficult for contributors besides the maintainer to update/maintain. For those reasons we recommend not attempting to theme such sites.
+Some websites are, unfortunately, simply not meant for userstyles. For example, websites that have auto-generated classes (`aeN WR beA nH oy8Mbf`, `cfb2a888`, etc.) lead to unreadable and unmaintainable userstyles — they break quickly and are difficult for contributors besides the maintainer to update/maintain. For those reasons we recommend not attempting to theme such sites.
 
 ### Root variables
 
