@@ -13,7 +13,7 @@ request.
 
 ## Development environment
 
-This repositories uses [Deno](https://deno.com/) extensively for linting and automation. We recommend setting up Deno locally to improve your workflow — see ["Installation" - Deno Docs](https://docs.deno.com/runtime/manual/getting_started/installation). With Deno installed locally, you can run the lint script using `deno task lint` and the formatting script using `deno task format`.
+This repositories uses [Deno](https://deno.com/) extensively for linting and automation. We recommend setting up Deno locally to improve your workflow — see ["Installation" - Deno Docs](https://docs.deno.com/runtime/manual/getting_started/installation). With Deno installed locally, you can run the lint script using `deno task lint` (and `deno task lint:fix` to automatically apply fixes) and the formatting script using `deno task format`.
 
 When editing a userstyle, we suggest setting up live reloading so your local changes can be automatically reloaded through Stylus. See ["How can I see my changes in real time?"](./tips-and-tricks.md#how-can-i-see-my-changes-in-real-time).
 
@@ -21,7 +21,7 @@ When editing a userstyle, we suggest setting up live reloading so your local cha
 
 ### Assessing websites
 
-Some websites are, unfortunately, simply not meant for userstyles. For example, websites that have auto-generated classes (`aeN WR baA nH oy8Mbf`, `cfb2a888`, etc.) lead to unreadable and unmaintainable userstyles — they break quickly and are difficult for contributors besides the maintainer to update/maintain.
+Some websites are, unfortunately, simply not meant for userstyles. For example, websites that have auto-generated classes (`aeN WR baA nH oy8Mbf`, `cfb2a888`, etc.) lead to unreadable and unmaintainable userstyles — they break quickly and are difficult for contributors besides the maintainer to update/maintain. For those reasons we recommend not attempting to theme such sites.
 
 ### Root variables
 
