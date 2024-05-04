@@ -38,10 +38,12 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 ## 🖥️ Install
 
-Install [Stylus](https://github.com/openstyles/stylus) for your chosen browser.
+Install [Stylus](https://github.com/openstyles/stylus) for your browser by clicking one of the badges below.
 
-- [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)
-- [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
+<p align="center">
+  <a href="https://addons.mozilla.org/en-GB/firefox/addon/styl-us/"><img src="https://img.shields.io/badge/Firefox_Add--ons-f5a97f?style=for-the-badge&logo=Firefox-Browser&logoColor=24273a"></a>
+  <a href="https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne"><img src="https://img.shields.io/badge/Chrome_Web_Store-b7bdf8?style=for-the-badge&logo=GoogleChrome&logoColor=24273a"></a>
+</p>
 
 ### All Userstyles
 
