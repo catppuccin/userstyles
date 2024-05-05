@@ -16,3 +16,7 @@
 | Opera (GX)     | `opera://about/`    |
 | Microsoft Edge | `edge://version/`   |
 | Arc            | `arc://version/`    |
+
+## Common issues
+
+If you are running into any compatibility issues with your browser, please feel free to open an issue!
