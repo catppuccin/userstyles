@@ -38,10 +38,12 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 ## 🖥️ Install
 
-Install [Stylus](https://github.com/openstyles/stylus) for your chosen browser.
+Install [Stylus](https://github.com/openstyles/stylus) for your browser by clicking one of the badges below.
 
-- [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)
-- [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
+<p align="center">
+  <a href="https://addons.mozilla.org/en-GB/firefox/addon/styl-us/"><img src="https://img.shields.io/badge/Firefox_Add--ons-f5a97f?style=for-the-badge&logo=Firefox-Browser&logoColor=24273a"></a>
+  <a href="https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne"><img src="https://img.shields.io/badge/Chrome_Web_Store-b7bdf8?style=for-the-badge&logo=GoogleChrome&logoColor=24273a"></a>
+</p>
 
 ### All Userstyles
 
@@ -89,11 +91,13 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [boringproxy](styles/boringproxy)
 - [Codeberg](styles/codeberg)
+- [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
 - [Graphite](styles/graphite)
 - 🚧 [Hackage](styles/hackage)
 - [Home Manager Options Search](styles/home-manager-options-search)
 - [Hoppscotch](styles/hoppscotch)
+- [Keyoxide](styles/keyoxide)
 - [MDN](styles/mdn)
 - [Next.js](styles/nextjs)
 - [npm](styles/npm)
@@ -151,6 +155,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>📖 Productivity</summary>
 
+- [Google Drive](styles/google-drive)
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
 - [Microsoft Word](styles/microsoft-word)
