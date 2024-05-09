@@ -97,6 +97,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - 🚧 [Hackage](styles/hackage)
 - [Home Manager Options Search](styles/home-manager-options-search)
 - [Hoppscotch](styles/hoppscotch)
+- [Keyoxide](styles/keyoxide)
 - [MDN](styles/mdn)
 - [Next.js](styles/nextjs)
 - [npm](styles/npm)
