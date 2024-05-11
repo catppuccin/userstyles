@@ -144,6 +144,8 @@ You can use the following snippet to get the raw RGB values from a color.
 --ctp-base: #rgbify(@base) []; // -> 30, 30, 46
 ```
 
+&nbsp;
+
 ### How can I inspect hard-to-grab elements?
 
 Paste the following snippet into your browser console, then trigger the event. Adjust the delay (in milliseconds) as needed.
@@ -156,7 +158,9 @@ setTimeout(function () {
 
 ![](https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/02/debugger.gif?ssl=1)
 
-<span>Gif via <a href="https://css-tricks.com/set-timed-debugger-web-inspect-hard-grab-elements/">"Set a Timed Debugger To Web Inspect Hard-To-Grab Elements" - CSS Tricks</a>.</span>
+GIF via ["Set a Timed Debugger To Web Inspect Hard-To-Grab Elements" - CSS Tricks](https://css-tricks.com/set-timed-debugger-web-inspect-hard-grab-elements/).
+
+&nbsp;
 
 ### How do I theme code blocks / syntax highlighting?
 
