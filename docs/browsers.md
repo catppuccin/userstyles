@@ -17,8 +17,6 @@
 | Microsoft Edge | `edge://version/`   |
 | Arc            | `arc://version/`    |
 
-## Common Issues
+## Common issues
 
-> [!NOTE]
-> If you are running into any compatibility issues with your browser, please consider opening
-> a pull request and documenting your issue here!
+If you are running into any compatibility issues with your browser, please feel free to open an issue!

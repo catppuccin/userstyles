@@ -45,6 +45,9 @@ Install [Stylus](https://github.com/openstyles/stylus) for your browser by click
   <a href="https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne"><img src="https://img.shields.io/badge/Chrome_Web_Store-b7bdf8?style=for-the-badge&logo=GoogleChrome&logoColor=24273a"></a>
 </p>
 
+> [!TIP]
+> If you use Chrome, make sure to enable "Allow access to file URLs" in the Stylus extension settings.
+
 ### All Userstyles
 
 See instructions on the [GitHub release page](https://github.com/catppuccin/userstyles/releases/tag/all-userstyles-export).
@@ -91,11 +94,13 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [boringproxy](styles/boringproxy)
 - [Codeberg](styles/codeberg)
+- [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
 - [Graphite](styles/graphite)
 - 🚧 [Hackage](styles/hackage)
 - [Home Manager Options Search](styles/home-manager-options-search)
 - [Hoppscotch](styles/hoppscotch)
+- [Keyoxide](styles/keyoxide)
 - [MDN](styles/mdn)
 - [Next.js](styles/nextjs)
 - [npm](styles/npm)
