@@ -2,7 +2,7 @@
 @name ChatGPT Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/chatgpt
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/chatgpt
-@version 0.2.11
+@version 0.3.0
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/chatgpt/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Achatgpt
 @description Soothing pastel theme for ChatGPT
@@ -112,8 +112,8 @@
 
     color: @text;
 
-    @white: lighten(if(@lookup=latte, @base, @text), 5%);
-    @black: darken(if(@lookup=latte, @text, @base), 5%);
+    @white: if(@lookup=latte, @crust, @text);
+    @black: if(@lookup=latte, @text, @crust);
     --white: @white;
     --black: @black;
 
@@ -130,13 +130,13 @@
       --gray-900: @mantle;
       --gray-950: @crust;
       --brand-purple: @accent-color;
-      --text-primary: var(--gray-100);
-      --text-secondary: var(--gray-300);
-      --text-tertiary: var(--gray-400);
-      --text-quaternary: var(--gray-700);
-      --main-surface-primary: var(--gray-800);
-      --main-surface-secondary: var(--gray-700);
-      --main-surface-tertiary: var(--gray-600);
+      --text-primary: var(--gray-100) !important;
+      --text-secondary: var(--gray-200) !important;
+      --text-tertiary: var(--gray-300) !important;
+      --text-quaternary: var(--gray-500) !important;
+      --main-surface-primary: var(--gray-800) !important;
+      --main-surface-secondary: var(--gray-700) !important;
+      --main-surface-tertiary: var(--gray-600) !important;
       --sidebar-surface-primary: var(--gray-900);
       --sidebar-surface-secondary: var(--gray-800);
       --sidebar-surface-tertiary: var(--gray-700);
@@ -267,82 +267,68 @@
 
     /* Buttons */
 
-    .btn-primary {
-      background-color: @green;
+    .btn-primary,
+    .btn-green {
+      background-color: @accent-color;
       color: @base;
-    }
 
-    .btn-primary:hover {
-      background-color: darken(@green, 10%);
-    }
+      &:hover {
+        background-color: darken(@accent-color, 10%);
+      }
 
-    .btn-primary.focus-visible {
-      --tw-ring-color: lighten(@green, 10%) !important;
-    }
-
-    .btn-primary:focus-visible {
-      --tw-ring-color: lighten(@green, 10%) !important;
+      &:focus-visible {
+        --tw-ring-color: darken(@accent-color, 10%) !important;
+      }
     }
 
     .btn-danger {
       background-color: @red;
       color: @base;
-    }
 
-    .btn-danger:hover {
-      background-color: darken(@red, 10%);
-    }
+      &:hover:not(:disabled) {
+        background-color: darken(@red, 10%);
+      }
 
-    .btn-danger.focus-visible {
-      --tw-ring-color: lighten(@red, 10%) !important;
-    }
-
-    .btn-danger:focus-visible {
-      --tw-ring-color: lighten(@red, 10%) !important;
-    }
-
-    .btn-danger:disabled:hover {
-      background-color: @red;
+      &.focus-visible,
+      &:focus-visible {
+        --tw-ring-color: darken(@red, 10%) !important;
+      }
     }
 
     .btn-danger-outline {
       border-color: @red;
       color: @red;
+
+      &.focus-visible,
+      &:focus-visible {
+        --tw-ring-color: lighten(@red, 10%) !important;
+      }
     }
 
-    .btn-danger-outline.focus-visible {
-      --tw-ring-color: lighten(@red, 10%) !important;
-    }
-
-    .btn-danger-outline:focus-visible {
-      --tw-ring-color: lighten(@red, 10%) !important;
-    }
-
-    .btn-neutral.focus-visible {
-      --tw-ring-color: @overlay0 !important;
-    }
-
-    .btn-neutral:focus-visible {
-      --tw-ring-color: @overlay0 !important;
+    .btn-neutral {
+      &.focus-visible,
+      &:focus-visible {
+        --tw-ring-color: @overlay0 !important;
+      }
     }
 
     .btn-dark {
       background-color: @surface0;
       border-color: @overlay0;
       color: @text;
-    }
 
-    .btn-dark:hover {
-      background-color: @surface1;
+      &:hover {
+        background-color: @surface1;
+      }
     }
 
     .btn-light {
-      background-color: @text;
+      background-color: @overlay1;
       color: @black;
-    }
 
-    .btn-light:hover {
-      background-color: @base;
+      &:hover {
+        background-color: @overlay0;
+      }
     }
 
     .btn-disabled,
@@ -529,8 +515,12 @@
       background-color: darken(@blue, 10%);
     }
 
+    .hover\:bg-blue-700:hover {
+      background-color: darken(@blue, 15%);
+    }
+
     .bg-brand-blue-800 {
-      background-color: darken(@blue, 20%);
+      background-color: darken(@blue, 10%);
     }
 
     .bg-blue-950 {
@@ -683,10 +673,6 @@
       border-color: @accent-color;
     }
 
-    .hover\:bg-blue-700:hover {
-      background-color: darken(@blue, 25%);
-    }
-
     [class*="bg-transparent"] {
       background-color: transparent;
     }
@@ -694,7 +680,7 @@
     /* Gradients */
 
     .from-white {
-      --tw-gradient-from: @white var(--tw-gradient-from-position);
+      --tw-gradient-from: @base var(--tw-gradient-from-position);
     }
 
     /* Fill/stroke */
@@ -837,6 +823,10 @@
       color: darken(@red, 10%);
     }
 
+    .text-token-text-error {
+      --text-error: @red;
+    }
+
     .text-white {
       color: @white;
     }
@@ -897,6 +887,11 @@
         color: @black;
       }
 
+      /* Chat suggestions on new chat page */
+      .dark\:text-gray-500 {
+        color: var(--gray-300);
+      }
+
       .dark\:text-\[\#D292FF\] {
         color: @mauve;
       }
@@ -907,6 +902,14 @@
 
       .dark\:border-gray-700 {
         border-color: var(--gray-700);
+      }
+
+      /* Up arrow send message button */
+      .disabled\:dark\:bg-token-text-quaternary:is(.dark *):disabled {
+        background-color: var(--text-quaternary);
+      }
+      .dark\:disabled\:text-token-main-surface-secondary:disabled:is(.dark *) {
+        color: var(--main-surface-secondary);
       }
     }
 
@@ -940,6 +943,20 @@
     [style="background-color: rgb(0, 0, 46);"],
     [style="background-color: rgb(255, 255, 219);"] {
       background-color: @crust !important;
+    }
+
+    /* Icon colors for chat suggestion icons on new chat page */
+    svg[style="color: rgb(203, 139, 208);"] {
+      color: @pink !important;
+    }
+    svg[style="color: rgb(226, 197, 65);"] {
+      color: @yellow !important;
+    }
+    svg[style="color: rgb(118, 208, 235);"] {
+      color: @teal !important;
+    }
+    svg[style="color: rgb(237, 98, 98);"] {
+      color: @red !important;
     }
   }
 }
@@ -1149,7 +1166,8 @@
     --gray-darkest: @text;
     --gray-social-border: @surface0;
 
-    ._button-login-password {
+    ._button-login-password,
+    ._button-login-id {
       background-color: @accent-color;
       color: @base;
     }
