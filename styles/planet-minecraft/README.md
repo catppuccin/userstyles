@@ -20,7 +20,7 @@
 
 
 ## 💝 Current Maintainer
-- [Amelia Katherine](https://github.com/night-lake)
+- [Amelia Rose](https://github.com/nyameliaaaa)
 
 
 &nbsp;

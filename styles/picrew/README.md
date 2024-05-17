@@ -20,7 +20,7 @@
 
 
 ## 💝 Current Maintainer
-- [Natalie Ashley Raine](https://github.com/Nyatalieeee)
+- [Natalie Raine](https://github.com/Nyatalieeee)
 
 
 &nbsp;
