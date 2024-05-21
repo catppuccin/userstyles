@@ -8,24 +8,30 @@ The following is a set of guidelines for contributing to this repository. Use
 your best judgment, and feel free to propose changes to this document in a pull
 request.
 
-## Types of PRs
+> [!IMPORTANT]
+> For new userstyles, make sure to see [userstyle-creation.md](./userstyle-creation.md) after reading this.
 
-It is important to note that there are **two types of PRs** for this repository:
+## Development environment
 
-1. **New Userstyles:** Please see [userstyle-creation.md](./userstyle-creation.md).
-2. **Other improvements:** These should follow the recommendations below, to help improve the chances of a merged PR.
+This repositories uses [Deno](https://deno.com/) extensively for linting and automation. We recommend setting up Deno locally to improve your workflow — see ["Installation" - Deno Docs](https://docs.deno.com/runtime/manual/getting_started/installation). With Deno installed locally, you can run the lint script using `deno task lint` (and `deno task lint:fix` to automatically apply fixes) and the formatting script using `deno task format`.
+
+When editing a userstyle, we suggest setting up live reloading so your local changes can be automatically reloaded through Stylus. See ["How can I see my changes in real time?"](./tips-and-tricks.md#how-can-i-see-my-changes-in-real-time).
 
 ## Recommendations
 
-### Root Variables
+### Assessing websites
+
+Some websites are, unfortunately, simply not meant for userstyles. For example, websites that have auto-generated classes (`aeN WR beA nH oy8Mbf`, `cfb2a888`, etc.) lead to unreadable and unmaintainable userstyles — they break quickly and are difficult for contributors besides the maintainer to update/maintain. For those reasons we recommend not attempting to theme such sites.
+
+### Root variables
 
 While writing a userstyle, you may have come across [custom properties / CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*), typically wrapped in a `:root` selector. We refer to these variables as "root variables", and they can be thought of as global variables used all across a website. For Catppuccin userstyles, we prefer that these variables are themed (if they exist) rather than individual elements. As the website hopefully uses these variables themselves, it saves yourself a lot of work in theming and maintaining the userstyle.
 
-### Opinionated Changes
+### Opinionated changes
 
 When writing or updating a userstyle, it is important to keep in mind that different users have different preferences. To avoid lengthy discussion over user interface aesthetics, we have a set of rules for what a userstyle may include; importantly, **changes to font or layout (padding, margin, hiding/moving elements) are prohibited.**
 
-### General Recommendations
+### General recommendations
 
 - Create a [topic branch](https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows#_topic_branch) on your fork for your specific PR.
 - Catppuccin uses the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
@@ -41,7 +47,9 @@ When writing or updating a userstyle, it is important to keep in mind that diffe
   any questions and clarify your understanding, we are more than happy to help!
 - Changes to docs may need to use [marksman](https://github.com/artempyanykh/marksman) to generate the table of contents.
 
-## Pull Request Review Process
+## Pull request review process
+
+It's better to have a draft pull request than no pull request at all. Having a draft lets others know that a userstyle is being worked on, and gives the opportunity for people to try it out ahead of time (if they really want it themed!).
 
 ```mermaid
 graph TD;
