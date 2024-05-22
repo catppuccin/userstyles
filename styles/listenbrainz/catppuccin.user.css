@@ -1,0 +1,483 @@
+/* ==UserStyle==
+@name ListenBrainz Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/listenbrainz
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/listenbrainz
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/listenbrainz/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Alistenbrainz
+@description Soothing pastel theme for ListenBrainz
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain('listenbrainz.org') {
+  /* This section applies the light/dark themes automatically based on the user's system theme.
+     Use the below example CSS to start if the website you are theming doesn't have a light/dark mode toggle.
+     For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/brave-search/catppuccin.user.css#L16-L29.
+  */
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    // We can't control which theme is passed to Toastify's props from CSS, but
+    // we can replace the default theme with whatever colours we want.
+    --toastify-color-light: @overlay0;
+    --toastify-text-color-light: @text;
+    --toastify-color-info: @blue --toastify-color-success: @green;
+    --toastify-color-warning: @yellow;
+    --toastify-color-error: @red;
+
+    body {
+      color: @text;
+      background-color: @base;
+
+      nav[role="navigation"] {
+        .navbar-header .navbar-toggle {
+          border-color: @accent-color;
+          .icon-bar {
+            background-color: @accent-color;
+          }
+        }
+
+        #side-nav {
+          background-color: @mantle;
+          a,
+          a:visited {
+            color: @blue;
+            &:hover {
+              color: @sky;
+            }
+          }
+
+          .search-bar input {
+            background-color: @surface0;
+            color: @text;
+            &:focus {
+              box-shadow: none;
+            }
+          }
+
+          .mobile-nav-fix {
+            background-color: transparent;
+          }
+        }
+
+        #side-nav-overlay {
+          background-color: @crust;
+        }
+      }
+    }
+
+    a {
+      color: @blue;
+      &:hover {
+        color: @sky;
+      }
+      &:visited:not(.btn) {
+        color: @lavender;
+        &:hover {
+          color: @sky;
+        }
+      }
+    }
+
+    h3,
+    h4 {
+      color: @text;
+    }
+
+    .text-muted,
+    .help-block {
+      color: @subtext0;
+    }
+
+    a > svg.fa-link {
+      color: @text;
+    }
+
+    .btn-info,
+    .musicbrainz-profile-button,
+    .lb-follow-button.block,
+    .pill.secondary.active {
+      color: @text;
+      background-color: fade(@accent-color, 30%);
+      border-color: transparent;
+      &:hover {
+        color: @text;
+        background-color: fade(@accent-color, 40%);
+      }
+    }
+
+    .secondary-nav .nav.nav-tabs {
+      background-color: @mantle;
+      border-color: @mantle;
+      > li {
+        background-color: @surface0;
+        border-color: @mantle;
+        > a {
+          background-color: transparent;
+          border-color: @crust;
+          color: @subtext1;
+        }
+        &:hover {
+          background-color: @surface1;
+        }
+
+        &.active {
+          background-color: @surface2;
+        }
+      }
+    }
+
+    @media (max-width: 991px) {
+      .secondary-nav::after {
+        background: linear-gradient(270deg, @crust, transparent);
+      }
+    }
+
+    .listen-header h3 {
+      color: @subtext0;
+      &::after {
+        border-top-color: @surface1;
+      }
+    }
+
+    .webSocket-box {
+      border-bottom-color: @mantle;
+      .read-more {
+        background-image: linear-gradient(to bottom, transparent, @base);
+      }
+      .btn-outline {
+        .btn-info();
+      }
+    }
+
+    .heart-actions() {
+      .love {
+        &.loved {
+          color: @red;
+        }
+        &:hover {
+          color: transparent;
+          stroke: @red;
+        }
+      }
+
+      .hate {
+        &.hated {
+          color: @mauve;
+        }
+        &:hover {
+          color: transparent;
+          stroke: @mauve;
+        }
+      }
+    }
+
+    .card {
+      background-color: @surface0;
+      border-color: transparent;
+      box-shadow: none;
+
+      &.listen-card {
+        .listen-thumbnail > div {
+          color: @accent-color;
+          background-color: @surface1;
+        }
+
+        .listen-time {
+          color: @subtext0;
+        }
+        .listen-controls {
+          > .btn:hover {
+            color: @rosewater;
+          }
+
+          .play-button.playing {
+            color: @peach;
+          }
+
+          .heart-actions();
+        }
+
+        &.playing-now,
+        &.current-listen {
+          background-color: @surface1 !important;
+
+          .listen-thumbnail > div {
+            background-color: @surface2;
+          }
+        }
+      }
+    }
+
+    #listen-count-card hr,
+    .card-user-sn hr {
+      border-top-color: @surface1;
+    }
+
+    .follower-following-list,
+    .similar-users-list {
+      box-shadow: inset 0 11px 8px -10px @base;
+      > :not(:first-child) {
+        border-color: @surface1;
+      }
+    }
+
+    .progress {
+      background-color: @surface1;
+
+      .progress-bar.purple {
+        background-color: @mauve;
+      }
+
+      .progress-bar.orange {
+        background-color: @peach;
+      }
+
+      .progress-bar.red {
+        background-color: @red;
+      }
+    }
+
+    .dropdown-menu {
+      background-color: @overlay0;
+      button,
+      a {
+        color: @text !important;
+        &:visited {
+          color: @text !important;
+        }
+        &:hover {
+          background-color: fade(@accent-color, 30%) !important;
+        }
+      }
+    }
+
+    .pager li {
+      > a,
+      > a:focus,
+      > a:visited,
+      a:active,
+      > span {
+        background-color: @surface0;
+        border-color: @surface1;
+
+        &:hover {
+          background-color: @surface1;
+        }
+      }
+
+      > a,
+      > a:focus,
+      > a:visited,
+      > a:active {
+        color: @blue;
+        &:hover {
+          color: @sky;
+        }
+      }
+
+      &.disabled {
+        > a,
+        > a:focus,
+        > a:visited,
+        > a:active,
+        > span {
+          color: @text;
+          background-color: @surface0;
+          &:hover {
+            background-color: inherit;
+          }
+        }
+      }
+    }
+
+    .react-datetime-picker {
+      .react-datetime-picker__wrapper {
+        border-color: @mantle;
+      }
+      .react-calendar {
+        background-color: @surface0;
+
+        .react-calendar__navigation,
+        .react-calendar__viewContainer {
+          button:disabled {
+            background-color: @surface2;
+          }
+          button:enabled:hover {
+            background-color: @surface1;
+          }
+          button:enabled:focus {
+            background-color: transparent;
+          }
+
+          .react-calendar__tile--hasActive,
+          .react-calendar__tile--active {
+            color: @text;
+            background-color: fade(@accent-color, 40%);
+            &:enabled:hover {
+              background-color: fade(@accent-color, 50%);
+            }
+          }
+        }
+
+        .react-calendar__month-view__days__day--neighboringMonth {
+          color: @subtext0;
+        }
+
+        .react-calendar__month-view__days__day--weekend {
+          color: @red;
+        }
+      }
+    }
+
+    .stats-full-width-graph {
+      line {
+        stroke: @subtext0 !important;
+      }
+
+      text {
+        fill: @text !important;
+      }
+
+      &.user-artist-map > div + div > div,
+      svg + div > div {
+        background-color: @overlay0 !important;
+        color: @text !important;
+      }
+    }
+
+    .modal-content {
+      background-color: @mantle;
+      button.close {
+        color: @text;
+        opacity: 1;
+        text-shadow: none;
+      }
+
+      .track-search {
+        #recording-mbid,
+        .track-search-dropdown {
+          background-color: @surface0;
+          color: @text;
+          border-color: @crust;
+        }
+      }
+
+      .modal-header,
+      .modal-footer {
+        border-color: @crust;
+      }
+    }
+
+    #brainz-player {
+      background-color: @mantle;
+      border-color: @crust;
+
+      .progress {
+        background-color: @surface1;
+        > .progress-bar {
+          background-color: @accent-color;
+        }
+      }
+
+      .no-album-art {
+        background-color: transparent;
+      }
+
+      .controls > .btn-link,
+      .actions > a {
+        color: @accent-color;
+      }
+
+      .actions {
+        .heart-actions();
+
+        .fa-ellipsis-vertical {
+          stroke: @accent-color;
+        }
+      }
+
+      .dropup-content {
+        .dropdown-menu();
+      }
+    }
+
+    .footer {
+      background-color: @mantle;
+      color: @text;
+      border-color: @crust;
+      .color-gray {
+        color: @subtext0;
+      }
+      .section-line {
+        border-color: @crust;
+      }
+    }
+  }
+}
+
+/* prettier-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+}
+
+// vim:ft=less
