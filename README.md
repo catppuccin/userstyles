@@ -94,6 +94,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [boringproxy](styles/boringproxy)
 - [Codeberg](styles/codeberg)
+- [crates.io](styles/crates.io)
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
 - [Graphite](styles/graphite)
