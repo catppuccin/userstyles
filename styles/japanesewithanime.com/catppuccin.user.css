@@ -59,7 +59,23 @@
 	@crust: @catppuccin[@@lookup][@crust];
 	@accent-color: @catppuccin[@@lookup][@@accent];
 	@link-color: @catppuccin[@@lookup][@@lnk];
+  // Mixin to set variables based on conditions
+  .set-colors() when not (@accent-color = @yellow) and not (@link-color = @yellow) {
+    @warn-color: @yellow;
+  }
+  .set-colors() when (@accent-color = @yellow) or (@link-color = @yellow) {
+    @warn-color: @peach;
+  }
+  .set-colors() when (@accent-color = @peach) and (@link-color = @yellow) {
+    @warn-color: @maroon;
+  }
+  .set-colors() when (@accent-color = @yellow) and (@link-color = @peach) {
+    @warn-color: @maroon;
+  }
 
+
+  // Apply the mixin to set the variables
+  .set-colors();
 	color-scheme: if(@lookup = latte, light, dark);
 
 	::selection {
@@ -176,25 +192,22 @@
 		border-color: @surface0 !important;
 	}
 
-	.post-header-warning-nsfw,
+	.post-header-warning-nsfw{
+		color: @text !important;
+		background-color: @surface0 !important;
+    border-color: @accent-color !important;
+    box-shadow: none !important;
+	}
+
+
 	.post-header-warning-wip{
 		color: @text !important;
 		background-color: @surface0 !important;
+    border-color: @warn-color !important;
+    box-shadow: none !important;
 	}
 
-  & when (@solidColors = 1) {
-    .post-header-warning-nsfw,
-    .post-header-warning-wip{
-      border-color: @surface0 !important;
-      box-shadow: none !important;
-    }
-  }
-  & when (@solidColors = 0) {
-    .post-header-warning-nsfw,
-    .post-header-warning-wip{
-      border-color: @accent-color !important;
-    }
-  }
+
 
 	#fallback-wrapper{
 		background-color: @base !important;
