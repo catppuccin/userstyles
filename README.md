@@ -108,6 +108,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
+- [Stack Overflow](styles/stack-overflow)
 - [Trinket](styles/trinket)
 - [Vercel](styles/vercel)
 
