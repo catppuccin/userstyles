@@ -95,6 +95,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [boringproxy](styles/boringproxy)
 - [Codeberg](styles/codeberg)
 - [crates.io](styles/crates.io)
+- [docs.rs](styles/docs.rs)
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
 - [Graphite](styles/graphite)
@@ -136,6 +137,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🧠 Wikis</summary>
 
 - [Arch Wiki](styles/arch-wiki)
+- [mdBook](styles/mdbook)
 - 🚧 [NixOS Wiki](styles/nixos.wiki)
 - [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)

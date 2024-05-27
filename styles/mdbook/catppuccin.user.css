@@ -1,11 +1,11 @@
 /* ==UserStyle==
-@name homepage Catppuccin
-@namespace github.com/catppuccin/userstyles/styles/homepage
-@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/homepage
-@version 0.0.5
-@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/homepage/catppuccin.user.css
-@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ahomepage
-@description Soothing pastel theme for homepage
+@name mdBook Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/mdbook
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/mdbook
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/mdbook/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Amdbook
+@description Soothing pastel theme for mdBook
 @author Catppuccin
 @license MIT
 
@@ -15,8 +15,10 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document domain("homepage.example.com"), regexp("https?://homepage\\..*")
+@-moz-document url-prefix('https://rust-lang.github.io/mdBook/'), domain('doc.rust-lang.org')
 {
+  @import url("https://unpkg.com/@catppuccin/highlightjs@0.2.2/css/catppuccin.variables.css");
+
   @media (prefers-color-scheme: light) {
     :root {
       #catppuccin(@lightFlavor, @accentColor);
@@ -57,6 +59,33 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
+    --ctp-rosewater: #rgbify(@rosewater) [];
+    --ctp-flamingo: #rgbify(@flamingo) [];
+    --ctp-pink: #rgbify(@pink) [];
+    --ctp-mauve: #rgbify(@mauve) [];
+    --ctp-red: #rgbify(@red) [];
+    --ctp-maroon: #rgbify(@maroon) [];
+    --ctp-peach: #rgbify(@peach) [];
+    --ctp-yellow: #rgbify(@yellow) [];
+    --ctp-green: #rgbify(@green) [];
+    --ctp-teal: #rgbify(@teal) [];
+    --ctp-sky: #rgbify(@sky) [];
+    --ctp-sapphire: #rgbify(@sapphire) [];
+    --ctp-blue: #rgbify(@blue) [];
+    --ctp-lavender: #rgbify(@lavender) [];
+    --ctp-text: #rgbify(@text) [];
+    --ctp-subtext1: #rgbify(@subtext1) [];
+    --ctp-subtext0: #rgbify(@subtext0) [];
+    --ctp-overlay2: #rgbify(@overlay2) [];
+    --ctp-overlay1: #rgbify(@overlay1) [];
+    --ctp-overlay0: #rgbify(@overlay0) [];
+    --ctp-surface2: #rgbify(@surface2) [];
+    --ctp-surface1: #rgbify(@surface1) [];
+    --ctp-surface0: #rgbify(@surface0) [];
+    --ctp-base: #rgbify(@base) [];
+    --ctp-mantle: #rgbify(@mantle) [];
+    --ctp-crust: #rgbify(@crust) [];
+
     color-scheme: if(@lookup = latte, light, dark);
 
     ::selection {
@@ -70,127 +99,63 @@
       }
     }
 
-    //Page Level Features
+    --bg: @base;
+    --fg: @text;
+    --sidebar-bg: @mantle;
+    --sidebar-fg: @text;
+    --sidebar-non-existant: @overlay0;
+    --sidebar-active: @blue;
+    --sidebar-spacer: @overlay0;
+    --scrollbar: @overlay0;
+    --icons: @overlay0;
+    --icons-hover: @overlay1;
+    --links: @blue;
+    --inline-code-color: @peach;
+    --theme-popup-bg: @mantle;
+    --theme-popup-border: @overlay0;
+    --theme-hover: @overlay0;
+    --quote-bg: @mantle;
+    --quote-border: @crust;
+    --table-border-color: @crust;
+    --table-header-bg: @mantle;
+    --table-alternate-bg: @mantle;
+    --searchbar-border-color: @crust;
+    --searchbar-bg: @mantle;
+    --searchbar-fg: @text;
+    --searchbar-shadow-color: @crust;
+    --searchresults-header-fg: @text;
+    --searchresults-border-color: @crust;
+    --searchresults-li-bg: @base;
+    --search-mark-bg: @peach;
+    --warning-border: @peach;
 
-    :is(.dark .dark\:bg-theme-800) {
-      --tw-bg-opacity: 1;
-      background-color: @base; //background Color
+    code.hljs {
+      color: @text;
+      background: @mantle;
     }
-
-    .dark {
-      --bg-color: @base;
-      --scrollbar-thumb: @accent-color; //ScrollBar
-      --scrollbar-track: @mantle; //Scrollbar base
+    blockquote blockquote {
+      border-top-color: @surface2;
+      border-bottom-color: @surface2;
     }
-
-    //Information Widget Features
-
-    :is(.dark .dark\:bg-theme-200\/20) {
-      background-color: @overlay0 //Information Widgets Progress Bar Background
-;
+    hr {
+      color: @surface2;
     }
-    :is(.dark .dark\:bg-theme-200\/50) {
-      background-color: @text //Information Widgets Progress Bar Value
-;
+    del {
+      color: @overlay2;
     }
-    .border-theme-300 {
-      --tw-border-opacity: 1;
-      border-color: @surface0 !important; //Search bar Border (important is needed so top separator doesn't override)
+    .ace_gutter {
+      color: @overlay1;
+      background: @mantle;
     }
-    :is(.dark .dark\:bg-white\/10) {
-      background-color: @base //Search bar background
-;
-    }
-    :is(.dark .dark\:focus\:ring-white\/50:focus) {
-      --tw-ring-color: @text; //Search bar Focus Border
-    }
-
-    :is(.dark .dark\:text-white) {
-      --tw-text-opacity: 1;
-      color: @accent-color //Search bar Text
-;
-    }
-
-    // Services Level Features
-
-    :is(.dark .dark\:bg-white\/5) {
-      background-color: @mantle; //Box Background
-    }
-    :is(.dark .dark\:shadow-theme-900\/20) {
-      --tw-shadow-color: @mantle; //Box Shadows
-      --tw-shadow: var(--tw-shadow-colored);
-    }
-
-    :is(.dark .dark\:hover\:bg-white\/10:hover) {
-      background-color: @surface1 //Box Hover Color
-;
-    }
-
-    :is(.dark .dark\:bg-theme-900\/50) {
-      background-color: @crust; //Ping & Docker Stats Box Background
-    }
-    :is(.dark .dark\:bg-theme-900\/20) {
-      background-color: @surface0; //Stats Background Color
-    }
-
-    :is(.dark .dark\:bg-theme-900\/40) {
-      background-color: @accent-color; //Progress Bar
-    }
-    :is(.dark .dark\:text-theme-300) {
-      color: @text; //Section Names + Container Description
-    }
-
-    // api error
-    .text-theme-900 {
-      --tw-border-opacity: 1;
-      color: @base; // api error text color
-    }
-
-    .bg-rose-900\/80 {
-      --tw-border-opacity: 1;
-      background-color: @red; // api error box color
-    }
-    //
-
-    :is(.dark .dark\:text-theme-400) {
-      --tw-border-opacity: 1;
-      color: @text; // update and version text
-    }
-
-    .text-white {
-      color: @subtext1; // search bar icon
-    }
-
-    :is(.dark .dark\:border-theme-200\/50) {
-      --tw-border-opacity: 1;
-      border-color: @surface2; // top separator
-    }
-
-    :is(.dark .dark\:hover\:text-theme-300:hover) {
-      --tw-text-opacity: 1;
-      color: darken(
-        @accent-color,
-        10%
-      ); //Section Names + Container Description Hover Color
-    }
-    :is(.dark .dark\:text-theme-200) {
-      --tw-text-opacity: 1;
-      color: @text; // Container Names + Stats
-    }
-
-    .text-emerald-500\/80 {
-      color: lighten(
-        @green,
-        10%
-      ); //Ping & Docker Status Text (Running + Healthy)
-    }
-    .text-orange-400\/50 {
-      color: lighten(@yellow, 10%); //Docker Status Text (Unhealthy)
-    }
-    .text-rose-500\/80 {
-      color: darken(@red, 10%); //Ping Status Text (Bad)
+    .ace_gutter-active-line.ace_gutter-cell {
+      color: @pink;
+      background: @mantle;
     }
   }
+}
+
+#rgbify(@color) {
+  @rgb-raw: red(@color), green(@color), blue(@color);
 }
 
 /* prettier-ignore */
