@@ -18,6 +18,7 @@
   - [`<img>` elements](#img-elements)
 - [How do I set a variable to RGB values?](#how-do-i-set-a-variable-to-rgb-values)
 - [How can I inspect hard-to-grab elements?](#how-can-i-inspect-hard-to-grab-elements)
+- [How do I theme code blocks / syntax highlighting?](#how-do-i-theme-code-blocks--syntax-highlighting)
 <!--toc:end-->
 
 ### How can I see my changes in real time?
@@ -109,16 +110,12 @@ There is only one color used, `fill="#1D9BF0"`. That hex code is a shade of blue
 
 #### `<img>` elements
 
-Theming an inline image is a bit tricky. We have to first hide the original image with `height: 0 !important;` and `width: 0 !important;`, after which we can apply our own background image. Importantly, you must determine the height and width of the original image. You will need the width and height to A) adjust the SVG to that size (you can use https://www.svgviewer.dev/ for this), and B) the `padding-left: _px !important;` and `padding-right: _px !important` also need to use those dimensions. You can use the template below for this.
+Theming an inline image is similar, but we use `content` to cover up the original image with our new one. You only need to update the SVG inside of the `escape('')` and you're all set.
 
 ```less
 img.xyz {
   @svg: escape("<svg>...</svg>");
-  height: 0 !important;
-  width: 0 !important;
-  padding-left: <ORIGINAL_IMAGE_WIDTH>px !important;
-  padding-top: <ORIGINAL_IMAGE_HEIGHT>px !important;
-  background: url("data:image/svg+xml,@{svg}") no-repeat !important;
+  content: url("data:image/svg+xml,@{svg}");
 }
 ```
 
@@ -129,11 +126,7 @@ img.twitter-icon {
   @svg: escape(
     '<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="@{blue}" d="M21.543 7.104c.015.211.015.423.015.636 0 6.507-4.954 14.01-14.01 14.01v-.003A13.94 13.94 0 0 1 0 19.539a9.88 9.88 0 0 0 7.287-2.041 4.93 4.93 0 0 1-4.6-3.42 4.916 4.916 0 0 0 2.223-.084A4.926 4.926 0 0 1 .96 9.167v-.062a4.887 4.887 0 0 0 2.235.616A4.928 4.928 0 0 1 1.67 3.148 13.98 13.98 0 0 0 11.82 8.292a4.929 4.929 0 0 1 8.39-4.49 9.868 9.868 0 0 0 3.128-1.196 4.941 4.941 0 0 1-2.165 2.724A9.828 9.828 0 0 0 24 4.555a10.019 10.019 0 0 1-2.457 2.549z"/></svg>'
   );
-  height: 0 !important;
-  width: 0 !important;
-  padding-left: 24px !important;
-  padding-top: 24px !important;
-  background: url("data:image/svg+xml,@{svg}") no-repeat !important;
+  content: url("data:image/svg+xml,@{svg}");
 }
 ```
 
@@ -151,6 +144,8 @@ You can use the following snippet to get the raw RGB values from a color.
 --ctp-base: #rgbify(@base) []; // -> 30, 30, 46
 ```
 
+&nbsp;
+
 ### How can I inspect hard-to-grab elements?
 
 Paste the following snippet into your browser console, then trigger the event. Adjust the delay (in milliseconds) as needed.
@@ -163,4 +158,53 @@ setTimeout(function () {
 
 ![](https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/02/debugger.gif?ssl=1)
 
-<span>Gif via <a href="https://css-tricks.com/set-timed-debugger-web-inspect-hard-grab-elements/">"Set a Timed Debugger To Web Inspect Hard-To-Grab Elements" - CSS Tricks</a>.</span>
+GIF via ["Set a Timed Debugger To Web Inspect Hard-To-Grab Elements" - CSS Tricks](https://css-tricks.com/set-timed-debugger-web-inspect-hard-grab-elements/).
+
+&nbsp;
+
+### How do I theme code blocks / syntax highlighting?
+
+If a website uses [highlight.js](https://highlightjs.org/) or [Pygments](https://pygments.org/) for syntax highlighting, add the corresponding line from below beneath the `@-moz-document` line to import our existing port.
+
+**highlight.js**:
+
+```css
+@import url("https://unpkg.com/@catppuccin/highlightjs@0.1.2/css/catppuccin.variables.css");
+```
+
+**Pygments**:
+
+```css
+@import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
+```
+
+You'll also need to add the following lines beneath the color definition section (`@<color>: @catppuccin[@@lookup][@<color>];`) in the `#catppuccin` mixin:
+
+```css
+--ctp-rosewater: @rosewater;
+--ctp-flamingo: @flamingo;
+--ctp-pink: @pink;
+--ctp-mauve: @mauve;
+--ctp-red: @red;
+--ctp-maroon: @maroon;
+--ctp-peach: @peach;
+--ctp-yellow: @yellow;
+--ctp-green: @green;
+--ctp-teal: @teal;
+--ctp-sky: @sky;
+--ctp-sapphire: @sapphire;
+--ctp-blue: @blue;
+--ctp-lavender: @lavender;
+--ctp-text: @text;
+--ctp-subtext1: @subtext1;
+--ctp-subtext0: @subtext0;
+--ctp-overlay2: @overlay2;
+--ctp-overlay1: @overlay1;
+--ctp-overlay0: @overlay0;
+--ctp-surface2: @surface2;
+--ctp-surface1: @surface1;
+--ctp-surface0: @surface0;
+--ctp-base: @base;
+--ctp-mantle: @mantle;
+--ctp-crust: @crust;
+```

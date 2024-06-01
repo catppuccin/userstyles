@@ -2,7 +2,7 @@
 @name YouTube Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/youtube
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/youtube
-@version 4.0.5
+@version 4.0.15
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/youtube/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ayoutube
 @description Soothing pastel theme for YouTube
@@ -12,7 +12,7 @@
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 
 @var checkbox logo "Enable YouTube logo" 1
 @var checkbox oled "Enable black bars" 0
@@ -165,10 +165,7 @@
       --yt-spec-static-grey: @subtext0 !important;
       --yt-spec-static-overlay-background-solid: @crust !important;
       --yt-spec-static-overlay-background-heavy: @surface0;
-      --yt-spec-static-overlay-background-medium: fadeout(
-        @crust,
-        0.6
-      ) !important;
+      --yt-spec-static-overlay-background-medium: fade(@crust, 50%) !important;
       --yt-spec-static-overlay-background-medium-light: fadeout(
         @crust,
         0.3
@@ -422,6 +419,13 @@
       background: @crust !important;
     }
 
+    .ytp-progress-list when not(@lookup = latte) {
+      background: fade(@surface0, 80%);
+    }
+    .ytp-load-progress when not(@lookup = latte) {
+      background: fade(@overlay0, 100%);
+    }
+
     ytd-expandable-metadata-renderer {
       --yt-lightsource-section1-color: @base !important;
       --yt-lightsource-section2-color: @surface0 !important;
@@ -447,6 +451,21 @@
       --ytd-author-comment-badge-background-color: @surface0 !important;
       --ytd-author-comment-badge-name-color: @text !important;
       --ytd-author-comment-badge-icon-color: @text !important;
+    }
+
+    /* Skeleton */
+    #guide-skeleton,
+    #home-container-skeleton,
+    #home-chips {
+      background-color: @base;
+      z-index: -1;
+    }
+
+    #guide-skeleton .guide-ghost-icon,
+    #guide-skeleton .guide-ghost-text,
+    .masthead-skeleton-icon,
+    #home-page-skeleton .skeleton-bg-color {
+      background-color: @surface1;
     }
 
     /* Ambient mode */
@@ -489,9 +508,16 @@
         fill: @crust !important;
       }
     }
+
     .yt-spec-icon-badge-shape--style-overlay .yt-spec-icon-badge-shape__icon,
     .yt-spec-icon-badge-shape {
       color: @text;
+    }
+
+    .yt-spec-icon-badge-shape--type-notification
+      .yt-spec-icon-badge-shape__badge {
+      background-color: @accent-color !important;
+      color: @surface0 !important;
     }
 
     /* Buttons */
@@ -499,7 +525,7 @@
     .yt-spec-button-shape-next--mono {
       &.yt-spec-button-shape-next--tonal {
         color: @text;
-        background-color: @surface1;
+        background-color: @surface0;
 
         [fill="rgb(3,3,3)"],
         [fill="rgb(0,0,0)"],
@@ -517,14 +543,14 @@
           g path[fill] {
             fill: @accent-color !important;
 
-            & + [stroke] {
+            + [stroke] {
               stroke: @accent-color !important;
             }
           }
         }
 
         &:hover {
-          background-color: @surface2;
+          background-color: @surface1;
         }
       }
 
@@ -560,6 +586,11 @@
       &.yt-spec-button-shape-next--tonal,
       &.yt-spec-button-shape-next--text {
         color: @text;
+      }
+
+      &.yt-spec-button-shape-next--filled {
+        color: @crust;
+        background-color: @accent-color;
       }
     }
 
@@ -663,9 +694,15 @@
     /* Thumbnails */
 
     #time-status:has([aria-label="LIVE"]),
-    .badge[aria-label="LIVE"] {
+    .badge[aria-label="LIVE"],
+    .badge[aria-label="PREMIERE"],
+    .badge-shape-wiz--live.badge-shape-wiz--overlay {
       --yt-spec-static-overlay-text-primary: @crust;
       --yt-spec-static-overlay-icon-active-other: @crust;
+    }
+    .badge-shape-wiz--live.badge-shape-wiz--overlay {
+      background: var(--yt-spec-static-overlay-background-brand);
+      color: var(--yt-spec-static-overlay-text-primary);
     }
     #thumbnail [style="background-color: rgba(51, 51, 51, 0.8);"],
     .YtInlinePlayerControlsTopRightControlsCircleButton,
@@ -681,6 +718,9 @@
     .ytp-sb-subscribe {
       background-color: @accent-color;
       color: @crust;
+    }
+    ytd-thumbnail-overlay-resume-playback-renderer {
+      background-color: @surface1;
     }
 
     /* Panels, popups, tooltips */
@@ -851,10 +891,24 @@
           color: @subtext1;
         }
       }
+      ytd-reel-video-renderer[is-watch-while-mode]
+        .yt-spec-button-shape-with-label__label {
+        color: @white;
+      }
+
+      .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--tonal,
+      .YtdDesktopShortsVolumeControlsBackgroundScrim {
+        background-color: fade(@black, 60%);
+        color: @white;
+      }
+
+      .YtdDesktopShortsVolumeControlsMuteIcon {
+        color: @white !important;
+      }
 
       /* Buy super thanks button */
       .YtdShortsSuggestedActionStaticHostContainer {
-        background-color: @surface0;
+        background-color: fade(@black, 60%);
 
         .YtdShortsSuggestedActionStaticHostLeadingIcon,
         .YtdShortsSuggestedActionStaticHostPrimaryText {
@@ -875,6 +929,28 @@
     }
     .yt-tab-shape-wiz:hover .yt-tab-shape-wiz__tab-bar {
       background-color: @subtext1;
+    }
+    .truncated-text-wiz,
+    .page-header-view-model-wiz__page-header-content-metadata {
+      color: @subtext1;
+    }
+    .page-header-view-model-wiz__page-header-title,
+    [style="color: rgb(255, 255, 255);"]:has(svg),
+    .truncated-text-wiz__absolute-button {
+      color: @text !important;
+    }
+    .yt-contextual-sheet-layout-wiz {
+      background-color: @mantle;
+
+      .yt-list-item-view-model-wiz__container--tappable:hover {
+        background-color: @surface0;
+      }
+
+      .yt-list-item-view-model-wiz__title,
+      .yt-list-item-view-model-wiz__accessory,
+      .radio-shape-wiz__label-container {
+        color: @text;
+      }
     }
   }
 }
@@ -935,11 +1011,7 @@
       @svg: escape(
         '<svg viewBox="0 0 97.55 24" xmlns="http://www.w3.org/2000/svg"><path fill="@{accent-color}" d="M17.1 0S6.4 0 3.8.7a4.15 4.15 0 0 0-3 3C0 6.4 0 12 0 12a45 45 0 0 0 .7 8.2 4.32 4.32 0 0 0 3 3c2.7.8 13.4.8 13.4.8s10.7 0 13.4-.7a4.32 4.32 0 0 0 3-3 45 45 0 0 0 .7-8.2s.1-5.7-.6-8.3a4.32 4.32 0 0 0-3-3C27.9 0 17.1 0 17.1 0m-3.4 6.9 8.9 5.1-8.9 5.1z"/><path fill="@{text}" d="M76.3.9v4.4c0 1.1 0 2 .1 3.3h-.1A3.36 3.36 0 0 0 73.4 7c-2.3 0-3.3 2-3.3 6.6V16c0 4.9.8 6.6 3.2 6.6a3.42 3.42 0 0 0 3.2-2.4h.1l.4 2.1h2.6V.9zm6.688.4c-1.126.032-1.687.55-1.687 2.1 0 1.7.599 2.1 1.799 2.1s1.8-.5 1.8-2.1-.6-2.1-1.8-2.1zM45 1.4c-3.6 0-5 1.7-5 4.9s1.1 4.5 3.7 6.8c1.6 1.4 2.8 2.5 2.8 4.8 0 1.5-.4 2.2-1.6 2.2s-1.7-.8-1.6-3.6h-3.1c-.6 4.2.8 6.1 4.5 6.2 3.5 0 5-1.5 5-5.4 0-3.1-1.3-4.4-3.7-6.6-1.9-1.8-2.8-2.5-2.8-4.6 0-1.4.3-2.2 1.6-2.2s1.6 1.1 1.5 3.9l3.1-.2c.5-4.2-.8-6.2-4.4-6.2m7.6 1.4-.4 4.5h-1.4v2.6H52v8.8c0 2.7.4 3.8 2.6 3.8a7.4 7.4 0 0 0 3.1-.6l-.6-2.2a5.2 5.2 0 0 1-1.3.2c-.5 0-.7-.3-.7-1.7V9.9h2.2V7.3H55V2.8zM91 7c-3.3 0-4.7 1.8-4.7 6.7v2.2c0 4.7 1.1 6.7 4.6 6.7s4.7-2 4.7-6.7v-2.2C95.6 8.9 94.3 7 91 7m-31.8.3v11.4c0 2.7.9 4 2.9 4a3.46 3.46 0 0 0 3.2-2.1h.1l.3 1.8h2.7V7.3H65v12a1.51 1.51 0 0 1-1.4 1c-.7 0-1-.6-1-1.9V7.3zm22.3 0v15.1h3.2V7.3zm9.4 2c1 0 1.3 1 1.3 3.1v4.7c0 2.2-.4 3.1-1.3 3.1s-1.2-.9-1.2-3.1v-4.7c0-2 .2-3.1 1.2-3.1M75 9.4a1.56 1.56 0 0 1 1.3.8v8.5c-.2.9-.9 1.4-1.4 1.3-1 0-1.3-1-1.3-4.4v-1.9c0-3.3.3-4.3 1.4-4.3"/></svg>'
       );
-      height: 0 !important;
-      width: 0 !important;
-      padding-left: 98px !important;
-      padding-top: 24px !important;
-      background: url("data:image/svg+xml,@{svg}") no-repeat !important;
+      content: url("data:image/svg+xml,@{svg}");
     }
 
     &,
