@@ -16,7 +16,7 @@ const maintainers = [
     Object.values(userstyles).flatMap((
       style: UserStylesSchema.Userstyle,
     ) =>
-      style.readme["current-maintainers"].map((m) => {
+      style["current-maintainers"].map((m) => {
         const username = m.url.split("github.com/")?.pop();
         // Check that they follow github.com/username pattern.
         assert.assertExists(username);
