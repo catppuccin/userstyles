@@ -99,7 +99,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
 - [Graphite](styles/graphite)
-- 🚧 [Hackage](styles/hackage)
+- [Hackage](styles/hackage)
 - [Home Manager Options Search](styles/home-manager-options-search)
 - [Hoppscotch](styles/hoppscotch)
 - [Keyoxide](styles/keyoxide)
@@ -108,6 +108,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
+- [Stack Overflow](styles/stack-overflow)
 - [Trinket](styles/trinket)
 - [Vercel](styles/vercel)
 
@@ -153,7 +154,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🎵 Music</summary>
 
-- 🚧 [Hyperpipe](styles/hyperpipe)
+- [Hyperpipe](styles/hyperpipe)
 - [Last.fm](styles/lastfm)
 - [Spotify Web](styles/spotify-web)
 
@@ -193,7 +194,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>✨ Social Networking</summary>
 
 - [Bluesky Social](styles/bsky)
-- 🚧 [Cinny](styles/cinny)
+- [Cinny](styles/cinny)
 - [Elk](styles/elk)
 - [Instagram](styles/instagram)
 - [LinkedIn](styles/linkedin)

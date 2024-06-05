@@ -55,12 +55,12 @@ await syncIssueLabels(userstylesData.userstyles);
 await updateFile(
   join(REPO_ROOT, ".github/CODEOWNERS"),
   Object.entries(userstylesData.userstyles)
-    .filter(([_, { readme }]) => readme["current-maintainers"].length > 0)
-    .map(([slug, { readme }]) => {
-      const currentMaintainers = readme["current-maintainers"]
+    .filter(([_, { "current-maintainers": currentMaintainers }]) => currentMaintainers.length > 0)
+    .map(([slug, { "current-maintainers": currentMaintainers }]) => {
+      const codeOwners = currentMaintainers
         .map((maintainer) => `@${maintainer.url.split("/").pop()}`)
         .join(" ");
-      return `/styles/${slug} ${currentMaintainers}`;
+      return `/styles/${slug} ${codeOwners}`;
     })
     .join("\n"),
 );
