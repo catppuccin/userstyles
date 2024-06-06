@@ -27,7 +27,7 @@ export const syncIssueLabels = async (
     stringify(
       Object.entries(userstyles)
         .reduce((acc, [key]) => {
-          acc[key.toString()] = [`${toIssueLabel(key)}(,.*)?$`];
+          acc[key.toString()] = [`/${toIssueLabel(key)}(,.*)?$/`];
           return acc;
         }, {} as Record<string, string[]>),
     ),
