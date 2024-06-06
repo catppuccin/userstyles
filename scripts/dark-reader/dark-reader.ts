@@ -1,12 +1,9 @@
 import { walk } from "https://deno.land/std/fs/mod.ts";
 import { ensureFile } from "https://deno.land/std/fs/mod.ts";
 import { dirname, fromFileUrl, join } from "https://deno.land/std/path/mod.ts";
+import { REPO_ROOT } from "@/deps.ts";
 
-// Get the directory of the currently running script
-const scriptDir = dirname(fromFileUrl(import.meta.url));
-
-// Construct the parentDir to thescript.ts/../../styles
-const parentDir = join(scriptDir, "../../styles");
+const stylesDir = join(REPO_ROOT, "styles");
 
 const pattern = /(domain|url-prefix|regexp)\("([^"]+)"\)/g;
 
@@ -34,7 +31,7 @@ async function updateJson(origJsonFile: string) {
   }
 
   const darkJson = JSON.parse(await Deno.readTextFile(origJsonFile));
-  const newDisabled = [...darkJson.disabledFor, ...(await collectUrls(parentDir))];
+  const newDisabled = [...darkJson.disabledFor, ...(await collectUrls(stylesDir))];
   darkJson.disabledFor = newDisabled;
 
   // Ensure the new file exists before writing
