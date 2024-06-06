@@ -20,7 +20,7 @@
 
 
 ## 💝 Current Maintainer
-- [Amelia Rose](https://github.com/temp-19382838)
+- [Amelia Rose](https://github.com/Nyameliaaaa)
 
 
 &nbsp;
