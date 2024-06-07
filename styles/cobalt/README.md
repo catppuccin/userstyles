@@ -4,13 +4,13 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-  Catppuccin for <a href="https://github.com/mastodon/mastodon">Mastodon</a>
+  Catppuccin for <a href="https://cobalt.tools">cobalt</a>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
 <p align="center">
-	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Amastodon"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/mastodon?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/mastodon/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Acobalt"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/cobalt?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/cobalt/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 <p align="center">
@@ -18,15 +18,10 @@
 </p>
 
 
-## 🙋 FAQ
-- Q: **The theme does not look the same as the preview?**\
-  A: Your Mastodon instance may be using its own custom CSS, which is changing the look of the theme.
 
 ## 💝 Current Maintainer
-- [Isabel](https://github.com/isabelroses)
+- [keri](https://github.com/kerichdev)
 
-## 💖 Past Maintainer
-- [Lemon](https://github.com/unseen-ninja)
 
 &nbsp;
 

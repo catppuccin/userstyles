@@ -144,6 +144,8 @@ You can use the following snippet to get the raw RGB values from a color.
 --ctp-base: #rgbify(@base) []; // -> 30, 30, 46
 ```
 
+&nbsp;
+
 ### How can I inspect hard-to-grab elements?
 
 Paste the following snippet into your browser console, then trigger the event. Adjust the delay (in milliseconds) as needed.
@@ -156,19 +158,58 @@ setTimeout(function () {
 
 ![](https://i0.wp.com/css-tricks.com/wp-content/uploads/2017/02/debugger.gif?ssl=1)
 
-<span>Gif via <a href="https://css-tricks.com/set-timed-debugger-web-inspect-hard-grab-elements/">"Set a Timed Debugger To Web Inspect Hard-To-Grab Elements" - CSS Tricks</a>.</span>
+GIF via ["Set a Timed Debugger To Web Inspect Hard-To-Grab Elements" - CSS Tricks](https://css-tricks.com/set-timed-debugger-web-inspect-hard-grab-elements/).
+
+&nbsp;
 
 ### How do I theme code blocks / syntax highlighting?
 
-If a website uses [highlight.js](https://highlightjs.org/) or [Pygments](https://pygments.org/) for syntax highlighting, add the corresponding line from below beneath the `@-moz-document` line to import our existing port.
+If a website uses [highlight.js](https://highlightjs.org/) or [Pygments](https://pygments.org/) for syntax highlighting, follow the steps for the syntax higlighter in use below.
 
-**highlight.js**:
+#### highlight.js
+
+Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
 
 ```css
-@import url("https://unpkg.com/@catppuccin/highlightjs@0.1.2/css/catppuccin.variables.css");
+@import url("https://unpkg.com/@catppuccin/highlightjs@0.2.2/css/catppuccin.variables.important.css");
 ```
 
-**Pygments**:
+Then add the following lines beneath the color definition section (`@<color>: @catppuccin[@@lookup][@<color>];`) in the `#catppuccin` mixin:
+
+```css
+--ctp-rosewater: #rgbify(@rosewater) [];
+--ctp-flamingo: #rgbify(@flamingo) [];
+--ctp-pink: #rgbify(@pink) [];
+--ctp-mauve: #rgbify(@mauve) [];
+--ctp-red: #rgbify(@red) [];
+--ctp-maroon: #rgbify(@maroon) [];
+--ctp-peach: #rgbify(@peach) [];
+--ctp-yellow: #rgbify(@yellow) [];
+--ctp-green: #rgbify(@green) [];
+--ctp-teal: #rgbify(@teal) [];
+--ctp-sky: #rgbify(@sky) [];
+--ctp-sapphire: #rgbify(@sapphire) [];
+--ctp-blue: #rgbify(@blue) [];
+--ctp-lavender: #rgbify(@lavender) [];
+--ctp-text: #rgbify(@text) [];
+--ctp-subtext1: #rgbify(@subtext1) [];
+--ctp-subtext0: #rgbify(@subtext0) [];
+--ctp-overlay2: #rgbify(@overlay2) [];
+--ctp-overlay1: #rgbify(@overlay1) [];
+--ctp-overlay0: #rgbify(@overlay0) [];
+--ctp-surface2: #rgbify(@surface2) [];
+--ctp-surface1: #rgbify(@surface1) [];
+--ctp-surface0: #rgbify(@surface0) [];
+--ctp-base: #rgbify(@base) [];
+--ctp-mantle: #rgbify(@mantle) [];
+--ctp-crust: #rgbify(@crust) [];
+```
+
+Finally, add the [`#rbgify` mixin](#how-do-i-set-a-variable-to-rgb-values) above the `@catppuccin` color palette at the bottom of the userstyle.
+
+#### Pygments
+
+Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
 
 ```css
 @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");

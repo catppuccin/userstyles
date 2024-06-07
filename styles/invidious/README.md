@@ -23,7 +23,7 @@
 - If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
 
 ## 💖 Past Maintainers
-- [Andreas Grafen](https://github.com/andreasgrafen)
+- [Lemon](https://github.com/unseen-ninja)
 - [winston](https://github.com/nekowinston)
 
 &nbsp;

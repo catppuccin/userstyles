@@ -94,10 +94,12 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [boringproxy](styles/boringproxy)
 - [Codeberg](styles/codeberg)
+- [crates.io](styles/crates.io)
+- [docs.rs](styles/docs.rs)
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
 - [Graphite](styles/graphite)
-- 🚧 [Hackage](styles/hackage)
+- [Hackage](styles/hackage)
 - [Home Manager Options Search](styles/home-manager-options-search)
 - [Hoppscotch](styles/hoppscotch)
 - [Keyoxide](styles/keyoxide)
@@ -106,6 +108,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
+- [Stack Overflow](styles/stack-overflow)
 - [Trinket](styles/trinket)
 - [Vercel](styles/vercel)
 
@@ -135,6 +138,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🧠 Wikis</summary>
 
 - [Arch Wiki](styles/arch-wiki)
+- [mdBook](styles/mdbook)
 - 🚧 [NixOS Wiki](styles/nixos.wiki)
 - [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
@@ -150,7 +154,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🎵 Music</summary>
 
-- 🚧 [Hyperpipe](styles/hyperpipe)
+- [Hyperpipe](styles/hyperpipe)
 - [Last.fm](styles/lastfm)
 - [Spotify Web](styles/spotify-web)
 
@@ -158,6 +162,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>📖 Productivity</summary>
 
+- [cobalt](styles/cobalt)
 - [Google Drive](styles/google-drive)
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
@@ -190,7 +195,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>✨ Social Networking</summary>
 
 - [Bluesky Social](styles/bsky)
-- 🚧 [Cinny](styles/cinny)
+- [Cinny](styles/cinny)
 - [Elk](styles/elk)
 - [Instagram](styles/instagram)
 - [LinkedIn](styles/linkedin)

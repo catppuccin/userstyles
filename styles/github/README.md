@@ -25,7 +25,7 @@ Switch to a default GitHub light/dark theme via **Settings** > **Appearance** fo
 - [uncenter](https://github.com/uncenter)
 
 ## 💖 Past Maintainers
-- [Andreas Grafen](https://github.com/andreasgrafen)
+- [Lemon](https://github.com/unseen-ninja)
 - [Pocco81](https://github.com/Pocco81)
 - [Umbreon](https://github.com/GlowingUmbreon)
 
