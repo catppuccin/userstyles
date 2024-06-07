@@ -26,7 +26,7 @@
 - [Isabel](https://github.com/isabelroses)
 
 ## 💖 Past Maintainer
-- [Andreas Grafen](https://github.com/andreasgrafen)
+- [Lemon](https://github.com/unseen-ninja)
 
 &nbsp;
 
