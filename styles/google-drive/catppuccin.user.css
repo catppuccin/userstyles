@@ -2,7 +2,7 @@
 @name Google Drive Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/google-drive
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/google-drive
-@version 0.0.1
+@version 0.0.2
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/google-drive/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agoogle-drive
 @description Soothing pastel theme for Google Drive
@@ -143,8 +143,8 @@
     --dt-neutral-container-icon: @text;
     --dt-neutral-container-link: @text;
     --dt-neutral: @surface0;
-    --dt-neutral-action: @surface0;
-    --dt-neutral-action-stateful: @surface0;
+    --dt-neutral-action: @text;
+    --dt-neutral-action-stateful: @text;
     --dt-neutral-outline: @surface0;
     --dt-neutral-action-state-layer: @surface0;
     --dt-neutral-container: @surface0;
@@ -354,6 +354,7 @@
     /* Google Account outline */
     .gb_Ea.gb_i {
       border-color: @overlay0;
+      background-color: @surface0;
     }
     .gb_Ea.gb_i:focus,
     .gb_Ea.gb_i:hover {
@@ -537,6 +538,58 @@
         }
       }
     }
+    /* File preview (in Drive) text document */
+    .a-b-r-x,
+    .ndfHFb-c4YZDc-fmcmS-bN97Pc /* File preview (separate tab) text document */ {
+      &, pre {
+        background-color: @surface0 !important;
+        color: @text !important;
+      }
+    }
+    /* File preview (in Drive) comment on image */
+    .Yk-efwuC {
+      background-color: @surface0 !important;
+      /* File preview (in Drive) comment on image person */
+      .Yk-Vq7Udc {
+        background-color: @surface0 !important;
+        [data-name] {
+          color: @text !important;
+        }
+        /* Comment text */
+        .Yk-eKrold-Sg.Yk-eKrold-Sg  {
+          color: @text !important;
+        }
+        /* Comment date */
+        .Yk-eKrold-bi {
+          color: @subtext0 !important;
+        }
+      }
+      /* File preview (in Drive) comments */
+      .Yk-efwuC-vb-Gd {
+        background-color: @surface0;
+        &, * {
+          color: @text !important;
+        }
+        [role="textbox"] {
+          background-color: @surface1;
+          border-color: @overlay0;
+          &::before {
+            color: @subtext0 !important;
+          }
+        }
+        [role="button"] {
+          background-color: @surface1 !important;
+          /* needed to override border-color */
+          &[role="button"] {
+            border-color: @overlay0 !important;
+          }
+          &[aria-disabled="true"] {
+            background-color: @surface1 !important;
+            color: @subtext0 !important;
+          }
+        }
+      }
+    }
 
     /* Drive sharing window material icon */
     .SbpzSe .VfPpkd-StrnGf-rymPhb-f7MjDc {
@@ -549,12 +602,17 @@
       background-color: @surface0;
     }
 
-    /* Drive sharing iframe */
+    /* Drive sharing iframe (in Drive) */
     .lb-k-x {
       color-scheme: unset;
     }
+    /* Drive sharing iframe (file preview separate tab) */
+    .XKSfm-Sx9Kwc-bN97Pc {
+      color-scheme: auto; /* unset doesn't work? */
+    }
     [role="tooltip"],
-    .Kk7lMc-Ca /* Drive applications sidebar tooltip */ {
+    .Kk7lMc-Ca /* Drive applications sidebar tooltip */,
+    .gb_2e /* Drive google account tooltip */ {
       background-color: @surface2;
       *,
       & {
@@ -597,6 +655,22 @@
     /* Drive applications sidebar close button white background */
     .Yb-Il-d-c-Nd {
       background-color: transparent;
+    }
+
+    /* Drive icon */
+    .gb_Nc.gb_Nd {
+      @darkBlue: mix(@blue, @base, 80%);
+      @darkGreen: mix(@green, @base, 80%);
+
+      @svg: escape(
+        '<svg viewBox="0 0 87.3 78" xmlns="http://www.w3.org/2000/svg"><path d="m6.6 66.85 3.85 6.65c.8 1.4 1.95 2.5 3.3 3.3L27.5 53H0c0 1.55.4 3.1 1.2 4.5z" fill="@{darkBlue}"/><path d="M43.65 25 29.9 1.2c-1.35.8-2.5 1.9-3.3 3.3l-25.4 44A9.06 9.06 0 0 0 0 53h27.5z" fill="@{green}"/><path d="M73.55 76.8c1.35-.8 2.5-1.9 3.3-3.3l1.6-2.75L86.1 57.5c.8-1.4 1.2-2.95 1.2-4.5H59.798l5.852 11.5z" fill="@{red}"/><path d="M43.65 25 57.4 1.2C56.05.4 54.5 0 52.9 0H34.4c-1.6 0-3.15.45-4.5 1.2z" fill="@{darkGreen}"/><path d="M59.8 53H27.5L13.75 76.8c1.35.8 2.9 1.2 4.5 1.2h50.8c1.6 0 3.15-.45 4.5-1.2z" fill="@{blue}"/><path d="m73.4 26.5-12.7-22c-.8-1.4-1.95-2.5-3.3-3.3L43.65 25 59.8 53h27.45c0-1.55-.4-3.1-1.2-4.5z" fill="@{yellow}"/></svg>'
+      );
+      content: url("data:image/svg+xml,@{svg}");
+    }
+
+    /* Drive upload checkmark */
+    .z-Ea-Fj-c svg path {
+      fill: @green;
     }
   }
 }
