@@ -681,6 +681,257 @@
   }
 }
 
+@-moz-document url-prefix("https://go.dev/tour") {
+  :root[data-theme="dark"] {
+    #catppuccin(@darkFlavor, @accentColor);
+  }
+  :root[data-theme="light"], :root[data-theme="auto"] { // Auto is broken in /tour, defaults to light
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    #editor-container {
+      #left-side {
+        .slide-content {
+          background-color: @base;
+
+          a {
+            color: @accent-color;
+          }
+
+          code {
+            background-color: @accent-color !important;
+            color: @crust;
+          }
+
+          h2, li, p {
+            color: @text;
+          }
+
+          pre {
+            background-color: @mantle;
+            color: @text;
+          }
+        }
+
+        .module-bar {
+          background-color: @mantle;
+          color: @text;
+
+          a {
+            color: @accent-color;
+          }
+        }
+      }
+
+      #right-side {
+        background-color: @base;
+
+        #explorer {
+          background-color: @mantle;
+        }
+
+        #file-editor {
+          .CodeMirror {
+            background-color: @base;
+
+            .CodeMirror-lines {
+              background-color: @base;
+              color: @text;
+
+              .CodeMirror-linenumber {
+                color: @overlay1;
+              }
+
+              span.cm-atom {
+                color: @blue;
+              }
+
+              span.cm-comment {
+                color: @peach;
+              }
+
+              span.cm-keyword {
+                color: @mauve;
+              }
+
+              span.cm-number {
+                color: @green;
+              }
+
+              span.cm-string {
+                color: @red;
+              }
+
+              span.cm-variable {
+                color: @text;
+              }
+            }
+          }
+
+          .CodeMirror-gutters {
+            background-color: @mantle;
+            border-right-color: @surface2;
+          }
+        }
+
+        #file-menu {
+          background-color: @mantle;
+        }
+
+        .output {
+          background-color: @base;
+
+          span.stdout {
+            color: @subtext0;
+          }
+
+          span.system {
+            color: @text;
+          }
+        }
+
+        a {
+          background-color: @text;
+          color: @crust;
+        }
+
+        a#run{
+          background-color: @accent-color;
+        }
+
+
+        pre.info {
+          background-color: @surface0 !important;
+        }
+      }
+
+      div[vertical-slide], div[horizontal-slide]  {
+        background-color: @surface2;
+      }
+    }
+
+    .toc {
+      background-color: @base;
+
+      .toc-page.ng-scope {
+        background-color: @mantle;
+        color: @text;
+      }
+
+      .toc-module.ng-scope {
+        background-color: @mantle;
+        span.ng-binding {
+          background-color: @base;
+          color: @accent-color
+        }
+
+        .toc-lesson span.ng-binding {
+          background-color: @mantle;
+          color: @text;
+        }
+      }
+    }
+
+    .top-bar {
+      background-color: @crust;
+      color: @text;
+
+      button.header-toggleTheme {
+        img.go-Icon--inverted[data-value='auto'] {
+          @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 15.31 23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20zM12 18V6c3.31 0 6 2.69 6 6s-2.69 6-6 6"/></svg>');
+          content: url('data:image/svg+xml,@{svg}');
+          filter: none;
+        }
+
+        img.go-Icon--inverted[data-value='dark'] {
+          @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 2c-1.82 0-3.53.5-5 1.35C7.99 5.08 10 8.3 10 12s-2.01 6.92-5 8.65C6.47 21.5 8.18 22 10 22c5.52 0 10-4.48 10-10S15.52 2 10 2"/></svg>');
+          content: url('data:image/svg+xml,@{svg}');
+          filter: none;
+        }
+
+        img.go-Icon--inverted[data-value='light'] {
+          @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><rect fill="none" height="24" width="24"/><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5M2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1m18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1M11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1m0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1M5.99 4.58a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41zm12.37 12.37a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 0 0 0-1.41zm1.06-10.96a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0zM7.05 18.36a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0z"/></svg>');
+          content: url('data:image/svg+xml,@{svg}');
+          filter: none;
+        }
+      }
+
+      span.nav {
+        svg {
+          fill: @text;
+        }
+      }
+
+      img.gopherlogo {
+        @svg: escape('<svg height="78" viewBox="0 0 207 78" width="207" xmlns="http://www.w3.org/2000/svg"><g fill="@{text}" fill-rule="evenodd"><path d="M16.2 24.1c-.4 0-.5-.2-.3-.5l2.1-2.7c.2-.3.7-.5 1.1-.5h35.7c.4 0 .5.3.3.6l-1.7 2.6c-.2.3-.7.6-1 .6zM1.1 33.3c-.4 0-.5-.2-.3-.5l2.1-2.7c.2-.3.7-.5 1.1-.5h45.6c.4 0 .6.3.5.6l-.8 2.4c-.1.4-.5.6-.9.6zm24.2 9.2c-.4 0-.5-.3-.3-.6l1.4-2.5c.2-.3.6-.6 1-.6h20c.4 0 .6.3.6.7l-.2 2.4c0 .4-.4.7-.7.7z"/><g transform="translate(55)"><path d="M74.1 22.3c-6.3 1.6-10.6 2.8-16.8 4.4-1.5.4-1.6.5-2.9-1-1.5-1.7-2.6-2.8-4.7-3.8-6.3-3.1-12.4-2.2-18.1 1.5-6.8 4.4-10.3 10.9-10.2 19 .1 8 5.6 14.6 13.5 15.7 6.8.9 12.5-1.5 17-6.6.9-1.1 1.7-2.3 2.7-3.7H35.3c-2.1 0-2.6-1.3-1.9-3 1.3-3.1 3.7-8.3 5.1-10.9.3-.6 1-1.6 2.5-1.6h36.4c-.2 2.7-.2 5.4-.6 8.1-1.1 7.2-3.8 13.8-8.2 19.6-7.2 9.5-16.6 15.4-28.5 17-9.8 1.3-18.9-.6-26.9-6.6C5.8 64.8 1.6 57.4.5 48.2-.8 37.3 2.4 27.5 9 18.9 16.1 9.6 25.5 3.7 37 1.6 46.4-.1 55.4 1 63.5 6.5c5.3 3.5 9.1 8.3 11.6 14.1.6.9.2 1.4-1 1.7"/><path d="M107.2 77.6c-9.1-.2-17.4-2.8-24.4-8.8-5.9-5.1-9.6-11.6-10.8-19.3-1.8-11.3 1.3-21.3 8.1-30.2 7.3-9.6 16.1-14.6 28-16.7 10.2-1.8 19.8-.8 28.5 5.1 7.9 5.4 12.8 12.7 14.1 22.3 1.7 13.5-2.2 24.5-11.5 33.9-6.6 6.7-14.7 10.9-24 12.8-2.7.5-5.4.6-8 .9M131 37.2c-.1-1.3-.1-2.3-.3-3.3-1.8-9.9-10.9-15.5-20.4-13.3-9.3 2.1-15.3 8-17.5 17.4-1.8 7.8 2 15.7 9.2 18.9 5.5 2.4 11 2.1 16.3-.6 7.9-4.1 12.2-10.5 12.7-19.1" fill-rule="nonzero"/></g></g></svg>');
+        content: url('data:image/svg+xml,@{svg}');
+      }
+    }
+
+    .wrapper.ng-scope {
+      background-color: @base;
+
+      .container {
+        background-color: @base;
+
+        .lesson.ng-scope {
+          background-color: @mantle
+        }
+
+        h1, p {
+          color: @text;
+        }
+
+        a {
+          color: @accent-color;
+        }
+      }
+    }
+  }
+}
+
 /* prettier-ignore */
 @catppuccin: {
   @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
