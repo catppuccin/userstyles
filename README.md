@@ -98,6 +98,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [docs.rs](styles/docs.rs)
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
+- [go.dev](styles/go.dev)
 - [Graphite](styles/graphite)
 - [Hackage](styles/hackage)
 - [Home Manager Options Search](styles/home-manager-options-search)
