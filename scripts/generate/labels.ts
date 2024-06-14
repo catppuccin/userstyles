@@ -4,7 +4,7 @@ import { REPO_ROOT } from "@/deps.ts";
 import { updateFile } from "@/generate/utils.ts";
 import { UserStylesSchema } from "@/types/mod.ts";
 import { stringify } from "std/yaml/stringify.ts";
-import palette from "https://raw.githubusercontent.com/catppuccin/palette/v0.2.0/palette-porcelain.json" with {
+import palette from "https://raw.githubusercontent.com/catppuccin/palette/v1.2.0/palette-porcelain.json" with {
   type: "json",
 };
 
