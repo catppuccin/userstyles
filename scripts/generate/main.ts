@@ -52,7 +52,6 @@ await syncIssueLabels(userstylesData.userstyles);
 /**
  * Keep `.github/CODEOWNERS` in sync with the userstyle metadata.
  */
-const CODEOWNERS_FILE = ".github/CODEOWNERS";
 const maintainersCodeOwners = () => {
   return Object.entries(userstylesData.userstyles)
     .filter(([_, { "current-maintainers": currentMaintainers }]) =>
@@ -67,10 +66,10 @@ const maintainersCodeOwners = () => {
     .join("\n");
 };
 const userstylesStaffCodeOwners = () => {
-  const paths = [CODEOWNERS_FILE, "/scripts/", "/template/"];
+  const paths = ["/.github/", "/scripts/", "/template/"];
   return paths.map((path) => `${path} @catppuccin/userstyles-staff`).join("\n");
 };
 await updateFile(
-  join(REPO_ROOT, CODEOWNERS_FILE),
+  join(REPO_ROOT, ".github/CODEOWNERS"),
   `${maintainersCodeOwners()}\n\n${userstylesStaffCodeOwners()}`,
 );
