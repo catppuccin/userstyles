@@ -120,7 +120,7 @@ export type CurrentMaintainers = {
   [k: string]: unknown;
 }[];
 /**
- * List of all maintainers that have maintained on this userstyle in the past.
+ * List of all users that have maintained this userstyle in the past.
  *
  * @minItems 1
  */
@@ -176,6 +176,8 @@ export interface Userstyle {
   color: Color;
   icon?: Icon;
   readme: README;
+  "current-maintainers": CurrentMaintainers;
+  "past-maintainers"?: PastMaintainers;
 }
 /**
  * Options to help in the auto-generation of the userstyle README.
@@ -184,7 +186,5 @@ export interface README {
   "app-link": ApplicationLink;
   usage?: Usage;
   faq?: FAQ;
-  "current-maintainers": CurrentMaintainers;
-  "past-maintainers"?: PastMaintainers;
   [k: string]: unknown;
 }

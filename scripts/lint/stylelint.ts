@@ -2,10 +2,10 @@ import * as color from "std/fmt/colors.ts";
 import type { WalkEntry } from "std/fs/walk.ts";
 import { relative } from "std/path/mod.ts";
 
-import "npm:postcss-less";
-import stylelint from "npm:stylelint";
-import "npm:stylelint-config-standard";
-import "npm:stylelint-config-recommended";
+import "postcss-less";
+import stylelint from "stylelint";
+import "stylelint-config-standard";
+import "stylelint-config-recommended";
 
 import { REPO_ROOT } from "@/deps.ts";
 import { log } from "@/lint/logger.ts";

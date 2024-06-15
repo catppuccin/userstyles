@@ -45,7 +45,7 @@ on the schema. Please refer to it for clarification.
      color: <color>
      readme:
        app-link: <url>
-       current-maintainers: [*<github-username>]
+     current-maintainers: [*<github-username>]
    ```
 
    `All Fields:`
@@ -75,8 +75,8 @@ on the schema. Please refer to it for clarification.
        faq:                                          # OPTIONAL
          - question: <question>
            answer: <answer>
-       current-maintainers: [*<github-username>]
-       past-maintainers: [*<github-username>]        # OPTIONAL
+     current-maintainers: [*<github-username>]
+     past-maintainers: [*<github-username>]          # OPTIONAL
    ```
 
 ### Adding yourself as a maintainer
@@ -106,8 +106,8 @@ userstyles:
     color: red
     readme:
       app-link: "https://youtube.com"
-      current-maintainers: [*isabelroses, *your-username]
-      past-maintainers: [*elkrien]
+    current-maintainers: [*isabelroses, *your-username]
+    past-maintainers: [*elkrien]
 ```
 
 If the change is accepted, you will receive an invitation to the `catppuccin` organization,
@@ -132,10 +132,10 @@ userstyles:
     color: red
     readme:
       app-link: "https://youtube.com"
--     current-maintainers: [*isabelroses, *elkrien]
--     past-maintainers: []
-+     current-maintainers: [*isabelroses]
-+     past-maintainers: [*elkrien]
+-   current-maintainers: [*isabelroses, *elkrien]
+-   past-maintainers: []
++   current-maintainers: [*isabelroses]
++   past-maintainers: [*elkrien]
 
 If you would not like to be listed as a past maintainer, you can remove yourself from
 `collaborators` array entirely. Upon removal, you will also be removed from the
