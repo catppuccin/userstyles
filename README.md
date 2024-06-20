@@ -248,6 +248,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🤖 Artificial Intelligence</summary>
 
 - [ChatGPT](styles/chatgpt)
+- [Google Gemini](styles/google-gemini)
 - [InvokeAI](styles/invokeai)
 - [Perplexity](styles/perplexity)
 
