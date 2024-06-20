@@ -202,6 +202,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [LinkedIn](styles/linkedin)
 - [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
+- [Phanpy](styles/phanpy)
 - [Pronouns.page](styles/pronouns.page)
 - [Snapchat Web](styles/snapchat-web)
 - [Twitter](styles/twitter)
