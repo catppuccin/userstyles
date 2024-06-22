@@ -200,7 +200,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Elk](styles/elk)
 - [Instagram](styles/instagram)
 - [LinkedIn](styles/linkedin)
-- [Mastodon](styles/mastodon)
+- 🚧 [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
 - [Phanpy](styles/phanpy)
 - [Pronouns.page](styles/pronouns.page)
