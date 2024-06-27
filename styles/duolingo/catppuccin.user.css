@@ -317,6 +317,34 @@
     --mantle: @catppuccin[@@lookup][@mantle];
     --crust: @catppuccin[@@lookup][@crust];
     --accent-color: @catppuccin[@@lookup][@@accent];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      // https://github.com/less/less.js/issues/3611
+      // background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: rgb(var(--subtext0)) !important;
+      }
+    }
+
+    /* Start styling your website here: */
+    background-color: rgb(var(--base));
+
+    /* If you need to specify an overwrite specific to a flavor
+    *  (e.g. only when the flavor is set to latte), you can use a `when` guard clause. */
+    & when (@lookup = latte) {
+      /* ... */
+    }
+    /* You can also negate the statement above by using
+    *  a `when not` guard clause. */
+    & when not (@lookup = latte) {
+      /* ... */
+    }
   }
 }
 
