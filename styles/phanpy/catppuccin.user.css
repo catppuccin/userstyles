@@ -1,11 +1,11 @@
 /* ==UserStyle==
-@name Codeberg Catppuccin
-@namespace github.com/catppuccin/userstyles/styles/codeberg
-@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/codeberg
-@version 1.1.3
-@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/codeberg/catppuccin.user.css
-@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Acodeberg
-@description Soothing pastel theme for Codeberg
+@name Phanpy Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/phanpy
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/phanpy
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/phanpy/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aphanpy
+@description Soothing pastel theme for Phanpy
 @author Catppuccin
 @license MIT
 
@@ -15,16 +15,14 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document domain('codeberg.org') {
-  @import (css)
-    url("https://catppuccin.github.io/gitea/theme-catppuccin-@{lightFlavor}-@{accentColor}.css")
-    (prefers-color-scheme: light);
-  @import (css)
-    url("https://catppuccin.github.io/gitea/theme-catppuccin-@{darkFlavor}-@{accentColor}.css")
-    (prefers-color-scheme: dark);
-}
+@-moz-document domain('phanpy.social') {
+  :root:not(:has(.is-light)) {
+    #catppuccin(@darkFlavor, @accentColor);
+  }
+  :root.is-light {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
 
-@-moz-document domain('codeberg.org') {
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -54,70 +52,56 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    /* Base styles not needed, themed in upstream Gitea port. */
+    color-scheme: if(@lookup = latte, light, dark);
 
-    --color-body: @base;
-    --color-nav-text: @crust;
-    --color-nav-hover-bg: darken(@accent-color, 5%);
-    --color-secondary-nav-bg: @surface0;
-    --color-link: @blue;
-    --color-footer-text: @text;
-
-    .ui.secondary.menu .dropdown.item:hover,
-    .ui.secondary.menu a.item:hover {
-      background-color: var(--color-nav-hover-bg);
-      color: var(--color-black);
+    ::selection {
+      background-color: fade(@accent-color, 30%);
     }
 
-    .ui.basic.red.buttons .button,
-    .ui.basic.red.button {
-      &:hover,
-      &:focus {
-        background-color: @red;
-        border-color: var(--color-light-border);
-        color: @crust;
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
       }
     }
 
-    #codeberg-logo (@color) {
-      @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><defs><linearGradient id="b" x1="42519.285" x2="42575.336" y1="-7078.7891" y2="-6966.9312" gradientUnits="userSpaceOnUse" href="#a"/><linearGradient id="a"><stop color="@{color}" offset="0" stop-opacity="0"/><stop offset=".495" stop-color="@{color}" stop-opacity=".3"/><stop offset="1" stop-color="@{color}" stop-opacity=".3"/></linearGradient></defs><path fill="url(#b)" d="M42519.285-7078.79a.76.568 0 0 0-.738.675l33.586 125.888a87.2 87.2 0 0 0 39.381-33.763l-71.565-92.52a.76.568 0 0 0-.664-.28" transform="translate(-5840.572 980.524)scale(.13766)"/><path fill="@{color}" d="M12.003.525A12.003 12.003 0 0 0 0 12.533 11.9 11.9 0 0 0 1.826 18.9L11.838 5.956c.068-.09.25-.09.324 0l10.007 12.939A11.9 11.9 0 0 0 24 12.522 12.003 12.003 0 0 0 12.003.525"/></svg>'
-      );
-      content: url("data:image/svg+xml,@{svg}");
+    --text-color: @text;
+    --text-insignificant-color: @subtext0;
+    --link-color: @accent-color;
+    --link-text-color: @accent-color;
+    --link-faded-color: @accent-color;
+    --button-bg-blur-color: @accent-color;
+    --button-bg-color: @accent-color;
+    --button-text-color: @base;
+    --bg-faded-color: @base;
+    --bg-faded-blur-color: @mantle;
+    --bg-blur-color: @mantle;
+    --close-button-bg-color: @mantle;
+    --close-button-color: @subtext0;
+    --bg-color: @base;
+    --link-bg-hover-color: @mantle;
+    --divider-color: @surface0;
+    --outline-color: @surface0;
+    --outline-hover-color: @surface2;
+    --reblog-faded-color: fade(@mauve, 20%);
+    --reblog-color: @mauve;
+    --reply-to-faded-color: fade(@yellow, 20%);
+    --reply-to-text-color: @yellow;
+    --reply-to-color: @yellow;
+    --favourite-color: @red;
+    --green-color: @green;
+    --red-color: @red;
+    --comment-line-color: @surface1;
+    --media-bg-color: @base;
+    --media-fg-color: @text;
+    --media-outline-color: @text;
+
+    .szh-menu__item--disabled {
+      color: @subtext0;
     }
 
-    #navbar-logo img {
-      #codeberg-logo(@crust);
-    }
-    .branding img {
-      #codeberg-logo(@text);
-    }
-
-    footer {
-      .button:hover {
-        background-color: @accent-color;
-        color: @crust;
-      }
-
-      a:hover {
-        color: @blue !important;
-      }
-    }
-  }
-
-  @media (prefers-color-scheme: light) {
-    [data-theme="codeberg-dark"],
-    [data-theme="codeberg-light"],
-    [data-theme="codeberg-auto"] {
-      #catppuccin(@lightFlavor, @accentColor);
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    [data-theme="codeberg-dark"],
-    [data-theme="codeberg-light"],
-    [data-theme="codeberg-auto"] {
-      #catppuccin(@darkFlavor, @accentColor);
+    .button.plain2 {
+      background-color: @mantle;
     }
   }
 }

@@ -200,8 +200,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Elk](styles/elk)
 - [Instagram](styles/instagram)
 - [LinkedIn](styles/linkedin)
-- [Mastodon](styles/mastodon)
+- 🚧 [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
+- [Phanpy](styles/phanpy)
 - [Pronouns.page](styles/pronouns.page)
 - [Snapchat Web](styles/snapchat-web)
 - [Twitter](styles/twitter)
@@ -247,6 +248,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🤖 Artificial Intelligence</summary>
 
 - [ChatGPT](styles/chatgpt)
+- [Google Gemini](styles/google-gemini)
 - [InvokeAI](styles/invokeai)
 - [Perplexity](styles/perplexity)
 
