@@ -115,6 +115,12 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 </details>
 <details open>
+<summary>🧩 Browser Extensions</summary>
+
+- [Shinigami Eyes](styles/shinigami-eyes)
+
+</details>
+<details open>
 <summary>🔎 Search Engines</summary>
 
 - [Brave Search](styles/brave-search)
