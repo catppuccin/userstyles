@@ -94,8 +94,13 @@
     --ds-gray-700: @subtext1;
     --ds-gray-800: @subtext1;
     --ds-gray-900: @subtext0;
+    --ds-gray-900-value: #rgbify(@subtext0) [];
     --ds-gray-1000: @text;
+    --ds-gray-1000-value: #rgbify(@text) [];
+    --ds-gray-alpha-100: fade(@text, 6%);
+    --ds-gray-alpha-200: fade(@text, 9%);
     --ds-gray-alpha-400: @surface0;
+    --ds-gray-alpha-900: fade(@text, 61%);
 
     --themed-hover-bg: @subtext1;
 
@@ -115,6 +120,11 @@
       --geist-stroke: var(--geist-background) !important;
     }
 
+    .geist-disabled img,
+    .geist-disabled svg {
+      filter: none;
+    }
+
     .styled-scrollbar {
       scrollbar-color: @accent-color transparent;
     }
@@ -132,9 +142,14 @@
 
     .card-grid_card__S85BZ {
       background: linear-gradient(180deg, @base 0%, @crust 100%);
+
       &:hover {
         background: linear-gradient(180deg, @base 0%, @mantle 100%);
       }
+    }
+
+    [class*="fieldset_footer"] {
+      background-color: @base;
     }
   }
 }
@@ -177,12 +192,12 @@
     @accent-color: @catppuccin[@@lookup][@@accent];
 
     article {
-      a {
+      :not(h1, h2, h3, h4) > a {
         color: @accent-color;
+      }
 
-        &:hover {
-          color: darken(@accent-color, 5%);
-        }
+      a:hover {
+        color: darken(@accent-color, 5%);
       }
     }
 
@@ -231,12 +246,9 @@
       content: url("data:image/svg+xml,@{svg}");
     }
 
-    /* --- TO CLEAN UP --- */
-
     .group:hover .dark\:group-hover\:bg-white {
       background-color: @subtext1;
     }
-
     .group:hover .dark\:group-hover\:text-black {
       color: @crust;
     }
@@ -304,6 +316,10 @@
       background-color: @mantle;
     }
   }
+}
+
+#rgbify(@color) {
+  @rgb-raw: red(@color), green(@color), blue(@color);
 }
 
 /* prettier-ignore */
