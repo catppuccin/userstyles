@@ -15,6 +15,7 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 @-moz-document domain("amplenote.com") {
+    
     :root:not(:has(body.theme-light)) {
     #catppuccin(@darkFlavor, @accentColor);
   }
@@ -52,13 +53,21 @@
         @crust: @catppuccin[@@lookup][@crust];
         @accent-color: @catppuccin[@@lookup][@@accent];
 
-        color-scheme: if(@lookup =latte, light, dark);
+        color-scheme: if(@lookup = latte, light, dark); 
+  
+        ::selection { 
+           background-color: fade(@accent-color, 30%); 
+         } 
+  
+        input, 
+        textarea { 
+            &::placeholder { 
+                 color: @subtext0 !important; 
+            } 
+        } 
 
 
         body.themeable {
-            --accent: @accentColor;
-            --darkFlavor: @darkFlavor;
-            --lightFlavor: @lightFlavor;
             --color-background-primary: @base;
             --color-background-secondary: @mantle;
             --color-background-tertiary: @mantle;
@@ -96,13 +105,11 @@
             --color-text-low-contrast: @subtext0;
             --color-text-nav-low-contrast: @subtext0;
             --color-text-lower-contrast: @overlay2;
-            --color-text-nav-lower-contrast: @overlay2;
+            --color-text-nav-lower-contrast: @surface2;
 
             --color-text-status: @green;
             --color-text-link: @accent-color;
             --color-text-button: @crust;
-
-            --color-text-nav-lower-contrast: @surface2;
 
             --color-background-task-value: @surface1;
             --color-background-sidebar-task: @surface0;
