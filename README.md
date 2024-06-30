@@ -105,13 +105,12 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Hoppscotch](styles/hoppscotch)
 - [Keyoxide](styles/keyoxide)
 - [MDN](styles/mdn)
-- [Next.js](styles/nextjs)
 - [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
 - [Stack Overflow](styles/stack-overflow)
 - [Trinket](styles/trinket)
-- [Vercel](styles/vercel)
+- [Vercel, Next.js](styles/vercel)
 
 </details>
 <details open>
