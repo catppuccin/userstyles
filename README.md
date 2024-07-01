@@ -143,7 +143,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🧠 Wikis</summary>
 
-- [Arch Wiki](styles/arch-wiki)
+- 🚧 [Arch Wiki](styles/arch-wiki)
 - [mdBook](styles/mdbook)
 - 🚧 [NixOS Wiki](styles/nixos.wiki)
 - [Wikipedia](styles/wikipedia)
