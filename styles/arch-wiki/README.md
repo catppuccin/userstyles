@@ -20,8 +20,10 @@
 ## Usage
 Make sure to use the default **Light** theme
 
+## 🚧 Looking for Maintainers 🚧
+- If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
 
-## 💝 Current Maintainer
+## 💝 Past Maintainer
 - [GenShibe](https://github.com/GenShibe)
 
 
