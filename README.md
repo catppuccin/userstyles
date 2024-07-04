@@ -98,19 +98,25 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [docs.rs](styles/docs.rs)
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
+- [go.dev](styles/go.dev)
 - [Graphite](styles/graphite)
 - [Hackage](styles/hackage)
 - [Home Manager Options Search](styles/home-manager-options-search)
 - [Hoppscotch](styles/hoppscotch)
 - [Keyoxide](styles/keyoxide)
 - [MDN](styles/mdn)
-- [Next.js](styles/nextjs)
 - [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
 - [Stack Overflow](styles/stack-overflow)
 - [Trinket](styles/trinket)
-- [Vercel](styles/vercel)
+- [Vercel, Next.js](styles/vercel)
+
+</details>
+<details open>
+<summary>🧩 Browser Extensions</summary>
+
+- [Shinigami Eyes](styles/shinigami-eyes)
 
 </details>
 <details open>
@@ -137,7 +143,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🧠 Wikis</summary>
 
-- [Arch Wiki](styles/arch-wiki)
+- 🚧 [Arch Wiki](styles/arch-wiki)
 - [mdBook](styles/mdbook)
 - 🚧 [NixOS Wiki](styles/nixos.wiki)
 - [Wikipedia](styles/wikipedia)
@@ -162,6 +168,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>📖 Productivity</summary>
 
+- [cobalt](styles/cobalt)
 - [Google Drive](styles/google-drive)
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
@@ -198,8 +205,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Elk](styles/elk)
 - [Instagram](styles/instagram)
 - [LinkedIn](styles/linkedin)
-- [Mastodon](styles/mastodon)
+- 🚧 [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
+- [Phanpy](styles/phanpy)
 - [Pronouns.page](styles/pronouns.page)
 - [Snapchat Web](styles/snapchat-web)
 - [Twitter](styles/twitter)
@@ -245,6 +253,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🤖 Artificial Intelligence</summary>
 
 - [ChatGPT](styles/chatgpt)
+- [Google Gemini](styles/google-gemini)
 - [InvokeAI](styles/invokeai)
 - [Perplexity](styles/perplexity)
 

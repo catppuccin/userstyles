@@ -19,12 +19,12 @@
 
 
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer
 - [coldenate](https://github.com/coldenate)
-- [Isabel](https://github.com/isabelroses)
 
-## 💖 Past Maintainer
+## 💖 Past Maintainers
 - [skele](https://github.com/skelebro1)
+- [Isabel](https://github.com/isabelroses)
 
 &nbsp;
 
