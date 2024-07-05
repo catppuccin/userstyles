@@ -111,6 +111,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Stack Overflow](styles/stack-overflow)
 - [Trinket](styles/trinket)
 - [Vercel, Next.js](styles/vercel)
+- [web.dev](styles/web.dev)
 
 </details>
 <details open>
