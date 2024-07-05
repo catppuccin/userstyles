@@ -184,7 +184,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>💌 Email Clients</summary>
 
-- 🚧 [Gmail](styles/gmail)
+- [Gmail](styles/gmail)
 - [Migadu Webmail](styles/migadu-webmail)
 - [Skiff](styles/skiff)
 - [Tuta](styles/tuta)
