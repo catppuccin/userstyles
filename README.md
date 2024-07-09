@@ -163,6 +163,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Hyperpipe](styles/hyperpipe)
 - [Last.fm](styles/lastfm)
+- [ListenBrainz](styles/listenbrainz)
 - [Spotify Web](styles/spotify-web)
 
 </details>
