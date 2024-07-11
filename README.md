@@ -245,7 +245,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Advent Of Code](styles/advent-of-code)
 - [bStats](styles/bstats)
-- [Chess.com](styles/chess.com)
+- 🚧 [Chess.com](styles/chess.com)
 - [Lichess](styles/lichess)
 - [Minesweeper Online](styles/minesweeper)
 - [Modrinth](styles/modrinth)
