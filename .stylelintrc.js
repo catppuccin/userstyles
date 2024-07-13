@@ -175,6 +175,7 @@ export default {
       },
     ],
     "function-name-case": null,
+    "at-rule-no-vendor-prefix": null,
 
     "no-descending-specificity": null,
   },
