@@ -58,131 +58,698 @@
 
     color-scheme: if(@lookup = latte, light, dark);
 
-    * {
+    /* GLOBALS/VARIABLES */
+    #footer,
+    body {
+      border-color: @surface1;
       color: @text;
       background-color: @base;
-      --ic-brand-global-nav-avatar-border: @accent-color;
-      --ic-brand-font-color-dark: fadeout(@accent-color, 0.8);
-      --ic-brand-primary: @accent-color;
-      --ic-brand-global-nav-ic-icon-svg-fill: fadeout(@accent-color, 0.5);
-      --ic-brand-button--primary-bgd-darkened-15: fadeout(@accent-color, 0.15);
-      --ic-link-color-darkened-10: fadeout(@crust, 0.10);
-      --eMdva-color: @base !important;
-      --ccWIh-color: @crust;
+    }
+    hr {
+      border-color: @surface1;
+    }
+    textarea {
+      background-color: @base;
+      border-color: @surface2;
     }
 
+    strong, em, p, span {
+      color: @text;
+      /* for highlighted text in user-created content, revert to regular-ish text color */
+      &[style~="background-color:"]:not([style~="color:"]) {
+        color: black;
+        * {
+          color: black;
+        }
+      }
+      /* just a special exception for pure black text */
+      &[style*="color: black"],
+      &[style*="color: #000000"] {
+        color: @text !important;
+      }
+    }
+
+    .css-ivjxx5-view-link,
+    a,
+    a > span {
+      color: @blue;
+    }
+
+    --ic-brand-global-nav-avatar-border: @accent-color;
+    --ic-brand-font-color-dark: fadeout(@text, 10%);
+    --ic-brand-primary: @accent-color;
+    --ic-brand-global-nav-bgd: @crust;
+    --ic-brand-global-nav-ic-icon-svg-fill: @text;
+    --ic-brand-global-nav-ic-icon-svg-fill--active: @accent-color;
+    --ic-brand-global-nav-menu-item__text-color--active: @accent-color;
+    --ic-brand-button--primary-bgd-darkened-15: fadeout(@accent-color, 15%);
+    --ic-link-color-darkened-10: fadeout(@crust, 10%);
+    --ic-brand-font-color-dark-lightened-28: fadeout(@text, 28%);
+    --ic-link-color: fadeout(@accent-color, 30%); /* also used for :focus outlines for some reason */
+    --eMdva-color: @base;
+    --ccWIh-color: @crust;
+
+    /* dialogs */
+    .ui-widget-overlay {
+      background-color: fadeout(@base, 30%)
+    }
+    .ui-dialog {
+      .ui-dialog-titlebar {
+        background-color: @surface0;
+        border-color: @surface1;
+      }
+      background-color: @surface0;
+      .ui-icon {
+        filter: invert(1);
+      }
+    }
+
+    /* site-wide layout */
+    .list-view a.active {
+      border-color: @accent-color;
+      color: @accent-color;
+    }
+
+
+    /* DASHBOARD */
+    .Day-styles__root {
+      background-color: @base;
+      color: @text;
+      h2 {
+        border-color: @surface1;
+      }
+      .Grouping-styles__title {
+        color: #0374B5;
+        background-color: @base;
+        &::after {
+          background-image: none;
+        }
+      }
+      .PlannerItem-styles__root {
+        border-color: @surface1;
+        span {
+          color: @subtext0;
+        }
+        .PlannerItem-styles__icon {
+        }
+        .css-10f5v0f-pill {
+          background-color: @surface0;
+          color: @text;
+        }
+        a * {
+          color: @blue;
+        }
+      }
+      button .css-13p5152-baseButton__content {
+        background-color: @surface0 !important;
+        border-color: @surface1 !important;
+      }
+    }
+    .ic-Dashboard-header * {
+      background-color: @base;
+    }
+
+    .ic-notification {
+      box-shadow: 0 1px 6px @surface2;
+      .ic-notification__icon * {
+        color: @base;
+      }
+      .ic-notification__content {
+        background-color: @surface0;
+      }
+    }
+    #right-side *,
+    .ic-Dashboard-header * {
+      border-color: @surface1;
+    }
+    button.css-16xos6b-view--inlineBlock-baseButton,
+    .btn,
+    .Button {
+      &:hover {
+        background-color: mix(@overlay2, @base, 10%);
+        color: @text;
+      }
+      color: @text;
+      background-color: @surface0;
+      border-color: @surface1;
+      * {
+        path[fill="#000000"] {
+          fill: @text;
+        }
+        background-color: @surface0;
+        border-color: @surface1;
+      }
+    }
+
+    .ic-DashboardCard {
+      background-color: @surface0;
+      .ic-DashboardCard__header_content {
+        background-color: @surface0;
+      }
+      .ic-DashboardCard__header-button,
+      .ic-DashboardCard__header-button * {
+        background-color: transparent;
+      }
+      .ic-DashboardCard__action-badge {
+        background-color: @accent-color;
+        .unread_count {
+          background-color: @accent-color;
+          color: @base;
+        }
+      }
+    }
+
+    #right-side {
+      .css-2bn4c9-view--inlineBlock-inlineListItem,
+      .css-tpuo6v-text,
+      .css-1onamjj-view-listItem {
+        color: @text;
+      }
+      .css-tpuo6v-text {
+        filter: opacity(0.6);
+      }
+    }
+
+    .ic-app-header * {
+      background-color: @crust;
+      color: @text;
+      .ic-app-header__menu-list-item.ic-app-header__menu-list-item--active {
+        * {
+          background-color: @base;
+        }
+        .menu-item__text {
+          background-color: transparent;
+        }
+      }
+    }
+
+    .ic-app-header__menu-list-link:hover {
+      background: mix(@base, @crust, 50%);
+      * {
+        background: mix(@base, @crust, 50%);
+      }
+    }
+
+
+    #right-side .events_list {
+      p {
+        color: fadeout(@text, 20%);
+      }
+
+      .event-details:after {
+        background: linear-gradient(to right, transparent 0%, @base 80%);
+      }
+    }
+
+    /* popup menus */
+    [data-position-content^="Popover"],
+    [data-position-content^="Menu"] {
+      * {
+        color: @text;
+        background-color: @surface1;
+        border-color: @surface2;
+      }
+      [class$="__arrow"] {
+        background-color: transparent;
+        border-color: transparent;
+        color: transparent;
+      }
+      [class$="__arrow"]:after {
+        /* not sure how to perfectly wrap the border around the arrow */
+        border-color: transparent transparent @surface1;
+        background-color: transparent;
+        color: transparent;
+      }
+      > span > span {
+        [role="listbox"],
+        [role="menu"] {
+          color: @text;
+          background-color: @surface1;
+          border-color: @accent-color;
+          /* menu items */
+          [role] {
+            [aria-selected="true"] {
+              color: @accent-color;
+            }
+            background: transparent;
+            [class$="separator"] {
+              background-color: @surface2;
+            }
+          }
+          [role]:focus, [role]:active, [role]:hover {
+            background-color: @accent-color;
+            color: @surface1;
+          }
+        }
+      }
+    }
+
+    /* selection */
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@overlay2, 30%);
     }
 
     input,
     textarea {
       &::placeholder {
-        color: @subtext0 !important;
+        color: @subtext0;
       }
     }
 
-    #breadcrumbs,
-    #printQuizButton,
-    #content,
-    .navigation-tray-container,
-    .ic-Dashboard-header__layout,
-    .button-sidebar-wide,
-    .access_tokens,
-    .context_modules,
-    .textarea-container,
-    .Button,
-    .panel,
-    span {
+    /* icons */
+    svg[name="IconAssignment"],
+    svg[name="IconBookmark"],
+    .icon-check {
+      color: @green !important;
+    }
+
+    .ally-prominent-af-download-button {
+      filter: invert(100%);
+    }
+
+    .css-15v4rhu-tray {
+      background-color: @surface0;
+    }
+
+    .standalone-icon:before {
+      color: @text;
+    }
+
+    /* MODULES */
+    .item-group-container {
       background-color: @base;
+    }
+    .header-bar {
+      background-color: @base;
+    }
+    .item-group-condensed > * {
+      color: @text;
+      background-color: @surface0;
+    }
+    .content, .footer {
+      background-color: @base;
+    }
+    .ig-header {
+      .name {
+        color: @text;
+      }
+    }
+    .ig-list {
+      .ig-row {
+        color: @text;
+        background-color: @base;
+      }
+      .ig-row:hover {
+        background-color: @base;
+      }
+    }
+    .nav-badge {
+      color: @base;
+    }
+    button.Button#courseMenuToggle {
+      background-color: transparent;
       color: @accent-color;
     }
-
-    #application,
-    .comments,
-    .module-sequence-footer-content,
-    .immersive_reader_mount_point,
-    .context_modules {
-      background: @base !important;
-      background-color: @base !important;
-      color: @accent-color !important;
-    }
-
-    a,
-    .page-title {
-      color: fadeout(@text, 0.8) !important;
-    }
-
-    .ic-DashboardCard,
-    .ic-DashboardCard__header_content,
-    .ic-DashboardCard__action-container,
-    .ic-DashboardCard__header-subtitle,
-    .ic-DashboardCard__header-title,
-    .ic-DashboardCard__header-term {
-      background-color: @surface0 !important;
-    }
-
-    .ic-app-header__main-navigation,
-    .ic-app-header__logomark-container {
-      background-color: @crust !important;
-    }
-
-    .ic-app-header__menu-list-item.ic-app-header__menu-list-item--active
-      .ic-app-header__menu-list-link {
-      background-color: fadeout(@crust, 0.8);
-    }
-
-    body {
+    #breadcrumbs {
       background-color: @base;
     }
-
-    #right-side .events_list .event-details::after,
-    #right-side .events_list .todo-details::after,
-    #right-side .to-do-list .event-details::after,
-    #right-side .to-do-list .todo-details::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 100%;
-      width: 12px;
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0) 0%,
-        @surface0 80%
-      );
+    .pill {
+      background-color: @surface1;
+      box-shadow: 0 1px 0 @base;
+    }
+    .ic-app-nav-toggle-and-crumbs,
+    .item-group-condensed * {
+      border-color: @surface1;
+    }
+    .pages.show .page-title {
+      color: @text;
     }
 
-    :root {
-      --ic-brand-global-nav-avatar-border: @accent-color;
-      --ic-brand-font-color-dark: fadeout(@accent-color, 0.8);
-      --ic-brand-primary: @accent-color;
-      --ic-brand-global-nav-ic-icon-svg-fill: fadeout(@accent-color, 0.5);
-      --eMdva-color: @base !important;
-      --ccWIh-color: @crust;
+
+    /* COURSES */
+    thead th {
+      border-color: @surface2;
     }
-    .unread_count,
-    .menu-item-icon-container,
-    .menu-item__badge,
-    .nav-badge {
-      color: fadeout(@text, 0.8);
+    tbody td {
+      border-color: @surface1;
+    }
+    .course-list-favorite-course .icon-star::before {
+      color: @peach;
+    }
+    .course-list-table .course-list-table-row:hover {
+      background-color: mix(@overlay2, @base, 20%);
     }
 
-    .list-view a.active {
-      border-left-color: #007fff;
-      color: #007fff;
+    /* CALENDAR */
+    #calendar-app {
+      .agenda-wrapper {
+        background-color: @base;
+      }
+      table {
+        thead.fc-head,
+        .fc-head-container,
+        .fc-row,
+        .fc-row * {
+          border-color: @surface1;
+        }
+        .fc-day-header {
+          color: @text;
+        }
+        .fc-body {
+          background-color: @base;
+        }
+        .fc-today {
+          background-color: @surface0;
+        }
+        .fc-divider {
+          border-color: @surface2;
+        }
+      }
+      .fc-agendaWeek-view .fc-day-grid .fc-row {
+        border-color: @surface1;
+      }
+    }
+    .calendar_header #create_new_event_link {
+      color: @text;
     }
 
-    // Fix file preview
-    nav.ViewerControls * {
-      background-color: @surface1 !important;
+    #minical {
+      color: @text;
+      background-color: @surface1;
+      h2,
+      .fc-widget-content {
+        color: @text;
+      }
+      .fc-view {
+        background-color: @base;
+        * {
+          border-color: transparent;
+        }
+      }
+      .fc-state-default {
+        color: @text;
+      }
     }
-    div.Pages,
-    .Page-container {
-      background-color: #f2f2f2 !important;
+    #calendar-list-holder {
+      background-color: @base;
     }
-    .Page-container * {
-      background-color: transparent !important;
+    #calendars-context-list .context_list_context:hover {
+      background-color: mix(@overlay2, @base, 20%)
+    }
+    .ColorPicker__Container {
+      background-color: @surface0;
+      border-color: @surface1;
+    }
+    #undated-events {
+      background-color: @base;
+      .event {
+        background-color: @base;
+      }
+    }
+
+
+    /* INBOX */
+    [data-testid="tool-bar"] {
+      background-color: @mantle;
+      border-color: @surface2;
+      [class$="textInput__facade"] {
+        color: @text;
+        background-color: @surface1;
+        border-color: @surface2;
+        input {
+          color: @text;
+        }
+      }
+      button {
+        &::before {
+          /* on-click-outline */
+          border-color: var(--ic-link-color);
+        }
+        span {
+          background-color: @surface1;
+          border-color: @surface2;
+        }
+      }
+    }
+
+    /* left side */
+    #content {
+      [data-testid="conversation"] {
+        border-color: @surface1;
+      }
+      [data-testid="list-items-desktop"] > div {
+        border-color: @surface2;
+        .css-138gh4t-view {
+          & div[style~="background-color:"] {
+            background-color: mix(@base, @accent-color, 90%) !important;
+          }
+          & div[style~="box-shadow:"] {
+            box-shadow: @accent-color -4px 0 0 inset !important;
+          }
+          [color="brand"] {
+            color: @accent-color;
+          }
+        }
+        label > span > span {
+          background-color: @surface0;
+          border-color: @surface1;
+          &::before {
+            /* on-click-outline */
+            border-color: var(--ic-link-color);
+          }
+          &:hover {
+            border-color: @text;
+          }
+        }
+        button[data-testid$="read-badge"] {
+          &::before {
+            border-color: var(--ic-link-color);
+          }
+          span svg {
+            color: @surface1;
+          }
+          &[data-testid="unread-badge"] {
+            span svg {
+              color: @accent-color;
+            }
+          }
+        }
+      }
+      /* right side */
+      span.css-103zv00-view-flexItem {
+        .css-oydprd-view {
+          border-color: @surface1;
+        }
+        [data-testid="expand-participants-button"] {
+          color: @blue;
+        }
+      }
+    }
+
+
+    /* COURSE CONTENT (QUIZZES, ETC) */
+    #quiz_show {
+      ul#quiz_student_details {
+        border-color: @surface1;
+      }
+      .alert {
+        background-color: @red;
+        span {
+          color: @base;
+        }
+      }
+      .quiz-submission {
+        background-color: @surface0;
+        .score_value {
+          color: @subtext1;
+        }
+      }
+    }
+    .ic-Table {
+      td,
+      th.ic-Table--header-row {
+        border-color: @surface1;
+      }
+    }
+    table.summary {
+      td, tbody th {
+        background-color: @base;
+      }
+    }
+    #questions {
+      background-color: @base;
+      .ambrosiaContainerComponent * {
+        color: @text;
+      }
+      .question .header {
+        background-color: @surface1;
+        .question_points_holder {
+          color: @subtext0;
+        }
+      }
+      .text {
+        background-color: @base;
+      }
+      .answers .answer {
+        border-color: @surface1;
+      }
+    }
+    header,
+    .module-sequence-footer .module-sequence-footer-content {
+      background-color: @base;
+      border-color: @surface1;
+    }
+
+    /* submitting */
+    .ui-tabs {
+      .ui-tabs-panel, .ui-tabs-nav {
+        border-color: @surface1;
+      }
+    }
+    #tinymce-parent-of-submission_body {
+      .canvas-rce__skins--root,
+      .tox-editor-header,
+      .tox-menubar,
+      .tox-menubar-primary,
+      .tox-menubar-overlord {
+        background-color: @base;
+      }
+      * {
+        color: @text;
+      }
+    }
+    .tox {
+      .tox-pop {
+        &::after {
+          border-bottom-color: @surface0;
+        }
+        .tox-pop__dialog {
+          background-color: @surface0;
+        }
+      }
+      .tox-toolbar__group::after {
+        border-color: @surface2;
+      }
+      svg,
+      #Fill-1,
+      .tox-icon g,
+      {
+        fill: @text;
+      }
+      button[title="Embed Lucid Document"] svg image {
+        filter: invert(1);
+      }
+      button[title="Embed"] svg path {
+        fill: @text;
+      }
+      .tox-menu {
+        background-color: @surface0;
+        border-color: @surface1;
+        .tox-collection__item {
+          color: @text;
+        }
+      }
+      .tox-mbtn:focus:not(:disabled) {
+        box-shadow: 0 0 0 2px @accent-color;
+      }
+      .tox-collection--list .tox-collection__group {
+        border-color: @surface1;
+      }
+      .tox-collection--list .tox-collection__item--active:not(.tox-collection__item--state-disabled),
+      .tox-collection__item--active {
+        background-color: mix(@accent-color, @base, 30%);
+      }
+    }
+    #rubrics {
+      .rubric_title {
+        background-color: @base;
+        border-color: @surface1;
+      }
+      .rubric_container {
+        thead th,
+        table.ratings td {
+          background-color: @base;
+          border-color: @surface1;
+        }
+      }
+    }
+
+    .ui-tabs {
+      .ui-tabs-nav li.ui-tabs-active,
+      .ui-tabs-nav li.ui-tabs-active.ui-state-hover,
+      .ui-tabs-nav li.ui-tabs-active:hover {
+        background-color: @base;
+        border-color: @surface1;
+        a {
+          color: @text;
+        }
+      }
+
+      .ui-state-hover {
+        background-color: mix(@overlay2, @surface1, 20%);
+      }
+      .ui-tabs-panel {
+        background-color: @base;
+      }
+      #assignments {
+        tr .title {
+          border-color: @surface1;
+        }
+      }
+    }
+
+    /* discussions */
+    .ic-discussion-row,
+    .pinned-discussions-v2__wrapper,
+    .unpinned-discussions-v2__wrapper,
+    .discussions-v2__container-image,
+    .closed-for-comments-discussions-v2__wrapper {
+      border-color: @surface1;
+      background-color: @base;
+    }
+    .ic-discussion-row {
+      box-shadow: -1px -1px @surface1,inset -1px -1px @surface1;
+    }
+    .discussion-entries {
+      background-color: @base;
+      .discussion_entry,
+      .toolbarView,
+      .entry {
+        background-color: @base;
+        border-color: @surface1;
+        .entry-content {
+          background-color: @base;
+        }
+      }
+      time {
+        color: @subtext0;
+      }
+    }
+    .ic-unread-badge span {
+      color: @base;
+    }
+
+    /* GRADES */
+    .ic-Table.ic-Table--hover-row tbody tr:hover,
+    .ic-Table.ic-Table--hover-row tbody tr.ic-Table__row--bg-neutral:hover,
+    .ic-Table.ic-Table--hover-row tbody tr.ic-Table__row--bg-success:hover,
+    .ic-Table.ic-Table--hover-row tbody tr.ic-Table__row--bg-alert:hover,
+    .ic-Table.ic-Table--hover-row tbody tr.ic-Table__row--bg-danger:hover {
+      background-color: mix(@overlay2, @base, 20%);
+    }
+    #nav-tray-portal {
+      .css-1gto5tw-tray {
+        background-color: @surface0;
+        .css-kryo2y-view-listItem {
+          color: @subtext0;
+        }
+        a {
+          color: @blue;
+        }
+        .css-151bhcl-view--inlineBlock-baseButton::before {
+          border-color: @accent-color;
+        }
+      }
     }
   }
 }
