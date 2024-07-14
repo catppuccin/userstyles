@@ -2,7 +2,7 @@
 @name Wikipedia Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/wikipedia
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/wikipedia
-@version 0.0.20
+@version 0.0.21
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/wikipedia/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Awikipedia
 @description Soothing pastel theme for Wikipedia
@@ -109,7 +109,11 @@
     .vector-header-container .vector-sticky-header,
     .mw-mmv-image,
     .mw-body,
-    .frb-form-wrapper {
+    .frb-form-wrapper,
+    .mw-echo-ui-placeholderItemWidget,
+    .oo-ui-popupWidget-popup,
+    .mw-echo-ui-notificationItemWidget,
+    .oo-ui-optionWidget-selected {
       background-color: @base;
     }
 
@@ -167,8 +171,10 @@
     .mw-mmv-post-image,
     .mw-mmv-credit,
     .frb-form-wrapper,
+    .mw-echo-ui-notificationItemWidget-content-message-header,
+    .oo-ui-labelElement,
     #contentSub:not(:empty) {
-      color: @text;
+      color: @text !important;
     }
 
     .mw-parser-output .fmbox {
@@ -266,6 +272,21 @@
       background-color: @surface1 !important;
       border-color: @surface2 !important;
     }
+
+    .oo-ui-pendingElement-pending {
+      background-color: @base;
+      background-image: linear-gradient(
+        135deg,
+        @surface0 25%,
+        transparent 25%,
+        transparent 50%,
+        @surface0 50%,
+        @surface0 75%,
+        transparent 75%,
+        transparent
+      );
+    }
+
     .oo-ui-tagItemWidget.oo-ui-widget-disabled {
       color: @text;
       background-color: @overlay0;
@@ -529,8 +550,15 @@
       }
     }
 
+    .mw-echo-ui-pageNotificationsOptionWidget.oo-ui-optionWidget-highlighted,
     .cdx-menu-item--enabled.cdx-menu-item--highlighted {
       background-color: fade(@accent-color, 20%);
+    }
+
+    .mw-echo-ui-sortedListWidget,
+    .mw-echo-ui-sortedListWidget-group,
+    .mw-echo-ui-subGroupListWidget-header {
+      border-color: @surface2;
     }
 
     .mw-mmv-post-image,
@@ -673,7 +701,7 @@
     .vector-toc
       .vector-toc-level-1-active:not(.vector-toc-list-item-active)
       > .vector-toc-link {
-      color: @text;
+      color: @text !important;
     }
 
     .lang-list-active .lang-list-button {
@@ -1260,6 +1288,13 @@
       content: url("data:image/svg+xml,@{svg}");
     }
 
+    .vector-icon.mw-ui-icon-wikimedia-appearance {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.25 14.5a4.25 4.25 0 0 0 4.247-4.092c.3-.21.706-.21 1.006 0a4.25 4.25 0 0 0 8.431.59L19 11a1 1 0 1 0-.182-1.984 4.252 4.252 0 0 0-7.896-.615 2.9 2.9 0 0 0-1.844 0 4.25 4.25 0 0 0-7.896.615 1 1 0 1 0-.116 1.981A4.25 4.25 0 0 0 5.25 14.5m0-2a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5M17 10.25a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0" fill="@{text}"/></svg>'
+      );
+      content: url("data:image/svg+xml,@{svg}");
+    }
+
     .vector-feature-zebra-design-enabled
       .vector-dropdown
       .vector-dropdown-label:not(.cdx-button--icon-only)::after,
@@ -1446,9 +1481,51 @@
       background-image: url("data:image/svg+xml,@{svg}");
     }
 
+    .vector-icon.mw-ui-icon-wikimedia-unStar {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M20 7h-7L10 .5 7 7H0l5.46 5.47-1.64 7 6.18-3.7 6.18 3.73-1.63-7z" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
     .oo-ui-image-progressive.oo-ui-icon-settings {
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20"><g fill="@{accent-color}"><g xmlns:xlink="http://www.w3.org/1999/xlink" transform="translate(10 10)"><path id="a" d="M1.5-10h-3l-1 6.5h5m0 7h-5l1 6.5h3"/><use xlink:href="#a" transform="rotate(45)"/><use xlink:href="#a" transform="rotate(90)"/><use xlink:href="#a" transform="rotate(135)"/></g><path d="M10 2.5a7.5 7.5 0 0 0 0 15 7.5 7.5 0 0 0 0-15v4a3.5 3.5 0 0 1 0 7 3.5 3.5 0 0 1 0-7"/></g></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    .oo-ui-icon-bell {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M16 7a5.38 5.38 0 0 0-4.46-4.85C11.6 1.46 11.53 0 10 0S8.4 1.46 8.46 2.15A5.38 5.38 0 0 0 4 7v6l-2 2v1h16v-1l-2-2zm-6 13a3 3 0 0 0 3-3H7a3 3 0 0 0 3 3" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    .oo-ui-icon-next {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M7 1 5.6 2.5 13 10l-7.4 7.5L7 19l9-9z" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    .oo-ui-icon-settings {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g transform="translate(10 10)" fill="@{text}"><path id="a" d="M1.5-10h-3l-1 6.5h5m0 7h-5l1 6.5h3"/><use transform="rotate(45)" href="#a" fill="@{text}"/><use transform="rotate(90)" href="#a" fill="@{text}"/><use transform="rotate(135)" href="#a" fill="@{text}"/></g><path d="M10 2.5a7.5 7.5 0 0 0 0 15 7.5 7.5 0 0 0 0-15v4a3.5 3.5 0 0 1 0 7 3.5 3.5 0 0 1 0-7" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    .oo-ui-icon-expand {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><title> expand </title><path d="m17.5 4.75-7.5 7.5-7.5-7.5L1 6.25l9 9 9-9z" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    .oo-ui-icon-tray {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M3 1a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm14 12h-4l-1 2H8l-1-2H3V3h14z" fill="@{text}"/></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}");
     }

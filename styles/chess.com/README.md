@@ -19,12 +19,13 @@
 
 
 
-## 💝 Current Maintainer
-- [coldenate](https://github.com/coldenate)
+## 🚧 Looking for Maintainers 🚧
+- If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
 
 ## 💖 Past Maintainers
 - [skele](https://github.com/skelebro1)
 - [Isabel](https://github.com/isabelroses)
+- [coldenate](https://github.com/coldenate)
 
 &nbsp;
 
