@@ -18,7 +18,7 @@
 </p>
 
 ## Usage
-> **Note** <br>
+> [!NOTE]
 > Holodex's selected theme is ignored.
 
 

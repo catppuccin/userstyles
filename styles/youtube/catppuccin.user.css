@@ -2,7 +2,7 @@
 @name YouTube Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/youtube
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/youtube
-@version 4.0.13
+@version 4.1.1
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/youtube/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ayoutube
 @description Soothing pastel theme for YouTube
@@ -59,6 +59,7 @@
     @black: if(@lookup = latte, @text, @base);
 
     color: @text;
+    background: @base !important;
     color-scheme: if(@lookup = latte, light, dark);
 
     ::selection {
@@ -508,9 +509,16 @@
         fill: @crust !important;
       }
     }
+
     .yt-spec-icon-badge-shape--style-overlay .yt-spec-icon-badge-shape__icon,
     .yt-spec-icon-badge-shape {
       color: @text;
+    }
+
+    .yt-spec-icon-badge-shape--type-notification
+      .yt-spec-icon-badge-shape__badge {
+      background-color: @accent-color !important;
+      color: @surface0 !important;
     }
 
     /* Buttons */
@@ -593,8 +601,8 @@
         border-color: @surface2;
 
         &:hover {
-          background-color: @accent-color;
-          color: @crust;
+          background-color: fade(@accent-color, 30%);
+          color: @accent-color;
         }
       }
 
@@ -609,6 +617,10 @@
       &.yt-spec-button-shape-next--filled {
         color: @crust;
         background-color: @accent-color;
+
+        &:hover {
+          background-color: lighten(@accent-color, 5%);
+        }
       }
     }
 
@@ -687,9 +699,15 @@
     /* Thumbnails */
 
     #time-status:has([aria-label="LIVE"]),
-    .badge[aria-label="LIVE"] {
+    .badge[aria-label="LIVE"],
+    .badge[aria-label="PREMIERE"],
+    .badge-shape-wiz--live.badge-shape-wiz--overlay {
       --yt-spec-static-overlay-text-primary: @crust;
       --yt-spec-static-overlay-icon-active-other: @crust;
+    }
+    .badge-shape-wiz--live.badge-shape-wiz--overlay {
+      background: var(--yt-spec-static-overlay-background-brand);
+      color: var(--yt-spec-static-overlay-text-primary);
     }
     #thumbnail [style="background-color: rgba(51, 51, 51, 0.8);"],
     .YtInlinePlayerControlsTopRightControlsCircleButton,
@@ -836,6 +854,12 @@
         &[aria-pressed]::after {
           background-color: @accent-color;
         }
+      }
+
+      /* stats for nerds */
+      .ytp-sfn {
+        background: fade(@base, 80%);
+        color: @text;
       }
 
       .ytp-autonav-toggle-button {

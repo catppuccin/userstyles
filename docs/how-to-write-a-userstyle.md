@@ -92,6 +92,9 @@ This section of the template is about applying the user's light/dark flavors. Re
 
 ### The `#catppuccin` mixin
 
+> [!TIP]
+> For more on how Less mixins work, see ["Mixins" - lesscss.org](https://lesscss.org/features/#mixins-feature) and ["A Comprehensive Introduction to Less: Mixins" - SitePoint](https://www.sitepoint.com/a-comprehensive-introduction-to-less-mixins/).
+
 We'll refer to this next section of the template as the "`#catppuccin` mixin". You can ignore the first half of this section with all of the `@<color>: @catppuccin[@@lookup][@<color>];` lines and skip to the comment where it says `// Start styling your website here:`. As the comment suggests, you will write the CSS rules for your port here. Here is what it looks like for our `example.org` port:
 
 <!-- prettier-ignore -->

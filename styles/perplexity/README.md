@@ -19,10 +19,11 @@
 
 
 
-## 💝 Current Maintainers
-- [Isabel](https://github.com/isabelroses)
+## 💝 Current Maintainer
 - [Tnixc](https://github.com/Tnixc)
 
+## 💖 Past Maintainer
+- [Isabel](https://github.com/isabelroses)
 
 &nbsp;
 

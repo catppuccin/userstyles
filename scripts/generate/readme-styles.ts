@@ -53,7 +53,7 @@ export const generateStyleReadmes = (
   );
   const stylesReadmeContent = Deno.readTextFileSync(stylesReadmePath);
 
-  Object.entries(userstyles).map(([slug, { name, readme }]) => {
+  Object.entries(userstyles).map(([slug, { name, readme, "current-maintainers": currentMaintainers, "past-maintainers": pastMaintainers }]) => {
     console.log(`Generating README for ${slug}`);
     const readmeContent = Handlebars.compile(stylesReadmeContent)({
       heading: heading(name, readme["app-link"]),
@@ -61,8 +61,8 @@ export const generateStyleReadmes = (
       usage: readme.usage,
       faq: readme.faq,
       collaborators: {
-        currentMaintainers: extractName(readme["current-maintainers"]),
-        pastMaintainers: extractName(readme["past-maintainers"]),
+        currentMaintainers: extractName(currentMaintainers),
+        pastMaintainers: extractName(pastMaintainers),
       },
     });
     Deno.writeTextFile(
