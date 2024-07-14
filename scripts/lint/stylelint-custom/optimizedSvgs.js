@@ -1,6 +1,6 @@
-import stylelint from "npm:stylelint";
-import valueParser from "npm:postcss-value-parser";
-import { optimize } from "npm:svgo";
+import stylelint from "stylelint";
+import valueParser from "postcss-value-parser";
+import { optimize } from "svgo";
 
 const {
   createPlugin,

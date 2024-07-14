@@ -52,10 +52,10 @@ export const generateMainReadme = async (
       return {
         emoji: meta.emoji,
         name: meta.name,
-        ports: ports.map(({ name, path, readme }) => {
+        ports: ports.map(({ name, path, "current-maintainers": currentMaintainers }) => {
           return {
             name: [name].flat(),
-            maintained: readme["current-maintainers"].length > 0,
+            maintained: currentMaintainers.length > 0,
             path,
           };
         }),
