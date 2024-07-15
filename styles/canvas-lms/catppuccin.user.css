@@ -56,7 +56,7 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    color-scheme: if(@lookup = latte, light, dark);
+    @color-scheme: if(@lookup = latte, light, dark);
 
     /* GLOBALS/VARIABLES */
     #footer,
@@ -576,16 +576,35 @@
         background-color: @base;
       }
     }
+    ul#question_list {
+      li.marked {
+        /* for some reason canvas's css has left in quotes so this just patches that */
+        background-position: left 3px top 7px;
+        /* filter: brightness(if(( @color-scheme = dark ), 130%, 100%)); */
+      }
+      li i {
+        /* question mark icons */
+        color: @subtext0;
+      }
+    }
     #questions {
       background-color: @base;
       .ambrosiaContainerComponent * {
         color: @text;
       }
-      .question .header {
-        background-color: @surface1;
-        .question_points_holder {
-          color: @subtext0;
+      .question {
+        border-color: @surface1;
+        &.marked .flag_question {
+          filter: brightness(if(( @color-scheme = dark ), 130%, 100%));
         }
+        .header {
+          background-color: @surface0;
+          border-color: @surface1;
+          .question_points_holder {
+            color: @subtext0;
+          }
+        }
+
       }
       .text {
         background-color: @base;
