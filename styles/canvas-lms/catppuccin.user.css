@@ -72,6 +72,15 @@
       background-color: @base;
       border-color: @surface2;
     }
+    img {
+      &:not([src^="/"]) {
+        background-color: #fffd;
+      }
+      &[src^="/"] {
+        filter: invert(1);
+      }
+    }
+    scrollbar-color: @surface2 @surface0;
 
     strong, em, p, span {
       color: @text;
@@ -95,6 +104,8 @@
       color: @blue;
     }
 
+    --ic-link-color: @blue;
+    --ic-link-color-darkened-10: fadeout(@blue, 10%);
     --ic-brand-global-nav-avatar-border: @accent-color;
     --ic-brand-font-color-dark: fadeout(@text, 10%);
     --ic-brand-primary: @accent-color;
@@ -103,9 +114,7 @@
     --ic-brand-global-nav-ic-icon-svg-fill--active: @accent-color;
     --ic-brand-global-nav-menu-item__text-color--active: @accent-color;
     --ic-brand-button--primary-bgd-darkened-15: fadeout(@accent-color, 15%);
-    --ic-link-color-darkened-10: fadeout(@crust, 10%);
     --ic-brand-font-color-dark-lightened-28: fadeout(@text, 28%);
-    --ic-link-color: fadeout(@accent-color, 30%); /* also used for :focus outlines for some reason */
     --eMdva-color: @base;
     --ccWIh-color: @crust;
 
@@ -124,12 +133,54 @@
       }
     }
 
-    /* site-wide layout */
+    /* GENERAL UI CHANGES */
     .list-view a.active {
       border-color: @accent-color;
       color: @accent-color;
     }
 
+    .css-10f5v0f-pill {
+      background-color: @surface0;
+      border-color: @surface1;
+      color: @text;
+    }
+    /* buttons */
+    #grades_summary a.toggle_comments_link,
+    #grades_summary a.toggle_rubric_assessments_link,
+    button.css-16xos6b-view--inlineBlock-baseButton,
+    .ui-button,
+    .btn,
+    .Button {
+      &:hover {
+        background-color: mix(@overlay2, @surface0, 10%);
+        color: @text;
+      }
+      color: @text;
+      background-color: @surface0;
+      border-color: @surface1;
+      * {
+        path[fill="#000000"] {
+          fill: @text;
+        }
+        background-color: transparent;
+        border-color: @surface1;
+      }
+    }
+    /* checkboxes */
+    input:not(:checked) + label span[class$="checkboxFacade__facade"] {
+      background-color: @surface0;
+    }
+
+    /* dropdown menus */
+    select,
+    [class$="textInput__facade"] {
+      color: @text;
+      background-color: @surface1;
+      border-color: @surface2;
+      input {
+        color: @text !important;
+      }
+    }
 
     /* DASHBOARD */
     .Day-styles__root {
@@ -149,12 +200,6 @@
         border-color: @surface1;
         span {
           color: @subtext0;
-        }
-        .PlannerItem-styles__icon {
-        }
-        .css-10f5v0f-pill {
-          background-color: @surface0;
-          color: @text;
         }
         a * {
           color: @blue;
@@ -178,27 +223,13 @@
         background-color: @surface0;
       }
     }
+    #right-side {
+      /* in case this slightly overlaps main ui content (e.g. grades screen) */
+      background-color: fadeout(@base, 70%);
+    }
     #right-side *,
     .ic-Dashboard-header * {
       border-color: @surface1;
-    }
-    button.css-16xos6b-view--inlineBlock-baseButton,
-    .btn,
-    .Button {
-      &:hover {
-        background-color: mix(@overlay2, @base, 10%);
-        color: @text;
-      }
-      color: @text;
-      background-color: @surface0;
-      border-color: @surface1;
-      * {
-        path[fill="#000000"] {
-          fill: @text;
-        }
-        background-color: @surface0;
-        border-color: @surface1;
-      }
     }
 
     .ic-DashboardCard {
@@ -230,7 +261,7 @@
       }
     }
 
-    .ic-app-header * {
+    .ic-app-header {
       background-color: @crust;
       color: @text;
       .ic-app-header__menu-list-item.ic-app-header__menu-list-item--active {
@@ -245,9 +276,6 @@
 
     .ic-app-header__menu-list-link:hover {
       background: mix(@base, @crust, 50%);
-      * {
-        background: mix(@base, @crust, 50%);
-      }
     }
 
 
@@ -317,7 +345,6 @@
     }
 
     /* icons */
-    svg[name="IconAssignment"],
     svg[name="IconBookmark"],
     .icon-check {
       color: @green !important;
@@ -363,7 +390,9 @@
         background-color: @base;
       }
     }
+    .list-view a.active .nav-badge,
     .nav-badge {
+      background-color: @accent-color;
       color: @base;
     }
     button.Button#courseMenuToggle {
@@ -472,14 +501,6 @@
     [data-testid="tool-bar"] {
       background-color: @mantle;
       border-color: @surface2;
-      [class$="textInput__facade"] {
-        color: @text;
-        background-color: @surface1;
-        border-color: @surface2;
-        input {
-          color: @text;
-        }
-      }
       button {
         &::before {
           /* on-click-outline */
@@ -627,17 +648,43 @@
     }
     #tinymce-parent-of-submission_body {
       .canvas-rce__skins--root,
-      .tox-editor-header,
-      .tox-menubar,
-      .tox-menubar-primary,
-      .tox-menubar-overlord {
-        background-color: @base;
-      }
       * {
         color: @text;
       }
     }
+    /* text editor */
     .tox {
+      * {
+        color: @text;
+      }
+      .tox-split-button .tox-tbtn.tox-split-button__chevron {
+        background-color: transparent;
+      }
+      .tox-tbtn:focus, .tox-split-button:focus {
+        background-color: fadeout(@overlay2, 50%);
+        color: fadeout(@text, 20%);
+        fill: fadeout(@text, 20%);
+      }
+      .tox-tbtn:hover,
+      .tox-split-button:hover,
+      .tox-tbtn.tox-tbtn--enabled:hover,
+      .tox-split-button .tox-tbtn.tox-split-button__chevron:hover {
+        background-color: transparent;
+        color: fadeout(@text, 20%);
+        svg {
+          fill: fadeout(@text, 20%);
+        }
+      }
+
+      .tox-toolbar,
+      .tox-toolbar__overflow,
+      .tox-toolbar__primary,
+      .tox-editor-header,
+      .tox-menubar,
+      .tox-menubar__primary,
+      .tox-menubar-overlord {
+        background-color: @base;
+      }
       .tox-pop {
         &::after {
           border-bottom-color: @surface0;
@@ -679,6 +726,10 @@
         background-color: mix(@accent-color, @base, 30%);
       }
     }
+    .canvas-rce__skins--root {
+      background-color: @base;
+    }
+
     #rubrics {
       .rubric_title {
         background-color: @base;
@@ -694,6 +745,8 @@
     }
 
     .ui-tabs {
+      .ui-tabs-nav li.ui-state-hover,
+      .ui-tabs-nav li:hover,
       .ui-tabs-nav li.ui-tabs-active,
       .ui-tabs-nav li.ui-tabs-active.ui-state-hover,
       .ui-tabs-nav li.ui-tabs-active:hover {
