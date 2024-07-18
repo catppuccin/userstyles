@@ -105,13 +105,13 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Hoppscotch](styles/hoppscotch)
 - [Keyoxide](styles/keyoxide)
 - [MDN](styles/mdn)
-- [Next.js](styles/nextjs)
 - [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
 - [Stack Overflow](styles/stack-overflow)
 - [Trinket](styles/trinket)
-- [Vercel](styles/vercel)
+- [Vercel, Next.js](styles/vercel)
+- [web.dev](styles/web.dev)
 
 </details>
 <details open>
@@ -144,7 +144,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🧠 Wikis</summary>
 
-- [Arch Wiki](styles/arch-wiki)
+- 🚧 [Arch Wiki](styles/arch-wiki)
 - [mdBook](styles/mdbook)
 - 🚧 [NixOS Wiki](styles/nixos.wiki)
 - [Wikipedia](styles/wikipedia)
@@ -163,6 +163,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Hyperpipe](styles/hyperpipe)
 - [Last.fm](styles/lastfm)
+- [ListenBrainz](styles/listenbrainz)
 - [Spotify Web](styles/spotify-web)
 
 </details>
@@ -175,6 +176,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [inoreader](styles/inoreader)
 - [Microsoft Word](styles/microsoft-word)
 - [openmediavault](styles/openmediavault)
+- [Porkbun](styles/porkbun)
 - [Proton](styles/proton)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
@@ -184,7 +186,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>💌 Email Clients</summary>
 
-- 🚧 [Gmail](styles/gmail)
+- [Gmail](styles/gmail)
 - [Migadu Webmail](styles/migadu-webmail)
 - [Skiff](styles/skiff)
 - [Tuta](styles/tuta)
@@ -243,7 +245,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Advent Of Code](styles/advent-of-code)
 - [bStats](styles/bstats)
-- [Chess.com](styles/chess.com)
+- 🚧 [Chess.com](styles/chess.com)
 - [Lichess](styles/lichess)
 - [Minesweeper Online](styles/minesweeper)
 - [Modrinth](styles/modrinth)

@@ -18,11 +18,11 @@
 </p>
 
 ## Usage
-Switch to either the dark or default themes via the **gear icon** > **themes** > **view all** for the best experience!
+Switch to the default dark theme via the **Settings** > **Themes** > **View all** for the best experience!
 
 
-## 🚧 Looking for Maintainers 🚧
-- If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
+## 💝 Current Maintainer
+- [uncenter](https://github.com/uncenter)
 
 ## 💖 Past Maintainer
 - [Isabel](https://github.com/isabelroses)
