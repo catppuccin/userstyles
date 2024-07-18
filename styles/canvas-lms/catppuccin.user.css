@@ -294,43 +294,42 @@
     }
 
     /* popup menus */
-    [data-position-content^="Popover"],
-    [data-position-content^="Menu"] {
-      * {
-        color: @text;
+    /* extra selectors are to avoid matching tooltips b/c their arrows are hard to style */
+    span[data-position-content^="Menu"]:not([data-position-content^="Menu__label"]),
+    span[data-position-content^="Popover"]:has(ul[role="menu"]) {
+      span[class$="arrow"]::after {
+        border-color: transparent transparent @surface1;
+      }
+      > span {
         background-color: @surface1;
         border-color: @surface2;
       }
-      [class$="__arrow"] {
-        background-color: transparent;
-        border-color: transparent;
-        color: transparent;
-      }
-      [class$="__arrow"]:after {
-        /* not sure how to perfectly wrap the border around the arrow */
-        border-color: transparent transparent @surface1;
-        background-color: transparent;
-        color: transparent;
-      }
+    }
+    /* select dropdowns */
+    span[data-position-content^="Popover"]:has(ul[role="listbox"]) {
+      border-color: @surface2;
       > span > span {
-        [role="listbox"],
-        [role="menu"] {
-          color: @text;
+        background-color: @surface1;
+        div[class$="separator"] {
+          background-color: @surface2;
+        }
+        li {
           background-color: @surface1;
-          border-color: @accent-color;
-          /* menu items */
-          [role] {
-            [aria-selected="true"] {
-              color: @accent-color;
-            }
-            background: transparent;
-            [class$="separator"] {
-              background-color: @surface2;
+        }
+        ul[role="listbox"] {
+          background-color: @surface1;
+          /* the extra selectors are because some lists have group options as list items */
+          li:not(:has(ul[role="group"])) {
+            &:hover, &:focus, &:active {
+              color: @base;
+              background-color: @accent-color !important;
+              span {
+                color: @base;
+              }
             }
           }
-          [role]:focus, [role]:active, [role]:hover {
-            background-color: @accent-color;
-            color: @surface1;
+          li:has([aria-selected="true"]) {
+            background-color: mix(@surface1, @overlay2, 70%);
           }
         }
       }
