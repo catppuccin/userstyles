@@ -59,6 +59,11 @@
     @color-scheme: if(@lookup = latte, light, dark);
 
     /* GLOBALS/VARIABLES */
+    /* @import url("https://fonts.googleapis.com/css2?family=Flow+Circular&display=swap"); */
+    /**/
+    /* * { */
+    /*   font-family: "Flow Circular", cursive; */
+    /* } */
     #footer,
     body {
       border-color: @surface1;
@@ -75,9 +80,6 @@
     img {
       &:not([src^="/"]) {
         background-color: #fffd;
-      }
-      &[src^="/"] {
-        filter: invert(1);
       }
     }
     scrollbar-color: @surface2 @surface0;
@@ -121,6 +123,26 @@
 
     /* GENERAL UI CHANGES */
 
+    /* fullscreen background for modal popups */
+    span[class*="mask"] {
+      background-color: fadeout(@overlay1, 80%);
+      > span {
+        background-color: @base;
+        border-color: @surface1;
+        > div[class$="modalHeader"] {
+          background-color: @surface0;
+          border-color: @surface1;
+        }
+        img {
+          background-color: transparent;
+        }
+        > div[class$="modalFooter"] {
+          background-color: @surface1;
+          border-color: @surface1;
+        }
+      }
+    }
+
     /* dialogs */
     .ui-widget-overlay {
       background-color: fadeout(@base, 30%)
@@ -131,9 +153,6 @@
         border-color: @surface1;
       }
       background-color: @surface0;
-      .ui-icon {
-        filter: invert(1);
-      }
     }
 
     /* sidebar */
@@ -410,7 +429,24 @@
     }
 
     .ally-prominent-af-download-button {
-      filter: invert(100%);
+      @svg: escape('
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="13px" viewBox="0 0 22 13" version="1.1">
+        <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+        <title>iconAllyDownload-IC</title>
+        <desc>Created with Sketch.</desc>
+        <defs/>
+        <g id="AAF-Triggers-–-Students" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01_learnContentVariations-Students" transform="translate(-525.000000, -687.000000)" fill="@{text}">
+        <g id="option02-a" transform="translate(284.141047, 682.000000)">
+        <g id="iconAllyDownload-IC" transform="translate(240.998967, 4.966146)">
+        <path d="M22,4.3875 L17.1875,11.7 L12.375,4.3875 L15.2625,4.3875 L15.2625,0 L19.1125,0 L19.1125,4.3875 L22,4.3875 Z M0,13 L7.56170223,2.6 L15.125,13 L11.5074634,13 C10.8377941,11.637446 9.34323244,10.6886103 7.60683311,10.6886103 C5.87043379,10.6886103 4.37564424,11.637446 3.70597488,13 L0,13 Z M5.76079766,8.21256906 C5.76079766,9.12421192 6.56722727,9.86326321 7.56170223,9.86326321 C8.55617719,9.86326321 9.36237887,9.12421192 9.36237887,8.21256906 C9.36237887,7.3009262 8.55617719,6.56187491 7.56170223,6.56187491 C6.56722727,6.56187491 5.76079766,7.3009262 5.76079766,8.21256906 Z"/>
+        </g>
+        </g>
+        </g>
+        </g>
+        </svg>
+      ');
+      background-image: url("data:image/svg+xml,@{svg}");
     }
 
     .css-15v4rhu-tray {
@@ -483,6 +519,12 @@
     }
     .course-list-table .course-list-table-row:hover {
       background-color: mix(@overlay2, @base, 20%);
+    }
+    .course-list-unpublished-course-row {
+      background-color: darken(@base, 5%);
+      .course-list-unpublished-course {
+        color: @red;
+      }
     }
 
     /* CALENDAR */
@@ -630,16 +672,10 @@
     }
     /* compose message overlay */
     span:has(> span[data-testid="compose-modal-desktop"]) {
-      /* this is the overlay background */
-      background-color: fadeout(@overlay1, 80%);
       span[data-testid="compose-modal-desktop"] {
-        /* this is the modal itself */
+        /* the modal itself */
         background-color: @surface0;
         border-color: @surface1;
-        > div[class$="modalHeader"] {
-          background-color: @surface0;
-          border-color: @surface1;
-        }
         span:has(> label[for^="TextArea"]) {
           border-color: @surface1;
           textarea {
@@ -650,10 +686,6 @@
           }
         }
         span[data-testid="past-messages"] div[class$="view"] {
-          border-color: @surface1;
-        }
-        > div[class$="modalFooter"] {
-          background-color: @surface1;
           border-color: @surface1;
         }
         button[class$="tag"] {
@@ -704,7 +736,6 @@
       li.marked {
         /* for some reason canvas's css has left in quotes so this just patches that */
         background-position: left 3px top 7px;
-        /* filter: brightness(if(( @color-scheme = dark ), 130%, 100%)); */
       }
       li i {
         /* question mark icons */
@@ -719,6 +750,7 @@
       .question {
         border-color: @surface1;
         &.marked .flag_question {
+          /* the flag image is a png containing multiple flags so can't really svg it */
           filter: brightness(if(( @color-scheme = dark ), 130%, 100%));
         }
         .header {
@@ -775,6 +807,7 @@
     .submission-details-container {
       border-color: @surface1;
       .submission-details-comments .comments {
+        border-color: @surface1;
         background-color: @surface0;
         /* mild hack to invert the media comment symbol */
         a.media-comment {
@@ -843,8 +876,12 @@
       {
         fill: @text;
       }
-      button[title="Embed Lucid Document"] svg image {
-        filter: invert(1);
+      button[title="Embed Lucid Document"] image {
+        /* @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"> */
+        /*   <path class="primary" d="M12 18.1625V2L5 6.03833L5.00424 22.2062L12 18.1625L12 21.9565L19 21.9524V14.12L12 18.1625Z" fill="@{text}"/> */
+        /* </svg>'); */
+        /* content: url("data:image/svg+xml,@{svg}"); */
+        filter: invert(100%);
       }
       button[title="Embed"] svg path {
         fill: @text;
