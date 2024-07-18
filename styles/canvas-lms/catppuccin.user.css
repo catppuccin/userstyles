@@ -99,7 +99,8 @@
     }
 
     .css-ivjxx5-view-link,
-    a,
+    a[class$="link"],
+    button[class$="link"],
     a > span {
       color: @blue;
     }
@@ -118,6 +119,8 @@
     --eMdva-color: @base;
     --ccWIh-color: @crust;
 
+    /* GENERAL UI CHANGES */
+
     /* dialogs */
     .ui-widget-overlay {
       background-color: fadeout(@base, 30%)
@@ -133,23 +136,27 @@
       }
     }
 
-    /* GENERAL UI CHANGES */
+    /* sidebar */
     .list-view a.active {
       border-color: @accent-color;
       color: @accent-color;
     }
 
+    /* pills */
     .css-10f5v0f-pill {
       background-color: @surface0;
       border-color: @surface1;
       color: @text;
     }
+
     /* buttons */
     #grades_summary a.toggle_comments_link,
     #grades_summary a.toggle_rubric_assessments_link,
-    button.css-16xos6b-view--inlineBlock-baseButton,
     .ui-button,
     .btn,
+    [data-testid="compose-modal-desktop"] button[class$="baseButton"]:not([data-testid="send-button"]),
+    #immersive_reader_mount_point button,
+    .ColorPicker__Actions button[class$="baseButton"]:not([id$="Apply"]),
     .Button {
       &:hover {
         background-color: mix(@overlay2, @surface0, 10%);
@@ -171,7 +178,7 @@
       background-color: @surface0;
     }
 
-    /* dropdown menus */
+    /* dropdown menu buttons */
     select,
     [class$="textInput__facade"] {
       color: @text;
@@ -180,6 +187,27 @@
       input {
         color: @text !important;
       }
+    }
+
+    /* notifications */
+    .ic-notification {
+      box-shadow: 0 1px 6px @surface2;
+      .ic-notification__icon * {
+        color: @base;
+      }
+      .ic-notification__content {
+        background-color: @surface0;
+      }
+    }
+
+    /* pdf reader */
+    .Pages {
+      background-color: @surface0;
+    }
+
+    /* ANNOUNCEMENTS */
+    .ic-item-row {
+      box-shadow: @surface1 0px -1px 0px 0px,
     }
 
     /* DASHBOARD */
@@ -205,10 +233,6 @@
           color: @blue;
         }
       }
-      button .css-13p5152-baseButton__content {
-        background-color: @surface0 !important;
-        border-color: @surface1 !important;
-      }
     }
 
     .CompletedItemsFacade-styles__root {
@@ -218,19 +242,6 @@
       background-color: @base;
     }
 
-    .ic-notification {
-      box-shadow: 0 1px 6px @surface2;
-      .ic-notification__icon * {
-        color: @base;
-      }
-      .ic-notification__content {
-        background-color: @surface0;
-      }
-    }
-    #right-side {
-      /* in case this slightly overlaps main ui content (e.g. grades screen) */
-      background-color: fadeout(@base, 70%);
-    }
     #right-side *,
     .ic-Dashboard-header * {
       border-color: @surface1;
@@ -255,6 +266,7 @@
     }
 
     #right-side {
+      background-color: fadeout(@base, 70%);
       .css-2bn4c9-view--inlineBlock-inlineListItem,
       .css-tpuo6v-text,
       .css-1onamjj-view-listItem {
@@ -288,7 +300,7 @@
         color: fadeout(@text, 20%);
       }
 
-      .event-details:after {
+      .event-details::after {
         background: linear-gradient(to right, transparent 0%, @base 80%);
       }
     }
@@ -296,6 +308,7 @@
     /* popup menus */
     /* extra selectors are to avoid matching tooltips b/c their arrows are hard to style */
     span[data-position-content^="Menu"]:not([data-position-content^="Menu__label"]),
+    span[data-position-content^="Popover"]:has(div[class$="view-tabs__container"]),
     span[data-position-content^="Popover"]:has(ul[role="menu"]) {
       span[class$="arrow"]::after {
         border-color: transparent transparent @surface1;
@@ -361,7 +374,7 @@
       background-color: @surface0;
     }
 
-    .standalone-icon:before {
+    .standalone-icon::before {
       color: @text;
     }
 
@@ -380,6 +393,7 @@
       background-color: @base;
     }
     .ig-header {
+      .ig-header-title button,
       .name {
         color: @text;
       }
@@ -397,10 +411,6 @@
     .nav-badge {
       background-color: @accent-color;
       color: @base;
-    }
-    button.Button#courseMenuToggle {
-      background-color: transparent;
-      color: @accent-color;
     }
     #breadcrumbs {
       background-color: @base;
@@ -495,10 +505,6 @@
     #other-calendars-context-list .context_list_context:hover {
       background-color: mix(@overlay2, @base, 20%)
     }
-    .ColorPicker__Container {
-      background-color: @surface0;
-      border-color: @surface1;
-    }
     #undated-events {
       background-color: @base;
       .event {
@@ -527,6 +533,9 @@
     #content {
       [data-testid="conversation"] {
         border-color: @surface1;
+        span[class$="badge"] {
+          background-color: @surface1;
+        }
       }
       [data-testid="list-items-desktop"] > div {
         border-color: @surface2;
@@ -596,6 +605,7 @@
         }
       }
     }
+
     .ic-Table {
       td,
       th.ic-Table--header-row {
@@ -644,6 +654,22 @@
         border-color: @surface1;
       }
     }
+    .form-actions {
+      border-color: @surface1;
+    }
+    #last_saved_indicator {
+      color: @subtext1;
+    }
+    .ui-tooltip {
+      &::before {
+        border-color: transparent transparent @surface0;
+      }
+      &.horizontal::before {
+        border-color: transparent @surface0 transparent transparent;
+      }
+      background-color: @surface0;
+    }
+
     header,
     .module-sequence-footer .module-sequence-footer-content {
       background-color: @base;
