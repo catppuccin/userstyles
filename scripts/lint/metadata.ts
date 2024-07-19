@@ -1,4 +1,4 @@
-// @deno-types="@/types/usercss-meta.d.ts";
+// @ts-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
 import * as color from "@std/fmt/colors";
 import { sprintf } from "@std/fmt/printf";
