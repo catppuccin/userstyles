@@ -1,9 +1,9 @@
 // @deno-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
-import * as color from "std/fmt/colors.ts";
-import { sprintf } from "std/fmt/printf.ts";
-import type { WalkEntry } from "std/fs/walk.ts";
-import { join, relative } from "std/path/mod.ts";
+import * as color from "@std/fmt/colors";
+import { sprintf } from "@std/fmt/printf";
+import type { WalkEntry } from "@std/fs";
+import { join, relative } from "@std/path";
 
 import { REPO_ROOT } from "@/deps.ts";
 import { log } from "@/lint/logger.ts";
@@ -47,7 +47,10 @@ export const verifyMetadata = async (
         .findIndex((line) => line.includes(key)) + 1;
 
       const message = current === undefined
-        ? sprintf("Metadata `%s` should not be undefined", color.bold(key))
+        ? sprintf(
+          "Metadata `%s` should not be undefined",
+          color.bold(key),
+        )
         : sprintf(
           'Metadata `%s` should be "%s" but is "%s"',
           color.bold(key),
@@ -63,9 +66,10 @@ export const verifyMetadata = async (
     }
   }
 
-  const template =
-    (await Deno.readTextFile(join(REPO_ROOT, "template/catppuccin.user.css")))
-      .split("\n");
+  const template = (await Deno.readTextFile(
+    join(REPO_ROOT, "template/catppuccin.user.css"),
+  ))
+    .split("\n");
 
   for (const variable of ["darkFlavor", "lightFlavor", "accentColor"]) {
     const declaration = `@var select ${variable}`;
