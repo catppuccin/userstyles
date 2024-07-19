@@ -39,5 +39,5 @@ for await (const entry of stylesheets) {
   });
 }
 
-ensureDir("dist");
+await ensureDir("dist");
 Deno.writeTextFile("dist/import.json", JSON.stringify(data));
