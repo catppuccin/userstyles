@@ -2,7 +2,7 @@
 @name Wikipedia Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/wikipedia
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/wikipedia
-@version 0.0.13
+@version 0.0.21
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/wikipedia/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Awikipedia
 @description Soothing pastel theme for Wikipedia
@@ -12,18 +12,22 @@
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var checkbox highlight-redirect "Highlight redirect links" 0
 ==/UserStyle== */
 
 @-moz-document domain('wikipedia.org') {
   @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
 
-  /* prettier-ignore */
-  @catppuccin: {
-    @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-    @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-    @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-    @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
   }
 
   #catppuccin(@lookup, @accent) {
@@ -105,7 +109,11 @@
     .vector-header-container .vector-sticky-header,
     .mw-mmv-image,
     .mw-body,
-    .frb-form-wrapper {
+    .frb-form-wrapper,
+    .mw-echo-ui-placeholderItemWidget,
+    .oo-ui-popupWidget-popup,
+    .mw-echo-ui-notificationItemWidget,
+    .oo-ui-optionWidget-selected {
       background-color: @base;
     }
 
@@ -163,8 +171,10 @@
     .mw-mmv-post-image,
     .mw-mmv-credit,
     .frb-form-wrapper,
+    .mw-echo-ui-notificationItemWidget-content-message-header,
+    .oo-ui-labelElement,
     #contentSub:not(:empty) {
-      color: @text;
+      color: @text !important;
     }
 
     .mw-parser-output .fmbox {
@@ -177,6 +187,10 @@
     }
 
     /* maths */
+    .equation-box,
+    .equation-box * {
+      background: none !important;
+    }
     img.mwe-math-fallback-image-display,
     img.mwe-math-fallback-image-inline {
       & when (@lookup = latte) {
@@ -252,18 +266,27 @@
       border-bottom-color: @surface2;
     }
 
-    .wikitable {
-      background-color: @surface0;
-      color: @text;
-      border-color: @surface2 !important;
-    }
-
     .oo-ui-textInputWidget,
     .oo-ui-inputWidget-input {
       color: @text !important;
       background-color: @surface1 !important;
       border-color: @surface2 !important;
     }
+
+    .oo-ui-pendingElement-pending {
+      background-color: @base;
+      background-image: linear-gradient(
+        135deg,
+        @surface0 25%,
+        transparent 25%,
+        transparent 50%,
+        @surface0 50%,
+        @surface0 75%,
+        transparent 75%,
+        transparent
+      );
+    }
+
     .oo-ui-tagItemWidget.oo-ui-widget-disabled {
       color: @text;
       background-color: @overlay0;
@@ -344,7 +367,7 @@
       box-shadow: inset 2.75em 0 0 @surface1;
     }
 
-    .mw-redirect {
+    .mw-redirect when (@highlight-redirect = 1) {
       color: @green !important;
     }
 
@@ -384,6 +407,19 @@
 
     .ambox-style {
       border-left-color: @yellow !important;
+    }
+
+    .mw-parser-output .mainpage-frame {
+      background: @surface0 !important;
+      border-color: @surface0 !important;
+    }
+
+    .mw-parser-output .mainpage-heading-title {
+      background: linear-gradient(
+        to right,
+        rgba(saturate(lighten(@accent-color, 4%), -3%), 0.4),
+        @surface0
+      ) !important;
     }
 
     .hidden-title {
@@ -434,8 +470,20 @@
       background-color: @blue !important;
     }
 
+    .wikitable {
+      background-color: @surface0 !important;
+      color: @text !important;
+      border-color: @surface2 !important;
+    }
+
     .wikitable > * > tr > th {
-      background-color: @surface1;
+      background-color: @surface1 !important;
+    }
+
+    .wikitable > * > tr > td,
+    .wikitable > * > tr > th {
+      background-color: @surface0 !important;
+      color: @text !important;
       border-color: @surface2;
     }
 
@@ -445,10 +493,6 @@
 
     .mw-search-result-data {
       color: @subtext0;
-    }
-
-    .wikitable > * > tr > td {
-      border-color: @surface2;
     }
 
     .navbox-abovebelow {
@@ -506,8 +550,15 @@
       }
     }
 
+    .mw-echo-ui-pageNotificationsOptionWidget.oo-ui-optionWidget-highlighted,
     .cdx-menu-item--enabled.cdx-menu-item--highlighted {
       background-color: fade(@accent-color, 20%);
+    }
+
+    .mw-echo-ui-sortedListWidget,
+    .mw-echo-ui-sortedListWidget-group,
+    .mw-echo-ui-subGroupListWidget-header {
+      border-color: @surface2;
     }
 
     .mw-mmv-post-image,
@@ -553,6 +604,10 @@
     .vector-menu-tabs .mw-list-item.new a,
     .mw-plusminus-neg {
       color: @red;
+    }
+
+    a.mw-selflink {
+      color: @text;
     }
 
     #searchInput {
@@ -646,7 +701,7 @@
     .vector-toc
       .vector-toc-level-1-active:not(.vector-toc-list-item-active)
       > .vector-toc-link {
-      color: @text;
+      color: @text !important;
     }
 
     .lang-list-active .lang-list-button {
@@ -666,13 +721,6 @@
     .infobox-header {
       background-color: @surface1 !important;
       color: @text !important;
-    }
-
-    .wikitable > * > tr > td,
-    .wikitable > * > tr > th {
-      background-color: @surface0;
-      color: @text;
-      border-color: @surface2;
     }
 
     td[style*="background-color"],
@@ -881,7 +929,7 @@
       border-top-color: @surface2;
       border-left-color: @surface2;
       border-right-color: @surface2;
-      & > figcaption {
+      > figcaption {
         background-color: @mantle !important;
         color: @text !important;
         border-bottom-color: @surface2;
@@ -973,6 +1021,15 @@
       background-color: @surface1 !important;
     }
 
+    .mw-parser-output .tracklist > tbody {
+      color: inherit;
+
+      > .tracklist-total-length * {
+        background-color: @overlay1;
+        color: @base;
+      }
+    }
+
     .mw-content-ltr
       > table:nth-child(20)
       > tbody:nth-child(1)
@@ -980,6 +1037,15 @@
       > td:nth-child(2) {
       border-color: @surface2 !important;
       background-color: @surface0 !important;
+    }
+
+    .noarticletext,
+    #noarticletext {
+      background-color: @base !important;
+    }
+
+    #sisterproject {
+      background-color: @mantle !important;
     }
 
     [style="color:#02a64f;line-height:initial"] {
@@ -1222,6 +1288,13 @@
       content: url("data:image/svg+xml,@{svg}");
     }
 
+    .vector-icon.mw-ui-icon-wikimedia-appearance {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.25 14.5a4.25 4.25 0 0 0 4.247-4.092c.3-.21.706-.21 1.006 0a4.25 4.25 0 0 0 8.431.59L19 11a1 1 0 1 0-.182-1.984 4.252 4.252 0 0 0-7.896-.615 2.9 2.9 0 0 0-1.844 0 4.25 4.25 0 0 0-7.896.615 1 1 0 1 0-.116 1.981A4.25 4.25 0 0 0 5.25 14.5m0-2a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5M17 10.25a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0" fill="@{text}"/></svg>'
+      );
+      content: url("data:image/svg+xml,@{svg}");
+    }
+
     .vector-feature-zebra-design-enabled
       .vector-dropdown
       .vector-dropdown-label:not(.cdx-button--icon-only)::after,
@@ -1270,11 +1343,15 @@
       background-image: url("data:image/svg+xml,@{svg}") !important;
     }
 
-    .mw-parser-output a.external[class="external text"][rel="nofollow"] {
+    .mw-parser-output a.external {
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="@{accent-color}" d="M6 1h5v5L8.86 3.85 4.7 8 4 7.3l4.15-4.16zM2 3h2v1H2v6h6V8h1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1"/></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    .plainlinks a.external {
+      background: none !important;
     }
 
     #mw-indicator-mw-helplink a {
@@ -1404,9 +1481,51 @@
       background-image: url("data:image/svg+xml,@{svg}");
     }
 
+    .vector-icon.mw-ui-icon-wikimedia-unStar {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M20 7h-7L10 .5 7 7H0l5.46 5.47-1.64 7 6.18-3.7 6.18 3.73-1.63-7z" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
     .oo-ui-image-progressive.oo-ui-icon-settings {
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20"><g fill="@{accent-color}"><g xmlns:xlink="http://www.w3.org/1999/xlink" transform="translate(10 10)"><path id="a" d="M1.5-10h-3l-1 6.5h5m0 7h-5l1 6.5h3"/><use xlink:href="#a" transform="rotate(45)"/><use xlink:href="#a" transform="rotate(90)"/><use xlink:href="#a" transform="rotate(135)"/></g><path d="M10 2.5a7.5 7.5 0 0 0 0 15 7.5 7.5 0 0 0 0-15v4a3.5 3.5 0 0 1 0 7 3.5 3.5 0 0 1 0-7"/></g></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    .oo-ui-icon-bell {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M16 7a5.38 5.38 0 0 0-4.46-4.85C11.6 1.46 11.53 0 10 0S8.4 1.46 8.46 2.15A5.38 5.38 0 0 0 4 7v6l-2 2v1h16v-1l-2-2zm-6 13a3 3 0 0 0 3-3H7a3 3 0 0 0 3 3" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    .oo-ui-icon-next {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M7 1 5.6 2.5 13 10l-7.4 7.5L7 19l9-9z" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    .oo-ui-icon-settings {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g transform="translate(10 10)" fill="@{text}"><path id="a" d="M1.5-10h-3l-1 6.5h5m0 7h-5l1 6.5h3"/><use transform="rotate(45)" href="#a" fill="@{text}"/><use transform="rotate(90)" href="#a" fill="@{text}"/><use transform="rotate(135)" href="#a" fill="@{text}"/></g><path d="M10 2.5a7.5 7.5 0 0 0 0 15 7.5 7.5 0 0 0 0-15v4a3.5 3.5 0 0 1 0 7 3.5 3.5 0 0 1 0-7" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    .oo-ui-icon-expand {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><title> expand </title><path d="m17.5 4.75-7.5 7.5-7.5-7.5L1 6.25l9 9 9-9z" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    .oo-ui-icon-tray {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M3 1a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm14 12h-4l-1 2H8l-1-2H3V3h14z" fill="@{text}"/></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}");
     }
@@ -1503,15 +1622,14 @@
       content: url("data:image/svg+xml,@{svg}");
     }
   }
-
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
-    }
-  }
 }
+
+/* prettier-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+}
+
+// vim:ft=less

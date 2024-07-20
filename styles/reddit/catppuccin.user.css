@@ -2,7 +2,7 @@
 @name Reddit Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/reddit
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/reddit
-@version 2.0.9
+@version 2.0.11
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/reddit/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Areddit
 @description Soothing pastel theme for Reddit
@@ -12,7 +12,7 @@
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
 @-moz-document domain("reddit.com") {
@@ -61,23 +61,36 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
     /* BETA */
     --color-pizzaRed: @red !important;
     --color-global-brand-orangered: @peach !important;
     --color-global-focus: @surface1 !important;
     --color-interactive-content-disabled: @subtext0 !important;
-    --color-interactive-background-disabled: @subtext0 !important;
-    --color-interactive-pressed: darken(@subtext0, 2) !important;
+    --color-interactive-background-disabled: fade(@surface2, 70%) !important;
+    --color-interactive-pressed: @surface2 !important;
     --color-neutral-content: @text !important;
     --color-neutral-content-disabled: @subtext0 !important;
     --color-neutral-content-weak: @subtext0 !important;
     --color-neutral-content-strong: @text !important;
-    --color-global-white: @text !important;
+    --color-global-white: @crust !important;
     --color-neutral-background: @base !important;
     --color-neutral-background-selected: @surface0 !important;
     --color-neutral-background-weak: @mantle !important;
     --color-neutral-background-medium: @base !important;
-    --color-neutral-background-strong: @mantle !important;
+    --color-neutral-background-strong: @crust !important;
     --color-neutral-background-hover: @surface0 !important;
     --color-neutral-border: @surface0 !important;
     --color-neutral-border-medium: @surface0 !important;
@@ -86,9 +99,9 @@
     --color-primary: @accent-color !important;
     --color-primary-hover: lighten(@accent-color, 10) !important;
     --color-primary-visited: @lavender !important;
-    --color-primary-background: @base !important;
-    --color-primary-background-hover: @surface0 !important;
-    --color-primary-background-selected: @surface0 !important;
+    --color-primary-background: @accent-color !important;
+    --color-primary-background-hover: darken(@accent-color, 5%) !important;
+    --color-primary-background-selected: darken(@accent-color, 5%) !important;
     --color-primary-onBackground: @base !important;
     --color-primary-onBackground-selected: @crust !important;
     --color-secondary: @subtext0 !important;
@@ -96,8 +109,8 @@
     --color-secondary-weak: @subtext0 !important;
     --color-secondary-onBackground: @text !important;
     --color-secondary-background: @mantle !important;
-    --color-secondary-background-hover: darken(@mantle, 2) !important;
-    --color-secondary-background-selected: darken(@mantle, 2) !important;
+    --color-secondary-background-hover: @surface1 !important;
+    --color-secondary-background-selected: @surface1 !important;
     --color-secondary-plain: @subtext0 !important;
     --color-secondary-plain-hover: @subtext1 !important;
     --color-danger-background: @red !important;
@@ -105,10 +118,11 @@
     --color-danger-background-hover: fadeout(@red, 2) !important;
     --color-danger-onBackground: @text !important;
     --color-danger-content: @red !important;
+    --color-danger-content-default: @crust;
     --color-danger-content-hover: darken(@red, 2) !important;
     --color-success-content: @green !important;
     --color-success-hover: darken(@green, 2) !important;
-    --color-success-onBackground: @text !important;
+    --color-success-onBackground: @crust;
     --color-success-background: @green !important;
     --color-success-background-hover: darken(@green, 2) !important;
     --color-warning-content: @yellow !important;
@@ -120,14 +134,14 @@
     --color-upvote-disabled: @subtext0 !important;
     --color-upvote-onBackground: @text !important;
     --color-upvote-background: @base !important;
-    --color-upvote-background-hover: @base !important;
+    --color-upvote-background-hover: darken(@accent-color, 5%) !important;
     --color-upvote-background-disabled: @base !important;
     --color-downvote-content: @text !important;
     --color-downvote-content-weak: @text !important;
     --color-downvote-disabled: @subtext0 !important;
     --color-downvote-onBackground: @text !important;
     --color-downvote-background: @base !important;
-    --color-downvote-background-hover: @base !important;
+    --color-downvote-background-hover: darken(@blue, 5%) !important;
     --color-downvote-background-disabled: @mantle !important;
     --color-tone-1: @text !important;
     --color-tone-2: @subtext0 !important;
@@ -142,10 +156,12 @@
     --color-online: @accent-color !important;
     --color-favorite: @accent-color !important;
     --color-brand-background: @accent-color !important;
-    --color-brand-background-hover: @accent-color !important;
+    --color-brand-background-hover: darken(@accent-color, 5%) !important;
     --color-global-orangered: @accent-color !important;
     --color-action-upvote: @accent-color !important;
+    --color-action-downvote: @blue;
 
+    --shreddit-color-wordmark: @accent-color;
     #reddit-logo {
       circle[fill="#FF4500"] {
         fill: @accent-color !important;
@@ -555,10 +571,6 @@
       --uploads-progress-bar: @accent-color !important;
       --videoModal-button-background: @text !important;
       --videoModal-button-color: @mantle !important;
-    }
-
-    ::placeholder {
-      color: @subtext0 !important;
     }
 
     /* site background */
@@ -1131,4 +1143,5 @@
   @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
   @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
 }
+
 // vim:ft=less

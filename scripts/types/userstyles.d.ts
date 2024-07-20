@@ -48,7 +48,7 @@ export type Category =
   | "wiki"
   | "window_manager";
 /**
- * The fill color for the icon on the Catppuccin website.
+ * The fill color for the icon on the Catppuccin website, which should match the color used by Simple Icons. If the icon does not exist in Simple Icons, choose the most suitable color from the branding.
  */
 export type Color =
   | "rosewater"
@@ -120,7 +120,7 @@ export type CurrentMaintainers = {
   [k: string]: unknown;
 }[];
 /**
- * List of all maintainers that have maintained on this userstyle in the past.
+ * List of all users that have maintained this userstyle in the past.
  *
  * @minItems 1
  */
@@ -176,6 +176,8 @@ export interface Userstyle {
   color: Color;
   icon?: Icon;
   readme: README;
+  "current-maintainers": CurrentMaintainers;
+  "past-maintainers"?: PastMaintainers;
 }
 /**
  * Options to help in the auto-generation of the userstyle README.
@@ -184,7 +186,5 @@ export interface README {
   "app-link": ApplicationLink;
   usage?: Usage;
   faq?: FAQ;
-  "current-maintainers": CurrentMaintainers;
-  "past-maintainers"?: PastMaintainers;
   [k: string]: unknown;
 }

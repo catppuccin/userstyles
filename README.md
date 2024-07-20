@@ -18,12 +18,10 @@
 </p>
 
 <p align="center">
-	<a href="https://github.com/catppuccin/userstyles/stargazers">
-		<img alt="Stargazers" src="https://img.shields.io/github/stars/catppuccin/userstyles?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41"></a>
-	<a href="https://http.cat/404">
-		<img alt="Discussions" src="https://img.shields.io/badge/Discussions-disabled-D9E0EE?style=for-the-badge&color=F2CDCD&labelColor=302D41&logo=data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Q2F0cHB1Y2NpbjwvdGl0bGU+PHBhdGggZD0iTTEyIDBBMTIgMTIgMCAwIDAgMCAxMmExMiAxMiAwIDAgMCA2LjMwMyAxMC40NzVjLjA1NC0uMzA5LjU1Ni0zLjE3Ny44MDItMy42NDEgMCAwLTUuOTQ0LTIuNzM1LTEuOTcyLTkuODYzIDAgMC0uOTUtMy43MjUtLjE3NC00LjQwMy43NzYtLjY3NyAzLjM4My45MjcgMy45MzYgMS42MTIgMCAwIDIuMDg0LS45ODMgNS4zNjUtLjIzIDAgMCAyLjI5Mi0yLjI4MSAzLjIxMy0xLjg4NC45Mi4zOTguNzIyIDMuNzAyLjYxOSAzLjk2IDAgMCA1LjYzIDUuMjMyLTEuMjQ2IDEwLjQzNyAwIDAgLjQ3NSAzLjA1OC40MzEgNC4xMjNBMTIgMTIgMCAwIDAgMjQgMTIgMTIgMTIgMCAwIDAgMTIgMFptNC4wMyA5LjFjLS44ODQgMC0xLjYuNjEtMS42IDEuMzYgMCAuMDMzIDAgLjA2NS4wMDQuMDk3YS4xNDguMTQ4IDAgMCAwIC4yNjQuMDgyYy4zMDUtLjM4Ljc5Ny0uNzEzIDEuMzUzLS43MTMuNTIgMCAuOTg1LjI5NyAxLjI5My42NDQuMDQ1LjA1MS4xMTcuMDcuMTgxLjA0NWEuMTY0LjE2NCAwIDAgMCAuMTA2LS4xNTRjMC0uNzUtLjcxOC0xLjM2MS0xLjYwMi0xLjM2MXptLTUuMjA2LjEyM2MtMS4wMSAwLTEuODMuNzExLTEuODMgMS41ODYgMCAuMDYuMDA0LjExOC4wMTIuMTc3YS4xNDcuMTQ3IDAgMCAwIC4yNjQuMDczYy4zNDYtLjQ0Ni45MjQtLjgxNSAxLjU3OC0uODE1LjU5IDAgMS4xMi4zMDcgMS40Ny42OTRhLjE5NC4xOTQgMCAwIDAgLjMzNi0uMTNjMC0uODc0LS44Mi0xLjU4NS0xLjgzLTEuNTg1em0yLjkzIDIuNTAyYy0uMDE0IDAtLjAyNS4wMS0uMDI1LjAyM3YuMDAybC4wMDEuMDAyLjAwMi0uMDAyYy4wMDUtLjAwNi4wMTUtLjAxLjAyNC0uMDEuMDA4IDAgLjAxNC4wMDUuMDIuMDFoLjAwM3YtLjAwMmMwLS4wMTItLjAxMS0uMDIzLS4wMjUtLjAyM3ptMS4yMjUuMjQ2LTEuODAxLjE2YS4xMDcuMTA3IDAgMCAwLS4wNTUuMTkzbDEuMDQxLjc2OGEuMTguMTggMCAwIDAgLjI0NC0uMDNsLjcwNS0uODMyYS4xNTguMTU4IDAgMCAwLS4xMzUtLjI2em0uOTIgMS4zMzRjLS41MDQuODY2LTEuNDU4LjI3LTEuNDU4LjI3LS42NzQgMS4wNzktMS45MTYuMzEyLTEuOTE2LjMxMi43NjggMS40NjUgMi4wMTIuMzYzIDIuMDEyLjM2MyAxLjMyNS4zNzcgMS4zNjEtLjk0NSAxLjM2MS0uOTQ1em0tMy4zODcgNS40NDFjLS40NTggMS4zODEuMzE4IDIuMjU0LjMxOCAyLjI1NC43MTYuMDAyIDEuMzYxLS44ODUgMS4zNjEtLjg4NS4xLjExMS45MDguNDA5IDEuMDcuNDE2LjE2My4wMDguMjQ2LTEuNi0uMDgxLTEuNzA3LS4zMjctLjEwNi0xLjA1Ny42NDctMS4wNTcuNjQ3LS4zOC0uMzkzLTEuNjExLS43MjUtMS42MTEtLjcyNXoiIGZpbGw9IiNjZGQ2ZjQiLz48L3N2Zz4K"/></a>
-	<a href="https://github.com/catppuccin/userstyles/issues">
-		<img alt="Issues" src="https://img.shields.io/github/issues/catppuccin/userstyles?style=for-the-badge&logo=gitbook&color=B5E8E0&logoColor=D9E0EE&labelColor=302D41"></a>
+	<a href="https://github.com/catppuccin/userstyles/stargazers"><img src="https://img.shields.io/github/stars/catppuccin/userstyles?colorA=363a4f&colorB=b7bdf8&style=for-the-badge"></a>
+  <a href="https://github.com/catppuccin/userstyles/blob/main/styles"><img src="https://img.shields.io/github/directory-file-count/catppuccin/userstyles/styles?label=Userstyles&colorA=363a4f&colorB=cba6f7&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/blob/main/.github/CODEOWNERS"><img src="https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fcatppuccin%2Fuserstyles%2Fmain%2Fscripts%2Fuserstyles.yml&query=%24.collaborators.length&label=Maintainers&colorA=363a4f&colorB=a6da95&style=for-the-badge"></a>
+  <a href="https://http.cat/404"><img src="https://img.shields.io/badge/Discussions-disabled-cad3f5?&colorA=363a4f&colorB=f0c6c6&style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+Q2F0cHB1Y2NpbjwvdGl0bGU+PHBhdGggZD0iTTEyIDBBMTIgMTIgMCAwIDAgMCAxMmExMiAxMiAwIDAgMCA2LjMwMyAxMC40NzVjLjA1NC0uMzA5LjU1Ni0zLjE3Ny44MDItMy42NDEgMCAwLTUuOTQ0LTIuNzM1LTEuOTcyLTkuODYzIDAgMC0uOTUtMy43MjUtLjE3NC00LjQwMy43NzYtLjY3NyAzLjM4My45MjcgMy45MzYgMS42MTIgMCAwIDIuMDg0LS45ODMgNS4zNjUtLjIzIDAgMCAyLjI5Mi0yLjI4MSAzLjIxMy0xLjg4NC45Mi4zOTguNzIyIDMuNzAyLjYxOSAzLjk2IDAgMCA1LjYzIDUuMjMyLTEuMjQ2IDEwLjQzNyAwIDAgLjQ3NSAzLjA1OC40MzEgNC4xMjNBMTIgMTIgMCAwIDAgMjQgMTIgMTIgMTIgMCAwIDAgMTIgMFptNC4wMyA5LjFjLS44ODQgMC0xLjYuNjEtMS42IDEuMzYgMCAuMDMzIDAgLjA2NS4wMDQuMDk3YS4xNDguMTQ4IDAgMCAwIC4yNjQuMDgyYy4zMDUtLjM4Ljc5Ny0uNzEzIDEuMzUzLS43MTMuNTIgMCAuOTg1LjI5NyAxLjI5My42NDQuMDQ1LjA1MS4xMTcuMDcuMTgxLjA0NWEuMTY0LjE2NCAwIDAgMCAuMTA2LS4xNTRjMC0uNzUtLjcxOC0xLjM2MS0xLjYwMi0xLjM2MXptLTUuMjA2LjEyM2MtMS4wMSAwLTEuODMuNzExLTEuODMgMS41ODYgMCAuMDYuMDA0LjExOC4wMTIuMTc3YS4xNDcuMTQ3IDAgMCAwIC4yNjQuMDczYy4zNDYtLjQ0Ni45MjQtLjgxNSAxLjU3OC0uODE1LjU5IDAgMS4xMi4zMDcgMS40Ny42OTRhLjE5NC4xOTQgMCAwIDAgLjMzNi0uMTNjMC0uODc0LS44Mi0xLjU4NS0xLjgzLTEuNTg1em0yLjkzIDIuNTAyYy0uMDE0IDAtLjAyNS4wMS0uMDI1LjAyM3YuMDAybC4wMDEuMDAyLjAwMi0uMDAyYy4wMDUtLjAwNi4wMTUtLjAxLjAyNC0uMDEuMDA4IDAgLjAxNC4wMDUuMDIuMDFoLjAwM3YtLjAwMmMwLS4wMTItLjAxMS0uMDIzLS4wMjUtLjAyM3ptMS4yMjUuMjQ2LTEuODAxLjE2YS4xMDcuMTA3IDAgMCAwLS4wNTUuMTkzbDEuMDQxLjc2OGEuMTguMTggMCAwIDAgLjI0NC0uMDNsLjcwNS0uODMyYS4xNTguMTU4IDAgMCAwLS4xMzUtLjI2em0uOTIgMS4zMzRjLS41MDQuODY2LTEuNDU4LjI3LTEuNDU4LjI3LS42NzQgMS4wNzktMS45MTYuMzEyLTEuOTE2LjMxMi43NjggMS40NjUgMi4wMTIuMzYzIDIuMDEyLjM2MyAxLjMyNS4zNzcgMS4zNjEtLjk0NSAxLjM2MS0uOTQ1em0tMy4zODcgNS40NDFjLS40NTggMS4zODEuMzE4IDIuMjU0LjMxOCAyLjI1NC43MTYuMDAyIDEuMzYxLS44ODUgMS4zNjEtLjg4NS4xLjExMS45MDguNDA5IDEuMDcuNDE2LjE2My4wMDguMjQ2LTEuNi0uMDgxLTEuNzA3LS4zMjctLjEwNi0xLjA1Ny42NDctMS4wNTcuNjQ3LS4zOC0uMzkzLTEuNjExLS43MjUtMS42MTEtLjcyNXoiIGZpbGw9IiNjYWQzZjUiLz48L3N2Zz4="/></a>
 </p>
 
 <p align="center">
@@ -40,30 +38,38 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 ## 🖥️ Install
 
-Install [Stylus](https://github.com/openstyles/stylus) for your chosen browser.
+Install [Stylus](https://github.com/openstyles/stylus) for your browser by clicking one of the badges below.
 
-- [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)
-- [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
+<p align="center">
+  <a href="https://addons.mozilla.org/en-GB/firefox/addon/styl-us/"><img src="https://img.shields.io/badge/Firefox_Add--ons-f5a97f?style=for-the-badge&logo=Firefox-Browser&logoColor=24273a"></a>
+  <a href="https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne"><img src="https://img.shields.io/badge/Chrome_Web_Store-b7bdf8?style=for-the-badge&logo=GoogleChrome&logoColor=24273a"></a>
+</p>
 
-### All Userstyles
+> [!TIP]
+> If you use Chrome, make sure to enable "Allow access to file URLs" in the Stylus extension settings.
+
+### All Userstyles (recommended)
 
 See instructions on the [GitHub release page](https://github.com/catppuccin/userstyles/releases/tag/all-userstyles-export).
 
 ### Individual Userstyles
 
-1. Enable CSP Patching from `Stylus Settings` > `Advanced`.
-2. Install the theme:
-   - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
-   - Replacing `<name>` with the name of the userstyle.
+1. Enable CSP Patching from Stylus's **Settings** > **Advanced**.
+2. Install userstyles by clicking the **Stylus Install** badge in each README.
 3. Enjoy!
 
-> [!TIP]
-> For decentralized or self-hosted applications, you can apply a theme to one or multiple instances across updates by following the instructions below.
->
-> 1. Open the Stylus "Manage" page.
-> 2. Click on the userstyle's name in the list.
-> 3. Click on **Style settings** in the left panel.
-> 4. Enter the URL patterns for your instance(s) in the text box labeled **Custom included sites**.
+## Usage
+
+All usertyles come with three default configuration options; the light flavor, the dark flavor, and the accent color. Some userstyles may offer additional site-specific options as well.
+
+### Decentralized/self-hosted applications
+
+For decentralized or self-hosted applications, you can apply a theme to one or multiple instances across updates by following the instructions below.
+
+1. Open the Stylus "Manage" page.
+2. Click on the userstyle's name in the list.
+3. Click on **Style settings** in the left panel.
+4. Enter the URL patterns for your instance(s) in the text box labeled **Custom included sites**. For example, to apply a userstyle to `example.org`, you would add a line with `https://example.org/*` to the textbox. The trailing asterisk applies it to all pages on the domain - without it, only the root page is themed.
 
 &nbsp;
 
@@ -91,17 +97,30 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [boringproxy](styles/boringproxy)
 - [Codeberg](styles/codeberg)
+- [crates.io](styles/crates.io)
+- [docs.rs](styles/docs.rs)
+- [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
+- [go.dev](styles/go.dev)
 - [Graphite](styles/graphite)
-- 🚧 [Hackage](styles/hackage)
+- [Hackage](styles/hackage)
+- [Home Manager Options Search](styles/home-manager-options-search)
 - [Hoppscotch](styles/hoppscotch)
+- [Keyoxide](styles/keyoxide)
 - [MDN](styles/mdn)
-- [Next.js](styles/nextjs)
 - [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
+- [Stack Overflow](styles/stack-overflow)
 - [Trinket](styles/trinket)
-- [Vercel](styles/vercel)
+- [Vercel, Next.js](styles/vercel)
+- [web.dev](styles/web.dev)
+
+</details>
+<details open>
+<summary>🧩 Browser Extensions</summary>
+
+- [Shinigami Eyes](styles/shinigami-eyes)
 
 </details>
 <details open>
@@ -128,7 +147,8 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🧠 Wikis</summary>
 
-- [Arch Wiki](styles/arch-wiki)
+- 🚧 [Arch Wiki](styles/arch-wiki)
+- [mdBook](styles/mdbook)
 - 🚧 [NixOS Wiki](styles/nixos.wiki)
 - [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
@@ -144,18 +164,22 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🎵 Music</summary>
 
-- 🚧 [Hyperpipe](styles/hyperpipe)
+- [Hyperpipe](styles/hyperpipe)
 - [Last.fm](styles/lastfm)
+- [ListenBrainz](styles/listenbrainz)
 - [Spotify Web](styles/spotify-web)
 
 </details>
 <details open>
 <summary>📖 Productivity</summary>
 
+- [cobalt](styles/cobalt)
+- [Google Drive](styles/google-drive)
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
 - [Microsoft Word](styles/microsoft-word)
 - [openmediavault](styles/openmediavault)
+- [Porkbun](styles/porkbun)
 - [Proton](styles/proton)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
@@ -174,7 +198,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🎓 Education</summary>
 
-- [Canvas LMS](styles/canvas-lms)
+- 🚧 [Canvas LMS](styles/canvas-lms)
 - [Formative](styles/formative)
 - [Quizlet](styles/quizlet)
 
@@ -183,12 +207,13 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>✨ Social Networking</summary>
 
 - [Bluesky Social](styles/bsky)
-- 🚧 [Cinny](styles/cinny)
+- [Cinny](styles/cinny)
 - [Elk](styles/elk)
 - [Instagram](styles/instagram)
 - [LinkedIn](styles/linkedin)
-- [Mastodon](styles/mastodon)
+- 🚧 [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
+- [Phanpy](styles/phanpy)
 - [Pronouns.page](styles/pronouns.page)
 - [Snapchat Web](styles/snapchat-web)
 - [Twitter](styles/twitter)
@@ -200,7 +225,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Hacker News](styles/hacker-news)
 - [Lemmy](styles/lemmy)
-- [Libreddit, Redlib](styles/libreddit)
+- 🚧 [Libreddit, Redlib](styles/libreddit)
 - 🚧 [Reddit](styles/reddit)
 - [TabNews](styles/tabnews)
 
@@ -223,7 +248,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Advent Of Code](styles/advent-of-code)
 - [bStats](styles/bstats)
-- [Chess.com](styles/chess.com)
+- 🚧 [Chess.com](styles/chess.com)
 - [Lichess](styles/lichess)
 - [Minesweeper Online](styles/minesweeper)
 - [Modrinth](styles/modrinth)
@@ -234,6 +259,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🤖 Artificial Intelligence</summary>
 
 - [ChatGPT](styles/chatgpt)
+- [Google Gemini](styles/google-gemini)
 - [InvokeAI](styles/invokeai)
 - [Perplexity](styles/perplexity)
 
