@@ -38,30 +38,38 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 ## 🖥️ Install
 
-Install [Stylus](https://github.com/openstyles/stylus) for your chosen browser.
+Install [Stylus](https://github.com/openstyles/stylus) for your browser by clicking one of the badges below.
 
-- [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/)
-- [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
+<p align="center">
+  <a href="https://addons.mozilla.org/en-GB/firefox/addon/styl-us/"><img src="https://img.shields.io/badge/Firefox_Add--ons-f5a97f?style=for-the-badge&logo=Firefox-Browser&logoColor=24273a"></a>
+  <a href="https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne"><img src="https://img.shields.io/badge/Chrome_Web_Store-b7bdf8?style=for-the-badge&logo=GoogleChrome&logoColor=24273a"></a>
+</p>
 
-### All Userstyles
+> [!TIP]
+> If you use Chrome, make sure to enable "Allow access to file URLs" in the Stylus extension settings.
+
+### All Userstyles (recommended)
 
 See instructions on the [GitHub release page](https://github.com/catppuccin/userstyles/releases/tag/all-userstyles-export).
 
 ### Individual Userstyles
 
-1. Enable CSP Patching from `Stylus Settings` > `Advanced`.
-2. Install the theme:
-   - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
-   - Replacing `<name>` with the name of the userstyle.
+1. Enable CSP Patching from Stylus's **Settings** > **Advanced**.
+2. Install userstyles by clicking the **Stylus Install** badge in each README.
 3. Enjoy!
 
-> [!TIP]
-> For decentralized or self-hosted applications, you can apply a theme to one or multiple instances across updates by following the instructions below.
->
-> 1. Open the Stylus "Manage" page.
-> 2. Click on the userstyle's name in the list.
-> 3. Click on **Style settings** in the left panel.
-> 4. Enter the URL patterns for your instance(s) in the text box labeled **Custom included sites**.
+## Usage
+
+All usertyles come with three default configuration options; the light flavor, the dark flavor, and the accent color. Some userstyles may offer additional site-specific options as well.
+
+### Decentralized/self-hosted applications
+
+For decentralized or self-hosted applications, you can apply a theme to one or multiple instances across updates by following the instructions below.
+
+1. Open the Stylus "Manage" page.
+2. Click on the userstyle's name in the list.
+3. Click on **Style settings** in the left panel.
+4. Enter the URL patterns for your instance(s) in the text box labeled **Custom included sites**. For example, to apply a userstyle to `example.org`, you would add a line with `https://example.org/*` to the textbox. The trailing asterisk applies it to all pages on the domain - without it, only the root page is themed.
 
 &nbsp;
 
@@ -89,17 +97,30 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [boringproxy](styles/boringproxy)
 - [Codeberg](styles/codeberg)
+- [crates.io](styles/crates.io)
+- [docs.rs](styles/docs.rs)
+- [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
+- [go.dev](styles/go.dev)
 - [Graphite](styles/graphite)
-- 🚧 [Hackage](styles/hackage)
+- [Hackage](styles/hackage)
+- [Home Manager Options Search](styles/home-manager-options-search)
 - [Hoppscotch](styles/hoppscotch)
+- [Keyoxide](styles/keyoxide)
 - [MDN](styles/mdn)
-- [Next.js](styles/nextjs)
 - [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
+- [Stack Overflow](styles/stack-overflow)
 - [Trinket](styles/trinket)
-- [Vercel](styles/vercel)
+- [Vercel, Next.js](styles/vercel)
+- [web.dev](styles/web.dev)
+
+</details>
+<details open>
+<summary>🧩 Browser Extensions</summary>
+
+- [Shinigami Eyes](styles/shinigami-eyes)
 
 </details>
 <details open>
@@ -126,7 +147,8 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🧠 Wikis</summary>
 
-- [Arch Wiki](styles/arch-wiki)
+- 🚧 [Arch Wiki](styles/arch-wiki)
+- [mdBook](styles/mdbook)
 - 🚧 [NixOS Wiki](styles/nixos.wiki)
 - [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
@@ -142,18 +164,22 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🎵 Music</summary>
 
-- 🚧 [Hyperpipe](styles/hyperpipe)
+- [Hyperpipe](styles/hyperpipe)
 - [Last.fm](styles/lastfm)
+- [ListenBrainz](styles/listenbrainz)
 - [Spotify Web](styles/spotify-web)
 
 </details>
 <details open>
 <summary>📖 Productivity</summary>
 
+- [cobalt](styles/cobalt)
+- [Google Drive](styles/google-drive)
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
 - [Microsoft Word](styles/microsoft-word)
 - [openmediavault](styles/openmediavault)
+- [Porkbun](styles/porkbun)
 - [Proton](styles/proton)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
@@ -163,7 +189,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>💌 Email Clients</summary>
 
-- 🚧 [Gmail](styles/gmail)
+- [Gmail](styles/gmail)
 - [Migadu Webmail](styles/migadu-webmail)
 - [Skiff](styles/skiff)
 - [Tuta](styles/tuta)
@@ -172,7 +198,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🎓 Education</summary>
 
-- [Canvas LMS](styles/canvas-lms)
+- 🚧 [Canvas LMS](styles/canvas-lms)
 - [Formative](styles/formative)
 - [Quizlet](styles/quizlet)
 
@@ -181,12 +207,13 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>✨ Social Networking</summary>
 
 - [Bluesky Social](styles/bsky)
-- 🚧 [Cinny](styles/cinny)
+- [Cinny](styles/cinny)
 - [Elk](styles/elk)
 - [Instagram](styles/instagram)
 - [LinkedIn](styles/linkedin)
-- [Mastodon](styles/mastodon)
+- 🚧 [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
+- [Phanpy](styles/phanpy)
 - [Pronouns.page](styles/pronouns.page)
 - [Snapchat Web](styles/snapchat-web)
 - [Twitter](styles/twitter)
@@ -221,7 +248,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Advent Of Code](styles/advent-of-code)
 - [bStats](styles/bstats)
-- [Chess.com](styles/chess.com)
+- 🚧 [Chess.com](styles/chess.com)
 - [Lichess](styles/lichess)
 - [Minesweeper Online](styles/minesweeper)
 - [Modrinth](styles/modrinth)
@@ -232,6 +259,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🤖 Artificial Intelligence</summary>
 
 - [ChatGPT](styles/chatgpt)
+- [Google Gemini](styles/google-gemini)
 - [InvokeAI](styles/invokeai)
 - [Perplexity](styles/perplexity)
 

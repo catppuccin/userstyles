@@ -12,11 +12,12 @@
 
 <!--toc:start-->
 
-- [Requesting Userstyles](#requesting-userstyles)
-- [Creating Userstyles](#creating-userstyles)
+- [Requesting userstyles](#requesting-userstyles)
+- [Creating userstyles](#creating-userstyles)
+
 <!--toc:end-->
 
-### Requesting Userstyles
+### Requesting userstyles
 
 To request a website to be themed, please create a [Port Request](https://github.com/catppuccin/catppuccin/discussions/new?category=port-requests) discussion on [catppuccin/catppuccin](https://github.com/catppuccin/catppuccin). While this may seem odd, this ensures to keep all of our requests in one place and makes it easier for all people to request what they want without needing to learn what "Stylus" exactly is.
 
@@ -25,9 +26,9 @@ To request a website to be themed, please create a [Port Request](https://github
 
 &nbsp;
 
-### Creating Userstyles
+### Creating userstyles
 
-To create a userstyle, follow the instructions listed below:
+To create a userstyle, follow the instructions below. If you run into any difficulties or have any questions, please check our [Tips and tricks](./tips-and-tricks.md) page first.
 
 1. Fork this repository.
 2. Create a new branch under the name `feat/<name-of-website>`, (e.g.

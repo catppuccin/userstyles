@@ -4,7 +4,7 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-  Catppuccin for <a href="https://vercel.com">Vercel</a>
+  Catppuccin for <a href="https://vercel.com">Vercel</a>, <a href="https://nextjs.org">Next.js</a>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
@@ -17,10 +17,15 @@
   <img src="preview.webp"/>
 </p>
 
+## Usage
+> [!NOTE]
+> This theme also applies to the [Next.js](https://nextjs.org/) website.
 
 
-## 💝 Current Maintainer
+
+## 💝 Current Maintainers
 - [Ryan Cao](https://github.com/ryanccn)
+- [Dandraghas](https://github.com/Dandraghas)
 
 
 &nbsp;

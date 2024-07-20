@@ -1,5 +1,5 @@
-import { sprintf } from "std/fmt/printf.ts";
-import * as color from "std/fmt/colors.ts";
+import { sprintf } from "@std/fmt/printf";
+import * as color from "@std/fmt/colors";
 import core from "@actions/core";
 
 export type LoggerProps = core.AnnotationProperties & { content?: string };
