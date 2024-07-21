@@ -79,8 +79,21 @@
     }
     scrollbar-color: @surface2 @surface0;
 
+    table {
+      border-color: @surface2;
+    }
+    table[style*="border-color: #000000"] {
+      border-color: @surface2 !important;
+    }
+    thead th {
+      border-color: @surface2;
+    }
+    tbody tr,
+    tbody td {
+      border-color: @surface1;
+    }
+
     strong, em, p, span {
-      color: @text;
       /* for highlighted text in user-created content, revert to regular-ish text color */
       &[style~="background-color:"]:not([style~="color:"]) {
         color: black;
@@ -111,6 +124,7 @@
     --ic-brand-global-nav-ic-icon-svg-fill: @text;
     --ic-brand-global-nav-ic-icon-svg-fill--active: @accent-color;
     --ic-brand-global-nav-menu-item__text-color--active: @accent-color;
+    --ic-brand-global-nav-menu-item__badge-bgd: @accent-color;
     --ic-brand-button--primary-bgd-darkened-15: fadeout(@accent-color, 15%);
     --ic-brand-font-color-dark-lightened-28: fadeout(@text, 28%);
     --eMdva-color: @base;
@@ -171,6 +185,8 @@
     [data-testid="compose-modal-desktop"] button[class$="baseButton"]:not([data-testid="send-button"]),
     #immersive_reader_mount_point button,
     .ColorPicker__Actions button[class$="baseButton"]:not([id$="Apply"]),
+    /* currently needs both selectors because inbox read badges have a similar class name */
+    button[data-testid$="utton"][class$="utton"],
     .Button {
       &:hover {
         background-color: mix(@overlay2, @surface0, 10%);
@@ -179,12 +195,16 @@
       color: @text;
       background-color: @surface0;
       border-color: @surface1;
+
+      path[fill="#000000"] {
+        fill: @text;
+      }
       * {
-        path[fill="#000000"] {
-          fill: @text;
-        }
         background-color: transparent;
         border-color: @surface1;
+      }
+      span[class$="baseButton__content"] {
+        color: @text;
       }
     }
     /* checkboxes */
@@ -487,12 +507,6 @@
 
 
     /* COURSES */
-    thead th {
-      border-color: @surface2;
-    }
-    tbody td {
-      border-color: @surface1;
-    }
     .course-list-favorite-course .icon-star::before {
       color: @peach;
     }
