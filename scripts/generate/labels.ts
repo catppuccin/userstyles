@@ -1,9 +1,9 @@
-import { join } from "std/path/mod.ts";
+import { join } from "@std/path";
 
 import { REPO_ROOT } from "@/deps.ts";
 import { updateFile } from "@/generate/utils.ts";
 import { UserStylesSchema } from "@/types/mod.ts";
-import { stringify } from "std/yaml/stringify.ts";
+import { stringify } from "@std/yaml";
 import { type ColorName, flavors } from "@catppuccin/palette";
 
 /**
