@@ -63,15 +63,17 @@
     --ic-link-color: @blue;
     --ic-link-color-darkened-10: fadeout(@blue, 10%);
     --ic-brand-global-nav-avatar-border: @accent-color;
-    --ic-brand-font-color-dark: fadeout(@text, 10%);
+    --ic-brand-font-color-dark: @text;
+    --ic-brand-font-color-dark-lightened-28: fadeout(@text, 28%);
     --ic-brand-primary: @accent-color;
     --ic-brand-global-nav-bgd: @crust;
     --ic-brand-global-nav-ic-icon-svg-fill: @text;
     --ic-brand-global-nav-ic-icon-svg-fill--active: @accent-color;
     --ic-brand-global-nav-menu-item__text-color--active: @accent-color;
     --ic-brand-global-nav-menu-item__badge-bgd: @accent-color;
-    --ic-brand-button--primary-bgd-darkened-15: fadeout(@accent-color, 15%);
-    --ic-brand-font-color-dark-lightened-28: fadeout(@text, 28%);
+    --ic-brand-button--primary-bgd-darkened-5: darken(@accent-color, 5%);
+    --ic-brand-button--primary-bgd-darkened-15: darken(@accent-color, 15%);
+    --ic-brand-button--primary-text: @base;
     --eMdva-color: @base;
     --ccWIh-color: @crust;
 
@@ -80,7 +82,6 @@
     #footer,
     body {
       border-color: @surface1;
-      color: @text;
       background-color: @base;
     }
     hr {
@@ -91,7 +92,7 @@
       border-color: @surface2;
     }
     img {
-      &:not([src^="/"]) {
+      &:not([src^="/"], [src*="cloudfront.net/dist"]) {
         background-color: #fffd;
       }
     }
@@ -133,7 +134,8 @@
     .css-ivjxx5-view-link,
     a[class$="link"],
     button[class$="link"],
-    a > span {
+    a > span,
+    a.external span {
       color: @blue;
     }
     /* fullscreen background for modal popups */
@@ -182,37 +184,74 @@
     }
 
     /* buttons */
-    /* buttons that are filled in */
-    #grades_summary a.toggle_comments_link,
-    #grades_summary a.toggle_rubric_assessments_link,
+
+    /* filled-in buttons */
+    /* easiest to rely on this auto-generated class because */
+    /* other buttons with different styles have the same structure but slightly different hash */
+    .css-1rpus1y-baseButton__content {
+      background-color: @surface0;
+    }
     [data-testid="compose-modal-desktop"]
       button[class$="baseButton"]:not([data-testid="send-button"]),
     #immersive_reader_mount_point button,
     .ColorPicker__Actions button[class$="baseButton"]:not([id$="Apply"]),
+    #grades_summary a.toggle_comments_link,
+    #grades_summary a.toggle_rubric_assessments_link,
     .ui-button,
     .btn,
-    .Button {
+    .Button,
+    button[data-testid="address-button"],
+    button:has(.css-1rpus1y-baseButton__content) {
       &:hover {
         background-color: mix(@overlay2, @surface0, 10%);
+        > [class$="-baseButton__content"] {
+          background-color: mix(@overlay2, @surface0, 10%);
+        }
         color: @text;
       }
       color: @text;
       background-color: @surface0;
       border-color: @surface1;
-
       path[fill="#000000"] {
         fill: @text;
       }
-      * {
-        background-color: transparent;
+      > [class$="-baseButton__content"] {
+        background-color: @surface0;
         border-color: @surface1;
       }
-      span[class$="baseButton__content"] {
-        color: @text;
+    }
+
+    /* button variants, ripped from canvas css */
+    .btn-primary,
+    .Button--primary {
+      background: var(--ic-brand-button--primary-bgd);
+      color: var(--ic-brand-button--primary-text);
+      border-color: var(--ic-brand-button--primary-bgd-darkened-15);
+      &:focus {
+        color: var(--ic-brand-button--primary-text);
+      }
+      &:hover {
+        background: var(--ic-brand-button--primary-bgd-darkened-5);
+        color: var(--ic-brand-button--primary-text);
+      }
+      &:hover.ui-state-hover {
+        background: var(--ic-brand-button--primary-bgd-darkened-5);
+        color: var(--ic-brand-button--primary-text);
+        border-color: var(--ic-brand-button--primary-bgd-darkened-15);
       }
     }
-    /* buttons that are not filled in */
 
+    .btn-link,
+    .Button--link {
+      border-color: transparent;
+      background-color: transparent;
+      color: var(--ic-link-color);
+
+      &:hover {
+        color: var(--ic-link-color-darkened-10);
+        background: transparent;
+      }
+    }
     /* checkboxes */
     input:not(:checked) + label span[class$="checkboxFacade__facade"] {
       background-color: @surface0;
@@ -464,8 +503,12 @@
 
     /* icons */
     svg[name="IconBookmark"],
+    svg[name="IconAssignment"],
     .icon-check {
       color: @green !important;
+    }
+    .context_module .icon-minimize {
+      color: @red !important;
     }
 
     .ally-prominent-af-download-button {
@@ -491,7 +534,6 @@
       background-color: @base;
     }
     .item-group-condensed > * {
-      color: @text;
       background-color: @surface0;
     }
     .content,
@@ -499,8 +541,8 @@
       background-color: @base;
     }
     .ig-header {
-      .ig-header-title button,
       .name {
+        text-shadow: 1px 1px 0 rgba(@text, 0.5);
         color: @text;
       }
     }
@@ -1046,6 +1088,10 @@
     }
     .ic-unread-badge span {
       color: @base;
+    }
+    .ic-unread-badge__total-count {
+      color: @text;
+      background-color: mix(@accent-color, @text, 20%);
     }
 
     /* new discussion redesign */
