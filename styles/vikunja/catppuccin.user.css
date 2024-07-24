@@ -14,7 +14,7 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
-@-moz-document domain('vikunja.guaxinim.online') {
+@-moz-document domain('try.vikunja.io') {
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -43,9 +43,19 @@
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
-
+    
+    #hslbreakdown(@color, @item) {
+      --@{item}-h: hue(@color) !important;
+      --@{item}-s: saturation(@color) !important;
+      --@{item}-l: lightness(@color) !important;
+      --@{item}-light-l: lightness(@color) !important;
+      --@{item}-dark-l: lightness(@color) !important;
+      --@{item}-invert-l: lightness(@color) !important;
+    }
+    
     color-scheme: if(@lookup = latte, light, dark);
     
+    #hslbreakdown(@accent-color, primary);
     --site-background: @base;
     --content-heading-color: @text;
     --card-header-color: @text;
@@ -68,6 +78,9 @@
     --success: @green;
     --danger: @red;
     --warning: @yellow;
+    --text: @text;
+    --text-strong: @text;
+    --button-text-hover-background-color: @base;
 
     body,
     div#app,
@@ -83,8 +96,11 @@
     }
     
     svg.logo,
-    h1 {
-      color: @text;
+    h1,
+    .action-heading,
+    .subtitle a,
+    .project-menu-title {
+      color: @text !important;
     }
     
     h1.title.task-id,
@@ -101,26 +117,39 @@
       color: @red !important;
       background: none;
       
-      &:hover,
-      &:active {
+      &:hover {
         background: @red !important;
+        color: @surface0 !important;
+      }
+      
+      &:active {
+        background: darken(@red, 10%) !important;
         color: @surface0 !important;
       }
     }
     
     button.is-success {
       color: @green;
+      
       &:hover {
         background: @green !important;
         color: @surface0 !important;
+      }
+      
+      &:active {
+        background: darken(@green, 10%) !important;
       }
     }
     
     .base-button.is-primary {      
       color: @base;
-      &:active,
+      
       &:hover {
         background: @accent-color;
+      }
+      
+      &:active {
+        background: darken(@accent-color, 10%);
       }
     }
     
@@ -129,7 +158,9 @@
     }
     
     div.action-buttons > button:hover,
-    button.search-result-button:hover {
+    button.search-result-button:hover,
+    .button.is-text:active,
+    .single-task:hover {
       background: @mantle;
     }
     
@@ -156,6 +187,10 @@
     
     a.base-button.menu-bottom-link {
       color: @overlay0;
+      
+      &:hover {
+        color: @overlay2;
+      }
     }
     
     div.is-done {
@@ -171,6 +206,11 @@
     
     p.created {
       color: @overlay0;
+    }
+
+    .progress-bar {
+      --progress-bar-background-color: @crust;
+      --progress-value-background-color: @accent-color;
     }
     
     /* Gantt */
@@ -246,6 +286,12 @@
     
     div.v-popper__arrow-outer {
       border-color: @mantle;
+    }
+    
+    .modal-mask {
+      span, p, strong {
+        color: @text !important;
+      }
     }
     
     /* Vue Notifications */
