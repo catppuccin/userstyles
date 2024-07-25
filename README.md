@@ -182,6 +182,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [openmediavault](styles/openmediavault)
 - [Porkbun](styles/porkbun)
 - [Proton](styles/proton)
+- [Raindrop](styles/raindrop)
 - [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
 - [tldraw](styles/tldraw)
