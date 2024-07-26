@@ -121,6 +121,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🧩 Browser Extensions</summary>
 
 - [Shinigami Eyes](styles/shinigami-eyes)
+- [Stylus](styles/stylus)
 
 </details>
 <details open>
@@ -183,7 +184,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Porkbun](styles/porkbun)
 - [Proton](styles/proton)
 - [Raindrop](styles/raindrop)
-- [Stylus](styles/stylus)
 - [Syncthing](styles/syncthing)
 - [tldraw](styles/tldraw)
 
