@@ -1,4 +1,4 @@
-import { join } from "std/path/mod.ts";
+import { join } from "@std/path";
 import Handlebars from "handlebars";
 
 import { REPO_ROOT } from "@/deps.ts";
@@ -52,13 +52,15 @@ export const generateMainReadme = async (
       return {
         emoji: meta.emoji,
         name: meta.name,
-        ports: ports.map(({ name, path, "current-maintainers": currentMaintainers }) => {
-          return {
-            name: [name].flat(),
-            maintained: currentMaintainers.length > 0,
-            path,
-          };
-        }),
+        ports: ports.map(
+          ({ name, path, "current-maintainers": currentMaintainers }) => {
+            return {
+              name: [name].flat(),
+              maintained: currentMaintainers.length > 0,
+              path,
+            };
+          },
+        ),
       };
     }),
   });

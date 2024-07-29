@@ -1,11 +1,11 @@
 /* ==UserStyle==
-@name Tuta Catppuccin
-@namespace github.com/catppuccin/userstyles/styles/tuta
-@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/tuta
-@version 0.0.8
-@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/tuta/catppuccin.user.css
-@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Atuta
-@description Soothing pastel theme for Tuta
+@name Raindrop Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/raindrop
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/raindrop
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/raindrop/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Araindrop
+@description Soothing pastel theme for Raindrop
 @author Catppuccin
 @license MIT
 
@@ -15,15 +15,25 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document domain("app.tuta.com"), domain("mail.tutanota.com") {
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
-    }
+@-moz-document domain('app.raindrop.io') {
+  [data-theme="night"] {
+    #catppuccin(@darkFlavor, @accentColor) !important;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
+  [data-theme="day"],
+  [data-theme="sunset"] {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+
+  // theme selector previews
+  [class^="theme-"] {
+    &[data-index="0"],
+    &[data-index="2"] > [class^="main-"],
+    &[data-index="3"] {
+      #catppuccin(@lightFlavor, @accentColor) !important;
+    }
+    &[data-index="1"],
+    &[data-index="2"] > [class^="sidebar-"] {
+      #catppuccin(@darkFlavor, @accentColor) !important;
     }
   }
 
@@ -69,132 +79,80 @@
       }
     }
 
-    body,
-    drawer-menu,
-    .list-bg {
-      background-color: @mantle !important;
+    &,
+    [data-theme] {
+      --background-color: @base;
+      --disable-background-color: @crust;
+      --disable-text-color: @overlay1;
+      --accent-color: @accent-color;
+      --alternative-background-color: @mantle;
+      --sidebar-background-color: @mantle;
+      --hover-background-color: fade(@overlay0, 20%);
+      --active-background-color: @surface1;
+      --primary-text-color: @text;
+      --secondary-text-color: @subtext0;
+      --shadow-color: fade(@text, 10%);
+      --shadow-light-color: fade(@text, 10%);
+      --danger-color: @red;
+      --important-color: @red;
+      --success-color: @green;
+      --highlights-color: @mauve;
+      --reminder-color: @peach;
+      --note-color: @yellow;
+      --article-color: @peach;
+      --audio-color: @mauve;
+      --document-color: @subtext0;
+      --book-color: @rosewater;
+      --image-color: @green;
+      --video-color: @blue;
+      --broken-color: @maroon;
+      --duplicate-color: @sapphire;
+      --tag-color: @subtext0;
+      --filter-color: @subtext0;
+
+      [data-variant="active"] {
+        background: fade(@accent-color, 10%) !important;
+      }
+      // bookmark edit page header
+      [class^="header-"][data-fancy="true"] {
+        background: linear-gradient(
+          to bottom,
+          var(--background-color) 30%,
+          fade(@base, 60%) 100%
+        );
+      }
+      // bookmark edit page cover selector
+      [class^="cover-"] > [class^="more-"] {
+        background: fade(@accent-color, 85%);
+      }
+      // add bookmark button text color
+      [title="Add Bookmark"] {
+        color: @base;
+      }
+      // disabled add bookmark button
+      [class^="button-"][data-variant="primary"][disabled] {
+        filter: none;
+        opacity: 100%;
+        background: @overlay0;
+        color: @crust;
+      }
+      // dropping bookmark to collection color overlay
+      [class*="isDropping-"] {
+        background-color: fade(@accent-color, 10%);
+      }
+      // sidebar background color
+      .svSidebar {
+        background: var(--sidebar-background-color);
+      }
+      color: @text;
+    }
+    // google login button
+    [href^="https://api.raindrop.io/v1/auth/google"] > span
+    {
       color: @text;
     }
 
-    .list-row {
-      background-color: @base;
-    }
-    .odd-row {
-      background-color: @surface0;
-    }
-
-    .header-nav {
-      background-color: @base;
-    }
-
-    .elevated-bg,
-    .folder-column,
-    div[aria-modal] {
-      background-color: @base !important;
-    }
-
-    .ionicon {
-      fill: @text !important;
-    }
-
-    .h2 {
-      color: @subtext1 !important;
-    }
-
-    .bottom-nav {
-      background: @mantle !important;
-      color: @text !important;
-    }
-
-    .dropdown-button,
-    .dropdown-button div {
-      color: @text !important;
-    }
-    .dropdown-button:hover {
-      background-color: @surface1 !important;
-    }
-
-    .row-selected {
-      border-color: @accent-color !important;
-      color: @accent-color !important;
-    }
-    .row-selected > .nav-button {
-      color: @accent-color !important;
-    }
-    .row-selected > .nav-button > .icon {
-      fill: @accent-color !important;
-    }
-
-    .secondary {
-      color: @accent-color !important;
-    }
-
-    .nav-button,
-    .sidebar-section.mb {
-      color: @subtext0 !important;
-    }
-    .icon.icon-large,
-    .nav-button .icon {
-      fill: @subtext0 !important;
-    }
-
-    .bubble {
-      background-color: @base;
-      color: @text;
-    }
-
-    :where(.mouse-nav) .state-bg:hover,
-    :where(.keyboard-nav) .state-bg:hover,
-    [style*="background: rgba(139, 139, 139, 0.22)"] {
-      background-color: @surface0 !important;
-    }
-
-    .nav-bg,
-    .content-bg,
-    [style*="background-color: rgb(35, 35, 35)"] {
-      background-color: @base !important;
-    }
-    [style*="background-color: rgb(17, 17, 17);"] {
-      background-color: @mantle !important;
-    }
-    [style*="background-color: rgba(139, 139, 139, 0.22);"] {
-      background-color: @surface0 !important;
-    }
-    [style*="background-color: rgba(139, 139, 139, 0.38);"] {
-      background-color: @surface1 !important;
-    }
-
-    [style*="color: rgb(221, 221, 221);"] {
-      color: @text !important;
-    }
-
-    [style*="color: rgb(174, 174, 174);"] {
-      color: @subtext1 !important;
-    }
-
-    .teamLabel {
-      background-color: @accent-color;
-      color: @mantle;
-    }
-
-    [style*="border: 2px solid rgb(0, 210, 167);"] {
-      border-color: @accent-color !important;
-    }
-    [style*="color: rgb(0, 210, 167);"] {
-      color: @accent-color !important;
-    }
-
-    button.expander {
-      color: @subtext0 !important;
-    }
-
-    .logo-height > svg:nth-child(1) > path:nth-child(2) {
-      fill: @accent-color !important;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background-color: @surface1;
-    }
+    // todo: recolor "Colors circle" icons using custom images (like the chess.com theme)
   }
 }
 
