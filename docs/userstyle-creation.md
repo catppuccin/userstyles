@@ -46,7 +46,7 @@ To create a userstyle, follow the instructions below. If you run into any diffic
 7. Create your image preview.
    - Take a screenshot of the themed website in each flavor, and then convert all four images [to WebP](./tips-and-tricks.md#how-do-i-convert-preview-images-to-webp) (e.g. `mocha.webp`,
      `macchiato.webp`, `frappe.webp` & `latte.webp`).
-   - Use [Catwalk](https://github.com/catppuccin/toolbox#catwalk) to generate a
+   - Use [Catwalk](https://github.com/catppuccin/catwalk) to generate a
      composite or grid image of all the images. **This must be saved as
      `styles/<name-of-website>/preview.webp`.**
 8. Raise a [pull request](https://github.com/catppuccin/userstyles/compare),
