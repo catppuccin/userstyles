@@ -1,8 +1,7 @@
 #!/usr/bin/env -S deno run -A
 import usercssMeta from "usercss-meta";
-import { ensureDir } from "std/fs/mod.ts";
-import { walk } from "std/fs/walk.ts";
-import { join } from "std/path/mod.ts";
+import { ensureDir, walk } from "@std/fs";
+import { join } from "@std/path";
 
 import { REPO_ROOT } from "@/deps.ts";
 
@@ -40,5 +39,5 @@ for await (const entry of stylesheets) {
   });
 }
 
-ensureDir("dist");
+await ensureDir("dist");
 Deno.writeTextFile("dist/import.json", JSON.stringify(data));

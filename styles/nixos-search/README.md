@@ -20,7 +20,7 @@
 
 
 ## 💝 Current Maintainer
-- [alythical](https://github.com/alythical)
+- [Sydney Newmark](https://github.com/cecelot)
 
 
 &nbsp;

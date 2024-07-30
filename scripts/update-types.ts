@@ -1,7 +1,7 @@
 #!/usr/bin/env -S deno run -A
 // deno-lint-ignore-file no-explicit-any
-import { join } from "std/path/mod.ts";
-import { compile, Options } from "npm:json-schema-to-typescript";
+import { join } from "@std/path";
+import { compile, Options } from "json-schema-to-typescript";
 import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
 
 const options = {

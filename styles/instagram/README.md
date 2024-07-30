@@ -22,8 +22,7 @@
 ## 💝 Current Maintainer
 - [GenShibe](https://github.com/GenShibe)
 
-## 💖 Past Maintainers
-- [haiksgithub](https://github.com/haiksgithub)
+## 💖 Past Maintainer
 - [Isabel](https://github.com/isabelroses)
 
 &nbsp;
