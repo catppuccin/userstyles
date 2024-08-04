@@ -15,7 +15,7 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 
 @var checkbox styleRaceBox "Style Race Box" 1
-@var checkbox goldBottomBgOnProfile "Preserve the gold bottom background decoration on the garage. Requires NT gold for this to work." 0
+@var checkbox preserveGoldGradient "Keep the gold lower gradients in boxes." 0
 ==/UserStyle== */
 
 @-moz-document domain('nitrotype.com') {
@@ -74,6 +74,7 @@
 
     body {
       background: url("/dist/site/images/backgrounds/bg-tires.png"), @base;
+      border-color: @border !important;
       color: @text !important;
     }
 
@@ -81,10 +82,12 @@
     /* color */
     /* the border surrounding a mantle box */
     @border: @overlay0;
-    @row: @surface1;
+    @text-shadow: @border;
     @tooltip: @overlay0;
+    @row: @surface1;
     @input-field: @surface0;
     @colored-button-text: @crust;
+    @tab-selected: @overlay0;
 
     /* Shared Components */
     /* link */
@@ -109,6 +112,15 @@
     .bg--gradient,
     .bg--gradient2 {
       background: @crust;
+    }
+    /* table */
+    .table {
+      border-bottom: 1px solid rgba(@crust, 0.1);
+    }
+    /* these elements inhert from .table */
+    tr,
+    tbody {
+      border-color: rgba(@crust, 0.1);
     }
     /* btns */
     /* modal close button */
@@ -135,7 +147,7 @@
     /* btn secondary "Return to Garage" */
     /* switch box */
     .switch {
-      border-color: @tooltip;
+      border-color: @border;
     }
     /* badges */
     .rarity-badge {
@@ -363,7 +375,7 @@
     }
     /* bottom bg (NT gold only) */
     .theme--pDefault.is-gold .profile-bg {
-      & when (@goldBottomBgOnProfile = 1) {
+      & when (@preserveGoldGradient = 1) {
         background: linear-gradient(
             130deg,
             rgba(@mantle, 0.9) 30%,
@@ -375,7 +387,7 @@
           ),
           linear-gradient(to bottom, #fadb66 96%, #fce797 100%);
       }
-      & when (@goldBottomBgOnProfile = 0) {
+      & when (@preserveGoldGradient = 0) {
         background: @mantle;
       }
     }
@@ -454,6 +466,28 @@
     .mysteryBox.is-coming {
       background: @crust;
     }
+    /* lootbox modal */
+    .modal--mysterybox .modal-container {
+      & when (@preserveGoldGradient = 1) {
+        background:
+          linear-gradient(
+              to bottom,
+              rgba(@crust, 0) 75%,
+              rgba(249, 208, 52, 0.8) 100%
+            )
+            center center repeat-x,
+          url("/dist/site/images/mystery-box/mystery-box-qs.png") center center
+            repeat,
+          url("/dist/site/images/backgrounds/bg-noise.png") top left repeat,
+          @crust;
+      }
+      & when (@preserveGoldGradient = 0) {
+        background: @crust;
+      }
+    }
+    .lootbox.is-money .lootbox-desc {
+      color: @green;
+    }
     .btn.is-disabled:not(.is-frozen),
     .is-disabled.modal--bundle-offer--purchase-option:not(.is-frozen),
     .is-disabled.friends-list--friend-status--join-race-button:not(.is-frozen),
@@ -516,8 +550,18 @@
     }
     /* tabs */
     /* current tab */
-    nav-list-item customizer--tab is-current customizer--tab--selected {
-      background-color: @overlay0;
+    .customizer--tab--selected {
+      background: @overlay0 !important;
+    }
+    .nav-list-item.is-current {
+      border-color: @overlay2;
+    }
+    /* other tabs */
+    .customizer--tabs {
+      background: @crust;
+      box-shadow:
+        0 1px 8px @crust,
+        inset 0 0 0 1px @overlay2;
     }
     /* tab label */
     .customizer--tab--label {
@@ -533,10 +577,49 @@
     .input-select {
       border-color: @blue;
     }
+    /* clear btn */
+    .customizer--item-selector-controls--filter-clear {
+      background: @surface0;
+      color: @text;
+    }
+    /* current car */
+    .section-cars .customizer--preview .customizer--trail-selection--name,
+    .section-cars .customizer--preview .customizer--vehicle-selection--name,
+    .section-cars .customizer--preview .customizer--nametag-selection--name,
+    .section-cars .customizer--preview .customizer--nitro-selection--name,
+    .section-nitro .customizer--preview .customizer--trail-selection--name,
+    .section-nitro .customizer--preview .customizer--vehicle-selection--name,
+    .section-nitro .customizer--preview .customizer--nametag-selection--name,
+    .section-nitro .customizer--preview .customizer--nitro-selection--name,
+    .section-fanfare .customizer--preview .customizer--trail-selection--name,
+    .section-fanfare .customizer--preview .customizer--vehicle-selection--name,
+    .section-fanfare .customizer--preview .customizer--nametag-selection--name,
+    .section-fanfare .customizer--preview .customizer--nitro-selection--name,
+    .section-nametags .customizer--preview .customizer--trail-selection--name,
+    .section-nametags .customizer--preview .customizer--vehicle-selection--name,
+    .section-nametags .customizer--preview .customizer--nametag-selection--name,
+    .section-nametags .customizer--preview .customizer--nitro-selection--name,
+    .section-nitros .customizer--preview .customizer--trail-selection--name,
+    .section-nitros .customizer--preview .customizer--vehicle-selection--name,
+    .section-nitros .customizer--preview .customizer--nametag-selection--name,
+    .section-nitros .customizer--preview .customizer--nitro-selection--name,
+    .section-trails .customizer--preview .customizer--trail-selection--name,
+    .section-trails .customizer--preview .customizer--vehicle-selection--name,
+    .section-trails .customizer--preview .customizer--nametag-selection--name,
+    .section-trails .customizer--preview .customizer--nitro-selection--name {
+      color: @text;
+      text-shadow: rgba(@crust, 0.5);
+    }
     /* car selector */
-    /* labels */
+    /* card */
     .customizer--item-selector {
       background: @crust;
+      border-color: @border;
+    }
+    /* remove inner gradient in car selector box */
+    .customizer--item-selector-content:before,
+    .customizer--item-selector-content:after {
+      background: none;
     }
     .customizer--item-selector-item,
     .customizer--item-selector-item--labels {
@@ -559,7 +642,12 @@
     .customizer--item-selector-item--new {
       background: @blue;
     }
-    /* shop notification description */
+    /* shop notification */
+    .customizer--shop-notification {
+      box-shadow: inset 0 0 0 1px rgba(@crust, 0.2);
+      text-shadow: 0 1px 3px @text-shadow;
+    }
+    /* description */
     .customizer--shop-notification--desc {
       color: @text;
     }
@@ -620,7 +708,7 @@
     }
     /* selected dealership */
     .page-shop--dealership-option.is-selected {
-      background: @overlay0;
+      background: @tab-selected;
     }
     /* buy modal */
     /* owned badge */
@@ -726,7 +814,7 @@
     /* tabs */
     /* selected (active) tab */
     .tabs--a .tab.is-active {
-      background: @overlay0;
+      background: @tab-selected;
       color: @text;
     }
     /* other tabs */
@@ -789,11 +877,15 @@
     .btn.is-active,
     .is-active.modal--bundle-offer--purchase-option,
     .is-active.friends-list--friend-status--join-race-button {
-      background: @overlay0;
+      background: @tab-selected;
       color: @text;
+      text-shadow: 0 2px 2px rgba(@crust, 0.25);
     }
+    /* other tabs */
     .btn.btn--thick:not(.btn.is-active) {
       background: @crust;
+      /* remember that @border is only for mantle, while this is using crust */
+      border-color: @overlay1;
       color: @text;
     }
     /* progress overview */
@@ -953,7 +1045,7 @@
     .raceResults-footer {
       background: @mantle;
       border-color: @border;
-      text-shadow: 3px 2px 0px rgba(@border, 0.25);
+      text-shadow: 3px 2px 0px rgba(@crust, 0.25);
     }
     /* footer, table */
     .raceResults-footer,
@@ -965,11 +1057,11 @@
       background: @mantle;
     }
     .gridTable-row {
-      text-shadow: 3px 2px 0px rgba(@border, 0.25);
+      text-shadow: 3px 2px 0px rgba(@crust, 0.25);
     }
     /* winner name */
     .type-gold {
-      text-shadow: 3px 2px 0px rgba(@border, 0.4);
+      text-shadow: 3px 2px 0px rgba(@crust, 0.4);
     }
     /* cards */
     .raceResults-rewards,
