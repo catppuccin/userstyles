@@ -15,6 +15,7 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 
 @var checkbox styleRaceBox "Style Race Box" 1
+@var checkbox goldBottomBgOnProfile "Preserve the gold bottom background decoration on the garage. Requires NT gold for this to work." 0
 ==/UserStyle== */
 
 @-moz-document domain('nitrotype.com') {
@@ -119,6 +120,15 @@
     .season--xmaxx-2023 .header > .header-core .header-login {
       background: @accent-color;
       color: @colored-button-text;
+    }
+    /* green */
+    .btn.is-on,
+    .is-on.modal--bundle-offer--purchase-option,
+    .is-on.friends-list--friend-status--join-race-button,
+    .btn.is-on:focus,
+    .is-on.modal--bundle-offer--purchase-option:focus,
+    .is-on.friends-list--friend-status--join-race-button:focus {
+      color: @green;
     }
     /* btn secondary "Return to Garage" */
     /* switch box */
@@ -328,6 +338,9 @@
       color: @text;
     }
     /* navbar */
+    .nav {
+      background: @crust;
+    }
     /* current (selected) */
     .nav-list-item.is-current {
       background: @mantle;
@@ -339,6 +352,10 @@
         color: @text;
       }
     }
+    .nav,
+    .nav-list-item.is-current {
+      border-color: @overlay0;
+    }
 
     /* "Garage" page */
     /* bg */
@@ -349,9 +366,23 @@
         url("/dist/site/images/backgrounds/bg-noise.png") top left repeat,
         @crust;
     }
-    /* bottom bg (gold only) */
+    /* bottom bg (NT gold only) */
     .theme--pDefault.is-gold .profile-bg {
-      background: @mantle;
+      & when (@goldBottomBgOnProfile = 1) {
+        background: linear-gradient(
+            130deg,
+            rgba(@mantle, 0.9) 30%,
+            rgba(@mantle, 0.6) 60%,
+            rgba(@mantle, 0) 60%,
+            rgba(@mantle, 0) 65%,
+            rgba(@mantle, 0.4) 70%,
+            rgba(@mantle, 0) 70%
+          ),
+          linear-gradient(to bottom, #fadb66 96%, #fce797 100%);
+      }
+      & when (@goldBottomBgOnProfile = 0) {
+        background: @mantle;
+      }
     }
     .card--a {
       background: @mantle;
@@ -869,19 +900,20 @@
       .dash-copy {
         color: @text;
       }
-      .dash-letter {
-        /* caret */
-        .is-waiting {
-          background: @blue;
-        }
-        /* incorrect caret */
-        .is-incorrect {
-          background: @red;
-        }
-        /* letter correct */
-        .is-correct {
-          color: @subtext1;
-        }
+      .dash-letter.is-waiting {
+        background: @blue;
+      }
+      /* caret */
+      .dash-letter.is-waiting {
+        background: @blue;
+      }
+      /* incorrect caret */
+      .dash-letter.is-incorrect {
+        background: @red;
+      }
+      /* letter correct */
+      .dash-letter.is-correct {
+        color: @subtext1;
       }
     }
     /* race message */
@@ -953,6 +985,56 @@
     /* title */
     .daily-challenge-completed-notification--header {
       color: @text;
+    }
+
+    /* Demo Race page */
+    /* WPM result */
+    .wpm-display--progress {
+      stroke: @yellow;
+    }
+    .signup-form--summary-agreement {
+      color: @text;
+    }
+    /*  "Log In" btn */
+    :root
+      .btn.btn--outline:not(.is-active):not(.is-disabled):not(:disabled):not(
+        .is-success
+      ):not(.is-failure):not(:hover).btn--secondary,
+    :root
+      .btn--outline.modal--bundle-offer--purchase-option:not(.is-active):not(
+        .is-disabled
+      ):not(:disabled):not(.is-success):not(.is-failure):not(
+        :hover
+      ).btn--secondary,
+    :root
+      .btn--outline.friends-list--friend-status--join-race-button:not(
+        .is-active
+      ):not(.is-disabled):not(:disabled):not(.is-success):not(.is-failure):not(
+        :hover
+      ).btn--secondary {
+      border-color: @blue;
+      color: @blue;
+    }
+    /* tutorial tooltips */
+    .tooltip--trigger-container .tooltip--a.tooltip,
+    .tooltip--a:after {
+      background: @blue;
+      color: @colored-button-text;
+    }
+    .tooltip--a.tooltip--bottom:before {
+      border-color: transparent transparent transparent @blue;
+    }
+    .tooltip--a.tooltip--c:before,
+    .tooltip--a.tooltip--left:before {
+      border-color: @blue transparent transparent transparent;
+    }
+    /* green */
+    .tooltip--go:after {
+      background: @green;
+    }
+    /* triangle */
+    .tooltip--go.tooltip--c:before {
+      border-color: @green transparent transparent transparent;
     }
 
     /* 404 page */
