@@ -84,10 +84,11 @@
     @border: @overlay0;
     @text-shadow: @border;
     @tooltip: @overlay0;
-    @row: @surface1;
     @input-field: @surface0;
     @colored-button-text: @crust;
     @tab-selected: @overlay0;
+    @row1: @surface2;
+    @row2: @surface1;
 
     /* Shared Components */
     /* link */
@@ -116,6 +117,7 @@
     /* table */
     .table {
       border-bottom-color: rgba(@crust, 0.1);
+      background-color: @row1;
     }
     /* these elements inhert from .table */
     tr,
@@ -135,6 +137,9 @@
       background-color: @accent-color;
       color: @colored-button-text;
     }
+    .link--error {
+      color: @red;
+    }
     /* green */
     .btn.is-on,
     .is-on.modal--bundle-offer--purchase-option,
@@ -153,7 +158,7 @@
     .rarity-badge {
       color: @colored-button-text;
     }
-    /* Popups */
+    /* popups */
     /* growl (notify) */
     /* body */
     .growl--a {
@@ -172,7 +177,7 @@
     }
     /* logout popup */
     .modal--error .modal-container {
-      background-color: @red !important;
+      background: @red !important;
       border-color: @red;
     }
     /* "Yes, I'm here! btn */
@@ -215,17 +220,17 @@
 
     #root {
       /* loading overlay */
-      > div:not(.growls) {
+      > div:not(.structure, .growls) {
         background-color: @base !important;
       }
       /* center modal */
-      > div {
+      > div:not(.structure) {
         > div:not(.modal-container) {
           background-color: @mantle !important;
         }
         /* "loading..." text */
         > div > div:nth-child(2) {
-          color: @text !important;
+          color: @text;
         }
       }
     }
@@ -425,13 +430,43 @@
     }
     /* friends race modal */
     /* friends table */
+    .modal--friends-race--friend-list-item:nth-child(odd) {
+      background-color: @row2;
+    }
     .modal--friends-race--friend-list-item {
-      background-color: @row;
+      background-color: @row1;
     }
     /* notify */
     div.notify,
     div.notify::before {
       background-color: @accent-color;
+    }
+    /* invite hint */
+    .modal--friends-race--friends-invite-hint {
+      background: @crust;
+      color: @text;
+    }
+    /* "Race Settings"
+    /* toggle button */
+    .pop::before {
+      box-shadow: 0 8px 4px rgba(@surface2, 0.25);
+    }
+    .toggle::before {
+      background: @blue;
+    }
+    .toggle:not(.is-toggled) > div:nth-child(1) > div > div,
+    .toggle.is-toggled > div:nth-child(2) > div > div {
+      color: @colored-button-text;
+    }
+    /* tooltip */
+    .pop--dark::before {
+      color: @text;
+      background: @surface0;
+      border-top-color: @surface2;
+    }
+    /* triangle */
+    .pop--dark[class*="pop--top"]::after {
+      border-top-color: @surface0;
     }
     /* widgets */
     /* season progress */
@@ -536,6 +571,19 @@
     .garage-spot {
       border-color: @overlay2;
     }
+    /* garage spot tooltip */
+    .reactTooltip {
+      box-shadow:
+        0 28px 28px 0 rgba(@crust, 0.05),
+        0 17px 17px 0 rgba(@crust, 0.2),
+        0 8px 8px 0 rgba(@crust, 0.15);
+      color: @colored-button-text !important;
+      background-color: @blue !important;
+    }
+    .reactTooltip,
+    .reactTooltip.place-top::after {
+      border-top-color: @blue !important;
+    }
     /* footer */
     .footer {
       background:
@@ -585,7 +633,7 @@
     /* car search, sort by dropdown */
     .input-field,
     .input-select {
-      background-color: @surface2;
+      background-color: @input-field;
       color: @text;
     }
     .input-select {
@@ -712,6 +760,12 @@
     .seasonReward-tag--free {
       color: @subtext0;
     }
+    .seasonReward-tag--free,
+    .seasonReward.is-selected .seasonReward-tag--free,
+    .seasonReward.is-selected:hover .seasonReward-tag--free {
+      background: @green;
+      color: @colored-button-text;
+    }
 
     /* "Shop" page */
     /* cash */
@@ -737,11 +791,13 @@
     .page-shop--dealership-option.is-selected {
       background-color: @tab-selected;
     }
-    /* buy modal */
     /* owned badge */
     .page-shop--owned::before {
+      background: @yellow;
+      text-shadow: -2px 2px 3px rgba(@crust, 0.4);
       color: @colored-button-text;
     }
+    /* buy modal */
     /* cash */
     /* current cash title */
     .page-shop--modal--cash-balance-title {
@@ -850,6 +906,9 @@
       color: @text;
     }
     /* switch friends online/offline */
+    .switch-label {
+      color: @text;
+    }
     .switch-selection {
       background-color: @green;
     }
@@ -861,15 +920,38 @@
     .table-head .table-cell {
       background-color: @input-field;
     }
-    /* rows */
-    .table--striped
-      .table-body
-      .table-row:not(.table-row--gold, .table-row--silver, .table-row--bronze) {
-      background-color: @row;
-    }
     /* show all friends */
     .link--h {
       color: @blue;
+    }
+    .table-row {
+      background: @surface0;
+    }
+    .table--striped
+      .table-body
+      .table-row:nth-child(odd):not(
+        .table-row--gold,
+        .table-row--silver,
+        .table-row--bronze
+      ) {
+      background: @row1;
+    }
+    :root
+      .table--striped
+      .table-body
+      .table-row:not(.table-row--gold, .table-row--silver, .table-row--bronze) {
+      background: @row2;
+    }
+    table-row friends-list--row is-friend-racing:hover {
+      background: @crust;
+    }
+    /* "Join Now" btn" */
+    .friends-list--friend-status--join-race-button {
+      background-color: @green;
+    }
+    .friends-list--row.is-friend-racing:hover
+      .friends-list--friend-status--join-race-label {
+      color: @colored-button-text;
     }
 
     /* "League" page */
@@ -948,10 +1030,40 @@
       color: @green;
     }
 
-    /* "News" page */
-    .link--bare {
+    /* "Team" page */
+    /* MoTDs */
+    /* the horizontal bar behind the blockquote */
+    .blockquote-copy {
+      border-color: @text;
+    }
+    /* reactions */
+    .boosts-list--item {
+      background: rgba(@overlay0, 0.5);
+      box-shadow: inset @crust 1px rgba(255, 255, 255, 0.1);
       color: @text;
     }
+    /* "View Older MoTD's" */
+    .motds-toggleBtn {
+      color: @blue;
+    }
+    /* player badge */
+    /* officer */
+    .bg--dodger {
+      background-color: @blue !important;
+    }
+    /* captain */
+    .bg--lemon {
+      background-color: @yellow !important;
+    }
+    /* captain text */
+    .type-rank,
+    .tc-t {
+      color: @colored-button-text;
+    }
+
+    /* "News" page */
+    .link--bare,
+    .news-byline,
     .news-teaser {
       color: @text;
     }
@@ -1029,6 +1141,7 @@
     /* box */
     .waiting-for-leader--overlay,
     .waiting-for-leader--status--estimate,
+    .waiting-for-leader--status--position,
     .waiting-for-leader--leader--status {
       color: @text;
     }
@@ -1049,10 +1162,10 @@
       .waiting-for-leader--warm-up--word {
         color: @text;
         &.waiting-for-leader--warm-up--word div[class*="letter-"].current {
-          background: @red;
+          background: @blue;
           color: @text;
           &.error {
-            background: @blue;
+            background: @red;
             color: @text;
           }
         }
@@ -1145,6 +1258,7 @@
     .raceResults-dailyChallenges,
     .raceResults-userFeedback {
       background-color: @mantle;
+      color: @text;
     }
     /* title */
     .raceResults-title--main,
@@ -1183,6 +1297,29 @@
       color: @text;
     }
 
+    /* "Stats" page */
+    /* "Summary" table */
+    :root
+      .table--striped
+      .table-body
+      .table-row:nth-child(odd):not(
+        .table-row--gold,
+        .table-row--silver,
+        .table-row--bronze
+      ) {
+      background-color: @row2;
+    }
+    /* "Details" chart */
+    .link--filter.is-current {
+      color: @text;
+    }
+    .link--filter {
+      color: @subtext0;
+    }
+    .rv-xy-plot {
+      color: @text;
+    }
+
     /* Demo Race page */
     /* WPM result */
     .wpm-display--progress {
@@ -1203,15 +1340,6 @@
       ).btn--secondary,
     :root
       .btn--outline.modal--bundle-offer--purchase-option:not(
-        .is-active,
-        .is-disabled,
-        :disabled,
-        .is-success,
-        .is-failure,
-        :hover
-      ).btn--secondary,
-    :root
-      .btn--outline.friends-list--friend-status--join-race-button:not(
         .is-active,
         .is-disabled,
         :disabled,
