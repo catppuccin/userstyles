@@ -186,6 +186,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Raindrop](styles/raindrop)
 - [Syncthing](styles/syncthing)
 - [tldraw](styles/tldraw)
+- [Vikunja](styles/vikunja)
 
 </details>
 <details open>
