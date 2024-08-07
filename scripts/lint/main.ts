@@ -49,10 +49,9 @@ for await (const entry of stylesheets) {
   less.render(content, { lint: true, globalVars: globalVars }).catch(
     (err: Less.RenderError) => {
       failed = true;
-      log(
+      log.error(
         err.message,
         { file, startLine: err.line, endLine: err.line, content },
-        "error",
       );
     },
   );

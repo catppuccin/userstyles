@@ -67,14 +67,13 @@ export const getUserstylesData = (): Userstyles => {
       const groups =
         /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
           .exec(err.message)?.groups;
-      log(
+      log.error(
         groups!.message,
         {
           file: "scripts/userstyles.yml",
           startLine: Number(groups!.line),
           content: content,
         },
-        "error",
       );
     } else {
       console.log(err);
