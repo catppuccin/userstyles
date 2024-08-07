@@ -65,4 +65,4 @@ for await (const entry of stylesheets) {
 if (await checkForMissingFiles() === false) failed = true;
 
 // Cause the workflow to fail if any issues were found.
-if (failed) Deno.exit(1);
+if (failed || log.failed) Deno.exit(1);

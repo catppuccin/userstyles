@@ -66,11 +66,14 @@ const prettyPrint = (
 };
 
 export const log = {
-  log: (
+  failed: false,
+
+  log: function (
     message: string,
     props: LoggerProps,
     severity: "error" | "warning",
-  ) => {
+  ) {
+    if (severity === "error") this.failed = true;
     if (Deno.env.has("CI")) {
       switch (severity) {
         case "error":
