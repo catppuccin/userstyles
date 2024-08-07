@@ -65,21 +65,37 @@ const prettyPrint = (
   );
 };
 
-export const log = (
-  message: string,
-  props: LoggerProps,
-  severity: "error" | "warning" = "warning",
-) => {
-  if (Deno.env.has("CI")) {
-    switch (severity) {
-      case "error":
-        core.error(message, props);
-        break;
-      case "warning":
-        core.warning(message, props);
-        break;
+export const log = {
+  log: (
+    message: string,
+    props: LoggerProps,
+    severity: "error" | "warning",
+  ) => {
+    if (Deno.env.has("CI")) {
+      switch (severity) {
+        case "error":
+          core.error(message, props);
+          break;
+        case "warning":
+          core.warning(message, props);
+          break;
+      }
+    } else {
+      prettyPrint(message, props, severity);
     }
-  } else {
-    prettyPrint(message, props, severity);
-  }
+  },
+
+  warn: function (
+    message: string,
+    props: LoggerProps,
+  ) {
+    this.log(message, props, "warning");
+  },
+
+  error: function (
+    message: string,
+    props: LoggerProps,
+  ) {
+    this.log(message, props, "error");
+  },
 };

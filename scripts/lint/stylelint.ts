@@ -29,7 +29,7 @@ export const lint = (
             color.dim(`(${warning.rule})`),
           ) ?? "unspecified stylelint error";
 
-          log(message, {
+          log.log(message, {
             file: relative(REPO_ROOT, entry.path),
             startLine: warning.line,
             endLine: warning.endLine,
