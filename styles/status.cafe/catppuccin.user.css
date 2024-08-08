@@ -14,10 +14,9 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 
-@var checkbox colors "Accent color links" 1
 ==/UserStyle== */
 
-@-moz-document regexp("https://status\\.cafe/(?!users).*") {
+@-moz-document regexp("https://(status\\.cafe/(?!users).*|forum.status.cafe/.*)") {
     @media (prefers-color-scheme: light) {
         :root {
             #catppuccin(@lightFlavor, @accentColor);
@@ -84,18 +83,31 @@
             border-color: @surface1;
             border-style: solid;
             border-width: 1px;
-            border-radius: 4px;
+            border-radius: 2px;
             padding: 3px;
         }
         
         input {
-            background-color: @crust;
+            background-color: @mantle;
             color: @text;
-            border-color: @overlay2;
+            border-color: @surface1;
             border-style: solid;
             border-width: 1px;
             border-radius: 4px;
             padding: 2px 5px;
+        }
+        
+        textarea:hover, input:hover {
+            border-color: darken(@surface1, 5%);
+        }
+        
+        input:hover {
+            background-color: darken(@mantle, 2%);
+        }
+        
+        input:active {
+            background-color: @crust;
+            border-color: @surface0;
         }
 
         .flash {
@@ -109,13 +121,51 @@
         a:visited:not(.flash a) {
             color: darken(@accent-color, 5%);
         }
+        
+        table, th, td {
+            border-color: @surface1 !important;
+        }
+        
+        thead {
+            background-color: @surface1;
+            color: @text;
+        }
+        
+        .forum {
+            background-color: @yellow;
+            a {
+                color: darken(@blue, 10%) !important;
+            }
+        }
+        
+        tbody, .topic > tbody > tr:nth-child(2n) {
+            background-color: @mantle;
+        }
+        
         & when (@lookup = latte){
-            .flash {
+            .forum {
+                background-color: lighten(@yellow, 15%);
+            }
+            table, th, td {
+                border-color: @text !important;
+            }
+            thead {
+                background-color: @text;
+                color: @base;
+            }
+            flash {
                 color: darken(@green, 15%);
                 a {
                     color: @blue;
                 }
-            }   
+            }
+            a:visited:not(.flash a) {
+                color: darken(@accent-color, 15%);
+            }
+            input:active {
+                background-color: @surface0;
+                border-color: @surface2;
+            }
         }
     }
 }
