@@ -29,4 +29,4 @@ Feel free to leave this section empty if you don't have anything more to say.
   - `catppuccin.user.css` - all the CSS for the userstyle, based on the
     template.
   - `preview.webp` - composite image of all four individual flavor screenshots stitched together,
-    generated via [Catwalk](https://github.com/catppuccin/toolbox/tree/main/catwalk#readme).
+    generated via [Catwalk](https://github.com/catppuccin/catwalk).

@@ -1,10 +1,10 @@
-import { exists } from "std/fs/exists.ts";
-import { join, relative } from "std/path/mod.ts";
+import { exists } from "@std/fs";
+import { join, relative } from "@std/path";
 import core from "@actions/core";
 
 import { REPO_ROOT } from "@/deps.ts";
 import { log } from "@/lint/logger.ts";
-import * as color from "std/fmt/colors.ts";
+import * as color from "@std/fmt/colors";
 
 const requiredFiles = [
   "catppuccin.user.css",
@@ -37,7 +37,7 @@ export const checkForMissingFiles = async () => {
       .write();
   } else {
     missingFiles.map((f) => {
-      log(color.red(`Missing file:`) + ` ${f}`, { file: f }, "error");
+      log.error(color.red(`Missing file:`) + ` ${f}`, { file: f });
     });
   }
 

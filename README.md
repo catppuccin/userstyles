@@ -48,25 +48,28 @@ Install [Stylus](https://github.com/openstyles/stylus) for your browser by click
 > [!TIP]
 > If you use Chrome, make sure to enable "Allow access to file URLs" in the Stylus extension settings.
 
-### All Userstyles
+### All Userstyles (recommended)
 
 See instructions on the [GitHub release page](https://github.com/catppuccin/userstyles/releases/tag/all-userstyles-export).
 
 ### Individual Userstyles
 
-1. Enable CSP Patching from `Stylus Settings` > `Advanced`.
-2. Install the theme:
-   - `https://github.com/catppuccin/userstyles/raw/main/styles/<name>/catppuccin.user.css`
-   - Replacing `<name>` with the name of the userstyle.
+1. Enable CSP Patching from Stylus's **Settings** > **Advanced**.
+2. Install userstyles by clicking the **Stylus Install** badge in each README.
 3. Enjoy!
 
-> [!TIP]
-> For decentralized or self-hosted applications, you can apply a theme to one or multiple instances across updates by following the instructions below.
->
-> 1. Open the Stylus "Manage" page.
-> 2. Click on the userstyle's name in the list.
-> 3. Click on **Style settings** in the left panel.
-> 4. Enter the URL patterns for your instance(s) in the text box labeled **Custom included sites**.
+## Usage
+
+All usertyles come with three default configuration options; the light flavor, the dark flavor, and the accent color. Some userstyles may offer additional site-specific options as well.
+
+### Decentralized/self-hosted applications
+
+For decentralized or self-hosted applications, you can apply a theme to one or multiple instances across updates by following the instructions below.
+
+1. Open the Stylus "Manage" page.
+2. Click on the userstyle's name in the list.
+3. Click on **Style settings** in the left panel.
+4. Enter the URL patterns for your instance(s) in the text box labeled **Custom included sites**. For example, to apply a userstyle to `example.org`, you would add a line with `https://example.org/*` to the textbox. The trailing asterisk applies it to all pages on the domain - without it, only the root page is themed.
 
 &nbsp;
 
@@ -111,12 +114,14 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Stack Overflow](styles/stack-overflow)
 - [Trinket](styles/trinket)
 - [Vercel, Next.js](styles/vercel)
+- [web.dev](styles/web.dev)
 
 </details>
 <details open>
 <summary>🧩 Browser Extensions</summary>
 
 - [Shinigami Eyes](styles/shinigami-eyes)
+- [Stylus](styles/stylus)
 
 </details>
 <details open>
@@ -162,28 +167,32 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Hyperpipe](styles/hyperpipe)
 - [Last.fm](styles/lastfm)
+- [ListenBrainz](styles/listenbrainz)
 - [Spotify Web](styles/spotify-web)
 
 </details>
 <details open>
 <summary>📖 Productivity</summary>
 
+- [Amplenote](styles/amplenote)
 - [cobalt](styles/cobalt)
 - [Google Drive](styles/google-drive)
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
 - [Microsoft Word](styles/microsoft-word)
 - [openmediavault](styles/openmediavault)
+- [Porkbun](styles/porkbun)
 - [Proton](styles/proton)
-- [Stylus](styles/stylus)
+- [Raindrop](styles/raindrop)
 - [Syncthing](styles/syncthing)
 - [tldraw](styles/tldraw)
+- [Vikunja](styles/vikunja)
 
 </details>
 <details open>
 <summary>💌 Email Clients</summary>
 
-- 🚧 [Gmail](styles/gmail)
+- [Gmail](styles/gmail)
 - [Migadu Webmail](styles/migadu-webmail)
 - [Skiff](styles/skiff)
 - [Tuta](styles/tuta)
@@ -242,7 +251,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Advent Of Code](styles/advent-of-code)
 - [bStats](styles/bstats)
-- [Chess.com](styles/chess.com)
+- 🚧 [Chess.com](styles/chess.com)
 - [Lichess](styles/lichess)
 - [Minesweeper Online](styles/minesweeper)
 - [Modrinth](styles/modrinth)

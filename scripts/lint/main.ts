@@ -1,8 +1,8 @@
 #!/usr/bin/env -S deno run -A
-import { walk } from "std/fs/walk.ts";
-import { parse as parseFlags } from "std/flags/mod.ts";
-import { basename, dirname, join, relative } from "std/path/mod.ts";
-// @deno-types="npm:@types/less";
+import { walk } from "@std/fs";
+import { parseArgs } from "@std/cli";
+import { basename, dirname, join, relative } from "@std/path";
+// @ts-types="npm:@types/less";
 import less from "less";
 
 import { REPO_ROOT } from "@/deps.ts";
@@ -13,8 +13,8 @@ import { lint } from "@/lint/stylelint.ts";
 import { getUserstylesData } from "@/utils.ts";
 import stylelintConfig from "../../.stylelintrc.js";
 
-const flags = parseFlags(Deno.args, { boolean: ["fix"] });
-const subDir = flags._[0]?.toString() ?? "";
+const args = parseArgs(Deno.args, { boolean: ["fix"] });
+const subDir = args._[0]?.toString() ?? "";
 const stylesheets = walk(join(REPO_ROOT, "styles", subDir), {
   includeFiles: true,
   includeDirs: false,
@@ -37,7 +37,7 @@ for await (const entry of stylesheets) {
     content,
     dir,
     userstyles,
-    flags.fix,
+    args.fix,
   );
 
   content = fixed;
@@ -49,16 +49,15 @@ for await (const entry of stylesheets) {
   less.render(content, { lint: true, globalVars: globalVars }).catch(
     (err: Less.RenderError) => {
       failed = true;
-      log(
+      log.error(
         err.message,
         { file, startLine: err.line, endLine: err.line, content },
-        "error",
       );
     },
   );
 
   // Lint with Stylelint.
-  await lint(entry, content, flags.fix, stylelintConfig).catch(() =>
+  await lint(entry, content, args.fix, stylelintConfig).catch(() =>
     failed = true
   );
 }
@@ -66,4 +65,4 @@ for await (const entry of stylesheets) {
 if (await checkForMissingFiles() === false) failed = true;
 
 // Cause the workflow to fail if any issues were found.
-if (failed) Deno.exit(1);
+if (failed || log.failed) Deno.exit(1);

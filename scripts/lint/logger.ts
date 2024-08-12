@@ -1,5 +1,5 @@
-import { sprintf } from "std/fmt/printf.ts";
-import * as color from "std/fmt/colors.ts";
+import { sprintf } from "@std/fmt/printf";
+import * as color from "@std/fmt/colors";
 import core from "@actions/core";
 
 export type LoggerProps = core.AnnotationProperties & { content?: string };
@@ -65,21 +65,40 @@ const prettyPrint = (
   );
 };
 
-export const log = (
-  message: string,
-  props: LoggerProps,
-  severity: "error" | "warning" = "warning",
-) => {
-  if (Deno.env.has("CI")) {
-    switch (severity) {
-      case "error":
-        core.error(message, props);
-        break;
-      case "warning":
-        core.warning(message, props);
-        break;
+export const log = {
+  failed: false,
+
+  log: function (
+    message: string,
+    props: LoggerProps,
+    severity: "error" | "warning",
+  ) {
+    if (severity === "error") this.failed = true;
+    if (Deno.env.has("CI")) {
+      switch (severity) {
+        case "error":
+          core.error(message, props);
+          break;
+        case "warning":
+          core.warning(message, props);
+          break;
+      }
+    } else {
+      prettyPrint(message, props, severity);
     }
-  } else {
-    prettyPrint(message, props, severity);
-  }
+  },
+
+  warn: function (
+    message: string,
+    props: LoggerProps,
+  ) {
+    this.log(message, props, "warning");
+  },
+
+  error: function (
+    message: string,
+    props: LoggerProps,
+  ) {
+    this.log(message, props, "error");
+  },
 };
