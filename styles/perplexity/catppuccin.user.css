@@ -129,7 +129,11 @@
       background-color: @surface0 !important;
     }
 
-    .bg-offsetPlusDark {
+    .bg-offsetPlusDark,
+    .dark\:\!bg-offsetPlusDark:where(
+        [data-color-scheme="dark"] .dark\:\!bg-offsetPlusDark,
+        [data-color-scheme="dark"] .dark\:\!bg-offsetPlusDark *
+      ) {
       background-color: @mantle !important;
     }
 
@@ -138,11 +142,13 @@
     .bg-superBG,
     .bg-superBGDark,
     .bg-superDark,
-    .bg-superDark\/10,
     .bg-superDark\/100,
-    .bg-super\/10,
     .bg-super\/100 {
       background-color: @accent-color !important;
+    }
+    .bg-super\/10,
+    .bg-superDark\/10 {
+      background-color: fade(@accent-color, 10%) !important;
     }
 
     .bg-textMain {
@@ -270,7 +276,7 @@
     }
 
     .border-\[black\]\/10 {
-      border-color: rgb(#rgbify(@mantle) / 10) !important;
+      border-color: fade(@mantle, 10%) !important;
     }
 
     .border-background,
@@ -278,7 +284,10 @@
     .border-black\/5 {
       border-color: @mantle !important;
     }
-
+    .dark\:border-borderMainDark:where(
+        [data-color-scheme="dark"] .dark\:border-borderMainDark,
+        [data-color-scheme="dark"] .dark\:border-borderMainDark *
+      ),
     .border-borderMain {
       border-color: @surface1 !important;
     }
@@ -318,9 +327,12 @@
     .border-b-offset {
       border-bottom-color: @subtext0 !important;
     }
+    .group:hover [class*="group-hover:text-superDark"] {
+      color: @accent-color !important;
+    }
 
     [class*="hover:!bg-superAlt/20"]:hover {
-      background-color: rgb(#rgbify(@accent-color) / 51) !important;
+      background-color: @accent-color !important;
     }
 
     [class*="hover:bg-offset"]:hover {
@@ -386,8 +398,27 @@
       color: @crust !important;
     }
     /* switch knob in settings */
-    .data-\[state\=checked\]\:before\:\!bg-super[data-state="checked"]::before {
+    .data-\[state\=checked\]\:before\:\!bg-super[data-state="checked"]:before {
       background-color: @accent-color !important;
+    }
+    /* switch in main input */
+    #copilot-toggle > div::before {
+      background-color: @overlay1;
+    }
+
+    /* credits on image view */
+    #__next
+      > div:nth-child(26)
+      > div:nth-child(2)
+      > div
+      > div
+      > div.gap-md.mx-md.py-md.border-borderMainDark.flex.h-\[74px\].items-center.justify-between.border-b-2
+      > div.gap-x-md.flex.items-center
+      > a
+      > div
+      > div
+      > div.line-clamp-1.break-all.transition-all.duration-300.white.font-sans.text-sm.text-white.selection\:bg-super\/50.selection\:text-textMain.dark\:selection\:bg-superDuper\/10.dark\:selection\:text-superDark {
+      color: @text !important;
     }
   }
 }
