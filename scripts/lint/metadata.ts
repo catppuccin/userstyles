@@ -36,7 +36,7 @@ export const verifyMetadata = async (
       e.index -= line.length + 1;
       if (e.index < 0) break;
     }
-    log(e.message, { file, startLine, content });
+    log.error(e.message, { file, startLine, content });
   });
 
   for (const [key, expected] of Object.entries(assert)) {
@@ -58,11 +58,11 @@ export const verifyMetadata = async (
           color.red(String(current)),
         );
 
-      log(message, {
+      log.error(message, {
         file,
         startLine: line !== 0 ? line : undefined,
         content,
-      }, "warning");
+      });
     }
   }
 
@@ -84,7 +84,7 @@ export const verifyMetadata = async (
         .findLastIndex((line: string) => line.includes("==/UserStyle== */")) +
         1;
 
-      log(
+      log.error(
         sprintf(
           "Metadata variable `%s` should exist",
           color.bold(variable),
@@ -94,7 +94,6 @@ export const verifyMetadata = async (
           startLine: line !== 0 ? line : undefined,
           content,
         },
-        "warning",
       );
     } else if (expected.trim() !== lines[current - 1].trim()) {
       const message = sprintf(
@@ -103,11 +102,11 @@ export const verifyMetadata = async (
         (/\[[^\]]+\]/.exec(expected) as RegExpExecArray)[0],
       );
 
-      log(message, {
+      log.error(message, {
         file,
         startLine: current,
         content,
-      }, "warning");
+      });
 
       if (fix) {
         content = content.replace(lines[current - 1], expected);
@@ -135,9 +134,9 @@ const assertions = (userstyle: string, userstyles: Userstyles) => {
   const prefix = "https://github.com/catppuccin/userstyles";
 
   if (!userstyles[userstyle]) {
-    log("Metadata section for this userstyle has not been added", {
+    log.error("Metadata section for this userstyle has not been added", {
       file: "scripts/userstyles.yml",
-    }, "error");
+    });
     Deno.exit(1);
   }
 
