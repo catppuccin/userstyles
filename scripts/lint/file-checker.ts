@@ -37,7 +37,7 @@ export const checkForMissingFiles = async () => {
       .write();
   } else {
     missingFiles.map((f) => {
-      log(color.red(`Missing file:`) + ` ${f}`, { file: f }, "error");
+      log.error(color.red(`Missing file:`) + ` ${f}`, { file: f });
     });
   }
 
