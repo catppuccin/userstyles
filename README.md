@@ -194,7 +194,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Gmail](styles/gmail)
 - [Migadu Webmail](styles/migadu-webmail)
-- [Skiff](styles/skiff)
 - [Tuta](styles/tuta)
 
 </details>
