@@ -1,0 +1,441 @@
+/* ==UserStyle==
+@name Focus Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/focus
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/focus
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/focus/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Afocus
+@description Soothing pastel theme for Focus SIS
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+@-moz-document regexp('^(https?:\\/\\/)?([a-zA-Z0-9-]+\\.)+focusschoolsoftware\\.com(\\/.*)?$') {
+	@media (prefers-color-scheme: light) {
+		:root {
+			#catppuccin(@lightFlavor, @accentColor);
+		}
+	}
+	@media (prefers-color-scheme: dark) {
+		:root {
+			#catppuccin(@darkFlavor, @accentColor);
+		}
+	}
+
+	#catppuccin(@lookup, @accent) {
+		@rosewater: @catppuccin[@@lookup][@rosewater];
+		@flamingo: @catppuccin[@@lookup][@flamingo];
+		@pink: @catppuccin[@@lookup][@pink];
+		@mauve: @catppuccin[@@lookup][@mauve];
+		@red: @catppuccin[@@lookup][@red];
+		@maroon: @catppuccin[@@lookup][@maroon];
+		@peach: @catppuccin[@@lookup][@peach];
+		@yellow: @catppuccin[@@lookup][@yellow];
+		@green: @catppuccin[@@lookup][@green];
+		@teal: @catppuccin[@@lookup][@teal];
+		@sky: @catppuccin[@@lookup][@sky];
+		@sapphire: @catppuccin[@@lookup][@sapphire];
+		@blue: @catppuccin[@@lookup][@blue];
+		@lavender: @catppuccin[@@lookup][@lavender];
+		@text: @catppuccin[@@lookup][@text];
+		@subtext1: @catppuccin[@@lookup][@subtext1];
+		@subtext0: @catppuccin[@@lookup][@subtext0];
+		@overlay2: @catppuccin[@@lookup][@overlay2];
+		@overlay1: @catppuccin[@@lookup][@overlay1];
+		@overlay0: @catppuccin[@@lookup][@overlay0];
+		@surface2: @catppuccin[@@lookup][@surface2];
+		@surface1: @catppuccin[@@lookup][@surface1];
+		@surface0: @catppuccin[@@lookup][@surface0];
+		@base: @catppuccin[@@lookup][@base];
+		@mantle: @catppuccin[@@lookup][@mantle];
+		@crust: @catppuccin[@@lookup][@crust];
+		@accent-color: @catppuccin[@@lookup][@@accent];
+
+		color-scheme: if(@lookup =latte, light, dark);
+
+		::selection {
+			background-color: fade(@accent-color, 30%);
+		}
+		.colored-tables() {
+			table {
+				a {
+					color: @blue;
+				}
+				thead th {
+					background: fade(@accent-color, 30%) !important;
+					color: @text;
+				}
+				tr {
+					&:nth-child(odd) {
+						background: @surface0 !important;
+						a {
+							color: @blue;
+						}
+					}
+					&:nth-child(even) {
+						background: fade(@accent-color, 30%) !important;
+						a {
+							color: @blue;
+						}
+					}
+				}
+			}
+		}
+		.violet {
+			background: @mauve !important;
+		}
+		.purple {
+			background: @lavender !important;
+		}
+		.teal {
+			background: @teal !important;
+		}
+		.olive {
+			background: @yellow !important;
+		}
+		.green {
+			background: @green !important;
+		}
+		.pink {
+			background: @pink !important;
+		}
+		.red {
+			background: @red !important;
+		}
+		.blue {
+			background: @blue !important;
+		}
+		.primary {
+			background: @accent-color !important;
+		}
+		.grey {
+			background: @surface0 !important;
+		}
+
+		.calculated-grade {
+			color: @blue !important;
+		}
+		.button {
+			background: @accent-color;
+		}
+		input,
+		textarea {
+			&::placeholder {
+				color: @subtext0 !important;
+			}
+		}
+		a {
+			color: @blue;
+		}
+		.swift-box-text-value,
+		.swift-box-button {
+			color: @text !important
+		}
+		.swift-box-options {
+			border-color: @accent-color
+		}
+		.swift-box-option-container {
+			color: @text;
+			border-color: @accent-color;
+			background: @overlay0 !important;
+			.swift-box-option-highlight {
+				background: @overlay1;
+				color: @text;
+			}
+			.swift-box-option-filter-container {
+				input {
+					background: @mantle !important;
+					border-color: @crust;
+				}
+				.swift-box-option-filter-icon {
+					color: @text !important;
+				}
+				background: @overlay0;
+				border-color: @accent-color;
+			}
+		}
+		body,
+		.portal::before,
+		.portal,
+		.content-container,
+		.site-middle,
+		.site-container,
+		.sis-package,
+		.document-ready,
+		.site-content-container,
+		.form {
+			background: @base !important;
+			color: @text;
+		}
+		/* fun hack to get the homepage background to style properly */
+		.portal::before {
+			outline: 30rem solid;
+			outline-color: @base;
+			outline-offset: -20rem !important;
+		}
+		#userwayAccessibilityIcon {
+			img {
+				background-color: @blue !important;
+				border-radius: 50%
+			}
+		}
+		.site-header {
+			background: @mantle;
+			color: @text !important;
+			.help-button {
+				color: @text !important;
+			}
+			.site-session {
+				color: @text !important;
+				.site-session-text-value {
+					color: @text !important;
+				}
+			}
+		}
+		.Box {
+			.BoxHeading {
+				color: @base !important;
+				background: @accent-color !important;
+			}
+			.BoxContent {
+				background: @base !important;
+			}
+		}
+		.cell-link {
+			color: @blue;
+		}
+		.stat_table {
+			background: @surface0;
+			border-color: @accent-color;
+			.stats_header {
+				background: @accent-color;
+				color: @base;
+			}
+			table,
+			th,
+			td {
+				border-color: @text!important;
+			}
+		}
+		.menu-container {
+			background: @surface0;
+			.category-text {
+				color: @text;
+			}
+			.vertical-category-icon > b {
+				color: @base;
+			}
+		}
+		.menu {
+			background: @mantle;
+			.link-text {
+				color: @text !important;
+				&:hover {
+					color: @subtext0 !important;
+				}
+			}
+		}
+		.parent-menu-container {
+			border-color: @overlay0 !important;
+			.fa {
+				color: fade(@accent-color, 90%) !important;
+			}
+			.parent-menu-options-container {
+				background: @crust;
+				.parent-menu-option-title,
+				.parent-menu-sub-options-header {
+					background: @mantle;
+					color: @accent-color !important;
+				}
+				.parent-menu-option-title:hover,
+				.parent-menu-sub-options-header:hover {
+					background: fade(@mantle, 30%) !important;
+					color: @accent-color !important;
+				}
+			}
+			.parent-menu-sub-options {
+				background: fade(@mantle, 50%);
+				.parent-menu-form-option-title {
+					color: @accent-color !important;
+					&:hover {
+						color: fade(@accent-color, 75%) !important;
+					}
+				}
+			}
+			.parent-menu-footer,
+			.parent-menu-footer-button {
+				background: @surface0;
+				color: @accent-color !important;
+			}
+		}
+		.portal-block {
+			.colored-tables();
+			color: @text;
+			background: @surface1 !important;
+
+			.portal-block-title {
+				background: @accent-color;
+				color: @base;
+			}
+			.portal-block-subtitle {
+				background: @surface0;
+			}
+			.portal-background-color {
+				background: @accent-color;
+			}
+			.custom-background-color {
+				&:not(.active) {
+					background: @overlay0 !important;
+					color: @text !important;
+				}
+				&:is(.active) {
+					background: @accent-color !important;
+					color: @base !important;
+				}
+			}
+			.portal-block-tabs {
+				background: @surface1 !important;
+				color: @base;
+				.portal-block-tab {
+					&:not(.active) {
+						background: @overlay0 !important;
+						color: @text !important;
+					}
+					&:is(.active) {
+						background: @accent-color;
+						color: @base;
+					}
+				}
+			}
+			.portal-item-header {
+				background: @overlay1;
+				.portal-item-title,
+				.portal-item-subtitle,
+				time {
+					color: @text !important;
+				}
+			}
+			.portal-item-content {
+				background: @overlay0;
+			}
+		}
+		.category-header {
+			color: @text;
+			background: @base !important;
+		}
+		.filter-container i {
+			color: @text !important;
+		}
+		.fields-column-expander {
+			background: @accent-color !important;
+			color: @base !important;
+			border-color: @overlay0 !important;
+		}
+		.ui.attached.segment {
+			border-color: @overlay0 !important;
+		}
+		.fields-column .info-segment {
+			* {
+				color: @text !important;
+			}
+			background: @surface0 !important;
+			.category-header > * {
+				color: @text !important;
+			}
+			.info-segment {
+				border-color: @surface0 !important;
+			}
+			.field-container {
+				outline-color: @base
+			}
+			.field-header {
+				background: @surface1;
+			}
+		}
+		.dataTable-container {
+			.colored-tables();
+			th,
+			td {
+				color: @text !important;
+			}
+			* {
+				border-color: @surface0 !important;
+			}
+		}
+		.layout-column-button-group {
+			button {
+				&:not(.grey) {
+					color: @base;
+				}
+			}
+		}
+		.poptable-container {
+			table {
+				background-color: @base;
+				border-color: @surface0
+			}
+			.custom-border-color {
+				border-color: @surface0 !important
+			}
+			.custom-background-color {
+				background: @accent-color !important;
+				.TabContents {
+					color: @base !important;
+				}
+			}
+			font {
+				color: @accent-color !important
+			}
+			background-color: @base !important;
+			/* another fun hack to get it to style properly!!! */
+			.disallow-options-container {
+				outline: 50rem solid;
+				outline-color: @base;
+			}
+		}
+		.WhiteDrawHeader,
+		.GrayDrawHeader,
+		.DarkGradientBG {
+			background: @base;
+			border-color: @surface0;
+			font {
+				color: @text !important
+			}
+			#top_submit {
+				background: @accent-color;
+				color: @base;
+			}
+		}
+		.listoutputbox {
+			color: @text !important;
+			background: @base !important;
+			.custom-background-color {
+				background: @accent-color !important;
+				.TabContents {
+					color: @base !important;
+				}
+			}
+			table {
+				color: @base
+			}
+		}
+		.requestStatus {
+			background-color: @surface0;
+			border-color: @accent-color;
+		}
+	}
+}
+
+/* prettier-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+}
+
+// vim:ft=less
