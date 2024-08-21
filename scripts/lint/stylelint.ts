@@ -1,6 +1,6 @@
-import * as color from "std/fmt/colors.ts";
-import type { WalkEntry } from "std/fs/walk.ts";
-import { relative } from "std/path/mod.ts";
+import * as color from "@std/fmt/colors";
+import type { WalkEntry } from "@std/fs";
+import { relative } from "@std/path";
 
 import "postcss-less";
 import stylelint from "stylelint";
@@ -29,7 +29,7 @@ export const lint = (
             color.dim(`(${warning.rule})`),
           ) ?? "unspecified stylelint error";
 
-          log(message, {
+          log.log(message, {
             file: relative(REPO_ROOT, entry.path),
             startLine: warning.line,
             endLine: warning.endLine,

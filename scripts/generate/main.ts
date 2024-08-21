@@ -1,5 +1,5 @@
 #!/usr/bin/env -S deno run -A
-import { join } from "std/path/mod.ts";
+import { join } from "@std/path";
 import { portsSchema, REPO_ROOT, userStylesSchema } from "@/deps.ts";
 import type { PortsSchema, UserStylesSchema } from "@/types/mod.ts";
 
@@ -53,7 +53,7 @@ await syncIssueLabels(userstylesData.userstyles);
  * Keep `.github/CODEOWNERS` in sync with the userstyle metadata.
  */
 const maintainersCodeOwners = () => {
-  return Object.entries(userstylesData.userstyles)
+  return Object.entries(userstylesData.userstyles!)
     .filter(([_, { "current-maintainers": currentMaintainers }]) =>
       currentMaintainers.length > 0
     )

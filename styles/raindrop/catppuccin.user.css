@@ -1,11 +1,11 @@
 /* ==UserStyle==
-@name Skiff Catppuccin
-@namespace github.com/catppuccin/userstyles/styles/skiff
-@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/skiff
-@version 0.0.3
-@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/skiff/catppuccin.user.css
-@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Askiff
-@description Soothing pastel theme for Skiff
+@name Raindrop Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/raindrop
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/raindrop
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/raindrop/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Araindrop
+@description Soothing pastel theme for Raindrop
 @author Catppuccin
 @license MIT
 
@@ -15,15 +15,25 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document domain("app.skiff.com") {
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
-    }
+@-moz-document domain('app.raindrop.io') {
+  [data-theme="night"] {
+    #catppuccin(@darkFlavor, @accentColor) !important;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
+  [data-theme="day"],
+  [data-theme="sunset"] {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+
+  // theme selector previews
+  [class^="theme-"] {
+    &[data-index="0"],
+    &[data-index="2"] > [class^="main-"],
+    &[data-index="3"] {
+      #catppuccin(@lightFlavor, @accentColor) !important;
+    }
+    &[data-index="1"],
+    &[data-index="2"] > [class^="sidebar-"] {
+      #catppuccin(@darkFlavor, @accentColor) !important;
     }
   }
 
@@ -69,162 +79,80 @@
       }
     }
 
-    html,
-    body {
-      /* main background colors */
-      --bg-main-container: @mantle !important;
-      --bg-l3-solid: @base !important;
-      --bg-l2-solid: @base !important;
-      --bg-sidepanel: @crust !important;
-      --bg-l1-solid: @crust !important;
+    &,
+    [data-theme] {
+      --background-color: @base;
+      --disable-background-color: @crust;
+      --disable-text-color: @overlay1;
+      --accent-color: @accent-color;
+      --alternative-background-color: @mantle;
+      --sidebar-background-color: @mantle;
+      --hover-background-color: fade(@overlay0, 20%);
+      --active-background-color: @surface1;
+      --primary-text-color: @text;
+      --secondary-text-color: @subtext0;
+      --shadow-color: fade(@text, 10%);
+      --shadow-light-color: fade(@text, 10%);
+      --danger-color: @red;
+      --important-color: @red;
+      --success-color: @green;
+      --highlights-color: @mauve;
+      --reminder-color: @peach;
+      --note-color: @yellow;
+      --article-color: @peach;
+      --audio-color: @mauve;
+      --document-color: @subtext0;
+      --book-color: @rosewater;
+      --image-color: @green;
+      --video-color: @blue;
+      --broken-color: @maroon;
+      --duplicate-color: @sapphire;
+      --tag-color: @subtext0;
+      --filter-color: @subtext0;
 
-      /* Text fields and popups */
-      --bg-field-default: @mantle !important;
-
-      /* Text */
-      --text-primary: @text !important;
-      --text-secondary: @subtext1 !important;
-      --text-disabled: @subtext0 !important;
-      --text-tertiary: @subtext0 !important;
-      --text-link: @accent-color !important;
-      --text-destructive: @red !important;
-      --text-inverse: @crust !important;
-
-      --accent-green-primary: @green !important;
-    }
-
-    /* Link color when hovering over hotlinked text */
-    .eWCUQ {
-      color: @accent-color;
-    }
-
-    /* Unread dot */
-    .bguZwu {
-      background: @accent-color;
-    }
-
-    /* Change account/service dropdown and the tutorial popup, always dark mode regardless of setting */
-    & when not (@lookup = latte) {
-      /* Change account/service dropdown */
-      .fLWrAr {
-        background: @mantle;
+      [data-variant="active"] {
+        background: fade(@accent-color, 10%) !important;
       }
-      .gWUKFc {
-        background: @base;
+      // bookmark edit page header
+      [class^="header-"][data-fancy="true"] {
+        background: linear-gradient(
+          to bottom,
+          var(--background-color) 30%,
+          fade(@base, 60%) 100%
+        );
       }
-
-      /* tutorial popup */
-      html,
-      body {
-        --bg-emphasis: @crust !important;
+      // bookmark edit page cover selector
+      [class^="cover-"] > [class^="more-"] {
+        background: fade(@accent-color, 85%);
       }
-      /* Pay with crypto header */
-      .cEYYtP {
-        background: @mantle !important;
+      // add bookmark button text color
+      [title="Add Bookmark"] {
+        color: @base;
       }
-    }
-    & when (@lookup = latte) {
-      /* Change account/service dropdown */
-      .fLWrAr {
-        background: @catppuccin[@mocha][@mantle];
+      // disabled add bookmark button
+      [class^="button-"][data-variant="primary"][disabled] {
+        filter: none;
+        opacity: 100%;
+        background: @overlay0;
+        color: @crust;
       }
-      .gWUKFc {
-        background: @catppuccin[@mocha][@mantle];
+      // dropping bookmark to collection color overlay
+      [class*="isDropping-"] {
+        background-color: fade(@accent-color, 10%);
       }
-      /* tutorial popup */
-      html,
-      body {
-        --bg-emphasis: @catppuccin[@mocha][@crust] !important;
+      // sidebar background color
+      .svSidebar {
+        background: var(--sidebar-background-color);
       }
-    }
-
-    /* Various dropdowns */
-    .optionMenu {
-      background: @crust !important;
-    }
-
-    /* Text in dropdowns */
-    .imrrcE,
-    .kvGqVe {
       color: @text;
     }
-    .dkQatM {
-      color: @subtext0;
-    }
-
-    /* Search menu */
-    .bFaRKt {
-      background: @mantle !important;
-    }
-    .enSdmg,
-    .cGshPA,
-    .epvcfe {
-      color: @subtext0;
-      caret-color: @accent-color;
-    }
-    .enSdmg:focus,
-    .cGshPA:focus,
-    .epvcfe:focus {
+    // google login button
+    [href^="https://api.raindrop.io/v1/auth/google"] > span
+    {
       color: @text;
     }
 
-    /* Mail, folder, and tag colors */
-    .dSuCgH {
-      border-color: @red !important;
-    }
-    .haItIx,
-    .eKPGmM,
-    .eihkWB {
-      background: @red;
-    }
-    .eaRVlP {
-      border-color: @peach !important;
-    }
-    .JtHzx,
-    .dKGpJJ,
-    .NfxrE {
-      background: @peach;
-    }
-    .hUzTMU {
-      border-color: @pink !important;
-    }
-    .gvwSHu,
-    .iJVhTi,
-    .gbLRlL {
-      background: @pink;
-    }
-    .eQGCyt {
-      border-color: @yellow !important;
-    }
-    .BJLiU,
-    .bdmXVU,
-    .cldAOh {
-      background: @yellow;
-    }
-    .jquNQm {
-      border-color: @green !important;
-    }
-    .fBWSzj,
-    .bmuMTf,
-    .dzrHbG {
-      background: @green;
-    }
-    .kmInNw {
-      border-color: @sapphire !important;
-    }
-    .dZaPlW,
-    .kHHBZC,
-    .ePjgmv {
-      background: @sapphire;
-    }
-    .gqLdmg {
-      border-color: @blue !important;
-    }
-    .dtLBu,
-    .gZiRxy,
-    .hccJrv {
-      background: @blue;
-    }
+    // todo: recolor "Colors circle" icons using custom images (like the chess.com theme)
   }
 }
 
