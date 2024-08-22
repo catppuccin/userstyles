@@ -73,6 +73,7 @@
     --ic-brand-global-nav-menu-item__badge-bgd: @accent-color;
     --ic-brand-button--primary-bgd-darkened-5: darken(@accent-color, 5%);
     --ic-brand-button--primary-bgd-darkened-15: darken(@accent-color, 15%);
+    /* --ic-brand-primary-darkened-15: fadeout(@accent-color, 15%); */
     --ic-brand-button--primary-text: @base;
     --eMdva-color: @base;
     --ccWIh-color: @crust;
@@ -116,6 +117,8 @@
     em,
     p,
     span {
+      /* this overrides the "show completed items" part of the dashboard */
+      /* but it seems like an acceptable compromise compared to styling many auto-generated css classes */
       color: @text;
       /* for highlighted text in user-created content, revert to regular-ish text color */
       &[style~="background-color:"]:not([style~="color:"]) {
@@ -170,6 +173,14 @@
       background-color: @surface0;
     }
 
+    /* auto-save preview */
+    /* Difficult to select anything so just revert span/p changes */
+    span[data-testid="RCE_RestoreAutoSaveModal"] {
+      span, p {
+        color: black;
+      }
+    }
+
     /* sidebar */
     .list-view a.active {
       border-color: @accent-color;
@@ -177,10 +188,22 @@
     }
 
     /* pills */
+    .css-tfc09q-pill {
+      /* red missing assignment pill */
+      color: @red;
+      border-color: @red;
+      background-color: @surface0;
+    }
     .css-10f5v0f-pill {
+      /* info pill (e.g. submitted, graded, etc) */
       background-color: @surface0;
       border-color: @surface1;
       color: @text;
+    }
+    .pill {
+      background-color: @surface1;
+      border-color: @surface2;
+      box-shadow: 0 1px 0 @surface2;;
     }
 
     /* buttons */
@@ -197,6 +220,7 @@
     .ColorPicker__Actions button[class$="baseButton"]:not([id$="Apply"]),
     #grades_summary a.toggle_comments_link,
     #grades_summary a.toggle_rubric_assessments_link,
+    #planner-today-btn,
     .ui-button,
     .btn,
     .Button,
@@ -321,12 +345,23 @@
     .CompletedItemsFacade-styles__root {
       border-color: @surface1;
     }
-    .ic-Dashboard-header * {
+    button[data-testid="completed-items-toggle"] {
+      span[class$="summaryText"] {
+        color: inherit;
+      }
+    }
+    .ic-Dashboard-header {
+      background-color: @base;
+    }
+    .ic-Dashboard-header__layout {
+      background-color: @base;
+      border-color: @surface1;
+    }
+    .PlannerHeader-styles__root {
       background-color: @base;
     }
 
-    #right-side *,
-    .ic-Dashboard-header * {
+    #right-side * {
       border-color: @surface1;
     }
 
@@ -357,6 +392,9 @@
       }
       .css-tpuo6v-text {
         filter: opacity(0.6);
+      }
+      .details .header {
+        color: @subtext0;
       }
     }
 
@@ -531,6 +569,11 @@
       background-image: url("data:image/svg+xml,@{svg}");
     }
 
+    img[src="/images/svg-icons/svg_icon_download.svg"] {
+      @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1920" version="1.1"> <path d="M1807.09271,1482.47718 L1886.82918,1562.43953 L1531.51624,1917.75247 L355.346824,1917.75247 L0.0338823529,1562.43953 L79.8832941,1482.47718 L402.104471,1804.81129 L1484.75859,1804.81129 L1807.09271,1482.47718 Z M997.677176,-0.0338823529 L997.677176,1166.98729 L1352.99012,811.674353 L1432.95247,891.523765 L941.093647,1383.15671 L449.460706,891.523765 L529.423059,811.674353 L884.736,1166.98729 L884.736,-0.0338823529 L997.677176,-0.0338823529 Z" fill="@{text}" stroke="none" stroke-width="1" fill-rule="evenodd"/> </svg>');
+      content: url("data:image/svg+xml,@{svg}");
+    }
+
     .css-15v4rhu-tray {
       background-color: @surface0;
     }
@@ -546,23 +589,27 @@
     .header-bar {
       background-color: @base;
     }
-    .item-group-condensed > * {
-      background-color: @surface0;
-    }
     .content,
     .footer {
       background-color: @base;
     }
     .ig-header {
+      background-color: @surface1;
+      color: @text;
+      border-color: @surface2;
       .name {
-        text-shadow: 1px 1px 0 rgba(@text, 0.5);
+        text-shadow: 1px 1px 0 rgba(@base, 0.5);
         color: @text;
       }
+    }
+    .accessible-toggler {
+      color: @text;
     }
     .ig-list {
       .ig-row {
         color: @text;
         background-color: @base;
+        border-color: @surface2;
       }
       .ig-row:hover {
         background-color: @base;
@@ -576,12 +623,8 @@
     #breadcrumbs {
       background-color: @base;
     }
-    .pill {
-      background-color: @surface1;
-      box-shadow: 0 1px 0 @base;
-    }
     .ic-app-nav-toggle-and-crumbs,
-    .item-group-condensed * {
+    .item-group-condensed {
       border-color: @surface1;
     }
     .pages.show .page-title {
@@ -784,12 +827,6 @@
       .quiz-header {
         @border-color: @surface2;
       }
-      .alert {
-        background-color: @red;
-        span {
-          color: @base;
-        }
-      }
       .quiz-submission,
       .question_editing {
         background-color: @base;
@@ -797,6 +834,12 @@
         .score_value {
           color: @subtext1;
         }
+      }
+    }
+    .alert {
+      background-color: @red;
+      span {
+        color: @base;
       }
     }
 
@@ -813,6 +856,11 @@
       }
     }
     ul#question_list {
+      /* in canvas' css this is --ic-brand-primary-darkened-15 (@accent-color) but i think */
+      /* --ic-link-color (@blue) looks more appropriate and closer to actual canvas */
+      li.answered a {
+        color: darken(@blue, 15%);
+      }
       li.marked {
         /* for some reason canvas's css has left in quotes so this just patches that */
         background-position: left 3px top 7px;
@@ -876,6 +924,10 @@
         color: @text;
       }
     }
+    .border {
+      border-color: @surface1;
+    }
+
     /* submission details */
     .submission-details-container {
       border-color: @surface1;
@@ -1141,8 +1193,7 @@
       background-color: @surface0;
     }
     .react-rubric .rating-tier.selected {
-      .meetsMasteryShader {
-        background-color: @green;
+      .meetsMasteryShader { background-color: @green;
         .triangle {
           color: @green;
           background-color: transparent;
