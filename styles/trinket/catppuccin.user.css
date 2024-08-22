@@ -2,7 +2,7 @@
 @name Trinket Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/trinket
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/trinket
-@version 0.0.3
+@version 0.0.4
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/trinket/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Atrinket
 @description Soothing pastel theme for Trinket
@@ -16,9 +16,20 @@
 ==/UserStyle== */
 
 @-moz-document domain('trinket.io') {
-  #catppuccin(@lookup, @accent) {
-    @import url("https://unpkg.com/@catppuccin/highlightjs@0.1.2/css/catppuccin.variables.css");
+  @import url("https://unpkg.com/@catppuccin/highlightjs@0.2.2/css/catppuccin.variables.important.css");
 
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+
+  #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
     @pink: @catppuccin[@@lookup][@pink];
@@ -47,10 +58,6 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    #rgbify(@color) {
-      @rgb-raw: red(@color), green(@color), blue(@color);
-    }
-
     --ctp-rosewater: #rgbify(@rosewater) [];
     --ctp-flamingo: #rgbify(@flamingo) [];
     --ctp-pink: #rgbify(@pink) [];
@@ -77,108 +84,6 @@
     --ctp-base: #rgbify(@base) [];
     --ctp-mantle: #rgbify(@mantle) [];
     --ctp-crust: #rgbify(@crust) [];
-
-    // This is here because the specificity in the default css for
-    // trinket overrides these colors, so `!important` is needed.
-    code.hljs {
-      color: @text !important;
-
-      .hljs-keyword,
-      .hljs-variable,
-      .hljs-variable.language_,
-      .hljs-name,
-      .hljs-selector-attr {
-        color: @mauve !important;
-      }
-
-      .hljs-built_in,
-      .hljs-doctag,
-      .hljs-emphasis,
-      .hljs-strong,
-      .hljs-diff-deletion {
-        color: @red !important;
-      }
-
-      .hljs-type,
-      .hljs-title.class_,
-      .hljs-attribute,
-      .hljs-selector-tag {
-        color: @yellow !important;
-      }
-
-      .hljs-literal,
-      .hljs-number,
-      .hljs-variable.constant_,
-      .hljs-meta {
-        color: @peach !important;
-      }
-
-      .hljs-operator,
-      .hljs-property,
-      .hljs-selector-class,
-      .hljs-selector-pseudo,
-      .hljs-formula,
-      .hljs-bullet,
-      .hljs-punctuation {
-        color: @teal !important;
-      }
-
-      .hljs-punctuation {
-        color: @subtext1 !important;
-      }
-
-      .hljs-regexp {
-        color: @pink !important;
-      }
-
-      .hljs-string,
-      .hljs-char.escape_,
-      .hljs-code,
-      .hljs-diff-addition,
-      .hljs-quote,
-      .hljs-value {
-        color: @green !important;
-      }
-
-      .hljs-subst,
-      .hljs-tag {
-        color: @subtext0 !important;
-      }
-
-      .hljs-symbol,
-      .hljs-template-tag,
-      .hljs-template-variable {
-        color: @flamingo !important;
-      }
-
-      .hljs-title,
-      .hljs-title.function_,
-      .hljs-section,
-      .hljs-attr,
-      .hljs-selector-id {
-        color: @blue !important;
-      }
-
-      .hljs-link {
-        color: @sapphire !important;
-      }
-
-      .hljs-comment {
-        color: @surface2 !important;
-      }
-
-      .hljs-params {
-        color: @text !important;
-      }
-
-      .hljs-diff-deletion {
-        background-color: fade(@red, 0.15);
-      }
-
-      .hljs-diff-addition {
-        background-color: fade(@green, 0.15);
-      }
-    }
 
     .ace_editor {
       background-color: @crust;
@@ -1418,17 +1323,10 @@
       background-image: url("data:image/svg+xml;utf8,@{svg}");
     }
   }
+}
 
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
-    }
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
-    }
-  }
+#rgbify(@color) {
+  @rgb-raw: red(@color), green(@color), blue(@color);
 }
 
 /* prettier-ignore */
@@ -1438,4 +1336,5 @@
   @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
   @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
 }
+
 // vim:ft=less
