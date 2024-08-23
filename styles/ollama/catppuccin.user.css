@@ -58,7 +58,7 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    @icon-filter: @catppuccin[@@lookup][@icon_filter];
+    @text-filter: @catppuccin[@@lookup][@text-filter];
 
     --ctp-rosewater: #rgbify(@rosewater) [];
     --ctp-flamingo: #rgbify(@flamingo) [];
@@ -103,17 +103,18 @@
     background-color: @base;
     color: @text;
 
-    & when not (@lookup = latte) {
-      img[src="/public/ollama.png"], img[src="https://ollama.com/public/assets/c889cc0d-cb83-4c46-a98e-0d0e273151b9/42f6b28d-9117-48cd-ac0d-44baaf5c178e.png"]
-      {
-        filter: @icon-filter;
-      }
+    img[alt^="ollama" i] {
+      filter: @text-filter;
     }
 
     code,
     pre {
       background-color: @mantle;
       color: @text !important;
+    }
+
+    input {
+      background-color: @mantle;
     }
 
     main,
@@ -171,6 +172,8 @@
     .text-gray-900 {
       color: @subtext1;
     }
+    .text-green-500,
+    .text-emerald-500,
     .text-green-700 {
       color: @green;
     }
@@ -182,9 +185,13 @@
     .text-neutral-500 {
       color: @subtext0;
     }
+    .text-neutral-700,
     .text-neutral-800,
     .text-neutral-900 {
       color: @subtext1 !important;
+    }
+    .text-red-500 {
+      color: @red;
     }
     .text-blue-500,
     .text-blue-600 {
@@ -242,6 +249,9 @@
     .focus\:border-blue-400:focus {
       border-color: @accent-color;
     }
+    .focus\:border-red-400:focus {
+      border-color: @red;
+    }
 
     .ring-neutral-300 {
       --tw-ring-color: @surface1 !important;
@@ -255,11 +265,10 @@
     select:focus,
     .ring-blue-300,
     .focus\:ring-blue-300:focus {
-      --tw-ring-color: @accent-color;
-
-      &.focus\:ring-opacity-75:focus {
-        --tw-ring-color: fade(@accent-color, 75%);
-      }
+      --tw-ring-color: rgba(#rgbify(@accent-color) [], var(--tw-ring-opacity));
+    }
+    .focus\:ring-red-300:focus {
+      --tw-ring-color: rgba(#rgbify(@red) [], var(--tw-ring-opacity));
     }
   }
 }
@@ -270,10 +279,10 @@
 
 /* prettier-ignore */
 @catppuccin: {
-  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @icon_filter: invert(30%) sepia(17%) saturate(725%) hue-rotate(196deg) brightness(94%) contrast(89%); @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8;  };
-  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @icon_filter:  invert(79%) sepia(35%) saturate(199%) hue-rotate(191deg) brightness(97%) contrast(97%);@subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634;  };
-  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5;@icon_filter: invert(76%) sepia(29%) saturate(226%) hue-rotate(191deg) brightness(106%) contrast(92%); @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @icon_filter:  invert(84%) sepia(4%) saturate(1976%) hue-rotate(192deg) brightness(104%) contrast(91%); @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @text-filter: brightness(0) saturate(100%) invert(32%) sepia(14%) saturate(808%) hue-rotate(196deg) brightness(92%) contrast(95%); @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @text-filter: brightness(0) saturate(100%) invert(82%) sepia(17%) saturate(401%) hue-rotate(191deg) brightness(97%) contrast(98%); @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @text-filter: brightness(0) saturate(100%) invert(72%) sepia(78%) saturate(147%) hue-rotate(195deg) brightness(103%) contrast(92%); @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @text-filter: brightness(0) saturate(100%) invert(94%) sepia(11%) saturate(2056%) hue-rotate(182deg) brightness(96%) contrast(99%); @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
 }
 
 // vim:ft=less
