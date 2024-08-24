@@ -109,6 +109,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Keyoxide](styles/keyoxide)
 - [MDN](styles/mdn)
 - [npm](styles/npm)
+- [Ollama](styles/ollama)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
 - [Stack Overflow](styles/stack-overflow)
