@@ -18,6 +18,7 @@ const settings = {
     updateInterval: 24,
     updateOnlyEnabled: true,
     patchCsp: true,
+    "editor.linter": "",
   },
 };
 
