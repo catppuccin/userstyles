@@ -109,6 +109,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Keyoxide](styles/keyoxide)
 - [MDN](styles/mdn)
 - [npm](styles/npm)
+- [Ollama](styles/ollama)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
 - [Stack Overflow](styles/stack-overflow)
@@ -194,7 +195,6 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - [Gmail](styles/gmail)
 - [Migadu Webmail](styles/migadu-webmail)
-- [Skiff](styles/skiff)
 - [Tuta](styles/tuta)
 
 </details>
