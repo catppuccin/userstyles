@@ -1,9 +1,9 @@
-// @deno-types="@/types/usercss-meta.d.ts";
+// @ts-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
-import * as color from "std/fmt/colors.ts";
-import { sprintf } from "std/fmt/printf.ts";
-import type { WalkEntry } from "std/fs/walk.ts";
-import { join, relative } from "std/path/mod.ts";
+import * as color from "@std/fmt/colors";
+import { sprintf } from "@std/fmt/printf";
+import type { WalkEntry } from "@std/fs";
+import { join, relative } from "@std/path";
 
 import { REPO_ROOT } from "@/deps.ts";
 import { log } from "@/lint/logger.ts";
@@ -36,7 +36,7 @@ export const verifyMetadata = async (
       e.index -= line.length + 1;
       if (e.index < 0) break;
     }
-    log(e.message, { file, startLine, content });
+    log.error(e.message, { file, startLine, content });
   });
 
   for (const [key, expected] of Object.entries(assert)) {
@@ -47,7 +47,10 @@ export const verifyMetadata = async (
         .findIndex((line) => line.includes(key)) + 1;
 
       const message = current === undefined
-        ? sprintf("Metadata `%s` should not be undefined", color.bold(key))
+        ? sprintf(
+          "Metadata `%s` should not be undefined",
+          color.bold(key),
+        )
         : sprintf(
           'Metadata `%s` should be "%s" but is "%s"',
           color.bold(key),
@@ -55,17 +58,18 @@ export const verifyMetadata = async (
           color.red(String(current)),
         );
 
-      log(message, {
+      log.error(message, {
         file,
         startLine: line !== 0 ? line : undefined,
         content,
-      }, "warning");
+      });
     }
   }
 
-  const template =
-    (await Deno.readTextFile(join(REPO_ROOT, "template/catppuccin.user.css")))
-      .split("\n");
+  const template = (await Deno.readTextFile(
+    join(REPO_ROOT, "template/catppuccin.user.css"),
+  ))
+    .split("\n");
 
   for (const variable of ["darkFlavor", "lightFlavor", "accentColor"]) {
     const declaration = `@var select ${variable}`;
@@ -80,7 +84,7 @@ export const verifyMetadata = async (
         .findLastIndex((line: string) => line.includes("==/UserStyle== */")) +
         1;
 
-      log(
+      log.error(
         sprintf(
           "Metadata variable `%s` should exist",
           color.bold(variable),
@@ -90,7 +94,6 @@ export const verifyMetadata = async (
           startLine: line !== 0 ? line : undefined,
           content,
         },
-        "warning",
       );
     } else if (expected.trim() !== lines[current - 1].trim()) {
       const message = sprintf(
@@ -99,11 +102,11 @@ export const verifyMetadata = async (
         (/\[[^\]]+\]/.exec(expected) as RegExpExecArray)[0],
       );
 
-      log(message, {
+      log.error(message, {
         file,
         startLine: current,
         content,
-      }, "warning");
+      });
 
       if (fix) {
         content = content.replace(lines[current - 1], expected);
@@ -131,9 +134,9 @@ const assertions = (userstyle: string, userstyles: Userstyles) => {
   const prefix = "https://github.com/catppuccin/userstyles";
 
   if (!userstyles[userstyle]) {
-    log("Metadata section for this userstyle has not been added", {
+    log.error("Metadata section for this userstyle has not been added", {
       file: "scripts/userstyles.yml",
-    }, "error");
+    });
     Deno.exit(1);
   }
 

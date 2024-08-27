@@ -1,5 +1,5 @@
 #!/usr/bin/env -S deno run -A
-import * as assert from "std/assert/mod.ts";
+import * as assert from "@std/assert";
 import { Octokit } from "@octokit/rest";
 
 import type { UserStylesSchema } from "@/types/mod.ts";

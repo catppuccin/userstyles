@@ -1,13 +1,12 @@
 import Ajv, { Schema } from "ajv";
-import { parse } from "std/yaml/parse.ts";
-import { join } from "std/path/join.ts";
+import { parse } from "@std/yaml";
+import { join } from "@std/path";
 import { SetRequired } from "type-fest/source/set-required.d.ts";
 
 import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
 import { UserstylesSchema } from "@/types/userstyles.d.ts";
-import { YAMLError } from "std/yaml/_error.ts";
 import { log } from "@/lint/logger.ts";
-import { sprintf } from "std/fmt/printf.ts";
+import { sprintf } from "@std/fmt/printf";
 
 /**
  * @param content A string of YAML content
@@ -64,18 +63,17 @@ export const getUserstylesData = (): Userstyles => {
 
     return data as Userstyles;
   } catch (err) {
-    if (err instanceof YAMLError) {
+    if (err.name === "YAMLError") {
       const groups =
         /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
           .exec(err.message)?.groups;
-      log(
+      log.error(
         groups!.message,
         {
           file: "scripts/userstyles.yml",
           startLine: Number(groups!.line),
           content: content,
         },
-        "error",
       );
     } else {
       console.log(err);
