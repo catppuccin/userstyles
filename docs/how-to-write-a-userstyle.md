@@ -135,6 +135,10 @@ We'll refer to this next section of the template as the "`#catppuccin` mixin". Y
 }
 ```
 
+### Tips and solutions to common problems
+
+Give [tips-and-tricks.md](./tips-and-tricks.md) a read.
+
 ### Putting it all together
 
 Combining all of the previous steps, we have a working userstyle!
