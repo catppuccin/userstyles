@@ -199,6 +199,12 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 </details>
 <details open>
+<summary>🕹 Game Development</summary>
+
+- [NameMC](styles/namemc)
+
+</details>
+<details open>
 <summary>🎓 Education</summary>
 
 - 🚧 [Canvas LMS](styles/canvas-lms)
