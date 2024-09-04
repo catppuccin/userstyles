@@ -1,5 +1,7 @@
-import * as color from "@std/fmt/colors";
 import type { WalkEntry } from "@std/fs";
+import { REPO_ROOT } from "@/constants.ts";
+
+import * as color from "@std/fmt/colors";
 import * as path from "@std/path";
 
 import "postcss-less";
@@ -7,7 +9,6 @@ import stylelint from "stylelint";
 import "stylelint-config-standard";
 import "stylelint-config-recommended";
 
-import { REPO_ROOT } from "@/constants.ts";
 import { log } from "@/lint/logger.ts";
 
 export async function lint(

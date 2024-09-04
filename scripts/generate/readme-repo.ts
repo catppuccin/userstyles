@@ -2,8 +2,8 @@ import * as path from "@std/path";
 import Handlebars from "handlebars";
 
 import { REPO_ROOT } from "@/constants.ts";
-import { PortsSchema, UserStylesSchema } from "@/types/mod.ts";
-import { updateFile, updateReadme } from "@/generate/utils.ts";
+import type { PortsSchema, UserStylesSchema } from "@/types/mod.ts";
+import { updateFileWithPreamble, updateReadme } from "@/generate/utils.ts";
 
 type MappedPorts = {
   [k: string]: (
@@ -11,10 +11,10 @@ type MappedPorts = {
   )[];
 };
 
-export const generateMainReadme = async (
+export async function generateMainReadme(
   userstyles: UserStylesSchema.Userstyles,
   portsData: PortsSchema.PortsSchema,
-) => {
+) {
   if (!portsData.categories) throw ("Ports data is missing categories");
 
   const categorized = Object.entries(userstyles)
@@ -76,7 +76,7 @@ export const generateMainReadme = async (
   });
 
   const readmePath = path.join(REPO_ROOT, "README.md");
-  await updateFile(
+  await updateFileWithPreamble(
     readmePath,
     updateReadme({
       readme: Deno.readTextFileSync(readmePath),
@@ -85,4 +85,4 @@ export const generateMainReadme = async (
     }),
     false,
   ).catch((e) => console.error(e));
-};
+}

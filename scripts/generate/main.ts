@@ -6,7 +6,7 @@ import * as path from "@std/path";
 import { syncIssueLabels } from "@/generate/labels.ts";
 import { generateMainReadme } from "@/generate/readme-repo.ts";
 import { generateStyleReadmes } from "@/generate/readme-styles.ts";
-import { updateFile } from "@/generate/utils.ts";
+import { updateFileWithPreamble } from "@/generate/utils.ts";
 import { validateYaml } from "@/utils/yaml.ts";
 
 const userstylesYaml = Deno.readTextFileSync(
@@ -74,7 +74,7 @@ const userstylesStaffCodeOwners = () => {
     "\n",
   );
 };
-await updateFile(
+await updateFileWithPreamble(
   path.join(REPO_ROOT, ".github/CODEOWNERS"),
   `${maintainersCodeOwners()}\n\n${userstylesStaffCodeOwners()}`,
 );

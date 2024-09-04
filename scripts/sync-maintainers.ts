@@ -1,7 +1,8 @@
+import type { UserStylesSchema } from "@/types/mod.ts";
+
 import * as assert from "@std/assert";
 import { Octokit } from "@octokit/rest";
 
-import type { UserStylesSchema } from "@/types/mod.ts";
 import { getUserstylesData } from "@/utils/yaml.ts";
 
 const octokit = new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") });
@@ -15,8 +16,8 @@ const maintainers = [
     Object.values(userstyles).flatMap((
       style: UserStylesSchema.Userstyle,
     ) =>
-      style["current-maintainers"].map((m) => {
-        const username = m.url.split("github.com/")?.pop();
+      style["current-maintainers"].map((maintainer) => {
+        const username = maintainer.url.split("github.com/")?.pop();
         // Check that they follow github.com/username pattern.
         assert.assertExists(username);
         return username.toLowerCase();
@@ -31,39 +32,37 @@ const teamMembers = await octokit.teams
     ...team,
     per_page: 100,
   })
-  .then((res) => res.data.map((m) => m.login.toLowerCase()));
+  .then(({ data }) => data.map((member) => member.login.toLowerCase()));
 
-const syncMaintainers = async () => {
-  if (!maintainers) return;
-  if (assert.equal(maintainers, teamMembers)) {
-    console.log("Maintainers are in sync");
-    return;
-  }
+if (!assert.equal(maintainers, teamMembers)) {
+  const maintainersToAdd = maintainers.filter((m) => !teamMembers.includes(m));
+  const membersToRemove = teamMembers.filter((m) => !maintainers.includes(m));
 
-  const toAdd = maintainers.filter((m) => !teamMembers.includes(m));
-  const toRemove = teamMembers.filter((m) => !maintainers.includes(m));
-
-  for (const m of toAdd) {
+  for (const maintainers of maintainersToAdd) {
     await octokit.teams.addOrUpdateMembershipForUserInOrg({
       ...team,
-      username: m,
+      username: maintainers,
     });
-    console.log(`Added ${m} to the ${team.org}/${team.team_slug} team.`);
+    console.log(
+      `Added ${maintainers} to the ${team.org}/${team.team_slug} team.`,
+    );
   }
   console.log(
-    `${toAdd.length} users added to the ${team.org}/${team.team_slug} team.`,
+    `${maintainersToAdd.length} users added to the ${team.org}/${team.team_slug} team.`,
   );
 
-  for (const m of toRemove) {
+  for (const member of membersToRemove) {
     await octokit.teams.removeMembershipForUserInOrg({
       ...team,
-      username: m,
+      username: member,
     });
-    console.log(`Removed ${m} from the ${team.org}/${team.team_slug} team.`);
+    console.log(
+      `Removed ${member} from the ${team.org}/${team.team_slug} team.`,
+    );
   }
   console.log(
-    `${toRemove.length} users removed from the ${team.org}/${team.team_slug} team.`,
+    `${membersToRemove.length} users removed from the ${team.org}/${team.team_slug} team.`,
   );
-};
-
-await syncMaintainers();
+} else {
+  console.log("Maintainers and team members are in sync");
+}

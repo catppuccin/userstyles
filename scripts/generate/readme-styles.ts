@@ -1,4 +1,4 @@
-import { UserStylesSchema } from "@/types/mod.ts";
+import type { UserStylesSchema } from "@/types/mod.ts";
 import * as path from "@std/path";
 import { REPO_ROOT } from "@/constants.ts";
 import Handlebars from "handlebars";
@@ -44,9 +44,9 @@ const extractName = (
   });
 };
 
-export const generateStyleReadmes = (
+export function generateStyleReadmes(
   userstyles: UserStylesSchema.Userstyles,
-) => {
+) {
   const stylesReadmePath = path.join(
     REPO_ROOT,
     "scripts/generate/templates/userstyle.md",
@@ -82,4 +82,4 @@ export const generateStyleReadmes = (
       ).catch((e) => console.error(e));
     },
   );
-};
+}

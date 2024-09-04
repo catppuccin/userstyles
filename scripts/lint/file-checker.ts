@@ -11,7 +11,7 @@ const requiredFiles = [
   "preview.webp",
 ];
 
-export const checkForMissingFiles = async () => {
+export async function checkForMissingFiles() {
   const stylesRoot = path.join(REPO_ROOT, "styles");
 
   const missingFiles: string[] = [];
@@ -42,4 +42,4 @@ export const checkForMissingFiles = async () => {
   }
 
   return missingFiles.length === 0;
-};
+}

@@ -11,13 +11,13 @@ import { REPO_ROOT } from "@/constants.ts";
 import { log } from "@/lint/logger.ts";
 import { formatListOfItems } from "@/utils/index.ts";
 
-export const verifyMetadata = async (
+export async function verifyMetadata(
   entry: WalkEntry,
   content: string,
   userstyle: string,
   userstyles: Userstyles,
   fix: boolean,
-) => {
+) {
   // `usercss-meta` prohibits any '\r' characters, which seem to be present on Windows.
   content = content.replaceAll("\r\n", "\n");
 
@@ -129,7 +129,7 @@ export const verifyMetadata = async (
     isLess: metadata.preprocessor === assert.preprocessor,
     fixed: content,
   };
-};
+}
 
 const assertions = (userstyle: string, userstyles: Userstyles) => {
   const prefix = "https://github.com/catppuccin/userstyles";

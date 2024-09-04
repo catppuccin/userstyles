@@ -7,7 +7,7 @@
  * @example
  * formatListOfItems(['x', 'y', 'z']); // 'x, y, and z'
  */
-export const formatListOfItems = (items: unknown[]): string => {
+export function formatListOfItems(items: unknown[]): string {
   // If there are two items, connect them with an "and".
   if (items.length === 2) return items.join(" and ");
   // Otherwise, there is either just one item or more than two items.
@@ -19,4 +19,4 @@ export const formatListOfItems = (items: unknown[]): string => {
     // Otherwise, it is some item in the middle of the list and we can just add it as a comma followed by the item to the string.
     return prev + `, ${curr}`;
   }) as string;
-};
+}

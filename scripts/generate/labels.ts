@@ -1,9 +1,11 @@
-import * as path from "@std/path";
-
+import type { UserStylesSchema } from "@/types/mod.ts";
 import { REPO_ROOT } from "@/constants.ts";
-import { updateFile } from "@/generate/utils.ts";
-import { UserStylesSchema } from "@/types/mod.ts";
-import { stringify } from "@std/yaml";
+
+import * as path from "@std/path";
+import * as YAML from "@std/yaml";
+
+import { updateFileWithPreamble } from "@/generate/utils.ts";
+
 import { type ColorName, flavors } from "@catppuccin/palette";
 
 /**
@@ -17,12 +19,12 @@ const macchiatoHex = flavors.macchiato.colorEntries
 
 const toIssueLabel = (slug: string | number) => `lbl:${slug}`;
 
-export const syncIssueLabels = async (
+export async function syncIssueLabels(
   userstyles: UserStylesSchema.Userstyles,
-) => {
-  updateFile(
+) {
+  updateFileWithPreamble(
     path.join(REPO_ROOT, ".github/issue-labeler.yml"),
-    stringify(
+    YAML.stringify(
       Object.entries(userstyles)
         .reduce((acc, [key]) => {
           acc[key.toString()] = [`/${toIssueLabel(key)}(,.*)?$/gm`];
@@ -48,9 +50,9 @@ export const syncIssueLabels = async (
   );
 
   // .github/pr-labeler.yml
-  updateFile(
+  updateFileWithPreamble(
     path.join(REPO_ROOT, ".github/pr-labeler.yml"),
-    stringify(
+    YAML.stringify(
       Object.entries(userstyles)
         .reduce((acc, [key]) => {
           acc[`${key}`] = `styles/${key}/**/*`;
@@ -69,6 +71,5 @@ export const syncIssueLabels = async (
       };
     });
   const syncLabels = path.join(REPO_ROOT, ".github/labels.yml");
-  // deno-lint-ignore no-explicit-any
-  await updateFile(syncLabels, stringify(syncLabelsContent as any));
-};
+  await updateFileWithPreamble(syncLabels, YAML.stringify(syncLabelsContent));
+}
