@@ -1,14 +1,15 @@
+import type { Userstyles } from "@/types/userstyles.d.ts";
+import type { WalkEntry } from "@std/fs";
+
 // @ts-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
 import * as color from "@std/fmt/colors";
 import { sprintf } from "@std/fmt/printf";
-import type { WalkEntry } from "@std/fs";
-import { join, relative } from "@std/path";
+import * as path from "@std/path";
 
-import { REPO_ROOT } from "@/deps.ts";
+import { REPO_ROOT } from "@/constants.ts";
 import { log } from "@/lint/logger.ts";
-import { formatListOfItems } from "@/utils.ts";
-import type { Userstyles } from "@/types/userstyles.d.ts";
+import { formatListOfItems } from "@/utils/index.ts";
 
 export const verifyMetadata = async (
   entry: WalkEntry,
@@ -21,7 +22,7 @@ export const verifyMetadata = async (
   content = content.replaceAll("\r\n", "\n");
 
   const assert = assertions(userstyle, userstyles);
-  const file = relative(REPO_ROOT, entry.path);
+  const file = path.relative(REPO_ROOT, entry.path);
 
   const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {
     allowErrors: true,
@@ -67,7 +68,7 @@ export const verifyMetadata = async (
   }
 
   const template = (await Deno.readTextFile(
-    join(REPO_ROOT, "template/catppuccin.user.css"),
+    path.join(REPO_ROOT, "template/catppuccin.user.css"),
   ))
     .split("\n");
 
@@ -134,7 +135,7 @@ const assertions = (userstyle: string, userstyles: Userstyles) => {
   const prefix = "https://github.com/catppuccin/userstyles";
 
   if (!userstyles[userstyle]) {
-    log.error("Metadata section for this userstyle has not been added", {
+    log.error("userstyles.yml entry for this userstyle has not been added", {
       file: "scripts/userstyles.yml",
     });
     Deno.exit(1);

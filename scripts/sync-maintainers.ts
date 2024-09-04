@@ -1,9 +1,8 @@
-#!/usr/bin/env -S deno run -A
 import * as assert from "@std/assert";
 import { Octokit } from "@octokit/rest";
 
 import type { UserStylesSchema } from "@/types/mod.ts";
-import { getUserstylesData } from "@/utils.ts";
+import { getUserstylesData } from "@/utils/yaml.ts";
 
 const octokit = new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") });
 const team = { org: "catppuccin", team_slug: "userstyles-maintainers" };

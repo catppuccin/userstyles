@@ -1,6 +1,6 @@
-import { join } from "@std/path";
+import * as path from "@std/path";
 
-import { REPO_ROOT } from "@/deps.ts";
+import { REPO_ROOT } from "@/constants.ts";
 import { updateFile } from "@/generate/utils.ts";
 import { UserStylesSchema } from "@/types/mod.ts";
 import { stringify } from "@std/yaml";
@@ -21,7 +21,7 @@ export const syncIssueLabels = async (
   userstyles: UserStylesSchema.Userstyles,
 ) => {
   updateFile(
-    join(REPO_ROOT, ".github/issue-labeler.yml"),
+    path.join(REPO_ROOT, ".github/issue-labeler.yml"),
     stringify(
       Object.entries(userstyles)
         .reduce((acc, [key]) => {
@@ -31,12 +31,12 @@ export const syncIssueLabels = async (
     ),
   );
 
-  const userstyleIssueContent = Deno.readTextFileSync(join(
+  const userstyleIssueContent = Deno.readTextFileSync(path.join(
     REPO_ROOT,
     "scripts/generate/templates/userstyle-issue.yml",
   ));
   Deno.writeTextFileSync(
-    join(REPO_ROOT, ".github/ISSUE_TEMPLATE/userstyle.yml"),
+    path.join(REPO_ROOT, ".github/ISSUE_TEMPLATE/userstyle.yml"),
     userstyleIssueContent.replace(
       `"$LABELS"`,
       `${
@@ -49,7 +49,7 @@ export const syncIssueLabels = async (
 
   // .github/pr-labeler.yml
   updateFile(
-    join(REPO_ROOT, ".github/pr-labeler.yml"),
+    path.join(REPO_ROOT, ".github/pr-labeler.yml"),
     stringify(
       Object.entries(userstyles)
         .reduce((acc, [key]) => {
@@ -68,7 +68,7 @@ export const syncIssueLabels = async (
         color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
       };
     });
-  const syncLabels = join(REPO_ROOT, ".github/labels.yml");
+  const syncLabels = path.join(REPO_ROOT, ".github/labels.yml");
   // deno-lint-ignore no-explicit-any
   await updateFile(syncLabels, stringify(syncLabelsContent as any));
 };

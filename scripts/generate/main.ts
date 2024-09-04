@@ -1,17 +1,18 @@
-#!/usr/bin/env -S deno run -A
-import { join } from "@std/path";
-import { portsSchema, REPO_ROOT, userStylesSchema } from "@/deps.ts";
 import type { PortsSchema, UserStylesSchema } from "@/types/mod.ts";
+import { PORTS_SCHEMA, REPO_ROOT, USERSTYLES_SCHEMA } from "@/constants.ts";
+
+import * as path from "@std/path";
 
 import { syncIssueLabels } from "@/generate/labels.ts";
 import { generateMainReadme } from "@/generate/readme-repo.ts";
 import { generateStyleReadmes } from "@/generate/readme-styles.ts";
 import { updateFile } from "@/generate/utils.ts";
-import { validateYaml } from "@/utils.ts";
+import { validateYaml } from "@/utils/yaml.ts";
 
 const userstylesYaml = Deno.readTextFileSync(
-  join(REPO_ROOT, "scripts/userstyles.yml"),
+  path.join(REPO_ROOT, "scripts/userstyles.yml"),
 );
+
 const portsYaml = await fetch(
   "https://raw.githubusercontent.com/catppuccin/catppuccin/main/resources/ports.yml",
 ).then((res) => res.text());
@@ -19,11 +20,11 @@ const portsYaml = await fetch(
 const [portsData, userstylesData] = await Promise.all([
   await validateYaml<PortsSchema.PortsSchema>(
     portsYaml,
-    portsSchema,
+    PORTS_SCHEMA,
   ),
   await validateYaml<UserStylesSchema.UserstylesSchema>(
     userstylesYaml,
-    userStylesSchema,
+    USERSTYLES_SCHEMA,
   ),
 ]);
 
@@ -49,6 +50,8 @@ generateStyleReadmes(userstylesData.userstyles);
  */
 await syncIssueLabels(userstylesData.userstyles);
 
+const STAFF_TEAM = "@catppuccin/userstyles-staff";
+
 /**
  * Keep `.github/CODEOWNERS` in sync with the userstyle metadata.
  */
@@ -61,15 +64,17 @@ const maintainersCodeOwners = () => {
       const codeOwners = currentMaintainers
         .map((maintainer) => `@${maintainer.url.split("/").pop()}`)
         .join(" ");
-      return `/styles/${slug} ${codeOwners}`;
+      return `styles/${slug} ${codeOwners} !${STAFF_TEAM}`;
     })
     .join("\n");
 };
 const userstylesStaffCodeOwners = () => {
-  const paths = ["/.github/", "/scripts/", "/template/"];
-  return paths.map((path) => `${path} @catppuccin/userstyles-staff`).join("\n");
+  const paths = [".github/", "scripts/", "template/", "*"];
+  return paths.map((path) => `${path} ${STAFF_TEAM}`).join(
+    "\n",
+  );
 };
 await updateFile(
-  join(REPO_ROOT, ".github/CODEOWNERS"),
+  path.join(REPO_ROOT, ".github/CODEOWNERS"),
   `${maintainersCodeOwners()}\n\n${userstylesStaffCodeOwners()}`,
 );
