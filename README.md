@@ -36,21 +36,14 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 &nbsp;
 
-## 🖥️ Install
+## Usage
 
-Install [Stylus](https://github.com/openstyles/stylus) for your browser by clicking one of the badges below.
-
-<p align="center">
-  <a href="https://addons.mozilla.org/en-GB/firefox/addon/styl-us/"><img src="https://img.shields.io/badge/Firefox_Add--ons-f5a97f?style=for-the-badge&logo=Firefox-Browser&logoColor=24273a"></a>
-  <a href="https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne"><img src="https://img.shields.io/badge/Chrome_Web_Store-b7bdf8?style=for-the-badge&logo=GoogleChrome&logoColor=24273a"></a>
-</p>
-
-> [!TIP]
-> If you use Chrome, make sure to enable "Allow access to file URLs" in the Stylus extension settings.
-
-### All Userstyles (recommended)
-
-See instructions on the [GitHub release page](https://github.com/catppuccin/userstyles/releases/tag/all-userstyles-export).
+1. Install [Stylus](https://github.com/openstyles/stylus) for [Chrome](https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) or [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/).
+   - If you use Chrome, make sure to enable "Allow access to file URLs" in the Stylus extension settings.
+2. Download the compiled Stylus export file, containing our recommended Stylus settings and all userstyles preloaded: [`import.json` (download)](https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json).
+3. Open the Stylus "manage" page.
+4. On the sidebar panel, click the **Import** button in the **Backup** section, and select the downloaded file from step 2.
+5. Enjoy!
 
 ### Individual Userstyles
 
@@ -58,7 +51,7 @@ See instructions on the [GitHub release page](https://github.com/catppuccin/user
 2. Install userstyles by clicking the **Stylus Install** badge in each README.
 3. Enjoy!
 
-## Usage
+## Configuration
 
 All usertyles come with three default configuration options; the light flavor, the dark flavor, and the accent color. Some userstyles may offer additional site-specific options as well.
 
