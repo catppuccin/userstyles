@@ -15,7 +15,7 @@ request.
 
 This repositories uses [Deno](https://deno.com/) extensively for linting and automation. We recommend setting up Deno locally to improve your workflow — see ["Installation" - Deno Docs](https://docs.deno.com/runtime/manual/getting_started/installation). With Deno installed locally, you can run the lint script using `deno task lint` (and `deno task lint:fix` to automatically apply fixes) and the formatting script using `deno task format`.
 
-When editing a userstyle, we suggest setting up live reloading so your local changes can be automatically reloaded through Stylus. See ["How can I see my changes in real time?"](./tips-and-tricks.md#how-can-i-see-my-changes-in-real-time).
+When editing a userstyle, we suggest setting up live reloading so your local changes can be automatically reloaded through Stylus. See ["Initial installation and live reload" - Stylus Wiki](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#initial-installation-and-live-reload).
 
 ## Recommendations
 
