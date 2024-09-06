@@ -199,7 +199,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 </details>
 <details open>
-<summary>🕹 Game Development</summary>
+<summary>🕹️ Game Development</summary>
 
 - [NameMC](styles/namemc)
 
