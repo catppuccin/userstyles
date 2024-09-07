@@ -178,6 +178,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Amplenote](styles/amplenote)
 - [cobalt](styles/cobalt)
 - [Google Drive](styles/google-drive)
+- [Have I Been Pwned](styles/have-i-been-pwned)
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
 - [Microsoft Word](styles/microsoft-word)
