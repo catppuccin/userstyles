@@ -36,29 +36,25 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 &nbsp;
 
-## 🖥️ Install
+## Usage
 
-Install [Stylus](https://github.com/openstyles/stylus) for your browser by clicking one of the badges below.
+For both of the below installation methods, you will need the Stylus browser extension installed. Install [Stylus](https://github.com/openstyles/stylus) for [Chrome](https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) or [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/). If you use Chrome, make sure to enable "Allow access to file URLs" in the Chrome extension settings for Stylus (visit `chrome://extensions/?id=clngdbkpkpeebahjckkjfobafhncgmne`).
 
-<p align="center">
-  <a href="https://addons.mozilla.org/en-GB/firefox/addon/styl-us/"><img src="https://img.shields.io/badge/Firefox_Add--ons-f5a97f?style=for-the-badge&logo=Firefox-Browser&logoColor=24273a"></a>
-  <a href="https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne"><img src="https://img.shields.io/badge/Chrome_Web_Store-b7bdf8?style=for-the-badge&logo=GoogleChrome&logoColor=24273a"></a>
-</p>
+### All Userstyles
 
-> [!TIP]
-> If you use Chrome, make sure to enable "Allow access to file URLs" in the Stylus extension settings.
-
-### All Userstyles (recommended)
-
-See instructions on the [GitHub release page](https://github.com/catppuccin/userstyles/releases/tag/all-userstyles-export).
+1. Download the compiled Stylus export file, containing our recommended Stylus settings and all userstyles preloaded: [`import.json` (download)](https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json).
+   - Alternatively, if you want more control over what is included in the `import.json` file, e.g. all userstyles with the accent color `peach`, you can download the Stylus export file from "[All Userstyles Import Generator](https://ctp-aui.uncenter.dev/)" by [@uncenter](https://github.com/uncenter) instead.
+2. Open the Stylus "manage" page.
+3. On the sidebar panel, click the **Import** button in the **Backup** section, and select the downloaded file from step 2.
+4. Enjoy!
 
 ### Individual Userstyles
 
 1. Enable CSP Patching from Stylus's **Settings** > **Advanced**.
-2. Install userstyles by clicking the **Stylus Install** badge in each README.
+2. Install userstyles from the list below by clicking the **Stylus Install** badge in each README.
 3. Enjoy!
 
-## Usage
+## Configuration
 
 All usertyles come with three default configuration options; the light flavor, the dark flavor, and the accent color. Some userstyles may offer additional site-specific options as well.
 
@@ -178,6 +174,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Amplenote](styles/amplenote)
 - [cobalt](styles/cobalt)
 - [Google Drive](styles/google-drive)
+- [Have I Been Pwned](styles/have-i-been-pwned)
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
 - [Microsoft Word](styles/microsoft-word)
