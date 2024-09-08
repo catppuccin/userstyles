@@ -38,17 +38,20 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 ## Usage
 
-1. Install [Stylus](https://github.com/openstyles/stylus) for [Chrome](https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) or [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/).
-   - If you use Chrome, make sure to enable "Allow access to file URLs" in the Stylus extension settings.
-2. Download the compiled Stylus export file, containing our recommended Stylus settings and all userstyles preloaded: [`import.json` (download)](https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json).
-3. Open the Stylus "manage" page.
-4. On the sidebar panel, click the **Import** button in the **Backup** section, and select the downloaded file from step 2.
-5. Enjoy!
+For both of the below installation methods, you will need the Stylus browser extension installed. Install [Stylus](https://github.com/openstyles/stylus) for [Chrome](https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) or [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/). If you use Chrome, make sure to enable "Allow access to file URLs" in [the Chrome extension settings for Stylus](chrome://extensions/?id=clngdbkpkpeebahjckkjfobafhncgmne).
+
+
+### All Userstyles
+
+1. Download the compiled Stylus export file, containing our recommended Stylus settings and all userstyles preloaded: [`import.json` (download)](https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json).
+2. Open the Stylus "manage" page.
+3. On the sidebar panel, click the **Import** button in the **Backup** section, and select the downloaded file from step 2.
+4. Enjoy!
 
 ### Individual Userstyles
 
 1. Enable CSP Patching from Stylus's **Settings** > **Advanced**.
-2. Install userstyles by clicking the **Stylus Install** badge in each README.
+2. Install userstyles from the list below by clicking the **Stylus Install** badge in each README.
 3. Enjoy!
 
 ## Configuration
