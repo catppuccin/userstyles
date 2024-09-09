@@ -15,7 +15,8 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document url-prefix('https://fabricmc.net/') {
+@-moz-document url-prefix('https://fabricmc.net/')
+{
   @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
 
   @media (prefers-color-scheme: light) {
@@ -103,18 +104,37 @@
     a {
       color: @accent-color;
     }
-    
+
     body {
       background-color: @base;
       color: @text;
     }
-    
+
+    // <select> and <option> element styles are mostly used on fabricmc.net/develop
+    select,
+    input {
+      background-color: @mantle !important;
+      border: 1px solid @surface1;
+    }
+
+    input[type="checkbox"] {
+      accent-color: @accent-color;
+    }
+
+    option:checked {
+      background-color: @crust;
+    }
+
     pre,
     code {
       border: 1px solid @surface1;
       background-color: @mantle !important;
     }
-    
+
+    pre > code {
+      border: 0;
+    }
+
     &:not(:has(#dokuwiki__site)) table {
       border: 1px solid @surface1;
       tr:nth-child(even),
@@ -126,14 +146,15 @@
         border: 1px solid @surface1;
       }
     }
-    
+
+    // Website header
     .site {
       &-title,
       &-title:visited,
       &-nav .page-link {
         color: @text !important;
       }
-      /* TOC Navbox for mobile */
+      // TOC Navbox for mobile
       @media (max-width: 600px) {
         &-nav {
           background-color: @mantle;
@@ -144,48 +165,39 @@
         }
       }
     }
-    
-    
+
     button,
     .button {
       color: @text !important;
-      &.primary {
-        &:hover,
-        &:focus {
-          background-color: fadeout(@accent-color, 10%);
-        }
-        &:active {
-          background-color: lighten(@accent-color, 5%);
-        }
+    }
+
+    .primary {
+      background-color: @accent-color;
+      color: @crust !important;
+      &:hover,
+      &:focus {
+        background-color: fadeout(@accent-color, 10%);
+      }
+      &:active {
+        background-color: lighten(@accent-color, 5%);
+      }
+    }
+
+    .secondary {
+      border: 2px solid @accent-color;
+      &:hover,
+      &:focus {
         background-color: @accent-color;
         color: @crust !important;
-      }
-      &.secondary {
-        &:hover,
-        &:focus {
-          background-color: @accent-color;
-          color: @crust !important;
-        }
-        &:active {
-          @active-accent: lighten(@accent-color, 10%);
-          background-color: @active-accent;
-          border: @active-accent;
-        }
         border: 2px solid @accent-color;
       }
+      &:active {
+        @active-accent: lighten(@accent-color, 10%);
+        background-color: @active-accent;
+        border: 2px solid @active-accent;
+      }
     }
-    
-    /* <select>/<option> element styles are mostly used on fabricmc.net/develop */
-    input,
-    select {
-      background-color: @mantle;
-      border: 1px solid @subtext0;
-    }
-    
-    option:checked {
-      background-color: @crust;
-    }
-    
+
     .home .column .javadoc-selector select {
       border: 2px solid @accent-color;
       box-shadow: @crust 1.95px 1.95px 2.6px;
@@ -198,107 +210,50 @@
       color: @subtext0;
     }
 
-    select,
-    input {
-      background-color: @mantle !important;
-      border: 1px solid @surface1;
-    }
-
-    pre > code {
-      border: 0;
-    }
-
-    input[type=checkbox] {
-      accent-color: @accent-color;
-    }
-
+    // Diff line removal
     .gd {
       background-color: fadeout(@red, 60%) !important;
     }
 
+    // Diff line addition
     .gi {
       background-color: fadeout(@green, 60%) !important;
     }
 
+    // fabric.net/wiki styles
     body:has(#dokuwiki__site),
     &:has(#dokuwiki__site) {
       background-color: @mantle;
     }
 
-    #dokuwiki__site {
-      div.page,
+    // Common dokuwiki elements
+    .dokuwiki {
+      .pageId span,
+      .page {
+        background: @base;
+        box-shadow: 0 0 0.5em @surface0;
+        border: 1px solid @surface2;
+      }
+
       .pageId span {
-        background: @base;
-        border: 1px solid @surface2;
-        box-shadow: 0 0 .5em @surface0;
-        color: @text;
-      }
-
-      #dokuwiki__aside > .pad {
-        background: @base;
-        border: 1px solid @surface2;
-        box-shadow: 0 0 .5em @surface0;
-      }
-
-      #dw__toc,
-      #dokuwiki__aside h3.toggle.open {
-        border-bottom: 1px solid @surface2;
-      }
-
-      .logo > a > span {
-        color: @text;
-      }
-
-      .trace,
-      .breadcrumbs {
-        border-top: 1px solid @surface0;
-        border-bottom: 1px solid @surface0;
-      }
-
-      #dokuwiki__header a,
-      .wikilink1,
-      .wikilink2,
-      .urlextern {
-        color: @accent-color;
-      }
-
-      .dw__toc {
-        background: @mantle;
-        border-left: 1px solid @surface2;
-      }
-
-      .tools a > svg {
-        fill: @text;
-      }
-
-      .li {
+        border-width: 1px 1px 0;
         color: @subtext0;
       }
 
-      .noteredirect {
-        background-color: @crust;
-      }
-
-      #plugin__captcha_wrapper,
-      fieldset,
-      fieldset button {
-        border: 1px solid @surface2;
-      }
-
-      div.tools {
-        a:hover {
-          background-color: @mantle;
+      .page,
+      .aside {
+        .li {
+          color: @subtext0;
+        }
+        ul li {
+          color: @surface2;
         }
       }
 
-      #dokuwiki__pagetools:hover div.tools {
-        ul {
-          background-color: @base;
-          border-color: @surface2;
-          box-shadow: 2px 2px 2px @surface0;
-        }
-        ul li a:hover svg {
-          fill: @blue;
+      .aside a {
+        &:visited,
+        &:link {
+          color: @accent-color;
         }
       }
 
@@ -306,51 +261,120 @@
         &[readonly] {
           background-color: @mantle;
         }
-        border: 1px solid @surface2;
-        color: @text;
-      }
-      
-      .quickselect option {
-        background-color: @mantle;
-      }
-
-      .sizechange.positive {
-        background-color: @green;
-      }
-
-      .sizechange.negative {
-        background-color: @red;
-      }
-
-      .sizechange.negative,
-      .sizechange.positive {
-        color: @crust;
-      }
-
-      .success {
-        background-color: @green;
-        border-color: @surface2;
-        color: @crust;
-      }
-
-      .user {
+        border: 1px solid @surface0;
         color: @text;
       }
 
-      img[src="/wiki/lib/images/smileys/exclaim.svg"] {
-        @svg: escape( '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><circle cx="18.001" cy="18.001" r="18" fill="@{yellow}"/><path fill="@{crust}" d="M15.578 26.993a2.423 2.423 0 1 1 4.846.004 2.423 2.423 0 0 1-4.846-.007zm.19-18.294c0-1.304.96-2.11 2.23-2.11 1.243 0 2.233.836 2.233 2.106v11.94c0 1.27-.99 2.11-2.23 2.11-1.274 0-2.234-.81-2.234-2.11z"/></svg>');
-        content: url("data:image/svg+xml,@{svg}");
+      .changes {
+        .sizechange.positive {
+          background-color: @green;
+        }
+
+        .sizechange.negative {
+          background-color: @red;
+        }
+
+        .sizechange.negative,
+        .sizechange.positive {
+          color: @crust;
+        }
       }
 
-      .urlextern {
-        @svg: escape( '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="@{surface2}" d="M17.9,17.39C17.64,16.59 16.89,16 16,16H15V13A1,1 0 0,0 14,12H8V10H10A1,1 0 0,0 11,9V7H13A2,2 0 0,0 15,5V4.59C17.93,5.77 20,8.64 20,12C20,14.08 19.2,15.97 17.9,17.39M11,19.93C7.05,19.44 4,16.08 4,12C4,11.38 4.08,10.78 4.21,10.21L9,15V16A2,2 0 0,0 11,18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>');
-        background-image: url("data:image/svg+xml,@{svg}");
+      // Media manager
+      .tabs li {
+        strong,
+        a {
+          color: @text;
+          border: 1px solid @surface0;
+        }
+        strong {
+          background-color: @mantle;
+        }
+        a {
+          background-color: @base;
+        }
       }
 
-      code {
-        box-shadow: inset 0 0 .2em @surface0;
+      .tabs:after {
+        border-bottom: 1px solid @surface0;
       }
 
+      button:not([title="Search"]) {
+        background-image: linear-gradient(to bottom, @base 0, @base 100%);
+        border: 1px solid @surface1;
+      }
+
+      button[disabled] {
+        background-color: @crust;
+      }
+
+      fieldset,
+      #plugin__captcha_wrapper {
+        border: 1px solid @surface0;
+      }
+    }
+
+    // Mobile/vertical toc
+    @media (max-width: 800px) {
+      #dokuwiki__aside {
+        > .pad {
+          background: @base;
+          border: 1px solid @surface2;
+          box-shadow: 0 0 0.5em @surface0;
+        }
+
+        .toggle.open {
+          border-bottom: 1px solid @surface0;
+        }
+      }
+    }
+
+    #dokuwiki__site {
+      @border-surface0: 1px solid @surface0;
+
+      hr {
+        border-top: @border-surface0;
+        border-bottom: @border-surface0;
+      }
+
+      select {
+        color: @text;
+        > option {
+          background-color: @mantle;
+          color: @text;
+        }
+      }
+
+      #dokuwiki__header a {
+        color: @accent-color;
+      }
+
+      .logo a {
+        color: @text;
+      }
+
+      div.breadcrumbs {
+        border-top: @border-surface0;
+        border-bottom: @border-surface0;
+        & div:first-child {
+          border-top: @border-surface0;
+        }
+        & div:last-child {
+          border-bottom: @border-surface0;
+        }
+      }
+
+      #dw__toc {
+        background: @base;
+        border-left: 1px solid @surface0;
+      }
+
+      code,
+      .code {
+        box-shadow: inset 0 0 0.3em @surface0;
+      }
+
+      // Dokuwiki syntax highlighting
       .code {
         .kw1,
         .kw4,
@@ -406,111 +430,117 @@
         }
       }
 
-      .code dt {
-        background-color: @crust;
-        border: 1px solid @surface1;
-      }
-
-      pre {
-        box-shadow: inset 0 0 .5em @surface0;
-      }
-
-      li {
-        color: @surface2;
-      }
-
-      th,
-      td {
-        border: 1px solid @surface1;
-      }
-
-      hr {
-        border-top: solid @surface0;
-        border-bottom: solid @surface0;
-      }
-
-      dt {
-        background: @crust;
-        border: 1px solid @surface0;
-        border-bottom-style: solid;
-        border-style: dashed !important;
-      }
-
-      th {
+      .noteredirect {
         background-color: @crust;
       }
-      
-      button {
-        background-color: @accent-color;
-        background-image: linear-gradient(to bottom, @accent-color 0, @accent-color 100%);
-        border: 1px solid @surface0;
+
+      img[src="/wiki/lib/images/smileys/exclaim.svg"] {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><circle cx="18.001" cy="18.001" r="18" fill="@{yellow}"/><path fill="@{crust}" d="M15.578 26.993a2.423 2.423 0 1 1 4.846.004 2.423 2.423 0 0 1-4.846-.007zm.19-18.294c0-1.304.96-2.11 2.23-2.11 1.243 0 2.233.836 2.233 2.106v11.94c0 1.27-.99 2.11-2.23 2.11-1.274 0-2.234-.81-2.234-2.11z"/></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
       }
-      
-      .namespaces h2,
-      .tabs strong,
-      .tabs a {
-        color: @text;
-        border: 1px solid @surface0;
+
+      .urlextern {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="@{surface2}" d="M17.9,17.39C17.64,16.59 16.89,16 16,16H15V13A1,1 0 0,0 14,12H8V10H10A1,1 0 0,0 11,9V7H13A2,2 0 0,0 15,5V4.59C17.93,5.77 20,8.64 20,12C20,14.08 19.2,15.97 17.9,17.39M11,19.93C7.05,19.44 4,16.08 4,12C4,11.38 4.08,10.78 4.21,10.21L9,15V16A2,2 0 0,0 11,18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
       }
-      
-      ul.tabs:after {
-        border-bottom: 1px solid @surface2;
+    }
+
+    #dokuwiki__usertools .action a {
+      &:hover svg {
+        fill: @accent-color;
       }
-      
-      .panelHeader {
-        border-top: 1px solid @surface2;
+      & svg {
+        fill: @overlay2;
       }
-      
+    }
+
+    #mediamanager__page {
       .panelHeader,
       .namespaces h2,
-      .tabs strong,
-      .thumbs li,
-      .rows li:nth-child(2n+1) {
+      .ui-resizable-e:hover,
+      .ui-resizable-w:hover {
         background-color: @mantle;
       }
-      
-      .file dl {
-        dt {
-          background-color: @base;
+
+      .namespaces {
+        h2 {
+          border: 1px solid @surface0;
+          border-bottom-color: @mantle;
+          color: @text;
         }
+        .panelHeader {
+          border-top: 1px solid @surface0;
+        }
+      }
+
+      .ui {
+        &-state-active {
+          border: 1px solid @surface0;
+          color: @text;
+          background: @base;
+        }
+        &-button:not(&-state-active) {
+          border: 1px solid @surface2;
+          color: @subtext0;
+          background: @surface0;
+        }
+        &-visual-focus {
+          box-shadow: 0 0 3px 1px @surface1;
+        }
+      }
+
+      .filelist {
+        .thumbs li,
+        .rows li:nth-child(2n + 1) {
+          background-color: @mantle;
+          color: @text;
+        }
+        .rows li {
+          background-color: @base;
+          color: @text;
+        }
+      }
+
+      .panelContent ul li:hover {
+        background-color: @surface0 !important;
+      }
+
+      .file dl {
         dd {
           background-color: @mantle;
         }
+        dt {
+          background-color: @base;
+        }
       }
-      
-      .thumbs li dd {
-        color: @text;
+    }
+
+    #dokuwiki__pagetools {
+      &:hover,
+      &:focus-within {
+        .tools ul {
+          background-color: @base;
+          border-color: @surface2;
+          box-shadow: 2px 2px 2px @surface0;
+        }
       }
-      
-      .rows li {
-        background-color: @base;
-        color: @text;
+
+      .tools ul li a {
+        &:hover,
+        &:focus {
+          background-color: @mantle;
+          svg {
+            fill: @text;
+          }
+        }
       }
-      
-      .panelContent ul li:hover {
-        background-color: @surface0
-      }
-      
-      .tabs a {
-        background-color: @crust;
-      }
-      
-      .ui-state-active, 
-      .ui-button {
-        background: @accent-color;
-        border: 1px solid @surface0;
-      }
-      
-      .ui-state-active {
-         color: @crust;
-      }
-      
-      .ui-button {
-        color: @base;
-      }
-      
-      .ui-resizable-e:hover {
-        background-color: @mantle;
+
+      .tools svg {
+        fill: @overlay0;
       }
     }
   }
@@ -519,12 +549,11 @@
   :root.dark {
     #catppuccin(@darkFlavor, @accentColor);
   }
-  
+
   :root[class=""] {
     #catppuccin(@lightFlavor, @accentColor);
   }
 
-  
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -566,8 +595,8 @@
         color: @subtext0 !important;
       }
     }
-    
-    // Only includes variables currently used on docs.fabricmc.net
+
+    // only includes variables currently used on docs.fabricmc.net
     --vp-c-bg: @base;
     --vp-c-bg-alt: @crust;
     --vp-c-bg-elv: @mantle;
@@ -601,24 +630,58 @@
     --vp-sidebar-bg-color: @crust;
     --vp-home-hero-name-background: @accent-color;
 
-    @svg: escape("<svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='@{surface2}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'><rect width='8' height='4' x='8' y='2' rx='1' ry='1'/><path d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/></svg>");
+    @svg: escape(
+      "<svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='@{surface2}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'><rect width='8' height='4' x='8' y='2' rx='1' ry='1'/><path d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/></svg>"
+    );
     --vp-icon-copy: url("data:image/svg+xml,@{svg}");
-    
-    @svg: escape("<svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='@{surface2}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'><rect width='8' height='4' x='8' y='2' rx='1' ry='1'/><path d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/><path d='m9 14 2 2 4-4'/></svg>");
+
+    @svg: escape(
+      "<svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='@{surface2}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'><rect width='8' height='4' x='8' y='2' rx='1' ry='1'/><path d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/><path d='m9 14 2 2 4-4'/></svg>"
+    );
     --vp-icon-copied: url("data:image/svg+xml,@{svg}");
-    
+
     .banner[data-v-f9f361cc] {
       background: @peach;
       color: @mantle;
     }
-    
+
     kbd {
       background-color: @crust;
       border: 1px solid @surface0;
       color: @text;
-      box-shadow:
-        0 1px 1px @mantle,
-        0 2px @base inset;
+      box-shadow: 0 1px 1px @mantle, 0 2px @base inset;
+    }
+
+    // Prism syntax highlighting
+    .vp-code span {
+      [style*="#F97583"] {
+        // Keywords
+        color: @mauve;
+      }
+      [style*="#B392F0"] {
+        // Classes, etc
+        color: @yellow;
+      }
+      [style*="#E1E4E8"] {
+        // Braces, comments
+        color: @text;
+      }
+      [style*="#FFAB70"] {
+        // Parameters
+        color: @maroon;
+      }
+      [style*="#9ECBFF"] {
+        // Strings
+        color: @green;
+      }
+      [style*="#79B8FF"] {
+        // Const
+        color: @peach;
+      }
+      [style*="#6A737D"] {
+        // Comments
+        color: @overlay2;
+      }
     }
   }
 }
@@ -630,3 +693,5 @@
   @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
   @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
 }
+
+// vim:ft=less
