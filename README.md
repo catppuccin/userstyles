@@ -103,6 +103,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Home Manager Options Search](styles/home-manager-options-search)
 - [Hoppscotch](styles/hoppscotch)
 - [Keyoxide](styles/keyoxide)
+- [Learn X in Y Minutes](styles/learn-x-in-y-minutes)
 - [MDN](styles/mdn)
 - [npm](styles/npm)
 - [Ollama](styles/ollama)
