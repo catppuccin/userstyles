@@ -6,7 +6,7 @@ import type { WalkEntry } from "@std/fs";
 import { join, relative } from "@std/path";
 
 import { REPO_ROOT } from "@/deps.ts";
-import { log } from "@/lint/logger.ts";
+import { log } from "@/logger.ts";
 import { formatListOfItems } from "@/utils.ts";
 import type { Userstyles } from "@/types/userstyles.d.ts";
 
@@ -30,13 +30,24 @@ export const verifyMetadata = async (
 
   // Pretty print / annotate the parsing errors.
   parsingErrors.map((e) => {
-    let startLine = 0;
-    for (const line of lines) {
-      startLine++;
-      e.index -= line.length + 1;
-      if (e.index < 0) break;
+    let startLine;
+    if (e.index !== undefined && !Number.isNaN(e.index)) {
+      startLine = 0;
+      for (const line of lines) {
+        startLine++;
+        e.index -= line.length + 1;
+        if (e.index < 0) break;
+      }
     }
-    log.error(e.message, { file, startLine, content });
+
+    // Skip "missing mandatory metadata property" ParseError, assertions checks below will cover.
+    if (e.code === "missingMandatory") return;
+
+    log.error(e.message, {
+      file,
+      startLine,
+      content,
+    });
   });
 
   for (const [key, expected] of Object.entries(assert)) {
@@ -44,16 +55,16 @@ export const verifyMetadata = async (
 
     if (current !== expected) {
       const line = lines
-        .findIndex((line) => line.includes(key)) + 1;
+        .findIndex((line) => line.includes(`@${key} `)) + 1;
 
       const message = current === undefined
         ? sprintf(
-          "Metadata `%s` should not be undefined",
-          color.bold(key),
+          "UserCSS metadata property `%s` is undefined",
+          color.bold("@" + key),
         )
         : sprintf(
-          'Metadata `%s` should be "%s" but is "%s"',
-          color.bold(key),
+          'UserCSS metadata property `%s` should be "%s" but is "%s"',
+          color.bold("@" + key),
           color.green(expected),
           color.red(String(current)),
         );
@@ -134,9 +145,12 @@ const assertions = (userstyle: string, userstyles: Userstyles) => {
   const prefix = "https://github.com/catppuccin/userstyles";
 
   if (!userstyles[userstyle]) {
-    log.error("Metadata section for this userstyle has not been added", {
-      file: "scripts/userstyles.yml",
-    });
+    log.error(
+      `Metadata section for \`${color.bold(userstyle)}\` userstyle is missing`,
+      {
+        file: "scripts/userstyles.yml",
+      },
+    );
     Deno.exit(1);
   }
 

@@ -2,7 +2,10 @@ import { sprintf } from "@std/fmt/printf";
 import * as color from "@std/fmt/colors";
 import core from "@actions/core";
 
-export type LoggerProps = core.AnnotationProperties & { content?: string };
+export type LoggerProps = core.AnnotationProperties & {
+  file: string;
+  content?: string;
+};
 
 const prettyPrint = (
   message: string,
@@ -10,7 +13,6 @@ const prettyPrint = (
   severity: "error" | "warning" = "warning",
 ) => {
   const { file, startColumn, startLine } = props;
-  if (!startLine) return console.log(message);
 
   const lines = (props.content ?? "").split("\n");
 
@@ -19,28 +21,30 @@ const prettyPrint = (
     message,
   ].join(" ");
 
-  const line = lines[startLine - 1].split("").map((char, i) => {
-    const startCol = (props.startColumn ?? 0) - 1;
-    const endCol = (props.endColumn ?? Infinity) - 1;
+  const pad = startLine ? startLine.toString().length : 0;
 
-    if (i >= startCol && i <= endCol) {
-      return color[severity === "error" ? "red" : "yellow"](char);
-    } else {
-      return char;
-    }
-  }).join("");
+  const logs = [color.underline(
+    sprintf(
+      "%s%s%s",
+      file,
+      startLine ? ":" + startLine : "",
+      startColumn ? ":" + startColumn : "",
+    ),
+  )];
 
-  const pad = startLine.toString().length;
-  console.log(
-    [
-      color.underline(
-        sprintf(
-          "%s%s%s",
-          file,
-          startLine ? ":" + startLine : "",
-          startColumn ? ":" + startColumn : "",
-        ),
-      ),
+  if (startLine) {
+    const line = lines[startLine - 1].split("").map((char, i) => {
+      const startCol = (props.startColumn ?? 0) - 1;
+      const endCol = (props.endColumn ?? Infinity) - 1;
+
+      if (i >= startCol && i <= endCol) {
+        return color[severity === "error" ? "red" : "yellow"](char);
+      } else {
+        return char;
+      }
+    }).join("");
+
+    logs.push(...[
       sprintf(
         "%*s│ %s",
         pad,
@@ -54,15 +58,19 @@ const prettyPrint = (
         color.dim(String(startLine + 1)),
         color.dim(lines[startLine]),
       ),
-      sprintf(
-        "%*s╰─► %s",
-        pad,
-        "",
-        error,
-      ),
-      undefined,
-    ].join("\n"),
+    ]);
+  }
+
+  logs.push(
+    sprintf(
+      "%*s╰─► %s",
+      pad,
+      "",
+      error,
+    ),
   );
+
+  console.log("\n" + logs.join("\n"));
 };
 
 export const log = {
