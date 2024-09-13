@@ -58,14 +58,18 @@ export const getUserstylesData = (): Userstyles => {
       userStylesSchema,
     );
 
-    if (data.userstyles === undefined || data.collaborators === undefined) {
-      console.log("userstyles.yml is missing required fields");
-      Deno.exit(1);
+    for (const field of ["userstyles", "collaborators"] as const) {
+      if (data[field] === undefined) {
+        log.error(`Missing required field \`${field}\``, {
+          file: "scripts/userstyles.yml",
+        });
+        Deno.exit(1);
+      }
     }
 
     return data as Userstyles;
   } catch (err) {
-    if (err.name === "YAMLError") {
+    if (err.name === "SyntaxError") {
       const groups =
         /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
           .exec(err.message)?.groups;
@@ -78,7 +82,7 @@ export const getUserstylesData = (): Userstyles => {
         },
       );
     } else {
-      console.log(err);
+      throw err;
     }
 
     Deno.exit(1);
