@@ -1,9 +1,9 @@
-import { join } from "@std/path";
+import * as path from "@std/path";
 import Handlebars from "handlebars";
 
-import { REPO_ROOT } from "@/deps.ts";
-import { PortsSchema, UserStylesSchema } from "@/types/mod.ts";
-import { updateFile, updateReadme } from "@/generate/utils.ts";
+import { REPO_ROOT } from "@/constants.ts";
+import type { PortsSchema, UserStylesSchema } from "@/types/mod.ts";
+import { updateFileWithPreamble, updateReadme } from "@/generate/utils.ts";
 
 type MappedPorts = {
   [k: string]: (
@@ -11,10 +11,10 @@ type MappedPorts = {
   )[];
 };
 
-export const generateMainReadme = async (
+export async function generateMainReadme(
   userstyles: UserStylesSchema.Userstyles,
   portsData: PortsSchema.PortsSchema,
-) => {
+) {
   if (!portsData.categories) throw ("Ports data is missing categories");
 
   const categorized = Object.entries(userstyles)
@@ -23,7 +23,11 @@ export const generateMainReadme = async (
       // only care about the first (primary) category in the categories array
       acc[categories[0]] ??= [];
 
-      acc[categories[0]].push({ path: `styles/${slug}`, categories, ...port });
+      acc[categories[0]].push({
+        path: `styles/${slug}`,
+        categories,
+        ...port,
+      });
 
       // Sort by name, first array entry if necessary
       acc[categories[0]].sort((a, b) =>
@@ -53,7 +57,13 @@ export const generateMainReadme = async (
         emoji: meta.emoji,
         name: meta.name,
         ports: ports.map(
-          ({ name, path, "current-maintainers": currentMaintainers }) => {
+          (
+            {
+              name,
+              path,
+              "current-maintainers": currentMaintainers,
+            },
+          ) => {
             return {
               name: [name].flat(),
               maintained: currentMaintainers.length > 0,
@@ -65,8 +75,8 @@ export const generateMainReadme = async (
     }),
   });
 
-  const readmePath = join(REPO_ROOT, "README.md");
-  await updateFile(
+  const readmePath = path.join(REPO_ROOT, "README.md");
+  await updateFileWithPreamble(
     readmePath,
     updateReadme({
       readme: Deno.readTextFileSync(readmePath),
@@ -75,4 +85,4 @@ export const generateMainReadme = async (
     }),
     false,
   ).catch((e) => console.error(e));
-};
+}

@@ -1,9 +1,11 @@
-import { join } from "@std/path";
+import type { UserStylesSchema } from "@/types/mod.ts";
+import { REPO_ROOT } from "@/constants.ts";
 
-import { REPO_ROOT } from "@/deps.ts";
-import { updateFile } from "@/generate/utils.ts";
-import { UserStylesSchema } from "@/types/mod.ts";
-import { stringify } from "@std/yaml";
+import * as path from "@std/path";
+import * as YAML from "@std/yaml";
+
+import { updateFileWithPreamble } from "@/generate/utils.ts";
+
 import { type ColorName, flavors } from "@catppuccin/palette";
 
 /**
@@ -17,12 +19,12 @@ const macchiatoHex = flavors.macchiato.colorEntries
 
 const toIssueLabel = (slug: string | number) => `lbl:${slug}`;
 
-export const syncIssueLabels = async (
+export async function syncIssueLabels(
   userstyles: UserStylesSchema.Userstyles,
-) => {
-  updateFile(
-    join(REPO_ROOT, ".github/issue-labeler.yml"),
-    stringify(
+) {
+  updateFileWithPreamble(
+    path.join(REPO_ROOT, ".github/issue-labeler.yml"),
+    YAML.stringify(
       Object.entries(userstyles)
         .reduce((acc, [key]) => {
           acc[key.toString()] = [`/${toIssueLabel(key)}(,.*)?$/gm`];
@@ -31,12 +33,12 @@ export const syncIssueLabels = async (
     ),
   );
 
-  const userstyleIssueContent = Deno.readTextFileSync(join(
+  const userstyleIssueContent = Deno.readTextFileSync(path.join(
     REPO_ROOT,
     "scripts/generate/templates/userstyle-issue.yml",
   ));
   Deno.writeTextFileSync(
-    join(REPO_ROOT, ".github/ISSUE_TEMPLATE/userstyle.yml"),
+    path.join(REPO_ROOT, ".github/ISSUE_TEMPLATE/userstyle.yml"),
     userstyleIssueContent.replace(
       `"$LABELS"`,
       `${
@@ -48,9 +50,9 @@ export const syncIssueLabels = async (
   );
 
   // .github/pr-labeler.yml
-  updateFile(
-    join(REPO_ROOT, ".github/pr-labeler.yml"),
-    stringify(
+  updateFileWithPreamble(
+    path.join(REPO_ROOT, ".github/pr-labeler.yml"),
+    YAML.stringify(
       Object.entries(userstyles)
         .reduce((acc, [key]) => {
           acc[`${key}`] = `styles/${key}/**/*`;
@@ -68,7 +70,6 @@ export const syncIssueLabels = async (
         color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
       };
     });
-  const syncLabels = join(REPO_ROOT, ".github/labels.yml");
-  // deno-lint-ignore no-explicit-any
-  await updateFile(syncLabels, stringify(syncLabelsContent as any));
-};
+  const syncLabels = path.join(REPO_ROOT, ".github/labels.yml");
+  await updateFileWithPreamble(syncLabels, YAML.stringify(syncLabelsContent));
+}
