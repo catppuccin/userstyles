@@ -21,7 +21,7 @@ const prettyPrint = (
     message,
   ].join(" ");
 
-  const pad = startLine ? startLine.toString().length : 0;
+  const pad = startLine ? (startLine + 1).toString().length : 0;
 
   const logs = [color.underline(
     sprintf(
@@ -46,16 +46,18 @@ const prettyPrint = (
 
     logs.push(...[
       sprintf(
-        "%*s│ %s",
-        pad,
-        color.dim(String(startLine - 1)),
+        "%s│ %s",
+        color.dim(String(startLine - 1).padStart(pad, " ")),
         color.dim(lines[startLine - 2]),
       ),
-      sprintf("%*s│ %s", pad, color.bold(String(startLine)), line),
       sprintf(
-        "%*s│ %s",
-        pad,
-        color.dim(String(startLine + 1)),
+        "%s│ %s",
+        color.bold(String(startLine).padStart(pad, " ")),
+        line,
+      ),
+      sprintf(
+        "%s│ %s",
+        color.dim(String(startLine + 1).padStart(pad, " ")),
         color.dim(lines[startLine]),
       ),
     ]);
