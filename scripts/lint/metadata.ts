@@ -53,18 +53,20 @@ export const verifyMetadata = async (
   for (const [key, expected] of Object.entries(assert)) {
     const current = metadata[key];
 
+    const atKey = "@" + key;
+
     if (current !== expected) {
       const line = lines
-        .findIndex((line) => line.includes(`@${key} `)) + 1;
+        .findIndex((line) => line.includes(`${atKey} `)) + 1;
 
       const message = current === undefined
         ? sprintf(
           "UserCSS metadata property `%s` is undefined",
-          color.bold("@" + key),
+          color.bold(atKey),
         )
         : sprintf(
           'UserCSS metadata property `%s` should be "%s" but is "%s"',
-          color.bold("@" + key),
+          color.bold(atKey),
           color.green(expected),
           color.red(String(current)),
         );
