@@ -8,7 +8,7 @@ import "stylelint-config-standard";
 import "stylelint-config-recommended";
 
 import { REPO_ROOT } from "@/deps.ts";
-import { log } from "@/lint/logger.ts";
+import { log } from "@/logger.ts";
 
 export const lint = (
   entry: WalkEntry,
