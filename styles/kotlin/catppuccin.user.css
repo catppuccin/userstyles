@@ -1,0 +1,697 @@
+/* ==UserStyle==
+@name Kotlin Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/kotlin
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/kotlin
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/kotlin/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Akotlin
+@description Soothing pastel theme for Kotlin
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain('kotlinlang.org') {
+  /* This section applies the light/dark themes automatically based on the user's system theme.
+     Use the below example CSS to start if the website you are theming doesn't have a light/dark mode toggle.
+     For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/brave-search/catppuccin.user.css#L16-L29.
+  */
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+
+  /* If the website you are theming *does* have a light/dark mode toggle,
+     you can conditionally enable light/dark flavors by targeting whatever
+     attribute that website uses to indicate the theme. *The example below gives you an idea of what
+     to look for. The website you are themeing may use a class-based approach (e.g. :root.theme-dark),
+     or any of the myriad of other methods like this.*
+     Use the below example CSS to start if this is the case.
+     For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/youtube/catppuccin.user.css#L21-L30.
+  */
+  :root[data-theme="dark"] {
+    #catppuccin(@darkFlavor, @accentColor);
+  }
+  :root[data-theme="light"] {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    --ktl-light-grey: @text;
+    --ktl-dark-100: @surface0 !important;
+    --ktl-dark-bg-hard: @mantle !important;
+    --ktl-icon-color-dark: @crust !important;
+    --ktl-color-white-light: @overlay2 !important;
+    --ktl-color-primary-light-theme: @accent-color;
+
+    --ktl-focus-outline: rgba(107, 87, 255, .8) 0 0 0 4px;
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    body {
+      &.dark-theme {
+        background: @base;
+      }
+
+    }
+
+    .rs {
+      &-link,
+      &-text-1,
+      &-text-2,
+      &-text-3,
+      &-h1,
+      &-h2,
+      &-h3,
+      &-h4,
+      &-hero,
+      &-subtitle-2 {
+        color: @text !important;
+
+        &_theme_dark,
+        &_theme_light {
+          color: @text;
+        }
+      }
+
+      &-text-2_theme_dark:hover {
+        color: @text;
+      }
+    }
+    .cm-s-darcula,
+    .cm-s-kotlin-docs {
+      &.CodeMirror {
+        background-color: @crust;
+      }
+
+      & .presentation {
+        color: @text;
+      }
+
+      & span.cm {
+        &-keyword {
+          color: @mauve
+        }
+
+        &-def {
+          color: @blue
+        }
+
+        &-string {
+          color: @green
+        }
+
+        &-number {
+          color: @peach
+        }
+
+        &-type {
+          color: @yellow
+        }
+
+        &-variable {
+          color: @blue
+        }
+
+        &-meta {
+          color: @yellow
+        }
+
+        &-comment {
+          color: @overlay2
+        }
+
+        &-operator {
+          color: @sky
+        }
+
+        &-atom {
+          color: @red
+        }
+      }
+    }
+
+    [class*="hero_"] {
+      &[class*="heroSection"] {
+        background: @base;
+      }
+
+      &[class*="getStartedButton"] {
+        background-color: @accent-color !important;
+        color: @crust;
+
+        &:hover {
+          background-color: darken(@accent-color, 5%) !important;
+        }
+      }
+
+      &[class*="developerLogo"] {
+        @svg: escape('<svg width="149" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M43.242 20.293q0 .634-.269 1.125a1.86 1.86 0 0 1-.756.762c-.33.18-.698.269-1.12.269H39V25.5h2.54q1.432 0 2.574-.642a4.7 4.7 0 0 0 1.792-1.773q.65-1.126.652-2.544V10.509h-3.316zm8.928-.911h6.946v-2.804H52.17v-3.181h7.678v-2.888h-10.91v14.987h11.124v-2.888H52.17zm8.932-5.9h4.442v12.01h3.316v-12.01h4.421v-2.973H61.097v2.977l.005-.005zm23.512 4.5a4 4 0 0 0-.837-.323q.337-.096.638-.244a3.2 3.2 0 0 0 1.29-1.195c.308-.513.467-1.1.467-1.768q-.001-1.142-.622-2.046-.621-.897-1.743-1.404-1.122-.502-2.56-.503h-6.656v14.987h6.786q1.507.002 2.694-.528c.787-.353 1.4-.841 1.837-1.473a3.7 3.7 0 0 0 .653-2.151q0-1.112-.513-1.992a3.53 3.53 0 0 0-1.43-1.364zm-6.802-4.959h2.943q.611.001 1.08.22a1.67 1.67 0 0 1 .996 1.577c0 .364-.09.708-.264.992a1.73 1.73 0 0 1-.732.652 2.4 2.4 0 0 1-1.08.229h-2.943v-3.675zm5.069 9.067q-.285.426-.802.658a2.9 2.9 0 0 1-1.195.229h-3.072v-3.844h3.072q.665 0 1.185.249c.344.164.618.393.807.692s.289.637.289 1.02c0 .384-.095.712-.284.996m14.798-2.654q1.246-.598 1.932-1.683.687-1.08.687-2.514c0-.956-.224-1.763-.672-2.48q-.674-1.074-1.907-1.662-1.232-.59-2.858-.588h-6.563v14.987h3.321V20.04h2.161l3.043 5.457h3.789l-3.426-5.86c.17-.06.339-.125.498-.2h-.005zm-1.076-3.062a1.8 1.8 0 0 1-.791.722q-.516.255-1.21.254h-2.988v-4.147h2.988q.694 0 1.21.249c.343.164.607.408.791.717.185.308.28.677.28 1.095q-.001.629-.28 1.1zM106.9 10.51l-5.352 14.987h3.371l1.06-3.306h5.557l1.135 3.306h3.306l-5.482-14.987zm-.169 9.171 1.723-5.287.204-.961.204.96 1.842 5.288zm10.347 5.816h3.425V10.51h-3.425zm15.51-4.85L126.14 10.51h-3.232v14.987h3.027V15.36l6.414 10.137h3.266V10.51h-3.027zm15.763-1.678a4.5 4.5 0 0 0-1.364-1.568 4.95 4.95 0 0 0-2.011-.846l-2.55-.523q-.599-.142-.951-.498a1.23 1.23 0 0 1-.353-.891q-.002-.485.259-.842c.169-.239.413-.423.722-.558a2.7 2.7 0 0 1 1.075-.199c.408 0 .777.07 1.091.21q.47.207.731.587c.175.254.264.538.264.861h3.321c-.019-.871-.263-1.643-.722-2.31-.458-.672-1.1-1.195-1.916-1.573-.817-.379-1.753-.568-2.799-.568q-1.566-.002-2.783.588c-.812.393-1.449.936-1.902 1.633q-.68 1.044-.682 2.38-.001 1.084.438 1.951a3.95 3.95 0 0 0 1.24 1.45 4.9 4.9 0 0 0 1.862.801l2.699.558c.443.104.791.299 1.05.577.259.28.384.623.384 1.041 0 .334-.095.637-.284.901a1.83 1.83 0 0 1-.792.613q-.507.215-1.195.214c-.458 0-.891-.08-1.265-.24a1.94 1.94 0 0 1-.866-.686 1.72 1.72 0 0 1-.309-1.021h-3.321c.015.936.264 1.757.757 2.474q.732 1.07 2.017 1.668t2.942.598c1.106 0 2.101-.204 2.958-.612.861-.409 1.528-.971 2.011-1.688q.723-1.076.722-2.435a4.4 4.4 0 0 0-.488-2.052z" fill="@{text}"/><path d="m10.17 1.83-8.34 8.34A6.25 6.25 0 0 0 0 14.59V29.5A2.5 2.5 0 0 0 2.5 32h14.91a6.26 6.26 0 0 0 4.42-1.83l8.34-8.34A6.25 6.25 0 0 0 32 17.41V2.5A2.5 2.5 0 0 0 29.5 0H14.59a6.26 6.26 0 0 0-4.42 1.83" fill="url(#a)"/><path d="M24 8H4v20h20z" fill="@{crust}"/><path d="M15 23.5H6.5v2H15z" fill="@{overlay2}"/><defs><linearGradient id="a" x1=".425" y1="31.36" x2="31.31" y2=".905" gradientUnits="userSpaceOnUse"><stop stop-color="@{peach}"/><stop offset=".43" stop-color="@{red}"/><stop offset=".99" stop-color="@{pink}"/></linearGradient></defs></svg>');
+        content: url("data:image/svg+xml,@{svg}");
+      }
+    }
+
+    stop {
+      &[stop-color="#EF4857"],
+      &[stop-color="#e44857"] {
+        stop-color: @accent-color;
+      }
+
+      &[stop-color="#D211EC"],
+      &[stop-color="#c711e1"] {
+        stop-color: darken(@accent-color, 10%);
+      }
+
+      &[stop-color="#7F52FF"],
+      &[stop-color="#7f52ff"] {
+        stop-color: darken(@accent-color, 20%);
+      }
+    }
+
+    #__next {
+      background: @base;
+    }
+
+    .dark-theme > #__next {
+      background: @base;
+    }
+
+    [class*="ktl-"] {
+      &[class*="header-module_"] {
+        box-shadow: none;
+
+        &[class*="darkHeader"] {
+          background: @base;
+        }
+      }
+
+      &[class*="top-menu-module_top-menu"] {
+        background: @base;
+        box-shadow: none;
+      }
+
+      &[class*="footer-module_logo"] {
+        @svg: escape('<svg width="149" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M43.242 20.293q0 .634-.269 1.125a1.86 1.86 0 0 1-.756.762c-.33.18-.698.269-1.12.269H39V25.5h2.54q1.432 0 2.574-.642a4.7 4.7 0 0 0 1.792-1.773q.65-1.126.652-2.544V10.509h-3.316zm8.928-.911h6.946v-2.804H52.17v-3.181h7.678v-2.888h-10.91v14.987h11.124v-2.888H52.17zm8.932-5.9h4.442v12.01h3.316v-12.01h4.421v-2.973H61.097v2.977l.005-.005zm23.512 4.5a4 4 0 0 0-.837-.323q.337-.096.638-.244a3.2 3.2 0 0 0 1.29-1.195c.308-.513.467-1.1.467-1.768q-.001-1.142-.622-2.046-.621-.897-1.743-1.404-1.122-.502-2.56-.503h-6.656v14.987h6.786q1.507.002 2.694-.528c.787-.353 1.4-.841 1.837-1.473a3.7 3.7 0 0 0 .653-2.151q0-1.112-.513-1.992a3.53 3.53 0 0 0-1.43-1.364zm-6.802-4.959h2.943q.611.001 1.08.22a1.67 1.67 0 0 1 .996 1.577c0 .364-.09.708-.264.992a1.73 1.73 0 0 1-.732.652 2.4 2.4 0 0 1-1.08.229h-2.943v-3.675zm5.069 9.067q-.285.426-.802.658a2.9 2.9 0 0 1-1.195.229h-3.072v-3.844h3.072q.665 0 1.185.249c.344.164.618.393.807.692s.289.637.289 1.02c0 .384-.095.712-.284.996m14.798-2.654q1.246-.598 1.932-1.683.687-1.08.687-2.514c0-.956-.224-1.763-.672-2.48q-.674-1.074-1.907-1.662-1.232-.59-2.858-.588h-6.563v14.987h3.321V20.04h2.161l3.043 5.457h3.789l-3.426-5.86c.17-.06.339-.125.498-.2h-.005zm-1.076-3.062a1.8 1.8 0 0 1-.791.722q-.516.255-1.21.254h-2.988v-4.147h2.988q.694 0 1.21.249c.343.164.607.408.791.717.185.308.28.677.28 1.095q-.001.629-.28 1.1zM106.9 10.51l-5.352 14.987h3.371l1.06-3.306h5.557l1.135 3.306h3.306l-5.482-14.987zm-.169 9.171 1.723-5.287.204-.961.204.96 1.842 5.288zm10.347 5.816h3.425V10.51h-3.425zm15.51-4.85L126.14 10.51h-3.232v14.987h3.027V15.36l6.414 10.137h3.266V10.51h-3.027zm15.763-1.678a4.5 4.5 0 0 0-1.364-1.568 4.95 4.95 0 0 0-2.011-.846l-2.55-.523q-.599-.142-.951-.498a1.23 1.23 0 0 1-.353-.891q-.002-.485.259-.842c.169-.239.413-.423.722-.558a2.7 2.7 0 0 1 1.075-.199c.408 0 .777.07 1.091.21q.47.207.731.587c.175.254.264.538.264.861h3.321c-.019-.871-.263-1.643-.722-2.31-.458-.672-1.1-1.195-1.916-1.573-.817-.379-1.753-.568-2.799-.568q-1.566-.002-2.783.588c-.812.393-1.449.936-1.902 1.633q-.68 1.044-.682 2.38-.001 1.084.438 1.951a3.95 3.95 0 0 0 1.24 1.45 4.9 4.9 0 0 0 1.862.801l2.699.558c.443.104.791.299 1.05.577.259.28.384.623.384 1.041 0 .334-.095.637-.284.901a1.83 1.83 0 0 1-.792.613q-.507.215-1.195.214c-.458 0-.891-.08-1.265-.24a1.94 1.94 0 0 1-.866-.686 1.72 1.72 0 0 1-.309-1.021h-3.321c.015.936.264 1.757.757 2.474q.732 1.07 2.017 1.668t2.942.598c1.106 0 2.101-.204 2.958-.612.861-.409 1.528-.971 2.011-1.688q.723-1.076.722-2.435a4.4 4.4 0 0 0-.488-2.052z" fill="@{text}"/><path d="m10.17 1.83-8.34 8.34A6.25 6.25 0 0 0 0 14.59V29.5A2.5 2.5 0 0 0 2.5 32h14.91a6.26 6.26 0 0 0 4.42-1.83l8.34-8.34A6.25 6.25 0 0 0 32 17.41V2.5A2.5 2.5 0 0 0 29.5 0H14.59a6.26 6.26 0 0 0-4.42 1.83" fill="url(#a)"/><path d="M24 8H4v20h20z" fill="@{crust}"/><path d="M15 23.5H6.5v2H15z" fill="@{overlay2}"/><defs><linearGradient id="a" x1=".425" y1="31.36" x2="31.31" y2=".905" gradientUnits="userSpaceOnUse"><stop stop-color="@{peach}"/><stop offset=".43" stop-color="@{red}"/><stop offset=".99" stop-color="@{pink}"/></linearGradient></defs></svg>');
+
+        content: url("data:image/svg+xml,@{svg}");
+      }
+
+      &[class*="cta-block-module"] {
+        &[class*="_wrapper_"] {
+          background: linear-gradient(90deg, darken(@red, 5%), darken(@pink, 5%) 50%, darken(@mauve, 5%)) !important;
+        }
+
+        &[class*="_top-title"], &[class*="_main-title"], &[class*="_main-title"].rs-h2 {
+          color: @base !important;
+        }
+      }
+
+      &[class*="logo-large-module"] {
+        color: @text;
+
+        & > a > svg > path:not(:nth-child(3)) {
+          fill: @text;
+        }
+      }
+
+      &[class*="search-button-module_button"] {
+        color: @subtext1;
+
+        &:hover {
+          color: @subtext0;
+        }
+      }
+
+      &[class*="social-item-module_social-item"] > svg {
+        fill: @text;
+      }
+
+      &[class*="privacy-notice-module_message"] {
+        color: @text;
+      }
+
+      &[class*="courses-list-cell"] > a {
+        color: @blue;
+      }
+
+      &[class*="quotes-slider-module_icon-container_"] > svg > path {
+        fill: @text;
+      }
+    }
+    [class^="why-kotlin"] {
+      background: @base;
+    }
+
+    [class^="index_evenSection"] {
+      background-color: @surface0;
+    }
+
+    [class^="latest"] {
+      background: @base !important;
+    }
+
+    [class^="latest-news_item"] {
+      &::before {
+        background: @surface0;
+      }
+
+      &:hover::before {
+        background: @surface0;
+        outline-color: @text;
+      }
+    }
+
+    [class*="_themeLight"] {
+      background-color: @surface0;
+    }
+
+    [class*="_modeOutline"] {
+      color: @text;
+      border-color: rgba(@text, 0.3);
+
+      :hover {
+        border-color: rgba(@text, 1);
+      }
+
+    }
+
+    [class*="kotlin-usage-highlights_tag"] {
+      & span[class*="_sizeXs"] {
+        color: @text !important;
+        background-color: fadeout(@surface1, 10%) !important;
+      }
+    }
+
+    [class*="modeRock"] {
+      background-color: @accent-color;
+      color: @crust
+    }
+
+    [class*="foundation-preview_"] {
+      &[class*="foundationPreview"] {
+        background: darken(@surface0, 5%) !important;
+
+        & > img[class*="_foundationPreviewImage"] {
+          filter: contrast(1.25) brightness(2) saturate(2);
+          mix-blend-mode: multiply;
+        }
+      }
+
+    }
+
+    [class*="community-banner"] {
+      background: @base;
+    }
+
+    .ktl-hero,
+    .ktl-text-1,
+    .ktl-text-2 {
+      color: @text
+    }
+
+    [class*="ktl-horizontal-menu-module_item-active_"] {
+      color: darken(@accent-color, 10%);
+    }
+
+    [class*="keep-in-touch_wrapper"] {
+      background: darken(@surface0, 5%);
+    }
+
+    .ktl-h4,
+    .ktl-h3,
+    .ktl-h2,
+    .ktl-h1 {
+      color: @text
+    }
+
+    [class*="community-banner_image"] {
+      background: transparent;
+    }
+
+    .teach-wrapper {
+      background: @base;
+    }
+
+    .teach-feature__icon img {
+      @svg: escape('<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M46.927 13.673 24.592.308a2.17 2.17 0 0 0-2.226 0L.536 13.37a1.1 1.1 0 0 0 0 1.889l21.83 13.067c.685.41 1.54.41 2.226 0l21.36-12.786a.273.273 0 0 1 .413.235v21.148H48v-21.36c0-.775-.407-1.493-1.073-1.891" fill="@{text}"/><path d="m40.447 20.755-15.855 9.489c-.686.41-1.54.41-2.226 0l-15.86-9.489a.273.273 0 0 0-.411.236v15.27c0 1.163.608 2.24 1.6 2.833l14.115 8.444a3.25 3.25 0 0 0 3.339 0l14.11-8.444a3.3 3.3 0 0 0 1.6-2.833v-15.27a.272.272 0 0 0-.412-.236" fill="@{text}"/></svg>');
+      content: url("data:image/svg+xml,@{svg}");
+    }
+
+    .teach-subscription-form {
+      background-color: darken(@base, 2%);
+
+      & > div[class*="__checkbox"] > div[class*="_wrapper_"] > label {
+        background-color: darken(@base, 2%)
+      }
+
+      &__icon {
+        @svg: escape('<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M40.762 3.592c3.647-4.79 10.829-4.79 14.476 0l1.76 2.313 2.546-1.393c5.27-2.886 11.831.048 13.224 5.914l.672 2.832 2.889-.233c5.984-.483 10.79 4.877 9.686 10.805l-.533 2.862 2.734.967c5.662 2.004 7.881 8.864 4.473 13.828l-1.645 2.397 2.105 2c4.361 4.144 3.61 11.318-1.513 14.46l-2.474 1.518 1.114 2.688c2.306 5.567-1.285 11.814-7.238 12.592l-2.874.375-.072 2.91c-.147 6.029-5.957 10.269-11.71 8.547l-2.778-.831-1.244 2.63c-2.576 5.446-9.6 6.946-14.159 3.023L48 91.9l-2.201 1.895c-4.559 3.923-11.583 2.423-14.16-3.023l-1.243-2.63-2.778.831c-5.753 1.722-11.563-2.518-11.71-8.546l-.072-2.91-2.874-.376c-5.953-.778-9.544-7.025-7.238-12.592l1.114-2.688-2.474-1.517C-.76 57.202-1.51 50.028 2.85 45.885l2.106-2.001-1.646-2.397C-.097 36.523 2.12 29.663 7.784 27.66l2.734-.967-.533-2.862c-1.103-5.928 3.702-11.288 9.686-10.805l2.89.233.672-2.833c1.392-5.865 7.952-8.799 13.223-5.913l2.545 1.393z" fill="@{text}"/><path fill-rule="evenodd" clip-rule="evenodd" d="M44.845 50.523a4.75 4.75 0 0 0 6.31 0L72 32.003V60a4 4 0 0 1-4 4H28a4 4 0 0 1-4-4V32.003zM26.255 32 45.84 49.401a3.25 3.25 0 0 0 4.318 0L69.745 32z" fill="@{mantle}"/></svg>');
+        content: url("data:image/svg+xml,@{svg}")
+      }
+    }
+
+    div.gmnoprint > div {
+
+      & > button {
+        &.gm-control-active {
+          background-color: @base !important;
+
+          &:disabled {
+            background-color: darken(@base, 5%) !important;
+          }
+        }
+      }
+    }
+
+    img[class*="hero_imageDesktop"] {
+      filter: contrast(1.25);
+      mix-blend-mode: screen;
+    }
+
+    .global-layout > div > div {
+      background-color: @base;
+    }
+
+    [class*="_tab_"] {
+      color: @text;
+
+
+      &:hover {
+        color: @sky
+      }
+    }
+
+    /* Docs */
+
+    --app-header: @crust;
+
+    --wh-color-primary-light-theme: @accent-color;
+    --wh-color-bg-main: @base;
+    --wh-color-text-main: @text;
+    --wh-color-text-secondary: @subtext0;
+    --wh-color-black-text-secondary: @subtext0;
+    --wh-color-black-text-pale: @subtext1;
+    --wh-color-substrate: @mantle;
+    --wh-color-backlight-main: @base;
+    --wh-color-backlight-secondary: @mantle;
+    --wh-color-white: @text;
+    --wh-color-black-text-main: @text;
+    --wh-color-border-default: @overlay1;
+    --wh-color-text-heading: @text;
+    --wh-color-breadcrumbs-active: @subtext1;
+    --wh-color-breadcrumbs-text: @overlay0;
+
+    --rs-color-danger: @red;
+    --wh-color-danger-t20: darken(@red, 40%);
+    --wh-color-danger-t40: darken(@red, 50%);
+    --rs-color-success: @green;
+    --wh-color-success-t20: darken(@green, 40%);
+    --wh-color-success-t40: darken(@green, 50%);
+    --rs-color-primary-light-theme: @accent-color;
+
+
+    .kt-app__article {
+      --rs-color-primary-light-theme: @accent-color;
+      --wt-color-primary-light-theme: @accent-color;
+    }
+
+    // Prism syntax highlighting
+    .prism-- {
+      &keyword {
+        color: @mauve;
+      }
+
+      &operator {
+        color: @sky;
+      }
+
+      &function {
+        color: @blue;
+      }
+
+      &punctuation {
+        color: @overlay2;
+      }
+
+      &string {
+        color: @green;
+      }
+
+      &comment {
+        color: @overlay2;
+      }
+
+      &tag {
+        color: @blue;
+      }
+    }
+
+    // Various element styles
+    svg.wt-icon {
+      fill: @text;
+    }
+    .compiler-info {
+      color: @text;
+    }
+
+    span.kt-menu-horizontal__node,
+    a.kt-menu-horizontal__node {
+      color: @text;
+
+      &.is-active {
+        color: @accent-color;
+      }
+    }
+
+    button.kt-header__search-button > svg > path {
+      fill: @text;
+    }
+
+    .jetbrains-logo::before {
+      @svg: escape('<svg width="149" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M43.242 20.293q0 .634-.269 1.125a1.86 1.86 0 0 1-.756.762c-.33.18-.698.269-1.12.269H39V25.5h2.54q1.432 0 2.574-.642a4.7 4.7 0 0 0 1.792-1.773q.65-1.126.652-2.544V10.509h-3.316zm8.928-.911h6.946v-2.804H52.17v-3.181h7.678v-2.888h-10.91v14.987h11.124v-2.888H52.17zm8.932-5.9h4.442v12.01h3.316v-12.01h4.421v-2.973H61.097v2.977l.005-.005zm23.512 4.5a4 4 0 0 0-.837-.323q.337-.096.638-.244a3.2 3.2 0 0 0 1.29-1.195c.308-.513.467-1.1.467-1.768q-.001-1.142-.622-2.046-.621-.897-1.743-1.404-1.122-.502-2.56-.503h-6.656v14.987h6.786q1.507.002 2.694-.528c.787-.353 1.4-.841 1.837-1.473a3.7 3.7 0 0 0 .653-2.151q0-1.112-.513-1.992a3.53 3.53 0 0 0-1.43-1.364zm-6.802-4.959h2.943q.611.001 1.08.22a1.67 1.67 0 0 1 .996 1.577c0 .364-.09.708-.264.992a1.73 1.73 0 0 1-.732.652 2.4 2.4 0 0 1-1.08.229h-2.943v-3.675zm5.069 9.067q-.285.426-.802.658a2.9 2.9 0 0 1-1.195.229h-3.072v-3.844h3.072q.665 0 1.185.249c.344.164.618.393.807.692s.289.637.289 1.02c0 .384-.095.712-.284.996m14.798-2.654q1.246-.598 1.932-1.683.687-1.08.687-2.514c0-.956-.224-1.763-.672-2.48q-.674-1.074-1.907-1.662-1.232-.59-2.858-.588h-6.563v14.987h3.321V20.04h2.161l3.043 5.457h3.789l-3.426-5.86c.17-.06.339-.125.498-.2h-.005zm-1.076-3.062a1.8 1.8 0 0 1-.791.722q-.516.255-1.21.254h-2.988v-4.147h2.988q.694 0 1.21.249c.343.164.607.408.791.717.185.308.28.677.28 1.095q-.001.629-.28 1.1zM106.9 10.51l-5.352 14.987h3.371l1.06-3.306h5.557l1.135 3.306h3.306l-5.482-14.987zm-.169 9.171 1.723-5.287.204-.961.204.96 1.842 5.288zm10.347 5.816h3.425V10.51h-3.425zm15.51-4.85L126.14 10.51h-3.232v14.987h3.027V15.36l6.414 10.137h3.266V10.51h-3.027zm15.763-1.678a4.5 4.5 0 0 0-1.364-1.568 4.95 4.95 0 0 0-2.011-.846l-2.55-.523q-.599-.142-.951-.498a1.23 1.23 0 0 1-.353-.891q-.002-.485.259-.842c.169-.239.413-.423.722-.558a2.7 2.7 0 0 1 1.075-.199c.408 0 .777.07 1.091.21q.47.207.731.587c.175.254.264.538.264.861h3.321c-.019-.871-.263-1.643-.722-2.31-.458-.672-1.1-1.195-1.916-1.573-.817-.379-1.753-.568-2.799-.568q-1.566-.002-2.783.588c-.812.393-1.449.936-1.902 1.633q-.68 1.044-.682 2.38-.001 1.084.438 1.951a3.95 3.95 0 0 0 1.24 1.45 4.9 4.9 0 0 0 1.862.801l2.699.558c.443.104.791.299 1.05.577.259.28.384.623.384 1.041 0 .334-.095.637-.284.901a1.83 1.83 0 0 1-.792.613q-.507.215-1.195.214c-.458 0-.891-.08-1.265-.24a1.94 1.94 0 0 1-.866-.686 1.72 1.72 0 0 1-.309-1.021h-3.321c.015.936.264 1.757.757 2.474q.732 1.07 2.017 1.668t2.942.598c1.106 0 2.101-.204 2.958-.612.861-.409 1.528-.971 2.011-1.688q.723-1.076.722-2.435a4.4 4.4 0 0 0-.488-2.052z" fill="@{text}"/><path d="m10.17 1.83-8.34 8.34A6.25 6.25 0 0 0 0 14.59V29.5A2.5 2.5 0 0 0 2.5 32h14.91a6.26 6.26 0 0 0 4.42-1.83l8.34-8.34A6.25 6.25 0 0 0 32 17.41V2.5A2.5 2.5 0 0 0 29.5 0H14.59a6.26 6.26 0 0 0-4.42 1.83" fill="url(#a)"/><path d="M24 8H4v20h20z" fill="@{crust}"/><path d="M15 23.5H6.5v2H15z" fill="@{overlay2}"/><defs><linearGradient id="a" x1=".425" y1="31.36" x2="31.31" y2=".905" gradientUnits="userSpaceOnUse"><stop stop-color="@{peach}"/><stop offset=".43" stop-color="@{red}"/><stop offset=".99" stop-color="@{pink}"/></linearGradient></defs></svg>');
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    .kt-header__product-version {
+      color: @text;
+    }
+
+    // CodeMirror and output styles
+    .theme-kotlin-docs-wrapper {
+      .cm-s-kotlin-docs.CodeMirror {
+        background-color: @base;
+      }
+
+      .js-code-output-executor,
+      .output-wrapper {
+        border-radius: 0 0 8px 8px;
+        background: @base !important;
+      }
+    }
+    .CodeMirror-gutters {
+      background-color: @base;
+    }
+    .standard-output {
+      color: @text;
+    }
+
+    // TOC styles
+    .toc-item {
+      &--highlighted {
+        background-color: @base;
+      }
+
+      &--selected {
+        background-color: @accent-color;
+        color: @base;
+      }
+
+      &:hover {
+        background-color: @mantle
+      }
+    }
+
+
+    /* Start styling your website here: */
+
+    /* If you need to specify an overwrite specific to a flavor
+    *  (e.g. only when the flavor is set to latte), you can use a `when` guard clause. */
+
+    & when (@lookup = latte) {
+      img[class*="hero_imageDesktop"] {
+        filter: none;
+        mix-blend-mode: darken;
+      }
+    }
+
+  }
+
+}
+
+
+/* prettier-ignore */
+@catppuccin: {
+  @latte: {
+    @rosewater: #dc8a78;
+    @flamingo: #dd7878;
+    @pink: #ea76cb;
+    @mauve: #8839ef;
+    @red: #d20f39;
+    @maroon: #e64553;
+    @peach: #fe640b;
+    @yellow: #df8e1d;
+    @green: #40a02b;
+    @teal: #179299;
+    @sky: #04a5e5;
+    @sapphire: #209fb5;
+    @blue: #1e66f5;
+    @lavender: #7287fd;
+    @text: #4c4f69;
+    @subtext1: #5c5f77;
+    @subtext0: #6c6f85;
+    @overlay2: #7c7f93;
+    @overlay1: #8c8fa1;
+    @overlay0: #9ca0b0;
+    @surface2: #acb0be;
+    @surface1: #bcc0cc;
+    @surface0: #ccd0da;
+    @base: #eff1f5;
+    @mantle: #e6e9ef;
+    @crust: #dce0e8;
+  };
+  @frappe: {
+    @rosewater: #f2d5cf;
+    @flamingo: #eebebe;
+    @pink: #f4b8e4;
+    @mauve: #ca9ee6;
+    @red: #e78284;
+    @maroon: #ea999c;
+    @peach: #ef9f76;
+    @yellow: #e5c890;
+    @green: #a6d189;
+    @teal: #81c8be;
+    @sky: #99d1db;
+    @sapphire: #85c1dc;
+    @blue: #8caaee;
+    @lavender: #babbf1;
+    @text: #c6d0f5;
+    @subtext1: #b5bfe2;
+    @subtext0: #a5adce;
+    @overlay2: #949cbb;
+    @overlay1: #838ba7;
+    @overlay0: #737994;
+    @surface2: #626880;
+    @surface1: #51576d;
+    @surface0: #414559;
+    @base: #303446;
+    @mantle: #292c3c;
+    @crust: #232634;
+  };
+  @macchiato: {
+    @rosewater: #f4dbd6;
+    @flamingo: #f0c6c6;
+    @pink: #f5bde6;
+    @mauve: #c6a0f6;
+    @red: #ed8796;
+    @maroon: #ee99a0;
+    @peach: #f5a97f;
+    @yellow: #eed49f;
+    @green: #a6da95;
+    @teal: #8bd5ca;
+    @sky: #91d7e3;
+    @sapphire: #7dc4e4;
+    @blue: #8aadf4;
+    @lavender: #b7bdf8;
+    @text: #cad3f5;
+    @subtext1: #b8c0e0;
+    @subtext0: #a5adcb;
+    @overlay2: #939ab7;
+    @overlay1: #8087a2;
+    @overlay0: #6e738d;
+    @surface2: #5b6078;
+    @surface1: #494d64;
+    @surface0: #363a4f;
+    @base: #24273a;
+    @mantle: #1e2030;
+    @crust: #181926;
+  };
+  @mocha: {
+    @rosewater: #f5e0dc;
+    @flamingo: #f2cdcd;
+    @pink: #f5c2e7;
+    @mauve: #cba6f7;
+    @red: #f38ba8;
+    @maroon: #eba0ac;
+    @peach: #fab387;
+    @yellow: #f9e2af;
+    @green: #a6e3a1;
+    @teal: #94e2d5;
+    @sky: #89dceb;
+    @sapphire: #74c7ec;
+    @blue: #89b4fa;
+    @lavender: #b4befe;
+    @text: #cdd6f4;
+    @subtext1: #bac2de;
+    @subtext0: #a6adc8;
+    @overlay2: #9399b2;
+    @overlay1: #7f849c;
+    @overlay0: #6c7086;
+    @surface2: #585b70;
+    @surface1: #45475a;
+    @surface0: #313244;
+    @base: #1e1e2e;
+    @mantle: #181825;
+    @crust: #11111b;
+  };
+}
+
+// vim:ft=less
