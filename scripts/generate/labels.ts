@@ -22,7 +22,8 @@ const toIssueLabel = (slug: string | number) => `lbl:${slug}`;
 export async function syncIssueLabels(
   userstyles: UserStylesSchema.Userstyles,
 ) {
-  updateFileWithPreamble(
+  // .github/issue-labeler.yml
+  await updateFileWithPreamble(
     path.join(REPO_ROOT, ".github/issue-labeler.yml"),
     YAML.stringify(
       Object.entries(userstyles)
@@ -33,6 +34,7 @@ export async function syncIssueLabels(
     ),
   );
 
+  // .github/ISSUE_TEMPLATE/userstyle.yml
   const userstyleIssueContent = Deno.readTextFileSync(path.join(
     REPO_ROOT,
     "scripts/generate/templates/userstyle-issue.yml",
@@ -50,7 +52,7 @@ export async function syncIssueLabels(
   );
 
   // .github/pr-labeler.yml
-  updateFileWithPreamble(
+  await updateFileWithPreamble(
     path.join(REPO_ROOT, ".github/pr-labeler.yml"),
     YAML.stringify(
       Object.entries(userstyles)
@@ -62,14 +64,17 @@ export async function syncIssueLabels(
   );
 
   // .github/labels.yml
-  const syncLabelsContent = Object.entries(userstyles)
-    .map(([slug, style]) => {
-      return {
-        name: slug,
-        description: [style.name].flat().join(", "),
-        color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
-      };
-    });
-  const syncLabels = path.join(REPO_ROOT, ".github/labels.yml");
-  await updateFileWithPreamble(syncLabels, YAML.stringify(syncLabelsContent));
+  await updateFileWithPreamble(
+    path.join(REPO_ROOT, ".github/labels.yml"),
+    YAML.stringify(
+      Object.entries(userstyles)
+        .map(([slug, style]) => {
+          return {
+            name: slug,
+            description: [style.name].flat().join(", "),
+            color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
+          };
+        }),
+    ),
+  );
 }
