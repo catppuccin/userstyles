@@ -366,10 +366,22 @@
     /* ANNOUNCEMENTS */
     .ic-item-row {
       box-shadow: @surface1 0 -1px 0 0;
-      /* the unread badge */
-      span[class$="badge"] {
-        background-color: @accent-color;
-      }
+      box-shadow: 0 -1px @surface1,inset 0 -1px @surface1;
+    }
+    [data-testid="pill-container"] * {
+      color: @subtext0 !important;
+    }
+
+    /* the unread badge */
+    .ic-announcement-row span[class$="badge"] {
+      background-color: @accent-color;
+    }
+    .ic-item-row__meta-content-timestamp > p {
+      color: @subtext0;
+    }
+    /* used for e.g. reply to announcement */
+    .ic-item-row__content-link-container [color="brand"] {
+      color: @blue;
     }
 
     /* DASHBOARD */
@@ -460,6 +472,29 @@
       .details .header {
         color: @subtext0;
       }
+      .ToDoSidebarItem__Close svg {
+        color: @text;
+      }
+    }
+    #right-side .events_list {
+      p {
+        color: fadeout(@text, 20%);
+      }
+
+      .event-details::after {
+        background: linear-gradient(to right, transparent 0%, @base 80%);
+      }
+    }
+    .PlannerEmptyState-styles__root {
+      color: @text;
+    }
+    .EmptyDays-styles__root {
+      background-color: @base;
+      color: @text;
+      border-color: @surface2;
+      &> h2 {
+        border-color: @surface1;
+      }
     }
 
     .ic-app-header {
@@ -483,26 +518,6 @@
       background: fadeout(@base, 50%)
     }
 
-    #right-side .events_list {
-      p {
-        color: fadeout(@text, 20%);
-      }
-
-      .event-details::after {
-        background: linear-gradient(to right, transparent 0%, @base 80%);
-      }
-    }
-    .PlannerEmptyState-styles__root {
-      color: @text;
-    }
-    .EmptyDays-styles__root {
-      background-color: @base;
-      color: @text;
-      border-color: @surface2;
-      &> h2 {
-        border-color: @surface1;
-      }
-    }
 
     /* popup menus */
     /* extra selectors are to avoid styling tooltips because their arrows are hard to style */
@@ -677,9 +692,9 @@
       background-color: @base;
     }
     .ig-header {
-      background-color: @surface1;
+      background-color: @surface0;
       color: @text;
-      border-color: @surface2;
+      border-color: @surface1;
       .name {
         text-shadow: 1px 1px 0 rgba(@base, 0.5);
         color: @text;
@@ -692,7 +707,7 @@
       .ig-row {
         color: @text;
         background-color: @base;
-        border-color: @surface2;
+        border-color: @surface1;
       }
       .ig-row:hover {
         background-color: mix(@accent-color, @base, 30%);
@@ -712,6 +727,14 @@
     }
     .pages.show .page-title {
       color: @text;
+    }
+    #show_by_date, #show_by_type {
+      &+ label > span {
+        color: @text;
+      }
+      &:checked + label > span {
+        background-color: @surface1;
+      }
     }
 
     /* COURSES */
@@ -900,20 +923,20 @@
       border-color: @surface1;
     }
 
+    .quiz-header {
+      border-color: @surface2;
+    }
+    .quiz-submission,
+    .question_editing {
+      background-color: @base;
+      border-color: @base;
+      .score_value {
+        color: @subtext1;
+      }
+    }
     #quiz_show {
       ul#quiz_student_details {
         border-color: @surface1;
-      }
-      .quiz-header {
-        border-color: @surface2;
-      }
-      .quiz-submission,
-      .question_editing {
-        background-color: @base;
-        border-color: @base;
-        .score_value {
-          color: @subtext1;
-        }
       }
     }
     .muted-notice {
@@ -942,10 +965,8 @@
       }
     }
     ul#question_list {
-      /* in canvas' css this is --ic-brand-primary-darkened-15 (@accent-color) but i think */
-      /* --ic-link-color (@blue) looks more appropriate and closer to actual canvas */
       li.answered a {
-        color: darken(@blue, 15%);
+        color: @lavender;
       }
       li.marked {
         /* for some reason canvas's css has left in quotes so this just patches that */
