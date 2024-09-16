@@ -90,8 +90,23 @@
     hr {
       border-color: @surface1;
     }
-    textarea {
-      background-color: @base;
+    textarea,
+    input[type=text],
+    input[type=password],
+    input[type=datetime],
+    input[type=datetime-local],
+    input[type=date],
+    input[type=month],
+    input[type=time],
+    input[type=week],
+    input[type=number],
+    input[type=email],
+    input[type=url],
+    input[type=search],
+    input[type=tel],
+    input[type=color],
+    .uneditable-input {
+      background-color: @surface0;
       border-color: @surface2;
     }
     img:not([src^="/"], [src*="cloudfront.net/dist"]) {
@@ -113,29 +128,33 @@
       border-color: @surface1;
     }
 
-    strong,
-    em,
-    p,
-    span {
-      /* this overrides the "show completed items" part of the dashboard */
-      /* but it seems like an acceptable compromise compared to styling many auto-generated css classes */
-      color: @text;
-    }
+    /* strong, */
+    /* em, */
+    /* p, */
+    /* span { */
+    /*   color: @text; */
+    /* } */
 
     .user_content {
       /* for highlighted text in user-created content, revert to regular-ish text color */
-      [style~="background-color:"]:not([style*="background-color: #ffffff"],[style~="color:"]) {
+      [style~="background-color:"]:not([style~="color:"]) {
         color: black;
         * {
           color: black;
         }
       }
       /* just a special exception for pure black text and pure white backgrounds */
+      [style*="color: rgb(0, 0, 0)"],
       [style*="color: black"],
       [style*="color: #000000"] {
-        color: @text !important;
+        &:not([style~="background-color:"]) {
+          color: @text !important;
+        }
       }
+      [style*="background-color: rgb(255, 255, 255)"],
+      [style*="background-color: white"],
       [style*="background-color: #ffffff"] {
+        color: @text !important;
         background-color: @base !important;
       }
     }
@@ -143,7 +162,6 @@
     .css-ivjxx5-view-link,
     a[class$="link"],
     button[class$="link"]:not(.btn),
-    a > span,
     a.external span {
       color: @blue;
     }
@@ -153,6 +171,7 @@
     span[class*="mask"] {
       background-color: fadeout(@overlay1, 80%);
       > span {
+        color: @text;
         background-color: @base;
         border-color: @surface1;
         > div[class$="modalHeader"] {
@@ -214,11 +233,11 @@
       box-shadow: 0 1px 0 @surface2;;
     }
 
-    /* buttons */
-
-    /* filled-in buttons - easiest to rely on this auto-generated class */
+    /* filled-in buttons - this auto-generated class covers a lot of them */
     .css-1rpus1y-baseButton__content {
+      border-color: @surface2;
       background-color: @surface0;
+      color: @text;
     }
 
     [data-testid="compose-modal-desktop"]
@@ -250,6 +269,9 @@
         background-color: @surface0;
         border-color: @surface1;
       }
+    }
+    button > [class$=baseButton__content] {
+      color: @text;
     }
 
     /* button variants, ripped from canvas css */
@@ -287,6 +309,12 @@
     /* checkboxes */
     input:not(:checked) + label span[class$="checkboxFacade__facade"] {
       background-color: @surface0;
+    }
+    input:checked + label span[class$="checkboxFacade__facade"] {
+      background-color: @surface2;
+    }
+    input + label span[class$="checkboxFacade__label"] {
+      color: @text;
     }
 
     /* dropdown menu buttons */
@@ -397,10 +425,6 @@
       background-color: @base;
     }
 
-    #right-side * {
-      border-color: @surface1;
-    }
-
     .ic-DashboardCard {
       background-color: @surface0;
       .ic-DashboardCard__header_content {
@@ -420,6 +444,10 @@
     }
 
     #right-side {
+      * {
+        border-color: @surface1 !important;
+      }
+
       background-color: fadeout(@base, 70%);
       .css-2bn4c9-view--inlineBlock-inlineListItem,
       .css-tpuo6v-text,
@@ -518,7 +546,7 @@
     /* select dropdowns */
     span[data-position-content^="Popover"]:has(ul[role="listbox"]) {
       border-color: @surface2;
-      > span > span {
+      &> span > span {
         background-color: @surface1;
         div[class$="separator"] {
           background-color: @surface2;
@@ -550,6 +578,9 @@
     span[data-position-content^="Menu"]:not(
         [data-position-content^="Menu__label"]
       ) {
+      span {
+        color: @text;
+      }
       ul[role="menu"] {
         background-color: @surface1;
         span[class$="menuItemGroup__label"] {
@@ -598,6 +629,7 @@
     }
     svg[name="IconPublish"],
     svg[name="IconBookmark"],
+    svg[name="IconCheck"],
     .icon-check {
       color: @green !important;
     }
@@ -623,13 +655,10 @@
       content: url("data:image/svg+xml,@{svg}");
     }
 
-    .css-15v4rhu-tray {
-      background-color: @surface0;
-    }
-
     .standalone-icon::before {
       color: @text;
     }
+
 
     /* MODULES */
     .item-group-expandable,
@@ -1250,6 +1279,8 @@
       }
     }
     /* unread badges */
+    .unread_dot,
+    #grades_summary .unread_dot,
     [data-testid="is-unread"] [class$="badge"]{
       background-color: @accent-color;
     }
@@ -1295,7 +1326,7 @@
         }
       }
     }
-    #nav-tray-portal .css-1gto5tw-tray {
+    #nav-tray-portal > span > span {
       background-color: @mantle;
       [class$="listItem"] {
         color: @subtext0;
