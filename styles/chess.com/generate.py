@@ -1,3 +1,4 @@
+#!/usr/bin/env uv run
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
@@ -5,11 +6,11 @@
 #     "catppuccin==2.1.0",
 # ]
 # ///
-import os
+from os import path
 from catppuccin import PALETTE
 from boardinator.boardinator import replace_colors
 
-cwd = os.getcwd()
+cwd = path.normpath(path.dirname(__file__))
 
 for flavor in PALETTE:
     for color in flavor.colors:
@@ -30,9 +31,7 @@ for flavor in PALETTE:
             ),
         }
         replace_colors(
-            image_path=os.path.join(cwd, "assets/base/colorboard.png"),
-            output_path=os.path.join(
-                cwd, f"assets/{flavor.identifier}/{color.identifier}.png"
-            ),
+            image_path=f"{cwd}/assets/base/colorboard.png",
+            output_path=f"{cwd}/assets/{flavor.identifier}/{color.identifier}.png",
             color_dict=color_dict,
         )
