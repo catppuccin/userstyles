@@ -1,0 +1,207 @@
+/* ==UserStyle==
+@name OpenDNS Content Filtering Page Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/opendns-block-page
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/opendns-block-page
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/opendns-block-page/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aopendns-block-page
+@description Soothing pastel theme for the OpenDNS content filtering page
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain('block.opendns.com') {
+    @media (prefers-color-scheme: light) {
+      :root {
+        #catppuccin(@lightFlavor, @accentColor);
+      }
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        #catppuccin(@darkFlavor, @accentColor);
+      }
+    }
+  
+    #catppuccin(@lookup, @accent) {
+      @rosewater: @catppuccin[@@lookup][@rosewater];
+      @flamingo: @catppuccin[@@lookup][@flamingo];
+      @pink: @catppuccin[@@lookup][@pink];
+      @mauve: @catppuccin[@@lookup][@mauve];
+      @red: @catppuccin[@@lookup][@red];
+      @maroon: @catppuccin[@@lookup][@maroon];
+      @peach: @catppuccin[@@lookup][@peach];
+      @yellow: @catppuccin[@@lookup][@yellow];
+      @green: @catppuccin[@@lookup][@green];
+      @teal: @catppuccin[@@lookup][@teal];
+      @sky: @catppuccin[@@lookup][@sky];
+      @sapphire: @catppuccin[@@lookup][@sapphire];
+      @blue: @catppuccin[@@lookup][@blue];
+      @lavender: @catppuccin[@@lookup][@lavender];
+      @text: @catppuccin[@@lookup][@text];
+      @subtext1: @catppuccin[@@lookup][@subtext1];
+      @subtext0: @catppuccin[@@lookup][@subtext0];
+      @overlay2: @catppuccin[@@lookup][@overlay2];
+      @overlay1: @catppuccin[@@lookup][@overlay1];
+      @overlay0: @catppuccin[@@lookup][@overlay0];
+      @surface2: @catppuccin[@@lookup][@surface2];
+      @surface1: @catppuccin[@@lookup][@surface1];
+      @surface0: @catppuccin[@@lookup][@surface0];
+      @base: @catppuccin[@@lookup][@base];
+      @mantle: @catppuccin[@@lookup][@mantle];
+      @crust: @catppuccin[@@lookup][@crust];
+      @accent-color: @catppuccin[@@lookup][@@accent];
+  
+      color-scheme: if(@lookup = latte, light, dark);
+  
+      ::selection {
+        background-color: fade(@accent-color, 30%);
+      }
+  
+      input,
+      textarea {
+        &::placeholder {
+          color: @subtext0 !important;
+        }
+      }
+  
+      background-color: @base;
+
+      body {
+        color: @text;
+
+        a {
+          &, &:hover, &:visited, &:active {
+            color: @accent-color;
+          }
+        }
+      }
+
+      :focus {
+        outline: 2px solid @accent-color;
+      }
+
+      .logo-area a:focus {
+        outline: none;
+
+        img {
+          outline: 2px solid @accent-color;
+        }
+      }
+
+      .content-area {
+        border-top-color: @surface0;
+
+        .blocked-page {
+          border-color: @surface0;
+          background: @mantle;
+
+          .alert-area {
+            color: @subtext0;
+
+            .alert-icon {
+              color: @accent-color;
+            }
+          }
+
+          input.url {
+            border-color: @surface0;
+            color: @text;
+            background-color: @crust;
+          }
+
+          .bypass-area {
+            .error {
+              color: @red;
+            }
+
+            .bypass-login-form input {
+              border-color: @surface0;
+              background-color: @crust;
+              color: @text;
+            }
+          }
+        }
+
+        .explanation-area .contact-form-container {
+          border-top-color: @surface0;
+        }
+
+        .captcha-heading {
+          color: @subtext0;
+        }
+
+        .captcha {
+          border-color: @surface0;
+          color: @text;
+        }
+
+        .button-link {
+          color: @accent-color;
+        }
+
+        .captcha-msg {
+          color: @red;
+        }
+
+        .categorized,
+        .destinationlist,
+        .applicationlist {
+          border-top-color: @surface0;
+          color: @text;
+        }
+
+        .proxy-area {
+          border-top-color: @surface0;
+
+          .patent-pending {
+            color: @subtext0;
+          }
+
+          .diagnostic-info-area .diagnostic-info {
+            background-color: @mantle;
+            border-color: @surface0;
+          }
+        }
+
+        button {
+          color: @text;
+          background-color: @crust;
+
+          &:hover, &:active {
+            background-color: @mantle;
+          }
+        }
+      }
+
+      .footer-area {
+        border-top-color: @surface0;
+
+        ul.footer-menu li {
+          border-right-color: @surface0;
+        }
+      }
+
+      img[src="/static/img/logo-umbrella.png"] {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="392" height="43" viewBox="0 0 392 43"><path d="M110 10.752c-4.555 2.275-8 8.946-8 15.492C102 36.394 107.588 43 116.172 43c2.851 0 6.215-.707 7.788-1.636C128.653 38.592 131.993 31 128.519 31c-.814 0-1.765 1.132-2.112 2.516-1.591 6.339-11.617 8.799-16.692 4.095-5.709-5.29-5.787-16.707-.153-22.361 4.977-4.995 12.88-4.151 16.229 1.735.94 1.651 2.272 3.005 2.959 3.009 3.338.017-.615-7.227-5.107-9.359-4.455-2.114-9.26-2.073-13.643.117M134 12q0 2 2 2t2-2-2-2-2 2m92 9.532c0 13.241 1.262 17.518 5.872 19.902 3.53 1.825 10.309 2.052 13.444.449 5.062-2.589 5.638-4.485 5.662-18.633.018-11.121-.219-13.25-1.478-13.25-1.254 0-1.5 2.061-1.5 12.545 0 11.987-.109 12.655-2.455 15-3.38 3.381-10.259 3.453-13.371.141-1.996-2.126-2.174-3.352-2.174-15C230 10.667 229.895 10 228 10c-1.884 0-2 .667-2 11.532m68 4.968c0 14 .227 16.5 1.5 16.5.825 0 1.5-.745 1.5-1.655 0-1.54.127-1.54 1.829 0 2.653 2.401 9.645 2.181 12.211-.385 4.149-4.149 5.179-11.589 2.412-17.42-2.497-5.261-9.576-7.243-14.229-3.983-2.217 1.552-2.223 1.542-2.223-4 0-4.273-.347-5.557-1.5-5.557-1.273 0-1.5 2.5-1.5 16.5m64 0c0 14 .227 16.5 1.5 16.5s1.5-2.5 1.5-16.5-.227-16.5-1.5-16.5-1.5 2.5-1.5 16.5m8 0c0 14 .227 16.5 1.5 16.5s1.5-2.5 1.5-16.5-.227-16.5-1.5-16.5-1.5 2.5-1.5 16.5m-221.545-6.045c-1.35 1.35-2.455 3.1-2.455 3.889 0 2.763 3.548 5.686 9 7.413 4.113 1.303 5.575 2.27 5.798 3.831.668 4.673-7.583 6.631-10.864 2.579-2.018-2.493-3.934-2.836-3.934-.706 0 2.994 4.172 5.539 9.078 5.539 6.05 0 9.255-2.419 9.255-6.986 0-3.973-1.717-5.402-9.051-7.534-4.973-1.446-5.381-1.789-5.094-4.276.268-2.327.828-2.747 4.005-3.011 2.68-.223 4.257.257 5.75 1.75C157.074 24.074 158.45 25 159 25c1.928 0 .974-2.875-1.635-4.927-3.762-2.96-9.746-2.783-12.91.382m24.655-1.059c-3.563 1.974-5.035 5.436-5.075 11.931-.031 5.131.314 6.176 2.888 8.75 4.018 4.018 10.579 4.148 14.441.287 1.45-1.45 2.636-3.25 2.636-4 0-2.233-2.648-1.55-4.408 1.136-1.192 1.82-2.516 2.496-4.865 2.485-1.775-.009-3.722-.346-4.327-.75-2.003-1.338-3.4-5.049-3.4-9.034 0-8.178 7.361-12.152 12.412-6.701 2.413 2.603 4.588 3.278 4.588 1.423 0-.592-1.315-2.392-2.923-4-3.247-3.247-7.814-3.83-11.967-1.527m21.656 1.522c-3.055 2.73-3.266 3.338-3.266 9.434 0 5.847.302 6.832 2.937 9.582 2.458 2.565 3.701 3.066 7.614 3.066 7.833 0 12.105-6.368 10.606-15.806-1.37-8.616-11.353-12.118-17.891-6.276m71.732-1.914c-.341.552-1.718.728-3.059.391L257 18.783v12.109c0 10.096.249 12.108 1.5 12.108 1.222 0 1.5-1.667 1.5-9 0-7.667.296-9.296 2-11 2.237-2.237 5.979-2.621 7.8-.8.77.77 1.2 4.711 1.2 11 0 8.044.269 9.8 1.5 9.8 1.199 0 1.5-1.493 1.5-7.435 0-10.71 1.751-14.515 6.693-14.55 3.87-.027 5.307 3.549 5.307 13.208 0 7.358.257 8.777 1.591 8.777 1.376 0 1.545-1.431 1.25-10.59-.313-9.713-.537-10.748-2.702-12.5-2.985-2.415-7.257-2.445-10.189-.071-2.205 1.786-2.325 1.786-4.111 0-1.974-1.974-8.288-2.539-9.341-.835m61.216.71c-1.07 1.07-1.714 1.258-1.714.5 0-.668-.675-1.214-1.5-1.214-1.25 0-1.5 2-1.5 12 0 9.621.278 12 1.401 12 1.069 0 1.483-2.102 1.75-8.896.383-9.77 2.038-13.104 6.504-13.104 1.418 0 2.345-.593 2.345-1.5 0-2.097-5.126-1.946-7.286.214m13.706-.569c-6.911 3.353-7.242 19.204-.475 22.825 2.618 1.402 10.193 1.245 12.142-.252.872-.67 2.126-2.231 2.785-3.468 1.035-1.943.953-2.25-.596-2.25-.987 0-2.357.9-3.044 2-1.956 3.132-8.489 2.76-11.159-.635C333.322 32.597 334.092 32 344 32h9v-2.953c0-8.376-8.107-13.528-15.58-9.902m41.08.01c-2.204 1.205-4.5 3.775-4.5 5.036 0 1.636 3.557.747 4.768-1.191.838-1.342 2.332-2 4.54-2 3.816 0 5.692 1.504 5.692 4.564 0 1.808-.743 2.266-4.517 2.783-8.435 1.156-11.143 3.477-10.618 9.1.459 4.925 7.878 7.366 13.403 4.41 1.603-.858 2.232-.858 2.518 0 .209.628.793 1.143 1.297 1.143s.917-4.692.917-10.427c0-10.074-.089-10.498-2.635-12.5-2.859-2.249-7.686-2.657-10.865-.918M134.218 30.738c.246 10.252.503 11.78 2.032 12.073 1.589.305 1.75-.778 1.75-11.738C138 19.604 137.898 19 135.968 19c-1.943 0-2.019.513-1.75 11.738m58.838-7.794c-6.443 6.443-.66 20.137 7.235 17.135 4.606-1.751 6.658-7.673 4.708-13.583-1.842-5.581-8.064-7.431-11.943-3.552m106.017.691c-3.243 4.122-2.483 13.056 1.327 15.6 1.868 1.247 7.292.841 8.52-.638 3.602-4.341 3.06-14.467-.888-16.58-3.333-1.784-6.772-1.163-8.959 1.618m38.7-.885c-.845.962-1.845 2.762-2.222 4-.669 2.196-.503 2.25 6.882 2.25 8.379 0 9.135-.737 5.494-5.365-2.478-3.151-7.76-3.611-10.154-.885m45.805 8.37c-5.157 1.21-6.744 2.651-6.379 5.794.258 2.215.854 2.631 4.149 2.902 4.927.405 7.652-1.899 7.652-6.471 0-1.84-.337-3.3-.75-3.245-.413.056-2.515.515-4.672 1.02" fill="@{accent-color}" fill-rule="evenodd"/><path d="M19.217 11.25c.232 9.208.555 11.25 1.783 11.25s1.551-2.042 1.783-11.25C23.054.456 22.982 0 21 0s-2.054.456-1.783 11.25M57.701.632c-1.136 1.137-.823 21.175.343 21.895.574.355 1.714.089 2.533-.591C62.771 20.115 62.21.659 59.951.227c-.852-.163-1.864.019-2.25.405M9.667 6.667C9.3 7.033 9 9.747 9 12.698c0 3.997.408 5.521 1.601 5.979 2.171.833 3.365-1.365 3.384-6.227.018-4.803-2.255-7.847-4.318-5.783m19.425.722c-.689.831-1.076 3.528-.9 6.283.259 4.059.627 4.828 2.308 4.828 1.775 0 2-.667 2-5.917 0-6.05-1.191-7.865-3.408-5.194m19.596-.743C48.309 7.024 48 9.991 48 13.24c0 5.087.243 5.86 1.75 5.57 1.431-.276 1.75-1.414 1.75-6.24 0-5.421-1.067-7.669-2.812-5.924m19 0c-.379.378-.688 3.312-.688 6.521 0 5.212.218 5.833 2.048 5.833 1.874 0 2.022-.522 1.75-6.171-.274-5.68-1.392-7.902-3.11-6.183m-67.001 5C.309 12.024 0 13.866 0 15.74c0 2.706.36 3.337 1.75 3.07 1.258-.243 1.75-1.294 1.75-3.74 0-3.251-1.346-4.89-2.813-3.424m37.734.698c-1.009 2.631.011 6.123 1.894 6.482 1.536.292 1.767-.235 1.5-3.413-.325-3.881-2.372-5.731-3.394-3.069m38.097.599c-.945 2.976.344 6.23 2.317 5.85C80.007 18.568 80.5 17.444 80.5 15c0-4.022-2.885-5.512-3.982-2.057M9.174 30.314C4.447 35.347 7.66 43 14.5 43c2.981 0 3.5-.34 3.5-2.289 0-1.841-.539-2.282-2.75-2.25-2.247.032-2.806-.448-3.058-2.625-.227-1.966.229-2.835 1.741-3.315 1.127-.357 2.503-.369 3.058-.027.578.358 1.009-.468 1.009-1.935C18 28.327 17.575 28 14.674 28c-2.183 0-4.072.795-5.5 2.314M22 35.5c0 7.333.056 7.5 2.5 7.5s2.5-.167 2.5-7.5-.056-7.5-2.5-7.5-2.5.167-2.5 7.5m10.2-6.3c-2.048 2.048-1.346 5.524 1.55 7.685l2.75 2.052-2.75.031C31.677 38.992 31 39.493 31 41c0 1.611.667 2 3.429 2 6.725 0 8.812-5.663 3.321-9.011l-3.25-1.982 2.75-.003C39.332 32.001 40 31.514 40 30c0-1.596-.667-2-3.3-2-1.815 0-3.84.54-4.5 1.2M46 30c-1.238 1.238-2 3.333-2 5.5s.762 4.262 2 5.5 3.333 2 5.5 2c2.981 0 3.5-.34 3.5-2.289 0-1.815-.545-2.282-2.623-2.25-3.414.051-5.281-2.667-3.393-4.941.886-1.069 2.185-1.443 3.692-1.065 1.971.495 2.324.201 2.324-1.936C55 28.307 54.574 28 51.5 28c-2.167 0-4.262.762-5.5 2m14.073.635c-5.303 6.741 1.253 14.863 9.456 11.715 2.663-1.021 4.422-6.192 3.251-9.551-1.892-5.428-9.165-6.667-12.707-2.164m4.177 2.032c-1.793.717-1.544 5.283.328 6.001 2.368.909 5.159-2.277 3.834-4.377-1.197-1.897-2.353-2.348-4.162-1.624M77 41.5c0 .833.889 1.5 2 1.5 2.384 0 2.653-1.536.418-2.393-2.235-.858-2.418-.79-2.418.893" fill="@{text}" fill-rule="evenodd"/></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+      }
+    }
+  }
+  
+  /* prettier-ignore */
+  @catppuccin: {
+    @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+    @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+    @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+    @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+  }
+  
+  // vim:ft=less
+  
