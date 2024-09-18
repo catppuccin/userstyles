@@ -7,7 +7,7 @@ import less from "less";
 
 import { REPO_ROOT } from "@/deps.ts";
 import { checkForMissingFiles } from "@/lint/file-checker.ts";
-import { log } from "@/lint/logger.ts";
+import { log } from "@/logger.ts";
 import { verifyMetadata } from "@/lint/metadata.ts";
 import { lint } from "@/lint/stylelint.ts";
 import { getUserstylesData } from "@/utils.ts";
@@ -49,10 +49,9 @@ for await (const entry of stylesheets) {
   less.render(content, { lint: true, globalVars: globalVars }).catch(
     (err: Less.RenderError) => {
       failed = true;
-      log(
+      log.error(
         err.message,
         { file, startLine: err.line, endLine: err.line, content },
-        "error",
       );
     },
   );
@@ -66,4 +65,4 @@ for await (const entry of stylesheets) {
 if (await checkForMissingFiles() === false) failed = true;
 
 // Cause the workflow to fail if any issues were found.
-if (failed) Deno.exit(1);
+if (failed || log.failed) Deno.exit(1);

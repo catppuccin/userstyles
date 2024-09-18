@@ -14,11 +14,15 @@
   - [Installation](#installation)
   - [Usage](#usage)
 - [How do I theme images and SVGs?](#how-do-i-theme-images-and-svgs)
-  - [SVG background images](#svg-background-images)
+  - [SVGs as `background-image`s](#svgs-as-background-images)
   - [`<img>` elements](#img-elements)
 - [How do I set a variable to RGB values?](#how-do-i-set-a-variable-to-rgb-values)
 - [How can I inspect hard-to-grab elements?](#how-can-i-inspect-hard-to-grab-elements)
 - [How do I theme code blocks / syntax highlighting?](#how-do-i-theme-code-blocks--syntax-highlighting)
+  - [highlight.js](#highlightjs)
+  - [Pygments](#pygments)
+  - [Prism.js](#prismjs)
+
 <!--toc:end-->
 
 ### How can I see my changes in real time?
@@ -72,9 +76,9 @@ The command above is converting the input image `old-image.png` to the output fi
 
 ### How do I theme images and SVGs?
 
-#### SVG background images
+#### SVGs as `background-image`s
 
-Often, websites will use a CSS rule to apply an SVG as a `background-image` (typically for icons). We will refer to these as "external SVGs" throughout the rest of this guide. Below is an example of what a rule for an external SVG could look like.
+Websites will sometimes use the `background-image` CSS property to apply an SVG, often for icons. We will refer to these as "external SVGs" throughout the rest of this guide, as the SVGs are usually at a different URL and linked to with [`url()`](https://developer.mozilla.org/en-US/docs/Web/CSS/url). Below is an example of what a rule for an external SVG could look like.
 
 ```css
 .xyz {
@@ -91,13 +95,16 @@ The easiest way to theme external SVGs is to visit the URL of the SVG and paste 
 }
 ```
 
+> [!NOTE]
+> The `Invalid % without number` error may appear if you have not done the following step. Make sure to add/replace an interpolated color in the SVG contents (as is detailed below) for this error to go away.
+
 Now, replace any colors in the SVG with their respective Catppuccin variants. For example, take the following SVG icon for Twitter:
 
 ```xml
 <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#1D9BF0" d="M21.543 7.104c.015.211.015.423.015.636 0 6.507-4.954 14.01-14.01 14.01v-.003A13.94 13.94 0 0 1 0 19.539a9.88 9.88 0 0 0 7.287-2.041 4.93 4.93 0 0 1-4.6-3.42 4.916 4.916 0 0 0 2.223-.084A4.926 4.926 0 0 1 .96 9.167v-.062a4.887 4.887 0 0 0 2.235.616A4.928 4.928 0 0 1 1.67 3.148 13.98 13.98 0 0 0 11.82 8.292a4.929 4.929 0 0 1 8.39-4.49 9.868 9.868 0 0 0 3.128-1.196 4.941 4.941 0 0 1-2.165 2.724A9.828 9.828 0 0 0 24 4.555a10.019 10.019 0 0 1-2.457 2.549z"/></svg>
 ```
 
-There is only one color used, `fill="#1D9BF0"`. That hex code is a shade of blue, so we can replace it with the `@blue` color using the `fill="@{<color>}"` syntax.
+There is only one color used, `fill="#1D9BF0"`. That hex code is a shade of blue, so we can replace it with the `@blue` color using the `fill="@{<color>}"` syntax ([variable interpolation](https://lesscss.org/features/#variables-feature-variable-interpolation)).
 
 ```less
 .twitter-icon {
@@ -110,7 +117,7 @@ There is only one color used, `fill="#1D9BF0"`. That hex code is a shade of blue
 
 #### `<img>` elements
 
-Theming an inline image is similar, but we use `content` to cover up the original image with our new one. You only need to update the SVG inside of the `escape('')` and you're all set.
+Theming an inline image is similar, but `content` is used instead of `background-image` to cover up the original image with our new one. As with the previous tip for `background-image`, you only need to update the SVG inside of the `escape('')` (see above for details).
 
 ```less
 img.xyz {
@@ -164,58 +171,7 @@ GIF via ["Set a Timed Debugger To Web Inspect Hard-To-Grab Elements" - CSS Trick
 
 ### How do I theme code blocks / syntax highlighting?
 
-If a website uses [highlight.js](https://highlightjs.org/) or [Pygments](https://pygments.org/) for syntax highlighting, follow the steps for the syntax higlighter in use below.
-
-#### highlight.js
-
-Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
-
-```css
-@import url("https://unpkg.com/@catppuccin/highlightjs@0.2.2/css/catppuccin.variables.important.css");
-```
-
-Then add the following lines beneath the color definition section (`@<color>: @catppuccin[@@lookup][@<color>];`) in the `#catppuccin` mixin:
-
-```css
---ctp-rosewater: #rgbify(@rosewater) [];
---ctp-flamingo: #rgbify(@flamingo) [];
---ctp-pink: #rgbify(@pink) [];
---ctp-mauve: #rgbify(@mauve) [];
---ctp-red: #rgbify(@red) [];
---ctp-maroon: #rgbify(@maroon) [];
---ctp-peach: #rgbify(@peach) [];
---ctp-yellow: #rgbify(@yellow) [];
---ctp-green: #rgbify(@green) [];
---ctp-teal: #rgbify(@teal) [];
---ctp-sky: #rgbify(@sky) [];
---ctp-sapphire: #rgbify(@sapphire) [];
---ctp-blue: #rgbify(@blue) [];
---ctp-lavender: #rgbify(@lavender) [];
---ctp-text: #rgbify(@text) [];
---ctp-subtext1: #rgbify(@subtext1) [];
---ctp-subtext0: #rgbify(@subtext0) [];
---ctp-overlay2: #rgbify(@overlay2) [];
---ctp-overlay1: #rgbify(@overlay1) [];
---ctp-overlay0: #rgbify(@overlay0) [];
---ctp-surface2: #rgbify(@surface2) [];
---ctp-surface1: #rgbify(@surface1) [];
---ctp-surface0: #rgbify(@surface0) [];
---ctp-base: #rgbify(@base) [];
---ctp-mantle: #rgbify(@mantle) [];
---ctp-crust: #rgbify(@crust) [];
-```
-
-Finally, add the [`#rbgify` mixin](#how-do-i-set-a-variable-to-rgb-values) above the `@catppuccin` color palette at the bottom of the userstyle.
-
-#### Pygments
-
-Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
-
-```css
-@import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
-```
-
-You'll also need to add the following lines beneath the color definition section (`@<color>: @catppuccin[@@lookup][@<color>];`) in the `#catppuccin` mixin:
+If a website uses [highlight.js](https://highlightjs.org/), [Pygments](https://pygments.org/), or [Prism.js](https://prismjs.com/) for syntax highlighting, follow the steps for the syntax higlighter in use below. First though, you'll need to add the following lines beneath the color definition section (`@<color>: @catppuccin[@@lookup][@<color>];`) in the `#catppuccin` mixin:
 
 ```css
 --ctp-rosewater: @rosewater;
@@ -244,4 +200,28 @@ You'll also need to add the following lines beneath the color definition section
 --ctp-base: @base;
 --ctp-mantle: @mantle;
 --ctp-crust: @crust;
+```
+
+#### highlight.js
+
+Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
+
+```css
+@import url("https://unpkg.com/@catppuccin/highlightjs@1.0.0/css/catppuccin-variables.important.css");
+```
+
+#### Pygments
+
+Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
+
+```css
+@import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
+```
+
+#### Prism.js
+
+Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
+
+```css
+@import url("https://prismjs.catppuccin.com/variables.css");
 ```
