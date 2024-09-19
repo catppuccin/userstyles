@@ -17,6 +17,13 @@
 
 @-moz-document domain('kotlinlang.org') {
 
+  @import (css)
+url("https://prismjs.catppuccin.com/@{lightFlavor}.css")
+(prefers-color-scheme: light);
+  @import (css)
+url("https://prismjs.catppuccin.com/@{darkFlavor}.css")
+(prefers-color-scheme: dark);
+
   @media (prefers-color-scheme: light) {
     :root {
       #catppuccin(@lightFlavor, @accentColor);
@@ -26,21 +33,6 @@
     :root {
       #catppuccin(@darkFlavor, @accentColor);
     }
-  }
-
-  /* If the website you are theming *does* have a light/dark mode toggle,
-     you can conditionally enable light/dark flavors by targeting whatever
-     attribute that website uses to indicate the theme. *The example below gives you an idea of what
-     to look for. The website you are themeing may use a class-based approach (e.g. :root.theme-dark),
-     or any of the myriad of other methods like this.*
-     Use the below example CSS to start if this is the case.
-     For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/youtube/catppuccin.user.css#L21-L30.
-  */
-  :root[data-theme="dark"] {
-    #catppuccin(@darkFlavor, @accentColor);
-  }
-  :root[data-theme="light"] {
-    #catppuccin(@lightFlavor, @accentColor);
   }
 
   #catppuccin(@lookup, @accent) {
@@ -72,13 +64,21 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
+  color-scheme: if(@lookup = latte, light, dark);
 
-
-    ::selection {
+  ::selection {
       background-color: fade(@accent-color, 30%);
     }
 
-    --ktl-light-grey: @text;
+  input,
+  textarea {
+    &::placeholder {
+      color: @subtext0 !important;
+    }
+  }
+
+
+  --ktl-light-grey: @text;
     --ktl-dark-100: @surface0 !important;
     --ktl-dark-bg-hard: @mantle !important;
     --ktl-icon-color-dark: @crust !important;
@@ -87,12 +87,6 @@
 
     --ktl-focus-outline: rgba(107, 87, 255, .8) 0 0 0 4px;
 
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
 
     body {
       &.dark-theme {
@@ -448,11 +442,11 @@
     --wh-color-breadcrumbs-text: @overlay0;
 
     --rs-color-danger: @red;
-    --wh-color-danger-t20: darken(@red, 40%);
-    --wh-color-danger-t40: darken(@red, 50%);
+    --wh-color-danger-t20: darken(@red, 10%);
+    --wh-color-danger-t40: darken(@red, 15%);
     --rs-color-success: @green;
-    --wh-color-success-t20: darken(@green, 40%);
-    --wh-color-success-t40: darken(@green, 50%);
+    --wh-color-success-t20: darken(@green, 10%);
+    --wh-color-success-t40: darken(@green, 15%);
     --rs-color-primary-light-theme: @accent-color;
 
 
@@ -461,40 +455,58 @@
       --wt-color-primary-light-theme: @accent-color;
     }
 
-    // Prism syntax highlighting
-    .prism-- {
-      &keyword {
-        color: @mauve;
-      }
-
-      &operator {
-        color: @sky;
-      }
-
-      &function {
-        color: @blue;
-      }
-
-      &punctuation {
-        color: @overlay2;
-      }
-
-      &string {
-        color: @green;
-      }
-
-      &comment {
-        color: @overlay2;
-      }
-
-      &tag {
-        color: @blue;
-      }
+    div.prompt__content> p.article__p {
+      color: @crust;
     }
 
-    // Various element styles
+// Prism syntax highlighting
+.prism-- {
+
+  &token {
+    color: @text;
+  }
+
+  &keyword {
+    color: @mauve;
+  }
+
+  &operator {
+    color: @sky;
+  }
+
+  &function {
+    color: @blue;
+  }
+
+  &punctuation {
+    color: @overlay2;
+  }
+
+  &string {
+    color: @green;
+  }
+
+  &comment {
+    color: @overlay2;
+  }
+
+  &tag {
+    color: @blue;
+  }
+
+  &class-name {
+    color: @yellow;
+  }
+
+}
+
+// Various element styles
     svg.wt-icon {
       fill: @text;
+
+      &.prompt__icon {
+        fill: @crust
+      }
     }
     .compiler-info {
       color: @text;
@@ -558,11 +570,6 @@
     }
 
 
-    /* Start styling your website here: */
-
-    /* If you need to specify an overwrite specific to a flavor
-    *  (e.g. only when the flavor is set to latte), you can use a `when` guard clause. */
-
     & when (@lookup = latte) {
       img[class*="hero_imageDesktop"] {
         filter: none;
@@ -577,118 +584,9 @@
 
 /* prettier-ignore */
 @catppuccin: {
-  @latte: {
-    @rosewater: #dc8a78;
-    @flamingo: #dd7878;
-    @pink: #ea76cb;
-    @mauve: #8839ef;
-    @red: #d20f39;
-    @maroon: #e64553;
-    @peach: #fe640b;
-    @yellow: #df8e1d;
-    @green: #40a02b;
-    @teal: #179299;
-    @sky: #04a5e5;
-    @sapphire: #209fb5;
-    @blue: #1e66f5;
-    @lavender: #7287fd;
-    @text: #4c4f69;
-    @subtext1: #5c5f77;
-    @subtext0: #6c6f85;
-    @overlay2: #7c7f93;
-    @overlay1: #8c8fa1;
-    @overlay0: #9ca0b0;
-    @surface2: #acb0be;
-    @surface1: #bcc0cc;
-    @surface0: #ccd0da;
-    @base: #eff1f5;
-    @mantle: #e6e9ef;
-    @crust: #dce0e8;
-  };
-  @frappe: {
-    @rosewater: #f2d5cf;
-    @flamingo: #eebebe;
-    @pink: #f4b8e4;
-    @mauve: #ca9ee6;
-    @red: #e78284;
-    @maroon: #ea999c;
-    @peach: #ef9f76;
-    @yellow: #e5c890;
-    @green: #a6d189;
-    @teal: #81c8be;
-    @sky: #99d1db;
-    @sapphire: #85c1dc;
-    @blue: #8caaee;
-    @lavender: #babbf1;
-    @text: #c6d0f5;
-    @subtext1: #b5bfe2;
-    @subtext0: #a5adce;
-    @overlay2: #949cbb;
-    @overlay1: #838ba7;
-    @overlay0: #737994;
-    @surface2: #626880;
-    @surface1: #51576d;
-    @surface0: #414559;
-    @base: #303446;
-    @mantle: #292c3c;
-    @crust: #232634;
-  };
-  @macchiato: {
-    @rosewater: #f4dbd6;
-    @flamingo: #f0c6c6;
-    @pink: #f5bde6;
-    @mauve: #c6a0f6;
-    @red: #ed8796;
-    @maroon: #ee99a0;
-    @peach: #f5a97f;
-    @yellow: #eed49f;
-    @green: #a6da95;
-    @teal: #8bd5ca;
-    @sky: #91d7e3;
-    @sapphire: #7dc4e4;
-    @blue: #8aadf4;
-    @lavender: #b7bdf8;
-    @text: #cad3f5;
-    @subtext1: #b8c0e0;
-    @subtext0: #a5adcb;
-    @overlay2: #939ab7;
-    @overlay1: #8087a2;
-    @overlay0: #6e738d;
-    @surface2: #5b6078;
-    @surface1: #494d64;
-    @surface0: #363a4f;
-    @base: #24273a;
-    @mantle: #1e2030;
-    @crust: #181926;
-  };
-  @mocha: {
-    @rosewater: #f5e0dc;
-    @flamingo: #f2cdcd;
-    @pink: #f5c2e7;
-    @mauve: #cba6f7;
-    @red: #f38ba8;
-    @maroon: #eba0ac;
-    @peach: #fab387;
-    @yellow: #f9e2af;
-    @green: #a6e3a1;
-    @teal: #94e2d5;
-    @sky: #89dceb;
-    @sapphire: #74c7ec;
-    @blue: #89b4fa;
-    @lavender: #b4befe;
-    @text: #cdd6f4;
-    @subtext1: #bac2de;
-    @subtext0: #a6adc8;
-    @overlay2: #9399b2;
-    @overlay1: #7f849c;
-    @overlay0: #6c7086;
-    @surface2: #585b70;
-    @surface1: #45475a;
-    @surface0: #313244;
-    @base: #1e1e2e;
-    @mantle: #181825;
-    @crust: #11111b;
-  };
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
 }
-
 // vim:ft=less
