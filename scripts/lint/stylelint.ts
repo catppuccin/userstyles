@@ -8,7 +8,7 @@ import "stylelint-config-standard";
 import "stylelint-config-recommended";
 
 import { REPO_ROOT } from "@/deps.ts";
-import { log } from "@/lint/logger.ts";
+import { log } from "@/logger.ts";
 
 export const lint = (
   entry: WalkEntry,
@@ -29,7 +29,7 @@ export const lint = (
             color.dim(`(${warning.rule})`),
           ) ?? "unspecified stylelint error";
 
-          log(message, {
+          log.log(message, {
             file: relative(REPO_ROOT, entry.path),
             startLine: warning.line,
             endLine: warning.endLine,

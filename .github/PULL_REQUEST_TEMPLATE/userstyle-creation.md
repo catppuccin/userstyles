@@ -26,7 +26,6 @@ Feel free to leave this section empty if you don't have anything more to say.
       [`userstyles.yml`](https://github.com/catppuccin/userstyles/blob/main/scripts/userstyles.yml)
       file with information about the new userstyle.
 - [ ] I have included the following files:
-  - `catppuccin.user.css` - all the CSS for the userstyle, based on the
-    template.
-  - `preview.webp` - composite image of all four individual flavor screenshots stitched together,
-    generated via [Catwalk](https://github.com/catppuccin/catwalk).
+  - [ ] `catppuccin.user.css` - all the CSS for the userstyle, based on the
+        template.
+  - [ ] `preview.webp` - composite image of all four individual flavor screenshots (taken with the default accent color of mauve) stitched together, generated via [Catwalk](https://github.com/catppuccin/catwalk).

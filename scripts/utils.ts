@@ -5,7 +5,7 @@ import { SetRequired } from "type-fest/source/set-required.d.ts";
 
 import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
 import { UserstylesSchema } from "@/types/userstyles.d.ts";
-import { log } from "@/lint/logger.ts";
+import { log } from "@/logger.ts";
 import { sprintf } from "@std/fmt/printf";
 
 /**
@@ -22,18 +22,20 @@ export const validateYaml = <T>(
   const data = parse(content);
 
   if (!validate(data)) {
-    console.log(
-      "Found schema errors in scripts/userstyles.yml: " +
-        validate.errors?.map((err) =>
-          sprintf(
-            "%s %s%s",
-            err.instancePath.slice(1).replaceAll("/", "."),
-            err.message,
-            err.params.allowedValues
-              ? ` (${JSON.stringify(err.params.allowedValues, undefined)})`
-              : "",
-          )
-        ).join(" and "),
+    log.error(
+      validate.errors!.map((err) =>
+        sprintf(
+          "%s %s%s",
+          err.instancePath.slice(1).replaceAll("/", "."),
+          err.message,
+          err.params.allowedValues
+            ? ` (${JSON.stringify(err.params.allowedValues, undefined)})`
+            : "",
+        )
+      ).join(" and "),
+      {
+        file: "scripts/userstyles.yml",
+      },
     );
     Deno.exit(1);
   }
@@ -56,28 +58,31 @@ export const getUserstylesData = (): Userstyles => {
       userStylesSchema,
     );
 
-    if (data.userstyles === undefined || data.collaborators === undefined) {
-      console.log("userstyles.yml is missing required fields");
-      Deno.exit(1);
+    for (const field of ["userstyles", "collaborators"] as const) {
+      if (data[field] === undefined) {
+        log.error(`Missing required field \`${field}\``, {
+          file: "scripts/userstyles.yml",
+        });
+        Deno.exit(1);
+      }
     }
 
     return data as Userstyles;
   } catch (err) {
-    if (err.name === "YAMLError") {
+    if (err.name === "SyntaxError") {
       const groups =
         /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
           .exec(err.message)?.groups;
-      log(
+      log.error(
         groups!.message,
         {
           file: "scripts/userstyles.yml",
           startLine: Number(groups!.line),
           content: content,
         },
-        "error",
       );
     } else {
-      console.log(err);
+      throw err;
     }
 
     Deno.exit(1);

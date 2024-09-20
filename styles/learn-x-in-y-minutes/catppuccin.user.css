@@ -1,11 +1,11 @@
 /* ==UserStyle==
-@name Skiff Catppuccin
-@namespace github.com/catppuccin/userstyles/styles/skiff
-@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/skiff
-@version 0.0.3
-@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/skiff/catppuccin.user.css
-@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Askiff
-@description Soothing pastel theme for Skiff
+@name Learn X in Y Minutes Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/learn-x-in-y-minutes
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/learn-x-in-y-minutes
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/learn-x-in-y-minutes/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Alearn-x-in-y-minutes
+@description Soothing pastel theme for Learn X in Y Minutes
 @author Catppuccin
 @license MIT
 
@@ -15,14 +15,22 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document domain("app.skiff.com") {
-  @media (prefers-color-scheme: light) {
-    :root {
+@-moz-document domain("learnxinyminutes.com") {
+  @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
+
+  html.light {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+
+  html.dark {
+    #catppuccin(@darkFlavor, @accentColor);
+  }
+
+  html:not(.dark, .light) {
+    @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor, @accentColor);
     }
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
+    @media (prefers-color-scheme: dark) {
       #catppuccin(@darkFlavor, @accentColor);
     }
   }
@@ -56,6 +64,33 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
+    --ctp-rosewater: @rosewater;
+    --ctp-flamingo: @flamingo;
+    --ctp-pink: @pink;
+    --ctp-mauve: @mauve;
+    --ctp-red: @red;
+    --ctp-maroon: @maroon;
+    --ctp-peach: @peach;
+    --ctp-yellow: @yellow;
+    --ctp-green: @green;
+    --ctp-teal: @teal;
+    --ctp-sky: @sky;
+    --ctp-sapphire: @sapphire;
+    --ctp-blue: @blue;
+    --ctp-lavender: @lavender;
+    --ctp-text: @text;
+    --ctp-subtext1: @subtext1;
+    --ctp-subtext0: @subtext0;
+    --ctp-overlay2: @overlay2;
+    --ctp-overlay1: @overlay1;
+    --ctp-overlay0: @overlay0;
+    --ctp-surface2: @surface2;
+    --ctp-surface1: @surface1;
+    --ctp-surface0: @surface0;
+    --ctp-base: @base;
+    --ctp-mantle: @mantle;
+    --ctp-crust: @crust;
+
     color-scheme: if(@lookup = latte, light, dark);
 
     ::selection {
@@ -69,161 +104,110 @@
       }
     }
 
-    html,
+    .highlight {
+      background-color: @mantle;
+
+      pre {
+        background-color: @mantle !important;
+      }
+    }
+
+    &:not(.dark, .light) {
+      p {
+        color: @subtext0 !important;
+      }
+
+      span {
+        color: @text;
+      }
+    }
+
+    .share {
+      background-color: @mantle;
+      border-color: @crust;
+
+      &:hover {
+        background-color: @surface0;
+      }
+    }
+
+    .theme-choice button {
+      color: @text;
+      background-color: @mantle;
+      border-color: @crust;
+
+      &:hover {
+        background-color: @surface0;
+      }
+    }
+
+    #lang-select {
+      color: @text;
+      background-color: @mantle;
+      border-color: @crust;
+    }
+
+    td.lang span a {
+      color: @text;
+      background-color: @mantle;
+      border-color: @crust;
+
+      &:hover {
+        background-color: @surface0;
+      }
+    }
+
+    &,
     body {
-      /* main background colors */
-      --bg-main-container: @mantle !important;
-      --bg-l3-solid: @base !important;
-      --bg-l2-solid: @base !important;
-      --bg-sidepanel: @crust !important;
-      --bg-l1-solid: @crust !important;
-
-      /* Text fields and popups */
-      --bg-field-default: @mantle !important;
-
-      /* Text */
-      --text-primary: @text !important;
-      --text-secondary: @subtext1 !important;
-      --text-disabled: @subtext0 !important;
-      --text-tertiary: @subtext0 !important;
-      --text-link: @accent-color !important;
-      --text-destructive: @red !important;
-      --text-inverse: @crust !important;
-
-      --accent-green-primary: @green !important;
-    }
-
-    /* Link color when hovering over hotlinked text */
-    .eWCUQ {
-      color: @accent-color;
-    }
-
-    /* Unread dot */
-    .bguZwu {
-      background: @accent-color;
-    }
-
-    /* Change account/service dropdown and the tutorial popup, always dark mode regardless of setting */
-    & when not (@lookup = latte) {
-      /* Change account/service dropdown */
-      .fLWrAr {
-        background: @mantle;
-      }
-      .gWUKFc {
-        background: @base;
-      }
-
-      /* tutorial popup */
-      html,
-      body {
-        --bg-emphasis: @crust !important;
-      }
-      /* Pay with crypto header */
-      .cEYYtP {
-        background: @mantle !important;
-      }
-    }
-    & when (@lookup = latte) {
-      /* Change account/service dropdown */
-      .fLWrAr {
-        background: @catppuccin[@mocha][@mantle];
-      }
-      .gWUKFc {
-        background: @catppuccin[@mocha][@mantle];
-      }
-      /* tutorial popup */
-      html,
-      body {
-        --bg-emphasis: @catppuccin[@mocha][@crust] !important;
-      }
-    }
-
-    /* Various dropdowns */
-    .optionMenu {
-      background: @crust !important;
-    }
-
-    /* Text in dropdowns */
-    .imrrcE,
-    .kvGqVe {
+      background-color: @base;
       color: @text;
-    }
-    .dkQatM {
-      color: @subtext0;
+      border-color: @base;
+      box-shadow: none;
     }
 
-    /* Search menu */
-    .bFaRKt {
-      background: @mantle !important;
-    }
-    .enSdmg,
-    .cGshPA,
-    .epvcfe {
-      color: @subtext0;
-      caret-color: @accent-color;
-    }
-    .enSdmg:focus,
-    .cGshPA:focus,
-    .epvcfe:focus {
+    td,
+    th {
       color: @text;
+      border-bottom-color: @surface0;
     }
 
-    /* Mail, folder, and tag colors */
-    .dSuCgH {
-      border-color: @red !important;
+    footer {
+      p {
+        color: @subtext1;
+      }
     }
-    .haItIx,
-    .eKPGmM,
-    .eihkWB {
-      background: @red;
+
+    a {
+      color: @accent-color !important;
+
+      code {
+        color: @accent-color !important;
+      }
+
+      &:visited {
+        color: darken(@accent-color, 5%) !important;
+      }
+
+      &.active {
+        color: @base !important;
+        background-color: @accent-color !important;
+        border-color: darken(@accent-color, 15%) !important;
+
+        &:visited {
+          background-color: darken(@accent-color, 5%) !important;
+          color: @base !important;
+          border-color: darken(@accent-color, 10%) !important;
+        }
+      }
     }
-    .eaRVlP {
-      border-color: @peach !important;
+
+    hr {
+      border-color: @surface1;
     }
-    .JtHzx,
-    .dKGpJJ,
-    .NfxrE {
-      background: @peach;
-    }
-    .hUzTMU {
-      border-color: @pink !important;
-    }
-    .gvwSHu,
-    .iJVhTi,
-    .gbLRlL {
-      background: @pink;
-    }
-    .eQGCyt {
-      border-color: @yellow !important;
-    }
-    .BJLiU,
-    .bdmXVU,
-    .cldAOh {
-      background: @yellow;
-    }
-    .jquNQm {
-      border-color: @green !important;
-    }
-    .fBWSzj,
-    .bmuMTf,
-    .dzrHbG {
-      background: @green;
-    }
-    .kmInNw {
-      border-color: @sapphire !important;
-    }
-    .dZaPlW,
-    .kHHBZC,
-    .ePjgmv {
-      background: @sapphire;
-    }
-    .gqLdmg {
-      border-color: @blue !important;
-    }
-    .dtLBu,
-    .gZiRxy,
-    .hccJrv {
-      background: @blue;
+
+    code {
+      background-color: @mantle;
+      color: @text;
     }
   }
 }

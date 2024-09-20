@@ -4,25 +4,23 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-  Catppuccin for <a href="https://app.skiff.com/mail">Skiff</a>
+  Catppuccin for <a href="https://namemc.com/">NameMC</a>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
 <p align="center">
-	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Askiff"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/skiff?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/skiff/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Anamemc"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/namemc?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/namemc/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 <p align="center">
   <img src="preview.webp"/>
 </p>
 
-## Usage
-Switch to a default Skiff light/dark theme via **Settings** > **Appearance** for the best experience!
 
 
 ## 💝 Current Maintainer
-- [coopw](https://github.com/coopw1)
+- [Natalie Raine](https://github.com/Nyatalieeee)
 
 
 &nbsp;
