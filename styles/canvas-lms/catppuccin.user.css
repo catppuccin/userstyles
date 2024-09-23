@@ -128,6 +128,10 @@
       border-color: @surface1;
     }
 
+    :is(label, fieldset) span[class$="formFieldLabel"] {
+      color: @subtext1;
+    }
+
     .user_content {
       /* for highlighted text in user-created content, revert to regular-ish text color */
       color: @text;
@@ -154,7 +158,7 @@
     }
 
     a[class$="link"],
-    a[class$="link"] span,
+    a[class$="link"] > span,
     button[class$="link"]:not(.btn),
     a.external span {
       color: @blue !important;
@@ -195,34 +199,117 @@
       }
       background-color: @surface0;
     }
+    .ui-datepicker .ui-datepicker-time, .ui-dialog .ui-dialog-buttonpane {
+      background-color: @surface1;
+      border-color: @surface2;
+    }
 
     /* auto-save preview */
     /* Difficult to select anything so just revert span/p changes */
     span[data-testid="RCE_RestoreAutoSaveModal"] {
-      span,
-      p {
-        color: black;
+    }
+
+    /* global nav sidebar */
+    .ic-app-header {
+      .ic-app-header__logomark-container {
+        background-color: transparent;
+      }
+      .menu-item__badge * {
+        color: @mantle;
+      }
+      .ic-app-header__menu-list-item.ic-app-header__menu-list-item--active {
+        & > * {
+          background-color: @base;
+        }
+        .menu-item__text {
+          background-color: transparent;
+        }
       }
     }
 
-    /* sidebar */
+    /* sidebar trays (e.g. slide in from right side) */
+    body > span > [class*="tray"] {
+      background-color: @mantle;
+      div[role="tabpanel"] > div {
+        background-color: @mantle;
+        border-color: @surface1;
+      }
+      div[class$="view-tabs__container"] {
+        background-color: @mantle;
+        div[role="tab"] {
+          color: @subtext1;
+        }
+      }
+      fieldset,
+      label {
+        span[class$="text"] {
+          color: @text;
+        }
+        .Gradebook__StatusModalListItem span {
+          color: black !important;
+        }
+      }
+      span[data-testid$="footer"] > div {
+        border-color: @surface1;
+        background-color: @crust;
+      }
+    }
+
+    .ic-app-header__menu-list-link:hover {
+      background: fadeout(@base, 50%);
+    }
+
+    #nav-tray-portal {
+      > span > span {
+        background-color: @mantle;
+        [class$="listItem"] {
+          color: @subtext0;
+        }
+        /* needed to persist color on hover */
+        a {
+          color: @blue;
+        }
+        div[data-timestamp] {
+          color: @subtext0;
+        }
+      }
+      label span[class$="label"] {
+        color: @text;
+      }
+      .help-tray li [class$="pill"]{
+        /* just new pill */
+        border-color: @green;
+        color: @green;
+        background-color: transparent;
+      }
+      .profile-tray span[class$="avatar"]{
+        background-color: @surface0;
+        span {
+          color: @accent-color;
+        }
+      }
+    }
+
+    /* link sidebar for courses */
     .list-view a.active {
       border-color: @accent-color;
       color: @accent-color;
     }
 
     /* pills */
-    .css-tfc09q-pill {
-      /* red missing assignment pill */
-      color: @red;
-      border-color: @red;
-      background-color: @surface0;
-    }
-    .css-10f5v0f-pill {
-      /* info pill (e.g. submitted, graded, etc) */
-      background-color: @surface0;
-      border-color: @surface1;
-      color: @text;
+    .BadgeList-styles__root {
+      div[class$="pill"] {
+        /* info pill (e.g. submitted, graded, etc) */
+        background-color: @surface0;
+        border-color: @surface1;
+        color: @text;
+      }
+      .css-tfc09q-pill {
+        /* red missing assignment pill */
+        color: @red;
+        border-color: @red;
+        background-color: @surface0;
+      }
     }
     .pill {
       background-color: @surface1;
@@ -244,14 +331,17 @@
     #grades_summary a.toggle_comments_link,
     #grades_summary a.toggle_rubric_assessments_link,
     #planner-today-btn,
+    form[action="/logout"] button,
     .ui-button,
     .btn,
     .Button,
     button[data-testid="address-button"],
+    button[data-testid="gradebook-settings-button"],
+    a:has(.css-1rpus1y-baseButton__content),
     button:has(.css-1rpus1y-baseButton__content) {
       &:hover {
         background-color: @hover-regular;
-        > [class$="-baseButton__content"] {
+        > [class$="baseButton__content"] {
           background-color: @hover-regular;
         }
         color: @text;
@@ -262,16 +352,19 @@
       path[fill="#000000"] {
         fill: @text;
       }
-      > [class$="-baseButton__content"] {
+      > [class$="baseButton__content"] {
         background-color: @surface0;
         border-color: @surface1;
+      }
+      [class$="text"] {
+        color: @text;
       }
     }
     button > [class$="baseButton__content"] {
       color: @text;
     }
 
-    /* button variants, ripped from canvas css */
+    /* colored buttons, ripped from canvas css */
     .btn-primary,
     .Button--primary {
       background: var(--ic-brand-button--primary-bgd);
@@ -329,7 +422,7 @@
     .ic-notification {
       box-shadow: 0 1px 6px @surface2;
       .ic-notification__icon * {
-        color: @base;
+        color: @mantle;
       }
       .ic-notification__content {
         background-color: @base;
@@ -387,7 +480,7 @@
     .StickyButton-styles__root {
       background-color: @accent-color;
       span {
-        color: @base;
+        color: @mantle;
       }
     }
     .NotificationBadge-styles__activityIndicator.NotificationBadge-styles__hasBadge
@@ -413,10 +506,6 @@
           color: @subtext0;
         }
       }
-    }
-
-    .css-15v4rhu-tray {
-      background-color: @mantle;
     }
 
     .CompletedItemsFacade-styles__root {
@@ -501,26 +590,6 @@
       }
     }
 
-    .ic-app-header {
-      .ic-app-header__logomark-container {
-        background-color: transparent;
-      }
-      .menu-item__badge * {
-        color: @base;
-      }
-      .ic-app-header__menu-list-item.ic-app-header__menu-list-item--active {
-        & > * {
-          background-color: @base;
-        }
-        .menu-item__text {
-          background-color: transparent;
-        }
-      }
-    }
-
-    .ic-app-header__menu-list-link:hover {
-      background: fadeout(@base, 50%);
-    }
 
     /* popup menus */
     /* extra selectors are to avoid styling tooltips because their arrows are hard to style */
@@ -560,6 +629,9 @@
     .ColorPicker__Container {
       background-color: @surface1;
       border-color: @surface2;
+      label span {
+        color: @subtext0;
+      }
     }
 
     /* select dropdowns */
@@ -862,18 +934,16 @@
     [color="secondary"] {
       color: @subtext0;
     }
-    [data-testid="list-items-desktop"] > div {
+    #inbox-conversation-holder > div > div > div {
       border-color: @surface2;
-      .css-138gh4t-view {
-        & div[style~="background-color:"] {
-          background-color: mix(@base, @accent-color, 90%) !important;
-        }
-        & div[style~="box-shadow:"] {
-          box-shadow: @accent-color -4px 0 0 inset !important;
-        }
-        [color="brand"] {
-          color: @accent-color;
-        }
+      & div[style~="background-color:"] {
+        background-color: mix(@base, @accent-color, 90%) !important;
+      }
+      & div[style~="box-shadow:"] {
+        box-shadow: @accent-color -4px 0 0 inset !important;
+      }
+      [color="brand"] {
+        color: @accent-color;
       }
       /* check boxes */
       label[for^="Checkbox"] span[class$="checkboxFacade__facade"] {
@@ -899,14 +969,9 @@
       color: @accent-color;
     }
 
-    /* right side, currently relying on auto-generated classes b/c the selectors would get fairly long */
-    .css-103zv00-view-flexItem {
-      .css-oydprd-view {
-        border-color: @surface1;
-      }
-      [data-testid="expand-participants-button"] {
-        color: @blue;
-      }
+    /* right side */
+    span:has(> #inbox-conversation-holder) + span > div > div {
+      border-color: @surface1
     }
     /* compose message overlay */
     span[data-testid="compose-modal-desktop"] {
@@ -923,13 +988,6 @@
       }
       span[data-testid="past-messages"] div[class$="view"] {
         border-color: @surface1;
-      }
-      button[class$="tag"] {
-        background-color: @surface0;
-        border-color: @surface2;
-        svg {
-          color: @text;
-        }
       }
     }
 
@@ -1080,6 +1138,9 @@
           background-image: url("/dist/images/audio_comment-eeb35d0efe.gif");
         }
       }
+    }
+    .file-upload-submission {
+      background-color: @surface0;
     }
     /* #upload_media_tab { */
     /*   img  */
@@ -1331,6 +1392,12 @@
     .communication_message div.header {
       color: @subtext0;
     }
+    span:has(> [data-testid="DiscussionEdit-container"]) {
+      background-color: @base;
+    }
+    span[data-testid="RCEStatusBar"] {
+      color: @subtext0;
+    }
 
     /* author profile picture placeholder */
     [data-testid="author_avatar"] {
@@ -1387,19 +1454,6 @@
         }
       }
     }
-    #nav-tray-portal > span > span {
-      background-color: @mantle;
-      [class$="listItem"] {
-        color: @subtext0;
-      }
-      /* needed to persist color on hover */
-      a {
-        color: @blue;
-      }
-      div[data-timestamp] {
-        color: @subtext0;
-      }
-    }
 
     #grades_summary {
       th.title {
@@ -1417,9 +1471,6 @@
       background-image: url("data:image/svg+xml,@{svg}");
       background-color: @surface0;
       border-color: @surface2;
-    }
-    #GradeSummarySelectMenuGroup label [class$="formFieldLabel"] {
-      color: @subtext1;
     }
     .selected-assignment {
       background-color: @hover-accent;
