@@ -132,6 +132,10 @@
       color: @subtext1;
     }
 
+    :is(label, fieldset) span[class$="text"] {
+      color: @text;
+    }
+
     .user_content {
       /* for highlighted text in user-created content, revert to regular-ish text color */
       color: @text;
@@ -168,7 +172,7 @@
     }
 
     /* fullscreen background for modal popups */
-    span[class*="mask"] {
+    body > span > span[class*="mask"] {
       background-color: fadeout(@overlay0, 25%);
       > span {
         color: @text;
@@ -203,6 +207,10 @@
       background-color: @surface1;
       border-color: @surface2;
     }
+    .form-dialog .form-controls {
+      background-color: @surface1;
+      border-color: @surface2;
+    }
 
     /* auto-save preview */
     /* Difficult to select anything so just revert span/p changes */
@@ -230,24 +238,15 @@
     /* sidebar trays (e.g. slide in from right side) */
     body > span > [class*="tray"] {
       background-color: @mantle;
-      div[role="tabpanel"] > div {
-        background-color: @mantle;
-        border-color: @surface1;
-      }
-      div[class$="view-tabs__container"] {
-        background-color: @mantle;
-        div[role="tab"] {
-          color: @subtext1;
-        }
-      }
       fieldset,
       label {
-        span[class$="text"] {
-          color: @text;
-        }
         .Gradebook__StatusModalListItem span {
           color: black !important;
         }
+      }
+      div[class$="tray__content"] > div > span:last-of-type:has(> button){
+        border-color: @surface1;
+        background-color: @crust;
       }
       span[data-testid$="footer"] > div {
         border-color: @surface1;
@@ -720,6 +719,10 @@
       background-color: @base;
       color: @text;
     }
+    .ui-icon-closethick {
+      @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512 512" width="512" height="512" enable-background="new 0 0 512 512" xml:space="preserve"> <g id="X"> <polygon points="509.5,73.2 435.2,4 254.8,184.2 74.3,4 2.5,75.8 182.9,256 2.5,436.2 76.9,505.5 254.8,327.7 435.2,508 507,436.2    326.6,256  " fill="@{text}"/> </g> </svg>');
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
     /* publish icons */
     .publish-icon.publish-icon-published,
     .ig-published:not(.student-view) .ig-type-icon {
@@ -729,6 +732,12 @@
     svg[name="IconBookmark"],
     .icon-check {
       color: @green !important;
+    }
+
+    /* tree-view expand indicators */
+    svg[name="IconArrowOpenEnd"],
+    svg[name="IconArrowOpenDown"] {
+      color: @text;
     }
 
     /* unsure what the other colors are */
@@ -742,7 +751,7 @@
 
     .ally-prominent-af-download-button {
       @svg: escape(
-        '<svgxmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="13px" viewBox="0 0 22 13" version="1.1"><title>iconAllyDownload-IC</title><desc>Created with Sketch.</desc><path d="m22.14 4.354-4.812 7.312-4.813-7.312h2.888V-.034h3.85v4.388zm-22 8.612 7.562-10.4 7.563 10.4h-3.618c-.67-1.362-2.164-2.311-3.9-2.311-1.737 0-3.231.949-3.901 2.311zM5.9 8.18c0 .911.807 1.65 1.802 1.65.994 0 1.8-.739 1.8-1.65 0-.912-.806-1.651-1.8-1.651-.995 0-1.801.74-1.801 1.65" fill="@{text}" stroke="none" stroke-width="1" fill-rule="evenodd"/></svg>'
+        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="13px" viewBox="0 0 22 13" version="1.1"><title>iconAllyDownload-IC</title><desc>Created with Sketch.</desc><path d="m22.14 4.354-4.812 7.312-4.813-7.312h2.888V-.034h3.85v4.388zm-22 8.612 7.562-10.4 7.563 10.4h-3.618c-.67-1.362-2.164-2.311-3.9-2.311-1.737 0-3.231.949-3.901 2.311zM5.9 8.18c0 .911.807 1.65 1.802 1.65.994 0 1.8-.739 1.8-1.65 0-.912-.806-1.651-1.8-1.651-.995 0-1.801.74-1.801 1.65" fill="@{text}" stroke="none" stroke-width="1" fill-rule="evenodd"/></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}");
     }
@@ -931,7 +940,10 @@
         background-color: @surface1;
       }
     }
-    [color="secondary"] {
+    span[color="primary"] {
+      color: @subtext1;
+    }
+    span[color="secondary"] {
       color: @subtext0;
     }
     #inbox-conversation-holder > div > div > div {
@@ -1641,13 +1653,6 @@
         background-color: @hover-regular;
       }
     }
-    .NewUserTutorialTray {
-      background-color: @mantle;
-      & > span:last-child {
-        border-color: @surface1;
-        background-color: @crust;
-      }
-    }
     .NewUserTutorialTray__Content > div > * {
       border-color: @surface1;
     }
@@ -1676,6 +1681,47 @@
       label span {
         color: @subtext1;
       }
+    }
+    div[class$="view-tabs__container"] {
+      div[role="tabpanel"] > div {
+        background-color: transparent;
+        border-color: @surface1;
+      }
+      background-color: transparent;
+    }
+    div[role="tab"] {
+      color: @text;
+    }
+
+    /* OUTCOMES */
+    #outcome_management {
+      footer {
+        color: @text;
+        background-color: @base !important;
+      }
+    }
+    #management > div {
+      color: @subtext1;
+    }
+    .management-panel {
+      div[data-testid="outcome-group-container"] [class$="view"] {
+        border-color: @surface1;
+      }
+      svg {
+        fill: @text;
+      }
+    }
+    div[role="separator"] > div {
+      background-color: @surface0 !important;
+    }
+    h2, h2 > span[class$="text"] {
+      color: @subtext1;
+    }
+    h3, h3 > span[class$="text"] {
+      color: @subtext0;
+    }
+    span[class$="billboard"] {
+      background-color: transparent;
     }
   }
 }
