@@ -14,11 +14,15 @@
   - [Installation](#installation)
   - [Usage](#usage)
 - [How do I theme images and SVGs?](#how-do-i-theme-images-and-svgs)
-  - [SVG background images](#svg-background-images)
+  - [SVGs as `background-image`s](#svgs-as-background-images)
   - [`<img>` elements](#img-elements)
 - [How do I set a variable to RGB values?](#how-do-i-set-a-variable-to-rgb-values)
 - [How can I inspect hard-to-grab elements?](#how-can-i-inspect-hard-to-grab-elements)
 - [How do I theme code blocks / syntax highlighting?](#how-do-i-theme-code-blocks--syntax-highlighting)
+  - [highlight.js](#highlightjs)
+  - [Pygments](#pygments)
+  - [Prism.js](#prismjs)
+
 <!--toc:end-->
 
 ### How can I see my changes in real time?
@@ -167,58 +171,7 @@ GIF via ["Set a Timed Debugger To Web Inspect Hard-To-Grab Elements" - CSS Trick
 
 ### How do I theme code blocks / syntax highlighting?
 
-If a website uses [highlight.js](https://highlightjs.org/) or [Pygments](https://pygments.org/) for syntax highlighting, follow the steps for the syntax higlighter in use below.
-
-#### highlight.js
-
-Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
-
-```css
-@import url("https://unpkg.com/@catppuccin/highlightjs@0.2.2/css/catppuccin.variables.important.css");
-```
-
-Then add the following lines beneath the color definition section (`@<color>: @catppuccin[@@lookup][@<color>];`) in the `#catppuccin` mixin:
-
-```css
---ctp-rosewater: #rgbify(@rosewater) [];
---ctp-flamingo: #rgbify(@flamingo) [];
---ctp-pink: #rgbify(@pink) [];
---ctp-mauve: #rgbify(@mauve) [];
---ctp-red: #rgbify(@red) [];
---ctp-maroon: #rgbify(@maroon) [];
---ctp-peach: #rgbify(@peach) [];
---ctp-yellow: #rgbify(@yellow) [];
---ctp-green: #rgbify(@green) [];
---ctp-teal: #rgbify(@teal) [];
---ctp-sky: #rgbify(@sky) [];
---ctp-sapphire: #rgbify(@sapphire) [];
---ctp-blue: #rgbify(@blue) [];
---ctp-lavender: #rgbify(@lavender) [];
---ctp-text: #rgbify(@text) [];
---ctp-subtext1: #rgbify(@subtext1) [];
---ctp-subtext0: #rgbify(@subtext0) [];
---ctp-overlay2: #rgbify(@overlay2) [];
---ctp-overlay1: #rgbify(@overlay1) [];
---ctp-overlay0: #rgbify(@overlay0) [];
---ctp-surface2: #rgbify(@surface2) [];
---ctp-surface1: #rgbify(@surface1) [];
---ctp-surface0: #rgbify(@surface0) [];
---ctp-base: #rgbify(@base) [];
---ctp-mantle: #rgbify(@mantle) [];
---ctp-crust: #rgbify(@crust) [];
-```
-
-Finally, add the [`#rbgify` mixin](#how-do-i-set-a-variable-to-rgb-values) above the `@catppuccin` color palette at the bottom of the userstyle.
-
-#### Pygments
-
-Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
-
-```css
-@import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
-```
-
-You'll also need to add the following lines beneath the color definition section (`@<color>: @catppuccin[@@lookup][@<color>];`) in the `#catppuccin` mixin:
+If a website uses [highlight.js](https://highlightjs.org/), [Pygments](https://pygments.org/), or [Prism.js](https://prismjs.com/) for syntax highlighting, follow the steps for the syntax higlighter in use below. First though, you'll need to add the following lines beneath the color definition section (`@<color>: @catppuccin[@@lookup][@<color>];`) in the `#catppuccin` mixin:
 
 ```css
 --ctp-rosewater: @rosewater;
@@ -247,4 +200,28 @@ You'll also need to add the following lines beneath the color definition section
 --ctp-base: @base;
 --ctp-mantle: @mantle;
 --ctp-crust: @crust;
+```
+
+#### highlight.js
+
+Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
+
+```css
+@import url("https://unpkg.com/@catppuccin/highlightjs@1.0.0/css/catppuccin-variables.important.css");
+```
+
+#### Pygments
+
+Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
+
+```css
+@import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
+```
+
+#### Prism.js
+
+Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
+
+```css
+@import url("https://prismjs.catppuccin.com/variables.css");
 ```
