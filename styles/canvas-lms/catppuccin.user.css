@@ -171,7 +171,8 @@
     button[class$="link"]:not(.btn),
     a.external span {
       color: @blue !important;
-      &:hover, &:active {
+      &:hover,
+      &:active {
         color: darken(@blue, 10%) !important;
       }
     }
@@ -198,6 +199,11 @@
     }
 
     /* dialogs */
+    .ui-datepicker-header.ui-widget-header,
+    .ui-widget-content {
+      background-color: @surface0;
+      border-color: @surface1;
+    }
     .ui-widget-overlay {
       background-color: fadeout(@base, 30%);
     }
@@ -208,7 +214,8 @@
       }
       background-color: @surface0;
     }
-    .ui-datepicker .ui-datepicker-time, .ui-dialog .ui-dialog-buttonpane {
+    .ui-datepicker .ui-datepicker-time,
+    .ui-dialog .ui-dialog-buttonpane {
       background-color: @surface1;
       border-color: @surface2;
     }
@@ -249,7 +256,7 @@
           color: black !important;
         }
       }
-      div[class$="tray__content"] > div > span:last-of-type:has(> button){
+      div[class$="tray__content"] > div > span:last-of-type:has(> button) {
         border-color: @surface1;
         background-color: @crust;
       }
@@ -280,13 +287,13 @@
       label span[class$="label"] {
         color: @text;
       }
-      .help-tray li [class$="pill"]{
+      .help-tray li [class$="pill"] {
         /* just new pill */
         border-color: @green;
         color: @green;
         background-color: transparent;
       }
-      .profile-tray span[class$="avatar"]{
+      .profile-tray span[class$="avatar"] {
         background-color: @surface0;
         span {
           color: @accent-color;
@@ -340,6 +347,7 @@
     form[action="/logout"] button,
     .ui-button,
     .btn:not([class*="btn-"]),
+    .btn-mini, /* file upload when submitting */
     .btn-top-nav,
     .Button,
     button[data-testid="address-button"],
@@ -473,9 +481,11 @@
     .ic-announcement-row span[class$="badge"] {
       background-color: @accent-color;
     }
+
     .ic-item-row__meta-content-timestamp > p {
       color: @subtext0;
     }
+
     /* used for e.g. reply to announcement */
     .ic-item-row__content-link-container [color="brand"] {
       color: @blue;
@@ -600,7 +610,6 @@
         border-color: @surface1;
       }
     }
-
 
     /* popup menus */
     /* extra selectors are to avoid styling tooltips because their arrows are hard to style */
@@ -734,7 +743,9 @@
       color: @text;
     }
     .ui-icon-closethick {
-      @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512 512" width="512" height="512" enable-background="new 0 0 512 512" xml:space="preserve"> <g id="X"> <polygon points="509.5,73.2 435.2,4 254.8,184.2 74.3,4 2.5,75.8 182.9,256 2.5,436.2 76.9,505.5 254.8,327.7 435.2,508 507,436.2    326.6,256  " fill="@{text}"/> </g> </svg>');
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512 512" width="512" height="512" enable-background="new 0 0 512 512" xml:space="preserve"><polygon points="509.5,73.2 435.2,4 254.8,184.2 74.3,4 2.5,75.8 182.9,256 2.5,436.2 76.9,505.5 254.8,327.7 435.2,508 507,436.2 326.6,256" fill="@{text}"/></svg>'
+      );
       background-image: url("data:image/svg+xml,@{svg}") !important;
     }
     /* publish icons */
@@ -775,7 +786,7 @@
 
     img[src="/images/svg-icons/svg_icon_download.svg"] {
       @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1920" version="1.1"> <path d="M1807.09271,1482.47718 L1886.82918,1562.43953 L1531.51624,1917.75247 L355.346824,1917.75247 L0.0338823529,1562.43953 L79.8832941,1482.47718 L402.104471,1804.81129 L1484.75859,1804.81129 L1807.09271,1482.47718 Z M997.677176,-0.0338823529 L997.677176,1166.98729 L1352.99012,811.674353 L1432.95247,891.523765 L941.093647,1383.15671 L449.460706,891.523765 L529.423059,811.674353 L884.736,1166.98729 L884.736,-0.0338823529 L997.677176,-0.0338823529 Z" fill="@{text}" stroke="none" stroke-width="1" fill-rule="evenodd"/> </svg>'
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1920" version="1.1"><path d="m1807.093 1482.477 79.736 79.963-355.313 355.312H355.346L.035 1562.44l79.85-79.963 322.22 322.334H1484.76zM997.677-.033v1167.02l355.313-355.313 79.962 79.85-491.858 491.633L449.46 891.524l79.962-79.85 355.313 355.313V-.033z" fill="@{text}" stroke="none" stroke-width="1" fill-rule="evenodd"/></svg>'
       );
       content: url("data:image/svg+xml,@{svg}");
     }
@@ -869,8 +880,7 @@
       table {
         thead.fc-head,
         .fc-head-container,
-        .fc-row,
-        .fc-row * {
+        .fc-row {
           border-color: @surface1;
         }
         .fc-day-header {
@@ -890,9 +900,16 @@
         border-color: @surface1;
       }
     }
+    :is(.calendar, #calendar-drag-and-drop-container)
+      .fc-row
+      :is(.fc-content-skeleton, .fc-helper-skeleton)
+      td {
+      border-color: @surface1;
+    }
+
     #calendar-app .fc-event,
     #calendar-drag-and-drop-container .fc-event {
-      background-color: @surface0;
+      background-color: transparent;
     }
     .calendar_header #create_new_event_link {
       color: @text;
@@ -934,6 +951,20 @@
       }
     }
 
+    .ui-datepicker .ui-datepicker-header .ui-datepicker-prev {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" fill="@{text}"><polygon xmlns="http://www.w3.org/2000/svg" points="52,256 460,512 460,0"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    .ui-datepicker .ui-datepicker-header .ui-datepicker-next {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" fill="@{text}"><polygon points="460,256 52,0 52,512"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
     /* INBOX */
     [data-testid="tool-bar"] {
       background-color: @mantle;
@@ -956,12 +987,6 @@
       span[class$="badge"] {
         background-color: @surface1;
       }
-    }
-    span[color="primary"] {
-      color: @subtext1;
-    }
-    span[color="secondary"] {
-      color: @subtext0;
     }
     #inbox-conversation-holder > div > div > div {
       border-color: @surface2;
@@ -1003,7 +1028,7 @@
 
     /* right side */
     span:has(> #inbox-conversation-holder) + span > div > div {
-      border-color: @surface1
+      border-color: @surface1;
     }
     /* compose message overlay */
     span[data-testid="compose-modal-desktop"] {
@@ -1150,7 +1175,6 @@
       border-color: @surface1;
     }
     .submission-details-comments {
-
       .comment_author_and_date {
         color: @subtext0;
       }
@@ -1211,7 +1235,7 @@
         }
       }
       .tox-mbtn:hover:not(:disabled),
-      .tox-mbtn:hover:not(:disabled):not(.tox-mbtn--active) {
+      .tox-mbtn:hover:not(:disabled, .tox-mbtn--active) {
         background-color: @hover-regular;
       }
       .tox-mbtn--active {
@@ -1501,7 +1525,7 @@
 
     .ic-Form-control.ic-Form-control--checkbox .ic-Label::before {
       @svg: escape(
-        ' <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 16 48" width="16" height="48" enable-background="new 0 0 16 48" xml:space="preserve"> <polyline fill-rule="evenodd" clip-rule="evenodd" fill="@{base}" points="11.4,4 6.9,8.7 4.6,6.2 3,7.9 6.9,12 13,5.6 11.4,4 "/> <polyline fill-rule="evenodd" clip-rule="evenodd" fill="@{text}" points="11.4,20 6.9,24.7 4.6,22.2 3,23.9 6.9,28 13,21.6   11.4,20 "/> </svg>'
+        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 16 48" width="16" height="48" enable-background="new 0 0 16 48" xml:space="preserve"><polyline fill-rule="evenodd" clip-rule="evenodd" fill="@{base}" points="11.4,4 6.9,8.7 4.6,6.2 3,7.9 6.9,12 13,5.6 11.4,4"/><polyline fill-rule="evenodd" clip-rule="evenodd" fill="@{text}" points="11.4,20 6.9,24.7 4.6,22.2 3,23.9 6.9,28 13,21.6 11.4,20"/></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}");
       background-color: @surface0;
@@ -1594,7 +1618,7 @@
     }
     .mimeClass-folder {
       @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36"><title>folder</title><g fill="none" fill-rule="evenodd"><path d="M14.43,10.81,11.23,6H.43V27.58A2.4,2.4,0,0,0,2.82,30H25.18a2.4,2.4,0,0,0,2.4-2.4V10.81ZM26,27.58a.8.8,0,0,1-.8.8H2.82a.8.8,0,0,1-.8-.8v-20h8.35l2.13,3.19H3.62v1.6H26Z" fill="@{text}"/></g></svg>'
+        '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36"><title>folder</title><path d="M14.43 10.81 11.23 6H.43v21.58A2.4 2.4 0 0 0 2.82 30h22.36a2.4 2.4 0 0 0 2.4-2.4V10.81ZM26 27.58a.8.8 0 0 1-.8.8H2.82a.8.8 0 0 1-.8-.8v-20h8.35l2.13 3.19H3.62v1.6H26Z" fill="@{text}" fill-rule="evenodd"/></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}");
     }
@@ -1637,9 +1661,9 @@
       background-color: @surface0;
     }
 
-    /****************/
+    /***************  */
     /* CREATOR SIDE */
-    /****************/
+    /***************  */
     /* not the main purpose of this restyle so only the biggest outliers will be restyled */
 
     /* DASHBOARD */
@@ -1676,7 +1700,8 @@
     }
 
     /* GRADEBOOK */
-    .ui-state-default, .ui-widget-header {
+    .ui-state-default,
+    .ui-widget-header {
       color: @subtext1;
     }
     #gradebook-assignment-search,
@@ -1717,10 +1742,12 @@
     div[role="separator"] > div {
       background-color: @surface0 !important;
     }
-    h2, h2 > span[class$="text"] {
+    h2,
+    h2 > span[class$="text"] {
       color: @subtext1;
     }
-    h3, h3 > span[class$="text"] {
+    h3,
+    h3 > span[class$="text"] {
       color: @subtext0;
     }
     span[class$="billboard"] {
