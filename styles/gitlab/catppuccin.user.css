@@ -52,17 +52,15 @@
     @accent-color: @catppuccin[@@lookup][@@accent];
 
     @black: if(@lookup = latte, @text, @crust);
-    @white: if(@lookup = latte, @base, @surface0);
-    @gray10: if(@lookup = latte, @surface0, @subtext1);
-    @gray9: if(@lookup = latte, @text, @subtext0);
-    @gray8: if(@lookup = latte, @subtext1, @overlay2);
-    @gray7: if(@lookup = latte, @subtext0, @overlay1);
-    @gray6: if(@lookup = latte, @overlay2, @overlay0);
-    @gray5: if(@lookup = latte, @overlay1, @surface2);
-    @gray4: if(@lookup = latte, @overlay0, @surface1);
-    @gray3: if(@lookup = latte, @surface0, @surface0);
-    @gray2: if(@lookup = latte, @mantle, @mantle);
-    @gray1: if(@lookup = latte, @crust, @crust);
+    @gray10: if(@lookup = latte, @surface0, @crust);
+    @gray8: if(@lookup = latte, @subtext1, @surface2);
+    @gray7: if(@lookup = latte, @subtext0, @overlay0);
+    @gray6: if(@lookup = latte, @overlay2, @overlay1);
+    @gray5: if(@lookup = latte, @overlay2, @overlay1);
+    @gray4: if(@lookup = latte, @overlay1, @overlay2);
+    @gray3: if(@lookup = latte, @overlay1, @overlay2);
+    @gray2: if(@lookup = latte, @mantle, @subtext0);
+    @gray1: if(@lookup = latte, @crust, @subtext1);
 
     @neutral10: if(@lookup = latte, @subtext1, @crust);
     @neutral9: if(@lookup = latte, @subtext0, @mantle);
@@ -94,7 +92,7 @@
     --green: @green;
     --teal: @teal;
     --cyan: @sky;
-    --white: @white;
+    --white: @base;
     --black: @text;
     --primary: @accent-color;
     --secondary: @base;
@@ -113,7 +111,7 @@
     --green-700: @green;
     --green-300: @green;
     --gray-950: @gray10;
-    --gray-900: @gray9;
+    --gray-900: @text;
     --gray-800: @gray8;
     --gray-700: @gray7;
     --gray-600: @gray6;
@@ -144,6 +142,7 @@
     --gl-text-color-default: @text;
     --gl-text-color-link: @text;
     --gl-text-color-subtle: @subtext0;
+    --gl-text-color-strong: @text;
     --gl-action-neutral-foreground-color-default: @text;
     --gl-action-neutral-background-color-hover: @surface0;
     --gl-badge-muted-background-color-default: @surface1;
@@ -233,6 +232,8 @@
     --gl-button-danger-secondary-background-color-focus: @surface0;
     --gl-button-danger-secondary-border-color-focus: @red;
 
+    --gl-label-scoped-text-color: @text;
+
     --gl-background-color-subtle: @surface0;
     --gl-background-color-overlap: @surface0;
     --gl-focus-ring-outer-color: @accent-color;
@@ -245,12 +246,16 @@
       }
     }
 
+    .commit-content .committer {
+      color: @subtext0;
+    }
+
     .super-sidebar .super-sidebar-nav-item.super-sidebar-nav-item-current {
       --super-sidebar-nav-item-current-bg: @surface0;
     }
 
     .super-sidebar {
-      --super-sidebar-bg: @base;
+      --super-sidebar-bg: none;
       --super-sidebar-border-color: @surface0;
       --super-sidebar-user-bar-bg: @surface0;
       --super-sidebar-user-bar-button-bg: @base;
@@ -276,9 +281,27 @@
       color: @text;
     }
 
-    .gl-new-dropdown-item:hover .gl-new-dropdown-item-content,
-    .dropdown-menu .dropdown-item:hover {
+    .info-well,
+    .bordered-box {
+      border-color: @overlay0;
+    }
+
+    hr {
+      border-color: @surface0;
+    }
+
+    .dropdown-menu li > button,
+    .dropdown-menu li .gl-button.btn-link {
+      color: @accent-color;
+    }
+
+    .dropdown-menu li > button:not(.disable-hover):hover,
+    .dropdown-menu li .gl-button.btn-link:not(.disable-hover):hover,
+    .filtered-search-token .name,
+    .filtered-search-token .operator,
+    .filtered-search-token .value-container {
       background-color: @surface0;
+      color: @text;
     }
 
     .modal-dialog input,
@@ -286,7 +309,14 @@
     .modal-dialog input:focus,
     .modal-dialog button,
     .modal-dialog .input-group .input-group-append,
-    .modal-dialog .input-group .input-group-prepend {
+    .modal-dialog .input-group .input-group-prepend,
+    .gl-new-dropdown-item:hover .gl-new-dropdown-item-content,
+    .dropdown-menu .dropdown-item:hover,
+    .gl-pagination .page-item.disabled .page-link,
+    .gl-token,
+    .gl-filtered-search-token-operator,
+    .gl-filtered-search-token-type,
+    .gl-filtered-search-token-data {
       background-color: @surface0;
     }
 
@@ -301,11 +331,14 @@
     .settings-sticky-header-inner,
     .settings-sticky-footer,
     .gl-filtered-search-scrollable-container,
-    .dropdown-menu {
+    .dropdown-menu,
+    .filtered-search-box-input-container,
+    .filtered-search-box {
       background-color: @base;
     }
 
     .commit a,
+    ul.content-list li a:not(.gfm-project_member),
     .gl-link,
     h1,
     h2,
@@ -352,29 +385,24 @@
       color: @text;
     }
 
-    .gl-pagination .page-item.disabled .page-link,
-    .gl-token,
-    .gl-filtered-search-token-operator,
-    .gl-filtered-search-token-type,
-    .gl-filtered-search-token-data {
-      background-color: @surface0;
-    }
-
     .gl-pagination .page-item:not(.disabled) a.active {
       background-color: @accent-color;
       border-color: @accent-color;
       color: @base;
     }
 
-    .gl-filtered-search-token.gl-filtered-search-token-hover:hover
-      .gl-filtered-search-token-type {
+    .gl-filtered-search-token.gl-filtered-search-token-hover:hover,
+    .gl-filtered-search-token-type,
+    .filtered-search-token:hover .name,
+    .filtered-search-token:hover .operator,
+    .filtered-search-token:hover .value-container {
       background-color: @surface1;
     }
 
-    .gl-filtered-search-token.gl-filtered-search-token-hover:hover
-      .gl-filtered-search-token-operator,
-    .gl-filtered-search-token.gl-filtered-search-token-hover:hover
-      .gl-filtered-search-token-data {
+    .gl-filtered-search-token.gl-filtered-search-token-hover:hover,
+    .gl-filtered-search-token-operator,
+    .gl-filtered-search-token.gl-filtered-search-token-hover:hover,
+    .gl-filtered-search-token-data {
       background-color: @surface2;
     }
   }
