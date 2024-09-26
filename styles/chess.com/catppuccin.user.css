@@ -2,7 +2,7 @@
 @name Chess.com Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/chess.com
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/chess.com
-@version 0.1.6
+@version 0.2.0
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/chess.com/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Achess.com
 @description Soothing pastel theme for Chess.com
@@ -13,6 +13,8 @@
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var select highlightColor "Highlight" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon*", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
 @-moz-document domain("chess.com") {
@@ -53,6 +55,8 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
+    @highlight-color: @catppuccin[@@lookup][@@highlightColor];
+
     color-scheme: if(@lookup = latte, light, dark);
 
     ::selection {
@@ -66,21 +70,17 @@
       }
     }
 
-    --color-bg-secondary: var(--color-transparent-black-20);
-    --color-bg-tertiary: var(--color-transparent-black-14);
-    --color-bg-quaternary: var(--color-transparent-black-18);
     --color-bg-opaque: @mantle;
     --color-bg-opaque-lighter: @base;
-    --color-bg-subtle: var(--color-transparent-white-10);
-    --color-bg-subtle-hovered: var(--color-transparent-white-14);
     --color-bg-subtler: @surface0;
-    --color-bg-subtlest: var(--color-transparent-white-2);
     --color-bg-input: @mantle;
-    --color-bg-secondary-alt: var(--color-transparent-black-20);
-    --color-bg-selected: var(--color-transparent-white-40);
+    --color-bg-speech: @surface0;
+    --color-text-speech: @text;
 
     --color-icon-default: @subtext0;
     --color-icon-default-hovered: @subtext1;
+    --color-icon-bolder: @subtext1;
+    --color-icon-boldest: @text;
 
     --color-text-boldest: @text;
     --color-text-bolder: @text;
@@ -96,6 +96,21 @@
     --color-border-subtle: @overlay2;
     --color-border-selected: @accent-color;
 
+    --color-green-300: @accent-color;
+    --color-red-400: @red; /* Danger */
+    --color-green-400: @green; /* Success */
+
+    --color-classification-blunder: @red;
+    --color-classification-miss: @maroon;
+    --color-classification-mistake: @peach;
+    --color-classification-inaccuracy: @yellow;
+    --color-classification-best: @green;
+    --color-classification-excellent: @green;
+    --color-classification-good: @teal;
+    --color-classification-great: @blue;
+    --color-classification-brilliant: @sapphire;
+    --color-classification-book: @rosewater;
+
     body {
       --theme-background-color: @base !important;
       --theme-background-image: none;
@@ -105,12 +120,9 @@
       --globalSecondaryBackground: @crust !important;
       --globalTertiaryBackground: @surface0 !important;
       --globalAccentBackground: @accent-color !important;
-      --globalSecondaryAccentBackground: darken(@accent-color, 20%) !important;
+      --globalSecondaryAccentBackground: @surface0 !important;
       --globalSiteBackground: @base !important;
-      --subtleButtonBackground: hsla(0, 0%, 100%, 0.16);
       --globalBorder: @surface0 !important;
-      --globalGray: hsla(0, 0%, 100%, 0.08);
-      --globalGraySoft: hsla(0, 0%, 100%, 0.08);
       --globalColorThemeFull: @text !important;
       --globalColorThemeHigh: @text;
       --globalColorThemeMid: @overlay2 !important;
@@ -125,6 +137,9 @@
       --labelBgColor: @surface0;
       --activeLabelColor: @accent-color;
       --buttonBgColor: @text;
+
+      --nodeColor: @text;
+      --nodeBackground: @yellow;
     }
 
     /* index page */
@@ -138,7 +153,7 @@
     .v5-header-name,
     .promo-subtitle,
     #tb .toolbar-action-icon {
-      color: @text;
+      color: @text !important;
     }
 
     .home-username-link {
@@ -254,12 +269,17 @@
     #sb {
       color: @subtext0;
 
+      &.open {
+        background-color: @mantle;
+      }
+
       .nav-action:hover {
         background-color: @surface0;
         color: @text;
       }
 
       .nav-panel-shade,
+      .nav-panel-theme-bg,
       .nav-action.has-popover + .nav-popover {
         background: @mantle;
       }
@@ -302,16 +322,22 @@
     .cc-button-primary {
       --bgColor: @accent-color;
       --bgColorHover: darken(@accent-color, 5%);
-      --borderBottomLine: darken(@accent-color, 2%);
-      --borderBottomLineHover: darken(@accent-color, 4%);
       --textColor: @crust;
       --textColorHover: @crust;
+    }
+
+    .cc-button-primary {
+      --borderBottomLine: darken(@accent-color, 2%);
+      --borderBottomLineHover: darken(@accent-color, 4%);
     }
 
     .cc-button-secondary {
       --bgColor: @surface0;
       --bgColorHover: darken(@surface0, 5%);
-      color: @text !important;
+      --iconColor: @text;
+      --iconColorHover: @text;
+      --textColor: @text;
+      --textColorHover: @text;
     }
 
     .cc-button-danger {
@@ -320,16 +346,22 @@
       color: @crust;
     }
 
+    .v5-section-shadow,
+    .v5-section-shadow-hover {
+      --linkHoverBackground: @surface1;
+      --linkBoxShadow: 0 0.5rem 0 0 @surface2;
+    }
+
     .clock-component.clock-black {
       background: @surface0;
     }
-
     .clock-component.clock-white {
       background: @text;
     }
 
     .highlight {
-      background: @peach !important;
+      background: @highlight-color !important;
+      opacity: 1 !important;
     }
 
     .hint {
@@ -343,9 +375,47 @@
       z-index: -1;
     }
 
+    /* Review/eval */
+
+    .evaluation-bar-bar {
+      .evaluation-bar-black {
+        background-color: @surface2;
+      }
+      .evaluation-bar-draw {
+        background-color: @overlay1;
+      }
+      .evaluation-bar-white {
+        background-color: @text;
+      }
+    }
+
+    .review-rating-white {
+      background-color: @text;
+    }
+    .review-rating-black {
+      background-color: @surface0;
+      color: @text;
+    }
+
+    .overview-view-new-game-button {
+      background-color: @surface1;
+    }
+
+    .arrow {
+      fill: @overlay0 !important;
+    }
+
+    g#winner [fill="#dbac16"] {
+      fill: @yellow !important;
+    }
+
+    /* Game over */
+
     .modal-game-over-header-grey,
-    .modal-content-component.modal-content-light {
+    .modal-game-over-header-black-win,
+    .game-over-header-component {
       background-color: @base;
+      color: @text;
     }
 
     .modal-game-over-user-winner-active,
@@ -353,12 +423,30 @@
       background: @lavender;
     }
 
+    .game-over-review-button-label {
+      color: @crust;
+      text-shadow: none;
+    }
+
+    /* Ads */
+
     .placeholder-ad-upgrade {
       background-color: @accent-color;
     }
 
     .placeholder-ad-link {
       color: @crust;
+    }
+
+    /* Misc */
+
+    .tooltip-body {
+      background: @surface0;
+      color: @text;
+
+      &::after {
+        border-top-color: @surface0 !important;
+      }
     }
 
     div.mode-selection-button-selected {
@@ -379,6 +467,10 @@
     .navigation-footer-page-component,
     .navigation-footer-platform-icon {
       color: @subtext1;
+    }
+
+    .download-button-button {
+      color: @crust !important;
     }
 
     /* Board */
@@ -492,6 +584,10 @@
       &[alt="wr"] {
         content: @wr !important;
       }
+    }
+
+    .chessboard-pkg-move-list-component .dark-row {
+      background-color: @surface1;
     }
   }
 }
