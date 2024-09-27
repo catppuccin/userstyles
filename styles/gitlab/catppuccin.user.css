@@ -53,6 +53,7 @@ domain("git.plugin-lab.com") {
     @accent-color: @catppuccin[@@lookup][@@accent];
 
     @black: if(@lookup = latte, @text, @crust);
+    @white: if(@lookup = latte, @base, @surface0);
     @gray10: if(@lookup = latte, @surface0, @crust);
     @gray8: if(@lookup = latte, @subtext1, @surface2);
     @gray7: if(@lookup = latte, @subtext0, @overlay0);
@@ -61,7 +62,7 @@ domain("git.plugin-lab.com") {
     @gray4: if(@lookup = latte, @overlay1, @overlay2);
     @gray3: if(@lookup = latte, @overlay1, @overlay2);
     @gray2: if(@lookup = latte, @mantle, @subtext0);
-    @gray1: if(@lookup = latte, @crust, @subtext1);
+    @gray1: if(@lookup = latte, @crust, @surface0);
 
     @neutral10: if(@lookup = latte, @subtext1, @crust);
     @neutral9: if(@lookup = latte, @subtext0, @mantle);
@@ -74,8 +75,6 @@ domain("git.plugin-lab.com") {
     @neutral2: if(@lookup = latte, @base, @overlay2);
     @neutral1: if(@lookup = latte, @mantle, @subtext0);
     @neutral0: if(@lookup = latte, @crust, @subtext1);
-
-    @infowell: if(@lookup = latte, @surface0, @base);
 
     color-scheme: if(@lookup = latte, light, dark);
 
@@ -93,7 +92,7 @@ domain("git.plugin-lab.com") {
     --green: @green;
     --teal: @teal;
     --cyan: @sky;
-    --white: @base;
+    --white: @white;
     --black: @text;
     --primary: @accent-color;
     --secondary: @base;
@@ -121,7 +120,7 @@ domain("git.plugin-lab.com") {
     --gray-300: @gray3;
     --gray-200: @gray2;
     --gray-100: @gray1;
-    --gray-50: @black;
+    --gray-50: @gray1;
     --gray-10: @gray10;
 
     --gl-color-neutral-1000: @neutral10;
@@ -145,11 +144,17 @@ domain("git.plugin-lab.com") {
     --gl-text-color-subtle: @subtext0;
     --gl-text-color-strong: @text;
 
+    --gl-text-primary: @text;
     --gl-text-secondary: @overlay0;
 
     --gl-action-neutral-foreground-color-default: @text;
     --gl-action-neutral-background-color-hover: @surface0;
-    --gl-badge-muted-background-color-default: @surface1;
+
+    /* Badge */
+    --gl-badge-neutral-background-color-default: @surface1;
+    --gl-badge-neutral-text-color-default: @text;
+
+    --gl-badge-muted-background-color-default: @surface0;
     --gl-badge-muted-text-color-default: @text;
 
     /* Primary button */
@@ -191,7 +196,11 @@ domain("git.plugin-lab.com") {
     --gl-button-default-secondary-border-color-default: @blue;
 
     --gl-button-confirm-secondary-foreground-color-default: @blue;
-    --gl-button-confirm-secondary-background-color-default: @surface0;
+    --gl-button-confirm-secondary-background-color-default: if(
+      @lookup = latte,
+      @base,
+      @surface0
+    );
     --gl-button-confirm-secondary-border-color-default: @blue;
 
     --gl-button-confirm-secondary-foreground-color-active: @blue;
@@ -208,7 +217,7 @@ domain("git.plugin-lab.com") {
 
     /* Tertiary button */
     --gl-button-default-tertiary-foreground-color-default: @text;
-    --gl-button-default-tertiary-background-color-default: @surface0;
+    --gl-button-default-tertiary-background-color-default: @base;
 
     --gl-button-default-tertiary-foreground-color-active: @text;
     --gl-button-default-tertiary-background-color-active: @surface0;
@@ -256,11 +265,11 @@ domain("git.plugin-lab.com") {
     --gl-label-scoped-text-color: @text;
 
     --gl-background-color-subtle: @surface0;
+    --gl-background-color-strong: @surface1;
     --gl-background-color-overlap: @surface0;
     --gl-focus-ring-outer-color: @accent-color;
     --gl-control-background-color-default: @base;
     --gl-border-color-default: @overlay0;
-
 
     input,
     textarea {
@@ -268,7 +277,6 @@ domain("git.plugin-lab.com") {
         color: @subtext0 !important;
       }
     }
-
 
     .commit-content .committer {
       color: @subtext0;
@@ -311,14 +319,38 @@ domain("git.plugin-lab.com") {
     }
 
     table.table:not(.gl-table) tr th,
-    .info-well {
-      background-color: @infowell;
+    .info-well,
+    .mr-widget-section .gl-bg-gray-10 {
+      background-color: if(@lookup = latte, @surface0, @base);
       color: @text;
     }
 
     .info-well,
     .bordered-box {
       border-color: @overlay0;
+    }
+
+    .notes.timeline > .timeline-entry.note-comment .timeline-content {
+      background-color: @surface1;
+      border-color: @overlay0;
+    }
+
+    .note-actions .btn-default-tertiary {
+      background-color: if(@lookup = latte, @base, @surface1);
+    }
+
+    .note-actions .btn-default-tertiary:hover {
+      background-color: if(@lookup = latte, @surface0, @surface2);
+    }
+
+    .mr-widget-body .btn-default-tertiary,
+    .md-header .btn-default-tertiary {
+      background-color: @white;
+    }
+
+    .mr-widget-body .btn-default-tertiary:hover,
+    .md-header .btn-default-tertiary:hover {
+      background-color: if(@lookup = latte, @surface0, @surface2);
     }
 
     hr {
@@ -351,12 +383,12 @@ domain("git.plugin-lab.com") {
     .gl-token,
     .gl-filtered-search-token-operator,
     .gl-filtered-search-token-type,
-    .gl-filtered-search-token-data {
+    .gl-filtered-search-token-data,
+    .file-title-flex-parent,
+    .file-holder .file-title-flex-parent,
+    .file-header-content .btn-default-tertiary,
+    .file-actions .btn-default-tertiary {
       background-color: @surface0;
-    }
-
-    body {
-      color: @text !important;
     }
 
     .top-bar-fixed,
@@ -368,13 +400,17 @@ domain("git.plugin-lab.com") {
     .gl-filtered-search-scrollable-container,
     .dropdown-menu,
     .filtered-search-box-input-container,
-    .filtered-search-box {
+    .filtered-search-box,
+    .markdown-area,
+    .commit-sha-group .label-monospace,
+    .diff-file .file-title::before,
+    .diff-file .file-title-flex-parent::before {
       background-color: @base;
     }
 
+    body,
     .commit a,
     ul.content-list li a:not(.gfm-project_member),
-    .gl-link,
     li.nav-item > a.nav-link,
     h1,
     h2,
@@ -383,6 +419,10 @@ domain("git.plugin-lab.com") {
     h5,
     li {
       color: @text !important;
+    }
+
+    gl-link {
+      color: @text;
     }
 
     p,
@@ -431,7 +471,9 @@ domain("git.plugin-lab.com") {
     .gl-filtered-search-token-type,
     .filtered-search-token:hover .name,
     .filtered-search-token:hover .operator,
-    .filtered-search-token:hover .value-container {
+    .filtered-search-token:hover .value-container,
+    .file-header-content .btn-default-tertiary:hover,
+    .file-actions .btn-default-tertiary:hover {
       background-color: @surface1;
     }
 
@@ -441,11 +483,12 @@ domain("git.plugin-lab.com") {
       background-color: @surface2;
     }
 
-    .content-wrapper{
+    .content-wrapper {
       background-color: @base;
     }
 
-    div[data-testid="groups-projects-more-actions-dropdown"] button[aria-label="More actions"],
+    div[data-testid="groups-projects-more-actions-dropdown"]
+      button[aria-label="More actions"],
     button#dropdown-toggle-btn-33 {
       --gl-button-default-tertiary-background-color-default: @base;
 
@@ -459,7 +502,6 @@ domain("git.plugin-lab.com") {
       &.js-view-all {
         color: @accent-color;
       }
-
     }
 
     .gl-new-card {
@@ -472,10 +514,10 @@ domain("git.plugin-lab.com") {
       }
     }
 
-    a.btn-danger {
+    a.btn-danger.btn-sm {
       .gl-button-text,
       .gl-button-icon {
-        color: @crust
+        color: @crust;
       }
     }
 
@@ -484,28 +526,27 @@ domain("git.plugin-lab.com") {
         fill: @crust;
       }
       &[data-level="1"] {
-        fill: fade(@accent-color,25%);
+        fill: fade(@accent-color, 25%);
       }
       &[data-level="2"] {
-        fill: fade(@accent-color,50%);
+        fill: fade(@accent-color, 50%);
       }
       &[data-level="3"] {
-        fill: fade(@accent-color,75%);
+        fill: fade(@accent-color, 75%);
       }
       &[data-level="4"] {
         fill: @accent-color;
       }
     }
-
   }
 
-/* prettier-ignore */
-@catppuccin: {
-  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-}
+  /* prettier-ignore */
+  @catppuccin: {
+    @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+    @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+    @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+    @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+  }
 }
 
 // vim:ft=less
