@@ -14,7 +14,8 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
-@-moz-document domain('gitlab.com') {
+@-moz-document domain('gitlab.com'),
+domain("git.plugin-lab.com") {
   :root:not(.gl-dark) {
     #catppuccin(@lightFlavor, @accentColor);
   }
@@ -143,6 +144,9 @@
     --gl-text-color-link: @text;
     --gl-text-color-subtle: @subtext0;
     --gl-text-color-strong: @text;
+
+    --gl-text-secondary: @overlay0;
+
     --gl-action-neutral-foreground-color-default: @text;
     --gl-action-neutral-background-color-hover: @surface0;
     --gl-badge-muted-background-color-default: @surface1;
@@ -216,6 +220,23 @@
     --gl-button-default-tertiary-background-color-focus: @surface0;
 
     /* Danger button */
+
+    --gl-button-danger-primary-foreground-color-default: @surface0;
+    --gl-button-danger-primary-background-color-default: @red;
+    --gl-button-danger-primary-border-color-default: @red;
+
+    --gl-button-danger-primary-foreground-color-active: @red;
+    --gl-button-danger-primary-background-color-active: @surface0;
+    --gl-button-danger-primary-border-color-active: @red;
+
+    --gl-button-danger-primary-foreground-color-hover: @red;
+    --gl-button-danger-primary-background-color-hover: @surface0;
+    --gl-button-danger-primary-border-color-hover: @red;
+
+    --gl-button-danger-primary-foreground-color-focus: @red;
+    --gl-button-danger-primary-background-color-focus: @surface0;
+    --gl-button-danger-primary-border-color-focus: @red;
+
     --gl-button-danger-secondary-foreground-color-default: @red;
     --gl-button-danger-secondary-background-color-default: @base;
     --gl-button-danger-secondary-border-color-default: @red;
@@ -238,6 +259,8 @@
     --gl-background-color-overlap: @surface0;
     --gl-focus-ring-outer-color: @accent-color;
     --gl-control-background-color-default: @base;
+    --gl-border-color-default: @overlay0;
+
 
     input,
     textarea {
@@ -245,6 +268,7 @@
         color: @subtext0 !important;
       }
     }
+
 
     .commit-content .committer {
       color: @subtext0;
@@ -255,15 +279,22 @@
     }
 
     .super-sidebar {
-      --super-sidebar-bg: @base;
+      --super-sidebar-bg: @crust;
       --super-sidebar-border-color: @surface0;
-      --super-sidebar-user-bar-bg: @surface0;
+      --super-sidebar-context-header-color: @accent-color;
+      --super-sidebar-active-indicator-color: @accent-color;
+      --super-sidebar-user-bar-bg: @mantle;
       --super-sidebar-user-bar-button-bg: @base;
+      --super-sidebar-user-bar-button-color: @text;
       --super-sidebar-user-bar-button-border-color: @surface1;
       --super-sidebar-user-bar-button-hover-bg: @surface2;
       --super-sidebar-user-bar-button-active-bg: @surface2;
+      --super-sidebar-user-bar-button-icon-color: @text;
       --super-sidebar-nav-item-hover-bg: @surface0;
       --super-sidebar-nav-item-active-bg: @surface0;
+      --super-sidebar-nav-item-icon-color: @text;
+
+      --gl-button-default-tertiary-background-color-default: @mantle;
     }
 
     .super-sidebar-nav-item > .gl-text-right {
@@ -344,6 +375,7 @@
     .commit a,
     ul.content-list li a:not(.gfm-project_member),
     .gl-link,
+    li.nav-item > a.nav-link,
     h1,
     h2,
     h3,
@@ -408,8 +440,64 @@
     .gl-filtered-search-token-data {
       background-color: @surface2;
     }
+
+    .content-wrapper{
+      background-color: @base;
+    }
+
+    div[data-testid="groups-projects-more-actions-dropdown"] button[aria-label="More actions"],
+    button#dropdown-toggle-btn-33 {
+      --gl-button-default-tertiary-background-color-default: @base;
+
+      :hover {
+        --gl-button-default-tertiary-background-color-default: @surface0;
+      }
+    }
+
+    a {
+      &.ref-name,
+      &.js-view-all {
+        color: @accent-color;
+      }
+
+    }
+
+    .gl-new-card {
+      border-color: @overlay0;
+    }
+
+    .gl-tab-nav-item.active {
+      &::before {
+        border-bottom-color: @accent-color;
+      }
+    }
+
+    a.btn-danger {
+      .gl-button-text,
+      .gl-button-icon {
+        color: @crust
+      }
+    }
+
+    .user-contrib-cell {
+      &[data-level="0"] {
+        fill: @crust;
+      }
+      &[data-level="1"] {
+        fill: fade(@accent-color,25%);
+      }
+      &[data-level="2"] {
+        fill: fade(@accent-color,50%);
+      }
+      &[data-level="3"] {
+        fill: fade(@accent-color,75%);
+      }
+      &[data-level="4"] {
+        fill: @accent-color;
+      }
+    }
+
   }
-}
 
 /* prettier-ignore */
 @catppuccin: {
@@ -417,6 +505,7 @@
   @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
   @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
   @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+}
 }
 
 // vim:ft=less
