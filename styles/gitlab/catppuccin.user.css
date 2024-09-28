@@ -154,8 +154,12 @@ domain("git.plugin-lab.com") {
     --gl-badge-neutral-background-color-default: @surface1;
     --gl-badge-neutral-text-color-default: @text;
 
-    --gl-badge-muted-background-color-default: @surface0;
-    --gl-badge-muted-text-color-default: @text;
+    --gl-badge-muted-background-color-default: if(
+      @lookup = latte,
+      @surface0,
+      @overlay1
+    );
+    --gl-badge-muted-text-color-default: @black;
 
     /* Primary button */
     --gl-button-default-primary-foreground-color-default: @text;
@@ -262,13 +266,20 @@ domain("git.plugin-lab.com") {
     --gl-button-danger-secondary-background-color-focus: @surface0;
     --gl-button-danger-secondary-border-color-focus: @red;
 
-    --gl-label-scoped-text-color: @text;
+    --gl-button-disabled-background-color: @mantle;
+    --gl-button-disabled-foreground-color: @text,
+      --gl-label-scoped-text-color: @text;
+    --gl-label-dark-text-color: if(@lookup = latte, @crust, @text);
+
+    --gl-datepicker-background-color: @base;
 
     --gl-background-color-subtle: @surface0;
     --gl-background-color-strong: @surface1;
     --gl-background-color-overlap: @surface0;
     --gl-focus-ring-outer-color: @accent-color;
-    --gl-control-background-color-default: @base;
+    --gl-control-background-color-default: @white;
+    --gl-control-border-color-default: @subtext0;
+    --gl-control-border-color-hover: @subtext0;
     --gl-border-color-default: @overlay0;
 
     input,
@@ -278,12 +289,17 @@ domain("git.plugin-lab.com") {
       }
     }
 
-    .commit-content .committer {
+    .commit-content .committer,
+    .nav-links li:not(.md-header-toolbar) a {
       color: @subtext0;
     }
 
     .super-sidebar .super-sidebar-nav-item.super-sidebar-nav-item-current {
       --super-sidebar-nav-item-current-bg: @surface0;
+    }
+
+    .gl-label .gl-label-link-underline {
+      color: var(--gl-label-dark-text-color);
     }
 
     .super-sidebar {
@@ -313,7 +329,8 @@ domain("git.plugin-lab.com") {
     .gl-new-dropdown-item .gl-new-dropdown-item-content,
     .form-control,
     input,
-    .dropdown-menu .dropdown-item {
+    .dropdown-menu .dropdown-item,
+    .dropdown-menu-toggle {
       background-color: @base;
       color: @text;
     }
@@ -331,7 +348,7 @@ domain("git.plugin-lab.com") {
     }
 
     .notes.timeline > .timeline-entry.note-comment .timeline-content {
-      background-color: @surface1;
+      background-color: if(@lookup = latte, @base, @surface1);
       border-color: @overlay0;
     }
 
@@ -353,7 +370,8 @@ domain("git.plugin-lab.com") {
       background-color: if(@lookup = latte, @surface0, @surface2);
     }
 
-    hr {
+    hr,
+    .right-sidebar .block {
       border-color: @surface0;
     }
 
@@ -366,7 +384,8 @@ domain("git.plugin-lab.com") {
     .dropdown-menu li .gl-button.btn-link:not(.disable-hover):hover,
     .filtered-search-token .name,
     .filtered-search-token .operator,
-    .filtered-search-token .value-container {
+    .filtered-search-token .value-container,
+    .right-sidebar .dropdown-menu li a:hover {
       background-color: @surface0;
       color: @text;
     }
@@ -374,9 +393,13 @@ domain("git.plugin-lab.com") {
     .modal-dialog input,
     .modal-dialog input:hover,
     .modal-dialog input:focus,
-    .modal-dialog button,
+    .modal-dialog textarea,
+    .modal-dialog textarea:hover,
+    .modal-dialog textarea:focus,
+    .modal-dialog .gl-button.gl-button.btn-default,
     .modal-dialog .input-group .input-group-append,
     .modal-dialog .input-group .input-group-prepend,
+    .gl-datepicker-theme :not(.is-selected) > .pika-button:hover,
     .gl-new-dropdown-item:hover .gl-new-dropdown-item-content,
     .dropdown-menu .dropdown-item:hover,
     .gl-pagination .page-item.disabled .page-link,
@@ -404,12 +427,26 @@ domain("git.plugin-lab.com") {
     .markdown-area,
     .commit-sha-group .label-monospace,
     .diff-file .file-title::before,
-    .diff-file .file-title-flex-parent::before {
+    .diff-file .file-title-flex-parent::before,
+    .awards .gl-button.selected {
       background-color: @base;
+    }
+
+    .gl-link,
+    .nav-links li:not(.md-header-toolbar).active a,
+    .nav-links li:not(.md-header-toolbar) a:hover,
+    .detail-page-description .author-link,
+    .dropdown-title {
+      color: @text;
+    }
+
+    .emoji-picker-category-header {
+      background: linear-gradient(to bottom, @base 50%, transparent 100%);
     }
 
     body,
     .commit a,
+    .emoji-picker-category-active svg,
     ul.content-list li a:not(.gfm-project_member),
     li.nav-item > a.nav-link,
     h1,
@@ -419,10 +456,6 @@ domain("git.plugin-lab.com") {
     h5,
     li {
       color: @text !important;
-    }
-
-    gl-link {
-      color: @text;
     }
 
     p,
@@ -438,7 +471,8 @@ domain("git.plugin-lab.com") {
     .form-control:disabled,
     .form-control[readonly],
     .input-group .input-group-prepend,
-    .input-group-append {
+    .input-group-append,
+    .content-wrapper {
       background-color: @base;
     }
 
@@ -483,8 +517,13 @@ domain("git.plugin-lab.com") {
       background-color: @surface2;
     }
 
-    .content-wrapper {
-      background-color: @base;
+    .ref-container {
+      background-color: @lavender;
+    }
+
+    .ref-container,
+    .ref-container a {
+      color: @base !important;
     }
 
     div[data-testid="groups-projects-more-actions-dropdown"]
