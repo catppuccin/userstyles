@@ -1,0 +1,714 @@
+/* ==UserStyle==
+@name FabricMC Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/fabricmc
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/fabricmc
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/fabricmc/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Afabricmc
+@description Soothing pastel theme for FabricMC
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document url-prefix('https://fabricmc.net/')
+{
+  @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    --ctp-rosewater: @rosewater;
+    --ctp-flamingo: @flamingo;
+    --ctp-pink: @pink;
+    --ctp-mauve: @mauve;
+    --ctp-red: @red;
+    --ctp-maroon: @maroon;
+    --ctp-peach: @peach;
+    --ctp-yellow: @yellow;
+    --ctp-green: @green;
+    --ctp-teal: @teal;
+    --ctp-sky: @sky;
+    --ctp-sapphire: @sapphire;
+    --ctp-blue: @blue;
+    --ctp-lavender: @lavender;
+    --ctp-text: @text;
+    --ctp-subtext1: @subtext1;
+    --ctp-subtext0: @subtext0;
+    --ctp-overlay2: @overlay2;
+    --ctp-overlay1: @overlay1;
+    --ctp-overlay0: @overlay0;
+    --ctp-surface2: @surface2;
+    --ctp-surface1: @surface1;
+    --ctp-surface0: @surface0;
+    --ctp-base: @base;
+    --ctp-mantle: @mantle;
+    --ctp-crust: @crust;
+
+    color-scheme: if(@lookup =latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    a:link,
+    a:visited,
+    a {
+      color: @accent-color;
+    }
+
+    body {
+      background-color: @base;
+      color: @text;
+    }
+
+    // <select> and <option> element styles are mostly used on fabricmc.net/develop
+    select,
+    input {
+      background-color: @mantle !important;
+      border-color: @surface1;
+      color: @text;
+    }
+
+    input[type="checkbox"] {
+      accent-color: @accent-color;
+    }
+
+    option:checked {
+      background-color: @crust;
+    }
+
+    pre,
+    code {
+      border-color: @surface1;
+      background-color: @mantle !important;
+    }
+    
+    // Diff line removal
+    .gd {
+      background-color: fade(@red, 15%) !important;
+    }
+
+    // Diff line addition
+    .gi {
+      background-color: fade(@green, 15%) !important;
+    }
+
+    .gi, .gd {
+      color: @text !important;
+    }
+    
+    .err {
+      background-color: @surface0;
+      color: @red !important;
+    }
+
+    hr {
+      background-color: @surface1;
+    }
+
+    &:not(:has(#dokuwiki__site)) table {
+      border-color: @surface1;
+      tr:nth-child(even),
+      th {
+        background-color: @mantle;
+      }
+      td,
+      th {
+        border-color: @surface1;
+      }
+    }
+
+    // Website header
+    .site {
+      &-title,
+      &-title:visited,
+      &-nav .page-link {
+        color: @text !important;
+      }
+      // TOC Navbox for mobile
+      @media (max-width: 600px) {
+        &-nav {
+          background-color: @mantle;
+          border-color: @surface0;
+          .menu-icon > svg {
+            fill: @text;
+          }
+        }
+      }
+    }
+
+    button,
+    .button {
+      color: @text !important;
+    }
+
+    .primary {
+      background-color: @accent-color;
+      color: @crust !important;
+      &:hover,
+      &:focus {
+        background-color: fadeout(@accent-color, 10%);
+      }
+      &:active {
+        background-color: lighten(@accent-color, 5%);
+      }
+    }
+
+    .secondary {
+      border-color: @accent-color;
+      &:hover,
+      &:focus {
+        background-color: @accent-color;
+        color: @crust !important;
+        border-color: @accent-color;
+      }
+      &:active {
+        @active-accent: lighten(@accent-color, 10%);
+        background-color: @active-accent;
+        border-color: @active-accent;
+      }
+    }
+
+    .home .column .javadoc-selector select {
+      border-color: @accent-color;
+      box-shadow: @crust 1.95px 1.95px 2.6px;
+      option {
+        background-color: @mantle;
+      }
+    }
+
+    .post-meta {
+      color: @subtext0;
+    }
+
+    // fabric.net/wiki styles
+    body:has(#dokuwiki__site),
+    &:has(#dokuwiki__site) {
+      background-color: @mantle;
+    }
+
+    // Common dokuwiki elements
+    .dokuwiki {
+      .pageId span,
+      .page {
+        background: @base;
+        box-shadow: 0 0 0.5em @surface0;
+        border-color: @surface2;
+      }
+
+      .pageId span {
+        color: @subtext0;
+      }
+
+      .page,
+      .aside {
+        .li {
+          color: @text;
+        }
+        ul li {
+          color: @surface2;
+        }
+      }
+      
+      ol li {
+        color: @overlay1;
+      }
+      
+      .code dt {
+        background: @mantle;
+        border-color: @surface1;
+      }
+
+      .aside a {
+        &:visited,
+        &:link {
+          color: @accent-color;
+        }
+      }
+
+      textarea {
+        &[readonly] {
+          background-color: @mantle;
+        }
+        border-color: @surface0;
+        color: @text;
+      }
+
+      .changes {
+        .sizechange.positive {
+          background-color: @green;
+        }
+
+        .sizechange.negative {
+          background-color: @red;
+        }
+
+        .sizechange.negative,
+        .sizechange.positive {
+          color: @crust;
+        }
+      }
+
+      // Media manager
+      .tabs li {
+        strong,
+        a {
+          color: @text;
+          border-color: @surface0;
+        }
+        strong {
+          background-color: @mantle;
+        }
+        a {
+          background-color: @base;
+        }
+      }
+
+      .tabs::after {
+        border-bottom-color: @surface0;
+      }
+
+      button:not([title="Search"]) {
+        background-image: linear-gradient(to bottom, @base 0, @base 100%);
+        border-color: @surface1;
+      }
+
+      button[disabled] {
+        background-color: @crust;
+      }
+
+      fieldset,
+      #plugin__captcha_wrapper {
+        border-color: @surface0;
+      }
+    }
+
+    // Mobile/vertical toc
+    @media (max-width: 800px) {
+      #dokuwiki__aside {
+        > .pad {
+          background: @base;
+          border-color: @surface2;
+          box-shadow: 0 0 0.5em @surface0;
+        }
+
+        .toggle.open {
+          border-bottom-color: @surface0;
+        }
+      }
+    }
+
+    #dokuwiki__site {
+      hr {
+        border-top-color: @surface0;
+        border-bottom-color: @surface0;
+      }
+
+      select {
+        color: @text;
+        > option {
+          background-color: @mantle;
+          color: @text;
+        }
+      }
+
+      #dokuwiki__header a {
+        color: @accent-color;
+      }
+
+      .logo a {
+        color: @text;
+      }
+
+      div.breadcrumbs {
+        border-top-color: @surface0;
+        border-bottom-color: @surface0;
+        & div:first-child {
+          border-top-color: @surface0;
+        }
+        & div:last-child {
+          border-bottom-color: @surface0;
+        }
+      }
+
+      #dw__toc {
+        background: @base;
+        border-left-color: @surface0;
+      }
+
+      code,
+      .code {
+        box-shadow: inset 0 0 0.3em @surface0;
+      }
+
+      // Dokuwiki syntax highlighting [GeSHi]
+      .code {
+        .kw1,
+        .kw4,
+        .re0 {
+          color: @mauve;
+        }
+
+        .re1,
+        .st0,
+        .re8 {
+          color: @green;
+        }
+
+        .re7 {
+          color: @red;
+        }
+
+        .kw3 {
+          color: @maroon;
+        }
+
+        .co1,
+        .co3,
+        .coMULTI,
+        .co4,
+        .sy1 {
+          color: @overlay2;
+        }
+
+        .br0,
+        .sy0 {
+          color: @overlay1;
+        }
+
+        .me1,
+        .co2,
+        .de1 {
+          color: @yellow;
+        }
+
+        .nu0,
+        .kw2 {
+          color: @peach;
+        }
+
+        .de1,
+        .de2 {
+          color: @text;
+        }
+
+        .ln-xtra {
+          background-color: @base;
+        }
+      }
+
+      .noteredirect {
+        background-color: @crust;
+      }
+
+      img[src="/wiki/lib/images/smileys/exclaim.svg"] {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><circle cx="18.001" cy="18.001" r="18" fill="@{yellow}"/><path fill="@{crust}" d="M15.578 26.993a2.423 2.423 0 1 1 4.846.004 2.423 2.423 0 0 1-4.846-.007zm.19-18.294c0-1.304.96-2.11 2.23-2.11 1.243 0 2.233.836 2.233 2.106v11.94c0 1.27-.99 2.11-2.23 2.11-1.274 0-2.234-.81-2.234-2.11z"/></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+      }
+
+      .urlextern {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="@{subtext0}" d="M17.9 17.39c-.26-.8-1.01-1.39-1.9-1.39h-1v-3a1 1 0 0 0-1-1H8v-2h2a1 1 0 0 0 1-1V7h2a2 2 0 0 0 2-2v-.41a7.984 7.984 0 0 1 2.9 12.8M11 19.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.22.21-1.79L9 15v1a2 2 0 0 0 2 2m1-16A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+    }
+
+    #dokuwiki__usertools .action a {
+      &:hover svg {
+        fill: @accent-color;
+      }
+      & svg {
+        fill: @overlay2;
+      }
+    }
+
+    #mediamanager__page {
+      .panelHeader,
+      .namespaces h2,
+      .ui-resizable-e:hover,
+      .ui-resizable-w:hover {
+        background-color: @mantle;
+      }
+
+      .namespaces {
+        h2 {
+          border-color: @surface0;
+          border-bottom-color: @mantle;
+          color: @text;
+        }
+        .panelHeader {
+          border-top-color: @surface0;
+        }
+      }
+
+      .ui {
+        &-state-active {
+          border-color: @surface0;
+          color: @text;
+          background: @base;
+        }
+        &-button:not(&-state-active) {
+          border-color: @surface2;
+          color: @subtext0;
+          background: @surface0;
+        }
+        &-visual-focus {
+          box-shadow: 0 0 3px 1px @surface1;
+        }
+      }
+
+      .filelist {
+        .thumbs li,
+        .rows li:nth-child(2n + 1) {
+          background-color: @mantle;
+          color: @text;
+        }
+        .rows li {
+          background-color: @base;
+          color: @text;
+        }
+      }
+
+      .panelContent ul li:hover {
+        background-color: @surface0 !important;
+      }
+
+      .file dl {
+        dd {
+          background-color: @mantle;
+        }
+        dt {
+          background-color: @base;
+        }
+      }
+    }
+
+    #dokuwiki__pagetools {
+      &:hover,
+      &:focus-within {
+        .tools ul {
+          background-color: @base;
+          border-color: @surface2;
+          box-shadow: 2px 2px 2px @surface0;
+        }
+      }
+
+      .tools ul li a {
+        &:hover,
+        &:focus {
+          background-color: @mantle;
+          svg {
+            fill: @text;
+          }
+        }
+      }
+
+      .tools svg {
+        fill: @overlay0;
+      }
+    }
+  }
+}
+@-moz-document domain('docs.fabricmc.net') {
+  :root.dark {
+    #catppuccin(@darkFlavor, @accentColor);
+  }
+
+  :root:not(.dark) {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    // only includes variables currently used on docs.fabricmc.net
+    --vp-c-bg: @base;
+    --vp-c-bg-alt: @crust;
+    --vp-c-bg-elv: @mantle;
+    --vp-c-bg-soft: @mantle;
+    --vp-c-brand-1: @accent-color;
+    --vp-c-default-soft: fadeout(@surface0, 84%);
+    --vp-c-divider: @surface1;
+    --vp-c-text-1: @text;
+    --vp-c-text-2: @text;
+    --vp-c-text-3: fadeout(@text, 50%);
+    --vp-c-brand-2: lighten(@accent-color, 10%);
+    --vp-c-warning-1: @peach;
+    --vp-c-neutral-inverse: @crust;
+    --vp-c-gray-1: @surface0;
+    --vp-button-brand-bg: @accent-color;
+    --vp-button-brand-text: @crust;
+    --vp-code-bg: @mantle;
+    --vp-code-block-bg: @mantle;
+    --vp-code-line-number-color: @text;
+    --vp-code-lang-color: @subtext0;
+    --vp-code-block-divider-color: @crust;
+    --vp-code-copy-code-bg: @base;
+    --vp-code-copy-code-border-color: @surface0;
+    --vp-custom-block-tip-text: @text;
+    --vp-custom-block-tip-bg: fadeout(@blue, 90%);
+    --vp-custom-block-tip-code-bg: fadeout(@blue, 90%);
+    --vp-custom-block-info-bg: @mantle;
+    --vp-custom-block-warning-bg: fadeout(@peach, 80%);
+    --vp-custom-block-warning-code-bg: fadeout(@peach, 80%);
+    --vp-sidebar-bg-color: @crust;
+    --vp-home-hero-name-background: @accent-color;
+
+    @svg: escape(
+      "<svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='@{surface2}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'><rect width='8' height='4' x='8' y='2' rx='1' ry='1'/><path d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/></svg>"
+    );
+    --vp-icon-copy: url("data:image/svg+xml,@{svg}");
+
+    @svg: escape(
+      "<svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='@{surface2}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' viewBox='0 0 24 24'><rect width='8' height='4' x='8' y='2' rx='1' ry='1'/><path d='M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'/><path d='m9 14 2 2 4-4'/></svg>"
+    );
+    --vp-icon-copied: url("data:image/svg+xml,@{svg}");
+
+    .banner {
+      background: @peach;
+      color: @mantle;
+    }
+
+    kbd {
+      background-color: @crust;
+      border-color: @surface0;
+      color: @text;
+      box-shadow:
+        0 1px 1px @mantle,
+        0 2px @base inset;
+    }
+
+    // VitePress syntax highlighting [Shiki]
+    .vp-code span {
+      [style*="#F97583"] {
+        // Keywords
+        color: @mauve;
+      }
+      [style*="#B392F0"] {
+        // Classes, etc
+        color: @yellow;
+      }
+      [style*="#E1E4E8"] {
+        // Braces, comments
+        color: @text;
+      }
+      [style*="#FFAB70"] {
+        // Parameters
+        color: @maroon;
+      }
+      [style*="#9ECBFF"] {
+        // Strings
+        color: @green;
+      }
+      [style*="#79B8FF"] {
+        // Const
+        color: @peach;
+      }
+      [style*="#6A737D"] {
+        // Comments
+        color: @overlay2;
+      }
+    }
+  }
+}
+
+/* prettier-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+}
+
+// vim:ft=less
