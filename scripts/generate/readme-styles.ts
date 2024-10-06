@@ -1,5 +1,5 @@
 import { UserStylesSchema } from "@/types/mod.ts";
-import { join } from "std/path/mod.ts";
+import { join } from "@std/path";
 import { REPO_ROOT } from "@/deps.ts";
 import Handlebars from "handlebars";
 
@@ -53,21 +53,33 @@ export const generateStyleReadmes = (
   );
   const stylesReadmeContent = Deno.readTextFileSync(stylesReadmePath);
 
-  Object.entries(userstyles).map(([slug, { name, readme, "current-maintainers": currentMaintainers, "past-maintainers": pastMaintainers }]) => {
-    console.log(`Generating README for ${slug}`);
-    const readmeContent = Handlebars.compile(stylesReadmeContent)({
-      heading: heading(name, readme["app-link"]),
-      slug,
-      usage: readme.usage,
-      faq: readme.faq,
-      collaborators: {
-        currentMaintainers: extractName(currentMaintainers),
-        pastMaintainers: extractName(pastMaintainers),
-      },
-    });
-    Deno.writeTextFile(
-      join(REPO_ROOT, "styles", slug.toString(), "README.md"),
-      readmeContent,
-    ).catch((e) => console.error(e));
-  });
+  Object.entries(userstyles).map(
+    (
+      [
+        slug,
+        {
+          name,
+          readme,
+          "current-maintainers": currentMaintainers,
+          "past-maintainers": pastMaintainers,
+        },
+      ],
+    ) => {
+      console.log(`Generating README for ${slug}`);
+      const readmeContent = Handlebars.compile(stylesReadmeContent)({
+        heading: heading(name, readme["app-link"]),
+        slug,
+        usage: readme.usage,
+        faq: readme.faq,
+        collaborators: {
+          currentMaintainers: extractName(currentMaintainers),
+          pastMaintainers: extractName(pastMaintainers),
+        },
+      });
+      Deno.writeTextFile(
+        join(REPO_ROOT, "styles", slug.toString(), "README.md"),
+        readmeContent,
+      ).catch((e) => console.error(e));
+    },
+  );
 };

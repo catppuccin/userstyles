@@ -5,7 +5,7 @@ import userStylesSchema from "@/userstyles.schema.json" with {
   type: "json",
 };
 
-import { join } from "std/path/mod.ts";
+import { join } from "@std/path";
 
 const ROOT = import.meta.dirname;
 if (!ROOT) {
