@@ -347,6 +347,7 @@
       color: @text;
     }
 
+    .PlannerItem-styles__secondary button,
     .discussions-index-manage-menu > button,
     span[type="button"],
     [data-testid="compose-modal-desktop"]
@@ -358,8 +359,8 @@
     #planner-today-btn,
     form[action="/logout"] button,
     .ui-button,
-    .btn,
-    .Button,
+    .btn:not(.btn-primary, .btn-link),
+    .Button:not(.Button--primary, .Button--link),
     button[data-testid="address-button"],
     button[data-testid="gradebook-settings-button"],
     a:has(.css-1rpus1y-baseButton__content),
@@ -387,20 +388,46 @@
       }
     }
 
-    .btn-link,
-    .Button--link {
-      border-color: transparent;
-      background-color: transparent;
-      color: var(--ic-link-color);
+    /* filled-in buttons with colored bg */
+    /* covers .btn-primary and .Button--primary */
+    --ic-brand-global-nav-menu-item__text-color--active: @accent-color;
+    --ic-brand-global-nav-menu-item__text-color--active: @accent-color;
+    --ic-brand-button--primary-bgd: darken(@accent-color, 20%);
+    --ic-brand-button--primary-bgd-darkened-5: darken(@accent-color, 25%);
+    --ic-brand-button--primary-bgd-darkened-15: darken(@accent-color, 35%);
 
+    button:has(.css-10t1mdw-baseButton__content) {
       &:hover {
-        color: var(--ic-link-color-darkened-10);
-        background: transparent;
+        background-color: @hover-accent;
+        > [class$="baseButton__content"] {
+          background-color: @hover-accent;
+        }
+        color: @text;
       }
+      color: @text;
+      background-color: darken(@accent-color, 20%);
+      border-color: @surface1;
+      path[fill="#000000"] {
+        fill: @text;
+      }
+      > [class$="baseButton__content"] {
+        color: @text;
+        background-color: darken(@accent-color, 20%);
+        border-color: @surface1;
+      }
+      [class$="text"] {
+        color: @text;
+      }
+    }
+
+    .Button--icon-action,
+    .Button--icon-action-rev {
+      background-color: transparent;
     }
 
     /* checkboxes */
     input:not(:checked) + label span[class$="checkboxFacade__facade"] {
+      border-color: @surface2;
       background-color: @surface0;
     }
     input:checked + label span[class$="checkboxFacade__facade"] {
@@ -1426,6 +1453,9 @@
     }
     span[data-testid="RCEStatusBar"] {
       color: @subtext0;
+      button > span {
+        color: @blue;
+      }
     }
     #message-body-root_statusbar {
       button > span {
