@@ -15,7 +15,7 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document domain("instructure.com") {
+@-moz-document domain("instructure.com"), domain("instructuremedia.com") {
   @media (prefers-color-scheme: light) {
     :root {
       #catppuccin(@lightFlavor, @accentColor);
@@ -107,7 +107,7 @@
       background-color: @surface0;
       border-color: @surface2;
     }
-    img:not([src^="/"], [src*="cloudfront.net/dist"]) {
+    img:not([src^="/"], [src*="cloudfront.net/dist"], [src*="instructuremedia.com/build"]) {
       background-color: #fffd;
     }
     scrollbar-color: @surface2 @surface0;
@@ -699,6 +699,42 @@
         }
       }
     }
+
+    /* only on canvas studio apparently */
+    span[data-position-content^="Drilldown"] {
+      border-color: @surface2;
+      span {
+        color: @text;
+      }
+      li {
+        background-color: @surface1;
+        &:not(:has([id^="DrilldownHeader-Title"])) {
+          &:hover,
+          &:focus,
+          &:active {
+            color: @base;
+            background-color: @accent-color !important;
+            span {
+              color: @base;
+            }
+          }
+        }
+        [id^="DrilldownHeader-Separator"] {
+          background-color: @surface2;
+        }
+      }
+    }
+    button[id^="Drilldown"] {
+      > span {
+        background-color: @surface1;
+        color: @text;
+        border-color: @surface2;
+      }
+      &:hover > span {
+        background-color: @hover-regular;
+      }
+    }
+
     /* dropdown menu */
     span[data-position-content^="Menu"]:not(
         [data-position-content^="Menu__label"]
@@ -1366,12 +1402,6 @@
     }
 
     /* discussions */
-    .form-inline {
-      [class$="textInput__facade"] {
-        background-color: @base;
-        border-color: @surface1;
-      }
-    }
     .headerBar {
       background: @surface0;
       border-color: @surface1;
@@ -1796,6 +1826,49 @@
     }
     #manage-assign-to-container div[data-testid="item-assign-to-card"] {
       border-color: @surface1;
+    }
+
+    /* STUDIO */
+    #settings_page_wrapper,
+    #collection_shared_content,
+    #collection_user_content {
+      background-color: @base;
+      span[role="contentinfo"] {
+        border-color: @surface1;
+      }
+    }
+    .CollectionShow__mediaListWrapper {
+      img {
+        background-color: transparent;
+      }
+    }
+    .DefaultLayout__main {
+      color: @text;
+    }
+    h1 {
+      color: @text;
+    }
+    #lti_media_picker {
+      nav {
+        background-color: @mantle;
+        border-block-end-color: @surface0;
+      }
+      ul a[class$="Button"] div {
+        color: @text;
+      }
+      li div[class$="topNavBarItem__container"]::after {
+        background-color: @surface1;
+      }
+      img {
+        /* might need to use a filter for this? */
+        filter: invert(100%);
+      }
+    }
+    span[class$="toggleDetails__summary"] > span {
+      color: @text;
+    }
+    div[class$="toggleDetails__details"] {
+      color: @text;
     }
   }
 }
