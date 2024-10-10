@@ -140,6 +140,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Crowdin](styles/crowdin)
 - [DeepL](styles/deepl)
 - [ichi.moe](styles/ichi.moe)
+- [Jisho](styles/jisho)
 - [Lingva](styles/lingva)
 
 </details>
