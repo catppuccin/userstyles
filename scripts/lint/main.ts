@@ -7,7 +7,7 @@ import less from "less";
 
 import { REPO_ROOT } from "@/deps.ts";
 import { checkForMissingFiles } from "@/lint/file-checker.ts";
-import { log } from "@/lint/logger.ts";
+import { log } from "@/logger.ts";
 import { verifyMetadata } from "@/lint/metadata.ts";
 import { lint } from "@/lint/stylelint.ts";
 import { getUserstylesData } from "@/utils.ts";
