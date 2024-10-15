@@ -140,6 +140,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Crowdin](styles/crowdin)
 - [DeepL](styles/deepl)
 - [ichi.moe](styles/ichi.moe)
+- [Jisho](styles/jisho)
 - [Lingva](styles/lingva)
 
 </details>
@@ -183,6 +184,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Porkbun](styles/porkbun)
 - [Proton](styles/proton)
 - [Raindrop](styles/raindrop)
+- [Rentry.co](styles/rentry.co)
 - [Syncthing](styles/syncthing)
 - [tldraw](styles/tldraw)
 - [Vikunja](styles/vikunja)
