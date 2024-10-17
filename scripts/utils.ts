@@ -66,7 +66,7 @@ export function getUserstylesData(): Userstyles {
 
     return data as Userstyles;
   } catch (err) {
-    if (err.name === "SyntaxError") {
+    if (err instanceof Error && err.name === "SyntaxError") {
       const groups =
         /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
           .exec(err.message)?.groups;
