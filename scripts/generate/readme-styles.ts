@@ -1,6 +1,6 @@
 import { UserStylesSchema } from "@/types/mod.ts";
 import * as path from "@std/path";
-import { REPO_ROOT } from "@/deps.ts";
+import { REPO_ROOT } from "../constants.ts";
 import Handlebars from "handlebars";
 
 // we can have some nice things :)

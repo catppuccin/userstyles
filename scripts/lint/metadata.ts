@@ -5,7 +5,7 @@ import { sprintf } from "@std/fmt/printf";
 import type { WalkEntry } from "@std/fs";
 import * as path from "@std/path";
 
-import { REPO_ROOT } from "@/deps.ts";
+import { REPO_ROOT } from "../constants.ts";
 import { log } from "@/logger.ts";
 import { formatListOfItems } from "@/utils.ts";
 import type { Userstyles } from "@/types/userstyles.d.ts";

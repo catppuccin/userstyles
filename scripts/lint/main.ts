@@ -5,7 +5,7 @@ import * as path from "@std/path";
 // @ts-types="npm:@types/less";
 import less from "less";
 
-import { REPO_ROOT } from "@/deps.ts";
+import { REPO_ROOT } from "../constants.ts";
 import { checkForMissingFiles } from "@/lint/file-checker.ts";
 import { log } from "@/logger.ts";
 import { verifyMetadata } from "@/lint/metadata.ts";

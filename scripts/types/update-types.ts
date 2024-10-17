@@ -1,11 +1,11 @@
 import * as path from "@std/path";
 import { compile, type JSONSchema } from "json-schema-to-typescript";
-import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
+import { REPO_ROOT, USERSTYLES_SCHEMA } from "../constants.ts";
 
 const TYPES_ROOT = path.join(REPO_ROOT, "scripts/types");
 
 const types = await compile(
-  userStylesSchema as JSONSchema,
+  USERSTYLES_SCHEMA as JSONSchema,
   "UserstylesSchema",
   {
     bannerComment: "// deno-fmt-ignore-file",

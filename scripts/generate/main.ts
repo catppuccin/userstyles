@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run -A
 import * as path from "@std/path";
-import { portsSchema, REPO_ROOT, userStylesSchema } from "@/deps.ts";
+import { PORTS_SCHEMA, REPO_ROOT, USERSTYLES_SCHEMA } from "../constants.ts";
 import type { PortsSchema, UserStylesSchema } from "@/types/mod.ts";
 
 import { syncIssueLabels } from "@/generate/labels.ts";
@@ -19,11 +19,11 @@ const portsYaml = await fetch(
 const [portsData, userstylesData] = await Promise.all([
   await validateYaml<PortsSchema.PortsSchema>(
     portsYaml,
-    portsSchema,
+    PORTS_SCHEMA,
   ),
   await validateYaml<UserStylesSchema.UserstylesSchema>(
     userstylesYaml,
-    userStylesSchema,
+    USERSTYLES_SCHEMA,
   ),
 ]);
 

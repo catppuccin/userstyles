@@ -7,7 +7,7 @@ import stylelint from "stylelint";
 import "stylelint-config-standard";
 import "stylelint-config-recommended";
 
-import { REPO_ROOT } from "@/deps.ts";
+import { REPO_ROOT } from "../constants.ts";
 import { log } from "@/logger.ts";
 
 export function lint(

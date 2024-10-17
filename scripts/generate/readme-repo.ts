@@ -1,7 +1,7 @@
 import * as path from "@std/path";
 import Handlebars from "handlebars";
 
-import { REPO_ROOT } from "@/deps.ts";
+import { REPO_ROOT } from "../constants.ts";
 import { PortsSchema, UserStylesSchema } from "@/types/mod.ts";
 import { updateFile, updateReadme } from "@/generate/utils.ts";
 

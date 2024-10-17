@@ -3,7 +3,7 @@ import * as yaml from "@std/yaml";
 import * as path from "@std/path";
 import { SetRequired } from "type-fest/source/set-required.d.ts";
 
-import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
+import { REPO_ROOT, USERSTYLES_SCHEMA } from "./constants.ts";
 import { UserstylesSchema } from "@/types/userstyles.d.ts";
 import { log } from "@/logger.ts";
 import { sprintf } from "@std/fmt/printf";
@@ -52,7 +52,7 @@ export function getUserstylesData(): Userstyles {
   try {
     const data = validateYaml<UserstylesSchema>(
       content,
-      userStylesSchema,
+      USERSTYLES_SCHEMA,
     );
 
     for (const field of ["userstyles", "collaborators"] as const) {
