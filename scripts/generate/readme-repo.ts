@@ -11,10 +11,10 @@ type MappedPorts = {
   )[];
 };
 
-export const generateMainReadme = async (
+export async function generateMainReadme(
   userstyles: UserStylesSchema.Userstyles,
   portsData: PortsSchema.PortsSchema,
-) => {
+) {
   if (!portsData.categories) throw ("Ports data is missing categories");
 
   const categorized = Object.entries(userstyles)
@@ -75,4 +75,4 @@ export const generateMainReadme = async (
     }),
     false,
   ).catch((e) => console.error(e));
-};
+}

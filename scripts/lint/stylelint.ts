@@ -10,13 +10,13 @@ import "stylelint-config-recommended";
 import { REPO_ROOT } from "@/deps.ts";
 import { log } from "@/logger.ts";
 
-export const lint = (
+export function lint(
   entry: WalkEntry,
   content: string,
   fix: boolean,
   config: stylelint.Config,
-) =>
-  stylelint.lint({ code: content, config, fix })
+) {
+  return stylelint.lint({ code: content, config, fix })
     .then(({ results, code }) => {
       if (code) {
         Deno.writeTextFileSync(entry.path, code);
@@ -42,3 +42,4 @@ export const lint = (
         if (result.warnings.length > 0) throw new Error("stylelint error");
       });
     });
+}

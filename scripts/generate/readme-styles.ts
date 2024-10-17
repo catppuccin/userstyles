@@ -30,11 +30,11 @@ const heading = (
   });
 };
 
-const extractName = (
+function extractName(
   collaborators?:
     | UserStylesSchema.CurrentMaintainers
     | UserStylesSchema.PastMaintainers,
-) => {
+) {
   // no-op when undefined
   if (!collaborators) return;
   // set the name to the github.com/<name>
@@ -42,11 +42,9 @@ const extractName = (
     c.name ??= c.url.split("/").pop();
     return c;
   });
-};
+}
 
-export const generateStyleReadmes = (
-  userstyles: UserStylesSchema.Userstyles,
-) => {
+export function generateStyleReadmes(userstyles: UserStylesSchema.Userstyles) {
   const stylesReadmePath = path.join(
     REPO_ROOT,
     "scripts/generate/templates/userstyle.md",
@@ -82,4 +80,4 @@ export const generateStyleReadmes = (
       ).catch((e) => console.error(e));
     },
   );
-};
+}

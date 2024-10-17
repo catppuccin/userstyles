@@ -10,13 +10,13 @@ import { log } from "@/logger.ts";
 import { formatListOfItems } from "@/utils.ts";
 import type { Userstyles } from "@/types/userstyles.d.ts";
 
-export const verifyMetadata = async (
+export async function verifyMetadata(
   entry: WalkEntry,
   content: string,
   userstyle: string,
   userstyles: Userstyles,
   fix: boolean,
-) => {
+) {
   // `usercss-meta` prohibits any '\r' characters, which seem to be present on Windows.
   content = content.replaceAll("\r\n", "\n");
 
@@ -141,9 +141,9 @@ export const verifyMetadata = async (
     isLess: metadata.preprocessor === assert.preprocessor,
     fixed: content,
   };
-};
+}
 
-const assertions = (userstyle: string, userstyles: Userstyles) => {
+function assertions(userstyle: string, userstyles: Userstyles) {
   const prefix = "https://github.com/catppuccin/userstyles";
 
   if (!userstyles[userstyle]) {
@@ -175,4 +175,4 @@ const assertions = (userstyle: string, userstyles: Userstyles) => {
     license: "MIT",
     preprocessor: "less",
   };
-};
+}

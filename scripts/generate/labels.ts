@@ -17,9 +17,7 @@ const macchiatoHex = flavors.macchiato.colorEntries
 
 const toIssueLabel = (slug: string | number) => `lbl:${slug}`;
 
-export const syncIssueLabels = async (
-  userstyles: UserStylesSchema.Userstyles,
-) => {
+export async function syncIssueLabels(userstyles: UserStylesSchema.Userstyles) {
   updateFile(
     path.join(REPO_ROOT, ".github/issue-labeler.yml"),
     yaml.stringify(
@@ -71,4 +69,4 @@ export const syncIssueLabels = async (
   const syncLabels = path.join(REPO_ROOT, ".github/labels.yml");
   // deno-lint-ignore no-explicit-any
   await updateFile(syncLabels, yaml.stringify(syncLabelsContent as any));
-};
+}
