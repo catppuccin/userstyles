@@ -34,7 +34,7 @@ const teamMembers = await octokit.teams
   })
   .then((res) => res.data.map((m) => m.login.toLowerCase()));
 
-const syncMaintainers = async () => {
+async function syncMaintainers() {
   if (!maintainers) return;
   if (assert.equal(maintainers, teamMembers)) {
     console.log("Maintainers are in sync");
@@ -65,6 +65,6 @@ const syncMaintainers = async () => {
   console.log(
     `${toRemove.length} users removed from the ${team.org}/${team.team_slug} team.`,
   );
-};
+}
 
 await syncMaintainers();

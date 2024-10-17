@@ -1,6 +1,6 @@
 import { UserStylesSchema } from "@/types/mod.ts";
-import { join } from "@std/path";
-import { REPO_ROOT } from "@/deps.ts";
+import * as path from "@std/path";
+import { REPO_ROOT } from "../constants.ts";
 import Handlebars from "handlebars";
 
 // we can have some nice things :)
@@ -30,11 +30,11 @@ const heading = (
   });
 };
 
-const extractName = (
+function extractName(
   collaborators?:
     | UserStylesSchema.CurrentMaintainers
     | UserStylesSchema.PastMaintainers,
-) => {
+) {
   // no-op when undefined
   if (!collaborators) return;
   // set the name to the github.com/<name>
@@ -42,12 +42,10 @@ const extractName = (
     c.name ??= c.url.split("/").pop();
     return c;
   });
-};
+}
 
-export const generateStyleReadmes = (
-  userstyles: UserStylesSchema.Userstyles,
-) => {
-  const stylesReadmePath = join(
+export function generateStyleReadmes(userstyles: UserStylesSchema.Userstyles) {
+  const stylesReadmePath = path.join(
     REPO_ROOT,
     "scripts/generate/templates/userstyle.md",
   );
@@ -77,9 +75,9 @@ export const generateStyleReadmes = (
         },
       });
       Deno.writeTextFile(
-        join(REPO_ROOT, "styles", slug.toString(), "README.md"),
+        path.join(REPO_ROOT, "styles", slug.toString(), "README.md"),
         readmeContent,
       ).catch((e) => console.error(e));
     },
   );
-};
+}
