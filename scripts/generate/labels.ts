@@ -1,9 +1,9 @@
-import { join } from "@std/path";
+import * as path from "@std/path";
 
 import { REPO_ROOT } from "@/deps.ts";
 import { updateFile } from "@/generate/utils.ts";
 import { UserStylesSchema } from "@/types/mod.ts";
-import { stringify } from "@std/yaml";
+import * as yaml from "@std/yaml";
 import { type ColorName, flavors } from "@catppuccin/palette";
 
 /**
@@ -21,8 +21,8 @@ export const syncIssueLabels = async (
   userstyles: UserStylesSchema.Userstyles,
 ) => {
   updateFile(
-    join(REPO_ROOT, ".github/issue-labeler.yml"),
-    stringify(
+    path.join(REPO_ROOT, ".github/issue-labeler.yml"),
+    yaml.stringify(
       Object.entries(userstyles)
         .reduce((acc, [key]) => {
           acc[key.toString()] = [`/${toIssueLabel(key)}(,.*)?$/gm`];
@@ -31,12 +31,12 @@ export const syncIssueLabels = async (
     ),
   );
 
-  const userstyleIssueContent = Deno.readTextFileSync(join(
+  const userstyleIssueContent = Deno.readTextFileSync(path.join(
     REPO_ROOT,
     "scripts/generate/templates/userstyle-issue.yml",
   ));
   Deno.writeTextFileSync(
-    join(REPO_ROOT, ".github/ISSUE_TEMPLATE/userstyle.yml"),
+    path.join(REPO_ROOT, ".github/ISSUE_TEMPLATE/userstyle.yml"),
     userstyleIssueContent.replace(
       `"$LABELS"`,
       `${
@@ -49,8 +49,8 @@ export const syncIssueLabels = async (
 
   // .github/pr-labeler.yml
   updateFile(
-    join(REPO_ROOT, ".github/pr-labeler.yml"),
-    stringify(
+    path.join(REPO_ROOT, ".github/pr-labeler.yml"),
+    yaml.stringify(
       Object.entries(userstyles)
         .reduce((acc, [key]) => {
           acc[`${key}`] = `styles/${key}/**/*`;
@@ -68,7 +68,7 @@ export const syncIssueLabels = async (
         color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
       };
     });
-  const syncLabels = join(REPO_ROOT, ".github/labels.yml");
+  const syncLabels = path.join(REPO_ROOT, ".github/labels.yml");
   // deno-lint-ignore no-explicit-any
-  await updateFile(syncLabels, stringify(syncLabelsContent as any));
+  await updateFile(syncLabels, yaml.stringify(syncLabelsContent as any));
 };

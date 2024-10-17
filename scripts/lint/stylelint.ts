@@ -1,6 +1,6 @@
 import * as color from "@std/fmt/colors";
 import type { WalkEntry } from "@std/fs";
-import { relative } from "@std/path";
+import * as path from "@std/path";
 
 import "postcss-less";
 import stylelint from "stylelint";
@@ -30,7 +30,7 @@ export const lint = (
           ) ?? "unspecified stylelint error";
 
           log.log(message, {
-            file: relative(REPO_ROOT, entry.path),
+            file: path.relative(REPO_ROOT, entry.path),
             startLine: warning.line,
             endLine: warning.endLine,
             startColumn: warning.column,

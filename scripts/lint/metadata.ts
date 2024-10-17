@@ -3,7 +3,7 @@ import usercssMeta from "usercss-meta";
 import * as color from "@std/fmt/colors";
 import { sprintf } from "@std/fmt/printf";
 import type { WalkEntry } from "@std/fs";
-import { join, relative } from "@std/path";
+import * as path from "@std/path";
 
 import { REPO_ROOT } from "@/deps.ts";
 import { log } from "@/logger.ts";
@@ -21,7 +21,7 @@ export const verifyMetadata = async (
   content = content.replaceAll("\r\n", "\n");
 
   const assert = assertions(userstyle, userstyles);
-  const file = relative(REPO_ROOT, entry.path);
+  const file = path.relative(REPO_ROOT, entry.path);
 
   const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {
     allowErrors: true,
@@ -80,7 +80,7 @@ export const verifyMetadata = async (
   }
 
   const template = (await Deno.readTextFile(
-    join(REPO_ROOT, "template/catppuccin.user.css"),
+    path.join(REPO_ROOT, "template/catppuccin.user.css"),
   ))
     .split("\n");
 

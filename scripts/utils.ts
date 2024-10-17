@@ -1,6 +1,6 @@
 import Ajv, { Schema } from "ajv";
-import { parse } from "@std/yaml";
-import { join } from "@std/path";
+import * as yaml from "@std/yaml";
+import * as path from "@std/path";
 import { SetRequired } from "type-fest/source/set-required.d.ts";
 
 import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
@@ -19,7 +19,7 @@ export const validateYaml = <T>(
 ): T => {
   const ajv = new Ajv.default();
   const validate = ajv.compile<T>(schema);
-  const data = parse(content);
+  const data = yaml.parse(content);
 
   if (!validate(data)) {
     log.error(
@@ -49,7 +49,7 @@ export const validateYaml = <T>(
  */
 export const getUserstylesData = (): Userstyles => {
   const content = Deno.readTextFileSync(
-    join(REPO_ROOT, "scripts/userstyles.yml"),
+    path.join(REPO_ROOT, "scripts/userstyles.yml"),
   );
 
   try {

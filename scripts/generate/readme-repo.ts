@@ -1,4 +1,4 @@
-import { join } from "@std/path";
+import * as path from "@std/path";
 import Handlebars from "handlebars";
 
 import { REPO_ROOT } from "@/deps.ts";
@@ -65,7 +65,7 @@ export const generateMainReadme = async (
     }),
   });
 
-  const readmePath = join(REPO_ROOT, "README.md");
+  const readmePath = path.join(REPO_ROOT, "README.md");
   await updateFile(
     readmePath,
     updateReadme({

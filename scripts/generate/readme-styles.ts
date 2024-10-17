@@ -1,5 +1,5 @@
 import { UserStylesSchema } from "@/types/mod.ts";
-import { join } from "@std/path";
+import * as path from "@std/path";
 import { REPO_ROOT } from "@/deps.ts";
 import Handlebars from "handlebars";
 
@@ -47,7 +47,7 @@ const extractName = (
 export const generateStyleReadmes = (
   userstyles: UserStylesSchema.Userstyles,
 ) => {
-  const stylesReadmePath = join(
+  const stylesReadmePath = path.join(
     REPO_ROOT,
     "scripts/generate/templates/userstyle.md",
   );
@@ -77,7 +77,7 @@ export const generateStyleReadmes = (
         },
       });
       Deno.writeTextFile(
-        join(REPO_ROOT, "styles", slug.toString(), "README.md"),
+        path.join(REPO_ROOT, "styles", slug.toString(), "README.md"),
         readmeContent,
       ).catch((e) => console.error(e));
     },

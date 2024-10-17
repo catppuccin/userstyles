@@ -1,5 +1,5 @@
 #!/usr/bin/env -S deno run -A
-import { join } from "@std/path";
+import * as path from "@std/path";
 import { portsSchema, REPO_ROOT, userStylesSchema } from "@/deps.ts";
 import type { PortsSchema, UserStylesSchema } from "@/types/mod.ts";
 
@@ -10,7 +10,7 @@ import { updateFile } from "@/generate/utils.ts";
 import { validateYaml } from "@/utils.ts";
 
 const userstylesYaml = Deno.readTextFileSync(
-  join(REPO_ROOT, "scripts/userstyles.yml"),
+  path.join(REPO_ROOT, "scripts/userstyles.yml"),
 );
 const portsYaml = await fetch(
   "https://raw.githubusercontent.com/catppuccin/catppuccin/main/resources/ports.yml",
@@ -70,6 +70,6 @@ const userstylesStaffCodeOwners = () => {
   return paths.map((path) => `${path} @catppuccin/userstyles-staff`).join("\n");
 };
 await updateFile(
-  join(REPO_ROOT, ".github/CODEOWNERS"),
+  path.join(REPO_ROOT, ".github/CODEOWNERS"),
   `${maintainersCodeOwners()}\n\n${userstylesStaffCodeOwners()}`,
 );

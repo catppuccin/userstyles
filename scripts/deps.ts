@@ -5,7 +5,7 @@ import userStylesSchema from "@/userstyles.schema.json" with {
   type: "json",
 };
 
-import { join } from "@std/path";
+import * as path from "@std/path";
 
 const ROOT = import.meta.dirname;
 if (!ROOT) {
@@ -15,6 +15,6 @@ if (!ROOT) {
 /**
  * absolute path to the repository
  */
-export const REPO_ROOT = join(ROOT, "..");
+export const REPO_ROOT = path.join(ROOT, "..");
 
 export { portsSchema, userStylesSchema };
