@@ -1,8 +1,8 @@
-import PORTS_SCHEMA from "catppuccin-repo/resources/ports.schema.json" with {
-  type: "json",
+import PORTS_SCHEMA from "@catppuccin/catppuccin/resources/ports.schema.json" with {
+    type: "json",
 };
 import USERSTYLES_SCHEMA from "@/userstyles.schema.json" with {
-  type: "json",
+    type: "json",
 };
 
 import * as path from "@std/path";
