@@ -1,22 +1,22 @@
 import * as color from "@std/fmt/colors";
 import type { WalkEntry } from "@std/fs";
-import { relative } from "@std/path";
+import * as path from "@std/path";
 
 import "postcss-less";
 import stylelint from "stylelint";
 import "stylelint-config-standard";
 import "stylelint-config-recommended";
 
-import { REPO_ROOT } from "@/deps.ts";
+import { REPO_ROOT } from "../constants.ts";
 import { log } from "@/logger.ts";
 
-export const lint = (
+export function lint(
   entry: WalkEntry,
   content: string,
   fix: boolean,
   config: stylelint.Config,
-) =>
-  stylelint.lint({ code: content, config, fix })
+) {
+  return stylelint.lint({ code: content, config, fix })
     .then(({ results, code }) => {
       if (code) {
         Deno.writeTextFileSync(entry.path, code);
@@ -30,7 +30,7 @@ export const lint = (
           ) ?? "unspecified stylelint error";
 
           log.log(message, {
-            file: relative(REPO_ROOT, entry.path),
+            file: path.relative(REPO_ROOT, entry.path),
             startLine: warning.line,
             endLine: warning.endLine,
             startColumn: warning.column,
@@ -42,3 +42,4 @@ export const lint = (
         if (result.warnings.length > 0) throw new Error("stylelint error");
       });
     });
+}

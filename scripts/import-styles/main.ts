@@ -1,11 +1,11 @@
 #!/usr/bin/env -S deno run -A
 import usercssMeta from "usercss-meta";
 import { ensureDir, walk } from "@std/fs";
-import { join } from "@std/path";
+import * as path from "@std/path";
 
 import { REPO_ROOT } from "@/deps.ts";
 
-const stylesheets = walk(join(REPO_ROOT, "styles"), {
+const stylesheets = walk(path.join(REPO_ROOT, "styles"), {
   includeFiles: true,
   includeDirs: false,
   includeSymlinks: false,

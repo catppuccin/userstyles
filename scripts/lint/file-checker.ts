@@ -1,8 +1,8 @@
-import { exists } from "@std/fs";
-import { join, relative } from "@std/path";
+import * as fs from "@std/fs";
+import * as path from "@std/path";
 import core from "@actions/core";
 
-import { REPO_ROOT } from "@/deps.ts";
+import { REPO_ROOT } from "../constants.ts";
 import { log } from "@/logger.ts";
 
 const requiredFiles = [
@@ -10,19 +10,19 @@ const requiredFiles = [
   "preview.webp",
 ];
 
-export const checkForMissingFiles = async () => {
-  const stylesRoot = join(REPO_ROOT, "styles");
+export async function checkForMissingFiles() {
+  const stylesRoot = path.join(REPO_ROOT, "styles");
 
   const missingFiles: string[] = [];
   for await (const entry of Deno.readDir(stylesRoot)) {
     if (!entry.isDirectory) continue;
-    const styleRoot = join(stylesRoot, entry.name);
+    const styleRoot = path.join(stylesRoot, entry.name);
 
     await Promise.all(requiredFiles.map(async (f) => {
-      const fp = join(styleRoot, f);
-      const rfp = relative(REPO_ROOT, fp);
+      const fp = path.join(styleRoot, f);
+      const rfp = path.relative(REPO_ROOT, fp);
 
-      if (!(await exists(fp))) {
+      if (!(await fs.exists(fp))) {
         missingFiles.push(rfp);
       }
     }));
@@ -41,4 +41,4 @@ export const checkForMissingFiles = async () => {
   }
 
   return missingFiles.length === 0;
-};
+}

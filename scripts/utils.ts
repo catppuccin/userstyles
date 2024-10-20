@@ -1,9 +1,9 @@
 import Ajv, { Schema } from "ajv";
-import { parse } from "@std/yaml";
-import { join } from "@std/path";
+import * as yaml from "@std/yaml";
+import * as path from "@std/path";
 import { SetRequired } from "type-fest/source/set-required.d.ts";
 
-import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
+import { REPO_ROOT, USERSTYLES_SCHEMA } from "./constants.ts";
 import { UserstylesSchema } from "@/types/userstyles.d.ts";
 import { log } from "@/logger.ts";
 import { sprintf } from "@std/fmt/printf";
@@ -13,13 +13,10 @@ import { sprintf } from "@std/fmt/printf";
  * @param schema  A JSON schema
  * @returns A promise that resolves to the parsed YAML content, verified against the schema. Rejects if the content is invalid.
  */
-export const validateYaml = <T>(
-  content: string,
-  schema: Schema,
-): T => {
+export function validateYaml<T>(content: string, schema: Schema): T {
   const ajv = new Ajv.default();
   const validate = ajv.compile<T>(schema);
-  const data = parse(content);
+  const data = yaml.parse(content);
 
   if (!validate(data)) {
     log.error(
@@ -41,21 +38,21 @@ export const validateYaml = <T>(
   }
 
   return data as T;
-};
+}
 
 /**
  * Utility function that calls {@link validateYaml} on the userstyles.yml file.
  * Fails when data.userstyles is undefined.
  */
-export const getUserstylesData = (): Userstyles => {
+export function getUserstylesData(): Userstyles {
   const content = Deno.readTextFileSync(
-    join(REPO_ROOT, "scripts/userstyles.yml"),
+    path.join(REPO_ROOT, "scripts/userstyles.yml"),
   );
 
   try {
     const data = validateYaml<UserstylesSchema>(
       content,
-      userStylesSchema,
+      USERSTYLES_SCHEMA,
     );
 
     for (const field of ["userstyles", "collaborators"] as const) {
@@ -69,7 +66,7 @@ export const getUserstylesData = (): Userstyles => {
 
     return data as Userstyles;
   } catch (err) {
-    if (err.name === "SyntaxError") {
+    if (err instanceof Error && err.name === "SyntaxError") {
       const groups =
         /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
           .exec(err.message)?.groups;
@@ -87,7 +84,7 @@ export const getUserstylesData = (): Userstyles => {
 
     Deno.exit(1);
   }
-};
+}
 
 /**
  * Utility function that formats a list of items into the "x, y, ..., and z" format.
@@ -98,7 +95,7 @@ export const getUserstylesData = (): Userstyles => {
  * @example
  * formatListOfItems(['x', 'y', 'z']); // 'x, y, and z'
  */
-export const formatListOfItems = (items: unknown[]): string => {
+export function formatListOfItems(items: unknown[]): string {
   // If there are two items, connect them with an "and".
   if (items.length === 2) return items.join(" and ");
   // Otherwise, there is either just one item or more than two items.
@@ -110,6 +107,6 @@ export const formatListOfItems = (items: unknown[]): string => {
     // Otherwise, it is some item in the middle of the list and we can just add it as a comma followed by the item to the string.
     return prev + `, ${curr}`;
   }) as string;
-};
+}
 
 type Userstyles = SetRequired<UserstylesSchema, "userstyles" | "collaborators">;

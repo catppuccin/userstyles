@@ -1,7 +1,7 @@
-import { join } from "@std/path";
+import * as path from "@std/path";
 import Handlebars from "handlebars";
 
-import { REPO_ROOT } from "@/deps.ts";
+import { REPO_ROOT } from "../constants.ts";
 import { PortsSchema, UserStylesSchema } from "@/types/mod.ts";
 import { updateFile, updateReadme } from "@/generate/utils.ts";
 
@@ -11,10 +11,10 @@ type MappedPorts = {
   )[];
 };
 
-export const generateMainReadme = async (
+export async function generateMainReadme(
   userstyles: UserStylesSchema.Userstyles,
   portsData: PortsSchema.PortsSchema,
-) => {
+) {
   if (!portsData.categories) throw ("Ports data is missing categories");
 
   const categorized = Object.entries(userstyles)
@@ -65,7 +65,7 @@ export const generateMainReadme = async (
     }),
   });
 
-  const readmePath = join(REPO_ROOT, "README.md");
+  const readmePath = path.join(REPO_ROOT, "README.md");
   await updateFile(
     readmePath,
     updateReadme({
@@ -75,4 +75,4 @@ export const generateMainReadme = async (
     }),
     false,
   ).catch((e) => console.error(e));
-};
+}
