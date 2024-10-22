@@ -1,0 +1,1708 @@
+/* ==UserStyle==
+@name Honeygain Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/honeygain
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/honeygain
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/honeygain/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ahoneygain
+@description Soothing pastel theme for Honeygain
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain('dashboard.honeygain.com') {
+  // use @big when screen is normal, @small when its mobile layout
+  #media(@big, @small) {
+    @max-width: 880px;
+    @media (max-width: @max-width) {
+      @small();
+    }
+    @media (min-width: @max-width) {
+      @big();
+    }
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    // base text color for main app
+    @h-text: #181d2b;
+    // brand color for main app
+    @h-brand: #f9c900;
+
+    // change the logo letters and outline to match their brand guidelines
+    @logo-svg-color: if((@lookup = latte), #163351, @h-brand);
+    @logo-svg-accent: if((@lookup = latte), #163351, @base);
+    @logo-svg: escape(
+      '<svg width="726" height="116" viewBox="0 0 726 116" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_21_16288)"><path d="M224.097 97.853C214.298 97.853 212.631 93.247 212.631 86.584V68.552C212.631 60.908 209.887 57.478 204.595 57.478C197.344 57.478 195.58 61.3 195.58 68.944V97.853H189.308C180.39 97.853 176.96 94.129 176.96 86.584V25.334H182.938C190.68 25.334 195.089 29.058 195.089 36.016V49.932C197.833 45.62 202.341 42.386 210.867 42.386C221.745 42.386 231.251 50.814 231.251 65.416V97.853H224.097Z" fill="@{logo-svg-color}"/><path d="M269.57 42.484C284.27 42.484 297.499 53.656 297.499 70.315C297.499 87.955 286.817 99.323 268.197 99.323C252.812 99.323 240.268 87.956 240.268 72.08C240.268 54.244 252.615 42.484 269.57 42.484ZM268.393 57.183C263.297 57.183 258.691 62.573 258.691 69.923C258.691 80.311 262.807 84.819 269.373 84.819C275.252 84.819 279.074 79.429 279.074 71.981C279.075 62.28 274.861 57.183 268.393 57.183Z" fill="@{logo-svg-color}"/><path d="M352.967 97.853C344.736 97.853 342.187 95.109 342.187 86.877V67.963C342.187 60.712 339.737 57.478 333.465 57.478C328.075 57.478 325.135 61.104 325.135 67.67V97.853H318.863C310.925 97.853 306.515 94.717 306.515 86.877V67.963C306.515 52.479 316.804 42.386 333.954 42.386C353.064 42.386 360.806 52.48 360.806 68.454V97.853H352.967Z" fill="@{logo-svg-color}"/><path d="M396.284 77.567H388.249C389.326 82.957 393.736 85.505 401.479 85.505C410.103 85.505 415.493 84.133 418.531 82.075H419.217V86.387C419.217 93.247 413.631 99.421 398.246 99.421C379.626 99.421 369.826 86.877 369.826 71.981C369.826 55.615 380.9 42.288 397.56 42.288C411.672 42.288 422.648 50.226 422.648 63.946C422.647 74.726 414.512 77.567 396.284 77.567ZM397.559 56.203C390.993 56.203 388.249 60.417 387.759 65.611H395.011C403.831 65.611 405.399 64.239 405.399 61.887C405.399 59.144 402.949 56.203 397.559 56.203Z" fill="@{logo-svg-color}"/><path d="M472.398 83.643C457.306 112.651 453.484 115.591 442.215 115.591C436.237 115.591 431.239 112.357 431.239 106.281V101.772L439.274 101.184C444.174 100.792 446.428 98.832 448.388 94.422C440.646 82.858 430.748 58.359 428.592 43.952H438.294C442.9 43.952 447.702 46.794 448.779 51.596C450.641 60.122 454.365 70.51 457.207 77.076C461.225 68.942 465.439 54.438 466.615 43.952H475.533C480.923 43.952 483.471 46.5 483.471 50.812C483.472 56.498 478.377 72.177 472.398 83.643Z" fill="@{logo-svg-color}"/><path d="M544.69 86.583C544.788 88.249 544.788 90.111 544.788 92.071C544.788 105.203 533.616 115.689 516.564 115.689C501.178 115.689 495.2 108.829 495.2 101.969V96.187H495.788C499.12 99.226 505.392 100.989 514.114 100.989C521.954 100.989 526.168 96.677 526.168 90.895C526.168 90.013 525.972 88.739 525.972 87.759V85.898C524.796 89.327 520.484 92.66 515.094 92.66C501.472 92.66 490.496 85.8 490.496 69.042C490.496 54.244 502.158 42.386 520.484 42.386C536.85 42.386 544.493 51.892 544.493 66.592V80.802C544.494 82.075 544.592 84.035 544.69 86.583ZM509.018 67.277C509.018 75.313 512.743 78.253 518.329 78.253C523.523 78.253 526.364 74.235 526.364 68.159C526.364 60.221 523.424 57.379 517.838 57.379C512.252 57.379 509.018 61.005 509.018 67.277Z" fill="@{logo-svg-color}"/><path d="M578.47 99.323C568.082 99.323 555.44 94.424 555.44 82.173C555.44 70.218 564.064 64.141 583.664 64.141H586.31V61.887C586.31 57.477 582.88 56.399 575.53 56.399C565.436 56.399 561.713 58.751 557.891 62.279H557.4V55.713C557.4 49.049 564.359 42.385 579.744 42.385C594.64 42.385 604.342 49.931 604.342 65.807V74.137C604.341 93.737 598.069 99.323 578.47 99.323ZM586.701 75.706H582.977C575.921 75.706 573.079 77.469 573.079 81.096C573.079 84.525 575.236 86.29 580.429 86.29C583.761 86.29 586.701 84.624 586.701 79.724V75.706Z" fill="@{logo-svg-color}"/><path d="M624.139 40.9159C618.749 40.9159 614.34 36.7999 614.34 31.7039C614.34 26.6079 618.75 22.4919 624.139 22.4919C629.53 22.4919 633.841 26.6079 633.841 31.7039C633.841 36.7999 629.529 40.9159 624.139 40.9159ZM632.959 98.6369C623.061 98.6369 615.32 93.7379 615.32 80.9979V45.6199H619.926C630.509 45.6199 633.94 48.6579 633.94 58.4579V78.2529C633.94 83.0549 636.194 84.5249 641.388 84.5249H643.643V90.0129C643.641 96.4809 638.741 98.6369 632.959 98.6369Z" fill="@{logo-svg-color}"/><path d="M697.802 97.853C689.57 97.853 687.022 95.109 687.022 86.877V67.963C687.022 60.712 684.572 57.478 678.3 57.478C672.91 57.478 669.97 61.104 669.97 67.67V97.853H663.698C655.76 97.853 651.35 94.717 651.35 86.877V67.963C651.35 52.479 661.639 42.386 678.789 42.386C697.899 42.386 705.641 52.48 705.641 68.454V97.853H697.802Z" fill="@{logo-svg-color}"/><path d="M13.5189 47.419C12.8259 89.435 49.4879 104.836 93.2789 104.836C113.596 104.836 130.066 88.366 130.066 68.049C130.066 47.732 113.596 31.262 93.2789 31.262C72.9619 31.262 13.7999 30.356 13.5189 47.419Z" fill="#F9C900"/><path d="M100.288 68.69C105.856 68.69 110.37 64.1761 110.37 58.608C110.37 53.0399 105.856 48.526 100.288 48.526C94.7199 48.526 90.2061 53.0399 90.2061 58.608C90.2061 64.1761 94.7199 68.69 100.288 68.69Z" fill="@{logo-svg-accent}"/><path d="M97.7329 59.2909C99.5212 59.2909 100.971 57.8412 100.971 56.0529C100.971 54.2646 99.5212 52.8149 97.7329 52.8149C95.9446 52.8149 94.4949 54.2646 94.4949 56.0529C94.4949 57.8412 95.9446 59.2909 97.7329 59.2909Z" fill="white"/><path d="M90.481 31.738L42.666 72.376C38.174 76.504 32.101 78.905 25.527 78.563C12.538 77.888 2.55499 66.811 3.22899 53.821C3.90299 40.831 14.981 30.848 27.971 31.523L90.481 31.738Z" fill="white"/><path d="M136.435 14.36C132.71 13.387 128.914 15.202 127.251 18.508C118.539 19.618 110.724 23.613 104.236 30.287C102.936 29.955 101.61 29.692 100.262 29.494C101.775 24.385 104.395 19.996 108.158 16.401C109.901 17.026 111.866 17.059 113.73 16.343C117.864 14.756 119.928 10.118 118.341 5.98498C116.754 1.85198 112.117 -0.213018 107.983 1.37398C104.388 2.75398 102.362 6.44098 102.938 10.097C97.4609 15.187 93.7289 21.598 91.8869 29.071C90.4739 29.068 88.9529 29.065 87.3159 29.065C83.5849 29.065 79.3149 29.082 74.7439 29.16L27.5169 28.998C27.0559 28.974 26.5989 28.962 26.1429 28.962C12.3719 28.962 0.86494 39.757 0.14194 53.668C-0.52406 66.484 8.18994 77.609 20.2739 80.4C20.2769 80.403 20.2789 80.407 20.2819 80.41L7.84994 101.418L33.6049 92.638C49.0959 102.755 70.8379 107.023 94.5559 107.023C116.081 107.023 133.53 89.574 133.53 68.049C133.53 53.073 125.079 40.078 112.689 33.552C117.166 29.768 122.224 27.465 127.82 26.674C128.873 28.198 130.45 29.369 132.382 29.874C136.666 30.993 141.046 28.427 142.165 24.144C143.285 19.859 140.719 15.479 136.435 14.36ZM8.29694 54.093C8.79094 44.581 16.6299 37.13 26.1419 37.13C26.4569 37.13 26.7759 37.138 27.0919 37.155L27.2899 37.165L27.4879 37.166L74.5459 37.327L38.4859 67.976L38.3649 68.079L38.2479 68.186C34.9309 71.235 30.6449 72.913 26.1799 72.913C25.8669 72.913 25.5489 72.905 25.2349 72.888C15.3839 72.377 7.78494 63.945 8.29694 54.093ZM31.3839 80.549C36.0849 79.586 40.3459 77.349 43.7749 74.199L45.5159 72.72C45.5629 78.874 47.0169 85.248 49.8769 91.805C42.4529 88.913 36.2579 85.142 31.3839 80.549ZM60.7739 95.211C54.3919 84.329 52.3069 74.189 54.5749 65.019L67.2119 54.279C65.5539 58.704 64.4379 63.608 64.4019 68.889C64.3319 79.099 68.2519 88.814 76.0409 97.877C70.6059 97.269 65.5119 96.376 60.7739 95.211ZM91.4219 37.237C92.5429 37.239 93.5909 37.241 94.5559 37.241C111.543 37.241 125.363 51.061 125.363 68.048C125.363 85.035 111.543 98.855 94.5559 98.855C92.4549 98.855 90.3949 98.817 88.3689 98.75C77.8209 89.391 72.4969 79.367 72.5679 68.944C72.6899 51.011 88.5659 37.368 88.7259 37.233L91.4219 37.237Z" fill="@{logo-svg-accent}"/><path d="M715.72 51H717.676V45.828L719.896 49.404H721.024L723.244 45.828V51H725.212L725.2 42H723.556L720.46 46.848L717.364 42H715.72V51ZM709 51H711.052V43.848H714.04V42H706V43.848H709V51Z" fill="@{logo-svg-color}"/></g><defs><clipPath id="clip0_21_16288"><rect width="726" height="116" fill="white"/></clipPath></defs></svg>'
+    );
+
+    // root has up to 3 children, first is toastify, second is content, third is cookie consent
+    // cookie consent is optional. the error page is only a single child in the root element
+    // "something went wrong" screen
+    #root:not(:has(> :nth-child(2))) > div {
+      background-color: @base;
+      & > div > div {
+        // navbar
+        & > div:first-child {
+          background-color: inherit;
+          // logo
+          .logo > a > img {
+            width: 0 !important;
+            height: 0 !important;
+            padding-left: 140px !important;
+            padding-top: 22px !important;
+            background-image: url("data:image/svg+xml,@{logo-svg}") !important;
+            background-size: contain;
+            background-repeat: no-repeat;
+            @media (min-width: 561px) {
+              padding-left: 168px !important;
+              padding-top: 26px !important;
+            }
+          }
+        }
+        h2,
+        p {
+          color: @text;
+        }
+        button {
+          background-color: @accent-color;
+          & span {
+            color: @base;
+          }
+        }
+      }
+    }
+    // something didnt go wrong (any other screen)
+    #root:has(> :nth-child(2)) {
+      background-color: @base;
+
+      // first div child is for toasts
+
+      // second child is the rest of the app
+      & > div:nth-child(2) {
+        // honeygain-jumptask switcher
+        #hjswitcher() {
+          background-color: @surface0;
+          border-color: @surface1;
+          & > div > div > span {
+            color: @text;
+          }
+
+          // enabled text
+          svg[fill="#232836"] * {
+            fill: @text;
+          }
+          // disabled text
+          svg[fill="#A8B3BF"] * {
+            fill: @overlay1;
+          }
+          div[color="#A8B3BF"] span {
+            color: @overlay1;
+          }
+          // bonus badge
+          button > div {
+            &[color="#CED7E0"] {
+              background-color: @surface2;
+              span {
+                color: @subtext0;
+              }
+            }
+          }
+        }
+        // select between multiple badges
+        #multiSelectPills() {
+          & > div:not([class*="DatePickerView--"]) {
+            & > div > span {
+              color: @subtext1;
+            }
+            &:hover {
+              background-color: fade(@accent-color, 5%);
+            }
+          }
+          // is selected (ignore date picker)
+          & > div:has([color="#0B82E3"]):not([class*="DatePickerView--"]) {
+            background-color: fade(@accent-color, 10%);
+            & > div > span {
+              color: @accent-color;
+            }
+          }
+        }
+        // style loading spinner
+        #styleLoader() {
+          & > div[class*="Wrapper--"] {
+            // dots
+            & > div[class*="BubbleWrap--"] > div[class*="Bubble--"] {
+              background-color: @accent-color;
+            }
+            // moving dot
+            & > div[class*="SatelliteWrapper--"] > div[class*="Satellite--"] {
+              // the dot is a little lighter than the rest
+              @clr: darken(@accent-color, -10%);
+              background-color: @clr;
+              box-shadow: @clr 0 0 50px -4px;
+            }
+          }
+        }
+
+        // confirm email button/icon
+        header
+          + div
+          > div:has(button:first-child):has(
+            button:last-child[data-state] > svg
+          ) {
+          & > button:first-child {
+            color: @accent-color;
+            border-color: @accent-color;
+            &:hover,
+            &:active {
+              background-color: fade(@accent-color, 15%);
+            }
+          }
+          & > button:last-child > svg {
+            fill: @subtext0;
+          }
+        }
+
+        // currently sharing status dot
+        button
+          > svg
+          > g[clip-path="url(#user_active_icon_clip0)"]
+          + circle[fill="#659E10"] {
+          fill: @green;
+        }
+
+        // jumptask icon
+        div[tabindex="0"]:has(
+            > div:first-child > svg > g > circle[fill="rgba(86, 151, 249, 1)"]
+          ) {
+          // jumptask logo
+          & > :first-child svg {
+            circle {
+              fill: @accent-color;
+            }
+            path {
+              fill: @mantle;
+            }
+          }
+          // popout
+          & > :last-child > div {
+            background-color: @crust;
+            // content
+            &:last-child {
+              [color="#fff"] span {
+                color: @text;
+              }
+              [color="#E7ECF1"] span {
+                color: @subtext0;
+              }
+              a {
+                color: @accent-color;
+              }
+            }
+          }
+        }
+
+        // navbar
+        & > div:first-child {
+          background-color: @base;
+
+          // ignore the header image (only has a class of active)
+          a:not([class="active"]) {
+            color: @subtext1;
+            // icon on link
+            span svg * {
+              fill: @subtext1 !important;
+            }
+            &:hover {
+              background-color: @surface0;
+            }
+            &.active {
+              background-color: @mantle;
+            }
+          }
+          // header image
+          a[href="/"] img {
+            width: 0 !important;
+            height: 0 !important;
+            padding-left: 168px !important;
+            padding-top: 26px !important;
+            background-image: url("data:image/svg+xml,@{logo-svg}") !important;
+            background-size: contain;
+            background-repeat: no-repeat;
+          }
+
+          // small screen layout (has more content)
+          & > [style] {
+            // links
+            a:has(div[color="#4E7294"]),
+            // selected links too
+            a:has(div[color="#0B82E3"]) {
+              svg path {
+                fill: @subtext1;
+              }
+              span {
+                color: @subtext1;
+              }
+            }
+            // top section
+            & > :first-child {
+              div[weight] {
+                color: @text;
+              }
+              // "no active devices"
+              [style*="line-height"] {
+                color: @subtext0;
+                a {
+                  color: @accent-color !important;
+                  // needed because of the selector for page links
+                  background-color: unset;
+                }
+              }
+              // X icon
+              & > :first-child > :last-child {
+                &:hover {
+                  background-color: @mantle;
+                }
+                svg * {
+                  stroke: @subtext0;
+                }
+              }
+            }
+
+            & > div > div[style*="margin-top"] {
+              #hjswitcher();
+            }
+
+            // lines
+            div[spacingbottom][spacingtop],
+            div[spacing] {
+              background: @mantle;
+            }
+          }
+        }
+        // main page content
+        & > div:last-child {
+          background-color: @mantle;
+
+          // switches
+          & main .react-toggle {
+            .react-toggle-track {
+              background-color: @overlay1;
+            }
+            &:hover:not(.react-toggle--disabled) {
+              .react-toggle-track {
+                background-color: @overlay2;
+              }
+              &.react-toggle--checked .react-toggle-track {
+                background-color: darken(@accent-color, -10%);
+              }
+            }
+            &.react-toggle--checked .react-toggle-track {
+              background-color: @accent-color;
+            }
+            &.react-toggle--focus .react-toggle-track {
+              box-shadow: fade(@accent-color, 20%) 0 0 0 4px;
+            }
+            .react-toggle-thumb {
+              background-color: @base;
+            }
+          }
+
+          & header {
+            background-color: @mantle;
+            & > div {
+              // regular layout
+              & > :first-child {
+                & > :nth-child(2) > div {
+                  #hjswitcher();
+                }
+
+                & > :nth-child(3) div[top="100%"][left="0"] > div {
+                  background-color: @crust;
+                  & > div > a > div {
+                    &:hover,
+                    &:active {
+                      background-color: @mantle;
+                    }
+                    & > div > div {
+                      color: @text;
+                      svg path {
+                        fill: @text;
+                      }
+                    }
+                  }
+                }
+
+                // avatar and buttons
+                & > :last-child {
+                  svg * {
+                    fill: @subtext0;
+                  }
+
+                  // avatar dropdown
+                  & > :last-child > div[top] > div {
+                    background-color: @crust;
+
+                    // titles and links
+                    div[weight],
+                    a {
+                      color: @text;
+                    }
+                    // "no active devices"
+                    [style*="line-height"] {
+                      color: @subtext0;
+                      a {
+                        color: @accent-color !important;
+                      }
+                    }
+                    // lines
+                    div[spacing] {
+                      background-color: @mantle;
+                    }
+                  }
+                }
+              }
+              // small layout
+              & > :last-child > div > div > div {
+                // header image
+                a[href="/"] img {
+                  width: 0 !important;
+                  height: 0 !important;
+                  padding-left: 140px !important;
+                  padding-top: 22px !important;
+                  background-image: url("data:image/svg+xml,@{logo-svg}") !important;
+                  background-size: contain;
+                  background-repeat: no-repeat;
+                }
+                // icons
+                & > div:last-child {
+                  svg path {
+                    fill: @subtext0;
+                  }
+                  // dot on hamburger menu
+                  & > div:last-child > div:first-child:empty:not(:last-child) {
+                    background-color: @accent-color;
+                  }
+                }
+              }
+            }
+          }
+
+          // progress bars
+          main progress {
+            background-color: @surface0;
+            color: @accent-color;
+            &::-moz-progress-bar,
+            &::-webkit-progress-value {
+              background: @accent-color;
+            }
+          }
+
+          // apply on loading screen
+          &:has(div[class*="Wrapper--"] > div[class*="SatelliteWrapper--"]) {
+            main > div > div {
+              div[color="#2E3643"] > div {
+                color: @subtext1;
+              }
+              // spinner
+              & > div {
+                #styleLoader();
+              }
+            }
+          }
+
+          // apply on main page only (look for faq link)
+          &:has(a[rel="noopener"][target="_blank"][href="https://support.honeygain.com/hc/en-us"])
+          {
+            #cardEarnings() {
+              #selectedButton() {
+                box-shadow: @accent-color 0 2px 0 inset;
+                background-color: darken(@base, 3%);
+              }
+              // wish there was a better way to do this
+              // this determines if the current card is the "jumptask" one so we can style which button is currently active
+              &:has(:nth-child(2) > div > div button > svg) {
+                & > :first-child > div {
+                  &:first-child {
+                    box-shadow: none !important;
+                    background-color: @base !important;
+                  }
+                  &:last-child {
+                    #selectedButton();
+                  }
+                }
+              }
+              // switcher buttons
+              & > :first-child > div {
+                // apply selection on first child (can be overriden above)
+                &:first-child {
+                  #selectedButton();
+                }
+                background-color: @base;
+                span {
+                  color: @text;
+                }
+                // checkmark on icon
+                svg > g {
+                  & > circle[fill="#0B82E3"] {
+                    fill: @accent-color !important;
+                    & + path[fill="white"] {
+                      fill: @crust !important;
+                    }
+                  }
+                }
+              }
+              & > :last-child {
+                // "10% bonus gift" badge
+                div[color="#232836"] span {
+                  color: unset;
+                }
+                & > div > div {
+                  & button:last-child:not([data-state]) {
+                    // "JumpTask Dashboard" button
+                    background-color: @accent-color;
+                    div[color="#fff"] > span {
+                      color: @crust;
+                    }
+                  }
+                  // progress bar
+                  & > div:last-child div:last-child:not([class]) {
+                    div > span {
+                      color: darken(@surface0, 25%);
+                    }
+                    & > div:last-child {
+                      background-color: @surface0;
+                    }
+                  }
+                }
+
+                & when not (@lookup = latte) {
+                  // makes the svg a little less eye-bleed
+                  // cant style the individual hexagons
+                  button > div > div > div > svg:first-child {
+                    filter: brightness(0.5);
+                  }
+                }
+              }
+            }
+            #cardEarningsGraph() {
+              // title and buttons
+              & > div:first-child > :first-child {
+                & > :first-child div {
+                  color: @text;
+                }
+                @big: {
+                  & > :last-child > div {
+                    #multiSelectPills();
+                  }
+                };
+                @small: {
+                  // dropdown button
+                  & > :last-child > div > div[mode="dropdown"] {
+                    svg {
+                      fill: @text;
+                    }
+                    &:hover svg {
+                      fill: @subtext0;
+                    }
+                    // dropdown menu
+                    & > :last-child > div {
+                      background-color: @crust;
+                      & > div > div {
+                        &:hover {
+                          background-color: @mantle;
+                        }
+                        &.selected span {
+                          color: @accent-color;
+                        }
+                      }
+                    }
+                  }
+                };
+                #media(@big, @small);
+              }
+              // chart timeframe text
+              & > :nth-child(2) > :last-child > div {
+                color: @subtext0;
+              }
+              // legend text
+              #traffic-legend-container .legend-list-item {
+                // lines
+                &:not(:last-child) {
+                  box-shadow: @mantle 0 1px 0;
+                }
+                p {
+                  color: @text;
+                }
+              }
+            }
+            #cardDevices() {
+              // titles
+              & > :first-child > div {
+                & > :first-child > div {
+                  color: @text;
+                }
+                & > :last-child > div {
+                  color: @subtext0;
+                }
+                a {
+                  color: @accent-color;
+                }
+              }
+              // "x devices havent been connected in x days" banner
+              & > div:has(svg:first-child):has(div:last-child > span > b),  
+            // "show device's ip address" switch
+            & > div:has(.react-toggle) {
+                background-color: @mantle;
+                & > svg {
+                  fill: @overlay0;
+                }
+              }
+              // bees tutorial svg
+              // mobile has entirely different svg paths so the manual recolors need both
+              & > svg:first-child {
+                // adjusted lighter base color for bg
+                @newbase: darken(@base, -2%);
+                // background
+                [fill="white"],
+              // appears to be some sort of promo image for the designer, shows up through background
+              [fill*="_pattern4"] {
+                  fill: @base;
+                }
+                // text color
+                [fill="#2E3643"],
+                [fill="#181D2B"],
+                [fill="#232836"] {
+                  fill: @text;
+                }
+                // device outline (inner)
+                [stroke="#E1E1E1"] {
+                  stroke: @mantle;
+                }
+                // laptop outline (outer)
+                [stroke="#E7E7E7"] {
+                  stroke: @surface0;
+                }
+                // phone outline (outer)
+                [fill="#F9FAFA"] {
+                  fill: @surface0;
+                }
+                // laptop camera hole
+                [fill="#F2F2F2"],
+              // phone camera hole
+              [fill="#C8C8C8"] {
+                  fill: @surface1;
+                }
+                // device background
+                [fill="#F9FBFD"],
+              // random spot in corner
+              [fill="#F7F9FC"] {
+                  fill: @newbase;
+                }
+                // dashed lines
+                stop[stop-color="#355A7C"] {
+                  stop-color: @overlay2;
+                }
+                // bottom of laptop
+                stop[stop-color="#EBEBEB"] {
+                  stop-color: @surface0;
+                }
+                stop[stop-color="#585858"] {
+                  stop-color: @overlay0;
+                }
+                // line on bottom of phone
+                g[filter*="_filter10"] {
+                  filter: none;
+                }
+                // background bubble
+                [fill="#F4F9FF"],
+              // navbar line
+              [fill="#EFF6FD"] {
+                  fill: @mantle;
+                }
+                // laptop background
+                stop[stop-color="white"] {
+                  stop-color: @base;
+                }
+                stop[stop-color="#E4E4E4"] {
+                  stop-color: darken(@base, -5%);
+                }
+                // progress bar background
+                [fill="#E3EEF8"] {
+                  fill: @surface0;
+                }
+                // icons, and muted text
+                [fill="#7B8694"],
+                [fill="#4E7294"] {
+                  fill: @subtext0;
+                }
+                // progress bar text (laptop)
+                [d="M259.414 157.543H259.611V156.926H260.043C260.058 156.926 260.076 156.926 260.097 156.924C260.119 156.923 260.14 156.92 260.16 156.917C260.289 156.896 260.386 156.838 260.453 156.743C260.52 156.648 260.554 156.533 260.554 156.401C260.554 156.268 260.52 156.154 260.453 156.059C260.387 155.963 260.289 155.905 260.16 155.884C260.14 155.88 260.119 155.878 260.097 155.877C260.077 155.875 260.059 155.875 260.043 155.875H259.414V157.543ZM259.611 156.731V156.07H260.037C260.051 156.07 260.066 156.071 260.084 156.073C260.103 156.074 260.12 156.077 260.136 156.081C260.213 156.099 260.268 156.139 260.302 156.202C260.336 156.265 260.353 156.331 260.353 156.401C260.353 156.47 260.336 156.536 260.302 156.6C260.268 156.662 260.213 156.703 260.136 156.72C260.12 156.724 260.103 156.727 260.084 156.728C260.066 156.73 260.051 156.731 260.037 156.731H259.611ZM261.071 157.577C261.27 157.577 261.417 157.501 261.513 157.348V157.543H261.687V156.769C261.687 156.72 261.685 156.672 261.681 156.628C261.676 156.582 261.666 156.54 261.649 156.501C261.615 156.419 261.559 156.358 261.481 156.318C261.403 156.277 261.31 156.257 261.202 156.257C261.067 156.257 260.958 156.288 260.875 156.351C260.793 156.413 260.737 156.499 260.709 156.609L260.896 156.668C260.917 156.592 260.955 156.536 261.01 156.501C261.064 156.467 261.128 156.449 261.2 156.449C261.303 156.449 261.377 156.473 261.422 156.522C261.468 156.57 261.492 156.644 261.494 156.743C261.406 156.757 261.313 156.77 261.215 156.785C261.119 156.799 261.033 156.816 260.958 156.837C260.867 156.865 260.796 156.909 260.743 156.968C260.691 157.027 260.665 157.106 260.665 157.204C260.665 157.272 260.68 157.333 260.71 157.39C260.741 157.446 260.787 157.492 260.846 157.527C260.907 157.56 260.981 157.577 261.071 157.577ZM261.101 157.405C261.016 157.405 260.955 157.384 260.917 157.343C260.879 157.302 260.861 157.255 260.861 157.203C260.861 157.145 260.879 157.1 260.916 157.069C260.953 157.037 260.997 157.013 261.046 156.997C261.105 156.98 261.172 156.966 261.25 156.954C261.327 156.943 261.408 156.931 261.492 156.919C261.492 156.948 261.49 156.981 261.487 157.017C261.485 157.053 261.48 157.086 261.472 157.116C261.458 157.194 261.419 157.261 261.355 157.319C261.291 157.376 261.207 157.405 261.101 157.405ZM262.074 158.099H262.265L262.915 156.292H262.715L262.366 157.276L261.993 156.292H261.786L262.271 157.538L262.074 158.099ZM263.563 157.577C263.682 157.577 263.784 157.55 263.869 157.494C263.955 157.439 264.022 157.361 264.068 157.261C264.115 157.162 264.139 157.046 264.139 156.916C264.139 156.787 264.116 156.673 264.069 156.574C264.024 156.475 263.958 156.397 263.871 156.342C263.785 156.285 263.682 156.257 263.563 156.257C263.446 156.257 263.345 156.285 263.259 156.34C263.173 156.395 263.106 156.472 263.059 156.571C263.012 156.67 262.988 156.785 262.988 156.916C262.988 157.045 263.011 157.159 263.057 157.259C263.103 157.359 263.169 157.437 263.256 157.493C263.342 157.549 263.444 157.577 263.563 157.577ZM263.563 157.382C263.443 157.382 263.352 157.34 263.29 157.255C263.228 157.171 263.197 157.057 263.197 156.916C263.197 156.779 263.227 156.668 263.287 156.582C263.346 156.496 263.438 156.453 263.563 156.453C263.685 156.453 263.777 156.495 263.838 156.579C263.899 156.663 263.93 156.775 263.93 156.916C263.93 157.053 263.899 157.166 263.838 157.252C263.778 157.339 263.686 157.382 263.563 157.382ZM264.836 157.575C265.009 157.575 265.142 157.511 265.233 157.382V157.543H265.409V156.292H265.211V156.951C265.211 157.095 265.181 157.203 265.121 157.274C265.061 157.344 264.982 157.379 264.883 157.379C264.799 157.379 264.733 157.357 264.686 157.313C264.64 157.269 264.607 157.212 264.588 157.142C264.569 157.071 264.559 156.996 264.559 156.918V156.292H264.36V156.983C264.36 157.043 264.367 157.107 264.38 157.175C264.394 157.243 264.418 157.308 264.453 157.369C264.488 157.429 264.537 157.479 264.599 157.517C264.661 157.556 264.74 157.575 264.836 157.575ZM266.385 157.543V157.365C266.304 157.379 266.234 157.381 266.175 157.372C266.118 157.364 266.076 157.335 266.049 157.286C266.035 157.259 266.027 157.228 266.026 157.193C266.025 157.157 266.025 157.113 266.025 157.061V156.462H266.385V156.292H266.025V155.944H265.828V156.292H265.586V156.462H265.828V157.07C265.828 157.135 265.829 157.193 265.83 157.244C265.833 157.294 265.846 157.343 265.869 157.392C265.897 157.448 265.938 157.49 265.992 157.517C266.046 157.544 266.107 157.558 266.175 157.56C266.245 157.563 266.315 157.557 266.385 157.543ZM267.154 157.543H267.367L267.938 156.073V155.875H267.004V156.073H267.727L267.154 157.543ZM268.675 157.577C268.773 157.577 268.864 157.552 268.947 157.502C269.03 157.451 269.097 157.384 269.147 157.299C269.197 157.215 269.222 157.121 269.222 157.018C269.222 156.915 269.199 156.821 269.153 156.739C269.108 156.655 269.046 156.59 268.968 156.542C268.889 156.493 268.801 156.469 268.702 156.469C268.59 156.469 268.491 156.505 268.405 156.577L268.434 156.07H269.111V155.875H268.257L268.208 156.747L268.383 156.816C268.412 156.773 268.451 156.736 268.5 156.705C268.55 156.674 268.61 156.659 268.68 156.659C268.742 156.659 268.799 156.675 268.852 156.706C268.904 156.738 268.946 156.781 268.976 156.836C269.008 156.89 269.024 156.951 269.024 157.018C269.024 157.083 269.009 157.143 268.978 157.197C268.947 157.252 268.906 157.295 268.855 157.328C268.803 157.361 268.745 157.377 268.68 157.377C268.607 157.377 268.538 157.353 268.474 157.305C268.41 157.257 268.368 157.191 268.349 157.109L268.16 157.163C268.181 157.244 268.216 157.316 268.266 157.378C268.316 157.441 268.376 157.49 268.446 157.525C268.517 157.56 268.593 157.577 268.675 157.577ZM269.862 156.674C269.935 156.674 270.001 156.655 270.061 156.618C270.122 156.58 270.17 156.53 270.206 156.468C270.242 156.404 270.26 156.334 270.26 156.257C270.26 156.18 270.242 156.11 270.206 156.047C270.17 155.984 270.122 155.934 270.061 155.897C270.001 155.859 269.935 155.84 269.862 155.84C269.791 155.84 269.726 155.859 269.665 155.897C269.605 155.934 269.556 155.985 269.519 156.048C269.483 156.112 269.464 156.181 269.464 156.257C269.464 156.334 269.482 156.404 269.518 156.468C269.554 156.53 269.602 156.58 269.662 156.618C269.722 156.655 269.789 156.674 269.862 156.674ZM269.663 157.543L271.125 156.014L270.992 155.875L269.53 157.404L269.663 157.543ZM269.862 156.492C269.802 156.492 269.749 156.469 269.704 156.423C269.66 156.375 269.638 156.32 269.638 156.257C269.638 156.193 269.66 156.138 269.704 156.091C269.749 156.045 269.802 156.022 269.862 156.022C269.923 156.022 269.976 156.045 270.02 156.091C270.064 156.138 270.087 156.193 270.087 156.257C270.087 156.32 270.064 156.375 270.02 156.423C269.976 156.469 269.923 156.492 269.862 156.492ZM270.793 157.577C270.866 157.577 270.932 157.559 270.992 157.522C271.052 157.484 271.101 157.434 271.137 157.371C271.173 157.308 271.191 157.238 271.191 157.16C271.191 157.083 271.173 157.013 271.137 156.951C271.101 156.887 271.052 156.837 270.992 156.8C270.932 156.762 270.866 156.743 270.793 156.743C270.722 156.743 270.657 156.762 270.596 156.8C270.536 156.838 270.487 156.889 270.45 156.952C270.413 157.015 270.395 157.085 270.395 157.16C270.395 157.238 270.413 157.308 270.448 157.371C270.484 157.434 270.532 157.484 270.593 157.522C270.653 157.559 270.72 157.577 270.793 157.577ZM270.793 157.396C270.733 157.396 270.68 157.372 270.635 157.326C270.591 157.279 270.568 157.224 270.568 157.16C270.568 157.096 270.591 157.041 270.635 156.995C270.68 156.948 270.733 156.925 270.793 156.925C270.854 156.925 270.907 156.948 270.951 156.995C270.995 157.041 271.017 157.096 271.017 157.16C271.017 157.224 270.995 157.279 270.951 157.326C270.907 157.372 270.854 157.396 270.793 157.396Z"],
+              // progress bar text (phone)
+              [d="M153.156 231.549H153.406V230.766H153.956C153.974 230.766 153.997 230.765 154.024 230.763C154.052 230.761 154.078 230.758 154.104 230.754C154.267 230.728 154.392 230.654 154.477 230.533C154.562 230.412 154.605 230.266 154.605 230.098C154.605 229.929 154.562 229.784 154.477 229.663C154.393 229.541 154.269 229.467 154.104 229.441C154.078 229.436 154.052 229.433 154.024 229.432C153.998 229.43 153.975 229.429 153.956 229.429H153.156V231.549ZM153.406 230.517V229.678H153.947C153.965 229.678 153.985 229.679 154.008 229.681C154.031 229.683 154.053 229.686 154.074 229.691C154.171 229.714 154.241 229.765 154.284 229.846C154.328 229.925 154.349 230.009 154.349 230.098C154.349 230.186 154.328 230.27 154.284 230.351C154.241 230.43 154.171 230.481 154.074 230.504C154.053 230.509 154.031 230.512 154.008 230.514C153.985 230.516 153.965 230.517 153.947 230.517H153.406ZM155.262 231.594C155.515 231.594 155.702 231.496 155.824 231.302V231.549H156.046V230.566C156.046 230.503 156.043 230.443 156.037 230.386C156.032 230.328 156.018 230.275 155.996 230.226C155.953 230.122 155.882 230.044 155.783 229.993C155.684 229.941 155.566 229.915 155.429 229.915C155.257 229.915 155.119 229.955 155.013 230.034C154.908 230.114 154.838 230.223 154.802 230.362L155.04 230.438C155.067 230.34 155.115 230.27 155.184 230.226C155.254 230.181 155.334 230.159 155.426 230.159C155.557 230.159 155.651 230.19 155.708 230.252C155.766 230.313 155.797 230.407 155.8 230.533C155.687 230.55 155.569 230.568 155.446 230.586C155.323 230.604 155.214 230.626 155.118 230.653C155.003 230.688 154.912 230.743 154.846 230.819C154.779 230.894 154.746 230.994 154.746 231.119C154.746 231.205 154.765 231.283 154.804 231.355C154.843 231.427 154.9 231.485 154.976 231.529C155.053 231.572 155.148 231.594 155.262 231.594ZM155.299 231.374C155.192 231.374 155.114 231.348 155.066 231.296C155.018 231.243 154.995 231.184 154.995 231.118C154.995 231.043 155.018 230.986 155.065 230.947C155.113 230.907 155.168 230.877 155.231 230.856C155.305 230.834 155.391 230.816 155.489 230.801C155.588 230.787 155.69 230.772 155.797 230.757C155.797 230.793 155.795 230.835 155.791 230.881C155.788 230.927 155.782 230.969 155.772 231.008C155.754 231.106 155.704 231.192 155.623 231.265C155.542 231.338 155.434 231.374 155.299 231.374ZM156.537 232.256H156.78L157.606 229.959H157.352L156.908 231.211L156.434 229.959H156.171L156.787 231.543L156.537 232.256ZM158.43 231.594C158.58 231.594 158.71 231.558 158.819 231.488C158.928 231.417 159.013 231.318 159.072 231.192C159.132 231.065 159.162 230.919 159.162 230.753C159.162 230.589 159.132 230.444 159.073 230.318C159.015 230.192 158.931 230.093 158.822 230.022C158.712 229.951 158.581 229.915 158.43 229.915C158.282 229.915 158.153 229.95 158.043 230.021C157.934 230.091 157.849 230.188 157.789 230.314C157.729 230.44 157.699 230.586 157.699 230.753C157.699 230.917 157.728 231.062 157.786 231.189C157.845 231.315 157.929 231.414 158.039 231.486C158.149 231.558 158.279 231.594 158.43 231.594ZM158.43 231.345C158.277 231.345 158.161 231.291 158.083 231.184C158.004 231.076 157.964 230.932 157.964 230.753C157.964 230.579 158.002 230.438 158.078 230.329C158.154 230.219 158.271 230.164 158.43 230.164C158.585 230.164 158.702 230.217 158.779 230.324C158.857 230.431 158.896 230.574 158.896 230.753C158.896 230.927 158.857 231.07 158.779 231.18C158.703 231.29 158.586 231.345 158.43 231.345ZM160.047 231.591C160.268 231.591 160.437 231.509 160.553 231.345V231.549H160.776V229.959H160.525V230.797C160.525 230.981 160.487 231.117 160.41 231.208C160.334 231.297 160.233 231.342 160.108 231.342C160.001 231.342 159.917 231.314 159.857 231.258C159.798 231.202 159.757 231.129 159.732 231.04C159.708 230.95 159.696 230.855 159.696 230.756V229.959H159.443V230.838C159.443 230.914 159.451 230.995 159.468 231.083C159.486 231.169 159.517 231.251 159.561 231.329C159.606 231.405 159.668 231.468 159.746 231.517C159.825 231.566 159.925 231.591 160.047 231.591ZM162.017 231.549V231.324C161.913 231.341 161.824 231.344 161.75 231.333C161.677 231.322 161.624 231.285 161.59 231.222C161.572 231.189 161.562 231.15 161.561 231.105C161.559 231.059 161.559 231.003 161.559 230.937V230.176H162.017V229.959H161.559V229.517H161.309V229.959H161.001V230.176H161.309V230.949C161.309 231.031 161.31 231.105 161.312 231.169C161.315 231.233 161.331 231.296 161.361 231.358C161.396 231.43 161.449 231.483 161.517 231.517C161.585 231.55 161.663 231.569 161.75 231.571C161.838 231.575 161.927 231.568 162.017 231.549ZM162.995 231.549H163.264L163.991 229.681V229.429H162.804V229.681H163.723L162.995 231.549ZM164.927 231.594C165.053 231.594 165.168 231.562 165.273 231.498C165.379 231.433 165.464 231.347 165.527 231.24C165.591 231.132 165.623 231.013 165.623 230.882C165.623 230.751 165.594 230.633 165.536 230.528C165.478 230.421 165.399 230.338 165.3 230.277C165.2 230.215 165.088 230.184 164.962 230.184C164.82 230.184 164.694 230.23 164.584 230.321L164.621 229.678H165.482V229.429H164.396L164.334 230.538L164.556 230.626C164.593 230.571 164.643 230.524 164.705 230.485C164.769 230.446 164.845 230.426 164.934 230.426C165.013 230.426 165.086 230.446 165.152 230.486C165.219 230.526 165.272 230.582 165.311 230.651C165.351 230.72 165.371 230.797 165.371 230.882C165.371 230.965 165.352 231.041 165.312 231.111C165.274 231.179 165.222 231.235 165.156 231.277C165.091 231.318 165.017 231.339 164.934 231.339C164.841 231.339 164.753 231.308 164.672 231.248C164.591 231.186 164.538 231.103 164.513 230.999L164.273 231.066C164.3 231.169 164.345 231.261 164.407 231.34C164.471 231.42 164.547 231.482 164.636 231.527C164.726 231.571 164.823 231.594 164.927 231.594ZM166.437 230.445C166.529 230.445 166.614 230.421 166.69 230.374C166.766 230.326 166.828 230.262 166.874 230.183C166.92 230.102 166.942 230.013 166.942 229.915C166.942 229.817 166.92 229.728 166.874 229.648C166.828 229.568 166.766 229.504 166.69 229.457C166.614 229.409 166.529 229.385 166.437 229.385C166.347 229.385 166.263 229.409 166.187 229.457C166.11 229.505 166.048 229.569 166.001 229.65C165.954 229.73 165.931 229.819 165.931 229.915C165.931 230.013 165.954 230.102 166 230.183C166.046 230.262 166.106 230.326 166.182 230.374C166.259 230.421 166.344 230.445 166.437 230.445ZM166.184 231.549L168.041 229.606L167.873 229.429L166.015 231.373L166.184 231.549ZM166.437 230.214C166.36 230.214 166.293 230.184 166.236 230.125C166.179 230.066 166.151 229.995 166.151 229.915C166.151 229.833 166.179 229.763 166.236 229.704C166.293 229.645 166.36 229.616 166.437 229.616C166.514 229.616 166.581 229.645 166.638 229.704C166.694 229.763 166.722 229.833 166.722 229.915C166.722 229.995 166.694 230.066 166.638 230.125C166.581 230.184 166.514 230.214 166.437 230.214ZM167.62 231.594C167.713 231.594 167.797 231.57 167.873 231.523C167.949 231.475 168.011 231.411 168.057 231.331C168.103 231.251 168.126 231.162 168.126 231.063C168.126 230.965 168.103 230.877 168.057 230.797C168.011 230.716 167.949 230.653 167.873 230.606C167.797 230.557 167.713 230.533 167.62 230.533C167.53 230.533 167.447 230.557 167.37 230.606C167.293 230.654 167.231 230.718 167.184 230.798C167.137 230.879 167.114 230.967 167.114 231.063C167.114 231.162 167.136 231.251 167.181 231.331C167.227 231.411 167.289 231.475 167.365 231.523C167.442 231.57 167.527 231.594 167.62 231.594ZM167.62 231.362C167.543 231.362 167.476 231.333 167.419 231.274C167.363 231.214 167.335 231.144 167.335 231.063C167.335 230.982 167.363 230.912 167.419 230.853C167.476 230.794 167.543 230.765 167.62 230.765C167.698 230.765 167.765 230.794 167.821 230.853C167.877 230.912 167.905 230.982 167.905 231.063C167.905 231.144 167.877 231.214 167.821 231.274C167.765 231.333 167.698 231.362 167.62 231.362Z"] {
+                  fill: darken(@surface0, 25%);
+                }
+                // accent
+                [fill="#0B82E3"] {
+                  fill: @accent-color;
+                }
+                // recolor logo and hexagons
+                & when not (@lookup = latte) {
+                  // logo letter colors
+                  [fill="#163351"] {
+                    fill: @h-brand;
+                  }
+                  // (desktop layout) bee's pupil (phone)
+                  [d="M358.693 116.581C358.776 116.581 358.843 116.515 358.843 116.434C358.843 116.353 358.776 116.287 358.693 116.287C358.61 116.287 358.542 116.353 358.542 116.434C358.542 116.515 358.61 116.581 358.693 116.581Z"],
+                // (desktop layout) bee's wing (phone)
+                [d="M358.355 115.332L356.133 117.174C355.924 117.362 355.641 117.47 355.336 117.455C354.732 117.424 354.268 116.922 354.299 116.333C354.33 115.744 354.845 115.291 355.449 115.322L358.355 115.332Z"],
+                // (desktop layout) bee's pupil (laptop)
+                [d="M414.438 86.7246C414.511 86.7246 414.569 86.6643 414.569 86.5898C414.569 86.5154 414.511 86.4551 414.438 86.4551C414.365 86.4551 414.306 86.5154 414.306 86.5898C414.306 86.6643 414.365 86.7246 414.438 86.7246Z"],
+                // (desktop layout) bee's wing (laptop)
+                [d="M414.143 85.5767L412.201 87.268C412.019 87.4398 411.772 87.5398 411.505 87.5256C410.978 87.4976 410.572 87.0364 410.6 86.4958C410.627 85.9551 411.077 85.5397 411.605 85.5677L414.143 85.5767Z"],
+                // (mobile layout) bee's pupil (phone)
+                [d="M138.888 147.713C138.955 147.713 139.009 147.658 139.009 147.59C139.009 147.522 138.955 147.467 138.888 147.467C138.821 147.467 138.767 147.522 138.767 147.59C138.767 147.658 138.821 147.713 138.888 147.713Z"],
+                // (mobile layout) bee's wing (phone)
+                [d="M138.618 146.666L136.836 148.213C136.669 148.37 136.443 148.462 136.198 148.449C135.714 148.423 135.342 148.001 135.367 147.507C135.392 147.012 135.805 146.632 136.289 146.657L138.618 146.666Z"],
+                // (mobile layout) bee's pupil (laptop)
+                [d="M183.562 122.64C183.62 122.64 183.667 122.59 183.667 122.527C183.667 122.465 183.62 122.414 183.562 122.414C183.503 122.414 183.456 122.465 183.456 122.527C183.456 122.59 183.503 122.64 183.562 122.64Z"],
+                // (mobile layout) bee's wing (laptop)
+                [d="M183.325 121.679L181.769 123.099C181.623 123.243 181.425 123.327 181.211 123.315C180.789 123.292 180.464 122.904 180.486 122.45C180.508 121.996 180.868 121.647 181.291 121.671L183.325 121.679Z"] {
+                    fill: white;
+                  }
+                  // (desktop layout) outline around bee (laptop)
+                  [d="M416.009 84.8538C415.858 84.8132 415.704 84.8888 415.636 85.0264C415.283 85.0726 414.965 85.2389 414.702 85.5166C414.649 85.5028 414.595 85.4919 414.54 85.4836C414.602 85.271 414.708 85.0883 414.861 84.9387C414.932 84.9647 415.012 84.9661 415.087 84.9363C415.255 84.8702 415.339 84.6772 415.275 84.5052C415.21 84.3332 415.022 84.2472 414.854 84.3133C414.708 84.3707 414.626 84.5242 414.649 84.6763C414.427 84.8882 414.275 85.155 414.2 85.466C414.143 85.4659 414.081 85.4658 414.015 85.4658C413.863 85.4658 413.69 85.4665 413.504 85.4697L411.586 85.463C411.567 85.462 411.549 85.4615 411.53 85.4615C410.971 85.4615 410.504 85.9108 410.474 86.4897C410.447 87.0232 410.801 87.4862 411.292 87.6024C411.292 87.6025 411.292 87.6027 411.292 87.6027L410.787 88.477L411.833 88.1118C412.462 88.5328 413.345 88.7104 414.309 88.7104C415.183 88.7104 415.891 87.9842 415.891 87.0883C415.891 86.465 415.548 85.9241 415.045 85.6525C415.227 85.495 415.432 85.3992 415.66 85.3662C415.702 85.4297 415.766 85.4784 415.845 85.4994C416.019 85.546 416.197 85.4392 416.242 85.261C416.288 85.0826 416.183 84.9003 416.009 84.8538ZM410.805 86.5074C410.825 86.1115 411.144 85.8014 411.53 85.8014C411.543 85.8014 411.556 85.8018 411.569 85.8025L411.577 85.8029L411.585 85.8029L413.496 85.8096L412.032 87.0853L412.027 87.0895L412.022 87.094C411.887 87.2209 411.713 87.2907 411.532 87.2907C411.519 87.2907 411.506 87.2903 411.493 87.2897C411.093 87.2685 410.785 86.9175 410.805 86.5074ZM411.743 87.6086C411.934 87.5685 412.107 87.4753 412.246 87.3443L412.317 87.2827C412.319 87.5388 412.378 87.8041 412.494 88.077C412.193 87.9567 411.941 87.7997 411.743 87.6086ZM412.937 88.2188C412.677 87.7658 412.593 87.3438 412.685 86.9621L413.198 86.5152C413.131 86.6993 413.085 86.9035 413.084 87.1232C413.081 87.5481 413.24 87.9525 413.557 88.3298C413.336 88.3044 413.129 88.2672 412.937 88.2188ZM414.181 85.8059C414.227 85.806 414.269 85.8061 414.309 85.8061C414.998 85.8061 415.56 86.3812 415.56 87.0883C415.56 87.7952 414.998 88.3704 414.309 88.3704C414.223 88.3704 414.14 88.3689 414.057 88.366C413.629 87.9765 413.413 87.5593 413.416 87.1256C413.421 86.3792 414.065 85.8113 414.072 85.8057L414.181 85.8059Z"],
+                // (desktop layout) bee's eye (laptop)
+                [d="M414.541 87.1147C414.768 87.1147 414.951 86.9267 414.951 86.695C414.951 86.4633 414.768 86.2754 414.541 86.2754C414.315 86.2754 414.132 86.4633 414.132 86.695C414.132 86.9267 414.315 87.1147 414.541 87.1147Z"],
+                // (mobile layout) outline around bee (laptop)
+                [d="M184.821 121.07C184.7 121.036 184.576 121.1 184.522 121.215C184.238 121.254 183.984 121.394 183.773 121.627C183.731 121.615 183.688 121.606 183.644 121.599C183.693 121.421 183.778 121.267 183.901 121.142C183.957 121.163 184.021 121.165 184.082 121.14C184.217 121.084 184.284 120.922 184.232 120.778C184.18 120.633 184.03 120.561 183.895 120.616C183.778 120.665 183.712 120.793 183.731 120.921C183.553 121.099 183.431 121.323 183.371 121.584C183.325 121.584 183.276 121.584 183.222 121.584C183.101 121.584 182.962 121.585 182.813 121.588L181.276 121.582C181.261 121.581 181.246 121.581 181.231 121.581C180.783 121.581 180.409 121.958 180.385 122.444C180.363 122.892 180.647 123.281 181.04 123.379C181.04 123.379 181.041 123.379 181.041 123.379L180.636 124.113L181.474 123.806C181.978 124.16 182.686 124.309 183.458 124.309C184.158 124.309 184.726 123.699 184.726 122.947C184.726 122.423 184.451 121.969 184.048 121.741C184.194 121.609 184.358 121.528 184.541 121.501C184.575 121.554 184.626 121.595 184.689 121.613C184.829 121.652 184.971 121.562 185.007 121.412C185.044 121.262 184.96 121.109 184.821 121.07ZM180.651 122.459C180.667 122.127 180.922 121.866 181.231 121.866C181.241 121.866 181.252 121.866 181.262 121.867L181.269 121.867L181.275 121.867L182.807 121.873L181.633 122.944L181.629 122.948L181.625 122.952C181.517 123.058 181.378 123.117 181.233 123.117C181.222 123.117 181.212 123.117 181.202 123.116C180.881 123.098 180.634 122.803 180.651 122.459ZM181.402 123.384C181.555 123.35 181.694 123.272 181.805 123.162L181.862 123.11C181.863 123.325 181.911 123.548 182.004 123.777C181.762 123.676 181.561 123.544 181.402 123.384ZM182.358 123.896C182.151 123.516 182.083 123.161 182.157 122.841L182.568 122.466C182.514 122.62 182.478 122.792 182.477 122.976C182.474 123.333 182.602 123.673 182.855 123.989C182.678 123.968 182.513 123.937 182.358 123.896ZM183.356 121.87C183.392 121.87 183.426 121.87 183.458 121.87C184.011 121.87 184.461 122.353 184.461 122.947C184.461 123.54 184.011 124.024 183.458 124.024C183.39 124.024 183.323 124.022 183.257 124.02C182.913 123.693 182.74 123.342 182.742 122.978C182.746 122.351 183.263 121.874 183.268 121.87L183.356 121.87Z"],
+                // (mobile layout) bee's eye (laptop)
+                [d="M183.644 122.969C183.826 122.969 183.973 122.811 183.973 122.616C183.973 122.421 183.826 122.264 183.644 122.264C183.463 122.264 183.316 122.421 183.316 122.616C183.316 122.811 183.463 122.969 183.644 122.969Z"] {
+                    fill: @base;
+                  }
+                  // (desktop layout) outline around bee (phone)
+                  [d="M360.492 114.543C360.319 114.499 360.142 114.581 360.065 114.731C359.66 114.781 359.297 114.962 358.995 115.265C358.935 115.25 358.873 115.238 358.81 115.229C358.881 114.997 359.002 114.798 359.177 114.635C359.258 114.664 359.35 114.665 359.436 114.633C359.629 114.561 359.725 114.35 359.651 114.163C359.577 113.976 359.361 113.882 359.169 113.954C359.002 114.016 358.908 114.184 358.935 114.35C358.68 114.58 358.507 114.871 358.421 115.21C358.355 115.21 358.284 115.21 358.208 115.21C358.035 115.21 357.836 115.21 357.624 115.214L355.428 115.207C355.407 115.205 355.386 115.205 355.364 115.205C354.724 115.205 354.189 115.694 354.156 116.325C354.125 116.907 354.53 117.411 355.091 117.538C355.092 117.538 355.092 117.538 355.092 117.538L354.514 118.491L355.711 118.092C356.431 118.551 357.442 118.745 358.545 118.745C359.546 118.745 360.357 117.954 360.357 116.977C360.357 116.298 359.964 115.709 359.388 115.413C359.596 115.242 359.831 115.137 360.091 115.101C360.14 115.17 360.214 115.223 360.304 115.246C360.503 115.297 360.706 115.181 360.758 114.986C360.81 114.792 360.691 114.594 360.492 114.543ZM354.535 116.345C354.558 115.913 354.922 115.575 355.364 115.575C355.379 115.575 355.394 115.576 355.408 115.576L355.418 115.577H355.427L357.615 115.584L355.938 116.974L355.932 116.979L355.927 116.984C355.773 117.122 355.574 117.198 355.366 117.198C355.351 117.198 355.337 117.198 355.322 117.197C354.864 117.174 354.511 116.791 354.535 116.345ZM355.608 117.544C355.827 117.501 356.025 117.399 356.184 117.256L356.265 117.189C356.267 117.468 356.335 117.757 356.468 118.055C356.123 117.924 355.835 117.753 355.608 117.544ZM356.974 118.209C356.678 117.716 356.581 117.256 356.686 116.84L357.274 116.353C357.197 116.554 357.145 116.776 357.143 117.016C357.14 117.478 357.322 117.919 357.684 118.33C357.431 118.303 357.195 118.262 356.974 118.209ZM358.399 115.58C358.451 115.58 358.5 115.58 358.545 115.58C359.335 115.58 359.977 116.207 359.977 116.977C359.977 117.748 359.335 118.374 358.545 118.374C358.447 118.374 358.352 118.373 358.257 118.37C357.767 117.945 357.519 117.491 357.523 117.018C357.528 116.205 358.267 115.586 358.274 115.58L358.399 115.58Z"],
+                // (desktop layout) bee's eye (phone)
+                [d="M358.811 117.006C359.07 117.006 359.28 116.801 359.28 116.549C359.28 116.296 359.07 116.092 358.811 116.092C358.553 116.092 358.343 116.296 358.343 116.549C358.343 116.801 358.553 117.006 358.811 117.006Z"],
+                // (mobile layout) outline around bee (phone)
+                [d="M140.33 146.003C140.191 145.966 140.05 146.035 139.988 146.161C139.663 146.203 139.372 146.356 139.13 146.61C139.082 146.597 139.032 146.587 138.982 146.58C139.039 146.385 139.136 146.218 139.276 146.081C139.341 146.105 139.415 146.106 139.484 146.079C139.638 146.018 139.715 145.842 139.656 145.684C139.597 145.527 139.424 145.448 139.27 145.509C139.136 145.561 139.061 145.702 139.082 145.841C138.878 146.035 138.739 146.279 138.67 146.563C138.618 146.563 138.561 146.563 138.5 146.563C138.361 146.563 138.202 146.564 138.032 146.567L136.272 146.561C136.255 146.56 136.238 146.559 136.221 146.559C135.708 146.559 135.279 146.97 135.252 147.5C135.227 147.988 135.552 148.412 136.002 148.518C136.002 148.518 136.002 148.518 136.002 148.519L135.539 149.319L136.499 148.984C137.076 149.37 137.886 149.532 138.77 149.532C139.572 149.532 140.222 148.868 140.222 148.048C140.222 147.478 139.907 146.983 139.445 146.734C139.612 146.59 139.8 146.502 140.009 146.472C140.048 146.53 140.107 146.575 140.179 146.594C140.339 146.637 140.502 146.539 140.543 146.376C140.585 146.213 140.49 146.046 140.33 146.003ZM135.556 147.516C135.574 147.154 135.866 146.87 136.221 146.87C136.232 146.87 136.244 146.871 136.256 146.871L136.263 146.872H136.271L138.024 146.878L136.681 148.045L136.676 148.049L136.672 148.053C136.548 148.169 136.388 148.233 136.222 148.233C136.21 148.233 136.199 148.233 136.187 148.232C135.82 148.213 135.537 147.891 135.556 147.516ZM136.416 148.524C136.591 148.487 136.75 148.402 136.878 148.282L136.942 148.226C136.944 148.46 136.998 148.703 137.105 148.952C136.828 148.842 136.598 148.699 136.416 148.524ZM137.511 149.082C137.273 148.668 137.196 148.282 137.28 147.932L137.751 147.523C137.689 147.692 137.647 147.879 137.646 148.08C137.644 148.469 137.79 148.839 138.08 149.184C137.877 149.161 137.688 149.127 137.511 149.082ZM138.653 146.874C138.695 146.874 138.734 146.875 138.77 146.875C139.403 146.875 139.917 147.401 139.917 148.048C139.917 148.695 139.403 149.221 138.77 149.221C138.691 149.221 138.615 149.22 138.539 149.217C138.146 148.861 137.948 148.479 137.95 148.082C137.955 147.399 138.546 146.879 138.552 146.874L138.653 146.874Z"],
+                // (mobile layout) bee's eye (phone)
+                [d="M138.983 148.073C139.191 148.073 139.359 147.901 139.359 147.689C139.359 147.477 139.191 147.305 138.983 147.305C138.776 147.305 138.607 147.477 138.607 147.689C138.607 147.901 138.776 148.073 138.983 148.073Z"] {
+                    fill: @newbase;
+                  }
+
+                  // hexagons
+                  [stroke="#FFF2B5"][stroke-linecap="round"] {
+                    filter: brightness(0.6);
+                  }
+                  // filled hexagons
+                  [fill="#FEE881"] {
+                    filter: brightness(0.8);
+                  }
+                }
+              }
+              // rest of the content
+              & > :last-child {
+                // has active devices
+                &:not(:has(.target-download-for-os)) {
+                  & > div:not(:last-child) {
+                    box-shadow: @mantle 0 1px 0;
+                    // name/ip
+                    & > div:first-child {
+                      & > div:first-child > div {
+                        background-color: @mantle;
+                        & > svg path {
+                          fill: @text;
+                        }
+                      }
+                      // status indicator
+                      & > div:last-child > div:last-child > div[status] {
+                        &[status="active"] {
+                          background: @green;
+                        }
+                        &[status="inactive"] {
+                          background: @subtext0;
+                        }
+                      }
+                      button > div > svg {
+                        fill: @accent-color;
+                      }
+                      div[color="#A8B3BF"] > span {
+                        color: @overlay1;
+                      }
+                    }
+                  }
+                  // "add more devices" text
+                  & > div:last-child > div {
+                    & > :first-child {
+                      background-color: @mantle;
+                      & > svg path {
+                        fill: @overlay2;
+                      }
+                    }
+                    a {
+                      color: @accent-color;
+                    }
+                  }
+                }
+                // when you have no active devices
+                &:has(.target-download-for-os) {
+                  // recolor device svg
+                  & > svg:first-child {
+                    // notch on phone
+                    [fill="#F4F7FA"] {
+                      fill: @base;
+                    }
+                    // bottom of laptop
+                    [fill="#E7EAED"] {
+                      fill: @overlay0;
+                    }
+                    // device outlines
+                    [fill="#E7ECF1"] {
+                      fill: @overlay0;
+                    }
+                    // back screen and laptop keyboard
+                    [fill="#F1F4F7"] {
+                      fill: darken(@overlay1, 0.5%);
+                    }
+                    // laptop screen right
+                    [fill="#F5F8FA"] {
+                      fill: @overlay1;
+                    }
+                    // mobile screens
+                    [fill="#F5F7F9"] {
+                      fill: @overlay2;
+                    }
+                  }
+                  // 1-2-3 getting started steps
+                  // there should be at least 3 children (the 3 steps)
+                  &
+                  > :first-child:has(:nth-child(3)):has(
+                    > div div[color="#0171D3"]
+                  )
+                  > div
+                  > div
+                  > div:first-child
+                  // double check
+                  > div:has([color="#0171D3"]) {
+                    background-color: fade(@accent-color, 10%);
+                    border-color: @accent-color;
+                    span {
+                      color: @accent-color;
+                    }
+                  }
+                  // download button
+                  a.target-download-for-os > span > div > span {
+                    color: @h-text;
+                  }
+                  // other downloads
+                  &
+                    > div:last-child
+                    > div
+                    > button[class*="target-download-also-available-"] {
+                    background-color: @mantle;
+                    & > span > svg > path {
+                      fill: @text;
+                    }
+                  }
+                }
+              }
+            }
+            #cardLinks() {
+              a {
+                color: @text;
+                .title,
+                span {
+                  color: currentColor;
+                }
+                svg {
+                  fill: currentColor;
+                }
+                &:hover {
+                  color: @accent-color;
+                }
+                &:not(:last-child) > div {
+                  box-shadow: @mantle 0 1px 0;
+                }
+              }
+              // reset badge color
+              div[color="#F9C900"] > div {
+                color: @h-text;
+              }
+            }
+            #cardToday() {
+              // entries (nth-2 is an empty div)
+              & > div:not(:first-child):not(:nth-child(2)):not(:last-child) {
+                box-shadow: @mantle 0 1px 0;
+              }
+              // progress bar and pot
+              & > :last-child > div > div:first-child {
+                // progress bar
+                & > :first-child > div {
+                  // X/15mb badge
+                  & > :first-child:not(svg) {
+                    background-color: @accent-color;
+                    &::after {
+                      border-top-color: @accent-color;
+                    }
+                    span {
+                      color: @crust;
+                    }
+                  }
+                  // timer icon
+                  & > svg:first-child path {
+                    fill: @text;
+                  }
+                }
+                // text by pot
+                & > :last-child {
+                  background-color: @surface1;
+                  p {
+                    color: @text;
+                  }
+                }
+                & > button:last-child {
+                  background-color: @accent-color;
+                  span {
+                    color: @base;
+                  }
+                  &:hover,
+                  &:active {
+                    background-color: darken(@accent-color, -8%);
+                  }
+                }
+              }
+            }
+            #cardAchievements() {
+              // title
+              & > div:first-child p {
+                color: @text;
+              }
+              // "view details" link
+              & > a > div > span {
+                color: @accent-color;
+              }
+              & > div > div:not([borderradius]),
+              & > div > div[borderradius] > div > div {
+                background-color: @surface0;
+                p,
+                h3 {
+                  color: @text;
+                }
+                progress {
+                  background-color: @surface1;
+                }
+                &
+                  > div:first-child
+                  > div
+                  > div:last-child
+                  > div:last-child
+                  > div
+                  > div {
+                  background-color: darken(@accent-color, 25%);
+                  & > div > span {
+                    color: @crust;
+                  }
+                }
+              }
+            }
+            #cardEarningsPie() {
+              // title
+              // titles
+              & > :first-child > div {
+                & > :first-child > div {
+                  color: @text;
+                }
+                & > :last-child > div {
+                  color: @subtext0;
+                }
+                a {
+                  color: @accent-color;
+                }
+              }
+              // legend items
+              & > :last-child > div:not(:first-child) {
+                color: @text;
+                // "Learn more" links
+                a[class*="HyperlinkView"] {
+                  color: @accent-color;
+                }
+                &:not(:last-child) {
+                  box-shadow: @mantle 0 1px 0;
+                }
+              }
+            }
+            #cardReferrals() {
+              // top gradient
+              & > :first-child {
+                @drk1: if((@lookup = latte), 5%, 25%);
+                @drk2: if((@lookup = latte), 15%, 40%);
+                background-color: @accent-color;
+                background-image: linear-gradient(
+                  100deg,
+                  darken(@accent-color, @drk2) 50%,
+                  darken(@accent-color, @drk1) 100%
+                );
+                &::before {
+                  background-color: @accent-color;
+                  background-image: linear-gradient(
+                    110.85deg,
+                    darken(@accent-color, @drk2) 80%,
+                    darken(@accent-color, @drk1) 100%
+                  );
+                }
+                @txt: if((@lookup = latte), @crust, @text);
+                & > div > :first-child {
+                  svg {
+                    fill: @txt;
+                  }
+                  div span {
+                    color: inherit;
+                  }
+                }
+                div[color="#F9FBFD"] span {
+                  color: @txt;
+                }
+              }
+              // inside text
+              & > :last-child > div > div > div {
+                div {
+                  color: @text;
+                }
+                div[color="#4E7294"] > div {
+                  color: @subtext0;
+                }
+                a {
+                  color: @accent-color;
+                }
+                // avatars
+                & > :nth-child(2) > div {
+                  div[size] {
+                    border-color: @base;
+                  }
+                  & > :last-child:not([size]) {
+                    background-color: @base;
+                    color: @text;
+                    border-color: @accent-color;
+                  }
+                }
+                ul {
+                  & > :first-child {
+                    box-shadow: @mantle 0 1px 0 0;
+                  }
+                  div[color="#2E3643"] > div {
+                    color: @text;
+                  }
+                }
+                & > button:last-child {
+                  background-color: @accent-color;
+                  span div div {
+                    color: @crust;
+                  }
+                }
+              }
+              // referral link copy
+              label[for="copy-referral"] > :last-child {
+                input {
+                  background-color: @base;
+                  border-color: @overlay1;
+                  color: @text;
+                }
+                button {
+                  background-color: @accent-color;
+                  span {
+                    color: @base;
+                  }
+                  svg [fill="white"] {
+                    fill: @base;
+                  }
+                }
+              }
+            }
+            #cardFAQ() {
+              .slick-arrow::before {
+                color: @text;
+              }
+              .slick-dots {
+                li button {
+                  border-color: @accent-color;
+                }
+                .slick-active button {
+                  background-color: @accent-color;
+                }
+              }
+              h2 {
+                color: @text;
+              }
+            }
+
+            /*
+            They have a mobile layout that basically changes the entire page layout.
+            The #media mixin is used here to change the selectors based on which layout is being used.
+
+            If you haven't added a device yet the card layout is also drastically changed.
+
+            The tutorial_bees svg is used to determine if a device was added or not.
+          */
+
+            // selects each div that contains the cards
+            // expects 'main' to be the parent
+            //           V   main content columns    V   for mobile
+            @selector: ~"& > div[style] > div > div, & > div:not([style])";
+
+            // if account hasn't added a device
+            main:has([clip-path*="url(#tutorial_bees"]) {
+              @{selector} {
+                // devices card
+                @devices-big: {
+                  &:first-child > div > :nth-child(1) > div > div > div {
+                    #cardDevices();
+                  }
+                };
+                @devices-small: {
+                  & > div > :nth-child(1) > div > div > div {
+                    #cardDevices();
+                  }
+                };
+                #media(@devices-big, @devices-small);
+                // links card
+                @links-big: {
+                  &:first-child > div > :last-child > div > div > div {
+                    #cardLinks();
+                  }
+                };
+                @links-small: {
+                  & > div > :last-child > div > div > div {
+                    #cardLinks();
+                  }
+                };
+                #media(@links-big, @links-small);
+
+                // referral card
+                @ref-big: {
+                  &:last-child > div > :nth-child(1) {
+                    #cardReferrals();
+                  }
+                };
+                @ref-small: {
+                  & > div > :nth-child(2) {
+                    #cardReferrals();
+                  }
+                };
+                #media(@ref-big, @ref-small);
+                // faq card
+                @faq-small: {
+                  &:last-child > div > :last-child > div .slick-slider {
+                    #cardFAQ();
+                  }
+                };
+                @faq-big: {
+                  & > div > :nth-last-child(2) > div .slick-slider {
+                    #cardFAQ();
+                  }
+                };
+                #media(@faq-small, @faq-big);
+              }
+            }
+
+            // if account added a device
+            main:not(:has([clip-path*="url(#tutorial_bees"])) {
+              @{selector} {
+                // earnings card
+                @er-big: {
+                  &:first-child > div > :nth-child(1) > div {
+                    #cardEarnings();
+                  }
+                };
+                @er-small: {
+                  & > div > :nth-child(1) > div {
+                    #cardEarnings();
+                  }
+                };
+                #media(@er-big, @er-small);
+                // earnings graph card
+                @ergraph-big: {
+                  &:first-child > div > :nth-child(2) > div > div > div {
+                    #cardEarningsGraph();
+                  }
+                };
+                @ergraph-small: {
+                  & > div > :nth-last-child(6) > div > div > div {
+                    #cardEarningsGraph();
+                  }
+                };
+                #media(@ergraph-big, @ergraph-small);
+                // devices card
+                @devices-big: {
+                  &:first-child > div > :nth-last-child(2) > div > div > div {
+                    #cardDevices();
+                  }
+                };
+                @devices-small: {
+                  & > div > :nth-last-child(4) > div > div > div {
+                    #cardDevices();
+                  }
+                };
+                #media(@devices-big, @devices-small);
+                // links card
+                @links-big: {
+                  &:first-child > div > :last-child > div > div > div {
+                    #cardLinks();
+                  }
+                };
+                @links-small: {
+                  & > div > :last-child > div > div > div {
+                    #cardLinks();
+                  }
+                };
+                #media(@links-big, @links-small);
+
+                // earned today card
+                @today-big: {
+                  &:last-child > div > :nth-child(1) > div > div > div {
+                    #cardToday();
+                  }
+                };
+                @today-small: {
+                  & > div > :nth-last-child(8) > div > div > div {
+                    #cardToday();
+                  }
+                };
+                #media(@today-big, @today-small);
+                // achievements card
+                @achievements-big: {
+                  &:last-child > div > :nth-child(2) > div {
+                    #cardAchievements();
+                  }
+                };
+                @achievements-small: {
+                  & > div > :nth-last-child(7) > div {
+                    #cardAchievements();
+                  }
+                };
+                #media(@achievements-big, @achievements-small);
+                // earnings pie card
+                @erpie-big: {
+                  &:last-child > div > :nth-last-child(3) > div > div > div {
+                    #cardEarningsPie();
+                  }
+                };
+                @erpie-small: {
+                  & > div > :nth-last-child(5) > div > div > div {
+                    #cardEarningsPie();
+                  }
+                };
+                #media(@erpie-big, @erpie-small);
+                // referral card
+                @ref-big: {
+                  &:last-child > div > :nth-last-child(2) {
+                    #cardReferrals();
+                  }
+                };
+                @ref-small: {
+                  & > div > :nth-last-child(3) {
+                    #cardReferrals();
+                  }
+                };
+                #media(@ref-big, @ref-small);
+                // faq card
+                @faq-small: {
+                  &:last-child > div > :last-child > div .slick-slider {
+                    #cardFAQ();
+                  }
+                };
+                @faq-big: {
+                  & > div > :nth-last-child(2) > div .slick-slider {
+                    #cardFAQ();
+                  }
+                };
+                #media(@faq-small, @faq-big);
+              }
+            }
+
+            // apply to every card
+            // ignores the "enable jumptask" promo image
+            main {
+              @{selector} {
+                & > div > div > div:not([style]) {
+                  background-color: @base;
+                  div > span {
+                    color: @text;
+                  }
+                  div[color="#7B8694"] > span {
+                    color: @subtext0;
+                  }
+                  button > svg[fill="#979797"] {
+                    fill: @overlay0;
+                  }
+                }
+              }
+            }
+          }
+
+          // apply on statistics page
+          // look for date picker icon (desktop)
+          &:has(
+            div[class*="DatePickerView--"]
+              .react-datepicker-wrapper
+              div[class*="TabPill--"]
+              > svg
+          ),
+          // look for date dropdown icon (for mobile)
+          &:has(
+              main > div > div > div:not([class])
+                > div[wrap="wrap"]
+                > div[class*="DropdownView--"]
+                > div.dropdown-indicator[class*="IndicatorView--"]
+                > svg[fill="#7B8694"]
+            ) {
+            main > div {
+              // style loader
+              & > :first-child:has([class*="SatelliteWrapper--"]) {
+                background-color: @base;
+                & > div > div:first-child > div {
+                  #styleLoader();
+                }
+                span {
+                  color: @text;
+                }
+              }
+
+              // title and picker
+              & > :first-child:not(:has([class*="SatelliteWrapper--"])),
+              // loader is appended before this section so select the second element if so
+              &
+                > :first-child:has([class*="SatelliteWrapper--"])
+                + div:nth-child(2) {
+                h1 {
+                  color: @text;
+                }
+
+                // no stats
+                &:not(:has(canvas)),
+                // stats graph exists
+                &:has(canvas) > :first-child {
+                  & > :last-child {
+                    #multiSelectPills();
+                    // dropdown
+                    & > :last-child {
+                      // hovering has no background
+                      &:has(.dropdown-indicator):hover {
+                        background: none;
+                      }
+                      // mobile dropdown
+                      .dropdown-indicator {
+                        span {
+                          color: @subtext0;
+                        }
+                        svg {
+                          fill: @subtext0;
+                        }
+                      }
+                      .dropdown-panel > div[class*="PanelView--"] {
+                        background-color: @crust;
+                        & > div > div {
+                          &:hover {
+                            background-color: @mantle;
+                          }
+                          span {
+                            color: @text;
+                          }
+                          &.selected span {
+                            color: @accent-color;
+                          }
+                        }
+                      }
+                      // desktop dropdown below
+                      .react-datepicker__aria-live {
+                        color: @text;
+                      }
+                      .react-datepicker-wrapper div[class*="TabPill--"] {
+                        div > span {
+                          color: @subtext1;
+                        }
+                        svg {
+                          fill: @subtext1;
+                        }
+                        &:hover {
+                          background-color: fade(@accent-color, 5%);
+                        }
+                        &:has(div[color="#0B82E3"]) {
+                          background-color: fade(@accent-color, 10%);
+                          div > span {
+                            color: @accent-color;
+                          }
+                          svg {
+                            fill: @accent-color;
+                          }
+                        }
+                      }
+                      .react-datepicker-popper .react-datepicker {
+                        background-color: @crust;
+                        .react-datepicker__header {
+                          color: @text;
+                        }
+                        .react-datepicker__month-text {
+                          color: @text;
+                          &:hover {
+                            background-color: @mantle;
+                          }
+                        }
+                        .react-datepicker__month--selected {
+                          background-color: @mantle !important;
+                        }
+                        .react-datepicker__month--disabled {
+                          color: @subtext0;
+                        }
+                        .react-datepicker__navigation-icon::before {
+                          border-color: @text;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+
+              // no statistics, only download app card
+              &:has(.target-download-for-os) {
+                // card
+                & > :last-child {
+                  background-color: @base;
+                  & > div {
+                    // icon and text
+                    & > :first-child {
+                      // recolor icon
+                      svg {
+                        // background
+                        path[fill="white"] {
+                          fill: @base;
+                        }
+                        // dashed lines
+                        [stroke="#F5F8FA"] {
+                          stroke: @surface0;
+                        }
+                        // right squares and magnifying glass
+                        [fill="#F5F8FA"] {
+                          fill: @surface1;
+                        }
+                        // bars
+                        [fill="#E7ECF1"] {
+                          fill: @surface2;
+                        }
+                        // magnifying glass lens
+                        stop[stop-color="white"] {
+                          stop-color: @surface2;
+                        }
+                      }
+                    }
+
+                    // ignore download button
+                    div:not([color="#232836"]) > span {
+                      color: @text;
+                    }
+                    div[color="#7B8694"] > span {
+                      color: @subtext0;
+                    }
+
+                    button[class*="target-download-also-available-"] {
+                      background-color: @mantle;
+                      svg path {
+                        fill: @text;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          & footer > div {
+            a[iconsize] {
+              &:hover,
+              &:active,
+              &:focus {
+                background-color: @base;
+              }
+              & > svg {
+                fill: @subtext0;
+              }
+            }
+            div[color="#7B8694"] > span {
+              color: @subtext0;
+            }
+            a > div > div {
+              color: @subtext0;
+              &:hover {
+                color: @subtext1;
+              }
+            }
+            // divider
+            & > div > div > div div:empty {
+              background-color: @base;
+            }
+          }
+        }
+      }
+
+      // cookie consent
+      & > div:nth-child(3) {
+        background-color: @crust;
+
+        div {
+          color: @text;
+        }
+
+        button:first-child {
+          background-color: @accent-color;
+          & > span {
+            color: @crust;
+          }
+          &:hover,
+          &:active {
+            background-color: darken(@accent-color, -8%);
+          }
+        }
+        button:last-child {
+          border-color: @accent-color;
+          & > span {
+            color: @accent-color;
+          }
+          &:hover,
+          &:active {
+            background-color: fade(@accent-color, 10%);
+          }
+        }
+
+        .check-sign > svg > polygon {
+          fill: @crust;
+        }
+        // the input shows behind the label
+        input[type="checkbox"] {
+          visibility: hidden;
+        }
+        .check-sign {
+          background-color: @crust;
+          border-color: @overlay2;
+          &:hover {
+            border-color: @accent-color;
+          }
+        }
+        input:checked ~ .check-sign {
+          background-color: @accent-color;
+          border-color: @accent-color;
+        }
+        input:disabled ~ .check-sign {
+          background-color: @overlay0;
+          border-color: @overlay0;
+        }
+      }
+    }
+
+    // svg colors
+    // checkmark
+    svg polygon[fill="#83DA25"],
+    // checkmark on tooltip
+    svg[fill="#7BBA1C"] {
+      fill: @green;
+    }
+
+    // announcekit (notification dot)
+    .announcekit-widget-badge {
+      svg circle {
+        fill: @overlay0 !important;
+      }
+      &[class*="announcekit-badgeanim"] {
+        svg circle {
+          fill: @red !important;
+        }
+        &::before,
+        &::after {
+          background-color: @red;
+        }
+      }
+    }
+
+    // modals
+    div[class="Modal"] .ReactModal__Content {
+      background-color: @base;
+
+      // close button
+      [class*="ExitIconView"] {
+        &:hover,
+        &:active,
+        &:focus {
+          background-color: @mantle;
+        }
+        svg {
+          stroke: @overlay1;
+        }
+      }
+      [class*=" ContentView"] > :last-child {
+        &,
+        span,
+        p {
+          color: @text;
+        }
+        // buttons
+        & > :last-child div[align="center"][justify="center"],
+        div[style*="width: 100%"] > div[style*="width: 100%"] > div {
+          & > button,
+          & > div:last-child > button {
+            background-color: @accent-color;
+            span {
+              color: @base;
+            }
+          }
+          & > div:first-child button {
+            span {
+              color: @accent-color;
+            }
+            border-color: @accent-color;
+            &:hover,
+            &:active {
+              background-color: fade(@accent-color, 15%);
+            }
+          }
+        }
+
+        // "days left" for lucky pot
+        div[days]:has(svg):has(p) {
+          background-color: @mantle;
+        }
+      }
+    }
+
+    // toasts
+    .Toastify {
+      .Toastify__toast.toast-container {
+        background-color: @crust;
+        &,
+        div > span {
+          color: @text;
+        }
+
+        .Toastify__toast-body {
+          // icon
+          svg:first-child {
+            [fill="#659E10"] {
+              fill: @green;
+            }
+            [fill="#C90036"] {
+              fill: @red;
+            }
+            [fill="white"] {
+              fill: @crust;
+            }
+          }
+        }
+        // close button
+        & > div:not([class])[style*="position"] > a {
+          &:hover,
+          &:active,
+          &:focus {
+            background-color: @mantle;
+          }
+          & > svg path {
+            stroke: @overlay0;
+          }
+        }
+        // progress
+        .Toastify__progress-bar {
+          &--success {
+            background-color: @green;
+          }
+          &--error {
+            background-color: @red;
+          }
+        }
+      }
+    }
+
+    // tooltips
+    [role="tooltip"] {
+      &,
+      div[class*="Arrow"] {
+        background-color: @crust !important;
+      }
+      span {
+        color: @text !important;
+      }
+    }
+    #chart-tooltip > div {
+      background-color: @crust;
+      &::before {
+        border-right-color: @crust;
+      }
+      & > div {
+        & > :first-child span {
+          color: @subtext1;
+        }
+        & > :last-child > :first-child span {
+          color: @text;
+        }
+      }
+    }
+
+    // override for various elements
+    @keyframes pulse {
+      0% {
+        box-shadow: @accent-color 0 0 0 0;
+      }
+      100% {
+        box-shadow: transparent 0 0 0 5px;
+      }
+    }
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+}
+
+/* prettier-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+}
+// vim:ft=less
