@@ -140,6 +140,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Crowdin](styles/crowdin)
 - [DeepL](styles/deepl)
 - [ichi.moe](styles/ichi.moe)
+- [Jisho](styles/jisho)
 - [Lingva](styles/lingva)
 
 </details>
@@ -172,6 +173,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>📖 Productivity</summary>
 
+- [AlternativeTo](styles/alternativeto)
 - [Amplenote](styles/amplenote)
 - [cobalt](styles/cobalt)
 - [Google Drive](styles/google-drive)
@@ -183,6 +185,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Porkbun](styles/porkbun)
 - [Proton](styles/proton)
 - [Raindrop](styles/raindrop)
+- [Rentry.co](styles/rentry.co)
 - [Syncthing](styles/syncthing)
 - [tldraw](styles/tldraw)
 - [Vikunja](styles/vikunja)
@@ -218,7 +221,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Elk](styles/elk)
 - [Instagram](styles/instagram)
 - [LinkedIn](styles/linkedin)
-- 🚧 [Mastodon](styles/mastodon)
+- [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
 - [Phanpy](styles/phanpy)
 - [Pronouns.page](styles/pronouns.page)
