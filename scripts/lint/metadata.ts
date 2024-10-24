@@ -1,27 +1,28 @@
+import type { Userstyles } from "@/types/userstyles.d.ts";
+import type { WalkEntry } from "@std/fs";
+import { REPO_ROOT } from "@/constants.ts";
+
+import * as color from "@std/fmt/colors";
+import * as path from "@std/path";
+import { sprintf } from "@std/fmt/printf";
+
 // @ts-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
-import * as color from "@std/fmt/colors";
-import { sprintf } from "@std/fmt/printf";
-import type { WalkEntry } from "@std/fs";
-import { join, relative } from "@std/path";
-
-import { REPO_ROOT } from "@/deps.ts";
 import { log } from "@/logger.ts";
 import { formatListOfItems } from "@/utils.ts";
-import type { Userstyles } from "@/types/userstyles.d.ts";
 
-export const verifyMetadata = async (
+export async function verifyMetadata(
   entry: WalkEntry,
   content: string,
   userstyle: string,
   userstyles: Userstyles,
   fix: boolean,
-) => {
+) {
   // `usercss-meta` prohibits any '\r' characters, which seem to be present on Windows.
   content = content.replaceAll("\r\n", "\n");
 
-  const assert = assertions(userstyle, userstyles);
-  const file = relative(REPO_ROOT, entry.path);
+  const assertions = generateAssertions(userstyle, userstyles);
+  const file = path.relative(REPO_ROOT, entry.path);
 
   const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {
     allowErrors: true,
@@ -29,28 +30,28 @@ export const verifyMetadata = async (
   const lines = content.split("\n");
 
   // Pretty print / annotate the parsing errors.
-  parsingErrors.map((e) => {
+  for (const error of parsingErrors) {
     let startLine;
-    if (e.index !== undefined && !Number.isNaN(e.index)) {
+    if (error.index !== undefined && !Number.isNaN(error.index)) {
       startLine = 0;
       for (const line of lines) {
         startLine++;
-        e.index -= line.length + 1;
-        if (e.index < 0) break;
+        error.index -= line.length + 1;
+        if (error.index < 0) break;
       }
     }
 
     // Skip "missing mandatory metadata property" ParseError, assertions checks below will cover.
-    if (e.code === "missingMandatory") return;
+    if (error.code === "missingMandatory") continue;
 
-    log.error(e.message, {
+    log.error(error.message, {
       file,
       startLine,
       content,
     });
-  });
+  }
 
-  for (const [key, expected] of Object.entries(assert)) {
+  for (const [key, expected] of Object.entries(assertions)) {
     const current = metadata[key];
 
     const atKey = "@" + key;
@@ -80,7 +81,7 @@ export const verifyMetadata = async (
   }
 
   const template = (await Deno.readTextFile(
-    join(REPO_ROOT, "template/catppuccin.user.css"),
+    path.join(REPO_ROOT, "template/catppuccin.user.css"),
   ))
     .split("\n");
 
@@ -138,12 +139,12 @@ export const verifyMetadata = async (
 
   return {
     globalVars,
-    isLess: metadata.preprocessor === assert.preprocessor,
+    isLess: metadata.preprocessor === assertions.preprocessor,
     fixed: content,
   };
-};
+}
 
-const assertions = (userstyle: string, userstyles: Userstyles) => {
+function generateAssertions(userstyle: string, userstyles: Userstyles) {
   const prefix = "https://github.com/catppuccin/userstyles";
 
   if (!userstyles[userstyle]) {
@@ -175,4 +176,4 @@ const assertions = (userstyle: string, userstyles: Userstyles) => {
     license: "MIT",
     preprocessor: "less",
   };
-};
+}

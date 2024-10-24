@@ -1,10 +1,11 @@
-import Ajv, { Schema } from "ajv";
-import { parse } from "@std/yaml";
-import { join } from "@std/path";
-import { SetRequired } from "type-fest/source/set-required.d.ts";
+import type { PortsSchema, UserstylesSchema } from "@/types/mod.ts";
+import type { SetRequired } from "type-fest/source/set-required.d.ts";
+import { PORTS_SCHEMA, REPO_ROOT, USERSTYLES_SCHEMA } from "@/constants.ts";
 
-import { REPO_ROOT, userStylesSchema } from "@/deps.ts";
-import { UserstylesSchema } from "@/types/userstyles.d.ts";
+import * as yaml from "@std/yaml";
+import * as path from "@std/path";
+
+import Ajv, { type Schema } from "ajv";
 import { log } from "@/logger.ts";
 import { sprintf } from "@std/fmt/printf";
 
@@ -13,13 +14,14 @@ import { sprintf } from "@std/fmt/printf";
  * @param schema  A JSON schema
  * @returns A promise that resolves to the parsed YAML content, verified against the schema. Rejects if the content is invalid.
  */
-export const validateYaml = <T>(
+export function validateYaml<T>(
   content: string,
   schema: Schema,
-): T => {
+  file: string,
+): T {
   const ajv = new Ajv.default();
   const validate = ajv.compile<T>(schema);
-  const data = parse(content);
+  const data = yaml.parse(content);
 
   if (!validate(data)) {
     log.error(
@@ -34,28 +36,29 @@ export const validateYaml = <T>(
         )
       ).join(" and "),
       {
-        file: "scripts/userstyles.yml",
+        file,
       },
     );
     Deno.exit(1);
   }
 
   return data as T;
-};
+}
 
 /**
  * Utility function that calls {@link validateYaml} on the userstyles.yml file.
  * Fails when data.userstyles is undefined.
  */
-export const getUserstylesData = (): Userstyles => {
+export function getUserstylesData(): Userstyles {
   const content = Deno.readTextFileSync(
-    join(REPO_ROOT, "scripts/userstyles.yml"),
+    path.join(REPO_ROOT, "scripts/userstyles.yml"),
   );
 
   try {
-    const data = validateYaml<UserstylesSchema>(
+    const data = validateYaml<UserstylesSchema.UserstylesSchema>(
       content,
-      userStylesSchema,
+      USERSTYLES_SCHEMA,
+      "scripts/userstyles.yml",
     );
 
     for (const field of ["userstyles", "collaborators"] as const) {
@@ -69,7 +72,7 @@ export const getUserstylesData = (): Userstyles => {
 
     return data as Userstyles;
   } catch (err) {
-    if (err.name === "SyntaxError") {
+    if (err instanceof Error && err.name === "SyntaxError") {
       const groups =
         /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
           .exec(err.message)?.groups;
@@ -87,7 +90,25 @@ export const getUserstylesData = (): Userstyles => {
 
     Deno.exit(1);
   }
-};
+}
+
+/**
+ * Utility function that calls {@link validateYaml} on the ports.yml file.
+ * Fails when data.userstyles is undefined.
+ */
+export async function getPortsData(): Promise<PortsSchema.PortsSchema> {
+  const content = await fetch(
+    "https://raw.githubusercontent.com/catppuccin/catppuccin/main/resources/ports.yml",
+  ).then((res) => res.text());
+
+  const data = validateYaml<PortsSchema.PortsSchema>(
+    content,
+    PORTS_SCHEMA,
+    "ports.yml",
+  );
+
+  return data;
+}
 
 /**
  * Utility function that formats a list of items into the "x, y, ..., and z" format.
@@ -98,7 +119,7 @@ export const getUserstylesData = (): Userstyles => {
  * @example
  * formatListOfItems(['x', 'y', 'z']); // 'x, y, and z'
  */
-export const formatListOfItems = (items: unknown[]): string => {
+export function formatListOfItems(items: unknown[]): string {
   // If there are two items, connect them with an "and".
   if (items.length === 2) return items.join(" and ");
   // Otherwise, there is either just one item or more than two items.
@@ -110,6 +131,9 @@ export const formatListOfItems = (items: unknown[]): string => {
     // Otherwise, it is some item in the middle of the list and we can just add it as a comma followed by the item to the string.
     return prev + `, ${curr}`;
   }) as string;
-};
+}
 
-type Userstyles = SetRequired<UserstylesSchema, "userstyles" | "collaborators">;
+type Userstyles = SetRequired<
+  UserstylesSchema.UserstylesSchema,
+  "userstyles" | "collaborators"
+>;
