@@ -36,9 +36,9 @@ export async function checkForMissingFiles() {
       .addList(missingFiles)
       .write();
   } else {
-    missingFiles.map((f) => {
-      log.error(`File does not exist`, { file: f });
-    });
+    for (const file of missingFiles) {
+      log.error(`File does not exist`, { file });
+    }
   }
 
   return missingFiles.length === 0;
