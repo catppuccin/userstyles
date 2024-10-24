@@ -1,36 +1,14 @@
-#!/usr/bin/env -S deno run -A
 import * as path from "@std/path";
-import { PORTS_SCHEMA, REPO_ROOT, USERSTYLES_SCHEMA } from "../constants.ts";
-import type { PortsSchema, UserStylesSchema } from "@/types/mod.ts";
+import { REPO_ROOT } from "@/constants.ts";
 
 import { syncIssueLabels } from "@/generate/labels.ts";
 import { generateMainReadme } from "@/generate/readme-repo.ts";
 import { generateStyleReadmes } from "@/generate/readme-styles.ts";
-import { updateFile } from "@/generate/utils.ts";
-import { validateYaml } from "@/utils.ts";
+import { writeWithPreamble } from "@/generate/utils.ts";
+import { getPortsData, getUserstylesData } from "@/utils.ts";
 
-const userstylesYaml = Deno.readTextFileSync(
-  path.join(REPO_ROOT, "scripts/userstyles.yml"),
-);
-const portsYaml = await fetch(
-  "https://raw.githubusercontent.com/catppuccin/catppuccin/main/resources/ports.yml",
-).then((res) => res.text());
-
-const [portsData, userstylesData] = await Promise.all([
-  await validateYaml<PortsSchema.PortsSchema>(
-    portsYaml,
-    PORTS_SCHEMA,
-  ),
-  await validateYaml<UserStylesSchema.UserstylesSchema>(
-    userstylesYaml,
-    USERSTYLES_SCHEMA,
-  ),
-]);
-
-if (!userstylesData.userstyles) {
-  console.error("No userstyles found");
-  Deno.exit(1);
-}
+const userstylesData = getUserstylesData();
+const portsData = await getPortsData();
 
 /**
  * Generate the main README.md, listing all ports as a table of contents
@@ -67,9 +45,11 @@ const maintainersCodeOwners = () => {
 };
 const userstylesStaffCodeOwners = () => {
   const paths = ["/.github/", "/scripts/", "/template/"];
-  return paths.map((path) => `${path} @catppuccin/userstyles-staff`).join("\n");
+  return paths.map((path) => `${path} @catppuccin/userstyles-staff`).join(
+    "\n",
+  );
 };
-await updateFile(
+await writeWithPreamble(
   path.join(REPO_ROOT, ".github/CODEOWNERS"),
   `${maintainersCodeOwners()}\n\n${userstylesStaffCodeOwners()}`,
 );

@@ -1,8 +1,9 @@
+import { REPO_ROOT } from "@/constants.ts";
+
 import * as fs from "@std/fs";
 import * as path from "@std/path";
 import core from "@actions/core";
 
-import { REPO_ROOT } from "../constants.ts";
 import { log } from "@/logger.ts";
 
 const requiredFiles = [

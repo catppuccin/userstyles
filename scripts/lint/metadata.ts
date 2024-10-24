@@ -1,14 +1,15 @@
+import type { Userstyles } from "@/types/userstyles.d.ts";
+import type { WalkEntry } from "@std/fs";
+import { REPO_ROOT } from "@/constants.ts";
+
+import * as color from "@std/fmt/colors";
+import * as path from "@std/path";
+import { sprintf } from "@std/fmt/printf";
+
 // @ts-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
-import * as color from "@std/fmt/colors";
-import { sprintf } from "@std/fmt/printf";
-import type { WalkEntry } from "@std/fs";
-import * as path from "@std/path";
-
-import { REPO_ROOT } from "../constants.ts";
 import { log } from "@/logger.ts";
 import { formatListOfItems } from "@/utils.ts";
-import type { Userstyles } from "@/types/userstyles.d.ts";
 
 export async function verifyMetadata(
   entry: WalkEntry,
@@ -20,7 +21,7 @@ export async function verifyMetadata(
   // `usercss-meta` prohibits any '\r' characters, which seem to be present on Windows.
   content = content.replaceAll("\r\n", "\n");
 
-  const assert = assertions(userstyle, userstyles);
+  const assertions = generateAssertions(userstyle, userstyles);
   const file = path.relative(REPO_ROOT, entry.path);
 
   const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {
@@ -29,28 +30,28 @@ export async function verifyMetadata(
   const lines = content.split("\n");
 
   // Pretty print / annotate the parsing errors.
-  parsingErrors.map((e) => {
+  for (const error of parsingErrors) {
     let startLine;
-    if (e.index !== undefined && !Number.isNaN(e.index)) {
+    if (error.index !== undefined && !Number.isNaN(error.index)) {
       startLine = 0;
       for (const line of lines) {
         startLine++;
-        e.index -= line.length + 1;
-        if (e.index < 0) break;
+        error.index -= line.length + 1;
+        if (error.index < 0) break;
       }
     }
 
     // Skip "missing mandatory metadata property" ParseError, assertions checks below will cover.
-    if (e.code === "missingMandatory") return;
+    if (error.code === "missingMandatory") continue;
 
-    log.error(e.message, {
+    log.error(error.message, {
       file,
       startLine,
       content,
     });
-  });
+  }
 
-  for (const [key, expected] of Object.entries(assert)) {
+  for (const [key, expected] of Object.entries(assertions)) {
     const current = metadata[key];
 
     const atKey = "@" + key;
@@ -138,12 +139,12 @@ export async function verifyMetadata(
 
   return {
     globalVars,
-    isLess: metadata.preprocessor === assert.preprocessor,
+    isLess: metadata.preprocessor === assertions.preprocessor,
     fixed: content,
   };
 }
 
-function assertions(userstyle: string, userstyles: Userstyles) {
+function generateAssertions(userstyle: string, userstyles: Userstyles) {
   const prefix = "https://github.com/catppuccin/userstyles";
 
   if (!userstyles[userstyle]) {

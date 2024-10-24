@@ -1,10 +1,11 @@
-import Ajv, { Schema } from "ajv";
+import type { PortsSchema, UserstylesSchema } from "@/types/mod.ts";
+import type { SetRequired } from "type-fest/source/set-required.d.ts";
+import { REPO_ROOT, USERSTYLES_SCHEMA } from "./constants.ts";
+
 import * as yaml from "@std/yaml";
 import * as path from "@std/path";
-import { SetRequired } from "type-fest/source/set-required.d.ts";
 
-import { REPO_ROOT, USERSTYLES_SCHEMA } from "./constants.ts";
-import { UserstylesSchema } from "@/types/userstyles.d.ts";
+import Ajv, { type Schema } from "ajv";
 import { log } from "@/logger.ts";
 import { sprintf } from "@std/fmt/printf";
 
@@ -50,7 +51,7 @@ export function getUserstylesData(): Userstyles {
   );
 
   try {
-    const data = validateYaml<UserstylesSchema>(
+    const data = validateYaml<UserstylesSchema.UserstylesSchema>(
       content,
       USERSTYLES_SCHEMA,
     );
@@ -87,6 +88,23 @@ export function getUserstylesData(): Userstyles {
 }
 
 /**
+ * Utility function that calls {@link validateYaml} on the ports.yml file.
+ * Fails when data.userstyles is undefined.
+ */
+export async function getPortsData(): Promise<PortsSchema.PortsSchema> {
+  const content = await fetch(
+    "https://raw.githubusercontent.com/catppuccin/catppuccin/main/resources/ports.yml",
+  ).then((res) => res.text());
+
+  const data = validateYaml<PortsSchema.PortsSchema>(
+    content,
+    USERSTYLES_SCHEMA,
+  );
+
+  return data;
+}
+
+/**
  * Utility function that formats a list of items into the "x, y, ..., and z" format.
  * @example
  * formatListOfItems(['x']); // 'x'
@@ -109,4 +127,7 @@ export function formatListOfItems(items: unknown[]): string {
   }) as string;
 }
 
-type Userstyles = SetRequired<UserstylesSchema, "userstyles" | "collaborators">;
+type Userstyles = SetRequired<
+  UserstylesSchema.UserstylesSchema,
+  "userstyles" | "collaborators"
+>;

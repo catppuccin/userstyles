@@ -1,6 +1,7 @@
+import { REPO_ROOT, USERSTYLES_SCHEMA } from "@/constants.ts";
+
 import * as path from "@std/path";
 import { compile, type JSONSchema } from "json-schema-to-typescript";
-import { REPO_ROOT, USERSTYLES_SCHEMA } from "../constants.ts";
 
 const TYPES_ROOT = path.join(REPO_ROOT, "scripts/types");
 

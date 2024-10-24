@@ -1,9 +1,8 @@
-#!/usr/bin/env -S deno run -A
+import { REPO_ROOT } from "@/constants.ts";
+
+import * as path from "@std/path";
 import usercssMeta from "usercss-meta";
 import { ensureDir, walk } from "@std/fs";
-import * as path from "@std/path";
-
-import { REPO_ROOT } from "@/deps.ts";
 
 const stylesheets = walk(path.join(REPO_ROOT, "styles"), {
   includeFiles: true,

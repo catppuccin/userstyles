@@ -1,6 +1,7 @@
-import { UserStylesSchema } from "@/types/mod.ts";
+import type { UserstylesSchema } from "@/types/mod.ts";
+import { REPO_ROOT } from "@/constants.ts";
+
 import * as path from "@std/path";
-import { REPO_ROOT } from "../constants.ts";
 import Handlebars from "handlebars";
 
 // we can have some nice things :)
@@ -14,8 +15,8 @@ Handlebars.registerHelper(
 );
 
 const heading = (
-  name: UserStylesSchema.Name,
-  link: UserStylesSchema.ApplicationLink,
+  name: UserstylesSchema.Name,
+  link: UserstylesSchema.ApplicationLink,
 ) => {
   const [nameArray, linkArray] = [[name].flat(), [link].flat()];
 
@@ -32,8 +33,8 @@ const heading = (
 
 function extractName(
   collaborators?:
-    | UserStylesSchema.CurrentMaintainers
-    | UserStylesSchema.PastMaintainers,
+    | UserstylesSchema.CurrentMaintainers
+    | UserstylesSchema.PastMaintainers,
 ) {
   // no-op when undefined
   if (!collaborators) return;
@@ -44,7 +45,7 @@ function extractName(
   });
 }
 
-export function generateStyleReadmes(userstyles: UserStylesSchema.Userstyles) {
+export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
   const stylesReadmePath = path.join(
     REPO_ROOT,
     "scripts/generate/templates/userstyle.md",
