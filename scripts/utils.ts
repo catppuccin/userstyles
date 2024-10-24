@@ -1,6 +1,6 @@
 import type { PortsSchema, UserstylesSchema } from "@/types/mod.ts";
 import type { SetRequired } from "type-fest/source/set-required.d.ts";
-import { REPO_ROOT, USERSTYLES_SCHEMA } from "./constants.ts";
+import { PORTS_SCHEMA, REPO_ROOT, USERSTYLES_SCHEMA } from "@/constants.ts";
 
 import * as yaml from "@std/yaml";
 import * as path from "@std/path";
@@ -14,7 +14,11 @@ import { sprintf } from "@std/fmt/printf";
  * @param schema  A JSON schema
  * @returns A promise that resolves to the parsed YAML content, verified against the schema. Rejects if the content is invalid.
  */
-export function validateYaml<T>(content: string, schema: Schema): T {
+export function validateYaml<T>(
+  content: string,
+  schema: Schema,
+  file: string,
+): T {
   const ajv = new Ajv.default();
   const validate = ajv.compile<T>(schema);
   const data = yaml.parse(content);
@@ -32,7 +36,7 @@ export function validateYaml<T>(content: string, schema: Schema): T {
         )
       ).join(" and "),
       {
-        file: "scripts/userstyles.yml",
+        file,
       },
     );
     Deno.exit(1);
@@ -54,6 +58,7 @@ export function getUserstylesData(): Userstyles {
     const data = validateYaml<UserstylesSchema.UserstylesSchema>(
       content,
       USERSTYLES_SCHEMA,
+      "scripts/userstyles.yml",
     );
 
     for (const field of ["userstyles", "collaborators"] as const) {
@@ -98,7 +103,8 @@ export async function getPortsData(): Promise<PortsSchema.PortsSchema> {
 
   const data = validateYaml<PortsSchema.PortsSchema>(
     content,
-    USERSTYLES_SCHEMA,
+    PORTS_SCHEMA,
+    "ports.yml",
   );
 
   return data;
