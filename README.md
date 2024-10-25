@@ -149,7 +149,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - 🚧 [Arch Wiki](styles/arch-wiki)
 - [mdBook](styles/mdbook)
-- 🚧 [NixOS Wiki](styles/nixos.wiki)
+- [NixOS Wiki](styles/wiki.nixos.org)
 - [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
 
