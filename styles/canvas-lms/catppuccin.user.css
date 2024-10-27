@@ -63,15 +63,16 @@
     --ic-brand-font-color-dark: @text;
     --ic-brand-font-color-dark-lightened-15: fadeout(@text, 15%);
     --ic-brand-font-color-dark-lightened-30: lighten(@text, 30%);
+    --ic-link-color: @blue;
     --ic-link-color-darkened-10: fadeout(@blue, 10%);
     --ic-link-color-lightened-10: lighten(@blue, 10%);
-    --ic-link-color: @blue;
     --ic-brand-global-nav-menu-item__text-color--active: @accent-color;
+    --ic-brand-global-nav-menu-item__badge-text--active: @mantle;
     --ic-brand-global-nav-ic-icon-svg-fill--active: @accent-color;
 
     /* hover colors, used based on whether canvas's css has a blue hover or grayed-out hover color */
     @hover-regular: fadeout(@surface2, 50%);
-    @hover-accent: fadeout(@accent-color, 70%);
+    @hover-accent: mix(@base, @accent-color, 70%);
     @hover-button: if((@lookup = latte), darken(@surface0, 5%), lighten(@surface0, 5%));
 
     /* GENERAL UI CHANGES */
@@ -398,11 +399,21 @@
     --ic-brand-button--primary-bgd-darkened-5: darken(@accent-color, 25%);
     --ic-brand-button--primary-bgd-darkened-15: darken(@accent-color, 35%);
 
+    :is(button, a)[class$=baseButton]::before {
+      border-color: @accent-color;
+    }
+
+    /* css-6hdb0u-baseButton__content */
+    #apply_select_menus,
+    #ColorPicker__Apply,
+    a:has(.css-10t1mdw-baseButton__content),
     button:has(.css-10t1mdw-baseButton__content) {
-      &:hover {
-        background-color: @hover-accent;
+      &:disabled {
+        filter: brightness(85%);
+      }
+      &:not(:disabled):hover {
         > [class$="baseButton__content"] {
-          background-color: @hover-accent;
+          filter: brightness(115%);
         }
         color: @text;
       }
@@ -413,6 +424,7 @@
         fill: @text;
       }
       > [class$="baseButton__content"] {
+        transition-property: all;
         color: @text;
         background-color: darken(@accent-color, 20%);
         border-color: @surface1;
@@ -745,6 +757,9 @@
         color: @text;
       }
       ul[role="menu"] {
+        &::before {
+          border-color: @accent-color;
+        }
         background-color: @surface1;
         span[class$="menuItemGroup__label"] {
           background-color: @surface1;
@@ -877,7 +892,7 @@
         border-color: @surface1;
       }
       .ig-row:hover {
-        background-color: mix(@accent-color, @base, 30%);
+        background-color: @hover-accent;
       }
     }
     .list-view a.active .nav-badge,
@@ -1058,7 +1073,7 @@
 
       button[data-testid$="read-badge"] {
         &::before {
-          border-color: var(--ic-link-color);
+          border-color: @blue;
         }
         span svg {
           color: @accent-color;
@@ -1118,8 +1133,21 @@
     .question_editing {
       background-color: @base;
       border-color: @base;
-      .score_value {
-        color: @subtext1;
+    }
+    .score_value {
+      color: @subtext1;
+    }
+    .question {
+      background-color: transparent;
+    }
+    .quiz_comment {
+      border-color: @surface1;
+      background-image: linear-gradient(to bottom, @base, @surface0);
+      &::before {
+        border-bottom-color: @surface1;
+      }
+      &::after {
+        border-bottom-color: @base;
       }
     }
     #quiz_show {
@@ -1137,10 +1165,13 @@
       border-color: @surface2;
     }
     .alert {
-      background-color: @red;
+      background-color: fadeout(@red, 85%);
       span {
-        color: @base;
+        color: @red;
       }
+    }
+    .icon-warning {
+      color: @red;
     }
 
     .ic-Table {
@@ -1291,6 +1322,10 @@
           fill: fadeout(@text, 20%);
         }
       }
+      .tox-tbtn.tox-tbtn--enabled::after {
+        color: @accent-color;
+      }
+
       .tox-mbtn:hover:not(:disabled),
       .tox-mbtn:hover:not(:disabled, .tox-mbtn--active) {
         background-color: @hover-button;
@@ -1365,9 +1400,11 @@
         border-color: @surface1;
       }
       .rubric_container {
-        thead th,
-        table.ratings td {
+        thead th {
           background-color: @base;
+          border-color: @surface1;
+        }
+        table.ratings td  {
           border-color: @surface1;
         }
       }
@@ -1383,7 +1420,7 @@
       .ui-tabs-nav li.ui-tabs-active,
       .ui-tabs-nav li.ui-tabs-active.ui-state-hover,
       .ui-tabs-nav li.ui-tabs-active:hover {
-        background-color: transparent;
+        background-color: @base;
         border-color: @surface1;
         a {
           color: @text;
@@ -1489,15 +1526,14 @@
     span:has(> [data-testid="DiscussionEdit-container"]) {
       background-color: @base;
     }
+    #message-body-root_statusbar,
     span[data-testid="RCEStatusBar"] {
       color: @subtext0;
       button > span {
         color: @blue;
       }
-    }
-    #message-body-root_statusbar {
-      button > span {
-        color: @blue;
+      > span > div {
+        border-color: @surface1 !important;
       }
     }
     button[data-testid="attach-btn"] > span {
@@ -1508,6 +1544,13 @@
     }
     .discussions-container__wrapper [class$="summaryText"] {
       color: @text;
+    }
+    .ic-unread-badge__total-count,
+    .ic-unread-badge__unread-count {
+      color: @mantle;
+    }
+    hr[data-testid="post-separator"] {
+      border-color: @surface1 !important;
     }
 
     /* author profile picture placeholder */
@@ -1635,6 +1678,9 @@
       .day.today {
         background-color: mix(@red, @surface0, 10%);
       }
+    }
+    .mini-cal-header {
+      border-color: @surface1;
     }
 
     /* FILES */
