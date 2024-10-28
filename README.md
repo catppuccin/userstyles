@@ -183,6 +183,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Have I Been Pwned](styles/have-i-been-pwned)
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
+- [keybr.com](styles/keybr.com)
 - [Microsoft Word](styles/microsoft-word)
 - [openmediavault](styles/openmediavault)
 - [Porkbun](styles/porkbun)
