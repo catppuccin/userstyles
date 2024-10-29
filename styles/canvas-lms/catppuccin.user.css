@@ -60,6 +60,9 @@
 
     /* GLOBALS/VARIABLES */
     --ic-brand-primary: @accent-color;
+    --ic-brand-primary-lightened-15: lighten(@accent-color, 5%);
+    --ic-brand-primary-darkened-28: darken(@accent-color, 10%);
+    --ic-brand-primary-darkened-10: darken(@accent-color, 3%);
     --ic-brand-font-color-dark: @text;
     --ic-brand-font-color-dark-lightened-15: fadeout(@text, 15%);
     --ic-brand-font-color-dark-lightened-30: lighten(@text, 30%);
@@ -73,7 +76,11 @@
     /* hover colors, used based on whether canvas's css has a blue hover or grayed-out hover color */
     @hover-regular: fadeout(@surface2, 50%);
     @hover-accent: mix(@base, @accent-color, 70%);
-    @hover-button: if((@lookup = latte), darken(@surface0, 5%), lighten(@surface0, 5%));
+    @hover-button: if(
+      (@lookup = latte),
+      darken(@surface0, 5%),
+      lighten(@surface0, 5%)
+    );
 
     /* GENERAL UI CHANGES */
 
@@ -107,10 +114,15 @@
         border-color: @surface1;
         background-color: @surface0;
       }
-      background-color: @surface0;
+      background-color: @base;
       border-color: @surface2;
     }
-    img:not([src^="/"], [src*="cloudfront.net/dist"], [src*="instructuremedia.com/build"]) {
+    img:not(
+        [src^="/"],
+        [src*="cloudfront.net/dist"],
+        [src*="instructuremedia.com/build"]
+      ) {
+      /* force a white background for user-uploaded images */
       background-color: #fffd;
     }
     scrollbar-color: @surface2 @surface0;
@@ -177,7 +189,7 @@
 
     a[class$="link"],
     a[class$="link"] > span,
-    button[class$="link"]:not(.btn),
+    button[class$="link"],
     a.external span {
       color: @blue !important;
       &:hover,
@@ -271,10 +283,6 @@
       }
     }
 
-    .ic-app-header__menu-list-link:hover {
-      background: fadeout(@base, 50%);
-    }
-
     #nav-tray-portal {
       > span > span {
         background-color: @mantle;
@@ -320,8 +328,9 @@
         border-color: @surface1;
         color: @text;
       }
+
       .css-tfc09q-pill.css-tfc09q-pill {
-        /* red missing assignment pill */
+        /* red pills (late, missing) */
         color: @red;
         border-color: @red;
       }
@@ -331,6 +340,7 @@
       border-color: @surface2;
       box-shadow: 0 1px 0 @surface2;
     }
+    /* pills on grades tab */
     .student_assignment [class$="pill"] {
       background-color: transparent;
     }
@@ -339,6 +349,7 @@
       border-color: @red;
     }
     .submission-late-pill > span > div {
+      /* yes, this is blue in grades and red on dashboard */
       color: @blue;
       border-color: @blue;
     }
@@ -358,13 +369,9 @@
       button[class$="baseButton"]:not([data-testid="send-button"]),
     #immersive_reader_mount_point button,
     .ColorPicker__Actions button[class$="baseButton"]:not([id$="Apply"]),
-    #grades_summary a.toggle_comments_link,
-    #grades_summary a.toggle_rubric_assessments_link,
+    #grades_summary a[role="button"],
     #planner-today-btn,
     form[action="/logout"] button,
-    .ui-button,
-    .btn:not(.btn-primary, .btn-link),
-    .Button:not(.Button--primary, .Button--link),
     button[data-testid="address-button"],
     button[data-testid="gradebook-settings-button"],
     a:has(.css-1rpus1y-baseButton__content),
@@ -392,21 +399,68 @@
       }
     }
 
+    .btn,
+    .Button,
+    .ui-button {
+      background-color: @surface0;
+      color: @text;
+      border-color: @surface1;
+    }
+
+    .btn:focus,
+    .Button:focus,
+    .ui-button:focus {
+      color: @text;
+    }
+
+    .btn:hover,
+    .Button:hover,
+    .ui-button:hover {
+      background-color: @hover-button;
+      color: @text;
+    }
+
+    .btn:hover.ui-state-hover,
+    .Button:hover.ui-state-hover,
+    .ui-button:hover.ui-state-hover {
+      background-color: @hover-button;
+      color: @text;
+      border-color: darken(@surface1, 5%);
+    }
+
+    .btn.active,
+    .btn.Button--active,
+    .Button.active,
+    .active.ui-button,
+    .Button.Button--active,
+    .Button--active.ui-button,
+    .ui-button.ui-state-active:hover,
+    .ui-button.ui-state-active,
+    .ui-progressbar .ui-button.ui-widget-header {
+      background-color: darken(@hover-button, 10%);
+      border-color: darken(@surface1, 10%);
+      color: @text;
+    }
+
+    .btn:active,
+    .Button:active,
+    .ui-button:active {
+      background-color: darken(@hover-button, 3%);
+    }
+
     /* filled-in buttons with colored bg */
     /* covers .btn-primary and .Button--primary */
-    --ic-brand-global-nav-menu-item__text-color--active: @accent-color;
     --ic-brand-button--primary-bgd: darken(@accent-color, 20%);
     --ic-brand-button--primary-bgd-darkened-5: darken(@accent-color, 25%);
     --ic-brand-button--primary-bgd-darkened-15: darken(@accent-color, 35%);
 
-    :is(button, a)[class$=baseButton]::before {
+    :is(button, a)[class$="baseButton"]::before {
       border-color: @accent-color;
     }
 
-    /* css-6hdb0u-baseButton__content */
     #apply_select_menus,
     #ColorPicker__Apply,
-    a:has(.css-10t1mdw-baseButton__content),
+    a:has(.css-10t1mdw-baseButton__content), /* another auto-generated class that covers a lot of buttons */
     button:has(.css-10t1mdw-baseButton__content) {
       &:disabled {
         filter: brightness(85%);
@@ -415,9 +469,7 @@
         > [class$="baseButton__content"] {
           filter: brightness(115%);
         }
-        color: @text;
       }
-      color: @text;
       background-color: darken(@accent-color, 20%);
       border-color: @surface1;
       path[fill="#000000"] {
@@ -425,12 +477,9 @@
       }
       > [class$="baseButton__content"] {
         transition-property: all;
-        color: @text;
+        /* color: @text; */
         background-color: darken(@accent-color, 20%);
         border-color: @surface1;
-      }
-      [class$="text"] {
-        color: @text;
       }
     }
 
@@ -795,7 +844,7 @@
     input,
     textarea {
       &::placeholder {
-        color: @subtext0;
+        color: @subtext0 !important;
       }
     }
 
@@ -1058,6 +1107,7 @@
     [data-testid="conversation"] {
       border-color: @surface1;
       span[class$="badge"] {
+        color: @text;
         background-color: @surface1;
       }
     }
@@ -1404,7 +1454,7 @@
           background-color: @base;
           border-color: @surface1;
         }
-        table.ratings td  {
+        table.ratings td {
           border-color: @surface1;
         }
       }
@@ -1663,7 +1713,7 @@
     }
     #syllabus tr.date.date_passed td,
     #syllabus tr.date.date_passed th {
-      background-color: darken(@base, 5%);
+      background-color: darken(@base, 3%);
     }
     #syllabus tr.detail_list td.not_last {
       border-color: @surface0;
@@ -1775,7 +1825,7 @@
     /***************  */
     /* CREATOR SIDE */
     /***************  */
-    /* not the main purpose of this restyle so only the biggest outliers will be restyled */
+    /* not prioritized in this userstyle */
 
     /* DASHBOARD */
     .unpublished_courses_redesign .ic-DashboardCard__box__header {
