@@ -222,14 +222,14 @@
         background-color: @base;
         border-color: @surface1;
         > div[class$="modalHeader"] {
-          background-color: @surface0;
+          background-color: transparent;
           border-color: @surface1;
         }
         img {
           background-color: transparent;
         }
         > div[class$="modalFooter"] {
-          background-color: @surface1;
+          background-color: @surface0;
           border-color: @surface1;
         }
       }
@@ -605,11 +605,14 @@
     select,
     [class$="textInput__facade"] {
       color: @text;
-      background-color: @surface1;
+      background-color: transparent;
       border-color: @surface2;
       input {
         color: @text !important;
       }
+    }
+    [class$="textInput__facade"]::before {
+      border-color: @accent-color;
     }
 
     /* notifications */
@@ -625,6 +628,13 @@
     div[class*="view-alert"] {
       color: @text;
       background-color: @base;
+      border-color: @accent-color;
+      > div {
+        border-color: @accent-color;
+      }
+      > div:has(> svg) {
+        background-color: @accent-color;
+      }
     }
 
     /* pdf reader */
@@ -829,6 +839,13 @@
       }
     }
 
+    span[data-testid="RCE_RestoreAutoSaveModal"] {
+      span[class$="view--block"] {
+        background-color: transparent;
+        border-color: @surface1;
+        color: @text;
+      }
+    }
     /* select dropdowns */
     span[data-position-content^="Popover"]:has(ul[role="listbox"]) {
       border-color: @surface2;
@@ -1467,7 +1484,7 @@
       .tox-split-button:hover,
       .tox-tbtn.tox-tbtn--enabled:hover,
       .tox-split-button .tox-tbtn.tox-split-button__chevron:hover {
-        background-color: transparent;
+        background-color: fadeout(@surface0, 50%);
         color: fadeout(@text, 20%);
         svg {
           fill: fadeout(@text, 20%);
@@ -1677,18 +1694,17 @@
     span:has(> [data-testid="DiscussionEdit-container"]) {
       background-color: @base;
     }
-    #message-body-root_statusbar,
-    span[data-testid="RCEStatusBar"] {
+    #message-body-root_statusbar {
       color: @subtext0;
       button > span {
-        color: @blue;
+        color: @text;
       }
       > span > div {
         border-color: @surface1 !important;
       }
     }
     button[data-testid="attach-btn"] > span {
-      color: @blue;
+      color: @text;
     }
     .ic-discussion-content-container > span > span:last-child {
       color: @text;
