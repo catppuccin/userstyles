@@ -40,6 +40,9 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 For both of the below installation methods, you will need the Stylus browser extension installed. Install [Stylus](https://github.com/openstyles/stylus) for [Chrome](https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) or [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/). If you use Chrome, make sure to enable "Allow access to file URLs" in the Chrome extension settings for Stylus (visit `chrome://extensions/?id=clngdbkpkpeebahjckkjfobafhncgmne`).
 
+> [!TIP]
+> If you use [Dark Reader](https://darkreader.org/), make sure to disable the extension on websites with Catppuccin userstyles installed to avoid conflicts.
+
 ### All Userstyles
 
 1. Download the compiled Stylus export file, containing our recommended Stylus settings and all userstyles preloaded: [`import.json` (download)](https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json).
@@ -149,7 +152,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - 🚧 [Arch Wiki](styles/arch-wiki)
 - [mdBook](styles/mdbook)
-- 🚧 [NixOS Wiki](styles/nixos.wiki)
+- [NixOS Wiki](styles/wiki.nixos.org)
 - [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
 
@@ -180,6 +183,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Have I Been Pwned](styles/have-i-been-pwned)
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
+- [keybr.com](styles/keybr.com)
 - [Microsoft Word](styles/microsoft-word)
 - [openmediavault](styles/openmediavault)
 - [Porkbun](styles/porkbun)
