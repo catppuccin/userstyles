@@ -19,8 +19,7 @@
 
 
 
-## 💝 Current Maintainers
-- [GitMuslim](https://github.com/GitMuslim)
+## 💝 Current Maintainer
 - [uncenter](https://github.com/uncenter)
 
 

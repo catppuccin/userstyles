@@ -122,7 +122,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <summary>🧩 Browser Extensions</summary>
 
 - [Shinigami Eyes](styles/shinigami-eyes)
-- [Stylus](styles/stylus)
+- 🚧 [Stylus](styles/stylus)
 
 </details>
 <details open>
@@ -131,7 +131,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Brave Search](styles/brave-search)
 - [DuckDuckGo](styles/duckduckgo)
 - [Ecosia](styles/ecosia)
-- [Google](styles/google)
+- 🚧 [Google](styles/google)
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
 - 🚧 [Startpage](styles/startpage)
@@ -153,7 +153,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - 🚧 [Arch Wiki](styles/arch-wiki)
 - [mdBook](styles/mdbook)
 - [NixOS Wiki](styles/wiki.nixos.org)
-- [Wikipedia](styles/wikipedia)
+- 🚧 [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
 
 </details>
@@ -184,7 +184,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
 - [keybr.com](styles/keybr.com)
-- [Microsoft Word](styles/microsoft-word)
+- 🚧 [Microsoft Word](styles/microsoft-word)
 - [openmediavault](styles/openmediavault)
 - [Porkbun](styles/porkbun)
 - [Proton](styles/proton)
@@ -264,7 +264,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [bStats](styles/bstats)
 - 🚧 [Chess.com](styles/chess.com)
 - [Lichess](styles/lichess)
-- [Minesweeper Online](styles/minesweeper)
+- 🚧 [Minesweeper Online](styles/minesweeper)
 - [Modrinth](styles/modrinth)
 - [Planet Minecraft](styles/planet-minecraft)
 
