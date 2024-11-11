@@ -1,13 +1,13 @@
-#!/usr/bin/env -S deno run -A
-import { walk } from "@std/fs";
+import { REPO_ROOT } from "@/constants.ts";
+
 import { parseArgs } from "@std/cli";
-import { basename, dirname, join, relative } from "@std/path";
+import * as fs from "@std/fs";
+import * as path from "@std/path";
 // @ts-types="npm:@types/less";
 import less from "less";
 
-import { REPO_ROOT } from "@/deps.ts";
 import { checkForMissingFiles } from "@/lint/file-checker.ts";
-import { log } from "@/lint/logger.ts";
+import { log } from "@/logger.ts";
 import { verifyMetadata } from "@/lint/metadata.ts";
 import { lint } from "@/lint/stylelint.ts";
 import { getUserstylesData } from "@/utils.ts";
@@ -15,7 +15,7 @@ import stylelintConfig from "../../.stylelintrc.js";
 
 const args = parseArgs(Deno.args, { boolean: ["fix"] });
 const subDir = args._[0]?.toString() ?? "";
-const stylesheets = walk(join(REPO_ROOT, "styles", subDir), {
+const stylesheets = fs.walk(path.join(REPO_ROOT, "styles", subDir), {
   includeFiles: true,
   includeDirs: false,
   includeSymlinks: false,
@@ -26,8 +26,8 @@ const { userstyles } = getUserstylesData();
 let failed = false;
 
 for await (const entry of stylesheets) {
-  const dir = basename(dirname(entry.path));
-  const file = relative(REPO_ROOT, entry.path);
+  const dir = path.basename(path.dirname(entry.path));
+  const file = path.relative(REPO_ROOT, entry.path);
 
   let content = await Deno.readTextFile(entry.path);
 
