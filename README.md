@@ -122,6 +122,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🧩 Browser Extensions</summary>
 
+- [Indie Wiki Buddy](styles/indie-wiki-buddy)
 - [Shinigami Eyes](styles/shinigami-eyes)
 - 🚧 [Stylus](styles/stylus)
 
