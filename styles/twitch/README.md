@@ -19,8 +19,9 @@
 
 
 
-## 💝 Current Maintainer
+## 💝 Current Maintainers
 - [uncenter](https://github.com/uncenter)
+- [mxgic1337](https://github.com/mxgic1337)
 
 
 &nbsp;
