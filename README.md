@@ -101,6 +101,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
 - [go.dev](styles/go.dev)
+- [Grabify](styles/grabify)
 - [Graphite](styles/graphite)
 - [Hackage](styles/hackage)
 - [Home Manager Options Search](styles/home-manager-options-search)
