@@ -105,6 +105,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Graphite](styles/graphite)
 - [Hackage](styles/hackage)
 - [Home Manager Options Search](styles/home-manager-options-search)
+- [Hoogle](styles/hoogle)
 - [Hoppscotch](styles/hoppscotch)
 - [Keyoxide](styles/keyoxide)
 - [Learn X in Y Minutes](styles/learn-x-in-y-minutes)
