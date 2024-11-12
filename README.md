@@ -114,6 +114,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Ollama](styles/ollama)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
+- [PythonAnywhere](styles/pythonanywhere)
 - [Stack Overflow](styles/stack-overflow)
 - [Trinket](styles/trinket)
 - [Vercel, Next.js](styles/vercel)
