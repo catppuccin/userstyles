@@ -256,7 +256,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Holodex](styles/holodex)
 - 🚧 [Invidious](styles/invidious)
 - [Picrew](styles/picrew)
-- 🚧 [Substack](styles/substack)
+- [Substack](styles/substack)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
 
