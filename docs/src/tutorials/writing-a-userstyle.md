@@ -239,8 +239,8 @@ Combining all of the previous steps, we have a working userstyle!
 // vim:ft=less
 ```
 
-| Original                                | Themed                                |
-| --------------------------------------- | ------------------------------------- |
-| ![](./images/example.org-original.webp) | ![](./images/example.org-themed.webp) |
+| Original                                 | Themed                                 |
+| ---------------------------------------- | -------------------------------------- |
+| ![](../images/example.org-original.webp) | ![](../images/example.org-themed.webp) |
 
 Complete the rest of the steps in [Creating Userstyles](./userstyle-creation.md#creating-userstyles), and then submit your PR!
