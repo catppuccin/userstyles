@@ -11,8 +11,8 @@
 
 - [Tutorials](tutorials/README.md)
 
-  - [Writing a userstyle](tutorials/writing-a-userstyle.md)
+  - [Writing a userstyle (walkthrough)](tutorials/writing-a-userstyle.md)
 
-- [Tips and Tricks](tips/README.md)
+- [Tips and Tricks](tips-and-tricks/README.md)
 
 - [Contributing](CONTRIBUTING.md)
