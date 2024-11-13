@@ -87,7 +87,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 > Userstyles labeled with the "🚧" emoji are looking for maintainers, and may
 > not work as intended. Contributions are still welcome and encouraged. If you
 > would like to become a maintainer, follow the instructions outlined in
-> "[Adding yourself as a maintainer](https://github.com/catppuccin/userstyles/blob/main/docs/reference/userstylesyml.md#adding-yourself-as-a-maintainer)."
+> "[Adding yourself as a maintainer](https://github.com/catppuccin/userstyles/blob/main/docs/guide/userstylesyml.md#adding-yourself-as-a-maintainer)."
 
 <!-- AUTOGEN:USERSTYLES START -->
 <!-- the following section is auto-generated, do not edit -->

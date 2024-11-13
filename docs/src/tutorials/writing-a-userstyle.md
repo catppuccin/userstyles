@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-	Beginner-friendly guide for creating a userstyle!
+	Beginner-friendly walkthrough of creating a userstyle!
 </p>
 
 &nbsp;
@@ -12,6 +12,7 @@
 
 <!--toc:start-->
 
+- [Table of Contents](#table-of-contents)
 - [Prerequisites](#prerequisites)
 - [Usercss Metadata](#usercss-metadata)
 - [`@-moz-document`](#-moz-document)
