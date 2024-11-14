@@ -2,7 +2,7 @@
 @name Twitch Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/twitch
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/twitch
-@version 1.4.0
+@version 1.4.2
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/twitch/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Atwitch
 @description Soothing pastel theme for Twitch
@@ -247,14 +247,11 @@
       --color-text-button-disabled: @subtext0;
     }
 
-    &,
-    [class*="ScTokenOverrideCSSVars"] {
-      --color-text-link: @blue;
-      --color-text-link-active: @sky;
-      --color-text-link-focus: @sky;
-      --color-text-link-hover: @sky;
-      --color-text-link-visited: @lavender;
-    }
+    --color-text-link: @accent-color;
+    --color-text-link-active: darken(@accent-color, 5%);
+    --color-text-link-focus: darken(@accent-color, 5%);
+    --color-text-link-hover: darken(@accent-color, 5%);
+    --color-text-link-visited: @accent-color;
 
     &,
     [class*="ScAccentRegionCssVars"] {
@@ -463,6 +460,18 @@
       color: @text !important;
     }
 
+    /* Usercard mod log tabs */
+
+    .viewer-card-mod-drawer-tab--active {
+      box-shadow: 0 calc(var(--border-width-default) * -3) 0 @accent-color inset !important;
+    }
+
+    /* Usercard header */
+
+    .viewer-card-header__overlay {
+      background-color: fade(@mantle, 60%) !important;
+    }
+
     /* PiP username */
 
     div.mini-overlay__title span {
@@ -625,6 +634,17 @@
       }
     }
 
+    /* VOD chapters */
+    .preview-card-game-balloon__content .tw-interactable:hover {
+      p,
+      figure {
+        color: @text !important;
+      }
+      .media-row__image-play-overlay {
+        background-color: fade(@base, 80%) !important;
+      }
+    }
+
     .fixed-prediction-button--blue,
     [style*="background-color: rgb(56, 122, 255);"],
     [style*="background: rgb(56, 122, 255);"] {
@@ -668,6 +688,53 @@
     /* Modals */
     .modal__content {
       color: @text;
+    }
+
+    /* Leaderboard highlighted username */
+    .bits-leaderboard-expanded-top-three-entry__marquee-username,
+    .channel-leaderboard-header-runner-up-entry__username,
+    .bits-leaderboard-expanded-top-three-entry__username {
+      div {
+        color: @base !important;
+      }
+    }
+
+    /* Privacy center */
+
+    .privacy-center-root__number-item {
+      background: @accent-color;
+      color: @base;
+    }
+
+    .privacy-center-accordion {
+      border-color: @accent-color;
+    }
+    //ul[role="tablist"] li {
+    //   & > div div {
+    //     background: darken(, 10%) !important;
+    //   }
+    // }
+
+    .privacy-center-home-tabs {
+      color: @base !important;
+      &[aria-selected="true"],
+      &:hover {
+        color: @surface1 !important;
+      }
+    }
+
+    .home-page__title-container,
+    .tw-responsive-wrapper {
+      svg path {
+        &[fill="#fff"],
+        &[fill="#FFF"] {
+          fill: transparent !important;
+        }
+      }
+    }
+
+    .home-page__title {
+      color: @base !important;
     }
   }
 }
@@ -943,6 +1010,12 @@
     .doc-content {
       background: @base;
       border-color: @base !important;
+      a {
+        color: @accent-color;
+      }
+      border-bottom-color: @surface0 !important;
+      border-image: none;
+      -webkit-border-image: none;
     }
 
     code {
@@ -971,10 +1044,6 @@
     .pill-beta {
       color: @base !important;
       background: @yellow !important;
-    }
-
-    a {
-      color: @accent-color;
     }
 
     /* Navbar */
