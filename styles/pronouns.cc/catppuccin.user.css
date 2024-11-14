@@ -170,44 +170,48 @@
       --bs-navbar-brand-hover-color: @text !important;
       --bs-navbar-toggler-border-color: @surface0;
     }
-    #coloredButton(@color, @bg) {
+    #colorizedButton(@color, @bg, @border: @bg, @hv-color: @color, @hv-bg: darken(@bg, 5%), @hv-border: @hv-bg) {
       --bs-btn-color: @color;
       --bs-btn-bg: @bg;
-      --bs-btn-border-color: @bg;
-      --bs-btn-hover-color: @color;
-      --bs-btn-hover-bg: darken(@bg, 30%);
-      --bs-btn-hover-border-color: darken(@bg, 30%);
+      --bs-btn-border-color: @border;
+
+      --bs-btn-hover-color: @hv-color;
+      --bs-btn-hover-bg: @hv-bg;
+      --bs-btn-hover-border-color: @hv-border;
+
+      --bs-btn-active-color: @hv-color;
+      --bs-btn-active-bg: @hv-bg;
+      --bs-btn-active-border-color: @hv-border;
+
       --bs-btn-focus-shadow-rgb: #rgbify(@bg) [];
-      --bs-btn-active-color: @color;
-      --bs-btn-active-bg: darken(@bg, 30%);
-      --bs-btn-active-border-color: darken(@bg, 30%);
       --bs-btn-disabled-color: @color;
       --bs-btn-disabled-bg: @bg;
-      --bs-btn-disabled-border-color: @bg;
+      --bs-btn-disabled-border-color: @border;
+    }
+    #coloredButton(@color) {
+    	#colorizedButton(@crust, @color, @color, @hv-color: @crust, lighten(@color, 5%));
     }
     //buttons
     .btn-primary {
-      #coloredButton(@base, @accent-color);
-    }
-    .btn-outline-secondary {
-      #coloredButton(@base, @surface0);
-      --bs-btn-hover-bg: @overlay1 !important;
-      --bs-btn-color: @subtext0 !important;
+      #colorizedButton(@base, @accent-color, @hv-bg: lighten(@accent-color, 5%));
     }
     .btn-secondary {
-      #coloredButton(@text, @surface0);
+      #colorizedButton(@text, @surface0, @hv-bg: @surface1);
+    }
+    .btn-outline-secondary {
+      #colorizedButton(@surface1, transparent, @surface1, @subtext0, @surface1);
     }
     .btn-success {
-      #coloredButton(@crust,@green);
+      #coloredButton(@green);
     }
     .btn-info {
-      #coloredButton(@crust,@teal);
+      #coloredButton(@teal);
     }
     .btn-warning {
-      #coloredButton(@crust,@yellow);
+      #coloredButton(@yellow);
     }
     .btn-danger {
-      #coloredButton(@crust,@red);
+      #coloredButton(@red);
     }
   }
 }
