@@ -2,7 +2,7 @@
 @name SearXNG Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/searxng
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/searxng
-@version 0.3.3
+@version 0.4.0
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/searxng/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Asearxng
 @description Soothing pastel theme for SearXNG
@@ -12,7 +12,8 @@
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue*", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select visitedColor "Visited" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 
 @var checkbox additions "Additional Tweaks" 0
 ==/UserStyle== */
@@ -21,24 +22,24 @@
 @-moz-document domain("search.bus-hit.me"), domain("search.inetol.net") {
   @media (prefers-color-scheme: light) {
     :root.theme-auto {
-      #catppuccin(@lightFlavor, @accentColor);
+      #catppuccin(@lightFlavor, @accentColor, @visitedColor);
     }
   }
 
   @media (prefers-color-scheme: dark) {
     :root.theme-auto {
-      #catppuccin(@darkFlavor, @accentColor);
+      #catppuccin(@darkFlavor, @accentColor, @visitedColor);
     }
   }
 
   :root.theme-dark {
-    #catppuccin(@darkFlavor, @accentColor);
+    #catppuccin(@darkFlavor, @accentColor, @visitedColor);
   }
   :root.theme-light {
-    #catppuccin(@lightFlavor, @accentColor);
+    #catppuccin(@lightFlavor, @accentColor, @visitedColor);
   }
 
-  #catppuccin(@lookup, @accent) {
+  #catppuccin(@lookup, @accent, @visited) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
     @pink: @catppuccin[@@lookup][@pink];
@@ -66,6 +67,7 @@
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
+    @visited-color: @catppuccin[@@lookup][@@visited];
 
     color-scheme: if(@lookup = latte, light, dark);
 
@@ -84,7 +86,7 @@
     --color-base-background: @base;
     --color-base-background-mobile: @base;
     --color-url-font: @accent-color;
-    --color-url-visited-font: @accent-color;
+    --color-url-visited-font: @visited-color;
     --color-header-background: @mantle;
     --color-header-border: @mantle;
     --color-footer-background: @mantle;
@@ -127,7 +129,7 @@
     --color-result-description-highlight-font: @text;
     --color-result-link-font: @accent-color;
     --color-result-link-font-highlight: @accent-color;
-    --color-result-link-visited-font: @accent-color;
+    --color-result-link-visited-font: @visited-color;
     --color-result-publishdate-font: @surface2;
     --color-result-engines-font: @surface2;
     --color-result-search-url-border: @surface2;
