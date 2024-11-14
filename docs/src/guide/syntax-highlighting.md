@@ -29,7 +29,7 @@ If a website uses [highlight.js](https://highlightjs.org/), [Pygments](https://p
 --ctp-crust: @crust;
 ```
 
-#### highlight.js
+## highlight.js
 
 Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
 
@@ -37,7 +37,7 @@ Add the following line at the top of the userstyle, beneath the `@-moz-document`
 @import url("https://unpkg.com/@catppuccin/highlightjs@1.0.0/css/catppuccin-variables.important.css");
 ```
 
-#### Pygments
+## Pygments
 
 Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
 
@@ -45,7 +45,7 @@ Add the following line at the top of the userstyle, beneath the `@-moz-document`
 @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
 ```
 
-#### Prism.js
+## Prism.js
 
 Add the following line at the top of the userstyle, beneath the `@-moz-document` line.
 
@@ -53,7 +53,7 @@ Add the following line at the top of the userstyle, beneath the `@-moz-document`
 @import url("https://prismjs.catppuccin.com/variables.css");
 ```
 
-#### Chroma
+## Chroma
 
 Add the following lines to the top of the userstyle, beneath the `@-moz-document` line.
 

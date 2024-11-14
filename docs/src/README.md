@@ -6,6 +6,6 @@ A curated collection of customized themes designed for various websites and web 
 
 ## Getting started
 
-To get started using the catppuccin/userstyles collection, see [Usage](USAGE.md).
+To get started using the catppuccin/userstyles collection, see [Usage](./USAGE.md).
 
-To get started contributing to catppuccin/userstyles, see [Contributing](CONTRIBUTING.md) and [Userstyle Creation](guide/userstyle-creation.md).
+To get started contributing to catppuccin/userstyles, see [Contributing](./CONTRIBUTING.md) and [Userstyle Creation](./guide/userstyle-creation.md).

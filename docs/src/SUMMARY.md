@@ -1,18 +1,32 @@
 # Summary
 
-- [Introduction](README.md)
+- [Introduction](./README.md)
 
-- [Usage](USAGE.md)
+- [Usage](./USAGE.md)
 
-- [Guide](guide/README.md)
+- [FAQ](./FAQ.md)
 
-  - [Userstyle Creation](guide/userstyle-creation.md)
-  - [`userstyles.yml`](guide/userstylesyml.md)
+---
 
-- [Tutorials](tutorials/README.md)
+- [Contributing](./CONTRIBUTING.md)
 
-  - [Writing a userstyle (walkthrough)](tutorials/writing-a-userstyle.md)
+- [Userstyle Creation](./userstyle-creation.md)
 
-- [Tips and Tricks](tips-and-tricks/README.md)
+  - [Guide](./guide/README.md)
 
-- [Contributing](CONTRIBUTING.md)
+    - [Images and SVGs](./guide/images-and-svgs.md)
+    - [Syntax highlighting](./guide/syntax-highlighting.md)
+    - [Extracting RGB values](./guide/rgb-values.md)
+
+  - [Tutorials](./tutorials/README.md)
+
+    - [Writing a userstyle (walkthrough)](./tutorials/writing-a-userstyle.md)
+
+  - [Tips and Tricks](./tips-and-tricks/README.md)
+
+    - [Convert images to WebP](./tips-and-tricks/convert-images-to-webp.md)
+    - [Hide sensitive information from preview screenshots](./tips-and-tricks/hide-sensitive-information-from-previews.md)
+    - [Inspect hard-to-grab elements](./tips-and-tricks/inspect-hard-to-grab-elements.md)
+    - [See changes in real time (hot reloading)](./tips-and-tricks/see-changes-in-real-time.md)
+
+- [`userstyles.yml`](./userstylesyml.md)

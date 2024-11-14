@@ -1,4 +1,4 @@
-#### SVGs as `background-image`s
+## SVGs as `background-image`s
 
 Websites will sometimes use the `background-image` CSS property to apply an SVG, often for icons. We will refer to these as "external SVGs" throughout the rest of this guide, as the SVGs are usually at a different URL and linked to with [`url()`](https://developer.mozilla.org/en-US/docs/Web/CSS/url). Below is an example of what a rule for an external SVG could look like.
 
@@ -37,7 +37,7 @@ There is only one color used, `fill="#1D9BF0"`. That hex code is a shade of blue
 }
 ```
 
-#### `<img>` elements
+## `<img>` elements
 
 Theming an inline image is similar, but `content` is used instead of `background-image` to cover up the original image with our new one. As with the previous tip for `background-image`, you only need to update the SVG inside of the `escape('')` (see above for details).
 
@@ -59,7 +59,7 @@ img.twitter-icon {
 }
 ```
 
-#### Non-SVG images or many `<img>` elements with external SVGs
+## Non-SVG images or many `<img>` elements with external SVGs
 
 If you encounter non-SVG images, or many `<img>` elements with external SVGs, the best approach is to apply a CSS color filter to the images. Start by adding the following specially generated filters palette block to the bottom of the userstyle, below the existing `@catppuccin` palette block.
 

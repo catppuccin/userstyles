@@ -1,18 +1,7 @@
-<p align="center">
-  <h2 align="center">📖 Writing a userstyle (walkthrough)</h2>
-</p>
+# Writing a userstyle (walkthrough)
 
-<p align="center">
-	Beginner-friendly walkthrough of creating a userstyle!
-</p>
+Beginner-friendly walkthrough of creating a userstyle!
 
-&nbsp;
-
-### Table of Contents
-
-<!--toc:start-->
-
-- [Table of Contents](#table-of-contents)
 - [Prerequisites](#prerequisites)
 - [Usercss Metadata](#usercss-metadata)
 - [`@-moz-document`](#-moz-document)
@@ -20,9 +9,7 @@
 - [The `#catppuccin` mixin](#the-catppuccin-mixin)
 - [Putting it all together](#putting-it-all-together)
 
-<!--toc:end-->
-
-### Prerequisites
+## Prerequisites
 
 - [Stylus](https://github.com/openstyles/stylus) ([Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/) / [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne)
   extension).
@@ -30,7 +17,7 @@
 
 Assuming you have completed steps 1-4 of [Creating Userstyles](./userstyle-creation.md#creating-userstyles), you should have a new `catppuccin.user.css` file under the `styles/<name-of-website>/` directory. Follow along in that `catppuccin.user.css` file as we write an example userstyle for [example.org](http://example.org/).
 
-### Usercss Metadata
+## Usercss Metadata
 
 Start by filling out the "metadata block" at the very top of the template. Replace `<port-name>` with the name of the website you are porting, and please ensure it is capitalized when needed. For `example.org`, it looks like this:
 
@@ -55,7 +42,7 @@ Start by filling out the "metadata block" at the very top of the template. Repla
 
 The rest of the metadata block details the preprocessor and the options of the userstyle. This won't need to be changed. For more information, see ["Usercss Metadata" - Stylus Wiki](https://github.com/openstyles/stylus/wiki/Writing-UserCSS#usercss-metadata).
 
-### `@-moz-document`
+## `@-moz-document`
 
 To tell Stylus which website(s) to apply this userstyle on, replace `<website-domain>` with the domain of your port. For `example.org`, it looks like this:
 
@@ -70,7 +57,7 @@ To tell Stylus which website(s) to apply this userstyle on, replace `<website-do
 > @-moz-document regexp('http://example.(com|net|org|edu)/') {
 > ```
 
-### Applying the theme
+## Applying the theme
 
 This section of the template is about applying the user's light/dark flavors. Read the comments for this section in the template thoroughly and decide which of the two options works best for your port. `example.org` doesn't have a light/dark mode toggle, so we'll apply it based on the user's preferences.
 
@@ -91,7 +78,7 @@ This section of the template is about applying the user's light/dark flavors. Re
 > [!TIP]
 > If `example.org` _did_ use a toggle for changing the theme, we suggest using inspect element to try to observe what changes occur when the toggle is adjusted. Typically websites will have a class or attribute on the root `<html>` element. Some examples from our userstyles include `[theme="dark"]`, `.dark`, `.theme-dark`, etc.
 
-### The `#catppuccin` mixin
+## The `#catppuccin` mixin
 
 > [!TIP]
 > For more on how Less mixins work, see ["Mixins" - lesscss.org](https://lesscss.org/features/#mixins-feature) and ["A Comprehensive Introduction to Less: Mixins" - SitePoint](https://www.sitepoint.com/a-comprehensive-introduction-to-less-mixins/).
@@ -136,7 +123,7 @@ We'll refer to this next section of the template as the "`#catppuccin` mixin". Y
 }
 ```
 
-### Putting it all together
+## Putting it all together
 
 Combining all of the previous steps, we have a working userstyle!
 
@@ -243,4 +230,4 @@ Combining all of the previous steps, we have a working userstyle!
 | ---------------------------------------- | -------------------------------------- |
 | ![](../images/example.org-original.webp) | ![](../images/example.org-themed.webp) |
 
-Complete the rest of the steps in [Creating Userstyles](./userstyle-creation.md#creating-userstyles), and then submit your PR!
+Complete the rest of the steps in [Userstyle Creation](../userstyle-creation.md), and then submit your PR!
