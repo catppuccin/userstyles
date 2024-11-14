@@ -40,6 +40,9 @@ giving it a unique and appealing aesthetic in line with Catppuccin's color palet
 
 For both of the below installation methods, you will need the Stylus browser extension installed. Install [Stylus](https://github.com/openstyles/stylus) for [Chrome](https://chromewebstore.google.com/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) or [Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/). If you use Chrome, make sure to enable "Allow access to file URLs" in the Chrome extension settings for Stylus (visit `chrome://extensions/?id=clngdbkpkpeebahjckkjfobafhncgmne`).
 
+> [!TIP]
+> If you use [Dark Reader](https://darkreader.org/), make sure to disable the extension on websites with Catppuccin userstyles installed to avoid conflicts.
+
 ### All Userstyles
 
 1. Download the compiled Stylus export file, containing our recommended Stylus settings and all userstyles preloaded: [`import.json` (download)](https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json).
@@ -98,9 +101,11 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
 - [go.dev](styles/go.dev)
+- [Grabify](styles/grabify)
 - [Graphite](styles/graphite)
 - [Hackage](styles/hackage)
 - [Home Manager Options Search](styles/home-manager-options-search)
+- [Hoogle](styles/hoogle)
 - [Hoppscotch](styles/hoppscotch)
 - [Keyoxide](styles/keyoxide)
 - [Learn X in Y Minutes](styles/learn-x-in-y-minutes)
@@ -109,6 +114,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Ollama](styles/ollama)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
+- [PythonAnywhere](styles/pythonanywhere)
 - [Stack Overflow](styles/stack-overflow)
 - [Trinket](styles/trinket)
 - [Vercel, Next.js](styles/vercel)
@@ -118,8 +124,9 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>🧩 Browser Extensions</summary>
 
+- [Indie Wiki Buddy](styles/indie-wiki-buddy)
 - [Shinigami Eyes](styles/shinigami-eyes)
-- [Stylus](styles/stylus)
+- 🚧 [Stylus](styles/stylus)
 
 </details>
 <details open>
@@ -128,7 +135,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Brave Search](styles/brave-search)
 - [DuckDuckGo](styles/duckduckgo)
 - [Ecosia](styles/ecosia)
-- [Google](styles/google)
+- 🚧 [Google](styles/google)
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
 - 🚧 [Startpage](styles/startpage)
@@ -140,6 +147,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Crowdin](styles/crowdin)
 - [DeepL](styles/deepl)
 - [ichi.moe](styles/ichi.moe)
+- [Jisho](styles/jisho)
 - [Lingva](styles/lingva)
 
 </details>
@@ -148,8 +156,8 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 
 - 🚧 [Arch Wiki](styles/arch-wiki)
 - [mdBook](styles/mdbook)
-- 🚧 [NixOS Wiki](styles/nixos.wiki)
-- [Wikipedia](styles/wikipedia)
+- [NixOS Wiki](styles/wiki.nixos.org)
+- 🚧 [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
 
 </details>
@@ -172,17 +180,20 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 <details open>
 <summary>📖 Productivity</summary>
 
+- [AlternativeTo](styles/alternativeto)
 - [Amplenote](styles/amplenote)
 - [cobalt](styles/cobalt)
 - [Google Drive](styles/google-drive)
 - [Have I Been Pwned](styles/have-i-been-pwned)
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
-- [Microsoft Word](styles/microsoft-word)
+- [keybr.com](styles/keybr.com)
+- 🚧 [Microsoft Word](styles/microsoft-word)
 - [openmediavault](styles/openmediavault)
 - [Porkbun](styles/porkbun)
 - [Proton](styles/proton)
 - [Raindrop](styles/raindrop)
+- [Rentry.co](styles/rentry.co)
 - [Syncthing](styles/syncthing)
 - [tldraw](styles/tldraw)
 - [Vikunja](styles/vikunja)
@@ -218,7 +229,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Elk](styles/elk)
 - [Instagram](styles/instagram)
 - [LinkedIn](styles/linkedin)
-- 🚧 [Mastodon](styles/mastodon)
+- [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
 - [Phanpy](styles/phanpy)
 - [Pronouns.page](styles/pronouns.page)
@@ -245,7 +256,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Holodex](styles/holodex)
 - 🚧 [Invidious](styles/invidious)
 - [Picrew](styles/picrew)
-- 🚧 [Substack](styles/substack)
+- [Substack](styles/substack)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
 
@@ -257,7 +268,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [bStats](styles/bstats)
 - 🚧 [Chess.com](styles/chess.com)
 - [Lichess](styles/lichess)
-- [Minesweeper Online](styles/minesweeper)
+- 🚧 [Minesweeper Online](styles/minesweeper)
 - [Modrinth](styles/modrinth)
 - [Planet Minecraft](styles/planet-minecraft)
 

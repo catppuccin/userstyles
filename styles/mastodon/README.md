@@ -22,8 +22,8 @@
 - Q: **The theme does not look the same as the preview?**\
   A: Your Mastodon instance may be using its own custom CSS, which is changing the look of the theme.
 
-## 🚧 Looking for Maintainers 🚧
-- If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
+## 💝 Current Maintainer
+- [comfysage](https://github.com/comfysage)
 
 ## 💖 Past Maintainers
 - [Lemon](https://github.com/unseen-ninja)

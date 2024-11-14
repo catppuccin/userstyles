@@ -1,8 +1,8 @@
-#!/usr/bin/env -S deno run -A
-import * as assert from "@std/assert";
-import { Octokit } from "@octokit/rest";
+import type { Userstyle } from "@/types/userstyles.d.ts";
 
-import type { UserStylesSchema } from "@/types/mod.ts";
+import * as assert from "@std/assert";
+
+import { Octokit } from "@octokit/rest";
 import { getUserstylesData } from "@/utils.ts";
 
 const octokit = new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") });
@@ -14,7 +14,7 @@ const { userstyles } = getUserstylesData();
 const maintainers = [
   ...new Set(
     Object.values(userstyles).flatMap((
-      style: UserStylesSchema.Userstyle,
+      style: Userstyle,
     ) =>
       style["current-maintainers"].map((m) => {
         const username = m.url.split("github.com/")?.pop();
@@ -34,7 +34,7 @@ const teamMembers = await octokit.teams
   })
   .then((res) => res.data.map((m) => m.login.toLowerCase()));
 
-const syncMaintainers = async () => {
+async function syncMaintainers() {
   if (!maintainers) return;
   if (assert.equal(maintainers, teamMembers)) {
     console.log("Maintainers are in sync");
@@ -60,11 +60,13 @@ const syncMaintainers = async () => {
       ...team,
       username: m,
     });
-    console.log(`Removed ${m} from the ${team.org}/${team.team_slug} team.`);
+    console.log(
+      `Removed ${m} from the ${team.org}/${team.team_slug} team.`,
+    );
   }
   console.log(
     `${toRemove.length} users removed from the ${team.org}/${team.team_slug} team.`,
   );
-};
+}
 
 await syncMaintainers();

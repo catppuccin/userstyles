@@ -2,7 +2,7 @@
 @name Twitch Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/twitch
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/twitch
-@version 1.3.1
+@version 1.4.2
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/twitch/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Atwitch
 @description Soothing pastel theme for Twitch
@@ -16,6 +16,8 @@
 ==/UserStyle== */
 
 @-moz-document domain("twitch.tv") {
+  @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
+
   .tw-root--theme-dark {
     #catppuccin(@darkFlavor, @accentColor);
   }
@@ -245,14 +247,11 @@
       --color-text-button-disabled: @subtext0;
     }
 
-    &,
-    [class*="ScTokenOverrideCSSVars"] {
-      --color-text-link: @blue;
-      --color-text-link-active: @sky;
-      --color-text-link-focus: @sky;
-      --color-text-link-hover: @sky;
-      --color-text-link-visited: @lavender;
-    }
+    --color-text-link: @accent-color;
+    --color-text-link-active: darken(@accent-color, 5%);
+    --color-text-link-focus: darken(@accent-color, 5%);
+    --color-text-link-hover: darken(@accent-color, 5%);
+    --color-text-link-visited: @accent-color;
 
     &,
     [class*="ScAccentRegionCssVars"] {
@@ -461,6 +460,18 @@
       color: @text !important;
     }
 
+    /* Usercard mod log tabs */
+
+    .viewer-card-mod-drawer-tab--active {
+      box-shadow: 0 calc(var(--border-width-default) * -3) 0 @accent-color inset !important;
+    }
+
+    /* Usercard header */
+
+    .viewer-card-header__overlay {
+      background-color: fade(@mantle, 60%) !important;
+    }
+
     /* PiP username */
 
     div.mini-overlay__title span {
@@ -604,6 +615,36 @@
     [style="color: rgb(245, 0, 155);"] {
       color: @pink !important;
     }
+
+    [style*="rgb(255, 255, 255)"].channel-root,
+    [style*="rgb(255, 255, 255)"] .chat-author__display-name,
+    [style*="rgb(255, 255, 255)"].message-author__display-name {
+      color: @text !important;
+    }
+
+    /* FrankerFaceZ uptime timer */
+    .ffz-il-tooltip__container {
+      .tw-c-text-overlay {
+        background-color: fade(@base, 80%) !important;
+      }
+
+      p,
+      figure.ffz-i-flag {
+        color: @text;
+      }
+    }
+
+    /* VOD chapters */
+    .preview-card-game-balloon__content .tw-interactable:hover {
+      p,
+      figure {
+        color: @text !important;
+      }
+      .media-row__image-play-overlay {
+        background-color: fade(@base, 80%) !important;
+      }
+    }
+
     .fixed-prediction-button--blue,
     [style*="background-color: rgb(56, 122, 255);"],
     [style*="background: rgb(56, 122, 255);"] {
@@ -648,6 +689,53 @@
     .modal__content {
       color: @text;
     }
+
+    /* Leaderboard highlighted username */
+    .bits-leaderboard-expanded-top-three-entry__marquee-username,
+    .channel-leaderboard-header-runner-up-entry__username,
+    .bits-leaderboard-expanded-top-three-entry__username {
+      div {
+        color: @base !important;
+      }
+    }
+
+    /* Privacy center */
+
+    .privacy-center-root__number-item {
+      background: @accent-color;
+      color: @base;
+    }
+
+    .privacy-center-accordion {
+      border-color: @accent-color;
+    }
+    //ul[role="tablist"] li {
+    //   & > div div {
+    //     background: darken(, 10%) !important;
+    //   }
+    // }
+
+    .privacy-center-home-tabs {
+      color: @base !important;
+      &[aria-selected="true"],
+      &:hover {
+        color: @surface1 !important;
+      }
+    }
+
+    .home-page__title-container,
+    .tw-responsive-wrapper {
+      svg path {
+        &[fill="#fff"],
+        &[fill="#FFF"] {
+          fill: transparent !important;
+        }
+      }
+    }
+
+    .home-page__title {
+      color: @base !important;
+    }
   }
 }
 
@@ -660,16 +748,410 @@
   }
 
   #catppuccin(@lookup) {
+    @text: @catppuccin[@@lookup][@text];
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+
     .simplebar-content {
       background-color: @mantle;
     }
+
     .scrollable-area--suppress-scroll-x > .simplebar-scroll-content,
     .scrollable-area--suppress-scroll-x
       > .simplebar-scroll-content
       > .simplebar-content {
       background-color: @base;
+    }
+
+    .sunlight-page__content .simplebar-scroll-content .simplebar-content {
+      background-color: @base;
+    }
+    .info_box_row {
+      background: @crust;
+    }
+    .info_box_row_label {
+      color: @text;
+    }
+    .video-card-thumbnail__video-state-overlay {
+      color: @text !important;
+      background: fade(@mantle, 80%) !important;
+    }
+  }
+}
+
+@-moz-document domain("dev.twitch.tv"), url-prefix("https://discuss.dev.twitch.com/embed/topics")
+{
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    --ctp-rosewater: @rosewater;
+    --ctp-flamingo: @flamingo;
+    --ctp-pink: @pink;
+    --ctp-mauve: @mauve;
+    --ctp-red: @red;
+    --ctp-maroon: @maroon;
+    --ctp-peach: @peach;
+    --ctp-yellow: @yellow;
+    --ctp-green: @green;
+    --ctp-teal: @teal;
+    --ctp-sky: @sky;
+    --ctp-sapphire: @sapphire;
+    --ctp-blue: @blue;
+    --ctp-lavender: @lavender;
+    --ctp-text: @text;
+    --ctp-subtext1: @subtext1;
+    --ctp-subtext0: @subtext0;
+    --ctp-overlay2: @overlay2;
+    --ctp-overlay1: @overlay1;
+    --ctp-overlay0: @overlay0;
+    --ctp-surface2: @surface2;
+    --ctp-surface1: @surface1;
+    --ctp-surface0: @surface0;
+    --ctp-base: @base;
+    --ctp-mantle: @mantle;
+    --ctp-crust: @crust;
+
+    &,
+    body {
+      color: @text !important;
+      background: @base;
+      --primary-medium: @text;
+      --primary-low: @surface0;
+      scrollbar-color: @surface0 @mantle;
+    }
+
+    a.btn,
+    button.btn {
+      border-color: @accent-color;
+      background: @accent-color !important;
+      color: @base !important;
+    }
+
+    a.btn:hover,
+    button.btn:hover {
+      background: fade(@accent-color, 80%) !important;
+    }
+
+    /* Recent announcements */
+    .topics-list .topic-list-item .main-link a {
+      color: @accent-color;
+    }
+
+    .topic-created-at,
+    .topic-last-posted-at,
+    .topic-like-count,
+    .topic-post-count {
+      color: @subtext0 !important;
+    }
+
+    /* Header */
+    .nav__container,
+    .dev-top-nav {
+      background: @crust !important;
+
+      .tw-link,
+      .dev-top-nav__nav-items-container {
+        color: @text !important;
+        background: @crust !important;
+      }
+      .online {
+        border-color: @crust !important;
+      }
+      a.btn.light {
+        background: fade(@accent-color, 10%) !important;
+        color: @text !important;
+      }
+      .nav__links a {
+        color: @text;
+
+        &:hover {
+          color: @subtext0;
+        }
+        &.active {
+          color: @accent-color;
+          border-color: @accent-color;
+        }
+      }
+      .nav__logo svg path {
+        fill: @text;
+      }
+    }
+
+    /* Footers */
+    .footer,
+    .dev-footer,
+    .subscribe-footer {
+      h5,
+      p,
+      a,
+      div {
+        color: @text !important;
+      }
+      a:hover {
+        color: @accent-color !important;
+      }
+
+      svg path {
+        fill: @text !important;
+      }
+
+      background: @crust;
+    }
+
+    .bright-cta {
+      * {
+        color: @mantle !important;
+      }
+      background: @accent-color;
+    }
+    .content-alternate-2 {
+      background: @base;
+    }
+
+    .sandbox-tab {
+      color: @text !important;
+    }
+
+    .why-twitch ul li {
+      background: @base;
+      border-color: @surface0 !important;
+    }
+
+    .sandbox-tab.active {
+      color: @accent-color !important;
+      border-color: @accent-color !important;
+    }
+
+    .hero,
+    .extension-cta,
+    .subscribe-footer {
+      background: @mantle;
+    }
+
+    thead tr th {
+      border-color: @surface0;
+      background: @mantle;
+    }
+
+    tbody tr td {
+      border-color: @surface0;
+    }
+
+    tbody tr:nth-child(odd) {
+      background: @base !important;
+    }
+    tbody tr:nth-child(even) {
+      background: @mantle !important;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    hr {
+      color: @text !important;
+      border-color: @surface0 !important;
+    }
+
+    .right-code {
+      p {
+        color: @subtext0;
+      }
+    }
+
+    blockquote {
+      border-color: @accent-color;
+      background: @mantle;
+    }
+
+    .content,
+    .main,
+    .topics-list,
+    .doc-content {
+      background: @base;
+      border-color: @base !important;
+      a {
+        color: @accent-color;
+      }
+      border-bottom-color: @surface0 !important;
+      border-image: none;
+      -webkit-border-image: none;
+    }
+
+    code {
+      border-color: @accent-color !important;
+      background: fade(@accent-color, 5%) !important;
+      color: @text !important;
+    }
+
+    /* Code */
+    .right-code pre,
+    pre.highlight,
+    pre {
+      border-color: @mantle !important;
+      background: @mantle !important;
+      code {
+        background: transparent !important;
+        color: @text !important;
+      }
+    }
+
+    /* Pills */
+    .pill-new {
+      color: @base !important;
+      background: @accent-color !important;
+    }
+    .pill-beta {
+      color: @base !important;
+      background: @yellow !important;
+    }
+
+    /* Navbar */
+    .sidebar {
+      background: @mantle !important;
+      dl {
+        border-color: @base !important;
+      }
+      dt a,
+      dl dd a {
+        color: @text !important;
+      }
+      dl dd a.active-highlight {
+        color: @accent-color !important;
+      }
+      dl dd a.active-highlight::before {
+        border-left-color: @accent-color !important;
+      }
+      dt a:hover {
+        background: @base !important;
+      }
+
+      /* Search */
+
+      input {
+        color: @text;
+        &::placeholder {
+          color: @subtext0;
+        }
+        &:focus {
+          background: @crust !important;
+          box-shadow: 0 0 3px 1px fade(@accent-color, 70%);
+          color: @text;
+        }
+      }
+
+      .search-icon svg path {
+        fill: @text !important;
+      }
+
+      .algolia-autocomplete {
+        .algolia-docsearch-suggestion--category-header {
+          color: @text !important;
+          background: @mantle !important;
+          border-color: @base !important;
+        }
+
+        .algolia-docsearch-suggestion--highlight {
+          background: @accent-color !important;
+          color: @base !important;
+        }
+
+        .algolia-docsearch-suggestion--content {
+          background: @mantle !important;
+        }
+
+        .algolia-docsearch-suggestion--title {
+          color: @text !important;
+        }
+
+        .algolia-docsearch-suggestion--text {
+          color: @subtext0 !important;
+        }
+
+        .ds-suggestion.ds-cursor .algolia-docsearch-suggestion--content {
+          .algolia-docsearch-suggestion--title,
+          .algolia-docsearch-suggestion--text {
+            background: @crust !important;
+            .algolia-docsearch-suggestion--highlight {
+              background: @base !important;
+            }
+          }
+        }
+      }
+    }
+
+    ul.grid li.story {
+      h4 a,
+      a.btn {
+        color: @text !important;
+      }
+      a {
+        color: @accent-color !important;
+      }
+      .story__links a {
+        color: @base !important;
+      }
+
+      border-color: @surface0;
+    }
+
+    .submission .relative .outer {
+      svg path {
+        fill: @text;
+      }
+      button {
+        border-color: @accent-color !important;
+      }
+
+      .tag button {
+        background: @accent-color !important;
+        border-color: @accent-color !important;
+      }
+
+      .author {
+        color: @subtext0 !important;
+      }
+      background: @mantle;
     }
   }
 }

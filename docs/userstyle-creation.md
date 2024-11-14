@@ -28,6 +28,9 @@ To request a website to be themed, please create a [Port Request](https://github
 
 ### Creating userstyles
 
+> [!IMPORTANT]
+> Websites should be popular or otherwise commonly known by members of the Catppuccin community; personal or niche sites may not meet the criteria. If you are unsure if a website qualifies, consider creating a [discussion](https://github.com/catppuccin/catppuccin/discussions/new?category=port-requests) before submitting an initial PR.
+
 To create a userstyle, follow the instructions below. If you run into any difficulties or have any questions, please check our [Tips and tricks](./tips-and-tricks.md) page first.
 
 1. Fork this repository.
