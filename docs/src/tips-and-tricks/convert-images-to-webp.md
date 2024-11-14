@@ -2,11 +2,11 @@ The Catppuccin project prefers to use the [WebP image format](https://en.wikiped
 
 ## Installation
 
-| Method                                | Instructions                                                                           |
-| ------------------------------------- | -------------------------------------------------------------------------------------- |
-| [Homebrew](https://brew.sh/)          | `brew install webp` [[view cask]](https://formulae.brew.sh/formula/webp)               |
-| [MacPorts](https://www.macports.org/) | `sudo port install webp` [[view port]](https://ports.macports.org/port/webp/)          |
-| Binaries                              | See https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html. |
+| Method                                | Instructions                                                                             |
+| ------------------------------------- | ---------------------------------------------------------------------------------------- |
+| [Homebrew](https://brew.sh/)          | `brew install webp` [[view cask]](https://formulae.brew.sh/formula/webp)                 |
+| [MacPorts](https://www.macports.org/) | `sudo port install webp` [[view port]](https://ports.macports.org/port/webp/)            |
+| Binaries                              | See <https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html>. |
 
 ## Usage
 
