@@ -2,7 +2,7 @@
 @name Twitch Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/twitch
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/twitch
-@version 1.4.2
+@version 1.4.3
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/twitch/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Atwitch
 @description Soothing pastel theme for Twitch
@@ -239,7 +239,7 @@
       --color-background-tooltip: @text !important;
       --color-hinted-grey-2: @surface0;
       --color-hinted-grey-15: @text;
-      --color-background-overlay-alt: @mantle;
+      --color-background-overlay-alt: fade(@mantle, 60%);
       --color-background-button-overlay-primary-hover: @subtext1;
       --color-background-button-overlay-text-hover: @crust;
       --color-border-overlay: @surface0;
@@ -699,6 +699,10 @@
       }
     }
 
+    .channel-leaderboard-header-rotating__expand-grabber {
+      background: @surface0 !important;
+    }
+
     /* Privacy center */
 
     .privacy-center-root__number-item {
@@ -709,11 +713,6 @@
     .privacy-center-accordion {
       border-color: @accent-color;
     }
-    //ul[role="tablist"] li {
-    //   & > div div {
-    //     background: darken(, 10%) !important;
-    //   }
-    // }
 
     .privacy-center-home-tabs {
       color: @base !important;
@@ -736,22 +735,68 @@
     .home-page__title {
       color: @base !important;
     }
+
+    .tw-balloon {
+      .tw-callout-message__title {
+        color: var(--color-text-variable) !important;
+      }
+
+      .tw-callout__close div.tw-svg {
+        fill: var(--color-text-variable) !important;
+      }
+    }
+
+    .analytics-tip-card--blue,
+    .analytics-tip-card--red {
+      color: @base !important;
+      button {
+        color: @base !important;
+      }
+    }
+
+    /* Shield mode tray */
+
+    .shield-mode-icon svg path {
+      fill: @peach;
+    }
+
+    .tray-highlight,
+    .chat-input-highlight,
+    .shield-mode-shortcut__btn {
+      border-color: @peach !important;
+    }
+
+    /* Shield mode mod view button */
+
+    .shield-mode-shortcut__inner,
+    .shield-mode-view-toggle--active {
+      color: @base;
+      background: @peach;
+    }
+
+    /* Channel points reward cost */
+
+    .reward-icon__cost {
+      color: @text !important;
+      background: fade(@mantle, 60%) !important;
+    }
   }
 }
 
 @-moz-document domain("dashboard.twitch.tv") {
   .tw-root--theme-dark {
-    #catppuccin(@darkFlavor);
+    #catppuccin(@darkFlavor, @accentColor);
   }
   .tw-root--theme-light {
-    #catppuccin(@lightFlavor);
+    #catppuccin(@lightFlavor, @accentColor);
   }
 
-  #catppuccin(@lookup) {
+  #catppuccin(@lookup, @accent) {
     @text: @catppuccin[@@lookup][@text];
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
 
     .simplebar-content {
       background-color: @mantle;
@@ -776,6 +821,48 @@
     .video-card-thumbnail__video-state-overlay {
       color: @text !important;
       background: fade(@mantle, 80%) !important;
+    }
+
+    /* Twitch alerts */
+
+    .alerts-home-main-wrapper {
+      color: @text !important;
+    }
+
+    .alerts-home-scrollable-area {
+      color: @text !important;
+      .simplebar-content {
+        background: @mantle !important;
+      }
+      .alert-set-card {
+        background: @crust !important;
+      }
+    }
+
+    /* Analytics */
+    .top-stats-tab--active {
+      color: @accent-color !important;
+      box-shadow: 0 calc(var(--border-width-default) * -3) 0 @accent-color inset;
+      .top-stats-tab__title {
+        color: @accent-color !important;
+      }
+    }
+
+    .top-stats-tab:hover {
+      box-shadow:
+        inset 0 -2px 0 @accent-color,
+        0 4px 6px -4px @accent-color;
+      background: @base !important;
+    }
+
+    /* Stream Manager */
+
+    .stream-manager--page-view {
+      .mosaic-tile .simplebar-content,
+      .stream-manager-edit-mode-item,
+      .stream-manager-edit-mode-stat-item {
+        background: @mantle !important;
+      }
     }
   }
 }
