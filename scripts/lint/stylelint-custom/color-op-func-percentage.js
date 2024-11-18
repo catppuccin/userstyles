@@ -60,9 +60,6 @@ const ruleFunction = (primary, _secondary, context) => {
           let num = value;
           if (value.includes(".")) {
             num = Number.parseFloat(value);
-            if (num < 0) {
-              num *= 100;
-            }
           }
 
           if (context.fix) {
