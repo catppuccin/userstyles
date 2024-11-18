@@ -57,13 +57,8 @@ const ruleFunction = (primary, _secondary, context) => {
           const value = func.nodes[numArgLoc].value;
           if (!/^[\d.]+$/.test(value)) return;
 
-          let num = value;
-          if (value.includes(".")) {
-            num = Number.parseFloat(value);
-          }
-
           if (context.fix) {
-            func.nodes[numArgLoc].value = num + "%";
+            func.nodes[numArgLoc].value = value + "%";
             decl.value = parsed.toString();
           } else {
             report({
