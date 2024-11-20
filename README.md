@@ -246,6 +246,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Hacker News](styles/hacker-news)
 - [Lemmy](styles/lemmy)
 - 🚧 [Libreddit, Redlib](styles/libreddit)
+- [Lobsters](styles/lobste.rs)
 - 🚧 [Reddit](styles/reddit)
 - [TabNews](styles/tabnews)
 
