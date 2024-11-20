@@ -110,6 +110,7 @@ See [CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Keyoxide](styles/keyoxide)
 - [Learn X in Y Minutes](styles/learn-x-in-y-minutes)
 - [MDN](styles/mdn)
+- [NixOS Manual, Nixpkgs Manual](styles/nixos-manual)
 - [npm](styles/npm)
 - [Ollama](styles/ollama)
 - [paste.rs](styles/paste.rs)
