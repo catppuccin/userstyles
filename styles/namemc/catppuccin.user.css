@@ -2,7 +2,7 @@
 @name NameMC Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/namemc
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/namemc
-@version 0.0.1
+@version 0.0.2
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/namemc/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Anamemc
 @description Soothing pastel theme for NameMC
@@ -52,76 +52,28 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    --bs-body-color: @text;
-    --bs-body-color-rgb: @text;
-    --bs-body-bg: @base;
-    --bs-body-bg-rgb: @base;
-    --bs-emphasis-color: @text;
-    --bs-emphasis-color-rgb: @text;
-    --bs-blue: @blue;
-    --bs-indigo: @mauve;
-    --bs-purple: @mauve;
-    --bs-pink: @pink;
-    --bs-red: @red;
-    --bs-orange: @peach;
-    --bs-yellow: @yellow;
-    --bs-green: @green;
-    --bs-teal: @teal;
-    --bs-cyan: @sapphire;
-    --bs-secondary-color: @subtext0;
-    --bs-secondary-color-rgb: @subtext0;
-    --bs-tertiary-color: @subtext1;
-    --bs-tertiary-color-rgb: @subtext1;
-    --bs-tertiary-bg: @base;
-    --bs-tertiary-bg-rgb: @base;
-    --bs-secondary-text-emphasis: @subtext0;
-    --bs-success-text-emphasis: @accent-color;
-    --bs-primary: @accent-color;
-    --bs-primary-rgb: @accent-color;
-    --bs-secondary: @subtext0;
-    --bs-secondary-rgb: @subtext0;
-    --bs-success: @green;
-    --bs-success-rgb: @green;
-    --bs-info: @sky;
-    --bs-info-rgb: @sky;
-    --bs-warning: @yellow;
-    --bs-warning-rgb: @yellow;
-    --bs-danger: @red;
-    --bs-danger-rgb: @red;
-    --bs-light: @base;
-    --bs-light-rgb: @base;
-    --bs-dark: @text;
-    --bs-dark-rgb: @text;
-    --bs-dark-text-emphasis: @text;
-    --bs-primary-bg-subtle: @crust;
-    --bs-secondary-bg-subtle: @mantle;
-    --bs-success-bg-subtle: @crust;
-    --bs-warning-bg-subtle: @surface0;
-    --bs-danger-bg-subtle: @base;
-    --bs-secondary-border-subtle: @surface1;
-    --bs-success-border-subtle: @accent-color;
-    --bs-info-border-subtle: @sky;
-    --bs-warning-border-subtle: @peach;
-    --bs-danger-border-subtle: @red;
-    --bs-link-color: @accent-color;
-    --bs-link-color-rgb: @accent-color;
-    --bs-code-color: @accent-color;
-    --bs-highlight-bg: @base;
-    --bs-form-valid-color: @green;
-    --bs-focus-ring-color: @accent-color;
-    --bs-form-valid-border-color: @green;
-    --bs-form-invalid-color: @red;
-    --bs-form-invalid-border-color: @red;
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
 
     #bsButton(@col, @bgCol) {
       --bs-btn-color: @col;
-      --bs-btn-hover-color: @col;
-      --bs-btn-active-color: @col;
+      --bs-btn-hover-color: darken(@col, 5%);
+      --bs-btn-active-color: darken(@col, 5%);
       --bs-btn-disabled-color: @col;
 
       --bs-btn-bg: @bgCol;
-      --bs-btn-hover-bg: @bgCol;
-      --bs-btn-active-bg: @bgCol;
+      --bs-btn-hover-bg: darken(@bgCol, 5%);
+      --bs-btn-active-bg: darken(@bgCol, 5%);
       --bs-btn-disabled-bg: @bgCol;
       --bs-btn-border-color: @bgCol;
       --bs-btn-hover-border-color: @bgCol;
@@ -139,9 +91,74 @@
       --bs-btn-active-border-color: @col;
       --bs-btn-disabled-border-color: @col;
 
-      --bs-btn-hover-color: @text;
-      --bs-btn-active-color: @text;
+      --bs-btn-hover-color: @hover;
+      --bs-btn-active-color: @hover;
     }
+
+    #rgbify(@color) {
+      @rgb-raw: red(@color), green(@color), blue(@color);
+    }
+
+    --bs-body-color: @text;
+    --bs-body-color-rgb: #rgbify(@text) [];
+    --bs-body-bg: @base;
+    --bs-body-bg-rgb: #rgbify(@base) [];
+    --bs-emphasis-color: @text;
+    --bs-emphasis-color-rgb: #rgbify(@text) [];
+    --bs-blue: @blue;
+    --bs-indigo: @mauve;
+    --bs-purple: @mauve;
+    --bs-pink: @pink;
+    --bs-red: @red;
+    --bs-orange: @peach;
+    --bs-yellow: @yellow;
+    --bs-green: @green;
+    --bs-teal: @teal;
+    --bs-cyan: @sapphire;
+    --bs-secondary-color: @subtext0;
+    --bs-secondary-color-rgb: #rgbify(@subtext0) [];
+    --bs-tertiary-color: @subtext1;
+    --bs-tertiary-color-rgb: #rgbify(@subtext1) [];
+    --bs-tertiary-bg: @base;
+    --bs-tertiary-bg-rgb: #rgbify(@base) [];
+    --bs-secondary-text-emphasis: @subtext0;
+    --bs-success-text-emphasis: @green;
+    --bs-primary: @accent-color;
+    --bs-primary-rgb: #rgbify(@accent-color) [];
+    --bs-secondary: @subtext0;
+    --bs-secondary-rgb: #rgbify(@subtext0) [];
+    --bs-success: @green;
+    --bs-success-rgb: #rgbify(@green) [];
+    --bs-info: @sky;
+    --bs-info-rgb: #rgbify(@sky) [];
+    --bs-warning: @yellow;
+    --bs-warning-rgb: #rgbify(@yellow) [];
+    --bs-danger: @red;
+    --bs-danger-rgb: #rgbify(@red) [];
+    --bs-light: @base;
+    --bs-light-rgb: #rgbify(@base) [];
+    --bs-dark: @text;
+    --bs-dark-rgb: #rgbify(@text) [];
+    --bs-dark-text-emphasis: @text;
+    --bs-primary-bg-subtle: @crust;
+    --bs-secondary-bg-subtle: @mantle;
+    --bs-success-bg-subtle: fade(@green, 20%);
+    --bs-warning-bg-subtle: fade(@yellow, 20%);
+    --bs-danger-bg-subtle: @base;
+    --bs-secondary-border-subtle: @surface1;
+    --bs-success-border-subtle: @green;
+    --bs-info-border-subtle: @sky;
+    --bs-warning-border-subtle: @yellow;
+    --bs-danger-border-subtle: @red;
+    --bs-link-color: @accent-color;
+    --bs-link-color-rgb: #rgbify(@accent-color) [];
+    --bs-code-color: @accent-color;
+    --bs-highlight-bg: @base;
+    --bs-form-valid-color: @green;
+    --bs-focus-ring-color: @accent-color;
+    --bs-form-valid-border-color: @green;
+    --bs-form-invalid-color: @red;
+    --bs-form-invalid-border-color: @red;
 
     .btn-primary {
       #bsButton(@crust, @accent-color);
@@ -193,19 +210,6 @@
       #bsButtonOutline(@surface0, @text);
     }
 
-    color-scheme: if(@lookup = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent-color, 30%);
-    }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
-
     .text-success {
       color: @green !important;
     }
@@ -213,24 +217,25 @@
     .btn-link {
       --bs-btn-disabled-color: @overlay0;
       --bs-btn-disabled-border-color: transparent;
-      --bs-btn-focus-shadow-rgb: @blue;
+      --bs-btn-focus-shadow-rgb: #rgbify(@blue) [];
+    }
+
+    /* i hate that this is necessary */
+    .dropdown-menu {
+      --bs-dropdown-header-color: @overlay1 !important;
+      --bs-dropdown-border-color: @surface2 !important;
     }
 
     #header {
       form {
         div.input-group.input-group-lg {
           input.form-control {
-            background-color: @base;
+            background-color: @surface0 !important;
 
             &:focus {
               border-color: @accent-color;
               box-shadow: none;
             }
-          }
-
-          button.btn.btn-primary {
-            background-color: @accent-color;
-            transition: all linear 0.15s;
           }
         }
       }
@@ -257,7 +262,7 @@
       --bs-card-bg: @base !important;
 
       .card-header {
-        border-color: @surface0 !important;
+        border-color: @surface2 !important;
       }
     }
 
@@ -278,14 +283,12 @@
 
     /* skin display background */
     .checkered {
-      background-image: none !important;
-      background-color: @mantle !important;
-    }
-
-    table.server-table {
-      > tbody > tr > td > a {
-        color: @accent-color !important;
-      }
+      @dark: fade(@surface0, 40%);
+      @light: fade(@surface1, 40%);
+      @svg: escape(
+        '<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg"><path fill="@{dark}" d="M0 0h32v32H0z"/><path fill="@{light}" d="M32 0h32v32H32zM0 32h32v32H0z"/><path fill="@{dark}" d="M32 32h32v32H32z"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
     }
 
     /* skins page nav buttons */
@@ -301,8 +304,8 @@
 
     .page-item .page-link {
       background-color: @surface0 !important;
-      border-color: @surface0 !important;
-      color: @text !important;
+      border-color: @surface2 !important;
+      color: @text;
 
       &.active {
         background-color: @accent-color !important;
@@ -313,6 +316,12 @@
         box-shadow: none !important;
         color: @accent-color !important;
       }
+    }
+
+    .page-item.active .page-link {
+      background-color: @accent-color !important;
+      border-color: @accent-color !important;
+      color: @crust !important;
     }
 
     /* single skin page */
@@ -332,37 +341,24 @@
         div.col {
           .input-group {
             .input-group-text {
-              background-color: @mantle !important;
-              border-color: @surface0 !important;
+              background-color: @base !important;
+              border-color: @surface2 !important;
             }
           }
         }
       }
-
-      *.form-control,
-      *.form-select {
-        background-color: @mantle !important;
-        border-color: @surface0 !important;
-        box-shadow: none !important;
-        color: @subtext1 !important;
-
-        &:focus {
-          border-color: @accent-color !important;
-        }
-      }
     }
 
-    table {
-      tbody tr {
-        td.text-nowrap.text-ellipsis a {
-          color: @accent-color !important;
-        }
+    .form-control,
+    .form-select {
+      background-color: @base !important;
+      border-color: @surface2 !important;
+      box-shadow: none !important;
+      color: @subtext1 !important;
 
-        &.border-top {
-          td a {
-            color: @accent-color !important;
-          }
-        }
+      &:focus {
+        border-color: @accent-color !important;
+        box-shadow: 0 0 0 0.25rem fade(@accent-color, 25%);
       }
     }
 
@@ -486,9 +482,9 @@
 
     & when (@lookup = latte) {
       --bs-black: @text;
-      --bs-black-rgb: @text;
+      --bs-black-rgb: #rgbify(@text) [];
       --bs-white: @crust;
-      --bs-white-rgb: @mantle;
+      --bs-white-rgb: #rgbify(@crust) [];
       --bs-gray: @subtext0;
       --bs-gray-dark: @text;
       --bs-gray-100: @base;
@@ -501,7 +497,7 @@
       --bs-gray-800: @subtext1;
       --bs-gray-900: @text;
       --bs-secondary-bg: @mantle;
-      --bs-secondary-bg-rgb: @mantle;
+      --bs-secondary-bg-rgb: #rgbify(@mantle) [];
       --bs-primary-text-emphasis: @text;
       --bs-info-text-emphasis: @text;
       --bs-warning-text-emphasis: @text;
@@ -514,7 +510,7 @@
       --bs-light-border-subtle: @mantle;
       --bs-dark-border-subtle: @surface2;
       --bs-link-hover-color: @accent-color;
-      --bs-link-hover-color-rgb: @accent-color;
+      --bs-link-hover-color-rgb: #rgbify(@accent-color) [];
       --bs-border-color: @crust;
 
       .mc-black {
@@ -538,7 +534,7 @@
       --bs-gray: @overlay2;
       --bs-gray-dark: @surface2;
       --bs-secondary-bg: @surface0;
-      --bs-secondary-bg-rgb: @surface0;
+      --bs-secondary-bg-rgb: #rgbify(@surface0) [];
       --bs-primary-text-emphasis: @sapphire;
       --bs-info-text-emphasis: @sky;
       --bs-warning-text-emphasis: @yellow;
@@ -551,7 +547,7 @@
       --bs-light-border-subtle: @surface1;
       --bs-dark-border-subtle: @surface0;
       --bs-link-hover-color: @text;
-      --bs-link-hover-color-rgb: @text;
+      --bs-link-hover-color-rgb: #rgbify(@text) [];
       --bs-border-color: @surface1;
 
       .mc-black {
