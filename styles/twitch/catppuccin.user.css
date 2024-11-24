@@ -2,7 +2,7 @@
 @name Twitch Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/twitch
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/twitch
-@version 1.4.3
+@version 1.4.4
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/twitch/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Atwitch
 @description Soothing pastel theme for Twitch
@@ -76,10 +76,15 @@
       --color-background-input-focus: @crust;
       --color-background-interactable-hover: @surface0;
       --color-background-interactable-alpha-hover: @surface0;
+      --color-background-interactable-active: @surface1;
+      --color-background-button-secondary-active: @surface1;
       --color-background-button-text-default: null !important;
       --color-background-pill-subtle: @subtext0;
+      --color-background-placeholder: @surface0;
+      --color-background-selectable: @surface0;
       --color-text-input-placeholder: @text;
       --color-border-input: @base;
+      --color-border-tab: @surface0;
       --color-text-button-primary: @crust;
       --color-text-overlay: @base;
       --color-text-base: @subtext1;
@@ -90,6 +95,7 @@
       --color-text-tag: @text;
       --color-background-button-secondary-default: @crust;
       --color-background-button-secondary-hover: @surface0;
+      --color-background-button-overlay-secondary-default: fade(@text, 13%);
       --color-background-tag-default: @mantle;
       --color-background-tag-hover: @crust;
       --color-background-float: @mantle;
@@ -233,6 +239,7 @@
       --color-border-input-hover: @surface0;
       --color-opac-b-14: @crust;
       --color-text-button-overlay: @text !important;
+      --color-background-progress: @surface0;
       --color-background-range-overlay-fill: @text !important;
       --color-text-button-overlay-hover: @text !important;
       --color-text-tooltip: @base !important;
@@ -288,7 +295,7 @@
     /* `Intended for certain audiences` label */
 
     div[data-a-target="content-classification-warning-disclosure-overlay"] p {
-      color: @text;
+      color: @text !important;
     }
 
     /* `Hype Train` popup */
@@ -306,8 +313,11 @@
 
     /* `Is video buffering?` warning */
 
-    div.low-latency-notification p {
-      color: @text;
+    div.low-latency-notification {
+      p {
+        color: @text;
+      }
+      border-color: @accent-color;
     }
 
     /* `Includes paid promotion` label */
@@ -576,11 +586,6 @@
       background: @mantle;
     }
 
-    h4,
-    h5 {
-      color: @text;
-    }
-
     .server-message-alert {
       border-color: @red !important;
       border-left-color: @red !important;
@@ -608,18 +613,19 @@
     }
     [style*="rgb(255, 255, 255)"] {
       color: @base !important;
+      .channel-root,
+      .channel-info-content,
+      .chat-author__display-name,
+      &[data-a-target="chat-message-username"],
+      &.message-author__display-name {
+        color: @text !important;
+      }
     }
     [style="color: rgb(56, 122, 255);"] {
       color: @blue !important;
     }
     [style="color: rgb(245, 0, 155);"] {
       color: @pink !important;
-    }
-
-    [style*="rgb(255, 255, 255)"].channel-root,
-    [style*="rgb(255, 255, 255)"] .chat-author__display-name,
-    [style*="rgb(255, 255, 255)"].message-author__display-name {
-      color: @text !important;
     }
 
     /* FrankerFaceZ uptime timer */
@@ -673,11 +679,6 @@
     [data-a-target="video-ad-label"],
     [data-a-target="video-ad-countdown"] {
       color: @text !important;
-    }
-
-    /* Verified badge checkmark */
-    path[fill="#fff"] {
-      fill: @crust !important;
     }
 
     /* Override for logo icon */
@@ -746,12 +747,23 @@
       }
     }
 
-    .analytics-tip-card--blue,
-    .analytics-tip-card--red {
+    /* Home page tips and analytics */
+
+    .analytics-tip-card,
+    .creator-home-card__icon .creator-home-card__icon-svg {
       color: @base !important;
       button {
         color: @base !important;
       }
+    }
+
+    .creator-home-welcome-title__overlay-text,
+    .analytics-highlights-chart-tooltip__label--dark {
+      color: @base !important;
+    }
+
+    .creator-home-focus-position {
+      background: linear-gradient(@accent-color, @base);
     }
 
     /* Shield mode tray */
@@ -780,6 +792,148 @@
       color: @text !important;
       background: fade(@mantle, 60%) !important;
     }
+
+    /* Directory banner */
+
+    .directory-header-new__banner-cover {
+      background: linear-gradient(0deg, @base, fade(@mantle, 25%)),
+        linear-gradient(90deg, @base, fade(@mantle, 25%));
+    }
+
+    .home-video * {
+      color: @text !important;
+    }
+
+    /* Cookies and Advertising Choices */
+
+    .top-bar--pointer-enabled .consent-banner__content--gdpr-v2,
+    .consent-banner {
+      a,
+      button {
+        color: @base !important;
+      }
+
+      button:not([data-a-target="consent-banner-accept"]) {
+        background-color: fade(@base, 10%);
+      }
+    }
+
+    /* Mod view changelog shadow */
+
+    .mod-view-whats-new-list--more-posts-to-see::after {
+      background-image: linear-gradient(transparent, @mantle);
+    }
+
+    /* Unban requests */
+
+    .unban-requests-tabs__load-previous {
+      background-image: linear-gradient(@mantle, fade(@mantle, 0%));
+    }
+
+    .unban-requests-action-button__selected {
+      color: @base !important;
+      background: @accent-color;
+    }
+
+    .unban-requests-tabs__load-previous > div {
+      background: @surface0;
+    }
+
+    /* Timestamps, mod actions and deleted messages */
+
+    .targeted-mod-action,
+    .message__timestamp,
+    .vcml-message__timestamp,
+    .chat-line__message--deleted {
+      color: @subtext0;
+    }
+
+    /* Suspicious user banner in usercard */
+
+    .low-trust-user-banner div {
+      color: @text !important;
+    }
+
+    /* Emote preview */
+
+    .chat-input__preview__text {
+      color: @base !important;
+    }
+
+    /* Twitch logo in onboarding screen */
+
+    .onboarding-modal-splash-screen__container {
+      svg path[fill="#fff"] {
+        fill: transparent !important;
+      }
+    }
+
+    /* Stream category subtitle in onboarding screen */
+
+    .onboarding-modal-main-list-live-channels-live-channel-card__sub-title {
+      color: @subtext0 !important;
+    }
+
+    /* Subscriptions */
+
+    .tier-display {
+      color: @mauve;
+    }
+
+    .tier-display__prime {
+      color: @blue;
+    }
+
+    .sub-badge-progress p,
+    .sub-badge-progress__all-badges--text,
+    .expired-sub-message {
+      color: @subtext0 !important;
+    }
+
+    /* Clips timestamp */
+
+    .player-controls,
+    .clips-player-seekbar-container {
+      .tw-balloon p {
+        color: @text !important;
+      }
+    }
+
+    .sunlight-modal__content {
+      color: @text !important;
+    }
+
+    .tw-loading-spinner {
+      color: @text;
+    }
+
+    .player-overlay-background {
+      div,
+      div p {
+        color: @text !important;
+      }
+    }
+
+    .vertical-selector a:hover {
+      background: darken(@accent-color, 5%);
+    }
+
+    /* Chat popouts */
+
+    div[data-test-selector="chat-private-callout-queue__callout-container"] {
+      .tw-callout__close > button {
+        color: @base !important;
+      }
+      div[data-a-target="tw-progress-bar-animation"] {
+        background: @base;
+      }
+      div.tw-progress-bar {
+        background: fade(@base, 10%);
+      }
+      button .tw-svg {
+        fill: @base;
+      }
+    }
   }
 }
 
@@ -796,7 +950,19 @@
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
+    @surface0: @catppuccin[@@lookup][@surface0];
     @accent-color: @catppuccin[@@lookup][@@accent];
+
+    article button {
+      --color-fill-current: @base !important;
+      --color-background-button-overlay: @base !important;
+      --color-background-button-overlay-hover: @base !important;
+      --color-background-button-icon-overlay-hover: fade(@base, 13%);
+      --color-background-button-overlay-primary-hover: fade(
+        @base,
+        13%
+      ) !important;
+    }
 
     .simplebar-content {
       background-color: @mantle;
@@ -809,7 +975,7 @@
       background-color: @base;
     }
 
-    .sunlight-page__content .simplebar-scroll-content .simplebar-content {
+    .sunlight-page .simplebar-scroll-content .simplebar-content {
       background-color: @base;
     }
     .info_box_row {
@@ -829,7 +995,8 @@
       color: @text !important;
     }
 
-    .alerts-home-scrollable-area {
+    .alerts-home-scrollable-area,
+    .alert-boxes-section-border-container {
       color: @text !important;
       .simplebar-content {
         background: @mantle !important;
@@ -840,6 +1007,7 @@
     }
 
     /* Analytics */
+
     .top-stats-tab--active {
       color: @accent-color !important;
       box-shadow: 0 calc(var(--border-width-default) * -3) 0 @accent-color inset;
@@ -863,6 +1031,72 @@
       .stream-manager-edit-mode-stat-item {
         background: @mantle !important;
       }
+    }
+
+    /* Autohost / managed channels list */
+
+    .dashboard-centered-page {
+      .simplebar-scroll-content,
+      .simplebar-content {
+        background: transparent !important;
+      }
+
+      .autohost-list-item--hovered {
+        color: @text;
+        background: @base;
+
+        button svg path {
+          fill: @text !important;
+        }
+      }
+    }
+
+    /* Research */
+
+    .time-to-stream-tab--active {
+      box-shadow: 0 calc(var(--border-width-default) * -3) 0 @accent-color inset;
+    }
+
+    /* Collection thumbnails */
+
+    .collection-preview-image__wrapper {
+      color: @text !important;
+      background: linear-gradient(
+        90deg,
+        fade(@mantle, 0%),
+        fade(@mantle, 100%) 75%
+      );
+    }
+
+    /* AutoMod shadow */
+
+    .automod-level-controls__categories--bottom::after {
+      background-image: linear-gradient(fade(@mantle, 0%), @mantle);
+    }
+
+    /* Tables */
+
+    .tw-table,
+    .tw-table-heading {
+      border-color: @surface0;
+      background: @crust;
+    }
+
+    /* Achievements & activity page */
+
+    .ach-sb,
+    .activity-page__scrollable .simplebar-content {
+      background: @mantle !important;
+    }
+
+    /* Clips player background */
+
+    .clips-player-container {
+      background: @crust;
+    }
+
+    .clmgr-table__row:hover {
+      background: @surface0 !important;
     }
   }
 }
