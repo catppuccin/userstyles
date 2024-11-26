@@ -20,7 +20,7 @@
 
 
 ## 💝 Current Maintainer
-- [orangc](https://github.com/orxngc)
+- [orangc](https://github.com/orangci)
 
 ## 💖 Past Maintainer
 - [winston](https://github.com/nekowinston)

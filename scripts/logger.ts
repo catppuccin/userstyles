@@ -7,11 +7,11 @@ export type LoggerProps = core.AnnotationProperties & {
   content?: string;
 };
 
-const prettyPrint = (
+function prettyPrint(
   message: string,
   props: LoggerProps,
   severity: "error" | "warning" = "warning",
-) => {
+) {
   const { file, startColumn, startLine } = props;
 
   const lines = (props.content ?? "").split("\n");
@@ -73,7 +73,7 @@ const prettyPrint = (
   );
 
   console.log("\n" + logs.join("\n"));
-};
+}
 
 export const log = {
   failed: false,

@@ -2,7 +2,7 @@
 @name Twitch Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/twitch
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/twitch
-@version 1.3.1
+@version 1.4.4
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/twitch/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Atwitch
 @description Soothing pastel theme for Twitch
@@ -16,6 +16,8 @@
 ==/UserStyle== */
 
 @-moz-document domain("twitch.tv") {
+  @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
+
   .tw-root--theme-dark {
     #catppuccin(@darkFlavor, @accentColor);
   }
@@ -74,10 +76,15 @@
       --color-background-input-focus: @crust;
       --color-background-interactable-hover: @surface0;
       --color-background-interactable-alpha-hover: @surface0;
+      --color-background-interactable-active: @surface1;
+      --color-background-button-secondary-active: @surface1;
       --color-background-button-text-default: null !important;
       --color-background-pill-subtle: @subtext0;
+      --color-background-placeholder: @surface0;
+      --color-background-selectable: @surface0;
       --color-text-input-placeholder: @text;
       --color-border-input: @base;
+      --color-border-tab: @surface0;
       --color-text-button-primary: @crust;
       --color-text-overlay: @base;
       --color-text-base: @subtext1;
@@ -88,6 +95,7 @@
       --color-text-tag: @text;
       --color-background-button-secondary-default: @crust;
       --color-background-button-secondary-hover: @surface0;
+      --color-background-button-overlay-secondary-default: fade(@text, 13%);
       --color-background-tag-default: @mantle;
       --color-background-tag-hover: @crust;
       --color-background-float: @mantle;
@@ -231,13 +239,14 @@
       --color-border-input-hover: @surface0;
       --color-opac-b-14: @crust;
       --color-text-button-overlay: @text !important;
+      --color-background-progress: @surface0;
       --color-background-range-overlay-fill: @text !important;
       --color-text-button-overlay-hover: @text !important;
       --color-text-tooltip: @base !important;
       --color-background-tooltip: @text !important;
       --color-hinted-grey-2: @surface0;
       --color-hinted-grey-15: @text;
-      --color-background-overlay-alt: @mantle;
+      --color-background-overlay-alt: fade(@mantle, 60%);
       --color-background-button-overlay-primary-hover: @subtext1;
       --color-background-button-overlay-text-hover: @crust;
       --color-border-overlay: @surface0;
@@ -245,14 +254,11 @@
       --color-text-button-disabled: @subtext0;
     }
 
-    &,
-    [class*="ScTokenOverrideCSSVars"] {
-      --color-text-link: @blue;
-      --color-text-link-active: @sky;
-      --color-text-link-focus: @sky;
-      --color-text-link-hover: @sky;
-      --color-text-link-visited: @lavender;
-    }
+    --color-text-link: @accent-color;
+    --color-text-link-active: darken(@accent-color, 5%);
+    --color-text-link-focus: darken(@accent-color, 5%);
+    --color-text-link-hover: darken(@accent-color, 5%);
+    --color-text-link-visited: @accent-color;
 
     &,
     [class*="ScAccentRegionCssVars"] {
@@ -289,7 +295,7 @@
     /* `Intended for certain audiences` label */
 
     div[data-a-target="content-classification-warning-disclosure-overlay"] p {
-      color: @text;
+      color: @text !important;
     }
 
     /* `Hype Train` popup */
@@ -307,8 +313,11 @@
 
     /* `Is video buffering?` warning */
 
-    div.low-latency-notification p {
-      color: @text;
+    div.low-latency-notification {
+      p {
+        color: @text;
+      }
+      border-color: @accent-color;
     }
 
     /* `Includes paid promotion` label */
@@ -461,6 +470,18 @@
       color: @text !important;
     }
 
+    /* Usercard mod log tabs */
+
+    .viewer-card-mod-drawer-tab--active {
+      box-shadow: 0 calc(var(--border-width-default) * -3) 0 @accent-color inset !important;
+    }
+
+    /* Usercard header */
+
+    .viewer-card-header__overlay {
+      background-color: fade(@mantle, 60%) !important;
+    }
+
     /* PiP username */
 
     div.mini-overlay__title span {
@@ -565,11 +586,6 @@
       background: @mantle;
     }
 
-    h4,
-    h5 {
-      color: @text;
-    }
-
     .server-message-alert {
       border-color: @red !important;
       border-left-color: @red !important;
@@ -597,6 +613,13 @@
     }
     [style*="rgb(255, 255, 255)"] {
       color: @base !important;
+      .channel-root,
+      .channel-info-content,
+      .chat-author__display-name,
+      &[data-a-target="chat-message-username"],
+      &.message-author__display-name {
+        color: @text !important;
+      }
     }
     [style="color: rgb(56, 122, 255);"] {
       color: @blue !important;
@@ -604,6 +627,30 @@
     [style="color: rgb(245, 0, 155);"] {
       color: @pink !important;
     }
+
+    /* FrankerFaceZ uptime timer */
+    .ffz-il-tooltip__container {
+      .tw-c-text-overlay {
+        background-color: fade(@base, 80%) !important;
+      }
+
+      p,
+      figure.ffz-i-flag {
+        color: @text;
+      }
+    }
+
+    /* VOD chapters */
+    .preview-card-game-balloon__content .tw-interactable:hover {
+      p,
+      figure {
+        color: @text !important;
+      }
+      .media-row__image-play-overlay {
+        background-color: fade(@base, 80%) !important;
+      }
+    }
+
     .fixed-prediction-button--blue,
     [style*="background-color: rgb(56, 122, 255);"],
     [style*="background: rgb(56, 122, 255);"] {
@@ -634,11 +681,6 @@
       color: @text !important;
     }
 
-    /* Verified badge checkmark */
-    path[fill="#fff"] {
-      fill: @crust !important;
-    }
-
     /* Override for logo icon */
     .tw-animated-glitch-logo {
       --color-white: @crust;
@@ -648,28 +690,789 @@
     .modal__content {
       color: @text;
     }
+
+    /* Leaderboard highlighted username */
+    .bits-leaderboard-expanded-top-three-entry__marquee-username,
+    .channel-leaderboard-header-runner-up-entry__username,
+    .bits-leaderboard-expanded-top-three-entry__username {
+      div {
+        color: @base !important;
+      }
+    }
+
+    .channel-leaderboard-header-rotating__expand-grabber {
+      background: @surface0 !important;
+    }
+
+    /* Privacy center */
+
+    .privacy-center-root__number-item {
+      background: @accent-color;
+      color: @base;
+    }
+
+    .privacy-center-accordion {
+      border-color: @accent-color;
+    }
+
+    .privacy-center-home-tabs {
+      color: @base !important;
+      &[aria-selected="true"],
+      &:hover {
+        color: @surface1 !important;
+      }
+    }
+
+    .home-page__title-container,
+    .tw-responsive-wrapper {
+      svg path {
+        &[fill="#fff"],
+        &[fill="#FFF"] {
+          fill: transparent !important;
+        }
+      }
+    }
+
+    .home-page__title {
+      color: @base !important;
+    }
+
+    .tw-balloon {
+      .tw-callout-message__title {
+        color: var(--color-text-variable) !important;
+      }
+
+      .tw-callout__close div.tw-svg {
+        fill: var(--color-text-variable) !important;
+      }
+    }
+
+    /* Home page tips and analytics */
+
+    .analytics-tip-card,
+    .creator-home-card__icon .creator-home-card__icon-svg {
+      color: @base !important;
+      button {
+        color: @base !important;
+      }
+    }
+
+    .creator-home-welcome-title__overlay-text,
+    .analytics-highlights-chart-tooltip__label--dark {
+      color: @base !important;
+    }
+
+    .creator-home-focus-position {
+      background: linear-gradient(@accent-color, @base);
+    }
+
+    /* Shield mode tray */
+
+    .shield-mode-icon svg path {
+      fill: @peach;
+    }
+
+    .tray-highlight,
+    .chat-input-highlight,
+    .shield-mode-shortcut__btn {
+      border-color: @peach !important;
+    }
+
+    /* Shield mode mod view button */
+
+    .shield-mode-shortcut__inner,
+    .shield-mode-view-toggle--active {
+      color: @base;
+      background: @peach;
+    }
+
+    /* Channel points reward cost */
+
+    .reward-icon__cost {
+      color: @text !important;
+      background: fade(@mantle, 60%) !important;
+    }
+
+    /* Directory banner */
+
+    .directory-header-new__banner-cover {
+      background: linear-gradient(0deg, @base, fade(@mantle, 25%)),
+        linear-gradient(90deg, @base, fade(@mantle, 25%));
+    }
+
+    .home-video * {
+      color: @text !important;
+    }
+
+    /* Cookies and Advertising Choices */
+
+    .top-bar--pointer-enabled .consent-banner__content--gdpr-v2,
+    .consent-banner {
+      a,
+      button {
+        color: @base !important;
+      }
+
+      button:not([data-a-target="consent-banner-accept"]) {
+        background-color: fade(@base, 10%);
+      }
+    }
+
+    /* Mod view changelog shadow */
+
+    .mod-view-whats-new-list--more-posts-to-see::after {
+      background-image: linear-gradient(transparent, @mantle);
+    }
+
+    /* Unban requests */
+
+    .unban-requests-tabs__load-previous {
+      background-image: linear-gradient(@mantle, fade(@mantle, 0%));
+    }
+
+    .unban-requests-action-button__selected {
+      color: @base !important;
+      background: @accent-color;
+    }
+
+    .unban-requests-tabs__load-previous > div {
+      background: @surface0;
+    }
+
+    /* Timestamps, mod actions and deleted messages */
+
+    .targeted-mod-action,
+    .message__timestamp,
+    .vcml-message__timestamp,
+    .chat-line__message--deleted {
+      color: @subtext0;
+    }
+
+    /* Suspicious user banner in usercard */
+
+    .low-trust-user-banner div {
+      color: @text !important;
+    }
+
+    /* Emote preview */
+
+    .chat-input__preview__text {
+      color: @base !important;
+    }
+
+    /* Twitch logo in onboarding screen */
+
+    .onboarding-modal-splash-screen__container {
+      svg path[fill="#fff"] {
+        fill: transparent !important;
+      }
+    }
+
+    /* Stream category subtitle in onboarding screen */
+
+    .onboarding-modal-main-list-live-channels-live-channel-card__sub-title {
+      color: @subtext0 !important;
+    }
+
+    /* Subscriptions */
+
+    .tier-display {
+      color: @mauve;
+    }
+
+    .tier-display__prime {
+      color: @blue;
+    }
+
+    .sub-badge-progress p,
+    .sub-badge-progress__all-badges--text,
+    .expired-sub-message {
+      color: @subtext0 !important;
+    }
+
+    /* Clips timestamp */
+
+    .player-controls,
+    .clips-player-seekbar-container {
+      .tw-balloon p {
+        color: @text !important;
+      }
+    }
+
+    .sunlight-modal__content {
+      color: @text !important;
+    }
+
+    .tw-loading-spinner {
+      color: @text;
+    }
+
+    .player-overlay-background {
+      div,
+      div p {
+        color: @text !important;
+      }
+    }
+
+    .vertical-selector a:hover {
+      background: darken(@accent-color, 5%);
+    }
+
+    /* Chat popouts */
+
+    div[data-test-selector="chat-private-callout-queue__callout-container"] {
+      .tw-callout__close > button {
+        color: @base !important;
+      }
+      div[data-a-target="tw-progress-bar-animation"] {
+        background: @base;
+      }
+      div.tw-progress-bar {
+        background: fade(@base, 10%);
+      }
+      button .tw-svg {
+        fill: @base;
+      }
+    }
   }
 }
 
 @-moz-document domain("dashboard.twitch.tv") {
   .tw-root--theme-dark {
-    #catppuccin(@darkFlavor);
+    #catppuccin(@darkFlavor, @accentColor);
   }
   .tw-root--theme-light {
-    #catppuccin(@lightFlavor);
+    #catppuccin(@lightFlavor, @accentColor);
   }
 
-  #catppuccin(@lookup) {
+  #catppuccin(@lookup, @accent) {
+    @text: @catppuccin[@@lookup][@text];
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    article button {
+      --color-fill-current: @base !important;
+      --color-background-button-overlay: @base !important;
+      --color-background-button-overlay-hover: @base !important;
+      --color-background-button-icon-overlay-hover: fade(@base, 13%);
+      --color-background-button-overlay-primary-hover: fade(
+        @base,
+        13%
+      ) !important;
+    }
+
     .simplebar-content {
       background-color: @mantle;
     }
+
     .scrollable-area--suppress-scroll-x > .simplebar-scroll-content,
     .scrollable-area--suppress-scroll-x
       > .simplebar-scroll-content
       > .simplebar-content {
       background-color: @base;
+    }
+
+    .sunlight-page .simplebar-scroll-content .simplebar-content {
+      background-color: @base;
+    }
+    .info_box_row {
+      background: @crust;
+    }
+    .info_box_row_label {
+      color: @text;
+    }
+    .video-card-thumbnail__video-state-overlay {
+      color: @text !important;
+      background: fade(@mantle, 80%) !important;
+    }
+
+    /* Twitch alerts */
+
+    .alerts-home-main-wrapper {
+      color: @text !important;
+    }
+
+    .alerts-home-scrollable-area,
+    .alert-boxes-section-border-container {
+      color: @text !important;
+      .simplebar-content {
+        background: @mantle !important;
+      }
+      .alert-set-card {
+        background: @crust !important;
+      }
+    }
+
+    /* Analytics */
+
+    .top-stats-tab--active {
+      color: @accent-color !important;
+      box-shadow: 0 calc(var(--border-width-default) * -3) 0 @accent-color inset;
+      .top-stats-tab__title {
+        color: @accent-color !important;
+      }
+    }
+
+    .top-stats-tab:hover {
+      box-shadow:
+        inset 0 -2px 0 @accent-color,
+        0 4px 6px -4px @accent-color;
+      background: @base !important;
+    }
+
+    /* Stream Manager */
+
+    .stream-manager--page-view {
+      .mosaic-tile .simplebar-content,
+      .stream-manager-edit-mode-item,
+      .stream-manager-edit-mode-stat-item {
+        background: @mantle !important;
+      }
+    }
+
+    /* Autohost / managed channels list */
+
+    .dashboard-centered-page {
+      .simplebar-scroll-content,
+      .simplebar-content {
+        background: transparent !important;
+      }
+
+      .autohost-list-item--hovered {
+        color: @text;
+        background: @base;
+
+        button svg path {
+          fill: @text !important;
+        }
+      }
+    }
+
+    /* Research */
+
+    .time-to-stream-tab--active {
+      box-shadow: 0 calc(var(--border-width-default) * -3) 0 @accent-color inset;
+    }
+
+    /* Collection thumbnails */
+
+    .collection-preview-image__wrapper {
+      color: @text !important;
+      background: linear-gradient(
+        90deg,
+        fade(@mantle, 0%),
+        fade(@mantle, 100%) 75%
+      );
+    }
+
+    /* AutoMod shadow */
+
+    .automod-level-controls__categories--bottom::after {
+      background-image: linear-gradient(fade(@mantle, 0%), @mantle);
+    }
+
+    /* Tables */
+
+    .tw-table,
+    .tw-table-heading {
+      border-color: @surface0;
+      background: @crust;
+    }
+
+    /* Achievements & activity page */
+
+    .ach-sb,
+    .activity-page__scrollable .simplebar-content {
+      background: @mantle !important;
+    }
+
+    /* Clips player background */
+
+    .clips-player-container {
+      background: @crust;
+    }
+
+    .clmgr-table__row:hover {
+      background: @surface0 !important;
+    }
+  }
+}
+
+@-moz-document domain("dev.twitch.tv"), url-prefix("https://discuss.dev.twitch.com/embed/topics")
+{
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    --ctp-rosewater: @rosewater;
+    --ctp-flamingo: @flamingo;
+    --ctp-pink: @pink;
+    --ctp-mauve: @mauve;
+    --ctp-red: @red;
+    --ctp-maroon: @maroon;
+    --ctp-peach: @peach;
+    --ctp-yellow: @yellow;
+    --ctp-green: @green;
+    --ctp-teal: @teal;
+    --ctp-sky: @sky;
+    --ctp-sapphire: @sapphire;
+    --ctp-blue: @blue;
+    --ctp-lavender: @lavender;
+    --ctp-text: @text;
+    --ctp-subtext1: @subtext1;
+    --ctp-subtext0: @subtext0;
+    --ctp-overlay2: @overlay2;
+    --ctp-overlay1: @overlay1;
+    --ctp-overlay0: @overlay0;
+    --ctp-surface2: @surface2;
+    --ctp-surface1: @surface1;
+    --ctp-surface0: @surface0;
+    --ctp-base: @base;
+    --ctp-mantle: @mantle;
+    --ctp-crust: @crust;
+
+    &,
+    body {
+      color: @text !important;
+      background: @base;
+      --primary-medium: @text;
+      --primary-low: @surface0;
+      scrollbar-color: @surface0 @mantle;
+    }
+
+    a.btn,
+    button.btn {
+      border-color: @accent-color;
+      background: @accent-color !important;
+      color: @base !important;
+    }
+
+    a.btn:hover,
+    button.btn:hover {
+      background: fade(@accent-color, 80%) !important;
+    }
+
+    /* Recent announcements */
+    .topics-list .topic-list-item .main-link a {
+      color: @accent-color;
+    }
+
+    .topic-created-at,
+    .topic-last-posted-at,
+    .topic-like-count,
+    .topic-post-count {
+      color: @subtext0 !important;
+    }
+
+    /* Header */
+    .nav__container,
+    .dev-top-nav {
+      background: @crust !important;
+
+      .tw-link,
+      .dev-top-nav__nav-items-container {
+        color: @text !important;
+        background: @crust !important;
+      }
+      .online {
+        border-color: @crust !important;
+      }
+      a.btn.light {
+        background: fade(@accent-color, 10%) !important;
+        color: @text !important;
+      }
+      .nav__links a {
+        color: @text;
+
+        &:hover {
+          color: @subtext0;
+        }
+        &.active {
+          color: @accent-color;
+          border-color: @accent-color;
+        }
+      }
+      .nav__logo svg path {
+        fill: @text;
+      }
+    }
+
+    /* Footers */
+    .footer,
+    .dev-footer,
+    .subscribe-footer {
+      h5,
+      p,
+      a,
+      div {
+        color: @text !important;
+      }
+      a:hover {
+        color: @accent-color !important;
+      }
+
+      svg path {
+        fill: @text !important;
+      }
+
+      background: @crust;
+    }
+
+    .bright-cta {
+      * {
+        color: @mantle !important;
+      }
+      background: @accent-color;
+    }
+    .content-alternate-2 {
+      background: @base;
+    }
+
+    .sandbox-tab {
+      color: @text !important;
+    }
+
+    .why-twitch ul li {
+      background: @base;
+      border-color: @surface0 !important;
+    }
+
+    .sandbox-tab.active {
+      color: @accent-color !important;
+      border-color: @accent-color !important;
+    }
+
+    .hero,
+    .extension-cta,
+    .subscribe-footer {
+      background: @mantle;
+    }
+
+    thead tr th {
+      border-color: @surface0;
+      background: @mantle;
+    }
+
+    tbody tr td {
+      border-color: @surface0;
+    }
+
+    tbody tr:nth-child(odd) {
+      background: @base !important;
+    }
+    tbody tr:nth-child(even) {
+      background: @mantle !important;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    hr {
+      color: @text !important;
+      border-color: @surface0 !important;
+    }
+
+    .right-code {
+      p {
+        color: @subtext0;
+      }
+    }
+
+    blockquote {
+      border-color: @accent-color;
+      background: @mantle;
+    }
+
+    .content,
+    .main,
+    .topics-list,
+    .doc-content {
+      background: @base;
+      border-color: @base !important;
+      a {
+        color: @accent-color;
+      }
+      border-bottom-color: @surface0 !important;
+      border-image: none;
+      -webkit-border-image: none;
+    }
+
+    code {
+      border-color: @accent-color !important;
+      background: fade(@accent-color, 5%) !important;
+      color: @text !important;
+    }
+
+    /* Code */
+    .right-code pre,
+    pre.highlight,
+    pre {
+      border-color: @mantle !important;
+      background: @mantle !important;
+      code {
+        background: transparent !important;
+        color: @text !important;
+      }
+    }
+
+    /* Pills */
+    .pill-new {
+      color: @base !important;
+      background: @accent-color !important;
+    }
+    .pill-beta {
+      color: @base !important;
+      background: @yellow !important;
+    }
+
+    /* Navbar */
+    .sidebar {
+      background: @mantle !important;
+      dl {
+        border-color: @base !important;
+      }
+      dt a,
+      dl dd a {
+        color: @text !important;
+      }
+      dl dd a.active-highlight {
+        color: @accent-color !important;
+      }
+      dl dd a.active-highlight::before {
+        border-left-color: @accent-color !important;
+      }
+      dt a:hover {
+        background: @base !important;
+      }
+
+      /* Search */
+
+      input {
+        color: @text;
+        &::placeholder {
+          color: @subtext0;
+        }
+        &:focus {
+          background: @crust !important;
+          box-shadow: 0 0 3px 1px fade(@accent-color, 70%);
+          color: @text;
+        }
+      }
+
+      .search-icon svg path {
+        fill: @text !important;
+      }
+
+      .algolia-autocomplete {
+        .algolia-docsearch-suggestion--category-header {
+          color: @text !important;
+          background: @mantle !important;
+          border-color: @base !important;
+        }
+
+        .algolia-docsearch-suggestion--highlight {
+          background: @accent-color !important;
+          color: @base !important;
+        }
+
+        .algolia-docsearch-suggestion--content {
+          background: @mantle !important;
+        }
+
+        .algolia-docsearch-suggestion--title {
+          color: @text !important;
+        }
+
+        .algolia-docsearch-suggestion--text {
+          color: @subtext0 !important;
+        }
+
+        .ds-suggestion.ds-cursor .algolia-docsearch-suggestion--content {
+          .algolia-docsearch-suggestion--title,
+          .algolia-docsearch-suggestion--text {
+            background: @crust !important;
+            .algolia-docsearch-suggestion--highlight {
+              background: @base !important;
+            }
+          }
+        }
+      }
+    }
+
+    ul.grid li.story {
+      h4 a,
+      a.btn {
+        color: @text !important;
+      }
+      a {
+        color: @accent-color !important;
+      }
+      .story__links a {
+        color: @base !important;
+      }
+
+      border-color: @surface0;
+    }
+
+    .submission .relative .outer {
+      svg path {
+        fill: @text;
+      }
+      button {
+        border-color: @accent-color !important;
+      }
+
+      .tag button {
+        background: @accent-color !important;
+        border-color: @accent-color !important;
+      }
+
+      .author {
+        color: @subtext0 !important;
+      }
+      background: @mantle;
     }
   }
 }

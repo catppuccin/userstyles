@@ -20,7 +20,7 @@
 
 
 ## 💝 Current Maintainer
-- [jh-devv](https://github.com/jh-devv)
+- [Sofie](https://github.com/sofiedotcafe)
 
 
 &nbsp;
