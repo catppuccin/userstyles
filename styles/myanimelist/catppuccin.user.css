@@ -77,6 +77,11 @@
       desaturate(lighten(@accent-color, 4%), 0%),
       desaturate(darken(@accent-color, 28%), 25%)
     );
+    --color-accent-background-hover: if(
+      (@lookup = latte),
+      desaturate(lighten(@accent-color, 8%), 10%),
+      desaturate(darken(@accent-color, 25%), 35%)
+    );
 
     body {
       background-color: @mantle !important;
@@ -91,10 +96,29 @@
       color: @accent-color !important;
     }
 
+    // top header
     #headerSmall {
-      background-color: @mantle !important;
+      background-color: transparent !important;
+      // icons
+      .fa-solid {
+        color: @subtext1 !important;
+      }
+      .header-menu-unit.header-profile {
+        background-color: transparent;
+        .header-profile-link {
+          color: @text;
+        }
+        .header-profile-button {
+          background-color: transparent;
+          box-shadow: transparent 0 0 0 1px inset;
+        }
+      }
+
+      // TODO: "MyAnimeList" logo doesn't change in Latte
+      // borders between icons not themed (not very important)
     }
 
+    // colorful header
     #menu {
       color: var(--color-text-light) !important;
       background-color: var(--color-accent-background) !important;
@@ -103,11 +127,34 @@
       a:visited {
         color: var(--color-text-light) !important;
       }
+
+      // search bar
+      .inputtext {
+        color: @text !important;
+        background-color: @base !important;
+        border-color: @surface0 !important; // not exactly correct I don't think
+      }
+      // yes this is mispelled
+      #topSearchButon {
+        background-color: @surface0 !important;
+        border-color: @surface0 !important; // not exactly correct I don't think
+
+        color: @text !important;
+        &.notActive {
+          color: @subtext0 !important;
+        }
+      }
     }
 
     .h1 {
-      background-color: @base !important;
+      color: @text !important;
+      background-color: @base !important; // should be surface0 but I don't think it looks good
       border-color: @surface1 !important;
+    }
+
+    // changes space between content and footer
+    #contentWrapper {
+      background-color: transparent !important;
     }
 
     #content,
@@ -133,6 +180,7 @@
       // Buttons below profile picture
       .icon-user-function {
         background-color: @surface0;
+        border-color: @surface2 !important;
         // icon color
         i.fas {
           color: @subtext0;
@@ -144,18 +192,32 @@
         &.disabled {
           background-color: @surface1;
           i.fas {
-            color: @overlay1;
+            color: @overlay0;
           }
         }
       }
 
+      .user-status {
+        li {
+          background-color: @crust;
+        }
+        li:nth-of-type(2n) {
+          background-color: @mantle;
+        }
+      }
+
+      // Anime / Manga List buttons
+      // Submit comment / all comments buttons
       .btn-profile-submit,
       .btn-form-submit {
         color: var(--color-text-light) !important;
         background-color: var(--color-accent-background) !important;
+        transition-duration: .3s;
+        transition-property: all;
+        transition-timing-function: ease-in-out;
 
         &:hover {
-          background-color: @surface2 !important;
+          background-color: var(--color-accent-background-hover) !important;
         }
       }
 
@@ -163,23 +225,59 @@
       .graph:not(.anime, .manga),
       .stats-graph {
         background-color: @crust;
+        border-color: @crust;
       }
+      // watching / score numbers
+      .text {
+        color: @subtext1 !important;
+      }
+
+      // In Latte, hovering over favorites makes them lighter rather than darker.
+      // This reverts it but I'm not sure which looks better
+/*       .btn-fav {
+        .link {
+          transition-property: filter,opacity;
+        }
+        .link:hover {
+          // works better in Latte
+          opacity: 1;
+          filter: brightness(85%);
+        }
+      } */
 
       // comment entry
       .sceditor-outer {
-        a.item.active {
-          background-color: @base;
-          border-color: @surface2;
+        // Edit and Preview buttons
+        a.item {
+          color: @text;
+          &.active {
+            background-color: @base;
+            border-color: @surface2;
+          }
+          &:hover {
+            color: @accent-color;
+            background-color: fade(@surface0, 25%);
+          }
         }
 
+        // TODO: comment entry box too light while dragging to resize
+        // TODO: in Latte, box resize indicator is hard to see
         .sceditor-container {
           background-color: @surface0;
           border-color: @surface2;
-          div.sceditor-toolbar {
-            background-color: @surface0;
+          .sceditor-toolbar {
+            background-color: @surface1;
             border-color: @surface2;
+
+            .sceditor-group {
+              border-right-color: @overlay0;
+              .sceditor-button {
+                color: @subtext1 !important; // TODO: not working, comment editing buttons look bad in Latte
+              }
+            }
           }
           textarea {
+            color: @text;
             background-color: @surface0;
             border-color: @surface2;
           }
@@ -194,6 +292,14 @@
         background-color: @surface0;
       }
     } // end of #content
+
+    #footer-block {
+      color: @text !important;
+      background-color: @mantle !important;
+      .footer-link-block {
+        // TODO: background image not inverted in Latte
+      }
+    }
   }
 }
 
