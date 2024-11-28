@@ -39,9 +39,9 @@
     @yellow: @catppuccin[@@lookup][@yellow];
     @green: @catppuccin[@@lookup][@green];
     @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
     @blue: @catppuccin[@@lookup][@blue];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @sky: @catppuccin[@@lookup][@sky];
     @lavender: @catppuccin[@@lookup][@lavender];
     @text: @catppuccin[@@lookup][@text];
     @subtext1: @catppuccin[@@lookup][@subtext1];
@@ -57,19 +57,6 @@
     @crust: @catppuccin[@@lookup][@crust];
     @accent-color: @catppuccin[@@lookup][@@accent];
 
-    color-scheme: if(@lookup = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent-color, 30%);
-    }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
-
     --color-text-light: if((@lookup = latte), @mantle, @text);
     --color-text-dark: if((@lookup = latte), @text, @mantle);
     --color-accent-background: if(
@@ -82,8 +69,20 @@
       desaturate(lighten(@accent-color, 8%), 10%),
       desaturate(darken(@accent-color, 25%), 35%)
     );
+    --color-recommended: desaturate(@blue, 30%);
+    --color-mixed-feelings: @subtext0;
+    --color-not-recommended: @maroon;
+
+    /* General */
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
 
     body {
+      // STYLE: @crust looks cool, but it may be too much
       background-color: @mantle !important;
 
       & > div {
@@ -95,6 +94,15 @@
     a:visited {
       color: @accent-color !important;
     }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    /* Headers */
 
     // top header
     #headerSmall {
@@ -120,6 +128,7 @@
 
     // colorful header
     #menu {
+      // STYLE: this is quite bright, can be kinda hard to read especially on Rosewater, but it looks pretty good
       color: var(--color-text-light) !important;
       background-color: var(--color-accent-background) !important;
 
@@ -149,7 +158,8 @@
     .h1 {
       color: @text !important;
       background-color: @base !important; // should be surface0 but I don't think it looks good
-      border-color: @surface1 !important;
+      border-color: @surface0 !important;
+      border-bottom-color: @surface1 !important;
     }
 
     // changes space between content and footer
@@ -157,12 +167,14 @@
       background-color: transparent !important;
     }
 
+    /* Content */
+
     #content,
     .borderClass,
     .container-left,
     .container-right {
       background-color: @base !important;
-      border-color: @surface1 !important;
+      border-color: @surface0 !important;
       h2,
       h5 {
         color: @text;
@@ -174,10 +186,14 @@
       .fn-grey2 {
         color: @subtext1 !important;
       }
+      .dark_text {
+        color: @subtext0;
+      }
 
       /* Profile */
 
       // Buttons below profile picture
+      // STYLE: the colors of these really could be whatever
       .icon-user-function {
         background-color: @surface0;
         border-color: @surface2 !important;
@@ -206,13 +222,15 @@
         }
       }
 
+      // Anime page Update button
       // Anime / Manga List buttons
       // Submit comment / all comments buttons
+      .inputButton,
       .btn-profile-submit,
       .btn-form-submit {
         color: var(--color-text-light) !important;
         background-color: var(--color-accent-background) !important;
-        transition-duration: .3s;
+        transition-duration: 0.3s;
         transition-property: all;
         transition-timing-function: ease-in-out;
 
@@ -232,9 +250,9 @@
         color: @subtext1 !important;
       }
 
-      // In Latte, hovering over favorites makes them lighter rather than darker.
+      // STYLE: In Latte, hovering over favorites makes them lighter rather than darker.
       // This reverts it but I'm not sure which looks better
-/*       .btn-fav {
+      /* .btn-fav {
         .link {
           transition-property: filter,opacity;
         }
@@ -291,13 +309,271 @@
       .comment {
         background-color: @surface0;
       }
+
+      /* Anime / Manga Details Page */
+
+      .left-info-block-broadcast-button {
+        color: @text !important;
+        background-color: @surface0 !important;
+      }
+      .inputtext {
+        color: @text;
+        background-color: @surface0;
+        border-color: transparent;
+      }
+
+      // add / remove from favorites button
+      #profileRows a {
+        border-color: @surface2;
+        &:hover {
+          background-color: @surface0;
+        }
+      }
+
+      // right side
+
+      #horiznav_nav {
+        border-color: @surface0;
+        a,
+        li {
+          color: @text !important;
+          background-color: transparent;
+        }
+        a:hover {
+          background-color: @surface1;
+        }
+        .horiznav_active {
+          background-color: @surface1;
+        }
+      }
+
+      .stats-block {
+        background-color: @mantle;
+        border-color: @surface0;
+
+        .score {
+          // score title box
+          &::before {
+            color: var(--color-text-light) !important;
+            background-color: var(--color-accent-background);
+          }
+          color: @text !important;
+          // user count
+          &::after {
+            color: @subtext1 !important;
+          }
+        }
+
+        // divider between halves
+        &::before {
+          background-color: @surface0;
+          box-shadow: transparent 1px 0 1px 0;
+        }
+
+        .numbers {
+          color: @text !important;
+        }
+
+        .information {
+          border-right-color: @surface0;
+        }
+      }
+
+      .user-status-block {
+        background-color: @mantle;
+        border-color: @surface0;
+        select,
+        .di-ib {
+          color: @text !important;
+          background-color: @surface0 !important;
+          border-color: @surface1 !important;
+          .inputtext {
+            color: @accent-color;
+            background-color: @surface0 !important;
+            border-color: transparent !important;
+          }
+        }
+      }
+
+      .related-entries .entry:nth-child(2n + 1)::after {
+        border-right-color: @surface0;
+      }
+
+      .detail-characters-list .divider::after {
+        border-right-color: @surface0;
+      }
+
+      // Intro / Outro play button
+      .oped-preview-button-gray {
+        background-color: @surface1 !important;
+        mask-image: url("/images/oped-play-circle.svg");
+        background-image: none !important;
+        filter: none !important;
+      }
+      .oped-video-button-gray {
+        filter: none !important;
+        .malicon {
+          color: @surface1 !important;
+        }
+      }
+
+      // review header
+      .mal-navbar {
+        background-color: @surface0;
+        // reset since they were set to link color
+        .recommended a {
+          color: var(--color-recommended) !important;
+        }
+        .mixed-feelings a {
+          color: var(--color-mixed-feelings) !important;
+        }
+        .not-recommended a {
+          color: var(--color-not-recommended) !important;
+        }
+        // set bars to match
+        .recommended__bar {
+          background-color: var(--color-recommended);
+        }
+        .mixed_feeling__bar {
+          background-color: var(--color-mixed-feelings);
+        }
+        .not_recommended__bar {
+          background-color: var(--color-not-recommended);
+        }
+      }
+
+      .review-element {
+        background-color: transparent;
+        .thumbbody {
+          border-color: @surface0;
+        }
+        .update_at {
+          color: @subtext0;
+        }
+        .tags {
+          .btn-label {
+            color: @subtext0;
+            background-color: @surface0;
+            border-color: transparent;
+          }
+          // not easily readable by default,
+          // and overridden by above
+          .recommended {
+            color: var(--color-recommended);
+          }
+          .mixed-feelings {
+            color: var(--color-mixed-feelings);
+          }
+          .not-recommended {
+            color: var(--color-not-recommended);
+          }
+          .preliminary {
+            color: @subtext0;
+            background-color: transparent;
+            border-color: transparent;
+            span {
+              color: @subtext0;
+            }
+          }
+        }
+        .rating {
+          color: @text;
+        }
+        .notice {
+          color: @subtext0;
+        }
+        .reaction-box {
+          background-color: @surface0;
+          .btn-reaction {
+            color: @subtext1 !important;
+            border-color: @surface2 !important;
+          }
+          .btn-showall {
+            color: @subtext0;
+            &:hover {
+              color: @accent-color;
+            }
+          }
+        }
+        .bottom-navi {
+          .icon-reaction {
+            color: @subtext0;
+          }
+          .btn-popup {
+            color: @subtext0 !important;
+          }
+          .menu-block {
+            background-color: @surface0 !important;
+            border-color: transparent;
+          }
+        }
+      }
+
+      .btn-detail-recommendations-view-all {
+        background-color: @surface0;
+        .text {
+          color: @subtext0;
+        }
+        .icon-next {
+          background-color: @subtext0;
+        }
+      }
+
+      .detail-stack-block .tag {
+        background-color: transparent;
+      }
+
+      .lightLink {
+        color: @subtext0;
+      }
+
+      .forum_boardrow1 {
+        background-color: transparent;
+        border-color: @surface1;
+        .lightLink {
+          color: @subtext0;
+        }
+      }
+      .forum_boardrow2 {
+        background-color: @mantle;
+        border-color: @surface1;
+        .watch-state-icon {
+          color: @surface2;
+        }
+        .watch-state-icon.watched {
+          color: @accent-color;
+        }
+      }
+
+      /* Review Page */
+
+      .button_edit {
+        background-color: @surface0;
+        border-color: transparent;
+      }
+
+      .tag {
+        background-color: @surface0;
+        border-color: transparent;
+      }
     } // end of #content
 
     #footer-block {
       color: @text !important;
       background-color: @mantle !important;
       .footer-link-block {
-        // TODO: background image not inverted in Latte
+        // TODO: divider image not inverted in Latte
+      }
+      .footer-link-icon-block {
+        .footer-recommended::before {
+          color: @subtext0;
+        }
+      }
+      #copyright {
+        color: @subtext0 !important;
+      }
+      #recaptcha-terms {
+        color: @subtext0 !important;
       }
     }
   }
