@@ -39,192 +39,192 @@ To get started contributing to catppuccin/userstyles, see [Contributing](http://
 <details open>
 <summary>💭 Development Tools</summary>
 
-- [boringproxy](styles/boringproxy)
-- [Codeberg](styles/codeberg)
-- [crates.io](styles/crates.io)
-- [docs.rs](styles/docs.rs)
-- [freedesktop.org](styles/freedesktop)
-- [GitHub](styles/github)
-- [go.dev](styles/go.dev)
-- [Grabify](styles/grabify)
-- [Graphite](styles/graphite)
-- [Hackage](styles/hackage)
-- [Home Manager Options Search](styles/home-manager-options-search)
-- [Hoogle](styles/hoogle)
-- [Hoppscotch](styles/hoppscotch)
-- [Keyoxide](styles/keyoxide)
-- [Learn X in Y Minutes](styles/learn-x-in-y-minutes)
-- [MDN](styles/mdn)
-- [npm](styles/npm)
-- [Ollama](styles/ollama)
-- [paste.rs](styles/paste.rs)
-- [PyPI](styles/pypi)
-- [PythonAnywhere](styles/pythonanywhere)
-- [Stack Overflow](styles/stack-overflow)
-- [Trinket](styles/trinket)
-- [Vercel, Next.js](styles/vercel)
-- [web.dev](styles/web.dev)
+- [boringproxy](https://github.com/catppuccin/userstyles/blob/main/styles/boringproxy)
+- [Codeberg](https://github.com/catppuccin/userstyles/blob/main/styles/codeberg)
+- [crates.io](https://github.com/catppuccin/userstyles/blob/main/styles/crates.io)
+- [docs.rs](https://github.com/catppuccin/userstyles/blob/main/styles/docs.rs)
+- [freedesktop.org](https://github.com/catppuccin/userstyles/blob/main/styles/freedesktop)
+- [GitHub](https://github.com/catppuccin/userstyles/blob/main/styles/github)
+- [go.dev](https://github.com/catppuccin/userstyles/blob/main/styles/go.dev)
+- [Grabify](https://github.com/catppuccin/userstyles/blob/main/styles/grabify)
+- [Graphite](https://github.com/catppuccin/userstyles/blob/main/styles/graphite)
+- [Hackage](https://github.com/catppuccin/userstyles/blob/main/styles/hackage)
+- [Home Manager Options Search](https://github.com/catppuccin/userstyles/blob/main/styles/home-manager-options-search)
+- [Hoogle](https://github.com/catppuccin/userstyles/blob/main/styles/hoogle)
+- [Hoppscotch](https://github.com/catppuccin/userstyles/blob/main/styles/hoppscotch)
+- [Keyoxide](https://github.com/catppuccin/userstyles/blob/main/styles/keyoxide)
+- [Learn X in Y Minutes](https://github.com/catppuccin/userstyles/blob/main/styles/learn-x-in-y-minutes)
+- [MDN](https://github.com/catppuccin/userstyles/blob/main/styles/mdn)
+- [npm](https://github.com/catppuccin/userstyles/blob/main/styles/npm)
+- [Ollama](https://github.com/catppuccin/userstyles/blob/main/styles/ollama)
+- [paste.rs](https://github.com/catppuccin/userstyles/blob/main/styles/paste.rs)
+- [PyPI](https://github.com/catppuccin/userstyles/blob/main/styles/pypi)
+- [PythonAnywhere](https://github.com/catppuccin/userstyles/blob/main/styles/pythonanywhere)
+- [Stack Overflow](https://github.com/catppuccin/userstyles/blob/main/styles/stack-overflow)
+- [Trinket](https://github.com/catppuccin/userstyles/blob/main/styles/trinket)
+- [Vercel, Next.js](https://github.com/catppuccin/userstyles/blob/main/styles/vercel)
+- [web.dev](https://github.com/catppuccin/userstyles/blob/main/styles/web.dev)
 
 </details>
 <details open>
 <summary>🧩 Browser Extensions</summary>
 
-- [Indie Wiki Buddy](styles/indie-wiki-buddy)
-- [Shinigami Eyes](styles/shinigami-eyes)
-- 🚧 [Stylus](styles/stylus)
+- [Indie Wiki Buddy](https://github.com/catppuccin/userstyles/blob/main/styles/indie-wiki-buddy)
+- [Shinigami Eyes](https://github.com/catppuccin/userstyles/blob/main/styles/shinigami-eyes)
+- 🚧 [Stylus](https://github.com/catppuccin/userstyles/blob/main/styles/stylus)
 
 </details>
 <details open>
 <summary>🔎 Search Engines</summary>
 
-- [Brave Search](styles/brave-search)
-- [DuckDuckGo](styles/duckduckgo)
-- [Ecosia](styles/ecosia)
-- 🚧 [Google](styles/google)
-- [NixOS Search](styles/nixos-search)
-- [SearXNG](styles/searxng)
-- 🚧 [Startpage](styles/startpage)
+- [Brave Search](https://github.com/catppuccin/userstyles/blob/main/styles/brave-search)
+- [DuckDuckGo](https://github.com/catppuccin/userstyles/blob/main/styles/duckduckgo)
+- [Ecosia](https://github.com/catppuccin/userstyles/blob/main/styles/ecosia)
+- 🚧 [Google](https://github.com/catppuccin/userstyles/blob/main/styles/google)
+- [NixOS Search](https://github.com/catppuccin/userstyles/blob/main/styles/nixos-search)
+- [SearXNG](https://github.com/catppuccin/userstyles/blob/main/styles/searxng)
+- 🚧 [Startpage](https://github.com/catppuccin/userstyles/blob/main/styles/startpage)
 
 </details>
 <details open>
 <summary>🗺️ Translation Tools</summary>
 
-- [Crowdin](styles/crowdin)
-- [DeepL](styles/deepl)
-- [ichi.moe](styles/ichi.moe)
-- [Jisho](styles/jisho)
-- [Lingva](styles/lingva)
+- [Crowdin](https://github.com/catppuccin/userstyles/blob/main/styles/crowdin)
+- [DeepL](https://github.com/catppuccin/userstyles/blob/main/styles/deepl)
+- [ichi.moe](https://github.com/catppuccin/userstyles/blob/main/styles/ichi.moe)
+- [Jisho](https://github.com/catppuccin/userstyles/blob/main/styles/jisho)
+- [Lingva](https://github.com/catppuccin/userstyles/blob/main/styles/lingva)
 
 </details>
 <details open>
 <summary>🧠 Wikis</summary>
 
-- 🚧 [Arch Wiki](styles/arch-wiki)
-- [mdBook](styles/mdbook)
-- [NixOS Wiki](styles/wiki.nixos.org)
-- 🚧 [Wikipedia](styles/wikipedia)
-- [Wikiwand](styles/wikiwand)
+- 🚧 [Arch Wiki](https://github.com/catppuccin/userstyles/blob/main/styles/arch-wiki)
+- [mdBook](https://github.com/catppuccin/userstyles/blob/main/styles/mdbook)
+- [NixOS Wiki](https://github.com/catppuccin/userstyles/blob/main/styles/wiki.nixos.org)
+- 🚧 [Wikipedia](https://github.com/catppuccin/userstyles/blob/main/styles/wikipedia)
+- [Wikiwand](https://github.com/catppuccin/userstyles/blob/main/styles/wikiwand)
 
 </details>
 <details open>
 <summary>📸 Photo &amp; Video</summary>
 
-- [Google Photos](styles/google-photos)
-- 🚧 [Pinterest](styles/pinterest)
+- [Google Photos](https://github.com/catppuccin/userstyles/blob/main/styles/google-photos)
+- 🚧 [Pinterest](https://github.com/catppuccin/userstyles/blob/main/styles/pinterest)
 
 </details>
 <details open>
 <summary>🎵 Music</summary>
 
-- [Hyperpipe](styles/hyperpipe)
-- [Last.fm](styles/lastfm)
-- [ListenBrainz](styles/listenbrainz)
-- [Spotify Web](styles/spotify-web)
+- [Hyperpipe](https://github.com/catppuccin/userstyles/blob/main/styles/hyperpipe)
+- [Last.fm](https://github.com/catppuccin/userstyles/blob/main/styles/lastfm)
+- [ListenBrainz](https://github.com/catppuccin/userstyles/blob/main/styles/listenbrainz)
+- [Spotify Web](https://github.com/catppuccin/userstyles/blob/main/styles/spotify-web)
 
 </details>
 <details open>
 <summary>📖 Productivity</summary>
 
-- [AlternativeTo](styles/alternativeto)
-- [Amplenote](styles/amplenote)
-- [cobalt](styles/cobalt)
-- [Google Drive](styles/google-drive)
-- [Have I Been Pwned](styles/have-i-been-pwned)
-- [homepage](styles/homepage)
-- [inoreader](styles/inoreader)
-- [keybr.com](styles/keybr.com)
-- 🚧 [Microsoft Word](styles/microsoft-word)
-- [openmediavault](styles/openmediavault)
-- [Porkbun](styles/porkbun)
-- [Proton](styles/proton)
-- [Raindrop](styles/raindrop)
-- [Rentry.co](styles/rentry.co)
-- [Syncthing](styles/syncthing)
-- [tldraw](styles/tldraw)
-- [Vikunja](styles/vikunja)
+- [AlternativeTo](https://github.com/catppuccin/userstyles/blob/main/styles/alternativeto)
+- [Amplenote](https://github.com/catppuccin/userstyles/blob/main/styles/amplenote)
+- [cobalt](https://github.com/catppuccin/userstyles/blob/main/styles/cobalt)
+- [Google Drive](https://github.com/catppuccin/userstyles/blob/main/styles/google-drive)
+- [Have I Been Pwned](https://github.com/catppuccin/userstyles/blob/main/styles/have-i-been-pwned)
+- [homepage](https://github.com/catppuccin/userstyles/blob/main/styles/homepage)
+- [inoreader](https://github.com/catppuccin/userstyles/blob/main/styles/inoreader)
+- [keybr.com](https://github.com/catppuccin/userstyles/blob/main/styles/keybr.com)
+- 🚧 [Microsoft Word](https://github.com/catppuccin/userstyles/blob/main/styles/microsoft-word)
+- [openmediavault](https://github.com/catppuccin/userstyles/blob/main/styles/openmediavault)
+- [Porkbun](https://github.com/catppuccin/userstyles/blob/main/styles/porkbun)
+- [Proton](https://github.com/catppuccin/userstyles/blob/main/styles/proton)
+- [Raindrop](https://github.com/catppuccin/userstyles/blob/main/styles/raindrop)
+- [Rentry.co](https://github.com/catppuccin/userstyles/blob/main/styles/rentry.co)
+- [Syncthing](https://github.com/catppuccin/userstyles/blob/main/styles/syncthing)
+- [tldraw](https://github.com/catppuccin/userstyles/blob/main/styles/tldraw)
+- [Vikunja](https://github.com/catppuccin/userstyles/blob/main/styles/vikunja)
 
 </details>
 <details open>
 <summary>💌 Email Clients</summary>
 
-- [Gmail](styles/gmail)
-- [Migadu Webmail](styles/migadu-webmail)
-- [Tuta](styles/tuta)
+- [Gmail](https://github.com/catppuccin/userstyles/blob/main/styles/gmail)
+- [Migadu Webmail](https://github.com/catppuccin/userstyles/blob/main/styles/migadu-webmail)
+- [Tuta](https://github.com/catppuccin/userstyles/blob/main/styles/tuta)
 
 </details>
 <details open>
 <summary>🕹️ Game Development</summary>
 
-- [NameMC](styles/namemc)
+- [NameMC](https://github.com/catppuccin/userstyles/blob/main/styles/namemc)
 
 </details>
 <details open>
 <summary>🎓 Education</summary>
 
-- 🚧 [Canvas LMS](styles/canvas-lms)
-- [Formative](styles/formative)
-- [Quizlet](styles/quizlet)
+- 🚧 [Canvas LMS](https://github.com/catppuccin/userstyles/blob/main/styles/canvas-lms)
+- [Formative](https://github.com/catppuccin/userstyles/blob/main/styles/formative)
+- [Quizlet](https://github.com/catppuccin/userstyles/blob/main/styles/quizlet)
 
 </details>
 <details open>
 <summary>✨ Social Networking</summary>
 
-- [Bluesky Social](styles/bsky)
-- [Cinny](styles/cinny)
-- [Elk](styles/elk)
-- [Instagram](styles/instagram)
-- [LinkedIn](styles/linkedin)
-- [Mastodon](styles/mastodon)
-- [Nitter](styles/nitter)
-- [Phanpy](styles/phanpy)
-- [Pronouns.page](styles/pronouns.page)
-- [Snapchat Web](styles/snapchat-web)
-- [Twitter](styles/twitter)
-- [WhatsApp Web](styles/whatsapp-web)
+- [Bluesky Social](https://github.com/catppuccin/userstyles/blob/main/styles/bsky)
+- [Cinny](https://github.com/catppuccin/userstyles/blob/main/styles/cinny)
+- [Elk](https://github.com/catppuccin/userstyles/blob/main/styles/elk)
+- [Instagram](https://github.com/catppuccin/userstyles/blob/main/styles/instagram)
+- [LinkedIn](https://github.com/catppuccin/userstyles/blob/main/styles/linkedin)
+- [Mastodon](https://github.com/catppuccin/userstyles/blob/main/styles/mastodon)
+- [Nitter](https://github.com/catppuccin/userstyles/blob/main/styles/nitter)
+- [Phanpy](https://github.com/catppuccin/userstyles/blob/main/styles/phanpy)
+- [Pronouns.page](https://github.com/catppuccin/userstyles/blob/main/styles/pronouns.page)
+- [Snapchat Web](https://github.com/catppuccin/userstyles/blob/main/styles/snapchat-web)
+- [Twitter](https://github.com/catppuccin/userstyles/blob/main/styles/twitter)
+- [WhatsApp Web](https://github.com/catppuccin/userstyles/blob/main/styles/whatsapp-web)
 
 </details>
 <details open>
 <summary>🗣️ Discussion Forums</summary>
 
-- [Hacker News](styles/hacker-news)
-- [Lemmy](styles/lemmy)
-- 🚧 [Libreddit, Redlib](styles/libreddit)
-- 🚧 [Reddit](styles/reddit)
-- [TabNews](styles/tabnews)
+- [Hacker News](https://github.com/catppuccin/userstyles/blob/main/styles/hacker-news)
+- [Lemmy](https://github.com/catppuccin/userstyles/blob/main/styles/lemmy)
+- 🚧 [Libreddit, Redlib](https://github.com/catppuccin/userstyles/blob/main/styles/libreddit)
+- 🚧 [Reddit](https://github.com/catppuccin/userstyles/blob/main/styles/reddit)
+- [TabNews](https://github.com/catppuccin/userstyles/blob/main/styles/tabnews)
 
 </details>
 <details open>
 <summary>🌈 Entertainment</summary>
 
-- [AniList, AniChart](styles/anilist)
-- [ChatReplay](styles/chatreplay)
-- [Holodex](styles/holodex)
-- 🚧 [Invidious](styles/invidious)
-- [Picrew](styles/picrew)
-- 🚧 [Substack](styles/substack)
-- [Twitch](styles/twitch)
-- [YouTube](styles/youtube)
+- [AniList, AniChart](https://github.com/catppuccin/userstyles/blob/main/styles/anilist)
+- [ChatReplay](https://github.com/catppuccin/userstyles/blob/main/styles/chatreplay)
+- [Holodex](https://github.com/catppuccin/userstyles/blob/main/styles/holodex)
+- 🚧 [Invidious](https://github.com/catppuccin/userstyles/blob/main/styles/invidious)
+- [Picrew](https://github.com/catppuccin/userstyles/blob/main/styles/picrew)
+- 🚧 [Substack](https://github.com/catppuccin/userstyles/blob/main/styles/substack)
+- [Twitch](https://github.com/catppuccin/userstyles/blob/main/styles/twitch)
+- [YouTube](https://github.com/catppuccin/userstyles/blob/main/styles/youtube)
 
 </details>
 <details open>
 <summary>🎮 Games</summary>
 
-- [Advent Of Code](styles/advent-of-code)
-- [bStats](styles/bstats)
-- 🚧 [Chess.com](styles/chess.com)
-- [Lichess](styles/lichess)
-- 🚧 [Minesweeper Online](styles/minesweeper)
-- [Modrinth](styles/modrinth)
-- [Planet Minecraft](styles/planet-minecraft)
+- [Advent Of Code](https://github.com/catppuccin/userstyles/blob/main/styles/advent-of-code)
+- [bStats](https://github.com/catppuccin/userstyles/blob/main/styles/bstats)
+- 🚧 [Chess.com](https://github.com/catppuccin/userstyles/blob/main/styles/chess.com)
+- [Lichess](https://github.com/catppuccin/userstyles/blob/main/styles/lichess)
+- 🚧 [Minesweeper Online](https://github.com/catppuccin/userstyles/blob/main/styles/minesweeper)
+- [Modrinth](https://github.com/catppuccin/userstyles/blob/main/styles/modrinth)
+- [Planet Minecraft](https://github.com/catppuccin/userstyles/blob/main/styles/planet-minecraft)
 
 </details>
 <details open>
 <summary>🤖 Artificial Intelligence</summary>
 
-- [ChatGPT](styles/chatgpt)
-- [Google Gemini](styles/google-gemini)
-- [InvokeAI](styles/invokeai)
-- [Perplexity](styles/perplexity)
+- [ChatGPT](https://github.com/catppuccin/userstyles/blob/main/styles/chatgpt)
+- [Google Gemini](https://github.com/catppuccin/userstyles/blob/main/styles/google-gemini)
+- [InvokeAI](https://github.com/catppuccin/userstyles/blob/main/styles/invokeai)
+- [Perplexity](https://github.com/catppuccin/userstyles/blob/main/styles/perplexity)
 
 </details>
 
