@@ -1,0 +1,40 @@
+name: userstyles.catppuccin.com
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      pages: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - uses: extractions/setup-crate@v1
+        with:
+          repo: rust-lang/mdBook@v0.4.43
+
+      - uses: sgoudham/setup-crate@feat/support-unzipped-binaries-diverged
+        with:
+          repo: lambdalisue/rs-mdbook-alerts@v0.6.10
+
+      - name: Build
+        working-directory: ./docs
+        run: mdbook build
+
+      # - name: Upload artifact
+      #   uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     path: "./docs/book"
+
+      # - name: Deploy artifact to GitHub Pages
+      #   id: deploy
+      #   uses: actions/deploy-pages@v4
