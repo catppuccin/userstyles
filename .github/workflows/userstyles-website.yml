@@ -18,23 +18,31 @@ jobs:
         with:
           lfs: true
 
-      - uses: extractions/setup-crate@v1
+      - name: Download mdbook
+        uses: extractions/setup-crate@v1
         with:
           repo: rust-lang/mdBook@v0.4.43
 
-      - uses: sgoudham/setup-crate@feat/support-unzipped-binaries-diverged
-        with:
-          repo: lambdalisue/rs-mdbook-alerts@v0.6.10
+      - name: Download mdbook-alerts
+        run: |
+          mkdir ${{ env.TARGET }}
+          curl -sSLo ${{ env.TARGET }}/${{ env.BINARY }} https://github.com/lambdalisue/rs-mdbook-alerts/releases/download/${{ env.VERSION }}/${{ env.TARGET }}
+          chmod +x ${{ env.TARGET }}/${{ env.BINARY }}
+          echo `pwd`/${{ env.TARGET }} >> $GITHUB_PATH
+        env:
+          VERSION: "v0.6.10"
+          BINARY: "mdbook-alerts"
+          TARGET: "mdbook-alerts-x86_64-unknown-linux-gnu"
 
       - name: Build
         working-directory: ./docs
         run: mdbook build
 
-      # - name: Upload artifact
-      #   uses: actions/upload-pages-artifact@v3
-      #   with:
-      #     path: "./docs/book"
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./docs/book"
 
-      # - name: Deploy artifact to GitHub Pages
-      #   id: deploy
-      #   uses: actions/deploy-pages@v4
+      - name: Deploy artifact to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
