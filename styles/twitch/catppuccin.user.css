@@ -2,7 +2,7 @@
 @name Twitch Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/twitch
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/twitch
-@version 1.4.4
+@version 1.4.5
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/twitch/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Atwitch
 @description Soothing pastel theme for Twitch
@@ -202,6 +202,7 @@
       --color-blue-9: @blue;
       --color-blue-10: @sky;
       --color-blue-11: @sky;
+      --color-blue-14: @sky;
       --color-magenta-5: @flamingo;
       --color-magenta-6: @flamingo;
       --color-magenta-7: @flamingo;
@@ -210,6 +211,7 @@
       --color-magenta-10: @flamingo;
       --color-magenta-11: @pink;
       --color-magenta-12: @pink;
+      --color-magenta-14: @pink;
       --color-red-4: @accent-color;
       --color-red-5: @accent-color;
       --color-red-6: @accent-color;
@@ -219,6 +221,7 @@
       --color-red-10: @accent-color;
       --color-red-11: @peach;
       --color-red-12: @peach;
+      --color-red-14: @peach;
       --color-twitter: @blue;
       --color-facebook: @blue;
       --color-reddit: @peach;
@@ -252,6 +255,11 @@
       --color-border-overlay: @surface0;
       --color-background-button-disabled: @surface0;
       --color-text-button-disabled: @subtext0;
+      --color-background-toggle-handle: @text;
+      --color-border-toggle: @text;
+      --color-border-toggle-hover: @text;
+      --color-background-toggle-checked: @mantle;
+      --color-background-input-checkbox-checked-background: @crust;
     }
 
     --color-text-link: @accent-color;
@@ -322,9 +330,13 @@
 
     /* `Includes paid promotion` label */
 
-    div.disclosure-card p,
-    div.disclosure-card svg {
-      color: @text;
+    div.disclosure-card {
+      p,
+      svg,
+      a {
+        color: @text;
+      }
+      background: fade(@mantle, 80%);
     }
 
     /* Raiding popup */
@@ -631,12 +643,21 @@
     /* FrankerFaceZ uptime timer */
     .ffz-il-tooltip__container {
       .tw-c-text-overlay {
-        background-color: fade(@base, 80%) !important;
+        background-color: var(--color-background-overlay-alt) !important;
       }
 
       p,
       figure.ffz-i-flag {
         color: @text;
+      }
+    }
+
+    [data-a-target="preview-card-image-link"] when (@lookup = latte) {
+      --color-background-overlay-alt: fade(@text, 80%);
+      .tw-media-card-stat,
+      p,
+      figure.ffz-i-flag {
+        color: @base;
       }
     }
 
@@ -912,6 +933,12 @@
       div p {
         color: @text !important;
       }
+      & when (@lookup = latte) {
+        div,
+        div p {
+          color: @base !important;
+        }
+      }
     }
 
     .vertical-selector a:hover {
@@ -934,6 +961,36 @@
         fill: @base;
       }
     }
+
+    /* SUBtember subscribe button */
+
+    .gift-subtember-button {
+      background: @teal;
+    }
+
+    .player-controls when (@lookup = latte) {
+      --color-text-button-overlay: @base !important;
+      --color-background-range-overlay-fill: @base !important;
+      --color-text-button-overlay-hover: @mantle !important;
+    }
+
+    /* Clips watch live prompt */
+
+    .watch-live-prompt {
+      h5 {
+        color: @text !important;
+      }
+      h6 {
+        color: @subtext0 !important;
+      }
+    }
+
+    .clips-top-nav-user {
+      .clips-top-nav-user__username,
+      .tw-svg {
+        color: @text !important;
+      }
+    }
   }
 }
 
@@ -947,6 +1004,7 @@
 
   #catppuccin(@lookup, @accent) {
     @text: @catppuccin[@@lookup][@text];
+    @green: @catppuccin[@@lookup][@green];
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
@@ -1097,6 +1155,12 @@
 
     .clmgr-table__row:hover {
       background: @surface0 !important;
+    }
+
+    /* Announcements button */
+
+    .announcements-icon--green svg {
+      fill: @green !important;
     }
   }
 }
