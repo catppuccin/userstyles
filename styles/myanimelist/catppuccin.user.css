@@ -72,6 +72,11 @@
     --color-recommended: desaturate(@blue, 30%);
     --color-mixed-feelings: @subtext0;
     --color-not-recommended: @maroon;
+    --color-red-background: if(
+      (@lookup = latte),
+      desaturate(lighten(@red, 5%), 0%),
+      desaturate(darken(@red, 24%), 20%)
+    );
 
     /* General */
 
@@ -100,6 +105,16 @@
       &::placeholder {
         color: @subtext0 !important;
       }
+    }
+
+    .fn-grey1 {
+      color: @subtext0 !important;
+    }
+    .fn-grey2 {
+      color: @subtext1 !important;
+    }
+    .dark_text {
+      color: @subtext0;
     }
 
     /* Headers */
@@ -177,39 +192,51 @@
 
       .container-left {
         border-right-color: @surface0;
-      }
 
-      // Buttons below profile picture
-      // STYLE: the colors of these really could be whatever
-      .icon-user-function {
-        background-color: @surface0;
-        border-color: @surface2 !important;
-        // icon color
-        i.fas {
-          color: @subtext0;
-        }
+        .user-profile {
+          // Buttons below profile picture
+          // STYLE: the colors of these really could be whatever
+          .icon-user-function {
+            background-color: @crust;
+            border-color: @surface0 !important;
+            // icon color
+            i.fas {
+              color: @subtext0;
+            }
 
-        &:hover {
-          background-color: @surface1;
-        }
-        &.disabled {
-          background-color: @surface1;
-          i.fas {
-            color: @overlay0;
+            &:hover {
+              background-color: @base;
+            }
+            &.disabled {
+              background-color: @surface0;
+              i.fas {
+                color: @overlay0;
+              }
+            }
           }
-        }
-      }
 
-      // STYLE: we could set both to mantle but originally it has alternating row colors
-      .user-status {
-        li {
-          background-color: @crust;
-        }
-        li:nth-of-type(2n) {
-          background-color: @mantle;
-        }
-        .online {
-          color: @text !important;
+          // STYLE: we could set both to mantle but originally it has alternating row colors
+          .user-status {
+            border-top-color: @surface0;
+            li {
+              background-color: @crust;
+            }
+            li:nth-of-type(2n) {
+              background-color: @mantle;
+            }
+            .online {
+              color: @text !important;
+            }
+          }
+
+          h4 {
+            border-bottom-color: @surface0;
+          }
+
+          .user-compatability-graph .bar-outer {
+            background-color: @crust;
+            border-color: @surface0;
+          }
         }
       }
 
@@ -247,16 +274,10 @@
         color: @text;
         border-color: @surface1;
       }
+      .fav-slide .btn-fav .link .image {
+        border-color: @surface0;
+      }
 
-      .fn-grey1 {
-        color: @subtext0 !important;
-      }
-      .fn-grey2 {
-        color: @subtext1 !important;
-      }
-      .dark_text {
-        color: @subtext0;
-      }
 
       // STYLE: In Latte, hovering over favorites makes them lighter rather than darker.
       // This reverts it but I'm not sure which looks better
@@ -316,6 +337,25 @@
 
       .comment {
         background-color: @surface0;
+      }
+
+      /* Shared Anime / Manga */
+
+      .shared-table {
+        tr td.borderClass {
+          .shared-core-higher {
+            color: @red;
+          }
+          .shared-core-lower {
+            color: @sapphire;
+          }
+          &.shared-match {
+            background-color: @surface0;
+            .button_edit {
+              background-color: @surface1;
+            }
+          }
+        }
       }
 
       /* Anime / Manga Details page */
@@ -771,22 +811,19 @@
           .btn-show-spoilers {
             color: @text;
             i.fas {
-              color: @surface0;
+              color: @surface2;
             }
             &.on i.fas {
               color: @accent-color;
             }
           }
         }
-        .recent-list {
+        .recent-list .column-item {
+          border-bottom-color: @surface0;
           .tag {
             background-color: transparent;
             .tag-anime {
-              background-color:  if(
-                (@lookup = latte),
-                desaturate(lighten(@maroon, 5%), 0%),
-                desaturate(darken(@maroon, 24%), 20%)
-              );
+              background-color: var(--color-red-background);
             }
           }
           .foot {
@@ -794,23 +831,29 @@
               color: @subtext0;
             }
             .fa-ellipsis-h {
-              color: @subtext0;
+              color: @surface2;
+              &:hover {
+                color: @accent-color;
+              }
             }
             .stack-balloon {
               .fa-layer-plus {
-                color: @subtext0;
+                color: @surface2;
+                &:hover {
+                  color: @accent-color;
+                }
               }
 
               .balloon {
                 background-color: @surface0;
-                border-color: @surface2 !important;
+                border-color: @surface1 !important;
                 p {
                   color: @subtext0;
                 }
               }
               // border of arrow
               .balloon::before {
-                border-right-color: @surface2 !important;
+                border-right-color: @surface1 !important;
               }
               // background of arrow
               .balloon::after {
@@ -834,6 +877,128 @@
             color: @subtext0;
           }
         }
+      }
+
+      /* Forum section */
+
+      .page-forum #forumTopics {
+        .forum-table-header {
+          background-color: @surface1 !important;
+          .normal_header {
+            color: @text;
+            border-color: @surface2;
+          }
+        }
+      }
+
+      // actual forum view
+
+      .clearfix {
+        a.mal-btn.secondary.outline {
+          color: @subtext0 !important;
+          border-color: @surface1;
+        }
+        .forum_locheader {
+          color: @text;
+        }
+      }
+
+      .forum {
+        .mal-navbar {
+          background-color: @surface0;
+          button.mal-btn.secondary.outline {
+            color: @subtext1;
+            border-color: @surface2;
+          }
+          .mal-badge {
+            background-color: var(--color-red-background);
+          }
+          .mal-btn-group {
+            .mal-btn.primary {
+              color: var(--color-text-light);
+              background-color: var(--color-accent-background);
+              border-color: var(--color-accent-background);
+            }
+            .mal-btn.primary.outline {
+              color: @accent-color;
+              background-color: transparent;
+              border-color: @surface2;
+              &:hover {
+                background-color: @surface1;
+              }
+            }
+          }
+          &.topic-reply-bar .mal-btn.primary {
+            color: var(--color-text-light);
+            background-color: var(--color-accent-background);
+            border-color: transparent;
+            // STYLE: other buttons fade in but originally this one does not
+/*             transition-duration: 0.3s;
+            transition-property: background-color;
+            transition-timing-function: ease-in-out; */
+            &:hover {
+              background-color: var(--color-accent-background-hover);
+            }
+          }
+        }
+
+        .message-header {
+          color: @text;
+          background-color: @surface1;
+          .postnum {
+            color: @text !important; // overwrite link setting
+          }
+        }
+
+        .message-container,
+        .message-wrapper {
+          .profile {
+            color: @subtext0;
+            background-color: @surface0;
+            border-color: @surface0;
+            .userstatus {
+              &.online {
+                color: @green;
+              }
+            }
+          }
+          .content {
+            border-color: @surface0;
+            .mal-post-toolbar {
+              button.mal-btn.secondary.outline {
+                color: @subtext0;
+              }
+            }
+            .item.update {
+              color: @subtext0;
+            }
+            .quotetext {
+              background-color: @surface0 !important;
+              border-color: transparent;
+            }
+            .sig-container {
+              border-color: @surface0;
+            }
+          }
+        }
+
+        .forum-topics {
+          tr {
+            td {
+              border-color: @surface0;
+            }
+            td:nth-child(2n+1) {
+              background-color: @mantle;
+            }
+          }
+        }
+      }
+
+      /* Pictures section */
+
+      .picSurround .js-picture-gallery .lazyloaded {
+        background-color: @surface0;
+        border-color: @surface1;
       }
 
     } // end of #content
