@@ -67,6 +67,20 @@
 
     background-color: @base;
 
+    --fk-color-border: @surface0 !important;
+    --fk-color-disabled: @subtext0 !important;
+    --fk-color-border-focus: @accent-color !important;
+    --fk-color-primary: @accent-color !important;
+    --fk-color-checked: @accent-color !important;
+
+    [cat="TOP"] {
+      --cat-color: @green;
+    }
+
+    [cat="TRENDING"] {
+      --cat-color: @peach;
+    }
+
     /* Navbar */
 
     .nav-content,
@@ -81,8 +95,14 @@
       background-color: @base !important;
     }
 
-    .nav-content[transparent="true"] {
-      background-color: fade(@mantle, 50%) !important;
+    .nav-content {
+      .logo {
+        color: @accent-color !important;
+      }
+
+      &[transparent="true"] {
+        background-color: fade(@mantle, 50%) !important;
+      }
     }
 
     .nav-link {
@@ -149,6 +169,12 @@
           ) !important;
         }
       }
+    }
+
+    #tooltip-container .simple {
+      color: @text !important;
+      background-color: @surface0 !important;
+      box-shadow: @surface0 0 0 4px 0px inset;
     }
 
     section {
@@ -291,12 +317,22 @@
       .t2-features {
         border-color: @sapphire !important;
       }
+      .extra-tier {
+        color: @text !important;
+      }
       .sub-feature {
         background-color: @mantle !important;
+        &::after {
+          color: @base !important;
+          background-color: @green !important;
+          text-shadow: @green 0.1em 0.1em 0.01em !important;
+        }
       }
     }
 
     .sub-button {
+      color: @text !important;
+
       & > div {
         background-color: @mantle !important;
       }
@@ -313,6 +349,14 @@
           @peach
         ) !important;
       }
+
+      .price-selector {
+        background-color: @crust !important;
+
+        & > option:hover {
+          background-color: @surface0 !important;
+        }
+      }
     }
 
     .sub-state-grid {
@@ -325,6 +369,17 @@
         & > div {
           background-color: @base !important;
         }
+      }
+    }
+
+    .formkit-wrapper {
+      label {
+        color: @subtext0 !important;
+      }
+
+      .formkit-inner {
+        color: @text !important;
+        border-color: @subtext0 !important;
       }
     }
 
@@ -370,21 +425,36 @@
 
     /* Buttons */
 
-    .button-base[color="accent"] {
-      span,
-      svg {
-        color: @green !important;
+    .button-base {
+      &:not([disabled])[color="accent"] {
+        span,
+        svg {
+          color: @green !important;
+        }
+        border-color: @green !important;
       }
-      border-color: @green !important;
-    }
 
-    .button-base[color="primary"] {
-      span,
-      svg {
-        color: @base !important;
+      &:not([disabled])[color="primary"] {
+        span,
+        svg {
+          color: @base !important;
+        }
+        background-color: @sapphire !important;
+        border-color: @sapphire !important;
       }
-      background-color: @sapphire !important;
-      border-color: @sapphire !important;
+
+      &:not([disabled])[color="warning"] {
+        span,
+        svg {
+          color: @base !important;
+        }
+        background-color: @peach !important;
+        border-color: @peach !important;
+      }
+
+      &[disabled] {
+        background-color: @surface0;
+      }
     }
 
     .user-button {
@@ -414,11 +484,25 @@
       &:hover {
         border-color: @surface0;
       }
+
+      .alias-og {
+        color: @subtext0 !important;
+      }
+    }
+
+    /* Emote is trending */
+
+    .emote-card[style*="rgb(255, 150, 50)"] {
+      filter: drop-shadow(@peach 0.03em 0.03em 0.075em) !important;
+
+      .fa-fire {
+        color: @peach;
+      }
     }
 
     /* Emote is unlisted */
 
-    .emote-card[style*="drop-shadow(rgb(235, 61, 38) 0.03em 0.03em 0.075em)"] {
+    .emote-card[style*="rgb(235, 61, 38)"] {
       filter: drop-shadow(@red 0.03em 0.03em 0.075em) !important;
 
       .fa-eye-slash {
@@ -428,7 +512,7 @@
 
     /* Emote is renamed */
 
-    .emote-card[style*="drop-shadow(aquamarine 0.03em 0.03em 0.075em)"] {
+    .emote-card[style*="aquamarine"] {
       filter: drop-shadow(@teal 0.03em 0.03em 0.075em) !important;
 
       .fa-tag {
@@ -438,22 +522,33 @@
 
     /* Emote is in a emote set */
 
-    .emote-card[style*="drop-shadow(rgb(145, 70, 255) 0.03em 0.03em 0.075em)"] {
+    .emote-card[style*="rgb(145, 70, 255)"] {
       filter: drop-shadow(@accent-color 0.03em 0.03em 0.075em) !important;
 
       .fa-check {
         color: @accent-color !important;
       }
-    }
 
-    /* Emote is in a emote set and is unlisted */
+      /* Emote is in a emote set and is trending */
 
-    .emote-card[style*="drop-shadow(rgb(145, 70, 255) 0.03em 0.03em 0.075em) drop-shadow(rgb(235, 61, 38) 0.03em 0.03em 0.075em)"] {
-      filter: drop-shadow(@accent-color 0.03em 0.03em 0.075em)
-        drop-shadow(@red 0.03em 0.03em 0.075em) !important;
+      &[style*="rgb(255, 150, 50)"] {
+        filter: drop-shadow(@accent-color 0.03em 0.03em 0.075em)
+          drop-shadow(@peach 0.03em 0.03em 0.075em) !important;
 
-      .fa-eye-slash {
-        color: @red;
+        .fa-peach {
+          color: @peach;
+        }
+      }
+
+      /* Emote is in a emote set and is unlisted */
+
+      &[style*="rgb(235, 61, 38)"] {
+        filter: drop-shadow(@accent-color 0.03em 0.03em 0.075em)
+          drop-shadow(@red 0.03em 0.03em 0.075em) !important;
+
+        .fa-eye-slash {
+          color: @red;
+        }
       }
     }
 
@@ -542,9 +637,28 @@
       }
 
       .paint-selector .paint-item {
+        color: @text !important;
         background-color: @mantle !important;
         &[selected="true"] {
           background-color: fade(@accent-color, 20%) !important;
+        }
+      }
+
+      [selector="profile-picture"] {
+        color: @text !important;
+        label > img {
+          border-color: @surface0 !important;
+        }
+      }
+
+      .badge-item {
+        &[selected="true"] {
+          border-color: @accent-color !important;
+        }
+        svg {
+          g#Border > path {
+            fill: @surface0;
+          }
         }
       }
 
@@ -590,12 +704,14 @@
       }
     }
 
-    /* Role colors: Event coordinator */
+    /* Role colors: Event coordinator & Verified */
 
-    html[style*="--user-page-sections-color: #b638b5;"] > & {
+    html[style*="--user-page-sections-color: #b638b5;"] > &,
+    html[style*="--user-page-sections-color: #9146ff;"] > & {
       --user-page-sections-color: @mauve !important;
     }
-    .user-tag[style*="rgba(182, 56, 181, 1.000)"] {
+    .user-tag[style*="rgba(182, 56, 181, 1.000)"],
+    .user-tag[style*="rgba(145, 70, 255, 1.000)"] {
       span,
       img {
         color: @mauve !important;
@@ -707,6 +823,10 @@
         background-color: @red !important;
       }
 
+      p[selector="error-name"] {
+        color: @peach !important;
+      }
+
       /* Emote set list */
 
       [selector="subheading-section"] {
@@ -756,6 +876,40 @@
       }
       label.input-name {
         color: @text !important;
+      }
+    }
+
+    main.emote-set-page {
+      background-color: @base !important;
+
+      .emote-set-wrapper {
+        background-color: @mantle !important;
+
+        .emote-card a {
+          background-color: @base !important;
+        }
+
+        [selector="heading"] {
+          color: @subtext0 !important;
+          h3 {
+            color: @text !important;
+          }
+          background-color: @mantle !important;
+          background-image: linear-gradient(
+              145deg,
+              @crust 16vw,
+              transparent 0px
+            ),
+            linear-gradient(-145deg, @crust 16vw, transparent 0px) !important;
+        }
+
+        .actions-wrapper {
+          background-color: @crust !important;
+
+          .action-button:not(:hover) {
+            background-color: @base !important;
+          }
+        }
       }
     }
 
