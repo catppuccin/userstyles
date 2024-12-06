@@ -59,6 +59,7 @@
 
     --color-text-light: if((@lookup = latte), @mantle, @text);
     --color-text-dark: if((@lookup = latte), @text, @mantle);
+
     --color-accent-background: if(
       (@lookup = latte),
       desaturate(lighten(@accent-color, 5%), 0%),
@@ -69,13 +70,41 @@
       desaturate(lighten(@accent-color, 10%), 0%),
       desaturate(darken(@accent-color, 15%), 10%)
     );
-    --color-recommended: desaturate(@blue, 30%);
-    --color-mixed-feelings: @subtext0;
-    --color-not-recommended: @maroon;
+
     --color-red-background: if(
       (@lookup = latte),
       desaturate(lighten(@red, 5%), 0%),
       desaturate(darken(@red, 24%), 20%)
+    );
+
+    --color-recommended: desaturate(@blue, 30%);
+    --color-mixed-feelings: @subtext0;
+    --color-not-recommended: @maroon;
+
+    --color-watching: if(
+      (@lookup = latte),
+      desaturate(darken(@green, 3%), 5%),
+      desaturate(darken(@green, 35%), 20%)
+    );
+    --color-completed: if(
+      (@lookup = latte),
+      desaturate(darken(@blue, 12%), 40%),
+      desaturate(darken(@blue, 38%), 40%)
+    );
+    --color-on-hold: if(
+      (@lookup = latte),
+      desaturate(lighten(@yellow, 9%), 8%),
+      desaturate(darken(@yellow, 30%), 30%)
+    );
+    --color-dropped: if(
+      (@lookup = latte),
+      desaturate(darken(@red, 2%), 30%),
+      desaturate(darken(@red, 35%), 20%)
+    );
+    --color-plan-to-watch: if(
+      (@lookup = latte),
+      desaturate(lighten(@subtext0, 2%), 20%),
+      desaturate(darken(@subtext0, 21%), 20%)
     );
 
     /* General */
@@ -107,7 +136,6 @@
       }
     }
 
-
     .page-common {
       .fn-grey1 {
         color: @subtext0 !important;
@@ -123,14 +151,25 @@
         color: @text;
         border-color: @surface1;
       }
+      .textarea,
       .inputtext {
         color: @text;
-        background-color: @base;
+        background-color: @surface0;
         border-color: @surface0;
+      }
+
+      // your list is public warning
+      .notice_open_public {
+        color: @red;
       }
 
       .border_bottom {
         border-bottom-color: @surface0;
+      }
+
+      .goodresult {
+        background-color: @surface0 !important;
+        border-color: @surface1 !important;
       }
 
       div.picSurround img {
@@ -255,15 +294,22 @@
 
       a:link,
       a:visited {
+        // STYLE: could be --color-text-dark if unreadable
         color: var(--color-text-light) !important;
       }
 
+      // sections when hovered
+      #nav.color-pc-constant li.hover a {
+        color: @text !important;
+        background-color: @base;
+      }
+      // hover popup options
       #nav.color-pc-constant ul li a {
         color: @text !important;
         background-color: @base;
         &:hover {
-          color: @crust !important;
-          background-color: @text !important;
+          color: @mantle !important;
+          background-color: var(--color-accent-background-hover) !important;
         }
       }
 
@@ -476,8 +522,56 @@
       // background of stats bars
       .graph:not(.anime, .manga),
       .stats-graph {
-        background-color: @crust;
+        background-color: @surface0;
         border-color: @crust;
+        .graph.watching {
+          background-color: var(--color-watching);
+        }
+        .graph.completed {
+          background-color: var(--color-completed);
+        }
+        .graph.on_hold {
+          background-color: var(--color-on-hold);
+        }
+        .graph.dropped {
+          background-color: var(--color-dropped);
+        }
+        .graph.plan_to_watch {
+          background-color: var(--color-plan-to-watch);
+        }
+
+        .graph-inner.watching {
+          background-color: var(--color-watching);
+        }
+        .graph-inner.completed {
+          background-color: var(--color-completed);
+        }
+        .graph-inner.on_hold {
+          background-color: var(--color-on-hold);
+        }
+        .graph-inner.dropped {
+          background-color: var(--color-dropped);
+        }
+        .graph-inner.plan_to_watch {
+          background-color: var(--color-plan-to-watch);
+        }
+      }
+      .stats-status {
+        .circle.watching::after {
+          background-color: var(--color-watching);
+        }
+        .circle.completed::after {
+          background-color: var(--color-completed);
+        }
+        .circle.on_hold::after {
+          background-color: var(--color-on-hold);
+        }
+        .circle.dropped::after {
+          background-color: var(--color-dropped);
+        }
+        .circle.plan_to_watch::after {
+          background-color: var(--color-plan-to-watch);
+        }
       }
       // watching / score numbers
       .text {
@@ -584,11 +678,6 @@
         .left-info-block-broadcast-button {
           color: @text !important;
           background-color: @surface0 !important;
-        }
-
-        // your list is public warning
-        .notice_open_public {
-          color: @red;
         }
 
         // edit status fields
@@ -1304,6 +1393,23 @@
 
     } // end of #content
 
+    // Edit Anime overlay from My List
+    #dialog {
+      background-color: @base;
+      border-color: @base !important;
+      #advanced-button {
+        .separator {
+          border-bottom-color: @surface0;
+        }
+        .toggle-button {
+          color: @accent-color;
+          background-color: @surface0 !important;
+        }
+      }
+    }
+    // TODO: "Send note to recent friend" checkbox not themed
+
+    // Footer when not logged in
     .footer-ranking {
       background-color: @base !important;
       .ranking-unit {
