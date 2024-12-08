@@ -16,6 +16,8 @@ jobs:
       # Give the default GITHUB_TOKEN write permission to commit and push the
       # added or changed files to the repository.
       contents: write
+    outputs:
+      docs: ${{ steps.filter.outputs.docs }}
 
     steps:
       - uses: actions/checkout@v4
@@ -56,3 +58,55 @@ jobs:
       - name: Push changes
         if: ${{ github.repository == 'catppuccin/userstyles' && github.ref == 'refs/heads/main' && env.HAS_USERSTYLES_TOKEN }}
         run: git push origin "HEAD:${{ github.ref }}" --atomic
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            docs:
+              - 'docs/**'
+
+  deploy-userstyles-website:
+    name: "Deploy userstyles.catppuccin.com"
+    needs: ["generate-health-files-and-format"]
+    if: ${{ needs.generate-health-files-and-format.outputs.docs == 'true' }}
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      pages: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Download mdbook
+        uses: extractions/setup-crate@v1
+        with:
+          repo: rust-lang/mdBook@v0.4.43
+
+      - name: Download mdbook-alerts
+        run: |
+          mkdir ${{ env.TARGET }}
+          curl -sSLo ${{ env.TARGET }}/${{ env.BINARY }} https://github.com/lambdalisue/rs-mdbook-alerts/releases/download/${{ env.VERSION }}/${{ env.TARGET }}
+          chmod +x ${{ env.TARGET }}/${{ env.BINARY }}
+          echo `pwd`/${{ env.TARGET }} >> $GITHUB_PATH
+        env:
+          VERSION: "v0.6.10"
+          BINARY: "mdbook-alerts"
+          TARGET: "mdbook-alerts-x86_64-unknown-linux-gnu"
+
+      - name: Build
+        working-directory: ./docs
+        run: mdbook build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./docs/book"
+
+      - name: Deploy artifact to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
