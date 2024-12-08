@@ -1,0 +1,1524 @@
+/* ==UserStyle==
+@name MyAnimeList Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/myanimelist
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/myanimelist
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/myanimelist/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Amyanimelist
+@description Soothing pastel theme for MyAnimeList
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+/* Exclude animelist and mangalist pages */
+@-moz-document regexp("^(.*myanimelist\.net/(?!(animelist|mangalist)).*)") {
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @blue: @catppuccin[@@lookup][@blue];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @sky: @catppuccin[@@lookup][@sky];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    --color-text-light: if((@lookup = latte), @mantle, @text);
+    --color-text-dark: if((@lookup = latte), @text, @mantle);
+
+    --color-accent-background: if(
+      (@lookup = latte),
+      desaturate(lighten(@accent-color, 5%), 0%),
+      desaturate(darken(@accent-color, 24%), 20%)
+    );
+    --color-accent-background-hover: if(
+      (@lookup = latte),
+      desaturate(lighten(@accent-color, 10%), 0%),
+      desaturate(darken(@accent-color, 15%), 10%)
+    );
+
+    --color-red-background: if(
+      (@lookup = latte),
+      desaturate(lighten(@red, 5%), 0%),
+      desaturate(darken(@red, 24%), 20%)
+    );
+
+    --color-recommended: desaturate(@blue, 30%);
+    --color-mixed-feelings: @subtext0;
+    --color-not-recommended: @maroon;
+
+    --color-watching: if(
+      (@lookup = latte),
+      desaturate(darken(@green, 3%), 5%),
+      desaturate(darken(@green, 35%), 20%)
+    );
+    --color-completed: if(
+      (@lookup = latte),
+      desaturate(darken(@blue, 12%), 40%),
+      desaturate(darken(@blue, 38%), 40%)
+    );
+    --color-on-hold: if(
+      (@lookup = latte),
+      desaturate(lighten(@yellow, 9%), 8%),
+      desaturate(darken(@yellow, 30%), 30%)
+    );
+    --color-dropped: if(
+      (@lookup = latte),
+      desaturate(darken(@red, 2%), 30%),
+      desaturate(darken(@red, 35%), 20%)
+    );
+    --color-plan-to-watch: if(
+      (@lookup = latte),
+      desaturate(lighten(@subtext0, 2%), 20%),
+      desaturate(darken(@subtext0, 21%), 20%)
+    );
+
+    /* General */
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    body {
+      // STYLE: @crust looks cool, but it may be too much
+      background-color: @mantle !important;
+
+      & > div {
+        color: @text;
+      }
+    }
+
+    a:link,
+    a:visited {
+      color: @accent-color !important;
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    .page-common {
+      .fn-grey1 {
+        color: @subtext0 !important;
+      }
+      .fn-grey2 {
+        color: @subtext1 !important;
+      }
+      .dark_text {
+        color: @subtext0;
+      }
+
+      .normal_header {
+        color: @text;
+        border-color: @surface1;
+      }
+      .textarea,
+      .inputtext {
+        color: @text;
+        background-color: @surface0;
+        border-color: @surface0;
+      }
+
+      // your list is public warning
+      .notice_open_public {
+        color: @red;
+      }
+
+      .border_bottom {
+        border-bottom-color: @surface0;
+      }
+
+      .goodresult {
+        background-color: @surface0 !important;
+        border-color: @surface1 !important;
+      }
+
+      div.picSurround img {
+        background-color: @crust;
+        border-color: @crust;
+      }
+
+      #gdpr-modal-bottom {
+        background: @surface0;
+        .modal-wrapper {
+          border-color: transparent;
+          .modal-container {
+            color: @text;
+            background-color: @surface1;
+            button[data-v-53da086b] {
+              background-color: var(--color-accent-background);
+            }
+          }
+        }
+      }
+    }
+
+    .wrok-graph-inner.reading, .wrok-graph-inner.watching {
+      background-color: @green !important;
+    }
+    .wrok-graph-inner.on_hold {
+      background-color: @yellow !important;
+    }
+    .wrok-graph-inner.completed {
+      background-color: @blue !important;
+    }
+    .work-graph {
+      background-color: @overlay0 !important;
+    }
+    .wrok-graph-inner.dropped {
+      background-color: @red !important;       
+    }
+     
+    .work-status-num.watching, .work-status-num.reading {
+      color: @green !important;
+    }
+    .work-status-num.on_hold {
+      color: @yellow !important;
+    }
+    .work-status-num.completed {
+      color: @blue !important;
+    }
+    .work-status-num.dropped {
+      color: @red !important;
+    }
+
+
+    /* Headers */
+
+    // top header
+    #headerSmall {
+      background-color: transparent !important;
+      // icons
+      .fa-solid {
+        color: @subtext1;
+      }
+      #header-menu {
+        .btn-mal-service {
+          color: @accent-color !important;
+        }
+        .btn-login {
+          color: @text !important;
+          background-color: @surface0 !important;
+        }
+        .btn-signup {
+          color: var(--color-text-light) !important;
+          background-color: var(--color-accent-background) !important;
+        }
+      }
+      .header-menu-unit.header-profile {
+        background-color: transparent;
+        .header-profile-link {
+          color: @text;
+        }
+        .header-profile-button {
+          background-color: transparent;
+          box-shadow: transparent 0 0 0 1px inset;
+        }
+      }
+
+      .header-list-dropdown {
+        ul li a {
+          color: @text !important;
+          background-color: @base;
+          &:hover {
+            color: @crust !important;
+            background-color: @text !important;
+          }
+        }
+      }
+
+      .header-notification-dropdown {
+        .arrow_box {
+          background-color: @mantle;
+          border-color: @surface0;
+        }
+
+        h3 {
+          border-bottom-color: @surface0;
+          .mark-all.disabled {
+            color: @overlay0;
+            .fa-solid {
+              color: @overlay0;
+            }
+          }
+          .settings .fa-solid {
+            color: @accent-color;
+          }
+        }
+        .header-notification-item {
+          border-bottom-color: @surface0;
+          &:hover {
+            background-color: transparent;
+          }
+          .inner.is-read {
+            color: @overlay1;
+            .category {
+              color: @overlay1;
+            }
+            .time {
+              color: @overlay1;
+            }
+            .message {
+              color: @overlay1;
+            }
+          }
+        }
+        .header-notification-view-all a {
+          color: @text !important;
+          background-color: @surface0;
+          border-top-color: @surface1;
+        }
+      }
+
+      // TODO: "MyAnimeList" logo doesn't change in Latte
+      // borders between icons not themed (not very important)
+    }
+
+    // colorful header
+    #menu {
+      // STYLE: this is quite bright, can be kinda hard to read especially on Rosewater, but it looks pretty good
+      color: var(--color-text-light) !important;
+      background-color: var(--color-accent-background) !important;
+
+      a:link,
+      a:visited {
+        // STYLE: could be --color-text-dark if unreadable
+        color: var(--color-text-light) !important;
+      }
+
+      // sections when hovered
+      #nav.color-pc-constant li.hover a {
+        color: @text !important;
+        background-color: @base;
+      }
+      // hover popup options
+      #nav.color-pc-constant ul li a {
+        color: @text !important;
+        background-color: @base;
+        &:hover {
+          color: @mantle !important;
+          background-color: var(--color-accent-background-hover) !important;
+        }
+      }
+
+      // search bar
+      .inputtext {
+        color: @text !important;
+        background-color: @base !important;
+        border-color: @surface0 !important; // not exactly correct I don't think
+      }
+      // yes this is mispelled
+      #topSearchButon {
+        background-color: @surface0 !important;
+        border-color: @surface0 !important; // not exactly correct I don't think
+
+        color: @text !important;
+        &.notActive {
+          color: @subtext0 !important;
+        }
+      }
+    }
+
+    .h1 {
+      color: @text !important;
+      background-color: @base !important; // should be surface0 but I don't think it looks good
+      border-color: @surface0 !important;
+      border-bottom-color: @surface1 !important;
+      .title-english {
+        color: @overlay1 !important;
+      }
+    }
+
+    // changes space between content and footer
+    #contentWrapper {
+      background-color: transparent !important;
+    }
+
+  .header-menu-dropdown * {
+      background-color: @surface0 !important;
+  }
+  .header-menu-dropdown *:hover {
+      background-color: @surface1 !important;
+  }
+
+    /* Content */
+
+    #content {
+      background-color: @base !important;
+      border-color: @surface0 !important;
+
+      .container-left {
+        border-right-color: @surface0;
+      }
+
+      .left-column {
+        border-color: @surface0;
+      }
+
+      /* Home Page */
+
+      .widget-container {
+        .widget .widget-header {
+          color: @text;
+          border-color: @surface1;
+        }
+
+        .btn-anime {
+          background-color: transparent;
+          border-color: @crust !important;
+          .link {
+            border-color: @crust !important;
+          }
+          .external-link {
+            background-color: transparent !important;
+          }
+        }
+        // TODO: paid episode symbol not themed
+
+        .icon-about-recommendations {
+          color: @accent-color;
+        }
+
+        .news-list .news-unit {
+          border-bottom-color: @surface0;
+          .information {
+            .info {
+              color: @subtext0;
+            }
+            .pv {
+              color: @subtext0;
+              border-left-color: @surface1;
+            }
+            .tags .tag {
+              border-left-color: @surface1;
+            }
+          }
+        }
+
+        .widget.reviews .item {
+          border-color: @surface0;
+        }
+
+        .widget.my_list_updates .item {
+          border-color: @surface0;
+        }
+
+        // right side
+
+        .widget.my_statistics table td:nth-child(1) {
+          color: @subtext0;
+        }
+        .widget.friend_list_updates {
+          .updated-time {
+            color: @subtext0;
+          }
+          .navi-btn {
+            color: @subtext0;
+          }
+          &.right .item:not(:last-child) {
+            border-bottom-color: @surface0;
+          }
+          .footer {
+            background-color: @surface0;
+            border-top-color: @surface0;
+            .btn-settings {
+              color: @accent-color;
+            }
+          }
+        }
+
+        // STYLE: background is a little strong
+        .ranking-digest {
+          background-color: @surface0;
+          .ranking-header {
+            background-color: @surface1;
+            border-color: transparent;
+          }
+          .ranking-unit {
+            .rank,
+            .info,
+            .members {
+              color: @subtext0;
+            }
+            .data a.button_add.button_add {
+              background-color: @surface1;
+            }
+          }
+        }
+      }
+
+      // TODO: hover popups on home page are not themed
+
+      /* Profile */
+
+      .user-profile {
+        // Buttons below profile picture
+        // STYLE: the colors of these really could be whatever
+        .icon-user-function {
+          background-color: @crust;
+          border-color: @surface0 !important;
+          // icon color
+          i.fas {
+            color: @subtext0;
+          }
+
+          &:hover {
+            background-color: @base;
+          }
+          &.disabled {
+            background-color: @surface0;
+            i.fas {
+              color: @overlay0;
+            }
+          }
+        }
+
+        // STYLE: we could set both to mantle but originally it has alternating row colors
+        .user-status {
+          border-top-color: @surface0;
+          li {
+            background-color: @crust;
+          }
+          li:nth-of-type(2n) {
+            background-color: @mantle;
+          }
+          .online {
+            color: @text !important;
+          }
+        }
+
+        h4 {
+          border-bottom-color: @surface0;
+        }
+
+        .user-compatability-graph .bar-outer {
+          background-color: @crust;
+          border-color: @surface0;
+        }
+      }
+
+      // Anime page Update button
+      // Anime / Manga List buttons
+      // Submit comment / all comments buttons
+      .inputButton,
+      .btn-profile-submit,
+      .btn-form-submit {
+        color: var(--color-text-light) !important;
+        background-color: var(--color-accent-background) !important;
+        transition-duration: 0.3s;
+        transition-property: all;
+        transition-timing-function: ease-in-out;
+
+        &:hover {
+          background-color: var(--color-accent-background-hover) !important;
+        }
+      }
+
+      // background of stats bars
+      .graph:not(.anime, .manga),
+      .stats-graph {
+        background-color: @surface0;
+        border-color: @crust;
+        .graph.watching {
+          background-color: var(--color-watching);
+        }
+        .graph.completed {
+          background-color: var(--color-completed);
+        }
+        .graph.on_hold {
+          background-color: var(--color-on-hold);
+        }
+        .graph.dropped {
+          background-color: var(--color-dropped);
+        }
+        .graph.plan_to_watch {
+          background-color: var(--color-plan-to-watch);
+        }
+
+        .graph-inner.watching {
+          background-color: var(--color-watching);
+        }
+        .graph-inner.completed {
+          background-color: var(--color-completed);
+        }
+        .graph-inner.on_hold {
+          background-color: var(--color-on-hold);
+        }
+        .graph-inner.dropped {
+          background-color: var(--color-dropped);
+        }
+        .graph-inner.plan_to_watch {
+          background-color: var(--color-plan-to-watch);
+        }
+      }
+      .stats-status {
+        .circle.watching::after {
+          background-color: var(--color-watching);
+        }
+        .circle.completed::after {
+          background-color: var(--color-completed);
+        }
+        .circle.on_hold::after {
+          background-color: var(--color-on-hold);
+        }
+        .circle.dropped::after {
+          background-color: var(--color-dropped);
+        }
+        .circle.plan_to_watch::after {
+          background-color: var(--color-plan-to-watch);
+        }
+      }
+      // watching / score numbers
+      .text {
+        color: @subtext1 !important;
+      }
+
+      // Favorites and Comments sections
+      h2,
+      h5 {
+        color: @text;
+        border-color: @surface1;
+      }
+      .fav-slide .btn-fav .link .image {
+        border-color: @surface0;
+      }
+
+      // STYLE: In Latte, hovering over favorites makes them lighter rather than darker.
+      // This reverts it but I'm not sure which looks better
+      /* .btn-fav {
+        .link {
+          transition-property: filter,opacity;
+        }
+        .link:hover {
+          // works better in Latte
+          opacity: 1;
+          filter: brightness(85%);
+        }
+      } */
+
+      // comment entry
+      .sceditor-outer {
+        // Edit and Preview buttons
+        a.item {
+          color: @text;
+          &.active {
+            background-color: @base;
+            border-color: @surface2;
+          }
+          &:hover {
+            color: @accent-color;
+            background-color: fade(@surface0, 25%);
+          }
+        }
+
+        // TODO: comment entry box too light while dragging to resize
+        // TODO: in Latte, box resize indicator is hard to see
+        .sceditor-container {
+          background-color: @surface0;
+          border-color: @surface2;
+          .sceditor-toolbar {
+            background-color: @surface1;
+            border-color: @surface2;
+
+            .sceditor-group {
+              border-right-color: @overlay0;
+              .sceditor-button {
+                color: @subtext1 !important; // TODO: not working, comment editing buttons look bad in Latte
+              }
+            }
+          }
+          textarea {
+            color: @text;
+            background-color: @surface0;
+            border-color: @surface2;
+          }
+        }
+        .mal-tab-item.preview {
+          background-color: @base;
+          border-color: @surface2;
+        }
+      }
+
+      .comment {
+        background-color: @surface0;
+      }
+
+      /* Shared Anime / Manga page */
+
+      .shared-table {
+        tr td.borderClass {
+          .shared-core-higher {
+            color: @red;
+          }
+          .shared-core-lower {
+            color: @sapphire;
+          }
+          &.shared-match {
+            background-color: @surface0;
+            .button_edit {
+              background-color: @surface1;
+            }
+          }
+        }
+      }
+
+      /* Anime / Manga Details page */
+
+      .borderClass {
+        border-color: @surface0;
+      }
+
+      .leftside {
+        // Watch Episodes button
+        .left-info-block-broadcast-button {
+          color: @text !important;
+          background-color: @surface0 !important;
+        }
+
+        // edit status fields
+        .inputtext {
+          color: @text;
+          background-color: @surface0;
+          border-color: transparent;
+        }
+
+        // add / remove from favorites button
+        #profileRows a {
+          border-color: @surface2; // STYLE: original uses more accent color
+          &:hover {
+            background-color: @surface1;
+          }
+        }
+
+        // Read Preview button
+        .left-info-block-manga-store-button {
+          color: @text !important;
+          background-color: @surface0;
+        }
+
+        // streaming platforms asterisk
+        .broadcasts {
+          .caption::after {
+            color: @red;
+          }
+          .info {
+            color: @red;
+          }
+        }
+      }
+
+      // right side
+
+      #horiznav_nav {
+        border-color: @surface2;
+        a,
+        li {
+          color: @text !important;
+          background-color: transparent;
+        }
+        a:hover {
+          background-color: @surface1;
+        }
+        .horiznav_active {
+          background-color: @surface1;
+        }
+      }
+
+      .stats-block {
+        background-color: @mantle;
+        border-color: @surface0;
+
+        // TODO: star for rating selector is not themed (necessary?)
+        // TODO: dropdown popups not themed
+        .score {
+          // score title box
+          &::before {
+            color: var(--color-text-light) !important;
+            background-color: var(--color-accent-background);
+          }
+          color: @text !important;
+          // user count
+          &::after {
+            color: @subtext1 !important;
+          }
+        }
+
+        // divider between halves
+        &::before {
+          background-color: @surface0;
+          box-shadow: transparent 1px 0 1px 0;
+        }
+
+        .numbers {
+          color: @text !important;
+        }
+
+        .information {
+          color: @subtext0;
+          border-right-color: @surface0;
+        }
+      }
+
+      .user-status-block {
+        background-color: @mantle;
+        border-color: @surface0;
+        select,
+        .di-ib {
+          color: @text !important;
+          background-color: @surface0 !important;
+          border-color: @surface1 !important;
+          .inputtext {
+            color: @accent-color;
+            background-color: @surface0 !important;
+            border-color: transparent !important;
+          }
+        }
+      }
+
+      .manga-store-preview {
+        border-color: @surface0;
+        .manga-store-preview-info-header {
+          color: @subtext1;
+          border-bottom-color: @surface0;
+        }
+        .button[data-v-d5cbbdaa] {
+          color: var(--color-text-light) !important;
+          background-color: var(--color-accent-background);
+          border-color: transparent;
+          &:hover {
+            background-color: var(--color-accent-background-hover);
+          }
+        }
+      }
+
+      .related-entries .entry:nth-child(2n + 1)::after {
+        border-right-color: @surface0;
+      }
+
+      .detail-characters-list {
+        table:nth-of-type(2n) {
+          background-color: @mantle;
+        }
+
+        .divider::after {
+          border-right-color: @surface0;
+        }
+      }
+
+      // Intro / Outro play button
+      .oped-preview-button-gray {
+        background-color: @surface1 !important;
+        mask-image: url("/images/oped-play-circle.svg");
+        background-image: none !important;
+        filter: none !important;
+      }
+      .oped-video-button-gray {
+        filter: none !important;
+        .malicon {
+          color: @surface1 !important;
+        }
+      }
+
+      // review header
+      .mal-navbar {
+        background-color: @surface0;
+        // reset since they were set to link color
+        .recommended a {
+          color: var(--color-recommended) !important;
+        }
+        .mixed-feelings a {
+          color: var(--color-mixed-feelings) !important;
+        }
+        .not-recommended a {
+          color: var(--color-not-recommended) !important;
+        }
+        // set bars to match
+        .recommended__bar {
+          background-color: var(--color-recommended);
+        }
+        .mixed_feeling__bar {
+          background-color: var(--color-mixed-feelings);
+        }
+        .not_recommended__bar {
+          background-color: var(--color-not-recommended);
+        }
+      }
+
+      .review-element {
+        background-color: transparent;
+        .thumbbody {
+          border-color: @surface0;
+        }
+        .update_at {
+          color: @subtext0;
+        }
+        .tags {
+          .btn-label {
+            color: @subtext0;
+            background-color: @surface0;
+            border-color: transparent;
+          }
+          // not easily readable by default,
+          // and overridden by above
+          .recommended {
+            color: var(--color-recommended);
+          }
+          .mixed-feelings {
+            color: var(--color-mixed-feelings);
+          }
+          .not-recommended {
+            color: var(--color-not-recommended);
+          }
+          .preliminary {
+            color: @subtext0;
+            background-color: transparent;
+            border-color: transparent;
+            span {
+              color: @subtext0;
+            }
+          }
+        }
+        .rating {
+          color: @text;
+        }
+        .notice {
+          color: @subtext0;
+        }
+        .reaction-box {
+          background-color: @surface0;
+          .btn-reaction {
+            color: @subtext1 !important;
+            border-color: @surface2 !important;
+          }
+          .btn-showall {
+            color: @subtext0;
+            &:hover {
+              color: @accent-color;
+            }
+          }
+        }
+        .bottom-navi {
+          .icon-reaction {
+            color: @subtext0;
+          }
+          .btn-popup {
+            color: @subtext0 !important;
+          }
+          .menu-block {
+            background-color: @surface0 !important;
+            border-color: transparent;
+          }
+        }
+      }
+
+      .btn-detail-recommendations-view-all {
+        background-color: @surface0;
+        .text {
+          color: @subtext0;
+        }
+        .icon-next {
+          background-color: @subtext0;
+        }
+      }
+
+      .detail-stack-block .tag {
+        background-color: transparent;
+      }
+
+      .lightLink {
+        color: @subtext0;
+      }
+
+      .forum_boardrow1 {
+        background-color: transparent;
+        border-color: @surface0;
+        .lightLink {
+          color: @subtext0;
+        }
+      }
+      .forum_boardrow2 {
+        background-color: @mantle;
+        border-color: @surface0;
+        .watch-state-icon {
+          color: @surface2;
+        }
+        .watch-state-icon.watched {
+          color: @accent-color;
+        }
+      }
+
+      /* Characters and Staff section */
+
+      .border_solid {
+        border-color: @surface1;
+      }
+
+      .anime-character,
+      .manga-character {
+        background-color: transparent;
+        border-color: @surface1;
+        .btn-show-sort {
+          color: @subtext0;
+        }
+      }
+
+      .anime-character-container {
+        // Favorites counter and VA language
+        .spaceit_pad[style*="color"] {
+          color: @subtext0 !important;
+        }
+
+        .bgColor2 {
+          background-color: transparent;
+        }
+        .borderClass.bgColor1 {
+          background-color: @mantle;
+          .bgColor1 {
+            background-color: @mantle;
+          }
+        }
+      }
+
+      /* Episodes section */
+
+      .episode_list {
+        .episode-list-header {
+          background-color: @surface0 !important;
+          td {
+            color: @text !important;
+            border-color: @surface2 !important;
+          }
+        }
+        .episode-list-data td {
+          color: @text;
+          background-color: @mantle !important;
+          border-color: @surface1 !important;
+          .malicon.malicon-movie-episode {
+            color: @accent-color;
+          }
+          .average {
+            color: @subtext0;
+            // TODO: average bor is not colored
+          }
+        }
+        .episode-list-data:nth-of-type(2n + 1) td {
+          background-color: @base !important;
+        }
+      }
+
+      // single episode view
+
+      .has-multi-episodes-info {
+        background-color: @surface0;
+      }
+      .episode-information {
+        background-color: @surface0;
+        .user-status-block {
+          background-color: transparent;
+          .btn-forum-episode {
+            color: var(--color-text-light) !important;
+            background-color: var(--color-accent-background);
+            border-color: transparent;
+            .di-ib {
+              color: var(--color-text-light) !important;
+              background-color: transparent !important;
+              transition-duration: 0.3s;
+            }
+          }
+          .btn-forum-episode:hover {
+            color: var(--color-accent-background-hover) !important;
+            background-color: transparent;
+            border-color: var(--color-accent-background-hover);
+            .di-ib {
+              color: var(--color-accent-background-hover) !important;
+            }
+          }
+        }
+        .video-providers {
+          color: @text;
+        }
+        .btn-rect {
+          border-color: var(--color-accent-background);
+          &.on,
+          &:hover {
+            color: var(--color-text-light) !important;
+            background-color: var(--color-accent-background);
+          }
+        }
+      }
+
+      .btn-video-anime-slide {
+        background-color: @crust;
+      }
+      .btn-video-anime-slide:hover {
+        color: @crust !important;
+        background-color: var(--color-accent-background-hover);
+      }
+      .video-anime-slide-block {
+        border-color: @surface0;
+        .btn-anime {
+          background-color: transparent;
+          .link {
+            background-color: @surface0;
+            .icon-play,
+            .episode-number {
+              color: @accent-color;
+            }
+          }
+        }
+      }
+
+      /* Videos section */
+
+      .episode-video .video-providers {
+        color: @subtext1;
+      }
+
+      /* Stats section */
+
+      .updatesBar {
+        background-color: var(--color-accent-background);
+      }
+
+      .table-recently-updated {
+        tr:nth-of-type(2n) td {
+          background-color: @mantle;
+        }
+        tr:nth-of-type(2n + 1) td {
+          background-color: transparent;
+        }
+      }
+
+      /* Reviews section */
+
+      .reviews-horiznav-nav-sort-block {
+        border-color: @surface0;
+        .filtered-results-box {
+          color: @subtext0;
+        }
+        .btn-show-sort,
+        .btn-show-filter,
+        .btn-crossedbox,
+        .btn-checkbox {
+          // TODO: boxes and dropdown arrows not themed
+          color: @subtext0;
+        }
+
+        // sort popup
+        // TODO: selected circle not themed
+        .review-sort-order-block {
+          background-color: @mantle;
+          border-color: @surface0;
+          .btn-close {
+            color: @subtext0;
+          }
+          .btn-sort-order {
+            color: @subtext0;
+          }
+        }
+        // filter popup
+        // TODO: check and X not themed
+        .review-filter-block {
+          background-color: @mantle;
+          border-color: @surface0;
+          .btn-filter {
+            color: @subtext0;
+            .fa-check {
+              color: @green;
+            }
+            .fa-xmark {
+              color: @red;
+            }
+          }
+        }
+      }
+
+      /* Opened Review Page */
+
+      .button_edit {
+        background-color: @surface0;
+        border-color: transparent;
+      }
+
+      .tag {
+        background-color: @surface0;
+        border-color: transparent;
+      }
+
+      /* Recommendations section */
+
+      a.button_add.button_add {
+        background-color: @surface0;
+        border-color: transparent;
+      }
+
+      td .borderClass.bgColor1 {
+        background-color: transparent; // should be slightly lighter than base but @surface0 looks bad in Latte
+      }
+
+      div[style*="overflow: hidden; padding: 10px 0; border-bottom: solid #cdcdcd 1px"] {
+        border-bottom-color: @surface2 !important;
+      }
+
+      /* Interest Stacks section */
+
+      .stacks {
+        .navi {
+          border-color: @surface0;
+          .btn-show-sort {
+            color: @text;
+            // TODO: dropdown arrow not themed
+          }
+          .btn-show-spoilers {
+            color: @text;
+            i.fas {
+              color: @surface2;
+            }
+            &.on i.fas {
+              color: @accent-color;
+            }
+          }
+        }
+        .recent-list .column-item {
+          border-bottom-color: @surface0;
+          .tag {
+            background-color: transparent;
+            .tag-anime {
+              background-color: var(--color-red-background);
+            }
+          }
+          .foot {
+            .stat {
+              color: @subtext0;
+            }
+            .fa-ellipsis-h {
+              color: @surface2;
+              &:hover {
+                color: @accent-color;
+              }
+            }
+            .stack-balloon {
+              .fa-layer-plus {
+                color: @surface2;
+                &:hover {
+                  color: @accent-color;
+                }
+              }
+
+              .balloon {
+                background-color: @surface0;
+                border-color: @surface1 !important;
+                p {
+                  color: @subtext0;
+                }
+              }
+              // border of arrow
+              .balloon::before {
+                border-right-color: @surface1 !important;
+              }
+              // background of arrow
+              .balloon::after {
+                border-right-color: @surface0 !important;
+              }
+            }
+          }
+        }
+
+        .pagination {
+          .link.current,
+          .link:hover {
+            color: var(--color-text-light) !important;
+            background-color: var(--color-accent-background) !important;
+          }
+          .link {
+            color: @accent-color !important;
+            background-color: @surface0 !important;
+          }
+          .skip {
+            color: @subtext0;
+          }
+        }
+      }
+
+      /* Forum section */
+
+      .page-forum #forumTopics {
+        .forum-table-header {
+          background-color: @surface1 !important;
+          .normal_header {
+            color: @text;
+            border-color: @surface2;
+          }
+        }
+      }
+
+      // actual forum view
+
+      .clearfix {
+        a.mal-btn.secondary.outline {
+          color: @subtext0 !important;
+          border-color: @surface1;
+        }
+        .forum_locheader {
+          color: @text;
+        }
+      }
+
+      .forum {
+        .mal-navbar {
+          background-color: @surface0;
+          button.mal-btn.secondary.outline {
+            color: @subtext1;
+            border-color: @surface2;
+          }
+          .mal-badge {
+            background-color: var(--color-red-background);
+          }
+          .mal-btn-group {
+            .mal-btn.primary {
+              color: var(--color-text-light);
+              background-color: var(--color-accent-background);
+              border-color: var(--color-accent-background);
+            }
+            .mal-btn.primary.outline {
+              color: @accent-color;
+              background-color: transparent;
+              border-color: @surface2;
+              &:hover {
+                background-color: @surface1;
+              }
+            }
+          }
+          &.topic-reply-bar .mal-btn.primary {
+            color: var(--color-text-light);
+            background-color: var(--color-accent-background);
+            border-color: transparent;
+            // STYLE: other buttons fade in but originally this one does not
+            /*             transition-duration: 0.3s;
+            transition-property: background-color;
+            transition-timing-function: ease-in-out; */
+            &:hover {
+              background-color: var(--color-accent-background-hover);
+            }
+          }
+        }
+
+        .message-header {
+          color: @text;
+          background-color: @surface1;
+          .postnum {
+            color: @text !important; // overwrite link setting
+          }
+        }
+
+        .message-container,
+        .message-wrapper {
+          .profile {
+            color: @subtext0;
+            background-color: @surface0;
+            border-color: @surface0;
+            .userstatus {
+              &.online {
+                color: @green;
+              }
+            }
+          }
+          .content {
+            border-color: @surface0;
+            .mal-post-toolbar {
+              button.mal-btn.secondary.outline {
+                color: @subtext0;
+              }
+            }
+            .item.update {
+              color: @subtext0;
+            }
+            .quotetext {
+              background-color: @surface0 !important;
+              border-color: transparent;
+            }
+            .sig-container {
+              border-color: @surface0;
+            }
+          }
+        }
+
+        .forum-topics {
+          tr {
+            td {
+              border-color: @surface0;
+            }
+            td:nth-child(2n + 1) {
+              background-color: @mantle;
+            }
+          }
+        }
+      }
+
+      /* Pictures section */
+
+      .picSurround .js-picture-gallery .lazyloaded {
+        background-color: @surface0;
+        border-color: @surface1;
+      }
+
+      /* Report page */
+
+      #dialog {
+        background-color: @surface0;
+        border-color: @surface0 !important;
+        #abuse_report.inputtext {
+          color: @text;
+          background-color: @surface1;
+          border-color: @surface1;
+        }
+      }
+
+      /* My Messages page */
+
+      .private-message-content {
+        .total_messages {
+          color: @text;
+          border-bottom-color: @surface0 !important;
+        }
+      }
+    } // end of #content
+
+    // Edit Anime overlay from My List
+    #dialog {
+      background-color: @base;
+      border-color: @base !important;
+      #advanced-button {
+        .separator {
+          border-bottom-color: @surface0;
+        }
+        .toggle-button {
+          color: @accent-color;
+          background-color: @surface0 !important;
+        }
+      }
+    }
+    // TODO: "Send note to recent friend" checkbox not themed
+
+    // Footer when not logged in
+    .footer-ranking {
+      background-color: @base !important;
+      .ranking-unit {
+        .title {
+          border-bottom-color: @surface0 !important;
+        }
+        .rank {
+          color: @subtext1;
+        }
+      }
+    }
+
+    #footer-block {
+      color: @text !important;
+      background-color: @base !important;
+      .footer-link-block {
+        // TODO: divider image not inverted in Latte
+      }
+      .footer-social-media {
+        &::before {
+          color: @subtext0 !important;
+        }
+      }
+      .footer-link-icon-block {
+        .footer-recommended::before {
+          color: @subtext0;
+        }
+        .footer-app::before {
+          color: @subtext0;
+        }
+      }
+      #copyright {
+        color: @subtext0 !important;
+      }
+      #recaptcha-terms {
+        color: @subtext0 !important;
+      }
+    }
+
+    /* Top Anime/Manga page */
+      .top-ranking-table .table-header td {
+          background-color: @overlay0 !important;
+          color: @text !important;
+      }
+      tr.ranking-list:nth-child(even) td {
+          background-color: @surface0 !important;
+      }
+      tr.ranking-list:nth-child(odd) td {
+          background-color: @surface1 !important;
+      }
+      .information.di-ib {
+          color: @subtext1 !important;
+      }
+      td.status.ac .notinmylist, a.link-blue-box.next {
+          background-color: @mauve !important;
+          color: @crust !important;
+      }
+      td.status.ac .notinmylist:hover, a.link-blue-box.next:hover {
+          background-color: @surface0 !important;
+          color: @text !important;
+      }
+      td.status.ac .plantowatch, td.status.ac .plantoread, td.status.ac .watching, td.status.ac .on-hold, td.status.ac .completed, td.status.ac .dropped {
+          background-color: @surface0 !important;
+          color: @crust !important;
+      }
+      // TODO: theme the status buttons when hovered
+      .top-anime-rank-text.rank2 {
+          color: @subtext0 !important;
+      }
+
+  }
+}
+
+/* prettier-ignore */
+@catppuccin: {
+    @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+    @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+    @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+    @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+  }
+
+// vim:ft=less
