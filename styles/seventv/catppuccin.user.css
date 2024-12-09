@@ -16,7 +16,8 @@
 ==/UserStyle== */
 
 @-moz-document domain('7tv.app') {
-  body.theme-dark {
+  body.theme-dark,
+  body.theme-troll-despair {
     #catppuccin(@darkFlavor, @accentColor);
   }
   body.theme-light {
@@ -81,6 +82,25 @@
       --cat-color: @peach;
     }
 
+    a {
+      color: @accent-color;
+
+      &:hover,
+      &:focus {
+        color: darken(@accent-color, 5%);
+      }
+    }
+
+    .checkbox {
+      .checkmark {
+        border-color: @subtext0 !important;
+      }
+      input:checked ~ .checkmark {
+        color: @accent-color !important;
+        border-color: @accent-color !important;
+      }
+    }
+
     /* Navbar */
 
     .nav-content,
@@ -106,12 +126,56 @@
     }
 
     .nav-link {
+      color: @text !important;
       &[href="/store"] > span {
         color: @yellow !important;
       }
       &:hover {
         background-color: fade(@crust, 50%) !important;
       }
+      @media screen and (max-width: 1000px) {
+        &.router-link-exact-active {
+          background-color: fade(@crust, 50%) !important;
+        }
+      }
+    }
+
+    label {
+      border-color: @subtext0 !important;
+      color: @subtext0 !important;
+    }
+
+    .emote-category-display,
+    .legal {
+      background-color: @crust !important;
+    }
+
+    .emote-category-dropdown {
+      box-shadow: 0.1em 0.1em 0.1em 0.1em @surface0 !important;
+      background-color: @crust !important;
+      &:hover {
+        background-color: @surface0 !important;
+      }
+    }
+
+    .app-title {
+      color: @text !important;
+    }
+
+    main {
+      color: @text !important;
+
+      & > h1 {
+        background-color: @mantle !important;
+      }
+
+      & > h2 {
+        background-color: @crust !important;
+      }
+    }
+
+    .user-root > .container {
+      background-color: @base !important;
     }
 
     main.home {
@@ -174,7 +238,7 @@
     #tooltip-container .simple {
       color: @text !important;
       background-color: @surface0 !important;
-      box-shadow: @surface0 0 0 4px 0px inset;
+      box-shadow: @surface0 0 0 4px 0 inset;
     }
 
     section {
@@ -205,6 +269,14 @@
 
     .section-head {
       color: @text !important;
+
+      @media screen and (max-width: 1200px) {
+        background-color: @mantle !important;
+      }
+    }
+
+    [style*="color: rgb(255, 60, 60);"] {
+      color: @peach !important;
     }
 
     .emote-author > p {
@@ -239,6 +311,17 @@
       &.router-link-active {
         border-right-color: @green !important;
       }
+
+      .version-label {
+        label {
+          background-color: transparent !important;
+        }
+
+        label[name="LATEST"] {
+          color: @green !important;
+          border-color: @green !important;
+        }
+      }
     }
 
     .activity {
@@ -247,12 +330,6 @@
       .time {
         color: @subtext0 !important;
       }
-    }
-
-    /* Channels */
-
-    .channel-card {
-      background-color: @mantle !important;
     }
 
     .action-button {
@@ -280,13 +357,31 @@
       background-color: @mantle !important;
     }
 
+    .channel-card,
     .socials,
-    .home-features {
+    .home-features,
+    .sub-state-paints .painted-content,
+    .tag-chip,
+    .contribute-cta,
+    .tag-add > div {
+      a {
+        color: @text !important;
+      }
       background-color: @mantle !important;
     }
 
-    .legal {
-      background-color: @crust !important;
+    .locale-dropdown {
+      .locale-list {
+        background-color: @base !important;
+
+        & > div:hover {
+          background-color: @surface0 !important;
+        }
+
+        & > div[selected="true"] {
+          background-color: fade(@accent-color, 20%) !important;
+        }
+      }
     }
 
     /* Subscribe banner */
@@ -373,10 +468,6 @@
     }
 
     .formkit-wrapper {
-      label {
-        color: @subtext0 !important;
-      }
-
       .formkit-inner {
         color: @text !important;
         border-color: @subtext0 !important;
@@ -452,9 +543,27 @@
       & > div > div {
         background-color: @surface0 !important;
       }
+
+      color: @text !important;
+    }
+
+    .modal-button {
+      color: @base !important;
+      background-color: @sapphire !important;
+    }
+
+    div[action] {
+      color: @base !important;
+      &[action="save"] {
+        background-color: @green !important;
+      }
+      &[action="revoke"] {
+        background-color: @peach !important;
+      }
     }
 
     .user-button {
+      color: @text !important;
       background-color: @crust !important;
 
       &:hover {
@@ -469,7 +578,7 @@
     }
 
     span[selector="btn-unlink"] {
-      color: @red !important;
+      color: @peach !important;
     }
 
     /* Emote cards */
@@ -497,23 +606,47 @@
       }
     }
 
+    /* Emote is trending */
+
+    .emote-card[style*="goldenrod"] {
+      filter: drop-shadow(@yellow 0.03em 0.03em 0.075em) !important;
+
+      .fa-object-group {
+        color: @yellow;
+      }
+    }
+
+    /* Emote is private / pending personal use review */
+
+    .emote-card[style*="rgb(135, 135, 135)"],
+    .emote-card[style*="rgb(148, 132, 118)"] {
+      filter: drop-shadow(@subtext0 0.03em 0.03em 0.075em) !important;
+
+      .fa-lock,
+      .fa-user-clock {
+        color: @subtext0;
+      }
+    }
+
     /* Emote is unlisted */
 
-    .emote-card[style*="rgb(235, 61, 38)"] {
+    .emote-card[style*="rgb(235, 61, 38)"],
+    .emote-card[style*="darkred"] {
       filter: drop-shadow(@red 0.03em 0.03em 0.075em) !important;
 
-      .fa-eye-slash {
+      .fa-eye-slash,
+      .fa-trash {
         color: @red;
       }
     }
 
-    /* Emote is private */
+    /* Emote is rejected for personal use */
 
-    .emote-card[style*="rgb(135, 135, 135)"] {
-      filter: drop-shadow(@subtext0 0.03em 0.03em 0.075em) !important;
+    .emote-card[style*="salmon"] {
+      filter: drop-shadow(@maroon 0.03em 0.03em 0.075em) !important;
 
-      .fa-lock {
-        color: @subtext0;
+      .fa-user-slash {
+        color: @maroon;
       }
     }
 
@@ -571,7 +704,8 @@
       /* Emote is in a emote set and is global */
 
       .emote-card[style*="rgb(22, 204, 44)"] {
-        filter: drop-shadow(@accent-color 0.03em 0.03em 0.075em) drop-shadow(@green 0.03em 0.03em 0.075em) !important;
+        filter: drop-shadow(@accent-color 0.03em 0.03em 0.075em)
+          drop-shadow(@green 0.03em 0.03em 0.075em) !important;
 
         .fa-star {
           color: @green;
@@ -585,23 +719,10 @@
       color: @text !important;
       background-color: @mantle !important;
 
-      .user-card {
-        background-color: transparent !important;
-      }
-
       /* Editors */
 
       .editor {
         & > a:not([style*=": rgba"]) span:not([style*="color"]) {
-          color: @text !important;
-        }
-        background: @base !important;
-      }
-
-      /* User roles */
-
-      .user-role-chip {
-        &[style="color: currentcolor;"] {
           color: @text !important;
         }
         background: @base !important;
@@ -692,89 +813,175 @@
       background-color: @base !important;
     }
 
-    /* Role colors: Default */
+    /* Role sections & activity color */
 
-    html[style*="--user-page-sections-color: #FFFFFF40;"] > & {
+    /* Default */
+    html[style*="#FFFFFF40"] > &,
+    .activity[style*=": 0;"] {
       --user-page-sections-color: @subtext0 !important;
+      border-color: @subtext0;
     }
-    .user-tag[style*="currentColor"] {
-      span,
-      img {
-        color: @text !important;
-        border-color: @text !important;
-      }
-    }
-
-    /* Role colors: Admin */
-
-    html[style*="--user-page-sections-color: #ff4646;"] > & {
+    /* Admin */
+    html[style*="#ff4646"] > &,
+    .activity[style*="#ff4646"] {
       --user-page-sections-color: @red !important;
+      border-color: @red;
     }
-    .user-tag[style*="rgba(255, 70, 70, 1.000)"] {
-      span,
-      img {
-        color: @red !important;
-        border-color: @red !important;
-      }
-    }
-
-    /* Role colors: Moderator */
-
-    html[style*="--user-page-sections-color: #32a852;"] > & {
+    /* Moderator */
+    html[style*="#32a852"] > &,
+    .activity[style*="#32a852"] {
       --user-page-sections-color: @green !important;
+      border-color: @green;
     }
-    .user-tag[style*="rgba(50, 168, 82, 1.000)"] {
-      span,
-      img {
-        color: @green !important;
-        border-color: @green !important;
-      }
+    /* Event coordinator */
+    html[style*="#b638b5"] > &,
+    .activity[style*="#b638b5"] {
+      --user-page-sections-color: @pink !important;
+      border-color: @pink;
     }
-
-    /* Role colors: Event coordinator & Verified */
-
-    html[style*="--user-page-sections-color: #b638b5;"] > &,
-    html[style*="--user-page-sections-color: #9146ff;"] > & {
+    /* Verified */
+    html[style*="#9146ff"] > &,
+    .activity[style*="#9146ff"] {
       --user-page-sections-color: @mauve !important;
+      border-color: @mauve;
     }
-    .user-tag[style*="rgba(182, 56, 181, 1.000)"],
-    .user-tag[style*="rgba(145, 70, 255, 1.000)"] {
-      span,
-      img {
-        color: @mauve !important;
-        border-color: @mauve !important;
-      }
-    }
-
-    /* Role colors: Event coordinator */
-
-    html[style*="--user-page-sections-color: #17ebb6;"] > & {
+    /* Contributor & translator */
+    html[style*="#17ebb6"] > &,
+    .activity[style*="#17ebb6"],
+    html[style*="#b1eb34"] > &,
+    .activity[style*="#b1eb34"] {
       --user-page-sections-color: @teal !important;
+      border-color: @teal;
     }
-    .user-tag[style*="rgba(23, 235, 182, 1.000)"] {
-      span,
-      img {
-        color: @teal !important;
-        border-color: @teal !important;
-      }
-    }
-
-    /* Role colors: Subscriber */
-
-    html[style*="--user-page-sections-color: #ffaa00;"] > & {
+    /* Subscriber */
+    html[style*="#ffaa00"] > &,
+    .activity[style*="#ffaa00"] {
       --user-page-sections-color: @yellow !important;
+      border-color: @yellow;
     }
-    .user-tag[style*="rgba(255, 170, 0, 1.000)"] {
-      span,
-      img {
-        color: @yellow !important;
-        border-color: @yellow !important;
+
+    /* Username role colors */
+    .user-role-chip,
+    .user-tag,
+    .channel-card,
+    .activity,
+    .avatar {
+      &.user-role-chip {
+        background-color: @base !important;
       }
+
+      &.channel-card {
+        border-color: @subtext1 !important;
+      }
+
+      /* Default */
+      &[style*="currentColor"] {
+        &,
+        span,
+        img {
+          color: @subtext1 !important;
+          border-color: @subtext1 !important;
+        }
+      }
+
+      /* Admin */
+      &[style*="255, 70, 70"] {
+        &,
+        span,
+        img {
+          color: @red !important;
+          border-color: @red !important;
+        }
+      }
+
+      /* Moderator */
+      &[style*="50, 168, 82"] {
+        &,
+        span,
+        img {
+          color: @green !important;
+          border-color: @green !important;
+        }
+      }
+
+      /* Contributor, translator & trial moderator */
+      &[style*="23, 235, 182"],
+      &[style*="177, 235, 52"],
+      &[style*="68, 194, 135"] {
+        &,
+        span,
+        img {
+          color: @teal !important;
+          border-color: @teal !important;
+        }
+      }
+
+      /* Event coordinator */
+      &[style*="182, 56, 181"] {
+        &,
+        span,
+        img {
+          color: @pink !important;
+          border-color: @pink !important;
+        }
+      }
+
+      /* Verified */
+      &[style*="145, 70, 255"] {
+        &,
+        span,
+        img {
+          color: @mauve !important;
+          border-color: @mauve !important;
+        }
+      }
+
+      /* Subscriber */
+      &[style*="255, 170, 0"] {
+        &,
+        span,
+        img {
+          color: @yellow !important;
+          border-color: @yellow !important;
+        }
+      }
+    }
+
+    /* Activity list role colors */
+    .activity&[style*=": 0;"] {
+      border-color: @surface0 !important;
     }
 
     .emote-card-context {
       outline-color: @surface0 !important;
       background-color: fade(@mantle, 90%) !important;
+    }
+
+    /* User search */
+
+    .result-tray {
+      border-color: @surface0 !important;
+      background-color: @mantle !important;
+      box-shadow: 0.2em 0.2em 0.4em @mantle !important;
+    }
+
+    .report-form {
+      background-color: @crust !important;
+      box-shadow: 6px 6px 1em @mantle !important;
+      .heading {
+        .close-btn {
+          color: @peach;
+        }
+
+        .target-name,
+        .abuse-notice {
+          color: @subtext0 !important;
+        }
+      }
+    }
+
+    .radio .circle {
+      background-color: @accent-color !important;
     }
 
     .emote-set-card {
@@ -807,7 +1014,9 @@
       color: @text !important;
       background-color: @base !important;
 
-      .modal-heading {
+      .modal-heading,
+      .connection-selector-area,
+      [selector="separator"] {
         background-color: @mantle !important;
       }
 
@@ -826,16 +1035,12 @@
         &[platform="DISCORD"] {
           color: @blue !important;
         }
-        &[selected="true"] .checkmark {
-          color: @accent-color !important;
-          border-color: @accent-color !important;
-        }
       }
 
       .connection-editor div[selector="owned-sets"] > div {
         &[selected="true"] {
           color: @base !important;
-          background-color: @green !important;
+          background-color: @accent-color !important;
         }
         background-color: @mantle !important;
       }
@@ -847,7 +1052,7 @@
 
       .modal-close {
         color: @base !important;
-        background-color: @red !important;
+        background-color: @peach !important;
       }
 
       p[selector="error-name"] {
@@ -874,17 +1079,13 @@
           border-color: @surface0 !important;
           &[active="true"] {
             border-color: @accent-color !important;
-            .checkmark {
-              color: @accent-color !important;
-              border-color: @accent-color !important;
-            }
           }
 
-          label {
-            color: @text !important;
+          label:not(.checkbox) {
+            background-color: @crust;
             &[full="true"] {
               color: @base !important;
-              background-color: @red !important;
+              background-color: @peach !important;
             }
             &[name="personal"] {
               color: @text !important;
@@ -922,12 +1123,8 @@
             color: @text !important;
           }
           background-color: @mantle !important;
-          background-image: linear-gradient(
-              145deg,
-              @crust 16vw,
-              transparent 0px
-            ),
-            linear-gradient(-145deg, @crust 16vw, transparent 0px) !important;
+          background-image: linear-gradient(145deg, @crust 16vw, transparent 0),
+            linear-gradient(-145deg, @crust 16vw, transparent 0) !important;
         }
 
         .actions-wrapper {
@@ -951,12 +1148,6 @@
       }
 
       .image-upload > div {
-        a {
-          color: @accent-color !important;
-        }
-        a:hover {
-          color: darken(@accent-color, 5%) !important;
-        }
         label > img {
           border-color: @text !important;
         }
@@ -970,6 +1161,14 @@
           color: @base !important;
           background-color: @green !important;
         }
+        .submit-button {
+          background-color: @accent-color !important;
+          &.missing-file {
+            color: @subtext0 !important;
+            background-color: @surface0 !important;
+            filter: none !important;
+          }
+        }
       }
 
       a.subscribe-cta {
@@ -979,22 +1178,41 @@
       .content {
         background-color: @base !important;
       }
+    }
 
-      .tag-chip,
-      .tag-add > div {
-        background-color: @mantle !important;
+    /* Loading text animation */
+
+    @keyframes blink {
+      0% {
+        color: @text;
+      }
+      50% {
+        color: currentcolor;
+      }
+      100% {
+        color: @text;
       }
     }
 
-    /* If you need to specify an overwrite specific to a flavor
-    *  (e.g. only when the flavor is set to latte), you can use a `when` guard clause. */
-    & when (@lookup = latte) {
-      /* ... */
+    .user-card {
+      outline-color: @surface0 !important;
+      background-color: fade(@mantle, 90%) !important;
+
+      /* User roles */
+
+      .user-role-chip {
+        background: @base !important;
+      }
     }
-    /* You can also negate the statement above by using
-    *  a `when not` guard clause. */
-    & when not (@lookup = latte) {
-      /* ... */
+
+    /* Trending subtext */
+    [style="color: rgb(255, 150, 50);"] {
+      color: @peach !important;
+    }
+
+    /* 404 troll svg */
+    .troll path {
+      fill: @text !important;
     }
   }
 }
