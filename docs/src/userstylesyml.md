@@ -1,25 +1,14 @@
-<p align="center">
-  <h2 align="center">📖 <code>userstyles.yml</code></h2>
-</p>
+# userstyles.yml
 
-<p align="center">
-	The <a href="../scripts/userstyles.yml"><code>userstyles.yml</code></a> file is responsible for tracking all information about each userstyle.
-</p>
-
-&nbsp;
-
-### Table of Contents
-
-<!--toc:start-->
+The [`userstyles.yml`](https://github.com/catppuccin/userstyles/tree/main/scripts/userstyles.yml) file is responsible for tracking all userstyle and maintainer metadata.
 
 - [Adding a new userstyle](#adding-a-new-userstyle)
 - [Adding yourself as a maintainer](#adding-yourself-as-a-maintainer)
 - [Removing yourself as a maintainer](#removing-yourself-as-a-maintainer)
-<!--toc:end-->
 
-### Adding a new userstyle
+## Adding a new userstyle
 
-[`userstyles.schema.json`](../scripts/userstyles.schema.json) is the schema
+[`userstyles.schema.json`](https://github.com/catppuccin/userstyles/tree/main/scripts/userstyles.schema.json) is the schema
 specification for `userstyles.yml`. The properties in the following instructions are based
 on the schema. Please refer to it for clarification.
 
@@ -31,10 +20,10 @@ on the schema. Please refer to it for clarification.
    You should make changes to everything wrapped in `<>` and remove the `<>`
    characters. If you need help with any of the fields, refer to
    other ports in the `userstyles.yml` file. If you would like extra guidance,
-   you can ask for help in the pull request or join our
-   [Discord](https://discord.com/servers/catppuccin-907385605422448742).
+   you can ask for help in the pull request comments or join the
+   [Catppuccin Discord server](https://discord.com/servers/catppuccin-907385605422448742).
 
-   `Required Fields:`
+   **Required Fields:**
 
    ```yaml
    <port>:
@@ -48,7 +37,7 @@ on the schema. Please refer to it for clarification.
      current-maintainers: [*<github-username>]
    ```
 
-   `All Fields:`
+   **All Fields:**
 
    These extra `usage` & `faq` keys will ensure that you can add important
    information about the port to the README.
@@ -79,7 +68,7 @@ on the schema. Please refer to it for clarification.
      past-maintainers: [*<github-username>]          # OPTIONAL
    ```
 
-### Adding yourself as a maintainer
+## Adding yourself as a maintainer
 
 To add yourself as a maintainer, you need to add your GitHub username to the
 `collaborators` array in the `userstyles.yml` file. This file is located in the
@@ -118,7 +107,7 @@ As a maintainer you will be expected to:
 - Keep the userstyle up to date with the latest changes. If you no longer wish to maintain a userstyle, see [Removing yourself as a maintainer](#removing-yourself-as-a-maintainer).
 - Follow our code of conduct and guidelines.
 
-### Removing yourself as a maintainer
+## Removing yourself as a maintainer
 
 To remove yourself as a maintainer, you will need to move your username from the
 `current-maintainers` array to the `past-maintainers` array for each of the userstyles you no longer wish to maintain. In the example for YouTube below, the user `elkrien` has been moved from the `current-maintainers` array to the `past-maintainers` array.
@@ -136,8 +125,8 @@ userstyles:
 -   past-maintainers: []
 +   current-maintainers: [*isabelroses]
 +   past-maintainers: [*elkrien]
+```
 
 If you would not like to be listed as a past maintainer, you can remove yourself from
 `collaborators` array entirely. Upon removal, you will also be removed from the
 `userstyles-maintainers` team.
-```
