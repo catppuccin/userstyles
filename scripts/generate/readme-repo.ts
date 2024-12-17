@@ -25,8 +25,7 @@ export async function generateMainReadme(
       acc[categories[0]] ??= [];
 
       acc[categories[0]].push({
-        path:
-          `https://github.com/catppuccin/userstyles/blob/main/styles/${slug}`,
+        path: `styles/${slug}`,
         categories,
         ...port,
       });
@@ -77,7 +76,7 @@ export async function generateMainReadme(
     }),
   });
 
-  const readmePath = path.join(REPO_ROOT, "docs/README.md");
+  const readmePath = path.join(REPO_ROOT, "README.md");
   await Deno.writeTextFile(
     readmePath,
     updateReadme({
