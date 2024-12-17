@@ -7,5 +7,5 @@ E.g. Fixes unthemed buttons on the home page.
 
 ## 🗒 Checklist 🗒
 
-- [ ] I have read and followed Catppuccin's [contributing guidelines](http://userstyles.catppuccin.com/CONTRIBUTING.html).
+- [ ] I have read and followed Catppuccin's [contributing guidelines](https://github.com/catppuccin/userstyles/blob/main/docs/CONTRIBUTING.md).
 - [ ] I have updated the version appropriately in the `==UserStyle==` header of the `catppuccin.user.css` file.

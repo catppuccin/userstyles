@@ -1,1 +1,1 @@
-docs/src/README.md
+docs/README.md

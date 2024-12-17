@@ -77,7 +77,7 @@ export async function generateMainReadme(
     }),
   });
 
-  const readmePath = path.join(REPO_ROOT, "docs/src/README.md");
+  const readmePath = path.join(REPO_ROOT, "docs/README.md");
   await Deno.writeTextFile(
     readmePath,
     updateReadme({
