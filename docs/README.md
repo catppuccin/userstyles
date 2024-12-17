@@ -22,9 +22,9 @@ A curated collection of customized themes designed for various websites and web 
 
 ## Getting started
 
-To get started using the catppuccin/userstyles collection, see [Usage](http://userstyles.catppuccin.com/USAGE.html).
+To get started using the catppuccin/userstyles collection, see [Usage](https://github.com/catppuccin/userstyles/blob/main/docs/USAGE.md).
 
-To get started contributing to catppuccin/userstyles, see [Contributing](http://userstyles.catppuccin.com/CONTRIBUTING.html) and [Userstyle Creation](http://userstyles.catppuccin.com/userstyle-creation.html).
+To get started contributing to catppuccin/userstyles, see [Contributing](https://github.com/catppuccin/userstyles/blob/main/docs/CONTRIBUTING.html) and [Userstyle Creation](https://github.com/catppuccin/userstyles/blob/main/docs/userstyle-creation.html).
 
 ## 🖌 Userstyles
 
@@ -32,7 +32,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](http://
 > Userstyles labeled with the "🚧" emoji are looking for maintainers, and may
 > not work as intended. Contributions are still welcome and encouraged. If you
 > would like to become a maintainer, follow the instructions outlined in
-> "[Adding yourself as a maintainer](http://userstyles.catppuccin.com/userstylesyml.html#adding-yourself-as-a-maintainer)."
+> "[Adding yourself as a maintainer](https://github.com/catppuccin/userstyles/blob/main/docs/userstylesyml.html#adding-yourself-as-a-maintainer)."
 
 <!-- AUTOGEN:USERSTYLES START -->
 <!-- the following section is auto-generated, do not edit -->
