@@ -10,7 +10,7 @@ For both of the below installation methods, you will need the Stylus browser ext
 1. Download the compiled Stylus export file, containing our recommended Stylus settings and all userstyles preloaded: [`import.json` (download)](https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json).
    - Alternatively, if you want more control over what is included in the `import.json` file, e.g. all userstyles with the accent color `peach`, you can download the Stylus export file from "[All Userstyles Import Generator](https://ctp-aui.uncenter.dev/)" by [@uncenter](https://github.com/uncenter) instead.
 2. Open the Stylus "manage" page.
-3. On the sidebar panel, click the **Import** button in the **Backup** section, and select the downloaded file from step 2.
+3. On the sidebar panel, click the **Import** button in the **Backup** section, and select the downloaded file from step 1.
 4. Enjoy!
 
 ## Individual Userstyles
