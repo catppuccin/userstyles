@@ -181,6 +181,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [pronouns.cc](styles/pronouns.cc)
 - [Pronouns.page](styles/pronouns.page)
 - [Snapchat Web](styles/snapchat-web)
+- [status.cafe](styles/status.cafe)
 - [Twitter](styles/twitter)
 - [WhatsApp Web](styles/whatsapp-web)
 
