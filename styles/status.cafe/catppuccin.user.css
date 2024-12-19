@@ -15,149 +15,154 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document regexp("https://status\\.cafe/(?!users).*"), domain("forum.status.cafe") {
-    @media (prefers-color-scheme: light) {
-        :root {
-            #catppuccin(@lightFlavor, @accentColor);
-        }
+@-moz-document regexp("https://status\\.cafe/(?!users).*"), domain("forum.status.cafe")
+{
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
     }
-    @media (prefers-color-scheme: dark) {
-        :root {
-            #catppuccin(@darkFlavor, @accentColor);
-        }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
     }
 
-    #catppuccin(@lookup, @accent) {
-        @rosewater: @catppuccin[@@lookup][@rosewater];
-        @flamingo: @catppuccin[@@lookup][@flamingo];
-        @pink: @catppuccin[@@lookup][@pink];
-        @mauve: @catppuccin[@@lookup][@mauve];
-        @red: @catppuccin[@@lookup][@red];
-        @maroon: @catppuccin[@@lookup][@maroon];
-        @peach: @catppuccin[@@lookup][@peach];
-        @yellow: @catppuccin[@@lookup][@yellow];
-        @green: @catppuccin[@@lookup][@green];
-        @teal: @catppuccin[@@lookup][@teal];
-        @sky: @catppuccin[@@lookup][@sky];
-        @sapphire: @catppuccin[@@lookup][@sapphire];
-        @blue: @catppuccin[@@lookup][@blue];
-        @lavender: @catppuccin[@@lookup][@lavender];
-        @text: @catppuccin[@@lookup][@text];
-        @subtext1: @catppuccin[@@lookup][@subtext1];
-        @subtext0: @catppuccin[@@lookup][@subtext0];
-        @overlay2: @catppuccin[@@lookup][@overlay2];
-        @overlay1: @catppuccin[@@lookup][@overlay1];
-        @overlay0: @catppuccin[@@lookup][@overlay0];
-        @surface2: @catppuccin[@@lookup][@surface2];
-        @surface1: @catppuccin[@@lookup][@surface1];
-        @surface0: @catppuccin[@@lookup][@surface0];
-        @base: @catppuccin[@@lookup][@base];
-        @mantle: @catppuccin[@@lookup][@mantle];
-        @crust: @catppuccin[@@lookup][@crust];
-        @accent-color: @catppuccin[@@lookup][@@accent];
-
-        color-scheme: if(@lookup = latte, light, dark);
-
-        ::selection {
-            background-color: fade(@accent-color, 30%);
-        }
-
-        input,
-            textarea {
-                &::placeholder {
-                color: @subtext0 !important;
-            }
-        }
-
-        background-color: @base;
-
-        body {
-            background-color: @base;
-            color: @text;
-        }
-        
-        textarea {
-            background-color: @mantle;
-            color: @text;
-            border-color: @surface1;
-            border-style: solid;
-            border-width: 1px;
-            border-radius: 2px;
-            padding: 3px;
-        }
-        
-        input {
-            background-color: @mantle;
-            color: @text;
-            border-color: @surface1;
-            border-style: solid;
-            border-width: 1px;
-            border-radius: 4px;
-            padding: 2px 5px;
-            :hover {
-                background-color: darken(@mantle, 2%);
-            }
-            
-            :active {
-                background-color: @crust;
-                border-color: @surface0;
-            }
-        }
-        
-        textarea:hover, input:hover {
-            border-color: darken(@surface1, 5%);
-        }
-
-        .flash {
-            background-color: @green;
-        }
-
-        a:not(.flash a) {
-            color: @accent-color;
-        }
-
-        a:visited:not(.flash a) {
-            color: darken(@accent-color, 5%);
-        }
-        
-        table, th, td {
-            border-color: @surface1 !important;
-        }
-        
-        thead {
-            background-color: @surface1;
-            color: @text;
-        }
-        
-        .forum {
-            background-color: @yellow;
-            a {
-                color: darken(@blue, 10%) !important;
-            }
-        }
-        
-        tbody, .topic > tbody > tr:nth-child(2n) {
-            background-color: @mantle;
-        }
-        
-        hr {
-            background-color: @surface1;
-        }
-        
-        .signature {
-            border-top-color: @surface0;
-        }
-        
-        & when (@lookup = latte){
-            a:visited:not(.flash a) {
-                color: darken(@accent-color, 10%);
-            }
-            input:active {
-                background-color: @surface0;
-                border-color: @surface2;
-            }
-        }
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
     }
+
+    background-color: @base;
+
+    body {
+      background-color: @base;
+      color: @text;
+    }
+
+    textarea {
+      background-color: @mantle;
+      color: @text;
+      border-color: @surface1;
+      border-style: solid;
+      border-width: 1px;
+      border-radius: 2px;
+      padding: 3px;
+    }
+
+    input {
+      background-color: @mantle;
+      color: @text;
+      border-color: @surface1;
+      border-style: solid;
+      border-width: 1px;
+      border-radius: 4px;
+      padding: 2px 5px;
+      :hover {
+        background-color: darken(@mantle, 2%);
+      }
+
+      :active {
+        background-color: @crust;
+        border-color: @surface0;
+      }
+    }
+
+    textarea:hover,
+    input:hover {
+      border-color: darken(@surface1, 5%);
+    }
+
+    .flash {
+      background-color: @green;
+    }
+
+    a:not(.flash a) {
+      color: @accent-color;
+    }
+
+    a:visited:not(.flash a) {
+      color: darken(@accent-color, 5%);
+    }
+
+    table,
+    th,
+    td {
+      border-color: @surface1 !important;
+    }
+
+    thead {
+      background-color: @surface1;
+      color: @text;
+    }
+
+    .forum {
+      background-color: @yellow;
+      a {
+        color: darken(@blue, 10%) !important;
+      }
+    }
+
+    tbody,
+    .topic > tbody > tr:nth-child(2n) {
+      background-color: @mantle;
+    }
+
+    hr {
+      background-color: @surface1;
+    }
+
+    .signature {
+      border-top-color: @surface0;
+    }
+
+    & when (@lookup = latte) {
+      a:visited:not(.flash a) {
+        color: darken(@accent-color, 10%);
+      }
+      input:active {
+        background-color: @surface0;
+        border-color: @surface2;
+      }
+    }
+  }
 }
 
 /* prettier-ignore */
