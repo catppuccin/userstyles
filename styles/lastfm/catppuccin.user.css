@@ -2,7 +2,7 @@
 @name Last.fm Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/lastfm
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/lastfm
-@version 1.2.0
+@version 1.2.3
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/lastfm/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Alastfm
 @description Soothing pastel theme for Last.fm
@@ -17,10 +17,14 @@
 
 @-moz-document domain("last.fm") {
   @media (prefers-color-scheme: light) {
-    #catppuccin(@lightFlavor, @accentColor);
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
   }
   @media (prefers-color-scheme: dark) {
-    #catppuccin(@darkFlavor, @accentColor);
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
   }
 
   #catppuccin(@lookup, @accent) {
@@ -300,6 +304,11 @@
     /* ERROR */
     #error {
       color: @text;
+    }
+
+    /* info banner */
+    .nag-bar--info {
+      background-color: @base !important;
     }
 
     /* LIVE */
@@ -905,7 +914,7 @@
 
     .shout {
       &--active {
-        background-color: fadeout(@surface1, 0.3);
+        background-color: fadeout(@surface1, 30%);
       }
 
       &,
@@ -1185,7 +1194,7 @@
     }
 
     .listener-trend .highcharts-area {
-      fill: fadeout(@red, 0.1);
+      fill: fadeout(@red, 10%);
     }
 
     .listener-trend .highcharts-graph {
@@ -1193,11 +1202,11 @@
     }
 
     .Colored-cta {
-      background-color: fadeout(@surface2, 0.3);
+      background-color: fadeout(@surface2, 30%);
     }
     .Colored-cta:not(.cta--inactive):focus,
     .Colored-cta:not(.cta--inactive):hover {
-      background-color: fadeout(@surface2, 0.7);
+      background-color: fadeout(@surface2, 70%);
     }
     .similar-items-sidebar-item-name {
       color: @text;
@@ -1495,6 +1504,9 @@
     .masthead-nav .navlist-more {
       color: @text !important;
     }
+    .masthead-nav .masthead-nav-control::after {
+      background: @accent-color;
+    }
     .auth-dropdown-menu {
       background-color: @base !important;
       box-shadow:
@@ -1576,7 +1588,7 @@
     }
     /* ---------CHARTS FIX--------- */
     .globalchart .globalchart-item:first-child {
-      background-color: fadeout(@mantle, 0.8);
+      background-color: fadeout(@mantle, 80%);
     }
     .globalchart-item:first-child .globalchart-rank {
       color: @accent-color !important;
@@ -1670,8 +1682,13 @@
       .mask-image(url("/static/images/icons/alert/warning_16.93f2fe437139.png"), @peach);
     }
 
-    .masthead-search-toggle::before {
-      .mask-image(url("/static/images/icons/search_16.bde37072495a.png"), @text);
+    .masthead-search-toggle {
+      &::before {
+        .mask-image(url("/static/images/icons/search_16.bde37072495a.png"), @text);
+      }
+      &::after {
+        background: @text;
+      }
     }
 
     .masthead-search-toggle:hover::before,
@@ -1692,16 +1709,15 @@
       .mask-image(url("/static/images/icons/date_picker_icon.1d7b21ee3a36.svg"), @accent-color, 0 0, 14px 24px, no-repeat);
     }
 
-    .masthead-logo {
-      .mask-image(url("/static/images/logo_static.adb61955725c.png"), @red, 50% 50%, skip, no-repeat);
+    .page-loading-logo-container {
+      svg path {
+        fill: @red;
+        stroke: @red;
+      }
     }
 
     .catalogue-tags .tags-add::before {
       .mask-image(url("/static/images/icons/add_link_16.637996ed0e2f.png"), @accent-color);
-    }
-
-    .masthead-logo-loading {
-      .mask-image(url("/static/images/logo_animate@2x.e93e5b7db3de.gif"), @red, 50% 50%, contain, no-repeat);
     }
 
     .layout-image {

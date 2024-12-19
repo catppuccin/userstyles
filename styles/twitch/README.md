@@ -20,8 +20,8 @@
 
 
 ## 💝 Current Maintainers
-- [GitMuslim](https://github.com/GitMuslim)
 - [uncenter](https://github.com/uncenter)
+- [mxgic1337](https://github.com/mxgic1337)
 
 
 &nbsp;
