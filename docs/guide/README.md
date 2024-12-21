@@ -4,4 +4,4 @@
 
 - [Images and SVGs](./images-and-svgs.md)
 - [Syntax highlighting](./syntax-highlighting.md)
-- [Extracting RGB values](./rgb-values.md)
+- [Obtaining raw color values](./raw-color-values.md)

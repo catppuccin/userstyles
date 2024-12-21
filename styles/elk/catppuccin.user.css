@@ -71,7 +71,7 @@
     --c-border: @surface0 !important;
     --c-border-dark: @surface1 !important;
     --c-bg-base: @base !important;
-    --rgb-bg-base: red(@mantle), green(@mantle), blue(@mantle) !important;
+    --rgb-bg-base: #rgbify(@mantle) [] !important;
     --c-bg-active: @surface0 !important;
     --c-bg-code: @surface0 !important;
     --c-bg-selection: @accent-color !important;
@@ -96,61 +96,41 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: alpha(@surface1, 0.7);
+      background: fade(@surface1, 70%);
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: alpha(@surface1, 0.8);
+      background: fade(@surface1, 80%);
     }
 
     [text-red],
     [text-red-600],
     [hover^="text-red"]:hover {
-      color: rgbA(red(@red), green(@red), blue(@red), var(--un-text-opacity));
+      color: rgba(#rgbify(@red) [], var(--un-text-opacity));
     }
 
     [text-blue],
     [hover^="text-blue"]:hover {
-      color: rgbA(
-        red(@blue),
-        green(@blue),
-        blue(@blue),
-        var(--un-text-opacity)
-      );
+      color: rgba(#rgbify(@blue) [], var(--un-text-opacity));
     }
 
     [text-green],
     [hover^="text-green"]:hover {
-      color: rgbA(
-        red(@green),
-        green(@green),
-        blue(@green),
-        var(--un-text-opacity)
-      );
+      color: rgba(#rgbify(@green) [], var(--un-text-opacity));
     }
 
     [text-yellow],
     [hover^="text-yellow"]:hover {
-      color: rgbA(
-        red(@yellow),
-        green(@yellow),
-        blue(@yellow),
-        var(--un-text-opacity)
-      );
+      color: rgba(#rgbify(@yellow) [], var(--un-text-opacity));
     }
 
     [text-purple],
     [hover^="text-purple"]:hover {
-      color: rgbA(
-        red(@lavender),
-        green(@lavender),
-        blue(@lavender),
-        var(--un-text-opacity)
-      );
+      color: rgba(#rgbify(@lavender) [], var(--un-text-opacity));
     }
 
     [group-hover^="bg-purple/10"]:hover {
-      background-color: alpha(@lavender, 0.1);
+      background-color: fade(@lavender, 10%);
     }
 
     .filter-saturate-0,
@@ -158,6 +138,10 @@
       filter: none;
     }
   }
+}
+
+#rgbify(@color) {
+  @rgb: red(@color), green(@color), blue(@color);
 }
 
 /* prettier-ignore */
