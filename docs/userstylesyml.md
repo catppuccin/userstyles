@@ -38,7 +38,7 @@ The [`userstyles.yml`](https://github.com/catppuccin/userstyles/tree/main/script
 
    The `past-maintainers` field contains a list of maintainers who have maintained the port in the past. We encourage all maintainers to add/remove themselves from this list as they see fit.
 
-   Remember that these 5 fields are **optional**.
+   Remember that these 4 fields are **optional**.
 
    ```yaml
    <port>:
