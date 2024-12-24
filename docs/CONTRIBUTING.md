@@ -42,5 +42,5 @@ graph TD;
     F -->|Changes made| F;
     E -->|Approved by userstyles staff| K;
     F -->|Approved by maintainer or userstyles staff| L[Merged by maintainer];
-    K[Review/testing period] --> M[Merged by userstyles staff];
+    K[Review period] --> M[Merged by userstyles staff];
 ```
