@@ -6,8 +6,7 @@ The [`userstyles.yml`](https://github.com/catppuccin/userstyles/tree/main/script
 - [Adding yourself as a maintainer](#adding-yourself-as-a-maintainer)
 - [Removing yourself as a maintainer](#removing-yourself-as-a-maintainer)
 
-> [!TIP]
-> [`userstyles.schema.json`](https://github.com/catppuccin/userstyles/tree/main/scripts/userstyles.schema.json) is the schema specification for `userstyles.yml`. Please refer to it for clarification.
+> [!TIP] > [`userstyles.schema.json`](https://github.com/catppuccin/userstyles/tree/main/scripts/userstyles.schema.json) is the schema specification for `userstyles.yml`. Please refer to it for clarification.
 
 ## Adding a new userstyle
 
@@ -86,6 +85,7 @@ userstyles:
 If the change is accepted, you will receive an invitation to the `catppuccin` organization, and become a member of the [`userstyles-maintainers` team](https://github.com/orgs/catppuccin/teams/userstyles-maintainers).
 
 As a maintainer you will be expected to:
+
 - Review and merge PRs for the userstyle you maintain.
 - Keep the userstyle up to date with the latest changes. If you no longer wish to maintain a userstyle, see [Removing yourself as a maintainer](#removing-yourself-as-a-maintainer).
 - Follow our code of conduct and guidelines.
