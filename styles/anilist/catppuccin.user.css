@@ -25,6 +25,16 @@
     #catppuccin(@darkFlavor, @accentColor);
   }
 
+  // Scrollbar color
+  * {
+    scrollbar-color: @catppuccin[@@lightFlavor][@@accentColor]
+      fade(@catppuccin[@@darkFlavor][@crust], 0.2);
+    &:has(.site-theme-dark) {
+      scrollbar-color: @catppuccin[@@darkFlavor][@@accentColor]
+        fade(@catppuccin[@@darkFlavor][@crust], 0.2);
+    }
+  }
+
   #catppuccin(@lookup, @accent) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
@@ -82,10 +92,6 @@
       .nav-unscoped.transparent {
         background: fade(darken(@text, 10%), 50%);
       }
-
-      .banner-content .name {
-        --color-text-bright: #rgbify(#fff) [];
-      }
     }
 
     --color-background: #rgbify(@crust) [];
@@ -102,7 +108,12 @@
     --color-text: #rgbify(@text) [];
     --color-text-light: #rgbify(@subtext1) [];
     --color-text-lighter: #rgbify(@subtext0) [];
-    --color-text-bright: #rgbify(@text) [];
+    & when (@lookup =latte) {
+      --color-text-bright: #rgbify(@crust) [];
+    }
+    & when not (@lookup =latte) {
+      --color-text-bright: #rgbify(@text) [];
+    }
     --color-blue: #rgbify(@accent-color) [];
     --color-white: 255, 255, 255;
     --color-black: 0, 0, 0;
@@ -479,15 +490,6 @@
         --color-white: #rgbify(@crust) [];
       }
     }
-    .button.comment,
-    .settings .button,
-    .el-message-box .el-button--primary,
-    .mod-badge-wrap,
-    .medialist.cards .entry-card .edit {
-      & when not (@lookup =latte) {
-        --color-text-bright: #rgbify(@crust) [];
-      }
-    }
     .submit-btn,
     .random-btn {
       & when not (@lookup =latte) {
@@ -509,11 +511,6 @@
     .check {
       & when not (@lookup =latte) {
         --color-blue-300: #rgbify(@crust) [];
-      }
-    }
-    .settings .button {
-      & when (@lookup =latte) {
-        --color-text-bright: #rgbify(#fff) [];
       }
     }
     /* ------------IMAGE COVER------------ */
