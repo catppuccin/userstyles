@@ -21,7 +21,7 @@ For both of the below installation methods, you will need the Stylus browser ext
 
 # Configuration
 
-All usertyles come with three default configuration options; the light flavor, the dark flavor, and the accent color. Some userstyles may offer additional site-specific options as well.
+All userstyles come with three default configuration options; the light flavor, the dark flavor, and the accent color. Some userstyles may offer additional site-specific options as well.
 
 ## Decentralized/self-hosted applications
 
