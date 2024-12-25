@@ -29,10 +29,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 ## 🖌 Userstyles
 
 > [!IMPORTANT]
-> Userstyles labeled with the "🚧" emoji are looking for maintainers, and may
-> not work as intended. Contributions are still welcome and encouraged. If you
-> would like to become a maintainer, follow the instructions outlined in
-> "[Adding yourself as a maintainer](docs/userstylesyml.md#adding-yourself-as-a-maintainer)."
+> Userstyles labeled with the "🚧" emoji are looking for maintainers, and may not work as intended. Contributions are still welcome and encouraged.
 
 <!-- AUTOGEN:USERSTYLES START -->
 <!-- the following section is auto-generated, do not edit -->
@@ -181,6 +178,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [pronouns.cc](styles/pronouns.cc)
 - [Pronouns.page](styles/pronouns.page)
 - [Snapchat Web](styles/snapchat-web)
+- [status.cafe](styles/status.cafe)
 - [Twitter](styles/twitter)
 - [WhatsApp Web](styles/whatsapp-web)
 

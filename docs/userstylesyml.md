@@ -6,22 +6,15 @@ The [`userstyles.yml`](https://github.com/catppuccin/userstyles/tree/main/script
 - [Adding yourself as a maintainer](#adding-yourself-as-a-maintainer)
 - [Removing yourself as a maintainer](#removing-yourself-as-a-maintainer)
 
+> [!TIP]
+> The [`userstyles.schema.json`](https://github.com/catppuccin/userstyles/tree/main/scripts/userstyles.schema.json) file is the schema specification for `userstyles.yml`. Please refer to it for clarification.
+
 ## Adding a new userstyle
 
-[`userstyles.schema.json`](https://github.com/catppuccin/userstyles/tree/main/scripts/userstyles.schema.json) is the schema
-specification for `userstyles.yml`. The properties in the following instructions are based
-on the schema. Please refer to it for clarification.
+1. [Add yourself as a maintainer](#adding-yourself-as-a-maintainer).
+2. Locate the `userstyles` section of `userstyles.yml` and add an entry for the new userstyle to the list in alphabetical order.
 
-1. See [Adding yourself as a maintainer](#adding-yourself-as-a-maintainer).
-
-2. Locate the `userstyles` section and add your port to the list, following the
-   existing alphabetical order.
-
-   You should make changes to everything wrapped in `<>` and remove the `<>`
-   characters. If you need help with any of the fields, refer to
-   other ports in the `userstyles.yml` file. If you would like extra guidance,
-   you can ask for help in the pull request comments or join the
-   [Catppuccin Discord server](https://discord.com/servers/catppuccin-907385605422448742).
+   You should make changes to everything wrapped in `<>` and remove the `<>` characters. If you need help with any of the fields, refer to other ports in the `userstyles.yml` file. If you would like extra guidance, you can ask for help in the pull request comments or join the [Catppuccin Discord server](https://discord.com/servers/catppuccin-907385605422448742).
 
    **Required Fields:**
 
@@ -39,16 +32,13 @@ on the schema. Please refer to it for clarification.
 
    **All Fields:**
 
-   These extra `usage` & `faq` keys will ensure that you can add important
-   information about the port to the README.
+   The `readme.usage` and `readme.faq` fields allow for additional information about the port to be included on the README.
 
-   The `icon` key is best explained the schema specification itself.
+   The `icon` field allows for specifying an icon from [Simple Icons](https://simpleicons.org/) for the userstyle. The icon's "slug" - which can be found by hovering over the icon's title and clicking the copy button - should be used.
 
-   The `past-maintainers` key is a list of people who have maintained the port
-   in the past. We encourage all maintainers to add/remove themselves from this
-   list as they see fit.
+   The `past-maintainers` field contains a list of maintainers who have maintained the port in the past. We encourage all maintainers to add/remove themselves from this list as they see fit.
 
-   Remember that these 5 fields are **optional**.
+   Remember that these 4 fields are **optional**.
 
    ```yaml
    <port>:
@@ -70,37 +60,31 @@ on the schema. Please refer to it for clarification.
 
 ## Adding yourself as a maintainer
 
-To add yourself as a maintainer, you need to add your GitHub username to the
-`collaborators` array in the `userstyles.yml` file. This file is located in the
-`scripts` directory. The `collaborators` array, is an array of objects, each
-object should contain a `name` and a `url` key. And optionally a `name` key,
-which is your preferred name.
+1. Add a new entry to the end of the `collaborators` array in the `userstyles.yml` file. The entry should be made under your GitHub username, and may optionally contain the `name` (your preferred name) and `url` fields. The following example shows a new entry for a user "Pepperjack".
 
 ```yaml
 collaborators:
-  - &<github-username>
-    name: <preferred-name> # OPTIONAL
-    url: https://github.com/<github-username>
+  - &pepperjack
+    name: Pepperjack # OPTIONAL
+    url: https://github.com/catppuccin
 ```
 
-Then you need to add your username to the `current-maintainers` array in for the
-userstyle you want to maintain, in this case `youtube`.
+2. Add your username to the `current-maintainers` array of the userstyle you wish to maintain. The following example shows the user "Pepperjack" added to the `example.org` userstyle.
 
-```yaml
+```diff
 userstyles:
-  youtube:
-    name: YouTube
-    categories: [entertainment, social_networking, photo_and_video]
-    icon: youtube
-    color: red
+  example.org:
+    name: example.org
+    categories: [productivity]
+    color: text
     readme:
-      app-link: "https://youtube.com"
-    current-maintainers: [*isabelroses, *your-username]
-    past-maintainers: [*elkrien]
+      app-link: "https://example.org"
+-   current-maintainers: []
++   current-maintainers: [*pepperjack]
 ```
 
-If the change is accepted, you will receive an invitation to the `catppuccin` organization,
-and become a member of the [`userstyles-maintainers` team](https://github.com/orgs/catppuccin/teams/userstyles-maintainers).
+If the change is accepted, you will receive an invitation to the `catppuccin` organization, and become a member of the [`userstyles-maintainers` team](https://github.com/orgs/catppuccin/teams/userstyles-maintainers).
+
 As a maintainer you will be expected to:
 
 - Review and merge PRs for the userstyle you maintain.
@@ -109,24 +93,20 @@ As a maintainer you will be expected to:
 
 ## Removing yourself as a maintainer
 
-To remove yourself as a maintainer, you will need to move your username from the
-`current-maintainers` array to the `past-maintainers` array for each of the userstyles you no longer wish to maintain. In the example for YouTube below, the user `elkrien` has been moved from the `current-maintainers` array to the `past-maintainers` array.
+1. Remove your username from the `current-maintainers` array and add it to the `past-maintainers` array of the userstyle(s) you no longer want to maintain. The following example shows the user "Pepperjack" removed from the `example.org` userstyle.
 
 ```diff
 userstyles:
-  youtube:
-    name: YouTube
-    categories: [entertainment, social_networking, photo_and_video]
-    icon: youtube
-    color: red
+  example.org:
+    name: example.org
+    categories: [productivity]
+    color: text
     readme:
-      app-link: "https://youtube.com"
--   current-maintainers: [*isabelroses, *elkrien]
--   past-maintainers: []
-+   current-maintainers: [*isabelroses]
-+   past-maintainers: [*elkrien]
+      app-link: "https://example.org"
+-   current-maintainers: [*pepperjack]
++   current-maintainers: []
++   past-maintainers: [*pepperjack]
 ```
 
-If you would not like to be listed as a past maintainer, you can remove yourself from
-`collaborators` array entirely. Upon removal, you will also be removed from the
-`userstyles-maintainers` team.
+> [!NOTE]
+> If you would prefer to not be listed as a past maintainer at all, you can remove yourself from `collaborators` array entirely. Upon removal, you will also be removed from the `userstyles-maintainers` GitHub team.
