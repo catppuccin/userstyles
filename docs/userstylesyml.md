@@ -6,7 +6,8 @@ The [`userstyles.yml`](https://github.com/catppuccin/userstyles/tree/main/script
 - [Adding yourself as a maintainer](#adding-yourself-as-a-maintainer)
 - [Removing yourself as a maintainer](#removing-yourself-as-a-maintainer)
 
-> [!TIP] > [`userstyles.schema.json`](https://github.com/catppuccin/userstyles/tree/main/scripts/userstyles.schema.json) is the schema specification for `userstyles.yml`. Please refer to it for clarification.
+> [!TIP]
+> The [`userstyles.schema.json`](https://github.com/catppuccin/userstyles/tree/main/scripts/userstyles.schema.json) file is the schema specification for `userstyles.yml`. Please refer to it for clarification.
 
 ## Adding a new userstyle
 
