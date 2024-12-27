@@ -2,7 +2,7 @@
 @name npm Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/npm
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/npm
-@version 0.0.11
+@version 0.0.12
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/npm/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Anpm
 @description Soothing pastel theme for npm
@@ -84,7 +84,7 @@
     --color-fg-muted: @subtext1;
     --color-fg-subtle: @subtext0;
     --color-fg-on-emphasis: @base;
-    --color-fg-brand: @red;
+    --color-fg-brand: @accent-color;
     --color-fg-accent: @blue;
     --color-fg-success: @green;
     --color-fg-attention: @yellow;
@@ -95,6 +95,10 @@
     /* Used on deprecation confirmation page */
     --wombat-red: @maroon;
     --wombat-red-hover: @red;
+
+    --search-fg-muted: @subtext1;
+    --search-border: @surface0;
+    --search-bg-subtle: @surface0;
 
     &,
     main {
@@ -109,6 +113,7 @@
     }
 
     /* Background layer background */
+    .bg-black-05,
     ._7eb68a55,
     .e9998f88 {
       background-color: @mantle;
@@ -145,7 +150,7 @@
 
     /* Top loading bar */
     div.fixed.top-0.left-0.z-999 {
-      background-color: @red;
+      background-color: @accent-color;
     }
 
     /* Magnifying glass icon (search box, discover packages) */
@@ -197,19 +202,22 @@
 
       /* Search box */
       form#search {
+        /* Search button */
         button[type="submit"] {
           background-color: @subtext1;
         }
 
+        /* Search input wrapper */
         > div {
-          border-color: @crust;
+          border-color: @surface0;
 
           &:focus-within {
             border-color: @subtext1;
           }
 
-          > div {
-            background-color: @crust;
+          /* Search input */
+          div:has(input[type="search"]) {
+            background-color: @mantle;
 
             input[type="search"] {
               color: @text;
@@ -224,10 +232,17 @@
             }
           }
 
-          /* Floating live results */
-          ul li {
-            border-bottom-color: @surface0;
-            color: @text;
+          /* Search results  (floating box) */
+          div.list {
+            background-color: @base;
+
+            ul[aria-label="Search results"] li {
+              border-bottom-color: @surface0;
+
+              &:hover {
+                background-color: @surface1;
+              }
+            }
           }
         }
       }
@@ -276,9 +291,9 @@
             /* Red "Add Organization" button */
             &[href="/org/create"] {
               border-color: @surface0;
-              color: @red;
+              color: @accent-color;
               svg {
-                fill: @red;
+                fill: @accent-color;
               }
             }
           }
@@ -316,7 +331,7 @@
 
     /* Popular libraries section */
     #popular-libraries-header + hr {
-      border-color: @red;
+      border-color: @accent-color;
     }
     ul[aria-labelledby="popular-libraries-header"] {
       li a {
@@ -366,7 +381,7 @@
 
     /* Recently updated packages section */
     #recently-updated-packages-header + hr {
-      border-color: @red;
+      border-color: @accent-color;
     }
 
     /* --- PACKAGE PAGES --- */
@@ -395,86 +410,60 @@
       );
       content: url("data:image/svg+xml,@{svg}");
     }
-
+    /* DefinitelyTyped logo */
+    img[alt="DefinitelyTyped icon, indicating that this package has TypeScript declarations provided by the separate @types/bootstrap package"] {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" xml:space="preserve"><path fill="@{blue}" d="M0 0h256v256H0z"/><path fill="@{base}" d="M6 6h244v244H6z"/><path fill="@{blue}" d="M41.8 111.5c8.6-1.6 19.9-2.5 31.8-2.5 19.7 0 32.6 4.2 42.6 13 10.8 9.4 17.6 24.5 17.6 46 0 23.4-7.3 39.5-17.3 49.5-11 10.7-27.6 15.8-48 15.8-12.2 0-20.8-.9-26.7-1.8zm23.6 99.7c2 .5 5.2.5 8.2.5 21.3.2 35.2-13.6 35.2-42.7.2-25.4-12.5-38.8-32.7-38.8-5.2 0-8.6.5-10.6 1.1v79.9zm104-76.5h-32.2v-22.8h92.3v22.8h-32.8V232h-27.3z"/></svg>'
+      );
+      content: url("data:image/svg+xml,@{svg}");
+    }
     /* Navigation tabs */
+    #package-tab(@color) {
+      border-color: @color;
+
+      &:has(> a[aria-selected="false"]):hover,
+      &:has(> a[aria-selected="true"]) {
+        background-color: fade(@color, 20%);
+      }
+
+      a {
+        color: @color;
+      }
+    }
     ul[aria-owns*="package-tab-"] {
       li {
-        &:has(#package-tab-readme) {
-          border-color: @yellow;
-
-          &:has(> a[aria-selected="false"]):hover {
-            background-color: fade(@yellow, 20%);
-          }
-
-          a {
-            color: @yellow;
-          }
+        &:has(#package-tab-readme),
+        &:has(#package-tab-members) {
+          #package-tab(@yellow);
         }
         &:has(#package-tab-code),
-        &:has(#package-tab-admin) {
-          border-color: @red;
-
-          &:has(> a[aria-selected="false"]):hover {
-            background-color: fade(@red, 20%);
-          }
-
-          a {
-            color: @red;
-          }
+        &:has(#package-tab-admin),
+        &:has(#package-tab-packages) {
+          #package-tab(@red);
         }
         &:has(#package-tab-dependents),
-        &:has(#package-tab-packages) {
-          border-color: @mauve;
-
-          &:has(> a[aria-selected="false"]):hover {
-            background-color: fade(@mauve, 20%);
-          }
-
-          a {
-            color: @mauve;
-          }
+        &:has(#package-tab-billing) {
+          #package-tab(@mauve);
         }
         &:has(#package-tab-dependencies) {
-          border-color: @pink;
-
-          &:has(> a[aria-selected="false"]):hover {
-            background-color: fade(@pink, 20%);
-          }
-
-          a {
-            color: @pink;
-          }
+          #package-tab(@pink);
         }
         &:has(#package-tab-versions) {
-          border-color: @sapphire;
-
-          &:has(> a[aria-selected="false"]):hover {
-            background-color: fade(@sapphire, 20%);
-          }
-
-          a {
-            color: @sapphire;
-          }
+          #package-tab(@sapphire);
         }
-        &:has(#package-tab-orgs) {
-          border-color: @green;
-
-          &:has(> a[aria-selected="false"]):hover {
-            background-color: fade(@green, 20%);
-          }
-
-          a {
-            color: @green;
-          }
+        &:has(#package-tab-orgs),
+        &:has(#package-tab-teams) {
+          #package-tab(@green);
         }
       }
     }
 
     /* Sidebar icons */
-    ._5cfc0900 svg,
-    .b5be2af6 svg,
-    button[aria-label="Copy install command line"] svg,
-    [aria-labelledby="repository repository-link"] svg g {
+    svg:has(+ p > [aria-label="Copy install command line"]),
+    button[aria-label="Copy install command line"] svg path,
+    [aria-labelledby="repository repository-link"] svg g,
+    [aria-labelledby="homePage homePage-link"] svg path,
+    [aria-label="Showing weekly downloads"] svg {
       fill: @text;
     }
     /* Copy install command box */
@@ -656,7 +645,7 @@
     #tabpanel-readme #readme {
       color: @text;
       a {
-        color: @red;
+        color: @accent-color;
       }
       h1,
       h2,
@@ -739,7 +728,7 @@
       color: @text;
 
       + ul a {
-        color: @red;
+        color: @accent-color;
 
         &:hover {
           color: @text;
@@ -946,7 +935,7 @@
     }
 
     .npm-red {
-      color: @red;
+      color: @accent-color;
     }
 
     .a11y-light-gray,
@@ -1102,36 +1091,6 @@
     }
 
     /* --- SEARCH RESULTS --- */
-
-    [aria-labelledby="search_ranking_radiogroup_label"] {
-      > div:focus-within {
-        outline-style: none;
-      }
-
-      label {
-        color: @subtext0;
-
-        &[for="search_ranking_optimal"] {
-          border-bottom-color: @surface1;
-        }
-
-        &[for="search_ranking_popularity"] {
-          border-bottom-color: @sky;
-        }
-
-        &[for="search_ranking_quality"] {
-          border-bottom-color: @mauve;
-        }
-
-        &[for="search_ranking_maintenance"] {
-          border-bottom-color: @red;
-        }
-      }
-    }
-    /* Results header, results count, pagination buttons */
-    .a9b7335e {
-      background-color: @mantle;
-    }
     nav[aria-label="Pagination Navigation"] {
       div > a {
         background-color: @base;
@@ -1144,39 +1103,12 @@
     }
     #pkg-list-exact-match {
       color: @base;
-      & when (@lookup = latte) {
-        background-color: lighten(@mauve, 20%);
-      }
-      & when not (@lookup = latte) {
-        background-color: @mauve;
-      }
+      background-color: @accent-color;
     }
-    div:has(#search_ranking_radiogroup_label) {
-      a[href^="/search?q=keywords"] {
-        background-color: @mantle;
 
-        &:hover {
-          background-color: @crust;
-        }
-      }
-    }
     /* Username links */
     a[aria-label^="publisher"]:hover {
-      color: @red;
-    }
-    /* PQM text */
-    ._89d0b3e5 {
-      color: @text;
-    }
-    /* PQM bars */
-    ._464c07bf {
-      background-color: @sky;
-    }
-    ._625ca439 {
-      background-color: @mauve;
-    }
-    ._9a8a65f4 {
-      background-color: @red;
+      color: @accent-color;
     }
 
     /* --- FOOTER --- */
@@ -1184,6 +1116,9 @@
     footer {
       h3 {
         color: @text;
+      }
+      ul a:hover {
+        color: @accent-color;
       }
       a[href="https://github.com/npm"] svg
       {
