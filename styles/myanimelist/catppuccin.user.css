@@ -226,6 +226,11 @@
           }
         }
       }
+
+      a.button_add.button_add {
+        background-color: @surface0;
+        border-color: transparent;
+      }
     }
 
     .wrok-graph-inner.reading,
@@ -300,7 +305,7 @@
       }
       &.christmas .link-mal-logo {
         // change white to black, keep colors
-        filter: if((@lookup = latte), invert(1) hue-rotate(170deg), none);
+        filter: if((@lookup = latte), invert(1) hue-rotate(170deg) brightness(80%), none);
         background-image: url(/images/event/2023_christmas/logo_dark.png?v=1634263200);
         background-size: auto 30px;
         background-repeat: no-repeat;
@@ -419,6 +424,12 @@
       color: var(--color-text-light) !important;
       background-color: var(--color-accent-background) !important;
 
+      // STYLE: Removes Christmas header
+      //background-image: none !important;
+      #menu_left {
+        //background-image: none !important;
+      }
+
       a:link,
       a:visited {
         // STYLE: could be --color-text-dark if unreadable
@@ -426,12 +437,12 @@
       }
 
       // sections when hovered
-      #nav.color-pc-constant li.hover a {
+      #nav li.hover a {
         color: @text !important;
-        background-color: @base;
+        background-color: @base !important;
       }
       // hover popup options
-      #nav.color-pc-constant ul li a {
+      #nav ul li a {
         color: @text !important;
         background-color: @base;
         &:hover {
@@ -563,6 +574,11 @@
 
         .icon-about-recommendations {
           color: @accent-color;
+          &::after { // hover tooltip
+            color: @text;
+            background-color: @mantle;
+            border-color: @surface1;
+          }
         }
 
         .widget.reviews .item {
@@ -1373,11 +1389,6 @@
 
       /* Recommendations section */
 
-      .borderClass a.button_add.button_add {
-        background-color: @surface0;
-        border-color: transparent;
-      }
-
       td .borderClass.bgColor1 {
         background-color: transparent; // should be slightly lighter than base but @surface0 looks bad in Latte
       }
@@ -1966,7 +1977,12 @@
       color: @text !important;
       background-color: @base !important;
       .footer-link-block {
-        // TODO: divider image not inverted in Latte
+        // approximate the divider image
+        background-image: radial-gradient(@surface2, @base 75%), url(/images/footer/footer-sns-border.png?v=1634263200) !important;
+
+        .footer-link.home {
+          border-right-color: @subtext0;
+        }
       }
       .footer-social-media {
         &::before {
