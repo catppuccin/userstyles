@@ -26,7 +26,7 @@ Start by filling out the "metadata block" at the very top of the template. Repla
 @name example.org Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/example.org
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/example.org
-@version 0.0.1
+@version 2000.01.01
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/example.org/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aexample.org
 @description Soothing pastel theme for example.org
@@ -132,7 +132,7 @@ Combining all of the previous steps, we have a working userstyle!
 @name example.org Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/example.org
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/example.org
-@version 0.0.1
+@version 2000.01.01
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/example.org/catppuccin.user.css
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aexample.org
 @description Soothing pastel theme for example.org
