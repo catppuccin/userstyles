@@ -1,5 +1,4 @@
 import * as path from "@std/path";
-import * as fs from "@std/fs";
 
 import { REPO_ROOT } from "@/constants.ts";
 import { CalVer } from "@/bump-version/calver.ts";
@@ -40,14 +39,13 @@ for (
     throw new Error(`No version found in ${file}`);
   }
   const whitespace = versionMatches[1];
-  const oldVersion = versionMatches[2];
 
-  const newVersion = new CalVer(new Date());
-  newVersion.bump(oldVersion);
+  const version = new CalVer(versionMatches[2]);
+  version.incrementWith(new Date());
 
   const newContent = metadata.replace(
     /@version\s+.*/,
-    `@version${whitespace}${newVersion.toString()}`,
+    `@version${whitespace}${version.toString()}`,
   ) + post;
 
   await Deno.writeTextFile(file, newContent);
