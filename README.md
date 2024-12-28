@@ -65,6 +65,12 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 </details>
 <details open>
+<summary>🌱 Terminals</summary>
+
+- [Ghostty.org](styles/ghostty.org)
+
+</details>
+<details open>
 <summary>🧩 Browser Extensions</summary>
 
 - [Indie Wiki Buddy](styles/indie-wiki-buddy)
