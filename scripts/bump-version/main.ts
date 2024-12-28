@@ -8,7 +8,7 @@ const args = parseArgs(Deno.args, { boolean: ["all"] });
 
 if (!Deno.env.get("CI") && !args.all) {
   throw new Error(
-    "This script is not intended to be used manually. Userstyle versions are automatically bumped after pull requests are merged.",
+    "This script is intended to be used in CI. Userstyle versions are automatically bumped after pull requests are merged.",
   );
 }
 
