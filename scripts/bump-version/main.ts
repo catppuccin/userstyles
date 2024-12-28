@@ -12,23 +12,22 @@ if (!Deno.env.get("CI") && !args.all) {
   );
 }
 
-let dirs = [];
+let files = [];
 
 if (args.all) {
   for (const dir of Deno.readDirSync(path.join(REPO_ROOT, "styles"))) {
     if (!dir.isDirectory) continue;
-    dirs.push(path.join(REPO_ROOT, "styles", dir.name));
+    files.push(path.join(REPO_ROOT, "styles", dir.name, "catppuccin.user.css"));
   }
 } else {
-  dirs = args._.filter((val) => typeof val == "string").map((dir: string) =>
-    path.join(REPO_ROOT, dir)
+  files = args._.filter((val) => typeof val == "string").map((p: string) =>
+    path.join(REPO_ROOT, p)
   );
 }
 
 for (
-  const dir of dirs
+  const file of files
 ) {
-  const file = path.join(dir, "catppuccin.user.css");
   const content = await Deno.readTextFile(file);
 
   const metadataMatches = content.match(
