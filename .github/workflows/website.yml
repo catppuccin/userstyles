@@ -3,19 +3,18 @@ name: Deploy Website
 on:
   workflow_dispatch:
   push:
-    branches: ["main"]
+    branches: [main]
     paths: ["scripts/userstyles.yml"]
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
     if: github.repository == 'catppuccin/userstyles'
+    runs-on: ubuntu-latest
+
     environment: website
-    name: Vercel Deploy
     steps:
       - name: Deploy via cURL
         shell: bash
         env:
           DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
         run: curl -X POST "$DEPLOY_HOOK"
-# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
