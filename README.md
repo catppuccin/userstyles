@@ -32,7 +32,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 > Userstyles labeled with the "🚧" emoji are looking for maintainers, and may not work as intended. Contributions are still welcome and encouraged.
 
 <!-- AUTOGEN:USERSTYLES START -->
-<!-- the following section is auto-generated, do not edit -->
+<!-- The following section is auto-generated, do not edit. -->
 <details open>
 <summary>💭 Development Tools</summary>
 
