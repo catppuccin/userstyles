@@ -14,10 +14,10 @@ import stylelintConfig from "../../.stylelintrc.js";
 
 const args = parseArgs(Deno.args, { boolean: ["fix"] });
 const userstyle = args._[0]?.toString().match(
-  /(?<base>styles\/)?(?<userstyle>[a-z0-9_\.]+)(?<trailing>\/)?(?<file>catppuccin\.user\.css)?/,
+  /(?<base>styles\/)?(?<userstyle>[a-z0-9_\.]+)(?<trailing>\/)?(?<file>catppuccin\.user\.less)?/,
 )?.groups?.userstyle;
 const stylesheets = userstyle
-  ? [path.join(REPO_ROOT, "styles", userstyle, "catppuccin.user.css")]
+  ? [path.join(REPO_ROOT, "styles", userstyle, "catppuccin.user.less")]
   : getUserstylesFiles();
 
 const { userstyles } = getUserstylesData();

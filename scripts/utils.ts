@@ -143,7 +143,9 @@ export function getUserstylesFiles(): string[] {
   const files: string[] = [];
   for (const dir of Deno.readDirSync(path.join(REPO_ROOT, "styles"))) {
     if (!dir.isDirectory) continue;
-    files.push(path.join(REPO_ROOT, "styles", dir.name, "catppuccin.user.css"));
+    files.push(
+      path.join(REPO_ROOT, "styles", dir.name, "catppuccin.user.less"),
+    );
   }
   return files;
 }

@@ -7,7 +7,7 @@ import core from "@actions/core";
 import { log } from "@/logger.ts";
 
 const requiredFiles = [
-  "catppuccin.user.css",
+  "catppuccin.user.less",
   "preview.webp",
 ];
 

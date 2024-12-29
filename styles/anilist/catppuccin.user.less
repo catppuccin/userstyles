@@ -1,0 +1,758 @@
+/* ==UserStyle==
+@name AniList/AniChart Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/anilist
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/anilist
+@version 2024.12.29.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/anilist/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aanilist
+@description Soothing pastel theme for AniList and AniChart
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var select contrastColor "Contrast Color" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red*", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain("anilist.co"), domain("anichart.net") {
+  body:not(.site-theme-dark) {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+  .site-theme-dark {
+    #catppuccin(@darkFlavor, @accentColor);
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    @contrast-color: @catppuccin[@@lookup][@@contrastColor];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    & when (@lookup = latte) {
+      --color-blue-dim: #rgbify(desaturate(lighten(@accent-color, 10%), 10%))[];
+
+      .nav[data-v-62eacfff],
+      .solid[data-v-62eacfff],
+      .transparent[data-v-62eacfff]:hover {
+        background: darken(@text, 10%);
+        color: @base;
+      }
+
+      .nav-unscoped.transparent {
+        background: fade(darken(@text, 10%), 50%);
+      }
+
+      .banner-content .name {
+        --color-text-bright: #rgbify(#fff)[];
+      }
+    }
+
+    --color-background: #rgbify(@crust)[];
+    --color-foreground: #rgbify(@base)[];
+    --color-foreground-grey: #rgbify(@surface0)[];
+    --color-foreground-grey-dark: #rgbify(darken(@surface0, 5%))[];
+    --color-foreground-blue: #rgbify(@mantle)[];
+    --color-foreground-blue-dark: #rgbify(@mantle)[];
+    --color-background-blue-dark: #rgbify(@subtext1)[];
+    --color-overlay: #rgbify(@surface0)[];
+    --color-shadow: #rgbify(@mantle)[];
+    --color-shadow-dark: #rgbify(darken(@text, 10%))[];
+    --color-shadow-blue: #rgbify(@blue)[];
+    --color-text: #rgbify(@text)[];
+    --color-text-light: #rgbify(@subtext1)[];
+    --color-text-lighter: #rgbify(@subtext0)[];
+    --color-text-bright: #rgbify(@text)[];
+    --color-blue: #rgbify(@accent-color)[];
+    --color-white: 255, 255, 255;
+    --color-black: 0, 0, 0;
+    --color-red: #rgbify(@contrast-color)[];
+    --color-peach: #rgbify(@maroon)[];
+    --color-orange: #rgbify(@peach)[];
+    --color-yellow: #rgbify(@yellow)[];
+    --color-green: #rgbify(@green)[];
+    --color-background-1200: #rgbify(@text)[];
+    --color-background-1100: #rgbify(@text)[];
+    --color-background-1000: #rgbify(@text)[];
+    --color-background-900: #rgbify(@subtext1)[];
+    --color-background-800: #rgbify(@subtext0)[];
+    --color-background-700: #rgbify(@surface1)[];
+    --color-background-600: #rgbify(@surface0)[];
+    --color-background-500: #rgbify(@surface0)[];
+    --color-background-400: #rgbify(@surface0)[];
+    --color-background-300: #rgbify(@base)[];
+    --color-background-200: #rgbify(@mantle)[];
+    --color-background-100: #rgbify(@crust)[];
+    --color-gray-1200: #rgbify(@text)[];
+    --color-gray-1100: #rgbify(@text)[];
+    --color-gray-1000: #rgbify(@text)[];
+    --color-gray-900: #rgbify(@text)[];
+    --color-gray-800: #rgbify(@overlay2)[];
+    --color-gray-700: #rgbify(@overlay1)[];
+    --color-gray-600: #rgbify(@overlay0)[];
+    --color-gray-500: #rgbify(@surface2)[];
+    --color-gray-400: #rgbify(@surface1)[];
+    --color-gray-300: #rgbify(@surface0)[];
+    --color-gray-200: #rgbify(@mantle)[];
+    --color-gray-100: #rgbify(@crust)[];
+    --color-blue-100: #rgbify(@text)[];
+    --color-blue-200: #rgbify(@text)[];
+    --color-blue-300: #rgbify(@text)[];
+    --color-blue-400: #rgbify(@sapphire)[];
+    --color-blue-500: #rgbify(@sapphire)[];
+    --color-blue-600: #rgbify(@blue)[];
+    --color-blue-700: #rgbify(@blue)[];
+    --color-blue-800: #rgbify(@blue)[];
+    --color-blue-900: #rgbify(@blue)[];
+    --color-blue-1000: #rgbify(@blue)[];
+    --color-green-100: #rgbify(@teal)[];
+    --color-green-200: #rgbify(@green)[];
+    --color-green-300: #rgbify(@green)[];
+    --color-green-400: #rgbify(@green)[];
+    --color-green-500: #rgbify(@green)[];
+    --color-green-600: #rgbify(@green)[];
+    --color-green-700: #rgbify(@green)[];
+    --color-green-800: #rgbify(@green)[];
+    --color-red-100: #rgbify(@text)[];
+    --color-red-200: #rgbify(@flamingo)[];
+    --color-red-300: #rgbify(@maroon)[];
+    --color-red-400: #rgbify(@red)[];
+    --color-red-500: #rgbify(@red)[];
+    --color-red-600: #rgbify(@red)[];
+    --color-red-700: #rgbify(@red)[];
+
+    & when not(@lookup = latte) {
+      --color-background: #rgbify(@crust)[];
+      --color-foreground: #rgbify(@base)[];
+      --color-foreground-grey: #rgbify(@surface0)[];
+      --color-foreground-grey-dark: #rgbify(darken(@surface0, 5%))[];
+      --color-foreground-blue: #rgbify(@mantle)[];
+      --color-foreground-blue-dark: #rgbify(@mantle)[];
+      --color-text: #rgbify(@text)[];
+      --color-text-light: #rgbify(@subtext0)[];
+      --color-text-lighter: #rgbify(@subtext1)[];
+      --color-shadow-dark: #rgbify(@crust)[];
+      --color-shadow-blue: #rgbify(@crust)[];
+      --color-background-1200: #rgbify(@text)[];
+      --color-background-1100: #rgbify(@text)[];
+      --color-background-1000: #rgbify(@text)[];
+      --color-background-900: #rgbify(@subtext1)[];
+      --color-background-800: #rgbify(@subtext0)[];
+      --color-background-700: #rgbify(@surface1)[];
+      --color-background-600: #rgbify(@surface0)[];
+      --color-background-500: #rgbify(@surface0)[];
+      --color-background-400: #rgbify(@surface0)[];
+      --color-background-300: #rgbify(@base)[];
+      --color-background-200: #rgbify(@mantle)[];
+      --color-background-100: #rgbify(@crust)[];
+      --color-gray-1200: #rgbify(@text)[];
+      --color-gray-1100: #rgbify(@text)[];
+      --color-gray-1000: #rgbify(@text)[];
+      --color-gray-900: #rgbify(@text)[];
+      --color-gray-800: #rgbify(@overlay2)[];
+      --color-gray-700: #rgbify(@overlay1)[];
+      --color-gray-600: #rgbify(@overlay0)[];
+      --color-gray-500: #rgbify(@surface2)[];
+      --color-gray-400: #rgbify(@surface1)[];
+      --color-gray-300: #rgbify(@surface0)[];
+      --color-gray-200: #rgbify(@mantle)[];
+      --color-gray-100: #rgbify(@crust)[];
+
+      --color-blue-dim: #rgbify(desaturate(darken(@accent-color, 10%), 10%))[];
+    }
+
+    /* DARK THEME NAV BAR */
+    .nav-unscoped when not(@lookup = latte) {
+      background-color: @mantle;
+    }
+    .nav-unscoped.transparent when not(@lookup = latte) {
+      background-color: fade(@mantle, 50%);
+    }
+    .nav-unscoped.transparent:hover when not(@lookup = latte) {
+      background-color: @mantle;
+      color: @subtext0;
+    }
+
+    /* -----------------PROFILE FIXES----------------- */
+    #profileColor(@color) {
+      --color-blue: #rgbify(@color)[];
+      & when (@lookup = latte) {
+        --color-blue-dim: #rgbify(lighten(@color, 10%))[];
+      }
+      & when not(@lookup = latte) {
+        --color-blue-dim: #rgbify(darken(@color, 10%))[];
+      }
+      .progress .bar {
+        background: linear-gradient(270deg, darken(@color, 10%), @color);
+      }
+    }
+    .user-page-unscoped.orange {
+      #profileColor(@peach);
+    }
+    .user-page-unscoped.green {
+      #profileColor(@green);
+    }
+    .user-page-unscoped.purple {
+      #profileColor(@mauve);
+    }
+    .user-page-unscoped.red {
+      #profileColor(@red);
+    }
+    .user-page-unscoped.blue {
+      #profileColor(@blue);
+    }
+    .user-page-unscoped.pink {
+      #profileColor(@pink);
+    }
+    .user-page-unscoped.gray {
+      #profileColor(@overlay1);
+    }
+    .history-day {
+      --color-foreground-grey-dark: #rgbify(@crust)[];
+    }
+    .x-axis {
+      --color-background-300: #rgbify(@surface0)[];
+    }
+    /* Fixes gap between stats */
+    @media (max-width: 1540px) {
+      .stats-wrap {
+        grid-row-gap: 25px;
+      }
+    }
+
+    /* ----Tracking Status List Stuff---- */
+    .list[data-v-5776f768] {
+      color: @mantle !important;
+    }
+    .media-card .list-status[status="Repeating"] {
+      background: @pink;
+    }
+    .banner .el-icon-arrow-down::before {
+      color: @text !important;
+    }
+    .el-textarea__inner::placeholder {
+      color: @overlay1;
+    }
+    .el-dropdown-menu,
+    .el-dropdown-menu__item--divided::before,
+    .el-select-dropdown {
+      background-color: @surface0 !important;
+    }
+    .el-popper[x-placement^="bottom"] .popper__arrow::after,
+    .el-popper[x-placement^="bottom"] .popper__arrow,
+    .el-tooltip__popper[x-placement^="bottom"] .popper__arrow::after,
+    .el-tooltip__popper[x-placement^="bottom"] .popper__arrow {
+      border-bottom-color: @surface0;
+    }
+    .el-popper[x-placement^="top"] .popper__arrow::after,
+    .el-popper[x-placement^="top"] .popper__arrow,
+    .el-tooltip__popper[x-placement^="top"] .popper__arrow,
+    .el-tooltip__popper[x-placement^="top"] .popper__arrow::after {
+      border-top-color: @surface0;
+    }
+    .el-dropdown .feed-filter {
+      color: @overlay0;
+    }
+    .el-dropdown-menu {
+      border-color: @text !important;
+    }
+    .el-dropdown-menu__item--divided when not(@lookup = latte) {
+      border-top-color: @surface1;
+    }
+    .el-select-dropdown__item.hover,
+    .el-select-dropdown__item:hover {
+      background-color: @base;
+    }
+    .el-select-dropdown__item.selected {
+      color: @accent-color;
+    }
+    .el-tooltip__popper.is-dark {
+      background: @surface0;
+      color: @text;
+    }
+    .tooltip > div {
+      --color-white: #rgbify(@text)[];
+    }
+    .dropdown {
+      --color-gray-100: #rgbify(@base)[];
+      --color-background-100: #rgbify(@base)[];
+      --color-background-200: #rgbify(@mantle)[];
+    }
+    .medialist .notes {
+      --color-overlay: #rgbify(@surface0)[];
+    }
+    .el-input__inner::placeholder,
+    .el-input__prefix {
+      color: @overlay1;
+    }
+    .el-picker-panel {
+      color: @text;
+      background-color: @surface0;
+      border-color: @surface1;
+    }
+    .el-date-table th {
+      color: @overlay1;
+      border-bottom-color: @surface1;
+    }
+    .el-date-picker__header-label {
+      color: @subtext0;
+
+      &:hover {
+        color: @accent-color;
+      }
+    }
+    .el-picker-panel__icon-btn {
+      color: @overlay1;
+
+      &:hover {
+        color: @accent-color;
+      }
+    }
+    .el-date-table td.available:hover {
+      color: @accent-color;
+    }
+    .el-date-table td.current:not(.disabled) span {
+      color: @crust;
+      background-color: @accent-color;
+    }
+    .el-date-table td.next-month,
+    .el-date-table td.prev-month {
+      color: @surface2;
+    }
+
+    /* ---------SCORE TWEAKS-------------- */
+    .score[data-v-5ca094da] {
+      color: @base;
+    }
+
+    /* --------------FOOTER--------------- */
+    .footer[data-v-0f519cab] {
+      background: @text;
+      color: @crust;
+
+      h2 {
+        color: rgb(var(--color-blue));
+      }
+
+      & when (@lookup = latte) {
+        --color-blue: #rgbify(lighten(@accent-color, 30%))[];
+      }
+
+      & when not(@lookup = latte) {
+        background: @mantle;
+        color: @subtext0;
+      }
+    }
+
+    /* ------------------SEARCH PAGES------------------ */
+    .search,
+    .expand-description,
+    .studio {
+      --color-background-200: #rgbify(@crust)[];
+    }
+    .search-wrap,
+    .filters,
+    .extra-filters-wrap,
+    .select,
+    .options {
+      --color-background-100: #rgbify(@base)[];
+    }
+    .filter.select-wrap .options {
+      --color-background-100: #rgbify(@mantle)[];
+    }
+
+    /* ------------------MISC EDITS-------------------- */
+    .list-editor-wrap .header::after {
+      background: fade(@mantle, 50%);
+    }
+    .filter.clear-all {
+      --color-background-500: #rgbify(@overlay1)[];
+    }
+    /* --Reset button in notifications----- */
+    .reset-btn {
+      color: @base !important;
+    }
+    /* Publish Button in Replies and Messages */
+    .save {
+      color: @base !important;
+    }
+    .el-radio {
+      color: @overlay1;
+    }
+    /* Mod Stuff */
+    .el-color-dropdown__link-btn {
+      color: @accent-color;
+    }
+    .el-color-picker__color {
+      border-color: @surface1;
+    }
+    .el-color-picker__panel {
+      background-color: @surface0;
+      border-color: @surface1;
+    }
+    .el-color-dropdown__btn {
+      border-color: @surface2;
+      color: @subtext1;
+
+      &:hover {
+        background-color: transparent;
+        border-color: @accent-color;
+        color: @accent-color;
+      }
+    }
+    /* Accent Text */
+    .input .hint {
+      --color-white: #rgbify(@text)[];
+    }
+    .el-checkbox__input.is-checked + .el-checkbox__label {
+      color: @accent-color;
+    }
+    .button,
+    .option.active,
+    .new-badge,
+    .submissions .user .stats > div,
+    .actions .icon,
+    .submissions .status,
+    .adult-label,
+    .header .btn,
+    .media-tag-editor .btn,
+    [data-v-843c77a2] .btn,
+    [data-v-22855988] .btn,
+    .btn[data-v-156b3973],
+    .btn[data-v-dceb4a66],
+    .favourite-btn,
+    .dialog .btn,
+    .tag,
+    .filter,
+    .media .header div,
+    .list-editor-wrap .header .save-btn,
+    .actions > div:not(.donator-badge),
+    .banner-content .mod-badge-wrap,
+    .external-link.no-color,
+    .count.circle,
+    .el-dropdown-menu__item,
+    .delete,
+    .list-editor-wrap .list-editor .body .delete-btn,
+    .open-user-search,
+    .save-btn {
+      & when not(@lookup = latte) {
+        --color-white: #rgbify(@crust)[];
+      }
+    }
+    .button.comment,
+    .settings .button,
+    .el-message-box .el-button--primary,
+    .mod-badge-wrap,
+    .medialist.cards .entry-card .edit {
+      & when not(@lookup = latte) {
+        --color-text-bright: #rgbify(@crust)[];
+      }
+    }
+    .submit-btn,
+    .random-btn {
+      & when not(@lookup = latte) {
+        color: @crust;
+      }
+    }
+    .user .notification-dot,
+    .create-btn {
+      & when not(@lookup = latte) {
+        color: @crust !important;
+      }
+    }
+    .el-radio__inner::after {
+      & when not(@lookup = latte) {
+        background-color: @crust;
+      }
+    }
+    .icon,
+    .check {
+      & when not(@lookup = latte) {
+        --color-blue-300: #rgbify(@crust)[];
+      }
+    }
+    .settings .button {
+      & when (@lookup = latte) {
+        --color-text-bright: #rgbify(#fff)[];
+      }
+    }
+    /* ------------IMAGE COVER------------ */
+    .cover .image-text,
+    .plus-progress {
+      color: @text !important;
+    }
+
+    .entry .plus-progress,
+    .medialist.table .entry .edit {
+      color: @base !important;
+    }
+    /* --------SETTINGS-------- */
+    .el-radio__inner when not(@lookup = latte) {
+      background-color: @text;
+    }
+    .el-checkbox__input.is-checked .el-checkbox__inner,
+    .el-radio__input.is-checked .el-radio__inner {
+      background-color: @accent-color;
+      border-color: @accent-color;
+    }
+    .el-checkbox__inner::after {
+      border-color: @crust;
+      border-width: 2px;
+      left: 3px;
+    }
+    .el-radio__input.is-checked + .el-radio__label {
+      color: @accent-color;
+    }
+    /* --------HIDE SCROLLBAR IN BIO----- */
+    .section::-webkit-scrollbar {
+      display: none;
+    }
+    .section {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* --------REMOVE DROPDOWN SHADOWS----- */
+    .dropdown.dropdown {
+      box-shadow: none;
+    }
+    /* ---------ANILIST LIKER PLUGIN------ */
+    #AnilistLikerPlugin .btntop {
+      margin-bottom: -4px;
+      margin-top: 5px;
+    }
+    #AnilistLikerPlugin .btnbottom {
+      margin-top: -2px;
+    }
+    /* ---------AUTOMAIL TWEAKS--------- */
+    .hohMediaScore {
+      border-color: @surface0;
+      padding: 4px;
+      border-radius: 10px;
+      margin-left: 0;
+      background-color: @base;
+      color: @accent-color;
+    }
+    .activity-feed .hohNoteSuffix:not(:empty),
+    .activity-feed .hohRewatchSuffix:not(:empty),
+    .activity-feed .hohScore:not(.hohSmiley),
+    .hohFeedScore .hohScore {
+      border-radius: 5px;
+      padding: 2.5px 5px 1px !important;
+      color: @subtext1 !important;
+      background-color: @surface0;
+
+      &:not(:first-of-type) {
+        margin: 3px;
+      }
+    }
+    .activity-feed .hohRewatchSuffix:not(:empty) {
+      padding-left: 2px !important;
+    }
+    .hohExtraFilters button {
+      margin-bottom: 20px;
+    }
+    .filter-group.compare-btn,
+    .hohButton {
+      color: @base;
+    }
+    .hohButton,
+    .hohCheckbox input:checked + .el-checkbox__inner {
+      background-color: @accent-color;
+    }
+    .hohCheckbox input:checked + .el-checkbox__inner {
+      border-color: @accent-color;
+    }
+    .medialist.table .entry:hover,
+    .medialist.table .entry .title a:hover,
+    .compare-btn[data-v-170179fc]:hover {
+      color: @base;
+    }
+    .hohCompare table {
+      background-color: @crust;
+    }
+    .hohAnimeTable,
+    .hohAnimeTable td,
+    .hohUserRow td,
+    .hohUserRow th,
+    .hohHeaderRow td,
+    .hohHeaderRow th {
+      border-color: @surface0 !important;
+    }
+    .hohUserRow td {
+      border-top-color: @surface0 !important;
+    }
+    .hohUserRow tr {
+      border-right-color: @surface0 !important;
+    }
+    hr {
+      color: @surface0;
+    }
+    .hohCheckbox
+      input:checked
+      + .el-checkbox__inner
+      .like-wrap.thread
+      .button.liked
+      .fa-heart,
+    .actions .favourite.liked .fa-heart,
+    .like-wrap.thread .button.isFavourite .fa-heart,
+    .actions .favourite.isFavourite .fa-heart,
+    .actions .favourite {
+      & when not(@lookup = latte) {
+        --color-white: #rgbify(@crust)[];
+      }
+    }
+  }
+}
+
+@-moz-document domain("anichart.net") {
+  body:not(.site-theme-dark) {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+  .site-theme-dark {
+    #catppuccin(@darkFlavor, @accentColor);
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accentColor];
+    @contrast-color: @catppuccin[@@lookup][@@contrastColor];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    .login[data-v-0d5bfbcd],
+    .login[data-v-0d5bfbcd]:hover {
+      color: @base;
+    }
+
+    [fill="#3db4f2" i] {
+      fill: @accent !important;
+    }
+
+    & when not(@lookup = latte) {
+      .nav {
+        background: @mantle;
+      }
+
+      .external-link {
+        background: @surface1;
+
+        [stroke="#fff" i] {
+          stroke: @text !important;
+        }
+      }
+
+      .external-link .icon,
+      .dropdown-menu:hover {
+        --color-white: #rgbify(@crust)[];
+      }
+
+      [fill="#fff" i] {
+        fill: @crust !important;
+      }
+    }
+
+    & when (@lookup = latte) {
+      --color-overlay: #rgbify(@text)[];
+
+      .external-link {
+        background: @subtext0;
+      }
+
+      .nav {
+        background: @text;
+      }
+
+      a.title {
+        --color-white: #rgbify(@base)[];
+      }
+    }
+  }
+}
+
+#rgbify(@color) {
+  @rgb: red(@color), green(@color), blue(@color);
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};

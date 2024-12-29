@@ -75,11 +75,20 @@ export async function verifyMetadata(
         startLine: line !== 0 ? line : undefined,
         content,
       });
+
+      if (fix) {
+        content = content.replace(
+          `${atKey} ${current}`,
+          `${atKey} ${expected}`,
+        );
+      }
     }
   }
 
+  Deno.writeTextFileSync(file, content);
+
   const template = (await Deno.readTextFile(
-    path.join(REPO_ROOT, "template/catppuccin.user.css"),
+    path.join(REPO_ROOT, "template/catppuccin.user.less"),
   ))
     .split("\n");
 
@@ -169,7 +178,7 @@ function generateAssertions(userstyle: string, userstyles: Userstyles) {
         : userstyles[userstyle].name
     }`,
     author: "Catppuccin",
-    updateURL: `${prefix}/raw/main/styles/${userstyle}/catppuccin.user.css`,
+    updateURL: `${prefix}/raw/main/styles/${userstyle}/catppuccin.user.less`,
     supportURL: `${prefix}/issues?q=is%3Aopen+is%3Aissue+label%3A${userstyle}`,
     license: "MIT",
     preprocessor: "less",
