@@ -1,15 +1,15 @@
-name: Deno Check
+name: Lint Userstyles
 
 on:
+  workflow_dispatch:
+  pull_request:
+    paths-ignore: ["docs/**"]
   push:
     branches: [main]
-    paths: ["**/*.ts"]
-  pull_request:
-    branches: [main]
-    paths: ["**/*.ts"]
+    paths-ignore: ["docs/**"]
 
 jobs:
-  check:
+  lint:
     if: github.repository == 'catppuccin/userstyles'
     runs-on: ubuntu-latest
 
@@ -21,8 +21,5 @@ jobs:
         with:
           deno-version: v2.1.3
 
-      - name: Check
-        run: |
-          deno lint
-          deno check **/*.ts
-          deno fmt --check **/*.ts
+      - name: Lint
+        run: deno task lint
