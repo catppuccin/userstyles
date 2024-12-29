@@ -1,16 +1,7 @@
-import { REPO_ROOT } from "@/constants.ts";
-
-import * as path from "@std/path";
 import usercssMeta from "usercss-meta";
-import { ensureDir, walk } from "@std/fs";
+import { ensureDir } from "@std/fs";
 import { calcStyleDigest } from "https://github.com/openstyles/stylus/raw/8fe35a4b90d85fb911bd7aa1deab4e4733c31150/src/js/sections-util.js";
-
-const stylesheets = walk(path.join(REPO_ROOT, "styles"), {
-  includeFiles: true,
-  includeDirs: false,
-  includeSymlinks: false,
-  match: [/\.user.css$/],
-});
+import { getUserstylesFiles } from "@/utils.ts";
 
 // Recommended settings.
 const settings = {
@@ -24,8 +15,8 @@ const settings = {
 
 const data: Record<string, unknown>[] = [settings];
 
-for await (const entry of stylesheets) {
-  const content = await Deno.readTextFile(entry.path);
+for (const file of getUserstylesFiles()) {
+  const content = await Deno.readTextFile(file);
   const { metadata } = usercssMeta.parse(content);
 
   const userstyle = {
@@ -45,4 +36,4 @@ for await (const entry of stylesheets) {
 }
 
 await ensureDir("dist");
-Deno.writeTextFile("dist/import.json", JSON.stringify(data));
+await Deno.writeTextFile("dist/import.json", JSON.stringify(data));

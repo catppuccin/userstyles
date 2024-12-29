@@ -3,6 +3,7 @@ import * as path from "@std/path";
 import { REPO_ROOT } from "@/constants.ts";
 import { CalVer } from "@/bump-version/calver.ts";
 import { parseArgs } from "@std/cli";
+import { getUserstylesFiles } from "@/utils.ts";
 
 const args = parseArgs(Deno.args, { boolean: ["all"] });
 
@@ -15,10 +16,7 @@ if (!Deno.env.get("CI") && !args.all) {
 let files = [];
 
 if (args.all) {
-  for (const dir of Deno.readDirSync(path.join(REPO_ROOT, "styles"))) {
-    if (!dir.isDirectory) continue;
-    files.push(path.join(REPO_ROOT, "styles", dir.name, "catppuccin.user.css"));
-  }
+  files = getUserstylesFiles();
 } else {
   files = args._.filter((val) => typeof val == "string").map((p: string) =>
     path.join(REPO_ROOT, p)
