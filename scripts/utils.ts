@@ -8,6 +8,7 @@ import * as path from "@std/path";
 import Ajv, { type Schema } from "ajv";
 import { log } from "@/logger.ts";
 import { sprintf } from "@std/fmt/printf";
+import { Octokit } from "@octokit/rest";
 
 /**
  * @param content A string of YAML content
@@ -137,3 +138,55 @@ type Userstyles = SetRequired<
   UserstylesSchema.UserstylesSchema,
   "userstyles" | "collaborators"
 >;
+
+export function getUserstylesFiles(): string[] {
+  const files: string[] = [];
+  for (const dir of Deno.readDirSync(path.join(REPO_ROOT, "styles"))) {
+    if (!dir.isDirectory) continue;
+    files.push(path.join(REPO_ROOT, "styles", dir.name, "catppuccin.user.css"));
+  }
+  return files;
+}
+
+export function getAuthenticatedOctokit() {
+  return new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") });
+}
+
+export type UserstylesTeam = "userstyles-staff" | "userstyles-maintainers";
+
+export async function getUserstylesTeamMembers(
+  octokit: Octokit,
+  team: UserstylesTeam,
+): Promise<string[]> {
+  const members = await octokit.teams
+    .listMembersInOrg({
+      org: "catppuccin",
+      team_slug: team,
+      per_page: 100,
+    });
+  return members.data.map(({ login }) => login.toLowerCase());
+}
+
+export async function addUserstylesTeamMember(
+  octokit: Octokit,
+  team: UserstylesTeam,
+  username: string,
+) {
+  await octokit.teams.addOrUpdateMembershipForUserInOrg({
+    org: "catppuccin",
+    team_slug: team,
+    username,
+  });
+}
+
+export async function removeUserstylesTeamMember(
+  octokit: Octokit,
+  team: UserstylesTeam,
+  username: string,
+) {
+  await octokit.teams.removeMembershipForUserInOrg({
+    org: "catppuccin",
+    team_slug: team,
+    username,
+  });
+}

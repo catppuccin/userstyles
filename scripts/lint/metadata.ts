@@ -1,5 +1,4 @@
 import type { Userstyles } from "@/types/userstyles.d.ts";
-import type { WalkEntry } from "@std/fs";
 import { REPO_ROOT } from "@/constants.ts";
 
 import * as color from "@std/fmt/colors";
@@ -12,7 +11,7 @@ import { log } from "@/logger.ts";
 import { formatListOfItems } from "@/utils.ts";
 
 export async function verifyMetadata(
-  entry: WalkEntry,
+  file: string,
   content: string,
   userstyle: string,
   userstyles: Userstyles,
@@ -22,7 +21,6 @@ export async function verifyMetadata(
   content = content.replaceAll("\r\n", "\n");
 
   const assertions = generateAssertions(userstyle, userstyles);
-  const file = path.relative(REPO_ROOT, entry.path);
 
   const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {
     allowErrors: true,

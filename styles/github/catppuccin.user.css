@@ -1,13 +1,13 @@
 /* ==UserStyle==
-@name         GitHub Catppuccin
-@namespace    github.com/catppuccin/userstyles/styles/github
-@homepageURL  https://github.com/catppuccin/userstyles/tree/main/styles/github
-@version      1.7.9
-@updateURL    https://github.com/catppuccin/userstyles/raw/main/styles/github/catppuccin.user.css
-@supportURL   https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agithub
-@description  Soothing pastel theme for GitHub
-@author       Catppuccin
-@license      MIT
+@name GitHub Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/github
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/github
+@version 2024.12.28.2
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/github/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agithub
+@description Soothing pastel theme for GitHub
+@author Catppuccin
+@license MIT
 
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
@@ -15,7 +15,8 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document regexp("https:\/\/(gist\.)*github\.com(?!((\/.+?\/.+?\/commit\/[A-Fa-f0-9]+\.(patch|diff)$)|\/home$|\/features($|\/.*)|\/marketplace($|\?.*|\/.*)|\/organizations\/plan)).*$") {
+@-moz-document regexp("https:\/\/(gist\.)*github\.com(?!((\/.+?\/.+?\/commit\/[A-Fa-f0-9]+\.(patch|diff)$)|\/home$|\/features($|\/.*)|\/marketplace($|\?.*|\/.*)|\/organizations\/plan)).*$"), url-prefix("https://viewscreen.githubusercontent.com/diff/img")
+{
   [data-color-mode="auto"] {
     @media (prefers-color-scheme: light) {
       &[data-light-theme="light"] {
@@ -161,18 +162,22 @@
     --topicTag-borderColor: #0000;
     --highlight-neutral-bgColor: fade(@yellow, 30%);
     --page-header-bgColor: @crust;
-    --diffBlob-addition-fgColor-text: @text;
-    --diffBlob-addition-fgColor-num: @text;
-    --diffBlob-addition-bgColor-num: fadeout(@green, 70%);
-    --diffBlob-addition-bgColor-line: fadeout(@green, 85%);
-    --diffBlob-addition-bgColor-word: fadeout(@green, 70%);
-    --diffBlob-deletion-fgColor-text: @text;
-    --diffBlob-deletion-fgColor-num: @text;
-    --diffBlob-deletion-bgColor-num: fadeout(@red, 70%);
-    --diffBlob-deletion-bgColor-line: fadeout(@red, 85%);
-    --diffBlob-deletion-bgColor-word: fadeout(@red, 70%);
-    --diffBlob-hunk-bgColor-num: fadeout(@accent-color, 60%);
-    --diffBlob-expander-iconColor: #848d97;
+    --diffBlob-additionNum-bgColor: fadeout(@green, 70%);
+    --diffBlob-additionNum-fgColor: @text;
+    --diffBlob-additionLine-bgColor: fadeout(@green, 85%);
+    --diffBlob-additionWord-bgColor: fadeout(@green, 70%);
+    --diffBlob-additionWord-fgColor: @text;
+    --diffBlob-deletionNum-bgColor: fadeout(@red, 70%);
+    --diffBlob-deletionNum-fgColor: @text;
+    --diffBlob-deletionLine-bgColor: fadeout(@red, 85%);
+    --diffBlob-deletionWord-bgColor: fadeout(@red, 70%);
+    --diffBlob-deletionWord-fgColor: @text;
+    --diffBlob-hunkNum-bgColor-rest: fadeout(@accent-color, 60%);
+    --diffBlob-hunkNum-bgColor-hover: fade(@accent-color, 75%);
+    --diffBlob-hunkLine-bgColor: fadeout(@accent-color, 75%);
+    --diffBlob-expander-iconColor: @subtext0;
+    --diffBlob-emptyNum-bgColor: @mantle;
+    --diffBlob-emptyLine-bgColor: @mantle;
     --codeMirror-fgColor: @text;
     --codeMirror-bgColor: @base;
     --codeMirror-gutters-bgColor: @base;
@@ -344,7 +349,7 @@
     --sideNav-bgColor-selected: #21262d;
     --skeletonLoader-bgColor: #161b22;
     --timelineBadge-bgColor: @mantle;
-    --treeViewItem-leadingVisual-iconColor-rest: #848d97;
+    --treeViewItem-leadingVisual-iconColor-rest: @subtext0;
     --underlineNav-borderColor-active: @accent-color;
     --underlineNav-borderColor-hover: #6e768166;
     --underlineNav-iconColor-rest: #848d97;
@@ -359,7 +364,7 @@
     --fgColor-white: if(@lookup = latte, @crust, @text);
     --fgColor-disabled: @surface2;
     --fgColor-link: @accent-color;
-    --fgColor-neutral: #6e7681;
+    --fgColor-neutral: @subtext1;
     --fgColor-accent: @accent-color;
     --fgColor-success: @green;
     --fgColor-attention: @yellow;
@@ -497,10 +502,36 @@
     --shadow-floating-legacy: 0px 6px 12px -3px @crust, 0px 6px 18px 0px @crust;
     --outline-focus: @blue solid 2px;
 
+    /* Customer Terms & Agreements Page: https://github.com/customer-terms */
+    .enterprise-customer-agreement {
+      color: @text !important;
+
+      &:hover {
+        .octicon,
+        h3 {
+          color: @accent-color !important;
+        }
+      }
+    }
+
     /* Enhanced Repo Insights Views - https://github.com/orgs/community/discussions/135572 */
     --data-blue-color-emphasis: @accent-color;
     --data-red-color-emphasis: @red;
     --data-green-color-emphasis: @green;
+
+    /* Copilot Chat */
+    --display-green-fgColor: @green;
+    --display-teal-fgColor: @teal;
+    --display-purple-fgColor: @mauve;
+    --display-blue-fgColor: @blue;
+    --display-pink-fgColor: @pink;
+    --display-gray-fgColor: @subtext0;
+    react-app[app-name="copilot-immersive-v1"],
+    copilot-dashboard-entrypoint {
+      button {
+        color: @text;
+      }
+    }
 
     --tooltip-fgColor: @base;
     --tooltip-bgColor: @overlay2;
@@ -533,7 +564,7 @@
       }
     }
     .header-search-button {
-      .placeholder {
+      &.placeholder {
         color: @subtext0;
       }
 
@@ -669,6 +700,16 @@
     --color-btn-counter-bg: @surface2;
     --color-btn-outline-text: @accent-color;
     --color-fg-muted: @subtext1;
+    --button-default-fgColor-rest: @text;
+    --button-default-bgColor-rest: @surface0;
+    --button-default-bgColor-hover: @surface1;
+    --button-default-bgColor-active: @surface2;
+    --button-default-bgColor-selected: @surface2;
+    --button-default-bgColor-disabled: fade(@surface0, 70%);
+    --button-default-borderColor-rest: @surface1;
+    --button-default-borderColor-hover: @surface1;
+    --button-default-borderColor-active: @surface1;
+    --button-default-borderColor-disabled: fade(@surface0, 70%);
 
     #diagram {
       .node rect,
@@ -680,6 +721,11 @@
         stroke: @accent-color;
       }
 
+      .cluster rect {
+        fill: @surface0;
+        stroke: @surface2;
+      }
+
       .label text,
       span,
       p {
@@ -687,7 +733,9 @@
         color: @text;
       }
 
-      .flowchart-link,
+      .flowchart-link {
+        stroke: @subtext0;
+      }
       .marker {
         stroke: @subtext0;
         fill: @subtext0;
@@ -695,6 +743,9 @@
 
       .edgeLabel {
         background-color: @crust;
+        p {
+          background-color: @surface2;
+        }
       }
     }
 
