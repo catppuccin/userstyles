@@ -1,5 +1,4 @@
 import type { Userstyles } from "@/types/userstyles.d.ts";
-import type { WalkEntry } from "@std/fs";
 import { REPO_ROOT } from "@/constants.ts";
 
 import * as color from "@std/fmt/colors";
@@ -12,7 +11,7 @@ import { log } from "@/logger.ts";
 import { formatListOfItems } from "@/utils.ts";
 
 export async function verifyMetadata(
-  entry: WalkEntry,
+  file: string,
   content: string,
   userstyle: string,
   userstyles: Userstyles,
@@ -22,7 +21,6 @@ export async function verifyMetadata(
   content = content.replaceAll("\r\n", "\n");
 
   const assertions = generateAssertions(userstyle, userstyles);
-  const file = path.relative(REPO_ROOT, entry.path);
 
   const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {
     allowErrors: true,
@@ -77,11 +75,20 @@ export async function verifyMetadata(
         startLine: line !== 0 ? line : undefined,
         content,
       });
+
+      if (fix) {
+        content = content.replace(
+          `${atKey} ${current}`,
+          `${atKey} ${expected}`,
+        );
+      }
     }
   }
 
+  Deno.writeTextFileSync(file, content);
+
   const template = (await Deno.readTextFile(
-    path.join(REPO_ROOT, "template/catppuccin.user.css"),
+    path.join(REPO_ROOT, "template/catppuccin.user.less"),
   ))
     .split("\n");
 
@@ -171,7 +178,7 @@ function generateAssertions(userstyle: string, userstyles: Userstyles) {
         : userstyles[userstyle].name
     }`,
     author: "Catppuccin",
-    updateURL: `${prefix}/raw/main/styles/${userstyle}/catppuccin.user.css`,
+    updateURL: `${prefix}/raw/main/styles/${userstyle}/catppuccin.user.less`,
     supportURL: `${prefix}/issues?q=is%3Aopen+is%3Aissue+label%3A${userstyle}`,
     license: "MIT",
     preprocessor: "less",

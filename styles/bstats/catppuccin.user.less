@@ -1,0 +1,813 @@
+/* ==UserStyle==
+@name bStats Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/bstats
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/bstats
+@version 2024.12.29.2
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/bstats/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Abstats
+@description Soothing pastel theme for bStats
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var checkbox graphUseAccentColor "Graphs Use Accent" 0
+==/UserStyle== */
+
+@-moz-document domain("bstats.org") {
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    body,
+    .collection-header,
+    .collection-item,
+    .grey.lighten-4,
+    .page-footer .footer-copyright {
+      background: @base !important;
+    }
+    .teal.darken-3,
+    .teal.darken-2,
+    .dropdown-content,
+    .side-nav {
+      background-color: @mantle !important;
+    }
+
+    .teal {
+      background-color: @surface0 !important;
+    }
+
+    /* slide out nav text & icons */
+    .subheader,
+    .left {
+      color: @text !important;
+    }
+
+    .collection {
+      border-color: @surface0;
+    }
+    .collection.with-header .collection-header,
+    .collection .collection-item {
+      border-bottom-color: @surface0;
+    }
+
+    .collapsible {
+      border-top-color: @surface1;
+      border-right-color: @surface1;
+      border-left-color: @surface1;
+    }
+    .collapsible-body {
+      border-bottom-color: @surface1;
+    }
+    .collapsible-header {
+      background-color: @surface0 !important;
+      border-bottom-color: @surface1;
+    }
+
+    blockquote {
+      border-left-color: @maroon;
+    }
+    /* code box */
+    .prettyprint,
+    .withBox,
+    .prettyprinted {
+      background-color: @mantle !important;
+      outline-color: @mantle;
+      color: @overlay2;
+    }
+    .tag,
+    .boolean {
+      color: @blue;
+    }
+    .pln {
+      color: @text;
+    }
+    .com {
+      color: @overlay0;
+    }
+    .key {
+      color: @red;
+    }
+    .clo,
+    .opn,
+    .pun {
+      color: @yellow;
+    }
+    .str,
+    .string,
+    .atv {
+      color: @green;
+    }
+    .atn {
+      color: @mauve;
+    }
+    .number {
+      color: @peach;
+    }
+
+    p,
+    h5,
+    b,
+    table,
+    th,
+    td,
+    .white-text,
+    nav .brand-logo,
+    nav a,
+    div.material-table .table-title,
+    div.material-table table th,
+    .card-title,
+    .card-content,
+    .container,
+    .center {
+      color: @text !important;
+    }
+    html,
+    div.material-table table tr td,
+    .grey-text.text-lighten-4,
+    .page-footer .footer-copyright {
+      color: @subtext1 !important;
+    }
+    .grey-text,
+    .grey-text.text-darken-2,
+    .input-field label,
+    div.material-table .table-footer label,
+    div.material-table .table-footer,
+    label {
+      color: @subtext0 !important;
+    }
+    .blue-text {
+      color: @blue !important;
+    }
+    .red-text {
+      color: @red !important;
+    }
+    .red {
+      background-color: @red;
+    }
+
+    /* discord logo on homepage */
+    img[src="/images/discord.svg"] when (@lookup = latte) {
+      filter: saturate(210%) hue-rotate(-20deg) brightness(82%);
+    }
+    img[src="/images/discord.svg"] when (@lookup = frappe) {
+      filter: saturate(53%) hue-rotate(-10deg) brightness(147%) contrast(90%)
+        sepia(15%) invert(2%);
+    }
+    img[src="/images/discord.svg"] when (@lookup = macchiato) {
+      filter: saturate(52%) hue-rotate(-15deg) brightness(157%) contrast(90%)
+        sepia(10%);
+    }
+    img[src="/images/discord.svg"] when (@lookup = mocha) {
+      filter: saturate(38%) hue-rotate(-25deg) brightness(153%) sepia(6%);
+    }
+
+    /* checkbox */
+    [type="checkbox"] + label::before,
+    [type="checkbox"]:not(.filled-in) + label::after {
+      border-color: @subtext0;
+    }
+    [type="checkbox"]:checked + label::before {
+      border-color: rgba(0, 0, 0, 0);
+      border-right-color: @green;
+      border-bottom-color: @green;
+    }
+
+    /* table hover */
+    div.material-table table tbody tr:hover {
+      background-color: fade(@surface2, 40%);
+    }
+    /* nav hover */
+    nav ul a:hover {
+      background-color: fade(@surface2, 40%);
+    }
+    .dropdown-content li:hover,
+    .dropdown-content li.active,
+    .dropdown-content li.selected {
+      background-color: fade(@surface2, 5%);
+    }
+
+    .input-field label {
+      color: @accent-color !important;
+    }
+    /* search unfocused */
+    input:not([type]),
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="url"],
+    input[type="time"],
+    input[type="date"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="search"],
+    textarea.materialize-textarea {
+      border-bottom-color: @subtext0;
+      box-shadow: 1 1px 0 0 @subtext0;
+    }
+    /* search focused */
+    input:not([type]):focus:not([readonly]),
+    input[type="text"]:focus:not([readonly]),
+    input[type="password"]:focus:not([readonly]),
+    input[type="email"]:focus:not([readonly]),
+    input[type="url"]:focus:not([readonly]),
+    input[type="time"]:focus:not([readonly]),
+    input[type="date"]:focus:not([readonly]),
+    input[type="datetime"]:focus:not([readonly]),
+    input[type="datetime-local"]:focus:not([readonly]),
+    input[type="tel"]:focus:not([readonly]),
+    input[type="number"]:focus:not([readonly]),
+    input[type="search"]:focus:not([readonly]),
+    textarea.materialize-textarea:focus:not([readonly]) {
+      border-bottom-color: @accent-color;
+      box-shadow: 0 1px 0 0 @accent-color;
+    }
+    /* valid input */
+    input:not([type]).valid,
+    input:not([type]):focus.valid,
+    input[type="text"].valid,
+    input[type="text"]:focus.valid,
+    input[type="password"].valid,
+    input[type="password"]:focus.valid,
+    input[type="email"].valid,
+    input[type="email"]:focus.valid,
+    input[type="url"].valid,
+    input[type="url"]:focus.valid,
+    input[type="time"].valid,
+    input[type="time"]:focus.valid,
+    input[type="date"].valid,
+    input[type="date"]:focus.valid,
+    input[type="datetime"].valid,
+    input[type="datetime"]:focus.valid,
+    input[type="datetime-local"].valid,
+    input[type="datetime-local"]:focus.valid,
+    input[type="tel"].valid,
+    input[type="tel"]:focus.valid,
+    input[type="number"].valid,
+    input[type="number"]:focus.valid,
+    input[type="search"].valid,
+    input[type="search"]:focus.valid,
+    textarea.materialize-textarea.valid,
+    textarea.materialize-textarea:focus.valid {
+      border-bottom-color: @green;
+      box-shadow: 0 1px 0 0 @green;
+    }
+
+    .teal-text,
+    .teal-text.text-darken-2,
+    .teal-text.text-lighten-3,
+    a {
+      color: @accent-color !important;
+    }
+
+    .btn,
+    .btn-large {
+      color: @text !important;
+    }
+    .btn.disabled,
+    .disabled.btn-large,
+    .btn-floating.disabled,
+    .btn-large.disabled,
+    .btn-flat.disabled,
+    .btn:disabled,
+    .btn-floating:disabled,
+    .btn-large:disabled,
+    .btn-flat:disabled,
+    .btn[disabled],
+    [disabled].btn-large,
+    .btn-floating[disabled],
+    .btn-large[disabled],
+    .btn-flat[disabled],
+    .btn-large.red[disabled],
+    .btn-large.red.disabled[id="delete_button"] {
+      background-color: @mantle !important;
+      color: @subtext0 !important;
+    }
+    .btn-large.red[id="delete_button"] {
+      color: @mantle !important;
+      background-color: @red !important;
+    }
+
+    .card {
+      background-color: @base;
+      border-color: @surface0;
+    }
+
+    thead,
+    div.material-table table tr td,
+    div.material-table .table-header {
+      border-bottom-color: @surface0;
+    }
+
+    /* modals found in custom chart settings */
+    .modal .modal-content,
+    .modal .modal-footer {
+      background-color: @surface0;
+    }
+
+    /* custom chart dropdown menu */
+    .select-wrapper input.select-dropdown {
+      border-bottom-color: @subtext0;
+    }
+    .select-dropdown li.optgroup {
+      border-top-color: @surface1;
+    }
+    .select-dropdown li.disabled,
+    .select-dropdown li.disabled > span,
+    .select-dropdown li.optgroup {
+      color: @text;
+    }
+    .select-dropdown li.optgroup > span {
+      color: @subtext1;
+    }
+    .dropdown-content li > a,
+    .dropdown-content li > span {
+      color: @accent-color;
+    }
+
+    .divider {
+      background-color: @surface1;
+    }
+    .caret {
+      color: @overlay1 !important;
+    }
+
+    /* custom chart lever */
+    .switch label .lever {
+      background-color: @overlay0;
+      &::after {
+        background-color: @overlay2;
+      }
+    }
+    .switch label input[type="checkbox"]:checked + .lever {
+      background-color: desaturate(darken(@accent-color, 25%), 50%);
+      & when (@lookup = latte) {
+        background-color: desaturate(lighten(@accent-color, 12%), 30%);
+      }
+      &::after {
+        background-color: @accent-color;
+      }
+    }
+
+    /* custom chart filter data */
+    .chip {
+      color: @text;
+      background-color: @surface1;
+    }
+    .chips .chip.selected {
+      background-color: @accent-color;
+      color: @base;
+    }
+    .chips.focus {
+      border-bottom-color: @accent-color;
+      box-shadow: 0 1px 0 0 @accent-color;
+    }
+    .chips .input {
+      color: @text;
+    }
+    input[placeholder="Add an other value"] {
+      border-bottom-color: @overlay2;
+    }
+
+    /* HIGHCHARTS "let's hope this does'nt break"-section */
+    /* all the charts */
+    .highcharts-graph when (@graphUseAccentColor = 1) {
+      stroke: @accent-color;
+    }
+    .highcharts-graph when (@graphUseAccentColor = 0) {
+      stroke: @red;
+    }
+    /* "shadow" area below graph in time navigator */
+    .highcharts-area {
+      fill: fade(@red, 5%) !important;
+      & when (@graphUseAccentColor = 1) {
+        fill: fade(@accent-color, 5%) !important;
+      }
+    }
+
+    /* charts background */
+    .highcharts-container {
+      background: @base !important;
+    }
+    /* map blends in with background on latte flavor */
+    .highcharts-map-series .highcharts-point {
+      stroke: @base !important;
+      & when (@lookup = latte) {
+        stroke: @overlay0 !important;
+      }
+    }
+    /* graph chart grid */
+    .highcharts-grid.highcharts-yaxis-grid .highcharts-grid-line {
+      stroke: @surface0;
+    }
+    /* bottom timeline line */
+    .highcharts-tick,
+    .highcharts-xaxis .highcharts-axis-line {
+      stroke: @surface1;
+    }
+    /* bottom timeline & y axis text text */
+    .highcharts-axis-labels.highcharts-xaxis-labels text,
+    .highcharts-axis-labels.highcharts-yaxis-labels text {
+      fill: @subtext1 !important;
+    }
+
+    /* vertical line on graph hover */
+    .highcharts-crosshair,
+    .highcharts-crosshair-thin {
+      stroke: @overlay2;
+    }
+    /* circle marker on graph */
+    .highcharts-markers .highcharts-halo.highcharts-color-0 {
+      fill: @red !important;
+      stroke: none !important;
+      & when (@graphUseAccentColor = 1) {
+        fill: @accent-color !important;
+      }
+    }
+    .highcharts-markers path {
+      fill: @red !important;
+      stroke: @base !important;
+      & when (@graphUseAccentColor = 1) {
+        fill: @accent-color !important;
+      }
+    }
+
+    /* time navigator on bottom */
+    /* active time span */
+    .highcharts-navigator,
+    .highcharts-navigator-mask-inside {
+      fill: fade(@surface1, 33%);
+    }
+    .highcharts-navigator .highcharts-navigator-outline {
+      stroke: @surface1;
+    }
+    /* navigator handles on the left & right */
+    .highcharts-navigator .highcharts-navigator-handle {
+      fill: @surface0;
+      stroke: @overlay1;
+    }
+    /* vertical timestamp lines */
+    .highcharts-grid.highcharts-xaxis-grid.highcharts-navigator-xaxis
+      .highcharts-grid-line {
+      stroke: @surface1;
+    }
+    /* time navigator timestamp text */
+    .highcharts-xaxis-labels.highcharts-navigator-xaxis tspan {
+      fill: @subtext0 !important;
+    }
+
+    /* scrollbar */
+    .highcharts-scrollbar,
+    .highcharts-scrollbar-track {
+      fill: @surface0;
+      stroke: @surface1;
+    }
+    .highcharts-scrollbar,
+    .highcharts-scrollbar-thumb {
+      fill: @overlay1;
+      stroke: @overlay1;
+    }
+    .highcharts-scrollbar .highcharts-scrollbar-rifles {
+      stroke: @mantle;
+    }
+    .highcharts-scrollbar-button {
+      fill: @overlay1;
+      stroke: @overlay1;
+    }
+    .highcharts-scrollbar-arrow {
+      fill: @mantle;
+    }
+
+    /* buttons */
+    .highcharts-button text {
+      fill: @subtext1 !important;
+    }
+    .highcharts-button-box {
+      fill: @surface0 !important;
+      stroke: @surface0 !important;
+    }
+    .highcharts-button-symbol {
+      fill: @subtext0 !important;
+      stroke: @subtext0 !important;
+    }
+    /* normal state */
+    .highcharts-button.highcharts-button-normal text {
+      fill: @subtext1 !important;
+    }
+    .highcharts-button.highcharts-button-normal .highcharts-button-box {
+      fill: @surface0 !important;
+      stroke: @surface0 !important;
+    }
+    /* hover state */
+    .highcharts-button.highcharts-button-hover text {
+      fill: @text !important;
+    }
+    .highcharts-button.highcharts-button-hover .highcharts-button-box {
+      fill: @surface2 !important;
+      stroke: @surface2 !important;
+    }
+    /* pressed state */
+    .highcharts-button.highcharts-button-pressed text {
+      fill: @text !important;
+    }
+    .highcharts-button.highcharts-button-pressed .highcharts-button-box {
+      fill: @surface2 !important;
+      stroke: @surface2 !important;
+    }
+    /* disabled state */
+    .highcharts-button.highcharts-button-disabled text {
+      fill: @overlay0 !important;
+    }
+    .highcharts-button.highcharts-button-disabled .highcharts-button-box {
+      fill: @base !important;
+      stroke: @surface0 !important;
+    }
+
+    /* "Load full data" button */
+    .highcharts-menu {
+      background: @surface0 !important;
+      border-color: @surface1 !important;
+      box-shadow: @mantle 3px 3px 10px !important;
+    }
+    .highcharts-menu-item {
+      color: @text !important;
+      &:hover {
+        color: @base !important;
+        background: @accent-color !important;
+      }
+    }
+    /* pie text "shadow" */
+    .highcharts-text-outline {
+      stroke: @mantle;
+      stroke-width: 2px;
+    }
+    /* pie text */
+    .highcharts-label.highcharts-data-label tspan {
+      fill: @subtext1;
+    }
+    /* drilldown pie text */
+    .highcharts-label.highcharts-data-label.highcharts-drilldown-data-label
+      tspan {
+      fill: @blue;
+    }
+    .highcharts-label.highcharts-data-label.highcharts-drilldown-data-label
+      text {
+      fill: @blue !important;
+      color: @blue !important;
+    }
+    /* pie subtitle */
+    .highcharts-subtitle tspan {
+      fill: @subtext0;
+    }
+    /* pie hover text */
+    .highcharts-label.highcharts-tooltip text {
+      fill: @subtext1 !important;
+      color: @subtext1 !important;
+    }
+    /* hover text */
+    .highcharts-label.highcharts-tooltip-box tspan {
+      fill: @subtext1;
+    }
+    /* hover text red dot */
+    .highcharts-label.highcharts-tooltip-box tspan[style="fill:#F44336"] {
+      fill: @red !important;
+      & when (@graphUseAccentColor = 1) {
+        fill: @accent-color !important;
+      }
+    }
+    /* map hover text */
+    .highcharts-label.highcharts-tooltip
+      span:not(div.highcharts-label > span:nth-child(1) > span:nth-child(1)) {
+      color: @subtext1 !important;
+    }
+    /* "No data to display" */
+    .highcharts-label.highcharts-no-data tspan {
+      fill: @subtext1;
+    }
+    /* axis label */
+    .highcharts-axis-title tspan {
+      fill: @subtext1;
+    }
+
+    /* hover text background */
+    .highcharts-label-box,
+    .highcharts-tooltip-box {
+      fill: @surface0;
+    }
+
+    /* legend */
+    /* legend title */
+    .highcharts-label.highcharts-legend-title text {
+      fill: @subtext1 !important;
+    }
+    /* legend labels */
+    .highcharts-axis-labels,
+    .highcharts-coloraxis-labels text {
+      fill: @subtext0 !important;
+    }
+    /* vertical lines */
+    .highcharts-legend-item
+      .highcharts-grid.highcharts-coloraxis-grid
+      .highcharts-grid-line {
+      stroke: @base;
+    }
+    /* background only for bar chart legend */
+    .highcharts-legend
+      .highcharts-legend-box[fill="#FFFFFF"][stroke="#999999"] {
+      fill: @surface0 !important;
+      stroke: @surface1 !important;
+    }
+    /* bar chart entries */
+    .highcharts-legend .highcharts-legend-item.highcharts-bar-series tspan {
+      fill: @subtext1 !important;
+      &:hover {
+        fill: @text !important;
+      }
+    }
+    .highcharts-legend
+      .highcharts-legend-item.highcharts-bar-series.highcharts-legend-item-hidden
+      tspan {
+      fill: @overlay2 !important;
+      &:hover {
+        fill: @subtext0 !important;
+      }
+    }
+
+    .highcharts-point {
+      stroke: @base !important;
+    }
+    /* bar chart circle outline */
+    .highcharts-legend .highcharts-legend-item.highcharts-bar-series rect {
+      stroke: none !important;
+    }
+    /* disabled bar chart circle */
+    .highcharts-legend
+      .highcharts-legend-item.highcharts-bar-series.highcharts-legend-item-hidden
+      rect {
+      fill: @overlay0 !important;
+      stroke: none !important;
+    }
+    /* bar & pie chart colors */
+    /* color 0 */
+    .highcharts-point.highcharts-color-0,
+    .highcharts-halo.highcharts-color-0,
+    .highcharts-legend-item.highcharts-bar-series.highcharts-color-0 rect {
+      fill: @red !important;
+    }
+    .highcharts-data-label-connector.highcharts-color-0 {
+      stroke: @red !important;
+    }
+    /* color 1 */
+    .highcharts-point.highcharts-color-1,
+    .highcharts-halo.highcharts-color-1,
+    .highcharts-legend-item.highcharts-bar-series.highcharts-color-1 rect {
+      fill: @green !important;
+    }
+    .highcharts-data-label-connector.highcharts-color-1 {
+      stroke: @green !important;
+    }
+    /* color 2 */
+    .highcharts-point.highcharts-color-2,
+    .highcharts-halo.highcharts-color-2,
+    .highcharts-legend-item.highcharts-bar-series.highcharts-color-2 rect {
+      fill: @sky !important;
+    }
+    .highcharts-data-label-connector.highcharts-color-2 {
+      stroke: @sky !important;
+    }
+    /* color 3 */
+    .highcharts-point.highcharts-color-3,
+    .highcharts-halo.highcharts-color-3,
+    .highcharts-legend-item.highcharts-bar-series.highcharts-color-3 rect {
+      fill: @peach !important;
+    }
+    .highcharts-data-label-connector.highcharts-color-3 {
+      stroke: @peach !important;
+    }
+    /* color 4 */
+    .highcharts-point.highcharts-color-4,
+    .highcharts-halo.highcharts-color-4,
+    .highcharts-legend-item.highcharts-bar-series.highcharts-color-4 rect {
+      fill: @yellow !important;
+    }
+    .highcharts-data-label-connector.highcharts-color-4 {
+      stroke: @yellow !important;
+    }
+    /* color 5 */
+    .highcharts-point.highcharts-color-5,
+    .highcharts-halo.highcharts-color-5,
+    .highcharts-legend-item.highcharts-bar-series.highcharts-color-5 rect {
+      fill: @teal !important;
+    }
+    .highcharts-data-label-connector.highcharts-color-5 {
+      stroke: @teal !important;
+    }
+    /* color 6 */
+    .highcharts-point.highcharts-color-6,
+    .highcharts-halo.highcharts-color-6,
+    .highcharts-legend-item.highcharts-bar-series.highcharts-color-6 rect {
+      fill: @pink !important;
+    }
+    .highcharts-data-label-connector.highcharts-color-6 {
+      stroke: @pink !important;
+    }
+    /* color 7 */
+    .highcharts-point.highcharts-color-7,
+    .highcharts-halo.highcharts-color-7,
+    .highcharts-legend-item.highcharts-bar-series.highcharts-color-7 rect {
+      fill: @flamingo !important;
+    }
+    .highcharts-data-label-connector.highcharts-color-7 {
+      stroke: @flamingo !important;
+    }
+    /* color 8 */
+    .highcharts-point.highcharts-color-8,
+    .highcharts-halo.highcharts-color-8,
+    .highcharts-legend-item.highcharts-bar-series.highcharts-color-8 rect {
+      fill: @subtext0 !important;
+    }
+    .highcharts-data-label-connector.highcharts-color-8 {
+      stroke: @subtext0 !important;
+    }
+    /* color 9 */
+    .highcharts-point.highcharts-color-9,
+    .highcharts-halo.highcharts-color-9,
+    .highcharts-legend-item.highcharts-bar-series.highcharts-color-9 rect {
+      fill: @blue !important;
+    }
+    .highcharts-data-label-connector.highcharts-color-9 {
+      stroke: @blue !important;
+    }
+    /* color 10 */
+    .highcharts-point.highcharts-color-10,
+    .highcharts-halo.highcharts-color-10,
+    .highcharts-legend-item.highcharts-bar-series.highcharts-color-10 rect {
+      fill: @mauve !important;
+    }
+    .highcharts-data-label-connector.highcharts-color-10 {
+      stroke: @mauve !important;
+    }
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};

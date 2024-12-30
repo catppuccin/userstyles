@@ -1,0 +1,159 @@
+/* ==UserStyle==
+@name Lobsters Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/lobste.rs
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/lobste.rs
+@version 2024.12.29.2
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/lobste.rs/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Alobste.rs
+@description Soothing pastel theme for Lobsters
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain("lobste.rs") {
+  @media (prefers-color-scheme: dark) {
+    html.color-scheme-system {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    html.color-scheme-system {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+
+  html.color-scheme-light {
+    #catppuccin(@lightFlavor, @accentColor);
+  }
+
+  html.color-scheme-dark {
+    #catppuccin(@darkFlavor, @accentColor);
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    background-color: @base;
+
+    --palette-bg: @base;
+    --palette-fg: @text;
+
+    --color-fg: @text;
+    --color-fg-shape: @surface2;
+
+    --color-tag-bg: fade(@yellow, 20%);
+    --color-tag-border: fade(@yellow, 20%);
+
+    --color-lobsters-tag-special-bg: fade(@red, 30%);
+    --color-lobsters-tag-special-border: fade(@red, 30%);
+
+    --color-tag-media-bg: fade(@blue, 20%);
+    --color-tag-media-border: fade(@blue, 30%);
+
+    --color-tag-meta-bg: @surface0;
+    --color-tag-meta-border: @surface2;
+
+    --color-bg-target: fade(@accent-color, 20%);
+
+    --color-fg-affirmative: @green;
+    --color-fg-accent: @accent-color;
+    --color-fg-author: @blue;
+
+    --color-fg-contrast-7-5: @blue;
+    --color-fg-contrast-4-5: @subtext0;
+    --color-fg-contrast-6: @subtext1;
+
+    --color-fg-link: @blue;
+    --color-fg-link-visited: @lavender;
+
+    --color-fg-contrast-10: @text;
+
+    --color-box-bg: @mantle;
+    --color-button-bg: @mantle;
+    --color-button-bg-shaded: @surface0;
+    --color-box-border: @surface0;
+    --color-box-border-focus: @accent-color;
+    --color-box-bg-shaded: @mantle;
+
+    --color-mobile-story-liner-bg: @base;
+    --color-mobile-story-comments-bubble-fill: @surface1;
+
+    --color-mobile-story-comments-bubble-fill-zero: @surface0;
+
+    --color-table-header-bg: @surface0;
+    --color-table-header-border: @surface1;
+    --color-table-row-bg-even: @mantle;
+    --color-table-row-bg-odd: @crust;
+    --color-table-row-border: @base;
+
+    --color-flash-bg-success: fade(@green, 30%);
+    --color-fg-negative: @red;
+
+    hr {
+      color: @surface2;
+    }
+
+    #logo {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="@{accent-color}" d="M16 16H0V0h16z"/><path fill="@{base}" d="M3.5 13.45v-.63c0-.11 0-.1.1-.11.23-.02.46-.03.69-.07.46-.08.67-.31.74-.78.02-.14.03-.29.03-.43V4.69c0-.18-.02-.36-.04-.53-.03-.31-.23-.5-.52-.61-.27-.1-.55-.11-.83-.13h-.15v-.65c0-.07.02-.09.09-.09h5.24c.07 0 .1.01.1.09-.01.19 0 .37 0 .56v.08c-.14.01-.28 0-.41.02-.2.03-.4.06-.59.11-.35.11-.53.35-.57.68q-.03.225-.03.45v6.39c0 .27.03.54.06.8.03.29.22.48.49.58.23.09.48.11.72.12.63.02 1.25.01 1.86-.15.88-.22 1.47-.77 1.76-1.64.09-.28.13-.57.2-.86.01-.02.03-.06.05-.06h.66c-.02 1.2.02 2.4 0 3.6z"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+      background-color: transparent !important;
+      &::after {
+        background: none;
+      }
+    }
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};

@@ -30,33 +30,13 @@ The [`userstyles.yml`](https://github.com/catppuccin/userstyles/tree/main/script
      current-maintainers: [*<github-username>]
    ```
 
-   **All Fields:**
+   **Optional Fields:**
 
    The `readme.usage` and `readme.faq` fields allow for additional information about the port to be included on the README.
 
    The `icon` field allows for specifying an icon from [Simple Icons](https://simpleicons.org/) for the userstyle. The icon's "slug" - which can be found by hovering over the icon's title and clicking the copy button - should be used.
 
    The `past-maintainers` field contains a list of maintainers who have maintained the port in the past. We encourage all maintainers to add/remove themselves from this list as they see fit.
-
-   Remember that these 4 fields are **optional**.
-
-   ```yaml
-   <port>:
-     name: <name>
-     categories: [<primary-category>, <optional-secondary-category>, <optional-third-category>]
-     color: <color>
-     icon: <icon>                                    # OPTIONAL
-     readme:
-       app-link: "<url>"
-       usage: |+                                     # OPTIONAL
-         > [!NOTE]
-         > <your notes>
-       faq:                                          # OPTIONAL
-         - question: <question>
-           answer: <answer>
-     current-maintainers: [*<github-username>]
-     past-maintainers: [*<github-username>]          # OPTIONAL
-   ```
 
 ## Adding yourself as a maintainer
 

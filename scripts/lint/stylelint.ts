@@ -1,4 +1,3 @@
-import type { WalkEntry } from "@std/fs";
 import { REPO_ROOT } from "@/constants.ts";
 
 import * as color from "@std/fmt/colors";
@@ -11,8 +10,8 @@ import "stylelint-config-recommended";
 
 import { log } from "@/logger.ts";
 
-export async function lint(
-  entry: WalkEntry,
+export async function runStylelint(
+  file: string,
   content: string,
   fix: boolean,
   config: stylelint.Config,
@@ -24,7 +23,7 @@ export async function lint(
   });
 
   if (code) {
-    Deno.writeTextFileSync(entry.path, code);
+    Deno.writeTextFileSync(path.join(REPO_ROOT, file), code);
   }
 
   for (const result of results) {
@@ -36,7 +35,7 @@ export async function lint(
       ) ?? "unspecified stylelint error";
 
       log.log(message, {
-        file: path.relative(REPO_ROOT, entry.path),
+        file,
         startLine: warning.line,
         endLine: warning.endLine,
         startColumn: warning.column,
