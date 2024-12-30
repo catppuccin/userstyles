@@ -19,41 +19,41 @@
   @import url("https://unpkg.com/@catppuccin/highlightjs@1.0.0/css/catppuccin-variables.important.css");
 
   :root.light {
-    #catppuccin(@lightFlavor, @accentColor);
+    #catppuccin(@lightFlavor);
   }
 
   :root.dark {
-    #catppuccin(@darkFlavor, @accentColor);
+    #catppuccin(@darkFlavor);
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
     --ctp-rosewater: @rosewater;
     --ctp-flamingo: @flamingo;
@@ -82,10 +82,10 @@
     --ctp-mantle: @mantle;
     --ctp-crust: @crust;
 
-    color-scheme: if(@lookup = latte, light, dark);
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -116,12 +116,12 @@
 
     color: @text;
 
-    @white: if(@lookup = latte, @crust, @text);
-    @black: if(@lookup = latte, @text, @crust);
+    @white: if(@flavor = latte, @crust, @text);
+    @black: if(@flavor = latte, @text, @crust);
     --white: @white;
     --black: @black;
 
-    & when not(@lookup = latte) {
+    & when not(@flavor = latte) {
       --gray-50: lighten(mix(@text, @subtext0), 5%);
       --gray-100: @text;
       --gray-200: @subtext1;
@@ -134,7 +134,7 @@
       --gray-800: @base;
       --gray-900: @mantle;
       --gray-950: @crust;
-      --brand-purple: @accent-color;
+      --brand-purple: @accent;
       --text-primary: var(--gray-100) !important;
       --text-secondary: var(--gray-200) !important;
       --text-tertiary: var(--gray-300) !important;
@@ -158,7 +158,7 @@
         --text-tertiary: var(--gray-300) !important;
       }
     }
-    & when (@lookup = latte) {
+    & when (@flavor = latte) {
       --gray-50: @crust;
       --gray-100: @mantle;
       --gray-200: @base;
@@ -170,7 +170,7 @@
       --gray-800: @subtext0;
       --gray-900: @subtext1;
       --gray-950: @text;
-      --brand-purple: @accent-color;
+      --brand-purple: @accent;
       --text-primary: var(--gray-950);
       --text-secondary: var(--gray-600);
       --text-tertiary: var(--gray-400);
@@ -199,16 +199,16 @@
     --border-medium: fade(@text, 15%);
     --border-heavy: fade(@text, 20%);
     --border-xheavy: fade(@text, 25%);
-    --link: @accent-color;
+    --link: @accent;
     --link-hover: if(
-      @lookup = latte,
-      lighten(@accent-color, 10%),
-      darken(@accent-color, 10%)
+      @flavor = latte,
+      lighten(@accent, 10%),
+      darken(@accent, 10%)
     );
 
     *:focus {
       --tw-ring-offset-color: @base;
-      --tw-ring-color: @accent-color;
+      --tw-ring-color: @accent;
     }
 
     /* ChatGPT logo */
@@ -249,7 +249,7 @@
     [type="radio"] {
       background-color: @base;
       border-color: @overlay2;
-      color: @accent-color;
+      color: @accent;
     }
 
     .form-input,
@@ -264,7 +264,7 @@
     .form-multiselect:focus,
     .form-select:focus,
     .form-textarea:focus {
-      border-color: @accent-color;
+      border-color: @accent;
     }
 
     .form-input::placeholder,
@@ -276,15 +276,15 @@
 
     .btn-primary,
     .btn-green {
-      background-color: @accent-color;
+      background-color: @accent;
       color: @base;
 
       &:hover {
-        background-color: darken(@accent-color, 10%);
+        background-color: darken(@accent, 10%);
       }
 
       &:focus-visible {
-        --tw-ring-color: darken(@accent-color, 10%) !important;
+        --tw-ring-color: darken(@accent, 10%) !important;
       }
     }
 
@@ -419,7 +419,7 @@
     }
 
     .\!bg-brand-purple {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
     }
 
     .\!bg-gray-200 {
@@ -451,7 +451,7 @@
     }
 
     .bg-[\#B161FD] {
-      background-color: @accent-color;
+      background-color: @accent;
     }
 
     .bg-[\#F8CA27] {
@@ -538,7 +538,7 @@
     }
 
     .checked\:bg-blue-600:checked {
-      background-color: @accent-color;
+      background-color: @accent;
     }
 
     .bg-brand-green {
@@ -554,7 +554,7 @@
     }
 
     .bg-brand-purple {
-      background-color: @accent-color;
+      background-color: @accent;
     }
 
     .bg-gray-100 {
@@ -674,13 +674,13 @@
     }
 
     .radix-state-checked\:\!bg-green-600[data-state="checked"] {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
     }
 
     .dark\:radix-state-checked\:border-green-600[data-state="checked"]:is(
       .dark *
     ) {
-      border-color: @accent-color;
+      border-color: @accent;
     }
 
     [class*="bg-transparent"] {
@@ -704,7 +704,7 @@
     }
 
     .stroke-brand-purple\/25 {
-      stroke: fade(@accent-color, 25%);
+      stroke: fade(@accent, 25%);
     }
 
     .stroke-gray-400 {
@@ -750,7 +750,7 @@
     }
 
     .text-brand-purple {
-      color: @accent-color;
+      color: @accent;
     }
 
     .text-gray-100 {
@@ -871,7 +871,7 @@
 
     /* Dark mode overrides */
     /* stylelint-disable-next-line no-duplicate-selectors */
-    & when not(@lookup = latte) {
+    & when not(@flavor = latte) {
       .dark\:bg-black {
         background-color: @black;
       }
@@ -977,51 +977,48 @@
 }
 
 @-moz-document domain("auth.openai.com") {
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
     }
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
-    }
-  }
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
-
-    color-scheme: if(@lookup = latte, light, dark);
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -1036,7 +1033,7 @@
     caret-color: @text;
 
     a {
-      color: @accent-color;
+      color: @accent;
     }
 
     body,
@@ -1066,10 +1063,10 @@
 
       &:focus,
       &:valid {
-        border-color: @accent-color;
+        border-color: @accent;
 
         + .email-label {
-          color: @accent-color;
+          color: @accent;
           background-color: @base;
         }
       }
@@ -1080,7 +1077,7 @@
     }
 
     .continue-btn {
-      background-color: @accent-color;
+      background-color: @accent;
       color: @base;
     }
 
@@ -1124,49 +1121,55 @@
 @-moz-document domain("auth0.openai.com") {
   @media (prefers-color-scheme: light) {
     :root {
-      #catppuccin(@lightFlavor, @accentColor);
+      #catppuccin(@lightFlavor);
     }
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      #catppuccin(@darkFlavor, @accentColor);
+      #catppuccin(@darkFlavor);
     }
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
-    --primary-color: @accent-color;
-    --primary-color-no-override: @accent-color;
-    --action-primary-color: @accent-color;
-    --link-color: @accent-color;
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    --primary-color: @accent;
+    --primary-color-no-override: @accent;
+    --action-primary-color: @accent;
+    --link-color: @accent;
     --page-background-color: @base;
     --info-color: @blue;
     --success-color: @green;
@@ -1186,7 +1189,7 @@
 
     ._button-login-password,
     ._button-login-id {
-      background-color: @accent-color;
+      background-color: @accent;
       color: @base;
     }
 

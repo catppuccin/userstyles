@@ -16,34 +16,54 @@
 ==/UserStyle== */
 
 @-moz-document domain("try.vikunja.io") {
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  :root.dark {
+    #catppuccin(@darkFlavor);
+  }
+  :root.light {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
 
     #hslbreakdown(@color, @item) {
       --@{item}-h: hue(@color) !important;
@@ -54,20 +74,7 @@
       --@{item}-invert-l: lightness(@color) !important;
     }
 
-    color-scheme: if(@lookup = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent-color, 30%);
-    }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
-
-    #hslbreakdown(@accent-color, primary);
+    #hslbreakdown(@accent, primary);
     --site-background: @mantle;
     --content-heading-color: @text;
     --card-header-color: @text;
@@ -75,7 +82,7 @@
     --body-color: @text;
     --label-color: @text;
     --strong-color: @text;
-    --primary: @accent-color;
+    --primary: @accent;
     --primary-invert: @base;
     --switch-view-color: @base;
     --input-background-color: @base;
@@ -83,7 +90,7 @@
     --table-row-hover-background-color: @mantle;
     --table-head-cell-color: @text;
     --input-border-color: @overlay0;
-    --link-hover: @accent-color;
+    --link-hover: @accent;
     --white: @base;
     --grey: @overlay0;
     --card-content-background-color: @base;
@@ -104,7 +111,7 @@
 
     svg.llama-cool > circle,
     svg.logo > path[fill="#196aff"] {
-      fill: @accent-color;
+      fill: @accent;
     }
 
     svg.logo,
@@ -157,11 +164,11 @@
       color: @base;
 
       &:hover {
-        background: @accent-color;
+        background: @accent;
       }
 
       &:active {
-        background: darken(@accent-color, 10%);
+        background: darken(@accent, 10%);
       }
 
       span.icon {
@@ -195,7 +202,7 @@
         color: @text;
       }
       li > a.router-link-active {
-        color: @accent-color;
+        color: @accent;
       }
       li:hover {
         background: @mantle;
@@ -217,7 +224,7 @@
 
     div.tiptap__editor {
       a {
-        color: @accent-color;
+        color: @accent;
       }
     }
 
@@ -227,11 +234,11 @@
 
     .progress-bar {
       --progress-bar-background-color: @crust;
-      --progress-value-background-color: @accent-color;
+      --progress-value-background-color: @accent;
     }
 
     .loader-container.is-loading::after {
-      --loader-border-color: @accent-color;
+      --loader-border-color: @accent;
     }
 
     /* Gantt */
@@ -260,7 +267,7 @@
 
         .g-gantt-bar-handle-left,
         .g-gantt-bar-handle-right {
-          background: darken(@accent-color, 10%);
+          background: darken(@accent, 10%);
         }
       }
     }
@@ -330,13 +337,6 @@
       background: @green;
       border-left-color: darken(@green, 5%);
     }
-  }
-
-  :root.dark {
-    #catppuccin(@darkFlavor, @accentColor);
-  }
-  :root.light {
-    #catppuccin(@lightFlavor, @accentColor);
   }
 }
 
