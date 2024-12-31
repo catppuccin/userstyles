@@ -71,6 +71,11 @@ const ruleFunction = (primary, _secondary, context) => {
       parsed.walk((node) => {
         if (node.type !== "function") return;
 
+        const pre = decl.prop.length +
+          (decl.raws.between?.length || 0);
+        const startIndex = pre + node.sourceIndex;
+        const endIndex = pre + node.sourceEndIndex;
+
         // Prevent using `rgba` with variables to change the alpha value.
         if (
           node.value === "rgba" &&
@@ -89,6 +94,8 @@ const ruleFunction = (primary, _secondary, context) => {
               ruleName,
               message: messages.rgba_used_with_variable(),
               node: decl,
+              index: startIndex,
+              endIndex: endIndex,
             });
           }
         }
@@ -114,6 +121,8 @@ const ruleFunction = (primary, _secondary, context) => {
               ruleName,
               message: messages.fadeout_used(),
               node: decl,
+              index: startIndex,
+              endIndex: endIndex,
             });
           }
         }
@@ -125,6 +134,8 @@ const ruleFunction = (primary, _secondary, context) => {
             ruleName,
             message: messages.fadein_used(),
             node: decl,
+            index: startIndex,
+            endIndex: endIndex,
           });
         }
 
@@ -151,6 +162,8 @@ const ruleFunction = (primary, _secondary, context) => {
               ruleName,
               message: messages.amount_not_percentage(),
               node: decl,
+              index: startIndex,
+              endIndex: endIndex,
             });
           }
         }
