@@ -2,6 +2,7 @@
 
 import stylelint from "stylelint";
 import valueParser from "postcss-value-parser";
+import { flavors } from "@catppuccin/palette";
 
 const LESS_COLOR_OP_FUNCTIONS = [
   "saturate",
@@ -16,15 +17,20 @@ const LESS_COLOR_OP_FUNCTIONS = [
   "shade",
 ];
 const NUMERICAL_VALUE_REGEX = /^[\d.]+$/;
+const VALID_COLOR_VARIABLES = [
+  ...Object.keys(flavors.latte.colors).map((color) => "@" + color),
+  "@accent",
+];
 
 /**
+ * Accepts a color operation amount and normalizes it by multiplying it by 100 if it is less than 1.
  * @param {string} amount
- * @returns {string}
+ * @returns {number}
  */
-function numberToPercentage(amount) {
+function normalizeColorOperationAmount(amount) {
   let value = Number.parseFloat(amount);
   if (value < 1) value *= 100;
-  return value + "%";
+  return value;
 }
 
 const {
@@ -41,6 +47,7 @@ const meta = {
 const messages = ruleMessages(ruleName, {
   amount_not_percentage: () => `Function amount argument must be percentage`,
   rgba_used_with_variable: () => `Use 'fade' instead of 'rgba' on variables`,
+  fadeout_used: () => `Use 'fade' instead of 'fadeout'`,
 });
 
 /** @type {import('npm:stylelint').Rule} */
@@ -68,12 +75,35 @@ const ruleFunction = (primary, _secondary, context) => {
         ) {
           if (context.fix) {
             node.value = "fade";
-            node.nodes[2].value = numberToPercentage(node.nodes[2].value);
+            node.nodes[2].value = normalizeColorOperationAmount(
+              node.nodes[2].value,
+            ) + "%";
           } else {
             report({
               result,
               ruleName,
               message: messages.rgba_used_with_variable(),
+              node: decl,
+            });
+          }
+        }
+
+        // Use `fade` instead of `fadeout`.
+        if (
+          node.value === "fadeout" &&
+          node.nodes.length === 3 &&
+          VALID_COLOR_VARIABLES.includes(node.nodes[0].value)
+        ) {
+          if (context.fix) {
+            node.value = "fade";
+            const value = node.nodes[2].value.replace("%", "");
+            node.nodes[2].value = (100 - normalizeColorOperationAmount(value)) +
+              "%";
+          } else {
+            report({
+              result,
+              ruleName,
+              message: messages.fadeout_used(),
               node: decl,
             });
           }
@@ -93,7 +123,9 @@ const ruleFunction = (primary, _secondary, context) => {
           if (!NUMERICAL_VALUE_REGEX.test(value)) return;
 
           if (context.fix) {
-            node.nodes[amountArgIndex].value = numberToPercentage(value);
+            node.nodes[amountArgIndex].value = normalizeColorOperationAmount(
+              value,
+            ) + "%";
           } else {
             report({
               result,
