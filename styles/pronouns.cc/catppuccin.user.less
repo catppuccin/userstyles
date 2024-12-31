@@ -17,7 +17,7 @@
 
 @-moz-document domain("pronouns.cc") {
   :root[data-bs-theme="dark"] {
-    #catppuccin(@darkFlavor, @accentColor);
+    #catppuccin(@darkFlavor);
     .bg-dark {
       --bs-bg-opacity: 1;
       background-color: rgba(
@@ -27,7 +27,7 @@
     }
   }
   :root[data-bs-theme="light"] {
-    #catppuccin(@lightFlavor, @accentColor);
+    #catppuccin(@lightFlavor);
     .bg-light {
       --bs-bg-opacity: 1;
       background-color: rgba(
@@ -37,39 +37,39 @@
     }
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
-    color-scheme: if(@lookup = latte, light, dark);
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -82,8 +82,8 @@
       color: transparent !important;
     }
     .form-control:focus {
-      border-color: @accent-color;
-      box-shadow: 0 0 0 0.25rem fade(@accent-color, 25%);
+      border-color: @accent;
+      box-shadow: 0 0 0 0.25rem fade(@accent, 25%);
     }
     --bs-border-color: @surface1;
     --bs-border-color-translucent: @surface0;
@@ -95,7 +95,7 @@
     }
     .dropdown-menu {
       --bs-dropdown-link-active-color: @crust;
-      --bs-dropdown-link-active-bg: @accent-color;
+      --bs-dropdown-link-active-bg: @accent;
     }
     .toast {
       --bs-toast-color: @text;
@@ -114,8 +114,8 @@
     --bs-body-bg: @crust;
     --bs-darkk-rgb: #rgbify(@base);
     --bs-lightt-rgb: #rgbify(@base);
-    --bs-emphasis-color: @accent-color;
-    --bs-emphasis-color-rgb: #rgbify(@accent-color)[];
+    --bs-emphasis-color: @accent;
+    --bs-emphasis-color-rgb: #rgbify(@accent)[];
     --bs-secondary-color: @subtext0;
     --bs-secondary-color-rgb: @subtext0;
     --bs-secondary-bg: @base;
@@ -124,7 +124,7 @@
     --bs-tertiary-color-rgb: @subtext1;
     --bs-tertiary-bg: @surface0;
     --bs-tertiary-bg-rgb: #rgbify(@surface0)[];
-    --bs-primary-text-emphasis: @accent-color;
+    --bs-primary-text-emphasis: @accent;
     --bs-secondary-text-emphasis: @subtext1;
     --bs-success-text-emphasis: @green;
     --bs-info-text-emphasis: @teal;
@@ -142,10 +142,10 @@
     --bs-light-border-subtle: @overlay1;
     --bs-dark-border-subtle: @surface1;
     --bs-heading-color: inherit;
-    --bs-link-color: @accent-color;
-    --bs-link-color-rgb: #rgbify(@accent-color)[];
-    --bs-link-hover-color: @accent-color;
-    --bs-link-hover-color-rgb: #rgbify(@accent-color)[];
+    --bs-link-color: @accent;
+    --bs-link-color-rgb: #rgbify(@accent)[];
+    --bs-link-hover-color: @accent;
+    --bs-link-hover-color-rgb: #rgbify(@accent)[];
 
     --bs-code-color: @pink;
     --bs-highlight-color: @rosewater;
@@ -160,8 +160,8 @@
       --bs-list-group-disabled-color: var(--bs-secondary-color);
       --bs-list-group-disabled-bg: var(--bs-body-bg);
       --bs-list-group-active-color: @base;
-      --bs-list-group-active-bg: @accent-color;
-      --bs-list-group-active-border-color: @accent-color;
+      --bs-list-group-active-bg: @accent;
+      --bs-list-group-active-border-color: @accent;
       border-radius: var(--bs-list-group-border-radius);
     }
     // navbar
@@ -212,8 +212,8 @@
     .btn-primary {
       #colorizedButton(
         @base,
-        @accent-color,
-        @hv-bg: lighten(@accent-color, 10%),
+        @accent,
+        @hv-bg: lighten(@accent, 10%),
       );
     }
     .btn-secondary {

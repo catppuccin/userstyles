@@ -16,51 +16,48 @@
 ==/UserStyle== */
 
 @-moz-document regexp("https://(account|mail|drive|calendar).proton.me/.*$") {
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
     }
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
-    }
-  }
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
-
-    color-scheme: if(@lookup = latte, light, dark);
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -71,7 +68,7 @@
     }
 
     svg.logo {
-      @accentH: hue(@accent-color);
+      @accentH: hue(@accent);
       @protonH: hue(#6d4aff);
 
       .replaceColor(@org, @property) {
@@ -133,7 +130,7 @@
     .ui-standard {
       #lightenOrDarken(@color, @value) {
         @result: if(
-          @lookup = latte,
+          @flavor = latte,
           lighten(@color, @value),
           darken(@color, @value)
         );
@@ -141,18 +138,18 @@
 
       #darkenOrLighten(@color, @value) {
         @result: if(
-          @lookup = latte,
+          @flavor = latte,
           darken(@color, @value),
           lighten(@color, @value)
         );
       }
 
-      --primary-minor-2: #lightenOrDarken(@accent-color, 60%)[@result];
-      --primary-minor-1: #lightenOrDarken(@accent-color, 50%)[@result];
-      --primary: @accent-color;
-      --primary-major-1: #darkenOrLighten(@accent-color, 4%)[@result];
-      --primary-major-2: #darkenOrLighten(@accent-color, 8%)[@result];
-      --primary-major-3: #darkenOrLighten(@accent-color, 12%)[@result];
+      --primary-minor-2: #lightenOrDarken(@accent, 60%)[@result];
+      --primary-minor-1: #lightenOrDarken(@accent, 50%)[@result];
+      --primary: @accent;
+      --primary-major-1: #darkenOrLighten(@accent, 4%)[@result];
+      --primary-major-2: #darkenOrLighten(@accent, 8%)[@result];
+      --primary-major-3: #darkenOrLighten(@accent, 12%)[@result];
       --primary-contrast: @mantle;
       --signal-danger-minor-2: #lightenOrDarken(@maroon, 40%)[@result];
       --signal-danger-minor-1: #lightenOrDarken(@maroon, 30%)[@result];
@@ -182,12 +179,12 @@
       --signal-info-major-2: #darkenOrLighten(@blue, 8%)[@result];
       --signal-info-major-3: #darkenOrLighten(@blue, 12%)[@result];
       --signal-info-contrast: @mantle;
-      --interaction-norm-minor-2: #lightenOrDarken(@accent-color, 40%)[@result];
-      --interaction-norm-minor-1: #lightenOrDarken(@accent-color, 30%)[@result];
-      --interaction-norm: @accent-color;
-      --interaction-norm-major-1: #darkenOrLighten(@accent-color, 4%)[@result];
-      --interaction-norm-major-2: #darkenOrLighten(@accent-color, 8%)[@result];
-      --interaction-norm-major-3: #darkenOrLighten(@accent-color, 12%)[@result];
+      --interaction-norm-minor-2: #lightenOrDarken(@accent, 40%)[@result];
+      --interaction-norm-minor-1: #lightenOrDarken(@accent, 30%)[@result];
+      --interaction-norm: @accent;
+      --interaction-norm-major-1: #darkenOrLighten(@accent, 4%)[@result];
+      --interaction-norm-major-2: #darkenOrLighten(@accent, 8%)[@result];
+      --interaction-norm-major-3: #darkenOrLighten(@accent, 12%)[@result];
       --interaction-norm-contrast: @mantle;
       --interaction-weak-minor-2: #lightenOrDarken(@surface0, 20%)[@result];
       --interaction-weak-minor-1: #lightenOrDarken(@surface0, 10%)[@result];
@@ -204,10 +201,10 @@
       --field-norm: @overlay2;
       --field-hover: @overlay1;
       --field-disabled: @overlay0;
-      --field-focus: @accent-color;
-      --field-highlight: fadeout(@accent-color, 30%);
-      --focus-outline: @accent-color;
-      --focus-ring: fadeout(@accent-color, 60%);
+      --field-focus: @accent;
+      --field-highlight: fade(@accent, 70%);
+      --focus-outline: @accent;
+      --focus-ring: fade(@accent, 40%);
       --border-norm: @overlay0;
       --border-weak: @overlay1;
       --background-norm: @base;
@@ -215,15 +212,13 @@
       --background-strong: @crust;
       --background-invert: @text;
       --interaction-default: transparent;
-      --interaction-default-hover: fadeout(@overlay1, 80%);
-      --interaction-default-active: fadeout(@overlay1, 60%);
-      --shadow-primary-color: red(@accent-color) green(@accent-color) blue(
-        @accent-color
-      );
+      --interaction-default-hover: fade(@overlay1, 20%);
+      --interaction-default-active: fade(@overlay1, 40%);
+      --shadow-primary-color: red(@accent) green(@accent) blue(@accent);
       --shadow-norm-opacity: 0.5;
       --shadow-raised-opacity: 1;
       --shadow-lifted-opacity: 0.75;
-      --backdrop-norm: fadeout(@crust, 50%);
+      --backdrop-norm: fade(@crust, 50%);
       --optional-scrollbar-thumb-color: @surface0;
       --optional-scrollbar-thumb-hover-color: @surface2;
       --optional-link-norm: var(--interaction-norm-major-1);

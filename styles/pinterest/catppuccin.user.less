@@ -18,52 +18,48 @@
 @-moz-document regexp(
     "^https?:\\/\\/(www|[a-z]{2}).pinterest.(com(.(au|mx))?|co(.(uk|kr))?|at|ca|ch|cl|de|dk|es|fr|ie|it|jp|nz|ph|pt|ru|se)\\/.*"
   ) {
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
     }
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
-    }
-  }
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
-
-    color-scheme: if(@lookup = latte, light, dark);
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -73,35 +69,35 @@
       }
     }
 
-    --color-text-light: if((@lookup = latte), @mantle, @text);
-    --color-text-dark: if((@lookup = latte), @text, @mantle);
+    --color-text-light: if((@flavor = latte), @mantle, @text);
+    --color-text-dark: if((@flavor = latte), @text, @mantle);
     --color-text-default: @text;
     --color-text-inverse: @mantle;
     --color-text-subtle: @subtext0;
-    --color-text-error: @accent-color;
-    --color-text-shopping: @accent-color;
-    --color-text-link: @accent-color;
+    --color-text-error: @accent;
+    --color-text-shopping: @accent;
+    --color-text-link: @accent;
 
-    --color-text-icon-light: if((@lookup = latte), @mantle, @subtext1);
-    --color-text-icon-dark: if((@lookup = latte), @subtext1, @mantle);
+    --color-text-icon-light: if((@flavor = latte), @mantle, @subtext1);
+    --color-text-icon-dark: if((@flavor = latte), @subtext1, @mantle);
     --color-text-icon-default: @subtext0;
     --color-icon-subtle: @subtext1;
     --color-text-icon-inverse: @mantle;
     --color-text-icon-subtle: @subtext0;
-    --color-text-icon-error: @accent-color;
-    --color-text-icon-brand-primary: @accent-color;
+    --color-text-icon-error: @accent;
+    --color-text-icon-brand-primary: @accent;
 
-    --color-background-light: if((@lookup = latte), @mantle, @subtext1);
-    --color-background-dark: if((@lookup = latte), @text, @mantle);
+    --color-background-light: if((@flavor = latte), @mantle, @subtext1);
+    --color-background-dark: if((@flavor = latte), @text, @mantle);
     --color-background-default: @base;
     --color-background-inverse-base: @subtext1;
-    --color-background-primary-base: @accent-color;
+    --color-background-primary-base: @accent;
     --color-background-secondary-base: @mantle;
     --color-background-secondary-active: @mantle;
     --color-background-selected-base: @subtext1;
     --color-background-box-default: @mantle;
-    --color-background-box-selected: @accent-color;
-    --color-background-box-primary: @accent-color;
+    --color-background-box-selected: @accent;
+    --color-background-box-primary: @accent;
     --color-background-box-secondary: @surface1;
     --color-background-overlay: @surface0;
     --color-background-popover-primary: @mantle;
@@ -127,27 +123,27 @@
     --color-icon-error: @red;
     --color-icon-info: @blue;
     --color-icon-recommendation: @mauve;
-    --color-icon-brand-primary: @accent-color;
+    --color-icon-brand-primary: @accent;
     --color-icon-inverse: @crust;
-    --color-background-brand: @accent-color;
-    --color-background-box-brand: @accent-color;
-    --color-background-button-primary-default: @accent-color;
+    --color-background-brand: @accent;
+    --color-background-box-brand: @accent;
+    --color-background-button-primary-default: @accent;
     --color-background-button-primary-hover: desaturate(
-      darken(@accent-color, 12%),
+      darken(@accent, 12%),
       20%
     );
     --color-background-button-primary-active: desaturate(
-      darken(@accent-color, 30%),
+      darken(@accent, 30%),
       30%
     );
     --color-background-badge-warning: @yellow;
     --color-background-badge-success: @green;
     --color-background-education: @blue;
-    --color-background-primary-strong: @accent-color;
+    --color-background-primary-strong: @accent;
     --color-background-shopping: @blue;
 
-    --g-colorTransparentWhite: fadeout(@base, 30%);
-    --g-colorTransparentDarkGray: fadeout(@mantle, 20%);
+    --g-colorTransparentWhite: fade(@base, 70%);
+    --g-colorTransparentDarkGray: fade(@mantle, 80%);
     --g-colorGray0: @mantle;
     --g-colorGray0Hovered: darken(@mantle, 2.5%);
     --g-colorGray0Active: darken(@mantle, 5%);
@@ -157,14 +153,14 @@
     --g-colorGray100Active: darken(@surface0, 5%);
     --g-colorGray200: @subtext0;
     --g-colorGray300: @subtext1;
-    --g-colorRed100: @accent-color;
-    --g-colorRed100Hovered: darken(@accent-color, 7.5%);
-    --g-colorRed100Active: darken(@accent-color, 10%);
-    --g-color-focus: fadeout(@accent-color, 50%);
+    --g-colorRed100: @accent;
+    --g-colorRed100Hovered: darken(@accent, 7.5%);
+    --g-colorRed100Active: darken(@accent, 10%);
+    --g-color-focus: fade(@accent, 50%);
     --color-gray-roboflow-400: @surface2;
     --color-gray-roboflow-200: @mantle;
 
-    --g-blue: @accent-color;
+    --g-blue: @accent;
     --color-background-info-base: @blue;
     --color-background-error-base: @red;
     --color-background-warning-base: @peach;
@@ -176,9 +172,7 @@
     }
 
     /* the void (parts not loaded yet) */
-    & {
       background: @base !important;
-    }
 
     .EmojiPickerReact {
       --epr-bg-color: @base;
@@ -187,8 +181,8 @@
       --epr-category-label-bg-color: @base;
       --epr-search-input-bg-color: @mantle;
       --epr-skin-tone-picker-menu-color: @mantle;
-      --epr-category-icon-active-color: @accent-color;
-      --epr-highlight-color: @accent-color;
+      --epr-category-icon-active-color: @accent;
+      --epr-highlight-color: @accent;
       --epr-hover-bg-color: @surface0;
       --epr-focus-bg-color: @surface0;
     }
@@ -218,7 +212,7 @@
     }
 
     svg circle[fill="white"] ~ path[fill="#e60023"] {
-      fill: @accent-color !important;
+      fill: @accent !important;
     }
 
     div#mweb-unauth-container,
@@ -492,7 +486,7 @@
     div[data-test-id="flashlight-button"],
     div[data-test-id="flashlight"],
     div[data-test-id="shop-button"] {
-      background-color: fadeout(@base, 15%) !important;
+      background-color: fade(@base, 85%) !important;
     }
 
     div[data-test-id="flashlight-dot-style"] {
@@ -517,8 +511,8 @@
 
     div[data-test-id="react-button"] {
       .Jea.KS5.mQ8.zI7.iyn.Hsu {
-        //background-color: @accent-color;
-        color: @accent-color;
+        //background-color: @accent;
+        color: @accent;
       }
     }
 
@@ -557,7 +551,7 @@
     }
 
     div.SaveButton__background--enabled {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
       color: @mantle !important;
     }
 
@@ -649,7 +643,7 @@
     /* Create */
 
     div[style*="background-color: rgba(255, 255, 255, 0.8); margin: 24px 0px 0px; z-index:"] {
-      background-color: fadeout(@base, 20%) !important;
+      background-color: fade(@base, 80%) !important;
     }
 
     input#scrape-view-website-link {
@@ -701,7 +695,7 @@
     }
 
     div[data-test-id="editor-canvas-container"] div {
-      border-color: @accent-color !important;
+      border-color: @accent !important;
     }
 
     input[data-test-id="storyboard-editor-details-text-size"] {
@@ -750,17 +744,17 @@
       }
 
       button[data-test-id="login-signup-toggle"] {
-        color: @accent-color !important;
+        color: @accent !important;
       }
 
       button.red.active {
-        background-color: @accent-color !important;
+        background-color: @accent !important;
         color: @crust !important;
       }
 
       button.red.active:hover,
       button.red.active:focus {
-        background-color: darken(@accent-color, 2.5%) !important;
+        background-color: darken(@accent, 2.5%) !important;
       }
 
       span[data-test-id="terms-of-service"],
@@ -768,7 +762,7 @@
         color: @subtext1 !important;
 
         a {
-          color: @accent-color !important;
+          color: @accent !important;
         }
       }
     }
@@ -777,7 +771,7 @@
 
     div[style="height: 200px; background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 70%);"] {
       background: linear-gradient(
-        fadeout(@base, 100%) 0%,
+        fade(@base, 0%) 0%,
         @base 70%
       ) !important;
     }
@@ -789,14 +783,14 @@
     }
 
     span[data-test-id="terms-of-service"] a {
-      color: @accent-color !important;
+      color: @accent !important;
     }
 
     div[data-test-id="breadcrumbs-list"] div.MIw.Rym.zI7.iyn.Hsu,
     div[data-test-id="vase-carousel"] div[data-test-id="left-scroll-arrow"] {
       background-image: linear-gradient(
         to left,
-        fadeout(@base, 100%),
+        fade(@base, 0%),
         @base
       ) !important;
     }
@@ -805,7 +799,7 @@
     div[data-test-id="vase-carousel"] div[data-test-id="right-scroll-arrow"] {
       background-image: linear-gradient(
         to right,
-        fadeout(@base, 100%),
+        fade(@base, 0%),
         @base
       ) !important;
     }
@@ -816,7 +810,7 @@
       }
       // save button hover
       .vfW {
-        background: darken(@accent-color, 10%) !important;
+        background: darken(@accent, 10%) !important;
       }
     }
 

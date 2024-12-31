@@ -1,7 +1,4 @@
-import { REPO_ROOT } from "@/constants.ts";
-
 import * as color from "@std/fmt/colors";
-import * as path from "@std/path";
 
 import "postcss-less";
 import stylelint from "stylelint";
@@ -23,7 +20,7 @@ export async function runStylelint(
   });
 
   if (code) {
-    Deno.writeTextFileSync(path.join(REPO_ROOT, file), code);
+    Deno.writeTextFileSync(file, code);
   }
 
   for (const result of results) {

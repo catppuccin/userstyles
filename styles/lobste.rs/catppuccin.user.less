@@ -16,58 +16,56 @@
 ==/UserStyle== */
 
 @-moz-document domain("lobste.rs") {
-  @media (prefers-color-scheme: dark) {
-    html.color-scheme-system {
-      #catppuccin(@darkFlavor, @accentColor);
+  html.color-scheme-system {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
     }
-  }
-  @media (prefers-color-scheme: light) {
-    html.color-scheme-system {
-      #catppuccin(@lightFlavor, @accentColor);
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
     }
   }
 
   html.color-scheme-light {
-    #catppuccin(@lightFlavor, @accentColor);
+    #catppuccin(@lightFlavor);
   }
 
   html.color-scheme-dark {
-    #catppuccin(@darkFlavor, @accentColor);
+    #catppuccin(@darkFlavor);
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
-    color-scheme: if(@lookup = latte, light, dark);
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -97,10 +95,10 @@
     --color-tag-meta-bg: @surface0;
     --color-tag-meta-border: @surface2;
 
-    --color-bg-target: fade(@accent-color, 20%);
+    --color-bg-target: fade(@accent, 20%);
 
     --color-fg-affirmative: @green;
-    --color-fg-accent: @accent-color;
+    --color-fg-accent: @accent;
     --color-fg-author: @blue;
 
     --color-fg-contrast-7-5: @blue;
@@ -116,7 +114,7 @@
     --color-button-bg: @mantle;
     --color-button-bg-shaded: @surface0;
     --color-box-border: @surface0;
-    --color-box-border-focus: @accent-color;
+    --color-box-border-focus: @accent;
     --color-box-bg-shaded: @mantle;
 
     --color-mobile-story-liner-bg: @base;
@@ -139,7 +137,7 @@
 
     #logo {
       @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="@{accent-color}" d="M16 16H0V0h16z"/><path fill="@{base}" d="M3.5 13.45v-.63c0-.11 0-.1.1-.11.23-.02.46-.03.69-.07.46-.08.67-.31.74-.78.02-.14.03-.29.03-.43V4.69c0-.18-.02-.36-.04-.53-.03-.31-.23-.5-.52-.61-.27-.1-.55-.11-.83-.13h-.15v-.65c0-.07.02-.09.09-.09h5.24c.07 0 .1.01.1.09-.01.19 0 .37 0 .56v.08c-.14.01-.28 0-.41.02-.2.03-.4.06-.59.11-.35.11-.53.35-.57.68q-.03.225-.03.45v6.39c0 .27.03.54.06.8.03.29.22.48.49.58.23.09.48.11.72.12.63.02 1.25.01 1.86-.15.88-.22 1.47-.77 1.76-1.64.09-.28.13-.57.2-.86.01-.02.03-.06.05-.06h.66c-.02 1.2.02 2.4 0 3.6z"/></svg>'
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="@{accent}" d="M16 16H0V0h16z"/><path fill="@{base}" d="M3.5 13.45v-.63c0-.11 0-.1.1-.11.23-.02.46-.03.69-.07.46-.08.67-.31.74-.78.02-.14.03-.29.03-.43V4.69c0-.18-.02-.36-.04-.53-.03-.31-.23-.5-.52-.61-.27-.1-.55-.11-.83-.13h-.15v-.65c0-.07.02-.09.09-.09h5.24c.07 0 .1.01.1.09-.01.19 0 .37 0 .56v.08c-.14.01-.28 0-.41.02-.2.03-.4.06-.59.11-.35.11-.53.35-.57.68q-.03.225-.03.45v6.39c0 .27.03.54.06.8.03.29.22.48.49.58.23.09.48.11.72.12.63.02 1.25.01 1.86-.15.88-.22 1.47-.77 1.76-1.64.09-.28.13-.57.2-.86.01-.02.03-.06.05-.06h.66c-.02 1.2.02 2.4 0 3.6z"/></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}");
       background-color: transparent !important;

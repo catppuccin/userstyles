@@ -18,45 +18,43 @@
 @-moz-document domain("trinket.io") {
   @import url("https://unpkg.com/@catppuccin/highlightjs@1.0.0/css/catppuccin-variables.important.css");
 
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
     }
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
     }
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
     --ctp-rosewater: @rosewater;
     --ctp-flamingo: @flamingo;
@@ -84,6 +82,12 @@
     --ctp-base: @base;
     --ctp-mantle: @mantle;
     --ctp-crust: @crust;
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
 
     .ace_editor {
       background-color: @crust;
@@ -113,7 +117,7 @@
         color: @text;
       }
       .ace_marker-layer .ace_selection {
-        background: fade(@accent-color, 30%);
+        background: fade(@accent, 30%);
       }
       .ace_fold {
         background-color: @surface0;
@@ -170,12 +174,6 @@
       color: @subtext0;
     }
 
-    color-scheme: if(@lookup = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent-color, 30%);
-    }
-
     body {
       background-color: @base !important;
       color: @text !important;
@@ -191,11 +189,11 @@
     }
 
     a {
-      color: @accent-color;
-      text-decoration-color: @accent-color;
+      color: @accent;
+      text-decoration-color: @accent;
 
       &:hover {
-        color: @accent-color;
+        color: @accent;
       }
     }
 
@@ -273,7 +271,7 @@
     }
 
     #page.hfeed a:hover {
-      border-bottom-color: @accent-color !important;
+      border-bottom-color: @accent !important;
     }
 
     .author-section {
@@ -283,13 +281,13 @@
     .code-editor .expander {
       background-image: linear-gradient(
         to right,
-        fade(@mantle, 0),
+        fade(@mantle, 0%),
         @mantle 50%
       ) !important;
     }
 
     .sidebar-content a:hover {
-      color: @accent-color !important;
+      color: @accent !important;
     }
 
     .progress {
@@ -299,7 +297,7 @@
     }
 
     .sidebar {
-      box-shadow: 1px 0 15px fade(@crust, 0.5) !important;
+      box-shadow: 1px 0 15px fade(@crust, 50%) !important;
       background-color: @base !important;
     }
 
@@ -339,7 +337,7 @@
       color: @subtext0 !important;
 
       &a:hover {
-        color: @accent-color !important;
+        color: @accent !important;
       }
     }
 
@@ -352,7 +350,7 @@
     }
 
     span.beta {
-      color: @accent-color !important;
+      color: @accent !important;
     }
 
     .resources a {
@@ -391,14 +389,14 @@
     .classroom-label,
     .classroom-name,
     i.trinket-key.logo {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
       color: @base !important;
     }
 
     .code-plan-colors-inverted,
     .connect-plan-colors-inverted,
     .classroom-plan-colors-inverted {
-      color: @accent-color;
+      color: @accent;
     }
 
     .nav-wrapper,
@@ -424,7 +422,7 @@
 
     .editable-click:hover,
     a.editable-click:hover {
-      color: @accent-color !important;
+      color: @accent !important;
     }
 
     .outline-list-item.lesson {
@@ -440,7 +438,7 @@
     }
 
     .intercom-lightweight-app-launcher {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
     }
 
     .edit-material-title:hover {
@@ -679,7 +677,7 @@
       }
 
       input:checked + label {
-        background-color: @accent-color !important;
+        background-color: @accent !important;
 
         &::after {
           background-color: @base !important;
@@ -769,7 +767,7 @@
       }
 
       a {
-        color: @accent-color !important;
+        color: @accent !important;
 
         &.active {
           color: @text !important;
@@ -840,7 +838,7 @@
     }
 
     .label:not(.last-saved) {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
       color: @base !important;
     }
 
@@ -887,7 +885,7 @@
     }
 
     .blue-highlight:not(.disabled) {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
 
       &,
       i.fa,
@@ -945,7 +943,7 @@
     }
 
     .trinket-stat .badge {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
       background-image: none !important;
       color: @base !important;
     }
@@ -962,7 +960,7 @@
         border-bottom-color: @subtext0 !important;
 
         &:hover {
-          color: @accent-color !important;
+          color: @accent !important;
         }
       }
 
@@ -986,7 +984,7 @@
     }
 
     .draft-circle {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
     }
 
     .MathJax_Preview {
@@ -1058,7 +1056,7 @@
     }
 
     #outline-expander {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
       color: @base !important;
     }
 
@@ -1066,7 +1064,7 @@
       background-color: @surface0 !important;
 
       .percentage {
-        background-color: @accent-color !important;
+        background-color: @accent !important;
       }
     }
 
@@ -1095,11 +1093,11 @@
       background-color: @mantle !important;
 
       img {
-        box-shadow: 0 0 0 10px @accent-color !important;
+        box-shadow: 0 0 0 10px @accent !important;
       }
 
       a.social {
-        background-color: @accent-color !important;
+        background-color: @accent !important;
 
         i::before {
           color: @base !important;
@@ -1177,14 +1175,14 @@
     }
 
     #content-overlay {
-      background-color: rgba(@base, 0.2) !important;
+      background-color: fade(@base, 20%) !important;
     }
 
     #books-index .book-img {
       outline-color: @surface0 !important;
 
       &:hover {
-        outline-color: @accent-color !important;
+        outline-color: @accent !important;
       }
     }
 
@@ -1246,18 +1244,18 @@
 
     @keyframes bluePulseButton {
       0% {
-        box-shadow: 0 0 0 0 fade(@accent-color, 0.4);
-        background-color: @accent-color;
+        box-shadow: 0 0 0 0 fade(@accent, 40%);
+        background-color: @accent;
       }
 
       70% {
-        box-shadow: 0 0 0 10px fade(@accent-color, 0);
-        background-color: @accent-color;
+        box-shadow: 0 0 0 10px fade(@accent, 0%);
+        background-color: @accent;
       }
 
       100% {
         box-shadow: none;
-        background-color: @accent-color;
+        background-color: @accent;
       }
     }
 
@@ -1307,7 +1305,7 @@
     #trinkets-list.list-view > li .snapshot .title::before,
     .trinkets-list.list-view > li .snapshot .title::before {
       @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 446.63 50"><path fill="@{blue}" d="M21.49 1c-1.79 0-3.51.16-5.01.43-4.44.78-5.25 2.43-5.25 5.45v4h10.49v1.33H7.29c-3.05 0-5.72 1.83-6.55 5.32-.96 4-1.01 6.49 0 10.66.75 3.11 2.53 5.32 5.58 5.32h3.61v-4.79c0-3.46 3-6.52 6.55-6.52h10.48c2.92 0 5.25-2.4 5.25-5.33V6.88c0-2.84-2.4-4.98-5.25-5.45-1.8-.3-3.67-.44-5.47-.43m-5.67 3.22c1.08 0 1.97.9 1.97 2.01s-.88 1.99-1.97 1.99-1.97-.89-1.97-1.99.88-2.01 1.97-2.01"/><path fill="@{yellow}" d="M33.51 12.21v4.66c0 3.61-3.06 6.65-6.55 6.65H16.48c-2.87 0-5.25 2.46-5.25 5.33v9.99c0 2.84 2.47 4.51 5.25 5.33 3.32.98 6.51 1.15 10.48 0 2.64-.76 5.25-2.3 5.25-5.33v-4H21.73v-1.33h15.72c3.05 0 4.18-2.13 5.25-5.32 1.1-3.29 1.05-6.45 0-10.66-.75-3.04-2.19-5.32-5.25-5.32zm-5.89 25.3c1.09 0 1.97.89 1.97 1.99s-.88 2.01-1.97 2.01-1.97-.9-1.97-2.01.88-1.99 1.97-1.99"/><path stroke="@{text}" d="m48.63 14.86 50.21-.27m-50.18 5.03 50.2-.28m-50.18 5.94L98.89 25m-50.18 4.73 50.2-.28m-50.18 5.2 50.21-.28"/><path fill="@{text}" d="M63.83 9.82c.28 2.86-1.85 5.18-3.74 7.06-.86.82-.14.14-.59.54-.09-.44-.27-1.59-.26-1.93.12-2.47 2.13-6.04 3.88-7.35.28.53.52.57.7 1.68m.6 14.79c-1.13-.83-2.61-1.05-3.97-.81-.17-1.15-.35-2.3-.53-3.45 2.15-2.13 4.5-4.61 4.62-7.82.05-2.05-.25-4.28-1.54-5.94-1.56.12-2.66 1.98-3.48 3.13-1.36 2.45-1.05 5.42-.52 8.06-.74.87-1.77 1.6-2.5 2.5-2.16 2.11-4.04 4.98-3.67 8.13.17 3.05 2.37 5.9 5.38 6.62 1.15.29 2.34.32 3.5.09.2 2.06.94 4.24.09 6.24-.64 1.46-2.55 2.75-3.97 2.01-.55-.29-.1-.05-.44-.23.98-.24 1.83-.95 2.07-1.43.77-1.34-.37-3.34-1.97-3.08-2.07.04-2.92 2.88-1.59 4.29 1.23 1.39 3.51 1.2 4.98.29 1.66-1.08 1.87-3.25 1.68-5.1-.06-.62-.37-2.45-.41-3.1.64-.23.19-.05 1.09-.41 2.44-.96 3.99-3.9 3.29-6.52-.29-1.35-.96-2.67-2.11-3.47m.51 5.27c.2 1.82-.96 3.96-2.82 4.54-.12-.73-.16-.93-.24-1.35-.44-2.25-.68-4.57-1.02-6.85 1.49-.15 3.17.5 3.69 2 .22.53.31 1.1.4 1.66m-4.72 4.76c-2.33.13-4.58-1.46-5.16-3.74-.69-1.97-.48-4.24.75-5.96 1.02-1.56 2.39-2.84 3.69-4.16l.5 3.1c-2.74.72-4.58 4.33-2.95 6.83.49.7 1.81 2.04 2.53 1.5-1.01-.63-1.84-1.7-1.66-2.96-.08-1.17 1.26-2.67 2.43-2.93.4 2.63.86 5.56 1.26 8.19-.46.09-.94.13-1.41.13m18.81-12.91c-1.42-.07-2.53-1.33-2.97-2.63-.27-.76-.12-1.91.78-2.12 1.3-.22 2.38.88 2.98 1.94.43.78.67 2.02-.14 2.64-.19.12-.42.19-.65.18m2.26-4.46c-1.6-.97-3.61-1.05-5.36-.5-1.11.39-2.37 1.21-2.38 2.55 0 1.31 1.22 2.13 2.3 2.52 1.71.56 3.69.51 5.29-.38.9-.48 1.71-1.48 1.44-2.58-.15-.71-.69-1.24-1.28-1.61"/><path fill="@{green}" d="M99.59 2.76h16.04v3.1h6.93v5.38h15.1v4.35h-2.17l-.1 3.75-3.83-.02v3.61h-22.03v1.76h2.69l.1 4.34h14.07l.1 5.62h13.04v4.42h-23.18l-.1 3.1h9.83v5.9H99.59z"/><path fill="@{text}" d="M161.34 2.39h-2.04V.16h-2.26v6.72h2.26V4.65h2.04v2.23h2.26V.16h-2.26zM177.11.16h-.2l-1.4 2.3-1.4-2.3h-2.35v6.72h2.19V3.52l1.55 2.42 1.6-2.49v3.42h2.19V.16h-2.19Zm-12.52 2.26h1.97v4.46h2.26V2.42h1.97V.16h-6.19v2.26Zm18.12 2.2V.16h-2.26v6.72h5.41V4.62z"/><path fill="@{red}" d="M189.15 9.93h-35.41l3.32 35.99L171.44 50l14.39-4.08z"/><path fill="@{peach}" d="M171.44 12.87v34.08l11.65-3.3 2.84-30.78z"/><path fill="@{base}" d="M182.58 17.28h-22.27l1.24 13.48.03-.09h15.22l-.5 5.7-4.85 1.4-4.93-1.42-.3-3.45h-4.47l.63 6.9 9.06 2.57 9.06-2.57 1.25-13.53H165.6l-.41-4.51h16.98z"/><path fill="@{blue}" d="M199.66 0h47.93v50h-47.93z"/><path fill="@{red}" d="m199.66 50 11.87-13V12.87L199.66.86zm47.93 0-11.86-13V12.87L247.59.86z"/><path fill="@{accent-color}" d="M257.93 40.93h29.08c2.67 0 4.85-2.17 4.85-4.85V16.69c0-2.67-2.17-4.85-4.85-4.85h-12.12c-.76 0-1.48-.36-1.94-.97l-1.45-1.94a4.87 4.87 0 0 0-3.88-1.94h-9.69c-2.67 0-4.85 2.17-4.85 4.85v24.24c0 2.67 2.17 4.85 4.85 4.85"/><path fill="@{peach}" d="M322.81 23.36c2.33 2.68-.61 5.09-.61 5.09s5.91-3.05 3.2-6.87c-2.53-3.56-4.48-5.33 6.04-11.44 0 0-16.52 4.13-8.63 13.22"/><path fill="@{peach}" d="M325.39.29s5.01 5.01-4.75 12.73c-7.83 6.19-1.79 9.71 0 13.74-4.57-4.13-7.93-7.76-5.68-11.14 3.3-4.96 12.46-7.37 10.43-15.33"/><path fill="@{blue}" d="M314.23 37.6s-1.84 1.07 1.31 1.44c3.82.44 5.78.37 9.99-.42 0 0 1.11.69 2.65 1.3-9.44 4.05-21.38-.23-13.96-2.31m-1.14-5.29s-2.07 1.53 1.09 1.86c4.08.42 7.31.46 12.89-.62 0 0 .77.78 1.99 1.21-11.42 3.34-24.14.26-15.97-2.45"/><path fill="@{blue}" d="M335.3 41.51s1.36 1.12-1.5 1.99c-5.45 1.65-22.69 2.15-27.48.07-1.72-.75 1.51-1.79 2.52-2.01 1.06-.23 1.66-.19 1.66-.19-1.91-1.35-12.37 2.65-5.31 3.79 19.26 3.12 35.1-1.41 30.11-3.66m-20.18-14.65s-8.77 2.08-3.11 2.84c2.39.32 7.16.25 11.6-.12 3.63-.31 7.27-.96 7.27-.96s-1.28.55-2.21 1.18c-8.9 2.34-26.11 1.25-21.15-1.14 4.19-2.02 7.59-1.79 7.59-1.79m15.74 8.78c9.05-4.7 4.87-9.22 1.95-8.61-.72.15-1.04.28-1.04.28s.27-.42.77-.6c5.78-2.03 10.22 5.99-1.87 9.17 0 0 .14-.13.18-.24"/><path fill="@{blue}" d="M316.01 48.39c8.69.56 22.03-.31 22.35-4.42 0 0-.61 1.56-7.18 2.8-7.42 1.4-16.56 1.23-21.99.34 0 0 1.11.92 6.82 1.29"/><path fill="@{surface1}" d="M372.35 38.95c-13.18 0-23.86-7.91-23.86-17.66s10.68-17.66 23.86-17.66 23.86 7.91 23.86 17.66-10.68 17.66-23.86 17.66M376 10.54c-10.01 0-18.13 5.4-18.13 12.07s8.12 12.07 18.13 12.07 17.41-3.7 17.41-12.07-7.39-12.07-17.41-12.07"/><path fill="@{blue}" d="M385.03 30.98s1.6.48 2.52.95c.32.16.88.49 1.28.91.39.42.59.84.59.84l6.29 10.6h-10.16l-4.75-8.92s-.97-1.67-1.57-2.16c-.5-.4-.71-.55-1.21-.55h-2.42v11.63h-8.99V14.6h18.06s8.23.15 8.23 7.98-7.86 8.41-7.86 8.41Zm-3.91-9.94h-5.45v5.05h5.45s2.52 0 2.52-2.57-2.52-2.48-2.52-2.48M423.7 9.67c-1.06 0-2.06.1-2.95.25-2.61.46-3.09 1.43-3.09 3.21v2.35h6.17v.78h-8.49c-1.79 0-3.37 1.08-3.86 3.13-.57 2.35-.59 3.82 0 6.27.44 1.83 1.49 3.13 3.28 3.13h2.12v-2.82c0-2.04 1.76-3.84 3.86-3.84h6.17c1.72 0 3.09-1.41 3.09-3.14v-5.88c0-1.67-1.41-2.93-3.09-3.21a18.4 18.4 0 0 0-3.22-.25m-3.34 1.89c.64 0 1.16.53 1.16 1.18s-.52 1.17-1.16 1.17-1.16-.52-1.16-1.17.52-1.18 1.16-1.18"/><path fill="@{yellow}" d="M430.77 16.27v2.74c0 2.13-1.8 3.91-3.86 3.91h-6.17c-1.69 0-3.09 1.45-3.09 3.14v5.88c0 1.67 1.46 2.66 3.09 3.14 1.95.57 3.83.68 6.17 0 1.55-.45 3.09-1.36 3.09-3.14v-2.35h-6.17v-.78h9.25c1.79 0 2.46-1.25 3.09-3.13.64-1.93.62-3.79 0-6.27-.44-1.79-1.29-3.13-3.09-3.13h-2.32Zm-3.47 14.89c.64 0 1.16.52 1.16 1.17s-.52 1.18-1.16 1.18-1.16-.53-1.16-1.18.52-1.17 1.16-1.17"/><path fill="@{text}" d="M449.13 38.95V6.07H399.2v32.88h18.46v5.35h-7.5l.1 2.63h27.62V44.3h-7.89v-5.35h19.13Zm-47.76-2.16V7.93h45.52v28.86z"/></svg>'
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 446.63 50"><path fill="@{blue}" d="M21.49 1c-1.79 0-3.51.16-5.01.43-4.44.78-5.25 2.43-5.25 5.45v4h10.49v1.33H7.29c-3.05 0-5.72 1.83-6.55 5.32-.96 4-1.01 6.49 0 10.66.75 3.11 2.53 5.32 5.58 5.32h3.61v-4.79c0-3.46 3-6.52 6.55-6.52h10.48c2.92 0 5.25-2.4 5.25-5.33V6.88c0-2.84-2.4-4.98-5.25-5.45-1.8-.3-3.67-.44-5.47-.43m-5.67 3.22c1.08 0 1.97.9 1.97 2.01s-.88 1.99-1.97 1.99-1.97-.89-1.97-1.99.88-2.01 1.97-2.01"/><path fill="@{yellow}" d="M33.51 12.21v4.66c0 3.61-3.06 6.65-6.55 6.65H16.48c-2.87 0-5.25 2.46-5.25 5.33v9.99c0 2.84 2.47 4.51 5.25 5.33 3.32.98 6.51 1.15 10.48 0 2.64-.76 5.25-2.3 5.25-5.33v-4H21.73v-1.33h15.72c3.05 0 4.18-2.13 5.25-5.32 1.1-3.29 1.05-6.45 0-10.66-.75-3.04-2.19-5.32-5.25-5.32zm-5.89 25.3c1.09 0 1.97.89 1.97 1.99s-.88 2.01-1.97 2.01-1.97-.9-1.97-2.01.88-1.99 1.97-1.99"/><path stroke="@{text}" d="m48.63 14.86 50.21-.27m-50.18 5.03 50.2-.28m-50.18 5.94L98.89 25m-50.18 4.73 50.2-.28m-50.18 5.2 50.21-.28"/><path fill="@{text}" d="M63.83 9.82c.28 2.86-1.85 5.18-3.74 7.06-.86.82-.14.14-.59.54-.09-.44-.27-1.59-.26-1.93.12-2.47 2.13-6.04 3.88-7.35.28.53.52.57.7 1.68m.6 14.79c-1.13-.83-2.61-1.05-3.97-.81-.17-1.15-.35-2.3-.53-3.45 2.15-2.13 4.5-4.61 4.62-7.82.05-2.05-.25-4.28-1.54-5.94-1.56.12-2.66 1.98-3.48 3.13-1.36 2.45-1.05 5.42-.52 8.06-.74.87-1.77 1.6-2.5 2.5-2.16 2.11-4.04 4.98-3.67 8.13.17 3.05 2.37 5.9 5.38 6.62 1.15.29 2.34.32 3.5.09.2 2.06.94 4.24.09 6.24-.64 1.46-2.55 2.75-3.97 2.01-.55-.29-.1-.05-.44-.23.98-.24 1.83-.95 2.07-1.43.77-1.34-.37-3.34-1.97-3.08-2.07.04-2.92 2.88-1.59 4.29 1.23 1.39 3.51 1.2 4.98.29 1.66-1.08 1.87-3.25 1.68-5.1-.06-.62-.37-2.45-.41-3.1.64-.23.19-.05 1.09-.41 2.44-.96 3.99-3.9 3.29-6.52-.29-1.35-.96-2.67-2.11-3.47m.51 5.27c.2 1.82-.96 3.96-2.82 4.54-.12-.73-.16-.93-.24-1.35-.44-2.25-.68-4.57-1.02-6.85 1.49-.15 3.17.5 3.69 2 .22.53.31 1.1.4 1.66m-4.72 4.76c-2.33.13-4.58-1.46-5.16-3.74-.69-1.97-.48-4.24.75-5.96 1.02-1.56 2.39-2.84 3.69-4.16l.5 3.1c-2.74.72-4.58 4.33-2.95 6.83.49.7 1.81 2.04 2.53 1.5-1.01-.63-1.84-1.7-1.66-2.96-.08-1.17 1.26-2.67 2.43-2.93.4 2.63.86 5.56 1.26 8.19-.46.09-.94.13-1.41.13m18.81-12.91c-1.42-.07-2.53-1.33-2.97-2.63-.27-.76-.12-1.91.78-2.12 1.3-.22 2.38.88 2.98 1.94.43.78.67 2.02-.14 2.64-.19.12-.42.19-.65.18m2.26-4.46c-1.6-.97-3.61-1.05-5.36-.5-1.11.39-2.37 1.21-2.38 2.55 0 1.31 1.22 2.13 2.3 2.52 1.71.56 3.69.51 5.29-.38.9-.48 1.71-1.48 1.44-2.58-.15-.71-.69-1.24-1.28-1.61"/><path fill="@{green}" d="M99.59 2.76h16.04v3.1h6.93v5.38h15.1v4.35h-2.17l-.1 3.75-3.83-.02v3.61h-22.03v1.76h2.69l.1 4.34h14.07l.1 5.62h13.04v4.42h-23.18l-.1 3.1h9.83v5.9H99.59z"/><path fill="@{text}" d="M161.34 2.39h-2.04V.16h-2.26v6.72h2.26V4.65h2.04v2.23h2.26V.16h-2.26zM177.11.16h-.2l-1.4 2.3-1.4-2.3h-2.35v6.72h2.19V3.52l1.55 2.42 1.6-2.49v3.42h2.19V.16h-2.19Zm-12.52 2.26h1.97v4.46h2.26V2.42h1.97V.16h-6.19v2.26Zm18.12 2.2V.16h-2.26v6.72h5.41V4.62z"/><path fill="@{red}" d="M189.15 9.93h-35.41l3.32 35.99L171.44 50l14.39-4.08z"/><path fill="@{peach}" d="M171.44 12.87v34.08l11.65-3.3 2.84-30.78z"/><path fill="@{base}" d="M182.58 17.28h-22.27l1.24 13.48.03-.09h15.22l-.5 5.7-4.85 1.4-4.93-1.42-.3-3.45h-4.47l.63 6.9 9.06 2.57 9.06-2.57 1.25-13.53H165.6l-.41-4.51h16.98z"/><path fill="@{blue}" d="M199.66 0h47.93v50h-47.93z"/><path fill="@{red}" d="m199.66 50 11.87-13V12.87L199.66.86zm47.93 0-11.86-13V12.87L247.59.86z"/><path fill="@{accent}" d="M257.93 40.93h29.08c2.67 0 4.85-2.17 4.85-4.85V16.69c0-2.67-2.17-4.85-4.85-4.85h-12.12c-.76 0-1.48-.36-1.94-.97l-1.45-1.94a4.87 4.87 0 0 0-3.88-1.94h-9.69c-2.67 0-4.85 2.17-4.85 4.85v24.24c0 2.67 2.17 4.85 4.85 4.85"/><path fill="@{peach}" d="M322.81 23.36c2.33 2.68-.61 5.09-.61 5.09s5.91-3.05 3.2-6.87c-2.53-3.56-4.48-5.33 6.04-11.44 0 0-16.52 4.13-8.63 13.22"/><path fill="@{peach}" d="M325.39.29s5.01 5.01-4.75 12.73c-7.83 6.19-1.79 9.71 0 13.74-4.57-4.13-7.93-7.76-5.68-11.14 3.3-4.96 12.46-7.37 10.43-15.33"/><path fill="@{blue}" d="M314.23 37.6s-1.84 1.07 1.31 1.44c3.82.44 5.78.37 9.99-.42 0 0 1.11.69 2.65 1.3-9.44 4.05-21.38-.23-13.96-2.31m-1.14-5.29s-2.07 1.53 1.09 1.86c4.08.42 7.31.46 12.89-.62 0 0 .77.78 1.99 1.21-11.42 3.34-24.14.26-15.97-2.45"/><path fill="@{blue}" d="M335.3 41.51s1.36 1.12-1.5 1.99c-5.45 1.65-22.69 2.15-27.48.07-1.72-.75 1.51-1.79 2.52-2.01 1.06-.23 1.66-.19 1.66-.19-1.91-1.35-12.37 2.65-5.31 3.79 19.26 3.12 35.1-1.41 30.11-3.66m-20.18-14.65s-8.77 2.08-3.11 2.84c2.39.32 7.16.25 11.6-.12 3.63-.31 7.27-.96 7.27-.96s-1.28.55-2.21 1.18c-8.9 2.34-26.11 1.25-21.15-1.14 4.19-2.02 7.59-1.79 7.59-1.79m15.74 8.78c9.05-4.7 4.87-9.22 1.95-8.61-.72.15-1.04.28-1.04.28s.27-.42.77-.6c5.78-2.03 10.22 5.99-1.87 9.17 0 0 .14-.13.18-.24"/><path fill="@{blue}" d="M316.01 48.39c8.69.56 22.03-.31 22.35-4.42 0 0-.61 1.56-7.18 2.8-7.42 1.4-16.56 1.23-21.99.34 0 0 1.11.92 6.82 1.29"/><path fill="@{surface1}" d="M372.35 38.95c-13.18 0-23.86-7.91-23.86-17.66s10.68-17.66 23.86-17.66 23.86 7.91 23.86 17.66-10.68 17.66-23.86 17.66M376 10.54c-10.01 0-18.13 5.4-18.13 12.07s8.12 12.07 18.13 12.07 17.41-3.7 17.41-12.07-7.39-12.07-17.41-12.07"/><path fill="@{blue}" d="M385.03 30.98s1.6.48 2.52.95c.32.16.88.49 1.28.91.39.42.59.84.59.84l6.29 10.6h-10.16l-4.75-8.92s-.97-1.67-1.57-2.16c-.5-.4-.71-.55-1.21-.55h-2.42v11.63h-8.99V14.6h18.06s8.23.15 8.23 7.98-7.86 8.41-7.86 8.41Zm-3.91-9.94h-5.45v5.05h5.45s2.52 0 2.52-2.57-2.52-2.48-2.52-2.48M423.7 9.67c-1.06 0-2.06.1-2.95.25-2.61.46-3.09 1.43-3.09 3.21v2.35h6.17v.78h-8.49c-1.79 0-3.37 1.08-3.86 3.13-.57 2.35-.59 3.82 0 6.27.44 1.83 1.49 3.13 3.28 3.13h2.12v-2.82c0-2.04 1.76-3.84 3.86-3.84h6.17c1.72 0 3.09-1.41 3.09-3.14v-5.88c0-1.67-1.41-2.93-3.09-3.21a18.4 18.4 0 0 0-3.22-.25m-3.34 1.89c.64 0 1.16.53 1.16 1.18s-.52 1.17-1.16 1.17-1.16-.52-1.16-1.17.52-1.18 1.16-1.18"/><path fill="@{yellow}" d="M430.77 16.27v2.74c0 2.13-1.8 3.91-3.86 3.91h-6.17c-1.69 0-3.09 1.45-3.09 3.14v5.88c0 1.67 1.46 2.66 3.09 3.14 1.95.57 3.83.68 6.17 0 1.55-.45 3.09-1.36 3.09-3.14v-2.35h-6.17v-.78h9.25c1.79 0 2.46-1.25 3.09-3.13.64-1.93.62-3.79 0-6.27-.44-1.79-1.29-3.13-3.09-3.13h-2.32Zm-3.47 14.89c.64 0 1.16.52 1.16 1.17s-.52 1.18-1.16 1.18-1.16-.53-1.16-1.18.52-1.17 1.16-1.17"/><path fill="@{text}" d="M449.13 38.95V6.07H399.2v32.88h18.46v5.35h-7.5l.1 2.63h27.62V44.3h-7.89v-5.35h19.13Zm-47.76-2.16V7.93h45.52v28.86z"/></svg>'
       );
 
       background-image: url("data:image/svg+xml;utf8,@{svg}");

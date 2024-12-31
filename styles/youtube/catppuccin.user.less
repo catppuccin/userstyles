@@ -20,51 +20,50 @@
 
 @-moz-document domain("youtube.com") {
   :root[dark] {
-    #catppuccin(@darkFlavor, @accentColor);
+    #catppuccin(@darkFlavor);
   }
   :root:not([dark]) {
-    #catppuccin(@lightFlavor, @accentColor);
+    #catppuccin(@lightFlavor);
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
-    @text-filter: @catppuccin[@@lookup][@text_filter];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
-    @white: if(@lookup = latte, @base, @text);
-    @black: if(@lookup = latte, @text, @base);
+    @text-filter: @catppuccin-filters[@@flavor][@text];
 
-    color: @text;
-    background: @base !important;
-    color-scheme: if(@lookup = latte, light, dark);
+    @white: if(@flavor = latte, @base, @text);
+    @black: if(@flavor = latte, @text, @base);
+
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -73,6 +72,9 @@
         color: @subtext0 !important;
       }
     }
+
+    color: @text;
+    background: @base !important;
 
     &,
     [dark],
@@ -95,9 +97,9 @@
       --yt-spec-grey-3: @subtext1 !important;
       --yt-spec-grey-4: @overlay2 !important;
       --yt-spec-grey-5: @overlay1 !important;
-      --yt-brand-youtube-red: @accent-color !important;
-      --yt-brand-medium-red: @accent-color !important;
-      --yt-brand-light-red: @accent-color !important;
+      --yt-brand-youtube-red: @accent !important;
+      --yt-brand-medium-red: @accent !important;
+      --yt-brand-light-red: @accent !important;
       --yt-spec-red-30: @peach !important;
       --yt-spec-red-70: @red !important;
       --yt-spec-pale-blue: @sky !important;
@@ -109,91 +111,91 @@
       --yt-spec-yellow: @peach !important;
       --yt-spec-black-pure-alpha-5: @subtext0 !important;
       --yt-spec-black-pure-alpha-10: @overlay2 !important;
-      --yt-spec-black-pure-alpha-15: fadeout(@crust, 15%) !important;
-      --yt-spec-black-pure-alpha-30: fadeout(@crust, 30%) !important;
-      --yt-spec-black-pure-alpha-60: fadeout(@crust, 60%) !important;
-      --yt-spec-black-pure-alpha-80: fadeout(@crust, 80%) !important;
-      --yt-spec-black-1-alpha-98: fadeout(@crust, 98%) !important;
-      --yt-spec-black-1-alpha-95: fadeout(@crust, 95%) !important;
-      --yt-spec-white-1-alpha-10: fadeout(@text, 10%) !important;
-      --yt-spec-white-1-alpha-20: fadeout(@text, 20%) !important;
-      --yt-spec-white-1-alpha-25: fadeout(@text, 25%) !important;
-      --yt-spec-white-1-alpha-30: fadeout(@text, 30%) !important;
-      --yt-spec-white-1-alpha-70: fadeout(@text, 70%) !important;
-      --yt-spec-white-1-alpha-95: fadeout(@text, 95%) !important;
-      --yt-spec-white-1-alpha-98: fadeout(@text, 98%) !important;
-      --yt-brand-medium-red-alpha-90: fadeout(@accent-color, 90%) !important;
-      --yt-brand-medium-red-alpha-30: fadeout(@accent-color, 30%) !important;
-      --yt-brand-light-red-alpha-30: fadeout(@accent-color, 30%) !important;
-      --yt-spec-light-blue-alpha-30: fadeout(@sapphire, 30%) !important;
-      --yt-spec-dark-blue-alpha-30: fadeout(@sapphire, 30%) !important;
+      --yt-spec-black-pure-alpha-15: fade(@crust, 85%) !important;
+      --yt-spec-black-pure-alpha-30: fade(@crust, 70%) !important;
+      --yt-spec-black-pure-alpha-60: fade(@crust, 40%) !important;
+      --yt-spec-black-pure-alpha-80: fade(@crust, 20%) !important;
+      --yt-spec-black-1-alpha-98: fade(@crust, 2%) !important;
+      --yt-spec-black-1-alpha-95: fade(@crust, 5%) !important;
+      --yt-spec-white-1-alpha-10: fade(@text, 90%) !important;
+      --yt-spec-white-1-alpha-20: fade(@text, 80%) !important;
+      --yt-spec-white-1-alpha-25: fade(@text, 75%) !important;
+      --yt-spec-white-1-alpha-30: fade(@text, 70%) !important;
+      --yt-spec-white-1-alpha-70: fade(@text, 30%) !important;
+      --yt-spec-white-1-alpha-95: fade(@text, 5%) !important;
+      --yt-spec-white-1-alpha-98: fade(@text, 2%) !important;
+      --yt-brand-medium-red-alpha-90: fade(@accent, 10%) !important;
+      --yt-brand-medium-red-alpha-30: fade(@accent, 70%) !important;
+      --yt-brand-light-red-alpha-30: fade(@accent, 70%) !important;
+      --yt-spec-light-blue-alpha-30: fade(@sapphire, 70%) !important;
+      --yt-spec-dark-blue-alpha-30: fade(@sapphire, 70%) !important;
 
       --yt-spec-base-background: @base !important;
       --yt-spec-raised-background: @base !important;
       --yt-spec-menu-background: @mantle !important;
       --yt-spec-inverted-background: @text !important;
-      --yt-spec-additive-background: fadeout(@surface1, 10%) !important;
+      --yt-spec-additive-background: fade(@surface1, 90%) !important;
       --yt-spec-outline: @surface0 !important;
-      --yt-spec-shadow: fadeout(@crust, 25%) !important;
+      --yt-spec-shadow: fade(@crust, 75%) !important;
       --yt-spec-text-primary: @text !important;
       --yt-spec-text-secondary: @subtext0 !important;
       --yt-spec-text-disabled: @subtext1 !important;
       --yt-spec-text-primary-inverse: @crust !important;
-      --yt-spec-call-to-action: @accent-color !important;
-      --yt-spec-call-to-action-inverse: @accent-color !important;
-      --yt-spec-suggested-action: fadeout(@accent-color, 80%) !important;
+      --yt-spec-call-to-action: @accent !important;
+      --yt-spec-call-to-action-inverse: @accent !important;
+      --yt-spec-suggested-action: fade(@accent, 20%) !important;
       --yt-spec-suggested-action-inverse: @text !important;
       --yt-spec-icon-active-other: @text !important;
       --yt-spec-button-chip-background-hover: @surface1 !important;
       --yt-spec-touch-response: @surface0 !important;
 
-      --yt-spec-touch-response-inverse: @accent-color !important;
-      --yt-spec-brand-icon-active: @accent-color !important;
-      --yt-spec-brand-button-background: @accent-color !important;
+      --yt-spec-touch-response-inverse: @accent !important;
+      --yt-spec-brand-icon-active: @accent !important;
+      --yt-spec-brand-button-background: @accent !important;
       --yt-spec-brand-link-text: @sapphire !important;
       --yt-spec-wordmark-text: @text !important;
       --yt-spec-error-indicator: @red !important;
-      --yt-spec-themed-blue: @accent-color !important;
+      --yt-spec-themed-blue: @accent !important;
       --yt-spec-themed-green: @green !important;
       --yt-spec-ad-indicator: @teal !important;
-      --yt-spec-themed-overlay-background: fadeout(@crust, 80%) !important;
+      --yt-spec-themed-overlay-background: fade(@crust, 20%) !important;
       --yt-spec-commerce-badge-background: @green !important;
-      --yt-spec-static-brand-red: @accent-color !important;
+      --yt-spec-static-brand-red: @accent !important;
       --yt-spec-static-brand-white: @text !important;
       --yt-spec-static-brand-black: @base !important;
-      --yt-spec-static-clear-color: fadeout(@crust, 0%) !important;
-      --yt-spec-static-clear-black: fadeout(@crust, 0%) !important;
+      --yt-spec-static-clear-color: fade(@crust, 100%) !important;
+      --yt-spec-static-clear-black: fade(@crust, 100%) !important;
       --yt-spec-static-ad-yellow: @peach !important;
       --yt-spec-static-grey: @subtext0 !important;
       --yt-spec-static-overlay-background-solid: @crust !important;
       --yt-spec-static-overlay-background-heavy: @crust;
       --yt-spec-static-overlay-background-medium: fade(@crust, 50%) !important;
-      --yt-spec-static-overlay-background-medium-light: fadeout(
+      --yt-spec-static-overlay-background-medium-light: fade(
         @crust,
-        30%
+        70%
       ) !important;
-      --yt-spec-static-overlay-background-light: fadeout(
+      --yt-spec-static-overlay-background-light: fade(
         @crust,
-        10%
+        90%
       ) !important;
       --yt-spec-static-overlay-text-primary: @text !important;
-      --yt-spec-static-overlay-text-secondary: fadeout(
+      --yt-spec-static-overlay-text-secondary: fade(
+        @subtext0,
+        30%
+      ) !important;
+      --yt-spec-static-overlay-text-disabled: fade(
         @subtext0,
         70%
       ) !important;
-      --yt-spec-static-overlay-text-disabled: fadeout(
-        @subtext0,
-        30%
-      ) !important;
-      --yt-spec-static-overlay-call-to-action: @accent-color !important;
+      --yt-spec-static-overlay-call-to-action: @accent !important;
       --yt-spec-static-overlay-icon-active-other: @crust !important;
       --yt-spec-static-overlay-icon-inactive: @surface1 !important;
       --yt-spec-static-overlay-icon-disabled: @surface2 !important;
-      --yt-spec-static-overlay-button-primary: @accent-color !important;
+      --yt-spec-static-overlay-button-primary: @accent !important;
       --yt-spec-static-overlay-button-secondary: @surface0 !important;
       --yt-spec-static-overlay-touch-response: @overlay1 !important;
       --yt-spec-static-overlay-touch-response-inverse: @surface1 !important;
-      --yt-spec-static-overlay-background-brand: @accent-color !important;
+      --yt-spec-static-overlay-background-brand: @accent !important;
       --yt-spec-assistive-feed-themed-gradient-1: @subtext0 !important;
       --yt-spec-assistive-feed-themed-gradient-2: @lavender !important;
       --yt-spec-assistive-feed-themed-gradient-3: @red !important;
@@ -208,27 +210,27 @@
       --yt-spec-snackbar-background: @mantle !important;
       --yt-spec-snackbar-background-updated: @mantle !important;
       --yt-spec-badge-chip-background: if(
-        @lookup = latte,
+        @flavor = latte,
         @crust,
         @surface0
       ) !important;
       --yt-spec-verified-badge-background: @overlay0 !important;
-      --yt-spec-call-to-action-fadeoutd: fadeout(@sapphire, 30%) !important;
-      --yt-spec-call-to-action-hover: @accent-color !important;
-      --yt-spec-brand-button-background-hover: @accent-color !important;
-      --yt-spec-brand-link-text-fadeoutd: fadeout(
-        @accent-color,
-        30%
+      --yt-spec-call-to-action-fadeoutd: fade(@sapphire, 70%) !important;
+      --yt-spec-call-to-action-hover: @accent !important;
+      --yt-spec-brand-button-background-hover: @accent !important;
+      --yt-spec-brand-link-text-fadeoutd: fade(
+        @accent,
+        70%
       ) !important;
       --yt-spec-filled-button-focus-outline: @surface0 !important;
       --yt-spec-static-overlay-button-hover: @surface1 !important;
       --yt-spec-mono-filled-hover: @surface1 !important;
-      --yt-spec-commerce-filled-hover: @accent-color !important;
+      --yt-spec-commerce-filled-hover: @accent !important;
       --yt-spec-mono-tonal-hover: @surface1 !important;
       --yt-spec-commerce-tonal-hover: @surface2 !important;
       --yt-spec-static-overlay-filled-hover: @overlay1 !important;
       --yt-spec-static-overlay-tonal-hover: @surface1 !important;
-      --yt-spec-paper-tab-ink: fadeout(@text, 30%);
+      --yt-spec-paper-tab-ink: fade(@text, 70%);
       --yt-spec-filled-button-text: @text !important;
       --yt-spec-selected-nav-text: @text !important;
       --iron-icon-fill-color: @text !important;
@@ -236,16 +238,16 @@
       /* Search bar */
       --ytd-searchbox-border-color: @surface0 !important;
       --ytd-searchbox-legacy-border-color: @surface0 !important;
-      --ytd-searchbox-legacy-border-shadow-color: fadeout(
+      --ytd-searchbox-legacy-border-shadow-color: fade(
         @crust,
-        0%
+        100%
       ) !important;
       --ytd-searchbox-legacy-button-color: @mantle !important;
       --ytd-searchbox-legacy-button-border-color: @surface0 !important;
-      --ytd-searchbox-legacy-button-focus-color: @accent-color !important;
+      --ytd-searchbox-legacy-button-focus-color: @accent !important;
       --ytd-searchbox-legacy-button-hover-color: @mantle !important;
       --ytd-searchbox-legacy-button-hover-border-color: @surface0 !important;
-      --ytd-searchbox-legacy-button-icon-color: @accent-color !important;
+      --ytd-searchbox-legacy-button-icon-color: @accent !important;
       --ytd-searchbox-background: @base !important;
       --ytd-searchbox-text-color: @text !important;
 
@@ -261,14 +263,14 @@
       --yt-live-chat-toast-background-color: @surface2 !important;
       --yt-live-chat-mode-change-background-color: @base !important;
       --yt-live-chat-secondary-text-color: @subtext0 !important;
-      --yt-live-chat-tertiary-text-color: fadeout(@text, 54%) !important;
+      --yt-live-chat-tertiary-text-color: fade(@text, 46%) !important;
       --yt-live-chat-text-input-field-inactive-underline-color: @subtext0
         !important;
       --yt-live-chat-text-input-field-placeholder-color: @subtext0 !important;
       --yt-live-chat-enabled-send-button-color: @text !important;
       --yt-live-chat-disabled-icon-button-color: @subtext1 !important;
-      --yt-live-chat-picker-button-hover-color: @accent-color !important;
-      --yt-live-chat-mention-background-color: @accent-color !important;
+      --yt-live-chat-picker-button-hover-color: @accent !important;
+      --yt-live-chat-mention-background-color: @accent !important;
       --yt-live-chat-mention-text-color: @text !important;
       --yt-live-chat-deleted-message-color: @subtext0;
       --yt-live-chat-deleted-message-bar-color: @subtext1 !important;
@@ -280,12 +282,12 @@
       --yt-live-chat-owner-color: @peach !important;
       --yt-live-chat-message-highlight-background-color: @base !important;
       --yt-live-chat-sponsor-color: @green !important;
-      --yt-live-chat-overlay-color: fadeout(@mantle, 50%);
+      --yt-live-chat-overlay-color: fade(@mantle, 50%);
       --yt-live-chat-dialog-background-color: @base !important;
       --yt-emoji-picker-variant-selector-bg-color: @base !important;
-      --yt-live-chat-moderation-mode-hover-background-color: fadeout(
+      --yt-live-chat-moderation-mode-hover-background-color: fade(
         @mantle,
-        30%
+        70%
       ) !important;
       --yt-grey: @subtext0 !important;
       --yt-live-chat-text-input-field-suggestion-background-color: @subtext0
@@ -294,8 +296,8 @@
         !important;
       --yt-emoji-picker-search-background-color: @surface0 !important;
       --yt-emoji-picker-search-color: @text !important;
-      --yt-emoji-picker-search-placeholder-color: @accent-color !important;
-      --yt-live-chat-slider-active-color: @accent-color !important;
+      --yt-emoji-picker-search-placeholder-color: @accent !important;
+      --yt-live-chat-slider-active-color: @accent !important;
       --yt-live-chat-slider-container-color: @surface0 !important;
       --yt-live-chat-slider-markers-color: @text !important;
       --yt-live-chat-banner-gradient-scrim: linear-gradient(
@@ -307,27 +309,27 @@
         @mantle,
         transparent
       ) !important;
-      --yt-live-chat-automod-button-background-color-hover: fadeout(
+      --yt-live-chat-automod-button-background-color-hover: fade(
         @crust,
         50%
       ) !important;
-      --yt-live-chat-automod-button-explanation-color: fadeout(
-        @accent-color,
-        70%
+      --yt-live-chat-automod-button-explanation-color: fade(
+        @accent,
+        30%
       ) !important;
-      --yt-live-chat-shimmer-background-color: fadeout(@crust, 40%) !important;
+      --yt-live-chat-shimmer-background-color: fade(@crust, 60%) !important;
       --yt-live-chat-shimmer-linear-gradient: linear-gradient(
         0deg,
-        fadeout(@text, 0.1) 40%,
-        fadeout(@base, 0.3) 50%,
-        fadeout(@text, 0.1) 60%
+        fade(@text, 90%) 40%,
+        fade(@base, 70%) 50%,
+        fade(@text, 90%) 60%
       ) !important;
       --yt-live-chat-vem-background-color: @mantle !important;
-      --yt-live-chat-product-picker-icon-color: fadeout(@text, 50%) !important;
+      --yt-live-chat-product-picker-icon-color: fade(@text, 50%) !important;
       --yt-live-chat-product-picker-hover-color: @overlay0 !important;
-      --yt-live-chat-product-picker-disabled-icon-color: fadeout(
+      --yt-live-chat-product-picker-disabled-icon-color: fade(
         @text,
-        30%
+        70%
       ) !important;
       --yt-live-chat-action-panel-background-color-transparent: (null)
         !important;
@@ -336,16 +338,16 @@
       --paper-tooltip-text-color: @text !important;
 
       /* Links */
-      --yt-endpoint-color: @accent-color !important;
-      --yt-endpoint-visited-color: @accent-color !important;
-      --yt-endpoint-hover-color: @accent-color !important;
+      --yt-endpoint-color: @accent !important;
+      --yt-endpoint-visited-color: @accent !important;
+      --yt-endpoint-hover-color: @accent !important;
 
-      --sb-dark-red-outline: @accent-color !important;
+      --sb-dark-red-outline: @accent !important;
       --sb-main-bg-color: @base !important;
       --sb-main-fg-color: @text !important;
       --sb-grey-bg-color: @base !important;
       --sb-grey-fg-color: @subtext0 !important;
-      --sb-red-bg-color: @accent-color !important;
+      --sb-red-bg-color: @accent !important;
     }
 
     &:not(.style-scope) {
@@ -355,12 +357,12 @@
       --disabled-text-color: @subtext1 !important;
       --divider-color: @overlay0 !important;
       --error-color: @red !important;
-      --primary-color: @accent-color !important;
-      --light-primary-color: @accent-color !important;
+      --primary-color: @accent !important;
+      --light-primary-color: @accent !important;
       --dark-primary-color: @blue !important;
-      --accent-color: @accent-color !important;
-      --light-accent-color: @accent-color !important;
-      --dark-accent-color: @accent-color !important;
+      --accent-color: @accent !important;
+      --light-accent-color: @accent !important;
+      --dark-accent-color: @accent !important;
       --light-theme-background-color: @base !important;
       --light-theme-base-color: @text !important;
       --light-theme-text-color: @text !important;
@@ -385,13 +387,13 @@
     }
 
     #channel-name.ytd-video-meta-block {
-      --yt-endpoint-color: @accent-color !important;
-      --yt-endpoint-visited-color: @accent-color !important;
-      color: @accent-color !important;
+      --yt-endpoint-color: @accent !important;
+      --yt-endpoint-visited-color: @accent !important;
+      color: @accent !important;
     }
 
     .yt-page-navigation-progress {
-      background: @accent-color !important;
+      background: @accent !important;
     }
 
     /* Selected chapter */
@@ -435,10 +437,10 @@
       background: @crust !important;
     }
 
-    .ytp-progress-list when not(@lookup = latte) {
+    .ytp-progress-list when not(@flavor = latte) {
       background: fade(@surface0, 80%);
     }
-    .ytp-load-progress when not(@lookup = latte) {
+    .ytp-load-progress when not(@flavor = latte) {
       background: fade(@overlay0, 100%);
     }
 
@@ -455,16 +457,16 @@
       --yt-button-default-text-color: @text !important;
       --yt-button-default-background-color: @base !important;
       --yt-button-dark-text-color: @base !important;
-      --yt-button-dark-background-color: @accent-color !important;
-      --yt-button-payment-background-color: @accent-color !important;
+      --yt-button-dark-background-color: @accent !important;
+      --yt-button-payment-background-color: @accent !important;
     }
 
     yt-icon-button.yt-live-chat-item-list-renderer {
-      background-color: @accent-color;
+      background-color: @accent;
       color: @crust;
 
       &:hover {
-        background-color: darken(@accent-color, 5%);
+        background-color: darken(@accent, 5%);
       }
     }
 
@@ -507,7 +509,7 @@
     .ytp-settings-button.ytp-8k-quality-badge::after,
     .ytp-settings-button.ytp-3d-badge-grey::after,
     .ytp-settings-button.ytp-3d-badge::after {
-      background-color: @accent-color;
+      background-color: @accent;
     }
 
     /* Icons */
@@ -517,11 +519,11 @@
     [fill="#FF0000"],
     [fill="#f03"],
     [fill="#FF0033"] {
-      fill: @accent-color !important;
+      fill: @accent !important;
     }
 
     [fill="white"] {
-      fill: if(@lookup = latte, @base, @text) !important;
+      fill: if(@flavor = latte, @base, @text) !important;
     }
 
     /* verification badge */
@@ -550,7 +552,7 @@
 
     .yt-spec-icon-badge-shape--type-notification
       .yt-spec-icon-badge-shape__badge {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
       color: @surface0 !important;
     }
 
@@ -575,10 +577,10 @@
         /* Accent for filled-in thumbs up (like button) */
         [animated-icon-type="LIKE"] {
           g path[fill] {
-            fill: @accent-color !important;
+            fill: @accent !important;
 
             + [stroke] {
-              stroke: @accent-color !important;
+              stroke: @accent !important;
             }
           }
         }
@@ -602,7 +604,7 @@
 
         /* Accent for filled-in thumbs up (like button) */
         path[d="M3,11h3v10H3V11z M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11v10h10.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z"] {
-          fill: @accent-color;
+          fill: @accent;
         }
 
         &:hover {
@@ -612,10 +614,10 @@
 
       &.yt-spec-button-shape-next--filled {
         color: @crust;
-        background-color: @accent-color;
+        background-color: @accent;
 
         &:hover {
-          background-color: darken(@accent-color, 5%);
+          background-color: darken(@accent, 5%);
         }
       }
     }
@@ -639,7 +641,7 @@
 
       &.yt-spec-button-shape-next--filled {
         color: @crust;
-        background-color: @accent-color;
+        background-color: @accent;
       }
 
       &.yt-spec-button-shape-next--outline {
@@ -653,29 +655,29 @@
 
     .yt-spec-button-shape-next--call-to-action {
       &.yt-spec-button-shape-next--outline {
-        color: @accent-color;
+        color: @accent;
         border-color: @surface2;
 
         &:hover {
-          background-color: fade(@accent-color, 30%);
-          color: @accent-color;
+          background-color: fade(@accent, 30%);
+          color: @accent;
         }
       }
 
       &.yt-spec-button-shape-next--text {
-        color: @accent-color;
+        color: @accent;
 
         &:hover {
-          background-color: fade(@accent-color, 30%);
+          background-color: fade(@accent, 30%);
         }
       }
 
       &.yt-spec-button-shape-next--filled {
         color: @crust;
-        background-color: @accent-color;
+        background-color: @accent;
 
         &:hover {
-          background-color: lighten(@accent-color, 5%);
+          background-color: lighten(@accent, 5%);
         }
       }
     }
@@ -687,7 +689,7 @@
 
     /* Search box */
     ytd-searchbox[has-focus] #container.ytd-searchbox {
-      border-color: @accent-color;
+      border-color: @accent;
     }
 
     .ytSearchboxComponentInputBox,
@@ -700,7 +702,7 @@
 
     .ytSearchboxComponentInputBoxHasFocus,
     .ytSearchboxComponentInputBoxHasFocusDark {
-      border-color: @accent-color !important;
+      border-color: @accent !important;
     }
 
     .ytSuggestionComponentSuggestionHover:hover,
@@ -783,7 +785,7 @@
     }
 
     .yt-core-attributed-string__link--call-to-action-color {
-      color: @accent-color;
+      color: @accent;
     }
 
     .YtwCourseProgressViewModelHostProgressTitle,
@@ -815,7 +817,7 @@
     .badge[aria-label="PREMIERE"],
     .badge-shape-wiz--live.badge-shape-wiz--overlay,
     .badge-shape-wiz--thumbnail-live {
-      background: @accent-color;
+      background: @accent;
       color: @crust;
     }
     #thumbnail [style="background-color: rgba(51, 51, 51, 0.8);"],
@@ -830,7 +832,7 @@
       color: @text;
     }
     .ytp-sb-subscribe {
-      background-color: @accent-color;
+      background-color: @accent;
       color: @crust;
     }
     ytd-thumbnail-overlay-resume-playback-renderer {
@@ -871,7 +873,7 @@
     }
 
     .ytp-panel-footer-content-link {
-      color: @accent-color;
+      color: @accent;
     }
 
     .ytp-panel-back-button {
@@ -889,7 +891,7 @@
       }
     }
     .ytp-menuitem[aria-checked="true"] .ytp-menuitem-toggle-checkbox {
-      background: @accent-color;
+      background: @accent;
     }
 
     .ytp-menuitem {
@@ -942,7 +944,7 @@
 
       .ytp-swatch-background-color,
       .ytp-play-progress {
-        background: @accent-color !important;
+        background: @accent !important;
       }
 
       .ytp-svg-fill,
@@ -968,7 +970,7 @@
 
       .ytp-live-badge {
         &[disabled]::before {
-          background: @accent-color;
+          background: @accent;
         }
         &::before {
           background: @overlay0;
@@ -980,16 +982,16 @@
         color: @crust;
       }
       .yt-spec-avatar-shape--live-ring {
-        border-color: @accent-color;
+        border-color: @accent;
       }
       .yt-spec-avatar-shape__live-badge {
-        background-color: @accent-color;
+        background-color: @accent;
       }
 
       .ytp-button,
       .ytp-subtitles-button {
         &[aria-pressed]::after {
-          background-color: @accent-color;
+          background-color: @accent;
         }
       }
 
@@ -1030,8 +1032,8 @@
 
     /* Video highlight */
     ytd-rich-item-renderer.ytd-rich-item-renderer-highlight {
-      background-color: fade(@accent-color, 10%) !important;
-      box-shadow: fade(@accent-color, 10%) 0 0 0 10px !important;
+      background-color: fade(@accent, 10%) !important;
+      box-shadow: fade(@accent, 10%) 0 0 0 10px !important;
     }
 
     #shorts-container {
@@ -1065,11 +1067,11 @@
 
       .YtProgressBarLineProgressBarPlayed,
       .YtProgressBarPlayheadProgressBarPlayheadDot {
-        background-color: @accent-color !important;
+        background-color: @accent !important;
       }
 
       .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--filled {
-        background-color: @accent-color;
+        background-color: @accent;
         color: @crust;
       }
 
@@ -1103,7 +1105,7 @@
 
     #comment-chip-container.yt-pdg-comment-chip-renderer,
     .slider-knob-inner.tp-yt-paper-slider {
-      background: @accent-color !important;
+      background: @accent !important;
     }
 
     #primaryProgress.tp-yt-paper-progress {
@@ -1213,57 +1215,44 @@
 
 @-moz-document url-prefix("https://studio.youtube.com") {
   :root[dark] {
-    #catppuccin(@darkFlavor, @accentColor);
+    #catppuccin(@darkFlavor);
   }
   :root {
-    #catppuccin(@lightFlavor, @accentColor);
+    #catppuccin(@lightFlavor);
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
-
-    color-scheme: if(@lookup = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent-color, 30%);
-    }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
     [src="https://www.gstatic.com/youtube/img/creator/yt_studio_logo_white.svg"] {
       @svg: escape(
-        '<svg viewBox="0 0 97.55 24" xmlns="http://www.w3.org/2000/svg"><path fill="@{accent-color}" d="M17.1 0S6.4 0 3.8.7a4.15 4.15 0 0 0-3 3C0 6.4 0 12 0 12a45 45 0 0 0 .7 8.2 4.32 4.32 0 0 0 3 3c2.7.8 13.4.8 13.4.8s10.7 0 13.4-.7a4.32 4.32 0 0 0 3-3 45 45 0 0 0 .7-8.2s.1-5.7-.6-8.3a4.32 4.32 0 0 0-3-3C27.9 0 17.1 0 17.1 0m-3.4 6.9 8.9 5.1-8.9 5.1z"/><path fill="@{text}" d="M76.3.9v4.4c0 1.1 0 2 .1 3.3h-.1A3.36 3.36 0 0 0 73.4 7c-2.3 0-3.3 2-3.3 6.6V16c0 4.9.8 6.6 3.2 6.6a3.42 3.42 0 0 0 3.2-2.4h.1l.4 2.1h2.6V.9zm6.688.4c-1.126.032-1.687.55-1.687 2.1 0 1.7.599 2.1 1.799 2.1s1.8-.5 1.8-2.1-.6-2.1-1.8-2.1zM45 1.4c-3.6 0-5 1.7-5 4.9s1.1 4.5 3.7 6.8c1.6 1.4 2.8 2.5 2.8 4.8 0 1.5-.4 2.2-1.6 2.2s-1.7-.8-1.6-3.6h-3.1c-.6 4.2.8 6.1 4.5 6.2 3.5 0 5-1.5 5-5.4 0-3.1-1.3-4.4-3.7-6.6-1.9-1.8-2.8-2.5-2.8-4.6 0-1.4.3-2.2 1.6-2.2s1.6 1.1 1.5 3.9l3.1-.2c.5-4.2-.8-6.2-4.4-6.2m7.6 1.4-.4 4.5h-1.4v2.6H52v8.8c0 2.7.4 3.8 2.6 3.8a7.4 7.4 0 0 0 3.1-.6l-.6-2.2a5.2 5.2 0 0 1-1.3.2c-.5 0-.7-.3-.7-1.7V9.9h2.2V7.3H55V2.8zM91 7c-3.3 0-4.7 1.8-4.7 6.7v2.2c0 4.7 1.1 6.7 4.6 6.7s4.7-2 4.7-6.7v-2.2C95.6 8.9 94.3 7 91 7m-31.8.3v11.4c0 2.7.9 4 2.9 4a3.46 3.46 0 0 0 3.2-2.1h.1l.3 1.8h2.7V7.3H65v12a1.51 1.51 0 0 1-1.4 1c-.7 0-1-.6-1-1.9V7.3zm22.3 0v15.1h3.2V7.3zm9.4 2c1 0 1.3 1 1.3 3.1v4.7c0 2.2-.4 3.1-1.3 3.1s-1.2-.9-1.2-3.1v-4.7c0-2 .2-3.1 1.2-3.1M75 9.4a1.56 1.56 0 0 1 1.3.8v8.5c-.2.9-.9 1.4-1.4 1.3-1 0-1.3-1-1.3-4.4v-1.9c0-3.3.3-4.3 1.4-4.3"/></svg>'
+        '<svg viewBox="0 0 97.55 24" xmlns="http://www.w3.org/2000/svg"><path fill="@{accent}" d="M17.1 0S6.4 0 3.8.7a4.15 4.15 0 0 0-3 3C0 6.4 0 12 0 12a45 45 0 0 0 .7 8.2 4.32 4.32 0 0 0 3 3c2.7.8 13.4.8 13.4.8s10.7 0 13.4-.7a4.32 4.32 0 0 0 3-3 45 45 0 0 0 .7-8.2s.1-5.7-.6-8.3a4.32 4.32 0 0 0-3-3C27.9 0 17.1 0 17.1 0m-3.4 6.9 8.9 5.1-8.9 5.1z"/><path fill="@{text}" d="M76.3.9v4.4c0 1.1 0 2 .1 3.3h-.1A3.36 3.36 0 0 0 73.4 7c-2.3 0-3.3 2-3.3 6.6V16c0 4.9.8 6.6 3.2 6.6a3.42 3.42 0 0 0 3.2-2.4h.1l.4 2.1h2.6V.9zm6.688.4c-1.126.032-1.687.55-1.687 2.1 0 1.7.599 2.1 1.799 2.1s1.8-.5 1.8-2.1-.6-2.1-1.8-2.1zM45 1.4c-3.6 0-5 1.7-5 4.9s1.1 4.5 3.7 6.8c1.6 1.4 2.8 2.5 2.8 4.8 0 1.5-.4 2.2-1.6 2.2s-1.7-.8-1.6-3.6h-3.1c-.6 4.2.8 6.1 4.5 6.2 3.5 0 5-1.5 5-5.4 0-3.1-1.3-4.4-3.7-6.6-1.9-1.8-2.8-2.5-2.8-4.6 0-1.4.3-2.2 1.6-2.2s1.6 1.1 1.5 3.9l3.1-.2c.5-4.2-.8-6.2-4.4-6.2m7.6 1.4-.4 4.5h-1.4v2.6H52v8.8c0 2.7.4 3.8 2.6 3.8a7.4 7.4 0 0 0 3.1-.6l-.6-2.2a5.2 5.2 0 0 1-1.3.2c-.5 0-.7-.3-.7-1.7V9.9h2.2V7.3H55V2.8zM91 7c-3.3 0-4.7 1.8-4.7 6.7v2.2c0 4.7 1.1 6.7 4.6 6.7s4.7-2 4.7-6.7v-2.2C95.6 8.9 94.3 7 91 7m-31.8.3v11.4c0 2.7.9 4 2.9 4a3.46 3.46 0 0 0 3.2-2.1h.1l.3 1.8h2.7V7.3H65v12a1.51 1.51 0 0 1-1.4 1c-.7 0-1-.6-1-1.9V7.3zm22.3 0v15.1h3.2V7.3zm9.4 2c1 0 1.3 1 1.3 3.1v4.7c0 2.2-.4 3.1-1.3 3.1s-1.2-.9-1.2-3.1v-4.7c0-2 .2-3.1 1.2-3.1M75 9.4a1.56 1.56 0 0 1 1.3.8v8.5c-.2.9-.9 1.4-1.4 1.3-1 0-1.3-1-1.3-4.4v-1.9c0-3.3.3-4.3 1.4-4.3"/></svg>'
       );
       content: url("data:image/svg+xml,@{svg}");
     }
@@ -1312,10 +1301,10 @@
       --ytcp-container-border-color-inverse: @subtext0 !important;
       --ytcp-line-divider-solid-inverse: @subtext0 !important;
 
-      --ytcp-call-to-action: @accent-color !important;
+      --ytcp-call-to-action: @accent !important;
       --ytcp-call-to-action-inverse: @mantle !important;
-      --ytcp-call-to-action-raised-background: @accent-color !important;
-      --yt-spec-brand-button-background: @accent-color !important;
+      --ytcp-call-to-action-raised-background: @accent !important;
+      --yt-spec-brand-button-background: @accent !important;
       --ytcp-call-to-action-raised-disabled: @surface2 !important;
       --ytcp-call-to-action-raised-disabled-background: @overlay2 !important;
       --ytcp-call-to-action-raised-background-inverse: @base !important;
@@ -1326,7 +1315,7 @@
       --yt-spec-brand-background-primary: @surface0 !important;
 
       --yt-compact-link-icon-color: @overlay2 !important;
-      --ytcp-icon-active: @accent-color !important;
+      --ytcp-icon-active: @accent !important;
       --ytcp-icon-inactive: @overlay2 !important;
       --ytcp-icon-disabled: @overlay0 !important;
       --ytcp-icon-active-inverse: @overlay1 !important;
@@ -1336,9 +1325,9 @@
       --ytcp-badge-red: @red !important;
       --ytcp-error-red-inverse: @red !important;
       --ytcp-themed-red-inverse: @red !important;
-      --ytcp-themed-red: @accent-color !important;
-      --ytcp-themed-blue: @accent-color !important;
-      --ytcp-badge-blue: fade(@accent-color, 30%);
+      --ytcp-themed-red: @accent !important;
+      --ytcp-themed-blue: @accent !important;
+      --ytcp-badge-blue: fade(@accent, 30%);
       --ytcp-badge-blue-solid: @blue !important;
       --ytcp-themed-blue-inverse: @blue !important;
       --ytcp-themed-green: @green !important;
@@ -1370,11 +1359,11 @@
       --ytmus-genre-primary-sky-inverse: @sky !important;
 
       --yt-spec-badge-chip-background: @surface1 !important;
-      --ytcp-focus-inverse: @accent-color !important;
-      --ytcp-focus: @accent-color !important;
-      --ytcp-selected-item: @accent-color !important;
+      --ytcp-focus-inverse: @accent !important;
+      --ytcp-focus: @accent !important;
+      --ytcp-selected-item: @accent !important;
       --ytcp-hover-item: @overlay2 !important;
-      --ytcp-chip-active-focus: @accent-color !important;
+      --ytcp-chip-active-focus: @accent !important;
       --ytcp-playhead: @overlay2 !important;
       --ytcp-playhead-inverse: @overlay2 !important;
     }
@@ -1392,40 +1381,40 @@
 
 @-moz-document domain("m.youtube.com") {
   html[darker-dark-theme] {
-    #catppuccin(@darkFlavor, @accentColor);
+    #catppuccin(@darkFlavor);
   }
   html {
-    #catppuccin(@lightFlavor, @accentColor);
+    #catppuccin(@lightFlavor);
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
     background-color: @base !important;
     color: @text !important;
@@ -1484,7 +1473,7 @@
 
       &.selected .chip-container {
         color: @crust;
-        background-color: @accent-color;
+        background-color: @accent;
       }
     }
 
@@ -1502,7 +1491,7 @@
 
     .yt-spec-touch-feedback-shape--overlay-touch-response-inverse
       .yt-spec-touch-feedback-shape__fill {
-      background-color: @accent-color;
+      background-color: @accent;
     }
     .yt-spec-touch-feedback-shape--overlay-touch-response
       .yt-spec-touch-feedback-shape__fill {
@@ -1513,8 +1502,16 @@
 
 /* deno-fmt-ignore */
 @catppuccin: {
-  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @text_filter: brightness(0) saturate(100%) invert(31%) sepia(12%) saturate(1015%) hue-rotate(196deg) brightness(94%) contrast(91%); @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @text_filter: brightness(0) saturate(100%) invert(80%) sepia(11%) saturate(726%) hue-rotate(192deg) brightness(104%) contrast(92%); @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @text_filter: brightness(0) saturate(100%) invert(84%) sepia(5%) saturate(1385%) hue-rotate(192deg) brightness(101%) contrast(92%); @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @text_filter: brightness(0) saturate(100%) invert(87%) sepia(6%) saturate(985%) hue-rotate(191deg) brightness(96%) contrast(99%); @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
+
+/* deno-fmt-ignore */
+@catppuccin-filters: {
+  @latte: { @rosewater: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(1048%) hue-rotate(323deg) brightness(92%) contrast(86%); @flamingo: brightness(0) saturate(100%) invert(84%) sepia(44%) saturate(4533%) hue-rotate(310deg) brightness(98%) contrast(75%); @pink: brightness(0) saturate(100%) invert(60%) sepia(32%) saturate(775%) hue-rotate(266deg) brightness(93%) contrast(97%); @mauve: brightness(0) saturate(100%) invert(26%) sepia(59%) saturate(3315%) hue-rotate(255deg) brightness(94%) contrast(100%); @red: brightness(0) saturate(100%) invert(16%) sepia(78%) saturate(7275%) hue-rotate(342deg) brightness(84%) contrast(94%); @maroon: brightness(0) saturate(100%) invert(31%) sepia(56%) saturate(2395%) hue-rotate(331deg) brightness(99%) contrast(82%); @peach: brightness(0) saturate(100%) invert(38%) sepia(81%) saturate(1292%) hue-rotate(356deg) brightness(103%) contrast(99%); @yellow: brightness(0) saturate(100%) invert(74%) sepia(47%) saturate(4570%) hue-rotate(354deg) brightness(95%) contrast(83%); @green: brightness(0) saturate(100%) invert(51%) sepia(25%) saturate(4134%) hue-rotate(76deg) brightness(95%) contrast(66%); @teal: brightness(0) saturate(100%) invert(41%) sepia(45%) saturate(1101%) hue-rotate(139deg) brightness(100%) contrast(82%); @sky: brightness(0) saturate(100%) invert(47%) sepia(76%) saturate(2427%) hue-rotate(166deg) brightness(99%) contrast(97%); @sapphire: brightness(0) saturate(100%) invert(52%) sepia(41%) saturate(6982%) hue-rotate(160deg) brightness(102%) contrast(75%); @blue: brightness(0) saturate(100%) invert(30%) sepia(80%) saturate(1850%) hue-rotate(209deg) brightness(94%) contrast(105%); @lavender: brightness(0) saturate(100%) invert(48%) sepia(61%) saturate(538%) hue-rotate(194deg) brightness(102%) contrast(98%); @text: brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(1259%) hue-rotate(196deg) brightness(97%) contrast(91%); @subtext1: brightness(0) saturate(100%) invert(36%) sepia(10%) saturate(890%) hue-rotate(196deg) brightness(98%) contrast(90%); @subtext0: brightness(0) saturate(100%) invert(47%) sepia(6%) saturate(1263%) hue-rotate(195deg) brightness(90%) contrast(81%); @overlay2: brightness(0) saturate(100%) invert(59%) sepia(7%) saturate(825%) hue-rotate(195deg) brightness(83%) contrast(91%); @overlay1: brightness(0) saturate(100%) invert(59%) sepia(14%) saturate(333%) hue-rotate(194deg) brightness(95%) contrast(89%); @overlay0: brightness(0) saturate(100%) invert(85%) sepia(7%) saturate(595%) hue-rotate(191deg) brightness(77%) contrast(81%); @surface2: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(482%) hue-rotate(189deg) brightness(82%) contrast(88%); @surface1: brightness(0) saturate(100%) invert(85%) sepia(8%) saturate(281%) hue-rotate(187deg) brightness(92%) contrast(88%); @surface0: brightness(0) saturate(100%) invert(96%) sepia(1%) saturate(5123%) hue-rotate(185deg) brightness(93%) contrast(83%); @base: brightness(0) saturate(100%) invert(89%) sepia(5%) saturate(140%) hue-rotate(182deg) brightness(109%) contrast(94%); @mantle: brightness(0) saturate(100%) invert(93%) sepia(19%) saturate(55%) hue-rotate(182deg) brightness(98%) contrast(92%); @crust: brightness(0) saturate(100%) invert(91%) sepia(1%) saturate(4489%) hue-rotate(196deg) brightness(106%) contrast(82%); };
+  @frappe: { @rosewater: brightness(0) saturate(100%) invert(90%) sepia(6%) saturate(734%) hue-rotate(321deg) brightness(95%) contrast(99%); @flamingo: brightness(0) saturate(100%) invert(88%) sepia(52%) saturate(817%) hue-rotate(293deg) brightness(113%) contrast(84%); @pink: brightness(0) saturate(100%) invert(76%) sepia(15%) saturate(844%) hue-rotate(280deg) brightness(107%) contrast(91%); @mauve: brightness(0) saturate(100%) invert(71%) sepia(25%) saturate(725%) hue-rotate(225deg) brightness(94%) contrast(91%); @red: brightness(0) saturate(100%) invert(67%) sepia(3%) saturate(7209%) hue-rotate(305deg) brightness(91%) contrast(99%); @maroon: brightness(0) saturate(100%) invert(61%) sepia(14%) saturate(957%) hue-rotate(307deg) brightness(109%) contrast(90%); @peach: brightness(0) saturate(100%) invert(68%) sepia(28%) saturate(662%) hue-rotate(335deg) brightness(96%) contrast(94%); @yellow: brightness(0) saturate(100%) invert(94%) sepia(88%) saturate(684%) hue-rotate(309deg) brightness(105%) contrast(80%); @green: brightness(0) saturate(100%) invert(89%) sepia(23%) saturate(582%) hue-rotate(42deg) brightness(87%) contrast(89%); @teal: brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(986%) hue-rotate(110deg) brightness(85%) contrast(81%); @sky: brightness(0) saturate(100%) invert(75%) sepia(15%) saturate(623%) hue-rotate(141deg) brightness(109%) contrast(81%); @sapphire: brightness(0) saturate(100%) invert(77%) sepia(20%) saturate(730%) hue-rotate(157deg) brightness(97%) contrast(76%); @blue: brightness(0) saturate(100%) invert(68%) sepia(16%) saturate(1070%) hue-rotate(185deg) brightness(96%) contrast(95%); @lavender: brightness(0) saturate(100%) invert(75%) sepia(20%) saturate(626%) hue-rotate(201deg) brightness(101%) contrast(89%); @text: brightness(0) saturate(100%) invert(83%) sepia(12%) saturate(582%) hue-rotate(191deg) brightness(98%) contrast(96%); @subtext1: brightness(0) saturate(100%) invert(80%) sepia(18%) saturate(411%) hue-rotate(190deg) brightness(96%) contrast(84%); @subtext0: brightness(0) saturate(100%) invert(82%) sepia(6%) saturate(1287%) hue-rotate(192deg) brightness(86%) contrast(85%); @overlay2: brightness(0) saturate(100%) invert(65%) sepia(36%) saturate(230%) hue-rotate(190deg) brightness(92%) contrast(82%); @overlay1: brightness(0) saturate(100%) invert(55%) sepia(12%) saturate(638%) hue-rotate(189deg) brightness(98%) contrast(87%); @overlay0: brightness(0) saturate(100%) invert(49%) sepia(13%) saturate(662%) hue-rotate(192deg) brightness(94%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(41%) sepia(20%) saturate(469%) hue-rotate(191deg) brightness(93%) contrast(86%); @surface1: brightness(0) saturate(100%) invert(34%) sepia(14%) saturate(771%) hue-rotate(190deg) brightness(89%) contrast(85%); @surface0: brightness(0) saturate(100%) invert(28%) sepia(7%) saturate(1468%) hue-rotate(193deg) brightness(92%) contrast(95%); @base: brightness(0) saturate(100%) invert(20%) sepia(17%) saturate(747%) hue-rotate(192deg) brightness(96%) contrast(97%); @mantle: brightness(0) saturate(100%) invert(8%) sepia(7%) saturate(7271%) hue-rotate(198deg) brightness(88%) contrast(75%); @crust: brightness(0) saturate(100%) invert(7%) sepia(7%) saturate(7415%) hue-rotate(197deg) brightness(86%) contrast(79%); };
+  @macchiato: { @rosewater: brightness(0) saturate(100%) invert(88%) sepia(13%) saturate(322%) hue-rotate(321deg) brightness(102%) contrast(91%); @flamingo: brightness(0) saturate(100%) invert(82%) sepia(3%) saturate(3070%) hue-rotate(314deg) brightness(107%) contrast(88%); @pink: brightness(0) saturate(100%) invert(80%) sepia(23%) saturate(509%) hue-rotate(280deg) brightness(102%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(903%) hue-rotate(222deg) brightness(104%) contrast(93%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(1541%) hue-rotate(305deg) brightness(110%) contrast(86%); @maroon: brightness(0) saturate(100%) invert(71%) sepia(10%) saturate(1331%) hue-rotate(306deg) brightness(93%) contrast(101%); @peach: brightness(0) saturate(100%) invert(73%) sepia(13%) saturate(1676%) hue-rotate(330deg) brightness(103%) contrast(92%); @yellow: brightness(0) saturate(100%) invert(87%) sepia(89%) saturate(321%) hue-rotate(314deg) brightness(101%) contrast(87%); @green: brightness(0) saturate(100%) invert(93%) sepia(12%) saturate(1128%) hue-rotate(48deg) brightness(92%) contrast(85%); @teal: brightness(0) saturate(100%) invert(92%) sepia(10%) saturate(1176%) hue-rotate(110deg) brightness(87%) contrast(90%); @sky: brightness(0) saturate(100%) invert(78%) sepia(57%) saturate(230%) hue-rotate(142deg) brightness(96%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(35%) saturate(438%) hue-rotate(156deg) brightness(92%) contrast(93%); @blue: brightness(0) saturate(100%) invert(67%) sepia(17%) saturate(1007%) hue-rotate(183deg) brightness(99%) contrast(94%); @lavender: brightness(0) saturate(100%) invert(74%) sepia(6%) saturate(2559%) hue-rotate(198deg) brightness(103%) contrast(94%); @text: brightness(0) saturate(100%) invert(81%) sepia(9%) saturate(726%) hue-rotate(192deg) brightness(104%) contrast(92%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(5%) saturate(1453%) hue-rotate(193deg) brightness(94%) contrast(86%); @subtext0: brightness(0) saturate(100%) invert(75%) sepia(18%) saturate(361%) hue-rotate(190deg) brightness(91%) contrast(86%); @overlay2: brightness(0) saturate(100%) invert(67%) sepia(9%) saturate(814%) hue-rotate(191deg) brightness(92%) contrast(88%); @overlay1: brightness(0) saturate(100%) invert(49%) sepia(38%) saturate(203%) hue-rotate(190deg) brightness(101%) contrast(93%); @overlay0: brightness(0) saturate(100%) invert(46%) sepia(16%) saturate(552%) hue-rotate(193deg) brightness(93%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(16%) saturate(611%) hue-rotate(192deg) brightness(101%) contrast(87%); @surface1: brightness(0) saturate(100%) invert(30%) sepia(11%) saturate(1085%) hue-rotate(194deg) brightness(92%) contrast(89%); @surface0: brightness(0) saturate(100%) invert(18%) sepia(21%) saturate(880%) hue-rotate(193deg) brightness(97%) contrast(84%); @base: brightness(0) saturate(100%) invert(12%) sepia(42%) saturate(570%) hue-rotate(194deg) brightness(90%) contrast(90%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(6%) saturate(7499%) hue-rotate(200deg) brightness(93%) contrast(85%); @crust: brightness(0) saturate(100%) invert(5%) sepia(8%) saturate(5346%) hue-rotate(202deg) brightness(98%) contrast(88%); };
+  @mocha: { @rosewater: brightness(0) saturate(100%) invert(92%) sepia(5%) saturate(704%) hue-rotate(320deg) brightness(99%) contrast(93%); @flamingo: brightness(0) saturate(100%) invert(81%) sepia(5%) saturate(987%) hue-rotate(315deg) brightness(107%) contrast(90%); @pink: brightness(0) saturate(100%) invert(86%) sepia(11%) saturate(1177%) hue-rotate(283deg) brightness(101%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(58%) saturate(255%) hue-rotate(224deg) brightness(96%) contrast(102%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(997%) hue-rotate(294deg) brightness(104%) contrast(91%); @maroon: brightness(0) saturate(100%) invert(66%) sepia(16%) saturate(1301%) hue-rotate(306deg) brightness(116%) contrast(84%); @peach: brightness(0) saturate(100%) invert(68%) sepia(57%) saturate(278%) hue-rotate(338deg) brightness(98%) contrast(101%); @yellow: brightness(0) saturate(100%) invert(90%) sepia(70%) saturate(380%) hue-rotate(313deg) brightness(102%) contrast(95%); @green: brightness(0) saturate(100%) invert(88%) sepia(6%) saturate(2015%) hue-rotate(63deg) brightness(104%) contrast(78%); @teal: brightness(0) saturate(100%) invert(92%) sepia(12%) saturate(991%) hue-rotate(108deg) brightness(93%) contrast(90%); @sky: brightness(0) saturate(100%) invert(84%) sepia(21%) saturate(1302%) hue-rotate(164deg) brightness(106%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(20%) saturate(876%) hue-rotate(156deg) brightness(96%) contrast(93%); @blue: brightness(0) saturate(100%) invert(68%) sepia(18%) saturate(951%) hue-rotate(180deg) brightness(98%) contrast(100%); @lavender: brightness(0) saturate(100%) invert(73%) sepia(7%) saturate(1670%) hue-rotate(195deg) brightness(102%) contrast(99%); @text: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(879%) hue-rotate(190deg) brightness(100%) contrast(93%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(19%) saturate(381%) hue-rotate(193deg) brightness(91%) contrast(89%); @subtext0: brightness(0) saturate(100%) invert(84%) sepia(9%) saturate(767%) hue-rotate(192deg) brightness(84%) contrast(84%); @overlay2: brightness(0) saturate(100%) invert(63%) sepia(15%) saturate(428%) hue-rotate(191deg) brightness(96%) contrast(84%); @overlay1: brightness(0) saturate(100%) invert(56%) sepia(15%) saturate(455%) hue-rotate(192deg) brightness(90%) contrast(88%); @overlay0: brightness(0) saturate(100%) invert(44%) sepia(6%) saturate(1275%) hue-rotate(194deg) brightness(97%) contrast(88%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(8%) saturate(1015%) hue-rotate(195deg) brightness(99%) contrast(89%); @surface1: brightness(0) saturate(100%) invert(25%) sepia(6%) saturate(1950%) hue-rotate(197deg) brightness(99%) contrast(86%); @surface0: brightness(0) saturate(100%) invert(19%) sepia(5%) saturate(2844%) hue-rotate(199deg) brightness(91%) contrast(93%); @base: brightness(0) saturate(100%) invert(7%) sepia(4%) saturate(7496%) hue-rotate(202deg) brightness(93%) contrast(87%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(4%) saturate(7465%) hue-rotate(202deg) brightness(95%) contrast(90%); @crust: brightness(0) saturate(100%) invert(3%) sepia(13%) saturate(6863%) hue-rotate(220deg) brightness(95%) contrast(91%); };
 };

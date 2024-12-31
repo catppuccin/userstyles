@@ -73,34 +73,34 @@ If you encounter non-SVG images, or many `<img>` elements with external SVGs, th
 }
 ```
 
-Select the filter definitions from below that you plan to use and insert them near the top of the `#catppuccin` mixin, below the `@<color>: @catppuccin[@@lookup][@<color>];` color definitions.
+Select the filter definitions from below that you plan to use and insert them near the top of the `#catppuccin` mixin, below the `@<color>: @catppuccin[@@flavor][@<color>];` color definitions.
 
 ```css
-@rosewater-filter: @catppuccin-filters[@@lookup][@rosewater];
-@flamingo-filter: @catppuccin-filters[@@lookup][@flamingo];
-@pink-filter: @catppuccin-filters[@@lookup][@pink];
-@mauve-filter: @catppuccin-filters[@@lookup][@mauve];
-@red-filter: @catppuccin-filters[@@lookup][@red];
-@maroon-filter: @catppuccin-filters[@@lookup][@maroon];
-@peach-filter: @catppuccin-filters[@@lookup][@peach];
-@yellow-filter: @catppuccin-filters[@@lookup][@yellow];
-@green-filter: @catppuccin-filters[@@lookup][@green];
-@teal-filter: @catppuccin-filters[@@lookup][@teal];
-@sky-filter: @catppuccin-filters[@@lookup][@sky];
-@sapphire-filter: @catppuccin-filters[@@lookup][@sapphire];
-@blue-filter: @catppuccin-filters[@@lookup][@blue];
-@lavender-filter: @catppuccin-filters[@@lookup][@lavender];
-@text-filter: @catppuccin-filters[@@lookup][@text];
-@subtext1-filter: @catppuccin-filters[@@lookup][@subtext1];
-@subtext0-filter: @catppuccin-filters[@@lookup][@subtext0];
-@overlay2-filter: @catppuccin-filters[@@lookup][@overlay2];
-@overlay1-filter: @catppuccin-filters[@@lookup][@overlay1];
-@overlay0-filter: @catppuccin-filters[@@lookup][@overlay0];
-@surface2-filter: @catppuccin-filters[@@lookup][@surface2];
-@surface1-filter: @catppuccin-filters[@@lookup][@surface1];
-@surface0-filter: @catppuccin-filters[@@lookup][@surface0];
-@base-filter: @catppuccin-filters[@@lookup][@base];
-@mantle-filter: @catppuccin-filters[@@lookup][@mantle];
-@crust-filter: @catppuccin-filters[@@lookup][@crust];
-@accent-color-filter: @catppuccin-filters[@@lookup][@@accent];
+@rosewater-filter: @catppuccin-filters[@@flavor][@rosewater];
+@flamingo-filter: @catppuccin-filters[@@flavor][@flamingo];
+@pink-filter: @catppuccin-filters[@@flavor][@pink];
+@mauve-filter: @catppuccin-filters[@@flavor][@mauve];
+@red-filter: @catppuccin-filters[@@flavor][@red];
+@maroon-filter: @catppuccin-filters[@@flavor][@maroon];
+@peach-filter: @catppuccin-filters[@@flavor][@peach];
+@yellow-filter: @catppuccin-filters[@@flavor][@yellow];
+@green-filter: @catppuccin-filters[@@flavor][@green];
+@teal-filter: @catppuccin-filters[@@flavor][@teal];
+@sky-filter: @catppuccin-filters[@@flavor][@sky];
+@sapphire-filter: @catppuccin-filters[@@flavor][@sapphire];
+@blue-filter: @catppuccin-filters[@@flavor][@blue];
+@lavender-filter: @catppuccin-filters[@@flavor][@lavender];
+@text-filter: @catppuccin-filters[@@flavor][@text];
+@subtext1-filter: @catppuccin-filters[@@flavor][@subtext1];
+@subtext0-filter: @catppuccin-filters[@@flavor][@subtext0];
+@overlay2-filter: @catppuccin-filters[@@flavor][@overlay2];
+@overlay1-filter: @catppuccin-filters[@@flavor][@overlay1];
+@overlay0-filter: @catppuccin-filters[@@flavor][@overlay0];
+@surface2-filter: @catppuccin-filters[@@flavor][@surface2];
+@surface1-filter: @catppuccin-filters[@@flavor][@surface1];
+@surface0-filter: @catppuccin-filters[@@flavor][@surface0];
+@base-filter: @catppuccin-filters[@@flavor][@base];
+@mantle-filter: @catppuccin-filters[@@flavor][@mantle];
+@crust-filter: @catppuccin-filters[@@flavor][@crust];
+@accent-filter: @catppuccin-filters[@@flavor][@@accentColor];
 ```

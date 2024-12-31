@@ -46,14 +46,14 @@ The rest of the metadata block details the preprocessor and the options of the u
 To tell Stylus which website(s) to apply this userstyle on, replace `<website-domain>` with the domain of your port. For `example.org`, it looks like this:
 
 ```less
-@-moz-document domain('example.org') {
+@-moz-document domain("example.org") {
 ```
 
 > [!NOTE]
 > While `domain()` works for most cases, you may need to use [`regexp()`](https://github.com/openstyles/stylus/wiki/Writing-styles#regexp) for websites with more complex URLs. For example:
 >
 > ```less
-> @-moz-document regexp('http://example.(com|net|org|edu)/') {
+> @-moz-document regexp("http://example.(com|net|org|edu)/") {
 > ```
 
 ## Applying the theme
@@ -61,14 +61,12 @@ To tell Stylus which website(s) to apply this userstyle on, replace `<website-do
 This section of the template is about applying the user's light/dark flavors. Read the comments for this section in the template thoroughly and decide which of the two options works best for your port. `example.org` doesn't have a light/dark mode toggle, so we'll apply it based on the user's preferences.
 
 ```less
-@media (prefers-color-scheme: light) {
-  :root {
-    #catppuccin(@lightFlavor, @accentColor);
+:root {
+  @media (prefers-color-scheme: light) {
+    #catppuccin(@lightFlavor);
   }
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    #catppuccin(@darkFlavor, @accentColor);
+  @media (prefers-color-scheme: dark) {
+    #catppuccin(@darkFlavor);
   }
 }
 ```
@@ -81,18 +79,18 @@ This section of the template is about applying the user's light/dark flavors. Re
 > [!TIP]
 > For more on how Less mixins work, see ["Mixins" - lesscss.org](https://lesscss.org/features/#mixins-feature) and ["A Comprehensive Introduction to Less: Mixins" - SitePoint](https://www.sitepoint.com/a-comprehensive-introduction-to-less-mixins/).
 
-We'll refer to this next section of the template as the "`#catppuccin` mixin". You can ignore the first half of this section with all of the `@<color>: @catppuccin[@@lookup][@<color>];` lines and skip to the comment where it says `// Start styling your website here:`. As the comment suggests, you will write the CSS rules for your port here. Here is what it looks like for our `example.org` port:
+We'll refer to this next section of the template as the "`#catppuccin` mixin". You can ignore the first half of this section with all of the `@<color>: @catppuccin[@@flavor][@<color>];` lines and skip to the comment where it says `// Start styling your website here:`. As the comment suggests, you will write the CSS rules for your port here. Here is what it looks like for our `example.org` port:
 
 ```less
-#catppuccin(@lookup, @accent) {
-  @rosewater: @catppuccin[@@lookup][@rosewater];
+#catppuccin(@flavor) {
+  @rosewater: @catppuccin[@@flavor][@rosewater];
   /* ... */
-  @accent-color: @catppuccin[@@lookup][@@accent];
+  @accent: @catppuccin[@@flavor][@@accentColor];
 
-  color-scheme: if(@lookup = latte, light, dark);
+  color-scheme: if(@flavor = latte, light, dark);
 
   ::selection {
-    background-color: fade(@accent-color, 30%);
+    background-color: fade(@accent, 30%);
   }
 
   input,
@@ -113,7 +111,7 @@ We'll refer to this next section of the template as the "`#catppuccin` mixin". Y
 
   a:link,
   a:visited {
-    color: @accent-color;
+    color: @accent;
   }
 
   /* ... */
@@ -143,50 +141,48 @@ Combining all of the previous steps, we have a working userstyle!
 ==/UserStyle== */
 
 @-moz-document domain("example.org") {
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
     }
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
     }
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
-    color-scheme: if(@lookup = latte, light, dark);
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -207,7 +203,7 @@ Combining all of the previous steps, we have a working userstyle!
 
     a:link,
     a:visited {
-      color: @accent-color;
+      color: @accent;
     }
   }
 }
