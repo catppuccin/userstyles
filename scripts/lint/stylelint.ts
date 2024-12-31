@@ -1,7 +1,4 @@
-import { REPO_ROOT } from "@/constants.ts";
-
 import * as color from "@std/fmt/colors";
-import * as path from "@std/path";
 
 import "postcss-less";
 import stylelint from "stylelint";
