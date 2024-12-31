@@ -26,6 +26,10 @@ const VALID_COLOR_VARIABLES = [
  * Accepts a color operation amount and normalizes it by multiplying it by 100 if it is less than 1.
  * @param {string} amount
  * @returns {number}
+ *
+ * @example
+ * normalizeColorOperationAmount("0.3") // 30
+ * normalizeColorOperationAmount("30") // 30
  */
 function normalizeColorOperationAmount(amount) {
   let value = Number.parseFloat(amount);
@@ -48,6 +52,7 @@ const messages = ruleMessages(ruleName, {
   amount_not_percentage: () => `Function amount argument must be percentage`,
   rgba_used_with_variable: () => `Use 'fade' instead of 'rgba' on variables`,
   fadeout_used: () => `Use 'fade' instead of 'fadeout'`,
+  fadein_used: () => `Use 'fade' instead of 'fadein'`,
 });
 
 /** @type {import('npm:stylelint').Rule} */
@@ -90,13 +95,17 @@ const ruleFunction = (primary, _secondary, context) => {
 
         // Use `fade` instead of `fadeout`.
         if (
-          node.value === "fadeout" &&
-          node.nodes.length === 3 &&
-          VALID_COLOR_VARIABLES.includes(node.nodes[0].value)
+          node.value === "fadeout"
         ) {
-          if (context.fix) {
+          if (
+            context.fix &&
+            // Only autofixable if it follows the pattern of `fadeout(@<color>, <num>%)`. Otherwise, it's ambiguous.
+            node.nodes.length === 3 &&
+            VALID_COLOR_VARIABLES.includes(node.nodes[0].value)
+          ) {
             node.value = "fade";
             const value = node.nodes[2].value.replace("%", "");
+            // Invert the value to get the fade amount. E.g. `fadeout(@color, 30%)` becomes `fade(@color, 70%)`.
             node.nodes[2].value = (100 - normalizeColorOperationAmount(value)) +
               "%";
           } else {
@@ -107,6 +116,16 @@ const ruleFunction = (primary, _secondary, context) => {
               node: decl,
             });
           }
+        }
+
+        // Use `fade` instead of `fadein`. Not autofixable because a) on palette variables, it has no effect (increasing opaqueness on a fully opaque color) and b) it's ambiguous otherwise.
+        if (node.value === "fadein") {
+          report({
+            result,
+            ruleName,
+            message: messages.fadein_used(),
+            node: decl,
+          });
         }
 
         // Use percentage amount values for Less color operation functions.
