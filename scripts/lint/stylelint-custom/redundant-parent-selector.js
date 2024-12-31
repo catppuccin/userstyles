@@ -69,15 +69,20 @@ const ruleFunction = (primary, _secondary, context) => {
       rule.selector = rule.selector.replace(
         // Match "& ", at the start or after a comma and optional whitespace, but not when followed by "when".
         /(^|,\s*)&\s+(?!when\b)/g,
-        (match, prefix) => {
+        (match, prefix, offset) => {
+          const matchIndex = offset + prefix.length;
+          const matchEndIndex = matchIndex + 1; // `&` is one character long.
+
           if (context.fix) {
-            return prefix; // Remove '& ' but keep the prefix (start or comma and whitespace).
+            return prefix; // Remove '& ' but keep the "prefix" (start or comma and whitespace).
           } else {
             report({
               result,
               ruleName,
               message: messages.rejected(),
               node: rule,
+              index: matchIndex,
+              endIndex: matchEndIndex,
             });
           }
           return match;
