@@ -23,7 +23,7 @@ export async function runStylelint(
   });
 
   if (code) {
-    Deno.writeTextFileSync(path.join(REPO_ROOT, file), code);
+    Deno.writeTextFileSync(file, code);
   }
 
   for (const result of results) {
