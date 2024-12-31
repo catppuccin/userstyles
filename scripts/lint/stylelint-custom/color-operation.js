@@ -74,7 +74,7 @@ const ruleFunction = (primary, _secondary, context) => {
         const pre = decl.prop.length +
           (decl.raws.between?.length || 0);
         const startIndex = pre + node.sourceIndex;
-        const endIndex = pre + node.sourceEndIndex;
+        const endIndex = pre + node.sourceEndIndex - 1;
 
         // Prevent using `rgba` with variables to change the alpha value.
         if (
@@ -162,8 +162,9 @@ const ruleFunction = (primary, _secondary, context) => {
               ruleName,
               message: messages.amount_not_percentage(),
               node: decl,
-              index: startIndex,
-              endIndex: endIndex,
+              index: startIndex + node.nodes[amountArgIndex].sourceIndex,
+              endIndex: startIndex + node.nodes[amountArgIndex].sourceEndIndex -
+                1,
             });
           }
         }
