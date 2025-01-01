@@ -16,7 +16,9 @@
 @var checkbox highlight-redirect "Highlight redirect links" 0
 ==/UserStyle== */
 
-@-moz-document domain("wikipedia.org"), domain("wiktionary.org") {
+@-moz-document domain("wikipedia.org"),
+  domain("wiktionary.org"),
+  domain("www.mediawiki.org") {
   @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
 
   :root.skin-theme-clientpref-os,
@@ -81,6 +83,8 @@
     @crust: @catppuccin[@@flavor][@crust];
     @accent: @catppuccin[@@flavor][@@accentColor];
 
+    @yellow-filter: @catppuccin-filters[@@flavor][@yellow];
+    @blue-filter: @catppuccin-filters[@@flavor][@blue];
     @text-filter: @catppuccin-filters[@@flavor][@text];
     @crust-filter: @catppuccin-filters[@@flavor][@crust];
     @accent-filter: @catppuccin-filters[@@flavor][@@accentColor];
@@ -134,6 +138,7 @@
     --color-progressive: @accent;
     --color-progressive--hover: darken(@accent, 5%);
     --color-progressive--active: darken(@accent, 5%);
+    --color-progressive--focus: darken(@accent, 5%);
     --color-destructive: @red;
     --color-destructive--hover: @maroon;
     --color-destructive--active: @maroon;
@@ -168,9 +173,9 @@
     --background-color-error: @red;
     --background-color-error--hover: @maroon;
     --background-color-error--active: @maroon;
-    --background-color-error-subtle: #421211;
+    --background-color-error-subtle: fade(@red, 20%);
     --background-color-warning-subtle: fade(@yellow, 20%);
-    --background-color-success-subtle: #00261e;
+    --background-color-success-subtle: fade(@green, 20%);
     --background-color-notice-subtle: @surface0;
     --background-color-content-added: #2a4b8d;
     --background-color-content-removed: #a66200;
@@ -217,7 +222,7 @@
       border-color: @surface2;
     }
 
-    [style="color:white;"] {
+    [style="color:white;"], [style*="color:#ffffff"] {
       color: @text !important;
     }
     .mw-collapsible-toggle-default {
@@ -281,6 +286,48 @@
       .wikipedia-languages-prettybars {
         background-color: @surface2;
       }
+
+      /* MediaWiki Home */
+      .mainpage_box {
+        border-color: @surface2;
+
+        .header_icon {
+          filter: @text-filter;
+        }
+
+        .items {
+          border-top-color: @surface1;
+        }
+      }
+      .nmbox {
+        background-color: @surface0;
+        border-color: @surface2;
+
+        .nmbox-header {
+          background-color: @base;
+          border-color: @surface1;
+        }
+      }
+      /* MediaWiki Pages */
+      .tpl-downloadmediawiki-icon {
+        filter: @crust-filter;
+      }
+      .note-info {
+        filter: @blue-filter;
+        color: @text;
+        background-color: fade(@blue, 20%);
+      }
+      .note-warn {
+        filter: @yellow-filter;
+        color: @text;
+        background-color: fade(@yellow, 20%);
+      }
+    }
+
+    /* OOUI */
+    .oo-ui-iconElement-icon,
+    .oo-ui-indicator-down {
+      filter: @text-filter !important;
     }
 
     /* View source */
