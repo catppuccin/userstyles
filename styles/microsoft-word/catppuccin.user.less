@@ -13,6 +13,7 @@
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var checkbox pageTheme "Enable Theme on Actual Page" 0
 ==/UserStyle== */
 
 @-moz-document domain("live.com") {
@@ -178,9 +179,11 @@
       background-color: @mantle !important;
     }
 
-    .Page {
-      background-color: @base !important;
-      border-color: @surface1 !important;
+    & when (@pageTheme = 1) {
+      .Page {
+        background-color: @base !important;
+        border-color: @surface1 !important;
+      }
     }
 
     .Paragraph,
@@ -380,10 +383,12 @@
       color: @subtext0 !important;
     }
 
-    span.NormalTextRun,
-    .FileMenuButtonPrimaryText,
-    [class="NewDocumentTemplateLabel"] {
-      color: @text !important;
+    & when (@pageTheme = 1) {
+      span.NormalTextRun,
+      .FileMenuButtonPrimaryText,
+      [class="NewDocumentTemplateLabel"] {
+        color: @text !important;
+      }
     }
 
     svg {
