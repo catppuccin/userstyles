@@ -2,7 +2,7 @@
 @name Bluesky Social Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/bsky
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/bsky
-@version 2024.12.29.2
+@version 2024.12.31
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/bsky/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Absky
 @description Soothing pastel theme for Bluesky Social
@@ -16,61 +16,56 @@
 ==/UserStyle== */
 
 @-moz-document domain("bsky.app") {
-  @media (prefers-color-scheme: light) {
-    html.colorMode--system {
-      #catppuccin(@lightFlavor, @accentColor);
+  html.colorMode--system {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
     }
-  }
-  @media (prefers-color-scheme: dark) {
-    html.colorMode--system {
-      #catppuccin(@darkFlavor, @accentColor);
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
     }
   }
 
   html.theme--light {
-    #catppuccin(@lightFlavor, @accentColor);
+    #catppuccin(@lightFlavor);
   }
   html.theme--dim,
   html.theme--dark {
-    #catppuccin(@darkFlavor, @accentColor);
+    #catppuccin(@darkFlavor);
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
-    color-scheme: if(@lookup = latte, light, dark);
-
-    // fix general site background - this applies to the <html> element
-    background-color: @base;
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -80,6 +75,9 @@
       }
     }
 
+    // fix general site background - this applies to the <html> element
+    background-color: @base;
+
     --text: @text;
     --background: @base;
     --backgroundLight: @base;
@@ -88,20 +86,16 @@
     [style*="color: rgb(255, 255, 255)"],
     [style*="color: rgb(241, 243, 245)"] //,
     /* [style*="color: rgb(11, 15, 20)"] this breas on dark */ {
-      color: @text !important;
-      & when (@lookup = latte) {
-        /* fix button text in latte */
-        color: @base !important;
-      }
+      color: if(@flavor = latte, @base, @text) !important;
     }
 
     /* some background color of follow button + hover */
     [style*="background-color: rgb(241, 243, 245)"] {
-      background-color: if(@lookup = latte, @crust, @text) !important;
+      background-color: if(@flavor = latte, @crust, @text) !important;
     }
 
     [style*="color: rgb(11, 15, 20)"] {
-      color: if(@lookup = latte, @text, @crust) !important;
+      color: if(@flavor = latte, @text, @crust) !important;
     }
 
     /* secondary text */
@@ -127,20 +121,20 @@
     [style*="color: rgb(16, 131, 254)"], // dark
     [style*="color: rgb(32, 139, 254)"] // dim
     {
-      color: @accent-color !important;
+      color: @accent !important;
     }
     /* generic blue inline underline (links) */
     [style*="text-decoration-color: rgb(16, 131, 254)"], // dark
     [style*="text-decoration-color: rgb(32, 139, 254)"] // dim
     {
-      text-decoration-color: @accent-color !important;
+      text-decoration-color: @accent !important;
     }
 
     /* generic blue inline bg color (e.g. notification count) */
     [style*="background-color: rgb(16, 131, 254)"], // dark
     [style*="background-color: rgb(32, 139, 254)"] // dim
     {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
 
       /* notification count contrast fix, also chat message contrast fix (> div) */
       &[style*="color: rgb(241, 243, 245)"],
@@ -158,25 +152,25 @@
 
     /* sending/pending/failed direct message */
     [style*="background-color: rgb(1, 64, 132)"] {
-      background-color: fadeout(@accent-color, 70%) !important;
+      background-color: fade(@accent, 30%) !important;
     }
 
     /* blue svg inline */
     [stroke="hsl(211, 99%, 53%)"],
     [stroke="#0085ff"] {
-      stroke: @accent-color;
+      stroke: @accent;
     }
 
     [fill="hsl(211, 99%, 53%)"],
     [fill="hsl(211, 99%, 56%)"],
     [fill="#0085ff"] {
-      fill: @accent-color;
+      fill: @accent;
     }
 
     /* a lot of blue things (buttons etc) */
     .r-wzwllv,
     div[style*="background-color: rgb(0, 133, 255)"] {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
 
       /* notification count contrast fix, also chat message contrast fix (> div) */
       &[style*="color: rgb(241, 243, 245)"],
@@ -237,7 +231,7 @@
     [style*="background-color: rgb(22, 30, 39)"] {
       background-color: @base !important;
 
-      & when (@lookup = latte) {
+      & when (@flavor = latte) {
         /* fix button colors in latte */
         [style*="background-color: rgb(0, 0, 0)"] {
           background-color: @text !important;
@@ -261,12 +255,12 @@
 
     /* some sort of tertiary background color with a slight accent */
     [style*="background-color: rgb(0, 25, 51)"] {
-      background-color: fadeout(@accent-color, 70%) !important;
+      background-color: fade(@accent, 30%) !important;
     }
 
     /* loading circle */
     circle[style^="stroke: rgb(25, 118, 210)"] {
-      stroke: @accent-color !important;
+      stroke: @accent !important;
     }
 
     /* wide site: new post button (w text) */
@@ -275,9 +269,9 @@
     button[style*="background-color: rgb(32, 139, 254)"], // dim
     button[style*="background-color: rgb(76, 162, 254)"] // dim (hover)
     {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
       &:hover {
-        background-color: fade(@accent-color, 70%) !important;
+        background-color: fade(@accent, 70%) !important;
       }
 
       > div {
@@ -295,7 +289,7 @@
 
     /* fix selected tab bottom border issue caused by selector above */
     .css-175oi2r[style*="border-bottom-color: rgb(16, 131, 254)"] {
-      border-bottom-color: @accent-color !important;
+      border-bottom-color: @accent !important;
     }
 
     /* fixes the bottom border on tabs (timeline) having a darker color */
@@ -305,7 +299,7 @@
 
     /* current selected tab (acc page) !! KEEP THIS BELOW ABOVE DEFINITION !! */
     [style*="border-color: rgb(255, 255, 255)"] {
-      border-color: @accent-color !important;
+      border-color: @accent !important;
     }
 
     /* settings highlight thing */
@@ -352,7 +346,7 @@
 
       /* "save changes" button in edit profile */
       > div[style*="background-image: linear-gradient(94.0544deg, rgb(90, 113, 250), rgb(0, 133, 255))"] {
-        background: @accent-color !important;
+        background: @accent !important;
       }
 
       /* fix contrast issues */
@@ -365,7 +359,7 @@
     [data-testid="saveBtn"] {
       > div[style*="background-image: linear-gradient"] {
         background: unset !important;
-        background-color: @accent-color !important;
+        background-color: @accent !important;
         > div {
           color: @crust !important;
         }
@@ -392,7 +386,7 @@
     /* the round gradient post button in the bottom right when the page is thinner than usual */
     [data-testid="composeFAB"] > div {
       background: unset !important;
-      background-color: @accent-color !important;
+      background-color: @accent !important;
 
       // fix contrast (inner symbol)
       .r-jwli3a {
@@ -403,7 +397,7 @@
     /* blue text only button (e.g. cancel post button) */
     div[style*="color: rgb(52, 150, 254)"],
     div[style*="color: rgb(76, 162, 254)"] {
-      color: @accent-color !important;
+      color: @accent !important;
     }
 
     /* text color when writing a post */
@@ -415,12 +409,12 @@
     /* some button background color (when hovering) */
     [style*="background-color: rgb(0, 44, 91)"],
     [style*="background-color: rgb(19, 63, 109)"] {
-      background-color: fade(@accent-color, 30%) !important;
+      background-color: fade(@accent, 30%) !important;
     }
 
     /* several white buttons */
     button[style*="background-color: rgb(255, 255, 255)"] when not(
-      @lookup = latte
+      @flavor = latte
     ) {
       background-color: @text !important;
     }
@@ -463,7 +457,7 @@
     path[fill="hsl(211, 20%, 95.3%)"] {
       fill: @text;
 
-      & when (@lookup = latte) {
+      & when (@flavor = latte) {
         fill: @base;
       }
     }
@@ -482,9 +476,9 @@
     /* x invite codes available icon */
     div[style*="background-color: rgb(191, 225, 255)"],
     div[style*="background-color: rgb(1, 37, 97)"] {
-      background-color: fadeout(@accent-color, 70%) !important;
+      background-color: fade(@accent, 30%) !important;
       > svg > path[fill="#52acfe"] {
-        fill: @accent-color;
+        fill: @accent;
       }
     }
 
@@ -526,7 +520,7 @@
 
     /* onboarding: continue/next button */
     [data-testid="continueBtn"] {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
     }
     [data-testid="continueBtn"] > div > div {
       color: @base !important;
@@ -537,7 +531,7 @@
 
     /* pretty self explanatory, user mentions in the post create modal */
     .mention {
-      color: @accent-color;
+      color: @accent;
     }
 
     /* mentions in the notification tab (highlighted notifications) */
@@ -545,7 +539,7 @@
     div[style*="background-color: rgb(21, 41, 63)"], // dim
     div[style*="background-color: rgb(240, 247, 255)"] // light
     {
-      background-color: fadeout(@accent-color, 70%) !important;
+      background-color: fade(@accent, 30%) !important;
       .css-175oi2r:not([role="checkbox"] *) {
         background-color: transparent !important;
       }
@@ -553,7 +547,7 @@
 
     /* generic blue background color inline (used for buttons in notifications tab) */
     button[style*="background-color: rgb(0, 133, 255)"] {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
     }
     /* contrast fix for above */
     button[style*="background-color: rgb(0, 133, 255)"] > div > div {
@@ -562,7 +556,7 @@
 
     /* other button in notifications tab, inner text */
     div[style*="color: rgb(82, 172, 254)"] {
-      color: @accent-color !important;
+      color: @accent !important;
     }
 
     /* "No notifications yet!" text in the notifications tab */

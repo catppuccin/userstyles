@@ -2,7 +2,7 @@
 @name Spotify Web Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/spotify-web
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/spotify-web
-@version 2024.12.29.2
+@version 2024.12.31
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/spotify-web/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aspotify-web
 @description Soothing pastel theme for Spotify Web
@@ -15,50 +15,48 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 @-moz-document domain("open.spotify.com") {
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
     }
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
     }
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
-    color-scheme: if(@lookup = latte, light, dark);
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -87,14 +85,14 @@
       --background-unsafe-for-small-text-press: @base;
       --text-base: @text;
       --text-subdued: @subtext1;
-      --text-bright-accent: @accent-color;
+      --text-bright-accent: @accent;
       --text-negative: @red;
       --text-warning: @yellow;
-      --text-positive: @accent-color;
+      --text-positive: @accent;
       --text-announcement: @sapphire;
       --essential-base: @text;
       --essential-subdued: @subtext1;
-      --essential-bright-accent: @accent-color;
+      --essential-bright-accent: @accent;
       --essential-negative: @red;
       --essential-warning: @yellow;
       --essential-positive: @green;
@@ -108,19 +106,19 @@
       --background-press: @surface1;
     }
     .encore-dark-theme .encore-bright-accent-set {
-      --background-base: @accent-color;
-      --background-highlight: @accent-color;
-      --background-press: @accent-color;
-      --background-elevated-base: @accent-color;
-      --background-elevated-highlight: @accent-color;
-      --background-elevated-press: @accent-color;
-      --background-tinted-base: @accent-color;
-      --background-tinted-highlight: @accent-color;
-      --background-tinted-press: @accent-color;
-      --background-unsafe-for-small-text-base: @accent-color;
-      --background-unsafe-for-small-text-highlight: @accent-color;
-      --background-unsafe-for-small-text-press: @accent-color;
-      --decorative-subdued: darken(@accent-color, 10%);
+      --background-base: @accent;
+      --background-highlight: @accent;
+      --background-press: @accent;
+      --background-elevated-base: @accent;
+      --background-elevated-highlight: @accent;
+      --background-elevated-press: @accent;
+      --background-tinted-base: @accent;
+      --background-tinted-highlight: @accent;
+      --background-tinted-press: @accent;
+      --background-unsafe-for-small-text-base: @accent;
+      --background-unsafe-for-small-text-highlight: @accent;
+      --background-unsafe-for-small-text-press: @accent;
+      --decorative-subdued: darken(@accent, 10%);
     }
     .encore-dark-theme .encore-over-media-set {
       --background-base: @mantle;
@@ -136,7 +134,7 @@
       --background-tinted-highlight: @mantle;
       --background-tinted-press: @mantle;
     }
-    & when (@lookup = latte) {
+    & when (@flavor = latte) {
       .T1xI1RTSFU7Wu94UuvE6 * {
         background: @surface0 !important;
       }
@@ -195,7 +193,7 @@
     }
     .mjZrvVI3CxfHJXu7y0Lg,
     .coBkWVskipFo8KxLKief .T1xI1RTSFU7Wu94UuvE6 {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
     }
     .ListRowTitle__LineClamp-sc-1xe2if1-0.lmgIvZ *,
     .EaTxqhHk6J4ecKHwpY5m *,
@@ -358,13 +356,13 @@
       background-color: @crust;
     }
     .S4OmZ_IZexmZ5dasPqW5 {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
     }
     .T1xI1RTSFU7Wu94UuvE6[style*="background-color:"] {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
     }
     .fIvMht6B9HdROywMNJZ4.hIFR8WDm_54EEIa1gwpC {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
     }
     // Explicit icon
     .kpGMQq1KFz620g_BD_dS {
@@ -440,7 +438,7 @@
       color: @text !important;
     }
     #onetrust-pc-sdk .ot-accordion-layout.ot-cat-item {
-      border-color: @accent-color !important;
+      border-color: @accent !important;
       border-radius: 8px;
     }
     #onetrust-consent-sdk
@@ -454,8 +452,8 @@
         [aria-expanded],
         .ot-link-btn
       ) {
-      background-color: @accent-color !important;
-      border-color: @accent-color !important;
+      background-color: @accent !important;
+      border-color: @accent !important;
     }
     // Vendors List
     #onetrust-consent-sdk #onetrust-pc-sdk .ot-sel-all-hdr span {
@@ -463,21 +461,21 @@
     }
     #onetrust-pc-sdk input[type="text"] {
       background-color: @mantle !important;
-      border-color: @accent-color !important;
+      border-color: @accent !important;
     }
     #onetrust-pc-sdk .ot-pc-header,
     #onetrust-pc-sdk ul li {
-      border-bottom-color: @accent-color !important;
-      border-top-color: @accent-color !important;
+      border-bottom-color: @accent !important;
+      border-top-color: @accent !important;
     }
     #ot-ven-lst {
-      border-top-color: @accent-color !important;
+      border-top-color: @accent !important;
     }
     .ot-pc-footer {
-      border-top-color: @accent-color !important;
+      border-top-color: @accent !important;
     }
     #onetrust-pc-sdk li > button {
-      border-top-color: @accent-color !important;
+      border-top-color: @accent !important;
     }
     #onetrust-consent-sdk #onetrust-pc-sdk #ot-sel-blk {
       background-color: @base !important;
@@ -516,19 +514,19 @@
     .TywOcKZEqNynWecCiATc {
       --bg-color: @surface1;
       --fg-color: @text;
-      --is-active-fg-color: @accent-color;
+      --is-active-fg-color: @accent;
     }
     a {
-      color: @accent-color;
+      color: @accent;
     }
     .Ng3dPPA2_1CFYkzPukjM {
       background: @blue;
     }
     .KAZD28usA1vPz5GVpm63.EHxL6K_6WWDlTCZP6x5w::after {
-      background-color: @accent-color;
+      background-color: @accent;
     }
     .tippy-box[data-theme~="activation"] {
-      background-color: @accent-color;
+      background-color: @accent;
       color: @crust;
       .c0KyMkxeMCWQGE7cR8s_ *,
       .TextForLabel-sc-1jqya9m-0.kIsEKW {
@@ -548,7 +546,7 @@
       background: @surface0;
     }
     input:checked ~ .Js64TOfWtHksI6TQ6knT {
-      background: @accent-color !important;
+      background: @accent !important;
     }
     .bXJ77rNIJ18Y0GfegQdr + label > :first-child {
       background: @text !important;
@@ -583,7 +581,7 @@
     .OF_3F0SQCsBtL1jSTlTA::after,
     .tP0mccyU1WAa7I9PevC1 svg,
     .tP0mccyU1WAa7I9PevC1::after {
-      color: @accent-color !important;
+      color: @accent !important;
     }
     // Full Screen Song Window
     .npv-up-next {

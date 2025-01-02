@@ -2,7 +2,7 @@
 @name Invidious Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/invidious
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/invidious
-@version 2024.12.29.2
+@version 2024.12.31
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/invidious/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ainvidious
 @description Soothing pastel theme for Invidious
@@ -54,68 +54,66 @@
   domain("yt.cdaut.de"),
   domain("yt.drgnz.club"),
   domain("yt.oelrichsgarcia.de") {
-  @media (prefers-color-scheme: light) {
-    .no-theme {
-      #catppuccin(@lightFlavor, @accentColor);
+  .no-theme {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
     }
-  }
-  @media (prefers-color-scheme: dark) {
-    .no-theme {
-      #catppuccin(@darkFlavor, @accentColor);
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
     }
   }
 
   .light-theme {
-    #catppuccin(@lightFlavor, @accentColor);
+    #catppuccin(@lightFlavor);
   }
   .dark-theme {
-    #catppuccin(@darkFlavor, @accentColor);
+    #catppuccin(@darkFlavor);
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
     #lightenOrDarken(@color, @value) {
       @result: if(
-        @lookup = latte,
+        @flavor = latte,
         darken(@color, @value),
         lighten(@color, @value)
       );
     }
 
-    @link-color: @accent-color;
-    @link-hover: #lightenOrDarken(@accent-color, 5%)[@result];
+    @link-color: @accent;
+    @link-hover: #lightenOrDarken(@accent, 5%)[@result];
 
-    color-scheme: if(@lookup = latte, light, dark);
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -147,7 +145,7 @@
     }
 
     legend {
-      color: @accent-color !important;
+      color: @accent !important;
     }
 
     .pure-button-primary {
@@ -162,13 +160,12 @@
       }
     }
     .pure-button-secondary {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
       color: @crust !important;
       border-color: @surface1 !important;
       &:hover,
       &:focus {
-        background-color: #lightenOrDarken(@accent-color, 2%)[@result]
-          !important;
+        background-color: #lightenOrDarken(@accent, 2%)[@result] !important;
         color: @crust !important;
         border-color: @surface1 !important;
       }
@@ -200,7 +197,7 @@
 
     .video-js .vjs-slider:hover,
     .video-js button:hover {
-      color: @accent-color !important;
+      color: @accent !important;
     }
 
     .video-js .vjs-slider {
@@ -213,7 +210,7 @@
     }
 
     .video-js.player-style-invidious .vjs-play-progress {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
     }
 
     .vjs-menu li.vjs-menu-item:focus,
@@ -269,7 +266,7 @@
     footer span a,
     footer span:has(i) {
       &:hover {
-        color: @accent-color !important;
+        color: @accent !important;
       }
     }
 
@@ -306,7 +303,7 @@
       cursor: pointer;
       &:checked {
         @svg: escape(
-          '<svg viewBox="0 0 16 16" fill="@{accent-color}" xmlns="http://www.w3.org/2000/svg"><path d="M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0"/></svg>'
+          '<svg viewBox="0 0 16 16" fill="@{accent}" xmlns="http://www.w3.org/2000/svg"><path d="M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0"/></svg>'
         );
         background-image: url("data:image/svg+xml,@{svg}");
       }
@@ -329,7 +326,7 @@
     /* Channel owner comments */
     a.channel-owner {
       color: @crust;
-      background-color: @accent-color;
+      background-color: @accent;
     }
   }
 }

@@ -2,7 +2,7 @@
 @name Microsoft Word Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/microsoft-word
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/microsoft-word
-@version 2024.12.29.2
+@version 2025.01.02
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/microsoft-word/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Amicrosoft-word
 @description Soothing pastel theme for Microsoft Word
@@ -13,42 +13,50 @@
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var checkbox applyToDocument "Apply Theme to Document" 0
 ==/UserStyle== */
 
 @-moz-document domain("live.com") {
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  #catppuccin(@lightFlavor);
 
-    color-scheme: if(@lookup = latte, light, dark);
+  .UxDarkMode {
+    #catppuccin(@darkFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -62,7 +70,7 @@
     .fui-FluentProvider86,
     .fui-FluentProvider102 {
       --colorNeutralStroke1: @surface1;
-      --colorBrandForeground1: @accent-color;
+      --colorBrandForeground1: @accent;
       --colorNeutralForeground1: @text;
       --colorNeutralBackground1: @surface0;
       --colorNeutralForeground2: @text;
@@ -116,7 +124,7 @@
     }
 
     #ShareMenu {
-      background-color: @accent-color;
+      background-color: @accent;
       color: @base;
     }
 
@@ -172,9 +180,16 @@
       background-color: @mantle !important;
     }
 
-    .Page {
-      background-color: @base !important;
-      border-color: @surface1 !important;
+    & when (@applyToDocument = 1) {
+      .Page {
+        background-color: @base !important;
+        border-color: @surface1 !important;
+      }
+      span.NormalTextRun,
+      .FileMenuButtonPrimaryText,
+      [class="NewDocumentTemplateLabel"] {
+        color: @text !important;
+      }
     }
 
     .Paragraph,
@@ -216,7 +231,7 @@
         > div:nth-child(2)
         > div:nth-child(1) {
         > div:nth-child(1) > span:nth-child(1) {
-          background: @accent-color !important;
+          background: @accent !important;
         }
       }
       div:nth-child(1) {
@@ -252,7 +267,7 @@
       > div:nth-child(2) {
         background-color: @surface2 !important;
         > div:nth-child(1) {
-          background: @accent-color;
+          background: @accent;
         }
       }
     }
@@ -262,7 +277,7 @@
         color: @text;
       }
       > span:nth-child(2) {
-        color: @accent-color;
+        color: @accent;
       }
       > span:nth-child(3) {
         color: @text;
@@ -282,20 +297,20 @@
         }
       }
       > a:nth-child(2) {
-        color: @accent-color;
+        color: @accent;
       }
     }
 
     #allAppsLink {
-      color: @accent-color;
+      color: @accent;
     }
 
     #ProgressCardScore {
       > div:nth-child(1) {
-        color: @accent-color;
+        color: @accent;
       }
       > div:nth-child(2) {
-        color: @accent-color;
+        color: @accent;
       }
     }
 
@@ -374,12 +389,6 @@
       color: @subtext0 !important;
     }
 
-    span.NormalTextRun,
-    .FileMenuButtonPrimaryText,
-    [class="NewDocumentTemplateLabel"] {
-      color: @text !important;
-    }
-
     svg {
       path.OfficeIconColors_m22 {
         fill: @text;
@@ -388,7 +397,7 @@
       path.OfficeIconColors_m25,
       path.OfficeIconColors_m26,
       path.OfficeIconColors_m2262 {
-        fill: @accent-color;
+        fill: @accent;
       }
       path.OfficeIconColors_m27 {
         fill: @green;
@@ -423,11 +432,6 @@
       }
     }
   }
-
-  .UxDarkMode {
-    #catppuccin(@darkFlavor, @accentColor);
-  }
-  #catppuccin(@lightFlavor, @accentColor);
 }
 
 /* deno-fmt-ignore */

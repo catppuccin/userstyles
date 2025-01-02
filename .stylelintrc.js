@@ -6,13 +6,13 @@
 export default {
   extends: "stylelint-config-standard",
   plugins: [
-    "./scripts/lint/stylelint-custom/optimized-svgs.js",
-    "./scripts/lint/stylelint-custom/color-op-func-percentage.js",
+    "./scripts/lint/stylelint-custom/index.js",
   ],
   customSyntax: "postcss-less",
   rules: {
     "catppuccin/optimized-svgs": true,
-    "catppuccin/require-color-op-func-percentage": true,
+    "catppuccin/color-operations": true,
+    "catppuccin/no-redundant-parent-selector": true,
 
     "selector-class-pattern": null,
     "custom-property-pattern": null,
