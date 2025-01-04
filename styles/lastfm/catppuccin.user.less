@@ -2,7 +2,7 @@
 @name Last.fm Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/lastfm
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/lastfm
-@version 2024.12.29.2
+@version 2024.12.31
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/lastfm/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Alastfm
 @description Soothing pastel theme for Last.fm
@@ -16,52 +16,50 @@
 ==/UserStyle== */
 
 @-moz-document domain("last.fm") {
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
     }
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
-    }
-  }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
-    @accent-color-dim: darken(@accent-color, 3%);
+    @accent-dim: darken(@accent, 3%);
 
-    color-scheme: if(@lookup = latte, light, dark);
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -71,8 +69,8 @@
       }
     }
 
-    & when not(@lookup = latte) {
-      @accent-color-dim: fadeout(@accent-color, 50);
+    & when not(@flavor = latte) {
+      @accent-dim: fade(@accent, 50%);
       .layout-image {
         background: @base;
         .layout-image-image {
@@ -107,7 +105,7 @@
       background: @base;
     }
     h1 {
-      color: @accent-color;
+      color: @accent;
     }
     .mimic-link {
       color: @sapphire;
@@ -116,9 +114,9 @@
       border-color: @overlay1;
     }
     a {
-      color: @accent-color;
+      color: @accent;
       &:hover {
-        color: @accent-color-dim;
+        color: @accent-dim;
       }
     }
 
@@ -190,8 +188,8 @@
     }
     /* -----------CHECKBOXES, DROPDOWNS AND RADIOS---------- */
     .lfm-form-radio input[type="radio"]:checked + label::before {
-      border-color: @accent-color;
-      box-shadow: inset 0 0 0 4px @accent-color;
+      border-color: @accent;
+      box-shadow: inset 0 0 0 4px @accent;
       background-color: @base;
     }
     .lfm-form-radio input[type="radio"] + label::before {
@@ -212,7 +210,7 @@
 
     .content-top-has-nav .content-top::after,
     .two-column-layout .content-top::after {
-      border-top-color: @accent-color-dim;
+      border-top-color: @accent-dim;
     }
 
     .homefeed .content-top .secondary-nav-item-link--active,
@@ -238,7 +236,7 @@
         &--tracks,
         &--events {
           .secondary-nav-item-link:hover::after {
-            background-color: @accent-color-dim;
+            background-color: @accent-dim;
           }
         }
       }
@@ -247,7 +245,7 @@
       &--tracks,
       &--events {
         .content-top .secondary-nav-item-link--active::after {
-          background-color: @accent-color-dim;
+          background-color: @accent-dim;
         }
       }
     }
@@ -257,9 +255,9 @@
         background-image: linear-gradient(
           180deg,
           transparent 0,
-          rgba(@mantle, 0.4) 50%,
-          rgba(@mantle, 0.7) 50%,
-          rgba(@mantle, 0.7) 100%
+          fade(@mantle, 40%) 50%,
+          fade(@mantle, 70%) 50%,
+          fade(@mantle, 70%) 100%
         );
       }
     }
@@ -285,10 +283,10 @@
         }
       }
       &::after {
-        border-bottom-color: @accent-color-dim;
+        border-bottom-color: @accent-dim;
       }
       &::before {
-        background-color: @accent-color;
+        background-color: @accent;
         -webkit-filter: invert(0%);
         filter: invert(0%);
       }
@@ -303,7 +301,7 @@
       background-color: transparent;
     }
     .join-cta h3 {
-      color: @accent-color;
+      color: @accent;
     }
 
     .lazy-features-footer {
@@ -322,7 +320,7 @@
     /* LIVE */
     /* MUSIC */
     .content-top-header {
-      color: @accent-color;
+      color: @accent;
     }
 
     .minimal-navigation-item-link {
@@ -368,15 +366,8 @@
     }
 
     /* RECOMMENDATIONS */
-    & when not(@lookup = "latte") {
-      .recs-feed-title a {
-        color: @text !important;
-      }
-    }
-    & when (@lookup = "latte") {
-      .recs-feed-title a {
-        color: @crust !important;
-      }
+    .recs-feed-title a {
+      color: if(@flavor = "latte", @crust, @text) !important;
     }
     .recs-feed-item,
     .recs-feed .recs-feed-item {
@@ -424,7 +415,7 @@
       );
     }
     .secondary-nav {
-      box-shadow: inset 0 -1px @accent-color;
+      box-shadow: inset 0 -1px @accent;
     }
     .music-recommended-artists-artist-name,
     .music-recommended-artists-context,
@@ -454,11 +445,11 @@
     /* RECAP PROMOS */
     .promo-v3 .listening-report-promo {
       background: @mantle;
-      border-color: rgba(@mantle, 0.5);
+      border-color: fade(@mantle, 50%);
       &:hover,
       &:focus {
         background: @crust;
-        border-color: rgba(@crust, 0.5);
+        border-color: fade(@crust, 50%);
       }
       &-date::after {
         .mask-image(
@@ -488,7 +479,7 @@
 
     ._buffer-reset,
     .sidebar-heading {
-      color: @accent-color;
+      color: @accent;
     }
 
     .sidebar-group-heading {
@@ -521,7 +512,7 @@
     }
 
     .events-filters {
-      border-bottom-color: @accent-color;
+      border-bottom-color: @accent;
     }
 
     .events-list-item-venue--address,
@@ -554,7 +545,7 @@
     }
 
     .features-post-header-title {
-      color: @accent-color;
+      color: @accent;
     }
 
     .features-post-artist {
@@ -570,7 +561,7 @@
       &,
       &:not(.cta--inactive):focus,
       &:not(.cta--inactive):hover {
-        background-color: @accent-color-dim;
+        background-color: @accent-dim;
       }
     }
     .dropdown-menu-clickable,
@@ -589,7 +580,7 @@
       color: @subtext1;
     }
     .chartlist-play-button::before {
-      background-color: @accent-color;
+      background-color: @accent;
       -webkit-filter: invert(0%);
       filter: invert(0%);
     }
@@ -604,14 +595,14 @@
     .text-Color-link,
     h2,
     .dropdown-menu-clickable-button.disclose-active {
-      color: @accent-color;
+      color: @accent;
     }
     .dropdown-menu-clickable-button,
     .dropdown-menu-clickable-item--selected {
       &,
       &:focus,
       &:hover {
-        color: @accent-color;
+        color: @accent;
       }
     }
     .dropdown-menu-clickable-item,
@@ -621,7 +612,7 @@
       color: @text;
     }
     .btn-secondary {
-      background-color: @accent-color-dim;
+      background-color: @accent-dim;
       color: @crust;
     }
 
@@ -630,7 +621,7 @@
       .btn-secondary:focus,
     body:not([data-whatinput="touch"]) .btn-secondary .focus-visible,
     body:not([data-whatinput="touch"]) .btn-secondary:hover {
-      background-color: @accent-color;
+      background-color: @accent;
       color: @crust;
     }
     input[type="password"] {
@@ -675,7 +666,7 @@
     .chartlist-row--highlight,
     .chartlist-row--now-scrobbling {
       /* background-color: #5a1717; */
-      background: linear-gradient(270deg, @base 60%, rgba(@accent-color, 0.2));
+      background: linear-gradient(270deg, @base 60%, fade(@accent, 20%));
       background-size: 200% 200%;
       -webkit-animation: chartlist-anim 10s ease infinite;
       -moz-animation: chartlist-anim 10s ease infinite;
@@ -698,7 +689,7 @@
 
     .chartlist-count-bar-slug {
       background-color: transparent !important;
-      background-image: linear-gradient(to right, @accent-color, @accent-color);
+      background-image: linear-gradient(to right, @accent, @accent);
       color: @crust;
     }
     .chartlist-count-bar-value {
@@ -706,7 +697,7 @@
     }
     a:focus .chartlist-count-bar-slug,
     a:hover .chartlist-count-bar-slug {
-      background-color: @accent-color-dim;
+      background-color: @accent-dim;
     }
 
     .chartlist-count-bar-link {
@@ -726,7 +717,7 @@
     }
 
     .chartlist tr:nth-child(1) td.chartlist-index {
-      color: @accent-color;
+      color: @accent;
     }
 
     /* LISTENING REPORT */
@@ -741,7 +732,7 @@
     // Topmost report box
 
     .report-box-container--overview {
-      background: @accent-color;
+      background: @accent;
       color: @base;
       // Top border design (////)
       .report-headline-border {
@@ -767,10 +758,10 @@
       .report-headline__chart {
         .highcharts-series-0 .highcharts-point {
           fill: @base;
-          stroke: rgba(@base, 0.5);
+          stroke: fade(@base, 50%);
         }
         .highcharts-series-1 .highcharts-point {
-          fill: rgba(@base, 0.5);
+          fill: fade(@base, 50%);
           stroke: transparent;
         }
         .highcharts-axis-labels {
@@ -785,7 +776,7 @@
       background: @base;
       .listening-report-row {
         // Header divider colors follow accent
-        border-bottom-color: @accent-color;
+        border-bottom-color: @accent;
       }
       .top-item-overview {
         // Style category boxes
@@ -851,8 +842,8 @@
       .tag-label {
         background: linear-gradient(
           90deg,
-          darken(@accent-color, 5%),
-          @accent-color
+          darken(@accent, 5%),
+          @accent
         );
         // Total scrobbles header
         &--total-scrobbles::before {
@@ -888,15 +879,15 @@
         // Highlight self for higher or lower position on chart
         &-inner--highlight {
           &.listening-report-highlight--down {
-            background: rgba(@red, 0.1);
+            background: fade(@red, 10%);
             &:hover {
-              background: rgba(@red, 0.15);
+              background: fade(@red, 15%);
             }
           }
           &.listening-report-highlight--up {
-            background: rgba(@green, 0.1);
+            background: fade(@green, 10%);
             &:hover {
-              background: rgba(@green, 0.15);
+              background: fade(@green, 15%);
             }
           }
         }
@@ -958,7 +949,7 @@
 
     .music-decades-chart-container {
       .highcharts-series-1 .highcharts-point {
-        fill: rgba(@accent-color, 0.5);
+        fill: fade(@accent, 50%);
       }
     }
 
@@ -966,7 +957,7 @@
 
     .shout {
       &--active {
-        background-color: fadeout(@surface1, 30%);
+        background-color: fade(@surface1, 70%);
       }
 
       &,
@@ -1031,9 +1022,9 @@
     }
 
     .highcharts-point {
-      fill: @accent-color-dim;
+      fill: @accent-dim;
       &-select {
-        fill: @accent-color;
+        fill: @accent;
       }
     }
 
@@ -1046,7 +1037,7 @@
         fill: @base;
       }
       .highcharts-point {
-        fill: rgba(@accent-color, 0.2);
+        fill: fade(@accent, 20%);
       }
       .highcharts-xaxis .highcharts-axis-line,
       .highcharts-yaxis-grid .highcharts-grid-line {
@@ -1064,7 +1055,7 @@
     }
     .user-follow,
     .user-follow::after {
-      color: @accent-color;
+      color: @accent;
       background-color: @surface0;
     }
 
@@ -1085,7 +1076,7 @@
     }
 
     .header-follower-btn {
-      color: @accent-color;
+      color: @accent;
     }
 
     /* BOOKMARKS */
@@ -1130,7 +1121,7 @@
     body .header-new-love-button,
     body .header-new-more-button {
       color: @base;
-      background-color: @accent-color;
+      background-color: @accent;
     }
     body:not([data-whatinput="touch"]) {
       .header-new-bookmark-button,
@@ -1140,7 +1131,7 @@
         .focus-visible,
         &:hover {
           color: @base;
-          background-color: @accent-color;
+          background-color: @accent;
         }
       }
     }
@@ -1152,7 +1143,7 @@
     }
 
     .text-18 {
-      color: @accent-color;
+      color: @accent;
     }
 
     .artist-similar-artists-sidebar-item-name,
@@ -1195,7 +1186,7 @@
     }
 
     .header-metadata .header-metadata-display a {
-      color: @accent-color;
+      color: @accent;
     }
 
     .big-artist-list-title a {
@@ -1215,7 +1206,7 @@
     }
 
     .section-playlink::before {
-      background-color: @accent-color;
+      background-color: @accent;
       -webkit-filter: invert(0%);
       filter: invert(0%);
     }
@@ -1230,7 +1221,7 @@
     }
 
     .stationlink::before {
-      background-color: @accent-color;
+      background-color: @accent;
       -webkit-filter: invert(0%);
       filter: invert(0%);
     }
@@ -1243,7 +1234,7 @@
 
     .video-preview-upload-cta {
       background-color: @crust;
-      box-shadow: 0 0 0 2px @accent-color-dim;
+      box-shadow: 0 0 0 2px @accent-dim;
     }
 
     .video-preview-upload-cta:not(.cta--inactive):focus,
@@ -1256,7 +1247,7 @@
     }
 
     .listener-trend .highcharts-area {
-      fill: fadeout(@red, 10%);
+      fill: fade(@red, 90%);
     }
 
     .listener-trend .highcharts-graph {
@@ -1264,11 +1255,11 @@
     }
 
     .Colored-cta {
-      background-color: fadeout(@surface2, 30%);
+      background-color: fade(@surface2, 70%);
     }
     .Colored-cta:not(.cta--inactive):focus,
     .Colored-cta:not(.cta--inactive):hover {
-      background-color: fadeout(@surface2, 70%);
+      background-color: fade(@surface2, 30%);
     }
     .similar-items-sidebar-item-name {
       color: @text;
@@ -1291,7 +1282,7 @@
     }
 
     .factbox-item > h4 {
-      color: @accent-color;
+      color: @accent;
     }
 
     .alert-warning {
@@ -1323,7 +1314,7 @@
       }
     }
     .control-label {
-      color: @accent-color;
+      color: @accent;
     }
     .join-form .form-row-help-text {
       color: @text;
@@ -1336,7 +1327,7 @@
     .secondary-nav-item-link--active::after,
     a.secondary-nav-item-link:focus::after,
     a.secondary-nav-item-link:hover::after {
-      background-color: @accent-color;
+      background-color: @accent;
     }
 
     /* DOCUMENTATION/API SECTION */
@@ -1348,24 +1339,24 @@
       a.sidebar-link {
         color: @text;
         &:hover {
-          color: @accent-color;
+          color: @accent;
         }
       }
       .sidebar-heading {
         color: @subtext1;
       }
       a.sidebar-link.active {
-        color: @accent-color;
-        border-left-color: @accent-color;
+        color: @accent;
+        border-left-color: @accent;
       }
       a {
-        color: @accent-color;
+        color: @accent;
       }
     }
 
     /* OBSESSIONS */
     .obsession-history-play-all::before {
-      background-color: @accent-color;
+      background-color: @accent;
       -webkit-filter: invert(0%);
       filter: invert(0%);
       color: @text;
@@ -1381,7 +1372,7 @@
     }
 
     .obsession-search-result-header {
-      color: @accent-color;
+      color: @accent;
     }
 
     .obsession-candidate-heading {
@@ -1404,7 +1395,7 @@
     }
 
     .content-form textarea:hover:not([disabled]) {
-      border-color: @accent-color;
+      border-color: @accent;
     }
 
     /* MESSAGES */
@@ -1423,7 +1414,7 @@
     }
 
     .inbox-message-subject {
-      color: @accent-color;
+      color: @accent;
     }
 
     .inbox-message-message {
@@ -1432,7 +1423,7 @@
 
     .inbox-message-view .inbox-message-message blockquote {
       background: @crust;
-      border-color: @accent-color;
+      border-color: @accent;
     }
 
     body:not([data-whatinput="touch"])
@@ -1450,7 +1441,7 @@
     }
 
     .inbox .inbox-message--unviewed .inbox-message-status::after {
-      background-color: @accent-color;
+      background-color: @accent;
     }
 
     /* ADS */
@@ -1470,7 +1461,7 @@
     .btn-subscribe,
     .btn-subscribe:hover,
     .btn-subscribe:active {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
     }
     .listening-report-brick--upsell {
       display: none;
@@ -1503,18 +1494,18 @@
       .clipboard-button:focus,
     body:not([data-whatinput="touch"]) .clipboard-button .focus-visible,
     body:not([data-whatinput="touch"]) .clipboard-button:hover {
-      background-color: @accent-color !important;
+      background-color: @accent !important;
       color: @base !important;
     }
     .api-session-disconnect {
-      background-color: @accent-color-dim !important;
+      background-color: @accent-dim !important;
       color: @base !important;
     }
     /* -----Shortcut Button------ */
     .btn-shortcut,
     .btn-shortcut:hover,
     .btn-shortcut:active {
-      background-color: @accent-color-dim !important;
+      background-color: @accent-dim !important;
       color: @text !important;
     }
     /* ------HEADER----- */
@@ -1558,7 +1549,7 @@
       color: @text !important;
     }
     .player-bar .player-bar-progress-slug {
-      background: @accent-color;
+      background: @accent;
     }
     .masthead-nav-control,
     .site-auth-control,
@@ -1567,7 +1558,7 @@
       color: @text !important;
     }
     .masthead-nav .masthead-nav-control::after {
-      background: @accent-color;
+      background: @accent;
     }
     .auth-dropdown-menu {
       background-color: @base !important;
@@ -1599,7 +1590,7 @@
       &:focus,
       &:hover {
         background-color: transparent;
-        color: @accent-color !important;
+        color: @accent !important;
       }
     }
     .site-auth-control.btn-secondary {
@@ -1609,7 +1600,7 @@
       background-color: @mantle;
     }
     .masthead-search-submit {
-      background-color: @accent-color;
+      background-color: @accent;
       color: @base;
     }
     body:not(.js-focus-visible)
@@ -1617,7 +1608,7 @@
       .masthead-search-submit:focus,
     body:not([data-whatinput="touch"]) .masthead-search-submit .focus-visible,
     body:not([data-whatinput="touch"]) .masthead-search-submit:hover {
-      background-color: @accent-color;
+      background-color: @accent;
       color: @base;
     }
     .masthead-search-field {
@@ -1638,15 +1629,15 @@
     .library-controls .secondary-nav .secondary-nav-item-link--active:focus,
     .library-controls .secondary-nav .secondary-nav-item-link--active:hover,
     body:not([data-whatinput="touch"]) .catalogue-tags .tag a:hover {
-      color: @accent-color !important;
+      color: @accent !important;
     }
     /* ------ARTIST TAGS----- */
     .catalogue-tags .tag a,
     .catalogue-tags .tags-add,
     .catalogue-tags .tags-add-cta,
     body:not([data-whatinput="touch"]) .catalogue-tags .tag a:hover {
-      color: @accent-color;
-      box-shadow: inset 0 0 0 1px @accent-color-dim;
+      color: @accent;
+      box-shadow: inset 0 0 0 1px @accent-dim;
     }
     /* -----HIDE PLAY BUTTON ON TOP TRACK------ */
     .image-overlay-playlink-link::before {
@@ -1654,10 +1645,10 @@
     }
     /* ---------CHARTS FIX--------- */
     .globalchart .globalchart-item:first-child {
-      background-color: fadeout(@mantle, 80%);
+      background-color: fade(@mantle, 20%);
     }
     .globalchart-item:first-child .globalchart-rank {
-      color: @accent-color !important;
+      color: @accent !important;
     }
     .globalchart-item .globalchart-rank {
       color: @text;
@@ -1670,7 +1661,7 @@
       display: none !important;
     }
     h1.text-24 {
-      color: @accent-color;
+      color: @accent;
     }
     .checkbox {
       color: @text;
@@ -1751,7 +1742,7 @@
     .more-link-fullwidth-right ::before {
       .mask-image(
         url("/static/images/icons/arrow_small_right_005399_12.8f025ef116be.png"),
-        @accent-color,
+        @accent,
       );
     }
 
@@ -1808,7 +1799,7 @@
     .js .date-range-picker-button::before {
       .mask-image(
         url("/static/images/icons/date_picker_icon.1d7b21ee3a36.svg"),
-        @accent-color,
+        @accent,
         0 0,
         14px 24px,
         no-repeat,
@@ -1825,7 +1816,7 @@
     .catalogue-tags .tags-add::before {
       .mask-image(
         url("/static/images/icons/add_link_16.637996ed0e2f.png"),
-        @accent-color,
+        @accent,
       );
     }
 

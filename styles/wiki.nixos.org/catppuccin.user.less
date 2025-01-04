@@ -2,7 +2,7 @@
 @name NixOS Wiki Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/wiki.nixos.org
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/wiki.nixos.org
-@version 2024.12.29.2
+@version 2024.12.31
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Awiki.nixos.org
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/wiki.nixos.org/catppuccin.user.less
 @description Soothing pastel theme for NixOS Wiki
@@ -19,45 +19,43 @@
 @-moz-document domain("wiki.nixos.org") {
   @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
 
-  @media (prefers-color-scheme: light) {
-    :root {
-      #catppuccin(@lightFlavor, @accentColor);
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
     }
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      #catppuccin(@darkFlavor, @accentColor);
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
     }
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
     --ctp-rosewater: @rosewater;
     --ctp-flamingo: @flamingo;
@@ -85,6 +83,19 @@
     --ctp-base: @base;
     --ctp-mantle: @mantle;
     --ctp-crust: @crust;
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
 
     --background-color-base: @base;
     --home-panel-heading-background: @mantle;
@@ -200,25 +211,25 @@
     }
     img.mwe-math-fallback-image-display,
     img.mwe-math-fallback-image-inline {
-      & when (@lookup = latte) {
+      & when (@flavor = latte) {
         filter: brightness(0) saturate(100%) invert(31%) sepia(9%) saturate(
           1499%
         ) hue-rotate(196deg) brightness(90%) contrast(85%);
       }
 
-      & when (@lookup = frappe) {
+      & when (@flavor = frappe) {
         filter: brightness(0) saturate(100%) invert(92%) sepia(6%) saturate(
           3753%
         ) hue-rotate(184deg) brightness(93%) contrast(106%);
       }
 
-      & when (@lookup = macchiato) {
+      & when (@flavor = macchiato) {
         filter: brightness(0) saturate(100%) invert(82%) sepia(7%) saturate(
           1042%
         ) hue-rotate(193deg) brightness(103%) contrast(92%);
       }
 
-      & when (@lookup = mocha) {
+      & when (@flavor = mocha) {
         filter: brightness(0) saturate(100%) invert(83%) sepia(28%) saturate(
           223%
         ) hue-rotate(190deg) brightness(99%) contrast(93%);
@@ -325,8 +336,8 @@
 
     .mw-ui-button {
       color: @mantle;
-      background-color: @accent-color;
-      border-color: @accent-color;
+      background-color: @accent;
+      border-color: @accent;
     }
 
     .imbox-delete {
@@ -422,7 +433,7 @@
     .mw-parser-output .mainpage-heading-title {
       background: linear-gradient(
         to right,
-        rgba(saturate(lighten(@accent-color, 4%), -3%), 0.4),
+        rgba(saturate(lighten(@accent, 4%), -3%), 0.4),
         @surface0
       ) !important;
     }
@@ -530,8 +541,8 @@
 
     .pure-button-primary-progressive,
     .pure-button-primary-progressive:hover {
-      background-color: @accent-color;
-      border-color: @accent-color;
+      background-color: @accent;
+      border-color: @accent;
     }
 
     .suggestion-link {
@@ -549,15 +560,15 @@
     }
 
     .suggestion-link.active {
-      background-color: fade(@accent-color, 20%);
+      background-color: fade(@accent, 20%);
       .suggestion-title {
-        color: @accent-color;
+        color: @accent;
       }
     }
 
     .mw-echo-ui-pageNotificationsOptionWidget.oo-ui-optionWidget-highlighted,
     .cdx-menu-item--enabled.cdx-menu-item--highlighted {
-      background-color: fade(@accent-color, 20%);
+      background-color: fade(@accent, 20%);
     }
 
     .mw-echo-ui-sortedListWidget,
@@ -585,7 +596,7 @@
     }
 
     input:hover + .cdx-button.cdx-button--action-progressive {
-      background-color: fade(@accent-color, 12.5%);
+      background-color: fade(@accent, 12.5%);
     }
 
     #pt-notifications-alert .mw-echo-unseen-notifications::after {
@@ -598,7 +609,7 @@
 
     a,
     .mw-parser-output a.external:visited {
-      color: @accent-color;
+      color: @accent;
       &:visited {
         color: @mauve;
       }
@@ -621,7 +632,7 @@
         border-color: @surface2;
       }
       &:focus {
-        border-color: @accent-color;
+        border-color: @accent;
       }
     }
 
@@ -634,7 +645,7 @@
     #pt-notifications-notice .mw-echo-notifications-badge::after,
     .mw-echo-notification-badge-nojs::after {
       border-color: @crust;
-      background-color: @accent-color;
+      background-color: @accent;
       color: @base;
     }
 
@@ -664,7 +675,7 @@
     }
 
     .fn.org {
-      color: @accent-color;
+      color: @accent;
     }
 
     .mw-parser-output .mp-toolbox-daily th,
@@ -685,7 +696,7 @@
 
     .ext-phonos-PhonosButton.oo-ui-buttonElement-frameless.oo-ui-buttonWidget
       > .oo-ui-buttonElement-button:hover {
-      background-color: fade(@accent-color, 20%);
+      background-color: fade(@accent, 20%);
     }
 
     .styled-select:hover {
@@ -716,7 +727,7 @@
     }
 
     .lang-list-button:focus {
-      box-shadow: inset 0 0 0 1px @accent-color;
+      box-shadow: inset 0 0 0 1px @accent;
     }
 
     .lang-list-border {
@@ -772,22 +783,22 @@
       > .oo-ui-buttonElement-button:hover,
     .vector-dropdown-content .mw-list-item a,
     .vector-dropdown-content .mw-list-item a:not(.mw-selflink):visited {
-      color: @accent-color;
+      color: @accent;
     }
 
     .cdx-button:enabled.cdx-button--weight-primary.cdx-button--action-progressive,
     .cdx-button.cdx-button--fake-button--enabled.cdx-button--weight-primary.cdx-button--action-progressive,
     .mw-ui-button.mw-ui-progressive:not(:disabled),
     .mw-ui-button.mw-ui-progressive:not(:disabled):hover {
-      background-color: @accent-color;
-      border-color: @accent-color;
+      background-color: @accent;
+      border-color: @accent;
       color: @base;
     }
 
     .mw-message-box-warning,
     .boilerplate {
-      border-color: @accent-color !important;
-      background-color: fade(@accent-color, 25%) !important;
+      border-color: @accent !important;
+      background-color: fade(@accent, 25%) !important;
       color: @text;
     }
 
@@ -837,7 +848,7 @@
     }
 
     table.expanded:nth-child(2) > tbody:nth-child(1) > tr:nth-child(2) {
-      background-color: fade(@accent-color, 20%) !important;
+      background-color: fade(@accent, 20%) !important;
     }
 
     .client-js .mw-content-ltr .mw-editsection-bracket:first-of-type,
@@ -884,7 +895,7 @@
     }
 
     .cdx-checkbox__icon {
-      border-color: @accent-color !important;
+      border-color: @accent !important;
     }
 
     .fancycaptcha-captcha-container .mw-ui-inputو .mw-ui-input:not(:disabled) {
@@ -909,7 +920,7 @@
     .sidebar-pretitle,
     .sidebar-title-with-pretitle,
     .sidebar-list-title {
-      background-color: fade(@accent-color, 20%) !important;
+      background-color: fade(@accent, 20%) !important;
     }
 
     .mw-parser-output #mp-bottom,
@@ -984,7 +995,7 @@
     .summary,
     .infobox > tbody:nth-child(1) > tr:nth-child(4) > th:nth-child(1),
     .infobox > tbody:nth-child(1) > tr:nth-child(6) > th:nth-child(1) {
-      background-color: fade(@accent-color, 20%) !important;
+      background-color: fade(@accent, 20%) !important;
     }
 
     .infobox > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) {
@@ -1137,7 +1148,7 @@
       .mw-portlet-lang
       .vector-dropdown-label.cdx-button--action-progressive.cdx-button--weight-quiet::after {
       @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="@{accent-color}" d="m11.05 3.996-.965-1.053-4.035 3.86-3.947-3.86L1.05 3.996l5 5z"/></svg>'
+        '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="@{accent}" d="m11.05 3.996-.965-1.053-4.035 3.86-3.947-3.86L1.05 3.996l5 5z"/></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}") !important;
     }
@@ -1151,7 +1162,7 @@
 
     .vector-icon.mw-ui-icon-wikimedia-language-progressive {
       @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M20 18h-1.44a.6.6 0 0 1-.4-.12.8.8 0 0 1-.23-.31L17 15h-5l-1 2.54a.8.8 0 0 1-.22.3.6.6 0 0 1-.4.14H9l4.55-11.47h1.89zm-3.53-4.31L14.89 9.5a12 12 0 0 1-.39-1.24q-.09.37-.19.69l-.19.56-1.58 4.19zm-6.3-1.58a13.4 13.4 0 0 1-2.91-1.41 11.46 11.46 0 0 0 2.81-5.37H12V4H7.31a4 4 0 0 0-.2-.56C6.87 2.79 6.6 2 6.6 2l-1.47.5s.4.89.6 1.5H0v1.33h2.15A11.23 11.23 0 0 0 5 10.7a17.2 17.2 0 0 1-5 2.1q.56.82.87 1.38a23.3 23.3 0 0 0 5.22-2.51 15.6 15.6 0 0 0 3.56 1.77zM3.63 5.33h4.91a8.1 8.1 0 0 1-2.45 4.45 9.1 9.1 0 0 1-2.46-4.45" fill="@{accent-color}"/></svg>'
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M20 18h-1.44a.6.6 0 0 1-.4-.12.8.8 0 0 1-.23-.31L17 15h-5l-1 2.54a.8.8 0 0 1-.22.3.6.6 0 0 1-.4.14H9l4.55-11.47h1.89zm-3.53-4.31L14.89 9.5a12 12 0 0 1-.39-1.24q-.09.37-.19.69l-.19.56-1.58 4.19zm-6.3-1.58a13.4 13.4 0 0 1-2.91-1.41 11.46 11.46 0 0 0 2.81-5.37H12V4H7.31a4 4 0 0 0-.2-.56C6.87 2.79 6.6 2 6.6 2l-1.47.5s.4.89.6 1.5H0v1.33h2.15A11.23 11.23 0 0 0 5 10.7a17.2 17.2 0 0 1-5 2.1q.56.82.87 1.38a23.3 23.3 0 0 0 5.22-2.51 15.6 15.6 0 0 0 3.56 1.77zM3.63 5.33h4.91a8.1 8.1 0 0 1-2.45 4.45 9.1 9.1 0 0 1-2.46-4.45" fill="@{accent}"/></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}") !important;
     }
@@ -1165,7 +1176,7 @@
 
     .mw-parser-output a.external {
       @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="@{accent-color}" d="M6 1h5v5L8.86 3.85 4.7 8 4 7.3l4.15-4.16zM2 3h2v1H2v6h6V8h1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1"/></svg>'
+        '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="@{accent}" d="M6 1h5v5L8.86 3.85 4.7 8 4 7.3l4.15-4.16zM2 3h2v1H2v6h6V8h1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1"/></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}") !important;
     }
@@ -1219,7 +1230,7 @@
 
     .fancycaptcha-reload {
       @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="@{accent-color}" d="M15.65 4.35A8 8 0 1 0 17.4 13h-2.22a6 6 0 1 1-1-7.22L11 9h7V2z"/></svg>'
+        '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="@{accent}" d="M15.65 4.35A8 8 0 1 0 17.4 13h-2.22a6 6 0 1 1-1-7.22L11 9h7V2z"/></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}");
     }
@@ -1303,7 +1314,7 @@
 
     .oo-ui-image-progressive.oo-ui-icon-settings {
       @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20"><g fill="@{accent-color}"><g xmlns:xlink="http://www.w3.org/1999/xlink" transform="translate(10 10)"><path id="a" d="M1.5-10h-3l-1 6.5h5m0 7h-5l1 6.5h3"/><use xlink:href="#a" transform="rotate(45)"/><use xlink:href="#a" transform="rotate(90)"/><use xlink:href="#a" transform="rotate(135)"/></g><path d="M10 2.5a7.5 7.5 0 0 0 0 15 7.5 7.5 0 0 0 0-15v4a3.5 3.5 0 0 1 0 7 3.5 3.5 0 0 1 0-7"/></g></svg>'
+        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20"><g fill="@{accent}"><g xmlns:xlink="http://www.w3.org/1999/xlink" transform="translate(10 10)"><path id="a" d="M1.5-10h-3l-1 6.5h5m0 7h-5l1 6.5h3"/><use xlink:href="#a" transform="rotate(45)"/><use xlink:href="#a" transform="rotate(90)"/><use xlink:href="#a" transform="rotate(135)"/></g><path d="M10 2.5a7.5 7.5 0 0 0 0 15 7.5 7.5 0 0 0 0-15v4a3.5 3.5 0 0 1 0 7 3.5 3.5 0 0 1 0-7"/></g></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}");
     }
@@ -1460,8 +1471,8 @@
     }
     .mw-pt-progress--complete::after,
     .mw-pt-progress--high::after {
-      border-color: @accent-color;
-      background: conic-gradient(@text 0, @accent-color 0);
+      border-color: @accent;
+      background: conic-gradient(@text 0, @accent 0);
     }
     pre,
     .oo-ui-panelLayout-framed {
@@ -1490,8 +1501,8 @@
 
 /* deno-fmt-ignore */
 @catppuccin: {
-    @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-    @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-    @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-    @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-  };
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};

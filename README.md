@@ -85,6 +85,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [DuckDuckGo](styles/duckduckgo)
 - [Ecosia](styles/ecosia)
 - 🚧 [Google](styles/google)
+- [Mullvad Leta](styles/mullvad-leta)
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
 - 🚧 [Startpage](styles/startpage)
@@ -203,6 +204,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <details open>
 <summary>🌈 Entertainment</summary>
 
+- [7TV](styles/seventv)
 - [AniList, AniChart](styles/anilist)
 - [ChatReplay](styles/chatreplay)
 - [Holodex](styles/holodex)

@@ -2,7 +2,7 @@
 @name AniList/AniChart Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/anilist
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/anilist
-@version 2024.12.29.2
+@version 2024.12.31
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/anilist/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aanilist
 @description Soothing pastel theme for AniList and AniChart
@@ -19,47 +19,47 @@
 
 @-moz-document domain("anilist.co"), domain("anichart.net") {
   body:not(.site-theme-dark) {
-    #catppuccin(@lightFlavor, @accentColor);
+    #catppuccin(@lightFlavor);
   }
   .site-theme-dark {
-    #catppuccin(@darkFlavor, @accentColor);
+    #catppuccin(@darkFlavor);
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
-    @contrast-color: @catppuccin[@@lookup][@@contrastColor];
+    @contrast: @catppuccin[@@flavor][@@contrastColor];
 
-    color-scheme: if(@lookup = latte, light, dark);
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -69,8 +69,8 @@
       }
     }
 
-    & when (@lookup = latte) {
-      --color-blue-dim: #rgbify(desaturate(lighten(@accent-color, 10%), 10%))[];
+    & when (@flavor = latte) {
+      --color-blue-dim: #rgbify(desaturate(lighten(@accent, 10%), 10%))[];
 
       .nav[data-v-62eacfff],
       .solid[data-v-62eacfff],
@@ -103,10 +103,10 @@
     --color-text-light: #rgbify(@subtext1)[];
     --color-text-lighter: #rgbify(@subtext0)[];
     --color-text-bright: #rgbify(@text)[];
-    --color-blue: #rgbify(@accent-color)[];
+    --color-blue: #rgbify(@accent)[];
     --color-white: 255, 255, 255;
     --color-black: 0, 0, 0;
-    --color-red: #rgbify(@contrast-color)[];
+    --color-red: #rgbify(@contrast)[];
     --color-peach: #rgbify(@maroon)[];
     --color-orange: #rgbify(@peach)[];
     --color-yellow: #rgbify(@yellow)[];
@@ -161,7 +161,7 @@
     --color-red-600: #rgbify(@red)[];
     --color-red-700: #rgbify(@red)[];
 
-    & when not(@lookup = latte) {
+    & when not(@flavor = latte) {
       --color-background: #rgbify(@crust)[];
       --color-foreground: #rgbify(@base)[];
       --color-foreground-grey: #rgbify(@surface0)[];
@@ -198,17 +198,17 @@
       --color-gray-200: #rgbify(@mantle)[];
       --color-gray-100: #rgbify(@crust)[];
 
-      --color-blue-dim: #rgbify(desaturate(darken(@accent-color, 10%), 10%))[];
+      --color-blue-dim: #rgbify(desaturate(darken(@accent, 10%), 10%))[];
     }
 
     /* DARK THEME NAV BAR */
-    .nav-unscoped when not(@lookup = latte) {
+    .nav-unscoped when not(@flavor = latte) {
       background-color: @mantle;
     }
-    .nav-unscoped.transparent when not(@lookup = latte) {
+    .nav-unscoped.transparent when not(@flavor = latte) {
       background-color: fade(@mantle, 50%);
     }
-    .nav-unscoped.transparent:hover when not(@lookup = latte) {
+    .nav-unscoped.transparent:hover when not(@flavor = latte) {
       background-color: @mantle;
       color: @subtext0;
     }
@@ -216,10 +216,10 @@
     /* -----------------PROFILE FIXES----------------- */
     #profileColor(@color) {
       --color-blue: #rgbify(@color)[];
-      & when (@lookup = latte) {
+      & when (@flavor = latte) {
         --color-blue-dim: #rgbify(lighten(@color, 10%))[];
       }
-      & when not(@lookup = latte) {
+      & when not(@flavor = latte) {
         --color-blue-dim: #rgbify(darken(@color, 10%))[];
       }
       .progress .bar {
@@ -296,7 +296,7 @@
     .el-dropdown-menu {
       border-color: @text !important;
     }
-    .el-dropdown-menu__item--divided when not(@lookup = latte) {
+    .el-dropdown-menu__item--divided when not(@flavor = latte) {
       border-top-color: @surface1;
     }
     .el-select-dropdown__item.hover,
@@ -304,7 +304,7 @@
       background-color: @base;
     }
     .el-select-dropdown__item.selected {
-      color: @accent-color;
+      color: @accent;
     }
     .el-tooltip__popper.is-dark {
       background: @surface0;
@@ -338,22 +338,22 @@
       color: @subtext0;
 
       &:hover {
-        color: @accent-color;
+        color: @accent;
       }
     }
     .el-picker-panel__icon-btn {
       color: @overlay1;
 
       &:hover {
-        color: @accent-color;
+        color: @accent;
       }
     }
     .el-date-table td.available:hover {
-      color: @accent-color;
+      color: @accent;
     }
     .el-date-table td.current:not(.disabled) span {
       color: @crust;
-      background-color: @accent-color;
+      background-color: @accent;
     }
     .el-date-table td.next-month,
     .el-date-table td.prev-month {
@@ -374,11 +374,11 @@
         color: rgb(var(--color-blue));
       }
 
-      & when (@lookup = latte) {
-        --color-blue: #rgbify(lighten(@accent-color, 30%))[];
+      & when (@flavor = latte) {
+        --color-blue: #rgbify(lighten(@accent, 30%))[];
       }
 
-      & when not(@lookup = latte) {
+      & when not(@flavor = latte) {
         background: @mantle;
         color: @subtext0;
       }
@@ -421,7 +421,7 @@
     }
     /* Mod Stuff */
     .el-color-dropdown__link-btn {
-      color: @accent-color;
+      color: @accent;
     }
     .el-color-picker__color {
       border-color: @surface1;
@@ -436,8 +436,8 @@
 
       &:hover {
         background-color: transparent;
-        border-color: @accent-color;
-        color: @accent-color;
+        border-color: @accent;
+        color: @accent;
       }
     }
     /* Accent Text */
@@ -445,7 +445,7 @@
       --color-white: #rgbify(@text)[];
     }
     .el-checkbox__input.is-checked + .el-checkbox__label {
-      color: @accent-color;
+      color: @accent;
     }
     .button,
     .option.active,
@@ -475,7 +475,7 @@
     .list-editor-wrap .list-editor .body .delete-btn,
     .open-user-search,
     .save-btn {
-      & when not(@lookup = latte) {
+      & when not(@flavor = latte) {
         --color-white: #rgbify(@crust)[];
       }
     }
@@ -484,35 +484,35 @@
     .el-message-box .el-button--primary,
     .mod-badge-wrap,
     .medialist.cards .entry-card .edit {
-      & when not(@lookup = latte) {
+      & when not(@flavor = latte) {
         --color-text-bright: #rgbify(@crust)[];
       }
     }
     .submit-btn,
     .random-btn {
-      & when not(@lookup = latte) {
+      & when not(@flavor = latte) {
         color: @crust;
       }
     }
     .user .notification-dot,
     .create-btn {
-      & when not(@lookup = latte) {
+      & when not(@flavor = latte) {
         color: @crust !important;
       }
     }
     .el-radio__inner::after {
-      & when not(@lookup = latte) {
+      & when not(@flavor = latte) {
         background-color: @crust;
       }
     }
     .icon,
     .check {
-      & when not(@lookup = latte) {
+      & when not(@flavor = latte) {
         --color-blue-300: #rgbify(@crust)[];
       }
     }
     .settings .button {
-      & when (@lookup = latte) {
+      & when (@flavor = latte) {
         --color-text-bright: #rgbify(#fff)[];
       }
     }
@@ -527,13 +527,13 @@
       color: @base !important;
     }
     /* --------SETTINGS-------- */
-    .el-radio__inner when not(@lookup = latte) {
+    .el-radio__inner when not(@flavor = latte) {
       background-color: @text;
     }
     .el-checkbox__input.is-checked .el-checkbox__inner,
     .el-radio__input.is-checked .el-radio__inner {
-      background-color: @accent-color;
-      border-color: @accent-color;
+      background-color: @accent;
+      border-color: @accent;
     }
     .el-checkbox__inner::after {
       border-color: @crust;
@@ -541,7 +541,7 @@
       left: 3px;
     }
     .el-radio__input.is-checked + .el-radio__label {
-      color: @accent-color;
+      color: @accent;
     }
     /* --------HIDE SCROLLBAR IN BIO----- */
     .section::-webkit-scrollbar {
@@ -570,7 +570,7 @@
       border-radius: 10px;
       margin-left: 0;
       background-color: @base;
-      color: @accent-color;
+      color: @accent;
     }
     .activity-feed .hohNoteSuffix:not(:empty),
     .activity-feed .hohRewatchSuffix:not(:empty),
@@ -597,10 +597,10 @@
     }
     .hohButton,
     .hohCheckbox input:checked + .el-checkbox__inner {
-      background-color: @accent-color;
+      background-color: @accent;
     }
     .hohCheckbox input:checked + .el-checkbox__inner {
-      border-color: @accent-color;
+      border-color: @accent;
     }
     .medialist.table .entry:hover,
     .medialist.table .entry .title a:hover,
@@ -637,7 +637,7 @@
     .like-wrap.thread .button.isFavourite .fa-heart,
     .actions .favourite.isFavourite .fa-heart,
     .actions .favourite {
-      & when not(@lookup = latte) {
+      & when not(@flavor = latte) {
         --color-white: #rgbify(@crust)[];
       }
     }
@@ -646,46 +646,45 @@
 
 @-moz-document domain("anichart.net") {
   body:not(.site-theme-dark) {
-    #catppuccin(@lightFlavor, @accentColor);
+    #catppuccin(@lightFlavor);
   }
   .site-theme-dark {
-    #catppuccin(@darkFlavor, @accentColor);
+    #catppuccin(@darkFlavor);
   }
 
-  #catppuccin(@lookup, @accent) {
-    @rosewater: @catppuccin[@@lookup][@rosewater];
-    @flamingo: @catppuccin[@@lookup][@flamingo];
-    @pink: @catppuccin[@@lookup][@pink];
-    @mauve: @catppuccin[@@lookup][@mauve];
-    @red: @catppuccin[@@lookup][@red];
-    @maroon: @catppuccin[@@lookup][@maroon];
-    @peach: @catppuccin[@@lookup][@peach];
-    @yellow: @catppuccin[@@lookup][@yellow];
-    @green: @catppuccin[@@lookup][@green];
-    @teal: @catppuccin[@@lookup][@teal];
-    @sky: @catppuccin[@@lookup][@sky];
-    @sapphire: @catppuccin[@@lookup][@sapphire];
-    @blue: @catppuccin[@@lookup][@blue];
-    @lavender: @catppuccin[@@lookup][@lavender];
-    @text: @catppuccin[@@lookup][@text];
-    @subtext1: @catppuccin[@@lookup][@subtext1];
-    @subtext0: @catppuccin[@@lookup][@subtext0];
-    @overlay2: @catppuccin[@@lookup][@overlay2];
-    @overlay1: @catppuccin[@@lookup][@overlay1];
-    @overlay0: @catppuccin[@@lookup][@overlay0];
-    @surface2: @catppuccin[@@lookup][@surface2];
-    @surface1: @catppuccin[@@lookup][@surface1];
-    @surface0: @catppuccin[@@lookup][@surface0];
-    @base: @catppuccin[@@lookup][@base];
-    @mantle: @catppuccin[@@lookup][@mantle];
-    @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accentColor];
-    @contrast-color: @catppuccin[@@lookup][@@contrastColor];
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
 
-    color-scheme: if(@lookup = latte, light, dark);
+    color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     input,
@@ -704,7 +703,7 @@
       fill: @accent !important;
     }
 
-    & when not(@lookup = latte) {
+    & when not(@flavor = latte) {
       .nav {
         background: @mantle;
       }
@@ -727,7 +726,7 @@
       }
     }
 
-    & when (@lookup = latte) {
+    & when (@flavor = latte) {
       --color-overlay: #rgbify(@text)[];
 
       .external-link {
