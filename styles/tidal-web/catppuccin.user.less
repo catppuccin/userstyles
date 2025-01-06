@@ -87,16 +87,20 @@
       fade(@text, 60%),
       fade(@crust, 60%)
     );
-    --wave-color-opacity-base-fill-thin: fade(@crust, 20%);
+    --wave-color-opacity-base-fill-thin: @crust;
     --wave-color-opacity-base-fill-transparent: @crust;
-    --wave-color-opacity-base-fill-ultra-thick: fade(@crust, 80%);
+    --wave-color-opacity-base-fill-ultra-thick: fade(@crust, 10%);
     --wave-color-opacity-base-fill-ultra-thin: fade(@crust, 10%);
     --wave-color-opacity-contrast-fill-regular: fade(@text, 40%);
     --wave-color-opacity-contrast-fill-thin: fade(@text, 20%);
     --wave-color-opacity-contrast-fill-ultra-thin: fade(@overlay0, 40%);
     --wave-color-opacity-contrast-fill-transparent: @text;
     --wave-color-opacity-contrast-fill-thick: @subtext0;
-    --wave-color-opacity-contrast-fill-ultra-thick: fade(@text, 8%);
+    --wave-color-opacity-contrast-fill-ultra-thick: if(
+      @flavor = latte,
+      @base,
+      @subtext0
+    );
     --wave-color-opacity-rainbow-blue-thin: fade(@blue, 8%);
     --wave-color-solid-accent-fill: @accent;
     --wave-color-solid-accent-bright: lighten(@accent, 7%);
@@ -146,17 +150,28 @@
     --wave-color-solid-warning-darkest: darken(@red, 9%);
     --wave-color-solid-warning-fill: @red;
 
-    [data-wave-color="textDefault"]:not([class*="activeTab"] span):not(
-      [class*="primary"] span
-    ),
+    [data-wave-color="textDefault"],
     [class^="css--"],
-    [class^="icon"]:not([class*="primary"]) svg {
+    [class^="icon"],
+    [class*="smallHeader"] .artist-link a,
+    [class*="smallHeader"] .artist-link span {
       color: @text;
     }
 
     [class*="primary"] [data-wave-color="textDefault"],
-    [class*="activeTab"] [data-wave-color="textDefault"] {
+    [class*="activeTab"] [data-wave-color="textDefault"],
+    [class*="primary"] [class^="icon"],
+    [class*="activeTab"] [class^="icon"] {
       color: @base;
+    }
+
+    [class*="accentedIcon"],
+    [data-wave-color="textUrl"] {
+      color: @accent;
+    }
+
+    [data-test="stream-metadata"] [class^="textContainer"] span {
+      color: @mantle !important;
     }
 
     [data-wave-color="textSecondary"] {
@@ -204,10 +219,6 @@
       background-color: fade(@overlay0, 50%) !important;
     }
 
-    [data-wave-color="textUrl"] {
-      color: @accent;
-    }
-
     & when (@flavor = latte) {
       a:link:hover {
         text-decoration-color: @text;
@@ -234,19 +245,16 @@
       [class*="buttonStates"],
       [class*="buttonTextOffset"],
       [class*="smallHeader"] [class*="titleText"],
+      [class*="detailContainer"] [class*="titleText"],
       [class*="smallHeader"] [class*="icon"],
       [class*="tabItem"] [class*="activeTab"] span,
       [class*="tabItem"] [class*="activeTab"] svg,
-      [class*="metaItem"],
-      .wave-text-title-bold {
+      [class*="metaItem"] .wave-text-title-bold {
         color: @base !important;
       }
 
       [class*="detailContainer"] h2,
-      [class*="smallHeader"] .artist-link a,
-      [class*="smallHeader"] .artist-link span,
       [class*="smallHeader"] .playlist-creator,
-      [class*="detailContainer"] .artist-link a,
       [class*="detailContainer"] .artist-link a,
       [class*="detailContainer"] .playlist-creator,
       [class*="detailContainer"] [class^="paragraphText"],
