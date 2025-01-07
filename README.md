@@ -58,7 +58,6 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
 - [PythonAnywhere](styles/pythonanywhere)
-- [Stack Overflow](styles/stack-overflow)
 - [Trinket](styles/trinket)
 - [Vercel, Next.js](styles/vercel)
 - [web.dev](styles/web.dev)
@@ -198,6 +197,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - 🚧 [Libreddit, Redlib](styles/libreddit)
 - [Lobsters](styles/lobste.rs)
 - 🚧 [Reddit](styles/reddit)
+- [Stack Overflow](styles/stack-overflow)
 - [TabNews](styles/tabnews)
 
 </details>
