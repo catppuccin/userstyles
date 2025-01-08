@@ -1,0 +1,200 @@
+/* ==UserStyle==
+@name web.dev Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/web.dev
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/web.dev
+@version 2024.12.31
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/web.dev/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aweb.dev
+@description Soothing pastel theme for web.dev
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain("web.dev") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    :focus-visible {
+      outline-color: @accent;
+    }
+
+    --webdev-background-gray: @surface0;
+    --webdev-background-gray-2: @surface1;
+    --webdev-background-oficial-gray: @surface0;
+    --webdev-background-white: @base;
+    --webdev-google-colors-blue-50: @base;
+    --webdev-google-colors-blue-600: @accent;
+    --webdev-google-colors-blue-800: @accent;
+    --webdev-primary: @accent;
+    --webdev-text-text-1: @text;
+    --webdev-text-text-2: @subtext1;
+    --webdev-text-text-3: @subtext0;
+    --webdev-illustration-colors-blue: @blue;
+    --webdev-illustration-colors-gray: @surface2;
+    --webdev-illustration-colors-green: @green;
+    --webdev-illustration-colors-red: @red;
+
+    --devsite-secondary-text-color: @subtext1;
+    --devsite-primary-border: 1px solid @surface0;
+    --devsite-secondary-border: 1px solid @surface2;
+
+    --devsite-contrast-link-color: @accent;
+    --devsite-header-link-color-active: @text;
+
+    --devsite-button-disabled-background: @surface0;
+    --devsite-button-disabled-color: @subtext0;
+    --devsite-button-primary-background-active: @accent;
+    --devsite-button-primary-color-active: @crust;
+    --devsite-button-primary-border-hover: 2px solid transparent;
+
+    --devsite-input-background: @surface0;
+    --devsite-input-background-focus: fade(@accent, 30%);
+
+    devsite-multiple-choice {
+      .devsite-multiple-choice-question {
+        color: @text;
+      }
+
+      --devsite-multiple-choice-background: @surface0;
+      --devsite-multiple-choice-correct-background: fade(@green, 10%);
+      --devsite-multiple-choice-correct-color: @green;
+      --devsite-multiple-choice-incorrect-background: fade(@red, 10%);
+      --devsite-multiple-choice-incorrect-color: @red;
+    }
+
+    body:not([codelabs-content-type="paginated"]) {
+      --devsite-notice-link-background-hover: @mantle;
+
+      --devsite-caution-notice-background: fade(@red, 10%);
+      --devsite-caution-notice-color: @red;
+      --devsite-key-point-notice-background: fade(@sapphire, 10%);
+      --devsite-key-point-notice-color: @sapphire;
+      --devsite-key-term-notice-background: fade(@mauve, 10%);
+      --devsite-key-term-notice-color: @mauve;
+      --devsite-note-notice-background: fade(@blue, 10%);
+      --devsite-note-notice-color: @blue;
+      --devsite-status-notice-color: @teal;
+      --devsite-success-notice-background: fade(@green, 10%);
+      --devsite-success-notice-color: @green;
+      --devsite-warning-notice-background: fade(@peach, 10%);
+      --devsite-warning-notice-color: @peach;
+    }
+
+    devsite-code,
+    devsite-code[dark-code],
+    devsite-content {
+      --devsite-code-background: @mantle;
+      --devsite-code-color: @text;
+      --devsite-code-buttons-color: @overlay2;
+      --devsite-code-buttons-hover: @subtext1;
+
+      --devsite-var-color: @mauve;
+      --devsite-code-comments-color: @overlay2;
+      --devsite-code-keywords-color: @mauve;
+      --devsite-code-numbers-color: @peach;
+      --devsite-code-strings-color: @green;
+      --devsite-code-types-color: @yellow;
+    }
+
+    devsite-header devsite-language-selector {
+      --devsite-select-color: @text;
+    }
+
+    devsite-playlist {
+      .devsite-playlist--header h1:first-of-type,
+      .devsite-playlist--header-badge-info,
+      .devsite-playlist--header-details-info {
+        color: @crust;
+      }
+
+      .devsite-playlist--sections .devsite-playlist--section[expanded] {
+        color: @crust;
+      }
+
+      devsite-bookmark {
+        --devsite-bookmark-icon-color: @crust;
+        --devsite-bookmark-icon-arrow-color: @crust;
+        --devsite-dropdown-list-toggle-color-hover: @crust;
+      }
+    }
+
+    devsite-content {
+      --devsite-search-results-breadcrumb-color: @subtext0;
+    }
+
+    .devsite-site-logo {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 215 64"><path d="M1.075 45.08c0-2.88 2.35-5.213 5.248-5.213h27.989c2.898 0 5.248 2.334 5.248 5.212s-2.35 5.213-5.248 5.213H6.322c-2.897 0-5.247-2.334-5.247-5.213" fill="@{sky}"/><path fill-rule="evenodd" clip-rule="evenodd" d="M2.612 13.594a5.273 5.273 0 0 1 7.422 0l13.994 13.9a5.187 5.187 0 0 1 0 7.371l-13.994 13.9a5.273 5.273 0 0 1-7.422 0 5.187 5.187 0 0 1 0-7.371l9.665-9.6a.865.865 0 0 0 0-1.229l-9.665-9.6a5.187 5.187 0 0 1 0-7.37" fill="@{blue}"/><path d="m18.993 39.867-8.96 8.898a5.273 5.273 0 0 1-7.42 0 5.187 5.187 0 0 1 0-7.371l1.536-1.527z" fill="@{pink}"/><path d="M34.312 50.292c2.898 0 5.248-2.334 5.248-5.213s-2.35-5.212-5.248-5.212-5.248 2.334-5.248 5.212 2.35 5.213 5.248 5.213" fill="@{blue}"/><path fill-rule="evenodd" clip-rule="evenodd" d="M200.552 45.338h-3.784l-8.256-20.33h4.128l6.02 15.717 6.02-15.717h4.128zm-28.896-12.471h11.696c-.172-2.734-2.408-4.954-5.848-4.954-2.924 0-5.16 1.879-5.848 4.954m6.192 13.154c-6.02 0-10.32-4.613-10.32-10.763s4.3-10.762 10.148-10.762c6.02 0 9.976 4.1 9.976 11.104v.342h-15.996c.172 3.929 3.096 6.662 6.536 6.662 2.408 0 4.472-1.196 5.676-3.587l3.44 1.708c-1.892 3.246-5.332 5.296-9.46 5.296m-24.08 0c-5.332 0-9.804-4.783-9.804-10.763s4.472-10.762 9.804-10.762c2.924 0 5.676 1.367 7.052 3.417h.172l-.172-2.734v-9.396h3.784v29.555h-3.612v-2.734h-.172c-1.548 2.05-4.128 3.417-7.052 3.417m.516-3.417c3.784 0 6.536-2.904 6.536-7.346 0-4.27-2.752-7.345-6.536-7.345-3.612 0-6.536 3.075-6.536 7.345 0 4.271 2.924 7.346 6.536 7.346m-11.696.171c0 1.538-1.204 2.733-2.924 2.733-1.548 0-2.924-1.366-2.924-2.733 0-1.537 1.376-2.733 2.924-2.733 1.72 0 2.924 1.196 2.924 2.733m-18.06-.17c3.612 0 6.536-3.076 6.536-7.347s-2.924-7.345-6.536-7.345c-3.784 0-6.536 3.075-6.536 7.345 0 4.271 2.752 7.346 6.536 7.346m.688 3.416c-2.924 0-5.676-1.367-7.052-3.417h-.172v2.734h-3.612V15.783h3.784v9.396l-.172 2.734h.172c1.376-2.05 3.956-3.417 7.052-3.417 5.332 0 9.804 4.783 9.804 10.762-.172 5.98-4.472 10.763-9.804 10.763M95.288 32.867h11.696c-.172-2.734-2.408-4.954-5.848-4.954-2.924 0-5.16 1.879-5.848 4.954m6.192 13.154c-6.02 0-10.32-4.613-10.32-10.763s4.3-10.762 10.148-10.762c6.02 0 9.976 4.1 9.976 11.104v.342H95.288c.172 3.929 3.096 6.662 6.536 6.662q3.612 0 5.676-3.587l3.44 1.708c-1.892 3.246-5.332 5.296-9.46 5.296M90.644 25.179l-6.536 20.33h-3.956l-5.16-15.546-4.988 15.545h-3.956L59.34 25.18h3.956l4.472 15.375 4.988-15.375h3.956L81.7 40.554l4.472-15.375z" fill="@{text}"/></svg>'
+      );
+      content: url("data:image/svg+xml,@{svg}");
+    }
+
+    .wd-footer-promo {
+      @svg: escape(
+        '<svg viewBox="0 0 125 24" aria-label="web.dev" fill="@{text}" height="24" width="125" xmlns="http://www.w3.org/2000/svg"><path d="M.625 19.949a3.05 3.05 0 0 1 3.051-3.051H19.95a3.051 3.051 0 0 1 0 6.102H3.676a3.05 3.05 0 0 1-3.051-3.051" fill="@{sky}"/><path d="M1.519 1.519a3.05 3.05 0 0 1 4.315 0l8.136 8.136a3.05 3.05 0 0 1 0 4.315l-8.136 8.136a3.051 3.051 0 1 1-4.315-4.315l5.619-5.619a.51.51 0 0 0 0-.72l-5.62-5.618a3.05 3.05 0 0 1 0-4.315" clip-rule="evenodd" fill="@{blue}" fill-rule="evenodd"/><path d="m11.042 16.898-5.208 5.208a3.051 3.051 0 1 1-4.315-4.315l.893-.893z" fill="@{pink}"/><path d="M19.949 23a3.051 3.051 0 1 0 0-6.102 3.051 3.051 0 0 0 0 6.102" fill="@{blue}"/><path d="M116.6 20.1h-2.2l-4.8-11.9h2.4l3.5 9.2 3.5-9.2h2.4zm-16.8-7.3h6.8c-.1-1.6-1.4-2.9-3.4-2.9-1.7 0-3 1.1-3.4 2.9m3.6 7.7c-3.5 0-6-2.7-6-6.3s2.5-6.3 5.9-6.3c3.5 0 5.8 2.4 5.8 6.5v.2h-9.3c.1 2.3 1.8 3.9 3.8 3.9 1.4 0 2.6-.7 3.3-2.1l2 1c-1.1 1.9-3.1 3.1-5.5 3.1m-14 0c-3.1 0-5.7-2.8-5.7-6.3s2.6-6.3 5.7-6.3c1.7 0 3.3.8 4.1 2h.1l-.1-1.6V2.8h2.2v17.3h-2.1v-1.6h-.1c-.9 1.2-2.4 2-4.1 2m.3-2c2.2 0 3.8-1.7 3.8-4.3 0-2.5-1.6-4.3-3.8-4.3-2.1 0-3.8 1.8-3.8 4.3s1.7 4.3 3.8 4.3m-6.8.1c0 .9-.7 1.6-1.7 1.6-.9 0-1.7-.8-1.7-1.6 0-.9.8-1.6 1.7-1.6 1 0 1.7.7 1.7 1.6m-10.5-.1c2.1 0 3.8-1.8 3.8-4.3s-1.7-4.3-3.8-4.3c-2.2 0-3.8 1.8-3.8 4.3s1.6 4.3 3.8 4.3m.4 2c-1.7 0-3.3-.8-4.1-2h-.1v1.6h-2.1V2.8h2.2v5.5l-.1 1.6h.1c.8-1.2 2.3-2 4.1-2 3.1 0 5.7 2.8 5.7 6.3-.1 3.5-2.6 6.3-5.7 6.3m-17.4-7.7h6.8c-.1-1.6-1.4-2.9-3.4-2.9-1.7 0-3 1.1-3.4 2.9m3.6 7.7c-3.5 0-6-2.7-6-6.3s2.5-6.3 5.9-6.3c3.5 0 5.8 2.4 5.8 6.5v.2h-9.3c.1 2.3 1.8 3.9 3.8 3.9q2.1 0 3.3-2.1l2 1c-1.1 1.9-3.1 3.1-5.5 3.1M52.7 8.3l-3.8 11.9h-2.3l-3-9.1-2.9 9.1h-2.3L34.5 8.3h2.3l2.6 9 2.9-9h2.3l2.9 9 2.6-9z" clip-rule="evenodd" fill-rule="evenodd"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
