@@ -74,7 +74,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [Indie Wiki Buddy](styles/indie-wiki-buddy)
 - [Shinigami Eyes](styles/shinigami-eyes)
-- 🚧 [Stylus](styles/stylus)
+- [Stylus](styles/stylus)
 
 </details>
 <details open>
@@ -106,7 +106,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - 🚧 [Arch Wiki](styles/arch-wiki)
 - [mdBook](styles/mdbook)
 - [NixOS Wiki](styles/wiki.nixos.org)
-- 🚧 [Wikipedia](styles/wikipedia)
+- [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
 
 </details>
@@ -220,7 +220,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [Advent Of Code](styles/advent-of-code)
 - [bStats](styles/bstats)
-- 🚧 [Chess.com](styles/chess.com)
+- [Chess.com](styles/chess.com)
 - [Lichess](styles/lichess)
 - 🚧 [Minesweeper Online](styles/minesweeper)
 - [Modrinth](styles/modrinth)
