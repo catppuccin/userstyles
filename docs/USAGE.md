@@ -11,13 +11,11 @@ For both of the below installation methods, you will need the Stylus browser ext
    - Alternatively, if you want to further customize the `import.json` file - such as setting it so that all userstyles have the accent color `peach`, or the dark flavor is always `frappe` - you can download a customized Stylus export file from [@uncenter](https://github.com/uncenter)'s "[Catppuccin Userstyles Customizer](https://catppuccin-userstyles-customizer.uncenter.dev/)" instead.
 2. Open the Stylus "manage" page.
 3. On the sidebar panel, click the **Import** button in the **Backup** section, and select the downloaded file from step 1.
-4. Enjoy!
 
 ## Individual Userstyles
 
 1. Enable CSP Patching from Stylus's **Settings** > **Advanced**.
-2. Install userstyles from the list below by clicking the **Stylus Install** badge in each README.
-3. Enjoy!
+2. Install your choice of [available userstyles](https://github.com/catppuccin/userstyles#-userstyles) by clicking the **Stylus Install** badge in each README.
 
 # Configuration
 
