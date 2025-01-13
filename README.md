@@ -29,7 +29,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 ## 🖌 Userstyles
 
 > [!IMPORTANT]
-> Userstyles labeled with the "🚧" emoji are looking for maintainers, and may not work as intended. Contributions are still welcome and encouraged.
+> Userstyles labeled with the "❤️‍🩹" emoji lack maintainers, and may not work as intended. Contributions are still welcome and encouraged!
 
 <!-- AUTOGEN:USERSTYLES START -->
 <!-- The following section is auto-generated, do not edit. -->
