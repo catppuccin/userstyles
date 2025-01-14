@@ -15,12 +15,19 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document domain("claude.ai") {
+@-moz-document url-prefix("https://claude.ai/chat"), url("https://claude.ai/new"), url("https://claude.ai/login") {
   :root[data-mode="dark"] {
     #catppuccin(@darkFlavor);
   }
-  :root[data-mode="light"] {
+  :root[data-mode="light"],
+  [data-theme="claude"][data-mode="light"] /* Special rule for the login page */ {
     #catppuccin(@lightFlavor);
+  }
+
+  #hslify(@color) {
+    @raw: e(
+      %("%s %s% %s%", hue(@color), saturation(@color), lightness(@color))
+    );
   }
 
   #catppuccin(@flavor) {
@@ -65,100 +72,46 @@
       }
     }
 
-    body>div.w-full {
-      background-color: @base;
-    }
+    --accent-brand: #hslify(@accent) [];
+    --accent-main-000: #hslify(darken(@accent, 5%)) [];
+    --accent-main-100: #hslify(@accent) [];
+    --accent-main-200: #hslify(lighten(@accent, 5%)) [];
+    --accent-main-900: #hslify(lighten(@accent, 10%)) [];
+    --accent-pro-000: #hslify(darken(@accent, 5%)) [];
+    --accent-pro-100: #hslify(@accent) [];
+    --accent-pro-200: #hslify(lighten(@accent, 5%)) [];
+    --accent-pro-900: #hslify(lighten(@accent, 10%)) [];
+    --accent-secondary-000: #hslify(darken(@overlay0, 5%)) [];
+    --accent-secondary-100: #hslify(@overlay0) [];
+    --accent-secondary-200: #hslify(lighten(@overlay0, 5%)) [];
+    --accent-secondary-900: #hslify(lighten(@overlay0, 10%)) [];
+    --bg-000: #hslify(darken(@base, 5%)) [];
+    --bg-100: #hslify(@base) [];
+    --bg-200: #hslify(lighten(@base, 5%)) [];
+    --bg-300: #hslify(lighten(@base, 10%)) [];
+    --bg-400: #hslify(lighten(@base, 15%)) [];
+    --bg-500: #hslify(lighten(@base, 20%)) [];
+    --border-000: #hslify(darken(@crust, 5%)) [];
+    --border-100: #hslify(@crust) [];
+    --border-200: #hslify(lighten(@crust, 5%)) [];
+    --border-300: #hslify(lighten(@crust, 10%)) [];
+    --border-400: #hslify(lighten(@crust, 15%)) [];
+    --danger-000: #hslify(darken(@red, 5%)) [];
+    --danger-100: #hslify(@red) [];
+    --danger-200: #hslify(lighten(@red, 5%)) [];
+    --danger-900: #hslify(lighten(@red, 10%)) [];
+    --oncolor-000: #hslify(darken(@mantle, 5%)) [];
+    --oncolor-100: #hslify(@mantle) [];
+    --oncolor-200: #hslify(lighten(@mantle, 5%)) [];
+    --oncolor-300: #hslify(lighten(@mantle, 10%)) [];
+    --text-000: #hslify(darken(@text, 5%)) [];
+    --text-100: #hslify(@text) [];
+    --text-200: #hslify(lighten(@text, 5%)) [];
+    --text-300: #hslify(lighten(@text, 10%)) [];
+    --text-400: #hslify(lighten(@text, 15%)) [];
+    --text-500: #hslify(lighten(@text, 20%)) [];
 
-    .bg-bg-000,
-    .bg-bg-100 {
-      background-color: @mantle;
-    }
-
-    .bg-bg-400 {
-      background-color: @crust;
-    }
-
-    .bg-text-200 {
-      background-color: @overlay0;
-    }
-
-    .bg-text-400 {
-      background-color: @overlay1;
-    }
-
-    .border-accent-pro-200 {
-      border-color: @accent;
-    }
-
-    button,
-    .text-border-100 {
-      background-color: @crust;
-
-      &:hover {
-        border-color: @accent;
-        color: @accent;
-      }
-    }
-
-    .text-text-100 {
-      color: @text;
-    }
-
-    .text-text-200,
-    .text-text-300 {
-      color: @subtext0;
-
-      &:hover {
-        color: @text;
-      }
-    }
-
-    .text-text-400,
-    .text-text-500 {
-      color: @subtext1;
-
-      &:hover {
-        color: @subtext0;
-      }
-    }
-
-    .text-accent-main-000 {
-      color: @maroon;
-    }
-
-    .text-accent-pro-000,
-    .text-accent-secondary-100 {
-      color: @accent;
-    }
-
-    .text-danger-000 {
-      color: @red;
-    }
-
-    .from-bg-400\/10.to-bg-400\/30,
-    .from-bg-100.to-bg-100\/30,
-    .from-bg-300\/70.to-bg-400\/70 {
-      background: @crust;
-    }
-
-    p.is-empty.is-editor-empty[data-placeholder]::before {
-      color: @subtext0 !important;
-    }
-
-    .bg-gradient-to-bl {
-      background: @accent;
-    }
-
-    pre {
-      >div {
-        background-color: @surface0;
-      }
-
-      div[style*="background: rgb(40, 44, 52);"] {
-        background-color: @surface1;
-      }
-    }
-
+    /* Specific overwrite for generated code blocks */
     code {
       /* Generated code default color */
       span {
@@ -167,43 +120,36 @@
 
       /* Generated code in green */
       span.token[style="color: rgb(152, 195, 121);"] {
-          color: @green;
+        color: @green;
       }
 
       /* Generated code in yellow */
       span.token[style="color: rgb(209, 154, 102);"] {
-          color: @yellow !important;
+        color: @yellow !important;
       }
 
       /* Generated code in blue */
       span.token[style="color: rgb(97, 175, 239);"] {
-          color: @blue !important;
+        color: @blue !important;
       }
 
       /* Generated code in red */
       span.token[style="color: rgb(224, 108, 117);"] {
-          color: @red !important;
+        color: @red !important;
       }
 
       /* Generated code in magenta */
       span.token[style="color: rgb(198, 120, 221);"] {
-          color: @mauve !important;
+        color: @mauve !important;
       }
     }
 
-    /* If you need to specify an overwrite specific to a flavor
-     *  (e.g. only when the flavor is set to latte), you can use a `when` guard clause. */
-    & when (@flavor = latte) {
-      /* ... */
-    }
-    /* You can also negate the statement above by using
-     *  a `when not` guard clause. */
-    & when not(@flavor = latte) {
-      /* ... */
+    /* Logo with hard coded fill */
+    svg path[fill="#D97757"] {
+      fill: @accent !important;
     }
   }
 }
-
 
 /* deno-fmt-ignore */
 @catppuccin: {
