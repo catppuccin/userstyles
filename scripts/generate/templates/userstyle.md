@@ -36,8 +36,8 @@
 - [{{name}}]({{url}})
 {{/each}}
 {{else}}
-## 🚧 Looking for Maintainers 🚧
-- If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
+## ❤️‍🩹 Unmaintained
+This userstyle currently lacks maintainers, and may not work correctly. Please feel free to contribute for any issues you find!
 {{/if}}
 
 {{#if collaborators.pastMaintainers}}
