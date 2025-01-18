@@ -5,7 +5,12 @@ import { syncIssueLabels } from "@/generate/labels.ts";
 import { generateMainReadme } from "@/generate/readme-repo.ts";
 import { generateStyleReadmes } from "@/generate/readme-styles.ts";
 import { writeWithPreamble } from "@/generate/utils.ts";
-import { getPortsData, getUserstylesData } from "@/utils.ts";
+import {
+  getAuthenticatedOctokit,
+  getPortsData,
+  getUserstylesData,
+  getUserstylesTeamMembers,
+} from "@/utils.ts";
 
 const userstylesData = getUserstylesData();
 const portsData = await getPortsData();
@@ -30,7 +35,7 @@ await syncIssueLabels(userstylesData.userstyles);
 /**
  * Keep `.github/CODEOWNERS` in sync with the userstyle metadata.
  */
-const maintainersCodeOwners = () => {
+function maintainersCodeOwners() {
   return Object.entries(userstylesData.userstyles!)
     .filter(([_, { "current-maintainers": currentMaintainers }]) =>
       currentMaintainers.length > 0
@@ -42,14 +47,22 @@ const maintainersCodeOwners = () => {
       return `/styles/${slug} ${codeOwners}`;
     })
     .join("\n");
-};
-const userstylesStaffCodeOwners = () => {
+}
+async function userstylesStaffCodeOwners() {
   const paths = ["/.github/", "/scripts/", "/template/"];
-  return paths.map((path) => `${path} @catppuccin/userstyles-staff`).join(
+
+  const octokit = getAuthenticatedOctokit();
+  const staffMembers = await getUserstylesTeamMembers(
+    octokit,
+    "userstyles-staff",
+  );
+  return paths.map((path) =>
+    `${path} ${staffMembers.map((member) => "@" + member).join(" ")}`
+  ).join(
     "\n",
   );
-};
+}
 await writeWithPreamble(
   path.join(REPO_ROOT, ".github/CODEOWNERS"),
-  `${maintainersCodeOwners()}\n\n${userstylesStaffCodeOwners()}`,
+  `${maintainersCodeOwners()}\n\n${await userstylesStaffCodeOwners()}`,
 );

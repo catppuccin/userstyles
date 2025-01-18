@@ -1,0 +1,917 @@
+/* ==UserStyle==
+@name GitHub Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/github
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/github
+@version 2025.01.13
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/github/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agithub
+@description Soothing pastel theme for GitHub
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document regexp(
+    "https:\/\/(gist\.)*github\.com(?!((\/.+?\/.+?\/commit\/[A-Fa-f0-9]+\.(patch|diff)$)|\/home$|\/features($|\/.*)|\/marketplace($|\?.*|\/.*)|\/organizations\/plan)).*$"
+  ),
+  domain("viewscreen.githubusercontent.com") {
+  [data-color-mode="auto"] {
+    @media (prefers-color-scheme: light) {
+      &[data-light-theme="light"] {
+        #catppuccin(@lightFlavor);
+      }
+      &[data-light-theme="dark"] {
+        #catppuccin(@darkFlavor);
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      &[data-dark-theme="light"] {
+        #catppuccin(@lightFlavor);
+      }
+      &[data-dark-theme="dark"] {
+        #catppuccin(@darkFlavor);
+      }
+    }
+  }
+  [data-color-mode="light"][data-light-theme="dark"],
+  [data-color-mode="dark"][data-dark-theme="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+  [data-color-mode="light"][data-light-theme="light"],
+  [data-color-mode="dark"][data-dark-theme="light"] {
+    #catppuccin(@lightFlavor);
+  }
+
+  html:not([data-light-theme="light"], [data-light-theme="dark"])
+    body:not(.logged-out)::after,
+  html:not([data-dark-theme="dark"], [data-dark-theme="light"])
+    body:not(.logged-out)::after {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+    max-width: 40ch;
+    background-color: var(--color-danger-fg);
+    color: var(--color-header-bg);
+    content: "Unsupported GitHub theme detected! Please switch to the default light/dark theme via the GitHub Appearance settings to get the best experience for the Catppuccin GitHub userstyle.";
+    z-index: 9999;
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+    .cm-placeholder {
+      color: @subtext0;
+    }
+
+    accent-color: @accent;
+    color: @text;
+
+    --color-social-reaction-bg-reacted-hover: fade(@accent, 30%);
+    --color-notifications-button-hover-bg: fade(@accent, 60%);
+    --color-workflow-card-header-shadow: rgba(27, 31, 35, 0.04);
+    --color-icon-directory: var(--fgColor-muted, var(--color-fg-muted));
+    --color-calendar-halloween-graph-day-L1-bg: fade(
+      @accent,
+      40%
+    ) !important;
+    --color-calendar-halloween-graph-day-L2-bg: fade(
+      @accent,
+      60%
+    ) !important;
+    --color-calendar-halloween-graph-day-L3-bg: fade(
+      @accent,
+      80%
+    ) !important;
+    --color-calendar-halloween-graph-day-L4-bg: @accent !important;
+    --color-calendar-winter-graph-day-L1-bg: fade(
+      @accent,
+      40%
+    ) !important;
+    --color-calendar-winter-graph-day-L2-bg: fade(
+      @accent,
+      60%
+    ) !important;
+    --color-calendar-winter-graph-day-L3-bg: fade(
+      @accent,
+      80%
+    ) !important;
+    --color-calendar-winter-graph-day-L4-bg: @accent !important;
+    --color-calendar-graph-day-bg: @surface0 !important;
+    --color-calendar-graph-day-border: transparent !important;
+    --color-calendar-graph-day-L1-bg: fade(@accent, 40%) !important;
+    --color-calendar-graph-day-L2-bg: fade(@accent, 60%) !important;
+    --color-calendar-graph-day-L3-bg: fade(@accent, 80%) !important;
+    --color-calendar-graph-day-L4-bg: @accent !important;
+    --color-calendar-graph-day-L2-border: transparent !important;
+    --color-calendar-graph-day-L3-border: transparent !important;
+    --color-calendar-graph-day-L4-border: transparent !important;
+    --color-user-mention-fg: @accent;
+    --color-user-mention-bg: fade(@accent, 30%);
+    --color-dashboard-feed-bg: var(--color-scale-gray-9);
+    --color-mktg-btn-shadow-outline: rgba(255, 255, 255, 0.25) 0 0 0 1px inset;
+    --color-marketing-icon-secondary: var(--color-scale-blue-5);
+    --color-project-header-bg: var(--color-scale-gray-9);
+    --color-project-sidebar-bg: var(--color-scale-gray-8);
+    --color-project-gradient-in: var(--color-scale-gray-8);
+    --color-project-gradient-out: rgba(22, 27, 34, 0);
+    --color-diff-blob-selected-line-highlight-mix-blend-mode: screen;
+    --topicTag-borderColor: #0000;
+    --highlight-neutral-bgColor: fade(@yellow, 30%);
+    --page-header-bgColor: @crust;
+    --diffBlob-additionNum-bgColor: fade(@green, 30%);
+    --diffBlob-additionNum-fgColor: @text;
+    --diffBlob-additionLine-bgColor: fade(@green, 15%);
+    --diffBlob-additionWord-bgColor: fade(@green, 30%);
+    --diffBlob-additionWord-fgColor: @text;
+    --diffBlob-deletionNum-bgColor: fade(@red, 30%);
+    --diffBlob-deletionNum-fgColor: @text;
+    --diffBlob-deletionLine-bgColor: fade(@red, 15%);
+    --diffBlob-deletionWord-bgColor: fade(@red, 30%);
+    --diffBlob-deletionWord-fgColor: @text;
+    --diffBlob-hunkNum-bgColor-rest: fade(@accent, 40%);
+    --diffBlob-hunkNum-bgColor-hover: fade(@accent, 75%);
+    --diffBlob-hunkLine-bgColor: fade(@accent, 25%);
+    --diffBlob-expander-iconColor: @subtext0;
+    --diffBlob-emptyNum-bgColor: @mantle;
+    --diffBlob-emptyLine-bgColor: @mantle;
+    --codeMirror-fgColor: @text;
+    --codeMirror-bgColor: @base;
+    --codeMirror-gutters-bgColor: @base;
+    --codeMirror-gutterMarker-fgColor-default: @base;
+    --codeMirror-gutterMarker-fgColor-muted: @overlay0;
+    --codeMirror-lineNumber-fgColor: @overlay1;
+    --codeMirror-cursor-fgColor: @text;
+    --codeMirror-selection-bgColor: #388bfd66;
+    --codeMirror-activeline-bgColor: #6e768166;
+    --codeMirror-matchingBracket-fgColor: @text;
+    --codeMirror-lines-bgColor: @base;
+    --codeMirror-syntax-fgColor-comment: @overlay2;
+    --codeMirror-syntax-fgColor-constant: @blue;
+    --codeMirror-syntax-fgColor-entity: @blue;
+    --codeMirror-syntax-fgColor-keyword: @mauve;
+    --codeMirror-syntax-fgColor-storage: @peach;
+    --codeMirror-syntax-fgColor-string: @green;
+    --codeMirror-syntax-fgColor-support: #79c0ff;
+    --codeMirror-syntax-fgColor-variable: @peach;
+    --header-fgColor-default: @text;
+    --header-fgColor-logo: @text;
+    --header-bgColor: @crust;
+    --header-borderColor-divider: #8b949e;
+    --headerSearch-bgColor: @mantle;
+    --headerSearch-borderColor: @surface0;
+    --avatar-bgColor: fade(@text, 26%);
+    --avatar-borderColor: @surface0;
+    --avatar-shadow: 0px 0px 0px 2px #0d1117;
+    --avatarStack-fade-bgColor-default: @surface1;
+    --avatarStack-fade-bgColor-muted: #21262d;
+    --control-bgColor-rest: @red;
+    --control-bgColor-hover: #292e36;
+    --control-bgColor-active: @surface1;
+    --control-bgColor-disabled: fade(@mantle, 60%);
+    --control-bgColor-selected: #161b22;
+    --control-fgColor-rest: @text;
+    --control-fgColor-placeholder: #484f58;
+    --control-fgColor-disabled: fade(@subtext0, 70%);
+    --control-borderColor-rest: @surface1;
+    --control-borderColor-emphasis: #666e79;
+    --control-borderColor-disabled: fade(@surface1, 75%);
+    --control-borderColor-selected: #f0f6fc;
+    --control-borderColor-success: @green;
+    --control-borderColor-danger: @red;
+    --control-borderColor-warning: @yellow;
+    --control-iconColor-rest: #848d97;
+    --control-transparent-bgColor-rest: #0000;
+    --control-transparent-bgColor-hover: fade(@surface2, 20%);
+    --control-transparent-bgColor-active: fade(@overlay0, 50%);
+    --control-transparent-bgColor-disabled: #21262db3;
+    --control-transparent-bgColor-selected: #b1bac414;
+    --control-transparent-borderColor-rest: #0000;
+    --control-transparent-borderColor-hover: #0000;
+    --control-transparent-borderColor-active: #0000;
+    --control-danger-fgColor-rest: @red;
+    --control-danger-fgColor-hover: @crust;
+    --control-danger-bgColor-hover: fade(@red, 80%);
+    --control-danger-bgColor-active: @red;
+    --control-checked-bgColor-rest: @accent;
+    --control-checked-bgColor-hover: lighten(@accent, 5%);
+    --control-checked-bgColor-active: lighten(@accent, 5%);
+    --control-checked-bgColor-disabled: #6e7681;
+    --control-checked-fgColor-rest: @crust;
+    --control-checked-fgColor-disabled: #010409;
+    --control-checked-borderColor-rest: @accent;
+    --control-checked-borderColor-hover: @accent;
+    --control-checked-borderColor-active: @accent;
+    --control-checked-borderColor-disabled: @surface0;
+    --controlTrack-bgColor-rest: @surface0;
+    --controlTrack-bgColor-hover: @surface1;
+    --controlTrack-bgColor-active: @surface2;
+    --controlTrack-bgColor-disabled: #6e7681;
+    --controlTrack-fgColor-rest: #848d97;
+    --controlTrack-fgColor-disabled: @text;
+    --controlTrack-borderColor-rest: #0000;
+    --controlTrack-borderColor-disabled: #6e7681;
+    --controlKnob-bgColor-rest: @base;
+    --controlKnob-bgColor-disabled: #21262db3;
+    --controlKnob-bgColor-checked: @text;
+    --controlKnob-borderColor-rest: @surface2;
+    --controlKnob-borderColor-disabled: #21262db3;
+    --controlKnob-borderColor-checked: @blue;
+    --button-default-fgColor-rest: @text;
+    --button-default-bgColor-rest: @surface0;
+    --button-default-bgColor-hover: @surface1;
+    --button-default-bgColor-active: @surface2;
+    --button-default-bgColor-selected: @surface2;
+    --button-default-bgColor-disabled: fade(@surface0, 70%);
+    --button-default-borderColor-rest: @surface1;
+    --button-default-borderColor-hover: @surface1;
+    --button-default-borderColor-active: @surface1;
+    --button-default-borderColor-disabled: fade(@surface0, 70%);
+    --button-default-shadow-resting: 0px 0px 0px 0px #000;
+    --button-primary-fgColor-rest: @base;
+    --button-primary-fgColor-disabled: fade(@base, 60%);
+    --button-primary-iconColor-rest: @base;
+    --button-primary-bgColor-rest: @green;
+    --button-primary-bgColor-hover: lighten(@green, 5%);
+    --button-primary-bgColor-active: saturate(@green, 5%);
+    --button-primary-bgColor-disabled: fade(@green, 70%);
+    --button-primary-borderColor-rest: @green;
+    --button-primary-borderColor-hover: @green;
+    --button-primary-borderColor-active: @green;
+    --button-primary-borderColor-disabled: fade(@green, 70%);
+    --button-primary-shadow-selected: 0px 0px 0px 0px #000;
+    --button-invisible-fgColor-rest: @text;
+    --button-invisible-fgColor-hover: lighten(@accent, 10%);
+    --button-invisible-fgColor-disabled: #6e7681;
+    --button-invisible-iconColor-rest: @overlay2;
+    --button-invisible-iconColor-hover: #e6edf3;
+    --button-invisible-iconColor-disabled: #6e7681;
+    --button-invisible-bgColor-rest: #0000;
+    --button-invisible-bgColor-hover: #b1bac41f;
+    --button-invisible-bgColor-active: #b1bac433;
+    --button-invisible-bgColor-disabled: fade(@surface1, 70%);
+    --button-invisible-borderColor-rest: #0000;
+    --button-invisible-borderColor-hover: #0000;
+    --button-invisible-borderColor-disabled: fade(@surface1, 70%);
+    --button-outline-fgColor-rest: #388bfd;
+    --button-outline-fgColor-hover: #58a6ff;
+    --button-outline-fgColor-active: @text;
+    --button-outline-fgColor-disabled: #4493f880;
+    --button-outline-bgColor-rest: #f0f6fc;
+    --button-outline-bgColor-hover: @surface1;
+    --button-outline-bgColor-active: #0d419d;
+    --button-outline-bgColor-disabled: #0d1117;
+    --button-outline-borderColor-hover: #f0f6fc1a;
+    --button-outline-borderColor-selected: #f0f6fc1a;
+    --button-outline-shadow-selected: 0px 0px 0px 0px #000;
+    --button-danger-fgColor-rest: @red;
+    --button-danger-fgColor-hover: @base;
+    --button-danger-fgColor-active: @base;
+    --button-danger-fgColor-disabled: fade(@red, 50%);
+    --button-danger-iconColor-rest: @red;
+    --button-danger-iconColor-hover: @crust;
+    --button-danger-bgColor-rest: @surface0;
+    --button-danger-bgColor-hover: @red;
+    --button-danger-bgColor-active: darken(@red, 5%);
+    --button-danger-bgColor-disabled: @base;
+    --button-danger-borderColor-rest: @surface1;
+    --button-danger-borderColor-hover: @red;
+    --button-danger-borderColor-active: darken(@red, 5%);
+    --button-danger-shadow-selected: 0px 0px 0px 0px #000;
+    --button-inactive-fgColor: #8b949e;
+    --button-inactive-bgColor: #21262d;
+    --button-star-iconColor: @yellow;
+    --buttonCounter-default-bgColor-rest: @surface1;
+    --buttonCounter-invisible-bgColor-rest: @surface1;
+    --buttonCounter-primary-bgColor-rest: #04260f33;
+    --buttonCounter-outline-bgColor-rest: #051d4d33;
+    --buttonCounter-outline-bgColor-hover: #051d4d33;
+    --buttonCounter-outline-bgColor-disabled: #1f6feb0d;
+    --buttonCounter-outline-fgColor-rest: #388bfd;
+    --buttonCounter-outline-fgColor-hover: #58a6ff;
+    --buttonCounter-outline-fgColor-disabled: #4493f880;
+    --buttonCounter-danger-bgColor-hover: fade(@text, 20%);
+    --buttonCounter-danger-bgColor-disabled: #da36330d;
+    --buttonCounter-danger-bgColor-rest: #49020233;
+    --buttonCounter-danger-fgColor-rest: @red;
+    --buttonCounter-danger-fgColor-hover: @text;
+    --buttonCounter-danger-fgColor-disabled: fade(@red, 50%);
+    --focus-outlineColor: @accent;
+    --menu-bgColor-active: @mantle;
+    --overlay-bgColor: @base;
+    --overlay-borderColor: @surface0;
+    --overlay-backdrop-bgColor: #161b2266;
+    --selectMenu-borderColor: #484f58;
+    --selectMenu-bgColor-active: #0c2d6b;
+    --sideNav-bgColor-selected: #21262d;
+    --skeletonLoader-bgColor: #161b22;
+    --timelineBadge-bgColor: @mantle;
+    --treeViewItem-leadingVisual-iconColor-rest: @subtext0;
+    --underlineNav-borderColor-active: @accent;
+    --underlineNav-borderColor-hover: #6e768166;
+    --underlineNav-iconColor-rest: #848d97;
+    --selection-bgColor: fade(@accent, 30%);
+    --reactionButton-selected-bgColor-rest: fade(@accent, 20%);
+    --reactionButton-selected-bgColor-hover: fade(@accent, 35%);
+    --reactionButton-selected-fgColor-rest: @accent;
+    --reactionButton-selected-fgColor-hover: @accent;
+    --fgColor-default: @text;
+    --fgColor-muted: @subtext1;
+    --fgColor-onEmphasis: @base;
+    --fgColor-white: if(@flavor = latte, @crust, @text);
+    --fgColor-disabled: @surface2;
+    --fgColor-link: @accent;
+    --fgColor-neutral: @subtext1;
+    --fgColor-accent: @accent;
+    --fgColor-success: @green;
+    --fgColor-attention: @yellow;
+    --fgColor-severe: @peach;
+    --fgColor-danger: @red;
+    --fgColor-open: @green;
+    --fgColor-closed: @red;
+    --fgColor-done: @mauve;
+    --fgColor-sponsors: @pink;
+    --bgColor-default: @base;
+    --bgColor-muted: @mantle;
+    --bgColor-inset: @crust;
+    --bgColor-emphasis: @overlay2;
+    --bgColor-inverse: @text;
+    --bgColor-disabled: #21262db3;
+    --bgColor-transparent: #0000;
+    --bgColor-neutral-muted: fade(@surface0, 40%);
+    --bgColor-neutral-emphasis: @subtext0;
+    --bgColor-accent-muted: fade(@accent, 20%);
+    --bgColor-accent-emphasis: @accent;
+    --bgColor-success-muted: #2ea04326;
+    --bgColor-success-emphasis: @green;
+    --bgColor-attention-muted: fade(@yellow, 15%);
+    --bgColor-attention-emphasis: @yellow;
+    --bgColor-severe-muted: fade(@peach, 26%);
+    --bgColor-severe-emphasis: @peach;
+    --bgColor-danger-muted: fade(@red, 26%);
+    --bgColor-danger-emphasis: @red;
+    --bgColor-open-muted: #2ea0431a;
+    --bgColor-open-emphasis: @green;
+    --bgColor-closed-muted: fade(@red, 15%);
+    --bgColor-closed-emphasis: @red;
+    --bgColor-done-muted: #a371f726;
+    --bgColor-done-emphasis: @mauve;
+    --bgColor-sponsors-muted: #db61a21a;
+    --bgColor-sponsors-emphasis: @pink;
+    --borderColor-default: @surface1;
+    --borderColor-muted: @surface0;
+    --borderColor-emphasis: #484f58;
+    --borderColor-disabled: #21262db3;
+    --borderColor-transparent: #0000;
+    --borderColor-neutral-muted: #6e768166;
+    --borderColor-neutral-emphasis: #6e7681;
+    --borderColor-accent-muted: fade(@accent, 50%);
+    --borderColor-accent-emphasis: @accent;
+    --borderColor-success-muted: darken(@green, 5%);
+    --borderColor-success-emphasis: @green;
+    --borderColor-attention-muted: fade(@flamingo, 30%);
+    --borderColor-attention-emphasis: @flamingo;
+    --borderColor-severe-muted: @peach;
+    --borderColor-severe-emphasis: #bd561d;
+    --borderColor-danger-muted: @red;
+    --borderColor-danger-emphasis: @red;
+    --borderColor-open-muted: darken(@green, 5%);
+    --borderColor-open-emphasis: @green;
+    --borderColor-closed-muted: @red;
+    --borderColor-closed-emphasis: @red;
+    --borderColor-done-muted: @lavender;
+    --borderColor-done-emphasis: @mauve;
+    --borderColor-sponsors-muted: #db61a266;
+    --borderColor-sponsors-emphasis: @pink;
+    & when (@flavor = latte) {
+      --color-ansi-black: @subtext1;
+      --color-ansi-black-bright: @subtext0;
+      --color-ansi-gray: @subtext0;
+      --color-ansi-white: @surface2;
+      --color-ansi-white-bright: @surface1;
+    }
+    & when not(@flavor = latte) {
+      --color-ansi-black: @surface1;
+      --color-ansi-black-bright: @surface2;
+      --color-ansi-gray: @surface2;
+      --color-ansi-white: @subtext1;
+      --color-ansi-white-bright: @subtext0;
+    }
+    --color-ansi-red: @red;
+    --color-ansi-red-bright: @red;
+    --color-ansi-green: @green;
+    --color-ansi-green-bright: @green;
+    --color-ansi-yellow: @yellow;
+    --color-ansi-yellow-bright: @yellow;
+    --color-ansi-blue: @blue;
+    --color-ansi-blue-bright: @blue;
+    --color-ansi-magenta: @pink;
+    --color-ansi-magenta-bright: @pink;
+    --color-ansi-cyan: @teal;
+    --color-ansi-cyan-bright: @teal;
+    --color-prettylights-syntax-comment: @overlay2;
+    --color-prettylights-syntax-constant: @blue;
+    --color-prettylights-syntax-constant-other-reference-link: @blue;
+    --color-prettylights-syntax-entity: @blue;
+    --color-prettylights-syntax-storage-modifier-import: @peach;
+    --color-prettylights-syntax-entity-tag: @blue;
+    --color-prettylights-syntax-keyword: @mauve;
+    --color-prettylights-syntax-string: @green;
+    --color-prettylights-syntax-variable: @peach;
+    --color-prettylights-syntax-invalid-illegal-text: @red;
+    --color-prettylights-syntax-invalid-illegal-bg: fade(@red, 15%);
+    --color-prettylights-syntax-markup-heading: @red;
+    --color-prettylights-syntax-markup-italic: @yellow;
+    --color-prettylights-syntax-markup-bold: @yellow;
+    --color-prettylights-syntax-markup-deleted-text: @text;
+    --color-prettylights-syntax-markup-deleted-bg: fade(@red, 40%);
+    --color-prettylights-syntax-markup-inserted-text: @text;
+    --color-prettylights-syntax-markup-inserted-bg: fade(@green, 40%);
+    --color-prettylights-syntax-markup-changed-text: @text;
+    --color-prettylights-syntax-markup-changed-bg: fade(@yellow, 40%);
+    --color-prettylights-syntax-markup-ignored-text: @text;
+    --bgColor-white: @base;
+    --color-scale-white: @base;
+    --color-scale-gray-3: @overlay2;
+    --color-scale-gray-5: @overlay0;
+    --color-scale-gray-6: @surface1;
+    --color-scale-gray-7: @surface1;
+    --color-scale-blue-2: @sky;
+    --color-scale-blue-5: @blue;
+    --color-scale-green-3: @green;
+    --color-scale-green-4: @green;
+    --color-scale-yellow-3: @peach;
+    --color-scale-orange-4: @peach;
+    --color-scale-red-4: @red;
+    --shadow-inset: inset 0px 1px 0px 0px @crust;
+    --shadow-resting-xsmall: 0px 1px 0px 0px @crust;
+    --shadow-resting-small: 0px 1px 0px 0px @crust, 0px 1px 3px 0px @crust;
+    --shadow-resting-medium: 0px 3px 6px 0px @crust;
+    --shadow-floating-small:
+      0px 0px 0px 1px @base, 0px 6px 12px -3px @crust, 0px 6px 18px 0px @crust;
+    --shadow-floating-medium:
+      0px 0px 0px 1px @surface0, 0px 8px 16px -4px @crust, 0px 4px 32px -4px
+      @crust, 0px 24px 48px -12px @crust, 0px 48px 96px -24px @crust;
+    --shadow-floating-large:
+      0px 0px 0px 1px @surface0, 0px 24px 48px 0px #010409;
+    --shadow-floating-xlarge:
+      0px 0px 0px 1px @surface0, 0px 32px 64px 0px #010409;
+    --shadow-floating-legacy: 0px 6px 12px -3px @crust, 0px 6px 18px 0px @crust;
+    --outline-focus: @blue solid 2px;
+
+    /* Customer Terms & Agreements Page: https://github.com/customer-terms */
+    .enterprise-customer-agreement {
+      color: @text !important;
+
+      &:hover {
+        .octicon,
+        h3 {
+          color: @accent !important;
+        }
+      }
+    }
+
+    /* Enhanced Repo Insights Views - https://github.com/orgs/community/discussions/135572 */
+    --data-blue-color-emphasis: @accent;
+    --data-red-color-emphasis: @red;
+    --data-green-color-emphasis: @green;
+
+    /* Copilot Chat */
+    --display-green-fgColor: @green;
+    --display-teal-fgColor: @teal;
+    --display-purple-fgColor: @mauve;
+    --display-blue-fgColor: @blue;
+    --display-pink-fgColor: @pink;
+    --display-gray-fgColor: @subtext0;
+    react-app[app-name="copilot-immersive-v1"],
+    copilot-dashboard-entrypoint {
+      button {
+        color: @text;
+      }
+    }
+
+    --tooltip-fgColor: @base;
+    --tooltip-bgColor: @overlay2;
+
+    /* Refined GitHub */
+    --rgh-heat-color: @peach;
+
+    .turbo-progress-bar {
+      background-color: @accent;
+    }
+
+    .form-select {
+      @svg: escape(
+        '<svg width="16" height="16" viewBox="0 0 16 16" fill="@{subtext0}" xmlns="http://www.w3.org/2000/svg"><path d="m4.427 9.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 9H4.604a.25.25 0 0 0-.177.427M4.423 6.47 7.82 3.072a.25.25 0 0 1 .354 0L11.57 6.47a.25.25 0 0 1-.177.427H4.6a.25.25 0 0 1-.177-.427"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    img[src="https://github.githubassets.com/assets/mona-loading-default-c3c7aad1282f.gif"] {
+      content: url("https://giscus.catppuccin.com/assets/loading_48x48.gif");
+    }
+
+    /* Header when logged out */
+    .HeaderMenu-link {
+      color: @text;
+
+      &:hover {
+        color: @text;
+      }
+    }
+    .header-search-button {
+      &.placeholder {
+        color: @subtext0;
+      }
+
+      svg {
+        fill: @text !important;
+      }
+    }
+    .HeaderMenu-toggle-bar {
+      background-color: @text;
+    }
+    .notification-indicator .mail-status {
+      background-image: linear-gradient(
+        @accent,
+        darken(@accent, 5%)
+      );
+    }
+
+    .CheckStep {
+      .ansifg-r {
+        color: var(--color-ansi-red);
+      }
+      .ansifg-y {
+        color: var(--color-ansi-yellow);
+      }
+      .ansifg-g {
+        color: var(--color-ansi-green);
+      }
+      .ansifg-b {
+        color: var(--color-ansi-blue);
+      }
+      .ansifg-c {
+        color: var(--color-ansi-cyan);
+      }
+      .ansifg-m {
+        color: var(--color-ansi-magenta);
+      }
+      .ansifg-gr {
+        color: var(--color-ansi-gray);
+      }
+    }
+
+    .js-activity-overview-graph .js-highlight-blob {
+      fill: @accent;
+      stroke: @accent;
+    }
+
+    .subnav-link.selected {
+      border-bottom-color: @accent;
+    }
+
+    /* Pull request check in progress indicator */
+    [stroke="#DBAB0A" i] {
+      stroke: fade(@yellow, 70%) !important;
+    }
+    [fill="#DBAB0A" i] {
+      fill: @yellow !important;
+    }
+  }
+}
+
+@-moz-document url-prefix(
+    "https://viewscreen.githubusercontent.com/markdown/mermaid"
+  ) {
+  [data-color-mode="auto"] {
+    @media (prefers-color-scheme: light) {
+      &[data-light-theme="light"] {
+        #catppuccin(@lightFlavor);
+      }
+      &[data-light-theme="dark"] {
+        #catppuccin(@darkFlavor);
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      &[data-dark-theme="light"] {
+        #catppuccin(@lightFlavor);
+      }
+      &[data-dark-theme="dark"] {
+        #catppuccin(@darkFlavor);
+      }
+    }
+  }
+  [data-color-mode="light"][data-light-theme="dark"],
+  [data-color-mode="dark"][data-dark-theme="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+  [data-color-mode="light"][data-light-theme="light"],
+  [data-color-mode="dark"][data-dark-theme="light"] {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    background-color: @base;
+
+    --color-btn-text: @text;
+    --color-btn-bg: @surface0;
+    --color-btn-border: @surface1;
+    --color-btn-hover-bg: @surface1;
+    --color-btn-hover-border: @surface2;
+    --color-btn-active-bg: @surface2;
+    --color-btn-selected-bg: @surface2;
+    --color-btn-counter-bg: @surface2;
+    --color-btn-outline-text: @accent;
+    --color-fg-muted: @subtext1;
+    --button-default-fgColor-rest: @text;
+    --button-default-bgColor-rest: @surface0;
+    --button-default-bgColor-hover: @surface1;
+    --button-default-bgColor-active: @surface2;
+    --button-default-bgColor-selected: @surface2;
+    --button-default-bgColor-disabled: fade(@surface0, 70%);
+    --button-default-borderColor-rest: @surface1;
+    --button-default-borderColor-hover: @surface1;
+    --button-default-borderColor-active: @surface1;
+    --button-default-borderColor-disabled: fade(@surface0, 70%);
+
+    #diagram {
+      .node rect,
+      .node circle,
+      .node ellipse,
+      .node polygon,
+      .node path {
+        fill: fade(@accent, 10%);
+        stroke: @accent;
+      }
+
+      .cluster rect {
+        fill: @surface0;
+        stroke: @surface2;
+      }
+
+      .label text,
+      span,
+      p {
+        fill: @text;
+        color: @text;
+      }
+
+      .flowchart-link {
+        stroke: @subtext0;
+      }
+      .marker {
+        stroke: @subtext0;
+        fill: @subtext0;
+      }
+
+      .edgeLabel {
+        background-color: @crust;
+        p {
+          background-color: @surface2;
+        }
+      }
+    }
+
+    .octicon {
+      fill: var(--color-fg-muted) !important;
+    }
+  }
+}
+
+@-moz-document regexp(
+    "https:\/\/notebooks\.githubusercontent\.com\/view\/ipynb.*"
+  ) {
+  :root {
+    #catppuccin(@darkFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    --jp-border-color0: var(--color-scale-gray-7);
+    --jp-border-color1: var(--color-scale-gray-7);
+    --jp-border-color2: var(--color-scale-gray-8);
+    --jp-border-color3: var(--color-scale-gray-9);
+    --jp-ui-font-color0: @text;
+    --jp-ui-font-color1: fade(@text, 87%);
+    --jp-ui-font-color2: fade(@text, 54%);
+    --jp-ui-font-color3: fade(@text, 28%);
+    --jp-ui-inverse-font-color0: @crust;
+    --jp-ui-inverse-font-color1: fade(@crust, 80%);
+    --jp-ui-inverse-font-color2: fade(@crust, 50%);
+    --jp-ui-inverse-font-color3: fade(@crust, 30%);
+    --jp-content-font-color0: @text;
+    --jp-content-font-color1: @text;
+    --jp-content-font-color2: fade(@text, 70%);
+    --jp-content-font-color3: fade(@text, 50%);
+    --jp-content-link-color: @sapphire;
+    --jp-layout-color0: @base !important;
+    --jp-layout-color1: var(--color-scale-gray-9);
+    --jp-layout-color2: var(--color-scale-gray-8);
+    --jp-layout-color3: var(--color-scale-gray-7);
+    --jp-layout-color4: var(--color-scale-gray-6);
+    --jp-inverse-layout-color0: var(--color-scale-white);
+    --jp-inverse-layout-color1: var(--color-scale-white);
+    --jp-inverse-layout-color2: var(--color-scale-gray-2);
+    --jp-inverse-layout-color3: var(--color-scale-gray-4);
+    --jp-inverse-layout-color4: var(--color-scale-gray-6);
+    --jp-brand-color0: var(--color-scale-blue-7);
+    --jp-brand-color1: var(--color-scale-blue-5);
+    --jp-brand-color2: var(--color-scale-blue-3);
+    --jp-brand-color3: var(--color-scale-blue-1);
+    --jp-brand-color4: var(--color-scale-blue-0);
+    --jp-accent-color0: var(--color-scale-green-7);
+    --jp-accent-color1: var(--color-scale-green-5);
+    --jp-accent-color2: var(--color-scale-green-3);
+    --jp-accent-color3: var(--color-scale-green-1);
+    --jp-warn-color0: var(--color-scale-orange-7);
+    --jp-warn-color1: var(--color-scale-orange-5);
+    --jp-warn-color2: var(--color-scale-orange-3);
+    --jp-warn-color3: var(--color-scale-orange-1);
+    --jp-error-color0: var(--color-scale-red-7);
+    --jp-error-color1: var(--color-scale-red-5);
+    --jp-error-color2: var(--color-scale-red-3);
+    --jp-error-color3: var(--color-scale-red-1);
+    --jp-success-color0: var(--color-scale-green-7);
+    --jp-success-color1: var(--color-scale-green-5);
+    --jp-success-color2: var(--color-scale-green-3);
+    --jp-success-color3: var(--color-scale-green-1);
+    --jp-info-color0: var(--color-scale-blue-7);
+    --jp-info-color1: var(--color-scale-blue-5);
+    --jp-info-color2: var(--color-scale-blue-3);
+    --jp-info-color3: var(--color-scale-blue-1);
+    --jp-cell-editor-background: @mantle;
+    --jp-cell-editor-border-color: var(--color-scale-gray-7);
+    --jp-cell-editor-box-shadow: inset 0 0 2px var(--color-scale-blue-3);
+    --jp-cell-prompt-not-active-font-color: fade(@text, 50%);
+    --jp-cell-inprompt-font-color: var(--color-scale-blue-6);
+    --jp-cell-outprompt-font-color: var(--color-scale-coral-6);
+    --jp-notebook-multiselected-color: fade(@overlay2, 14%);
+    --jp-rendermime-error-background: fade(@red, 18%);
+    --jp-rendermime-table-row-background: var(--color-scale-gray-9);
+    --jp-rendermime-table-row-hover-background: fade(@surface2, 14%);
+    --jp-dialog-background: fade(@crust, 60%);
+    --jp-toolbar-box-shadow: 0px 0px 2px 0px fade(@crust, 80%);
+    --jp-input-box-shadow: inset 0 0 2px var(--color-scale-blue-3);
+    --jp-input-background: var(--color-scale-gray-8);
+    --jp-input-active-box-shadow-color: fade(@blue, 30%);
+    --jp-editor-selected-focused-background: fade(@blue, 14%);
+    --jp-mirror-editor-keyword-color: var(--color-scale-green-5);
+    --jp-mirror-editor-atom-color: var(--color-scale-blue-3);
+    --jp-mirror-editor-number-color: var(--color-scale-green-4);
+    --jp-mirror-editor-def-color: var(--color-scale-blue-6);
+    --jp-mirror-editor-variable-color: var(--color-scale-gray-3);
+    --jp-mirror-editor-variable-2-color: var(--color-scale-blue-4);
+    --jp-mirror-editor-variable-3-color: var(--color-scale-green-6);
+    --jp-mirror-editor-punctuation-color: var(--color-scale-blue-4);
+    --jp-mirror-editor-property-color: var(--color-scale-blue-4);
+    --jp-mirror-editor-operator-color: @mauve;
+    --jp-mirror-editor-comment-color: @subtext0;
+    --jp-mirror-editor-string-color: @peach;
+    --jp-mirror-editor-string-2-color: var(--color-scale-purple-3);
+    --jp-mirror-editor-meta-color: @mauve;
+    --jp-mirror-editor-qualifier-color: var(--color-scale-gray-5);
+    --jp-mirror-editor-builtin-color: var(--color-scale-green-6);
+    --jp-mirror-editor-bracket-color: var(--color-scale-gray-2);
+    --jp-mirror-editor-tag-color: var(--color-scale-blue-7);
+    --jp-mirror-editor-attribute-color: var(--color-scale-blue-7);
+    --jp-mirror-editor-header-color: var(--color-scale-blue-5);
+    --jp-mirror-editor-quote-color: var(--color-scale-green-3);
+    --jp-mirror-editor-link-color: var(--color-scale-blue-7);
+    --jp-mirror-editor-error-color: @red;
+    --jp-mirror-editor-hr-color: var(--color-scale-gray-8);
+    --jp-vega-background: var(--color-scale-gray-4);
+    --jp-search-selected-match-background-color: @yellow;
+    --jp-search-selected-match-color: @crust;
+    --jp-icon-contrast-color0: var(--color-scale-purple-6);
+    --jp-icon-contrast-color1: var(--color-scale-green-6);
+    --jp-icon-contrast-color2: var(--color-scale-pink-6);
+    --jp-icon-contrast-color3: var(--color-scale-blue-6);
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};

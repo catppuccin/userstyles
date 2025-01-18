@@ -1,0 +1,399 @@
+/* ==UserStyle==
+@name 7TV Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/seventv
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/seventv
+@version 2024.12.31.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/seventv/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aseventv
+@description Soothing pastel theme for 7TV
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain("7tv.app") {
+  .light-theme {
+    #catppuccin(@lightFlavor);
+  }
+  .dark-theme {
+    #catppuccin(@darkFlavor);
+  }
+
+  .system-theme {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    background-color: @base;
+
+    --secondary: @surface0;
+    --secondary-text: @text;
+    --secondary-hover: @surface0;
+    --secondary-active: @surface0;
+    --secondary-disabled: @crust;
+    --secondary-border: transparent;
+    --primary: @accent;
+    --primary-text: @crust;
+    --primary-hover: darken(@accent, 5%);
+    --primary-active: darken(@accent, 5%);
+    --primary-disabled: @subtext0;
+    --primary-border: transparent;
+    --bg-dark: @crust;
+    --bg-medium: @mantle;
+    --bg-light: @base;
+    --text: @text;
+    --text-light: @subtext0;
+    --layout-border: transparent;
+    --border-active: @base;
+    --store: @mauve;
+    --preview: @mantle;
+    --danger: @peach;
+    --approve: @green;
+    --rename: @sapphire;
+    --staff: @red;
+    --staff-bg: fade(@red, 20%);
+    --admin-merge: @mauve;
+    --admin-unlist: @peach;
+
+    .flag {
+      &[style*="#57ab5a"] {
+        color: @green !important;
+        background-color: fade(@green, 20%) !important;
+      }
+      /* Emote is in selected emote set */
+      &[style*="#529bf5"] {
+        color: @accent !important;
+        background-color: fade(@accent, 20%) !important;
+      }
+      /* Emote is unlisted */
+      &[style*="#eb3d26"] {
+        color: @red !important;
+      }
+      /* Emote is trending */
+      &[style*="#e0823d"] {
+        color: @peach !important;
+      }
+      /* Emote is overlaying */
+      &[style*="#fc8dc7"] {
+        color: @pink !important;
+      }
+      /* Personal emote set */
+      &[style*="#b083f0"] {
+        color: @mauve !important;
+      }
+    }
+
+    .badge {
+      color: @base;
+    }
+
+    .emote,
+    .emote-set {
+      /* Emote is in selected emote set */
+      &[style*="--highlight-active: #529bf5"] {
+        --highlight: fade(@accent, 80%) !important;
+        --highlight-active: @accent !important;
+        &.emote-set .name {
+          color: @accent !important;
+        }
+      }
+
+      /* Emote is unlisted */
+      &[style*="--highlight-active: #eb3d26"] {
+        --highlight: fade(@red, 80%) !important;
+        --highlight-active: @red !important;
+      }
+
+      /* Emote is trending */
+      &[style*="--highlight-active: #e0823d"] {
+        --highlight: fade(@peach, 80%) !important;
+        --highlight-active: @peach !important;
+      }
+
+      /* Emote is overlaying */
+      &[style*="--highlight-active: #fc8dc7"] {
+        --highlight: fade(@pink, 80%) !important;
+        --highlight-active: @pink !important;
+      }
+
+      /* Emote set is a personal emote set */
+      &.emote-set[style*="--highlight-active: #b083f0"] {
+        --highlight: fade(@mauve, 80%) !important;
+        --highlight-active: @mauve !important;
+        &.emote-set .name {
+          color: @mauve !important;
+        }
+      }
+
+      /* Emote set is a event emote set */
+      &.emote-set[style*="--highlight-active: #fcc200"] {
+        --highlight: fade(@yellow, 80%) !important;
+        --highlight-active: @yellow !important;
+        &.emote-set .name,
+        &.emote-set .flag {
+          color: @yellow !important;
+        }
+      }
+    }
+
+    img.image,
+    .profile-picture,
+    .profile-name .name,
+    .user .name,
+    .user-link,
+    .role > span,
+    .side-bar .name,
+    .roles > span {
+      /* Admin */
+      &[style*="255, 70, 70"] {
+        &,
+        span,
+        img {
+          color: @red !important;
+          border-color: @red !important;
+        }
+      }
+
+      /* Moderator */
+      &[style*="50, 168, 82"] {
+        &,
+        span,
+        img {
+          color: @green !important;
+          border-color: @green !important;
+        }
+      }
+
+      &[style*="23, 235, 182"],
+      &[style*="177, 235, 52"],
+      &[style*="68, 194, 135"] {
+        &,
+        span {
+          color: @teal !important;
+          border-color: @teal !important;
+        }
+      }
+      /* Event coordinator */
+      &[style*="182, 56, 181"] {
+        &,
+        span,
+        img {
+          color: @pink !important;
+          border-color: @pink !important;
+        }
+      }
+
+      /* Verified */
+      &[style*="145, 70, 255"] {
+        &,
+        span,
+        img {
+          color: @mauve !important;
+          border-color: @mauve !important;
+        }
+      }
+      /* Subscriber */
+      &[style*="255, 170, 0"] {
+        &,
+        span,
+        img {
+          color: @yellow !important;
+          border-color: @yellow !important;
+        }
+      }
+    }
+
+    .hero {
+      svg {
+        color: @text !important;
+      }
+
+      color: @text;
+      .for-all {
+        -webkit-text-stroke-color: @text !important;
+      }
+
+      &::before {
+        background:
+          radial-gradient(
+            180% 80% at 0% 100%,
+            @text 0%,
+            @blue 25%,
+            fade(@mauve, 90%) 56%,
+            fade(@mauve, 50%) 79%,
+            transparent 100%
+          ),
+          @crust;
+      }
+    }
+
+    /* Sub progress bar */
+
+    .progress-circle {
+      lineargradient stop {
+        stop-color: @accent;
+      }
+    }
+
+    .subgrid .badge {
+      color: @subtext0 !important;
+    }
+
+    /* Subscribe gradients */
+    .gradient {
+      color: @text !important;
+
+      &.g1 {
+        background:
+          radial-gradient(
+            150% 180% at 50% 180%,
+            @peach,
+            @yellow 1%,
+            @yellow 25%,
+            @mantle 75%
+          ),
+          var(--secondary) !important;
+      }
+
+      &.g2 {
+        background:
+          radial-gradient(
+            150% 180% at 50% 180%,
+            @text,
+            @red 1%,
+            @red 25%,
+            @mantle 75%
+          ),
+          var(--secondary) !important;
+      }
+
+      &.g3 {
+        background:
+          radial-gradient(
+            150% 180% at 50% 180%,
+            @peach,
+            @pink 1%,
+            @mauve 25%,
+            @mantle 75%
+          ),
+          var(--secondary) !important;
+      }
+
+      &.g5 {
+        background:
+          radial-gradient(
+            150% 180% at 50% 180%,
+            @peach,
+            @sapphire 1%,
+            @sapphire 25%,
+            @mantle 75%
+          ),
+          var(--secondary) !important;
+      }
+    }
+
+    /* Home page glow */
+    .weird-smiley::before,
+    .feature .background {
+      background-image: radial-gradient(
+        circle at bottom,
+        fade(@mauve, 20%),
+        fade(@sapphire, 20%)
+      ) !important;
+    }
+
+    .banner {
+      color: @base;
+
+      &[style="--gradient-color: #9227cf"] {
+        --gradient-color: @mauve !important;
+      }
+      &[style="--gradient-color: #27cfb1"] {
+        --gradient-color: @teal !important;
+      }
+      &[style="--gradient-color: #ff11bc"] {
+        --gradient-color: @red !important;
+      }
+
+      &::before {
+        background:
+          radial-gradient(
+            100% 100% at 50% 0%,
+            @text 0%,
+            var(--gradient-color) 33%,
+            @mauve 64%,
+            fade(@mauve, 50%) 80%,
+            @mantle 100%
+          ),
+          var(--bg-medium) !important;
+      }
+    }
+
+    /* Sub badge progress bar */
+
+    progress[value].bar {
+      &::-webkit-progress-bar,
+      &::-moz-progress-bar {
+        background: @accent !important;
+      }
+    }
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
