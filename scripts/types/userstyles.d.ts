@@ -75,9 +75,9 @@ export type Icon = string;
  */
 export type ApplicationLink = [string, string, ...string[]] | string;
 /**
- * The Usage section of the userstyle README.
+ * An additional note for the Usage section of the userstyle README.
  */
-export type Usage = string;
+export type Note = string;
 /**
  * The FAQ section of the userstyle README.
  *
@@ -184,7 +184,7 @@ export interface Userstyle {
  */
 export interface README {
   "app-link": ApplicationLink;
-  usage?: Usage;
+  note?: Note;
   faq?: FAQ;
   [k: string]: unknown;
 }
