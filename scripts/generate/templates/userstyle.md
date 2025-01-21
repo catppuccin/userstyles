@@ -17,9 +17,13 @@
   <img src="preview.webp"/>
 </p>
 
-{{#if usage}}
 ## Usage
-{{{ usage }}}
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
+{{#if note}}
+> [!NOTE]
+> {{{ note }}}
 {{/if}}
 
 {{#if faq}}
