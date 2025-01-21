@@ -17,10 +17,14 @@
   <img src="preview.webp"/>
 </p>
 
+## Usage
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
 
 
 ## 💝 Current Maintainer
-- [Natalie Raine](https://github.com/Nyatalieeee)
+- [Marceline](https://github.com/Meowcelinee)
 
 
 &nbsp;

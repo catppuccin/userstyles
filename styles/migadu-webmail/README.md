@@ -18,9 +18,11 @@
 </p>
 
 ## Usage
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
 > [!NOTE]
 > Set Migadu Webmail's built-in theme to 'Migadu' for the optimal experience.
-
 
 
 ## 💝 Current Maintainer
