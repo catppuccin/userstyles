@@ -18,9 +18,11 @@
 </p>
 
 ## Usage
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
 > [!NOTE]
 > Holodex's selected theme is ignored.
-
 
 
 ## 💝 Current Maintainer

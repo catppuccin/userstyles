@@ -18,9 +18,11 @@
 </p>
 
 ## Usage
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
 > [!NOTE]
 > This theme is designed to be used with the default WebGUI and default theme provided by Syncthing. This does not theme syncthing.net.
-
 
 
 ## 💝 Current Maintainer

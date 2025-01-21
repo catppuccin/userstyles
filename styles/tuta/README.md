@@ -18,9 +18,11 @@
 </p>
 
 ## Usage
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
 > [!NOTE]
 > Set Tuta's built-in theme to either **light** if you're using Latte or **dark** if you're using the others.
-
 
 
 ## 💝 Current Maintainer
