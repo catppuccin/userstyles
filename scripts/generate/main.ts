@@ -12,6 +12,12 @@ import {
   getUserstylesTeamMembers,
 } from "@/utils.ts";
 
+if (!Deno.env.get("CI")) {
+  throw new Error(
+    "This script should only be used in CI. Generated READMEs and other health files are automatically updated after pull requests are merged.",
+  );
+}
+
 const userstylesData = getUserstylesData();
 const portsData = await getPortsData();
 
