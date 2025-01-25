@@ -15,9 +15,12 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document regexp(
-    "https:\/\/(gist\.)*github\.com(?!((\/.+?\/.+?\/commit\/[A-Fa-f0-9]+\.(patch|diff)$)|\/home$|\/features($|\/.*)|\/marketplace($|\?.*|\/.*)|\/organizations\/plan)).*$"
+@-moz-document
+  /* Match every page on GitHub except github.com/home, github.com/features/*, and github.com/organizations/plan. */
+  regexp(
+    "https:\/\/github\.com(?!(\/home$|\/features($|\/.*)|\/organizations\/plan)).*$"
   ),
+  domain("gist.github.com"),
   domain("viewscreen.githubusercontent.com") {
   [data-color-mode="auto"] {
     @media (prefers-color-scheme: light) {
@@ -45,23 +48,6 @@
   [data-color-mode="light"][data-light-theme="light"],
   [data-color-mode="dark"][data-dark-theme="light"] {
     #catppuccin(@lightFlavor);
-  }
-
-  html:not([data-light-theme="light"], [data-light-theme="dark"])
-    body:not(.logged-out)::after,
-  html:not([data-dark-theme="dark"], [data-dark-theme="light"])
-    body:not(.logged-out)::after {
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 1rem;
-    margin: 1rem;
-    border-radius: 0.5rem;
-    max-width: 40ch;
-    background-color: var(--color-danger-fg);
-    color: var(--color-header-bg);
-    content: "Unsupported GitHub theme detected! Please switch to the default light/dark theme via the GitHub Appearance settings to get the best experience for the Catppuccin GitHub userstyle.";
-    z-index: 9999;
   }
 
   #catppuccin(@flavor) {
