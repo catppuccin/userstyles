@@ -2,7 +2,7 @@
 @name Instagram Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/instagram
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/instagram
-@version 2024.12.31
+@version 2025.01.26
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/instagram/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ainstagram
 @description Soothing pastel theme for Instagram
@@ -126,6 +126,8 @@
       --primary-icon: @accent;
       --primary-button-text: @mantle !important;
       --primary-button: @blue !important;
+      --mwp-primary-theme-color: darken(@blue, 10%);
+      --chat-composer-button-color: darken(@blue, 10%);
       scrollbar-color: @accent @crust;
     }
     #splash-screen {
@@ -214,8 +216,10 @@
 
     /* sumting wong's popup box */
     .x879a55,
-    .x7ywyr2 {
-      background-color: @surface1 !important;
+    .x7ywyr2:not(
+      [style*="background-color: rgb(var(--ig-highlight-background))"]
+    ) {
+      background-color: var(--surface1) !important;
     }
 
     /* Share box */
@@ -840,6 +844,49 @@
         fade(@surface0, 30%),
         fade(@surface0, 100%)
       );
+    }
+
+    /* voice clip */
+    div.x7ywyr2 {
+      &[style*="background-color: rgb(var(--ig-highlight-background))"] {
+        div[aria-label="Play"],
+        div[aria-label="Pause"],
+        div[role="timer"],
+        div[role="slider"] {
+          background-color: @text !important;
+        }
+        div[style*="clip-path"] div.x5yr21d.xh8yej3.x1bhxuv2 {
+          background-color: @subtext0 !important;
+        }
+        div[aria-label="Play"]:hover {
+          background-color: @subtext1 !important;
+        }
+      }
+      &[style*="background-color: var(--mwp-primary-theme-color)"] {
+        background-color: var(--mwp-primary-theme-color) !important;
+        div[aria-label="Play"],
+        div[aria-label="Pause"],
+        div[role="slider"],
+        div[role="timer"] {
+          background-color: @text !important;
+        }
+        div[aria-label="Play"]:hover {
+          background-color: @subtext1 !important;
+        }
+      }
+    }
+    /* voice clip recording container */
+    div[style*="background-color: var(--chat-composer-button-color)"] {
+      div[role="slider"] {
+        opacity: 1 !important;
+        background-color: darken(@blue, 4%) !important;
+      }
+      div[aria-label="Play"],
+      div[aria-label="Pause"],
+      div[role="timer"],
+      div[aria-label="Stop recording"] {
+        background-color: @text !important;
+      }
     }
 
     /* explicit music icon in notes */

@@ -18,7 +18,11 @@
 </p>
 
 ## Usage
-Make sure to use the default **Light** theme
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
+> [!NOTE]
+> Make sure to use the default **Light** theme.
 
 
 ## ❤️‍🩹 Unmaintained

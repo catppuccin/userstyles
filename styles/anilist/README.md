@@ -18,9 +18,11 @@
 </p>
 
 ## Usage
-> [!NOTE]
-> This theme applies to [AniChart](https://anichart.net/) as well, which is an extension of AniList.
 
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
+> [!NOTE]
+> This theme also applies to [AniChart](https://anichart.net/), an extension of AniList.
 
 
 ## 💝 Current Maintainer

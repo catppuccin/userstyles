@@ -18,7 +18,11 @@
 </p>
 
 ## Usage
-Make sure to set the theme to either dark or light in Brave Search settings, as the automatic setting will not work.
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
+> [!NOTE]
+> Make sure to set the theme to either dark or light in Brave Search settings, as the automatic setting will not work.
 
 
 ## 💝 Current Maintainer

@@ -17,6 +17,10 @@
   <img src="preview.webp"/>
 </p>
 
+## Usage
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
 
 ## 🙋 FAQ
 - Q: **The theme does not look the same as the preview?**\

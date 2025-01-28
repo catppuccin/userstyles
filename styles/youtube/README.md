@@ -17,6 +17,10 @@
   <img src="preview.webp"/>
 </p>
 
+## Usage
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
 
 ## 🙋 FAQ
 - Q: **What does the 'Enable for black bars' option mean?**\

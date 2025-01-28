@@ -18,9 +18,11 @@
 </p>
 
 ## Usage
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
 > [!NOTE]
 > Set Proton Mail's built-in theme to 'Snow' if you're using Latte or 'Carbon' if you're using the others.
-
 
 
 ## 💝 Current Maintainer
