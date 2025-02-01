@@ -74,7 +74,7 @@
     &,
     .tw-dialog-layer {
       --color-background-input-focus: @crust;
-      --color-background-interactable-hover: @surface0;
+      --color-background-interactable-hover: fade(@surface0, 48%);
       --color-background-interactable-alpha-hover: @surface0;
       --color-background-interactable-active: @surface1;
       --color-background-button-secondary-active: @surface1;
@@ -89,15 +89,16 @@
       --color-text-overlay: @base;
       --color-text-base: @subtext1;
       --color-text-alt: @text;
-      --color-text-alt-2: @text;
+      --color-text-alt-2: @subtext0;
       --color-text-interactable-selected: @crust;
       --color-background-alt-2: @crust;
-      --color-text-tag: @text;
+      --color-text-tag: @subtext0;
       --color-background-button-secondary-default: @crust;
+      --color-background-button-primary-hover: darken(@accent, 5%);
       --color-background-button-secondary-hover: @surface0;
       --color-background-button-overlay-secondary-default: fade(@text, 13%);
-      --color-background-tag-default: @mantle;
-      --color-background-tag-hover: @crust;
+      --color-background-tag-default: @surface0;
+      --color-background-tag-hover: @surface1;
       --color-background-float: @mantle;
       --color-background-body: @base;
       --color-background-base: @mantle;
@@ -248,6 +249,7 @@
       --color-text-tooltip: @base !important;
       --color-background-tooltip: @text !important;
       --color-hinted-grey-2: @surface0;
+      --color-hinted-grey-8: @subtext0;
       --color-hinted-grey-15: @text;
       --color-background-overlay-alt: fade(@mantle, 60%);
       --color-background-button-overlay-primary-hover: @subtext1;
@@ -261,6 +263,7 @@
       --color-border-toggle-hover: @text;
       --color-background-toggle-checked: @mantle;
       --color-background-input-checkbox-checked-background: @crust;
+      --color-border-balloon-overlay: @surface0;
     }
 
     --color-text-link: @accent;
@@ -563,7 +566,7 @@
     .chat-scrollable-area__message-container {
       background-color: @mantle;
     }
-    .side-nav-card__link:hover {
+    .side-nav-card__link:hover, .side-nav-card__link:focus {
       background: @surface0 !important;
     }
     .footer {
@@ -1004,11 +1007,11 @@
     .chat-line__message--alert {
       border-color: @red !important;
       background-color: @base !important;
+    }
 
-      .text-fragment--moderated-highlight {
-        color: @text !important;
-        background-color: fade(@red, 30%) !important;
-      }
+    .text-fragment--moderated-highlight {
+      color: @text !important;
+      background-color: fade(@red, 30%) !important;
     }
 
     /* Activity feed icons */
@@ -1096,6 +1099,82 @@
         background-color: @text;
       }
     }
+
+    .converter(@bg, @fg: @base) {
+      color: @fg !important;
+      background-color: @bg;
+
+      &:not([disabled]):hover {
+        background-color: darken(@bg, 5%);
+      }
+    }
+
+    .converter-youtube-button button {
+      .converter(@red);
+    }
+
+    .converter-instagram-button button {
+      .converter(@mauve);
+    }
+
+    .share-tiktok-button {
+      background-image: linear-gradient(135deg, @sky, @red);
+
+      button {
+        color: @text !important;
+        background-color: @mantle;
+
+        &:not([disabled]):hover {
+          background-color: @surface0;
+        }
+      }
+    }
+
+    .clips-root__main {
+      .tw-balloon {
+        --color-text-overlay: @text;
+      }
+
+      .seekbar-bar {
+        background-color: @surface0 !important;
+      }
+    }
+
+    /* Clips editor timeline */
+
+    .draggable-slider__overlay--purple {
+      border-color: @accent;
+      background-color: fade(@accent, 30%);
+    }
+
+    .draggable-slider-handle--purple {
+      background-color: @accent;
+      --color-white: @base;
+    }
+
+    .clip-editor-timeline-background {
+      background-color: @base;
+    }
+
+    .clip-editor-slider-popover {
+      color: @base;
+      background-color: @text;
+    }
+
+    /* Pinned message shadow */
+    .pinned-chat__scrollable-area__gradient {
+      background-image: linear-gradient(180deg, transparent 60%, @mantle);
+    }
+
+    /* What's new mod view icon */
+    .whats-new-button--has-new-posts {
+      color: @green;
+    }
+
+    /* Guest star thumbnail border */
+    .guest-star-live-card-border {
+      background-image: linear-gradient(180deg, @mauve 0, @teal 61.98%, @blue);
+    }
   }
 }
 
@@ -1135,6 +1214,10 @@
     @mantle: @catppuccin[@@flavor][@mantle];
     @crust: @catppuccin[@@flavor][@crust];
     @accent: @catppuccin[@@flavor][@@accentColor];
+
+    .edit-video-properties-modal__content {
+      --color-background-float: @base;
+    }
 
     article button {
       --color-fill-current: @base !important;
@@ -1217,6 +1300,7 @@
     /* Autohost / managed channels list */
 
     .dashboard-centered-page {
+      --color-background-alt: @base;
       .simplebar-scroll-content,
       .simplebar-content {
         background: transparent !important;
@@ -1346,6 +1430,11 @@
         color: @subtext0;
         background-color: @surface0;
       }
+    }
+
+    /* Stream Manager statistics */
+    .sunlight-tile {
+      background-color: @crust;
     }
   }
 }
