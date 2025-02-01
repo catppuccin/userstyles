@@ -271,6 +271,7 @@
         --color-white: @base;
         --color-black: @text;
         --color-hinted-grey-12: @mantle;
+        --color-background-overlay-alt: fade(@text, 60%);
       }
     }
 
@@ -831,6 +832,11 @@
     .reward-icon__cost {
       color: @text !important;
       background: fade(@mantle, 60%) !important;
+
+      & when (@flavor = latte) {
+        color: @base !important;
+        background: fade(@text, 60%) !important;
+      }
     }
 
     /* Directory banner */
@@ -841,8 +847,8 @@
         linear-gradient(90deg, @base, fade(@mantle, 25%));
     }
 
-    .home-video * {
-      color: @text !important;
+    .home-video when not(@flavor = latte) {
+      --color-text-overlay: @text;
     }
 
     /* Cookies and Advertising Choices */
@@ -1227,6 +1233,29 @@
     /* Guest Star What's new icon */
     .notification-icon--green svg {
       fill: @green;
+    }
+
+    .video-player__overlay when (@flavor = latte) {
+      --color-text-pill: @base;
+    }
+
+    /* Polls */
+    .community-highlight-stack__card {
+      .container--default {
+        background-color: @base;
+      }
+
+      .container--winner p {
+        color: @base !important;
+      }
+
+      .choice-progress__fill--default {
+        background-color: @surface0;
+      }
+
+      .top-poll-community-points-contributor {
+        color: @green;
+      }
     }
   }
 }
