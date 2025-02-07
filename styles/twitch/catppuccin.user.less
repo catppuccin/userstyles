@@ -86,13 +86,14 @@
       --color-border-input: @base;
       --color-border-tab: @surface0;
       --color-text-button-primary: @crust;
-      --color-text-overlay: @text;
+      --color-text-overlay: @base;
       --color-text-overlay-alt: @subtext0;
       --color-text-overlay-link-hover: @subtext0;
       --color-text-base: @subtext1;
       --color-text-alt: @text;
       --color-text-alt-2: @subtext0;
       --color-text-interactable-selected: @crust;
+      --color-text-interactable-inverted: @base;
       --color-background-alt-2: @crust;
       --color-text-tag: @subtext0;
       --color-background-button-secondary-default: @crust;
@@ -205,6 +206,7 @@
       --color-blue-9: @blue;
       --color-blue-10: @sky;
       --color-blue-11: @sky;
+      --color-blue-12: @sky;
       --color-blue-14: @sky;
       --color-magenta-5: @flamingo;
       --color-magenta-6: @flamingo;
@@ -275,10 +277,10 @@
         --color-black: @text;
         --color-hinted-grey-12: @mantle;
         --color-text-pill: @base;
-        --color-text-overlay: @base;
         --color-text-overlay-link-hover: @surface0;
         --color-background-overlay-alt: fade(@text, 60%);
         --color-text-button-destructive: @base;
+        --color-text-button-overlay: @base !important;
       }
     }
 
@@ -409,12 +411,6 @@
       --color-text-overlay: @text;
     }
 
-    /* DMCA warning */
-
-    div.muted-segments-alert__content p {
-      color: @text;
-    }
-
     /* Seekbar segment */
 
     div[data-test-selector="seekbar-interaction-area__interactionArea"]
@@ -477,10 +473,10 @@
       color: @text;
     }
 
-    /* Following usercard */
+    /* Followers list usercard */
 
-    div[data-a-target="user-card-modal"] p when (@flavor = latte) {
-      --color-text-overlay: @base;
+    div[data-a-target="user-card-modal"] p when not(@flavor = latte) {
+      --color-text-overlay: @text;
     }
 
     /* Usercard mod log tabs */
@@ -922,15 +918,6 @@
       color: @subtext0 !important;
     }
 
-    /* Clips timestamp */
-
-    .player-controls,
-    .clips-player-seekbar-container {
-      .tw-balloon p when (@flavor = latte) {
-        color: @base !important;
-      }
-    }
-
     .sunlight-modal__content {
       color: @text !important;
     }
@@ -939,14 +926,9 @@
       color: @text;
     }
 
-    .video-player__container when (@flavor = latte) {
-      --color-text-overlay: @base;
-    }
-
-    .player-overlay-background when (@flavor = latte) {
-      div,
-      div p {
-        color: @base !important;
+    .video-player__container, .clips-root__main {
+      & when not(@flavor = latte) {
+        --color-text-overlay: @text;
       }
     }
 
@@ -957,7 +939,6 @@
     /* Chat popouts */
 
     div[data-test-selector="chat-private-callout-queue__callout-container"] {
-      --color-text-overlay: @base;
       .tw-callout__close > button {
         color: @base !important;
       }
@@ -1001,6 +982,8 @@
         color: @text !important;
       }
     }
+
+    /* AutoMod caught message */
 
     .chat-line__message--alert {
       border-color: @red !important;
@@ -1098,6 +1081,8 @@
       }
     }
 
+    /* Clips sharing buttons */
+
     .converter(@bg, @fg: @base) {
       color: @fg !important;
       background-color: @bg;
@@ -1128,14 +1113,8 @@
       }
     }
 
-    .clips-root__main {
-      .tw-balloon {
-        --color-text-overlay: @text;
-      }
-
-      .seekbar-bar {
-        background-color: @surface0 !important;
-      }
+    .clips-root__main .seekbar-bar {
+      background-color: @surface0 !important;
     }
 
     /* Clips editor timeline */
@@ -1248,12 +1227,8 @@
       background-color: @base;
     }
 
-    .footer__link {
+    .footer__link, .footer__link:hover {
       color: @text;
-
-      &:hover {
-        color: @text;
-      }
     }
 
     .footer__glitch
@@ -1267,16 +1242,14 @@
       }
     }
 
-    /* Number badges */
-    .tw-number-badge__badge,
-    .tw-channel-status-text-indicator,
-    .vertical-selector__internal,
-    .channel-status-info--live {
+    .tw-channel-status-text-indicator {
       color: @base;
     }
 
-    article {
-      --color-text-overlay: @base;
+    .player-captions-container {
+      .player-captions-container__caption-line[style*="; color: rgb(255, 255, 255)"] {
+        color: if(@flavor = latte, @base, @text) !important;
+      }
     }
   }
 }
@@ -1428,6 +1401,7 @@
     /* Collection thumbnails */
 
     .collection-preview-image__wrapper {
+      color: @text !important;
       background: linear-gradient(
         90deg,
         fade(@mantle, 0%),
@@ -1537,6 +1511,10 @@
     /* Stream Manager statistics */
     .sunlight-tile {
       background-color: @crust;
+    }
+
+    .creator-home-card__icon-background--yellow {
+      background-color: @yellow;
     }
   }
 }
