@@ -18,9 +18,11 @@
 </p>
 
 ## Usage
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
 > [!NOTE]
 > This theme only changes how the colors appear on the tldraw canvas. Exported graphics **will not be Catppuccin-themed**.
-
 
 
 ## 💝 Current Maintainers

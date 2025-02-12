@@ -2,7 +2,7 @@
 @name GitHub Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/github
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/github
-@version 2025.01.05
+@version 2025.02.04.1
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/github/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agithub
 @description Soothing pastel theme for GitHub
@@ -15,10 +15,13 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document regexp(
-    "https:\/\/(gist\.)*github\.com(?!((\/.+?\/.+?\/commit\/[A-Fa-f0-9]+\.(patch|diff)$)|\/home$|\/features($|\/.*)|\/marketplace($|\?.*|\/.*)|\/organizations\/plan)).*$"
+@-moz-document /* Match every page on GitHub except github.com/home, github.com/features/*, and github.com/organizations/plan. */
+regexp(
+    "https:\/\/github\.com(?!(\/home$|\/features($|\/.*)|\/organizations\/plan)).*$"
   ),
-  regexp("https:\/\/viewscreen\.githubusercontent\.com(\/diff\/img|\/view).*") {
+  domain("gist.github.com"),
+  domain("docs.github.com"),
+  domain("viewscreen.githubusercontent.com") {
   [data-color-mode="auto"] {
     @media (prefers-color-scheme: light) {
       &[data-light-theme="light"] {
@@ -45,23 +48,6 @@
   [data-color-mode="light"][data-light-theme="light"],
   [data-color-mode="dark"][data-dark-theme="light"] {
     #catppuccin(@lightFlavor);
-  }
-
-  html:not([data-light-theme="light"], [data-light-theme="dark"])
-    body:not(.logged-out)::after,
-  html:not([data-dark-theme="dark"], [data-dark-theme="light"])
-    body:not(.logged-out)::after {
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 1rem;
-    margin: 1rem;
-    border-radius: 0.5rem;
-    max-width: 40ch;
-    background-color: var(--color-danger-fg);
-    color: var(--color-header-bg);
-    content: "Unsupported GitHub theme detected! Please switch to the default light/dark theme via the GitHub Appearance settings to get the best experience for the Catppuccin GitHub userstyle.";
-    z-index: 9999;
   }
 
   #catppuccin(@flavor) {
@@ -535,6 +521,11 @@
       }
     }
 
+    /* docs.github.com */
+    --color-fg-default: @text;
+    --color-canvas-default: @base;
+    --color-canvas-subtle: @mantle;
+
     --tooltip-fgColor: @base;
     --tooltip-bgColor: @overlay2;
 
@@ -622,6 +613,19 @@
     }
     [fill="#DBAB0A" i] {
       fill: @yellow !important;
+    }
+
+    /* Issue timeline icon */
+    [class*="prc-Timeline-TimelineBadge"], .TimelineItem-Badge {
+      /* Completed */
+      path[d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm1.5 0a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm10.28-1.72-4.5 4.5a.75.75 0 0 1-1.06 0l-2-2a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l1.47 1.47 3.97-3.97a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042Z"],
+      /* Duplicate / Not planned */
+      path[d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM3.965 13.096a6.5 6.5 0 0 0 9.131-9.131ZM1.5 8a6.474 6.474 0 0 0 1.404 4.035l9.131-9.131A6.499 6.499 0 0 0 1.5 8Z"],
+      /* Reopen */
+      path[d="M5.029 2.217a6.5 6.5 0 0 1 9.437 5.11.75.75 0 1 0 1.492-.154 8 8 0 0 0-14.315-4.03L.427 1.927A.25.25 0 0 0 0 2.104V5.75A.25.25 0 0 0 .25 6h3.646a.25.25 0 0 0 .177-.427L2.715 4.215a6.491 6.491 0 0 1 2.314-1.998ZM1.262 8.169a.75.75 0 0 0-1.22.658 8.001 8.001 0 0 0 14.315 4.03l1.216 1.216a.25.25 0 0 0 .427-.177V10.25a.25.25 0 0 0-.25-.25h-3.646a.25.25 0 0 0-.177.427l1.358 1.358a6.501 6.501 0 0 1-11.751-3.11.75.75 0 0 0-.272-.506Z"],
+      path[d="M9.06 9.06a1.5 1.5 0 1 1-2.12-2.12 1.5 1.5 0 0 1 2.12 2.12Z"] {
+        fill: @base;
+      }
     }
   }
 }
