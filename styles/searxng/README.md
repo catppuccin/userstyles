@@ -17,6 +17,10 @@
   <img src="preview.webp"/>
 </p>
 
+## Usage
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
 
 
 ## 💝 Current Maintainers

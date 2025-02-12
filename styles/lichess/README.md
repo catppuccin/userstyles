@@ -18,7 +18,11 @@
 </p>
 
 ## Usage
-Switch to a default Lichess light/dark theme via **Username** > **Background** for the best experience!
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
+> [!NOTE]
+> Switch to a default Lichess light/dark theme via **Username** > **Background** for the best experience!
 
 
 ## 💝 Current Maintainer

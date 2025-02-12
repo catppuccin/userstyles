@@ -18,7 +18,11 @@
 </p>
 
 ## Usage
-Switch to the default dark theme via the **Settings** > **Themes** > **View all** for the best experience!
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
+> [!NOTE]
+> Switch to the default dark theme via the **Settings** > **Themes** > **View all** for the best experience!
 
 
 ## 💝 Current Maintainer
