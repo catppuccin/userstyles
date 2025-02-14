@@ -90,21 +90,48 @@
         }
       }
 
-      // /login
-      &.login-page {
-        #pageWrapper {
-          background-color: @base;
+      // login page footer gets special color
+      &.login-page #footer {
+        background-color: @mantle !important;
+      }
 
-          // on mobile, the header has saturation applied which messes with the colors
-          header {
-            backdrop-filter: none;
+      #homepage-container {
+        #main-nav {
+          @ogColor: #2f67f8; // original color (midway point) of the original blue image
+          // calculate modified HSL values to make the image look *similar* to the selected accent
+          @h: hue(@accent) - hue(@ogColor);
+          @s: 100% + saturation(@accent) - saturation(@ogColor);
+          @l: 100% + lightness(@accent) - lightness(@ogColor);
+
+          .main-nav-label {
+            color: @text;
+          }
+          .icon-wrapper img {
+            filter: hue-rotate(unit(@h, deg)) saturate(@s) brightness(@l);
+          }
+          .tb-row:last-child .icon-wrapper img when not(@flavor = latte) {
+            filter: hue-rotate(unit(@h, deg)) invert(1) hue-rotate(180deg);
           }
         }
+      }
+
+      #pageWrapper {
+        background-color: @base !important;
+
+        // on mobile, the header has saturation applied which messes with the colors, this removes that
+        header {
+          backdrop-filter: blur(20px);
+        }
         #footer, #footer.dark-style {
-          background-color: @mantle !important;
           li, a {
             color: @subtext0 !important;
             border-color: @subtext0 !important;
+          }
+          .ico-apple {
+            background: var(--apple-icon-color);
+            mask: var(--apple-icon-mask);
+            width: var(--apple-icon-size);
+            height: var(--apple-icon-size);
           }
         }
       }
