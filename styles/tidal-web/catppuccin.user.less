@@ -96,11 +96,7 @@
     --wave-color-opacity-contrast-fill-ultra-thin: fade(@overlay0, 40%);
     --wave-color-opacity-contrast-fill-transparent: @text;
     --wave-color-opacity-contrast-fill-thick: @subtext0;
-    --wave-color-opacity-contrast-fill-ultra-thick: if(
-      @flavor = latte,
-      @base,
-      @subtext1
-    );
+    --wave-color-opacity-contrast-fill-ultra-thick: @subtext1;
     --wave-color-opacity-rainbow-blue-thin: fade(@blue, 8%);
     --wave-color-solid-accent-fill: @accent;
     --wave-color-solid-accent-bright: lighten(@accent, 7%);
@@ -155,8 +151,8 @@
     }
 
     [data-wave-color="textDefault"],
-    [class^="css--"],
-    [class^="icon"],
+    [class*="css"],
+    [class*="icon"],
     [class*="smallHeader"] .artist-link a,
     [class*="smallHeader"] .artist-link span,
     [class*="modalHeader"],
@@ -168,17 +164,18 @@
 
     [class*="primary"] [data-wave-color="textDefault"],
     [class*="activeTab"] [data-wave-color="textDefault"],
-    [class*="primary"] [class^="icon"],
-    [class*="activeTab"] [class^="icon"] {
+    [class*="primary"] [class*="icon"],
+    [class*="activeTab"] [class*="icon"] {
       color: @base;
     }
 
     [class*="accentedIcon"],
-    [data-wave-color="textUrl"] {
+    [data-wave-color="textUrl"],
+    [class*="favorite"] {
       color: @accent;
     }
 
-    [data-test="stream-metadata"] [class^="textContainer"] span {
+    [data-test="stream-metadata"] [class*="textContainer"] span {
       color: @mantle !important;
     }
 
@@ -260,6 +257,20 @@
         text-decoration-color: @text;
       }
 
+      [class*="recentSearches"] > span {
+        color: @subtext0;
+      }
+
+      [data-wave-color="textWhite"] {
+        color: @base;
+      }
+
+      [class*="dataContainer"]::before {
+        background-image:
+          linear-gradient(180deg, @base 0, @subtext0 100%),
+          var(--img);
+      }
+
       [data-wave-color="textDefault"],
       [class*="artistBio"] p,
       [data-test="explicit-badge"] svg,
@@ -290,13 +301,15 @@
       [class*="detailContainer"] h2,
       [class*="smallHeader"] .playlist-creator,
       [class*="smallHeader"] .artist-link a,
-      [class*="detailContainer"] .artist-link a,
+      [class*="creatorImageContainer"] .artist-link a,
       [class*="detailContainer"] .playlist-creator,
-      [class*="detailContainer"] [class^="paragraphText"],
+      [class*="detailContainer"] [class*="meta"],
+      [class*="detailContainer"] [class*="paragraphText"],
       [class*="actionContainer"] [class*="buttonStates"] svg,
       [class*="primary"] span,
       [class*="primary"] svg,
-      [class*="activeTab"] span {
+      [class*="activeTab"] span,
+      [class*="cellCoverContainer"] [data-test="context-menu-button"] svg {
         color: @base;
       }
 
