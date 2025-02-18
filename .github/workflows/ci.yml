@@ -27,7 +27,7 @@ jobs:
 
       - name: Bump changed userstyles
         run: |
-          git diff --name-only HEAD^1 HEAD | grep '^styles/.*catppuccin\.user\.less$' | xargs deno task bump
+          git diff --name-only HEAD^1 HEAD | grep '^styles/.*catppuccin\.user\.less$' | xargs deno task ci:bump
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
@@ -37,7 +37,7 @@ jobs:
           push: false
 
       - name: Update generated files
-        run: deno task generate
+        run: deno task ci:generate
         env:
           GITHUB_TOKEN: ${{ secrets.USERSTYLES_TOKEN }}
 
