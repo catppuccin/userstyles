@@ -13,8 +13,6 @@
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
-
-@var checkbox styleNavMenu "Style navigation menu" 1
 ==/UserStyle== */
 
 @-moz-document domain("instructure.com"), domain("instructuremedia.com") {
@@ -61,6 +59,17 @@
     @surface2-filter: @catppuccin-filters[@@flavor][@surface2];
 
     color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
 
     /* GLOBALS/VARIABLES */
     --ic-brand-primary: @accent;
@@ -292,21 +301,15 @@
     --ic-brand-global-nav-menu-item__badge-text--active: @mantle;
     --ic-brand-global-nav-ic-icon-svg-fill--active: @accent;
     --ic-brand-global-nav-avatar-border: @text;
-    @navmenu: if(
-      @styleNavMenu = 1,
-      {
-        --ic-brand-global-nav-bgd: @mantle;
-        --ic-brand-global-nav-menu-item__badge-bgd: @surface2;
-        --ic-brand-global-nav-menu-item__badge-text: @text;
-        --ic-brand-global-nav-menu-item__text-color: @text;
-        --ic-brand-global-nav-ic-icon-svg-fill: @text;
-        .menu-item-icon-container path[fill] {
-          fill: @text !important;
-        }
-      },
-      {}
-    );
-    @navmenu();
+
+    --ic-brand-global-nav-bgd: @mantle;
+    --ic-brand-global-nav-menu-item__badge-bgd: @surface2;
+    --ic-brand-global-nav-menu-item__badge-text: @text;
+    --ic-brand-global-nav-menu-item__text-color: @text;
+    --ic-brand-global-nav-ic-icon-svg-fill: @text;
+    .menu-item-icon-container path[fill] {
+      fill: @text !important;
+    }
 
     /* sidebar trays (e.g. slide in from right side) */
     body > span > [class*="tray"] {
@@ -1043,10 +1046,6 @@
       }
     }
 
-    /* selection */
-    ::selection {
-      background-color: fade(@accent, 30%);
-    }
     /* use more noticeable color for file preview selection */
     #App *::selection {
       background-color: @accent;
