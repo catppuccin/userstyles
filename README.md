@@ -42,6 +42,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [docs.rs](styles/docs.rs)
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
+- [gleam.run](styles/gleam.run)
 - [go.dev](styles/go.dev)
 - [Grabify](styles/grabify)
 - [Graphite](styles/graphite)
