@@ -55,6 +55,7 @@
     @accent: @catppuccin[@@flavor][@@accentColor];
 
     @text-filter: @catppuccin-filters[@@flavor][@text];
+    @red-filter: @catppuccin-filters[@@flavor][@red];
     @blue-filter: @catppuccin-filters[@@flavor][@blue];
     @green-filter: @catppuccin-filters[@@flavor][@green];
     @yellow-filter: @catppuccin-filters[@@flavor][@yellow];
@@ -126,10 +127,10 @@
       border-color: @surface2;
     }
     img:not(
-        [src^="/"],
-        [src*="cloudfront.net/dist"],
-        [src*="instructuremedia.com/build"]
-      ) {
+      [src^="/"],
+      [src*="cloudfront.net/dist"],
+      [src*="instructuremedia.com/build"]
+    ) {
       /* force a white background for user-uploaded images */
       background-color: #fffd;
     }
@@ -732,9 +733,7 @@
     /* ANNOUNCEMENTS */
     .ic-item-row {
       box-shadow: @surface1 0 -1px 0 0;
-      box-shadow:
-        0 -1px @surface1,
-        inset 0 -1px @surface1;
+      box-shadow: 0 -1px @surface1, inset 0 -1px @surface1;
     }
     [data-testid="pill-container"] * {
       color: @subtext0 !important;
@@ -885,8 +884,8 @@
     /* popup menus */
     /* extra selectors are to avoid styling tooltips because their arrows are hard to style */
     span[data-position-content^="Menu"]:not(
-        [data-position-content^="Menu__label"]
-      ),
+      [data-position-content^="Menu__label"]
+    ),
     span[data-position-content^="Popover"] {
       span[class$="arrow"]::after {
         filter: @surface2-filter;
@@ -908,8 +907,8 @@
 
     /* color picker menu (e.g. on dashboard) */
     span[data-position-content^="Popover"]:has(
-        div[class$="view-tabs__container"]
-      ) {
+      div[class$="view-tabs__container"]
+    ) {
       div[class$="view-tab"] {
         background-color: @surface1;
         border-bottom-color: @surface2;
@@ -1011,8 +1010,8 @@
 
     /* dropdown menu */
     span[data-position-content^="Menu"]:not(
-        [data-position-content^="Menu__label"]
-      ) {
+      [data-position-content^="Menu__label"]
+    ) {
       span {
         color: @text;
       }
@@ -1422,15 +1421,36 @@
         border-color: @surface2;
       }
     }
-    .answer_arrow.correct {
+    .catppuccin_answer_arrow(@color, @filter) {
       color: @mantle;
       background-image: none;
-      background-color: @green;
       text-shadow: none;
+      background-color: @color;
+      &::before,
       &::after {
-        filter: @green-filter;
+        filter: @filter;
       }
     }
+    .answer_arrow.correct {
+      .catppuccin_answer_arrow(@green, @green-filter);
+    }
+    .answer_arrow.info {
+      .catppuccin_answer_arrow(@text, @text-filter);
+    }
+    .answer_arrow.incorrect {
+      .catppuccin_answer_arrow(@red, @red-filter);
+    }
+    #questions.assessment_results .question .answers .answer.wrong_answer {
+      border: 2px solid @red;
+    }
+    #questions.assessment_results
+      .question
+      .answers
+      .answer.wrong_answer
+      .ui-selectmenu-status {
+      color: @red;
+    }
+
     .muted-notice {
       background-color: @surface0;
       background-image: linear-gradient(to bottom, @base, @surface0);
@@ -1761,9 +1781,7 @@
       color: @text;
     }
     .ic-discussion-row {
-      box-shadow:
-        -1px -1px @surface1,
-        inset -1px -1px @surface1;
+      box-shadow: -1px -1px @surface1, inset -1px -1px @surface1;
     }
     .discussion-entries {
       background-color: @base;
