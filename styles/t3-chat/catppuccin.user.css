@@ -1,0 +1,233 @@
+/* ==UserStyle==
+@name T3 Chat Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/t3-chat
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/t3-chat
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/t3-chat/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3At3-chat
+@description Soothing pastel theme for T3 Chat
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+#hslify(@color) {
+  @raw: e(
+    %("%s, %s%, %s%", hue(@color), saturation(@color), lightness(@color))
+  );
+}
+
+@-moz-document domain("t3.chat") {
+  @media (prefers-color-scheme: light) {
+    :root {
+      #catppuccin(@lightFlavor, @accentColor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      #catppuccin(@darkFlavor, @accentColor);
+    }
+  }
+
+  #catppuccin(@lookup, @accent) {
+    @rosewater: @catppuccin[@@lookup][@rosewater];
+    @flamingo: @catppuccin[@@lookup][@flamingo];
+    @pink: @catppuccin[@@lookup][@pink];
+    @mauve: @catppuccin[@@lookup][@mauve];
+    @red: @catppuccin[@@lookup][@red];
+    @maroon: @catppuccin[@@lookup][@maroon];
+    @peach: @catppuccin[@@lookup][@peach];
+    @yellow: @catppuccin[@@lookup][@yellow];
+    @green: @catppuccin[@@lookup][@green];
+    @teal: @catppuccin[@@lookup][@teal];
+    @sky: @catppuccin[@@lookup][@sky];
+    @sapphire: @catppuccin[@@lookup][@sapphire];
+    @blue: @catppuccin[@@lookup][@blue];
+    @lavender: @catppuccin[@@lookup][@lavender];
+    @text: @catppuccin[@@lookup][@text];
+    @subtext1: @catppuccin[@@lookup][@subtext1];
+    @subtext0: @catppuccin[@@lookup][@subtext0];
+    @overlay2: @catppuccin[@@lookup][@overlay2];
+    @overlay1: @catppuccin[@@lookup][@overlay1];
+    @overlay0: @catppuccin[@@lookup][@overlay0];
+    @surface2: @catppuccin[@@lookup][@surface2];
+    @surface1: @catppuccin[@@lookup][@surface1];
+    @surface0: @catppuccin[@@lookup][@surface0];
+    @base: @catppuccin[@@lookup][@base];
+    @mantle: @catppuccin[@@lookup][@mantle];
+    @crust: @catppuccin[@@lookup][@crust];
+    @accent-color: @catppuccin[@@lookup][@@accent];
+    color-scheme: if(@lookup = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent-color, 30%);
+    }
+
+    /* Override common UI elements */
+    .bg-neutral-800,
+    .bg-gray-800,
+    .bg-gray-950,
+    .bg-\[\#22272E\],
+    .bg-\[\#2D2D2D\] {
+      background-color: @surface0 !important;
+    }
+
+    .bg-neutral-900,
+    .bg-black,
+    .bg-\[\#0D0A09\] {
+      background-color: @mantle !important;
+    }
+
+    .bg-neutral-700,
+    .bg-neutral-700\/50 {
+      background-color: @surface1 !important;
+    }
+
+    .text-neutral-100,
+    .text-neutral-200,
+    .text-white,
+    .text-gray-100,
+    .\!text-neutral-200,
+    strong {
+      color: @text !important;
+    }
+
+    .text-neutral-300,
+    .text-neutral-400,
+    .text-gray-300,
+    .text-gray-400 {
+      color: @subtext1 !important;
+    }
+
+    .text-neutral-500,
+    .text-gray-500 {
+      color: @subtext0 !important;
+    }
+
+    .bg-primary,
+    .bg-pink-500,
+    .bg-blue-500,
+    .bg-indigo-600 {
+      background-color: @accent-color !important;
+    }
+
+    .text-primary,
+    .text-pink-500,
+    .text-blue-500,
+    .text-pink-400,
+    .text-blue-400,
+    .text-indigo-400 {
+      color: @accent-color !important;
+    }
+
+    .text-green-500 {
+      color: @green !important;
+    }
+
+    .text-red-500,
+    .text-red-400,
+    .text-red-300 {
+      color: @red !important;
+    }
+
+    .text-yellow-500 {
+      color: @yellow !important;
+    }
+
+    .border-neutral-700,
+    .border-gray-700,
+    .border-neutral-800,
+    .border-gray-800 {
+      border-color: @surface1 !important;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: @surface1;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: @surface2;
+    }
+
+    .bg-pink-600\/70 {
+      background-color: @pink;
+      color: @base !important;
+    }
+
+    .bg-pink-500\/10 {
+      background-color: @pink;
+    }
+
+    .hover\:bg-pink-500\/70:hover {
+      background-color: fade(@pink, 75%);
+    }
+
+    .code {
+      background-color: @mantle !important;
+    }
+
+    /* Tailwind Prose */
+    .prose {
+      --tw-prose-body: @text !important;
+      --tw-prose-headings: @subtext0 !important;
+      --tw-prose-lead: @subtext1 !important;
+      --tw-prose-links: @accent-color !important;
+      --tw-prose-bold: @subtext0 !important;
+      --tw-prose-counters: @overlay0 !important;
+      --tw-prose-bullets: @surface2 !important;
+      --tw-prose-hr: @surface0 !important;
+      --tw-prose-quotes: @subtext0 !important;
+      --tw-prose-quote-borders: @surface0 !important;
+      --tw-prose-captions: @overlay0 !important;
+      --tw-prose-kbd: @subtext0 !important;
+      --tw-prose-kbd-shadows: 17 24 39 !important;
+      --tw-prose-code: @accent-color !important;
+      --tw-prose-pre-code: @text !important;
+      --tw-prose-pre-bg: @mantle !important;
+      --tw-prose-th-borders: @surface2 !important;
+      --tw-prose-td-borders: @surface0 !important;
+    }
+
+    /* Base ShadCN stuff */
+    .dark {
+      --background: #hslify(@base) [];
+      --foreground: #hslify(@text) [];
+      --muted: #hslify(@surface0) [];
+      --muted-foreground: #hslify(@subtext1) [];
+      --popover: #hslify(@base) [];
+      --popover-foreground: #hslify(@text) [];
+      --card: #hslify(@base) [];
+      --card-foreground: #hslify(@text) [];
+      --border: #hslify(@surface1) [];
+      --input: #hslify(@surface1) [];
+      --primary: #hslify(@accent-color) [];
+      --primary-foreground: #hslify(@base) [];
+      --secondary: #hslify(@surface0) [];
+      --secondary-foreground: #hslify(@text) [];
+      --accent: #hslify(@surface0) [];
+      --accent-foreground: #hslify(@text) [];
+      --destructive: #hslify(@red) [];
+      --destructive-foreground: #hslify(@mantle) [];
+      --ring: #hslify(@text) [];
+      --chart-1: #hslify(@red) [];
+      --chart-2: #hslify(@teal) [];
+      --chart-3: #hslify(@blue) [];
+      --chart-4: #hslify(@yellow) [];
+      --chart-5: #hslify(@green) [];
+    }
+  }
+}
+
+/* prettier-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+}
+
+// vim:ft=less
