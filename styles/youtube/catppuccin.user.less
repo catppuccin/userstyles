@@ -1,0 +1,1537 @@
+/* ==UserStyle==
+@name YouTube Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/youtube
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/youtube
+@version 2025.01.28
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/youtube/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ayoutube
+@description Soothing pastel theme for YouTube
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var checkbox logo "Enable YouTube logo" 1
+@var checkbox oled "Enable black bars" 0
+==/UserStyle== */
+
+@-moz-document domain("youtube.com") {
+  :root[dark] {
+    #catppuccin(@darkFlavor);
+  }
+  :root:not([dark]) {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    @text-filter: @catppuccin-filters[@@flavor][@text];
+
+    @white: if(@flavor = latte, @base, @text);
+    @black: if(@flavor = latte, @text, @base);
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    color: @text;
+    background: @base !important;
+
+    &,
+    [dark],
+    [system-icons],
+    [darker-dark-theme],
+    &[dark],
+    &[system-icons],
+    &[darker-dark-theme] {
+      --yt-spec-white-1: @text !important;
+      --yt-spec-white-2: @subtext0 !important;
+      --yt-spec-white-3: @subtext1 !important;
+      --yt-spec-white-4: darken(@subtext1, 5%) !important;
+      --yt-spec-black-1: @overlay1 !important;
+      --yt-spec-black-2: @overlay0 !important;
+      --yt-spec-black-3: @surface2 !important;
+      --yt-spec-black-4: @surface1 !important;
+      --yt-spec-black-pure: @surface0 !important;
+      --yt-spec-grey-1: @text !important;
+      --yt-spec-grey-2: @subtext0 !important;
+      --yt-spec-grey-3: @subtext1 !important;
+      --yt-spec-grey-4: @overlay2 !important;
+      --yt-spec-grey-5: @overlay1 !important;
+      --yt-brand-youtube-red: @accent !important;
+      --yt-brand-medium-red: @accent !important;
+      --yt-brand-light-red: @accent !important;
+      --yt-spec-red-30: @peach !important;
+      --yt-spec-red-70: @red !important;
+      --yt-spec-pale-blue: @sky !important;
+      --yt-spec-light-blue: @sky !important;
+      --yt-spec-dark-blue: @sapphire !important;
+      --yt-spec-navy-blue: @teal !important;
+      --yt-spec-light-green: @green !important;
+      --yt-spec-dark-green: @green !important;
+      --yt-spec-yellow: @peach !important;
+      --yt-spec-black-pure-alpha-5: @subtext0 !important;
+      --yt-spec-black-pure-alpha-10: @overlay2 !important;
+      --yt-spec-black-pure-alpha-15: fade(@crust, 85%) !important;
+      --yt-spec-black-pure-alpha-30: fade(@crust, 70%) !important;
+      --yt-spec-black-pure-alpha-60: fade(@crust, 40%) !important;
+      --yt-spec-black-pure-alpha-80: fade(@crust, 20%) !important;
+      --yt-spec-black-1-alpha-98: fade(@crust, 2%) !important;
+      --yt-spec-black-1-alpha-95: fade(@crust, 5%) !important;
+      --yt-spec-white-1-alpha-10: fade(@text, 90%) !important;
+      --yt-spec-white-1-alpha-20: fade(@text, 80%) !important;
+      --yt-spec-white-1-alpha-25: fade(@text, 75%) !important;
+      --yt-spec-white-1-alpha-30: fade(@text, 70%) !important;
+      --yt-spec-white-1-alpha-70: fade(@text, 30%) !important;
+      --yt-spec-white-1-alpha-95: fade(@text, 5%) !important;
+      --yt-spec-white-1-alpha-98: fade(@text, 2%) !important;
+      --yt-brand-medium-red-alpha-90: fade(@accent, 10%) !important;
+      --yt-brand-medium-red-alpha-30: fade(@accent, 70%) !important;
+      --yt-brand-light-red-alpha-30: fade(@accent, 70%) !important;
+      --yt-spec-light-blue-alpha-30: fade(@sapphire, 70%) !important;
+      --yt-spec-dark-blue-alpha-30: fade(@sapphire, 70%) !important;
+
+      --yt-spec-base-background: @base !important;
+      --yt-spec-raised-background: @base !important;
+      --yt-spec-menu-background: @mantle !important;
+      --yt-spec-inverted-background: @text !important;
+      --yt-spec-additive-background: fade(@surface1, 90%) !important;
+      --yt-spec-outline: @surface0 !important;
+      --yt-spec-shadow: fade(@crust, 75%) !important;
+      --yt-spec-text-primary: @text !important;
+      --yt-spec-text-secondary: @subtext0 !important;
+      --yt-spec-text-disabled: @subtext1 !important;
+      --yt-spec-text-primary-inverse: @crust !important;
+      --yt-spec-call-to-action: @accent !important;
+      --yt-spec-call-to-action-inverse: @accent !important;
+      --yt-spec-suggested-action: fade(@accent, 20%) !important;
+      --yt-spec-suggested-action-inverse: @text !important;
+      --yt-spec-icon-active-other: @text !important;
+      --yt-spec-button-chip-background-hover: @surface1 !important;
+      --yt-spec-touch-response: @surface0 !important;
+
+      --yt-spec-touch-response-inverse: @accent !important;
+      --yt-spec-brand-icon-active: @accent !important;
+      --yt-spec-brand-button-background: @accent !important;
+      --yt-spec-brand-link-text: @sapphire !important;
+      --yt-spec-wordmark-text: @text !important;
+      --yt-spec-error-indicator: @red !important;
+      --yt-spec-themed-blue: @accent !important;
+      --yt-spec-themed-green: @green !important;
+      --yt-spec-ad-indicator: @teal !important;
+      --yt-spec-themed-overlay-background: fade(@crust, 20%) !important;
+      --yt-spec-commerce-badge-background: @green !important;
+      --yt-spec-static-brand-red: @accent !important;
+      --yt-spec-static-brand-white: @text !important;
+      --yt-spec-static-brand-black: @base !important;
+      --yt-spec-static-clear-color: fade(@crust, 100%) !important;
+      --yt-spec-static-clear-black: fade(@crust, 100%) !important;
+      --yt-spec-static-ad-yellow: @peach !important;
+      --yt-spec-static-grey: @subtext0 !important;
+      --yt-spec-static-overlay-background-solid: @crust !important;
+      --yt-spec-static-overlay-background-heavy: @crust;
+      --yt-spec-static-overlay-background-medium: fade(@crust, 50%) !important;
+      --yt-spec-static-overlay-background-medium-light: fade(
+        @crust,
+        70%
+      ) !important;
+      --yt-spec-static-overlay-background-light: fade(
+        @crust,
+        90%
+      ) !important;
+      --yt-spec-static-overlay-text-primary: @text !important;
+      --yt-spec-static-overlay-text-secondary: fade(
+        @subtext0,
+        30%
+      ) !important;
+      --yt-spec-static-overlay-text-disabled: fade(
+        @subtext0,
+        70%
+      ) !important;
+      --yt-spec-static-overlay-call-to-action: @accent !important;
+      --yt-spec-static-overlay-icon-active-other: @crust !important;
+      --yt-spec-static-overlay-icon-inactive: @surface1 !important;
+      --yt-spec-static-overlay-icon-disabled: @surface2 !important;
+      --yt-spec-static-overlay-button-primary: @accent !important;
+      --yt-spec-static-overlay-button-secondary: @surface0 !important;
+      --yt-spec-static-overlay-touch-response: @overlay1 !important;
+      --yt-spec-static-overlay-touch-response-inverse: @surface1 !important;
+      --yt-spec-static-overlay-background-brand: @accent !important;
+      --yt-spec-assistive-feed-themed-gradient-1: @subtext0 !important;
+      --yt-spec-assistive-feed-themed-gradient-2: @lavender !important;
+      --yt-spec-assistive-feed-themed-gradient-3: @red !important;
+      --yt-spec-brand-background-solid: @base !important;
+      --yt-spec-brand-background-primary: @base !important;
+      --yt-spec-brand-background-secondary: @mantle !important;
+      --yt-spec-general-background-a: @base !important;
+      --yt-spec-general-background-b: @base !important;
+      --yt-spec-general-background-c: @crust !important;
+      --yt-spec-error-background: @base !important;
+      --yt-spec-10-percent-layer: @surface1 !important;
+      --yt-spec-snackbar-background: @mantle !important;
+      --yt-spec-snackbar-background-updated: @mantle !important;
+      --yt-spec-badge-chip-background: if(
+        @flavor = latte,
+        @crust,
+        @surface0
+      ) !important;
+      --yt-spec-verified-badge-background: @overlay0 !important;
+      --yt-spec-call-to-action-fadeoutd: fade(@sapphire, 70%) !important;
+      --yt-spec-call-to-action-hover: @accent !important;
+      --yt-spec-brand-button-background-hover: @accent !important;
+      --yt-spec-brand-link-text-fadeoutd: fade(
+        @accent,
+        70%
+      ) !important;
+      --yt-spec-filled-button-focus-outline: @surface0 !important;
+      --yt-spec-static-overlay-button-hover: @surface1 !important;
+      --yt-spec-mono-filled-hover: @surface1 !important;
+      --yt-spec-commerce-filled-hover: @accent !important;
+      --yt-spec-mono-tonal-hover: @surface1 !important;
+      --yt-spec-commerce-tonal-hover: @surface2 !important;
+      --yt-spec-static-overlay-filled-hover: @overlay1 !important;
+      --yt-spec-static-overlay-tonal-hover: @surface1 !important;
+      --yt-spec-paper-tab-ink: fade(@text, 70%);
+      --yt-spec-filled-button-text: @text !important;
+      --yt-spec-selected-nav-text: @text !important;
+      --iron-icon-fill-color: @text !important;
+
+      /* Search bar */
+      --ytd-searchbox-border-color: @surface0 !important;
+      --ytd-searchbox-legacy-border-color: @surface0 !important;
+      --ytd-searchbox-legacy-border-shadow-color: fade(
+        @crust,
+        100%
+      ) !important;
+      --ytd-searchbox-legacy-button-color: @mantle !important;
+      --ytd-searchbox-legacy-button-border-color: @surface0 !important;
+      --ytd-searchbox-legacy-button-focus-color: @accent !important;
+      --ytd-searchbox-legacy-button-hover-color: @mantle !important;
+      --ytd-searchbox-legacy-button-hover-border-color: @surface0 !important;
+      --ytd-searchbox-legacy-button-icon-color: @accent !important;
+      --ytd-searchbox-background: @base !important;
+      --ytd-searchbox-text-color: @text !important;
+
+      /* System icons */
+      --yt-spec-icon-inactive: @text !important;
+      --yt-spec-icon-disabled: @overlay1 !important;
+      --yt-spec-brand-icon-inactive: @overlay2 !important;
+
+      /* Yt video Page */
+      --yt-live-chat-background-color: @base !important;
+      --yt-live-chat-action-panel-background-color: @base !important;
+      --yt-live-chat-secondary-background-color: @surface1;
+      --yt-live-chat-toast-background-color: @surface2 !important;
+      --yt-live-chat-mode-change-background-color: @base !important;
+      --yt-live-chat-secondary-text-color: @subtext0 !important;
+      --yt-live-chat-tertiary-text-color: fade(@text, 46%) !important;
+      --yt-live-chat-text-input-field-inactive-underline-color: @subtext0
+        !important;
+      --yt-live-chat-text-input-field-placeholder-color: @subtext0 !important;
+      --yt-live-chat-enabled-send-button-color: @text !important;
+      --yt-live-chat-disabled-icon-button-color: @subtext1 !important;
+      --yt-live-chat-picker-button-hover-color: @accent !important;
+      --yt-live-chat-mention-background-color: @accent !important;
+      --yt-live-chat-mention-text-color: @text !important;
+      --yt-live-chat-deleted-message-color: @subtext0;
+      --yt-live-chat-deleted-message-bar-color: @subtext1 !important;
+      --yt-live-chat-reconnect-message-color: @text !important;
+      --yt-live-chat-disabled-button-background-color: @overlay0 !important;
+      --yt-live-chat-sub-panel-background-color: @base !important;
+      --yt-live-chat-sub-panel-background-color-transparent: @mantle !important;
+      --yt-live-chat-moderator-color: @lavender !important;
+      --yt-live-chat-owner-color: @peach !important;
+      --yt-live-chat-message-highlight-background-color: @base !important;
+      --yt-live-chat-sponsor-color: @green !important;
+      --yt-live-chat-overlay-color: fade(@mantle, 50%);
+      --yt-live-chat-dialog-background-color: @base !important;
+      --yt-emoji-picker-variant-selector-bg-color: @base !important;
+      --yt-live-chat-moderation-mode-hover-background-color: fade(
+        @mantle,
+        70%
+      ) !important;
+      --yt-grey: @subtext0 !important;
+      --yt-live-chat-text-input-field-suggestion-background-color: @subtext0
+        !important;
+      --yt-live-chat-text-input-field-suggestion-background-color-hover: @subtext1
+        !important;
+      --yt-emoji-picker-search-background-color: @surface0 !important;
+      --yt-emoji-picker-search-color: @text !important;
+      --yt-emoji-picker-search-placeholder-color: @accent !important;
+      --yt-live-chat-slider-active-color: @accent !important;
+      --yt-live-chat-slider-container-color: @surface0 !important;
+      --yt-live-chat-slider-markers-color: @text !important;
+      --yt-live-chat-banner-gradient-scrim: linear-gradient(
+        @mantle,
+        transparent
+      ) !important;
+      --yt-live-chat-action-panel-gradient-scrim: linear-gradient(
+        to top,
+        @mantle,
+        transparent
+      ) !important;
+      --yt-live-chat-automod-button-background-color-hover: fade(
+        @crust,
+        50%
+      ) !important;
+      --yt-live-chat-automod-button-explanation-color: fade(
+        @accent,
+        30%
+      ) !important;
+      --yt-live-chat-shimmer-background-color: fade(@crust, 60%) !important;
+      --yt-live-chat-shimmer-linear-gradient: linear-gradient(
+        0deg,
+        fade(@text, 90%) 40%,
+        fade(@base, 70%) 50%,
+        fade(@text, 90%) 60%
+      ) !important;
+      --yt-live-chat-vem-background-color: @mantle !important;
+      --yt-live-chat-product-picker-icon-color: fade(@text, 50%) !important;
+      --yt-live-chat-product-picker-hover-color: @overlay0 !important;
+      --yt-live-chat-product-picker-disabled-icon-color: fade(
+        @text,
+        70%
+      ) !important;
+      --yt-live-chat-action-panel-background-color-transparent: (null)
+        !important;
+
+      --paper-tooltip-background: @overlay0 !important;
+      --paper-tooltip-text-color: @text !important;
+
+      /* Links */
+      --yt-endpoint-color: @accent !important;
+      --yt-endpoint-visited-color: @accent !important;
+      --yt-endpoint-hover-color: @accent !important;
+
+      --sb-dark-red-outline: @accent !important;
+      --sb-main-bg-color: @base !important;
+      --sb-main-fg-color: @text !important;
+      --sb-grey-bg-color: @base !important;
+      --sb-grey-fg-color: @subtext0 !important;
+      --sb-red-bg-color: @accent !important;
+    }
+
+    &:not(.style-scope) {
+      --primary-text-color: @text !important;
+      --primary-background-color: @base !important;
+      --secondary-text-color: @subtext0 !important;
+      --disabled-text-color: @subtext1 !important;
+      --divider-color: @overlay0 !important;
+      --error-color: @red !important;
+      --primary-color: @accent !important;
+      --light-primary-color: @accent !important;
+      --dark-primary-color: @blue !important;
+      --accent-color: @accent !important;
+      --light-accent-color: @accent !important;
+      --dark-accent-color: @accent !important;
+      --light-theme-background-color: @base !important;
+      --light-theme-base-color: @text !important;
+      --light-theme-text-color: @text !important;
+      --light-theme-secondary-color: @subtext0 !important;
+      --light-theme-disabled-color: @subtext1 !important;
+      --light-theme-divider-color: @overlay0 !important;
+      --dark-theme-background-color: @base !important;
+      --dark-theme-base-color: @text !important;
+      --dark-theme-text-color: @text !important;
+      --dark-theme-secondary-color: @subtext0 !important;
+      --dark-theme-disabled-color: @subtext1 !important;
+      --dark-theme-divider-color: @overlay0 !important;
+    }
+
+    /* Misc */
+
+    & when (@logo = 0) {
+      ytd-topbar-logo-renderer,
+      svg.ytd-consent-bump-v2-lightbox {
+        display: none;
+      }
+    }
+
+    #channel-name.ytd-video-meta-block {
+      --yt-endpoint-color: @accent !important;
+      --yt-endpoint-visited-color: @accent !important;
+      color: @accent !important;
+    }
+
+    .yt-page-navigation-progress {
+      background: @accent !important;
+    }
+
+    /* Selected chapter */
+    ytd-macro-markers-list-item-renderer {
+      --ytd-macro-markers-list-item-background-color: @surface0 !important;
+      --ytd-macro-markers-list-item-title-color: @text !important;
+      --ytd-macro-markers-list-item-secondary-color: @subtext1 !important;
+      --ytd-macro-markers-list-item-timestamp-background-color: @surface1
+        !important;
+    }
+
+    ytd-playlist-panel-video-renderer {
+      --yt-lightsource-section2-color: @surface1 !important;
+      --yt-lightsource-section4-color: @surface2 !important;
+      --yt-lightsource-primary-title-color: @text !important;
+      --yt-lightsource-secondary-title-color: @text !important;
+      --yt-active-playlist-panel-background-color: @surface0 !important;
+    }
+
+    ytd-playlist-panel-renderer[collapsible][collapsed][use-color-palette]
+      .header.ytd-playlist-panel-renderer {
+      --iron-icon-fill-color: @text !important;
+      background-color: @base !important;
+    }
+
+    #container.ytd-masthead {
+      --iron-icon-fill-color: @text !important;
+    }
+
+    #background.ytd-masthead {
+      --yt-frosted-glass-desktop: @base !important;
+    }
+
+    ytd-feed-filter-chip-bar-renderer[expand-instead-of-scroll]
+      #chips-wrapper.ytd-feed-filter-chip-bar-renderer {
+      --iron-icon-fill-color: @text !important;
+      background-color: @base !important;
+    }
+
+    #ytd-player #container when (@oled = 0) {
+      background: @crust !important;
+    }
+
+    .ytp-progress-list when not(@flavor = latte) {
+      background: fade(@surface0, 80%);
+    }
+    .ytp-load-progress when not(@flavor = latte) {
+      background: fade(@overlay0, 100%);
+    }
+
+    ytd-expandable-metadata-renderer {
+      --yt-lightsource-section1-color: @base !important;
+      --yt-lightsource-section2-color: @surface0 !important;
+      --yt-lightsource-section3-color: @surface1 !important;
+      --yt-lightsource-section4-color: @surface2 !important;
+      --yt-lightsource-primary-title-color: @text !important;
+      --yt-lightsource-secondary-title-color: @subtext0 !important;
+    }
+
+    yt-live-chat-renderer {
+      --yt-button-default-text-color: @text !important;
+      --yt-button-default-background-color: @base !important;
+      --yt-button-dark-text-color: @base !important;
+      --yt-button-dark-background-color: @accent !important;
+      --yt-button-payment-background-color: @accent !important;
+    }
+
+    yt-icon-button.yt-live-chat-item-list-renderer {
+      background-color: @accent;
+      color: @crust;
+
+      &:hover {
+        background-color: darken(@accent, 5%);
+      }
+    }
+
+    ytd-author-comment-badge-renderer:not(
+      [style*="--ytd-author-comment-badge-icon-background-color: transparent;"]
+    ) {
+      --yt-basic-background-color: @surface0 !important;
+      --yt-basic-foreground-title-color: @surface0 !important;
+      --ytd-author-comment-badge-background-color: @surface0 !important;
+      --ytd-author-comment-badge-name-color: @text !important;
+      --ytd-author-comment-badge-icon-color: @text !important;
+    }
+
+    /* Skeleton */
+    #guide-skeleton,
+    #home-container-skeleton,
+    #home-chips {
+      background-color: @base;
+      z-index: -1;
+    }
+
+    #guide-skeleton .guide-ghost-icon,
+    #guide-skeleton .guide-ghost-text,
+    .masthead-skeleton-icon,
+    #home-page-skeleton .skeleton-bg-color,
+    .watch-skeleton .skeleton-bg-color {
+      background-color: @surface1;
+    }
+
+    /* Ambient mode */
+    #cinematics,
+    #cinematic-container {
+      mix-blend-mode: lighten;
+    }
+
+    .ytp-settings-button.ytp-hd-quality-badge::after,
+    .ytp-settings-button.ytp-hdr-quality-badge::after,
+    .ytp-settings-button.ytp-4k-quality-badge::after,
+    .ytp-settings-button.ytp-5k-quality-badge::after,
+    .ytp-settings-button.ytp-8k-quality-badge::after,
+    .ytp-settings-button.ytp-3d-badge-grey::after,
+    .ytp-settings-button.ytp-3d-badge::after {
+      background-color: @accent;
+    }
+
+    /* Icons */
+
+    [fill="red"],
+    [fill="#F00"],
+    [fill="#FF0000"],
+    [fill="#f03"],
+    [fill="#FF0033"] {
+      fill: @accent !important;
+    }
+
+    [fill="white"] {
+      fill: if(@flavor = latte, @base, @text) !important;
+    }
+
+    /* verification badge */
+    [src*="https://www.gstatic.com/images/icons/material/system/1x/check_circle_grey600_36dp.png"] {
+      filter: @text-filter;
+    }
+
+    yt-icon.ytd-logo [fill="white"] {
+      fill: @crust !important;
+    }
+
+    .yt-spec-icon-shape {
+      [fill="#FAFAFA"],
+      [fill="#000"],
+      [fill="#fff"],
+      [fill="#FFF"],
+      [fill="#FFFFFF"] {
+        fill: @crust !important;
+      }
+    }
+
+    .yt-spec-icon-badge-shape--style-overlay .yt-spec-icon-badge-shape__icon,
+    .yt-spec-icon-badge-shape {
+      color: @text;
+    }
+
+    .yt-spec-icon-badge-shape--type-notification
+      .yt-spec-icon-badge-shape__badge {
+      background-color: @accent !important;
+      color: @surface0 !important;
+    }
+
+    /* Buttons */
+
+    .yt-spec-button-shape-next--mono {
+      &.yt-spec-button-shape-next--tonal {
+        color: @text;
+        background-color: @surface0;
+
+        [fill="rgb(3,3,3)"],
+        [fill="rgb(0,0,0)"],
+        [fill="rgb(255,255,255)"] {
+          fill: @text !important;
+        }
+
+        [stroke="rgb(0,0,0)"],
+        [stroke="rgb(255,255,255)"] {
+          stroke: @text !important;
+        }
+
+        /* Accent for filled-in thumbs up (like button) */
+        [animated-icon-type="LIKE"] {
+          g path[fill] {
+            fill: @accent !important;
+
+            + [stroke] {
+              stroke: @accent !important;
+            }
+          }
+        }
+
+        &:hover {
+          background-color: @surface1;
+        }
+      }
+
+      &.yt-spec-button-shape-next--outline {
+        color: @text;
+        border-color: @surface2;
+
+        &:hover {
+          background-color: @surface2;
+        }
+      }
+
+      &.yt-spec-button-shape-next--text {
+        color: @text;
+
+        /* Accent for filled-in thumbs up (like button) */
+        path[d="M3,11h3v10H3V11z M18.77,11h-4.23l1.52-4.94C16.38,5.03,15.54,4,14.38,4c-0.58,0-1.14,0.24-1.52,0.65L7,11v10h10.43 c1.06,0,1.98-0.67,2.19-1.61l1.34-6C21.23,12.15,20.18,11,18.77,11z"] {
+          fill: @accent;
+        }
+
+        &:hover {
+          background-color: @surface1;
+        }
+      }
+
+      &.yt-spec-button-shape-next--filled {
+        color: @crust;
+        background-color: @accent;
+
+        &:hover {
+          background-color: darken(@accent, 5%);
+        }
+      }
+    }
+
+    .yt-spec-button-shape-next--disabled {
+      background-color: fade(@overlay0, 50%);
+      color: @subtext0;
+    }
+
+    .yt-spec-button-shape-next--overlay {
+      &.yt-spec-button-shape-next--tonal {
+        color: @text;
+        background-color: @surface0;
+        &:hover {
+          background-color: @surface1;
+        }
+      }
+      &.yt-spec-button-shape-next--text {
+        color: @text;
+      }
+
+      &.yt-spec-button-shape-next--filled {
+        color: @crust;
+        background-color: @accent;
+      }
+
+      &.yt-spec-button-shape-next--outline {
+        color: @text;
+        border-color: @surface1;
+        &:hover {
+          background: @surface0;
+        }
+      }
+    }
+
+    .yt-spec-button-shape-next--call-to-action {
+      &.yt-spec-button-shape-next--outline {
+        color: @accent;
+        border-color: @surface2;
+
+        &:hover {
+          background-color: fade(@accent, 30%);
+          color: @accent;
+        }
+      }
+
+      &.yt-spec-button-shape-next--text {
+        color: @accent;
+
+        &:hover {
+          background-color: fade(@accent, 30%);
+        }
+      }
+
+      &.yt-spec-button-shape-next--filled {
+        color: @crust;
+        background-color: @accent;
+
+        &:hover {
+          background-color: lighten(@accent, 5%);
+        }
+      }
+    }
+
+    .yt-spec-button-shape-next--disabled.yt-spec-button-shape-next--filled {
+      color: @subtext0;
+      background-color: fade(@surface1, 70%);
+    }
+
+    /* Search box */
+    ytd-searchbox[has-focus] #container.ytd-searchbox {
+      border-color: @accent;
+    }
+
+    .ytSearchboxComponentInputBox,
+    .ytSearchboxComponentInputBoxDark {
+      background: var(--ytd-searchbox-background) !important;
+      color: var(--ytd-searchbox-text-color) !important;
+      border-color: var(--ytd-searchbox-border-color) !important;
+      box-shadow: none;
+    }
+
+    .ytSearchboxComponentInputBoxHasFocus,
+    .ytSearchboxComponentInputBoxHasFocusDark {
+      border-color: @accent !important;
+    }
+
+    .ytSuggestionComponentSuggestionHover:hover,
+    .ytSuggestionComponentSuggestionHoverDark:hover {
+      background: @surface1 !important;
+    }
+
+    .ytSearchboxComponentSuggestionsContainer,
+    .ytSearchboxComponentSuggestionsContainerDark {
+      background: var(--yt-spec-raised-background) !important;
+      border-color: var(--yt-spec-raised-background) !important;
+    }
+
+    .ytSuggestionComponentSuggestion,
+    .ytSuggestionComponentSuggestionDark {
+      color: var(--ytd-searchbox-text-color) !important;
+    }
+
+    .ytSearchboxComponentSearchButton,
+    .ytSearchboxComponentSearchButtonDark {
+      color: var(--ytd-searchbox-text-color) !important;
+      background: @surface0 !important;
+      border-color: var(--ytd-searchbox-border-color) !important;
+    }
+
+    .ytSearchboxComponentClearButtonIcon,
+    .ytSearchboxComponentClearButtonIconDark {
+      color: var(--ytd-searchbox-text-color) !important;
+    }
+
+    .ytSearchboxComponentReportButton,
+    .ytSearchboxComponentReportButtonDark,
+    .ytSuggestionComponentRemoveLink,
+    .ytSuggestionComponentRemoveLinkDark {
+      color: @subtext0 !important;
+    }
+
+    .sbsb_a {
+      background: @surface0;
+    }
+    .sbdd_b {
+      border-color: var(--yt-spec-raised-background);
+      background-color: var(--yt-spec-raised-background);
+    }
+    .sbpqs_a,
+    .gsfs {
+      color: var(--yt-spec-text-primary);
+    }
+    .sbsb_i {
+      color: var(--yt-spec-call-to-action);
+    }
+    .sbsb_d {
+      background-color: var(--yt-spec-additive-background);
+    }
+    .sbdd_c {
+      visibility: hidden;
+    }
+
+    /* "Suggestion removed" */
+    .sbpqs_c {
+      color: @overlay1;
+    }
+
+    .sbpqs_a::before,
+    .sbqs_c::before {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="1 1 27 27" width="24" focusable="false" style="width:100%;height:100%" pointer-events="none" display="block"><path fill="@{text}" d="m20.87 20.17-5.59-5.59A6.96 6.96 0 0 0 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7a6.995 6.995 0 0 0 11.58 5.29l5.59 5.59zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6"/></svg>'
+      );
+      content: url("data:image/svg+xml,@{svg}");
+      background: none;
+    }
+
+    /* Video description */
+
+    #description {
+      [style*="color: rgb(255, 255, 255);"],
+      [style*="color: rgb(19, 19, 19);"] {
+        color: @text !important;
+      }
+    }
+
+    .yt-core-attributed-string__link--call-to-action-color {
+      color: @accent;
+    }
+
+    .YtwCourseProgressViewModelHostProgressTitle,
+    .YtwCourseProgressViewModelHostProgressSubtitle {
+      color: @text;
+    }
+
+    .YtwCourseProgressViewModelHostProgressBar {
+      background-color: fade(@white, 20%);
+
+      .YtwCourseProgressViewModelHostProgressBarFill {
+        background-color: @text;
+      }
+    }
+
+    .ytwHowThisWasMadeSectionViewModelSectionTitle,
+    .ytwHowThisWasMadeSectionViewModelBodyHeader {
+      color: @text;
+    }
+
+    .ytwHowThisWasMadeSectionViewModelBodyText {
+      color: @subtext0;
+    }
+
+    /* Thumbnails */
+
+    #time-status:has([aria-label="LIVE"]),
+    .badge[aria-label="LIVE"],
+    .badge[aria-label="PREMIERE"],
+    .badge-shape-wiz--live.badge-shape-wiz--overlay,
+    .badge-shape-wiz--thumbnail-live {
+      background: @accent;
+      color: @crust;
+    }
+    #thumbnail [style="background-color: rgba(51, 51, 51, 0.8);"],
+    .YtInlinePlayerControlsTopRightControlsCircleButton,
+    .badge-shape-wiz--default.badge-shape-wiz--overlay,
+    .branding-context-container-inner {
+      background-color: @surface0 !important;
+      color: @text;
+    }
+    .ytp-sb-unsubscribe {
+      background-color: @surface2;
+      color: @text;
+    }
+    .ytp-sb-subscribe {
+      background-color: @accent;
+      color: @crust;
+    }
+    ytd-thumbnail-overlay-resume-playback-renderer {
+      background-color: @surface1;
+    }
+    .badge-shape-wiz--thumbnail-default {
+      color: @text;
+      background: fade(@crust, 80%);
+    }
+
+    /* Panels, popups, tooltips */
+
+    .ytp-tooltip-text {
+      background: fade(@surface0, 90%) !important;
+      color: @text;
+      text-shadow: none !important;
+    }
+
+    .ytp-popup {
+      background: fade(@surface0, 90%) !important;
+      text-shadow: none;
+    }
+
+    .ytp-panel-menu,
+    .ytp-panel-header,
+    .ytp-panel-footer,
+    .ytp-menuitem-label,
+    .ytp-premium-label,
+    .ytp-menuitem-content,
+    .ytp-menuitem-label-count,
+    .ytp-menu-label-secondary,
+    .ytd-menu-title-renderer {
+      color: @text;
+    }
+
+    .ytp-panel-header {
+      border-bottom-color: @surface2;
+    }
+
+    .ytp-panel-footer-content-link {
+      color: @accent;
+    }
+
+    .ytp-panel-back-button {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 32 32" version="1.1"><path d="m19.41 20.09-4.58-4.59 4.58-4.59L18 9.5l-6 6 6 6z" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    .ytp-menuitem[aria-checked="true"] .ytp-menuitem-toggle-checkbox {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" version="1.1"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+      background-color: @accent;
+    }
+
+    .ytp-menuitem {
+      &:not([aria-disabled="true"]):hover {
+        background-color: @surface1;
+      }
+
+      svg > path:not([fill="none"]) {
+        fill: @text !important;
+      }
+
+      &[aria-haspopup="true"] .ytp-menuitem-content {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 32 32" version="1.1"><path d="m12.59 20.34 4.58-4.59-4.58-4.59L14 9.75l6 6-6 6z" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+      &[role="menuitemradio"][aria-checked="true"] .ytp-menuitem-label {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" version="1.1"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+    }
+
+    /* Video player */
+
+    .ytp-cards-button {
+      .ytp-cards-button-icon {
+        use {
+          fill: @black;
+        }
+        path {
+          fill: @white;
+        }
+      }
+    }
+    .ytp-cards-teaser {
+      .ytp-cards-teaser-box {
+        background-color: @surface2;
+        border-bottom-color: @surface2;
+      }
+      .ytp-cards-teaser-text {
+        color: @text;
+      }
+    }
+
+    .html5-video-player {
+      color: @white;
+
+      .ytp-swatch-background-color,
+      .ytp-play-progress {
+        background: @accent !important;
+      }
+
+      .ytp-svg-fill,
+      [fill="#fff"] {
+        fill: @white !important;
+      }
+
+      .ytp-volume-slider-handle {
+        &,
+        &::before {
+          background-color: @white;
+        }
+        &::after {
+          background-color: fade(@white, 20%);
+        }
+      }
+
+      .ytp-time-current,
+      .ytp-time-separator,
+      .ytp-time-duration {
+        color: @white;
+      }
+
+      .ytp-live-badge {
+        &[disabled]::before {
+          background: @accent;
+        }
+        &::before {
+          background: @overlay0;
+        }
+      }
+
+      /* youtube live ring */
+      .yt-spec-avatar-shape__badge-text {
+        color: @crust;
+      }
+      .yt-spec-avatar-shape--live-ring {
+        border-color: @accent;
+      }
+      .yt-spec-avatar-shape__live-badge {
+        background-color: @accent;
+      }
+
+      .ytp-button,
+      .ytp-subtitles-button {
+        &[aria-pressed]::after {
+          background-color: @accent;
+        }
+      }
+
+      /* stats for nerds */
+      .ytp-sfn {
+        background: fade(@base, 80%);
+        color: @text;
+      }
+
+      .ytp-autonav-toggle-button {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="12" fill="none"><path opacity=".5" fill-rule="evenodd" clip-rule="evenodd" d="M22.7 11c2.95 0 5.3-2.21 5.3-5s-2.35-5-5.3-5H7.3C4.35 1 2 3.21 2 6s2.35 5 5.3 5z" fill="@{white}"/><path opacity=".5" fill-rule="evenodd" clip-rule="evenodd" d="M7.3 1C4.35 1 2 3.21 2 6s2.35 5 5.3 5h15.4A5.16 5.16 0 0 0 28 6l-.03-.54A5.16 5.16 0 0 0 22.7 1zm15.4 11c3.45 0 6.3-2.6 6.3-6s-2.85-6-6.3-6H7.3C3.85 0 1 2.6 1 6s2.85 6 6.3 6z" fill="@{black}" fill-opacity=".3"/></svg>'
+        );
+        background-image: url("data:image/svg+xml;charset=utf-8,@{svg}");
+
+        &::after {
+          @svg: escape(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 17 17" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15" fill="@{surface2}"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17 8.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0m-1 0a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0" fill="@{black}" fill-opacity=".15"/><path d="M5.5 12h2V5h-2zm4-7v7h2V5z" fill="@{white}"/></svg>'
+          );
+          background-image: url("data:image/svg+xml;charset=utf-8,@{svg}");
+        }
+
+        &[aria-checked="true"] {
+          @svg: escape(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="12" fill="none"><path opacity=".5" fill-rule="evenodd" clip-rule="evenodd" d="M22.7 11c2.95 0 5.3-2.21 5.3-5s-2.35-5-5.3-5H7.3C4.35 1 2 3.21 2 6s2.35 5 5.3 5zm-2.7-.75v-8.5l6.7 4.26z" fill="@{white}"/><path opacity=".5" fill-rule="evenodd" clip-rule="evenodd" d="M7.3 1C4.35 1 2 3.21 2 6s2.35 5 5.3 5h15.4A5.16 5.16 0 0 0 28 6l-.03-.54A5.16 5.16 0 0 0 22.7 1zm15.4 11c3.45 0 6.3-2.6 6.3-6s-2.85-6-6.3-6H7.3C3.85 0 1 2.6 1 6s2.85 6 6.3 6z" fill="@{black}" fill-opacity=".3"/></svg>'
+          );
+          background-image: url("data:image/svg+xml;charset=utf-8,@{svg}");
+
+          &::after {
+            @svg: escape(
+              '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 17 17" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M17 8.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0m-5 0L6.5 5v7zm-1.86 0L7.5 6.82v3.36zM8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15" fill="@{black}" fill-opacity=".15"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16 8.5a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0m-4 0L6.5 12V5z" fill="@{white}"/></svg>'
+            );
+            background-image: url("data:image/svg+xml;charset=utf-8,@{svg}");
+          }
+        }
+      }
+    }
+
+    /* Video highlight */
+    ytd-rich-item-renderer.ytd-rich-item-renderer-highlight {
+      background-color: fade(@accent, 10%) !important;
+      box-shadow: fade(@accent, 10%) 0 0 0 10px !important;
+    }
+
+    #shorts-container {
+      --yt-spec-static-overlay-text-primary: @white;
+      .yt-spec-button-shape-next--overlay.yt-spec-button-shape-next--tonal {
+        color: @white;
+      }
+
+      .YtwFactoidRendererLabel {
+        color: @subtext0;
+      }
+      .YtwFactoidRendererValue {
+        color: @text;
+      }
+
+      ytd-reel-video-renderer:not([is-watch-while-mode]) {
+        .yt-spec-button-shape-with-label__label {
+          color: @subtext1;
+        }
+      }
+      ytd-reel-video-renderer[is-watch-while-mode]
+        .yt-spec-button-shape-with-label__label {
+        color: @white;
+      }
+
+      .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--tonal,
+      .YtdDesktopShortsVolumeControlsBackgroundScrim {
+        background-color: fade(@black, 60%);
+        color: @white;
+      }
+
+      .YtProgressBarLineProgressBarPlayed,
+      .YtProgressBarPlayheadProgressBarPlayheadDot {
+        background-color: @accent !important;
+      }
+
+      .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--filled {
+        background-color: @accent;
+        color: @crust;
+      }
+
+      .YtdDesktopShortsVolumeControlsMuteIcon {
+        color: @white !important;
+      }
+
+      /* Buy super thanks button */
+      .YtdShortsSuggestedActionStaticHostContainer {
+        background-color: fade(@black, 60%);
+
+        .YtdShortsSuggestedActionStaticHostLeadingIcon,
+        .YtdShortsSuggestedActionStaticHostPrimaryText {
+          color: @text;
+        }
+      }
+    }
+
+    /* Shorts titles and views on homepage */
+    .shortsLockupViewModelHostOutsideMetadataEndpoint {
+      color: @text;
+    }
+    .shortsLockupViewModelHostOutsideMetadataSubhead {
+      color: @subtext0;
+    }
+
+    /* Buy super thanks bar */
+    #progressContainer.tp-yt-paper-progress {
+      background-color: @mantle !important;
+    }
+
+    #comment-chip-container.yt-pdg-comment-chip-renderer,
+    .slider-knob-inner.tp-yt-paper-slider {
+      background: @accent !important;
+    }
+
+    #primaryProgress.tp-yt-paper-progress {
+      background: linear-gradient(139deg, @peach, @maroon, @red, @pink);
+    }
+
+    #container.ytd-pdg-comment-preview-renderer {
+      background-color: @mantle !important;
+    }
+
+    #comment-chip-price.yt-pdg-comment-chip-renderer,
+    yt-icon.yt-pdg-comment-chip-renderer {
+      color: @crust;
+    }
+
+    /* Channel pages */
+    .yt-tab-shape-wiz__tab {
+      color: @subtext1;
+    }
+    .yt-tab-shape-wiz__tab--tab-selected {
+      color: @text;
+    }
+    .yt-tab-group-shape-wiz__slider {
+      background-color: @text;
+    }
+    .yt-tab-shape-wiz:hover .yt-tab-shape-wiz__tab-bar {
+      background-color: @subtext1;
+    }
+    .truncated-text-wiz,
+    .page-header-view-model-wiz__page-header-content-metadata {
+      color: @subtext1;
+    }
+    .page-header-view-model-wiz__page-header-title,
+    [style="color: rgb(255, 255, 255);"]:has(svg),
+    .truncated-text-wiz__absolute-button {
+      color: @text !important;
+    }
+    .yt-contextual-sheet-layout-wiz {
+      background-color: @mantle;
+
+      .yt-list-item-view-model-wiz__container--tappable:hover {
+        background-color: @surface0;
+      }
+
+      .yt-list-item-view-model-wiz__title,
+      .yt-list-item-view-model-wiz__accessory,
+      .radio-shape-wiz__label-container {
+        color: @text;
+      }
+    }
+
+    /* channel details */
+    .profile-badge-view-model-wiz__badge-description {
+      color: @text !important;
+    }
+
+    .profile-badge-view-model-wiz__badge-subtitle {
+      color: @subtext0 !important;
+    }
+
+    .yt-profile-identity-info-view-model-wiz__divider {
+      border-color: @surface0 !important;
+    }
+
+    /* Profiles */
+    .yt-profile-card-view-model-wiz {
+      background-color: @mantle;
+    }
+    .yt-profile-identity-info-view-model-wiz__channel-name,
+    .yt-profile-info-view-model-wiz__section-title,
+    .yt-comment-interaction-view-model-wiz__video-title,
+    .yt-shared-subscription-view-model-wiz__channel-name {
+      color: @text;
+    }
+    .yt-profile-identity-info-view-model-wiz__badge,
+    .yt-profile-identity-info-view-model-wiz__metadata-handle,
+    .yt-profile-identity-info-view-model-wiz__metadata-content,
+    .yt-profile-info-view-model-wiz__section-subtitle,
+    .yt-comment-interaction-view-model-wiz__comment-content {
+      color: @subtext0;
+    }
+
+    /* Horizontal list arrows */
+    .arrow.yt-horizontal-list-renderer {
+      background: @surface0;
+    }
+
+    /* Live chat replay */
+    .ytVideoMetadataCarouselViewModelHost,
+    .YtVideoMetadataCarouselViewModelHost {
+      background-color: @surface0;
+
+      .ytCarouselTitleViewModelTitle,
+      .YtCarouselTitleViewModelTitle,
+      .yt-core-attributed-string,
+      .yt-icon-shape {
+        color: @text;
+      }
+    }
+
+    /* AI-generated video summary */
+    .video-summary-content-view-model-wiz__paragraph {
+      color: @text;
+    }
+
+    /* Playlist collapsed sidebar */
+    #next-video-title {
+      color: @text !important;
+    }
+    #publisher-container {
+      .yt-simple-endpoint.style-scope.yt-formatted-string,
+      .index-message-wrapper.style-scope.ytd-playlist-panel-renderer,
+      .index-message-wrapper.style-scope.ytd-playlist-panel-renderer::before {
+        color: @subtext0 !important;
+      }
+    }
+
+    /* Playlist metadata */
+    .metadata-stats.style-scope.ytd-playlist-byline-renderer,
+    .yt-lockup-metadata-view-model-wiz__metadata {
+      color: @subtext0 !important;
+    }
+
+    /* Playlist titles in search results */
+    .yt-core-attributed-string.yt-core-attributed-string--white-space-pre-wrap {
+      color: @text !important;
+    }
+  }
+}
+
+@-moz-document url-prefix("https://studio.youtube.com") {
+  :root[dark] {
+    #catppuccin(@darkFlavor);
+  }
+  :root {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    [src="https://www.gstatic.com/youtube/img/creator/yt_studio_logo_white.svg"] {
+      @svg: escape(
+        '<svg viewBox="0 0 97.55 24" xmlns="http://www.w3.org/2000/svg"><path fill="@{accent}" d="M17.1 0S6.4 0 3.8.7a4.15 4.15 0 0 0-3 3C0 6.4 0 12 0 12a45 45 0 0 0 .7 8.2 4.32 4.32 0 0 0 3 3c2.7.8 13.4.8 13.4.8s10.7 0 13.4-.7a4.32 4.32 0 0 0 3-3 45 45 0 0 0 .7-8.2s.1-5.7-.6-8.3a4.32 4.32 0 0 0-3-3C27.9 0 17.1 0 17.1 0m-3.4 6.9 8.9 5.1-8.9 5.1z"/><path fill="@{text}" d="M76.3.9v4.4c0 1.1 0 2 .1 3.3h-.1A3.36 3.36 0 0 0 73.4 7c-2.3 0-3.3 2-3.3 6.6V16c0 4.9.8 6.6 3.2 6.6a3.42 3.42 0 0 0 3.2-2.4h.1l.4 2.1h2.6V.9zm6.688.4c-1.126.032-1.687.55-1.687 2.1 0 1.7.599 2.1 1.799 2.1s1.8-.5 1.8-2.1-.6-2.1-1.8-2.1zM45 1.4c-3.6 0-5 1.7-5 4.9s1.1 4.5 3.7 6.8c1.6 1.4 2.8 2.5 2.8 4.8 0 1.5-.4 2.2-1.6 2.2s-1.7-.8-1.6-3.6h-3.1c-.6 4.2.8 6.1 4.5 6.2 3.5 0 5-1.5 5-5.4 0-3.1-1.3-4.4-3.7-6.6-1.9-1.8-2.8-2.5-2.8-4.6 0-1.4.3-2.2 1.6-2.2s1.6 1.1 1.5 3.9l3.1-.2c.5-4.2-.8-6.2-4.4-6.2m7.6 1.4-.4 4.5h-1.4v2.6H52v8.8c0 2.7.4 3.8 2.6 3.8a7.4 7.4 0 0 0 3.1-.6l-.6-2.2a5.2 5.2 0 0 1-1.3.2c-.5 0-.7-.3-.7-1.7V9.9h2.2V7.3H55V2.8zM91 7c-3.3 0-4.7 1.8-4.7 6.7v2.2c0 4.7 1.1 6.7 4.6 6.7s4.7-2 4.7-6.7v-2.2C95.6 8.9 94.3 7 91 7m-31.8.3v11.4c0 2.7.9 4 2.9 4a3.46 3.46 0 0 0 3.2-2.1h.1l.3 1.8h2.7V7.3H65v12a1.51 1.51 0 0 1-1.4 1c-.7 0-1-.6-1-1.9V7.3zm22.3 0v15.1h3.2V7.3zm9.4 2c1 0 1.3 1 1.3 3.1v4.7c0 2.2-.4 3.1-1.3 3.1s-1.2-.9-1.2-3.1v-4.7c0-2 .2-3.1 1.2-3.1M75 9.4a1.56 1.56 0 0 1 1.3.8v8.5c-.2.9-.9 1.4-1.4 1.3-1 0-1.3-1-1.3-4.4v-1.9c0-3.3.3-4.3 1.4-4.3"/></svg>'
+      );
+      content: url("data:image/svg+xml,@{svg}");
+    }
+
+    &,
+    html,
+    html[dark],
+    html[dark][dark],
+    &[dark],
+    &[light],
+    [light],
+    html[light],
+    html[light][light] {
+      --yt-spec-black-pure-alpha-80: (null) !important;
+      --yt-spec-black-pure-alpha-60: (null) !important;
+      --yt-spec-black-1-alpha-98: (null) !important;
+      --yt-spec-black-1-alpha-95: (null) !important;
+      --iron-icon-fill-color: unset !important;
+
+      --yt-spec-text-primary: @text !important;
+      --ytcp-text-primary: @text !important;
+      --ytcp-text-primary-inverse: @base !important;
+      --ytcp-static-overlay-text-primary-inverse: @base !important;
+      --ytcp-wordmark-text: @text !important;
+      --ytcp-text-secondary: @subtext0 !important;
+      --ytcp-text-disabled: @subtext1 !important;
+      --ytcp-overlay-text-primary: @overlay2 !important;
+
+      --ytcp-general-background-a: @base !important;
+      --yt-spec-base-background: @base !important;
+      --yt-spec-black-3: @base !important;
+
+      --yt-spec-brand-background-solid: @mantle !important;
+      --ytcp-brand-background-solid: @mantle !important;
+      --yt-spec-raised-background: @mantle !important;
+      --ytcp-general-background-b: @mantle !important;
+      --ytcp-analytics-reach-background: @mantle !important;
+      --yt-spec-black-2: @mantle !important;
+
+      --ytcp-general-background-c: @crust !important;
+      --ytcp-menu-background: @surface0 !important;
+
+      --ytcp-container-border-color: @surface0 !important;
+      --ytcp-container-hovered-border-color: @surface0 !important;
+      --ytcp-line-divider-solid: @surface0 !important;
+      --ytcp-container-border-color-inverse: @subtext0 !important;
+      --ytcp-line-divider-solid-inverse: @subtext0 !important;
+
+      --ytcp-call-to-action: @accent !important;
+      --ytcp-call-to-action-inverse: @mantle !important;
+      --ytcp-call-to-action-raised-background: @accent !important;
+      --yt-spec-brand-button-background: @accent !important;
+      --ytcp-call-to-action-raised-disabled: @surface2 !important;
+      --ytcp-call-to-action-raised-disabled-background: @overlay2 !important;
+      --ytcp-call-to-action-raised-background-inverse: @base !important;
+      --ytcp-call-to-action-raised-disabled-inverse: @surface2 !important;
+      --ytcp-call-to-action-raised-disabled-background-inverse: @overlay2
+        !important;
+
+      --yt-spec-brand-background-primary: @surface0 !important;
+
+      --yt-compact-link-icon-color: @overlay2 !important;
+      --ytcp-icon-active: @accent !important;
+      --ytcp-icon-inactive: @overlay2 !important;
+      --ytcp-icon-disabled: @overlay0 !important;
+      --ytcp-icon-active-inverse: @overlay1 !important;
+      --ytcp-icon-disabled-inverse: @subtext1 !important;
+
+      --ytcp-error-red: @red !important;
+      --ytcp-badge-red: @red !important;
+      --ytcp-error-red-inverse: @red !important;
+      --ytcp-themed-red-inverse: @red !important;
+      --ytcp-themed-red: @accent !important;
+      --ytcp-themed-blue: @accent !important;
+      --ytcp-badge-blue: fade(@accent, 30%);
+      --ytcp-badge-blue-solid: @blue !important;
+      --ytcp-themed-blue-inverse: @blue !important;
+      --ytcp-themed-green: @green !important;
+      --ytmus-genre-primary-melon: @green !important;
+      --ytcp-themed-green-inverse: @green !important;
+      --ytcp-analytics-pine: @green !important;
+      --ytcp-analytics-pine-inverse: @green !important;
+      --ytcp-analytics-parrot: @green !important;
+      --ytcp-themed-yellow: @peach !important;
+      --ytmus-genre-primary-gold: @peach !important;
+      --ytcp-yellow-inverse: @peach !important;
+      --ytcp-badge-yellow: @peach !important;
+      --ytcp-analytics-yellow: @peach !important;
+      --ytcp-analytics-apricot: @peach !important;
+      --ytcp-suggested-action: @teal !important;
+      --ytcp-analytics-overview: @teal !important;
+      --ytcp-analytics-revenue: @teal !important;
+      --ytcp-analytics-default-secondary: @teal !important;
+      --ytcp-analytics-royal-blue: @lavender !important;
+      --ytcp-analytics-reach: @lavender !important;
+      --ytcp-analytics-audience: @lavender !important;
+      --ytcp-analytics-engagement: @pink !important;
+      --ytcp-analytics-revenue-secondary: @pink !important;
+      --ytcp-analytics-bubblegum: @flamingo !important;
+      --ytmus-genre-primary-ruby: @flamingo !important;
+      --ytmus-genre-primary-salmon: @mauve !important;
+      --ytmus-genre-primary-orange: @maroon !important;
+      --ytmus-genre-primary-sky: @sky !important;
+      --ytmus-genre-primary-sky-inverse: @sky !important;
+
+      --yt-spec-badge-chip-background: @surface1 !important;
+      --ytcp-focus-inverse: @accent !important;
+      --ytcp-focus: @accent !important;
+      --ytcp-selected-item: @accent !important;
+      --ytcp-hover-item: @overlay2 !important;
+      --ytcp-chip-active-focus: @accent !important;
+      --ytcp-playhead: @overlay2 !important;
+      --ytcp-playhead-inverse: @overlay2 !important;
+    }
+
+    ytcp-button.destructive.ytls-error-dialog {
+      color: @base !important;
+    }
+
+    yt-formatted-string.ytls-error-dialog,
+    tp-yt-iron-icon.ytls-error-dialog {
+      color: @text !important;
+    }
+  }
+}
+
+@-moz-document domain("m.youtube.com") {
+  html[darker-dark-theme] {
+    #catppuccin(@darkFlavor);
+  }
+  html {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    background-color: @base !important;
+    color: @text !important;
+
+    /* Ambient mode */
+    #cinematics {
+      mix-blend-mode: lighten;
+    }
+
+    .mobile-topbar-header[data-mode="watch"],
+    ytm-mobile-topbar-renderer:not([ambient-topbar]) {
+      background: @base;
+    }
+
+    .mobile-topbar-header[data-mode="watch"] .mobile-topbar-logo,
+    .mobile-topbar-header[data-mode="watch"] .mobile-topbar-title,
+    .mobile-topbar-header[data-mode="watch"] .mobile-topbar-header-content {
+      color: @text;
+    }
+
+    .yt-spec-bottom-sheet-layout__bottom-sheet-renderer-container,
+    .modern-styling {
+      background: @surface0;
+    }
+
+    .yt-spec-bottom-sheet-layout__bottom-sheet-layout-header-wrapper {
+      border-bottom-color: @surface0;
+    }
+
+    .yt-spec-bottom-sheet-layout__bottom-sheet-content {
+      color: @text;
+    }
+
+    /* Comment box */
+    .engagement-panel-container {
+      background: @mantle;
+    }
+
+    /* Bottom bar */
+    ytm-pivot-bar-renderer {
+      background: @mantle;
+      color: @text;
+      border-top-color: @surface0;
+    }
+
+    /* Chips */
+    .chip-bar {
+      background-color: @base;
+    }
+
+    [chip-style*="STYLE_"] {
+      .chip-container {
+        color: @text;
+        background-color: @surface0;
+      }
+
+      &.selected .chip-container {
+        color: @crust;
+        background-color: @accent;
+      }
+    }
+
+    /* Buttons */
+
+    .yt-spec-touch-feedback-shape--touch-response {
+      .yt-spec-touch-feedback-shape__fill {
+        background-color: @text;
+      }
+
+      .yt-spec-touch-feedback-shape__stroke {
+        border-color: @surface1;
+      }
+    }
+
+    .yt-spec-touch-feedback-shape--overlay-touch-response-inverse
+      .yt-spec-touch-feedback-shape__fill {
+      background-color: @accent;
+    }
+    .yt-spec-touch-feedback-shape--overlay-touch-response
+      .yt-spec-touch-feedback-shape__fill {
+      background-color: @text;
+    }
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
+
+/* deno-fmt-ignore */
+@catppuccin-filters: {
+  @latte: { @rosewater: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(1048%) hue-rotate(323deg) brightness(92%) contrast(86%); @flamingo: brightness(0) saturate(100%) invert(84%) sepia(44%) saturate(4533%) hue-rotate(310deg) brightness(98%) contrast(75%); @pink: brightness(0) saturate(100%) invert(60%) sepia(32%) saturate(775%) hue-rotate(266deg) brightness(93%) contrast(97%); @mauve: brightness(0) saturate(100%) invert(26%) sepia(59%) saturate(3315%) hue-rotate(255deg) brightness(94%) contrast(100%); @red: brightness(0) saturate(100%) invert(16%) sepia(78%) saturate(7275%) hue-rotate(342deg) brightness(84%) contrast(94%); @maroon: brightness(0) saturate(100%) invert(31%) sepia(56%) saturate(2395%) hue-rotate(331deg) brightness(99%) contrast(82%); @peach: brightness(0) saturate(100%) invert(38%) sepia(81%) saturate(1292%) hue-rotate(356deg) brightness(103%) contrast(99%); @yellow: brightness(0) saturate(100%) invert(74%) sepia(47%) saturate(4570%) hue-rotate(354deg) brightness(95%) contrast(83%); @green: brightness(0) saturate(100%) invert(51%) sepia(25%) saturate(4134%) hue-rotate(76deg) brightness(95%) contrast(66%); @teal: brightness(0) saturate(100%) invert(41%) sepia(45%) saturate(1101%) hue-rotate(139deg) brightness(100%) contrast(82%); @sky: brightness(0) saturate(100%) invert(47%) sepia(76%) saturate(2427%) hue-rotate(166deg) brightness(99%) contrast(97%); @sapphire: brightness(0) saturate(100%) invert(52%) sepia(41%) saturate(6982%) hue-rotate(160deg) brightness(102%) contrast(75%); @blue: brightness(0) saturate(100%) invert(30%) sepia(80%) saturate(1850%) hue-rotate(209deg) brightness(94%) contrast(105%); @lavender: brightness(0) saturate(100%) invert(48%) sepia(61%) saturate(538%) hue-rotate(194deg) brightness(102%) contrast(98%); @text: brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(1259%) hue-rotate(196deg) brightness(97%) contrast(91%); @subtext1: brightness(0) saturate(100%) invert(36%) sepia(10%) saturate(890%) hue-rotate(196deg) brightness(98%) contrast(90%); @subtext0: brightness(0) saturate(100%) invert(47%) sepia(6%) saturate(1263%) hue-rotate(195deg) brightness(90%) contrast(81%); @overlay2: brightness(0) saturate(100%) invert(59%) sepia(7%) saturate(825%) hue-rotate(195deg) brightness(83%) contrast(91%); @overlay1: brightness(0) saturate(100%) invert(59%) sepia(14%) saturate(333%) hue-rotate(194deg) brightness(95%) contrast(89%); @overlay0: brightness(0) saturate(100%) invert(85%) sepia(7%) saturate(595%) hue-rotate(191deg) brightness(77%) contrast(81%); @surface2: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(482%) hue-rotate(189deg) brightness(82%) contrast(88%); @surface1: brightness(0) saturate(100%) invert(85%) sepia(8%) saturate(281%) hue-rotate(187deg) brightness(92%) contrast(88%); @surface0: brightness(0) saturate(100%) invert(96%) sepia(1%) saturate(5123%) hue-rotate(185deg) brightness(93%) contrast(83%); @base: brightness(0) saturate(100%) invert(89%) sepia(5%) saturate(140%) hue-rotate(182deg) brightness(109%) contrast(94%); @mantle: brightness(0) saturate(100%) invert(93%) sepia(19%) saturate(55%) hue-rotate(182deg) brightness(98%) contrast(92%); @crust: brightness(0) saturate(100%) invert(91%) sepia(1%) saturate(4489%) hue-rotate(196deg) brightness(106%) contrast(82%); };
+  @frappe: { @rosewater: brightness(0) saturate(100%) invert(90%) sepia(6%) saturate(734%) hue-rotate(321deg) brightness(95%) contrast(99%); @flamingo: brightness(0) saturate(100%) invert(88%) sepia(52%) saturate(817%) hue-rotate(293deg) brightness(113%) contrast(84%); @pink: brightness(0) saturate(100%) invert(76%) sepia(15%) saturate(844%) hue-rotate(280deg) brightness(107%) contrast(91%); @mauve: brightness(0) saturate(100%) invert(71%) sepia(25%) saturate(725%) hue-rotate(225deg) brightness(94%) contrast(91%); @red: brightness(0) saturate(100%) invert(67%) sepia(3%) saturate(7209%) hue-rotate(305deg) brightness(91%) contrast(99%); @maroon: brightness(0) saturate(100%) invert(61%) sepia(14%) saturate(957%) hue-rotate(307deg) brightness(109%) contrast(90%); @peach: brightness(0) saturate(100%) invert(68%) sepia(28%) saturate(662%) hue-rotate(335deg) brightness(96%) contrast(94%); @yellow: brightness(0) saturate(100%) invert(94%) sepia(88%) saturate(684%) hue-rotate(309deg) brightness(105%) contrast(80%); @green: brightness(0) saturate(100%) invert(89%) sepia(23%) saturate(582%) hue-rotate(42deg) brightness(87%) contrast(89%); @teal: brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(986%) hue-rotate(110deg) brightness(85%) contrast(81%); @sky: brightness(0) saturate(100%) invert(75%) sepia(15%) saturate(623%) hue-rotate(141deg) brightness(109%) contrast(81%); @sapphire: brightness(0) saturate(100%) invert(77%) sepia(20%) saturate(730%) hue-rotate(157deg) brightness(97%) contrast(76%); @blue: brightness(0) saturate(100%) invert(68%) sepia(16%) saturate(1070%) hue-rotate(185deg) brightness(96%) contrast(95%); @lavender: brightness(0) saturate(100%) invert(75%) sepia(20%) saturate(626%) hue-rotate(201deg) brightness(101%) contrast(89%); @text: brightness(0) saturate(100%) invert(83%) sepia(12%) saturate(582%) hue-rotate(191deg) brightness(98%) contrast(96%); @subtext1: brightness(0) saturate(100%) invert(80%) sepia(18%) saturate(411%) hue-rotate(190deg) brightness(96%) contrast(84%); @subtext0: brightness(0) saturate(100%) invert(82%) sepia(6%) saturate(1287%) hue-rotate(192deg) brightness(86%) contrast(85%); @overlay2: brightness(0) saturate(100%) invert(65%) sepia(36%) saturate(230%) hue-rotate(190deg) brightness(92%) contrast(82%); @overlay1: brightness(0) saturate(100%) invert(55%) sepia(12%) saturate(638%) hue-rotate(189deg) brightness(98%) contrast(87%); @overlay0: brightness(0) saturate(100%) invert(49%) sepia(13%) saturate(662%) hue-rotate(192deg) brightness(94%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(41%) sepia(20%) saturate(469%) hue-rotate(191deg) brightness(93%) contrast(86%); @surface1: brightness(0) saturate(100%) invert(34%) sepia(14%) saturate(771%) hue-rotate(190deg) brightness(89%) contrast(85%); @surface0: brightness(0) saturate(100%) invert(28%) sepia(7%) saturate(1468%) hue-rotate(193deg) brightness(92%) contrast(95%); @base: brightness(0) saturate(100%) invert(20%) sepia(17%) saturate(747%) hue-rotate(192deg) brightness(96%) contrast(97%); @mantle: brightness(0) saturate(100%) invert(8%) sepia(7%) saturate(7271%) hue-rotate(198deg) brightness(88%) contrast(75%); @crust: brightness(0) saturate(100%) invert(7%) sepia(7%) saturate(7415%) hue-rotate(197deg) brightness(86%) contrast(79%); };
+  @macchiato: { @rosewater: brightness(0) saturate(100%) invert(88%) sepia(13%) saturate(322%) hue-rotate(321deg) brightness(102%) contrast(91%); @flamingo: brightness(0) saturate(100%) invert(82%) sepia(3%) saturate(3070%) hue-rotate(314deg) brightness(107%) contrast(88%); @pink: brightness(0) saturate(100%) invert(80%) sepia(23%) saturate(509%) hue-rotate(280deg) brightness(102%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(903%) hue-rotate(222deg) brightness(104%) contrast(93%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(1541%) hue-rotate(305deg) brightness(110%) contrast(86%); @maroon: brightness(0) saturate(100%) invert(71%) sepia(10%) saturate(1331%) hue-rotate(306deg) brightness(93%) contrast(101%); @peach: brightness(0) saturate(100%) invert(73%) sepia(13%) saturate(1676%) hue-rotate(330deg) brightness(103%) contrast(92%); @yellow: brightness(0) saturate(100%) invert(87%) sepia(89%) saturate(321%) hue-rotate(314deg) brightness(101%) contrast(87%); @green: brightness(0) saturate(100%) invert(93%) sepia(12%) saturate(1128%) hue-rotate(48deg) brightness(92%) contrast(85%); @teal: brightness(0) saturate(100%) invert(92%) sepia(10%) saturate(1176%) hue-rotate(110deg) brightness(87%) contrast(90%); @sky: brightness(0) saturate(100%) invert(78%) sepia(57%) saturate(230%) hue-rotate(142deg) brightness(96%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(35%) saturate(438%) hue-rotate(156deg) brightness(92%) contrast(93%); @blue: brightness(0) saturate(100%) invert(67%) sepia(17%) saturate(1007%) hue-rotate(183deg) brightness(99%) contrast(94%); @lavender: brightness(0) saturate(100%) invert(74%) sepia(6%) saturate(2559%) hue-rotate(198deg) brightness(103%) contrast(94%); @text: brightness(0) saturate(100%) invert(81%) sepia(9%) saturate(726%) hue-rotate(192deg) brightness(104%) contrast(92%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(5%) saturate(1453%) hue-rotate(193deg) brightness(94%) contrast(86%); @subtext0: brightness(0) saturate(100%) invert(75%) sepia(18%) saturate(361%) hue-rotate(190deg) brightness(91%) contrast(86%); @overlay2: brightness(0) saturate(100%) invert(67%) sepia(9%) saturate(814%) hue-rotate(191deg) brightness(92%) contrast(88%); @overlay1: brightness(0) saturate(100%) invert(49%) sepia(38%) saturate(203%) hue-rotate(190deg) brightness(101%) contrast(93%); @overlay0: brightness(0) saturate(100%) invert(46%) sepia(16%) saturate(552%) hue-rotate(193deg) brightness(93%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(16%) saturate(611%) hue-rotate(192deg) brightness(101%) contrast(87%); @surface1: brightness(0) saturate(100%) invert(30%) sepia(11%) saturate(1085%) hue-rotate(194deg) brightness(92%) contrast(89%); @surface0: brightness(0) saturate(100%) invert(18%) sepia(21%) saturate(880%) hue-rotate(193deg) brightness(97%) contrast(84%); @base: brightness(0) saturate(100%) invert(12%) sepia(42%) saturate(570%) hue-rotate(194deg) brightness(90%) contrast(90%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(6%) saturate(7499%) hue-rotate(200deg) brightness(93%) contrast(85%); @crust: brightness(0) saturate(100%) invert(5%) sepia(8%) saturate(5346%) hue-rotate(202deg) brightness(98%) contrast(88%); };
+  @mocha: { @rosewater: brightness(0) saturate(100%) invert(92%) sepia(5%) saturate(704%) hue-rotate(320deg) brightness(99%) contrast(93%); @flamingo: brightness(0) saturate(100%) invert(81%) sepia(5%) saturate(987%) hue-rotate(315deg) brightness(107%) contrast(90%); @pink: brightness(0) saturate(100%) invert(86%) sepia(11%) saturate(1177%) hue-rotate(283deg) brightness(101%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(58%) saturate(255%) hue-rotate(224deg) brightness(96%) contrast(102%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(997%) hue-rotate(294deg) brightness(104%) contrast(91%); @maroon: brightness(0) saturate(100%) invert(66%) sepia(16%) saturate(1301%) hue-rotate(306deg) brightness(116%) contrast(84%); @peach: brightness(0) saturate(100%) invert(68%) sepia(57%) saturate(278%) hue-rotate(338deg) brightness(98%) contrast(101%); @yellow: brightness(0) saturate(100%) invert(90%) sepia(70%) saturate(380%) hue-rotate(313deg) brightness(102%) contrast(95%); @green: brightness(0) saturate(100%) invert(88%) sepia(6%) saturate(2015%) hue-rotate(63deg) brightness(104%) contrast(78%); @teal: brightness(0) saturate(100%) invert(92%) sepia(12%) saturate(991%) hue-rotate(108deg) brightness(93%) contrast(90%); @sky: brightness(0) saturate(100%) invert(84%) sepia(21%) saturate(1302%) hue-rotate(164deg) brightness(106%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(20%) saturate(876%) hue-rotate(156deg) brightness(96%) contrast(93%); @blue: brightness(0) saturate(100%) invert(68%) sepia(18%) saturate(951%) hue-rotate(180deg) brightness(98%) contrast(100%); @lavender: brightness(0) saturate(100%) invert(73%) sepia(7%) saturate(1670%) hue-rotate(195deg) brightness(102%) contrast(99%); @text: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(879%) hue-rotate(190deg) brightness(100%) contrast(93%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(19%) saturate(381%) hue-rotate(193deg) brightness(91%) contrast(89%); @subtext0: brightness(0) saturate(100%) invert(84%) sepia(9%) saturate(767%) hue-rotate(192deg) brightness(84%) contrast(84%); @overlay2: brightness(0) saturate(100%) invert(63%) sepia(15%) saturate(428%) hue-rotate(191deg) brightness(96%) contrast(84%); @overlay1: brightness(0) saturate(100%) invert(56%) sepia(15%) saturate(455%) hue-rotate(192deg) brightness(90%) contrast(88%); @overlay0: brightness(0) saturate(100%) invert(44%) sepia(6%) saturate(1275%) hue-rotate(194deg) brightness(97%) contrast(88%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(8%) saturate(1015%) hue-rotate(195deg) brightness(99%) contrast(89%); @surface1: brightness(0) saturate(100%) invert(25%) sepia(6%) saturate(1950%) hue-rotate(197deg) brightness(99%) contrast(86%); @surface0: brightness(0) saturate(100%) invert(19%) sepia(5%) saturate(2844%) hue-rotate(199deg) brightness(91%) contrast(93%); @base: brightness(0) saturate(100%) invert(7%) sepia(4%) saturate(7496%) hue-rotate(202deg) brightness(93%) contrast(87%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(4%) saturate(7465%) hue-rotate(202deg) brightness(95%) contrast(90%); @crust: brightness(0) saturate(100%) invert(3%) sepia(13%) saturate(6863%) hue-rotate(220deg) brightness(95%) contrast(91%); };
+};

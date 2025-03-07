@@ -64,7 +64,7 @@ img.twitter-icon {
 If you encounter non-SVG images, or many `<img>` elements with external SVGs, the best approach is to apply a CSS color filter to the images. Start by adding the following specially generated filters palette block to the bottom of the userstyle, below the existing `@catppuccin` palette block.
 
 ```css
-/* prettier-ignore */
+/* deno-fmt-ignore */
 @catppuccin-filters: {
   @latte: { @rosewater: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(1048%) hue-rotate(323deg) brightness(92%) contrast(86%); @flamingo: brightness(0) saturate(100%) invert(84%) sepia(44%) saturate(4533%) hue-rotate(310deg) brightness(98%) contrast(75%); @pink: brightness(0) saturate(100%) invert(60%) sepia(32%) saturate(775%) hue-rotate(266deg) brightness(93%) contrast(97%); @mauve: brightness(0) saturate(100%) invert(26%) sepia(59%) saturate(3315%) hue-rotate(255deg) brightness(94%) contrast(100%); @red: brightness(0) saturate(100%) invert(16%) sepia(78%) saturate(7275%) hue-rotate(342deg) brightness(84%) contrast(94%); @maroon: brightness(0) saturate(100%) invert(31%) sepia(56%) saturate(2395%) hue-rotate(331deg) brightness(99%) contrast(82%); @peach: brightness(0) saturate(100%) invert(38%) sepia(81%) saturate(1292%) hue-rotate(356deg) brightness(103%) contrast(99%); @yellow: brightness(0) saturate(100%) invert(74%) sepia(47%) saturate(4570%) hue-rotate(354deg) brightness(95%) contrast(83%); @green: brightness(0) saturate(100%) invert(51%) sepia(25%) saturate(4134%) hue-rotate(76deg) brightness(95%) contrast(66%); @teal: brightness(0) saturate(100%) invert(41%) sepia(45%) saturate(1101%) hue-rotate(139deg) brightness(100%) contrast(82%); @sky: brightness(0) saturate(100%) invert(47%) sepia(76%) saturate(2427%) hue-rotate(166deg) brightness(99%) contrast(97%); @sapphire: brightness(0) saturate(100%) invert(52%) sepia(41%) saturate(6982%) hue-rotate(160deg) brightness(102%) contrast(75%); @blue: brightness(0) saturate(100%) invert(30%) sepia(80%) saturate(1850%) hue-rotate(209deg) brightness(94%) contrast(105%); @lavender: brightness(0) saturate(100%) invert(48%) sepia(61%) saturate(538%) hue-rotate(194deg) brightness(102%) contrast(98%); @text: brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(1259%) hue-rotate(196deg) brightness(97%) contrast(91%); @subtext1: brightness(0) saturate(100%) invert(36%) sepia(10%) saturate(890%) hue-rotate(196deg) brightness(98%) contrast(90%); @subtext0: brightness(0) saturate(100%) invert(47%) sepia(6%) saturate(1263%) hue-rotate(195deg) brightness(90%) contrast(81%); @overlay2: brightness(0) saturate(100%) invert(59%) sepia(7%) saturate(825%) hue-rotate(195deg) brightness(83%) contrast(91%); @overlay1: brightness(0) saturate(100%) invert(59%) sepia(14%) saturate(333%) hue-rotate(194deg) brightness(95%) contrast(89%); @overlay0: brightness(0) saturate(100%) invert(85%) sepia(7%) saturate(595%) hue-rotate(191deg) brightness(77%) contrast(81%); @surface2: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(482%) hue-rotate(189deg) brightness(82%) contrast(88%); @surface1: brightness(0) saturate(100%) invert(85%) sepia(8%) saturate(281%) hue-rotate(187deg) brightness(92%) contrast(88%); @surface0: brightness(0) saturate(100%) invert(96%) sepia(1%) saturate(5123%) hue-rotate(185deg) brightness(93%) contrast(83%); @base: brightness(0) saturate(100%) invert(89%) sepia(5%) saturate(140%) hue-rotate(182deg) brightness(109%) contrast(94%); @mantle: brightness(0) saturate(100%) invert(93%) sepia(19%) saturate(55%) hue-rotate(182deg) brightness(98%) contrast(92%); @crust: brightness(0) saturate(100%) invert(91%) sepia(1%) saturate(4489%) hue-rotate(196deg) brightness(106%) contrast(82%); };
   @frappe: { @rosewater: brightness(0) saturate(100%) invert(90%) sepia(6%) saturate(734%) hue-rotate(321deg) brightness(95%) contrast(99%); @flamingo: brightness(0) saturate(100%) invert(88%) sepia(52%) saturate(817%) hue-rotate(293deg) brightness(113%) contrast(84%); @pink: brightness(0) saturate(100%) invert(76%) sepia(15%) saturate(844%) hue-rotate(280deg) brightness(107%) contrast(91%); @mauve: brightness(0) saturate(100%) invert(71%) sepia(25%) saturate(725%) hue-rotate(225deg) brightness(94%) contrast(91%); @red: brightness(0) saturate(100%) invert(67%) sepia(3%) saturate(7209%) hue-rotate(305deg) brightness(91%) contrast(99%); @maroon: brightness(0) saturate(100%) invert(61%) sepia(14%) saturate(957%) hue-rotate(307deg) brightness(109%) contrast(90%); @peach: brightness(0) saturate(100%) invert(68%) sepia(28%) saturate(662%) hue-rotate(335deg) brightness(96%) contrast(94%); @yellow: brightness(0) saturate(100%) invert(94%) sepia(88%) saturate(684%) hue-rotate(309deg) brightness(105%) contrast(80%); @green: brightness(0) saturate(100%) invert(89%) sepia(23%) saturate(582%) hue-rotate(42deg) brightness(87%) contrast(89%); @teal: brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(986%) hue-rotate(110deg) brightness(85%) contrast(81%); @sky: brightness(0) saturate(100%) invert(75%) sepia(15%) saturate(623%) hue-rotate(141deg) brightness(109%) contrast(81%); @sapphire: brightness(0) saturate(100%) invert(77%) sepia(20%) saturate(730%) hue-rotate(157deg) brightness(97%) contrast(76%); @blue: brightness(0) saturate(100%) invert(68%) sepia(16%) saturate(1070%) hue-rotate(185deg) brightness(96%) contrast(95%); @lavender: brightness(0) saturate(100%) invert(75%) sepia(20%) saturate(626%) hue-rotate(201deg) brightness(101%) contrast(89%); @text: brightness(0) saturate(100%) invert(83%) sepia(12%) saturate(582%) hue-rotate(191deg) brightness(98%) contrast(96%); @subtext1: brightness(0) saturate(100%) invert(80%) sepia(18%) saturate(411%) hue-rotate(190deg) brightness(96%) contrast(84%); @subtext0: brightness(0) saturate(100%) invert(82%) sepia(6%) saturate(1287%) hue-rotate(192deg) brightness(86%) contrast(85%); @overlay2: brightness(0) saturate(100%) invert(65%) sepia(36%) saturate(230%) hue-rotate(190deg) brightness(92%) contrast(82%); @overlay1: brightness(0) saturate(100%) invert(55%) sepia(12%) saturate(638%) hue-rotate(189deg) brightness(98%) contrast(87%); @overlay0: brightness(0) saturate(100%) invert(49%) sepia(13%) saturate(662%) hue-rotate(192deg) brightness(94%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(41%) sepia(20%) saturate(469%) hue-rotate(191deg) brightness(93%) contrast(86%); @surface1: brightness(0) saturate(100%) invert(34%) sepia(14%) saturate(771%) hue-rotate(190deg) brightness(89%) contrast(85%); @surface0: brightness(0) saturate(100%) invert(28%) sepia(7%) saturate(1468%) hue-rotate(193deg) brightness(92%) contrast(95%); @base: brightness(0) saturate(100%) invert(20%) sepia(17%) saturate(747%) hue-rotate(192deg) brightness(96%) contrast(97%); @mantle: brightness(0) saturate(100%) invert(8%) sepia(7%) saturate(7271%) hue-rotate(198deg) brightness(88%) contrast(75%); @crust: brightness(0) saturate(100%) invert(7%) sepia(7%) saturate(7415%) hue-rotate(197deg) brightness(86%) contrast(79%); };
@@ -73,34 +73,34 @@ If you encounter non-SVG images, or many `<img>` elements with external SVGs, th
 }
 ```
 
-Select the filter definitions from below that you plan to use and insert them near the top of the `#catppuccin` mixin, below the `@<color>: @catppuccin[@@lookup][@<color>];` color definitions.
+Select the filter definitions from below that you plan to use and insert them near the top of the `#catppuccin` mixin, below the `@<color>: @catppuccin[@@flavor][@<color>];` color definitions.
 
 ```css
-@rosewater-filter: @catppuccin-filters[@@lookup][@rosewater];
-@flamingo-filter: @catppuccin-filters[@@lookup][@flamingo];
-@pink-filter: @catppuccin-filters[@@lookup][@pink];
-@mauve-filter: @catppuccin-filters[@@lookup][@mauve];
-@red-filter: @catppuccin-filters[@@lookup][@red];
-@maroon-filter: @catppuccin-filters[@@lookup][@maroon];
-@peach-filter: @catppuccin-filters[@@lookup][@peach];
-@yellow-filter: @catppuccin-filters[@@lookup][@yellow];
-@green-filter: @catppuccin-filters[@@lookup][@green];
-@teal-filter: @catppuccin-filters[@@lookup][@teal];
-@sky-filter: @catppuccin-filters[@@lookup][@sky];
-@sapphire-filter: @catppuccin-filters[@@lookup][@sapphire];
-@blue-filter: @catppuccin-filters[@@lookup][@blue];
-@lavender-filter: @catppuccin-filters[@@lookup][@lavender];
-@text-filter: @catppuccin-filters[@@lookup][@text];
-@subtext1-filter: @catppuccin-filters[@@lookup][@subtext1];
-@subtext0-filter: @catppuccin-filters[@@lookup][@subtext0];
-@overlay2-filter: @catppuccin-filters[@@lookup][@overlay2];
-@overlay1-filter: @catppuccin-filters[@@lookup][@overlay1];
-@overlay0-filter: @catppuccin-filters[@@lookup][@overlay0];
-@surface2-filter: @catppuccin-filters[@@lookup][@surface2];
-@surface1-filter: @catppuccin-filters[@@lookup][@surface1];
-@surface0-filter: @catppuccin-filters[@@lookup][@surface0];
-@base-filter: @catppuccin-filters[@@lookup][@base];
-@mantle-filter: @catppuccin-filters[@@lookup][@mantle];
-@crust-filter: @catppuccin-filters[@@lookup][@crust];
-@accent-color-filter: @catppuccin-filters[@@lookup][@@accent];
+@rosewater-filter: @catppuccin-filters[@@flavor][@rosewater];
+@flamingo-filter: @catppuccin-filters[@@flavor][@flamingo];
+@pink-filter: @catppuccin-filters[@@flavor][@pink];
+@mauve-filter: @catppuccin-filters[@@flavor][@mauve];
+@red-filter: @catppuccin-filters[@@flavor][@red];
+@maroon-filter: @catppuccin-filters[@@flavor][@maroon];
+@peach-filter: @catppuccin-filters[@@flavor][@peach];
+@yellow-filter: @catppuccin-filters[@@flavor][@yellow];
+@green-filter: @catppuccin-filters[@@flavor][@green];
+@teal-filter: @catppuccin-filters[@@flavor][@teal];
+@sky-filter: @catppuccin-filters[@@flavor][@sky];
+@sapphire-filter: @catppuccin-filters[@@flavor][@sapphire];
+@blue-filter: @catppuccin-filters[@@flavor][@blue];
+@lavender-filter: @catppuccin-filters[@@flavor][@lavender];
+@text-filter: @catppuccin-filters[@@flavor][@text];
+@subtext1-filter: @catppuccin-filters[@@flavor][@subtext1];
+@subtext0-filter: @catppuccin-filters[@@flavor][@subtext0];
+@overlay2-filter: @catppuccin-filters[@@flavor][@overlay2];
+@overlay1-filter: @catppuccin-filters[@@flavor][@overlay1];
+@overlay0-filter: @catppuccin-filters[@@flavor][@overlay0];
+@surface2-filter: @catppuccin-filters[@@flavor][@surface2];
+@surface1-filter: @catppuccin-filters[@@flavor][@surface1];
+@surface0-filter: @catppuccin-filters[@@flavor][@surface0];
+@base-filter: @catppuccin-filters[@@flavor][@base];
+@mantle-filter: @catppuccin-filters[@@flavor][@mantle];
+@crust-filter: @catppuccin-filters[@@flavor][@crust];
+@accent-filter: @catppuccin-filters[@@flavor][@@accentColor];
 ```

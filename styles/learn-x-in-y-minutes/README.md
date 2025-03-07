@@ -4,23 +4,27 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-  Catppuccin for <a href="https://learnxinyminutes.com/">Learn X in Y Minutes</a>
+  Catppuccin for <a href="https://learnxinyminutes.com">Learn X in Y Minutes</a>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
 <p align="center">
 	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Alearn-x-in-y-minutes"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/learn-x-in-y-minutes?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/learn-x-in-y-minutes/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/learn-x-in-y-minutes/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 <p align="center">
   <img src="preview.webp"/>
 </p>
 
+## Usage
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
 
 
 ## 💝 Current Maintainer
-- [nikitarevenco](https://github.com/nikitarevenco)
+- [nik-rev](https://github.com/nik-rev)
 
 
 &nbsp;

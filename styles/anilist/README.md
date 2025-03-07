@@ -10,7 +10,7 @@
 
 <p align="center">
 	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Aanilist"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/anilist?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/anilist/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/anilist/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 <p align="center">
@@ -18,9 +18,11 @@
 </p>
 
 ## Usage
-> [!NOTE]
-> This theme applies to [AniChart](https://anichart.net/) as well, which is an extension of AniList.
 
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
+> [!NOTE]
+> This theme also applies to [AniChart](https://anichart.net/), an extension of AniList.
 
 
 ## 💝 Current Maintainer

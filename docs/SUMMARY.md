@@ -16,7 +16,7 @@
 
     - [Images and SVGs](./guide/images-and-svgs.md)
     - [Syntax highlighting](./guide/syntax-highlighting.md)
-    - [Extracting RGB values](./guide/rgb-values.md)
+    - [Obtaining raw color values](./guide/raw-color-values.md)
 
   - [Tutorials](./tutorials/README.md)
 

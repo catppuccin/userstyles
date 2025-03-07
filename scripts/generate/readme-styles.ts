@@ -64,11 +64,11 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
         },
       ],
     ) => {
-      console.log(`Generating README for ${slug}`);
+      console.log(`Generating README for styles/${slug}...`);
       const readmeContent = Handlebars.compile(stylesReadmeContent)({
         heading: heading(name, readme["app-link"]),
         slug,
-        usage: readme.usage,
+        note: readme.note,
         faq: readme.faq,
         collaborators: {
           currentMaintainers: extractName(currentMaintainers),

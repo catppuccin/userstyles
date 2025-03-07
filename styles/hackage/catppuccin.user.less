@@ -1,0 +1,811 @@
+/* ==UserStyle==
+@name Hackage Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/hackage
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/hackage
+@version 2025.01.28
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/hackage/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ahackage
+@description Soothing pastel theme for Hackage
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain("hackage.haskell.org") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    @text-filter: @catppuccin-filters[@@flavor][@text];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    &,
+    body {
+      background-color: @base;
+      color: @text;
+    }
+
+    a:hover {
+      background-color: inherit;
+    }
+
+    a[href]:link {
+      color: @accent;
+    }
+    a[href]:visited {
+      color: average(@overlay2, @accent);
+    }
+
+    a[href].def:link,
+    a[href].def:visited {
+      color: @subtext0;
+    }
+    a[href].def:hover {
+      color: average(@overlay2, @subtext0);
+    }
+
+    .caption,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    summary,
+    .section1,
+    .section2,
+    .section3,
+    .section4,
+    .section5,
+    .section6 {
+      color: @text;
+      filter: none;
+    }
+
+    .collapser::before,
+    .expander::before,
+    .noexpander::before {
+      color: @accent;
+    }
+
+    pre {
+      background-color: @mantle;
+      border-color: @surface1;
+    }
+
+    blockquote {
+      background-color: @surface0;
+      border-color: @accent;
+    }
+
+    .src,
+    .decl,
+    .declname,
+    .declbut,
+    .topdecl,
+    .arg {
+      background-color: @mantle;
+      color: @text;
+    }
+
+    .declbut {
+      border-color: @overlay0 !important;
+      a {
+        color: @overlay2 !important;
+      }
+    }
+
+    /*
+     * Headers
+     */
+
+    #page-header,
+    #package-header {
+      background-color: @accent;
+      color: @surface1;
+      border-color: shade(@accent, 25%);
+    }
+
+    #page-header .caption,
+    #package-header .caption,
+    #page-header a:link,
+    #page-header a:visited {
+      color: @base !important;
+    }
+
+    #module-header .caption,
+    .modulebar {
+      color: @accent;
+      border-color: @surface1;
+    }
+
+    #module-header {
+      background-color: inherit;
+    }
+
+    #package-header {
+      &,
+      #page-menu {
+        a:link,
+        a:visited {
+          color: @base;
+        }
+      }
+      a:hover {
+        background-color: transparent;
+      }
+
+      ul.links li {
+        border-color: @overlay0;
+
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+
+    ul.links li form {
+      input,
+      button {
+        color: @base;
+      }
+    }
+
+    .topbar {
+      background-color: @accent;
+
+      .topbut {
+        border-color: @overlay0;
+
+        a {
+          background-color: transparent;
+          color: @base;
+        }
+      }
+      .title {
+        color: @base;
+      }
+    }
+
+    .botbar {
+      background-color: @crust;
+      color: @text;
+    }
+
+    /*
+     * Style selectors (for old packages)
+     */
+
+    #style-menu {
+      background-color: @mantle;
+
+      li {
+        &,
+        a {
+          color: @text !important;
+        }
+        + li {
+          border-color: @overlay2;
+        }
+      }
+    }
+
+    /*
+     * Versions
+     */
+
+    a.unpreferred[href]:link,
+    a.unpreferred[href]:visited {
+      color: @yellow;
+    }
+
+    a.deprecated[href]:link,
+    a.deprecated[href]:visited {
+      color: @red;
+    }
+
+    .versions {
+      a.normal[href]:link,
+      a.normal[href]:visited {
+        color: @green;
+      }
+    }
+
+    /*
+     * Readme style
+     */
+
+    .embedded-author-content {
+      border-color: @accent;
+    }
+
+    /*
+     * Contents & synopsis
+     */
+
+    #contents-list {
+      background-color: @mantle;
+    }
+
+    #table-of-contents {
+      background-color: @base;
+      border-color: @surface1;
+    }
+
+    #synopsis {
+      summary,
+      #control\.syn {
+        @svg: escape(
+          '<svg width="128" height="104" viewBox="0 0 128 104" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><defs><filter id="a" x="-.06" y="-.03" width="1.14" height="1.07" color-interpolation-filters="sRGB"><feFlood flood-color="#000" flood-opacity=".498" result="flood"/><feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="1"/><feOffset dx="1" dy="1" in="blur" result="offset"/><feComposite in="flood" in2="offset" operator="in" result="comp1"/><feComposite in="SourceGraphic" in2="comp1" result="comp2"/></filter><filter id="b" x="-.06" y="-.03" width="1.14" height="1.07" color-interpolation-filters="sRGB"><feFlood flood-color="#000" flood-opacity=".498" result="flood"/><feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="1"/><feOffset dx="1" dy="1" in="blur" result="offset"/><feComposite in="flood" in2="offset" operator="in" result="comp1"/><feComposite in="SourceGraphic" in2="comp1" result="comp2"/></filter></defs><g transform="translate(64)" filter="url(#a)"><rect x="8.5" y="8.5" width="40" height="80" rx="4" ry="4" fill="@{surface0}"/><text transform="matrix(0 -.995 1 0 0 0)" x="-86.188" y="23.735" fill="@{subtext1}" xml:space="preserve"><tspan x="-86.188" y="23.735" font-family="&quot;PT Sans&quot;,-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,Oxygen-Sans,Cantarell,&quot;Helvetica Neue&quot;,sans-serif" font-size="14px" font-weight="400">Synopsis</tspan></text><g fill="@{overlay0}"><rect transform="scale(-1 1)rotate(-45)" x="-28.7" y="-6.53" width="7.88" height="2.46" rx=".985" ry=".985"/><rect transform="rotate(-45)" x="-1.47" y="26.3" width="7.88" height="2.46" rx=".985" ry=".985"/><rect transform="scale(-1 1)rotate(-45)" x="-23.7" y="-1.58" width="7.88" height="2.46" rx=".985" ry=".985"/><rect transform="rotate(-45)" x="-6.42" y="21.4" width="7.88" height="2.46" rx=".985" ry=".985"/></g></g><g filter="url(#b)"><rect x="8.5" y="8.5" width="40" height="80" rx="4" ry="4" fill="@{surface0}"/><text transform="matrix(0 -.995 1 0 0 0)" x="-86.188" y="23.735" fill="@{subtext1}" xml:space="preserve"><tspan x="-86.188" y="23.735" font-family="&quot;PT Sans&quot;,-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,Oxygen-Sans,Cantarell,&quot;Helvetica Neue&quot;,sans-serif" font-size="14px" font-weight="400">Synopsis</tspan></text><g fill="@{overlay0}"><rect transform="rotate(-45)" x="-3.59" y="18.6" width="7.88" height="2.46" rx=".985" ry=".985"/><rect transform="scale(-1 1)rotate(-45)" x="-26.6" y="1.24" width="7.88" height="2.46" rx=".985" ry=".985"/><rect transform="rotate(-45)" x="1.36" y="23.5" width="7.88" height="2.46" rx=".985" ry=".985"/><rect transform="scale(-1 1)rotate(-45)" x="-31.5" y="-3.71" width="7.88" height="2.46" rx=".985" ry=".985"/></g></g></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}") !important;
+      }
+
+      ul {
+        &,
+        li.src {
+          background-color: @surface0;
+        }
+      }
+    }
+
+    /*
+     * Quick jump
+     */
+
+    #search p.error {
+      color: @red;
+    }
+
+    #search-form,
+    #search-results {
+      box-shadow: 2px 2px 6px fade(@mantle, 20%);
+    }
+
+    #search-form {
+      input {
+        border-color: @accent;
+      }
+    }
+
+    #search-results {
+      border-color: @accent;
+
+      > ul > li {
+        border-bottom-color: @overlay0;
+      }
+    }
+
+    .search-module > ul > li > a[href].active-link {
+      background-color: @surface2;
+    }
+
+    .search-result ul.subs::after {
+      color: @subtext1;
+    }
+
+    .more-results,
+    .more-results::before {
+      color: @subtext0;
+    }
+
+    .keyboard-shortcuts th {
+      color: @accent;
+    }
+
+    .key {
+      background-color: @mantle;
+      color: @text;
+      border-color: @mantle;
+    }
+
+    /*
+     * Dropdown
+     */
+
+    .dropdown-menu {
+      background-color: @surface0;
+      border-color: @surface0;
+
+      button {
+        background-color: @accent;
+        color: @mantle;
+        border-color: @surface2;
+
+        &:hover,
+        &:active {
+          background-color: @accent;
+          color: @mantle;
+        }
+      }
+    }
+
+    /*
+     * Tables
+     */
+
+    table {
+      &.info {
+        background-color: @base;
+        color: @subtext1;
+        border-color: @surface1;
+      }
+
+      &.fancy {
+        &,
+        tr {
+          border-color: @surface1;
+        }
+        tr.even td {
+          background-color: @mantle;
+        }
+      }
+
+      &.fancy,
+      &.properties,
+      &.dataTable.compact.fancy tbody {
+        th,
+        td {
+          background-color: @base;
+        }
+      }
+    }
+
+    .doc {
+      th,
+      td {
+        border-color: @surface1;
+      }
+      th {
+        background-color: @mantle;
+      }
+    }
+
+    .infohead,
+    .infoval {
+      color: @subtext1;
+    }
+
+    div#table_length.dataTables_length,
+    div#table_filter.dataTables_filter {
+      color: @text;
+    }
+
+    div #description table {
+      &,
+      tr td {
+        border-color: @surface1;
+      }
+      th {
+        background-color: @mantle;
+      }
+    }
+
+    /*
+     * Source links
+     */
+
+    #interface {
+      .src {
+        .link,
+        .selflink {
+          color: @overlay2 !important;
+          background-color: transparent !important;
+        }
+      }
+      p.src .link {
+        background-color: transparent;
+        color: @overlay2;
+        border-color: @overlay1;
+      }
+
+      span.fixity,
+      span.rightedge {
+        color: @overlay1;
+        border-left-color: @overlay1;
+      }
+      span.fixity {
+        color: @overlay1;
+      }
+    }
+
+    /*
+     * Paginator
+     */
+
+    .paginator {
+      span {
+        color: @text;
+      }
+
+      a {
+        color: @overlay1;
+
+        &[href]:link,
+        &:link:hover {
+          color: @accent;
+        }
+        &:visited,
+        &:visited:hover {
+          color: average(@overlay2, @accent);
+        }
+        &:link:hover,
+        &:visited:hover {
+          background-image: none;
+          background-color: @surface1;
+          border-color: transparent;
+        }
+      }
+
+      .current,
+      .current:hover {
+        background-image: none;
+        background-color: @surface0;
+        color: @accent;
+        border-color: transparent;
+      }
+    }
+
+    .paginate_button {
+      background-color: @overlay0;
+    }
+
+    /*
+     * Search query
+     */
+
+    #browseTable th {
+      border-color: @surface1;
+    }
+
+    #fatalError {
+      color: @red;
+    }
+
+    input:invalid {
+      border-color: @yellow;
+      box-shadow: 0 0 10px @yellow;
+    }
+
+    input {
+      background-color: @mantle;
+      border-style: solid;
+      border-color: @surface0;
+      border-radius: 4px;
+    }
+
+    input[type="range"] {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      background-color: @mantle;
+      height: 0.2em !important;
+
+      &::-moz-range-thumb,
+      &::-webkit-slider-thumb {
+        background-color: @text;
+        border-color: @surface0;
+        height: 1em !important;
+      }
+    }
+
+    input[type="submit"] {
+      color: @text;
+    }
+
+    input[type="range"]:hover,
+    input[type="submit"]:hover {
+      background-color: @crust;
+    }
+
+    /*
+     * Upload
+     */
+
+    input[type="file"] {
+      background-color: transparent;
+
+      &::file-selector-button {
+        background-color: @mantle;
+        color: @text;
+      }
+    }
+
+    /*
+     * Others
+     */
+
+    .candidate-warn {
+      background-color: @mantle;
+      border-color: @red;
+    }
+
+    .candidate-info {
+      background-color: @mantle;
+      border-color: @blue;
+    }
+
+    .box {
+      background-color: @base;
+      border-color: @base;
+    }
+
+    div#modal #content,
+    #search-results {
+      background-color: @surface0;
+    }
+
+    .subs,
+    .top > .doc,
+    .subs > .doc {
+      border-left-color: @surface1;
+    }
+
+    .subs .subs p.src {
+      background-color: @mantle;
+    }
+
+    .top p.src {
+      border-color: @surface0;
+    }
+
+    .warning,
+    strong.warning {
+      color: @red;
+    }
+
+    small.info,
+    .flags-table .flag-disabled {
+      color: @subtext0;
+    }
+
+    .text-button {
+      color: @accent;
+    }
+
+    p.registration-email {
+      border-color: @accent;
+    }
+
+    :target {
+      background-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 65%,
+        average(@surface0, @yellow) 60%,
+        average(@surface0, @yellow) 100%
+      );
+    }
+    :target:hover {
+      background-image: linear-gradient(
+        to bottom,
+        overlay(@surface0, @yellow) 0%,
+        overlay(@surface0, @yellow) 100%
+      );
+    }
+
+    #footer {
+      background-color: @crust;
+      color: @subtext1;
+      border-color: @overlay0;
+    }
+
+    /*
+     * MathJax
+     */
+
+    #MathJax_Message {
+      background-color: @mantle;
+      border-color: @surface1;
+      color: @text;
+    }
+
+    #MathJax_About,
+    #MathJax_Help,
+    .MathJax_Menu {
+      background-color: @surface0;
+      color: @text;
+      border-color: @accent;
+      box-shadow: 0 10px 20px @mantle;
+      -webkit-box-shadow: 0 10px 20px @mantle;
+      -moz-box-shadow: 0 10px 20px @mantle;
+    }
+
+    #MathJax_About > span,
+    #MathJax_HelpContent {
+      background-color: @surface1 !important;
+      color: @subtext1 !important;
+      border-color: @overlay0 !important;
+    }
+
+    .MathJax_MenuArrow {
+      color: @subtext1;
+    }
+
+    .MathJax_MenuRule {
+      border-top-color: @overlay0;
+    }
+
+    .MathJax_MenuActive {
+      background-color: @surface1;
+      color: @text;
+    }
+
+    .MathJax_MenuDisabled {
+      color: @overlay2;
+    }
+
+    .MathJax_MenuDisabled:focus,
+    .MathJax_MenuLabel:focus {
+      background-color: @surface1;
+    }
+
+    #MathJax_AboutClose,
+    #MathJax_HelpClose {
+      border-color: @surface2;
+      color: @subtext0;
+      span {
+        background-color: @surface2;
+      }
+
+      &:hover {
+        color: @text !important;
+        border-color: @overlay0 !important;
+        span {
+          background-color: @overlay0 !important;
+        }
+      }
+    }
+
+    span.mathjax img {
+      filter: @text-filter;
+    }
+
+    /*
+     * Sources
+     */
+
+    span.definition,
+    .hs-identifier {
+      color: @blue;
+    }
+
+    .hs-identifier.hs-type {
+      color: @yellow;
+    }
+
+    span.keyword,
+    .hs-keyword {
+      color: @mauve;
+    }
+
+    span.str,
+    span.char,
+    .hs-string,
+    .hs-char,
+    .hs-str,
+    .hs-chr {
+      color: @green;
+    }
+
+    .hs-number {
+      color: @peach;
+    }
+
+    .hs-operator {
+      color: @sky;
+    }
+
+    span.keyglyph,
+    span.layout,
+    span.conop,
+    .hs-keyglyph,
+    .hs-layout,
+    .hs-glyph,
+    .hs-special {
+      color: @overlay2;
+    }
+
+    span.comment,
+    .hs-comment,
+    .hs-comment a {
+      color: @overlay0;
+    }
+
+    span.cpp,
+    .hs-pragma,
+    .hs-cpp {
+      color: @pink;
+    }
+
+    pre a {
+      &:link,
+      &:visited {
+        border-bottom-color: @surface0;
+      }
+      &:hover,
+      &.hover-highlight {
+        background-color: @surface0;
+      }
+    }
+
+    span.annot {
+      color: @text;
+
+      &:hover {
+        background-color: @surface1;
+      }
+
+      span.annottext {
+        background-color: @surface0;
+        border-color: @accent;
+      }
+    }
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
+
+/* deno-fmt-ignore */
+@catppuccin-filters: {
+  @latte: { @rosewater: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(1048%) hue-rotate(323deg) brightness(92%) contrast(86%); @flamingo: brightness(0) saturate(100%) invert(84%) sepia(44%) saturate(4533%) hue-rotate(310deg) brightness(98%) contrast(75%); @pink: brightness(0) saturate(100%) invert(60%) sepia(32%) saturate(775%) hue-rotate(266deg) brightness(93%) contrast(97%); @mauve: brightness(0) saturate(100%) invert(26%) sepia(59%) saturate(3315%) hue-rotate(255deg) brightness(94%) contrast(100%); @red: brightness(0) saturate(100%) invert(16%) sepia(78%) saturate(7275%) hue-rotate(342deg) brightness(84%) contrast(94%); @maroon: brightness(0) saturate(100%) invert(31%) sepia(56%) saturate(2395%) hue-rotate(331deg) brightness(99%) contrast(82%); @peach: brightness(0) saturate(100%) invert(38%) sepia(81%) saturate(1292%) hue-rotate(356deg) brightness(103%) contrast(99%); @yellow: brightness(0) saturate(100%) invert(74%) sepia(47%) saturate(4570%) hue-rotate(354deg) brightness(95%) contrast(83%); @green: brightness(0) saturate(100%) invert(51%) sepia(25%) saturate(4134%) hue-rotate(76deg) brightness(95%) contrast(66%); @teal: brightness(0) saturate(100%) invert(41%) sepia(45%) saturate(1101%) hue-rotate(139deg) brightness(100%) contrast(82%); @sky: brightness(0) saturate(100%) invert(47%) sepia(76%) saturate(2427%) hue-rotate(166deg) brightness(99%) contrast(97%); @sapphire: brightness(0) saturate(100%) invert(52%) sepia(41%) saturate(6982%) hue-rotate(160deg) brightness(102%) contrast(75%); @blue: brightness(0) saturate(100%) invert(30%) sepia(80%) saturate(1850%) hue-rotate(209deg) brightness(94%) contrast(105%); @lavender: brightness(0) saturate(100%) invert(48%) sepia(61%) saturate(538%) hue-rotate(194deg) brightness(102%) contrast(98%); @text: brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(1259%) hue-rotate(196deg) brightness(97%) contrast(91%); @subtext1: brightness(0) saturate(100%) invert(36%) sepia(10%) saturate(890%) hue-rotate(196deg) brightness(98%) contrast(90%); @subtext0: brightness(0) saturate(100%) invert(47%) sepia(6%) saturate(1263%) hue-rotate(195deg) brightness(90%) contrast(81%); @overlay2: brightness(0) saturate(100%) invert(59%) sepia(7%) saturate(825%) hue-rotate(195deg) brightness(83%) contrast(91%); @overlay1: brightness(0) saturate(100%) invert(59%) sepia(14%) saturate(333%) hue-rotate(194deg) brightness(95%) contrast(89%); @overlay0: brightness(0) saturate(100%) invert(85%) sepia(7%) saturate(595%) hue-rotate(191deg) brightness(77%) contrast(81%); @surface2: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(482%) hue-rotate(189deg) brightness(82%) contrast(88%); @surface1: brightness(0) saturate(100%) invert(85%) sepia(8%) saturate(281%) hue-rotate(187deg) brightness(92%) contrast(88%); @surface0: brightness(0) saturate(100%) invert(96%) sepia(1%) saturate(5123%) hue-rotate(185deg) brightness(93%) contrast(83%); @base: brightness(0) saturate(100%) invert(89%) sepia(5%) saturate(140%) hue-rotate(182deg) brightness(109%) contrast(94%); @mantle: brightness(0) saturate(100%) invert(93%) sepia(19%) saturate(55%) hue-rotate(182deg) brightness(98%) contrast(92%); @crust: brightness(0) saturate(100%) invert(91%) sepia(1%) saturate(4489%) hue-rotate(196deg) brightness(106%) contrast(82%); };
+  @frappe: { @rosewater: brightness(0) saturate(100%) invert(90%) sepia(6%) saturate(734%) hue-rotate(321deg) brightness(95%) contrast(99%); @flamingo: brightness(0) saturate(100%) invert(88%) sepia(52%) saturate(817%) hue-rotate(293deg) brightness(113%) contrast(84%); @pink: brightness(0) saturate(100%) invert(76%) sepia(15%) saturate(844%) hue-rotate(280deg) brightness(107%) contrast(91%); @mauve: brightness(0) saturate(100%) invert(71%) sepia(25%) saturate(725%) hue-rotate(225deg) brightness(94%) contrast(91%); @red: brightness(0) saturate(100%) invert(67%) sepia(3%) saturate(7209%) hue-rotate(305deg) brightness(91%) contrast(99%); @maroon: brightness(0) saturate(100%) invert(61%) sepia(14%) saturate(957%) hue-rotate(307deg) brightness(109%) contrast(90%); @peach: brightness(0) saturate(100%) invert(68%) sepia(28%) saturate(662%) hue-rotate(335deg) brightness(96%) contrast(94%); @yellow: brightness(0) saturate(100%) invert(94%) sepia(88%) saturate(684%) hue-rotate(309deg) brightness(105%) contrast(80%); @green: brightness(0) saturate(100%) invert(89%) sepia(23%) saturate(582%) hue-rotate(42deg) brightness(87%) contrast(89%); @teal: brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(986%) hue-rotate(110deg) brightness(85%) contrast(81%); @sky: brightness(0) saturate(100%) invert(75%) sepia(15%) saturate(623%) hue-rotate(141deg) brightness(109%) contrast(81%); @sapphire: brightness(0) saturate(100%) invert(77%) sepia(20%) saturate(730%) hue-rotate(157deg) brightness(97%) contrast(76%); @blue: brightness(0) saturate(100%) invert(68%) sepia(16%) saturate(1070%) hue-rotate(185deg) brightness(96%) contrast(95%); @lavender: brightness(0) saturate(100%) invert(75%) sepia(20%) saturate(626%) hue-rotate(201deg) brightness(101%) contrast(89%); @text: brightness(0) saturate(100%) invert(83%) sepia(12%) saturate(582%) hue-rotate(191deg) brightness(98%) contrast(96%); @subtext1: brightness(0) saturate(100%) invert(80%) sepia(18%) saturate(411%) hue-rotate(190deg) brightness(96%) contrast(84%); @subtext0: brightness(0) saturate(100%) invert(82%) sepia(6%) saturate(1287%) hue-rotate(192deg) brightness(86%) contrast(85%); @overlay2: brightness(0) saturate(100%) invert(65%) sepia(36%) saturate(230%) hue-rotate(190deg) brightness(92%) contrast(82%); @overlay1: brightness(0) saturate(100%) invert(55%) sepia(12%) saturate(638%) hue-rotate(189deg) brightness(98%) contrast(87%); @overlay0: brightness(0) saturate(100%) invert(49%) sepia(13%) saturate(662%) hue-rotate(192deg) brightness(94%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(41%) sepia(20%) saturate(469%) hue-rotate(191deg) brightness(93%) contrast(86%); @surface1: brightness(0) saturate(100%) invert(34%) sepia(14%) saturate(771%) hue-rotate(190deg) brightness(89%) contrast(85%); @surface0: brightness(0) saturate(100%) invert(28%) sepia(7%) saturate(1468%) hue-rotate(193deg) brightness(92%) contrast(95%); @base: brightness(0) saturate(100%) invert(20%) sepia(17%) saturate(747%) hue-rotate(192deg) brightness(96%) contrast(97%); @mantle: brightness(0) saturate(100%) invert(8%) sepia(7%) saturate(7271%) hue-rotate(198deg) brightness(88%) contrast(75%); @crust: brightness(0) saturate(100%) invert(7%) sepia(7%) saturate(7415%) hue-rotate(197deg) brightness(86%) contrast(79%); };
+  @macchiato: { @rosewater: brightness(0) saturate(100%) invert(88%) sepia(13%) saturate(322%) hue-rotate(321deg) brightness(102%) contrast(91%); @flamingo: brightness(0) saturate(100%) invert(82%) sepia(3%) saturate(3070%) hue-rotate(314deg) brightness(107%) contrast(88%); @pink: brightness(0) saturate(100%) invert(80%) sepia(23%) saturate(509%) hue-rotate(280deg) brightness(102%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(903%) hue-rotate(222deg) brightness(104%) contrast(93%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(1541%) hue-rotate(305deg) brightness(110%) contrast(86%); @maroon: brightness(0) saturate(100%) invert(71%) sepia(10%) saturate(1331%) hue-rotate(306deg) brightness(93%) contrast(101%); @peach: brightness(0) saturate(100%) invert(73%) sepia(13%) saturate(1676%) hue-rotate(330deg) brightness(103%) contrast(92%); @yellow: brightness(0) saturate(100%) invert(87%) sepia(89%) saturate(321%) hue-rotate(314deg) brightness(101%) contrast(87%); @green: brightness(0) saturate(100%) invert(93%) sepia(12%) saturate(1128%) hue-rotate(48deg) brightness(92%) contrast(85%); @teal: brightness(0) saturate(100%) invert(92%) sepia(10%) saturate(1176%) hue-rotate(110deg) brightness(87%) contrast(90%); @sky: brightness(0) saturate(100%) invert(78%) sepia(57%) saturate(230%) hue-rotate(142deg) brightness(96%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(35%) saturate(438%) hue-rotate(156deg) brightness(92%) contrast(93%); @blue: brightness(0) saturate(100%) invert(67%) sepia(17%) saturate(1007%) hue-rotate(183deg) brightness(99%) contrast(94%); @lavender: brightness(0) saturate(100%) invert(74%) sepia(6%) saturate(2559%) hue-rotate(198deg) brightness(103%) contrast(94%); @text: brightness(0) saturate(100%) invert(81%) sepia(9%) saturate(726%) hue-rotate(192deg) brightness(104%) contrast(92%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(5%) saturate(1453%) hue-rotate(193deg) brightness(94%) contrast(86%); @subtext0: brightness(0) saturate(100%) invert(75%) sepia(18%) saturate(361%) hue-rotate(190deg) brightness(91%) contrast(86%); @overlay2: brightness(0) saturate(100%) invert(67%) sepia(9%) saturate(814%) hue-rotate(191deg) brightness(92%) contrast(88%); @overlay1: brightness(0) saturate(100%) invert(49%) sepia(38%) saturate(203%) hue-rotate(190deg) brightness(101%) contrast(93%); @overlay0: brightness(0) saturate(100%) invert(46%) sepia(16%) saturate(552%) hue-rotate(193deg) brightness(93%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(16%) saturate(611%) hue-rotate(192deg) brightness(101%) contrast(87%); @surface1: brightness(0) saturate(100%) invert(30%) sepia(11%) saturate(1085%) hue-rotate(194deg) brightness(92%) contrast(89%); @surface0: brightness(0) saturate(100%) invert(18%) sepia(21%) saturate(880%) hue-rotate(193deg) brightness(97%) contrast(84%); @base: brightness(0) saturate(100%) invert(12%) sepia(42%) saturate(570%) hue-rotate(194deg) brightness(90%) contrast(90%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(6%) saturate(7499%) hue-rotate(200deg) brightness(93%) contrast(85%); @crust: brightness(0) saturate(100%) invert(5%) sepia(8%) saturate(5346%) hue-rotate(202deg) brightness(98%) contrast(88%); };
+  @mocha: { @rosewater: brightness(0) saturate(100%) invert(92%) sepia(5%) saturate(704%) hue-rotate(320deg) brightness(99%) contrast(93%); @flamingo: brightness(0) saturate(100%) invert(81%) sepia(5%) saturate(987%) hue-rotate(315deg) brightness(107%) contrast(90%); @pink: brightness(0) saturate(100%) invert(86%) sepia(11%) saturate(1177%) hue-rotate(283deg) brightness(101%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(58%) saturate(255%) hue-rotate(224deg) brightness(96%) contrast(102%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(997%) hue-rotate(294deg) brightness(104%) contrast(91%); @maroon: brightness(0) saturate(100%) invert(66%) sepia(16%) saturate(1301%) hue-rotate(306deg) brightness(116%) contrast(84%); @peach: brightness(0) saturate(100%) invert(68%) sepia(57%) saturate(278%) hue-rotate(338deg) brightness(98%) contrast(101%); @yellow: brightness(0) saturate(100%) invert(90%) sepia(70%) saturate(380%) hue-rotate(313deg) brightness(102%) contrast(95%); @green: brightness(0) saturate(100%) invert(88%) sepia(6%) saturate(2015%) hue-rotate(63deg) brightness(104%) contrast(78%); @teal: brightness(0) saturate(100%) invert(92%) sepia(12%) saturate(991%) hue-rotate(108deg) brightness(93%) contrast(90%); @sky: brightness(0) saturate(100%) invert(84%) sepia(21%) saturate(1302%) hue-rotate(164deg) brightness(106%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(20%) saturate(876%) hue-rotate(156deg) brightness(96%) contrast(93%); @blue: brightness(0) saturate(100%) invert(68%) sepia(18%) saturate(951%) hue-rotate(180deg) brightness(98%) contrast(100%); @lavender: brightness(0) saturate(100%) invert(73%) sepia(7%) saturate(1670%) hue-rotate(195deg) brightness(102%) contrast(99%); @text: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(879%) hue-rotate(190deg) brightness(100%) contrast(93%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(19%) saturate(381%) hue-rotate(193deg) brightness(91%) contrast(89%); @subtext0: brightness(0) saturate(100%) invert(84%) sepia(9%) saturate(767%) hue-rotate(192deg) brightness(84%) contrast(84%); @overlay2: brightness(0) saturate(100%) invert(63%) sepia(15%) saturate(428%) hue-rotate(191deg) brightness(96%) contrast(84%); @overlay1: brightness(0) saturate(100%) invert(56%) sepia(15%) saturate(455%) hue-rotate(192deg) brightness(90%) contrast(88%); @overlay0: brightness(0) saturate(100%) invert(44%) sepia(6%) saturate(1275%) hue-rotate(194deg) brightness(97%) contrast(88%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(8%) saturate(1015%) hue-rotate(195deg) brightness(99%) contrast(89%); @surface1: brightness(0) saturate(100%) invert(25%) sepia(6%) saturate(1950%) hue-rotate(197deg) brightness(99%) contrast(86%); @surface0: brightness(0) saturate(100%) invert(19%) sepia(5%) saturate(2844%) hue-rotate(199deg) brightness(91%) contrast(93%); @base: brightness(0) saturate(100%) invert(7%) sepia(4%) saturate(7496%) hue-rotate(202deg) brightness(93%) contrast(87%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(4%) saturate(7465%) hue-rotate(202deg) brightness(95%) contrast(90%); @crust: brightness(0) saturate(100%) invert(3%) sepia(13%) saturate(6863%) hue-rotate(220deg) brightness(95%) contrast(91%); };
+};
