@@ -18,9 +18,11 @@
 </p>
 
 ## Usage
-> [!NOTE]
-> Set Twitter's built-in theme to **Lights out** with the blue accent. Also requires the [:has()](https://developer.mozilla.org/en-US/docs/Web/CSS/:has) selector.
 
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
+> [!NOTE]
+> Set Twitter's built-in theme to **Lights out** with the blue accent.
 
 
 ## 💝 Current Maintainer

@@ -2,7 +2,7 @@
 @name Twitch Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/twitch
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/twitch
-@version 2024.12.31
+@version 2025.02.07
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/twitch/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Atwitch
 @description Soothing pastel theme for Twitch
@@ -74,7 +74,7 @@
     &,
     .tw-dialog-layer {
       --color-background-input-focus: @crust;
-      --color-background-interactable-hover: @surface0;
+      --color-background-interactable-hover: fade(@surface0, 48%);
       --color-background-interactable-alpha-hover: @surface0;
       --color-background-interactable-active: @surface1;
       --color-background-button-secondary-active: @surface1;
@@ -87,17 +87,21 @@
       --color-border-tab: @surface0;
       --color-text-button-primary: @crust;
       --color-text-overlay: @base;
+      --color-text-overlay-alt: @subtext0;
+      --color-text-overlay-link-hover: @subtext0;
       --color-text-base: @subtext1;
       --color-text-alt: @text;
-      --color-text-alt-2: @text;
+      --color-text-alt-2: @subtext0;
       --color-text-interactable-selected: @crust;
+      --color-text-interactable-inverted: @base;
       --color-background-alt-2: @crust;
-      --color-text-tag: @text;
+      --color-text-tag: @subtext0;
       --color-background-button-secondary-default: @crust;
+      --color-background-button-primary-hover: darken(@accent, 5%);
       --color-background-button-secondary-hover: @surface0;
       --color-background-button-overlay-secondary-default: fade(@text, 13%);
-      --color-background-tag-default: @mantle;
-      --color-background-tag-hover: @crust;
+      --color-background-tag-default: @surface0;
+      --color-background-tag-hover: @surface1;
       --color-background-float: @mantle;
       --color-background-body: @base;
       --color-background-base: @mantle;
@@ -202,6 +206,7 @@
       --color-blue-9: @blue;
       --color-blue-10: @sky;
       --color-blue-11: @sky;
+      --color-blue-12: @sky;
       --color-blue-14: @sky;
       --color-magenta-5: @flamingo;
       --color-magenta-6: @flamingo;
@@ -218,7 +223,7 @@
       --color-red-7: @accent;
       --color-red-8: @accent;
       --color-red-9: @accent;
-      --color-red-10: @accent;
+      --color-red-10: @red;
       --color-red-11: @peach;
       --color-red-12: @peach;
       --color-red-14: @peach;
@@ -248,11 +253,15 @@
       --color-text-tooltip: @base !important;
       --color-background-tooltip: @text !important;
       --color-hinted-grey-2: @surface0;
+      --color-hinted-grey-5: @surface0;
+      --color-hinted-grey-8: @subtext0;
+      --color-hinted-grey-12: @subtext0;
       --color-hinted-grey-15: @text;
       --color-background-overlay-alt: fade(@mantle, 60%);
       --color-background-button-overlay-primary-hover: @subtext1;
       --color-background-button-overlay-text-hover: @crust;
       --color-border-overlay: @surface0;
+      --color-border-base: @surface0;
       --color-background-button-disabled: @surface0;
       --color-text-button-disabled: @subtext0;
       --color-background-toggle-handle: @text;
@@ -260,6 +269,19 @@
       --color-border-toggle-hover: @text;
       --color-background-toggle-checked: @mantle;
       --color-background-input-checkbox-checked-background: @crust;
+      --color-border-balloon-overlay: @surface0;
+      --color-opac-gd-1: fade(@surface0, 35%);
+
+      & when (@flavor = latte) {
+        --color-white: @base;
+        --color-black: @text;
+        --color-hinted-grey-12: @mantle;
+        --color-text-pill: @base;
+        --color-text-overlay-link-hover: @surface0;
+        --color-background-overlay-alt: fade(@text, 60%);
+        --color-text-button-destructive: @base;
+        --color-text-button-overlay: @base !important;
+      }
     }
 
     --color-text-link: @accent;
@@ -275,13 +297,6 @@
     /* Hardcoded accent color */
     [style="color: rgb(160, 84, 255);"] {
       color: @accent !important;
-    }
-
-    /* Full screened video player title & description */
-
-    p[data-test-selector="stream-info-card-component__subtitle"],
-    p[data-test-selector="stream-info-card-component__description"] {
-      color: @text !important;
     }
 
     /* `Pinned message` popup */
@@ -392,26 +407,8 @@
 
     /* VOD metadata */
 
-    div.tw-media-card-stat {
-      color: @text;
-    }
-
-    /* DMCA warning */
-
-    div.muted-segments-alert__content p {
-      color: @text;
-    }
-
-    /* VOD time labels */
-
-    div.vod-seekbar-time-labels p {
-      color: @text !important;
-    }
-
-    /* VOD timestamp */
-
-    div.vod-seekbar-preview-overlay__wrapper p {
-      color: @text !important;
+    div.tw-media-card-stat when not(@flavor = latte) {
+      --color-text-overlay: @text;
     }
 
     /* Seekbar segment */
@@ -476,10 +473,10 @@
       color: @text;
     }
 
-    /* Following usercard */
+    /* Followers list usercard */
 
-    div[data-a-target="user-card-modal"] p {
-      color: @text !important;
+    div[data-a-target="user-card-modal"] p when not(@flavor = latte) {
+      --color-text-overlay: @text;
     }
 
     /* Usercard mod log tabs */
@@ -562,7 +559,8 @@
     .chat-scrollable-area__message-container {
       background-color: @mantle;
     }
-    .side-nav-card__link:hover {
+    .side-nav-card__link:hover,
+    .side-nav-card__link:focus {
       background: @surface0 !important;
     }
     .footer {
@@ -629,11 +627,17 @@
       .channel-root,
       .channel-info-content,
       .chat-author__display-name,
+      .chatter-name,
       &[data-a-target="chat-message-username"],
       &.message-author__display-name {
         color: @text !important;
       }
     }
+
+    .chatter-name [style*="rgb(255, 255, 255)"] {
+      color: @text !important;
+    }
+
     [style="color: rgb(56, 122, 255);"] {
       color: @blue !important;
     }
@@ -643,10 +647,6 @@
 
     /* FrankerFaceZ uptime timer */
     .ffz-il-tooltip__container {
-      .tw-c-text-overlay {
-        background-color: var(--color-background-overlay-alt) !important;
-      }
-
       p,
       figure.ffz-i-flag {
         color: @text;
@@ -654,7 +654,6 @@
     }
 
     [data-a-target="preview-card-image-link"] when (@flavor = latte) {
-      --color-background-overlay-alt: fade(@text, 80%);
       .tw-media-card-stat,
       p,
       figure.ffz-i-flag {
@@ -813,6 +812,11 @@
     .reward-icon__cost {
       color: @text !important;
       background: fade(@mantle, 60%) !important;
+
+      & when (@flavor = latte) {
+        color: @base !important;
+        background: fade(@text, 60%) !important;
+      }
     }
 
     /* Directory banner */
@@ -823,8 +827,8 @@
         linear-gradient(90deg, @base, fade(@mantle, 25%));
     }
 
-    .home-video * {
-      color: @text !important;
+    .home-video when not(@flavor = latte) {
+      --color-text-overlay: @text;
     }
 
     /* Cookies and Advertising Choices */
@@ -832,7 +836,8 @@
     .top-bar--pointer-enabled .consent-banner__content--gdpr-v2,
     .consent-banner {
       a,
-      button {
+      button,
+      p {
         color: @base !important;
       }
 
@@ -913,15 +918,6 @@
       color: @subtext0 !important;
     }
 
-    /* Clips timestamp */
-
-    .player-controls,
-    .clips-player-seekbar-container {
-      .tw-balloon p {
-        color: @text !important;
-      }
-    }
-
     .sunlight-modal__content {
       color: @text !important;
     }
@@ -930,16 +926,9 @@
       color: @text;
     }
 
-    .player-overlay-background {
-      div,
-      div p {
-        color: @text !important;
-      }
-      & when (@flavor = latte) {
-        div,
-        div p {
-          color: @base !important;
-        }
+    .video-player__container, .clips-root__main {
+      & when not(@flavor = latte) {
+        --color-text-overlay: @text;
       }
     }
 
@@ -959,7 +948,7 @@
       div.tw-progress-bar {
         background: fade(@base, 10%);
       }
-      button .tw-svg {
+      button .tw-svg, svg {
         fill: @base;
       }
     }
@@ -991,6 +980,275 @@
       .clips-top-nav-user__username,
       .tw-svg {
         color: @text !important;
+      }
+    }
+
+    /* AutoMod caught message */
+
+    .chat-line__message--alert {
+      border-color: @red !important;
+      background-color: @base !important;
+    }
+
+    .text-fragment--moderated-highlight {
+      color: @text !important;
+      background-color: fade(@red, 30%) !important;
+    }
+
+    /* Activity feed icons */
+
+    .activity-feed-v2-event--follow {
+      color: @pink;
+    }
+
+    .activity-feed-v2-event--subscription {
+      color: @blue;
+    }
+
+    .activity-feed-v2-event--reward-request,
+    .activity-feed-v2-event--raiding {
+      color: @yellow;
+    }
+
+    .activity-feed-v2-event--multi-stage {
+      color: @teal;
+    }
+
+    .activity-feed-v2-event--creator-goal {
+      color: @green;
+    }
+
+    /* Chat message highlights */
+
+    div[style*="border"] {
+      /* Suspicious user */
+      &[style*="rgb(255, 130, 128)"] {
+        border-color: @red !important;
+      }
+
+      /* First message */
+      &[style*="rgb(255, 117, 230)"] {
+        border-color: @pink !important;
+      }
+
+      /* Returning chatter */
+      &[style*="rgb(0, 163, 163)"] {
+        border-color: @teal !important;
+      }
+
+      /* Raider */
+      &[style*="rgb(245, 245, 0)"] {
+        border-color: @yellow !important;
+      }
+
+      /* Mention */
+      &[style*="rgb(173, 173, 184)"] {
+        border-color: @text !important;
+      }
+
+      /* Moderator */
+      &[style*="rgb(0, 168, 101)"] {
+        border-color: @green !important;
+      }
+
+      /* VIP */
+      &[style*="rgb(219, 0, 179)"] {
+        border-color: @mauve !important;
+      }
+
+      /* Subscriber */
+      &[style*="rgb(82, 139, 255)"] {
+        border-color: @blue !important;
+      }
+    }
+
+    /* "Account suspended or deactivated" status banner */
+
+    .viewer-card-header__account-status-banner {
+      color: @text;
+      background-color: @mantle !important;
+    }
+
+    /* Chat mentions */
+
+    .mention-fragment {
+      color: @text;
+      background-color: @surface0;
+
+      &.mention-fragment--recipient {
+        color: @base;
+        background-color: @text;
+      }
+    }
+
+    /* Clips sharing buttons */
+
+    .converter(@bg, @fg: @base) {
+      color: @fg !important;
+      background-color: @bg;
+
+      &:not([disabled]):hover {
+        background-color: darken(@bg, 5%);
+      }
+    }
+
+    .converter-youtube-button button {
+      .converter(@red);
+    }
+
+    .converter-instagram-button button {
+      .converter(@mauve);
+    }
+
+    .share-tiktok-button {
+      background-image: linear-gradient(135deg, @sky, @red);
+
+      button {
+        color: @text !important;
+        background-color: @mantle;
+
+        &:not([disabled]):hover {
+          background-color: @surface0;
+        }
+      }
+    }
+
+    .clips-root__main .seekbar-bar {
+      background-color: @surface0 !important;
+    }
+
+    /* Clips editor timeline */
+
+    .draggable-slider__overlay--purple {
+      border-color: @accent;
+      background-color: fade(@accent, 30%);
+    }
+
+    .draggable-slider-handle--purple {
+      background-color: @accent;
+      --color-white: @base;
+    }
+
+    .clip-editor-timeline-background {
+      background-color: @base;
+    }
+
+    .clip-editor-slider-popover {
+      color: @base;
+      background-color: @text;
+    }
+
+    /* Pinned message shadow */
+    .pinned-chat__scrollable-area__gradient {
+      background-image: linear-gradient(180deg, transparent 60%, @mantle);
+    }
+
+    /* What's new mod view icon */
+    .whats-new-button--has-new-posts {
+      color: @green;
+    }
+
+    /* Guest star thumbnail border */
+    .guest-star-live-card-border {
+      background-image: linear-gradient(180deg, @mauve 0, @teal 61.98%, @blue);
+    }
+
+    /* Guest Star circle buttons */
+
+    .guest-star-circle-button:not(
+      .guest-star-circle-button--inverted,
+      .guest-star-circle-button--alert
+    ),
+    .guest-star-circle-button__dropdown:not(
+      .guest-star-circle-button__dropdown--inverted,
+      .guest-star-circle-button__dropdown--alert
+    ) {
+      background-color: @mantle;
+      &:hover {
+        background-color: var(--color-hinted-grey-5);
+      }
+
+      & when (@flavor = latte) {
+        --color-hinted-grey-5: @subtext0;
+        color: @base;
+        background-color: @text;
+        &:hover {
+          background-color: var(--color-hinted-grey-5);
+        }
+      }
+    }
+
+    .guest-star-circle-button--inverted,
+    .guest-star-circle-button__dropdown--inverted {
+      color: @base;
+      border-color: @base;
+      & when (@flavor = latte) {
+        color: @text;
+        border-color: @text;
+      }
+    }
+
+    /* End Stream Together button */
+    .guest-star-circle-button--alert {
+      color: @base;
+    }
+
+    /* Guest Star What's new icon */
+    .notification-icon--green svg {
+      fill: @green;
+    }
+
+    .video-player__overlay when (@flavor = latte) {
+      --color-text-pill: @base;
+    }
+
+    /* Polls */
+    .community-highlight-stack__card {
+      .container--default {
+        background-color: @base;
+      }
+
+      .container--winner p {
+        color: @base !important;
+      }
+
+      .choice-progress__fill--default {
+        background-color: @surface0;
+      }
+
+      .top-poll-community-points-contributor {
+        color: @green;
+      }
+    }
+
+    /* Channel points rewards - Learn more */
+    [class*="rewardsLearnMoreHeadersDark"],
+    [class*="rewardsLearnMoreExpandedView"] {
+      background-color: @base;
+    }
+
+    .footer__link, .footer__link:hover {
+      color: @text;
+    }
+
+    .footer__glitch
+      path[d="m18 17 4-4V2H6v15h4v4l4-4h4zM12 6h2v6h-2V6zm7 0h-2v6h2V6z"] {
+      fill: @text;
+    }
+
+    .bits-leaderboard-expanded__collapse {
+      svg {
+        fill: @surface0;
+      }
+    }
+
+    .tw-channel-status-text-indicator {
+      color: @base;
+    }
+
+    .player-captions-container {
+      .player-captions-container__caption-line[style*="; color: rgb(255, 255, 255)"] {
+        color: if(@flavor = latte, @base, @text) !important;
       }
     }
   }
@@ -1032,6 +1290,10 @@
     @mantle: @catppuccin[@@flavor][@mantle];
     @crust: @catppuccin[@@flavor][@crust];
     @accent: @catppuccin[@@flavor][@@accentColor];
+
+    .edit-video-properties-modal__content {
+      --color-background-float: @base;
+    }
 
     article button {
       --color-fill-current: @base !important;
@@ -1114,6 +1376,7 @@
     /* Autohost / managed channels list */
 
     .dashboard-centered-page {
+      --color-background-alt: @base;
       .simplebar-scroll-content,
       .simplebar-content {
         background: transparent !important;
@@ -1173,14 +1436,85 @@
       background: @crust;
     }
 
-    .clmgr-table__row:hover {
-      background: @surface0 !important;
+    .clmgr-table__row {
+      &:hover {
+        background: @surface0 !important;
+      }
     }
 
     /* Announcements button */
 
     .announcements-icon--green svg {
       fill: @green !important;
+    }
+
+    /* Achievements */
+
+    .ach-q-item {
+      &.ach-q-item--expanded {
+        box-shadow: 0 0 0 1px @accent;
+      }
+
+      [data-test-selector="is-affiliate-banner"] {
+        span,
+        a {
+          color: @base !important;
+        }
+      }
+
+      .quest-progress-bars__incomplete {
+        background-color: @surface0 !important;
+      }
+    }
+
+    [data-target="video-card"] {
+      background: @mantle !important;
+    }
+
+    /* Stream Manager quick actions */
+
+    .quick-action,
+    .quick-actions-store-card-layout--top {
+      color: @base;
+
+      &.quick-action--purple,
+      &.quick-actions-store-card-layout--purple {
+        background-color: @mauve;
+      }
+
+      &.quick-action--blue,
+      &.quick-actions-store-card-layout--blue {
+        background-color: @blue;
+      }
+
+      &.quick-action--magenta,
+      &.quick-actions-store-card-layout--magenta {
+        background-color: @pink;
+      }
+
+      &.quick-action--green,
+      &.quick-actions-store-card-layout--green {
+        background-color: @green;
+      }
+
+      &.quick-action--red,
+      &.quick-actions-store-card-layout--red {
+        background-color: @red;
+      }
+
+      &.quick-action-layout--disabled {
+        color: @subtext0;
+        background-color: @surface0;
+      }
+    }
+
+    /* Stream Manager statistics */
+    .sunlight-tile {
+      background-color: @crust;
+    }
+
+    .creator-home-card__icon-background--yellow {
+      background-color: @yellow;
     }
   }
 }
@@ -1400,6 +1734,7 @@
       p {
         color: @subtext0;
       }
+      background-color: @base !important;
     }
 
     blockquote {

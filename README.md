@@ -29,7 +29,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 ## 🖌 Userstyles
 
 > [!IMPORTANT]
-> Userstyles labeled with the "🚧" emoji are looking for maintainers, and may not work as intended. Contributions are still welcome and encouraged.
+> Userstyles labeled with the "❤️‍🩹" emoji lack maintainers, and may not work as intended. Contributions are still welcome and encouraged!
 
 <!-- AUTOGEN:USERSTYLES START -->
 <!-- The following section is auto-generated, do not edit. -->
@@ -42,6 +42,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [docs.rs](styles/docs.rs)
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
+- [gleam.run](styles/gleam.run)
 - [go.dev](styles/go.dev)
 - [Grabify](styles/grabify)
 - [Graphite](styles/graphite)
@@ -58,7 +59,6 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
 - [PythonAnywhere](styles/pythonanywhere)
-- [Stack Overflow](styles/stack-overflow)
 - [Trinket](styles/trinket)
 - [Vercel, Next.js](styles/vercel)
 - [web.dev](styles/web.dev)
@@ -75,7 +75,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [Indie Wiki Buddy](styles/indie-wiki-buddy)
 - [Shinigami Eyes](styles/shinigami-eyes)
-- 🚧 [Stylus](styles/stylus)
+- [Stylus](styles/stylus)
 
 </details>
 <details open>
@@ -84,11 +84,11 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [Brave Search](styles/brave-search)
 - [DuckDuckGo](styles/duckduckgo)
 - [Ecosia](styles/ecosia)
-- 🚧 [Google](styles/google)
+- ❤️‍🩹 [Google](styles/google)
 - [Mullvad Leta](styles/mullvad-leta)
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
-- 🚧 [Startpage](styles/startpage)
+- ❤️‍🩹 [Startpage](styles/startpage)
 
 </details>
 <details open>
@@ -104,10 +104,10 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <details open>
 <summary>🧠 Wikis</summary>
 
-- 🚧 [Arch Wiki](styles/arch-wiki)
+- ❤️‍🩹 [Arch Wiki](styles/arch-wiki)
 - [mdBook](styles/mdbook)
 - [NixOS Wiki](styles/wiki.nixos.org)
-- 🚧 [Wikipedia](styles/wikipedia)
+- [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
 
 </details>
@@ -115,7 +115,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>📸 Photo &amp; Video</summary>
 
 - [Google Photos](styles/google-photos)
-- 🚧 [Pinterest](styles/pinterest)
+- ❤️‍🩹 [Pinterest](styles/pinterest)
 
 </details>
 <details open>
@@ -138,7 +138,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
 - [keybr.com](styles/keybr.com)
-- 🚧 [Microsoft Word](styles/microsoft-word)
+- ❤️‍🩹 [Microsoft Word](styles/microsoft-word)
 - [openmediavault](styles/openmediavault)
 - [Porkbun](styles/porkbun)
 - [Proton](styles/proton)
@@ -166,7 +166,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <details open>
 <summary>🎓 Education</summary>
 
-- 🚧 [Canvas LMS](styles/canvas-lms)
+- ❤️‍🩹 [Canvas LMS](styles/canvas-lms)
 - [Formative](styles/formative)
 - [Quizlet](styles/quizlet)
 
@@ -195,9 +195,10 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [Hacker News](styles/hacker-news)
 - [Lemmy](styles/lemmy)
-- 🚧 [Libreddit, Redlib](styles/libreddit)
+- ❤️‍🩹 [Libreddit, Redlib](styles/libreddit)
 - [Lobsters](styles/lobste.rs)
-- 🚧 [Reddit](styles/reddit)
+- ❤️‍🩹 [Reddit](styles/reddit)
+- [Stack Overflow](styles/stack-overflow)
 - [TabNews](styles/tabnews)
 
 </details>
@@ -208,7 +209,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [AniList, AniChart](styles/anilist)
 - [ChatReplay](styles/chatreplay)
 - [Holodex](styles/holodex)
-- 🚧 [Invidious](styles/invidious)
+- ❤️‍🩹 [Invidious](styles/invidious)
 - [Picrew](styles/picrew)
 - [Substack](styles/substack)
 - [Twitch](styles/twitch)
@@ -220,9 +221,9 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [Advent Of Code](styles/advent-of-code)
 - [bStats](styles/bstats)
-- 🚧 [Chess.com](styles/chess.com)
+- [Chess.com](styles/chess.com)
 - [Lichess](styles/lichess)
-- 🚧 [Minesweeper Online](styles/minesweeper)
+- ❤️‍🩹 [Minesweeper Online](styles/minesweeper)
 - [Modrinth](styles/modrinth)
 - [Planet Minecraft](styles/planet-minecraft)
 
