@@ -1,0 +1,343 @@
+/* ==UserStyle==
+@name Google Contacts Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/google-contacts
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/google-contacts
+@version 2025.03.10
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/google-contacts/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agoogle-contacts
+@description Soothing pastel theme for Google Contacts
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain("contacts.google.com") {
+  /* This section applies the light/dark themes automatically based on the user's system theme.
+     Use the below example CSS to start if the website you are theming doesn't have a light/dark mode toggle.
+     For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/brave-search/catppuccin.user.css#L16-L29.
+  */
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  /* If the website you are theming *does* have a light/dark mode toggle,
+     you can conditionally enable light/dark flavors by targeting whatever
+     attribute that website uses to indicate the theme. *The example below gives you an idea of what
+     to look for. The website you are theming may use a class-based approach (e.g. :root.theme-dark),
+     or any of the myriad of other methods like this.*
+     Use the below example CSS to start if this is the case.
+     For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/youtube/catppuccin.user.css#L21-L30.
+  */
+/*   :root[data-theme="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+  :root[data-theme="light"] {
+    #catppuccin(@lightFlavor);
+  } */
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    /* Start styling your website here: */
+    background-color: @base;
+
+	@color-error                     : @red;
+	@color-on-error                  : darken(desaturate(@red, 20%), 50%);
+	@color-error-container           : #fff;
+	@color-on-error-container        : #fff;
+
+	@color-background                : @base;
+	@color-on-background             : @text;
+
+	@color-primary                   : @accent;
+	@color-on-primary                : darken(desaturate(@color-primary, 25%), 50%);
+	@color-primary-container         : desaturate(darken(@accent, 50%), 50%);
+	@color-on-primary-container      : #fff;
+	@color-inverse-primary           : lighten(@accent, 50%); // Handled in flavour specific code
+	
+	@color-secondary                 : lighten(desaturate(@accent, 40%),0%);
+	@color-on-secondary              : darken(@color-secondary, 50%);
+	@color-secondary-container       : saturate(mix(@color-secondary, @mantle, 20%), 0%);
+	@color-on-secondary-container    : mix(@text, saturate(@color-secondary-container, 60%), 80%);
+
+	@color-surface                   : @base;
+	@color-on-surface                : @text;
+	@color-surface-variant           : mix(@mantle, @accent, 87.5%);
+	@color-on-surface-variant        : @subtext0;
+	@color-surface-tint              : @accent;
+
+	@color-inverse-on-surface        : #000000; // Handled in flavour specific code
+	@color-inverse-surface           : #ffffff; // Handled in flavour specific code
+	
+	@color-surface-container-lowest  : @crust;
+	@color-surface-container-low     : @crust;
+	@color-surface-container         : @surface0;
+	@color-surface-container-high    : @surface0;
+	@color-surface-container-highest : @surface1;
+	
+	@color-tertiary                  : #fff;
+	@color-on-tertiary               : #fff;
+	@color-tertiary-container        : #fff;
+	
+	@color-outline                   : @overlay2;
+	@color-outline-variant           : @overlay0;
+	
+	@color-scrim                     : #000;
+	@color-shadow                    : #000;
+	
+	@color-caution                   : @yellow;
+	@color-on-caution                : darken(@color-caution, 50);
+	@color-caution-container         : saturate(mix(@color-caution, @mantle, 40%), 30%);
+	@color-on-caution-container      : #fff;
+
+	// TODO: Fix
+    /* If you need to specify an overwrite specific to a flavor
+     *  (e.g. only when the flavor is set to latte), you can use a `when` guard clause. */
+	 & when (@flavor = latte) {
+        /* ... */
+	    // @on-accent-color: lighten(@accent-color, 50);
+		// @accent-color-container: desaturate(lighten(@accent-color, 50), 10);
+		// @on-accent-color-container: lighten(@accent-color-container, 60);
+		// @accent-color-secondary-container: desaturate(lighten(@accent-color,-5), 15);
+		// @on-accent-color-secondary-container: lighten(@accent-color-secondary-container, 60);
+    }
+    /* You can also negate the statement above by using
+     *  a `when not` guard clause. */
+    & when not(@flavor = latte) {
+        /* ... */
+    }
+	@color-on-primary-container: lighten(@color-primary-container, 50);
+	@color-on-secondary-container: lighten(saturate(@color-secondary-container, 50%), 65%);
+	
+	body {
+		--gm3-sys-color-error                    : @color-error                    ;
+		--gm3-sys-color-on-error                 : @color-on-error                 ;
+		--gm3-sys-color-background               : @color-background               ;
+		--gm3-sys-color-on-background            : @color-on-background            ;
+		--gm3-sys-color-primary                  : @color-primary                  ;
+		--gm3-sys-color-on-primary               : @color-on-primary               ;
+		--gm3-sys-color-inverse-primary          : @color-inverse-primary          ;
+		--gm3-sys-color-secondary                : @color-secondary                ;
+		--gm3-sys-color-on-secondary             : @color-on-secondary             ;
+		--gm3-sys-color-surface                  : @color-surface                  ;
+		--gm3-sys-color-on-surface               : @color-on-surface               ;
+		--gm3-sys-color-on-surface-variant       : @color-on-surface-variant       ;
+		--gm3-sys-color-inverse-on-surface       : @color-inverse-on-surface       ;
+		--gm3-sys-color-inverse-surface          : @color-inverse-surface          ;
+		--gm3-sys-color-shadow                   : @color-shadow                   ;
+		--gm3-sys-color-primary-container        : @color-primary-container        ;
+		--gm3-sys-color-on-primary-container     : @color-on-primary-container     ;
+		--gm3-sys-color-secondary-container      : @color-secondary-container      ;
+		--gm3-sys-color-on-secondary-container   : @color-on-secondary-container   ;
+		--gm3-sys-color-error-container          : @color-error-container          ;
+		--gm3-sys-color-on-error-container       : @color-on-error-container       ;
+		--gm3-sys-color-surface-variant          : @color-surface-variant          ;
+		--gm3-sys-color-surface-tint             : @color-surface-tint             ;
+		--gm3-sys-color-surface-container-lowest : @color-surface-container-lowest ;
+		--gm3-sys-color-surface-container-low    : @color-surface-container-low    ;
+		--gm3-sys-color-surface-container        : @color-surface-container        ;
+		--gm3-sys-color-surface-container-high   : @color-surface-container-high   ;
+		--gm3-sys-color-surface-container-highest: @color-surface-container-highest;
+		--gm3-sys-color-tertiary                 : @color-tertiary                 ;
+		--gm3-sys-color-on-tertiary              : @color-on-tertiary              ;
+		--gm3-sys-color-tertiary-container       : @color-tertiary-container       ;
+		--gm3-sys-color-outline                  : @color-outline                  ;
+		--gm3-sys-color-outline-variant          : @color-outline-variant          ;
+		--gm3-sys-color-scrim                    : @color-scrim                    ;
+		--gm3-sys-color-caution                  : @color-caution                  ;
+		--gm3-sys-color-on-caution               : @color-on-caution               ;
+		--gm3-sys-color-caution-container        : @color-caution-container        ;
+		--gm3-sys-color-on-caution-container     : @color-on-caution-container     ;
+	
+		// LEGACY
+		--gm3-sys-color-surface-dim              : @color-surface-container-high   ;
+
+		// RGB Generation
+		--gm3-sys-color-error-rgb                    : red(@color-error                    ), green(@color-error                    ), blue(@color-error                    );
+		--gm3-sys-color-on-error-rgb                 : red(@color-on-error                 ), green(@color-on-error                 ), blue(@color-on-error                 );
+		--gm3-sys-color-background-rgb               : red(@color-background               ), green(@color-background               ), blue(@color-background               );
+		--gm3-sys-color-on-background-rgb            : red(@color-on-background            ), green(@color-on-background            ), blue(@color-on-background            );
+		--gm3-sys-color-primary-rgb                  : red(@color-primary                  ), green(@color-primary                  ), blue(@color-primary                  );
+		--gm3-sys-color-on-primary-rgb               : red(@color-on-primary               ), green(@color-on-primary               ), blue(@color-on-primary               );
+		--gm3-sys-color-inverse-primary-rgb          : red(@color-inverse-primary          ), green(@color-inverse-primary          ), blue(@color-inverse-primary          );
+		--gm3-sys-color-secondary-rgb                : red(@color-secondary                ), green(@color-secondary                ), blue(@color-secondary                );
+		--gm3-sys-color-on-secondary-rgb             : red(@color-on-secondary             ), green(@color-on-secondary             ), blue(@color-on-secondary             );
+		--gm3-sys-color-surface-rgb                  : red(@color-surface                  ), green(@color-surface                  ), blue(@color-surface                  );
+		--gm3-sys-color-on-surface-rgb               : red(@color-on-surface               ), green(@color-on-surface               ), blue(@color-on-surface               );
+		--gm3-sys-color-on-surface-variant-rgb       : red(@color-on-surface-variant       ), green(@color-on-surface-variant       ), blue(@color-on-surface-variant       );
+		--gm3-sys-color-inverse-on-surface-rgb       : red(@color-inverse-on-surface       ), green(@color-inverse-on-surface       ), blue(@color-inverse-on-surface       );
+		--gm3-sys-color-inverse-surface-rgb          : red(@color-inverse-surface          ), green(@color-inverse-surface          ), blue(@color-inverse-surface          );
+		--gm3-sys-color-shadow-rgb                   : red(@color-shadow                   ), green(@color-shadow                   ), blue(@color-shadow                   );
+		--gm3-sys-color-primary-container-rgb        : red(@color-primary-container        ), green(@color-primary-container        ), blue(@color-primary-container        );
+		--gm3-sys-color-on-primary-container-rgb     : red(@color-on-primary-container     ), green(@color-on-primary-container     ), blue(@color-on-primary-container     );
+		--gm3-sys-color-secondary-container-rgb      : red(@color-secondary-container      ), green(@color-secondary-container      ), blue(@color-secondary-container      );
+		--gm3-sys-color-on-secondary-container-rgb   : red(@color-on-secondary-container   ), green(@color-on-secondary-container   ), blue(@color-on-secondary-container   );
+		--gm3-sys-color-error-container-rgb          : red(@color-error-container          ), green(@color-error-container          ), blue(@color-error-container          );
+		--gm3-sys-color-on-error-container-rgb       : red(@color-on-error-container       ), green(@color-on-error-container       ), blue(@color-on-error-container       );
+		--gm3-sys-color-surface-variant-rgb          : red(@color-surface-variant          ), green(@color-surface-variant          ), blue(@color-surface-variant          );
+		--gm3-sys-color-surface-tint-rgb             : red(@color-surface-tint             ), green(@color-surface-tint             ), blue(@color-surface-tint             );
+		--gm3-sys-color-surface-container-lowest-rgb : red(@color-surface-container-lowest ), green(@color-surface-container-lowest ), blue(@color-surface-container-lowest );
+		--gm3-sys-color-surface-container-low-rgb    : red(@color-surface-container-low    ), green(@color-surface-container-low    ), blue(@color-surface-container-low    );
+		--gm3-sys-color-surface-container-rgb        : red(@color-surface-container        ), green(@color-surface-container        ), blue(@color-surface-container        );
+		--gm3-sys-color-surface-container-high-rgb   : red(@color-surface-container-high   ), green(@color-surface-container-high   ), blue(@color-surface-container-high   );
+		--gm3-sys-color-surface-container-highest-rgb: red(@color-surface-container-highest), green(@color-surface-container-highest), blue(@color-surface-container-highest);
+		--gm3-sys-color-tertiary-rgb                 : red(@color-tertiary                 ), green(@color-tertiary                 ), blue(@color-tertiary                 );
+		--gm3-sys-color-on-tertiary-rgb              : red(@color-on-tertiary              ), green(@color-on-tertiary              ), blue(@color-on-tertiary              );
+		--gm3-sys-color-tertiary-container-rgb       : red(@color-tertiary-container       ), green(@color-tertiary-container       ), blue(@color-tertiary-container       );
+		--gm3-sys-color-outline-rgb                  : red(@color-outline                  ), green(@color-outline                  ), blue(@color-outline                  );
+		--gm3-sys-color-outline-variant-rgb          : red(@color-outline-variant          ), green(@color-outline-variant          ), blue(@color-outline-variant          );
+		--gm3-sys-color-scrim-rgb                    : red(@color-scrim                    ), green(@color-scrim                    ), blue(@color-scrim                    );
+		--gm3-sys-color-caution-rgb                  : red(@color-caution                  ), green(@color-caution                  ), blue(@color-caution                  );
+		--gm3-sys-color-on-caution-rgb               : red(@color-on-caution               ), green(@color-on-caution               ), blue(@color-on-caution               );
+		--gm3-sys-color-caution-container-rgb        : red(@color-caution-container        ), green(@color-caution-container        ), blue(@color-caution-container        );
+		--gm3-sys-color-on-caution-container-rgb     : red(@color-on-caution-container     ), green(@color-on-caution-container     ), blue(@color-on-caution-container     );
+	
+		// LEGACY
+		--gm3-sys-color-surface-dim-rgb              : red(@color-surface-container-high   ), green(@color-surface-container-high      ), blue(@color-surface-container-high);
+	}
+
+	header.gb_Fa {
+		background-color: var(--gm3-sys-color-surface-container-low) !important;
+		color: var(--gm3-sys-color-on-surface);
+	}
+
+	.gb_id, .JPdR6b, .zadfYd .j3urvf, .VOEIyf .jBmls {
+		background-color: var(--gm3-sys-color-surface-container)
+	}
+	
+	.z80M1.FwR7Pcm, .z80M1.FwR7Pc, .z80M1 .oKubKe[aria-selected=true] {
+	background-color: var(--gm3-sys-color-surface-container-highest) !important;
+	}
+
+	.z80M1.N2RpBe::before, .RiYDI {
+		border-color: var(--gm3-sys-color-primary);
+	}
+
+	.RiYDI {
+		border-top-color: transparent;
+	}
+	
+	.z80M1.qs41qe>.aBBjbd {
+		background-image: radial-gradient(closest-side, var(--gm3-ripple-pressed-color, rgba(var(--gm3-sys-color-on-surface-rgb,currentColor),0.12)) max(100% - 70px, 65%), transparent 100%);
+	}
+
+	.gb_Fa svg,
+	.gb_Pc svg,
+	.gb_2c .gb_td,
+	.ZKP9Md,
+	.JPdR6b,
+	.z80M1,
+	.lueeKe.lueeKe {
+		color: inherit;
+	}
+
+	.gb_Fa svg,
+	.gb_Pc svg,.gb_sd .gb_td, .tB5Jxf-xl07Ob-XxIAqe, .VOEIyf, .VOEIyf .jBmls, .oKubKe, .gb_id.gb_jd .gb_qe, .gb_Fa {
+		color: var(--gm3-sys-color-on-surface)
+	}
+	
+	.gb_id button svg, .gb_id button img {
+		fill: var(--gm3-sys-color-on-surface);
+	}
+
+	.bziVTe {
+		--gm3-icon-button-standard-focus-indicator-outline-offset: -4px;
+		--gm3-icon-button-standard-unselected-icon-color: var(--md-sys-color-on-surface);
+		--gm3-icon-button-standard-unselected-hover-icon-color: var(--md-sys-color-on-surface);
+		--gm3-icon-button-standard-unselected-focus-icon-color: var(--md-sys-color-on-surface);
+		--gm3-icon-button-standard-unselected-pressed-icon-color: var(--md-sys-color-on-surface);
+		margin: 0 4px;
+	}
+
+	.JvO9cb, .H1IxX {
+		background: transparent;
+	}
+
+	.zucFAc, .sSe4od > img {
+		filter: invert(1) hue-rotate(180deg);
+	}
+
+	.BPX1ed.eLNT1d {
+		background-color: var(--gm3-sys-color-caution-container);
+	}
+
+	a, .BPX1ed.QIMKlc {
+		color: var(--gm3-sys-color-on-primary)
+	}
+	
+	.VUoKZ>.TRHLAc {
+		background-color: var(--gm3-sys-color-primary);
+	}
+
+	.mf6tRb {
+		color: var(--gm3-sys-color-on-surface-variant)
+	}
+
+	.gb_Ac {
+		background-color: var(--gm3-sys-color-inverse-surface);
+		color: var(--gm3-tooltip-plain-supporting-text-color, var(--gm3-sys-color-inverse-on-surface, #f2f2f2));
+		font-family: var(--gm3-tooltip-plain-supporting-text-font, "Google Sans Text", "Google Sans");
+		font-size: var(--gm3-tooltip-plain-supporting-text-size, .75rem);
+		font-weight: var(--gm3-tooltip-plain-supporting-text-weight, 400);
+		letter-spacing: var(--gm3-tooltip-plain-supporting-text-tracking, .00625rem);
+		line-height: var(--gm3-tooltip-plain-supporting-text-line-height, 1rem);
+		text-align: center;
+	}
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
