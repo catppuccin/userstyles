@@ -25,6 +25,10 @@
     }
   }
 
+  #rgbify(@color) {
+    @rgb: red(@color), green(@color), blue(@color);
+  }
+
   #catppuccin(@flavor) {
     @rosewater: @catppuccin[@@flavor][@rosewater];
     @flamingo: @catppuccin[@@flavor][@flamingo];
@@ -69,22 +73,22 @@
 
 	@color-error                     : @red;
 	@color-on-error                  : darken(desaturate(@red, 20%), 50%);
-	@color-error-container           : #fff;
-	@color-on-error-container        : #fff;
+	@color-error-container           : desaturate(darken(@red, 50%), 50%);
+	@color-on-error-container        : desaturate(darken(@red, 50%), 50%);
 
 	@color-background                : @base;
 	@color-on-background             : @text;
 
 	@color-primary                   : @accent;
 	@color-on-primary                : darken(desaturate(@color-primary, 25%), 50%);
-	@color-primary-container         : desaturate(darken(@accent, 50%), 50%);
-	@color-on-primary-container      : #fff;
+	@color-primary-container         : saturate(mix(@color-primary, @mantle, 20%), 20%);
+	@color-on-primary-container      : lighten(@color-primary-container, 50);
 	@color-inverse-primary           : lighten(@accent, 50%); // Handled in flavour specific code
 	
 	@color-secondary                 : lighten(desaturate(@accent, 40%),0%);
 	@color-on-secondary              : darken(@color-secondary, 50%);
 	@color-secondary-container       : saturate(mix(@color-secondary, @mantle, 20%), 0%);
-	@color-on-secondary-container    : mix(@text, saturate(@color-secondary-container, 60%), 80%);
+  @color-on-secondary-container    : lighten(saturate(@color-secondary-container, 50%), 65%);
 
 	@color-surface                   : @base;
 	@color-on-surface                : @text;
@@ -92,8 +96,8 @@
 	@color-on-surface-variant        : @subtext0;
 	@color-surface-tint              : @accent;
 
-	@color-inverse-on-surface        : #000000; // Handled in flavour specific code
-	@color-inverse-surface           : #ffffff; // Handled in flavour specific code
+	@color-inverse-on-surface        : @crust;
+	@color-inverse-surface           : @text;
 	
 	@color-surface-container-lowest  : @crust;
 	@color-surface-container-low     : @crust;
@@ -101,8 +105,8 @@
 	@color-surface-container-high    : @surface0;
 	@color-surface-container-highest : @surface1;
 	
-	@color-tertiary                  : #fff;
-	@color-on-tertiary               : #fff;
+	@color-tertiary                  : @accent;
+	@color-on-tertiary               : darken(desaturate(@color-tertiary, 25%), 50%);
 	@color-tertiary-container        : #fff;
 	
 	@color-outline                   : @overlay2;
@@ -114,11 +118,25 @@
 	@color-caution                   : @yellow;
 	@color-on-caution                : darken(@color-caution, 50);
 	@color-caution-container         : saturate(mix(@color-caution, @mantle, 40%), 30%);
-	@color-on-caution-container      : #fff;
-
-	@color-on-primary-container: lighten(@color-primary-container, 50);
-	@color-on-secondary-container: lighten(saturate(@color-secondary-container, 50%), 65%);
+	@color-on-caution-container      : desaturate(darken(@accent, 50%), 50%);
 	
+  @light-image-filter              : invert(1) hue-rotate(180deg);
+
+  // review: This "when" statement doesn't seem to be applying correctly
+  // causing contrast issues on certain elements
+  & when (@flavor = latte) {
+    @color-on-error                  : lighten(desaturate(@red, 20%), 50%);
+    @color-on-primary                : lighten(desaturate(@color-primary, 25%), 50%);
+    @color-on-secondary              : lighten(@color-secondary, 50%);
+    @color-on-tertiary               : lighten(desaturate(@color-tertiary, 25%), 50%);
+    @color-on-caution                : lighten(@color-caution, 50%);
+    @color-on-caution-container      : lighten(desaturate(@accent, 50%), 30%);
+    @color-on-primary-container      : darken(desaturate(@color-primary-container, 20%), 50%);
+    @color-on-secondary-container    : darken(desaturate(@color-secondary-container, 20%), 50%);
+  
+    @light-image-filter: brightness(0.9);
+  }
+
 	body {
 		--gm3-sys-color-error                    : @color-error                    ;
 		--gm3-sys-color-on-error                 : @color-on-error                 ;
@@ -163,48 +181,65 @@
 		--gm3-sys-color-surface-dim              : @color-surface-container-high   ;
 
 		// RGB Generation
-		--gm3-sys-color-error-rgb                    : red(@color-error                    ), green(@color-error                    ), blue(@color-error                    );
-		--gm3-sys-color-on-error-rgb                 : red(@color-on-error                 ), green(@color-on-error                 ), blue(@color-on-error                 );
-		--gm3-sys-color-background-rgb               : red(@color-background               ), green(@color-background               ), blue(@color-background               );
-		--gm3-sys-color-on-background-rgb            : red(@color-on-background            ), green(@color-on-background            ), blue(@color-on-background            );
-		--gm3-sys-color-primary-rgb                  : red(@color-primary                  ), green(@color-primary                  ), blue(@color-primary                  );
-		--gm3-sys-color-on-primary-rgb               : red(@color-on-primary               ), green(@color-on-primary               ), blue(@color-on-primary               );
-		--gm3-sys-color-inverse-primary-rgb          : red(@color-inverse-primary          ), green(@color-inverse-primary          ), blue(@color-inverse-primary          );
-		--gm3-sys-color-secondary-rgb                : red(@color-secondary                ), green(@color-secondary                ), blue(@color-secondary                );
-		--gm3-sys-color-on-secondary-rgb             : red(@color-on-secondary             ), green(@color-on-secondary             ), blue(@color-on-secondary             );
-		--gm3-sys-color-surface-rgb                  : red(@color-surface                  ), green(@color-surface                  ), blue(@color-surface                  );
-		--gm3-sys-color-on-surface-rgb               : red(@color-on-surface               ), green(@color-on-surface               ), blue(@color-on-surface               );
-		--gm3-sys-color-on-surface-variant-rgb       : red(@color-on-surface-variant       ), green(@color-on-surface-variant       ), blue(@color-on-surface-variant       );
-		--gm3-sys-color-inverse-on-surface-rgb       : red(@color-inverse-on-surface       ), green(@color-inverse-on-surface       ), blue(@color-inverse-on-surface       );
-		--gm3-sys-color-inverse-surface-rgb          : red(@color-inverse-surface          ), green(@color-inverse-surface          ), blue(@color-inverse-surface          );
-		--gm3-sys-color-shadow-rgb                   : red(@color-shadow                   ), green(@color-shadow                   ), blue(@color-shadow                   );
-		--gm3-sys-color-primary-container-rgb        : red(@color-primary-container        ), green(@color-primary-container        ), blue(@color-primary-container        );
-		--gm3-sys-color-on-primary-container-rgb     : red(@color-on-primary-container     ), green(@color-on-primary-container     ), blue(@color-on-primary-container     );
-		--gm3-sys-color-secondary-container-rgb      : red(@color-secondary-container      ), green(@color-secondary-container      ), blue(@color-secondary-container      );
-		--gm3-sys-color-on-secondary-container-rgb   : red(@color-on-secondary-container   ), green(@color-on-secondary-container   ), blue(@color-on-secondary-container   );
-		--gm3-sys-color-error-container-rgb          : red(@color-error-container          ), green(@color-error-container          ), blue(@color-error-container          );
-		--gm3-sys-color-on-error-container-rgb       : red(@color-on-error-container       ), green(@color-on-error-container       ), blue(@color-on-error-container       );
-		--gm3-sys-color-surface-variant-rgb          : red(@color-surface-variant          ), green(@color-surface-variant          ), blue(@color-surface-variant          );
-		--gm3-sys-color-surface-tint-rgb             : red(@color-surface-tint             ), green(@color-surface-tint             ), blue(@color-surface-tint             );
-		--gm3-sys-color-surface-container-lowest-rgb : red(@color-surface-container-lowest ), green(@color-surface-container-lowest ), blue(@color-surface-container-lowest );
-		--gm3-sys-color-surface-container-low-rgb    : red(@color-surface-container-low    ), green(@color-surface-container-low    ), blue(@color-surface-container-low    );
-		--gm3-sys-color-surface-container-rgb        : red(@color-surface-container        ), green(@color-surface-container        ), blue(@color-surface-container        );
-		--gm3-sys-color-surface-container-high-rgb   : red(@color-surface-container-high   ), green(@color-surface-container-high   ), blue(@color-surface-container-high   );
-		--gm3-sys-color-surface-container-highest-rgb: red(@color-surface-container-highest), green(@color-surface-container-highest), blue(@color-surface-container-highest);
-		--gm3-sys-color-tertiary-rgb                 : red(@color-tertiary                 ), green(@color-tertiary                 ), blue(@color-tertiary                 );
-		--gm3-sys-color-on-tertiary-rgb              : red(@color-on-tertiary              ), green(@color-on-tertiary              ), blue(@color-on-tertiary              );
-		--gm3-sys-color-tertiary-container-rgb       : red(@color-tertiary-container       ), green(@color-tertiary-container       ), blue(@color-tertiary-container       );
-		--gm3-sys-color-outline-rgb                  : red(@color-outline                  ), green(@color-outline                  ), blue(@color-outline                  );
-		--gm3-sys-color-outline-variant-rgb          : red(@color-outline-variant          ), green(@color-outline-variant          ), blue(@color-outline-variant          );
-		--gm3-sys-color-scrim-rgb                    : red(@color-scrim                    ), green(@color-scrim                    ), blue(@color-scrim                    );
-		--gm3-sys-color-caution-rgb                  : red(@color-caution                  ), green(@color-caution                  ), blue(@color-caution                  );
-		--gm3-sys-color-on-caution-rgb               : red(@color-on-caution               ), green(@color-on-caution               ), blue(@color-on-caution               );
-		--gm3-sys-color-caution-container-rgb        : red(@color-caution-container        ), green(@color-caution-container        ), blue(@color-caution-container        );
-		--gm3-sys-color-on-caution-container-rgb     : red(@color-on-caution-container     ), green(@color-on-caution-container     ), blue(@color-on-caution-container     );
+		--gm3-sys-color-error-rgb                    : #rgbify(@color-error                    ) [];
+		--gm3-sys-color-on-error-rgb                 : #rgbify(@color-on-error                 ) [];
+		--gm3-sys-color-background-rgb               : #rgbify(@color-background               ) [];
+		--gm3-sys-color-on-background-rgb            : #rgbify(@color-on-background            ) [];
+		--gm3-sys-color-primary-rgb                  : #rgbify(@color-primary                  ) [];
+		--gm3-sys-color-on-primary-rgb               : #rgbify(@color-on-primary               ) [];
+		--gm3-sys-color-inverse-primary-rgb          : #rgbify(@color-inverse-primary          ) [];
+		--gm3-sys-color-secondary-rgb                : #rgbify(@color-secondary                ) [];
+		--gm3-sys-color-on-secondary-rgb             : #rgbify(@color-on-secondary             ) [];
+		--gm3-sys-color-surface-rgb                  : #rgbify(@color-surface                  ) [];
+		--gm3-sys-color-on-surface-rgb               : #rgbify(@color-on-surface               ) [];
+		--gm3-sys-color-on-surface-variant-rgb       : #rgbify(@color-on-surface-variant       ) [];
+		--gm3-sys-color-inverse-on-surface-rgb       : #rgbify(@color-inverse-on-surface       ) [];
+		--gm3-sys-color-inverse-surface-rgb          : #rgbify(@color-inverse-surface          ) [];
+		--gm3-sys-color-shadow-rgb                   : #rgbify(@color-shadow                   ) [];
+		--gm3-sys-color-primary-container-rgb        : #rgbify(@color-primary-container        ) [];
+		--gm3-sys-color-on-primary-container-rgb     : #rgbify(@color-on-primary-container     ) [];
+		--gm3-sys-color-secondary-container-rgb      : #rgbify(@color-secondary-container      ) [];
+		--gm3-sys-color-on-secondary-container-rgb   : #rgbify(@color-on-secondary-container   ) [];
+		--gm3-sys-color-error-container-rgb          : #rgbify(@color-error-container          ) [];
+		--gm3-sys-color-on-error-container-rgb       : #rgbify(@color-on-error-container       ) [];
+		--gm3-sys-color-surface-variant-rgb          : #rgbify(@color-surface-variant          ) [];
+		--gm3-sys-color-surface-tint-rgb             : #rgbify(@color-surface-tint             ) [];
+		--gm3-sys-color-surface-container-lowest-rgb : #rgbify(@color-surface-container-lowest ) [];
+		--gm3-sys-color-surface-container-low-rgb    : #rgbify(@color-surface-container-low    ) [];
+		--gm3-sys-color-surface-container-rgb        : #rgbify(@color-surface-container        ) [];
+		--gm3-sys-color-surface-container-high-rgb   : #rgbify(@color-surface-container-high   ) [];
+		--gm3-sys-color-surface-container-highest-rgb: #rgbify(@color-surface-container-highest) [];
+		--gm3-sys-color-tertiary-rgb                 : #rgbify(@color-tertiary                 ) [];
+		--gm3-sys-color-on-tertiary-rgb              : #rgbify(@color-on-tertiary              ) [];
+		--gm3-sys-color-tertiary-container-rgb       : #rgbify(@color-tertiary-container       ) [];
+		--gm3-sys-color-outline-rgb                  : #rgbify(@color-outline                  ) [];
+		--gm3-sys-color-outline-variant-rgb          : #rgbify(@color-outline-variant          ) [];
+		--gm3-sys-color-scrim-rgb                    : #rgbify(@color-scrim                    ) [];
+		--gm3-sys-color-caution-rgb                  : #rgbify(@color-caution                  ) [];
+		--gm3-sys-color-on-caution-rgb               : #rgbify(@color-on-caution               ) [];
+		--gm3-sys-color-caution-container-rgb        : #rgbify(@color-caution-container        ) [];
+		--gm3-sys-color-on-caution-container-rgb     : #rgbify(@color-on-caution-container     ) [];
 	
 		// LEGACY
-		--gm3-sys-color-surface-dim-rgb              : red(@color-surface-container-high   ), green(@color-surface-container-high      ), blue(@color-surface-container-high);
+		--gm3-sys-color-surface-dim-rgb              : #rgbify(@color-surface-container-high   ) [];
 	}
+
+  .O68mGe-xl07Ob {
+    --gm3-list-list-item-disabled-leading-icon-color: initial;
+    --gm3-list-list-item-hover-leading-icon-icon-color: initial;
+    --gm3-list-list-item-selected-trailing-icon-color: initial;
+    --gm3-list-list-item-leading-icon-color: initial;
+    --gm3-list-list-item-trailing-icon-color: initial;
+    --gm3-list-list-item-selected-label-text-color: initial;
+    --gm3-list-list-item-supporting-text-color: initial;
+    --gm3-list-list-item-trailing-supporting-text-color: initial;
+    --gm3-list-list-item-disabled-label-text-color: initial;
+    --gm3-list-list-item-disabled-supporting-text-color: initial;
+    --gm3-list-list-item-disabled-trailing-supporting-text-color: initial;
+    --gm3-list-list-item-focus-label-text-color: initial;
+    --gm3-list-list-item-hover-label-text-color: initial;
+    --gm3-list-list-item-label-text-color: initial;;
+  }
 
 	header.gb_Fa {
 		background-color: var(--gm3-sys-color-surface-container-low) !important;
@@ -251,12 +286,10 @@
 	}
 
 	.bziVTe {
-		--gm3-icon-button-standard-focus-indicator-outline-offset: -4px;
 		--gm3-icon-button-standard-unselected-icon-color: var(--md-sys-color-on-surface);
 		--gm3-icon-button-standard-unselected-hover-icon-color: var(--md-sys-color-on-surface);
 		--gm3-icon-button-standard-unselected-focus-icon-color: var(--md-sys-color-on-surface);
 		--gm3-icon-button-standard-unselected-pressed-icon-color: var(--md-sys-color-on-surface);
-		margin: 0 4px;
 	}
 
 	.JvO9cb, .H1IxX {
@@ -264,7 +297,7 @@
 	}
 
 	.zucFAc, .sSe4od > img {
-		filter: invert(1) hue-rotate(180deg);
+		filter: @light-image-filter;
 	}
 
 	.BPX1ed.eLNT1d {
@@ -286,12 +319,6 @@
 	.gb_Ac {
 		background-color: var(--gm3-sys-color-inverse-surface);
 		color: var(--gm3-tooltip-plain-supporting-text-color, var(--gm3-sys-color-inverse-on-surface, #f2f2f2));
-		font-family: var(--gm3-tooltip-plain-supporting-text-font, "Google Sans Text", "Google Sans");
-		font-size: var(--gm3-tooltip-plain-supporting-text-size, .75rem);
-		font-weight: var(--gm3-tooltip-plain-supporting-text-weight, 400);
-		letter-spacing: var(--gm3-tooltip-plain-supporting-text-tracking, .00625rem);
-		line-height: var(--gm3-tooltip-plain-supporting-text-line-height, 1rem);
-		text-align: center;
 	}
   }
 }
