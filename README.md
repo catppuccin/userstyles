@@ -59,6 +59,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
 - [PythonAnywhere](styles/pythonanywhere)
+- [React.dev](styles/react.dev)
 - [Trinket](styles/trinket)
 - [Vercel, Next.js](styles/vercel)
 - [web.dev](styles/web.dev)
