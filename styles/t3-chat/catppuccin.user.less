@@ -26,6 +26,7 @@
   }
 
   #catppuccin(@flavor) {
+    // Color palette definitions
     @rosewater: @catppuccin[@@flavor][@rosewater];
     @flamingo: @catppuccin[@@flavor][@flamingo];
     @pink: @catppuccin[@@flavor][@pink];
@@ -56,21 +57,27 @@
 
     color-scheme: if(@flavor = latte, light, dark);
 
+    // Basic elements
     ::selection {
       background-color: fade(@accent, 30%);
     }
 
-    input,
-    textarea {
+    input, textarea {
       &::placeholder {
         color: @subtext0 !important;
       }
     }
 
-    .hover\:bg-\[\#2D2D2D\]\/50:hover {
-      background-color: @crust;
+    // Scrollbar styling
+    ::-webkit-scrollbar-thumb {
+      background: @surface1;
+
+      &:hover {
+        background: @surface2;
+      }
     }
 
+    // Background colors
     .bg-neutral-800,
     .bg-gray-800,
     .bg-gray-950,
@@ -87,15 +94,23 @@
       background-color: @mantle !important;
     }
 
-    .hover\:bg-neutral-700:hover {
-      background-color: @mantle !important;
-    }
-
     .bg-neutral-700,
     .bg-neutral-700\/50 {
       background-color: @surface1 !important;
     }
 
+    .hover\:bg-neutral-700:hover {
+      background-color: @mantle !important;
+    }
+
+    .hover\:bg-neutral-800\/40:hover,
+    .hover\:bg-\[\#2D2D2D\]\/50:hover,
+    button.bg-background:hover,
+    a.bg-background:hover {
+      background-color: @mantle !important;
+    }
+
+    // Text colors
     .text-neutral-100,
     .text-neutral-200,
     .text-white,
@@ -103,7 +118,8 @@
     .\!text-neutral-200,
     h1.text-primary-foreground,
     .hover\:text-neutral-300,
-    strong {
+    strong,
+    .bg-\[\#0D0A09\].text-primary-foreground {
       color: @text !important;
     }
 
@@ -119,6 +135,7 @@
       color: @subtext0 !important;
     }
 
+    // Accent colors
     .bg-primary,
     .bg-pink-500 {
       background-color: @accent !important;
@@ -129,17 +146,26 @@
       color: @accent !important;
     }
 
+    button.bg-primary:hover,
+    a.bg-primary:hover {
+      background-color: darken(@accent, 5%) !important;
+    }
+
+    // Status colors
     .text-green-500 {
       color: @green !important;
     }
 
     .text-red-500,
     .text-red-400,
-    .text-red-300 {
+    .text-red-300,
+    .hover\:text-red-500,
+    .focus\:text-red-500 {
       color: @red !important;
     }
 
-    .text-yellow-500 {
+    .text-yellow-500,
+    .text-yellow-200\/80 {
       color: @yellow !important;
     }
 
@@ -151,6 +177,12 @@
       fill: @yellow;
     }
 
+    button.bg-destructive:hover,
+    a.bg-destructive:hover {
+      background-color: darken(@red, 5%) !important;
+    }
+
+    // Border colors
     .border-neutral-700,
     .border-gray-700,
     .border-neutral-800,
@@ -158,14 +190,7 @@
       border-color: @surface1 !important;
     }
 
-    ::-webkit-scrollbar-thumb {
-      background: @surface1;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: @surface2;
-    }
-
+    // Special UI components
     .bg-pink-600\/70 {
       background-color: @accent;
       color: @base !important;
@@ -173,48 +198,18 @@
 
     .bg-pink-500\/10 {
       background-color: @accent;
+
+      // Targets the "New Model" Popup
+      & > div > div > p {
+        color: @surface0 !important;
+      }
     }
 
     .hover\:bg-pink-500\/70:hover {
       background-color: fade(@accent, 75%);
     }
 
-    /* Targets the "New Model" Popop */
-    .bg-pink-500\/10 > div > div > p {
-      color: @surface0 !important;
-    }
-
-    /* Model "copy link" tooltips */
-    .bg-\[\#0D0A09\].text-primary-foreground {
-      color: @text !important;
-    }
-
-    button, a {
-      &.bg-destructive:hover {
-        background-color: darken(@red, 5%) !important;
-      }
-      &.bg-primary:hover {
-        background-color: darken(@accent, 5%) !important;
-      }
-      &.bg-background:hover {
-        background-color: @mantle !important;
-      }
-      &.hover\:bg-neutral-800\/40:hover {
-        background-color: @mantle !important;
-      }
-    }
-
-    /* You have X messages left */
-    .text-yellow-200\/80 {
-      color: @yellow;
-    }
-
-    /* Delete chat */
-    .hover\:text-red-500, .focus\:text-red-500 {
-      color: @red;
-    }
-
-    /* Search grounding button */
+    // Search grounding button
     .hover\:bg-pink-500\/10.hover\:text-pink-500\/40:hover {
       background-color: fade(@accent, 40%);
       color: @accent;
@@ -222,34 +217,37 @@
 
     .bg-pink-500\/20 {
       background-color: fade(@accent, 20%);
+
       > svg {
         color: @accent !important;
       }
     }
 
-    /* Model selectors */
+    // Model selector hover states
     .group:hover {
       .group-hover\:text-orange-500 {
         color: @peach;
       }
+
       .group-hover\:text-yellow-500 {
         color: @yellow;
       }
     }
 
-    /* Model Feature indicators */
+    // Model Feature indicators
     span {
       &.text-blue-500.bg-blue-500\/10 {
         background-color: fade(@blue, 10%);
         color: @blue;
       }
+
       &.text-purple-500.bg-purple-500\/10 {
         background-color: fade(@mauve, 10%);
         color: @mauve;
       }
     }
 
-    /* Tailwind Prose */
+    // Tailwind Prose
     .prose {
       --tw-prose-body: @text !important;
       --tw-prose-headings: @subtext0 !important;
@@ -271,7 +269,7 @@
       --tw-prose-td-borders: @surface0 !important;
     }
 
-    /* Base ShadCN stuff */
+    // Base ShadCN theme variables
     .dark {
       --background: #hslify(@base)[];
       --foreground: #hslify(@text)[];
