@@ -27,7 +27,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 This userstyle currently lacks maintainers, and may not work correctly. Please feel free to contribute for any issues you find!
 
 ## 💖 Past Maintainer
-- [Bart Libert](https://github.com/bartlibert)
+- [bartlibert](https://github.com/bartlibert)
 
 &nbsp;
 

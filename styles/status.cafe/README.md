@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [elly](https://github.com/bunfluff)
+- [bunfluff](https://github.com/bunfluff)
 
 
 &nbsp;

@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [Lucas Melin](https://github.com/lucasmelin)
+- [lucasmelin](https://github.com/lucasmelin)
 
 
 &nbsp;

@@ -24,8 +24,8 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainers
-- [Sekki](https://github.com/Sekki21956)
-- [Ryan Cao](https://github.com/ryanccn)
+- [Sekki21956](https://github.com/Sekki21956)
+- [ryanccn](https://github.com/ryanccn)
 
 
 &nbsp;

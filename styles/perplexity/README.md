@@ -27,7 +27,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 - [Tnixc](https://github.com/Tnixc)
 
 ## 💖 Past Maintainer
-- [Isabel](https://github.com/isabelroses)
+- [isabelroses](https://github.com/isabelroses)
 
 &nbsp;
 

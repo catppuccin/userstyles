@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [Ren](https://github.com/watatomo)
+- [watatomo](https://github.com/watatomo)
 
 
 &nbsp;

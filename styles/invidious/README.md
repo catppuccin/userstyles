@@ -27,8 +27,8 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 This userstyle currently lacks maintainers, and may not work correctly. Please feel free to contribute for any issues you find!
 
 ## 💖 Past Maintainers
-- [Lemon](https://github.com/unseen-ninja)
-- [winston](https://github.com/nekowinston)
+- [unseen-ninja](https://github.com/unseen-ninja)
+- [nekowinston](https://github.com/nekowinston)
 
 &nbsp;
 

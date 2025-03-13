@@ -27,11 +27,11 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
   A: It's available in case you have an OLED display. If you have one, you might want to enable this.
 
 ## 💝 Current Maintainers
-- [Isabel](https://github.com/isabelroses)
+- [isabelroses](https://github.com/isabelroses)
 - [uncenter](https://github.com/uncenter)
 
 ## 💖 Past Maintainer
-- [Elkrien](https://github.com/elkrien)
+- [elkrien](https://github.com/elkrien)
 
 &nbsp;
 

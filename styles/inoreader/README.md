@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [Thomas Philippot](https://github.com/thomas-philippot)
+- [thomas-philippot](https://github.com/thomas-philippot)
 
 
 &nbsp;

@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [Isabel](https://github.com/isabelroses)
+- [isabelroses](https://github.com/isabelroses)
 
 
 &nbsp;
