@@ -40,8 +40,10 @@ function extractName(
   if (!collaborators) return;
   // set the name to the github.com/<name>
   return collaborators.map((c) => {
-    c.name ??= c.url.split("/").pop();
-    return c;
+    return {
+      ...c,
+      name: c.url.split("/").pop()
+    }
   });
 }
 
