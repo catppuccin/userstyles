@@ -87,12 +87,10 @@ export type FAQ = [
   {
     question: Question;
     answer: Answer;
-    [k: string]: unknown;
   },
   ...{
     question: Question;
     answer: Answer;
-    [k: string]: unknown;
   }[]
 ];
 /**
@@ -104,10 +102,6 @@ export type Question = string;
  */
 export type Answer = string;
 /**
- * The display name of the collaborator to show in the userstyle README.
- */
-export type DisplayName = string;
-/**
  * The GitHub profile link of the collaborator to show in the userstyle README.
  */
 export type GitHubProfile = string;
@@ -115,9 +109,7 @@ export type GitHubProfile = string;
  * List of all active maintainers for this userstyle.
  */
 export type CurrentMaintainers = {
-  name?: DisplayName;
   url: GitHubProfile;
-  [k: string]: unknown;
 }[];
 /**
  * List of all users that have maintained this userstyle in the past.
@@ -126,14 +118,10 @@ export type CurrentMaintainers = {
  */
 export type PastMaintainers = [
   {
-    name?: DisplayName;
     url: GitHubProfile;
-    [k: string]: unknown;
   },
   ...{
-    name?: DisplayName;
     url: GitHubProfile;
-    [k: string]: unknown;
   }[]
 ];
 /**
@@ -143,14 +131,10 @@ export type PastMaintainers = [
  */
 export type AllCollaborators = [
   {
-    name?: DisplayName;
     url: GitHubProfile;
-    [k: string]: unknown;
   },
   ...{
-    name?: DisplayName;
     url: GitHubProfile;
-    [k: string]: unknown;
   }[]
 ];
 
@@ -186,5 +170,4 @@ export interface README {
   "app-link": ApplicationLink;
   note?: Note;
   faq?: FAQ;
-  [k: string]: unknown;
 }
