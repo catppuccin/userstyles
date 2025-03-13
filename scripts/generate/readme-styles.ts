@@ -42,8 +42,8 @@ function extractName(
   return collaborators.map((c) => {
     return {
       ...c,
-      name: c.url.split("/").pop()
-    }
+      name: c.url.split("/").pop(),
+    };
   });
 }
 
