@@ -26,7 +26,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [coopw](https://github.com/coopw1)
+- [coopw1](https://github.com/coopw1)
 
 
 &nbsp;

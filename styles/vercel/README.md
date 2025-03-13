@@ -26,7 +26,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainers
-- [Ryan Cao](https://github.com/ryanccn)
+- [ryanccn](https://github.com/ryanccn)
 - [Dandraghas](https://github.com/Dandraghas)
 
 

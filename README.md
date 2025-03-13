@@ -116,7 +116,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>📸 Photo &amp; Video</summary>
 
 - [Google Photos](styles/google-photos)
-- ❤️‍🩹 [Pinterest](styles/pinterest)
+- [Pinterest](styles/pinterest)
 
 </details>
 <details open>
@@ -167,7 +167,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <details open>
 <summary>🎓 Education</summary>
 
-- ❤️‍🩹 [Canvas LMS](styles/canvas-lms)
+- [Canvas LMS](styles/canvas-lms)
 - [Formative](styles/formative)
 - [Quizlet](styles/quizlet)
 

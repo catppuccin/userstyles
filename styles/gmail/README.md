@@ -29,7 +29,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 - [uncenter](https://github.com/uncenter)
 
 ## 💖 Past Maintainer
-- [Isabel](https://github.com/isabelroses)
+- [isabelroses](https://github.com/isabelroses)
 
 &nbsp;
 

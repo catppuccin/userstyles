@@ -30,8 +30,8 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 - [comfysage](https://github.com/comfysage)
 
 ## 💖 Past Maintainers
-- [Lemon](https://github.com/unseen-ninja)
-- [Isabel](https://github.com/isabelroses)
+- [unseen-ninja](https://github.com/unseen-ninja)
+- [isabelroses](https://github.com/isabelroses)
 
 &nbsp;
 

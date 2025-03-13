@@ -23,8 +23,8 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 
-## ❤️‍🩹 Unmaintained
-This userstyle currently lacks maintainers, and may not work correctly. Please feel free to contribute for any issues you find!
+## 💝 Current Maintainer
+- [pynappo](https://github.com/pynappo)
 
 ## 💖 Past Maintainer
 - [TheMemeSniper](https://github.com/TheMemeSniper)

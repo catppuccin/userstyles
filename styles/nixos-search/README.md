@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [Sydney Newmark](https://github.com/cecelot)
+- [cecelot](https://github.com/cecelot)
 
 
 &nbsp;

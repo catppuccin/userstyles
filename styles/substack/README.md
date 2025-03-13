@@ -27,7 +27,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 - [uncenter](https://github.com/uncenter)
 
 ## 💖 Past Maintainer
-- [winston](https://github.com/nekowinston)
+- [nekowinston](https://github.com/nekowinston)
 
 &nbsp;
 

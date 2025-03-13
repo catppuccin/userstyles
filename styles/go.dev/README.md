@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [Eli](https://github.com/Flapperoo)
+- [Flapperoo](https://github.com/Flapperoo)
 
 
 &nbsp;

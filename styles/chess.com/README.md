@@ -27,8 +27,8 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 - [uncenter](https://github.com/uncenter)
 
 ## 💖 Past Maintainers
-- [skele](https://github.com/skelebro1)
-- [Isabel](https://github.com/isabelroses)
+- [skelebro1](https://github.com/skelebro1)
+- [isabelroses](https://github.com/isabelroses)
 - [coldenate](https://github.com/coldenate)
 
 &nbsp;
