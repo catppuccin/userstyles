@@ -40,7 +40,7 @@ export function validateYaml<T>(
             err.params.allowedValues
               ? ` (${JSON.stringify(err.params.allowedValues, undefined)})`
               : "",
-          ),
+          )
         )
         .join(" and "),
       {
@@ -83,9 +83,10 @@ export function getUserstylesData(): Userstyles {
   } catch (err) {
     if (err instanceof Error && err.name === "SyntaxError") {
       const groups =
-        /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/.exec(
-          err.message,
-        )?.groups;
+        /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
+          .exec(
+            err.message,
+          )?.groups;
       log.error(groups!.message, {
         file: "scripts/userstyles.yml",
         startLine: Number(groups!.line),
@@ -103,7 +104,9 @@ export function getUserstylesData(): Userstyles {
  * Utility function that calls {@link validateYaml} on the ports.yml file.
  * Fails when data.userstyles is undefined.
  */
-export async function getCategoriesData(): Promise<CategoriesSchema.CategoryDefinitions> {
+export async function getCategoriesData(): Promise<
+  CategoriesSchema.CategoryDefinitions
+> {
   const content = await fetch(
     "https://raw.githubusercontent.com/catppuccin/catppuccin/80df1aa38b0fd29008809af7a60d4d8cb8856561/resources/categories.yml",
   ).then((res) => res.text());
