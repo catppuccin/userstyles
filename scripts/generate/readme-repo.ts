@@ -1,4 +1,4 @@
-import type { PortsSchema, UserstylesSchema } from "@/types/mod.ts";
+import type { CategoriesSchema, UserstylesSchema } from "@/types/mod.ts";
 import { REPO_ROOT } from "@/constants.ts";
 
 import * as path from "@std/path";
@@ -14,9 +14,9 @@ type MappedPorts = {
 
 export async function generateMainReadme(
   userstyles: UserstylesSchema.Userstyles,
-  portsData: PortsSchema.PortsSchema,
+  categoriesData: CategoriesSchema.CategoryDefinitions,
 ) {
-  if (!portsData.categories) throw ("Ports data is missing categories");
+  if (!categoriesData) throw ("Categories data is missing categories");
 
   const categorized = Object.entries(userstyles)
     .reduce((acc, [slug, { categories, ...port }]) => {
@@ -37,7 +37,7 @@ export async function generateMainReadme(
       return acc;
     }, {} as MappedPorts);
 
-  const portListData = portsData.categories
+  const portListData = categoriesData
     .filter((category) => categorized[category.key] !== undefined)
     .map((category) => {
       return { meta: category, ports: categorized[category.key] };
