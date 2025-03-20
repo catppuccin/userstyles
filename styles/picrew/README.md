@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [Marceline](https://github.com/Meowcelinee)
+- [Meowcelinee](https://github.com/Meowcelinee)
 
 
 &nbsp;

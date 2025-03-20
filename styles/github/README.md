@@ -29,9 +29,9 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 - [uncenter](https://github.com/uncenter)
 
 ## 💖 Past Maintainers
-- [Lemon](https://github.com/unseen-ninja)
+- [unseen-ninja](https://github.com/unseen-ninja)
 - [Pocco81](https://github.com/Pocco81)
-- [Umbreon](https://github.com/GlowingUmbreon)
+- [GlowingUmbreon](https://github.com/GlowingUmbreon)
 
 &nbsp;
 

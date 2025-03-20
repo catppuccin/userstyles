@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [Sofie](https://github.com/sofiedotcafe)
+- [sofiedotcafe](https://github.com/sofiedotcafe)
 
 
 &nbsp;

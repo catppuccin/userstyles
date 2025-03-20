@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [jan Tatesa](https://github.com/TadoTheMiner)
+- [TadoTheMiner](https://github.com/TadoTheMiner)
 
 
 &nbsp;

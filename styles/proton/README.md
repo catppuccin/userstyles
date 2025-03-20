@@ -26,7 +26,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [soya_daizu](https://github.com/soya-daizu)
+- [soya-daizu](https://github.com/soya-daizu)
 
 
 &nbsp;

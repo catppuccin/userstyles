@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [Meow](https://github.com/itzTheMeow)
+- [itzTheMeow](https://github.com/itzTheMeow)
 
 
 &nbsp;

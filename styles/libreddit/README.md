@@ -27,7 +27,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 This userstyle currently lacks maintainers, and may not work correctly. Please feel free to contribute for any issues you find!
 
 ## 💖 Past Maintainer
-- [Lemon](https://github.com/unseen-ninja)
+- [unseen-ninja](https://github.com/unseen-ninja)
 
 &nbsp;
 

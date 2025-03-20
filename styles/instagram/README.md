@@ -27,7 +27,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 - [GenShibe](https://github.com/GenShibe)
 
 ## 💖 Past Maintainer
-- [Isabel](https://github.com/isabelroses)
+- [isabelroses](https://github.com/isabelroses)
 
 &nbsp;
 
