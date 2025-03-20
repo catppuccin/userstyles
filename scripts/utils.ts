@@ -1,6 +1,10 @@
-import type { PortsSchema, UserstylesSchema } from "@/types/mod.ts";
+import type { CategoriesSchema, UserstylesSchema } from "@/types/mod.ts";
 import type { SetRequired } from "type-fest/source/set-required.d.ts";
-import { PORTS_SCHEMA, REPO_ROOT, USERSTYLES_SCHEMA } from "@/constants.ts";
+import {
+  CATEGORIES_SCHEMA,
+  REPO_ROOT,
+  USERSTYLES_SCHEMA,
+} from "@/constants.ts";
 
 import * as yaml from "@std/yaml";
 import * as path from "@std/path";
@@ -19,23 +23,26 @@ export function validateYaml<T>(
   content: string,
   schema: Schema,
   file: string,
+  options?: Ajv.Options,
 ): T {
-  const ajv = new Ajv.default();
+  const ajv = new Ajv.default(options);
   const validate = ajv.compile<T>(schema);
   const data = yaml.parse(content);
 
   if (!validate(data)) {
     log.error(
-      validate.errors!.map((err) =>
-        sprintf(
-          "%s %s%s",
-          err.instancePath.slice(1).replaceAll("/", "."),
-          err.message,
-          err.params.allowedValues
-            ? ` (${JSON.stringify(err.params.allowedValues, undefined)})`
-            : "",
+      validate
+        .errors!.map((err) =>
+          sprintf(
+            "%s %s%s",
+            err.instancePath.slice(1).replaceAll("/", "."),
+            err.message,
+            err.params.allowedValues
+              ? ` (${JSON.stringify(err.params.allowedValues, undefined)})`
+              : "",
+          )
         )
-      ).join(" and "),
+        .join(" and "),
       {
         file,
       },
@@ -60,6 +67,7 @@ export function getUserstylesData(): Userstyles {
       content,
       USERSTYLES_SCHEMA,
       "scripts/userstyles.yml",
+      { schemas: [CATEGORIES_SCHEMA] },
     );
 
     for (const field of ["userstyles", "collaborators"] as const) {
@@ -76,15 +84,14 @@ export function getUserstylesData(): Userstyles {
     if (err instanceof Error && err.name === "SyntaxError") {
       const groups =
         /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
-          .exec(err.message)?.groups;
-      log.error(
-        groups!.message,
-        {
-          file: "scripts/userstyles.yml",
-          startLine: Number(groups!.line),
-          content: content,
-        },
-      );
+          .exec(
+            err.message,
+          )?.groups;
+      log.error(groups!.message, {
+        file: "scripts/userstyles.yml",
+        startLine: Number(groups!.line),
+        content: content,
+      });
     } else {
       throw err;
     }
@@ -97,15 +104,17 @@ export function getUserstylesData(): Userstyles {
  * Utility function that calls {@link validateYaml} on the ports.yml file.
  * Fails when data.userstyles is undefined.
  */
-export async function getPortsData(): Promise<PortsSchema.PortsSchema> {
+export async function getCategoriesData(): Promise<
+  CategoriesSchema.CategoryDefinitions
+> {
   const content = await fetch(
-    "https://raw.githubusercontent.com/catppuccin/catppuccin/main/resources/ports.yml",
+    "https://raw.githubusercontent.com/catppuccin/catppuccin/de9d2cd963059753c8fd66fbb6f807be95c6cc1e/resources/categories.yml",
   ).then((res) => res.text());
 
-  const data = validateYaml<PortsSchema.PortsSchema>(
+  const data = validateYaml<CategoriesSchema.CategoryDefinitions>(
     content,
-    PORTS_SCHEMA,
-    "ports.yml",
+    CATEGORIES_SCHEMA,
+    "categories.yml",
   );
 
   return data;
@@ -160,12 +169,11 @@ export async function getUserstylesTeamMembers(
   octokit: Octokit,
   team: UserstylesTeam,
 ): Promise<string[]> {
-  const members = await octokit.teams
-    .listMembersInOrg({
-      org: "catppuccin",
-      team_slug: team,
-      per_page: 100,
-    });
+  const members = await octokit.teams.listMembersInOrg({
+    org: "catppuccin",
+    team_slug: team,
+    per_page: 100,
+  });
   return members.data.map(({ login }) => login.toLowerCase());
 }
 
