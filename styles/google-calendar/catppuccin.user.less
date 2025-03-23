@@ -164,9 +164,9 @@
       @gm3-sys-color-tertiary-fixed-dim,
     )[];
 
-    @gm3-sys-color-on-tertiary: darken(
-      desaturate(@gm3-sys-color-tertiary, 25%),
-      50%
+    @gm3-sys-color-on-tertiary: saturate(
+      mix(@gm3-sys-color-tertiary, @base, 20%),
+      25%
     );
     @gm3-sys-color-on-tertiary-rgb: #rgbify(@gm3-sys-color-on-tertiary)[];
     @gm3-sys-color-on-tertiary-fixed: darken(@gm3-sys-color-on-tertiary, 5%);
@@ -273,23 +273,47 @@
 
     @cal-sys-color-warning: @yellow;
     @cal-sys-color-warning-container: saturate(mix(@yellow, @mantle, 20%), 0%);
-    @cal-sys-color-on-warning: #4d2600;
-    @cal-sys-color-on-warning-container: #fff2b4;
+    @cal-sys-color-on-warning: saturate(
+      mix(@cal-sys-color-warning, @base, 20%),
+      25%
+    );
+    @cal-sys-color-on-warning-container: saturate(
+      mix(@cal-sys-color-warning, @mantle, 20%),
+      25%
+    );
 
     @cal-sys-color-conflict: @peach;
     @cal-sys-color-conflict-container: saturate(mix(@peach, @mantle, 20%), 0%);
-    @cal-sys-color-on-conflict: #522302;
-    @cal-sys-color-on-conflict-container: #ffdcc3;
+    @cal-sys-color-on-conflict: saturate(
+      mix(@cal-sys-color-conflict, @base, 20%),
+      25%
+    );
+    @cal-sys-color-on-conflict-container: saturate(
+      mix(@cal-sys-color-conflict, @mantle, 20%),
+      25%
+    );
 
     @cal-sys-color-success: @green;
     @cal-sys-color-success-container: saturate(mix(@green, @mantle, 20%), 0%);
-    @cal-sys-color-on-success: #00381f;
-    @cal-sys-color-on-success-container: #beefbb;
+    @cal-sys-color-on-success: saturate(
+      mix(@cal-sys-color-success, @base, 20%),
+      25%
+    );
+    @cal-sys-color-on-success-container: saturate(
+      mix(@cal-sys-color-success, @mantle, 20%),
+      25%
+    );
 
     @cal-sys-color-night: @lavender;
     @cal-sys-color-night-container: saturate(mix(@lavender, @mantle, 20%), 0%);
-    @cal-sys-color-on-night: #400b84;
-    @cal-sys-color-on-night-container: #eedcfe;
+    @cal-sys-color-on-night: saturate(
+      mix(@cal-sys-color-night, @base, 20%),
+      25%
+    );
+    @cal-sys-color-on-night-container: saturate(
+      mix(@cal-sys-color-night, @mantle, 20%),
+      25%
+    );
 
     @cal-sys-color-scrollbar: @surface2;
     @cal-sys-color-scrollbar-hover: lighten(@surface2, 6%);
@@ -298,21 +322,18 @@
     @cal-sys-color-now-indicator: @maroon;
     @cal-sys-color-helper-variant: @subtext0;
 
-    // TODO: Look at how Gemini userstyle handles this for consistency.
-    @ae-genai-generation-gradient: linear-gradient(
-      135deg,
-      #217bfe,
-      #078efb,
-      #ac87eb,
-      #217bfe
-    );
-    @ae-sidekick-container-color: var(--gm3-sys-color-surface-dim, #131314);
-    @ae-sidekick-prompt-input-text-color: @text;
-    @ae-sidekick-prompt-input-text-placeholder-color: @subtext1;
-    @ae-sidekick-user-message-container-color: var(
-      --gm3-sys-color-on-primary,
-      #062e6f
-    );
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
 
     --gm3-sys-color-background: @gm3-sys-color-background;
     --gm3-sys-color-background-rgb: @gm3-sys-color-background-rgb;
@@ -412,6 +433,7 @@
     --gm3-sys-color-tertiary-fixed-rgb: @gm3-sys-color-tertiary-fixed-rgb;
     --gm3-sys-color-tertiary-fixed-dim: @gm3-sys-color-tertiary-fixed-dim;
     --gm3-sys-color-tertiary-fixed-dim-rgb: @gm3-sys-color-tertiary-fixed-dim-rgb;
+
     --cal-sys-color-warning: @cal-sys-color-warning;
     --cal-sys-color-warning-container: @cal-sys-color-warning-container;
     --cal-sys-color-on-warning: @cal-sys-color-on-warning;
@@ -433,39 +455,10 @@
     --cal-sys-color-scrollbar-active: @cal-sys-color-scrollbar-active;
     --cal-sys-color-now-indicator: @cal-sys-color-now-indicator;
     --cal-sys-color-helper-variant: @cal-sys-color-helper-variant;
-    --ae-genai-generation-gradient: linear-gradient(
-      135deg,
-      #217bfe,
-      #078efb,
-      #ac87eb,
-      #217bfe
-    );
-    --ae-sidekick-container-color: var(--gm3-sys-color-surface-dim, #131314);
-    --ae-sidekick-prompt-input-text-color: @ae-sidekick-prompt-input-text-color;
-    --ae-sidekick-prompt-input-text-placeholder-color: @ae-sidekick-prompt-input-text-placeholder-color;
-    --ae-sidekick-user-message-container-color: var(
-      --gm3-sys-color-on-primary,
-      #062e6f
-    );
-    --ae-sidekick-shimmer-blend-mode: darken;
-    --ae-sidekick-gem-display-light: none;
-    --ae-sidekick-gem-display-dark: flex;
+
     --og-searchform-focused-color: var(--gm3-sys-color-on-surface);
 
-    /* Main styles start */
-    color-scheme: if(@flavor = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent, 30%);
-    }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
-
+    // Checkered stripe background in Day view
     .CcsDpe.eh9LUb .TyFLN,
     .CcsDpe.sphSn .TyFLN {
       @svg: escape(
@@ -474,34 +467,39 @@
       background-image: url("data:image/svg+xml,@{svg}");
     }
 
-    .R8qYlc {
+    // Legacy tooltips, seen when hovering over the names of calendars,
+    // and certain topbar icon buttons.
+    .R8qYlc, .gb_Ac {
       background-color: var(--gm3-sys-color-inverse-surface);
     }
-
-    .RM9ulf {
+    .RM9ulf, .gb_Ac, .gb_Bc > *, .gb_Bc div:first-child {
       color: var(--gm3-sys-color-inverse-on-surface);
     }
 
+    // Carousel dots in certain new feature onboarding dialogues
     .fy2Kyc.wdLSAe:hover {
       background-color: var(--gm3-sys-color-primary);
     }
 
+    // Search bar result box dividers
     .gssb_e {
       border-top-color: var(--gm3-sys-color-outline-variant);
     }
-
     .gssb_l {
       background: var(--gm3-sys-color-outline-variant);
     }
 
+    // Search bar result box active item primary border
     .gssb_i > .gssb_a {
       border-left-color: var(--gm3-sys-color-primary);
     }
 
+    // Search bar result box secondary text
     .gstq_c, .gsan_a {
       color: var(--gm3-sys-color-on-surface-variant);
     }
 
+    // Images displaying the app under `Settings menu > Appearance`
     img {
       &[src="https://ssl.gstatic.com/calendar/images/theme/theme_picker_light.svg"] {
         @svg: escape(
