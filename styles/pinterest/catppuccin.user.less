@@ -69,7 +69,7 @@
       }
     }
 
-    --color-text-light: @text;
+    --color-text-light: @mantle;
     --color-text-dark: @text;
     --color-text-default: @text;
     --color-text-inverse: @mantle;
@@ -113,7 +113,7 @@
     --color-background-button-secondary-hover: @surface1;
     --color-background-button-secondary-active: @surface2;
     --color-background-button-selected-default: @subtext1;
-    --color-background-button-tertiary-hover: @surface0;
+    --color-background-button-tertiary-hover: fade(@surface2, 10%);
     --color-background-button-shopping-default: @blue;
     --color-background-button-shopping-hover: darken(@blue, 12%);
     --color-background-tag-primary-default: @surface1;
@@ -321,6 +321,10 @@
       background-color: @base;
     }
 
+    button[data-test-id="one-bar-pill"] {
+      --color-text-dark: var(--color-text-inverse);
+    }
+
     div[data-test-id="product-price-filter-one-bar-pill"] button[data-test-id="one-bar-pill"] svg {
       color: @base !important;
     }
@@ -438,15 +442,27 @@
       }
     }
 
-    div[data-test-id="homefeed-feed"] div[style*="background-color:#ffffff"] {
-      background-color: @base !important;
+    div[data-test-id="homefeed-feed"] {
+      div[style*="background-color:#ffffff"],
+      div[style*="background-color: rgb(255, 255, 255)"] {
+        background-color: @base !important;   
+      }
     }
 
     /* Pins */
     
     // image container
-    [data-test-id^="closeup-image"] div div {
+    [data-test-id="closeup-image-main"] div div {
       background-color: @mantle !important;
+    }
+
+    button[data-test-id="PinBetterSaveDropdown"] {
+      div[title="Profile"], svg {
+        color: if(@flavor = latte, var(--color-text-inverse), @text) !important;
+      }
+      .G0a div[title="Profile"], .G0a svg {
+        color: var(--color-text-inverse) !important;
+      }
     }
     
     // pin icons
@@ -473,14 +489,6 @@
       // background when opened
       .G0a {
         background-color: @subtext0 !important;
-      }
-    }
-
-    div[data-test-id="pinrep-source-link"] {
-      background-color: @base !important;
-
-      a div {
-        color: @text !important;
       }
     }
 
