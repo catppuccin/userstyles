@@ -41,7 +41,7 @@
 
   @media (prefers-color-scheme: light) {
     body, html, body:not(.mcwCGe) {
-      #catppuccin(@lightFlavor);
+      #catppuccin(@lightFlavor, false);
     }
   }
 
@@ -52,11 +52,11 @@
     // PFP picker image editor
     .P9KVBf,
     .wfJxA {
-      #catppuccin(@darkFlavor);
+      #catppuccin(@darkFlavor, false);
     }
   }
 
-  #catppuccin(@flavor) {
+  #catppuccin(@flavor, @isModal) {
     @rosewater: @catppuccin[@@flavor][@rosewater];
     @flamingo: @catppuccin[@@flavor][@flamingo];
     @pink: @catppuccin[@@flavor][@pink];
@@ -90,8 +90,7 @@
       @catppuccin[@latte][@@accentColor]
     );
 
-    color-scheme: if(@flavor = latte, light, dark);
-    color-scheme: initial;
+    color-scheme: @if(@isModal, initial, if(@flavor = latte, light, dark));
 
     ::selection {
       background-color: fade(@accent, 30%);
@@ -576,7 +575,7 @@
     --identity-common-ui-components-web-color-disclaimer-background: var(
       --gm3-sys-color-surface-container-low
     );
-    --identity-common-ui-components-web-color-icon-warning: rgb(242, 153, 0);
+    --identity-common-ui-components-web-color-icon-warning: @yellow;
     --identity-common-ui-components-web-color-icon-green: @green;
     --identity-common-ui-components-web-color-icon-yellow: @yellow;
     --identity-common-ui-components-web-color-icon-info: @blue;
@@ -586,30 +585,37 @@
       var(--gm3-sys-color-shadow-rgb),
       0.15
     );
-    --identity-common-ui-components-web-color-level-2-background: #fff;
+    --identity-common-ui-components-web-color-level-2-background: var(--gm3-sys-color-surface-container);
     --identity-common-ui-components-web-color-level-2-background-translucent: rgba(
-      255,
-      255,
-      255,
+      var(--gm3-sys-color-surface-container-rgb)
       0.96
     );
     --identity-common-ui-components-web-color-level-2-box-shadow:
       0px 1px 2px 0px rgba(var(--gm3-sys-color-shadow-rgb), 0.3),0px 2px 6px 2px
       rgba(
-      60,
-      64,
-      67,
+      var(--gm3-sys-color-shadow-rgb),
       0.15
     );
-    --identity-common-ui-components-web-color-text-on-warning: #1f1f1f;
-    --identity-common-ui-components-web-color-text-warning: #1f1f1f;
-    --identity-common-ui-components-web-color-text-warning-stateful: #1f1f1f;
-    --identity-common-ui-components-web-color-action-primary-warning: #f09d00;
-    --identity-common-ui-components-web-color-banner-background-warning: #fff0d1;
-    --identity-common-ui-components-web-color-action-primary-disabled: rgb(
-      154,
-      160,
-      166
+    --identity-common-ui-components-web-color-text-on-warning: saturate(
+      mix(@yellow, @base, 20%),
+      25%
+    );
+    --identity-common-ui-components-web-color-text-warning: saturate(
+      mix(@yellow, @base, 20%),
+      25%
+    );
+    --identity-common-ui-components-web-color-text-warning-stateful: saturate(
+      mix(@yellow, @base, 20%),
+      25%
+    );
+    --identity-common-ui-components-web-color-action-primary-warning: @yellow;
+    --identity-common-ui-components-web-color-banner-background-warning: saturate(
+      mix(@yellow, @mantle, 40%),
+      20%
+    );
+    --identity-common-ui-components-web-color-action-primary-disabled: rgba(
+      var(--gm3-sys-color-primary-rgb),
+      0.5
     );
 
     --boq-chrometransition-background: var(--gm3-sys-color-surface-container);
@@ -681,7 +687,7 @@
       background-color: var(--gm3-sys-color-inverse-surface);
       color: var(
         --gm3-tooltip-plain-supporting-text-color,
-        var(--gm3-sys-color-inverse-on-surface, #f2f2f2)
+        var(--gm3-sys-color-inverse-on-surface)
       );
     }
 
@@ -1615,10 +1621,10 @@
 
 @-moz-document domain("ogs.google.com") {
   body {
-    #catppuccin(@darkFlavor);
+    #catppuccin(@darkFlavor, true);
   }
 
-  #catppuccin(@flavor) {
+  #catppuccin(@flavor, @isModal) {
     @rosewater: @catppuccin[@@flavor][@rosewater];
     @flamingo: @catppuccin[@@flavor][@flamingo];
     @pink: @catppuccin[@@flavor][@pink];
@@ -1652,7 +1658,7 @@
       @catppuccin[@latte][@@accentColor]
     );
 
-    // color-scheme: if(@flavor = latte, light, dark);
+    color-scheme: @if(@isModal, initial, if(@flavor = latte, light, dark));
 
     ::selection {
       background-color: fade(@accent, 30%);
@@ -1664,6 +1670,9 @@
         color: @subtext0 !important;
       }
     }
+
+    // Set body default text colour
+    color: @text;
 
     @gm3-sys-color-error: @red;
     @gm3-sys-color-error-rgb: #rgbify(@gm3-sys-color-error)[];
@@ -1975,7 +1984,56 @@
     --gm3-sys-color-tertiary-fixed-dim-rgb: @gm3-sys-color-tertiary-fixed-dim-rgb;
     --mdc-ripple-color: var(--gm3-sys-color-primary);
 
-    --boq-chrometransition-background: var(--gm3-sys-color-surface);
+    --boq-chrometransition-background: var(--gm3-sys-color-surface-container);
+
+    --gm-colortextbutton-ink-color: var(--gm3-sys-color-on-surface);
+    --gm-colortextbutton-ink-color--stateful: var(--gm3-sys-color-on-surface);
+    --gm-colortextbutton-state-color: var(--gm3-sys-color-on-surface);
+    --gm-fillbutton-ink-color: var(--gm3-sys-color-on-primary);
+    --gm-fillbutton-ink-color--stateful: var(--gm3-sys-color-primary);
+    --gm-fillbutton-container-color: var(--gm3-sys-color-primary);
+    --gm-hairlinebutton-outline-color: var(--gm3-sys-color-outline);
+    --gm-hairlinebutton-outline-color--stateful: var(--gm3-sys-color-primary);
+    --gm-hairlinebutton-state-color: var(--gm3-sys-color-primary);
+    --gm-hairlinebutton-ink-color: var(--gm3-sys-color-primary);
+    --gm-hairlinebutton-ink-color--stateful: var(--gm3-sys-color-primary);
+    --gm-radio-state-color: var(--gm3-sys-color-primary);
+    --gm-radio-ink-color: var(--gm3-sys-color-primary);
+    --gm-radio-ink-color--stateful: var(--gm3-sys-color-primary);
+    --gm-outlinedtextfield-caret-color: var(--gm3-sys-color-primary);
+    --gm-outlinedtextfield-ink-color: var(--gm3-sys-color-on-surface);
+    --gm-outlinedtextfield-outline-color: var(--gm3-sys-color-outline);
+    --gm-outlinedtextfield-outline-color--stateful: var(
+      --gm3-sys-color-primary
+    );
+    --gm-outlinedtextfield-label-color: var(--gm3-sys-color-on-surface-variant);
+    --gm-outlinedtextfield-label-color--stateful: var(--gm3-sys-color-primary);
+
+    --mdc-theme-surface: var(--gm3-sys-color-surface);
+    --mdc-theme-on-surface: var(--gm3-sys-color-on-surface);
+
+    --mdc-checkbox-unselected-icon-color: var(--gm3-sys-color-on-surface);
+    --mdc-checkbox-unselected-hover-icon-color: var(--gm3-sys-color-on-surface);
+    --mdc-checkbox-unselected-hover-state-layer-color: var(
+      --gm3-sys-color-on-surface
+    );
+    --mdc-checkbox-unselected-pressed-icon-color: var(
+      --gm3-sys-color-on-surface
+    );
+    --mdc-checkbox-unselected-pressed-state-layer-color: var(
+      --gm3-sys-color-on-surface
+    );
+
+    --mdc-checkbox-selected-icon-color: var(--gm3-sys-color-primary);
+    --mdc-checkbox-selected-hover-icon-color: var(--gm3-sys-color-primary);
+    --mdc-checkbox-selected-hover-state-layer-color: var(
+      --gm3-sys-color-primary
+    );
+    --mdc-checkbox-selected-pressed-icon-color: var(--gm3-sys-color-primary);
+    --mdc-checkbox-selected-pressed-state-layer-color: var(
+      --gm3-sys-color-primary
+    );
+    --mdc-checkbox-selected-checkmark-color: var(--gm3-sys-color-on-primary);
 
     color: @text;
 
