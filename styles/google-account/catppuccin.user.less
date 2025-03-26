@@ -41,22 +41,26 @@
 
   @media (prefers-color-scheme: light) {
     body, html, body:not(.mcwCGe) {
-      #catppuccin(@lightFlavor, false);
+      #catppuccin(@lightFlavor);
     }
   }
 
   @media (prefers-color-scheme: dark) {
+    // body:not(.mcwCGe) {}
+
+    // Review: Codebase supports dark theme however there's no user
+    // exposed way to trigger this without class editing.
     body,
     html,
     body:not(.mcwCGe),
     // PFP picker image editor
     .P9KVBf,
     .wfJxA {
-      #catppuccin(@darkFlavor, false);
+      #catppuccin(@darkFlavor);
     }
   }
 
-  #catppuccin(@flavor, @isModal) {
+  #catppuccin(@flavor) {
     @rosewater: @catppuccin[@@flavor][@rosewater];
     @flamingo: @catppuccin[@@flavor][@flamingo];
     @pink: @catppuccin[@@flavor][@pink];
@@ -90,7 +94,7 @@
       @catppuccin[@latte][@@accentColor]
     );
 
-    color-scheme: @if(@isModal, initial, if(@flavor = latte, light, dark));
+    color-scheme: initial;
 
     ::selection {
       background-color: fade(@accent, 30%);
@@ -585,7 +589,9 @@
       var(--gm3-sys-color-shadow-rgb),
       0.15
     );
-    --identity-common-ui-components-web-color-level-2-background: var(--gm3-sys-color-surface-container);
+    --identity-common-ui-components-web-color-level-2-background: var(
+      --gm3-sys-color-surface-container
+    );
     --identity-common-ui-components-web-color-level-2-background-translucent: rgba(
       var(--gm3-sys-color-surface-container-rgb)
       0.96
@@ -687,7 +693,7 @@
       background-color: var(--gm3-sys-color-inverse-surface);
       color: var(
         --gm3-tooltip-plain-supporting-text-color,
-        var(--gm3-sys-color-inverse-on-surface)
+        var(--gm3-sys-color-inverse-on-surface, #f2f2f2)
       );
     }
 
@@ -742,7 +748,7 @@
         closest-side,
         var(
           --gm3-ripple-pressed-color,
-          rgba(var(--gm3-sys-color-on-surface-rgb, currentColor), 0.24)
+          rgba(var(--gm3-sys-color-on-surface-rgb, currentcolor), 0.24)
         ) max(100% - 70px, 65%),
         transparent 100%
       );
@@ -1159,7 +1165,13 @@
     .qSGZBb.Aqrnnd .OnzeXc[aria-expanded="false"]:hover,
     .qSGZBb.Aqrnnd .OnzeXc[aria-expanded="true"],
     .qSGZBb.Aqrnnd .OnzeXc[aria-expanded="true"]:focus,
-    .qSGZBb.Aqrnnd .OnzeXc[aria-expanded="false"]:focus {
+    .qSGZBb.Aqrnnd .OnzeXc[aria-expanded="false"]:focus,
+    // PFP picker Google AI sheet
+    .zh8gv,
+    .P9KVBf .zh8gv,
+    .wfJxA .zh8gv,
+    // PFP picker Google AI style sheet
+    .GHW {
       background-color: var(--gm3-sys-color-surface-container);
       color: var(--gm3-sys-color-on-surface);
     }
@@ -1168,9 +1180,21 @@
     .ncFHed .MocG8c.KKjvXb,
     // Security Checkup card sticky header
     .g81fxb.bhe1tb .JaX6Fb,
-    .u7Uqwf.OUzXuf .g81fxb.bhe1tb .JaX6Fb {
+    .u7Uqwf.OUzXuf .g81fxb.bhe1tb .JaX6Fb,
+    // PFP picker Google AI sheet card
+    .P9KVBf .qdE64,
+    .wfJxA .qdE64 {
       background-color: var(--gm3-sys-color-surface-container-highest);
       color: var(--gm3-sys-color-on-surface);
+    }
+
+    // PFP picker Google AI sheet card hover
+    .P9KVBf .qdE64:hover {
+      background-color: color-mix(
+        in oklab,
+        var(--gm3-sys-color-surface-container-highest),
+        var(--gm3-sys-color-on-surface) 8%
+      );
     }
 
     // My activity info toast
@@ -1545,6 +1569,49 @@
         linear-gradient(90deg, @yellow 10%, @red 0) top/100% 100%;
     }
 
+    // PFP picker Google AI tonal button
+    .Hu1odf {
+      --gm3-button-filled-tonal-focus-label-text-color: var(
+        --gm3-sys-color-on-primary
+      );
+      --gm3-button-filled-tonal-hover-label-text-color: var(
+        --gm3-sys-color-on-primary
+      );
+      --gm3-button-filled-tonal-pressed-label-text-color: var(
+        --gm3-sys-color-on-primary
+      );
+      --gm3-button-filled-tonal-label-text-color: var(
+        --gm3-sys-color-on-primary
+      );
+      --gm3-button-filled-tonal-with-icon-icon-color: var(
+        --gm3-sys-color-on-primary
+      );
+      --gm3-button-filled-tonal-with-icon-pressed-icon-color: var(
+        --gm3-sys-color-on-primary
+      );
+      --gm3-button-filled-tonal-with-icon-hover-icon-color: var(
+        --gm3-sys-color-on-primary
+      );
+      --gm3-button-filled-tonal-with-icon-focus-icon-color: var(
+        --gm3-sys-color-on-primary
+      );
+      --gm3-button-filled-tonal-hover-state-layer-color: var(
+        --gm3-sys-color-on-primary
+      );
+      --gm3-button-filled-tonal-container-color: var(--gm3-sys-color-primary);
+    }
+
+    // PFP picker Google AI text button
+    .P9KVBf .bAnecf, .wfJxA .bAnecf {
+      --gm3-button-text-hover-label-text-color: var(
+        --gm3-sys-color-inverse-primary
+      );
+      --gm3-button-text-label-text-color: var(--gm3-sys-color-inverse-primary);
+      --gm3-button-text-pressed-label-text-color: var(
+        --gm3-sys-color-inverse-primary
+      );
+    }
+
     // >M1/M2 FULL LEGACY PAGES<
     body,
     // Main page container
@@ -1554,8 +1621,15 @@
     }
 
     // Floating card
-    .RAYh1e {
+    .RAYh1e,
+    // PFP picker Google AI lower banner
+    .P9KVBf .pjGNzb,
+    .wfJxA .pjGNzb {
       background: var(--gm3-sys-color-surface-container-lowest);
+    }
+
+    // Floating card
+    .RAYh1e {
       border-color: transparent;
     }
 
@@ -1615,1432 +1689,6 @@
         rgba(var(--gm3-sys-color-surface-container-low-rgb), 0) 0%,
         rgba(var(--gm3-sys-color-surface-container-low-rgb), 0.9) 100%
       );
-    }
-  }
-}
-
-@-moz-document domain("ogs.google.com") {
-  body {
-    #catppuccin(@darkFlavor, true);
-  }
-
-  #catppuccin(@flavor, @isModal) {
-    @rosewater: @catppuccin[@@flavor][@rosewater];
-    @flamingo: @catppuccin[@@flavor][@flamingo];
-    @pink: @catppuccin[@@flavor][@pink];
-    @mauve: @catppuccin[@@flavor][@mauve];
-    @red: @catppuccin[@@flavor][@red];
-    @maroon: @catppuccin[@@flavor][@maroon];
-    @peach: @catppuccin[@@flavor][@peach];
-    @yellow: @catppuccin[@@flavor][@yellow];
-    @green: @catppuccin[@@flavor][@green];
-    @teal: @catppuccin[@@flavor][@teal];
-    @sky: @catppuccin[@@flavor][@sky];
-    @sapphire: @catppuccin[@@flavor][@sapphire];
-    @blue: @catppuccin[@@flavor][@blue];
-    @lavender: @catppuccin[@@flavor][@lavender];
-    @text: @catppuccin[@@flavor][@text];
-    @subtext1: @catppuccin[@@flavor][@subtext1];
-    @subtext0: @catppuccin[@@flavor][@subtext0];
-    @overlay2: @catppuccin[@@flavor][@overlay2];
-    @overlay1: @catppuccin[@@flavor][@overlay1];
-    @overlay0: @catppuccin[@@flavor][@overlay0];
-    @surface2: @catppuccin[@@flavor][@surface2];
-    @surface1: @catppuccin[@@flavor][@surface1];
-    @surface0: @catppuccin[@@flavor][@surface0];
-    @base: @catppuccin[@@flavor][@base];
-    @mantle: @catppuccin[@@flavor][@mantle];
-    @crust: @catppuccin[@@flavor][@crust];
-    @accent: @catppuccin[@@flavor][@@accentColor];
-    @inverse-accent: if(
-      @flavor = latte,
-      @catppuccin[@mocha][@@accentColor],
-      @catppuccin[@latte][@@accentColor]
-    );
-
-    color-scheme: @if(@isModal, initial, if(@flavor = latte, light, dark));
-
-    ::selection {
-      background-color: fade(@accent, 30%);
-    }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
-
-    // Set body default text colour
-    color: @text;
-
-    @gm3-sys-color-error: @red;
-    @gm3-sys-color-error-rgb: #rgbify(@gm3-sys-color-error)[];
-    @gm3-sys-color-error-container: desaturate(darken(@red, 50%), 50%);
-    @gm3-sys-color-error-container-rgb: #rgbify(
-      @gm3-sys-color-error-container,
-    )[];
-
-    @gm3-sys-color-on-error: darken(desaturate(@red, 20%), 50%);
-    @gm3-sys-color-on-error-rgb: #rgbify(@gm3-sys-color-on-error)[];
-    @gm3-sys-color-on-error-container: desaturate(darken(@red, -10%), 50%);
-    @gm3-sys-color-on-error-container-rgb: #rgbify(
-      @gm3-sys-color-on-error-container,
-    )[];
-
-    @gm3-sys-color-primary: @accent;
-    @gm3-sys-color-primary-rgb: #rgbify(@gm3-sys-color-primary)[];
-    @gm3-sys-color-primary-fixed: lighten(@accent, 5%);
-    @gm3-sys-color-primary-fixed-rgb: #rgbify(@gm3-sys-color-primary-fixed)[];
-    @gm3-sys-color-primary-fixed-dim: darken(@accent, 5%);
-    @gm3-sys-color-primary-fixed-dim-rgb: #rgbify(
-      @gm3-sys-color-primary-fixed-dim,
-    )[];
-
-    @gm3-sys-color-on-primary: saturate(
-      mix(@gm3-sys-color-primary, @base, 20%),
-      25%
-    );
-    @gm3-sys-color-on-primary-rgb: #rgbify(@gm3-sys-color-on-primary)[];
-    @gm3-sys-color-on-primary-fixed: darken(@gm3-sys-color-on-primary, 5%);
-    @gm3-sys-color-on-primary-fixed-rgb: #rgbify(
-      @gm3-sys-color-on-primary-fixed,
-    )[];
-    @gm3-sys-color-on-primary-fixed-variant: lighten(
-      @gm3-sys-color-on-primary,
-      5%
-    );
-    @gm3-sys-color-on-primary-fixed-variant-rgb: #rgbify(
-      @gm3-sys-color-on-primary-fixed-variant,
-    )[];
-
-    @gm3-sys-color-primary-container: saturate(
-      mix(@gm3-sys-color-primary, @mantle, 40%),
-      20%
-    );
-    @gm3-sys-color-primary-container-rgb: #rgbify(
-      @gm3-sys-color-primary-container,
-    )[];
-    @gm3-sys-color-on-primary-container: saturate(
-      mix(@gm3-sys-color-primary, @text, 10%),
-      25%
-    );
-    @gm3-sys-color-on-primary-container-rgb: #rgbify(
-      @gm3-sys-color-on-primary-container,
-    )[];
-
-    @gm3-sys-color-secondary: desaturate(@accent, 40%);
-    @gm3-sys-color-secondary-rgb: #rgbify(@gm3-sys-color-secondary)[];
-    @gm3-sys-color-secondary-fixed: lighten(@gm3-sys-color-secondary, 5%);
-    @gm3-sys-color-secondary-fixed-rgb: #rgbify(
-      @gm3-sys-color-secondary-fixed,
-    )[];
-    @gm3-sys-color-secondary-fixed-dim: darken(@gm3-sys-color-secondary, 5%);
-    @gm3-sys-color-secondary-fixed-dim-rgb: #rgbify(
-      @gm3-sys-color-secondary-fixed-dim,
-    )[];
-
-    @gm3-sys-color-on-secondary: saturate(
-      mix(@gm3-sys-color-secondary, @base, 20%),
-      25%
-    );
-    @gm3-sys-color-on-secondary-rgb: #rgbify(@gm3-sys-color-on-secondary)[];
-    @gm3-sys-color-on-secondary-fixed: darken(@gm3-sys-color-on-secondary, 5%);
-    @gm3-sys-color-on-secondary-fixed-rgb: #rgbify(
-      @gm3-sys-color-on-secondary-fixed,
-    )[];
-    @gm3-sys-color-on-secondary-fixed-variant: lighten(
-      @gm3-sys-color-on-primary,
-      5%
-    );
-    @gm3-sys-color-on-secondary-fixed-variant-rgb: #rgbify(
-      @gm3-sys-color-on-secondary-fixed-variant,
-    )[];
-
-    @gm3-sys-color-secondary-container: saturate(
-      mix(@gm3-sys-color-secondary, @mantle, 20%),
-      10%
-    );
-    @gm3-sys-color-secondary-container-rgb: #rgbify(
-      @gm3-sys-color-secondary-container,
-    )[];
-    @gm3-sys-color-on-secondary-container: saturate(
-      mix(@gm3-sys-color-secondary, @text, 10%),
-      25%
-    );
-    @gm3-sys-color-on-secondary-container-rgb: #rgbify(
-      @gm3-sys-color-on-secondary-container,
-    )[];
-
-    @gm3-sys-color-tertiary: @accent;
-    @gm3-sys-color-tertiary-rgb: #rgbify(@gm3-sys-color-tertiary)[];
-    @gm3-sys-color-tertiary-fixed: lighten(@gm3-sys-color-tertiary, 5%);
-    @gm3-sys-color-tertiary-fixed-rgb: #rgbify(@gm3-sys-color-tertiary-fixed)[];
-    @gm3-sys-color-tertiary-fixed-dim: darken(@gm3-sys-color-tertiary, 5%);
-    @gm3-sys-color-tertiary-fixed-dim-rgb: #rgbify(
-      @gm3-sys-color-tertiary-fixed-dim,
-    )[];
-
-    @gm3-sys-color-on-tertiary: darken(
-      desaturate(@gm3-sys-color-tertiary, 25%),
-      50%
-    );
-    @gm3-sys-color-on-tertiary-rgb: #rgbify(@gm3-sys-color-on-tertiary)[];
-    @gm3-sys-color-on-tertiary-fixed: darken(@gm3-sys-color-on-tertiary, 5%);
-    @gm3-sys-color-on-tertiary-fixed-rgb: #rgbify(
-      @gm3-sys-color-on-tertiary-fixed,
-    )[];
-    @gm3-sys-color-on-tertiary-fixed-variant: lighten(
-      @gm3-sys-color-on-tertiary,
-      5%
-    );
-    @gm3-sys-color-on-tertiary-fixed-variant-rgb: #rgbify(
-      @gm3-sys-color-on-tertiary-fixed-variant,
-    )[];
-
-    @gm3-sys-color-tertiary-container: saturate(
-      mix(@gm3-sys-color-tertiary, @mantle, 20%),
-      0%
-    );
-    @gm3-sys-color-tertiary-container-rgb: #rgbify(
-      @gm3-sys-color-tertiary-container,
-    )[];
-    @gm3-sys-color-on-tertiary-container: lighten(
-      saturate(@gm3-sys-color-tertiary-container, 50%),
-      65%
-    );
-    @gm3-sys-color-on-tertiary-container-rgb: #rgbify(
-      @gm3-sys-color-on-tertiary-container,
-    )[];
-
-    @gm3-sys-color-background: @base;
-    @gm3-sys-color-background-rgb: #rgbify(@gm3-sys-color-background)[];
-    @gm3-sys-color-on-background: @text;
-    @gm3-sys-color-on-background-rgb: #rgbify(@gm3-sys-color-on-background)[];
-
-    @gm3-sys-color-surface: @base;
-    @gm3-sys-color-surface-rgb: #rgbify(@gm3-sys-color-surface)[];
-    @gm3-sys-color-surface-bright: @surface0;
-    @gm3-sys-color-surface-bright-rgb: #rgbify(@gm3-sys-color-surface-bright)[];
-    @gm3-sys-color-surface-dim: @crust;
-    @gm3-sys-color-surface-dim-rgb: #rgbify(@gm3-sys-color-surface-dim)[];
-    @gm3-sys-color-surface-variant: mix(@mantle, @accent, 87.5%);
-    @gm3-sys-color-surface-variant-rgb: #rgbify(
-      @gm3-sys-color-surface-variant,
-    )[];
-    @gm3-sys-color-surface-tint: @accent;
-    @gm3-sys-color-surface-tint-rgb: #rgbify(@gm3-sys-color-surface-tint)[];
-
-    @gm3-sys-color-on-surface: @text;
-    @gm3-sys-color-on-surface-rgb: #rgbify(@gm3-sys-color-on-surface)[];
-    @gm3-sys-color-on-surface-variant: @subtext0;
-    @gm3-sys-color-on-surface-variant-rgb: #rgbify(
-      @gm3-sys-color-on-surface-variant,
-    )[];
-
-    @gm3-sys-color-inverse-surface: @text;
-    @gm3-sys-color-inverse-surface-rgb: #rgbify(
-      @gm3-sys-color-inverse-surface,
-    )[];
-    @gm3-sys-color-inverse-on-surface: @mantle;
-    @gm3-sys-color-inverse-on-surface-rgb: #rgbify(
-      @gm3-sys-color-inverse-on-surface,
-    )[];
-    @gm3-sys-color-inverse-primary: @inverse-accent; // TODO: Colour role clarification
-    @gm3-sys-color-inverse-primary-rgb: #rgbify(
-      @gm3-sys-color-inverse-primary,
-    )[];
-
-    @gm3-sys-color-surface-container-highest: @surface1;
-    @gm3-sys-color-surface-container-highest-rgb: #rgbify(
-      @gm3-sys-color-surface-container-highest,
-    )[];
-    @gm3-sys-color-surface-container-high: @surface0;
-    @gm3-sys-color-surface-container-high-rgb: #rgbify(
-      @gm3-sys-color-surface-container-high,
-    )[];
-    @gm3-sys-color-surface-container: @surface0;
-    @gm3-sys-color-surface-container-rgb: #rgbify(
-      @gm3-sys-color-surface-container,
-    )[];
-    @gm3-sys-color-surface-container-low: @mantle;
-    @gm3-sys-color-surface-container-low-rgb: #rgbify(
-      @gm3-sys-color-surface-container-low,
-    )[];
-    @gm3-sys-color-surface-container-lowest: @crust;
-    @gm3-sys-color-surface-container-lowest-rgb: #rgbify(
-      @gm3-sys-color-surface-container-lowest,
-    )[];
-
-    @gm3-sys-color-outline: @overlay2;
-    @gm3-sys-color-outline-rgb: #rgbify(@gm3-sys-color-outline)[];
-    @gm3-sys-color-outline-variant: @overlay0;
-    @gm3-sys-color-outline-variant-rgb: #rgbify(
-      @gm3-sys-color-outline-variant,
-    )[];
-
-    @gm3-sys-color-scrim: #000;
-    @gm3-sys-color-scrim-rgb: #rgbify(@gm3-sys-color-scrim)[];
-    @gm3-sys-color-shadow: #000;
-    @gm3-sys-color-shadow-rgb: #rgbify(@gm3-sys-color-shadow)[];
-
-    --gm3-sys-color-background: @gm3-sys-color-background;
-    --gm3-sys-color-background-rgb: @gm3-sys-color-background-rgb;
-    --gm3-sys-color-error: @gm3-sys-color-error;
-    --gm3-sys-color-error-rgb: @gm3-sys-color-error-rgb;
-    --gm3-sys-color-error-container: @gm3-sys-color-error-container;
-    --gm3-sys-color-error-container-rgb: @gm3-sys-color-error-container-rgb;
-    --gm3-sys-color-inverse-on-surface: @gm3-sys-color-inverse-on-surface;
-    --gm3-sys-color-inverse-on-surface-rgb: @gm3-sys-color-inverse-on-surface-rgb;
-    --gm3-sys-color-inverse-primary: @gm3-sys-color-inverse-primary;
-    --gm3-sys-color-inverse-primary-rgb: @gm3-sys-color-inverse-primary-rgb;
-    --gm3-sys-color-inverse-surface: @gm3-sys-color-inverse-surface;
-    --gm3-sys-color-inverse-surface-rgb: @gm3-sys-color-inverse-surface-rgb;
-    --gm3-sys-color-on-background: @gm3-sys-color-on-background;
-    --gm3-sys-color-on-background-rgb: @gm3-sys-color-on-background-rgb;
-    --gm3-sys-color-on-error: @gm3-sys-color-on-error;
-    --gm3-sys-color-on-error-rgb: @gm3-sys-color-on-error-rgb;
-    --gm3-sys-color-on-error-container: @gm3-sys-color-on-error-container;
-    --gm3-sys-color-on-error-container-rgb: @gm3-sys-color-on-error-container-rgb;
-    --gm3-sys-color-on-primary: @gm3-sys-color-on-primary;
-    --gm3-sys-color-on-primary-rgb: @gm3-sys-color-on-primary-rgb;
-    --gm3-sys-color-on-primary-container: @gm3-sys-color-on-primary-container;
-    --gm3-sys-color-on-primary-container-rgb: @gm3-sys-color-on-primary-container-rgb;
-    --gm3-sys-color-on-primary-fixed: @gm3-sys-color-on-primary-fixed;
-    --gm3-sys-color-on-primary-fixed-rgb: @gm3-sys-color-on-primary-fixed-rgb;
-    --gm3-sys-color-on-primary-fixed-variant: @gm3-sys-color-on-primary-fixed-variant;
-    --gm3-sys-color-on-primary-fixed-variant-rgb: @gm3-sys-color-on-primary-fixed-variant-rgb;
-    --gm3-sys-color-on-secondary: @gm3-sys-color-on-secondary;
-    --gm3-sys-color-on-secondary-rgb: @gm3-sys-color-on-secondary-rgb;
-    --gm3-sys-color-on-secondary-container: @gm3-sys-color-on-secondary-container;
-    --gm3-sys-color-on-secondary-container-rgb: @gm3-sys-color-on-secondary-container-rgb;
-    --gm3-sys-color-on-secondary-fixed: @gm3-sys-color-on-secondary-fixed;
-    --gm3-sys-color-on-secondary-fixed-rgb: @gm3-sys-color-on-secondary-fixed-rgb;
-    --gm3-sys-color-on-secondary-fixed-variant: @gm3-sys-color-on-secondary-fixed-variant;
-    --gm3-sys-color-on-secondary-fixed-variant-rgb: @gm3-sys-color-on-secondary-fixed-variant-rgb;
-    --gm3-sys-color-on-surface: @gm3-sys-color-on-surface;
-    --gm3-sys-color-on-surface-rgb: @gm3-sys-color-on-surface-rgb;
-    --gm3-sys-color-on-surface-variant: @gm3-sys-color-on-surface-variant;
-    --gm3-sys-color-on-surface-variant-rgb: @gm3-sys-color-on-surface-variant-rgb;
-    --gm3-sys-color-on-tertiary: @gm3-sys-color-on-tertiary;
-    --gm3-sys-color-on-tertiary-rgb: @gm3-sys-color-on-tertiary-rgb;
-    --gm3-sys-color-on-tertiary-container: @gm3-sys-color-on-tertiary-container;
-    --gm3-sys-color-on-tertiary-container-rgb: @gm3-sys-color-on-tertiary-container-rgb;
-    --gm3-sys-color-on-tertiary-fixed: @gm3-sys-color-on-tertiary-fixed;
-    --gm3-sys-color-on-tertiary-fixed-rgb: @gm3-sys-color-on-tertiary-fixed-rgb;
-    --gm3-sys-color-on-tertiary-fixed-variant: @gm3-sys-color-on-tertiary-fixed-variant;
-    --gm3-sys-color-on-tertiary-fixed-variant-rgb: @gm3-sys-color-on-tertiary-fixed-variant-rgb;
-    --gm3-sys-color-outline: @gm3-sys-color-outline;
-    --gm3-sys-color-outline-rgb: @gm3-sys-color-outline-rgb;
-    --gm3-sys-color-outline-variant: @gm3-sys-color-outline-variant;
-    --gm3-sys-color-outline-variant-rgb: @gm3-sys-color-outline-variant-rgb;
-    --gm3-sys-color-primary: @gm3-sys-color-primary;
-    --gm3-sys-color-primary-rgb: @gm3-sys-color-primary-rgb;
-    --gm3-sys-color-primary-container: @gm3-sys-color-primary-container;
-    --gm3-sys-color-primary-container-rgb: @gm3-sys-color-primary-container-rgb;
-    --gm3-sys-color-primary-fixed: @gm3-sys-color-primary-fixed;
-    --gm3-sys-color-primary-fixed-rgb: @gm3-sys-color-primary-fixed-rgb;
-    --gm3-sys-color-primary-fixed-dim: @gm3-sys-color-primary-fixed-dim;
-    --gm3-sys-color-primary-fixed-dim-rgb: @gm3-sys-color-primary-fixed-dim-rgb;
-    --gm3-sys-color-scrim: @gm3-sys-color-scrim;
-    --gm3-sys-color-scrim-rgb: @gm3-sys-color-scrim-rgb;
-    --gm3-sys-color-secondary: @gm3-sys-color-secondary;
-    --gm3-sys-color-secondary-rgb: @gm3-sys-color-secondary-rgb;
-    --gm3-sys-color-secondary-container: @gm3-sys-color-secondary-container;
-    --gm3-sys-color-secondary-container-rgb: @gm3-sys-color-secondary-container-rgb;
-    --gm3-sys-color-secondary-fixed: @gm3-sys-color-secondary-fixed;
-    --gm3-sys-color-secondary-fixed-rgb: @gm3-sys-color-secondary-fixed-rgb;
-    --gm3-sys-color-secondary-fixed-dim: @gm3-sys-color-secondary-fixed-dim;
-    --gm3-sys-color-secondary-fixed-dim-rgb: @gm3-sys-color-secondary-fixed-dim-rgb;
-    --gm3-sys-color-shadow: @gm3-sys-color-shadow;
-    --gm3-sys-color-shadow-rgb: @gm3-sys-color-shadow-rgb;
-    --gm3-sys-color-surface: @gm3-sys-color-surface;
-    --gm3-sys-color-surface-rgb: @gm3-sys-color-surface-rgb;
-    --gm3-sys-color-surface-bright: @gm3-sys-color-surface-bright;
-    --gm3-sys-color-surface-bright-rgb: @gm3-sys-color-surface-bright-rgb;
-    --gm3-sys-color-surface-container: @gm3-sys-color-surface-container;
-    --gm3-sys-color-surface-container-rgb: @gm3-sys-color-surface-container-rgb;
-    --gm3-sys-color-surface-container-high: @gm3-sys-color-surface-container-high;
-    --gm3-sys-color-surface-container-high-rgb: @gm3-sys-color-surface-container-high-rgb;
-    --gm3-sys-color-surface-container-highest: @gm3-sys-color-surface-container-highest;
-    --gm3-sys-color-surface-container-highest-rgb: @gm3-sys-color-surface-container-highest-rgb;
-    --gm3-sys-color-surface-container-low: @gm3-sys-color-surface-container-low;
-    --gm3-sys-color-surface-container-low-rgb: @gm3-sys-color-surface-container-low-rgb;
-    --gm3-sys-color-surface-container-lowest: @gm3-sys-color-surface-container-lowest;
-    --gm3-sys-color-surface-container-lowest-rgb: @gm3-sys-color-surface-container-lowest-rgb;
-    --gm3-sys-color-surface-dim: @gm3-sys-color-surface-dim;
-    --gm3-sys-color-surface-dim-rgb: @gm3-sys-color-surface-dim-rgb;
-    --gm3-sys-color-surface-tint: @gm3-sys-color-surface-tint;
-    --gm3-sys-color-surface-tint-rgb: @gm3-sys-color-surface-tint-rgb;
-    --gm3-sys-color-surface-variant: @gm3-sys-color-surface-variant;
-    --gm3-sys-color-surface-variant-rgb: @gm3-sys-color-surface-variant-rgb;
-    --gm3-sys-color-tertiary: @gm3-sys-color-tertiary;
-    --gm3-sys-color-tertiary-rgb: @gm3-sys-color-tertiary-rgb;
-    --gm3-sys-color-tertiary-container: @gm3-sys-color-tertiary-container;
-    --gm3-sys-color-tertiary-container-rgb: @gm3-sys-color-tertiary-container-rgb;
-    --gm3-sys-color-tertiary-fixed: @gm3-sys-color-tertiary-fixed;
-    --gm3-sys-color-tertiary-fixed-rgb: @gm3-sys-color-tertiary-fixed-rgb;
-    --gm3-sys-color-tertiary-fixed-dim: @gm3-sys-color-tertiary-fixed-dim;
-    --gm3-sys-color-tertiary-fixed-dim-rgb: @gm3-sys-color-tertiary-fixed-dim-rgb;
-    --mdc-ripple-color: var(--gm3-sys-color-primary);
-
-    --boq-chrometransition-background: var(--gm3-sys-color-surface-container);
-
-    --gm-colortextbutton-ink-color: var(--gm3-sys-color-on-surface);
-    --gm-colortextbutton-ink-color--stateful: var(--gm3-sys-color-on-surface);
-    --gm-colortextbutton-state-color: var(--gm3-sys-color-on-surface);
-    --gm-fillbutton-ink-color: var(--gm3-sys-color-on-primary);
-    --gm-fillbutton-ink-color--stateful: var(--gm3-sys-color-primary);
-    --gm-fillbutton-container-color: var(--gm3-sys-color-primary);
-    --gm-hairlinebutton-outline-color: var(--gm3-sys-color-outline);
-    --gm-hairlinebutton-outline-color--stateful: var(--gm3-sys-color-primary);
-    --gm-hairlinebutton-state-color: var(--gm3-sys-color-primary);
-    --gm-hairlinebutton-ink-color: var(--gm3-sys-color-primary);
-    --gm-hairlinebutton-ink-color--stateful: var(--gm3-sys-color-primary);
-    --gm-radio-state-color: var(--gm3-sys-color-primary);
-    --gm-radio-ink-color: var(--gm3-sys-color-primary);
-    --gm-radio-ink-color--stateful: var(--gm3-sys-color-primary);
-    --gm-outlinedtextfield-caret-color: var(--gm3-sys-color-primary);
-    --gm-outlinedtextfield-ink-color: var(--gm3-sys-color-on-surface);
-    --gm-outlinedtextfield-outline-color: var(--gm3-sys-color-outline);
-    --gm-outlinedtextfield-outline-color--stateful: var(
-      --gm3-sys-color-primary
-    );
-    --gm-outlinedtextfield-label-color: var(--gm3-sys-color-on-surface-variant);
-    --gm-outlinedtextfield-label-color--stateful: var(--gm3-sys-color-primary);
-
-    --mdc-theme-surface: var(--gm3-sys-color-surface);
-    --mdc-theme-on-surface: var(--gm3-sys-color-on-surface);
-
-    --mdc-checkbox-unselected-icon-color: var(--gm3-sys-color-on-surface);
-    --mdc-checkbox-unselected-hover-icon-color: var(--gm3-sys-color-on-surface);
-    --mdc-checkbox-unselected-hover-state-layer-color: var(
-      --gm3-sys-color-on-surface
-    );
-    --mdc-checkbox-unselected-pressed-icon-color: var(
-      --gm3-sys-color-on-surface
-    );
-    --mdc-checkbox-unselected-pressed-state-layer-color: var(
-      --gm3-sys-color-on-surface
-    );
-
-    --mdc-checkbox-selected-icon-color: var(--gm3-sys-color-primary);
-    --mdc-checkbox-selected-hover-icon-color: var(--gm3-sys-color-primary);
-    --mdc-checkbox-selected-hover-state-layer-color: var(
-      --gm3-sys-color-primary
-    );
-    --mdc-checkbox-selected-pressed-icon-color: var(--gm3-sys-color-primary);
-    --mdc-checkbox-selected-pressed-state-layer-color: var(
-      --gm3-sys-color-primary
-    );
-    --mdc-checkbox-selected-checkmark-color: var(--gm3-sys-color-on-primary);
-
-    color: @text;
-
-    // Automatically generated code \/\/
-    // -- IMPORT START
-    .Lvwayc {
-      background: var(--gm3-sys-color-surface-container);
-    }
-    .aRDKUe .Lvwayc {
-      background: var(--gm3-sys-color-surface-container-high);
-    }
-    .LzIwWe {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .aRDKUe .LzIwWe {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .fVFoBd {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .aRDKUe .fVFoBd {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .aRDKUe .DgDbFe .vZvJBb:not(:first-child) .BVnP4c::before {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .Z6NXed {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    @media (hover: hover) {
-      .Z6NXed:hover {
-        background: color-mix(
-          in oklab,
-          var(--gm3-sys-color-surface-container-low),
-          var(--gm3-sys-color-on-surface) 8%
-        );
-      }
-    }
-    .WLjaOb .Z6NXed:focus-visible, .WLjaOb .Z6NXed:focus-visible:hover {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .Z6NXed:active, .Z6NXed:active:focus-visible {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-    }
-    @media (hover: hover) {
-      .aRDKUe .Z6NXed:hover {
-        background: color-mix(
-          in oklab,
-          var(--gm3-sys-color-surface-container-low),
-          var(--gm3-sys-color-on-surface) 8%
-        );
-      }
-    }
-    .WLjaOb.aRDKUe .Z6NXed:focus-visible,
-    .WLjaOb.aRDKUe .Z6NXed:focus-visible:hover {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .Z6NXed:active, .aRDKUe .Z6NXed:active:focus-visible {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-    }
-    .aRDKUe .Z6NXed {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .T6SHIc {
-      border-bottom-color: var(--gm3-sys-color-secondary-container);
-    }
-    .aRDKUe .T6SHIc {
-      border-color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .H0GIIb {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .aRDKUe .H0GIIb {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .Wdz6e {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .aRDKUe .Wdz6e {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .KKMNAc, .Wdz6e {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .aRDKUe .KKMNAc, .aRDKUe .Wdz6e {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .scjzPc {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .aRDKUe .scjzPc {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .NoNCCf {
-      color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .NoNCCf {
-      color: var(--gm3-sys-color-primary);
-    }
-    .Y2rnLd {
-      background: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .KoNisf {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .aRDKUe .Q3ao0c {
-      color: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 8%
-      );
-    }
-    .bMnvr {
-      background: var(--gm3-sys-color-surface-container-highest);
-    }
-    .aRDKUe .bMnvr {
-      background: var(--gm3-sys-color-surface-container-highest);
-    }
-    .WNTTTe {
-      color: var(--gm3-sys-color-primary);
-    }
-    .CkSNRd {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    @media (hover: hover) {
-      .CkSNRd:hover {
-        background: color-mix(
-          in oklab,
-          var(--gm3-sys-color-surface-container-low),
-          var(--gm3-sys-color-on-surface) 8%
-        );
-      }
-    }
-    .WLjaOb .CkSNRd:focus-visible, .WLjaOb .CkSNRd:focus-visible:hover {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .CkSNRd:active, .CkSNRd:active:focus-visible {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-    }
-    @media (hover: hover) {
-      .aRDKUe .CkSNRd:hover {
-        background: color-mix(
-          in oklab,
-          var(--gm3-sys-color-surface-container-low),
-          var(--gm3-sys-color-on-surface) 8%
-        );
-      }
-    }
-    .WLjaOb.aRDKUe .CkSNRd:focus-visible,
-    .WLjaOb.aRDKUe .CkSNRd:focus-visible:hover {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .CkSNRd:active, .aRDKUe .CkSNRd:active:focus-visible {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-    }
-    .aRDKUe .CkSNRd {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .O52YZb {
-      background: var(--gm3-sys-color-secondary-container);
-      color: var(--gm3-sys-color-on-secondary-container);
-    }
-    @media (hover: hover) {
-      .O52YZb:hover {
-        background: color-mix(
-          in oklab,
-          var(--gm3-sys-color-secondary-container),
-          var(--gm3-sys-color-on-secondary-container) 8%
-        );
-      }
-    }
-    .WLjaOb .O52YZb:focus-visible, .WLjaOb .O52YZb:focus-visible:hover {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-secondary-container),
-        var(--gm3-sys-color-on-secondary-container) 12%
-      );
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .O52YZb:active, .O52YZb:active:focus-visible {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-secondary-container),
-        var(--gm3-sys-color-on-secondary-container) 12%
-      );
-    }
-    .aRDKUe .O52YZb {
-      background: var(--gm3-sys-color-secondary-container);
-      color: var(--gm3-sys-color-on-secondary-container);
-    }
-    @media (hover: hover) {
-      .aRDKUe .O52YZb:hover {
-        background: color-mix(
-          in oklab,
-          var(--gm3-sys-color-secondary-container),
-          var(--gm3-sys-color-on-secondary-container) 8%
-        );
-      }
-    }
-    .WLjaOb .aRDKUe .O52YZb:focus-visible,
-    .WLjaOb .aRDKUe .O52YZb:focus-visible:hover {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-secondary-container),
-        var(--gm3-sys-color-on-secondary-container) 12%
-      );
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .O52YZb:active, .aRDKUe .O52YZb:active:focus-visible {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-secondary-container),
-        var(--gm3-sys-color-on-secondary-container) 12%
-      );
-    }
-    .gAlnEe, .UojMw {
-      color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .gAlnEe, .aRDKUe .UojMw {
-      color: var(--gm3-sys-color-primary);
-    }
-    @media (hover: hover) {
-      .gAlnEe:hover {
-        background: rgba(var(--gm3-sys-color-primary-rgb), 0.08);
-      }
-    }
-    .WLjaOb .gAlnEe:focus-visible, .WLjaOb .gAlnEe:focus-visible:hover {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .gAlnEe:active, .gAlnEe:active:focus-visible {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-    }
-    @media (hover: hover) {
-      .aRDKUe .gAlnEe:hover {
-        background: rgba(var(--gm3-sys-color-primary-rgb), 0.08);
-      }
-    }
-    .WLjaOb.aRDKUe .gAlnEe:focus-visible,
-    .WLjaOb.aRDKUe .gAlnEe:focus-visible:hover {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .gAlnEe:active, .aRDKUe .gAlnEe:active:focus-visible {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-    }
-    .UojMw {
-      border-color: var(--gm3-sys-color-outline);
-    }
-    @media (hover: hover) {
-      .UojMw:hover {
-        background: rgba(var(--gm3-sys-color-primary-rgb), 0.08);
-      }
-    }
-    .WLjaOb .UojMw:focus-visible, .WLjaOb .UojMw:focus-visible:hover {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .UojMw:active, .UojMw:active:focus-visible {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-    }
-    .aRDKUe .UojMw {
-      border-color: var(--gm3-sys-color-outline);
-    }
-    @media (hover: hover) {
-      .aRDKUe .UojMw:hover {
-        background: rgba(var(--gm3-sys-color-primary-rgb), 0.08);
-      }
-    }
-    .WLjaOb.aRDKUe .UojMw:focus-visible,
-    .WLjaOb.aRDKUe .UojMw:focus-visible:hover {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .UojMw:active, .aRDKUe .UojMw:active:focus-visible {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-    }
-    .B6iy6c .XdWBVd, .qUNJcb .XdWBVd {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .aRDKUe .B6iy6c .XdWBVd, .aRDKUe .qUNJcb .XdWBVd {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .B6iy6c.qLP7kc .jFfZdd,
-    .qUNJcb.qLP7kc .jFfZdd,
-    .aRDKUe .B6iy6c.qLP7kc .jFfZdd,
-    .aRDKUe .qUNJcb.qLP7kc .jFfZdd {
-      background: var(--gm3-sys-color-primary-container);
-    }
-    .WLjaOb .B6iy6c.qLP7kc .jFfZdd.Dn5Ezd:focus-visible,
-    .WLjaOb .B6iy6c.qLP7kc .jFfZdd.Dn5Ezd:focus-visible:hover {
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .B6iy6c.qLP7kc .jFfZdd.Dn5Ezd {
-      background: var(--gm3-sys-color-primary-container);
-    }
-    .WLjaOb.aRDKUe .B6iy6c.qLP7kc .jFfZdd.Dn5Ezd:focus-visible,
-    .WLjaOb.aRDKUe .B6iy6c.qLP7kc .jFfZdd.Dn5Ezd:focus-visible:hover {
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .B6iy6c .D2509d, .qUNJcb .D2509d {
-      color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .B6iy6c .D2509d, .aRDKUe .qUNJcb .D2509d {
-      color: var(--gm3-sys-color-primary);
-    }
-    .VfPpkd-qNpTzb-P4pF8c-SmKAyb {
-      border-color: var(--mdc-linear-progress-active-indicator-color, #6200ee);
-    }
-    .KKMNAc {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .aRDKUe .KKMNAc {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .ut3Ak .KKMNAc.AJilCf {
-      background: var(--gm3-sys-color-secondary-container);
-    }
-    .aRDKUe .ut3Ak .KKMNAc.AJilCf {
-      background: var(--gm3-sys-color-secondary-container);
-    }
-    .aFCkf {
-      color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .aFCkf {
-      background: var(--gm3-sys-color-surface-container-high);
-      color: var(--gm3-sys-color-primary);
-    }
-    .x8mAUc .HyhVZe {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .aRDKUe .x8mAUc .HyhVZe {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .cllK4d {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .aRDKUe .cllK4d {
-      background: var(--gm3-sys-color-surface-container-high);
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .coHE2 {
-      border-color: var(--gm3-sys-color-outline);
-    }
-    @media (hover: hover) {
-      .coHE2:hover {
-        background: rgba(var(--gm3-sys-color-primary-rgb), 0.08);
-      }
-    }
-    .WLjaOb .coHE2:focus-visible, .WLjaOb .coHE2:focus-visible:hover {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .coHE2:active, .coHE2:active:focus-visible {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-    }
-    .aRDKUe .coHE2 {
-      border-color: var(--gm3-sys-color-outline);
-    }
-    @media (hover: hover) {
-      .aRDKUe .coHE2:hover {
-        background: rgba(var(--gm3-sys-color-primary-rgb), 0.08);
-      }
-    }
-    .WLjaOb.aRDKUe .coHE2:focus-visible,
-    .WLjaOb.aRDKUe .coHE2:focus-visible:hover {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .coHE2:active, .aRDKUe .coHE2:active:focus-visible {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-    }
-    .WkuXae {
-      color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .WkuXae {
-      color: var(--gm3-sys-color-primary);
-    }
-    .wk3GB {
-      fill: var(--gm3-sys-color-surface-container-highest);
-    }
-    .eYSAde {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .aRDKUe .eYSAde {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .aRDKUe .hCDve {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .aRDKUe .G5bXNb {
-      background: var(--gm3-sys-color-surface-container-high);
-    }
-    @media (hover: hover) {
-      .Q3BXBb:hover .GXg3Le {
-        background: color-mix(
-          in oklab,
-          var(--gm3-sys-color-surface-container-low),
-          var(--gm3-sys-color-on-surface) 8%
-        );
-      }
-    }
-    .WLjaOb .Q3BXBb:focus-visible .GXg3Le,
-    .WLjaOb .Q3BXBb:focus-visible:hover .GXg3Le {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .Q3BXBb:active .GXg3Le, .Q3BXBb:active:focus-visible .GXg3Le {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-    }
-    @media (hover: hover) {
-      .aRDKUe .Q3BXBb:hover .GXg3Le {
-        background: color-mix(
-          in oklab,
-          var(--gm3-sys-color-surface-container-low),
-          var(--gm3-sys-color-on-surface) 8%
-        );
-      }
-    }
-    .WLjaOb.aRDKUe .Q3BXBb:focus-visible .GXg3Le,
-    .WLjaOb.aRDKUe .Q3BXBb:focus-visible:hover .GXg3Le {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .Q3BXBb:active .GXg3Le,
-    .aRDKUe .Q3BXBb:active:focus-visible .GXg3Le {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-    }
-    .Q3BXBb:hover .GXg3Le,
-    // .Q3BXBb:focus-visible .GXg3Le,
-    .Q3BXBb:active .GXg3Le,
-    .WLjaOb .Q3BXBb:focus-visible .GXg3Le,
-    .Q3BXBb:focus-visible .GXg3Le,
-    .GXg3Le:hover,
-    // .GXg3Le:focus-visible,
-    .GXg3Le:active,
-    .WLjaOb .GXg3Le:focus-visible,
-    .GXg3Le:focus-visible {
-      color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .Q3BXBb:hover .GXg3Le,
-    // .aRDKUe .Q3BXBb:focus-visible .GXg3Le,
-    .aRDKUe .Q3BXBb:active .GXg3Le,
-    .aRDKUe .WLjaOb .Q3BXBb:focus-visible .GXg3Le,
-    .aRDKUe .Q3BXBb:focus-visible .GXg3Le,
-    .aRDKUe .GXg3Le:hover,
-    // .aRDKUe .GXg3Le:focus-visible,
-    .aRDKUe .GXg3Le:active,
-    .aRDKUe .WLjaOb .GXg3Le:focus-visible,
-    .aRDKUe .GXg3Le:focus-visible {
-      color: var(--gm3-sys-color-primary);
-    }
-    .GXg3Le {
-      background: var(--gm3-sys-color-surface-container-highest);
-    }
-    @media (hover: hover) {
-      .pQpjR:hover {
-        background: color-mix(
-          in oklab,
-          var(--gm3-sys-color-surface-container-low),
-          var(--gm3-sys-color-on-surface) 8%
-        );
-      }
-    }
-    .WLjaOb .pQpjR:focus-visible, .WLjaOb .pQpjR:focus-visible:hover {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .pQpjR:active, .pQpjR:active:focus-visible {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-    }
-    @media (hover: hover) {
-      .aRDKUe .pQpjR:hover {
-        background: color-mix(
-          in oklab,
-          var(--gm3-sys-color-surface-container-low),
-          var(--gm3-sys-color-on-surface) 8%
-        );
-      }
-    }
-    .WLjaOb.aRDKUe .pQpjR:focus-visible,
-    .WLjaOb.aRDKUe .pQpjR:focus-visible:hover {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .pQpjR:active, .aRDKUe .pQpjR:active:focus-visible {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-    }
-    .SDV7ef {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .aRDKUe .SDV7ef {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .qLP7kc .jFfZdd {
-      background: var(--gm3-sys-color-surface-container-low);
-    }
-    .aRDKUe .qLP7kc .jFfZdd {
-      background: var(--gm3-sys-color-surface-container-low);
-    }
-    @media (hover: hover) {
-      .qLP7kc .jFfZdd.Dn5Ezd:hover {
-        background: color-mix(
-          in oklab,
-          var(--gm3-sys-color-surface-container-low),
-          var(--gm3-sys-color-on-surface) 8%
-        );
-      }
-    }
-    .WLjaOb .qLP7kc .jFfZdd.Dn5Ezd:focus-visible,
-    .WLjaOb .qLP7kc .jFfZdd.Dn5Ezd:focus-visible:hover {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .qLP7kc .jFfZdd.Dn5Ezd:active, .qLP7kc .jFfZdd.Dn5Ezd:active:focus-visible {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-    }
-    @media (hover: hover) {
-      .aRDKUe .qLP7kc .jFfZdd.Dn5Ezd:hover {
-        background: color-mix(
-          in oklab,
-          var(--gm3-sys-color-surface-container-low),
-          var(--gm3-sys-color-on-surface) 8%
-        );
-      }
-    }
-    .WLjaOb.aRDKUe .qLP7kc .jFfZdd.Dn5Ezd:focus-visible,
-    .WLjaOb.aRDKUe .qLP7kc .jFfZdd.Dn5Ezd:focus-visible:hover {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .qLP7kc .jFfZdd.Dn5Ezd:active,
-    .aRDKUe .qLP7kc .jFfZdd.Dn5Ezd:active:focus-visible {
-      background: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-    }
-    .pRjiJb {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .aRDKUe .pRjiJb {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .MbHqJ {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .aRDKUe .MbHqJ {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .DmSTqc {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .aRDKUe .DmSTqc {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .idKC9b {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .aRDKUe .idKC9b {
-      color: var(--gm3-sys-color-on-surface-variant);
-    }
-    .C6Fnkb {
-      color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .C6Fnkb {
-      color: var(--gm3-sys-color-primary);
-    }
-    .N3AcWd {
-      background: var(--gm3-sys-color-primary);
-      color: var(--gm3-sys-color-surface-container-highest);
-    }
-    .aRDKUe .N3AcWd {
-      background: var(--gm3-sys-color-primary);
-    }
-    .GgqZjb .AHFKnd {
-      border-color: var(--gm3-sys-color-on-surface-variant);
-      border-bottom-color: var(--gm3-sys-color-surface-container-low);
-    }
-    .aRDKUe .GgqZjb .AHFKnd {
-      border-color: var(--gm3-sys-color-on-surface-variant);
-      border-bottom-color: var(--gm3-sys-color-surface-container-low);
-    }
-    .IAMa4b {
-      color: var(--gm3-sys-color-primary);
-    }
-    @media (hover: hover) {
-      .IAMa4b:hover {
-        background: rgba(var(--gm3-sys-color-primary-rgb), 0.08);
-      }
-    }
-    .WLjaOb .IAMa4b:focus-visible, .WLjaOb .IAMa4b:focus-visible:hover {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .IAMa4b:active, .IAMa4b:active:focus-visible {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-    }
-    .aRDKUe .IAMa4b {
-      color: var(--gm3-sys-color-primary);
-    }
-    @media (hover: hover) {
-      .aRDKUe .IAMa4b:hover {
-        background: rgba(var(--gm3-sys-color-primary-rgb), 0.08);
-      }
-    }
-    .WLjaOb.aRDKUe .IAMa4b:focus-visible,
-    .WLjaOb.aRDKUe .IAMa4b:focus-visible:hover {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-      border-color: var(--gm3-sys-color-primary);
-    }
-    .aRDKUe .IAMa4b:active, .aRDKUe .IAMa4b:active:focus-visible {
-      background: rgba(var(--gm3-sys-color-primary-rgb), 0.12);
-    }
-    .EHzcec {
-      background: var(--gm3-sys-color-surface-container-high);
-      background: var(
-        --gm3-sys-color-surface-container-high,
-        var(--gm3-sys-color-surface-container-high)
-      );
-    }
-    .nz9sqb.EHzcec {
-      background: var(--gm3-sys-color-surface-container-high);
-      background: var(
-        --gm3-sys-color-surface-container-high,
-        var(--gm3-sys-color-surface-container-high)
-      );
-    }
-    .nz9sqb.EHzcec .LVal7b {
-      background: var(--gm3-sys-color-surface-container-low);
-      background: var(
-        --gm3-sys-color-surface-container-low,
-        var(--gm3-sys-color-surface-container-low)
-      );
-      color: var(--gm3-sys-color-on-surface-variant);
-      color: var(
-        --gm3-sys-color-on-surface-variant,
-        var(--gm3-sys-color-on-surface-variant)
-      );
-    }
-    .LVal7b {
-      background: var(--gm3-sys-color-surface-container-low);
-      background: var(
-        --gm3-sys-color-surface-container-low,
-        var(--gm3-sys-color-surface-container-low)
-      );
-      color: var(--gm3-sys-color-on-surface-variant);
-      color: var(
-        --gm3-sys-color-on-surface-variant,
-        var(--gm3-sys-color-on-surface-variant)
-      );
-    }
-    .o07G5 .tX9u1b:active,
-    .o07G5 .tX9u1b:active:focus,
-    .o07G5 .tX9u1b:active .Rq5Gcb,
-    .o07G5 .tX9u1b:active:hover .Rq5Gcb {
-      background-color: var(--gm3-sys-color-surface-container-highest);
-    }
-    .nz9sqb.o07G5 .tX9u1b:active,
-    .nz9sqb.o07G5 .tX9u1b:active:focus,
-    .nz9sqb.o07G5 .tX9u1b:active .Rq5Gcb,
-    .nz9sqb.o07G5 .tX9u1b:active:hover .Rq5Gcb {
-      background-color: var(--gm3-sys-color-surface-container-highest);
-    }
-    .Rq5Gcb {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .nz9sqb .Rq5Gcb {
-      color: var(--gm3-sys-color-on-surface);
-    }
-    .dGrefb {
-      border-bottom-color: var(--gm3-sys-color-on-surface);
-    }
-    // .NQV3m {
-    //   background-color: var(--gm3-sys-color-surface-container-highest);
-    // }
-    .OunZ9c {
-      background: var(--gm3-sys-color-surface-container-highest);
-    }
-    .NPEKs {
-      background: var(--gm3-sys-color-primary);
-    }
-    .nz9sqb .NPEKs {
-      background: var(--gm3-sys-color-primary);
-    }
-    .tX9u1b:hover {
-      background-color: var(--gm3-sys-color-surface-container-high);
-      background-color: var(
-        --gm3-sys-color-surface-container-high,
-        var(--gm3-sys-color-surface-container-high)
-      );
-    }
-    .tX9u1b:active, .tX9u1b:active:focus {
-      background-color: var(--gm3-sys-color-surface-container-highest);
-      background-color: var(
-        --gm3-sys-color-surface-container-highest,
-        var(--gm3-sys-color-surface-container-highest)
-      );
-    }
-    .QgddUc .tX9u1b:focus, .QgddUc .tX9u1b:hover:focus {
-      border-color: var(--gm3-sys-color-primary);
-      border-color: var(--gm3-sys-color-primary, var(--gm3-sys-color-primary));
-      background-color: var(--gm3-sys-color-surface-container-highest);
-      background-color: var(
-        --gm3-sys-color-surface-container-highest,
-        var(--gm3-sys-color-surface-container-highest)
-      );
-    }
-    .NQV3m {
-      border-color: var(--gm3-sys-color-outline);
-      border-color: var(--gm3-sys-color-outline, var(--gm3-sys-color-outline));
-      color: var(--gm3-sys-color-primary);
-      color: var(--gm3-sys-color-primary, var(--gm3-sys-color-primary));
-    }
-    .NQV3m:focus-visible {
-      outline-color: var(--gm3-sys-color-primary);
-      outline-color: var(--gm3-sys-color-primary, var(--gm3-sys-color-primary));
-    }
-    @media (forced-colors: active) {
-      .NQV3m {
-        border-color: var(--gm3-sys-color-outline);
-        border-color: var(
-          --gm3-sys-color-outline,
-          var(--gm3-sys-color-outline)
-        );
-      }
-    }
-    .nz9sqb .NQV3m {
-      border-color: var(--gm3-sys-color-outline);
-      border-color: var(--gm3-sys-color-outline, var(--gm3-sys-color-outline));
-      color: var(--gm3-sys-color-primary);
-      color: var(--gm3-sys-color-primary, var(--gm3-sys-color-primary));
-    }
-    .nz9sqb .NQV3m:focus-visible {
-      outline-color: var(--gm3-sys-color-primary);
-      outline-color: var(--gm3-sys-color-primary, var(--gm3-sys-color-primary));
-    }
-    @media (forced-colors: active) {
-      .nz9sqb .NQV3m {
-        border-color: var(--gm3-sys-color-outline);
-        border-color: var(
-          --gm3-sys-color-outline,
-          var(--gm3-sys-color-outline)
-        );
-      }
-    }
-    .nz9sqb .tX9u1b:hover {
-      background-color: var(--gm3-sys-color-surface-container-high);
-      background-color: var(
-        --gm3-sys-color-surface-container-high,
-        var(--gm3-sys-color-surface-container-high)
-      );
-    }
-    .nz9sqb .tX9u1b:active, .nz9sqb .tX9u1b:active:focus {
-      background-color: var(--gm3-sys-color-surface-container-highest);
-      background-color: var(
-        --gm3-sys-color-surface-container-highest,
-        var(--gm3-sys-color-surface-container-highest)
-      );
-    }
-    .nz9sqb.QgddUc .tX9u1b:focus, .nz9sqb.QgddUc .tX9u1b:hover:focus {
-      border-color: var(--gm3-sys-color-primary);
-      border-color: var(--gm3-sys-color-primary, var(--gm3-sys-color-primary));
-    }
-    .kibP6b, .lHtSbd {
-      background: var(--gm3-sys-color-surface-container-low);
-      background: var(
-        --gm3-sys-color-surface-container-low,
-        var(--gm3-sys-color-surface-container-low)
-      );
-      color: var(--gm3-sys-color-primary);
-      color: var(--gm3-sys-color-primary, var(--gm3-sys-color-primary));
-    }
-    .lHtSbd {
-      color: var(--gm3-sys-color-on-surface-variant);
-      color: var(
-        --gm3-sys-color-on-surface-variant,
-        var(--gm3-sys-color-on-surface-variant)
-      );
-    }
-    .kibP6b:hover {
-      background-color: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 8%
-      );
-    }
-    .kibP6b:focus:active {
-      background-color: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-    }
-    .EuVUud, .rn8xOd {
-      fill: var(--gm3-sys-color-primary);
-      fill: var(--gm3-sys-color-primary, var(--gm3-sys-color-primary));
-    }
-    .rn8xOd {
-      fill: var(--gm3-sys-color-on-surface-variant);
-      fill: var(
-        --gm3-sys-color-on-surface-variant,
-        var(--gm3-sys-color-on-surface-variant)
-      );
-    }
-    .p37w9e {
-      color: var(--gm3-sys-color-on-surface-variant);
-      color: var(
-        --gm3-sys-color-on-surface-variant,
-        var(--gm3-sys-color-on-surface-variant)
-      );
-    }
-    .bOwcqf {
-      background-color: var(--gm3-sys-color-primary);
-      background-color: var(
-        --gm3-sys-color-primary,
-        var(--gm3-sys-color-primary)
-      );
-      color: var(--gm3-sys-color-surface-container-low);
-      color: var(
-        --gm3-sys-color-surface-container-low,
-        var(--gm3-sys-color-surface-container-low)
-      );
-      border-color: var(--gm3-sys-color-surface-container-low);
-      border-color: var(
-        --gm3-sys-color-surface-container-low,
-        var(--gm3-sys-color-surface-container-low)
-      );
-    }
-    .QgddUc .kibP6b:focus, .QgddUc .lHtSbd:focus {
-      background: var(--gm3-sys-color-surface-container-highest);
-      background: var(
-        --gm3-sys-color-surface-container-highest,
-        var(--gm3-sys-color-surface-container-highest)
-      );
-      border-color: var(--gm3-sys-color-primary);
-      border-color: var(--gm3-sys-color-primary, var(--gm3-sys-color-primary));
-    }
-    .nz9sqb .kibP6b, .nz9sqb .lHtSbd {
-      background: var(--gm3-sys-color-surface-container-low);
-      background: var(
-        --gm3-sys-color-surface-container-low,
-        var(--gm3-sys-color-surface-container-low)
-      );
-      color: var(--gm3-sys-color-primary);
-      color: var(--gm3-sys-color-primary, var(--gm3-sys-color-primary));
-    }
-    .nz9sqb .kibP6b:focus:active, .nz9sqb .lHtSbd:focus:active {
-      background-color: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-    }
-    .nz9sqb .EuVUud, .nz9sqb .rn8xOd {
-      fill: var(--gm3-sys-color-primary);
-      fill: var(--gm3-sys-color-primary, var(--gm3-sys-color-primary));
-    }
-    .nz9sqb .p37w9e {
-      color: var(--gm3-sys-color-on-surface);
-      color: var(
-        --gm3-sys-color-on-background,
-        var(--gm3-sys-color-on-surface)
-      );
-    }
-    .nz9sqb .JI4QMc {
-      stroke: var(--gm3-sys-color-on-surface-variant);
-      stroke: var(
-        --gm3-sys-color-surface-variant,
-        var(--gm3-sys-color-on-surface-variant)
-      );
-    }
-    .nz9sqb .bOwcqf {
-      background-color: var(--gm3-sys-color-primary);
-      background-color: var(
-        --gm3-sys-color-primary,
-        var(--gm3-sys-color-primary)
-      );
-      border-color: var(--gm3-sys-color-surface-container, #1e1f20);
-    }
-    .nz9sqb.QgddUc .kibP6b:focus, .nz9sqb.QgddUc .lHtSbd:focus {
-      border-color: var(--gm3-sys-color-primary);
-      border-color: var(--gm3-sys-color-primary, var(--gm3-sys-color-primary));
-      background-color: color-mix(
-        in oklab,
-        var(--gm3-sys-color-surface-container-low),
-        var(--gm3-sys-color-on-surface) 12%
-      );
-    }
-
-    // -- IMPORT END
-
-    // ## Legacy(M2) code \/ \/
-
-    // Password reset started alert dialog
-    .QsXJJ.vQ43Ie {
-      background: var(--gm3-sys-color-error-container);
-      color: var(--gm3-sys-color-on-error-container);
-    }
-    // Password reset started alert dialog main text
-    .hXhhq {
-      color: inherit;
-    }
-    // Password reset started alert dialog secondary text
-    .TnugZc,
-    // Password reset started alert dialog dismiss action
-    .xFITmb {
-      color: inherit;
-    }
-    // Password reset started alert dialog primary action
-    .QsXJJ .yZqNl,
-    .amE0Md .yZqNl,
-    // Password reset started alert dialog primary action states
-    .QsXJJ .yZqNl:hover,
-    .QsXJJ .yZqNl:hover:focus,
-    .QsXJJ .yZqNl:focus,
-    .QsXJJ .yZqNl:active,
-    .amE0Md .yZqNl:hover,
-    .amE0Md .yZqNl:hover:focus,
-    .amE0Md .yZqNl:focus,
-    .amE0Md .yZqNl:active {
-      background-color: var(--gm3-sys-color-error);
-      outline-color: var(--gm3-sys-color-error);
-    }
-    .yZqNl {
-      color: var(--gm3-sys-color-on-error);
     }
   }
 }
