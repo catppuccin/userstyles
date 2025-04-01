@@ -1,0 +1,652 @@
+/* ==UserStyle==
+@name Google Contacts Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/google-contacts
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/google-contacts
+@version 2025.03.10
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/google-contacts/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agoogle-contacts
+@description Soothing pastel theme for Google Contacts
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain("contacts.google.com") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #rgbify(@color) {
+    @rgb: red(@color), green(@color), blue(@color);
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+    @inverse-accent: if(
+      @flavor = latte,
+      @catppuccin[@mocha][@@accentColor],
+      @catppuccin[@latte][@@accentColor]
+    );
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    @gm3-sys-color-error: @red;
+    @gm3-sys-color-error-rgb: #rgbify(@gm3-sys-color-error)[];
+    @gm3-sys-color-error-container: desaturate(darken(@red, 50%), 50%);
+    @gm3-sys-color-error-container-rgb: #rgbify(
+      @gm3-sys-color-error-container,
+    )[];
+
+    @gm3-sys-color-on-error: darken(desaturate(@red, 20%), 50%);
+    @gm3-sys-color-on-error-rgb: #rgbify(@gm3-sys-color-on-error)[];
+    @gm3-sys-color-on-error-container: desaturate(darken(@red, -10%), 50%);
+    @gm3-sys-color-on-error-container-rgb: #rgbify(
+      @gm3-sys-color-on-error-container,
+    )[];
+
+    @gm3-sys-color-primary: @accent;
+    @gm3-sys-color-primary-rgb: #rgbify(@gm3-sys-color-primary)[];
+    @gm3-sys-color-primary-fixed: lighten(@accent, 5%);
+    @gm3-sys-color-primary-fixed-rgb: #rgbify(@gm3-sys-color-primary-fixed)[];
+    @gm3-sys-color-primary-fixed-dim: darken(@accent, 5%);
+    @gm3-sys-color-primary-fixed-dim-rgb: #rgbify(
+      @gm3-sys-color-primary-fixed-dim,
+    )[];
+
+    @gm3-sys-color-on-primary: saturate(
+      mix(@gm3-sys-color-primary, @base, 20%),
+      25%
+    );
+    @gm3-sys-color-on-primary-rgb: #rgbify(@gm3-sys-color-on-primary)[];
+    @gm3-sys-color-on-primary-fixed: darken(@gm3-sys-color-on-primary, 5%);
+    @gm3-sys-color-on-primary-fixed-rgb: #rgbify(
+      @gm3-sys-color-on-primary-fixed,
+    )[];
+    @gm3-sys-color-on-primary-fixed-variant: lighten(
+      @gm3-sys-color-on-primary,
+      5%
+    );
+    @gm3-sys-color-on-primary-fixed-variant-rgb: #rgbify(
+      @gm3-sys-color-on-primary-fixed-variant,
+    )[];
+
+    @gm3-sys-color-primary-container: saturate(
+      mix(@gm3-sys-color-primary, @mantle, 40%),
+      20%
+    );
+    @gm3-sys-color-primary-container-rgb: #rgbify(
+      @gm3-sys-color-primary-container,
+    )[];
+    @gm3-sys-color-on-primary-container: saturate(
+      mix(@gm3-sys-color-primary, @text, 10%),
+      25%
+    );
+    @gm3-sys-color-on-primary-container-rgb: #rgbify(
+      @gm3-sys-color-on-primary-container,
+    )[];
+
+    @gm3-sys-color-secondary: desaturate(@accent, 40%);
+    @gm3-sys-color-secondary-rgb: #rgbify(@gm3-sys-color-secondary)[];
+    @gm3-sys-color-secondary-fixed: lighten(@gm3-sys-color-secondary, 5%);
+    @gm3-sys-color-secondary-fixed-rgb: #rgbify(
+      @gm3-sys-color-secondary-fixed,
+    )[];
+    @gm3-sys-color-secondary-fixed-dim: darken(@gm3-sys-color-secondary, 5%);
+    @gm3-sys-color-secondary-fixed-dim-rgb: #rgbify(
+      @gm3-sys-color-secondary-fixed-dim,
+    )[];
+
+    @gm3-sys-color-on-secondary: saturate(
+      mix(@gm3-sys-color-secondary, @base, 20%),
+      25%
+    );
+    @gm3-sys-color-on-secondary-rgb: #rgbify(@gm3-sys-color-on-secondary)[];
+    @gm3-sys-color-on-secondary-fixed: darken(@gm3-sys-color-on-secondary, 5%);
+    @gm3-sys-color-on-secondary-fixed-rgb: #rgbify(
+      @gm3-sys-color-on-secondary-fixed,
+    )[];
+    @gm3-sys-color-on-secondary-fixed-variant: lighten(
+      @gm3-sys-color-on-primary,
+      5%
+    );
+    @gm3-sys-color-on-secondary-fixed-variant-rgb: #rgbify(
+      @gm3-sys-color-on-secondary-fixed-variant,
+    )[];
+
+    @gm3-sys-color-secondary-container: saturate(
+      mix(@gm3-sys-color-secondary, @mantle, 20%),
+      10%
+    );
+    @gm3-sys-color-secondary-container-rgb: #rgbify(
+      @gm3-sys-color-secondary-container,
+    )[];
+    @gm3-sys-color-on-secondary-container: saturate(
+      mix(@gm3-sys-color-secondary, @text, 10%),
+      25%
+    );
+    @gm3-sys-color-on-secondary-container-rgb: #rgbify(
+      @gm3-sys-color-on-secondary-container,
+    )[];
+
+    @gm3-sys-color-tertiary: @accent;
+    @gm3-sys-color-tertiary-rgb: #rgbify(@gm3-sys-color-tertiary)[];
+    @gm3-sys-color-tertiary-fixed: lighten(@gm3-sys-color-tertiary, 5%);
+    @gm3-sys-color-tertiary-fixed-rgb: #rgbify(@gm3-sys-color-tertiary-fixed)[];
+    @gm3-sys-color-tertiary-fixed-dim: darken(@gm3-sys-color-tertiary, 5%);
+    @gm3-sys-color-tertiary-fixed-dim-rgb: #rgbify(
+      @gm3-sys-color-tertiary-fixed-dim,
+    )[];
+
+    @gm3-sys-color-on-tertiary: darken(
+      desaturate(@gm3-sys-color-tertiary, 25%),
+      50%
+    );
+    @gm3-sys-color-on-tertiary-rgb: #rgbify(@gm3-sys-color-on-tertiary)[];
+    @gm3-sys-color-on-tertiary-fixed: darken(@gm3-sys-color-on-tertiary, 5%);
+    @gm3-sys-color-on-tertiary-fixed-rgb: #rgbify(
+      @gm3-sys-color-on-tertiary-fixed,
+    )[];
+    @gm3-sys-color-on-tertiary-fixed-variant: lighten(
+      @gm3-sys-color-on-tertiary,
+      5%
+    );
+    @gm3-sys-color-on-tertiary-fixed-variant-rgb: #rgbify(
+      @gm3-sys-color-on-tertiary-fixed-variant,
+    )[];
+
+    @gm3-sys-color-tertiary-container: saturate(
+      mix(@gm3-sys-color-tertiary, @mantle, 20%),
+      0%
+    );
+    @gm3-sys-color-tertiary-container-rgb: #rgbify(
+      @gm3-sys-color-tertiary-container,
+    )[];
+    @gm3-sys-color-on-tertiary-container: lighten(
+      saturate(@gm3-sys-color-tertiary-container, 50%),
+      65%
+    );
+    @gm3-sys-color-on-tertiary-container-rgb: #rgbify(
+      @gm3-sys-color-on-tertiary-container,
+    )[];
+
+    @gm3-sys-color-background: @base;
+    @gm3-sys-color-background-rgb: #rgbify(@gm3-sys-color-background)[];
+    @gm3-sys-color-on-background: @text;
+    @gm3-sys-color-on-background-rgb: #rgbify(@gm3-sys-color-on-background)[];
+
+    @gm3-sys-color-surface: @base;
+    @gm3-sys-color-surface-rgb: #rgbify(@gm3-sys-color-surface)[];
+    @gm3-sys-color-surface-bright: @surface0;
+    @gm3-sys-color-surface-bright-rgb: #rgbify(@gm3-sys-color-surface-bright)[];
+    @gm3-sys-color-surface-dim: @crust;
+    @gm3-sys-color-surface-dim-rgb: #rgbify(@gm3-sys-color-surface-dim)[];
+    @gm3-sys-color-surface-variant: mix(@mantle, @accent, 87.5%);
+    @gm3-sys-color-surface-variant-rgb: #rgbify(
+      @gm3-sys-color-surface-variant,
+    )[];
+    @gm3-sys-color-surface-tint: @accent;
+    @gm3-sys-color-surface-tint-rgb: #rgbify(@gm3-sys-color-surface-tint)[];
+
+    @gm3-sys-color-on-surface: @text;
+    @gm3-sys-color-on-surface-rgb: #rgbify(@gm3-sys-color-on-surface)[];
+    @gm3-sys-color-on-surface-variant: @subtext0;
+    @gm3-sys-color-on-surface-variant-rgb: #rgbify(
+      @gm3-sys-color-on-surface-variant,
+    )[];
+
+    @gm3-sys-color-inverse-surface: @text;
+    @gm3-sys-color-inverse-surface-rgb: #rgbify(
+      @gm3-sys-color-inverse-surface,
+    )[];
+    @gm3-sys-color-inverse-on-surface: @mantle;
+    @gm3-sys-color-inverse-on-surface-rgb: #rgbify(
+      @gm3-sys-color-inverse-on-surface,
+    )[];
+    @gm3-sys-color-inverse-primary: @inverse-accent; // TODO: Colour role clarification
+    @gm3-sys-color-inverse-primary-rgb: #rgbify(
+      @gm3-sys-color-inverse-primary,
+    )[];
+
+    @gm3-sys-color-surface-container-highest: @surface1;
+    @gm3-sys-color-surface-container-highest-rgb: #rgbify(
+      @gm3-sys-color-surface-container-highest,
+    )[];
+    @gm3-sys-color-surface-container-high: @surface0;
+    @gm3-sys-color-surface-container-high-rgb: #rgbify(
+      @gm3-sys-color-surface-container-high,
+    )[];
+    @gm3-sys-color-surface-container: @surface0;
+    @gm3-sys-color-surface-container-rgb: #rgbify(
+      @gm3-sys-color-surface-container,
+    )[];
+    @gm3-sys-color-surface-container-low: @mantle;
+    @gm3-sys-color-surface-container-low-rgb: #rgbify(
+      @gm3-sys-color-surface-container-low,
+    )[];
+    @gm3-sys-color-surface-container-lowest: @crust;
+    @gm3-sys-color-surface-container-lowest-rgb: #rgbify(
+      @gm3-sys-color-surface-container-lowest,
+    )[];
+
+    @gm3-sys-color-outline: @overlay2;
+    @gm3-sys-color-outline-rgb: #rgbify(@gm3-sys-color-outline)[];
+    @gm3-sys-color-outline-variant: @overlay0;
+    @gm3-sys-color-outline-variant-rgb: #rgbify(
+      @gm3-sys-color-outline-variant,
+    )[];
+
+    @gm3-sys-color-scrim: #000;
+    @gm3-sys-color-scrim-rgb: #rgbify(@gm3-sys-color-scrim)[];
+    @gm3-sys-color-shadow: #000;
+    @gm3-sys-color-shadow-rgb: #rgbify(@gm3-sys-color-shadow)[];
+
+    @light-image-filter: invert(1) hue-rotate(180deg);
+
+    // review: This "when" statement doesn't seem to be applying correctly
+    // causing contrast issues on certain elements
+    & when (@flavor = latte) {
+      @light-image-filter: brightness(0.9);
+    }
+
+    body {
+      --gm3-sys-color-background: @gm3-sys-color-background;
+      --gm3-sys-color-background-rgb: @gm3-sys-color-background-rgb;
+      --gm3-sys-color-error: @gm3-sys-color-error;
+      --gm3-sys-color-error-rgb: @gm3-sys-color-error-rgb;
+      --gm3-sys-color-error-container: @gm3-sys-color-error-container;
+      --gm3-sys-color-error-container-rgb: @gm3-sys-color-error-container-rgb;
+      --gm3-sys-color-inverse-on-surface: @gm3-sys-color-inverse-on-surface;
+      --gm3-sys-color-inverse-on-surface-rgb: @gm3-sys-color-inverse-on-surface-rgb;
+      --gm3-sys-color-inverse-primary: @gm3-sys-color-inverse-primary;
+      --gm3-sys-color-inverse-primary-rgb: @gm3-sys-color-inverse-primary-rgb;
+      --gm3-sys-color-inverse-surface: @gm3-sys-color-inverse-surface;
+      --gm3-sys-color-inverse-surface-rgb: @gm3-sys-color-inverse-surface-rgb;
+      --gm3-sys-color-on-background: @gm3-sys-color-on-background;
+      --gm3-sys-color-on-background-rgb: @gm3-sys-color-on-background-rgb;
+      --gm3-sys-color-on-error: @gm3-sys-color-on-error;
+      --gm3-sys-color-on-error-rgb: @gm3-sys-color-on-error-rgb;
+      --gm3-sys-color-on-error-container: @gm3-sys-color-on-error-container;
+      --gm3-sys-color-on-error-container-rgb: @gm3-sys-color-on-error-container-rgb;
+      --gm3-sys-color-on-primary: @gm3-sys-color-on-primary;
+      --gm3-sys-color-on-primary-rgb: @gm3-sys-color-on-primary-rgb;
+      --gm3-sys-color-on-primary-container: @gm3-sys-color-on-primary-container;
+      --gm3-sys-color-on-primary-container-rgb: @gm3-sys-color-on-primary-container-rgb;
+      --gm3-sys-color-on-primary-fixed: @gm3-sys-color-on-primary-fixed;
+      --gm3-sys-color-on-primary-fixed-rgb: @gm3-sys-color-on-primary-fixed-rgb;
+      --gm3-sys-color-on-primary-fixed-variant: @gm3-sys-color-on-primary-fixed-variant;
+      --gm3-sys-color-on-primary-fixed-variant-rgb: @gm3-sys-color-on-primary-fixed-variant-rgb;
+      --gm3-sys-color-on-secondary: @gm3-sys-color-on-secondary;
+      --gm3-sys-color-on-secondary-rgb: @gm3-sys-color-on-secondary-rgb;
+      --gm3-sys-color-on-secondary-container: @gm3-sys-color-on-secondary-container;
+      --gm3-sys-color-on-secondary-container-rgb: @gm3-sys-color-on-secondary-container-rgb;
+      --gm3-sys-color-on-secondary-fixed: @gm3-sys-color-on-secondary-fixed;
+      --gm3-sys-color-on-secondary-fixed-rgb: @gm3-sys-color-on-secondary-fixed-rgb;
+      --gm3-sys-color-on-secondary-fixed-variant: @gm3-sys-color-on-secondary-fixed-variant;
+      --gm3-sys-color-on-secondary-fixed-variant-rgb: @gm3-sys-color-on-secondary-fixed-variant-rgb;
+      --gm3-sys-color-on-surface: @gm3-sys-color-on-surface;
+      --gm3-sys-color-on-surface-rgb: @gm3-sys-color-on-surface-rgb;
+      --gm3-sys-color-on-surface-variant: @gm3-sys-color-on-surface-variant;
+      --gm3-sys-color-on-surface-variant-rgb: @gm3-sys-color-on-surface-variant-rgb;
+      --gm3-sys-color-on-tertiary: @gm3-sys-color-on-tertiary;
+      --gm3-sys-color-on-tertiary-rgb: @gm3-sys-color-on-tertiary-rgb;
+      --gm3-sys-color-on-tertiary-container: @gm3-sys-color-on-tertiary-container;
+      --gm3-sys-color-on-tertiary-container-rgb: @gm3-sys-color-on-tertiary-container-rgb;
+      --gm3-sys-color-on-tertiary-fixed: @gm3-sys-color-on-tertiary-fixed;
+      --gm3-sys-color-on-tertiary-fixed-rgb: @gm3-sys-color-on-tertiary-fixed-rgb;
+      --gm3-sys-color-on-tertiary-fixed-variant: @gm3-sys-color-on-tertiary-fixed-variant;
+      --gm3-sys-color-on-tertiary-fixed-variant-rgb: @gm3-sys-color-on-tertiary-fixed-variant-rgb;
+      --gm3-sys-color-outline: @gm3-sys-color-outline;
+      --gm3-sys-color-outline-rgb: @gm3-sys-color-outline-rgb;
+      --gm3-sys-color-outline-variant: @gm3-sys-color-outline-variant;
+      --gm3-sys-color-outline-variant-rgb: @gm3-sys-color-outline-variant-rgb;
+      --gm3-sys-color-primary: @gm3-sys-color-primary;
+      --gm3-sys-color-primary-rgb: @gm3-sys-color-primary-rgb;
+      --gm3-sys-color-primary-container: @gm3-sys-color-primary-container;
+      --gm3-sys-color-primary-container-rgb: @gm3-sys-color-primary-container-rgb;
+      --gm3-sys-color-primary-fixed: @gm3-sys-color-primary-fixed;
+      --gm3-sys-color-primary-fixed-rgb: @gm3-sys-color-primary-fixed-rgb;
+      --gm3-sys-color-primary-fixed-dim: @gm3-sys-color-primary-fixed-dim;
+      --gm3-sys-color-primary-fixed-dim-rgb: @gm3-sys-color-primary-fixed-dim-rgb;
+      --gm3-sys-color-scrim: @gm3-sys-color-scrim;
+      --gm3-sys-color-scrim-rgb: @gm3-sys-color-scrim-rgb;
+      --gm3-sys-color-secondary: @gm3-sys-color-secondary;
+      --gm3-sys-color-secondary-rgb: @gm3-sys-color-secondary-rgb;
+      --gm3-sys-color-secondary-container: @gm3-sys-color-secondary-container;
+      --gm3-sys-color-secondary-container-rgb: @gm3-sys-color-secondary-container-rgb;
+      --gm3-sys-color-secondary-fixed: @gm3-sys-color-secondary-fixed;
+      --gm3-sys-color-secondary-fixed-rgb: @gm3-sys-color-secondary-fixed-rgb;
+      --gm3-sys-color-secondary-fixed-dim: @gm3-sys-color-secondary-fixed-dim;
+      --gm3-sys-color-secondary-fixed-dim-rgb: @gm3-sys-color-secondary-fixed-dim-rgb;
+      --gm3-sys-color-shadow: @gm3-sys-color-shadow;
+      --gm3-sys-color-shadow-rgb: @gm3-sys-color-shadow-rgb;
+      --gm3-sys-color-surface: @gm3-sys-color-surface;
+      --gm3-sys-color-surface-rgb: @gm3-sys-color-surface-rgb;
+      --gm3-sys-color-surface-bright: @gm3-sys-color-surface-bright;
+      --gm3-sys-color-surface-bright-rgb: @gm3-sys-color-surface-bright-rgb;
+      --gm3-sys-color-surface-container: @gm3-sys-color-surface-container;
+      --gm3-sys-color-surface-container-rgb: @gm3-sys-color-surface-container-rgb;
+      --gm3-sys-color-surface-container-high: @gm3-sys-color-surface-container-high;
+      --gm3-sys-color-surface-container-high-rgb: @gm3-sys-color-surface-container-high-rgb;
+      --gm3-sys-color-surface-container-highest: @gm3-sys-color-surface-container-highest;
+      --gm3-sys-color-surface-container-highest-rgb: @gm3-sys-color-surface-container-highest-rgb;
+      --gm3-sys-color-surface-container-low: @gm3-sys-color-surface-container-low;
+      --gm3-sys-color-surface-container-low-rgb: @gm3-sys-color-surface-container-low-rgb;
+      --gm3-sys-color-surface-container-lowest: @gm3-sys-color-surface-container-lowest;
+      --gm3-sys-color-surface-container-lowest-rgb: @gm3-sys-color-surface-container-lowest-rgb;
+      --gm3-sys-color-surface-dim: @gm3-sys-color-surface-dim;
+      --gm3-sys-color-surface-dim-rgb: @gm3-sys-color-surface-dim-rgb;
+      --gm3-sys-color-surface-tint: @gm3-sys-color-surface-tint;
+      --gm3-sys-color-surface-tint-rgb: @gm3-sys-color-surface-tint-rgb;
+      --gm3-sys-color-surface-variant: @gm3-sys-color-surface-variant;
+      --gm3-sys-color-surface-variant-rgb: @gm3-sys-color-surface-variant-rgb;
+      --gm3-sys-color-tertiary: @gm3-sys-color-tertiary;
+      --gm3-sys-color-tertiary-rgb: @gm3-sys-color-tertiary-rgb;
+      --gm3-sys-color-tertiary-container: @gm3-sys-color-tertiary-container;
+      --gm3-sys-color-tertiary-container-rgb: @gm3-sys-color-tertiary-container-rgb;
+      --gm3-sys-color-tertiary-fixed: @gm3-sys-color-tertiary-fixed;
+      --gm3-sys-color-tertiary-fixed-rgb: @gm3-sys-color-tertiary-fixed-rgb;
+      --gm3-sys-color-tertiary-fixed-dim: @gm3-sys-color-tertiary-fixed-dim;
+      --gm3-sys-color-tertiary-fixed-dim-rgb: @gm3-sys-color-tertiary-fixed-dim-rgb;
+
+      --mdc-ripple-color: var(--gm3-sys-color-primary);
+    }
+
+    // Hyperlinks
+    a {
+      color: var(--gm3-sys-color-primary);
+    }
+
+    // M3 list migration component
+    .O68mGe-xl07Ob {
+      --gm3-list-list-item-disabled-leading-icon-color: initial;
+      --gm3-list-list-item-hover-leading-icon-icon-color: initial;
+      --gm3-list-list-item-selected-trailing-icon-color: initial;
+      --gm3-list-list-item-leading-icon-color: initial;
+      --gm3-list-list-item-trailing-icon-color: initial;
+      --gm3-list-list-item-selected-label-text-color: initial;
+      --gm3-list-list-item-supporting-text-color: initial;
+      --gm3-list-list-item-trailing-supporting-text-color: initial;
+      --gm3-list-list-item-disabled-label-text-color: initial;
+      --gm3-list-list-item-disabled-supporting-text-color: initial;
+      --gm3-list-list-item-disabled-trailing-supporting-text-color: initial;
+      --gm3-list-list-item-focus-label-text-color: initial;
+      --gm3-list-list-item-hover-label-text-color: initial;
+      --gm3-list-list-item-label-text-color: initial;
+    }
+
+    // "Add birthdays" card
+    .eVDL2-WsjYwc {
+      --gm3-card-elevated-container-color: var(--gm3-sys-color-surface);
+      --gm3-card-elevated-container-elevation: 0;
+    }
+
+    // "Good work. No new suggestions" image when no
+    // Merge & fix suggestions are available
+    .zucFAc,
+    // "Display density" interface preview images
+    .sSe4od > img,
+    // "No contacts with this label" image when
+    // viewing an empty label
+    .aQUH8d,
+    // "How to label contacts" image when clicking
+    // `Label contacts` button when viewing an empty label
+    .EK7xae,
+    // "No contacts yet" animation on contacts page
+    .tygB .Bkiz0e,
+    .tygB .LsW6s,
+    .tygB .coLvPb,
+    .tygB .jWTQ8,
+    // "Easy ways to fix up your contacts" image under Merge & fix
+    .KwL5Td,
+    // "Update birthday" add birthday cake icon
+    .KMki9c .AZW99.nhiZfc .DcfYrb {
+      filter: @light-image-filter;
+    }
+
+    // Main site header
+    header.gb_Fa {
+      background-color: var(--gm3-sys-color-surface-container-low) !important;
+      color: var(--gm3-sys-color-on-surface);
+    }
+
+    // Search bar
+    .gb_id,
+    .JPdR6b,
+    // "Why in Trash?" deleted contact card
+    .zadfYd .j3urvf,
+    // Search bar results box
+    .VOEIyf .jBmls {
+      background-color: var(--gm3-sys-color-surface-container);
+    }
+
+    // Legacy(M2) menu item hover
+    .z80M1.FwR7Pc,
+    .z80M1.FwR7Pcm,
+    // Search bar results box selected/hovered item
+    .oKubKe[aria-selected="true"] {
+      background-color: var(--gm3-sys-color-surface-container-highest)
+        !important;
+    }
+
+    // Legacy(M2) menu item checkbox
+    .z80M1.N2RpBe::before,
+    // Inter-page load spinner
+    .RiYDI {
+      border-color: var(--gm3-sys-color-primary);
+    }
+
+    // Inter-page load spinner
+    .RiYDI {
+      border-top-color: transparent;
+    }
+
+    // Legacy(M2) menu item ripple
+    .z80M1.qs41qe > .aBBjbd {
+      background-image: radial-gradient(
+        closest-side,
+        var(
+          --gm3-ripple-pressed-color,
+          rgba(var(--gm3-sys-color-on-surface-rgb, currentcolor), 0.12)
+        ) max(100% - 70px, 65%),
+        transparent 100%
+      );
+    }
+
+    // Legacy(M2) menu focused
+    .M0DyZb .z80M1:hover, .M0DyZb .z80M1:focus {
+      background: var(--gm3-sys-color-surface-container);
+    }
+
+    // Legacy(M2) menu divider
+    .VfPpkd-StrnGf-rymPhb-clz4Ic,
+    .kCtYwe {
+      border-color: var(--gm3-sys-color-outline-variant);
+    }
+
+    // Legacy tooltip text color
+    .gb_Bc div:first-child,
+    .gb_Bc > *,
+    // "Outside working hours" badge icon
+    .Jp9HWd {
+      color: inherit;
+    }
+
+    // PFP edit button gap zone
+    .jkrPQc {
+      background-color: var(--gm3-sys-color-surface);
+    }
+
+    // "Outside working hours" badge
+    .qbmD1c {
+      // Intentionally set as mauve opposed to accent
+      background-color: saturate(
+        mix(@mauve, @mantle, 25%),
+        20%
+      );
+      color: @mauve;
+    }
+
+    // "Manage delegate access" primary text
+    .KI6D8e,
+    // App header
+    .gb_Fa,
+    .ZKP9Md,
+    .gb_Fa svg,
+    // Google Contacts logo text
+    .gb_sd .gb_td,
+    // Certain menu text
+    .tB5Jxf-xl07Ob-XxIAqe,
+    // Search bar text input
+    .VOEIyf,
+    // Search bar result box text
+    .VOEIyf .jBmls,
+    // Search bar result item text
+    .oKubKe,
+    // Legacy(M2) menu item text and icons
+    .z80M1,
+    .lueeKe.lueeKe,
+    .s8kOBc .VfPpkd-StrnGf-rymPhb,
+    .s8kOBc .VfPpkd-StrnGf-rymPhb .VfPpkd-StrnGf-rymPhb-ibnC6b-OWXEXe-gk6SMd,
+    .s8kOBc .VfPpkd-StrnGf-rymPhb .VfPpkd-StrnGf-rymPhb-ibnC6b-OWXEXe-pXU01b,
+    .s8kOBc
+      .VfPpkd-StrnGf-rymPhb
+      .VfPpkd-StrnGf-rymPhb-ibnC6b-OWXEXe-gk6SMd
+      .VfPpkd-StrnGf-rymPhb-f7MjDc,
+    .s8kOBc
+      .VfPpkd-StrnGf-rymPhb
+      .VfPpkd-StrnGf-rymPhb-ibnC6b-OWXEXe-pXU01b
+      .VfPpkd-StrnGf-rymPhb-f7MjDc {
+      color: var(--gm3-sys-color-on-surface);
+    }
+
+    // Legacy(M2) menu item selected
+    .s8kOBc
+      .VfPpkd-StrnGf-rymPhb
+      .VfPpkd-StrnGf-rymPhb-ibnC6b.VfPpkd-StrnGf-rymPhb-ibnC6b-OWXEXe-gk6SMd {
+      background-color: var(--gm3-sys-color-primary-container);
+    }
+
+    // Certain legacy button icons (Search)
+    .gb_id button svg,
+    .gb_id button img,
+    // Legacy arrow dropdown colour
+    .ReCbLb:not(.VfPpkd-O1htCb-OWXEXe-OWB6Me).VfPpkd-O1htCb-OWXEXe-XpnDCe
+      .VfPpkd-t08AT-Bz112c {
+      fill: currentcolor;
+    }
+
+    // Certain M3 button icons (Help menu, Settings menu)
+    .bziVTe {
+      --gm3-icon-button-standard-unselected-icon-color: var(
+        --md-sys-color-on-surface
+      );
+      --gm3-icon-button-standard-unselected-hover-icon-color: var(
+        --md-sys-color-on-surface
+      );
+      --gm3-icon-button-standard-unselected-focus-icon-color: var(
+        --md-sys-color-on-surface
+      );
+      --gm3-icon-button-standard-unselected-pressed-icon-color: var(
+        --md-sys-color-on-surface
+      );
+    }
+
+    .JvO9cb,
+    .H1IxX,
+    // Background for Google Workspace managed account pill
+    .gb_Wa {
+      background: transparent;
+    }
+
+    // Warning merge contact data loss
+    .BPX1ed.eLNT1d {
+      background-color: var(--gm3-sys-color-caution-container);
+    }
+
+    .BPX1ed.QIMKlc {
+      color: var(--gm3-sys-color-on-primary);
+    }
+
+    .VUoKZ > .TRHLAc {
+      background-color: var(--gm3-sys-color-primary);
+    }
+
+    // "Manage delegate access" secondary text
+    .mf6tRb, .waKsec {
+      color: var(--gm3-sys-color-on-surface-variant);
+    }
+
+    // Outline for Google Workspace managed account pill
+    .gb_Wa, .Be1lEd {
+      border-color: var(--gm3-sys-color-on-surface);
+    }
+
+    // Hover outline for Google Workspace managed account pill
+    .gb_Wa:hover {
+      border-color: var(--gm3-sys-color-outline);
+    }
+
+    // Legacy tooltips, seen in header and certain M2 components
+    .gb_Ac, .RM9ulf, .R8qYlc {
+      background-color: var(--gm3-sys-color-inverse-surface);
+      color: var(
+        --gm3-tooltip-plain-supporting-text-color,
+        var(--gm3-sys-color-inverse-on-surface, #f2f2f2)
+      );
+    }
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
