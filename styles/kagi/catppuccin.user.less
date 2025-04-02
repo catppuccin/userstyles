@@ -1,0 +1,729 @@
+/* ==UserStyle==
+@name Kagi Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/kagi
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/kagi
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/kagi/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Akagi
+@description Soothing pastel theme for kagi
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+@-moz-document regexp("^(?!https:\\/\\/kagi\\.com\\/signin$)https:\\/\\/kagi\\.com\\/.*$") {
+  :root.theme_light:not(.theme_moon_dark_conditional),
+  :root.theme_light:not(.theme_dark_conditional) {
+    #catppuccin(@lightFlavor);
+  }
+
+  :root.theme_moon_dark_conditional,
+  :root.theme_dark_conditional,
+  :root.theme_moon_dark,
+  :root.theme_dark {
+    #catppuccin(@darkFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor =latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    .cth_settings_content_box {
+      background-color: @surface0;
+    }
+
+    nav .cth_settings_nav_menu .nav-link.--active {
+      color: @crust;
+      & > i {
+        color: @crust;
+      }
+    }
+
+    // Logo colors
+    div.doggo_sit_a path[fill="#FFB319"] {
+      fill: @yellow;
+    }
+
+    #shadow-filter > feFlood {
+      flood-color: if(@flavor =latte, @crust, @text);
+    }
+
+    div.doggo_sit_a *[fill="#18181A"] {
+      fill: if(@flavor =latte, @text, @crust);
+    }
+    div.doggo_sit_a *[stroke="#18181A"] {
+      stroke: if(@flavor =latte, @text, @crust);
+    }
+    div.doggo_sit_a *[fill="white"] {
+      fill: if(@flavor =latte, @crust, @text);
+    }
+    div.doggo_sit_a *[stroke="white"] {
+      stroke: if(@flavor =latte, @crust, @text);
+    }
+
+    // Element color overrides
+
+    .k_ui_toggle_switch input:checked ~ .k_ui_toggle_switch_bar,
+    #_0_lens_table_active .k_ui_toggle_switch .k_ui_toggle_switch_bar {
+      background-color: @surface2;
+      border-color: @overlay0;
+    }
+    .k_ui_toggle_switch input:checked ~ .k_ui_toggle_switch_bar:after {
+      border-color: @overlay0;
+    }
+    .interface-scale input:checked + label:after {
+      background: @accent;
+    }
+
+    .interface-scale label:hover:after {
+      background: @accent;
+    }
+
+    .btn.--danger {
+      background-color: @red;
+    }
+
+    .btn.--danger-transp {
+      color: @surface0;
+      background-color: @red;
+    }
+
+    // Settings page
+    .member-count-box {
+      background: @surface1;
+    }
+
+    .k_ui_tab_switch.tab-switch-purple input[type="checkbox"]:checked ~ .tab-1,
+    .k_ui_tab_switch.tab-switch-purple
+      input[type="checkbox"]:not(:checked)
+      ~ .tab-0 {
+      background-color: @accent !important;
+      color: @surface0 !important;
+    }
+
+    .team_member_badge.--owner {
+      background-color: @accent;
+      color: @surface0;
+    }
+
+    .cth_settings_content_box input:focus-visible {
+      outline: 3px solid @accent;
+    }
+
+    .otp-bubble {
+      color: @surface0;
+    }
+
+    // Control center (hamburger menu)
+    .quick-settings .service-status-light {
+      background-color: @green;
+    }
+
+    .quick-settings .service-status-light.--red {
+      background-color: @red;
+    }
+
+    // Onboarding page
+
+    .onb_plan.__highlighted .onb_plan_choose_btn_box > .btn {
+      color: @base;
+    }
+    .onboarding_plans_box {
+      background: linear-gradient(180deg, var(--app-bg) 40%, @peach 40%);
+    }
+    .onb_plans_wrapper {
+      background-color: @peach;
+    }
+
+    // Image Preview
+    .image-preview-wrapper {
+      background-color: @surface2;
+    }
+    .image-preview-footer {
+      background-color: @base;
+    }
+    #PreviewImageTitle {
+      color: @text;
+    }
+    #PreviewImageUrl {
+      color: @accent;
+    }
+    #PreviewImageViewImageBtn {
+      background-color: @text !important;
+      color: @surface0 !important;
+    }
+    #PreviewImageViewImageBtn:hover {
+      background-color: @accent !important;
+    }
+    #PreviewImageDownloadImageBtn {
+      border: 1px solid @text;
+      color: @text;
+    }
+    #PreviewImageDownloadImageBtn:hover {
+      border: 1px solid @accent;
+      color: @accent;
+    }
+    .image-preview-info-body {
+      background-color: @surface2;
+    }
+
+    .image-preview-info-item__title {
+      color: @text !important;
+    }
+
+    // variable overrides
+    --secondary: @crust;
+    --primary-25: @crust;
+    --primary-50: @mantle;
+    --primary-70: @base;
+    --primary-100: @surface0;
+    --primary-200: @surface1;
+    --primary-300: @surface2;
+    --primary-400: @overlay0;
+    --primary-600: @overlay1;
+    --primary-700: @overlay2;
+    --primary-800: @subtext0;
+    --primary-850: @subtext1;
+    --primary-900: @text;
+    --primary-950: @text;
+    --primary: @text;
+
+    --graphite: @base;
+    --graphite-25: @text;
+    --graphite-50: @text;
+    --graphite-70: @subtext1;
+    --graphite-100: @subtext0;
+    --graphite-200: @overlay2;
+    --graphite-300: @overlay1;
+    --graphite-400: @overlay0;
+    --graphite-600: @surface2;
+    --graphite-700: @surface1;
+    --graphite-800: @surface0;
+    --graphite-850: @base;
+    --graphite-900: @mantle;
+    --graphite-950: @crust;
+    --graphite-1000: @crust;
+    --chrome-25: @text;
+    --chrome-50: @text;
+    --chrome-70: @subtext1;
+    --chrome-100: @subtext0;
+    --chrome-200: @overlay2;
+    --chrome-300: @overlay1;
+    --chrome-400: @overlay0;
+    --chrome-600: @surface2;
+    --chrome-700: @surface1;
+    --chrome-800: @surface0;
+    --chrome-850: @base;
+    --chrome-900: @mantle;
+    --chrome-950: @crust;
+    --chrome-1000: @crust;
+
+    --app-bg: @base;
+    --blue: @blue;
+    --bottom-bar-bg: @mantle;
+    --btn-primary-bg: @text;
+    --btn-primary-color: @surface0;
+    --calm: @surface1;
+    --color-danger: @maroon;
+    --color-search-input-border: @surface2;
+    --danger: @maroon;
+    --doggo-color-1: @subtext1;
+    --doggo-color-1: @text;
+    --domain-rank-icon-color-scam-hover: @peach;
+    --domain-rank-icon-color-scam: @maroon;
+    --domain-rank-icon-color-trackers-hover: @peach;
+    --domain-rank-icon-color-trackers: @maroon;
+    --filter-dd-bg: @crust;
+    --filter-dd-bg: @subtext1;
+    --info: @sapphire;
+    --inline-domain-tag-bg: @mantle;
+    --input-bg: @surface0;
+    --k-tooltip-text: @text;
+    --kagi-orange: @peach;
+    --landing-bg: @base;
+    --link: @lavender;
+    --nav_n_im_line: @blue;
+    --nav_n_ma_line: @green;
+    --nav_n_ne_line: @mauve;
+    --nav_n_se_line: @peach;
+    --nav_n_vi_line: @red;
+    --not-found-bubble-bg: @subtext1;
+    --primary-hover: @accent;
+    --primary-hover-hover: fade(@accent, 80%);
+    --primary-visited: darken(@accent, 5%);
+    --purple-300: @lavender;
+    --purple-400: @lavender;
+    --purple-500: @lavender;
+    --purple-600: @lavender;
+    --purple-800: @mauve;
+    --purple-900: @mauve;
+    --quick-search-bg: @text;
+    --quick-search-icon: @text;
+    --ranked-box-connection-insecure: @peach;
+    --ranked-box-connection-secure: @green;
+    --ranked-box-tracker-desc-clear: @green;
+    --ranked-box-tracker-desc-danger: @maroon;
+    --rating-star_background: @overlay2;
+    --result-item-highlight: @blue;
+    --result-item-title-visited-border: @subtext1;
+    --resultsummary-highlight: @lavender;
+    --search-result-content-text: @subtext0;
+    --search-result-date-bg: @surface0;
+    --search-result-date-new-bg: @subtext1;
+    --search-result-date-new: @overlay1;
+    --search-result-title: @text;
+    --success: @green;
+    --translate-fc_icon: @surface0;
+    --warning: @yellow;
+    --white: @text;
+    --widget-progress_bar: @subtext0;
+    --yellow: @yellow;
+  }
+}
+
+@-moz-document url-prefix("https://kagi.com/fastgpt")
+{
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor =latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    .footer_note_box_inner {
+      background-color: @surface0 !important;
+      color: @subtext1;
+    }
+
+    // Logo colors
+    div.doggo_image_1 *[fill="#FFB319"] {
+      fill: @yellow;
+    }
+
+    div.doggo_image_1 *[fill="#18181A"] {
+      fill: if(@flavor =latte, @text, @crust);
+    }
+    div.doggo_image_1 *[stroke="#18181A"] {
+      stroke: if(@flavor =latte, @text, @crust);
+    }
+    div.doggo_image_1 *[fill="white"] {
+      fill: if(@flavor =latte, @crust, @text);
+    }
+    div.doggo_image_1 *[stroke="white"] {
+      stroke: if(@flavor =latte, @crust, @text);
+    }
+
+    --secondary: @crust;
+    --primary-25: @crust;
+    --primary-50: @mantle;
+    --primary-70: @base;
+    --primary-100: @surface0;
+    --primary-200: @surface1;
+    --primary-300: @surface2;
+    --primary-400: @overlay0;
+    --primary-600: @overlay1;
+    --primary-700: @overlay2;
+    --primary-800: @subtext0;
+    --primary-850: @subtext1;
+    --primary-900: @text;
+    --primary-950: @text;
+    --primary: @text;
+    --primary-hover: @accent;
+
+    --c_page_link: @accent;
+    --c_page_bg: @base;
+    --c_white: @text;
+  }
+}
+
+@-moz-document domain("translate.kagi.com") {
+  :root.dark {
+    #catppuccin(@darkFlavor);
+  }
+
+  :root.light {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+    body {
+      color: @text;
+    }
+
+    // Manual color overrides
+    .dark\:bg-\[\#232325\]:where(.dark, .dark *) {
+      background-color: @base;
+    }
+    .dark\:bg-\[\#2F2F31\]:where(.dark, .dark *) {
+      background-color: @surface0;
+    }
+    .bookmarklet-container a {
+      color: @accent;
+    }
+    .dark\:text-\[\#FFB319\]:where(.dark, .dark *) {
+      color: @yellow;
+    }
+    .text-\[#c3870e\] {
+      color: @yellow;
+    }
+
+    .partial-ring:before {
+      background: conic-gradient(
+        from var(--border-angle),
+        @peach 0 50%,
+        transparent 50% 100%
+      );
+    }
+
+    & when not(@flavor = latte) {
+      img[alt="doggo"] {
+        filter: invert(5%) brightness(110%) contrast(80%);
+      }
+    }
+
+    --color-yellow: @yellow;
+    --color-purple-500: fade(@accent, 80%);
+    --color-purple-600: @accent;
+
+    --color-zinc-50: if(@flavor = latte, @crust, @text);
+    --color-zinc-100: if(@flavor = latte, @mantle, @text);
+    --color-zinc-100: if(@flavor = latte, @surface0, @text);
+    --color-zinc-200: if(@flavor = latte, @surface1, @subtext1);
+    --color-zinc-300: if(@flavor = latte, @surface2, @subtext0);
+    --color-zinc-400: if(@flavor = latte, @overlay0, @overlay2);
+    --color-zinc-600: if(@flavor = latte, @overlay1, @overlay1);
+    --color-zinc-700: if(@flavor = latte, @overlay2, @overlay0);
+    --color-zinc-800: if(@flavor = latte, @subtext1, @surface1);
+    --color-zinc-900: if(@flavor = latte, @text, @mantle);
+  }
+}
+@-moz-document url-prefix("https://kagi.com/signin")
+{
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    .login_page_asset_box {
+      background-color: @surface0;
+      color: @text;
+    }
+    .login_page_form_box {
+      background-color: @base;
+      color: @text;
+    }
+    #signInForm input:focus-visible {
+      outline: 3px solid @accent;
+    }
+    .signup-doggo-mobile,
+    .signup-doggo-desktop {
+      *[fill="#FFB319"] {
+        fill: @yellow;
+      }
+
+      *[fill="#18181A"] {
+        fill: if(@flavor =latte, @text, @crust);
+      }
+      *[stroke="#18181A"] {
+        stroke: if(@flavor =latte, @text, @crust);
+      }
+      *[fill="white"] {
+        fill: if(@flavor =latte, @crust, @text);
+      }
+      *[stroke="white"] {
+        stroke: if(@flavor =latte, @crust, @text);
+      }
+      #shadow-filter > feFlood {
+        flood-color: if(@flavor =latte, @crust, @text);
+      }
+    }
+    --primary: @text;
+    --primary-hover: @accent;
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte: {
+    @rosewater: #dc8a78;
+    @flamingo: #dd7878;
+    @pink: #ea76cb;
+    @mauve: #8839ef;
+    @red: #d20f39;
+    @maroon: #e64553;
+    @peach: #fe640b;
+    @yellow: #df8e1d;
+    @green: #40a02b;
+    @teal: #179299;
+    @sky: #04a5e5;
+    @sapphire: #209fb5;
+    @blue: #1e66f5;
+    @lavender: #7287fd;
+    @text: #4c4f69;
+    @subtext1: #5c5f77;
+    @subtext0: #6c6f85;
+    @overlay2: #7c7f93;
+    @overlay1: #8c8fa1;
+    @overlay0: #9ca0b0;
+    @surface2: #acb0be;
+    @surface1: #bcc0cc;
+    @surface0: #ccd0da;
+    @base: #eff1f5;
+    @mantle: #e6e9ef;
+    @crust: #dce0e8;
+  };
+  @frappe: {
+    @rosewater: #f2d5cf;
+    @flamingo: #eebebe;
+    @pink: #f4b8e4;
+    @mauve: #ca9ee6;
+    @red: #e78284;
+    @maroon: #ea999c;
+    @peach: #ef9f76;
+    @yellow: #e5c890;
+    @green: #a6d189;
+    @teal: #81c8be;
+    @sky: #99d1db;
+    @sapphire: #85c1dc;
+    @blue: #8caaee;
+    @lavender: #babbf1;
+    @text: #c6d0f5;
+    @subtext1: #b5bfe2;
+    @subtext0: #a5adce;
+    @overlay2: #949cbb;
+    @overlay1: #838ba7;
+    @overlay0: #737994;
+    @surface2: #626880;
+    @surface1: #51576d;
+    @surface0: #414559;
+    @base: #303446;
+    @mantle: #292c3c;
+    @crust: #232634;
+  };
+  @macchiato: {
+    @rosewater: #f4dbd6;
+    @flamingo: #f0c6c6;
+    @pink: #f5bde6;
+    @mauve: #c6a0f6;
+    @red: #ed8796;
+    @maroon: #ee99a0;
+    @peach: #f5a97f;
+    @yellow: #eed49f;
+    @green: #a6da95;
+    @teal: #8bd5ca;
+    @sky: #91d7e3;
+    @sapphire: #7dc4e4;
+    @blue: #8aadf4;
+    @lavender: #b7bdf8;
+    @text: #cad3f5;
+    @subtext1: #b8c0e0;
+    @subtext0: #a5adcb;
+    @overlay2: #939ab7;
+    @overlay1: #8087a2;
+    @overlay0: #6e738d;
+    @surface2: #5b6078;
+    @surface1: #494d64;
+    @surface0: #363a4f;
+    @base: #24273a;
+    @mantle: #1e2030;
+    @crust: #181926;
+  };
+  @mocha: {
+    @rosewater: #f5e0dc;
+    @flamingo: #f2cdcd;
+    @pink: #f5c2e7;
+    @mauve: #cba6f7;
+    @red: #f38ba8;
+    @maroon: #eba0ac;
+    @peach: #fab387;
+    @yellow: #f9e2af;
+    @green: #a6e3a1;
+    @teal: #94e2d5;
+    @sky: #89dceb;
+    @sapphire: #74c7ec;
+    @blue: #89b4fa;
+    @lavender: #b4befe;
+    @text: #cdd6f4;
+    @subtext1: #bac2de;
+    @subtext0: #a6adc8;
+    @overlay2: #9399b2;
+    @overlay1: #7f849c;
+    @overlay0: #6c7086;
+    @surface2: #585b70;
+    @surface1: #45475a;
+    @surface0: #313244;
+    @base: #1e1e2e;
+    @mantle: #181825;
+    @crust: #11111b;
+  };
+};
