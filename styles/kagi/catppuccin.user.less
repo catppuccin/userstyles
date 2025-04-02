@@ -14,7 +14,7 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
-@-moz-document domain("kagi.com") {
+@-moz-document regexp("^(?!https:\\/\\/kagi\\.com\\/signin$)https:\\/\\/kagi\\.com\\/.*$") {
   :root.theme_light:not(.theme_moon_dark_conditional),
   :root.theme_light:not(.theme_dark_conditional) {
     #catppuccin(@lightFlavor);
@@ -423,12 +423,8 @@
 @-moz-document domain("translate.kagi.com") {
   :root.dark {
     #catppuccin(@darkFlavor);
-    // image filter because the logo is imported as an image with an svg source
-    // don't lighten on light mode
-    img[alt="doggo"] {
-      filter: invert(5%) brightness(110%) contrast(80%);
-    }
   }
+
   :root.light {
     #catppuccin(@lightFlavor);
   }
@@ -503,6 +499,12 @@
       );
     }
 
+    & when not(@flavor = latte) {
+      img[alt="doggo"] {
+        filter: invert(5%) brightness(110%) contrast(80%);
+      }
+    }
+
     --color-yellow: @yellow;
     --color-purple-500: fade(@accent, 80%);
     --color-purple-600: @accent;
@@ -517,6 +519,96 @@
     --color-zinc-700: if(@flavor = latte, @overlay2, @overlay0);
     --color-zinc-800: if(@flavor = latte, @subtext1, @surface1);
     --color-zinc-900: if(@flavor = latte, @text, @mantle);
+  }
+}
+@-moz-document url-prefix("https://kagi.com/signin")
+{
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    .login_page_asset_box {
+      background-color: @surface0;
+      color: @text;
+    }
+    .login_page_form_box {
+      background-color: @base;
+      color: @text;
+    }
+    #signInForm input:focus-visible {
+      outline: 3px solid @accent;
+    }
+    .signup-doggo-mobile,
+    .signup-doggo-desktop {
+      *[fill="#FFB319"] {
+        fill: @yellow;
+      }
+
+      *[fill="#18181A"] {
+        fill: if(@flavor =latte, @text, @crust);
+      }
+      *[stroke="#18181A"] {
+        stroke: if(@flavor =latte, @text, @crust);
+      }
+      *[fill="white"] {
+        fill: if(@flavor =latte, @crust, @text);
+      }
+      *[stroke="white"] {
+        stroke: if(@flavor =latte, @crust, @text);
+      }
+      #shadow-filter > feFlood {
+        flood-color: if(@flavor =latte, @crust, @text);
+      }
+    }
+    --primary: @text;
+    --primary-hover: @accent;
   }
 }
 
