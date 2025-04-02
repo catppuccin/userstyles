@@ -15,18 +15,15 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 @-moz-document domain("kagi.com") {
-  :root.theme_moon_dark,
-  :root.theme_dark {
-    #catppuccin(@darkFlavor);
-  }
-
   :root.theme_light:not(.theme_moon_dark_conditional),
   :root.theme_light:not(.theme_dark_conditional) {
     #catppuccin(@lightFlavor);
   }
 
   :root.theme_moon_dark_conditional,
-  :root.theme_dark_conditional {
+  :root.theme_dark_conditional,
+  :root.theme_moon_dark,
+  :root.theme_dark {
     #catppuccin(@darkFlavor);
   }
 
@@ -83,6 +80,30 @@
       }
     }
 
+    // Logo colors
+    div.doggo_sit_a path[fill="#FFB319"] {
+      fill: @yellow;
+    }
+
+    #shadow-filter > feFlood {
+      flood-color: if(@flavor =latte, @crust, @text);
+    }
+
+    div.doggo_sit_a *[fill="#18181A"] {
+      fill: if(@flavor =latte, @text, @crust);
+    }
+    div.doggo_sit_a *[stroke="#18181A"] {
+      stroke: if(@flavor =latte, @text, @crust);
+    }
+    div.doggo_sit_a *[fill="white"] {
+      fill: if(@flavor =latte, @crust, @text);
+    }
+    div.doggo_sit_a *[stroke="white"] {
+      stroke: if(@flavor =latte, @crust, @text);
+    }
+
+    // Element color overrides
+
     .k_ui_toggle_switch input:checked ~ .k_ui_toggle_switch_bar,
     #_0_lens_table_active .k_ui_toggle_switch .k_ui_toggle_switch_bar {
       background-color: @surface2;
@@ -108,6 +129,7 @@
       background-color: @red;
     }
 
+    // Settings page
     .member-count-box {
       background: @surface1;
     }
@@ -132,6 +154,8 @@
     .otp-bubble {
       color: @surface0;
     }
+
+    // Control center (hamburger menu)
     .quick-settings .service-status-light {
       background-color: @green;
     }
@@ -139,6 +163,8 @@
     .quick-settings .service-status-light.--red {
       background-color: @red;
     }
+
+    // Onboarding page
 
     .onb_plan.__highlighted .onb_plan_choose_btn_box > .btn {
       color: @base;
@@ -149,6 +175,7 @@
     .onb_plans_wrapper {
       background-color: @peach;
     }
+
     // Image Preview
     .image-preview-wrapper {
       background-color: @surface2;
@@ -294,6 +321,7 @@
     --yellow: @yellow;
   }
 }
+
 @-moz-document url-prefix("https://kagi.com/fastgpt")
 {
   :root {
@@ -345,30 +373,28 @@
         color: @subtext0 !important;
       }
     }
-    background-color: @base !important;
-    body {
-      background-color: @base !important;
-      color: @text;
-    }
+
     .footer_note_box_inner {
       background-color: @surface0 !important;
       color: @subtext1;
     }
 
-    div.doggo_image_1 path[fill="#18181A"] {
-      fill: @surface0;
-    }
-    div.doggo_image_1 path[stroke="#18181A"] {
-      stroke: @surface0;
-    }
-    div.doggo_image_1 path[fill="white"] {
-      fill: @text;
-    }
-    div.doggo_image_1 path[stroke="white"] {
-      stroke: @text;
-    }
-    div.doggo_image_1 path[fill="#FFB319"] {
+    // Logo colors
+    div.doggo_image_1 *[fill="#FFB319"] {
       fill: @yellow;
+    }
+
+    div.doggo_image_1 *[fill="#18181A"] {
+      fill: if(@flavor =latte, @text, @crust);
+    }
+    div.doggo_image_1 *[stroke="#18181A"] {
+      stroke: if(@flavor =latte, @text, @crust);
+    }
+    div.doggo_image_1 *[fill="white"] {
+      fill: if(@flavor =latte, @crust, @text);
+    }
+    div.doggo_image_1 *[stroke="white"] {
+      stroke: if(@flavor =latte, @crust, @text);
     }
 
     --secondary: @crust;
@@ -393,36 +419,18 @@
     --c_white: @text;
   }
 }
+
 @-moz-document domain("translate.kagi.com") {
   :root.dark {
     #catppuccin(@darkFlavor);
-    // flipped zinc to make replacements easier
-    --color-zinc-50: @text;
-    --color-zinc-100: @text;
-    --color-zinc-100: @text;
-    --color-zinc-200: @subtext1;
-    --color-zinc-300: @subtext0;
-    --color-zinc-400: @overlay2;
-    --color-zinc-600: @overlay1;
-    --color-zinc-700: @overlay0;
-    --color-zinc-800: @surface1;
-    --color-zinc-900: @mantle;
+    // image filter because the logo is imported as an image with an svg source
+    // don't lighten on light mode
     img[alt="doggo"] {
       filter: invert(5%) brightness(110%) contrast(80%);
     }
   }
   :root.light {
     #catppuccin(@lightFlavor);
-    --color-zinc-50: @crust;
-    --color-zinc-100: @mantle;
-    --color-zinc-100: @surface0;
-    --color-zinc-200: @surface1;
-    --color-zinc-300: @surface2;
-    --color-zinc-400: @overlay0;
-    --color-zinc-600: @overlay1;
-    --color-zinc-700: @overlay2;
-    --color-zinc-800: @subtext1;
-    --color-zinc-900: @text;
   }
 
   #catppuccin(@flavor) {
@@ -470,7 +478,7 @@
       color: @text;
     }
 
-    // manual color overrides
+    // Manual color overrides
     .dark\:bg-\[\#232325\]:where(.dark, .dark *) {
       background-color: @base;
     }
@@ -494,19 +502,21 @@
         transparent 50% 100%
       );
     }
+
     --color-yellow: @yellow;
     --color-purple-500: fade(@accent, 80%);
     --color-purple-600: @accent;
-    --color-zinc-50: @text;
-    --color-zinc-100: @text;
-    --color-zinc-100: @text;
-    --color-zinc-200: @subtext1;
-    --color-zinc-300: @subtext0;
-    --color-zinc-400: @overlay2;
-    --color-zinc-600: @overlay1;
-    --color-zinc-700: @overlay0;
-    --color-zinc-800: @surface1;
-    --color-zinc-900: @mantle;
+
+    --color-zinc-50: if(@flavor = latte, @crust, @text);
+    --color-zinc-100: if(@flavor = latte, @mantle, @text);
+    --color-zinc-100: if(@flavor = latte, @surface0, @text);
+    --color-zinc-200: if(@flavor = latte, @surface1, @subtext1);
+    --color-zinc-300: if(@flavor = latte, @surface2, @subtext0);
+    --color-zinc-400: if(@flavor = latte, @overlay0, @overlay2);
+    --color-zinc-600: if(@flavor = latte, @overlay1, @overlay1);
+    --color-zinc-700: if(@flavor = latte, @overlay2, @overlay0);
+    --color-zinc-800: if(@flavor = latte, @subtext1, @surface1);
+    --color-zinc-900: if(@flavor = latte, @text, @mantle);
   }
 }
 
