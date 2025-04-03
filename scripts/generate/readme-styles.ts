@@ -39,10 +39,10 @@ function getNameWithGitHubUrl(
   // no-op when undefined
   if (!collaborators) return;
   // keep name & set the url to the github.com/<name>
-  return collaborators.map((c) => {
+  return collaborators.map((name) => {
     return {
-      name: c,
-      url: `https://github.com/${c}`
+      name,
+      url: `https://github.com/${name}`
     };
   });
 }
