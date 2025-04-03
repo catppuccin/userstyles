@@ -42,7 +42,7 @@ function getNameWithGitHubUrl(
   return collaborators.map((name) => {
     return {
       name,
-      url: `https://github.com/${name}`
+      url: `https://github.com/${name}`,
     };
   });
 }
