@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [Ryan Cao](https://github.com/ryanccn)
+- [ryanccn](https://github.com/ryanccn)
 
 
 &nbsp;

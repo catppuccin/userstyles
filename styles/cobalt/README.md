@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [keri](https://github.com/kerichdev)
+- [kerichdev](https://github.com/kerichdev)
 
 
 &nbsp;

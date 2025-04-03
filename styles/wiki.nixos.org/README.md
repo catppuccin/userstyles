@@ -24,10 +24,10 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [orangc](https://github.com/orangci)
+- [orangci](https://github.com/orangci)
 
 ## 💖 Past Maintainer
-- [winston](https://github.com/nekowinston)
+- [nekowinston](https://github.com/nekowinston)
 
 &nbsp;
 

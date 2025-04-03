@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [rooot](https://github.com/RoootTheFox)
+- [RoootTheFox](https://github.com/RoootTheFox)
 
 
 &nbsp;

@@ -23,8 +23,9 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 
-## 💝 Current Maintainer
+## 💝 Current Maintainers
 - [r58Playz](https://github.com/r58Playz)
+- [WalkQuackBack](https://github.com/WalkQuackBack)
 
 
 &nbsp;

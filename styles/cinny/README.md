@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [Sena](https://github.com/jn-sena)
+- [jn-sena](https://github.com/jn-sena)
 
 
 &nbsp;

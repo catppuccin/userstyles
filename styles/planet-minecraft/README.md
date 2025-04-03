@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [Amelia Rose](https://github.com/Nyameliaaaa)
+- [Nyameliaaaa](https://github.com/Nyameliaaaa)
 
 
 &nbsp;
