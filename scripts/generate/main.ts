@@ -48,7 +48,7 @@ function maintainersCodeOwners() {
     )
     .map(([slug, { "current-maintainers": currentMaintainers }]) => {
       const codeOwners = currentMaintainers
-        .map((maintainer) => `@${maintainer.url.split("/").pop()}`)
+        .map((maintainer) => `@${maintainer}`)
         .join(" ");
       return `/styles/${slug} ${codeOwners}`;
     })
