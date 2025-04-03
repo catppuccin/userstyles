@@ -31,18 +31,18 @@ const heading = (
   });
 };
 
-function extractName(
+function getNameWithGitHubUrl(
   collaborators?:
     | UserstylesSchema.CurrentMaintainers
     | UserstylesSchema.PastMaintainers,
 ) {
   // no-op when undefined
   if (!collaborators) return;
-  // set the name to the github.com/<name>
-  return collaborators.map((c) => {
+  // keep name & set the url to the github.com/<name>
+  return collaborators.map((name) => {
     return {
-      ...c,
-      name: c.url.split("/").pop(),
+      name,
+      url: `https://github.com/${name}`
     };
   });
 }
@@ -73,8 +73,8 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
         note: readme.note,
         faq: readme.faq,
         collaborators: {
-          currentMaintainers: extractName(currentMaintainers),
-          pastMaintainers: extractName(pastMaintainers),
+          currentMaintainers: getNameWithGitHubUrl(currentMaintainers),
+          pastMaintainers: getNameWithGitHubUrl(pastMaintainers),
         },
       });
       Deno.writeTextFile(
