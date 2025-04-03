@@ -24,7 +24,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [Gandalf-The-Blue](https://github.com/Gandalf-The-Blue)
+- [Gandalf-the-Blue](https://github.com/Gandalf-the-Blue)
 
 
 &nbsp;
