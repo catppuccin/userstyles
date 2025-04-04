@@ -19,21 +19,19 @@ export async function generateMainReadme(
   if (!categoriesData) throw ("Categories data is missing categories");
 
   const categorized = Object.entries(userstyles)
-    .reduce((acc, [slug, { categories, ...port }]) => {
+    .reduce((acc, [slug, { categories, alias, ...port }]) => {
       // initialize category array if it doesn't exist
       // only care about the first (primary) category in the categories array
       acc[categories[0]] ??= [];
 
       acc[categories[0]].push({
-        path: `styles/${slug}`,
+        path: `styles/${alias || slug}`,
         categories,
         ...port,
       });
 
-      // Sort by name, first array entry if necessary
-      acc[categories[0]].sort((a, b) =>
-        [a.name].flat()[0].localeCompare([b.name].flat()[0])
-      );
+      // Sort by name
+      acc[categories[0]].sort((a, b) => a.name.localeCompare(b.name));
       return acc;
     }, {} as MappedPorts);
 
@@ -48,7 +46,7 @@ export async function generateMainReadme(
 <summary>{{emoji}} {{name}}</summary>
 
 {{#each ports}}
-- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{#each name}}{{ this }}{{#unless @last}}, {{/unless}}{{/each}}]({{ path }})
+- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{ name }}]({{ path }})
 {{/each}}
 
 </details>
@@ -66,7 +64,7 @@ export async function generateMainReadme(
             },
           ) => {
             return {
-              name: [name].flat(),
+              name,
               maintained: currentMaintainers.length > 0,
               path,
             };
