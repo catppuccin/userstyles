@@ -8,7 +8,7 @@ import { updateReadme } from "@/generate/utils.ts";
 
 type MappedPorts = {
   [k: string]: (
-    UserstylesSchema.Userstyle & { path: string }
+    UserstylesSchema.Userstyle & { rawLink: string }
   )[];
 };
 
@@ -25,7 +25,10 @@ export async function generateMainReadme(
       acc[categories[0]] ??= [];
 
       acc[categories[0]].push({
-        path: `styles/${alias || slug}`,
+        rawLink:
+          `https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/${
+            alias || slug
+          }/catppuccin.user.less`,
         categories,
         ...port,
       });
@@ -46,7 +49,11 @@ export async function generateMainReadme(
 <summary>{{emoji}} {{name}}</summary>
 
 {{#each ports}}
-- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{ name }}]({{ path }})
+{{#if note}}
+- <details><summary>{{#unless maintained}}❤️‍🩹 {{/unless}}<a href="{{ rawLink }}">{{ name }}</a></summary>{{ note }}</details>
+{{else}}
+- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{ name }}]({{ rawLink }})
+{{/if}}
 {{/each}}
 
 </details>
@@ -59,14 +66,16 @@ export async function generateMainReadme(
           (
             {
               name,
-              path,
+              rawLink,
+              note,
               "current-maintainers": currentMaintainers,
             },
           ) => {
             return {
               name,
               maintained: currentMaintainers.length > 0,
-              path,
+              rawLink,
+              note
             };
           },
         ),

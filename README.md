@@ -36,230 +36,230 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <details open>
 <summary>💭 Development Tools</summary>
 
-- [boringproxy](styles/boringproxy)
-- [Codeberg](styles/codeberg)
-- [crates.io](styles/crates.io)
-- [docs.rs](styles/docs.rs)
-- [freedesktop.org](styles/freedesktop)
-- [GitHub](styles/github)
-- [gleam.run](styles/gleam.run)
-- [go.dev](styles/go.dev)
-- [Grabify](styles/grabify)
-- [Graphite](styles/graphite)
-- [Hackage](styles/hackage)
-- [Home Manager Options Search](styles/home-manager-options-search)
-- [Hoogle](styles/hoogle)
-- [Hoppscotch](styles/hoppscotch)
-- [Keyoxide](styles/keyoxide)
-- [Learn X in Y Minutes](styles/learn-x-in-y-minutes)
-- [MDN](styles/mdn)
-- [Next.js](styles/vercel)
-- [NixOS Manual](styles/nixos-manual)
-- [Nixpkgs Manual](styles/nixos-manual)
-- [npm](styles/npm)
-- [paste.rs](styles/paste.rs)
-- [PyPI](styles/pypi)
-- [PythonAnywhere](styles/pythonanywhere)
-- [React.dev](styles/react.dev)
-- [Trinket](styles/trinket)
-- [Vercel](styles/vercel)
-- [web.dev](styles/web.dev)
+- [boringproxy](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/boringproxy/catppuccin.user.less)
+- [Codeberg](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/codeberg/catppuccin.user.less)
+- [crates.io](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/crates.io/catppuccin.user.less)
+- [docs.rs](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/docs.rs/catppuccin.user.less)
+- [freedesktop.org](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/freedesktop/catppuccin.user.less)
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/github/catppuccin.user.less">GitHub</a></summary>Switch to a default GitHub light/dark theme via **Settings** &gt; **Appearance** for the best experience!</details>
+- [gleam.run](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/gleam.run/catppuccin.user.less)
+- [go.dev](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/go.dev/catppuccin.user.less)
+- [Grabify](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/grabify/catppuccin.user.less)
+- [Graphite](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/graphite/catppuccin.user.less)
+- [Hackage](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/hackage/catppuccin.user.less)
+- [Home Manager Options Search](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/home-manager-options-search/catppuccin.user.less)
+- [Hoogle](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/hoogle/catppuccin.user.less)
+- [Hoppscotch](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/hoppscotch/catppuccin.user.less)
+- [Keyoxide](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/keyoxide/catppuccin.user.less)
+- [Learn X in Y Minutes](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/learn-x-in-y-minutes/catppuccin.user.less)
+- [MDN](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/mdn/catppuccin.user.less)
+- [Next.js](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/vercel/catppuccin.user.less)
+- [NixOS Manual](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/nixos-manual/catppuccin.user.less)
+- [Nixpkgs Manual](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/nixos-manual/catppuccin.user.less)
+- [npm](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/npm/catppuccin.user.less)
+- [paste.rs](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/paste.rs/catppuccin.user.less)
+- [PyPI](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/pypi/catppuccin.user.less)
+- [PythonAnywhere](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/pythonanywhere/catppuccin.user.less)
+- [React.dev](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/react.dev/catppuccin.user.less)
+- [Trinket](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/trinket/catppuccin.user.less)
+- [Vercel](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/vercel/catppuccin.user.less)
+- [web.dev](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/web.dev/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>🌱 Terminals</summary>
 
-- [Ghostty.org](styles/ghostty.org)
+- [Ghostty.org](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/ghostty.org/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>🗂️ File Managers</summary>
 
-- [openmediavault](styles/openmediavault)
-- [Syncthing](styles/syncthing)
+- [openmediavault](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/openmediavault/catppuccin.user.less)
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/syncthing/catppuccin.user.less">Syncthing</a></summary>This theme is designed to be used with the default WebGUI and default theme provided by Syncthing. This does not theme syncthing.net.</details>
 
 </details>
 <details open>
 <summary>🧩 Browser Extensions</summary>
 
-- [Indie Wiki Buddy](styles/indie-wiki-buddy)
-- [Shinigami Eyes](styles/shinigami-eyes)
-- [Stylus](styles/stylus)
+- [Indie Wiki Buddy](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/indie-wiki-buddy/catppuccin.user.less)
+- [Shinigami Eyes](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/shinigami-eyes/catppuccin.user.less)
+- [Stylus](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/stylus/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>🔎 Search Engines</summary>
 
-- [Brave Search](styles/brave-search)
-- [DuckDuckGo](styles/duckduckgo)
-- [Ecosia](styles/ecosia)
-- ❤️‍🩹 [Google](styles/google)
-- [Mullvad Leta](styles/mullvad-leta)
-- [NixOS Search](styles/nixos-search)
-- [SearXNG](styles/searxng)
-- ❤️‍🩹 [Startpage](styles/startpage)
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/brave-search/catppuccin.user.less">Brave Search</a></summary>Make sure to set the theme to either dark or light in Brave Search settings, as the automatic setting will not work.</details>
+- [DuckDuckGo](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/duckduckgo/catppuccin.user.less)
+- [Ecosia](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/ecosia/catppuccin.user.less)
+- ❤️‍🩹 [Google](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/google/catppuccin.user.less)
+- [Mullvad Leta](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/mullvad-leta/catppuccin.user.less)
+- [NixOS Search](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/nixos-search/catppuccin.user.less)
+- [SearXNG](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/searxng/catppuccin.user.less)
+- ❤️‍🩹 [Startpage](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/startpage/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>🗺️ Translation Tools</summary>
 
-- [Crowdin](styles/crowdin)
-- [DeepL](styles/deepl)
-- [ichi.moe](styles/ichi.moe)
-- [Jisho](styles/jisho)
-- [Lingva](styles/lingva)
+- [Crowdin](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/crowdin/catppuccin.user.less)
+- [DeepL](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/deepl/catppuccin.user.less)
+- [ichi.moe](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/ichi.moe/catppuccin.user.less)
+- [Jisho](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/jisho/catppuccin.user.less)
+- [Lingva](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/lingva/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>🧠 Wikis</summary>
 
-- ❤️‍🩹 [Arch Wiki](styles/arch-wiki)
-- [mdBook](styles/mdbook)
-- [NixOS Wiki](styles/wiki.nixos.org)
-- [Wikipedia](styles/wikipedia)
-- [Wikiwand](styles/wikiwand)
+- <details><summary>❤️‍🩹 <a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/arch-wiki/catppuccin.user.less">Arch Wiki</a></summary>Make sure to use the default **Light** theme.</details>
+- [mdBook](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/mdbook/catppuccin.user.less)
+- [NixOS Wiki](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/wiki.nixos.org/catppuccin.user.less)
+- [Wikipedia](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/wikipedia/catppuccin.user.less)
+- [Wikiwand](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/wikiwand/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>📸 Photo &amp; Video</summary>
 
-- [Google Photos](styles/google-photos)
-- [Pinterest](styles/pinterest)
+- [Google Photos](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/google-photos/catppuccin.user.less)
+- [Pinterest](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/pinterest/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>🎵 Music</summary>
 
-- [Hyperpipe](styles/hyperpipe)
-- [Last.fm](styles/lastfm)
-- [ListenBrainz](styles/listenbrainz)
-- [Spotify Web](styles/spotify-web)
+- [Hyperpipe](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/hyperpipe/catppuccin.user.less)
+- [Last.fm](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/lastfm/catppuccin.user.less)
+- [ListenBrainz](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/listenbrainz/catppuccin.user.less)
+- [Spotify Web](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/spotify-web/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>📖 Productivity</summary>
 
-- [AlternativeTo](styles/alternativeto)
-- [cobalt](styles/cobalt)
-- [Google Drive](styles/google-drive)
-- [Have I Been Pwned](styles/have-i-been-pwned)
-- [homepage](styles/homepage)
-- [inoreader](styles/inoreader)
-- [keybr.com](styles/keybr.com)
-- ❤️‍🩹 [Microsoft Word](styles/microsoft-word)
-- [Porkbun](styles/porkbun)
-- [Proton](styles/proton)
-- [Raindrop](styles/raindrop)
-- [Rentry.co](styles/rentry.co)
-- [tldraw](styles/tldraw)
-- [Vikunja](styles/vikunja)
+- [AlternativeTo](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/alternativeto/catppuccin.user.less)
+- [cobalt](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/cobalt/catppuccin.user.less)
+- [Google Drive](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/google-drive/catppuccin.user.less)
+- [Have I Been Pwned](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/have-i-been-pwned/catppuccin.user.less)
+- [homepage](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/homepage/catppuccin.user.less)
+- [inoreader](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/inoreader/catppuccin.user.less)
+- [keybr.com](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/keybr.com/catppuccin.user.less)
+- ❤️‍🩹 [Microsoft Word](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/microsoft-word/catppuccin.user.less)
+- [Porkbun](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/porkbun/catppuccin.user.less)
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/proton/catppuccin.user.less">Proton</a></summary>Set Proton Mail&#x27;s built-in theme to &#x27;Snow&#x27; if you&#x27;re using Latte or &#x27;Carbon&#x27; if you&#x27;re using the others.</details>
+- [Raindrop](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/raindrop/catppuccin.user.less)
+- [Rentry.co](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/rentry.co/catppuccin.user.less)
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/tldraw/catppuccin.user.less">tldraw</a></summary>This theme only changes how the colors appear on the tldraw canvas. Exported graphics **will not be Catppuccin-themed**.</details>
+- [Vikunja](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/vikunja/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>💌 Email Clients</summary>
 
-- [Gmail](styles/gmail)
-- [Migadu Webmail](styles/migadu-webmail)
-- [Tuta](styles/tuta)
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/gmail/catppuccin.user.less">Gmail</a></summary>Switch to the default dark theme via the **Settings** &gt; **Themes** &gt; **View all** for the best experience!</details>
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/migadu-webmail/catppuccin.user.less">Migadu Webmail</a></summary>Set Migadu Webmail&#x27;s built-in theme to &#x27;Migadu&#x27; for the optimal experience.</details>
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/tuta/catppuccin.user.less">Tuta</a></summary>Set Tuta&#x27;s built-in theme to either **light** if you&#x27;re using Latte or **dark** if you&#x27;re using the others.</details>
 
 </details>
 <details open>
 <summary>🕹️ Game Development</summary>
 
-- [NameMC](styles/namemc)
+- [NameMC](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/namemc/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>📝 Note Taking</summary>
 
-- [Amplenote](styles/amplenote)
+- [Amplenote](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/amplenote/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>🎓 Education</summary>
 
-- [Canvas LMS](styles/canvas-lms)
-- [Formative](styles/formative)
-- [Quizlet](styles/quizlet)
+- [Canvas LMS](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/canvas-lms/catppuccin.user.less)
+- [Formative](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/formative/catppuccin.user.less)
+- [Quizlet](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/quizlet/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>📰 News &amp; Journalism</summary>
 
-- [Substack](styles/substack)
+- [Substack](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/substack/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>✨ Social Networking</summary>
 
-- [Bluesky Social](styles/bsky)
-- [Cinny](styles/cinny)
-- [Elk](styles/elk)
-- [Instagram](styles/instagram)
-- [LinkedIn](styles/linkedin)
-- [Mastodon](styles/mastodon)
-- [Nitter](styles/nitter)
-- [Phanpy](styles/phanpy)
-- [pronouns.cc](styles/pronouns.cc)
-- [Pronouns.page](styles/pronouns.page)
-- [Snapchat Web](styles/snapchat-web)
-- [status.cafe](styles/status.cafe)
-- [Twitter](styles/twitter)
-- [WhatsApp Web](styles/whatsapp-web)
+- [Bluesky Social](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/bsky/catppuccin.user.less)
+- [Cinny](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/cinny/catppuccin.user.less)
+- [Elk](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/elk/catppuccin.user.less)
+- [Instagram](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/instagram/catppuccin.user.less)
+- [LinkedIn](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/linkedin/catppuccin.user.less)
+- [Mastodon](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/mastodon/catppuccin.user.less)
+- [Nitter](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/nitter/catppuccin.user.less)
+- [Phanpy](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/phanpy/catppuccin.user.less)
+- [pronouns.cc](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/pronouns.cc/catppuccin.user.less)
+- [Pronouns.page](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/pronouns.page/catppuccin.user.less)
+- [Snapchat Web](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/snapchat-web/catppuccin.user.less)
+- [status.cafe](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/status.cafe/catppuccin.user.less)
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/twitter/catppuccin.user.less">Twitter</a></summary>Set Twitter&#x27;s built-in theme to **Lights out** with the blue accent.</details>
+- [WhatsApp Web](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/whatsapp-web/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>🗣️ Discussion Forums</summary>
 
-- [Hacker News](styles/hacker-news)
-- [Lemmy](styles/lemmy)
-- ❤️‍🩹 [Libreddit](styles/libreddit)
-- [Lobsters](styles/lobste.rs)
-- ❤️‍🩹 [Reddit](styles/reddit)
-- ❤️‍🩹 [Redlib](styles/libreddit)
-- [Stack Overflow](styles/stack-overflow)
-- [TabNews](styles/tabnews)
+- [Hacker News](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/hacker-news/catppuccin.user.less)
+- [Lemmy](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/lemmy/catppuccin.user.less)
+- ❤️‍🩹 [Libreddit](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/libreddit/catppuccin.user.less)
+- [Lobsters](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/lobste.rs/catppuccin.user.less)
+- ❤️‍🩹 [Reddit](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/reddit/catppuccin.user.less)
+- ❤️‍🩹 [Redlib](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/libreddit/catppuccin.user.less)
+- [Stack Overflow](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/stack-overflow/catppuccin.user.less)
+- [TabNews](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/tabnews/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>🌈 Entertainment</summary>
 
-- [7TV](styles/seventv)
-- [AniChart](styles/anilist)
-- [AniList](styles/anilist)
-- [ChatReplay](styles/chatreplay)
-- [Holodex](styles/holodex)
-- ❤️‍🩹 [Invidious](styles/invidious)
-- [Picrew](styles/picrew)
-- [Twitch](styles/twitch)
-- [YouTube](styles/youtube)
+- [7TV](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/seventv/catppuccin.user.less)
+- [AniChart](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/anilist/catppuccin.user.less)
+- [AniList](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/anilist/catppuccin.user.less)
+- [ChatReplay](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/chatreplay/catppuccin.user.less)
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/holodex/catppuccin.user.less">Holodex</a></summary>Holodex&#x27;s selected theme is ignored.</details>
+- ❤️‍🩹 [Invidious](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/invidious/catppuccin.user.less)
+- [Picrew](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/picrew/catppuccin.user.less)
+- [Twitch](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/twitch/catppuccin.user.less)
+- [YouTube](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/youtube/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>🎮 Games</summary>
 
-- [Advent Of Code](styles/advent-of-code)
-- [Chess.com](styles/chess.com)
-- [Lichess](styles/lichess)
-- ❤️‍🩹 [Minesweeper Online](styles/minesweeper)
-- [Modrinth](styles/modrinth)
-- [Planet Minecraft](styles/planet-minecraft)
+- [Advent Of Code](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/advent-of-code/catppuccin.user.less)
+- [Chess.com](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/chess.com/catppuccin.user.less)
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/lichess/catppuccin.user.less">Lichess</a></summary>Switch to a default Lichess light/dark theme via **Username** &gt; **Background** for the best experience!</details>
+- ❤️‍🩹 [Minesweeper Online](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/minesweeper/catppuccin.user.less)
+- [Modrinth](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/modrinth/catppuccin.user.less)
+- [Planet Minecraft](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/planet-minecraft/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>📊 Analytics</summary>
 
-- [bStats](styles/bstats)
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/bstats/catppuccin.user.less">bStats</a></summary>Make sure to use the default **Teal** theme from the built-in color picker (located at the bottom of the page) for the best experience!</details>
 
 </details>
 <details open>
 <summary>🤖 Artificial Intelligence</summary>
 
-- [ChatGPT](styles/chatgpt)
-- [Google Gemini](styles/google-gemini)
-- [InvokeAI](styles/invokeai)
-- [Ollama](styles/ollama)
-- [Perplexity](styles/perplexity)
+- [ChatGPT](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/chatgpt/catppuccin.user.less)
+- [Google Gemini](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/google-gemini/catppuccin.user.less)
+- [InvokeAI](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/invokeai/catppuccin.user.less)
+- [Ollama](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/ollama/catppuccin.user.less)
+- [Perplexity](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/perplexity/catppuccin.user.less)
 
 </details>
 
