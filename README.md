@@ -41,7 +41,9 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [crates.io](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/crates.io/catppuccin.user.less)
 - [docs.rs](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/docs.rs/catppuccin.user.less)
 - [freedesktop.org](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/freedesktop/catppuccin.user.less)
-- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/github/catppuccin.user.less">GitHub</a></summary>Switch to a default GitHub light/dark theme via **Settings** &gt; **Appearance** for the best experience!</details>
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/github/catppuccin.user.less">GitHub</a></summary>
+    Switch to a default GitHub light/dark theme via **Settings** &gt; **Appearance** for the best experience!
+  </details>
 - [gleam.run](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/gleam.run/catppuccin.user.less)
 - [go.dev](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/go.dev/catppuccin.user.less)
 - [Grabify](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/grabify/catppuccin.user.less)
@@ -76,7 +78,9 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>🗂️ File Managers</summary>
 
 - [openmediavault](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/openmediavault/catppuccin.user.less)
-- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/syncthing/catppuccin.user.less">Syncthing</a></summary>This theme is designed to be used with the default WebGUI and default theme provided by Syncthing. This does not theme syncthing.net.</details>
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/syncthing/catppuccin.user.less">Syncthing</a></summary>
+    This theme is designed to be used with the default WebGUI and default theme provided by Syncthing. This does not theme syncthing.net.
+  </details>
 
 </details>
 <details open>
@@ -90,7 +94,9 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <details open>
 <summary>🔎 Search Engines</summary>
 
-- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/brave-search/catppuccin.user.less">Brave Search</a></summary>Make sure to set the theme to either dark or light in Brave Search settings, as the automatic setting will not work.</details>
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/brave-search/catppuccin.user.less">Brave Search</a></summary>
+    Make sure to set the theme to either dark or light in Brave Search settings, as the automatic setting will not work.
+  </details>
 - [DuckDuckGo](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/duckduckgo/catppuccin.user.less)
 - [Ecosia](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/ecosia/catppuccin.user.less)
 - ❤️‍🩹 [Google](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/google/catppuccin.user.less)
@@ -113,7 +119,9 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <details open>
 <summary>🧠 Wikis</summary>
 
-- <details><summary>❤️‍🩹 <a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/arch-wiki/catppuccin.user.less">Arch Wiki</a></summary>Make sure to use the default **Light** theme.</details>
+- <details><summary>❤️‍🩹 <a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/arch-wiki/catppuccin.user.less">Arch Wiki</a></summary>
+    Make sure to use the default **Light** theme.
+  </details>
 - [mdBook](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/mdbook/catppuccin.user.less)
 - [NixOS Wiki](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/wiki.nixos.org/catppuccin.user.less)
 - [Wikipedia](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/wikipedia/catppuccin.user.less)
@@ -148,19 +156,29 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [keybr.com](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/keybr.com/catppuccin.user.less)
 - ❤️‍🩹 [Microsoft Word](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/microsoft-word/catppuccin.user.less)
 - [Porkbun](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/porkbun/catppuccin.user.less)
-- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/proton/catppuccin.user.less">Proton</a></summary>Set Proton Mail&#x27;s built-in theme to &#x27;Snow&#x27; if you&#x27;re using Latte or &#x27;Carbon&#x27; if you&#x27;re using the others.</details>
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/proton/catppuccin.user.less">Proton</a></summary>
+    Set Proton Mail&#x27;s built-in theme to &#x27;Snow&#x27; if you&#x27;re using Latte or &#x27;Carbon&#x27; if you&#x27;re using the others.
+  </details>
 - [Raindrop](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/raindrop/catppuccin.user.less)
 - [Rentry.co](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/rentry.co/catppuccin.user.less)
-- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/tldraw/catppuccin.user.less">tldraw</a></summary>This theme only changes how the colors appear on the tldraw canvas. Exported graphics **will not be Catppuccin-themed**.</details>
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/tldraw/catppuccin.user.less">tldraw</a></summary>
+    This theme only changes how the colors appear on the tldraw canvas. Exported graphics **will not be Catppuccin-themed**.
+  </details>
 - [Vikunja](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/vikunja/catppuccin.user.less)
 
 </details>
 <details open>
 <summary>💌 Email Clients</summary>
 
-- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/gmail/catppuccin.user.less">Gmail</a></summary>Switch to the default dark theme via the **Settings** &gt; **Themes** &gt; **View all** for the best experience!</details>
-- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/migadu-webmail/catppuccin.user.less">Migadu Webmail</a></summary>Set Migadu Webmail&#x27;s built-in theme to &#x27;Migadu&#x27; for the optimal experience.</details>
-- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/tuta/catppuccin.user.less">Tuta</a></summary>Set Tuta&#x27;s built-in theme to either **light** if you&#x27;re using Latte or **dark** if you&#x27;re using the others.</details>
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/gmail/catppuccin.user.less">Gmail</a></summary>
+    Switch to the default dark theme via the **Settings** &gt; **Themes** &gt; **View all** for the best experience!
+  </details>
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/migadu-webmail/catppuccin.user.less">Migadu Webmail</a></summary>
+    Set Migadu Webmail&#x27;s built-in theme to &#x27;Migadu&#x27; for the optimal experience.
+  </details>
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/tuta/catppuccin.user.less">Tuta</a></summary>
+    Set Tuta&#x27;s built-in theme to either **light** if you&#x27;re using Latte or **dark** if you&#x27;re using the others.
+  </details>
 
 </details>
 <details open>
@@ -204,7 +222,9 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [Pronouns.page](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/pronouns.page/catppuccin.user.less)
 - [Snapchat Web](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/snapchat-web/catppuccin.user.less)
 - [status.cafe](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/status.cafe/catppuccin.user.less)
-- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/twitter/catppuccin.user.less">Twitter</a></summary>Set Twitter&#x27;s built-in theme to **Lights out** with the blue accent.</details>
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/twitter/catppuccin.user.less">Twitter</a></summary>
+    Set Twitter&#x27;s built-in theme to **Lights out** with the blue accent.
+  </details>
 - [WhatsApp Web](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/whatsapp-web/catppuccin.user.less)
 
 </details>
@@ -228,7 +248,9 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [AniChart](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/anilist/catppuccin.user.less)
 - [AniList](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/anilist/catppuccin.user.less)
 - [ChatReplay](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/chatreplay/catppuccin.user.less)
-- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/holodex/catppuccin.user.less">Holodex</a></summary>Holodex&#x27;s selected theme is ignored.</details>
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/holodex/catppuccin.user.less">Holodex</a></summary>
+    Holodex&#x27;s selected theme is ignored.
+  </details>
 - ❤️‍🩹 [Invidious](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/invidious/catppuccin.user.less)
 - [Picrew](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/picrew/catppuccin.user.less)
 - [Twitch](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/twitch/catppuccin.user.less)
@@ -240,7 +262,9 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [Advent Of Code](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/advent-of-code/catppuccin.user.less)
 - [Chess.com](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/chess.com/catppuccin.user.less)
-- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/lichess/catppuccin.user.less">Lichess</a></summary>Switch to a default Lichess light/dark theme via **Username** &gt; **Background** for the best experience!</details>
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/lichess/catppuccin.user.less">Lichess</a></summary>
+    Switch to a default Lichess light/dark theme via **Username** &gt; **Background** for the best experience!
+  </details>
 - ❤️‍🩹 [Minesweeper Online](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/minesweeper/catppuccin.user.less)
 - [Modrinth](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/modrinth/catppuccin.user.less)
 - [Planet Minecraft](https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/planet-minecraft/catppuccin.user.less)
@@ -249,7 +273,9 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <details open>
 <summary>📊 Analytics</summary>
 
-- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/bstats/catppuccin.user.less">bStats</a></summary>Make sure to use the default **Teal** theme from the built-in color picker (located at the bottom of the page) for the best experience!</details>
+- <details><summary><a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/bstats/catppuccin.user.less">bStats</a></summary>
+    Make sure to use the default **Teal** theme from the built-in color picker (located at the bottom of the page) for the best experience!
+  </details>
 
 </details>
 <details open>

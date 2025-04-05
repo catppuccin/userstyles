@@ -50,7 +50,9 @@ export async function generateMainReadme(
 
 {{#each ports}}
 {{#if note}}
-- <details><summary>{{#unless maintained}}❤️‍🩹 {{/unless}}<a href="{{ rawLink }}">{{ name }}</a></summary>{{ note }}</details>
+- <details><summary>{{#unless maintained}}❤️‍🩹 {{/unless}}<a href="{{ rawLink }}">{{ name }}</a></summary>
+    {{ note }}
+  </details>
 {{else}}
 - {{#unless maintained}}❤️‍🩹 {{/unless}}[{{ name }}]({{ rawLink }})
 {{/if}}
