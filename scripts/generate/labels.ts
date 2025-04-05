@@ -53,6 +53,7 @@ export async function syncIssueLabels(userstyles: UserstylesSchema.Userstyles) {
     path.join(REPO_ROOT, ".github/pr-labeler.yml"),
     yaml.stringify(
       Object.entries(userstyles)
+        .filter(([_, {alias}]) => !alias)
         .reduce((acc, [key]) => {
           acc[`${key}`] = `styles/${key}/**/*`;
           return acc;

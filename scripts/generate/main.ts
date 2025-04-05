@@ -2,8 +2,7 @@ import * as path from "@std/path";
 import { REPO_ROOT } from "@/constants.ts";
 
 import { syncIssueLabels } from "@/generate/labels.ts";
-import { generateMainReadme } from "@/generate/readme-repo.ts";
-import { generateStyleReadmes } from "@/generate/readme-styles.ts";
+import { generateMainReadme } from "./readme.ts";
 import { writeWithPreamble } from "@/generate/utils.ts";
 import {
   getAuthenticatedOctokit,
@@ -26,10 +25,6 @@ const categoriesData = await getCategoriesData();
  */
 await generateMainReadme(userstylesData.userstyles, categoriesData);
 /**
- * Generate README.md files for each style
- */
-generateStyleReadmes(userstylesData.userstyles);
-/**
  * Keep
  * - `.github/issue-labeler.yml`
  * - `.github/labels.yml`
@@ -43,8 +38,8 @@ await syncIssueLabels(userstylesData.userstyles);
  */
 function maintainersCodeOwners() {
   return Object.entries(userstylesData.userstyles!)
-    .filter(([_, { "current-maintainers": currentMaintainers }]) =>
-      currentMaintainers.length > 0
+    .filter(([_, { "current-maintainers": currentMaintainers, alias }]) =>
+      currentMaintainers.length > 0 && !alias
     )
     .map(([slug, { "current-maintainers": currentMaintainers }]) => {
       const codeOwners = currentMaintainers

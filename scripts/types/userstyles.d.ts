@@ -1,9 +1,9 @@
 // deno-fmt-ignore-file
 
 /**
- * The name of the userstyle(s).
+ * The name of the userstyle.
  */
-export type Name = [string, string, ...string[]] | string;
+export type Name = string;
 /**
  * The categories that fit the userstyle the most, the first category is the primary category which the userstyle will be listed under on the README.
  *
@@ -48,6 +48,10 @@ export type Category =
   | "wiki"
   | "window_manager";
 /**
+ * The hyperlink of the website that is being themed.
+ */
+export type WebsiteLink = string;
+/**
  * The fill color for the icon on the Catppuccin website, which should match the color used by Simple Icons. If the icon does not exist in Simple Icons, choose the most suitable color from the branding.
  */
 export type Color =
@@ -71,36 +75,13 @@ export type Color =
  */
 export type Icon = string;
 /**
- * The hyperlink of the app that is being themed.
+ * If another website can be themed with this userstyle, provide the name of the other website here (e.g. `anilist` for `anichart`, where AniChart can be themed with the same CSS applied in AniList.)
  */
-export type ApplicationLink = [string, string, ...string[]] | string;
+export type Alias = string;
 /**
  * An additional note for the Usage section of the userstyle README.
  */
 export type Note = string;
-/**
- * The FAQ section of the userstyle README.
- *
- * @minItems 1
- */
-export type FAQ = [
-  {
-    question: Question;
-    answer: Answer;
-  },
-  ...{
-    question: Question;
-    answer: Answer;
-  }[]
-];
-/**
- * A question that a user may have about the userstyle.
- */
-export type Question = string;
-/**
- * An answer to the question about the userstyle.
- */
-export type Answer = string;
 /**
  * List of all active maintainers for this userstyle.
  */
@@ -137,17 +118,11 @@ export interface Userstyles {
 export interface Userstyle {
   name: Name;
   categories: Categories;
+  link: WebsiteLink;
   color: Color;
   icon?: Icon;
-  readme: README;
+  alias?: Alias;
+  note?: Note;
   "current-maintainers": CurrentMaintainers;
   "past-maintainers"?: PastMaintainers;
-}
-/**
- * Options to help in the auto-generation of the userstyle README.
- */
-export interface README {
-  "app-link": ApplicationLink;
-  note?: Note;
-  faq?: FAQ;
 }

@@ -8,7 +8,7 @@ import { updateReadme } from "@/generate/utils.ts";
 
 type MappedPorts = {
   [k: string]: (
-    UserstylesSchema.Userstyle & { path: string }
+    UserstylesSchema.Userstyle & { rawLink: string }
   )[];
 };
 
@@ -19,21 +19,22 @@ export async function generateMainReadme(
   if (!categoriesData) throw ("Categories data is missing categories");
 
   const categorized = Object.entries(userstyles)
-    .reduce((acc, [slug, { categories, ...port }]) => {
+    .reduce((acc, [slug, { categories, alias, ...port }]) => {
       // initialize category array if it doesn't exist
       // only care about the first (primary) category in the categories array
       acc[categories[0]] ??= [];
 
       acc[categories[0]].push({
-        path: `styles/${slug}`,
+        rawLink:
+          `https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/${
+            alias || slug
+          }/catppuccin.user.less`,
         categories,
         ...port,
       });
 
-      // Sort by name, first array entry if necessary
-      acc[categories[0]].sort((a, b) =>
-        [a.name].flat()[0].localeCompare([b.name].flat()[0])
-      );
+      // Sort by name
+      acc[categories[0]].sort((a, b) => a.name.localeCompare(b.name));
       return acc;
     }, {} as MappedPorts);
 
@@ -48,7 +49,13 @@ export async function generateMainReadme(
 <summary>{{emoji}} {{name}}</summary>
 
 {{#each ports}}
-- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{#each name}}{{ this }}{{#unless @last}}, {{/unless}}{{/each}}]({{ path }})
+{{#if note}}
+- <details><summary>{{#unless maintained}}❤️‍🩹 {{/unless}}<a href="{{ rawLink }}">{{ name }}</a></summary>
+    {{ note }}
+  </details>
+{{else}}
+- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{ name }}]({{ rawLink }})
+{{/if}}
 {{/each}}
 
 </details>
@@ -61,14 +68,16 @@ export async function generateMainReadme(
           (
             {
               name,
-              path,
+              rawLink,
+              note,
               "current-maintainers": currentMaintainers,
             },
           ) => {
             return {
-              name: [name].flat(),
+              name,
               maintained: currentMaintainers.length > 0,
-              path,
+              rawLink,
+              note
             };
           },
         ),
