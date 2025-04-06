@@ -79,31 +79,20 @@ export async function syncIssueLabels(userstyles: UserstylesSchema.Userstyles) {
   await writeWithPreamble(
     path.join(REPO_ROOT, ".github/labels.yml"),
     yaml.stringify(
-      Object.entries(userstyles)
-        .reduce(
-          (acc, [key, style]) => {
-            const base = {
-              name: key,
-              description: style.name,
-              color: style.color
-                ? macchiatoHex[style.color]
-                : macchiatoHex.blue,
-            };
-
-            acc.push(base);
-
-            Object.entries(style.supports ?? {}).forEach(([supportedKey, { name }]) => {
-              acc.push({
-                ...base,
-                name: supportedKey,
-                description: name,
-              });
-            });
-
-            return acc;
-          },
-          [] as { name: string; description: string; color: string }[],
-        ),
+      Object.entries(userstyles).flatMap(([key, style]) => [
+        {
+          name: key,
+          description: style.name,
+          color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
+        },
+        ...Object.entries(style.supports ?? {}).map((
+          [supportedKey, { name }],
+        ) => ({
+          name: supportedKey,
+          description: name,
+          color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
+        })),
+      ]),
     ),
   );
 }
