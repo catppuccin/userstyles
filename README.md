@@ -263,45 +263,19 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 </details>
 
-
 [^0]: Make sure to use the default **Light** theme.
-
-
 [^1]: Make sure to set the theme to either dark or light in Brave Search settings, as the automatic setting will not work.
-
-
 [^2]: Make sure to use the default **Teal** theme from the built-in color picker (located at the bottom of the page) for the best experience!
-
-
 [^3]: Switch to a default GitHub light/dark theme via **Settings** &gt; **Appearance** for the best experience!
-
-
 [^4]: Switch to the default dark theme via the **Settings** &gt; **Themes** &gt; **View all** for the best experience!
-
-
 [^5]: Holodex&#x27;s selected theme is ignored.
-
-
 [^6]: Switch to a default Lichess light/dark theme via **Username** &gt; **Background** for the best experience!
-
-
 [^7]: Set Migadu Webmail&#x27;s built-in theme to &#x27;Migadu&#x27; for the optimal experience.
-
-
 [^8]: Set Proton Mail&#x27;s built-in theme to &#x27;Snow&#x27; if you&#x27;re using Latte or &#x27;Carbon&#x27; if you&#x27;re using the others.
-
-
 [^9]: This theme is designed to be used with the default WebGUI and default theme provided by Syncthing. This does not theme syncthing.net.
-
-
 [^10]: This theme only changes how the colors appear on the tldraw canvas. Exported graphics **will not be Catppuccin-themed**.
-
-
 [^11]: Set Tuta&#x27;s built-in theme to either **light** if you&#x27;re using Latte or **dark** if you&#x27;re using the others.
-
-
 [^12]: Set Twitter&#x27;s built-in theme to **Lights out** with the blue accent.
-
 
 <!-- AUTOGEN:USERSTYLES END -->
 

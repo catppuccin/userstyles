@@ -66,9 +66,7 @@ export async function generateMainReadme(
 {{/each}}
 
 {{#each userstylesWithNotes}}
-
 [^{{ @index }}]: {{ note }}
-
 {{/each}}
 `)({
     category: portListData.map(({ meta, ports }) => {
