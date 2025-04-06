@@ -17,6 +17,8 @@
 
 See [the userstyle usage instructions](../../docs/USAGE.md).
 
+> [!NOTE]
+> This theme also applies to the [Next.js](https://nextjs.org/) website.
 
 ## 💝 Current Maintainers
 - [ryanccn](https://github.com/ryanccn)
