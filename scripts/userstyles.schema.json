@@ -7,7 +7,7 @@
       "$id": "#userstyles",
       "title": "Userstyles",
       "type": "object",
-      "description": "All userstyles in the Catppuccin org.",
+      "description": "All userstyles in the Catppuccin organisation.",
       "patternProperties": {
         "[A-Za-z0-9_\\-]": {
           "$id": "#userstyles/userstyle",
@@ -18,66 +18,58 @@
           "additionalProperties": false,
           "properties": {
             "name": {
-              "$id": "#userstyles/userstyle/name",
-              "title": "Name",
               "description": "The name of the userstyle.",
-              "type": "string",
-              "examples": ["YouTube"]
-            },
-            "categories": {
-              "$id": "#userstyles/userstyle/categories",
-              "title": "Categories",
-              "description": "The categories that fit the userstyle the most, the first category is the primary category which the userstyle will be listed under on the README.",
-              "$ref": "#/$defs/categories"
+              "$ref": "#/$defs/name"
             },
             "link": {
-              "$id": "#userstyles/userstyle/link",
-              "title": "Website Link",
-              "description": "The hyperlink of the website that is being themed.",
-              "type": "string"
+              "$ref": "#/$defs/link"
+            },
+            "categories": {
+              "$ref": "#/$defs/categories"
             },
             "color": {
-              "$id": "#userstyles/userstyle/color",
-              "title": "Color",
-              "description": "The fill color for the icon on the Catppuccin website, which should match the color used by Simple Icons. If the icon does not exist in Simple Icons, choose the most suitable color from the branding.",
-              "type": "string",
-              "enum": [
-                "rosewater",
-                "flamingo",
-                "pink",
-                "mauve",
-                "red",
-                "maroon",
-                "peach",
-                "yellow",
-                "green",
-                "teal",
-                "sky",
-                "sapphire",
-                "blue",
-                "lavender",
-                "text"
-              ],
-              "examples": ["pink"]
+              "$ref": "#/$defs/color"
             },
             "icon": {
-              "$id": "#userstyles/userstyle/icon",
-              "title": "Icon",
-              "description": "The icon to use on the website. This should be the same name as the SVG file on https://simpleicons.org/. If a `.svg` suffix is present, it's taken from the local website repository resources.",
-              "type": "string",
-              "examples": ["twitch", "twitch.svg"]
-            },
-            "alias": {
-              "$id": "#userstyles/userstyle/alias",
-              "title": "Alias",
-              "description": "If another website can be themed with this userstyle, provide the name of the other website here (e.g. `anilist` for `anichart`, where AniChart can be themed with the same CSS applied in AniList.)",
-              "type": "string"
+              "$ref": "#/$defs/icon"
             },
             "note": {
               "$id": "#userstyles/userstyle/note",
               "title": "Note",
-              "description": "An additional note for the Usage section of the userstyle README.",
+              "description": "An additional note that users should read.",
               "type": "string"
+            },
+            "supports": {
+              "$id": "#userstyles/userstyle/supports",
+              "title": "Supports",
+              "type": "object",
+              "description": "All websites that the userstyle also supports.",
+              "patternProperties": {
+                "[A-Za-z0-9_\\-]": {
+                  "$id": "#userstyles/userstyle/supports/website",
+                  "title": "Website",
+                  "type": "object",
+                  "description": "The unique identifier of the supported website, usually the name of the website lowercased.",
+                  "examples": ["anichart"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "$id": "#userstyles/userstyle/supports/website/name",
+                      "title": "Website Name",
+                      "description": "The name of the website.",
+                      "examples": ["AniChart"],
+                      "$ref": "#/$defs/name"
+                    },
+                    "link": {
+                      "$ref": "#/$defs/link"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "link"
+                  ]
+                }
+              }
             },
             "current-maintainers": {
               "$id": "#userstyles/userstyle/current-maintainers",
@@ -115,6 +107,49 @@
     }
   },
   "$defs": {
+    "name": {
+      "$id": "#name",
+      "title": "Name",
+      "type": "string",
+      "examples": ["YouTube"]
+    },
+    "link": {
+      "$id": "#link",
+      "title": "Link",
+      "description": "The url of the website that is being themed.",
+      "type": "string"
+    },
+    "color": {
+      "$id": "#color",
+      "title": "Color",
+      "description": "The fill color for the icon on the Catppuccin website, which should match the color used by Simple Icons. If the icon does not exist in Simple Icons, choose the most suitable color from the branding.",
+      "type": "string",
+      "enum": [
+        "rosewater",
+        "flamingo",
+        "pink",
+        "mauve",
+        "red",
+        "maroon",
+        "peach",
+        "yellow",
+        "green",
+        "teal",
+        "sky",
+        "sapphire",
+        "blue",
+        "lavender",
+        "text"
+      ],
+      "examples": ["pink"]
+    },
+    "icon": {
+      "$id": "#icon",
+      "title": "Icon",
+      "description": "The icon to use on the website. This should be the same name as the SVG file on https://simpleicons.org/. If a `.svg` suffix is present, it's taken from the local website repository resources.",
+      "type": "string",
+      "examples": ["twitch", "twitch.svg"]
+    },
     "collaborators": {
       "$id": "#collaborators",
       "description": "The GitHub username of the collaborator.",
@@ -126,7 +161,8 @@
     "categories": {
       "$id": "#categories",
       "type": "array",
-      "description": "The categories that fit the port the most, the first category is the primary category which the port will be listed under on the README.",
+      "title": "Categories",
+      "description": "The categories that fit the userstyle the most, the first category is the primary category which the userstyle will be listed under on the README.",
       "minItems": 1,
       "maxItems": 3,
       "items": {

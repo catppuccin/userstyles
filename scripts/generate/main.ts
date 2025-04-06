@@ -38,8 +38,8 @@ await syncIssueLabels(userstylesData.userstyles);
  */
 function maintainersCodeOwners() {
   return Object.entries(userstylesData.userstyles!)
-    .filter(([_, { "current-maintainers": currentMaintainers, alias }]) =>
-      currentMaintainers.length > 0 && !alias
+    .filter(([_, { "current-maintainers": currentMaintainers }]) =>
+      currentMaintainers.length > 0
     )
     .map(([slug, { "current-maintainers": currentMaintainers }]) => {
       const codeOwners = currentMaintainers

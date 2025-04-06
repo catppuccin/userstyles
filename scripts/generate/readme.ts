@@ -8,7 +8,7 @@ import { updateReadme } from "@/generate/utils.ts";
 
 type MappedPorts = {
   [k: string]: (
-    UserstylesSchema.Userstyle & { rawLink: string }
+    UserstylesSchema.Userstyle & { rawGitHubLink: string }
   )[];
 };
 
@@ -19,18 +19,26 @@ export async function generateMainReadme(
   if (!categoriesData) throw ("Categories data is missing categories");
 
   const categorized = Object.entries(userstyles)
-    .reduce((acc, [slug, { categories, alias, ...port }]) => {
+    .reduce((acc, [slug, { categories, supports, ...port }]) => {
       // initialize category array if it doesn't exist
       // only care about the first (primary) category in the categories array
       acc[categories[0]] ??= [];
 
-      acc[categories[0]].push({
-        rawLink:
-          `https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/${
-            alias || slug
-          }/catppuccin.user.less`,
+      const userstyle = {
+        rawGitHubLink:
+          `https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/${slug}/catppuccin.user.less`,
         categories,
         ...port,
+      };
+
+      acc[categories[0]].push(userstyle);
+
+      Object.values(supports ?? {}).forEach(({ name, link }) => {
+        acc[categories[0]].push({
+          ...userstyle,
+          name,
+          link,
+        });
       });
 
       // Sort by name
@@ -50,11 +58,11 @@ export async function generateMainReadme(
 
 {{#each ports}}
 {{#if note}}
-- <details><summary>{{#unless maintained}}❤️‍🩹 {{/unless}}<a href="{{ rawLink }}">{{ name }}</a></summary>
+- <details><summary>{{#unless maintained}}❤️‍🩹 {{/unless}}<a href="{{ rawGitHubLink }}">{{ name }}</a></summary>
     {{ note }}
   </details>
 {{else}}
-- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{ name }}]({{ rawLink }})
+- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{ name }}]({{ rawGitHubLink }})
 {{/if}}
 {{/each}}
 
@@ -68,7 +76,7 @@ export async function generateMainReadme(
           (
             {
               name,
-              rawLink,
+              rawGitHubLink,
               note,
               "current-maintainers": currentMaintainers,
             },
@@ -76,8 +84,8 @@ export async function generateMainReadme(
             return {
               name,
               maintained: currentMaintainers.length > 0,
-              rawLink,
-              note
+              rawGitHubLink,
+              note,
             };
           },
         ),
