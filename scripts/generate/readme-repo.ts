@@ -8,7 +8,7 @@ import { updateReadme } from "@/generate/utils.ts";
 
 type MappedPorts = {
   [k: string]: (
-    UserstylesSchema.Userstyle & { rawGitHubLink: string }
+    UserstylesSchema.Userstyle & { path: string }
   )[];
 };
 
@@ -25,8 +25,7 @@ export async function generateMainReadme(
       acc[categories[0]] ??= [];
 
       const baseUserstyle = {
-        rawGitHubLink:
-          `https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/${slug}/catppuccin.user.less`,
+        path: `styles/${slug}`,
         categories,
         ...userstyle,
       };
@@ -58,7 +57,7 @@ export async function generateMainReadme(
 <summary>{{emoji}} {{name}}</summary>
 
 {{#each ports}}
-- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{ name }}]({{ rawGitHubLink }})
+- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{ name }}]({{ path }})
 {{/each}}
 
 </details>
@@ -72,14 +71,14 @@ export async function generateMainReadme(
           (
             {
               name,
-              rawGitHubLink,
+              path,
               "current-maintainers": currentMaintainers,
             },
           ) => {
             return {
               name,
               maintained: currentMaintainers.length > 0,
-              rawGitHubLink,
+              path,
             };
           },
         ),
