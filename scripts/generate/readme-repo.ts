@@ -18,9 +18,6 @@ export async function generateMainReadme(
 ) {
   if (!categoriesData) throw ("Categories data is missing categories");
 
-  const userstylesWithNotes = Object.values(userstyles)
-    .filter(({ note }) => note);
-
   const categorized = Object.entries(userstyles)
     .reduce((acc, [slug, { categories, supports, ...userstyle }]) => {
       // initialize category array if it doesn't exist
@@ -61,14 +58,10 @@ export async function generateMainReadme(
 <summary>{{emoji}} {{name}}</summary>
 
 {{#each ports}}
-- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{ name }}]({{ rawGitHubLink }}){{#if note}}[^{{ noteIndex }}]{{/if}}
+- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{ name }}]({{ rawGitHubLink }})
 {{/each}}
 
 </details>
-{{/each}}
-
-{{#each userstylesWithNotes}}
-[^{{ @index }}]: {{ note }}
 {{/each}}
 `)({
     category: portListData.map(({ meta, ports }) => {
@@ -80,7 +73,6 @@ export async function generateMainReadme(
             {
               name,
               rawGitHubLink,
-              note,
               "current-maintainers": currentMaintainers,
             },
           ) => {
@@ -88,16 +80,11 @@ export async function generateMainReadme(
               name,
               maintained: currentMaintainers.length > 0,
               rawGitHubLink,
-              note,
-              noteIndex: userstylesWithNotes.findIndex((style) =>
-                name === style.name
-              ),
             };
           },
         ),
       };
     }),
-    userstylesWithNotes,
   });
 
   const readmePath = path.join(REPO_ROOT, "README.md");
