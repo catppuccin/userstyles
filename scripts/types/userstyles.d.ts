@@ -102,41 +102,21 @@ export type Question = string;
  */
 export type Answer = string;
 /**
- * The GitHub profile link of the collaborator to show in the userstyle README.
- */
-export type GitHubProfile = string;
-/**
  * List of all active maintainers for this userstyle.
  */
-export type CurrentMaintainers = {
-  url: GitHubProfile;
-}[];
+export type CurrentMaintainers = string[];
 /**
  * List of all users that have maintained this userstyle in the past.
  *
  * @minItems 1
  */
-export type PastMaintainers = [
-  {
-    url: GitHubProfile;
-  },
-  ...{
-    url: GitHubProfile;
-  }[]
-];
+export type PastMaintainers = [string, ...string[]];
 /**
  * Represents all maintainers and contributors to all userstyles.
  *
  * @minItems 1
  */
-export type AllCollaborators = [
-  {
-    url: GitHubProfile;
-  },
-  ...{
-    url: GitHubProfile;
-  }[]
-];
+export type AllCollaborators = [string, ...string[]];
 
 export interface UserstylesSchema {
   userstyles?: Userstyles;
