@@ -2,7 +2,7 @@ import * as path from "@std/path";
 import { REPO_ROOT } from "@/constants.ts";
 
 import { syncIssueLabels } from "@/generate/labels.ts";
-import { generateMainReadme } from "./readme-repo.ts";
+import { generateMainReadme } from "@/generate/readme-repo.ts";
 import { generateStyleReadmes } from "@/generate/readme-styles.ts";
 import { writeWithPreamble } from "@/generate/utils.ts";
 import {
