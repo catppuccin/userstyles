@@ -18,33 +18,35 @@ export async function generateMainReadme(
 ) {
   if (!categoriesData) throw ("Categories data is missing categories");
 
-  const userstylesWithNotes = Object.values(userstyles).filter(({ note }) => note);
+  const userstylesWithNotes = Object.values(userstyles)
+    .filter(({ note }) => note);
 
   const categorized = Object.entries(userstyles)
-    .reduce((acc, [slug, { categories, supports, ...port }]) => {
+    .reduce((acc, [slug, { categories, supports, ...userstyle }]) => {
       // initialize category array if it doesn't exist
       // only care about the first (primary) category in the categories array
       acc[categories[0]] ??= [];
 
-      const userstyle = {
+      const baseUserstyle = {
         rawGitHubLink:
           `https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/${slug}/catppuccin.user.less`,
         categories,
-        ...port,
+        ...userstyle,
       };
 
-      acc[categories[0]].push(userstyle);
-
-      Object.values(supports ?? {}).forEach(({ name, link }) => {
-        acc[categories[0]].push({
-          ...userstyle,
+      acc[categories[0]].push(
+        baseUserstyle,
+        // supported websites themed by the userstyle are added as their own entries for the README
+        ...(Object.values(supports ?? {}).map(({ name, link }) => ({
+          ...baseUserstyle,
           name,
           link,
-        });
-      });
+        }))),
+      );
 
-      // Sort by name
+      // sort by name
       acc[categories[0]].sort((a, b) => a.name.localeCompare(b.name));
+
       return acc;
     }, {} as MappedPorts);
 
@@ -87,7 +89,9 @@ export async function generateMainReadme(
               maintained: currentMaintainers.length > 0,
               rawGitHubLink,
               note,
-              noteIndex: userstylesWithNotes.findIndex((style) => name === style.name),
+              noteIndex: userstylesWithNotes.findIndex((style) =>
+                name === style.name
+              ),
             };
           },
         ),
