@@ -12,7 +12,4 @@ To create a userstyle, follow the instructions below. If you are unsure how to t
    - **The template uses [LESS](https://lesscss.org/#overview), a preprocessor for Stylus. Please do not change this as we will only accept userstyles based on the template.**
 5. [Write the userstyle](./tutorials/writing-a-userstyle.md).
 6. [Edit the `userstyles.yml` file](./userstylesyml.md) and enter the details of your port.
-7. Create your image preview.
-   - Take a screenshot of the themed website in each flavor, **with the accent set to `mauve` (the default)**, and then convert all four images [to WebP](../tips/convert-images-to-webp.md) (e.g. `mocha.webp`, `macchiato.webp`, `frappe.webp` & `latte.webp`).
-   - Use [Catwalk](https://github.com/catppuccin/catwalk) to generate a composite or grid image of all the images. **This must be saved as `styles/<name-of-website>/preview.webp`.**
 8. Raise a [pull request](https://github.com/catppuccin/userstyles/compare), making sure to read and fill out the template properly. The title of your pull request should follow the format of `feat(<port-name>): init`.
