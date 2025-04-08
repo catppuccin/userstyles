@@ -19,34 +19,31 @@ The [`userstyles.yml`](https://github.com/catppuccin/userstyles/tree/main/script
    **Required Fields:**
 
    ```yaml
-   <port>:
+   <userstyle>:
      name: <name>
+     link: <url>
      # Up to 3 categories are allowed, and having at least one is required.
      # The first category is considered the "primary" category and impacts where the userstyle appears on the README.
      categories: [<primary-category>]
      color: <color>
-     readme:
-       app-link: <url>
      current-maintainers: [*<github-username>]
    ```
 
    **Optional Fields:**
 
-   The `readme.usage` and `readme.faq` fields allow for additional information about the port to be included on the README.
+   The `note` field allows for additional information about the userstyle to be included on the README.
 
    The `icon` field allows for specifying an icon from [Simple Icons](https://simpleicons.org/) for the userstyle. The icon's "slug" - which can be found by hovering over the icon's title and clicking the copy button - should be used.
 
    The `past-maintainers` field contains a list of maintainers who have maintained the port in the past. We encourage all maintainers to add/remove themselves from this list as they see fit.
 
 ## Adding yourself as a maintainer
+1. Add a new entry to the end of the `collaborators` array in the `userstyles.yml` file. The entry should be made under your GitHub username. The following example shows a new entry for a user with the GitHub username "Pepperjack".
 
-1. Add a new entry to the end of the `collaborators` array in the `userstyles.yml` file. The entry should be made under your GitHub username, and may optionally contain the `name` (your preferred name) and `url` fields. The following example shows a new entry for a user "Pepperjack".
 
 ```yaml
 collaborators:
-  - &pepperjack
-    name: Pepperjack # OPTIONAL
-    url: https://github.com/catppuccin
+  - &Pepperjack Pepperjack
 ```
 
 2. Add your username to the `current-maintainers` array of the userstyle you wish to maintain. The following example shows the user "Pepperjack" added to the `example.org` userstyle.
@@ -55,12 +52,11 @@ collaborators:
 userstyles:
   example.org:
     name: example.org
+    link: https://example.org
     categories: [productivity]
     color: text
-    readme:
-      app-link: "https://example.org"
 -   current-maintainers: []
-+   current-maintainers: [*pepperjack]
++   current-maintainers: [*Pepperjack]
 ```
 
 If the change is accepted, you will receive an invitation to the `catppuccin` organization, and become a member of the [`userstyles-maintainers` team](https://github.com/orgs/catppuccin/teams/userstyles-maintainers).
@@ -79,13 +75,12 @@ As a maintainer you will be expected to:
 userstyles:
   example.org:
     name: example.org
+    link: https://example.org
     categories: [productivity]
     color: text
-    readme:
-      app-link: "https://example.org"
--   current-maintainers: [*pepperjack]
+-   current-maintainers: [*Pepperjack]
 +   current-maintainers: []
-+   past-maintainers: [*pepperjack]
++   past-maintainers: [*Pepperjack]
 ```
 
 > [!NOTE]
