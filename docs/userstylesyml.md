@@ -52,7 +52,7 @@ collaborators:
 userstyles:
   example.org:
     name: example.org
-    link: "https://example.org"
+    link: https://example.org
     categories: [productivity]
     color: text
 -   current-maintainers: []
