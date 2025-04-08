@@ -15,10 +15,11 @@
 
 ## Usage
 
+> [!IMPORTANT]
+> This userstyle also applies to [AniChart](https://anichart.net).
+
 See [the userstyle usage instructions](../../docs/USAGE.md).
 
-> [!NOTE]
-> This theme also applies to [AniChart](https://anichart.net/), an extension of AniList.
 
 ## 💝 Current Maintainer
 - [AnubisNekhet](https://github.com/AnubisNekhet)

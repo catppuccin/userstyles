@@ -15,6 +15,9 @@
 
 ## Usage
 
+> [!IMPORTANT]
+> This userstyle also applies to [Nixpkgs Manual](https://nixos.org/manual/nixpkgs).
+
 See [the userstyle usage instructions](../../docs/USAGE.md).
 
 

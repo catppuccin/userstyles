@@ -15,6 +15,12 @@
 
 ## Usage
 
+{{#if supportedWebsites}}
+> [!IMPORTANT]
+> This userstyle also applies to {{ supportedWebsites }}.
+
+{{/if~}}
+
 See [the userstyle usage instructions](../../docs/USAGE.md).
 
 {{#if note}}

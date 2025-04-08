@@ -3,6 +3,7 @@ import { REPO_ROOT } from "@/constants.ts";
 
 import * as path from "@std/path";
 import Handlebars from "handlebars";
+import { formatListOfItems } from "@/utils.ts";
 
 // we can have some nice things :)
 Handlebars.registerHelper(
@@ -67,6 +68,11 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
       console.log(`Generating README for styles/${slug}...`);
       const readmeContent = Handlebars.compile(stylesReadmeContent)({
         heading: heading(name, link, supports),
+        supportedWebsites: formatListOfItems(
+          Object.values(supports ?? {}).map(({ name, link }) =>
+            `[${name}](${link})`
+          ),
+        ),
         slug,
         note,
         collaborators: {
