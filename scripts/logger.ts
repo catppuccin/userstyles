@@ -84,7 +84,7 @@ export const log = {
     severity: "error" | "warning",
   ) {
     if (severity === "error") this.failed = true;
-    if (Deno.env.has("CI")) {
+    if (process.env["CI"]) {
       switch (severity) {
         case "error":
           core.error(message, props);

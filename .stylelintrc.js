@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {import('npm:stylelint').Config}
+ * @type {import('stylelint').Config}
  */
 export default {
   extends: "stylelint-config-standard",
@@ -52,7 +52,7 @@ export default {
     "property-disallowed-list": [
       [
         // Disallow setting custom fonts.
-        "/font.*/",
+        "/^font.*/",
 
         // Ideally we could disallow these, but CSS continues to be gross.
         // "/animation.*/",

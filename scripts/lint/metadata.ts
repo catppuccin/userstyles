@@ -1,5 +1,5 @@
-import type { Userstyles } from "@/types/userstyles.d.ts";
-import { REPO_ROOT } from "@/constants.ts";
+import type { Userstyles } from "../types/userstyles.d.ts";
+import { REPO_ROOT } from "../constants.ts";
 
 import * as color from "@std/fmt/colors";
 import * as path from "@std/path";
@@ -7,8 +7,9 @@ import { sprintf } from "@std/fmt/printf";
 
 // @ts-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
-import { log } from "@/logger.ts";
-import { formatListOfItems } from "@/utils.ts";
+import { log } from "../logger.ts";
+import { formatListOfItems } from "../utils.ts";
+import { writeTextFileSync, readTextFile } from "../utils/fs.ts";
 
 export async function verifyMetadata(
   file: string,
@@ -85,9 +86,9 @@ export async function verifyMetadata(
     }
   }
 
-  Deno.writeTextFileSync(file, content);
+  writeTextFileSync(file, content);
 
-  const template = (await Deno.readTextFile(
+  const template = (await readTextFile(
     path.join(REPO_ROOT, "template/catppuccin.user.less"),
   ))
     .split("\n");
@@ -162,7 +163,8 @@ function generateAssertions(userstyle: string, userstyles: Userstyles) {
         file: "scripts/userstyles.yml",
       },
     );
-    Deno.exit(1);
+    console.log('4')
+    process.exit(1);
   }
 
   return {

@@ -1,4 +1,4 @@
-import type { Userstyle } from "@/types/userstyles.d.ts";
+import type { Userstyle } from "../types/userstyles.d.ts";
 
 import * as assert from "@std/assert";
 
@@ -8,7 +8,7 @@ import {
   getUserstylesData,
   getUserstylesTeamMembers,
   removeUserstylesTeamMember,
-} from "@/utils.ts";
+} from "../utils.ts";
 
 const { userstyles } = getUserstylesData();
 
@@ -39,7 +39,7 @@ const maintainersTeamMembers = await getUserstylesTeamMembers(
 
 if (assert.equal(maintainers, maintainersTeamMembers)) {
   console.log("Maintainers are in sync.");
-  Deno.exit(0);
+  process.exit(0);
 }
 
 const toAdd = maintainers.filter((m) => !maintainersTeamMembers.includes(m));

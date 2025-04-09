@@ -1,10 +1,11 @@
-import type { CategoriesSchema, UserstylesSchema } from "@/types/mod.ts";
-import { REPO_ROOT } from "@/constants.ts";
+import type { CategoriesSchema, UserstylesSchema } from "../types/mod.ts";
+import { REPO_ROOT } from "../constants.ts";
 
 import * as path from "@std/path";
 import Handlebars from "handlebars";
 
-import { updateReadme } from "@/generate/utils.ts";
+import { updateReadme } from "./utils.ts";
+import { readTextFileSync, writeTextFile } from "../utils/fs.ts";
 
 type MappedPorts = {
   [k: string]: (
@@ -87,10 +88,10 @@ export async function generateMainReadme(
   });
 
   const readmePath = path.join(REPO_ROOT, "README.md");
-  await Deno.writeTextFile(
+  await writeTextFile(
     readmePath,
     updateReadme({
-      readme: Deno.readTextFileSync(readmePath),
+      readme: readTextFileSync(readmePath),
       section: "userstyles",
       newContent: portContent,
     }),

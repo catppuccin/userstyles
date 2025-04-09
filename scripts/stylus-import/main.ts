@@ -1,7 +1,8 @@
 import usercssMeta from "usercss-meta";
 import { ensureDir } from "@std/fs";
-import { calcStyleDigest } from "https://github.com/openstyles/stylus/raw/8fe35a4b90d85fb911bd7aa1deab4e4733c31150/src/js/sections-util.js";
-import { getUserstylesFiles } from "@/utils.ts";
+import { calcStyleDigest } from "@openstyles/stylus/src/js/sections-util.js";
+import { getUserstylesFiles } from "../utils.ts";
+import { readTextFile, writeTextFile } from "../utils/fs.ts";
 
 // Recommended settings.
 const settings = {
@@ -16,7 +17,7 @@ const settings = {
 const data: Record<string, unknown>[] = [settings];
 
 for (const file of getUserstylesFiles()) {
-  const content = await Deno.readTextFile(file);
+  const content = await readTextFile(file);
   const { metadata } = usercssMeta.parse(content);
 
   const userstyle = {
@@ -36,4 +37,4 @@ for (const file of getUserstylesFiles()) {
 }
 
 await ensureDir("dist");
-await Deno.writeTextFile("dist/import.json", JSON.stringify(data));
+await writeTextFile("dist/import.json", JSON.stringify(data));

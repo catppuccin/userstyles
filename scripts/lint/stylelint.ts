@@ -1,11 +1,9 @@
 import * as color from "@std/fmt/colors";
 
-import "postcss-less";
 import stylelint from "stylelint";
-import "stylelint-config-standard";
-import "stylelint-config-recommended";
 
-import { log } from "@/logger.ts";
+import { log } from "../logger.ts";
+import { writeTextFileSync } from "../utils/fs.ts";
 
 export async function runStylelint(
   file: string,
@@ -20,7 +18,7 @@ export async function runStylelint(
   });
 
   if (code) {
-    Deno.writeTextFileSync(file, code);
+    writeTextFileSync(file, code);
   }
 
   for (const result of results) {

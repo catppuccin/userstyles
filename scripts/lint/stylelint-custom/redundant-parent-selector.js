@@ -18,7 +18,7 @@ const messages = ruleMessages(ruleName, {
   rejected: () => `Redundant parent selector is not allowed`,
 });
 
-/** @type {import('npm:stylelint').Rule} */
+/** @type {import('stylelint').Rule} */
 const ruleFunction = (primary, _secondary, context) => {
   return (root, result) => {
     const validOptions = validateOptions(result, ruleName, {

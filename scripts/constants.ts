@@ -1,7 +1,7 @@
 import CATEGORIES_SCHEMA from "@catppuccin/catppuccin/resources/categories.schema.json" with {
   type: "json",
 };
-import USERSTYLES_SCHEMA from "@/userstyles.schema.json" with {
+import USERSTYLES_SCHEMA from "./userstyles.schema.json" with {
   type: "json",
 };
 

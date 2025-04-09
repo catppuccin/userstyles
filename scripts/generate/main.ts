@@ -1,18 +1,18 @@
 import * as path from "@std/path";
-import { REPO_ROOT } from "@/constants.ts";
+import { REPO_ROOT } from "../constants.ts";
 
-import { syncIssueLabels } from "@/generate/labels.ts";
-import { generateMainReadme } from "@/generate/readme-repo.ts";
-import { generateStyleReadmes } from "@/generate/readme-styles.ts";
-import { writeWithPreamble } from "@/generate/utils.ts";
+import { syncIssueLabels } from "./labels.ts";
+import { generateMainReadme } from "./readme-repo.ts";
+import { generateStyleReadmes } from "./readme-styles.ts";
+import { writeWithPreamble } from "./utils.ts";
 import {
   getAuthenticatedOctokit,
   getCategoriesData,
   getUserstylesData,
   getUserstylesTeamMembers,
-} from "@/utils.ts";
+} from "../utils.ts";
 
-if (!Deno.env.get("CI")) {
+if (!process.env["CI"]) {
   throw new Error(
     "This script should only be used in CI. Generated READMEs and other health files are automatically updated after pull requests are merged.",
   );

@@ -1,18 +1,19 @@
-import type { CategoriesSchema, UserstylesSchema } from "@/types/mod.ts";
+import type { CategoriesSchema, UserstylesSchema } from "./types/mod.ts";
 import type { SetRequired } from "type-fest/source/set-required.d.ts";
 import {
   CATEGORIES_SCHEMA,
   REPO_ROOT,
   USERSTYLES_SCHEMA,
-} from "@/constants.ts";
+} from "./constants.ts";
 
 import * as yaml from "@std/yaml";
 import * as path from "@std/path";
 
 import Ajv, { type Schema } from "ajv";
-import { log } from "@/logger.ts";
+import { log } from "./logger.ts";
 import { sprintf } from "@std/fmt/printf";
 import { Octokit } from "@octokit/rest";
+import { readDirSync, readTextFileSync } from "./utils/fs.ts";
 
 /**
  * @param content A string of YAML content
@@ -25,7 +26,7 @@ export function validateYaml<T>(
   file: string,
   options?: Ajv.Options,
 ): T {
-  const ajv = new Ajv.default(options);
+  const ajv = new Ajv(options);
   const validate = ajv.compile<T>(schema);
   const data = yaml.parse(content);
 
@@ -47,7 +48,7 @@ export function validateYaml<T>(
         file,
       },
     );
-    Deno.exit(1);
+    process.exit(1);
   }
 
   return data as T;
@@ -58,7 +59,7 @@ export function validateYaml<T>(
  * Fails when data.userstyles is undefined.
  */
 export function getUserstylesData(): Userstyles {
-  const content = Deno.readTextFileSync(
+  const content = readTextFileSync(
     path.join(REPO_ROOT, "scripts/userstyles.yml"),
   );
 
@@ -75,7 +76,7 @@ export function getUserstylesData(): Userstyles {
         log.error(`Missing required field \`${field}\``, {
           file: "scripts/userstyles.yml",
         });
-        Deno.exit(1);
+        process.exit(1);
       }
     }
 
@@ -96,7 +97,7 @@ export function getUserstylesData(): Userstyles {
       throw err;
     }
 
-    Deno.exit(1);
+    process.exit(1);
   }
 }
 
@@ -152,8 +153,8 @@ type Userstyles = SetRequired<
 
 export function getUserstylesFiles(): string[] {
   const files: string[] = [];
-  for (const dir of Deno.readDirSync(path.join(REPO_ROOT, "styles"))) {
-    if (!dir.isDirectory) continue;
+  for (const dir of readDirSync(path.join(REPO_ROOT, "styles"))) {
+    if (!dir.isDirectory()) continue;
     files.push(
       path.join(REPO_ROOT, "styles", dir.name, "catppuccin.user.less"),
     );
@@ -162,7 +163,7 @@ export function getUserstylesFiles(): string[] {
 }
 
 export function getAuthenticatedOctokit() {
-  return new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") });
+  return new Octokit({ auth: process.env["GITHUB_TOKEN"] });
 }
 
 export type UserstylesTeam = "userstyles-staff" | "userstyles-maintainers";

@@ -1,9 +1,10 @@
-import type { UserstylesSchema } from "@/types/mod.ts";
-import { REPO_ROOT } from "@/constants.ts";
+import type { UserstylesSchema } from "../types/mod.ts";
+import { REPO_ROOT } from "../constants.ts";
 
 import * as path from "@std/path";
 import Handlebars from "handlebars";
-import { formatListOfItems } from "@/utils.ts";
+import { formatListOfItems } from "../utils.ts";
+import { readTextFileSync, writeTextFile } from "../utils/fs.ts";
 
 // we can have some nice things :)
 Handlebars.registerHelper(
@@ -49,7 +50,7 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
     REPO_ROOT,
     "scripts/generate/templates/userstyle.md",
   );
-  const stylesReadmeContent = Deno.readTextFileSync(stylesReadmePath);
+  const stylesReadmeContent = readTextFileSync(stylesReadmePath);
 
   Object.entries(userstyles).map(
     (
@@ -80,7 +81,7 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
           pastMaintainers: getNameWithGitHubUrl(pastMaintainers),
         },
       });
-      Deno.writeTextFile(
+      writeTextFile(
         path.join(REPO_ROOT, "styles", slug.toString(), "README.md"),
         readmeContent,
       ).catch((e) => console.error(e));
