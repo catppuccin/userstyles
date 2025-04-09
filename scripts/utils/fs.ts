@@ -41,3 +41,9 @@ export function readDirSync(
 ): Dirent[] {
   return fs.readdirSync(path, { withFileTypes: true, recursive });
 }
+
+export async function ensureDir(dir: string) {
+  if (!fs.existsSync(dir)) {
+    await fsp.mkdir(dir, { recursive: true });
+  }
+}

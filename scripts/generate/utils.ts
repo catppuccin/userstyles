@@ -1,4 +1,4 @@
-import { writeTextFile } from "../utils/fs";
+import { writeTextFile } from "../utils/fs.ts";
 
 export function writeWithPreamble(
   filePath: string,
