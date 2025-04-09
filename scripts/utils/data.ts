@@ -7,7 +7,7 @@ import {
   USERSTYLES_SCHEMA,
 } from "../constants.ts";
 
-import * as yaml from "@std/yaml";
+import yaml, { YAMLParseError } from "yaml";
 import path from "node:path";
 
 import Ajv, { type Schema } from "ajv";
@@ -87,7 +87,7 @@ export function getUserstylesData(): Userstyles {
 
     return data as Userstyles;
   } catch (err) {
-    if (err instanceof Error && err.name === "SyntaxError") {
+    if (err instanceof YAMLParseError) {
       const groups =
         /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
           .exec(

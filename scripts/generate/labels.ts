@@ -2,7 +2,7 @@ import type { UserstylesSchema } from "../types/mod.ts";
 import { REPO_ROOT } from "../constants.ts";
 
 import path from "node:path";
-import * as yaml from "@std/yaml";
+import yaml from "yaml";
 
 import { type ColorName, flavors } from "@catppuccin/palette";
 import { writeWithPreamble } from "./utils.ts";
