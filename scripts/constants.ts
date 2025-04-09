@@ -14,5 +14,6 @@ if (!ROOT) throw new Error("ROOT was not located.");
  * Absolute path to the repository.
  */
 export const REPO_ROOT = path.join(ROOT, "..");
+export const STYLES_ROOT = path.join(REPO_ROOT, "styles");
 
 export { CATEGORIES_SCHEMA, USERSTYLES_SCHEMA };

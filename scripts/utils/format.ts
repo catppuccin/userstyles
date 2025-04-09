@@ -22,3 +22,9 @@ export function formatListOfItems(items: unknown[]): string {
     return prev + `, ${curr}`;
   }) as string;
 }
+
+export function pluralize(items: number | unknown[], str: string): string {
+  if (typeof items === "undefined") return str;
+  const num = Array.isArray(items) ? items.length : items;
+  return num === 1 ? str : `${str}s`;
+}

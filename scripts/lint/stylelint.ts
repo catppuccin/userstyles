@@ -10,7 +10,7 @@ export async function runStylelint(
   content: string,
   fix: boolean,
   config: stylelint.Config,
-) {
+): Promise<void> {
   const { results, code } = await stylelint.lint({
     code: content,
     config,
@@ -38,7 +38,5 @@ export async function runStylelint(
         content,
       }, warning.severity);
     }
-
-    if (result.warnings.length > 0) throw new Error("stylelint error");
   }
 }

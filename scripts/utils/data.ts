@@ -3,6 +3,7 @@ import type { SetRequired } from "type-fest/source/set-required.d.ts";
 import {
   CATEGORIES_SCHEMA,
   REPO_ROOT,
+  STYLES_ROOT,
   USERSTYLES_SCHEMA,
 } from "../constants.ts";
 
@@ -126,10 +127,10 @@ export async function getCategoriesData(): Promise<
 
 export function getUserstylesFiles(): string[] {
   const files: string[] = [];
-  for (const dir of readDirSync(path.join(REPO_ROOT, "styles"))) {
+  for (const dir of readDirSync(STYLES_ROOT)) {
     if (!dir.isDirectory()) continue;
     files.push(
-      path.join(REPO_ROOT, "styles", dir.name, "catppuccin.user.less"),
+      path.join(STYLES_ROOT, dir.name, "catppuccin.user.less"),
     );
   }
   return files;

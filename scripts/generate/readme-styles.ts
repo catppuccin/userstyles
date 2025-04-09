@@ -1,19 +1,14 @@
 import type { UserstylesSchema } from "../types/mod.ts";
-import { REPO_ROOT } from "../constants.ts";
+import { REPO_ROOT, STYLES_ROOT } from "../constants.ts";
 
 import path from "node:path";
 import Handlebars from "handlebars";
 import { readTextFileSync, writeTextFile } from "../utils/fs.ts";
-import { formatListOfItems } from "../utils/format.ts";
+import { formatListOfItems, pluralize } from "../utils/format.ts";
 
-// we can have some nice things :)
 Handlebars.registerHelper(
   "pluralize",
-  (c: number | unknown[], str: string): string => {
-    if (typeof c === "undefined") return str;
-    const num = Array.isArray(c) ? c.length : c;
-    return num === 1 ? str : `${str}s`;
-  },
+  pluralize
 );
 
 const heading = (
@@ -67,7 +62,7 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
       ],
     ) => {
       console.log(`Generating README for styles/${slug}...`);
-      const readmeContent = Handlebars.compile(stylesReadmeContent)({
+      const content = Handlebars.compile(stylesReadmeContent)({
         heading: heading(name, link, supports),
         supportedWebsites: formatListOfItems(
           Object.values(supports ?? {}).map(({ name, link }) =>
@@ -82,8 +77,8 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
         },
       });
       writeTextFile(
-        path.join(REPO_ROOT, "styles", slug.toString(), "README.md"),
-        readmeContent,
+        path.join(STYLES_ROOT, slug, "README.md"),
+        content,
       ).catch((e) => console.error(e));
     },
   );
