@@ -38,8 +38,8 @@ The [`userstyles.yml`](https://github.com/catppuccin/userstyles/tree/main/script
    The `past-maintainers` field contains a list of maintainers who have maintained the port in the past. We encourage all maintainers to add/remove themselves from this list as they see fit.
 
 ## Adding yourself as a maintainer
-1. Add a new entry to the end of the `collaborators` array in the `userstyles.yml` file. The entry should be made under your GitHub username. The following example shows a new entry for a user with the GitHub username "Pepperjack".
 
+1. Add a new entry to the end of the `collaborators` array in the `userstyles.yml` file. The entry should be made under your GitHub username. The following example shows a new entry for a user with the GitHub username "Pepperjack".
 
 ```yaml
 collaborators:
