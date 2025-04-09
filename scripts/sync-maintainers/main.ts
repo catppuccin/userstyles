@@ -9,6 +9,7 @@ import {
   getUserstylesTeamMembers,
   removeUserstylesTeamMember,
 } from "../utils.ts";
+import { isDeepStrictEqual } from "node:util";
 
 const { userstyles } = getUserstylesData();
 
@@ -33,8 +34,7 @@ const maintainersTeamMembers = await getUserstylesTeamMembers(
   team,
 );
 
-// TODO: Figure out how to get a boolean result from this API or do some weird stuff.
-if (assert.deepEqual(maintainers, maintainersTeamMembers)) {
+if (isDeepStrictEqual(maintainers.toSorted(), maintainersTeamMembers.toSorted())) {
   console.log("Maintainers are in sync.");
   process.exit(0);
 }

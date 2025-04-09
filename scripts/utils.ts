@@ -26,7 +26,7 @@ export function validateYaml<T>(
   file: string,
   options?: Ajv.Options,
 ): T {
-  const ajv = new Ajv(options);
+  const ajv = new Ajv.default(options);
   const validate = ajv.compile<T>(schema);
   const data = yaml.parse(content);
 

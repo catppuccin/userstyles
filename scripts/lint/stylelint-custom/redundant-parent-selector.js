@@ -1,5 +1,3 @@
-// @ts-check
-
 import stylelint from "stylelint";
 import assert from "node:assert/strict";
 
