@@ -1,4 +1,4 @@
-name: Lint Userstyles
+name: Lint
 
 on:
   workflow_dispatch:
@@ -16,10 +16,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Deno
-        uses: nekowinston/setup-deno@main
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          deno-version: v2.2.8
+          cache: pnpm
+          node-version-file: package.json
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Lint
-        run: deno task lint
+        run: pnpm lint
