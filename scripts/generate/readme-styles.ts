@@ -1,7 +1,7 @@
 import type { UserstylesSchema } from "../types/mod.ts";
 import { REPO_ROOT } from "../constants.ts";
 
-import * as path from "@std/path";
+import path from "node:path";
 import Handlebars from "handlebars";
 import { formatListOfItems } from "../utils.ts";
 import { readTextFileSync, writeTextFile } from "../utils/fs.ts";

@@ -5,7 +5,7 @@ import USERSTYLES_SCHEMA from "./userstyles.schema.json" with {
   type: "json",
 };
 
-import * as path from "@std/path";
+import path from "node:path";
 
 const ROOT = import.meta.dirname;
 if (!ROOT) throw new Error("ROOT was not located.");

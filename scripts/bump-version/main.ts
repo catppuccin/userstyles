@@ -1,4 +1,4 @@
-import * as path from "@std/path";
+import path from "node:path";
 
 import { REPO_ROOT } from "../constants.ts";
 import { CalVer } from "./calver.ts";

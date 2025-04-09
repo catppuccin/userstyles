@@ -1,6 +1,6 @@
 import type { Userstyle } from "../types/userstyles.d.ts";
 
-import * as assert from "@std/assert";
+import assert from "node:assert/strict";
 
 import {
   addUserstylesTeamMember,
@@ -18,17 +18,13 @@ const maintainers = [
     Object.values(userstyles).flatMap((
       style: Userstyle,
     ) =>
-      style["current-maintainers"].map((name) => {
-        assert.assertExists(name);
-        return name.toLowerCase();
-      })
+      style["current-maintainers"].map((name) => name.toLowerCase())
     ),
   ),
 ];
 
-assert.assertExists(maintainers);
-assert.assert(Array.isArray(maintainers));
-assert.assertGreater(maintainers.length, 0);
+assert(Array.isArray(maintainers));
+assert(maintainers.length > 0);
 
 const octokit = getAuthenticatedOctokit();
 const team = "userstyles-maintainers";
@@ -37,7 +33,8 @@ const maintainersTeamMembers = await getUserstylesTeamMembers(
   team,
 );
 
-if (assert.equal(maintainers, maintainersTeamMembers)) {
+// TODO: Figure out how to get a boolean result from this API or do some weird stuff.
+if (assert.deepEqual(maintainers, maintainersTeamMembers)) {
   console.log("Maintainers are in sync.");
   process.exit(0);
 }

@@ -7,7 +7,7 @@ import {
 } from "./constants.ts";
 
 import * as yaml from "@std/yaml";
-import * as path from "@std/path";
+import path from "node:path";
 
 import Ajv, { type Schema } from "ajv";
 import { log } from "./logger.ts";

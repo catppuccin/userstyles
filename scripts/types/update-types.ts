@@ -1,6 +1,6 @@
 import { REPO_ROOT, USERSTYLES_SCHEMA } from "../constants.ts";
 
-import * as path from "@std/path";
+import path from "node:path";
 import { compile, type JSONSchema } from "json-schema-to-typescript";
 import { writeTextFileSync } from "../utils/fs.ts";
 

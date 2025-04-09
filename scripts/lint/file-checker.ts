@@ -1,6 +1,6 @@
 import { REPO_ROOT } from "../constants.ts";
 
-import * as path from "@std/path";
+import path from "node:path";
 import core from "@actions/core";
 
 import { log } from "../logger.ts";

@@ -2,7 +2,7 @@ import type { Userstyles } from "../types/userstyles.d.ts";
 import { REPO_ROOT } from "../constants.ts";
 
 import * as color from "@std/fmt/colors";
-import * as path from "@std/path";
+import path from "node:path";
 import { sprintf } from "@std/fmt/printf";
 
 // @ts-types="@/types/usercss-meta.d.ts";
@@ -163,7 +163,6 @@ function generateAssertions(userstyle: string, userstyles: Userstyles) {
         file: "scripts/userstyles.yml",
       },
     );
-    console.log('4')
     process.exit(1);
   }
 

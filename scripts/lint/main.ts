@@ -1,7 +1,7 @@
 import { REPO_ROOT } from "../constants.ts";
 
 import parseArgs from "tiny-parse-argv";
-import * as path from "@std/path";
+import path from "node:path";
 // @ts-types="npm:@types/less";
 import less from "less";
 
