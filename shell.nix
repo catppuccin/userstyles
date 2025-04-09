@@ -1,10 +1,12 @@
 {
-  nodejs_23,
+  nodejs-slim_23,
+  pnpm,
   mkShellNoCC,
   ...
 }:
 mkShellNoCC {
   packages = [
-    nodejs_23
+    nodejs-slim_23
+    (pnpm.override { nodejs = nodejs-slim_23; })
   ];
 }
