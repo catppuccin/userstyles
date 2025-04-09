@@ -1,10 +1,10 @@
 {
-  deno,
+  nodejs_23,
   mkShellNoCC,
   ...
 }:
 mkShellNoCC {
   packages = [
-    deno
+    nodejs_23
   ];
 }
