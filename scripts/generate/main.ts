@@ -6,11 +6,10 @@ import { generateMainReadme } from "./readme-repo.ts";
 import { generateStyleReadmes } from "./readme-styles.ts";
 import { writeWithPreamble } from "./utils.ts";
 import {
-  getAuthenticatedOctokit,
   getCategoriesData,
   getUserstylesData,
-  getUserstylesTeamMembers,
-} from "../utils.ts";
+} from "../utils/data.ts";
+import { getAuthenticatedOctokit, getUserstylesTeamMembers } from "../utils/octokit.ts";
 
 if (!process.env["CI"]) {
   throw new Error(

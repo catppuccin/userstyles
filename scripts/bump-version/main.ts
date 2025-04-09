@@ -3,7 +3,7 @@ import path from "node:path";
 import { REPO_ROOT } from "../constants.ts";
 import { CalVer } from "./calver.ts";
 import parseArgs from "tiny-parse-argv";
-import { getUserstylesFiles } from "../utils.ts";
+import { getUserstylesFiles } from "../utils/data.ts";
 import { readTextFile, writeTextFile } from "../utils/fs.ts";
 
 const args = parseArgs(process.argv.slice(2), { boolean: ["all"] });

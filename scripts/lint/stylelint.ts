@@ -2,7 +2,7 @@ import * as color from "@std/fmt/colors";
 
 import stylelint from "stylelint";
 
-import { log } from "../logger.ts";
+import { log } from "../utils/logger.ts";
 import { writeTextFileSync } from "../utils/fs.ts";
 
 export async function runStylelint(

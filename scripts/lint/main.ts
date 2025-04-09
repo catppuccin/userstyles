@@ -2,14 +2,13 @@ import { REPO_ROOT } from "../constants.ts";
 
 import parseArgs from "tiny-parse-argv";
 import path from "node:path";
-// @ts-types="npm:@types/less";
 import less from "less";
 
 import { checkForMissingFiles } from "./file-checker.ts";
-import { log } from "../logger.ts";
+import { log } from "../utils/logger.ts";
 import { verifyMetadata } from "./metadata.ts";
 import { runStylelint } from "./stylelint.ts";
-import { getUserstylesData, getUserstylesFiles } from "../utils.ts";
+import { getUserstylesData, getUserstylesFiles } from "../utils/data.ts";
 import stylelintConfig from "../../.stylelintrc.js";
 import { readTextFile } from "../utils/fs.ts";
 

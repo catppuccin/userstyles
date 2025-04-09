@@ -3,8 +3,8 @@ import { REPO_ROOT } from "../constants.ts";
 
 import path from "node:path";
 import Handlebars from "handlebars";
-import { formatListOfItems } from "../utils.ts";
 import { readTextFileSync, writeTextFile } from "../utils/fs.ts";
+import { formatListOfItems } from "../utils/format.ts";
 
 // we can have some nice things :)
 Handlebars.registerHelper(

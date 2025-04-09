@@ -3,7 +3,7 @@ import { REPO_ROOT } from "../constants.ts";
 import path from "node:path";
 import core from "@actions/core";
 
-import { log } from "../logger.ts";
+import { log } from "../utils/logger.ts";
 import { readDir } from "../utils/fs.ts";
 import fs from 'node:fs';
 

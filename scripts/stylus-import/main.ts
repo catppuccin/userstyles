@@ -1,6 +1,6 @@
 import usercssMeta from "usercss-meta";
 import { calcStyleDigest } from "@openstyles/stylus/src/js/sections-util.js";
-import { getUserstylesFiles } from "../utils.ts";
+import { getUserstylesFiles } from "../utils/data.ts";
 import { ensureDir, readTextFile, writeTextFile } from "../utils/fs.ts";
 
 // Recommended settings.

@@ -7,9 +7,9 @@ import { sprintf } from "@std/fmt/printf";
 
 // @ts-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
-import { log } from "../logger.ts";
-import { formatListOfItems } from "../utils.ts";
+import { log } from "../utils/logger.ts";
 import { writeTextFileSync, readTextFile } from "../utils/fs.ts";
+import { formatListOfItems } from "../utils/format.ts";
 
 export async function verifyMetadata(
   file: string,
