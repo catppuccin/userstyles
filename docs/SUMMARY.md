@@ -24,8 +24,6 @@
 
   - [Tips and Tricks](./tips-and-tricks/README.md)
 
-    - [Convert images to WebP](./tips-and-tricks/convert-images-to-webp.md)
-    - [Hide sensitive information from preview screenshots](./tips-and-tricks/hide-sensitive-information-from-previews.md)
     - [Inspect hard-to-grab elements](./tips-and-tricks/inspect-hard-to-grab-elements.md)
     - [See changes in real time (hot reloading)](./tips-and-tricks/see-changes-in-real-time.md)
 

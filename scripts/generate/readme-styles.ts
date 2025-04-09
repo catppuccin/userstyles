@@ -3,6 +3,7 @@ import { REPO_ROOT } from "@/constants.ts";
 
 import * as path from "@std/path";
 import Handlebars from "handlebars";
+import { formatListOfItems } from "@/utils.ts";
 
 // we can have some nice things :)
 Handlebars.registerHelper(
@@ -16,19 +17,15 @@ Handlebars.registerHelper(
 
 const heading = (
   name: UserstylesSchema.Name,
-  link: UserstylesSchema.ApplicationLink,
+  link: UserstylesSchema.Link,
+  supports: UserstylesSchema.Supports | undefined,
 ) => {
-  const [nameArray, linkArray] = [[name].flat(), [link].flat()];
-
-  if (nameArray.length !== linkArray.length) {
-    throw new Error(
-      'The "name" and "app-link" arrays must have the same length',
-    );
-  }
-
-  return nameArray.map((title, i) => {
-    return { title, url: linkArray[i] };
-  });
+  return [{ title: name, url: link }].concat(
+    Object.values(supports ?? {}).map(({ name, link }) => ({
+      title: name,
+      url: link,
+    })),
+  );
 };
 
 function getNameWithGitHubUrl(
@@ -60,7 +57,9 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
         slug,
         {
           name,
-          readme,
+          link,
+          note,
+          supports,
           "current-maintainers": currentMaintainers,
           "past-maintainers": pastMaintainers,
         },
@@ -68,10 +67,14 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
     ) => {
       console.log(`Generating README for styles/${slug}...`);
       const readmeContent = Handlebars.compile(stylesReadmeContent)({
-        heading: heading(name, readme["app-link"]),
+        heading: heading(name, link, supports),
+        supportedWebsites: formatListOfItems(
+          Object.values(supports ?? {}).map(({ name, link }) =>
+            `[${name}](${link})`
+          ),
+        ),
         slug,
-        note: readme.note,
-        faq: readme.faq,
+        note,
         collaborators: {
           currentMaintainers: getNameWithGitHubUrl(currentMaintainers),
           pastMaintainers: getNameWithGitHubUrl(pastMaintainers),

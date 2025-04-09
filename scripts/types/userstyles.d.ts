@@ -1,9 +1,13 @@
 // deno-fmt-ignore-file
 
 /**
- * The name of the userstyle(s).
+ * The name of the userstyle.
  */
-export type Name = [string, string, ...string[]] | string;
+export type Name = string;
+/**
+ * The url of the website that is being themed.
+ */
+export type Link = string;
 /**
  * The categories that fit the userstyle the most, the first category is the primary category which the userstyle will be listed under on the README.
  *
@@ -71,36 +75,13 @@ export type Color =
  */
 export type Icon = string;
 /**
- * The hyperlink of the app that is being themed.
- */
-export type ApplicationLink = [string, string, ...string[]] | string;
-/**
- * An additional note for the Usage section of the userstyle README.
+ * An additional note that users should read.
  */
 export type Note = string;
 /**
- * The FAQ section of the userstyle README.
- *
- * @minItems 1
+ * The name of the website.
  */
-export type FAQ = [
-  {
-    question: Question;
-    answer: Answer;
-  },
-  ...{
-    question: Question;
-    answer: Answer;
-  }[]
-];
-/**
- * A question that a user may have about the userstyle.
- */
-export type Question = string;
-/**
- * An answer to the question about the userstyle.
- */
-export type Answer = string;
+export type WebsiteName = string;
 /**
  * List of all active maintainers for this userstyle.
  */
@@ -123,7 +104,7 @@ export interface UserstylesSchema {
   collaborators?: AllCollaborators;
 }
 /**
- * All userstyles in the Catppuccin org.
+ * All userstyles in the Catppuccin organisation.
  */
 export interface Userstyles {
   [k: string]: Userstyle;
@@ -136,18 +117,28 @@ export interface Userstyles {
  */
 export interface Userstyle {
   name: Name;
+  link: Link;
   categories: Categories;
   color: Color;
   icon?: Icon;
-  readme: README;
+  note?: Note;
+  supports?: Supports;
   "current-maintainers": CurrentMaintainers;
   "past-maintainers"?: PastMaintainers;
 }
 /**
- * Options to help in the auto-generation of the userstyle README.
+ * All websites that the userstyle also supports.
  */
-export interface README {
-  "app-link": ApplicationLink;
-  note?: Note;
-  faq?: FAQ;
+export interface Supports {
+  [k: string]: Website;
+}
+/**
+ * The unique identifier of the supported website, usually the name of the website lowercased.
+ *
+ * This interface was referenced by `Supports`'s JSON-Schema definition
+ * via the `patternProperty` "[A-Za-z0-9_\-]".
+ */
+export interface Website {
+  name: WebsiteName;
+  link: Link;
 }

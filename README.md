@@ -20,6 +20,10 @@
 A curated collection of customized themes designed for various websites and web applications. These themes showcase delightful pastel colors, creating a soothing and visually pleasing experience when browsing the web.
 </p>
 
+<p align="center">
+<img src="docs/images/preview.webp"/>
+</p>
+
 ## Getting started
 
 To get started using the catppuccin/userstyles collection, see [Usage](docs/USAGE.md).
@@ -53,14 +57,16 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [Keyoxide](styles/keyoxide)
 - [Learn X in Y Minutes](styles/learn-x-in-y-minutes)
 - [MDN](styles/mdn)
-- [NixOS Manual, Nixpkgs Manual](styles/nixos-manual)
+- [Next.js](styles/vercel)
+- [NixOS Manual](styles/nixos-manual)
+- [Nixpkgs Manual](styles/nixos-manual)
 - [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
 - [PythonAnywhere](styles/pythonanywhere)
 - [React.dev](styles/react.dev)
 - [Trinket](styles/trinket)
-- [Vercel, Next.js](styles/vercel)
+- [Vercel](styles/vercel)
 - [web.dev](styles/web.dev)
 
 </details>
@@ -211,9 +217,10 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [Hacker News](styles/hacker-news)
 - [Lemmy](styles/lemmy)
-- ❤️‍🩹 [Libreddit, Redlib](styles/libreddit)
+- ❤️‍🩹 [Libreddit](styles/libreddit)
 - [Lobsters](styles/lobste.rs)
 - ❤️‍🩹 [Reddit](styles/reddit)
+- ❤️‍🩹 [Redlib](styles/libreddit)
 - [Stack Overflow](styles/stack-overflow)
 - [TabNews](styles/tabnews)
 
@@ -222,7 +229,8 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>🌈 Entertainment</summary>
 
 - [7TV](styles/seventv)
-- [AniList, AniChart](styles/anilist)
+- [AniChart](styles/anilist)
+- [AniList](styles/anilist)
 - [ChatReplay](styles/chatreplay)
 - [Holodex](styles/holodex)
 - ❤️‍🩹 [Invidious](styles/invidious)
