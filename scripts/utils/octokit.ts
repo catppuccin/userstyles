@@ -1,7 +1,7 @@
 import { Octokit } from "@octokit/rest";
 
 export function getAuthenticatedOctokit() {
-  return new Octokit({ auth: process.env["GITHUB_TOKEN"] });
+  return new Octokit({ auth: process.env.GITHUB_TOKEN });
 }
 
 export type UserstylesTeam = "userstyles-staff" | "userstyles-maintainers";

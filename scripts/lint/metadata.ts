@@ -31,7 +31,7 @@ export async function verifyMetadata(
 
   // Pretty print / annotate the parsing errors.
   for (const error of parsingErrors) {
-    let startLine;
+    let startLine: undefined | number;
     if (error.index !== undefined && !Number.isNaN(error.index)) {
       startLine = 0;
       for (const line of lines) {
@@ -138,7 +138,8 @@ export async function verifyMetadata(
   // gets parsed as
   // `lightFlavor: "latte"`.
   const globalVars = Object.entries(metadata.vars).reduce((acc, [k, v]) => {
-    return { ...acc, [k]: v.default };
+    acc[k] = v.default;
+    return acc;
   }, {});
 
   return {

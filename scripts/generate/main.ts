@@ -12,7 +12,7 @@ import { generateMainReadme } from "./readme-repo.ts";
 import { generateStyleReadmes } from "./readme-styles.ts";
 import { writeWithPreamble } from "./utils.ts";
 
-if (!process.env["CI"]) {
+if (!process.env.CI) {
   throw new Error(
     "This script should only be used in CI. Generated READMEs and other health files are automatically updated after pull requests are merged.",
   );

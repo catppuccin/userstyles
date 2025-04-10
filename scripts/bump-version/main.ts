@@ -10,7 +10,7 @@ import { CalVer } from "./calver.ts";
 
 const args = parseArgs(process.argv.slice(2), { boolean: ["all"] });
 
-if (!process.env["CI"] && !args.all) {
+if (!process.env.CI && !args.all) {
   throw new Error(
     "This script should only be used in CI. Userstyle versions are automatically bumped after pull requests are merged.",
   );
@@ -21,7 +21,7 @@ let files: string[] = [];
 if (args.all) {
   files = getUserstylesFiles();
 } else {
-  files = args._.filter((val) => typeof val == "string").map((p: string) =>
+  files = args._.filter((val) => typeof val === "string").map((p: string) =>
     path.join(REPO_ROOT, p),
   );
 }

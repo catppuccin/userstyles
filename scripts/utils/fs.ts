@@ -17,7 +17,7 @@ export function readTextFileSync(path: string): string {
 }
 
 export function writeTextFileSync(path: string, content: string): void {
-  return fs.writeFileSync(path, content);
+  fs.writeFileSync(path, content);
 }
 
 export async function readDir(
