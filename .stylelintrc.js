@@ -5,9 +5,7 @@
  */
 export default {
   extends: "stylelint-config-standard",
-  plugins: [
-    "./scripts/lint/stylelint-custom/index.js",
-  ],
+  plugins: ["./scripts/lint/stylelint-custom/index.js"],
   customSyntax: "postcss-less",
   rules: {
     "catppuccin/optimized-svgs": true,

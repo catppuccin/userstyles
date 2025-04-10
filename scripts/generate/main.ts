@@ -1,15 +1,16 @@
 import path from "node:path";
+
 import { REPO_ROOT } from "../constants.ts";
+import { getCategoriesData, getUserstylesData } from "../utils/data.ts";
+import {
+  getAuthenticatedOctokit,
+  getUserstylesTeamMembers,
+} from "../utils/octokit.ts";
 
 import { syncIssueLabels } from "./labels.ts";
 import { generateMainReadme } from "./readme-repo.ts";
 import { generateStyleReadmes } from "./readme-styles.ts";
 import { writeWithPreamble } from "./utils.ts";
-import {
-  getCategoriesData,
-  getUserstylesData,
-} from "../utils/data.ts";
-import { getAuthenticatedOctokit, getUserstylesTeamMembers } from "../utils/octokit.ts";
 
 if (!process.env["CI"]) {
   throw new Error(
@@ -42,13 +43,12 @@ await syncIssueLabels(userstylesData.userstyles);
  */
 function maintainersCodeOwners() {
   return Object.entries(userstylesData.userstyles!)
-    .filter(([_, { "current-maintainers": currentMaintainers }]) =>
-      currentMaintainers.length > 0
+    .filter(
+      ([_, { "current-maintainers": currentMaintainers }]) =>
+        currentMaintainers.length > 0,
     )
     .map(([slug, { "current-maintainers": currentMaintainers }]) => {
-      const codeOwners = currentMaintainers
-        .map((name) => `@${name}`)
-        .join(" ");
+      const codeOwners = currentMaintainers.map((name) => `@${name}`).join(" ");
       return `/styles/${slug} ${codeOwners}`;
     })
     .join("\n");
@@ -61,11 +61,12 @@ async function userstylesStaffCodeOwners() {
     octokit,
     "userstyles-staff",
   );
-  return paths.map((path) =>
-    `${path} ${staffMembers.map((member) => "@" + member).join(" ")}`
-  ).join(
-    "\n",
-  );
+  return paths
+    .map(
+      (path) =>
+        `${path} ${staffMembers.map((member) => "@" + member).join(" ")}`,
+    )
+    .join("\n");
 }
 await writeWithPreamble(
   path.join(REPO_ROOT, ".github/CODEOWNERS"),

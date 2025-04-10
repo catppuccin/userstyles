@@ -1,5 +1,13 @@
-import type { CategoriesSchema, UserstylesSchema } from "../types/mod.ts";
 import type { SetRequired } from "type-fest/source/set-required.d.ts";
+
+import type { CategoriesSchema, UserstylesSchema } from "../types/mod.ts";
+
+import path from "node:path";
+
+import { sprintf } from "@std/fmt/printf";
+import Ajv, { type Schema } from "ajv";
+import yaml, { YAMLParseError } from "yaml";
+
 import {
   CATEGORIES_SCHEMA,
   REPO_ROOT,
@@ -7,17 +15,12 @@ import {
   USERSTYLES_SCHEMA,
 } from "../constants.ts";
 
-import yaml, { YAMLParseError } from "yaml";
-import path from "node:path";
-
-import Ajv, { type Schema } from "ajv";
-import { log } from "./logger.ts";
-import { sprintf } from "@std/fmt/printf";
 import { readDirSync, readTextFileSync } from "./fs.ts";
+import { log } from "./logger.ts";
 
 type Userstyles = SetRequired<
-UserstylesSchema.UserstylesSchema,
-"userstyles" | "collaborators"
+  UserstylesSchema.UserstylesSchema,
+  "userstyles" | "collaborators"
 >;
 
 /**
@@ -46,7 +49,7 @@ export function validateYaml<T>(
             err.params.allowedValues
               ? ` (${JSON.stringify(err.params.allowedValues, undefined)})`
               : "",
-          )
+          ),
         )
         .join(" and "),
       {
@@ -89,10 +92,9 @@ export function getUserstylesData(): Userstyles {
   } catch (err) {
     if (err instanceof YAMLParseError) {
       const groups =
-        /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
-          .exec(
-            err.message,
-          )?.groups;
+        /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/.exec(
+          err.message,
+        )?.groups;
       log.error(groups!.message, {
         file: "scripts/userstyles.yml",
         startLine: Number(groups!.line),
@@ -109,9 +111,7 @@ export function getUserstylesData(): Userstyles {
 /**
  * Utility function that calls {@link validateYaml} on the categories.yml file.
  */
-export async function getCategoriesData(): Promise<
-  CategoriesSchema.CategoryDefinitions
-> {
+export async function getCategoriesData(): Promise<CategoriesSchema.CategoryDefinitions> {
   const content = await fetch(
     "https://raw.githubusercontent.com/catppuccin/catppuccin/de9d2cd963059753c8fd66fbb6f807be95c6cc1e/resources/categories.yml",
   ).then((res) => res.text());
@@ -129,9 +129,7 @@ export function getUserstylesFiles(): string[] {
   const files: string[] = [];
   for (const dir of readDirSync(STYLES_ROOT)) {
     if (!dir.isDirectory()) continue;
-    files.push(
-      path.join(STYLES_ROOT, dir.name, "catppuccin.user.less"),
-    );
+    files.push(path.join(STYLES_ROOT, dir.name, "catppuccin.user.less"));
   }
   return files;
 }

@@ -5,9 +5,9 @@ export class CalVer {
   micro?: number;
 
   constructor(date: string) {
-    const [year, month, day, micro] = date.split(".").map((num) =>
-      Number.parseInt(num)
-    );
+    const [year, month, day, micro] = date
+      .split(".")
+      .map((num) => Number.parseInt(num));
     this.year = year;
     this.month = month;
     this.day = day;
@@ -15,9 +15,9 @@ export class CalVer {
   }
 
   toString() {
-    return `${this.year}.${this.month.toString().padStart(2, "0")}.${
-      this.day.toString().padStart(2, "0")
-    }${this.micro ? "." + this.micro : ""}`;
+    return `${this.year}.${this.month.toString().padStart(2, "0")}.${this.day
+      .toString()
+      .padStart(2, "0")}${this.micro ? "." + this.micro : ""}`;
   }
 
   incrementWith(date: Date) {

@@ -1,21 +1,25 @@
 import type { UserstylesSchema } from "../types/mod.ts";
-import { REPO_ROOT } from "../constants.ts";
 
 import path from "node:path";
+
 import yaml from "yaml";
 
 import { type ColorName, flavors } from "@catppuccin/palette";
-import { writeWithPreamble } from "./utils.ts";
+import { REPO_ROOT } from "../constants.ts";
 import { readTextFile, writeTextFile } from "../utils/fs.ts";
+
+import { writeWithPreamble } from "./utils.ts";
 
 /**
  * Macchiato color definitions as hex values.
  */
-const macchiatoHex = flavors.macchiato.colorEntries
-  .reduce((acc, [identifier, { hex }]) => {
+const macchiatoHex = flavors.macchiato.colorEntries.reduce(
+  (acc, [identifier, { hex }]) => {
     acc[identifier] = hex;
     return acc;
-  }, {} as Record<ColorName, string>);
+  },
+  {} as Record<ColorName, string>,
+);
 
 const toIssueLabel = (key: string) => `lbl:${key}`;
 
@@ -28,36 +32,35 @@ export async function syncIssueLabels(userstyles: UserstylesSchema.Userstyles) {
   await writeWithPreamble(
     path.join(REPO_ROOT, ".github/issue-labeler.yml"),
     yaml.stringify(
-      Object.entries(userstyles)
-        .reduce((acc, [key, { supports }]) => {
+      Object.entries(userstyles).reduce(
+        (acc, [key, { supports }]) => {
           acc[key.toString()] = [toIssueLabelRegex(key)];
           Object.keys(supports ?? {}).forEach((key) => {
             acc[key.toString()] = [toIssueLabelRegex(key)];
           });
           return acc;
-        }, {} as Record<string, string[]>),
+        },
+        {} as Record<string, string[]>,
+      ),
     ),
   );
 
   // .github/ISSUE_TEMPLATE/userstyle.yml
-  const userstyleIssueTemplate = await readTextFile(path.join(
-    REPO_ROOT,
-    "scripts/generate/templates/userstyle-issue.yml",
-  ));
+  const userstyleIssueTemplate = await readTextFile(
+    path.join(REPO_ROOT, "scripts/generate/templates/userstyle-issue.yml"),
+  );
   await writeTextFile(
     path.join(REPO_ROOT, ".github/ISSUE_TEMPLATE/userstyle.yml"),
     userstyleIssueTemplate.replace(
       `"$LABELS"`,
-      `${
-        Object.entries(userstyles)
-          .flatMap(([slug, { supports }]) =>
-            [slug, ...Object.keys(supports ?? {})].map((key) =>
-              `"${toIssueLabel(key)}"`
-            )
-          )
-          .sort()
-          .join(", ")
-      }`,
+      `${Object.entries(userstyles)
+        .flatMap(([slug, { supports }]) =>
+          [slug, ...Object.keys(supports ?? {})].map(
+            (key) => `"${toIssueLabel(key)}"`,
+          ),
+        )
+        .sort()
+        .join(", ")}`,
     ),
   );
 
@@ -65,14 +68,16 @@ export async function syncIssueLabels(userstyles: UserstylesSchema.Userstyles) {
   await writeWithPreamble(
     path.join(REPO_ROOT, ".github/pr-labeler.yml"),
     yaml.stringify(
-      Object.entries(userstyles)
-        .reduce((acc, [key, { supports }]) => {
+      Object.entries(userstyles).reduce(
+        (acc, [key, { supports }]) => {
           acc[key] = toPrLabel(key);
           Object.keys(supports ?? {}).forEach((supportedKey) => {
             acc[supportedKey] = toPrLabel(key);
           });
           return acc;
-        }, {} as Record<string, string>),
+        },
+        {} as Record<string, string>,
+      ),
     ),
   );
 
@@ -86,13 +91,13 @@ export async function syncIssueLabels(userstyles: UserstylesSchema.Userstyles) {
           description: style.name,
           color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
         },
-        ...Object.entries(style.supports ?? {}).map((
-          [supportedKey, { name }],
-        ) => ({
-          name: supportedKey,
-          description: name,
-          color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
-        })),
+        ...Object.entries(style.supports ?? {}).map(
+          ([supportedKey, { name }]) => ({
+            name: supportedKey,
+            description: name,
+            color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
+          }),
+        ),
       ]),
     ),
   );

@@ -1,15 +1,14 @@
 import type { UserstylesSchema } from "../types/mod.ts";
-import { REPO_ROOT, STYLES_ROOT } from "../constants.ts";
 
 import path from "node:path";
-import Handlebars from "handlebars";
-import { readTextFileSync, writeTextFile } from "../utils/fs.ts";
-import { formatListOfItems, pluralize } from "../utils/format.ts";
 
-Handlebars.registerHelper(
-  "pluralize",
-  pluralize
-);
+import Handlebars from "handlebars";
+
+import { REPO_ROOT, STYLES_ROOT } from "../constants.ts";
+import { formatListOfItems, pluralize } from "../utils/format.ts";
+import { readTextFileSync, writeTextFile } from "../utils/fs.ts";
+
+Handlebars.registerHelper("pluralize", pluralize);
 
 const heading = (
   name: UserstylesSchema.Name,
@@ -48,25 +47,23 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
   const stylesReadmeContent = readTextFileSync(stylesReadmePath);
 
   Object.entries(userstyles).map(
-    (
-      [
-        slug,
-        {
-          name,
-          link,
-          note,
-          supports,
-          "current-maintainers": currentMaintainers,
-          "past-maintainers": pastMaintainers,
-        },
-      ],
-    ) => {
+    ([
+      slug,
+      {
+        name,
+        link,
+        note,
+        supports,
+        "current-maintainers": currentMaintainers,
+        "past-maintainers": pastMaintainers,
+      },
+    ]) => {
       console.log(`Generating README for styles/${slug}...`);
       const content = Handlebars.compile(stylesReadmeContent)({
         heading: heading(name, link, supports),
         supportedWebsites: formatListOfItems(
-          Object.values(supports ?? {}).map(({ name, link }) =>
-            `[${name}](${link})`
+          Object.values(supports ?? {}).map(
+            ({ name, link }) => `[${name}](${link})`,
           ),
         ),
         slug,
@@ -76,10 +73,9 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
           pastMaintainers: getNameWithGitHubUrl(pastMaintainers),
         },
       });
-      writeTextFile(
-        path.join(STYLES_ROOT, slug, "README.md"),
-        content,
-      ).catch((e) => console.error(e));
+      writeTextFile(path.join(STYLES_ROOT, slug, "README.md"), content).catch(
+        (e) => console.error(e),
+      );
     },
   );
 }

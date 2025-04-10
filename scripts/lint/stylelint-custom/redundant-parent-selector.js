@@ -1,5 +1,6 @@
-import stylelint from "stylelint";
 import assert from "node:assert/strict";
+
+import stylelint from "stylelint";
 
 const {
   createPlugin,
@@ -44,10 +45,7 @@ const ruleFunction = (primary, _secondary, context) => {
 
             rule.each((node) => {
               if (node.type === "decl") {
-                parent.insertAfter(
-                  parent.nodes[idx],
-                  node.clone(),
-                );
+                parent.insertAfter(parent.nodes[idx], node.clone());
                 idx++;
               }
             });

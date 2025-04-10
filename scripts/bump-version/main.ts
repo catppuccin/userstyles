@@ -1,10 +1,12 @@
 import path from "node:path";
 
-import { REPO_ROOT } from "../constants.ts";
-import { CalVer } from "./calver.ts";
 import parseArgs from "tiny-parse-argv";
+
+import { REPO_ROOT } from "../constants.ts";
 import { getUserstylesFiles } from "../utils/data.ts";
 import { readTextFile, writeTextFile } from "../utils/fs.ts";
+
+import { CalVer } from "./calver.ts";
 
 const args = parseArgs(process.argv.slice(2), { boolean: ["all"] });
 
@@ -20,13 +22,11 @@ if (args.all) {
   files = getUserstylesFiles();
 } else {
   files = args._.filter((val) => typeof val == "string").map((p: string) =>
-    path.join(REPO_ROOT, p)
+    path.join(REPO_ROOT, p),
   );
 }
 
-for (
-  const file of files
-) {
+for (const file of files) {
   const content = await readTextFile(file);
 
   const metadataMatches = content.match(
@@ -47,10 +47,11 @@ for (
   const version = new CalVer(versionMatches[2]);
   version.incrementWith(new Date());
 
-  const newContent = metadata.replace(
-    /@version\s+.*/,
-    `@version${whitespace}${version.toString()}`,
-  ) + post;
+  const newContent =
+    metadata.replace(
+      /@version\s+.*/,
+      `@version${whitespace}${version.toString()}`,
+    ) + post;
 
   await writeTextFile(file, newContent);
 }
