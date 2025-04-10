@@ -7,7 +7,7 @@ import { generateStyleReadmes } from "@/generate/readme-styles.ts";
 import { writeWithPreamble } from "@/generate/utils.ts";
 import {
   getAuthenticatedOctokit,
-  getPortsData,
+  getCategoriesData,
   getUserstylesData,
   getUserstylesTeamMembers,
 } from "@/utils.ts";
@@ -19,12 +19,12 @@ if (!Deno.env.get("CI")) {
 }
 
 const userstylesData = getUserstylesData();
-const portsData = await getPortsData();
+const categoriesData = await getCategoriesData();
 
 /**
  * Generate the main README.md, listing all ports as a table of contents
  */
-await generateMainReadme(userstylesData.userstyles, portsData);
+await generateMainReadme(userstylesData.userstyles, categoriesData);
 /**
  * Generate README.md files for each style
  */
@@ -48,7 +48,7 @@ function maintainersCodeOwners() {
     )
     .map(([slug, { "current-maintainers": currentMaintainers }]) => {
       const codeOwners = currentMaintainers
-        .map((maintainer) => `@${maintainer.url.split("/").pop()}`)
+        .map((name) => `@${name}`)
         .join(" ");
       return `/styles/${slug} ${codeOwners}`;
     })

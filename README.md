@@ -20,6 +20,10 @@
 A curated collection of customized themes designed for various websites and web applications. These themes showcase delightful pastel colors, creating a soothing and visually pleasing experience when browsing the web.
 </p>
 
+<p align="center">
+<img src="docs/images/preview.webp"/>
+</p>
+
 ## Getting started
 
 To get started using the catppuccin/userstyles collection, see [Usage](docs/USAGE.md).
@@ -53,15 +57,16 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [Keyoxide](styles/keyoxide)
 - [Learn X in Y Minutes](styles/learn-x-in-y-minutes)
 - [MDN](styles/mdn)
-- [NixOS Manual, Nixpkgs Manual](styles/nixos-manual)
+- [Next.js](styles/vercel)
+- [NixOS Manual](styles/nixos-manual)
+- [Nixpkgs Manual](styles/nixos-manual)
 - [npm](styles/npm)
-- [Ollama](styles/ollama)
 - [paste.rs](styles/paste.rs)
 - [PyPI](styles/pypi)
 - [PythonAnywhere](styles/pythonanywhere)
 - [React.dev](styles/react.dev)
 - [Trinket](styles/trinket)
-- [Vercel, Next.js](styles/vercel)
+- [Vercel](styles/vercel)
 - [web.dev](styles/web.dev)
 
 </details>
@@ -69,6 +74,13 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>🌱 Terminals</summary>
 
 - [Ghostty.org](styles/ghostty.org)
+
+</details>
+<details open>
+<summary>🗂️ File Managers</summary>
+
+- [openmediavault](styles/openmediavault)
+- [Syncthing](styles/syncthing)
 
 </details>
 <details open>
@@ -132,7 +144,6 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>📖 Productivity</summary>
 
 - [AlternativeTo](styles/alternativeto)
-- [Amplenote](styles/amplenote)
 - [cobalt](styles/cobalt)
 - [Google Drive](styles/google-drive)
 - [Have I Been Pwned](styles/have-i-been-pwned)
@@ -140,12 +151,10 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [inoreader](styles/inoreader)
 - [keybr.com](styles/keybr.com)
 - ❤️‍🩹 [Microsoft Word](styles/microsoft-word)
-- [openmediavault](styles/openmediavault)
 - [Porkbun](styles/porkbun)
 - [Proton](styles/proton)
 - [Raindrop](styles/raindrop)
 - [Rentry.co](styles/rentry.co)
-- [Syncthing](styles/syncthing)
 - [tldraw](styles/tldraw)
 - [Vikunja](styles/vikunja)
 
@@ -165,11 +174,23 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 </details>
 <details open>
+<summary>📝 Note Taking</summary>
+
+- [Amplenote](styles/amplenote)
+
+</details>
+<details open>
 <summary>🎓 Education</summary>
 
 - [Canvas LMS](styles/canvas-lms)
 - [Formative](styles/formative)
 - [Quizlet](styles/quizlet)
+
+</details>
+<details open>
+<summary>📰 News &amp; Journalism</summary>
+
+- [Substack](styles/substack)
 
 </details>
 <details open>
@@ -196,9 +217,10 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [Hacker News](styles/hacker-news)
 - [Lemmy](styles/lemmy)
-- ❤️‍🩹 [Libreddit, Redlib](styles/libreddit)
+- ❤️‍🩹 [Libreddit](styles/libreddit)
 - [Lobsters](styles/lobste.rs)
 - ❤️‍🩹 [Reddit](styles/reddit)
+- ❤️‍🩹 [Redlib](styles/libreddit)
 - [Stack Overflow](styles/stack-overflow)
 - [TabNews](styles/tabnews)
 
@@ -207,12 +229,12 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>🌈 Entertainment</summary>
 
 - [7TV](styles/seventv)
-- [AniList, AniChart](styles/anilist)
+- [AniChart](styles/anilist)
+- [AniList](styles/anilist)
 - [ChatReplay](styles/chatreplay)
 - [Holodex](styles/holodex)
 - ❤️‍🩹 [Invidious](styles/invidious)
 - [Picrew](styles/picrew)
-- [Substack](styles/substack)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
 
@@ -221,7 +243,6 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>🎮 Games</summary>
 
 - [Advent Of Code](styles/advent-of-code)
-- [bStats](styles/bstats)
 - [Chess.com](styles/chess.com)
 - [Lichess](styles/lichess)
 - ❤️‍🩹 [Minesweeper Online](styles/minesweeper)
@@ -230,11 +251,18 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 </details>
 <details open>
+<summary>📊 Analytics</summary>
+
+- [bStats](styles/bstats)
+
+</details>
+<details open>
 <summary>🤖 Artificial Intelligence</summary>
 
 - [ChatGPT](styles/chatgpt)
 - [Google Gemini](styles/google-gemini)
 - [InvokeAI](styles/invokeai)
+- [Ollama](styles/ollama)
 - [Perplexity](styles/perplexity)
 
 </details>
