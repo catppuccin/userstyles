@@ -1,7 +1,6 @@
-// @ts-check
+import assert from "node:assert/strict";
 
 import stylelint from "stylelint";
-import { assert } from "@std/assert";
 
 const {
   createPlugin,
@@ -18,7 +17,7 @@ const messages = ruleMessages(ruleName, {
   rejected: () => `Redundant parent selector is not allowed`,
 });
 
-/** @type {import('npm:stylelint').Rule} */
+/** @type {import('stylelint').Rule} */
 const ruleFunction = (primary, _secondary, context) => {
   return (root, result) => {
     const validOptions = validateOptions(result, ruleName, {
@@ -46,10 +45,7 @@ const ruleFunction = (primary, _secondary, context) => {
 
             rule.each((node) => {
               if (node.type === "decl") {
-                parent.insertAfter(
-                  parent.nodes[idx],
-                  node.clone(),
-                );
+                parent.insertAfter(parent.nodes[idx], node.clone());
                 idx++;
               }
             });

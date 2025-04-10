@@ -1,5 +1,5 @@
-import stylelint from "stylelint";
 import valueParser from "postcss-value-parser";
+import stylelint from "stylelint";
 import { optimize } from "svgo";
 
 const {

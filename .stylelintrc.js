@@ -1,13 +1,11 @@
 // @ts-check
 
 /**
- * @type {import('npm:stylelint').Config}
+ * @type {import('stylelint').Config}
  */
 export default {
   extends: "stylelint-config-standard",
-  plugins: [
-    "./scripts/lint/stylelint-custom/index.js",
-  ],
+  plugins: ["./scripts/lint/stylelint-custom/index.js"],
   customSyntax: "postcss-less",
   rules: {
     "catppuccin/optimized-svgs": true,
@@ -52,7 +50,7 @@ export default {
     "property-disallowed-list": [
       [
         // Disallow setting custom fonts.
-        "/font.*/",
+        "/^font.*/",
 
         // Ideally we could disallow these, but CSS continues to be gross.
         // "/animation.*/",

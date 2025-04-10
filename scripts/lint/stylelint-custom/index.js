@@ -1,9 +1,5 @@
-import colorOperation from "@/lint/stylelint-custom/color-operation.js";
-import optimizedSvgs from "@/lint/stylelint-custom/optimized-svgs.js";
-import redundantParentSelector from "@/lint/stylelint-custom/redundant-parent-selector.js";
+import colorOperation from "./color-operation.js";
+import optimizedSvgs from "./optimized-svgs.js";
+import redundantParentSelector from "./redundant-parent-selector.js";
 
-export default [
-  colorOperation,
-  optimizedSvgs,
-  redundantParentSelector,
-];
+export default [colorOperation, optimizedSvgs, redundantParentSelector];

@@ -1,7 +1,6 @@
-// @ts-check
-
-import stylelint from "stylelint";
 import valueParser from "postcss-value-parser";
+import stylelint from "stylelint";
+
 import { flavors } from "@catppuccin/palette";
 
 const LESS_COLOR_OP_FUNCTIONS = [
@@ -55,7 +54,7 @@ const messages = ruleMessages(ruleName, {
   fadein_used: () => `Use 'fade' instead of 'fadein'`,
 });
 
-/** @type {import('npm:stylelint').Rule} */
+/** @type {import('stylelint').Rule} */
 const ruleFunction = (primary, _secondary, context) => {
   return (root, result) => {
     const validOptions = validateOptions(result, ruleName, {
@@ -71,8 +70,7 @@ const ruleFunction = (primary, _secondary, context) => {
       parsed.walk((node) => {
         if (node.type !== "function") return;
 
-        const pre = decl.prop.length +
-          (decl.raws.between?.length || 0);
+        const pre = decl.prop.length + (decl.raws.between?.length || 0);
         const startIndex = pre + node.sourceIndex;
         const endIndex = pre + node.sourceEndIndex - 1;
 
@@ -85,9 +83,8 @@ const ruleFunction = (primary, _secondary, context) => {
         ) {
           if (context.fix) {
             node.value = "fade";
-            node.nodes[2].value = normalizeColorOperationAmount(
-              node.nodes[2].value,
-            ) + "%";
+            node.nodes[2].value =
+              normalizeColorOperationAmount(node.nodes[2].value) + "%";
           } else {
             report({
               result,
@@ -101,9 +98,7 @@ const ruleFunction = (primary, _secondary, context) => {
         }
 
         // Use `fade` instead of `fadeout`.
-        if (
-          node.value === "fadeout"
-        ) {
+        if (node.value === "fadeout") {
           if (
             context.fix &&
             // Only autofixable if it follows the pattern of `fadeout(@<color>, <num>%)`. Otherwise, it's ambiguous.
@@ -113,8 +108,8 @@ const ruleFunction = (primary, _secondary, context) => {
             node.value = "fade";
             const value = node.nodes[2].value.replace("%", "");
             // Invert the value to get the fade amount. E.g. `fadeout(@color, 30%)` becomes `fade(@color, 70%)`.
-            node.nodes[2].value = (100 - normalizeColorOperationAmount(value)) +
-              "%";
+            node.nodes[2].value =
+              100 - normalizeColorOperationAmount(value) + "%";
           } else {
             report({
               result,
@@ -153,9 +148,8 @@ const ruleFunction = (primary, _secondary, context) => {
           if (!NUMERICAL_VALUE_REGEX.test(value)) return;
 
           if (context.fix) {
-            node.nodes[amountArgIndex].value = normalizeColorOperationAmount(
-              value,
-            ) + "%";
+            node.nodes[amountArgIndex].value =
+              normalizeColorOperationAmount(value) + "%";
           } else {
             report({
               result,
@@ -163,8 +157,8 @@ const ruleFunction = (primary, _secondary, context) => {
               message: messages.amount_not_percentage(),
               node: decl,
               index: startIndex + node.nodes[amountArgIndex].sourceIndex,
-              endIndex: startIndex + node.nodes[amountArgIndex].sourceEndIndex -
-                1,
+              endIndex:
+                startIndex + node.nodes[amountArgIndex].sourceEndIndex - 1,
             });
           }
         }

@@ -1,34 +1,34 @@
-import { REPO_ROOT } from "@/constants.ts";
+import path from "node:path";
 
-import { parseArgs } from "@std/cli";
-import * as path from "@std/path";
-// @ts-types="npm:@types/less";
 import less from "less";
+import parseArgs from "tiny-parse-argv";
 
-import { checkForMissingFiles } from "@/lint/file-checker.ts";
-import { log } from "@/logger.ts";
-import { verifyMetadata } from "@/lint/metadata.ts";
-import { runStylelint } from "@/lint/stylelint.ts";
-import { getUserstylesData, getUserstylesFiles } from "@/utils.ts";
 import stylelintConfig from "../../.stylelintrc.js";
+import { REPO_ROOT, STYLES_ROOT } from "../constants.ts";
+import { getUserstylesData, getUserstylesFiles } from "../utils/data.ts";
+import { readTextFile } from "../utils/fs.ts";
+import { log } from "../utils/logger.ts";
 
-const args = parseArgs(Deno.args, { boolean: ["fix"] });
-const userstyle = args._[0]?.toString().match(
-  /(?<base>styles\/)?(?<userstyle>[a-z0-9_\-.]+)(?<trailing>\/)?(?<file>catppuccin\.user\.less)?/,
-)?.groups?.userstyle;
+import { verifyMetadata } from "./metadata.ts";
+import { runStylelint } from "./stylelint.ts";
+
+const args = parseArgs(process.argv.slice(2), { boolean: ["fix"] });
+const userstyle = args._[0]
+  ?.toString()
+  .match(
+    /(?<base>styles\/)?(?<userstyle>[a-z0-9_\-.]+)(?<trailing>\/)?(?<file>catppuccin\.user\.less)?/,
+  )?.groups?.userstyle;
 const stylesheets = userstyle
-  ? [path.join(REPO_ROOT, "styles", userstyle, "catppuccin.user.less")]
+  ? [path.join(STYLES_ROOT, userstyle, "catppuccin.user.less")]
   : getUserstylesFiles();
 
 const { userstyles } = getUserstylesData();
-
-let didLintFail = false;
 
 for (const style of stylesheets) {
   const dir = path.basename(path.dirname(style));
   const file = path.relative(REPO_ROOT, style);
 
-  let content = await Deno.readTextFile(style);
+  let content = await readTextFile(style);
 
   // Verify the UserCSS metadata.
   const { globalVars, isLess, fixed } = await verifyMetadata(
@@ -45,23 +45,20 @@ for (const style of stylesheets) {
   if (!isLess) continue;
 
   // Try to compile the LESS file, report any errors.
-  less.render(content, { lint: true, globalVars: globalVars }).catch(
-    (err: Less.RenderError) => {
-      didLintFail = true;
-      log.error(
-        err.message,
-        { file, startLine: err.line, endLine: err.line, content },
-      );
-    },
-  );
+  less
+    .render(content, { lint: true, globalVars: globalVars })
+    .catch((err: Less.RenderError) => {
+      log.error(err.message, {
+        file,
+        startLine: err.line,
+        endLine: err.line,
+        content,
+      });
+    });
 
   // Lint with Stylelint.
-  await runStylelint(style, content, args.fix, stylelintConfig).catch(() =>
-    didLintFail = true
-  );
+  await runStylelint(style, content, args.fix, stylelintConfig);
 }
 
-if (await checkForMissingFiles() === false) didLintFail = true;
-
 // Cause the workflow to fail if any issues were found.
-if (didLintFail || log.failed) Deno.exit(1);
+if (log.failed) process.exit(1);

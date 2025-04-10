@@ -14,12 +14,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Deno
-        uses: nekowinston/setup-deno@main
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          deno-version: v2.2.8
+          cache: pnpm
+          node-version-file: package.json
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Sync maintainers
-        run: deno task ci:sync-maintainers
+        run: pnpm ci:sync-maintainers
         env:
           GITHUB_TOKEN: ${{ secrets.USERSTYLES_TOKEN }}

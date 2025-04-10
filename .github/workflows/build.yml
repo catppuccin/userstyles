@@ -20,13 +20,18 @@ jobs:
         with:
           token: ${{ secrets.USERSTYLES_TOKEN }}
 
-      - name: Setup Deno
-        uses: nekowinston/setup-deno@main
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          deno-version: v2.2.8
+          cache: pnpm
+          node-version-file: package.json
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Generate Stylus import
-        run: deno task ci:stylus-import
+        run: pnpm ci:stylus-import
 
       - name: Upload release artifact
         run: gh release upload --clobber all-userstyles-export ./dist/import.json
