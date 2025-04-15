@@ -130,6 +130,8 @@ export async function getCategoriesData(): Promise<
  * formatListOfItems(['x', 'y', 'z']); // 'x, y, and z'
  */
 export function formatListOfItems(items: unknown[]): string {
+  // If there are no items, return an empty string.
+  if (items.length === 0) return "";
   // If there are two items, connect them with an "and".
   if (items.length === 2) return items.join(" and ");
   // Otherwise, there is either just one item or more than two items.

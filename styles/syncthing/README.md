@@ -13,17 +13,12 @@
 	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/syncthing/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
-<p align="center">
-  <img src="preview.webp"/>
-</p>
-
 ## Usage
 
 See [the userstyle usage instructions](../../docs/USAGE.md).
 
 > [!NOTE]
 > This theme is designed to be used with the default WebGUI and default theme provided by Syncthing. This does not theme syncthing.net.
-
 
 ## 💝 Current Maintainer
 - [BlankParticle](https://github.com/BlankParticle)
