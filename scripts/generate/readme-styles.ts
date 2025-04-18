@@ -3,6 +3,7 @@ import { REPO_ROOT } from "@/constants.ts";
 
 import * as path from "@std/path";
 import Handlebars from "handlebars";
+import { formatListOfItems } from "@/utils.ts";
 
 // we can have some nice things :)
 Handlebars.registerHelper(
@@ -16,32 +17,30 @@ Handlebars.registerHelper(
 
 const heading = (
   name: UserstylesSchema.Name,
-  link: UserstylesSchema.ApplicationLink,
+  link: UserstylesSchema.Link,
+  supports: UserstylesSchema.Supports | undefined,
 ) => {
-  const [nameArray, linkArray] = [[name].flat(), [link].flat()];
-
-  if (nameArray.length !== linkArray.length) {
-    throw new Error(
-      'The "name" and "app-link" arrays must have the same length',
-    );
-  }
-
-  return nameArray.map((title, i) => {
-    return { title, url: linkArray[i] };
-  });
+  return [{ title: name, url: link }].concat(
+    Object.values(supports ?? {}).map(({ name, link }) => ({
+      title: name,
+      url: link,
+    })),
+  );
 };
 
-function extractName(
+function getNameWithGitHubUrl(
   collaborators?:
     | UserstylesSchema.CurrentMaintainers
     | UserstylesSchema.PastMaintainers,
 ) {
   // no-op when undefined
   if (!collaborators) return;
-  // set the name to the github.com/<name>
-  return collaborators.map((c) => {
-    c.name ??= c.url.split("/").pop();
-    return c;
+  // keep name & set the url to the github.com/<name>
+  return collaborators.map((name) => {
+    return {
+      name,
+      url: `https://github.com/${name}`,
+    };
   });
 }
 
@@ -58,21 +57,27 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
         slug,
         {
           name,
-          readme,
+          link,
+          note,
+          supports,
           "current-maintainers": currentMaintainers,
           "past-maintainers": pastMaintainers,
         },
       ],
     ) => {
-      console.log(`Generating README for ${slug}`);
+      console.log(`Generating README for styles/${slug}...`);
       const readmeContent = Handlebars.compile(stylesReadmeContent)({
-        heading: heading(name, readme["app-link"]),
+        heading: heading(name, link, supports),
+        supportedWebsites: formatListOfItems(
+          Object.values(supports ?? {}).map(({ name, link }) =>
+            `[${name}](${link})`
+          ),
+        ),
         slug,
-        usage: readme.usage,
-        faq: readme.faq,
+        note,
         collaborators: {
-          currentMaintainers: extractName(currentMaintainers),
-          pastMaintainers: extractName(pastMaintainers),
+          currentMaintainers: getNameWithGitHubUrl(currentMaintainers),
+          pastMaintainers: getNameWithGitHubUrl(pastMaintainers),
         },
       });
       Deno.writeTextFile(

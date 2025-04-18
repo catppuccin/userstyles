@@ -1,0 +1,2328 @@
+/* ==UserStyle==
+@name Canvas LMS Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/canvas-lms
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/canvas-lms
+@version 2025.03.13.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/canvas-lms/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Acanvas-lms
+@description Soothing pastel theme for Canvas LMS
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain("instructure.com"), domain("instructuremedia.com") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    @text-filter: @catppuccin-filters[@@flavor][@text];
+    @red-filter: @catppuccin-filters[@@flavor][@red];
+    @blue-filter: @catppuccin-filters[@@flavor][@blue];
+    @green-filter: @catppuccin-filters[@@flavor][@green];
+    @yellow-filter: @catppuccin-filters[@@flavor][@yellow];
+    @surface2-filter: @catppuccin-filters[@@flavor][@surface2];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    /* GLOBALS/VARIABLES */
+    --ic-brand-primary: @accent;
+    --ic-brand-primary-lightened-15: lighten(@accent, 5%);
+    --ic-brand-primary-darkened-28: darken(@accent, 10%);
+    --ic-brand-primary-darkened-10: darken(@accent, 3%);
+    --ic-brand-font-color-dark: @text;
+    --ic-brand-font-color-dark-lightened-15: @subtext1;
+    --ic-brand-font-color-dark-lightened-30: @subtext0;
+    --ic-link-color: @blue;
+    --ic-link-color-darkened-10: fade(@blue, 90%);
+    --ic-link-color-lightened-10: lighten(@blue, 10%);
+
+    /* hover colors, used based on whether canvas's css has a blue hover or grayed-out hover color */
+    @hover-regular: fade(@surface2, 50%);
+    @hover-accent: mix(@base, @accent, 70%);
+    @hover-button: @surface1;
+
+    /* GENERAL UI CHANGES */
+
+    #footer,
+    body {
+      color: @text;
+      border-color: @surface1;
+      background-color: @base;
+    }
+    hr {
+      border-color: @surface1;
+    }
+    select,
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"],
+    .uneditable-input {
+      &ic-Input {
+        border-color: @surface1;
+        background-color: @surface0;
+      }
+      background-color: @base;
+      border-color: @surface2;
+    }
+    img:not(
+      [src^="/"],
+      [src*="cloudfront.net/dist"],
+      [src*="instructuremedia.com/build"]
+    ) {
+      /* force a white background for user-uploaded images */
+      background-color: #fffd;
+    }
+    scrollbar-color: @surface2 @surface0;
+
+    table {
+      border-color: @surface1;
+    }
+    table[style*="border-color: #000000"] {
+      border-color: @surface1 !important;
+    }
+    thead th {
+      border-color: @surface1;
+    }
+    tbody tr,
+    tbody td {
+      border-color: @surface1;
+    }
+    td[class$="view-cell"] {
+      color: @text;
+    }
+
+    :is(label, fieldset) span[class$="formFieldLabel"] {
+      color: @subtext1;
+    }
+
+    :is(label, fieldset) span[class$="text"] {
+      color: @text;
+    }
+
+    /* used for links */
+    span[color="brand"] {
+      color: @blue;
+    }
+
+    /* used for labels */
+    span[color="primary"] {
+      color: @subtext1;
+    }
+    span[color="secondary"] {
+      color: @subtext0;
+    }
+
+    .user_content {
+      /* for highlighted non-links in user-created content, revert to regular-ish text color */
+      [style~="background-color:"]:not([style~="color:"])
+        :not(a.external span) {
+        color: black;
+      }
+      /* just a special exception for pure black text and pure white backgrounds */
+      [style*="color: rgb(0, 0, 0)"],
+      [style*="color: black"],
+      [style*="color: #000000"] {
+        &:not([style~="background-color:"]) {
+          color: @text !important;
+        }
+      }
+      [style*="background-color: rgb(255, 255, 255)"],
+      [style*="background-color: white"],
+      [style*="background-color: #ffffff"] {
+        color: @text !important;
+        background-color: @base !important;
+      }
+    }
+
+    a[class$="link"]:not(.btn, .ic-DashboardCard__link),
+    a[class$="link"] > span,
+    button[class$="link"]:not(.btn),
+    a.external span {
+      color: @blue;
+    }
+
+    /* sticky footers (e.g. teacher-side course settings) */
+    .sticky-footer {
+      background-color: @surface0;
+    }
+    .form-actions-sticky-footer {
+      border-color: @surface1;
+    }
+
+    /* spinners */
+    [class*="spinner__circleTrack"] {
+      stroke: @surface1 !important;
+    }
+    [class*="spinner__circleSpin"] {
+      stroke: @accent !important;
+    }
+
+    /* fullscreen background for modal popups */
+    body > span > span[class*="mask"] {
+      background-color: fade(@overlay0, 75%);
+      > span {
+        color: @text;
+        background-color: @base;
+        border-color: @surface1;
+        > div[class$="modalHeader"] {
+          background-color: transparent;
+          border-color: @surface1;
+        }
+        img {
+          background-color: transparent;
+        }
+        > div[class$="modalFooter"] {
+          background-color: @surface0;
+          border-color: @surface1;
+        }
+      }
+    }
+
+    div[class*="view-panel__content"] {
+      color: @text;
+    }
+
+    /* dialogs */
+    .ui-datepicker td span.ui-state-default.ui-state-hover,
+    .ui-datepicker td a.ui-state-default.ui-state-hover {
+      border-color: @surface2;
+      background-color: @surface1;
+    }
+    .ui-datepicker-header.ui-widget-header,
+    .ui-widget-content {
+      background-color: @surface0;
+      border-color: @surface1;
+    }
+    .ui-widget-overlay {
+      background-color: fade(@base, 70%);
+    }
+    .ui-dialog {
+      .ui-dialog-titlebar {
+        background-color: @surface0;
+        border-color: @surface1;
+      }
+      background-color: @surface0;
+    }
+    .ui-datepicker .ui-datepicker-time,
+    .ui-dialog .ui-dialog-buttonpane {
+      background-color: @surface1;
+      border-color: @surface2;
+    }
+    .form-dialog .form-controls {
+      background-color: @surface1;
+      border-color: @surface2;
+    }
+
+    /* global nav menu */
+    .ic-app-header {
+      .ic-app-header__logomark-container {
+        background-color: transparent;
+      }
+      .ic-app-header__menu-list-item.ic-app-header__menu-list-item--active {
+        > * {
+          background-color: @base;
+        }
+        .menu-item__text {
+          background-color: transparent;
+        }
+      }
+    }
+    --ic-brand-global-nav-menu-item__text-color--active: @accent;
+    --ic-brand-global-nav-menu-item__badge-text--active: @mantle;
+    --ic-brand-global-nav-ic-icon-svg-fill--active: @accent;
+    --ic-brand-global-nav-avatar-border: @text;
+
+    --ic-brand-global-nav-bgd: @mantle;
+    --ic-brand-global-nav-menu-item__badge-bgd: @surface2;
+    --ic-brand-global-nav-menu-item__badge-text: @text;
+    --ic-brand-global-nav-menu-item__text-color: @text;
+    --ic-brand-global-nav-ic-icon-svg-fill: @text;
+    .menu-item-icon-container path[fill] {
+      fill: @text !important;
+    }
+
+    /* sidebar trays (e.g. slide in from right side) */
+    body > span > [class*="tray"] {
+      background-color: @mantle;
+      fieldset,
+      label {
+        .Gradebook__StatusModalListItem span {
+          color: black !important;
+        }
+      }
+      div[class$="tray__content"] > div > span:last-of-type:has(> button) {
+        border-color: @surface1;
+        background-color: @crust;
+      }
+      span[data-testid$="footer"] > div {
+        border-color: @surface1;
+        background-color: @crust;
+      }
+    }
+
+    #nav-tray-portal {
+      > span > span {
+        background-color: @base;
+        [class$="listItem"] {
+          color: @subtext0;
+        }
+        /* needed to persist color on hover */
+        a {
+          color: @blue;
+        }
+        div[data-timestamp] {
+          color: @subtext0;
+        }
+      }
+      label span[class$="label"] {
+        color: @text;
+      }
+      .help-tray li [class$="pill"] {
+        /* new pill */
+        border-color: @green;
+        color: @green;
+        background-color: transparent;
+      }
+      .profile-tray span[class$="avatar"] {
+        background-color: @surface0;
+        span {
+          color: @accent;
+        }
+      }
+    }
+
+    /* link sidebar for courses */
+    .list-view a.active {
+      border-color: @accent;
+      color: @accent;
+    }
+
+    /* pills */
+    div[class$="pill"] {
+      /* info pill (e.g. submitted, graded, etc) */
+      background-color: transparent;
+      border-color: @surface2;
+      color: @text;
+      &.css-tfc09q-pill.css-tfc09q-pill {
+        /* red pills (late, missing) */
+        color: @red;
+        border-color: @red;
+      }
+    }
+    .pill {
+      background-color: @surface1;
+      border-color: @surface2;
+      box-shadow: 0 1px 0 @surface2;
+    }
+    /* pills on grades tab */
+    .student_assignment [class$="pill"] {
+      background-color: transparent;
+    }
+    .submission-missing-pill > span > div {
+      color: @red;
+      border-color: @red;
+    }
+    .submission-late-pill > span > div {
+      /* yes, this is blue in grades and red on dashboard */
+      color: @blue;
+      border-color: @blue;
+    }
+
+    /* filled-in buttons - this auto-generated class covers a lot of them */
+    .neutral-button() {
+      &:hover {
+        background-color: @hover-button;
+        > [class$="baseButton__content"] {
+          background-color: @hover-button;
+        }
+        color: @text;
+      }
+      color: @text;
+      background-color: @surface0;
+      border-color: @surface1;
+      path[fill="#000000"] {
+        fill: @text;
+      }
+      > [class$="baseButton__content"] {
+        color: @text;
+        background-color: @surface0;
+        border-color: @surface1;
+        transition-property: background, transform, filter;
+      }
+      [class$="text"] {
+        color: @text;
+      }
+    }
+
+    .PlannerItem-styles__secondary button,
+    .discussions-index-manage-menu > button,
+    span[type="button"],
+    [data-testid="compose-modal-desktop"]
+      button[class$="baseButton"]:not([data-testid="send-button"]),
+    #immersive_reader_mount_point button,
+    #immersive_reader_mobile_mount_point button,
+    .ColorPicker__Actions button[class$="baseButton"]:not([id$="Apply"]),
+    #grades_summary a[role="button"],
+    #planner-today-btn,
+    form[action="/logout"] button,
+    button[data-testid="address-button"],
+    button[data-testid="gradebook-settings-button"],
+    .searchButton__container button,
+    a:has(.css-1rpus1y-baseButton__content),
+    button:has(.css-1rpus1y-baseButton__content) {
+      .neutral-button();
+    }
+
+    /* the below styles are taken from canvas's common css sheet */
+    .btn,
+    .Button,
+    .ui-button {
+      background-color: @surface0;
+      color: @text;
+      border-color: @surface1;
+    }
+
+    .btn:focus,
+    .Button:focus,
+    .ui-button:focus {
+      color: @text;
+    }
+
+    .btn:hover,
+    .Button:hover,
+    .ui-button:hover {
+      background-color: @hover-button;
+      color: @text;
+    }
+
+    .btn:hover.ui-state-hover,
+    .Button:hover.ui-state-hover,
+    .ui-button:hover.ui-state-hover {
+      background-color: @hover-button;
+      color: @text;
+      border-color: darken(@surface1, 5%);
+    }
+
+    .btn.active,
+    .btn.Button--active,
+    .Button.active,
+    .active.ui-button,
+    .Button.Button--active,
+    .Button--active.ui-button,
+    .ui-button.ui-state-active:hover,
+    .ui-button.ui-state-active,
+    .ui-progressbar .ui-button.ui-widget-header {
+      background-color: @subtext0;
+      border-color: lighten(@surface1, 10%);
+      color: @mantle;
+    }
+
+    .btn:active,
+    .Button:active,
+    .ui-button:active {
+      background-color: darken(@hover-button, 3%);
+    }
+
+    .btn-link,
+    .btn-link:active,
+    .btn-link[disabled],
+    .Button--link,
+    .Button--link:active,
+    .Button--link[disabled] {
+      background: transparent;
+    }
+
+    /* filled-in buttons with colored bg */
+    --ic-brand-button--primary-bgd: @accent;
+    --ic-brand-button--primary-text: @crust;
+    --ic-brand-button--primary-bgd-darkened-5: darken(@accent, 5%);
+    --ic-brand-button--primary-bgd-darkened-15: darken(@accent, 15%);
+    .btn-primary,
+    .Button--primary {
+      background: var(--ic-brand-button--primary-bgd);
+      color: var(--ic-brand-button--primary-text);
+      border-color: var(--ic-brand-button--primary-bgd-darkened-15);
+    }
+    .btn-primary.active,
+    .btn-primary.Button--active,
+    .btn-primary.ui-button.ui-state-active,
+    .ui-progressbar .btn-primary.ui-button.ui-widget-header,
+    .btn-primary:active,
+    .Button--primary.active,
+    .Button--primary.Button--active,
+    .Button--primary.ui-button.ui-state-active,
+    .ui-progressbar .Button--primary.ui-button.ui-widget-header,
+    .Button--primary:active {
+      background: var(--ic-brand-button--primary-bgd-darkened-5);
+    }
+    .btn-primary:hover,
+    .Button--primary:hover {
+      background: var(--ic-brand-button--primary-bgd-darkened-5);
+      color: var(--ic-brand-button--primary-text);
+    }
+    .btn-link,
+    .Button--link {
+      border-color: transparent;
+      cursor: pointer;
+      color: var(--ic-link-color);
+    }
+
+    .btn-link:hover:focus,
+    .Button--link:hover:focus {
+      color: var(--ic-link-color);
+    }
+    .btn-link:hover,
+    .Button--link:hover {
+      color: var(--ic-link-color-darkened-10);
+      background: transparent;
+    }
+
+    .btn-link:focus,
+    .Button--link:focus {
+      color: var(--ic-link-color);
+    }
+
+    .btn-link.active,
+    .btn-link.Button--active,
+    .btn-link.ui-button.ui-state-active,
+    .ui-progressbar .btn-link.ui-button.ui-widget-header,
+    .btn-link:active,
+    .Button--link.active,
+    .Button--link.Button--active,
+    .Button--link.ui-button.ui-state-active,
+    .ui-progressbar .Button--link.ui-button.ui-widget-header,
+    .Button--link:active {
+      background: @surface0;
+      border-color: transparent;
+      color: var(--ic-link-color);
+    }
+
+    .btn-link.disabled,
+    .btn-link.ui-button.ui-state-disabled,
+    .btn-link[disabled],
+    .Button--link.disabled,
+    .Button--link.ui-button.ui-state-disabled,
+    .Button--link[disabled] {
+      color: var(--ic-brand-font-color-dark);
+      background: transparent;
+    }
+
+    .btn-published,
+    .btn-published:hover {
+      background: @green;
+      border-color: 1px solid darken(@green, 10%);
+      color: @crust;
+    }
+
+    .btn-published:focus {
+      box-shadow: inset 0 0 0 2px @crust;
+      background: darken(@green, 10%);
+      color: @crust;
+    }
+
+    .btn-published.disabled,
+    .btn-published.ui-button.ui-state-disabled,
+    .btn-published.disabled:hover {
+      border-color: darken(@green, 10%);
+      background: @green;
+      color: @crust;
+    }
+
+    .btn-unpublished {
+      color: @crust;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+      background-color: @red;
+      background-image: @red;
+      border-color: @maroon;
+    }
+
+    .btn-unpublished:hover,
+    .btn-unpublished:active,
+    .btn-unpublished.active,
+    .btn-unpublished.disabled,
+    .btn-unpublished.ui-button.ui-state-disabled,
+    .btn-unpublished[disabled] {
+      color: @crust;
+      background-color: @maroon;
+    }
+
+    .btn-unpublished:focus {
+      color: @crust;
+      background: @maroon;
+      box-shadow: inset 0 0 0 2px @crust;
+    }
+    /* end of copy-pasted styles */
+
+    :is(button, a)[class$="baseButton"]::before {
+      border-color: @accent;
+    }
+
+    .accent-button() {
+      &:disabled {
+        filter: brightness(85%);
+      }
+      &:not(:disabled):hover {
+        > [class$="baseButton__content"] {
+          filter: brightness(115%);
+        }
+      }
+      background-color: @accent;
+      border-color: @surface1;
+      path[fill="#000000"] {
+        fill: @mantle;
+      }
+      > [class$="baseButton__content"] {
+        transition-property: all;
+        color: @mantle;
+        background-color: @accent;
+        border-color: @surface1;
+      }
+    }
+
+    #apply_select_menus,
+    #ColorPicker__Apply,
+    .ActionButtons button[id^="Drilldown"],
+    #send-message-button {
+      .accent-button();
+    }
+
+    .Button--icon-action,
+    .Button--icon-action-rev {
+      background-color: transparent;
+    }
+
+    /* checkboxes */
+    input:not(:checked) + label span[class$="checkboxFacade__facade"] {
+      border-color: @surface2;
+      background-color: @base;
+    }
+    /* input:checked + label span[class$="checkboxFacade__facade"] { */
+    /*   background-color: @surface2; */
+    /* } */
+    input + label span[class$="label"] {
+      color: @text;
+    }
+
+    /* dropdown menu buttons */
+    [class$="textInput__facade"] {
+      color: @text;
+      background-color: transparent;
+      border-color: @surface2;
+      input {
+        color: @text !important;
+      }
+    }
+    select {
+      color: @text;
+      border-color: @surface2;
+      background-color: @base;
+    }
+
+    /* notifications */
+    .ic-notification {
+      color: @text;
+      box-shadow: 0 1px 6px @surface1;
+      .ic-notification__content {
+        background-color: @base;
+      }
+      i {
+        color: @crust;
+      }
+    }
+
+    .ui-state-warning,
+    .dialog-warning .ui-dialog-titlebar,
+    .dialog-warning .ui-datepicker .ui-datepicker-header,
+    .ui-datepicker .dialog-warning .ui-datepicker-header {
+      border-color: @red;
+      background: none;
+      color: @text;
+    }
+
+    /* alerts */
+    div[class*="view-alert"] {
+      color: @text;
+      background-color: @base;
+      border-color: @accent;
+      > div {
+        border-color: @accent;
+      }
+      > div:has(> svg) {
+        background-color: @accent;
+      }
+    }
+
+    /* pdf reader */
+    .Pages {
+      background-color: @surface0;
+    }
+
+    /* RECENT ACTIVITY/HOME */
+    .recent-activity-header,
+    .stream-category {
+      border-color: @surface1;
+    }
+    .stream-details tr:hover,
+    .stream_header:hover {
+      background-color: @hover-accent;
+    }
+    .pages.show .course-title {
+      color: @subtext0;
+    }
+
+    /* ANNOUNCEMENTS */
+    .ic-item-row {
+      box-shadow: @surface1 0 -1px 0 0;
+      box-shadow: 0 -1px @surface1, inset 0 -1px @surface1;
+    }
+    [data-testid="pill-container"] * {
+      color: @subtext0 !important;
+    }
+
+    /* the unread badge */
+    .ic-announcement-row span[class$="badge"] {
+      background-color: @accent;
+    }
+
+    .ic-item-row__meta-content-timestamp > p {
+      color: @subtext0;
+    }
+
+    /* DASHBOARD */
+    .StickyButton-styles__root {
+      background-color: @accent;
+      span {
+        color: @mantle;
+      }
+    }
+    .NotificationBadge-styles__activityIndicator.NotificationBadge-styles__hasBadge
+      [class$="badge"] {
+      background-color: @accent;
+    }
+    .Day-styles__root {
+      background-color: @base;
+      color: @text;
+      h2 {
+        border-color: @surface1;
+      }
+      .Grouping-styles__title {
+        color: @blue;
+        background-color: @base;
+        &::after {
+          background-image: none;
+        }
+      }
+      .PlannerItem-styles__root {
+        border-color: @surface1;
+        color: @subtext0;
+      }
+      .PlannerItem-styles__secondary [class$="-text"] {
+        color: @subtext0;
+      }
+    }
+
+    .CompletedItemsFacade-styles__root {
+      border-color: @surface1;
+    }
+    .CompletedItemsFacade-styles__contentPrimary * {
+      color: @blue;
+    }
+    button[data-testid="completed-items-toggle"] {
+      span[class$="summaryText"] {
+        color: inherit;
+      }
+    }
+    .ic-Dashboard-header {
+      background-color: @base;
+    }
+    .ic-Dashboard-header__layout {
+      background-color: @base;
+      border-color: @surface1;
+    }
+    .PlannerHeader-styles__root {
+      background-color: @base;
+      svg {
+        color: @text;
+      }
+    }
+    #DashboardOptionsMenu_Container svg {
+      color: @text;
+    }
+
+    .ic-DashboardCard {
+      background-color: @surface0;
+      .ic-DashboardCard__header_content {
+        background-color: @surface0;
+      }
+      .ic-DashboardCard__header-button,
+      .ic-DashboardCard__header-button * {
+        background-color: transparent;
+      }
+      .ic-DashboardCard__action-badge {
+        background-color: @accent;
+        .unread_count {
+          background-color: @accent;
+          color: @base;
+        }
+      }
+    }
+
+    .ToDoSidebarItem__Info li {
+      color: @text;
+    }
+    .Sidebar__TodoListContainer svg {
+      color: @text;
+    }
+    #right-side {
+      .h2,
+      h2 {
+        border-color: @surface1;
+      }
+      background-color: fade(@base, 80%);
+      .details .header {
+        color: @subtext0;
+      }
+      .ToDoSidebarItem__Close svg {
+        color: @text;
+      }
+    }
+    #right-side .events_list {
+      p {
+        color: @subtext0;
+      }
+
+      .event-details::after {
+        background: linear-gradient(to right, transparent 0%, @base 80%);
+      }
+    }
+    .PlannerEmptyState-styles__root {
+      color: @text;
+    }
+    .EmptyDays-styles__root {
+      background-color: @base;
+      color: @text;
+      border-color: @surface2;
+      > h2 {
+        border-color: @surface1;
+      }
+    }
+    .PlannerHeader [id^="Badge"] {
+      background-color: @accent;
+      color: @crust;
+    }
+    .Opportunity-styles__root {
+      background-color: transparent;
+    }
+    .Opportunity-styles__oppName {
+      color: @subtext1;
+    }
+    .Opportunity-styles__due,
+    .Opportunity-styles__points {
+      color: @subtext1;
+    }
+
+    /* popup menus */
+    /* extra selectors are to avoid styling tooltips because their arrows are hard to style */
+    span[data-position-content^="Menu"]:not(
+      [data-position-content^="Menu__label"]
+    ),
+    span[data-position-content^="Popover"] {
+      span[class$="arrow"]::after {
+        filter: @surface2-filter;
+      }
+      > span {
+        color: @text;
+        background-color: @surface1;
+        border-color: @surface2;
+      }
+    }
+
+    .ui-menu .ui-menu-item a.ui-state-hover,
+    .ui-menu .ui-menu-item a.ui-state-active,
+    .ui-menu .ui-menu-item .ui-progressbar a.ui-widget-header,
+    .ui-progressbar .ui-menu .ui-menu-item a.ui-widget-header,
+    .ui-menu .ui-menu-item a.ui-state-focus {
+      color: @crust;
+    }
+
+    /* color picker menu (e.g. on dashboard) */
+    span[data-position-content^="Popover"]:has(
+      div[class$="view-tabs__container"]
+    ) {
+      div[class$="view-tab"] {
+        background-color: @surface1;
+        border-bottom-color: @surface2;
+        color: @text;
+        &[aria-selected="true"] {
+          border-color: @surface2;
+          border-bottom-color: transparent;
+        }
+      }
+      div[role="tabpanel"] > div {
+        border-color: @surface2;
+        background-color: @surface1;
+      }
+    }
+    .ColorPicker__Container {
+      background-color: @surface1;
+      border-color: @surface2;
+      label span {
+        color: @subtext0;
+      }
+    }
+
+    span[data-testid="RCE_RestoreAutoSaveModal"] {
+      span[class$="view--block"] {
+        background-color: transparent;
+        border-color: @surface1;
+        color: @text;
+      }
+    }
+    /* select dropdowns */
+    span[data-position-content^="Popover"]:has(ul[role="listbox"]) {
+      border-color: @surface2;
+      span {
+        color: @text;
+      }
+      > span > span {
+        background-color: @surface1;
+        div[class$="separator"] {
+          background-color: @surface2;
+        }
+        li {
+          background-color: @surface1;
+        }
+        ul[role="listbox"] {
+          background-color: @surface1;
+          /* the extra selectors are because some lists have group options as list items */
+          li:not(:has(ul[role="group"])) {
+            &:hover,
+            &:focus,
+            &:active {
+              color: @base;
+              background-color: @accent !important;
+              span {
+                color: @base;
+              }
+            }
+          }
+          li:has([aria-selected="true"]) {
+            background-color: mix(@surface1, @overlay2, 70%);
+          }
+        }
+      }
+    }
+
+    /* only on canvas studio apparently */
+    span[data-position-content^="Drilldown"] {
+      border-color: @surface2;
+      span {
+        color: @text;
+      }
+      li {
+        background-color: @surface1;
+        &:not(:has([id^="DrilldownHeader-Title"])) {
+          &:hover,
+          &:focus,
+          &:active {
+            color: @base;
+            background-color: @accent !important;
+            span {
+              color: @base;
+            }
+          }
+        }
+        [id^="DrilldownHeader-Separator"] {
+          background-color: @surface2;
+        }
+      }
+    }
+    button[id^="Drilldown"] {
+      > span {
+        background-color: @base;
+        color: @text;
+        border-color: @surface2;
+      }
+      &:hover > span {
+        background-color: @base;
+      }
+    }
+
+    /* dropdown menu */
+    span[data-position-content^="Menu"]:not(
+      [data-position-content^="Menu__label"]
+    ) {
+      span {
+        color: @text;
+      }
+      ul[role="menu"] {
+        &::before {
+          border-color: @accent;
+        }
+        background-color: @surface1;
+        span[class$="menuItemGroup__label"] {
+          background-color: @surface1;
+        }
+        div[class$="menuItemSeparator"] {
+          background-color: @surface2;
+        }
+        [role="menuitem"],
+        span[class$="menuItem"] {
+          background-color: @surface1;
+          &:hover,
+          &:focus,
+          &:active {
+            color: @base;
+            background-color: @accent !important;
+            span {
+              color: @base;
+            }
+          }
+        }
+      }
+    }
+
+    ul[role="menu"] {
+      div:has(> li[role="menuitem"][data-selected="true"]) {
+        color: @base;
+        background-color: @accent !important;
+        span {
+          color: @base;
+        }
+      }
+    }
+
+    /* use more noticeable color for file preview selection */
+    #App *::selection {
+      background-color: @accent;
+    }
+
+    /* ICONS */
+    .nav-icon {
+      background-color: @base;
+      color: @text;
+    }
+    .ui-icon-closethick {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512 512" width="512" height="512" enable-background="new 0 0 512 512" xml:space="preserve"><polygon points="509.5,73.2 435.2,4 254.8,184.2 74.3,4 2.5,75.8 182.9,256 2.5,436.2 76.9,505.5 254.8,327.7 435.2,508 507,436.2 326.6,256" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+    /* publish icons */
+    .publish-icon.publish-icon-published,
+    .ig-published:not(.student-view) .ig-type-icon {
+      color: @green;
+    }
+    svg[name="IconPublish"],
+    svg[name="IconBookmark"],
+    .icon-check {
+      color: @green !important;
+    }
+    svg[name="IconX"] {
+      color: @text;
+    }
+
+    /* tree-view expand indicators */
+    svg[name="IconArrowOpenEnd"],
+    svg[name="IconArrowOpenDown"] {
+      color: @text;
+    }
+
+    /* unsure what the other colors are */
+    span[color="success"] > svg {
+      color: @green;
+    }
+
+    .context_module .icon-minimize {
+      color: @red !important;
+    }
+
+    .ally-prominent-af-download-button {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="13px" viewBox="0 0 22 13" version="1.1"><title>iconAllyDownload-IC</title><desc>Created with Sketch.</desc><path d="m22.14 4.354-4.812 7.312-4.813-7.312h2.888V-.034h3.85v4.388zm-22 8.612 7.562-10.4 7.563 10.4h-3.618c-.67-1.362-2.164-2.311-3.9-2.311-1.737 0-3.231.949-3.901 2.311zM5.9 8.18c0 .911.807 1.65 1.802 1.65.994 0 1.8-.739 1.8-1.65 0-.912-.806-1.651-1.8-1.651-.995 0-1.801.74-1.801 1.65" fill="@{text}" stroke="none" stroke-width="1" fill-rule="evenodd"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    img[src="/images/svg-icons/svg_icon_download.svg"] {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1920" version="1.1"><path d="m1807.093 1482.477 79.736 79.963-355.313 355.312H355.346L.035 1562.44l79.85-79.963 322.22 322.334H1484.76zM997.677-.033v1167.02l355.313-355.313 79.962 79.85-491.858 491.633L449.46 891.524l79.962-79.85 355.313 355.313V-.033z" fill="@{text}" stroke="none" stroke-width="1" fill-rule="evenodd"/></svg>'
+      );
+      content: url("data:image/svg+xml,@{svg}");
+    }
+
+    .standalone-icon::before {
+      color: @text;
+    }
+
+    /* MODULES */
+    .item-group-expandable,
+    .item-group-container {
+      border-color: @surface0;
+      background-color: @base;
+    }
+    .item-group-expandable .emptyMessage {
+      background-color: @base;
+    }
+    .header-bar {
+      background-color: @base;
+    }
+    .content,
+    .footer {
+      background-color: @base;
+    }
+    .ig-header {
+      background-color: @surface0;
+      color: @text;
+      border-color: @surface1;
+      .name {
+        text-shadow: 1px 1px 0 fade(@base, 50%);
+        color: @text;
+      }
+    }
+    .accessible-toggler {
+      color: @text;
+    }
+    .ig-list {
+      .ig-row {
+        color: @text;
+        background-color: @base;
+        border-color: @surface1;
+      }
+      .ig-row:hover {
+        background-color: @hover-accent;
+      }
+    }
+    .list-view a.active .nav-badge,
+    .nav-badge {
+      background-color: @accent;
+      color: @base;
+    }
+    #breadcrumbs {
+      background-color: @base;
+    }
+    .ic-app-nav-toggle-and-crumbs,
+    .item-group-condensed {
+      border-color: @surface1;
+    }
+    .pages.show .page-title {
+      color: @text;
+    }
+    #show_by_date,
+    #show_by_type {
+      + label > span {
+        color: @text;
+      }
+      &:checked + label > span {
+        background-color: @surface1;
+      }
+    }
+
+    /* COURSES */
+    .course-list-favorite-course .icon-star::before {
+      color: @peach;
+    }
+    .course-list-table .course-list-table-row:hover {
+      background-color: mix(@overlay2, @base, 20%);
+    }
+    .course-list-unpublished-course-row {
+      background-color: darken(@base, 5%);
+      .course-list-unpublished-course {
+        color: @red;
+      }
+    }
+    /* browse more courses */
+    .course_text {
+      color: @text;
+    }
+
+    /* CALENDAR */
+    #calendar-app {
+      .agenda-wrapper {
+        background-color: @base;
+      }
+      table {
+        thead.fc-head,
+        .fc-head-container,
+        .fc-row {
+          border-color: @surface1;
+        }
+        .fc-day-header {
+          color: @text;
+        }
+        .fc-body {
+          background-color: @base;
+        }
+        .fc-today {
+          background-color: darken(@surface0, 5%);
+        }
+        .fc-divider {
+          border-color: @surface2;
+        }
+      }
+      .fc-agendaWeek-view .fc-day-grid .fc-row {
+        border-color: @surface1;
+      }
+    }
+    :is(.calendar, #calendar-drag-and-drop-container)
+      .fc-row
+      :is(.fc-content-skeleton, .fc-helper-skeleton)
+      td {
+      border-color: @surface1;
+    }
+
+    #calendar-app .fc-event,
+    #calendar-drag-and-drop-container .fc-event {
+      background-color: transparent;
+    }
+    .calendar_header #create_new_event_link {
+      color: @text;
+    }
+    #calendar-list-holder,
+    #other-calendars-list-holder,
+    #undated-events {
+      background-color: @base;
+    }
+
+    #minical {
+      color: @text;
+      background-color: @surface1;
+      border-color: @surface1;
+      h2,
+      .fc-widget-content {
+        color: @text;
+      }
+      .fc-view {
+        background-color: @base;
+        * {
+          border-color: transparent;
+        }
+      }
+      .fc-state-default {
+        color: @text;
+      }
+      .fc-toolbar {
+        border-color: @surface1;
+      }
+    }
+    #calendar-list-holder {
+      background-color: @base;
+    }
+    #calendars-context-list .context_list_context:hover,
+    #other-calendars-context-list .context_list_context:hover {
+      background-color: mix(@overlay2, @base, 20%);
+    }
+    #undated-events {
+      background-color: @base;
+      .event {
+        background-color: @base;
+      }
+    }
+
+    .ui-datepicker .ui-datepicker-header .ui-datepicker-prev {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" fill="@{text}"><polygon xmlns="http://www.w3.org/2000/svg" points="52,256 460,512 460,0"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    .ui-datepicker .ui-datepicker-header .ui-datepicker-next {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" fill="@{text}"><polygon points="460,256 52,0 52,512"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    /* INBOX */
+    [data-testid="tool-bar"] {
+      background-color: @mantle;
+      border-color: @surface2;
+      button {
+        &::before {
+          /* on-click-outline */
+          border-color: var(--ic-link-color);
+        }
+        svg {
+          color: @text;
+        }
+        span {
+          background-color: @surface0;
+          border-color: @surface1;
+        }
+      }
+    }
+
+    /* left side */
+    [data-testid="conversation"] {
+      border-color: @surface1;
+      span[class$="badge"] {
+        color: @text;
+        background-color: @surface1;
+      }
+    }
+    #inbox-conversation-holder > div > div > div {
+      /* each email entry */
+      border-color: @surface2;
+      div[style~="background-color:"] {
+        background-color: mix(@base, @accent, 90%) !important;
+      }
+      div[style~="box-shadow:"] {
+        box-shadow: @accent -4px 0 0 inset !important;
+      }
+
+      button[data-testid$="read-badge"] {
+        &::before {
+          border-color: @blue;
+        }
+        span svg {
+          color: @accent;
+        }
+      }
+      button[data-testid="visible-not-starred"],
+      button[data-testid="visible-starred"] {
+        svg {
+          color: @text;
+        }
+      }
+    }
+    [data-testid="unread-badge"] span svg {
+      color: @accent;
+    }
+    [data-testid="ic-blue-unread-badge"] span {
+      background-color: @accent;
+    }
+
+    /* right side */
+    span:has(> #inbox-conversation-holder) + span > div > div {
+      border-color: @surface1;
+    }
+    /* compose message overlay */
+    span[data-testid="compose-modal-desktop"] {
+      background-color: @surface0;
+      border-color: @surface1;
+      span:has(> label[for^="TextArea"]) {
+        border-color: @surface1;
+        textarea {
+          color: @text;
+        }
+        span[class$="textArea__outline"] {
+          border-color: @accent;
+        }
+      }
+      span[data-testid="past-messages"] div[class$="view"] {
+        border-color: @surface1;
+      }
+    }
+
+    /* COURSE CONTENT (QUIZZES, ETC) */
+    #assignment_show .student-assignment-overview {
+      border-color: @surface1;
+    }
+
+    #assignment_show .description.teacher-version {
+      border-color: @surface2;
+    }
+
+    .assignment_header,
+    #assignment_student_details,
+    .quiz-header {
+      border-color: @surface2;
+    }
+    .question.fill_in_multiple_blanks_question .answer_group,
+    .question.multiple_dropdowns_question .answer_group {
+      border-color: @surface1;
+    }
+    .quiz-submission,
+    .question_editing {
+      background-color: @base;
+      border-color: @base;
+    }
+    .score_value {
+      color: @subtext1;
+    }
+    .question {
+      background-color: transparent;
+    }
+    .quiz_comment {
+      border-color: @surface1;
+      background-image: linear-gradient(to bottom, @base, @surface0);
+      &::before {
+        border-bottom-color: @surface1;
+      }
+      &::after {
+        border-bottom-color: @base;
+      }
+    }
+    #quiz_show {
+      ul#quiz_student_details {
+        border-color: @surface1;
+      }
+      .description.teacher-version {
+        border-color: @surface2;
+      }
+    }
+    .catppuccin_answer_arrow(@color, @filter) {
+      color: @mantle;
+      background-image: none;
+      text-shadow: none;
+      background-color: @color;
+      &::before,
+      &::after {
+        filter: @filter;
+      }
+    }
+    .answer_arrow.correct {
+      .catppuccin_answer_arrow(@green, @green-filter);
+    }
+    .answer_arrow.info {
+      .catppuccin_answer_arrow(@text, @text-filter);
+    }
+    .answer_arrow.incorrect {
+      .catppuccin_answer_arrow(@red, @red-filter);
+    }
+    #questions.assessment_results .question .answers .answer.wrong_answer {
+      border-color: @red;
+    }
+    #questions.assessment_results
+      .question
+      .answers
+      .answer.wrong_answer
+      .ui-selectmenu-status {
+      color: @red;
+    }
+
+    .muted-notice {
+      background-color: @surface0;
+      background-image: linear-gradient(to bottom, @base, @surface0);
+      text-shadow: @base 1px 1px 1px;
+      border-color: @surface2;
+    }
+    .alert {
+      background-color: fade(@red, 15%);
+      span {
+        color: @red;
+      }
+    }
+    .icon-warning {
+      color: @red;
+    }
+
+    .ic-Table {
+      td,
+      th.ic-Table--header-row {
+        border-color: @surface1;
+      }
+    }
+    table.summary {
+      td,
+      tbody th {
+        background-color: @base;
+        border-color: @surface1;
+      }
+    }
+    ul#question_list {
+      li.answered a {
+        color: @lavender;
+      }
+      li.marked {
+        &::before {
+          content: url("/dist/images/flagged_question-e2565888dd.png");
+          filter: @yellow-filter;
+        }
+        padding-left: 6px;
+        background-image: none;
+      }
+      li i {
+        /* question mark icons */
+        color: @subtext0;
+      }
+    }
+    #questions {
+      background-color: @base;
+      .ambrosiaContainerComponent * {
+        color: @text;
+      }
+      .question {
+        border-color: @surface1;
+        .flag_question {
+          filter: @blue-filter;
+        }
+        &.marked .flag_question {
+          filter: @yellow-filter;
+        }
+        .header {
+          background-color: @surface0;
+          border-color: @surface1;
+          .question_points_holder {
+            color: @subtext0;
+          }
+        }
+      }
+      .text {
+        background-color: @base;
+      }
+      .answers .answer {
+        border-color: @surface1;
+      }
+    }
+    .form-actions {
+      border-color: @surface1;
+    }
+    #last_saved_indicator {
+      color: @subtext1;
+    }
+    .ui-tooltip {
+      &::before {
+        border-color: transparent transparent @surface0;
+      }
+      &.horizontal::before {
+        border-color: transparent @surface0 transparent transparent;
+      }
+      background-color: @surface0;
+    }
+
+    .module-sequence-footer .module-sequence-footer-content {
+      background-color: @base;
+      border-color: @surface1;
+    }
+
+    /* submitting */
+    #tinymce-parent-of-submission_body {
+      .canvas-rce__skins--root,
+      * {
+        color: @text;
+      }
+    }
+    .border {
+      border-color: @surface1;
+    }
+
+    /* submission details */
+    .submission-details-container {
+      border-color: @surface1;
+    }
+    .submission-details-comments {
+      .comment_author_and_date {
+        color: @subtext0;
+      }
+      .comments {
+        border-color: @surface1;
+        background-color: @surface0;
+        /* To style only the background-image, we move the background-image to ::before and then tweak the styles. */
+        a.media-comment {
+          padding: 0;
+          background-image: none;
+        }
+        a.media-comment::before {
+          padding: 0 5px 0 0;
+          display: inline-block;
+          transform: translateY(2px) !important;
+          content: url("/dist/images/audio_comment-eeb35d0efe.gif");
+          filter: @text-filter;
+        }
+      }
+    }
+    .file-upload-submission {
+      background-color: @surface0;
+    }
+    /* #upload_media_tab { */
+    /*   img  */
+    /* } */
+    .submission-details-header__heading-and-grades {
+      border-color: @surface1;
+    }
+    .comment {
+      color: @text !important;
+    }
+    /* text editor */
+    .tox {
+      * {
+        color: @text;
+      }
+      .tox-edit-area.active,
+      .tox .tox-edit-area.active iframe {
+        border-color: @accent;
+      }
+      .tox-split-button .tox-tbtn.tox-split-button__chevron {
+        background-color: transparent;
+      }
+      .tox-tbtn:focus,
+      .tox-split-button:focus {
+        background-color: fade(@overlay2, 50%);
+        color: @subtext0;
+        fill: @subtext0;
+      }
+      .tox-tbtn,
+      .tox-split-button,
+      .tox-tbtn.tox-tbtn--enabled,
+      .tox-split-button .tox-tbtn.tox-split-button__chevron {
+        &:hover,
+        &:active {
+          background-color: @surface0;
+          color: @subtext0;
+          svg {
+            fill: @subtext0;
+          }
+        }
+      }
+      .tox-tbtn.tox-tbtn--enabled::after {
+        color: @accent;
+      }
+
+      .tox-mbtn:hover:not(:disabled),
+      .tox-mbtn:hover:not(:disabled, .tox-mbtn--active) {
+        background-color: @hover-button;
+      }
+      .tox-mbtn--active {
+        background-color: @hover-button;
+      }
+
+      .tox-toolbar,
+      .tox-toolbar__overflow,
+      .tox-toolbar__primary,
+      .tox-editor-header,
+      .tox-menubar,
+      .tox-menubar__primary,
+      .tox-menubar-overlord {
+        background-color: @base;
+      }
+      .tox-pop {
+        &::after {
+          border-bottom-color: @surface0;
+        }
+        .tox-pop__dialog {
+          background-color: @surface0;
+        }
+      }
+      .tox-toolbar__group::after {
+        border-color: @surface2;
+      }
+      svg,
+      #Fill-1,
+      .tox-icon g {
+        fill: @text;
+      }
+      button[title="Embed Lucid Document"] image {
+        filter: @text-filter;
+      }
+      button[title="Embed"] svg path {
+        fill: @text;
+      }
+      .tox-menu {
+        background-color: @surface0;
+        border-color: @surface1;
+        .tox-collection__item {
+          color: @text;
+        }
+      }
+      .tox-mbtn:focus:not(:disabled) {
+        box-shadow: 0 0 0 2px @accent;
+      }
+      .tox-collection--list .tox-collection__group {
+        border-color: @surface1;
+      }
+      .tox-collection--list
+        .tox-collection__item--active:not(
+          .tox-collection__item--state-disabled
+        ),
+      .tox-collection__item--active {
+        background-color: mix(@accent, @base, 30%);
+      }
+    }
+    .canvas-rce__skins--root {
+      background-color: @base;
+    }
+
+    #rubrics {
+      .rubric_title {
+        background-color: @surface0;
+        border-color: @surface1;
+      }
+      .rubric_container {
+        thead th {
+          background-color: @surface0;
+          border-color: @surface1;
+        }
+        table.ratings td {
+          border-color: @surface1;
+        }
+      }
+    }
+
+    .ui-tabs {
+      .ui-tabs-panel,
+      .ui-tabs-nav {
+        border-color: @surface1;
+      }
+      .ui-tabs-nav li.ui-state-hover,
+      .ui-tabs-nav li:hover,
+      .ui-tabs-nav li.ui-tabs-active,
+      .ui-tabs-nav li.ui-tabs-active.ui-state-hover,
+      .ui-tabs-nav li.ui-tabs-active:hover {
+        background-color: @base;
+        border-color: @surface1;
+        a {
+          color: @text;
+        }
+      }
+
+      .ui-state-hover {
+        background-color: mix(@overlay2, @surface1, 20%);
+      }
+      .ui-tabs-panel {
+        background-color: @base;
+      }
+      #assignments {
+        tr .title {
+          border-color: @surface1;
+        }
+      }
+    }
+
+    /* discussions */
+    .headerBar {
+      background: @surface0;
+      border-color: @surface1;
+    }
+    .alert-info {
+      background-color: @surface0;
+      color: @blue;
+      * {
+        color: @blue;
+      }
+    }
+    .topic .entry-content {
+      border-color: @surface1;
+    }
+    .new-and-total-badge .new-items {
+      color: @base;
+    }
+    .discussion_entry > .discussion-entry-reply-area {
+      border-color: @surface1;
+    }
+    .discussion-reply-box {
+      background-color: @surface0;
+      border-color: @surface1;
+    }
+    .al-options {
+      background-color: @surface0;
+      border-color: @surface1;
+    }
+
+    .ic-discussion-row,
+    .pinned-discussions-v2__wrapper,
+    .unpinned-discussions-v2__wrapper,
+    .discussions-v2__container-image,
+    .closed-for-comments-discussions-v2__wrapper {
+      border-color: @surface1;
+      background-color: @base;
+    }
+    .discussions-v2__container-image {
+      color: @text;
+    }
+    .ic-discussion-row {
+      box-shadow: -1px -1px @surface1, inset -1px -1px @surface1;
+    }
+    .discussion-entries {
+      background-color: @base;
+      .discussion_entry,
+      .toolbarView,
+      .entry {
+        background-color: @base;
+        border-color: @surface1;
+        .entry-content {
+          background-color: @base;
+        }
+      }
+      time {
+        color: @subtext0;
+      }
+    }
+
+    /* new discussion redesign */
+    .discussion-redesign-layout {
+      div[data-drawer-content^="DrawerLayout"] {
+        /* the header with the search bar */
+        > span > div:first-child {
+          background-color: @base;
+        }
+      }
+      div[data-testid="discussion-topic-container"] > span > div {
+        border-color: @surface1;
+      }
+      .discussion-post-manage-discussion path {
+        color: @text;
+      }
+    }
+    .communication_message {
+      border-color: @surface1;
+    }
+    .communication_message div.header {
+      color: @subtext0;
+    }
+    span:has(> [data-testid="DiscussionEdit-container"]) {
+      background-color: @base;
+    }
+    [data-testid="RCEStatusBar"] {
+      color: @subtext0;
+      /* .css-1kjxjg4-view--inlineBlock-baseButton */
+      button > span {
+        color: @text;
+      }
+      button:hover > span {
+        background-color: fade(@surface0, 50%);
+      }
+      > span > div {
+        border-color: @surface1 !important;
+      }
+    }
+    button[data-testid="attach-btn"] > span {
+      color: @text;
+    }
+    .ic-discussion-content-container > span > span:last-child {
+      color: @text;
+    }
+    .discussions-container__wrapper [class$="summaryText"] {
+      color: @text;
+    }
+    .ic-unread-badge__total-count,
+    .ic-unread-badge__unread-count {
+      color: @mantle;
+    }
+    hr[data-testid="post-separator"] {
+      border-color: @surface1 !important;
+    }
+
+    /* author profile picture placeholder */
+    [data-testid="author_avatar"] {
+      background-color: @surface0;
+      border-color: @overlay2;
+      span {
+        color: @accent;
+      }
+    }
+    /* unread badges */
+    .unread_dot,
+    #grades_summary .unread_dot,
+    [data-testid="is-unread"] [class$="badge"] {
+      background-color: @accent;
+    }
+
+    /* Enhanced Assigments UI */
+
+    #assignments-student-footer {
+      background-color: @mantle !important;
+      border-top-color: @surface1 !important;
+
+      #submit-button > span {
+        background-color: @accent;
+        color: @crust;
+      }
+    }
+
+    /* Assignment status green text and circle */
+    [color="success"] {
+      color: @green;
+    }
+
+    [class*="progressCircle__track"] {
+      stroke: @surface1 !important;
+    }
+    [class*="progressCircle__meter"] {
+      stroke: @green !important;
+    }
+
+    /* Upload files button */
+    .submission-type-icon-contents {
+      &:has(svg[name="IconUpload"]) {
+        background-color: @accent;
+
+        svg[name="IconUpload"] {
+          fill: @crust !important;
+        }
+      }
+
+      border-color: @accent;
+
+      &:has(svg[name="IconMore"]) {
+        background-color: @base;
+
+        svg[name="IconMore"] {
+          fill: @accent !important;
+        }
+      }
+    }
+    [color="primary-inverse"] {
+      color: @crust;
+    }
+
+    /* Upload files panel */
+    [style*="background-color: rgb(245, 245, 245);"] {
+      background-color: @surface0 !important;
+    }
+    div[style]:has(> div > [data-testid="upload-pane"]) {
+      border-top-color: @surface2 !important;
+
+      label[for="inputFileDrop"] {
+        [class*="fileDrop__labelContent"] {
+          border-color: @overlay1;
+        }
+        div:has(> [class*="-screenReaderContent"]) {
+          background-color: @base;
+        }
+      }
+
+      div:has(> [class*="block-baseButton"]) {
+        background-color: @base;
+        border-color: @surface1;
+        [class*="block-baseButton"]:hover > [class$="-baseButton__content"] {
+          background-color: @surface0;
+        }
+
+        img {
+          filter: @text-filter;
+        }
+        svg[name="IconFolder"] {
+          color: @text;
+        }
+      }
+    }
+
+    /* GRADES */
+    .ic-Table th {
+      border-color: @surface2;
+    }
+    .ic-Table.ic-Table--hover-row tbody tr {
+      &:hover,
+      &.ic-Table__row--bg-neutral:hover,
+      &.ic-Table__row--bg-success:hover,
+      &.ic-Table__row--bg-alert:hover,
+      &.ic-Table__row--bg-danger:hover {
+        background-color: @hover-accent;
+      }
+    }
+    .react-rubric * {
+      color: @text;
+      border-color: @surface1;
+      background-color: transparent;
+    }
+    .react-rubric .rating-tier.selected {
+      .meetsMasteryShader {
+        background-color: @green;
+        .triangle {
+          color: @green;
+          background-color: transparent;
+        }
+      }
+      .nearMasteryShader {
+        background-color: @yellow;
+        .triangle {
+          color: @yellow;
+          background-color: transparent;
+        }
+      }
+      .wellBelowMasteryShader {
+        background-color: @red;
+        .triangle {
+          color: @red;
+          background-color: transparent;
+        }
+      }
+    }
+
+    #grades_summary {
+      th.title {
+        border-color: @surface1;
+      }
+      tr.final_grade {
+        border-color: @surface2;
+      }
+    }
+
+    .ic-Form-control.ic-Form-control--checkbox .ic-Label::before {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 16 48" width="16" height="48" enable-background="new 0 0 16 48" xml:space="preserve"><polyline fill-rule="evenodd" clip-rule="evenodd" fill="@{base}" points="11.4,4 6.9,8.7 4.6,6.2 3,7.9 6.9,12 13,5.6 11.4,4"/><polyline fill-rule="evenodd" clip-rule="evenodd" fill="@{text}" points="11.4,20 6.9,24.7 4.6,22.2 3,23.9 6.9,28 13,21.6 11.4,20"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+      background-color: @surface0;
+      border-color: @surface2;
+    }
+    .selected-assignment {
+      background-color: @hover-accent;
+    }
+    [data-id="submissions-comments-tray"] {
+      background-color: @mantle;
+      div:has(> a[class$="Button"]) {
+        color: @text;
+        background-color: @surface0;
+      }
+    }
+
+    /* PEOPLE */
+    .ic-Table.ic-Table--striped tbody tr:nth-child(odd) {
+      background-color: @mantle;
+    }
+
+    /* COURSE NOTIFICATIONS MENU */
+    table[class$="view-table"],
+    table[class$="view-table"] :is(tr, th, td) {
+      background-color: @base;
+    }
+    thead > tr[class$="view-row"] {
+      border-color: @surface2;
+    }
+    .notifications tr > th span {
+      color: @text;
+    }
+
+    /* SYLLABUS */
+    #syllabus tr.date.related td,
+    #syllabus tr.date.related th,
+    #syllabus tr.date.selected td,
+    #syllabus tr.date.selected th {
+      background-color: @hover-accent;
+    }
+    #syllabus tr.date.date_passed td,
+    #syllabus tr.date.date_passed th {
+      background-color: @mantle;
+    }
+    #syllabus tr.detail_list td.not_last {
+      border-color: @surface0;
+    }
+    .mini_calendar {
+      .day {
+        color: @subtext0;
+      }
+      .day.has_event {
+        background-color: @surface0;
+      }
+      .day.today {
+        background-color: mix(@red, @surface0, 10%);
+      }
+    }
+    .mini-cal-header {
+      border-color: @surface1;
+    }
+
+    /* FILES */
+    .ef-header,
+    .ef-directory-header,
+    .ef-footer,
+    .ef-main .ef-folder-content {
+      border-color: @surface1;
+    }
+    .ef-item-row:hover {
+      background-color: @hover-regular;
+    }
+    .ef-item-row.ef-item-selected {
+      background-color: @hover-regular;
+    }
+    .ef-file-preview-header {
+      color: @text;
+      background-color: @mantle;
+    }
+    .ef-file-preview-header > * {
+      border-color: @surface1;
+    }
+    .ef-file-preview-button {
+      color: @subtext0 !important;
+    }
+    .ViewerControls {
+      background-color: @surface1;
+    }
+    .ViewerControls--current-page {
+      color: @text;
+    }
+    .AnnotationControlButton,
+    .AnnotationControlButton-outer {
+      background-color: @surface1;
+      border-color: @surface1;
+    }
+    .mimeClass-folder {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36"><title>folder</title><path d="M14.43 10.81 11.23 6H.43v21.58A2.4 2.4 0 0 0 2.82 30h22.36a2.4 2.4 0 0 0 2.4-2.4V10.81ZM26 27.58a.8.8 0 0 1-.8.8H2.82a.8.8 0 0 1-.8-.8v-20h8.35l2.13 3.19H3.62v1.6H26Z" fill="@{text}" fill-rule="evenodd"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    /* CHAT */
+    /* this has terrible autogenerated css class names */
+    .ctf-container > *,
+    .ctf-container {
+      background-color: @base;
+    }
+    .ctf-header,
+    .header-contents {
+      border-color: @surface1;
+    }
+    .header-contents span {
+      color: @text;
+    }
+    .ding-toggle {
+      label:has(svg[name="IconCheck"]) > span > span {
+        background-color: @green;
+      }
+    }
+    .ctf-message-input {
+      background-color: @base;
+    }
+    .ctf-message-input .ctf-message-input__wrapper {
+      background-color: @surface0;
+      border-color: @surface2;
+      input {
+        background-color: transparent;
+      }
+    }
+
+    /* LOGIN PAGE */
+
+    .ic-flash-info,
+    .ic-flash-success,
+    .ic-flash-warning,
+    .ic-flash-error {
+      background-color: @surface0;
+    }
+
+    /* ACCOUNT PAGE */
+    th[class$="colHeader"] {
+      color: @text;
+    }
+    .feature-flag-wrapper {
+      tr span[class$="Text"] {
+        color: @text;
+      }
+    }
+
+    /***************  */
+    /* CREATOR SIDE */
+    /***************  */
+    /* not prioritized in this userstyle */
+
+    /* DASHBOARD */
+    .unpublished_courses_redesign .ic-DashboardCard__box__header {
+      background-color: transparent;
+      border-color: @surface1;
+    }
+    /* MODULES */
+    .module-publish-icon {
+      button > span {
+        background-color: transparent;
+      }
+      button:hover > span {
+        background-color: @hover-button;
+      }
+    }
+    .NewUserTutorialTray__Content > div > * {
+      border-color: @surface1;
+    }
+    .slick-header-column {
+      background-color: @surface0;
+    }
+    .slick-header-column.ui-state-default {
+      border-color: @surface1;
+    }
+    /* PAGES */
+    button[class$="tag"] {
+      background-color: @surface0;
+      border-color: @surface1;
+      color: @text;
+      svg {
+        fill: @text;
+      }
+    }
+
+    /* GRADEBOOK */
+    .ui-state-default,
+    .ui-widget-header {
+      color: @subtext1;
+    }
+    #gradebook-assignment-search,
+    #gradebook-student-search {
+      label span {
+        color: @subtext1;
+      }
+    }
+    div[class$="view-tabs__container"] {
+      div[role="tabpanel"] > div {
+        background-color: transparent;
+        border-color: @surface1;
+      }
+      background-color: transparent;
+    }
+    div[role="tab"] {
+      color: @text;
+      &[aria-selected="true"]::after {
+        background-color: @accent;
+      }
+    }
+
+    /* OUTCOMES */
+    #outcome_management {
+      footer {
+        color: @text;
+        background-color: @base !important;
+      }
+    }
+    #management > div {
+      color: @subtext1;
+    }
+    .management-panel {
+      div[data-testid="outcome-group-container"] [class$="view"] {
+        border-color: @surface1;
+      }
+      svg {
+        fill: @text;
+      }
+    }
+    div[role="separator"] > div {
+      background-color: @surface0 !important;
+    }
+    span[class$="view-heading"],
+    h2,
+    h2 > span[class$="text"] {
+      color: @subtext1;
+    }
+    span[class$="billboard__message"],
+    h3,
+    h3 > span[class$="text"] {
+      color: @subtext0;
+    }
+    span[class$="billboard"] {
+      background-color: transparent;
+    }
+
+    /* DISCUSSIONS */
+    /* create discussion page */
+    .discussions fieldset span:has(> button[data-testid="save-button"]) {
+      border-color: @surface1;
+    }
+    #manage-assign-to-container div[data-testid="item-assign-to-card"] {
+      border-color: @surface1;
+    }
+
+    /* STUDIO */
+    #settings_page_wrapper,
+    #collection_shared_content,
+    #collection_user_content {
+      background-color: @base;
+      span[role="contentinfo"] {
+        border-color: @surface1;
+      }
+    }
+    .CollectionShow__mediaListWrapper {
+      img {
+        background-color: transparent;
+      }
+    }
+    .DefaultLayout__main {
+      color: @text;
+    }
+    h1 {
+      color: @text;
+    }
+    #lti_media_picker {
+      nav {
+        background-color: @mantle;
+        border-block-end-color: @surface0;
+      }
+      ul a[class$="Button"] div {
+        color: @text;
+      }
+      li div[class$="topNavBarItem__container"]::after {
+        background-color: @surface1;
+      }
+    }
+    #media_upload_holder button img {
+      filter: @text-filter;
+    }
+    span[class$="toggleDetails__summary"] > span {
+      color: @text;
+    }
+    div[class$="toggleDetails__details"] {
+      color: @text;
+    }
+
+    /* ASSIGNMENT CREATION */
+    .page-action-list a {
+      border-bottom-color: @surface1;
+    }
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte: { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe: { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha: { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
+
+/* deno-fmt-ignore */
+@catppuccin-filters: {
+  @latte: { @rosewater: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(1048%) hue-rotate(323deg) brightness(92%) contrast(86%); @flamingo: brightness(0) saturate(100%) invert(84%) sepia(44%) saturate(4533%) hue-rotate(310deg) brightness(98%) contrast(75%); @pink: brightness(0) saturate(100%) invert(60%) sepia(32%) saturate(775%) hue-rotate(266deg) brightness(93%) contrast(97%); @mauve: brightness(0) saturate(100%) invert(26%) sepia(59%) saturate(3315%) hue-rotate(255deg) brightness(94%) contrast(100%); @red: brightness(0) saturate(100%) invert(16%) sepia(78%) saturate(7275%) hue-rotate(342deg) brightness(84%) contrast(94%); @maroon: brightness(0) saturate(100%) invert(31%) sepia(56%) saturate(2395%) hue-rotate(331deg) brightness(99%) contrast(82%); @peach: brightness(0) saturate(100%) invert(38%) sepia(81%) saturate(1292%) hue-rotate(356deg) brightness(103%) contrast(99%); @yellow: brightness(0) saturate(100%) invert(74%) sepia(47%) saturate(4570%) hue-rotate(354deg) brightness(95%) contrast(83%); @green: brightness(0) saturate(100%) invert(51%) sepia(25%) saturate(4134%) hue-rotate(76deg) brightness(95%) contrast(66%); @teal: brightness(0) saturate(100%) invert(41%) sepia(45%) saturate(1101%) hue-rotate(139deg) brightness(100%) contrast(82%); @sky: brightness(0) saturate(100%) invert(47%) sepia(76%) saturate(2427%) hue-rotate(166deg) brightness(99%) contrast(97%); @sapphire: brightness(0) saturate(100%) invert(52%) sepia(41%) saturate(6982%) hue-rotate(160deg) brightness(102%) contrast(75%); @blue: brightness(0) saturate(100%) invert(30%) sepia(80%) saturate(1850%) hue-rotate(209deg) brightness(94%) contrast(105%); @lavender: brightness(0) saturate(100%) invert(48%) sepia(61%) saturate(538%) hue-rotate(194deg) brightness(102%) contrast(98%); @text: brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(1259%) hue-rotate(196deg) brightness(97%) contrast(91%); @subtext1: brightness(0) saturate(100%) invert(36%) sepia(10%) saturate(890%) hue-rotate(196deg) brightness(98%) contrast(90%); @subtext0: brightness(0) saturate(100%) invert(47%) sepia(6%) saturate(1263%) hue-rotate(195deg) brightness(90%) contrast(81%); @overlay2: brightness(0) saturate(100%) invert(59%) sepia(7%) saturate(825%) hue-rotate(195deg) brightness(83%) contrast(91%); @overlay1: brightness(0) saturate(100%) invert(59%) sepia(14%) saturate(333%) hue-rotate(194deg) brightness(95%) contrast(89%); @overlay0: brightness(0) saturate(100%) invert(85%) sepia(7%) saturate(595%) hue-rotate(191deg) brightness(77%) contrast(81%); @surface2: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(482%) hue-rotate(189deg) brightness(82%) contrast(88%); @surface1: brightness(0) saturate(100%) invert(85%) sepia(8%) saturate(281%) hue-rotate(187deg) brightness(92%) contrast(88%); @surface0: brightness(0) saturate(100%) invert(96%) sepia(1%) saturate(5123%) hue-rotate(185deg) brightness(93%) contrast(83%); @base: brightness(0) saturate(100%) invert(89%) sepia(5%) saturate(140%) hue-rotate(182deg) brightness(109%) contrast(94%); @mantle: brightness(0) saturate(100%) invert(93%) sepia(19%) saturate(55%) hue-rotate(182deg) brightness(98%) contrast(92%); @crust: brightness(0) saturate(100%) invert(91%) sepia(1%) saturate(4489%) hue-rotate(196deg) brightness(106%) contrast(82%); };
+  @frappe: { @rosewater: brightness(0) saturate(100%) invert(90%) sepia(6%) saturate(734%) hue-rotate(321deg) brightness(95%) contrast(99%); @flamingo: brightness(0) saturate(100%) invert(88%) sepia(52%) saturate(817%) hue-rotate(293deg) brightness(113%) contrast(84%); @pink: brightness(0) saturate(100%) invert(76%) sepia(15%) saturate(844%) hue-rotate(280deg) brightness(107%) contrast(91%); @mauve: brightness(0) saturate(100%) invert(71%) sepia(25%) saturate(725%) hue-rotate(225deg) brightness(94%) contrast(91%); @red: brightness(0) saturate(100%) invert(67%) sepia(3%) saturate(7209%) hue-rotate(305deg) brightness(91%) contrast(99%); @maroon: brightness(0) saturate(100%) invert(61%) sepia(14%) saturate(957%) hue-rotate(307deg) brightness(109%) contrast(90%); @peach: brightness(0) saturate(100%) invert(68%) sepia(28%) saturate(662%) hue-rotate(335deg) brightness(96%) contrast(94%); @yellow: brightness(0) saturate(100%) invert(94%) sepia(88%) saturate(684%) hue-rotate(309deg) brightness(105%) contrast(80%); @green: brightness(0) saturate(100%) invert(89%) sepia(23%) saturate(582%) hue-rotate(42deg) brightness(87%) contrast(89%); @teal: brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(986%) hue-rotate(110deg) brightness(85%) contrast(81%); @sky: brightness(0) saturate(100%) invert(75%) sepia(15%) saturate(623%) hue-rotate(141deg) brightness(109%) contrast(81%); @sapphire: brightness(0) saturate(100%) invert(77%) sepia(20%) saturate(730%) hue-rotate(157deg) brightness(97%) contrast(76%); @blue: brightness(0) saturate(100%) invert(68%) sepia(16%) saturate(1070%) hue-rotate(185deg) brightness(96%) contrast(95%); @lavender: brightness(0) saturate(100%) invert(75%) sepia(20%) saturate(626%) hue-rotate(201deg) brightness(101%) contrast(89%); @text: brightness(0) saturate(100%) invert(83%) sepia(12%) saturate(582%) hue-rotate(191deg) brightness(98%) contrast(96%); @subtext1: brightness(0) saturate(100%) invert(80%) sepia(18%) saturate(411%) hue-rotate(190deg) brightness(96%) contrast(84%); @subtext0: brightness(0) saturate(100%) invert(82%) sepia(6%) saturate(1287%) hue-rotate(192deg) brightness(86%) contrast(85%); @overlay2: brightness(0) saturate(100%) invert(65%) sepia(36%) saturate(230%) hue-rotate(190deg) brightness(92%) contrast(82%); @overlay1: brightness(0) saturate(100%) invert(55%) sepia(12%) saturate(638%) hue-rotate(189deg) brightness(98%) contrast(87%); @overlay0: brightness(0) saturate(100%) invert(49%) sepia(13%) saturate(662%) hue-rotate(192deg) brightness(94%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(41%) sepia(20%) saturate(469%) hue-rotate(191deg) brightness(93%) contrast(86%); @surface1: brightness(0) saturate(100%) invert(34%) sepia(14%) saturate(771%) hue-rotate(190deg) brightness(89%) contrast(85%); @surface0: brightness(0) saturate(100%) invert(28%) sepia(7%) saturate(1468%) hue-rotate(193deg) brightness(92%) contrast(95%); @base: brightness(0) saturate(100%) invert(20%) sepia(17%) saturate(747%) hue-rotate(192deg) brightness(96%) contrast(97%); @mantle: brightness(0) saturate(100%) invert(8%) sepia(7%) saturate(7271%) hue-rotate(198deg) brightness(88%) contrast(75%); @crust: brightness(0) saturate(100%) invert(7%) sepia(7%) saturate(7415%) hue-rotate(197deg) brightness(86%) contrast(79%); };
+  @macchiato: { @rosewater: brightness(0) saturate(100%) invert(88%) sepia(13%) saturate(322%) hue-rotate(321deg) brightness(102%) contrast(91%); @flamingo: brightness(0) saturate(100%) invert(82%) sepia(3%) saturate(3070%) hue-rotate(314deg) brightness(107%) contrast(88%); @pink: brightness(0) saturate(100%) invert(80%) sepia(23%) saturate(509%) hue-rotate(280deg) brightness(102%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(903%) hue-rotate(222deg) brightness(104%) contrast(93%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(1541%) hue-rotate(305deg) brightness(110%) contrast(86%); @maroon: brightness(0) saturate(100%) invert(71%) sepia(10%) saturate(1331%) hue-rotate(306deg) brightness(93%) contrast(101%); @peach: brightness(0) saturate(100%) invert(73%) sepia(13%) saturate(1676%) hue-rotate(330deg) brightness(103%) contrast(92%); @yellow: brightness(0) saturate(100%) invert(87%) sepia(89%) saturate(321%) hue-rotate(314deg) brightness(101%) contrast(87%); @green: brightness(0) saturate(100%) invert(93%) sepia(12%) saturate(1128%) hue-rotate(48deg) brightness(92%) contrast(85%); @teal: brightness(0) saturate(100%) invert(92%) sepia(10%) saturate(1176%) hue-rotate(110deg) brightness(87%) contrast(90%); @sky: brightness(0) saturate(100%) invert(78%) sepia(57%) saturate(230%) hue-rotate(142deg) brightness(96%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(35%) saturate(438%) hue-rotate(156deg) brightness(92%) contrast(93%); @blue: brightness(0) saturate(100%) invert(67%) sepia(17%) saturate(1007%) hue-rotate(183deg) brightness(99%) contrast(94%); @lavender: brightness(0) saturate(100%) invert(74%) sepia(6%) saturate(2559%) hue-rotate(198deg) brightness(103%) contrast(94%); @text: brightness(0) saturate(100%) invert(81%) sepia(9%) saturate(726%) hue-rotate(192deg) brightness(104%) contrast(92%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(5%) saturate(1453%) hue-rotate(193deg) brightness(94%) contrast(86%); @subtext0: brightness(0) saturate(100%) invert(75%) sepia(18%) saturate(361%) hue-rotate(190deg) brightness(91%) contrast(86%); @overlay2: brightness(0) saturate(100%) invert(67%) sepia(9%) saturate(814%) hue-rotate(191deg) brightness(92%) contrast(88%); @overlay1: brightness(0) saturate(100%) invert(49%) sepia(38%) saturate(203%) hue-rotate(190deg) brightness(101%) contrast(93%); @overlay0: brightness(0) saturate(100%) invert(46%) sepia(16%) saturate(552%) hue-rotate(193deg) brightness(93%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(16%) saturate(611%) hue-rotate(192deg) brightness(101%) contrast(87%); @surface1: brightness(0) saturate(100%) invert(30%) sepia(11%) saturate(1085%) hue-rotate(194deg) brightness(92%) contrast(89%); @surface0: brightness(0) saturate(100%) invert(18%) sepia(21%) saturate(880%) hue-rotate(193deg) brightness(97%) contrast(84%); @base: brightness(0) saturate(100%) invert(12%) sepia(42%) saturate(570%) hue-rotate(194deg) brightness(90%) contrast(90%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(6%) saturate(7499%) hue-rotate(200deg) brightness(93%) contrast(85%); @crust: brightness(0) saturate(100%) invert(5%) sepia(8%) saturate(5346%) hue-rotate(202deg) brightness(98%) contrast(88%); };
+  @mocha: { @rosewater: brightness(0) saturate(100%) invert(92%) sepia(5%) saturate(704%) hue-rotate(320deg) brightness(99%) contrast(93%); @flamingo: brightness(0) saturate(100%) invert(81%) sepia(5%) saturate(987%) hue-rotate(315deg) brightness(107%) contrast(90%); @pink: brightness(0) saturate(100%) invert(86%) sepia(11%) saturate(1177%) hue-rotate(283deg) brightness(101%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(58%) saturate(255%) hue-rotate(224deg) brightness(96%) contrast(102%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(997%) hue-rotate(294deg) brightness(104%) contrast(91%); @maroon: brightness(0) saturate(100%) invert(66%) sepia(16%) saturate(1301%) hue-rotate(306deg) brightness(116%) contrast(84%); @peach: brightness(0) saturate(100%) invert(68%) sepia(57%) saturate(278%) hue-rotate(338deg) brightness(98%) contrast(101%); @yellow: brightness(0) saturate(100%) invert(90%) sepia(70%) saturate(380%) hue-rotate(313deg) brightness(102%) contrast(95%); @green: brightness(0) saturate(100%) invert(88%) sepia(6%) saturate(2015%) hue-rotate(63deg) brightness(104%) contrast(78%); @teal: brightness(0) saturate(100%) invert(92%) sepia(12%) saturate(991%) hue-rotate(108deg) brightness(93%) contrast(90%); @sky: brightness(0) saturate(100%) invert(84%) sepia(21%) saturate(1302%) hue-rotate(164deg) brightness(106%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(20%) saturate(876%) hue-rotate(156deg) brightness(96%) contrast(93%); @blue: brightness(0) saturate(100%) invert(68%) sepia(18%) saturate(951%) hue-rotate(180deg) brightness(98%) contrast(100%); @lavender: brightness(0) saturate(100%) invert(73%) sepia(7%) saturate(1670%) hue-rotate(195deg) brightness(102%) contrast(99%); @text: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(879%) hue-rotate(190deg) brightness(100%) contrast(93%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(19%) saturate(381%) hue-rotate(193deg) brightness(91%) contrast(89%); @subtext0: brightness(0) saturate(100%) invert(84%) sepia(9%) saturate(767%) hue-rotate(192deg) brightness(84%) contrast(84%); @overlay2: brightness(0) saturate(100%) invert(63%) sepia(15%) saturate(428%) hue-rotate(191deg) brightness(96%) contrast(84%); @overlay1: brightness(0) saturate(100%) invert(56%) sepia(15%) saturate(455%) hue-rotate(192deg) brightness(90%) contrast(88%); @overlay0: brightness(0) saturate(100%) invert(44%) sepia(6%) saturate(1275%) hue-rotate(194deg) brightness(97%) contrast(88%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(8%) saturate(1015%) hue-rotate(195deg) brightness(99%) contrast(89%); @surface1: brightness(0) saturate(100%) invert(25%) sepia(6%) saturate(1950%) hue-rotate(197deg) brightness(99%) contrast(86%); @surface0: brightness(0) saturate(100%) invert(19%) sepia(5%) saturate(2844%) hue-rotate(199deg) brightness(91%) contrast(93%); @base: brightness(0) saturate(100%) invert(7%) sepia(4%) saturate(7496%) hue-rotate(202deg) brightness(93%) contrast(87%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(4%) saturate(7465%) hue-rotate(202deg) brightness(95%) contrast(90%); @crust: brightness(0) saturate(100%) invert(3%) sepia(13%) saturate(6863%) hue-rotate(220deg) brightness(95%) contrast(91%); };
+};

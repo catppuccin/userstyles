@@ -1,0 +1,782 @@
+/* ==UserStyle==
+@name Wikipedia Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/wikipedia
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/wikipedia
+@version 2025.03.30
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/wikipedia/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Awikipedia
+@description Soothing pastel theme for Wikipedia
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var checkbox highlight-redirect "Highlight redirect links" 0
+==/UserStyle== */
+
+@-moz-document domain("wikipedia.org"),
+  domain("wiktionary.org"),
+  domain("www.mediawiki.org"),
+  domain("auth.wikimedia.org") {
+  @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
+
+  :root.skin-theme-clientpref-os,
+  .skin-invert,
+  .notheme {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  :root.skin-theme-clientpref-night {
+    #catppuccin(@darkFlavor);
+  }
+
+  :root.skin-theme-clientpref-day {
+    #catppuccin(@lightFlavor);
+  }
+
+  html.skin-theme-clientpref-night, html.skin-theme-clientpref-os {
+    /* Logo */
+    .skin-invert-image img,
+    .skin-invert,
+    .oo-ui-iconElement-icon:not(
+      .oo-ui-image-progressive,
+      .oo-ui-image-destructive,
+      .oo-ui-checkboxInputWidget-checkIcon,
+      .oo-ui-image-invert,
+      .mw-no-invert
+    ),
+    .oo-ui-indicatorElement-indicator {
+      filter: none;
+    }
+  }
+
+  /* MediaWiki only applies the following overrides on dark and automatic appearance settings, leaving broken elements with the light appearance. */
+
+  .hatnote:not(.notheme),
+  .dablink:not(.notheme),
+  .rellink:not(.notheme),
+  .infobox:not(.notheme) {
+    color: var(--color-base) !important;
+    background-color: var(--background-color-interactive-subtle) !important;
+  }
+  .infobox td:not(.notheme),
+  .infobox th:not(.notheme),
+  .infobox-above:not(.notheme),
+  .infobox p:not(.notheme),
+  .infobox > div:not(.notheme),
+  .infobox caption:not(.notheme),
+  .infobox--frwiki td:not(.notheme),
+  .infobox--frwiki th:not(.notheme),
+  .infobox--frwiki p:not(.notheme),
+  .infobox--frwiki > div:not(.notheme),
+  .infobox--frwiki caption:not(.notheme),
+  .sinottico th:not(.notheme),
+  .infobox-header:not(.notheme),
+  .skin-nightmode-reset-color:not(.notheme),
+  .navigation-box:not(.notheme),
+  .metadata:not(.notheme),
+  .quotebox:not(.notheme),
+  .side-box:not(.notheme),
+  .side-box div:not(.notheme),
+  .navbox:not(.notheme),
+  .navbox-subgroup:not(.notheme),
+  .navbox-group:not(.notheme),
+  .navbox-even:not(.notheme),
+  .navbox-abovebelow:not(.notheme),
+  .navbox-title:not(.notheme) {
+    background: inherit !important;
+    color: inherit !important;
+    border-color: var(--border-color-subtle) !important;
+  }
+  .ns-100 .mw-parser-output :not(.notheme, a) {
+    background: inherit !important;
+    color: inherit !important;
+    border-color: var(--border-color-subtle) !important;
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    @yellow-filter: @catppuccin-filters[@@flavor][@yellow];
+    @blue-filter: @catppuccin-filters[@@flavor][@blue];
+    @text-filter: @catppuccin-filters[@@flavor][@text];
+    @crust-filter: @catppuccin-filters[@@flavor][@crust];
+    @accent-filter: @catppuccin-filters[@@flavor][@@accentColor];
+
+    --ctp-rosewater: @rosewater;
+    --ctp-flamingo: @flamingo;
+    --ctp-pink: @pink;
+    --ctp-mauve: @mauve;
+    --ctp-red: @red;
+    --ctp-maroon: @maroon;
+    --ctp-peach: @peach;
+    --ctp-yellow: @yellow;
+    --ctp-green: @green;
+    --ctp-teal: @teal;
+    --ctp-sky: @sky;
+    --ctp-sapphire: @sapphire;
+    --ctp-blue: @blue;
+    --ctp-lavender: @lavender;
+    --ctp-text: @text;
+    --ctp-subtext1: @subtext1;
+    --ctp-subtext0: @subtext0;
+    --ctp-overlay2: @overlay2;
+    --ctp-overlay1: @overlay1;
+    --ctp-overlay0: @overlay0;
+    --ctp-surface2: @surface2;
+    --ctp-surface1: @surface1;
+    --ctp-surface0: @surface0;
+    --ctp-base: @base;
+    --ctp-mantle: @mantle;
+    --ctp-crust: @crust;
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    --color-base: @text;
+    --color-base--hover: @text;
+    --color-emphasized: @text;
+    --color-subtle: @subtext0;
+    --color-inverted: @crust;
+    --color-inverted-fixed: @crust;
+    --color-progressive: @accent;
+    --color-progressive--hover: darken(@accent, 5%);
+    --color-progressive--active: darken(@accent, 5%);
+    --color-progressive--focus: darken(@accent, 5%);
+    --color-destructive: @red;
+    --color-destructive--hover: @maroon;
+    --color-destructive--active: @maroon;
+    --color-visited: @lavender;
+    --color-destructive--visited: #b97876;
+    --color-error: @red;
+    --color-warning: @yellow;
+    --color-success: @green;
+    --color-notice: @text;
+    --color-icon-error: @red;
+    --color-icon-warning: @yellow;
+    --color-icon-success: @green;
+    --color-icon-notice: @subtext0;
+    --color-content-added: @green;
+    --color-content-removed: @maroon;
+    --color-placeholder: @subtext0;
+    --color-disabled: @overlay2;
+    --box-shadow-color-base: #fff;
+    --box-shadow-color-inverted: #000;
+    --box-shadow-color-progressive--focus: @accent;
+    --background-color-interactive: @surface0;
+    --background-color-interactive-subtle: @surface0;
+    --background-color-interactive-subtle--hover: @surface1;
+    --background-color-disabled: @overlay2;
+    --background-color-disabled-subtle: @surface0;
+    --background-color-progressive: @accent;
+    --background-color-progressive-subtle: fade(@accent, 10%);
+    --background-color-destructive-subtle: #421211;
+    --background-color-progressive--active: fade(@accent, 70%);
+    --background-color-progressive--hover: fade(@accent, 70%);
+    --background-color-progressive--focus: fade(@accent, 70%);
+    --background-color-error: @red;
+    --background-color-error--hover: @maroon;
+    --background-color-error--active: @maroon;
+    --background-color-error-subtle: fade(@red, 20%);
+    --background-color-warning-subtle: fade(@yellow, 20%);
+    --background-color-success-subtle: fade(@green, 20%);
+    --background-color-notice-subtle: @surface0;
+    --background-color-content-added: #2a4b8d;
+    --background-color-content-removed: #a66200;
+    --background-color-backdrop-light: rgba(0, 0, 0, 0.65);
+    --background-color-backdrop-dark: rgba(255, 255, 255, 0.65);
+    --background-color-base: @base;
+    --background-color-base-fixed: @base;
+    --background-color-neutral: @base;
+    --background-color-neutral-subtle: @surface0;
+    --background-color-inverted: @text;
+    --background-color-input-binary--checked: @accent;
+    --border-base: 1px solid @surface0;
+    --border-subtle: 1px solid @surface0;
+    --border-color-base: @surface0;
+    --border-color-interactive: @surface2;
+    --border-color-interactive--hover: @overlay0;
+    --border-color-disabled: #54595d;
+    --border-color-subtle: @surface1;
+    --border-color-muted: @surface0;
+    --border-color-inverted: #101418;
+    --border-color-error: @red;
+    --border-color-error--hover: @maroon;
+    --border-color-warning: @yellow;
+    --border-color-success: @green;
+    --border-color-notice: @surface2;
+    --border-color-content-added: @blue;
+    --border-color-content-removed: @peach;
+    --border-color-progressive: @accent;
+    --border-color-progressive--active: @accent;
+    --border-color-progressive--hover: @accent;
+    --border-color-progressive--focus: @accent;
+
+    /* Wiktionary */
+    --wikt-palette-indigo: @lavender;
+    --wikt-palette-lightindigo: fade(@lavender, 40%);
+    --wikt-palette-lighterblue: fade(@blue, 20%);
+    --wikt-palette-dulllightblue: fade(@blue, 40%);
+    --wikt-palette-grey: @subtext0;
+    --wikt-palette-lightergrey: fade(@subtext0, 40%);
+
+    /* Other */
+
+    .infobox {
+      border-color: @surface2;
+    }
+
+    [style="color:white;"], [style*="color:#ffffff"] {
+      color: @text !important;
+    }
+    .mw-collapsible-toggle-default {
+      &::before, &::after {
+        color: @subtext0;
+      }
+    }
+
+    a {
+      &:focus {
+        outline-color: @accent;
+      }
+    }
+
+    .mw-parser-output {
+      a.external {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="@{accent}" d="M6 1h5v5L8.86 3.85 4.7 8 4 7.3l4.15-4.16zM2 3h2v1H2v6h6V8h1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      /* Wikipedia Home */
+      #mp-topbanner {
+        background-color: @base;
+        border-color: @surface1;
+      }
+      #mp-left {
+        background-color: fade(@green, 20%);
+        border-color: @green;
+
+        .mp-h2 {
+          background-color: fade(@green, 40%);
+          border-color: fade(@green, 40%);
+        }
+      }
+      #mp-right {
+        background-color: fade(@blue, 20%);
+        border-color: @blue;
+
+        .mp-h2 {
+          background-color: fade(@blue, 40%);
+          border-color: fade(@blue, 40%);
+        }
+      }
+      #mp-lower {
+        background-color: fade(@lavender, 20%);
+        border-color: @lavender;
+
+        .mp-h2 {
+          background-color: fade(@lavender, 40%);
+          border-color: fade(@lavender, 40%);
+        }
+      }
+      #mp-bottom {
+        border-color: @overlay0;
+
+        .mp-h2 {
+          background-color: fade(@accent, 40%);
+          border-color: fade(@accent, 40%);
+        }
+      }
+      .wikipedia-languages-prettybars {
+        background-color: @surface2;
+      }
+
+      /* MediaWiki Home */
+      .mainpage_box {
+        border-color: @surface2;
+
+        .header_icon {
+          filter: @text-filter;
+        }
+
+        .items {
+          border-top-color: @surface1;
+        }
+      }
+      .nmbox {
+        background-color: @surface0;
+        border-color: @surface2;
+
+        .nmbox-header {
+          background-color: @base;
+          border-color: @surface1;
+        }
+      }
+      /* MediaWiki Pages */
+      .tpl-downloadmediawiki-icon {
+        filter: @crust-filter;
+      }
+      .note-info {
+        filter: @blue-filter;
+        color: @text;
+        background-color: fade(@blue, 20%);
+      }
+      .note-warn {
+        filter: @yellow-filter;
+        color: @text;
+        background-color: fade(@yellow, 20%);
+      }
+    }
+
+    /* OOUI */
+    .oo-ui-iconElement-icon,
+    .oo-ui-indicator-down {
+      filter: @text-filter !important;
+    }
+
+    /* View source */
+    textarea {
+      background-color: @mantle;
+      color: @text;
+    }
+
+    /* View history */
+    .flaggedrevs-color-1 {
+      background-color: fade(@blue, 10%);
+    }
+
+    /* Language search and settings */
+    .uls-search,
+    .uls-filtersuggestion,
+    .uls-lcd,
+    #uls-settings-block.uls-settings-block--vector-2022.uls-settings-block--with-add-languages,
+    #language-settings-dialog,
+    #languagesettings-settings-panel,
+    .uls-language-settings-close-block {
+      background-color: @mantle;
+    }
+    .uls-language-block a {
+      color: @accent;
+    }
+    .uls-search-label,
+    #uls-settings-block.uls-settings-block--vector-2022
+      > button.uls-add-languages-button,
+    #uls-settings-block.uls-settings-block--vector-2022
+      > button.uls-language-settings-button,
+    #uls-settings-block.uls-settings-block--vector-2022
+      > button.uls-language-settings-button:hover,
+    .uls-icon-close,
+    .uls-languagefilter-clear {
+      filter: @text-filter;
+    }
+    .uls-sub-panel, .language-settings-buttons {
+      border-color: @surface1;
+    }
+    .uls-language-block > ul > li:hover {
+      background-color: @surface0;
+    }
+    .languagesettings-menu .menu-section.active {
+      background-color: @surface1;
+    }
+
+    /* Page preview */
+    .mwe-popups .mwe-popups-extract[dir="ltr"]::after {
+      background-image: linear-gradient(to right, transparent, @base 50%);
+    }
+    .mwe-popups .mwe-popups-extract[dir="rtl"]::after {
+      background-image: linear-gradient(to left, transparent, @base 50%);
+    }
+
+    /* Icons */
+
+    img[alt="Edit this on Wikidata"],
+    img[alt="Edit this at Wikidata"] {
+      filter: @accent-filter;
+    }
+
+    .mw-logo-wordmark {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 18"><path fill="@{text}" fill-rule="nonzero" d="m18.339 0 .199.001h.375l.174.001h.315l.138.001.323.001h.171l.058.053v.5q0 .208-.231.208c-.753.035-.908.11-1.184.507-.15.216-.447.68-.755 1.204L15.28 7.419l-.074.154 3.23 6.611.196.054L23.72 2.162q.265-.73-.078-1.035c-.228-.197-.389-.315-.978-.34l-.477-.023a.28.28 0 0 1-.168-.061.17.17 0 0 1-.08-.147V.054l.073-.052h5.749l.058.052v.502q0 .204-.231.205-1.129.051-1.673.489c-.362.294-.645.698-.848 1.225 0 0-1.53 3.5-3.137 7.159l-.268.61c-1.12 2.55-2.24 5.09-2.876 6.501-.613 1.17-1.22 1.06-1.745-.033-.411-.847-1.1-2.33-1.8-3.86l-.469-1.024c-.273-.6-.54-1.19-.786-1.727-1.08 2.23-2.56 5.26-3.3 6.624-.715 1.24-1.3 1.08-1.771.032-1.63-3.84-4.97-10.6-6.539-14.35-.29-.697-.51-1.14-.716-1.32Q1.347.827.36.774.002.734 0 .593V.067L.058.016.592.014H1.6l.969-.001h.253l1.734.001h.225l.95.001h.577l.058.052v.5q0 .207-.26.206L5.454.8q-.84.036-.84.5c0 .145.06.38.19.696 1.25 3.05 5.58 12.2 5.576 12.169l.158.04 2.787-5.56c-.34-.751-.558-1.23-.558-1.234l-1.916-3.765s-.37-.753-.497-1.004C9.512.972 9.53.882 8.68.772c-.238-.031-.361-.061-.362-.18V.065L8.39.013h.702L10.58.01h2.77l.131.043V.58q0 .181-.26.182l-.36.052c-.909.07-.76.442-.156 1.644l1.838 3.76 2.034-4.055c.318-.693.278-.9.157-1.064l-.027-.035c-.081-.096-.351-.251-.94-.275l-.231-.025a.28.28 0 0 1-.167-.06.17.17 0 0 1-.079-.147v-.5l.072-.052L16.24 0zm10.464 5.318h.118c.71 0 2.73-.053 2.73-.053l.027.053v.577c0 .08-.053.131-.158.132l-.551.053c-.814.078-1.1.29-1.103.815v8.74c0 .578.262.92 1.103.998l.551.054c.079 0 .157.051.158.156v.552l-.027.053s-1.99-.053-2.808-.053c-.735 0-2.78.053-2.783.053l-.052-.053v-.552c0-.105.078-.156.184-.156l.525-.054c.866-.078 1.13-.499 1.128-.997V6.895c0-.575-.316-.736-1.128-.813l-.525-.054c-.105 0-.184-.024-.184-.105v-.605l.026-.053s1.89.048 2.769.053m8.81 10.318c0 .577.341.866 1.103.997l.288.054c.079.025.157.051.158.156v.551l-.027.054s-1.65-.054-2.44-.054c-.736 0-2.89.054-2.888.054l-.053-.054v-.55c0-.106.08-.157.184-.157l.525-.054c.787-.079 1.13-.499 1.129-.997V6.895c0-.575-.29-.736-1.129-.813l-.525-.055c-.105 0-.184-.024-.184-.105v-.604l.027-.053s2.15.053 2.966.053c.736 0 2.39-.053 2.389-.053l.026.053v.577c0 .079-.053.105-.158.131l-.288.054c-.814.156-1.1.289-1.103.815v3.964c.866 0 1.36-.444 2.52-1.68 1.05-1.16 1.86-2.12 1.864-2.626 0-.21-.236-.445-.762-.526-.105-.024-.157-.052-.157-.13V5.29l.026-.024s2.13.053 2.888.053c.682 0 1.84-.053 1.837-.053l.079.024v.606c0 .079-.079.131-.21.131-1.02.08-1.73.131-2.678 1.208l-2.257 2.597c-.446.475-.604.76-.604.972 0 .157.105.288.237.445l3.963 4.778c.315.366.945.525 1.47.628l.131.026c.08.025.184.077.184.156v.551l-.079.027s-1.39-.026-2.126-.027c-.656 0-1.6.027-1.6.027l-.027-.027v-.315c0-.342-.026-.629-.394-1.049l-2.914-3.623c-.394-.526-.814-.655-1.39-.655v3.89zm14.151 0c0 .577.262.919 1.102.997l.552.054c.078 0 .157.051.157.156v.551l-.026.054s-1.99-.054-2.809-.054c-.735 0-2.78.054-2.782.054l-.053-.054v-.55c0-.106.08-.157.184-.157l.525-.054c.866-.079 1.13-.499 1.129-.997V6.895c0-.575-.315-.736-1.129-.813l-.525-.055c-.105 0-.184-.024-.184-.105v-.604l.027-.053s2.07.053 2.887.053c.709 0 2.73-.053 2.73-.053l.026.053v.577c0 .079-.052.131-.157.131l-.552.054c-.814.078-1.1.289-1.102.815zm5.672-8.69c0-.814-.341-.84-1.575-.919-.157 0-.184-.077-.184-.13v-.605l.053-.026c.394 0 1.94.053 2.703.053.735 0 1.78-.053 2.757-.053 3.73 0 4.41 1.84 4.407 3.203 0 1.58-.76 4.04-4.486 4.043-.656 0-1.18-.054-1.655-.263v3.516c0 .576.315.71 1.156.84l.526.079c.105.025.185.053.185.156v.551l-.024.054s-2.1-.054-2.915-.054c-.735 0-2.7.054-2.704.054l-.026-.054v-.551c0-.105.053-.131.158-.156l.55-.08c.815-.104 1.08-.34 1.077-.84zm2.021 4.568c.525.211 1.18.236 1.706.237 1.58 0 2.33-.947 2.335-2.967 0-2.26-1.02-2.76-2.466-2.756-1.26 0-1.58.236-1.576.919zm10.661 5.88c-.787 0-2.6.054-2.598.054l-.027-.054v-.577c0-.052.027-.13.158-.13l.605-.054c.815-.079 1.05-.604 1.051-1.128V6.843c0-.606-.315-.71-1.05-.761l-.606-.055c-.157-.024-.157-.077-.158-.105v-.604l.027-.053s2.05.053 2.834.053h3.859c.787 0 2.65-.053 2.652-.053l.055.053c.024 1.13.208 2.15.393 3.15l-.654.105c-.288-.972-.786-2.36-2.466-2.362h-2.1c-.5 0-.761.184-.761.63v3.806h1.967c.736 0 .92-.315 1.025-.84l.157-.55c0-.08.053-.133.157-.133h.444c.055 0 .055.027.055.079-.055.576-.157 1.31-.158 1.943 0 .655.105 1.21.158 1.811l-.055.054h-.444c-.13 0-.186-.054-.186-.133l-.13-.576c-.106-.526-.342-.815-1.028-.815h-1.966v4.017c0 .497.286.995.76.996h2.495c1.34 0 2.08-.84 2.388-2.207l.654.079-.526 3.017-.052.053s-1.55-.053-2.336-.053zm9.872-.707.604-.054c.788-.079 1.05-.315 1.05-1.128V6.843c0-.685-.185-.685-1.05-.761l-.576-.055c-.105 0-.186-.052-.186-.13v-.578l.026-.053s2.31.053 2.784.053c.497 0 2.78-.053 3.465-.053 4.38 0 6.54 2.73 6.537 6.221 0 4.59-3.26 5.96-6.167 5.958-2.1 0-3.02-.054-3.832-.054-.788 0-2.78.054-2.784.054l-.026-.054v-.55a.147.147 0 0 1 .155-.154m5.855 0c2.89 0 4.52-1.07 4.515-4.752 0-2.73-.605-5.91-5.014-5.908-1.02 0-1.68.157-1.68.816v8.662c0 .733.183 1.18 2.179 1.182m12.996-1.051c0 .577.262.919 1.102.997l.551.054c.079 0 .157.051.158.156v.551l-.027.054s-1.99-.054-2.807-.054c-.736 0-2.78.054-2.783.054l-.053-.054v-.55c0-.106.079-.157.184-.157l.526-.054c.865-.079 1.13-.499 1.128-.997V6.895c0-.575-.316-.736-1.128-.813l-.526-.055c-.105 0-.184-.024-.184-.105v-.604l.026-.053s2.07.053 2.886.053c.708 0 2.73-.053 2.73-.053l.025.053v.577c0 .079-.055.131-.158.131l-.551.054c-.815.078-1.1.289-1.103.815zm8.086.997.762.054c.105 0 .21.078.21.209v.498l-.053.054s-2.86-.054-3.491-.054c-.683 0-2.36.054-2.364.054l-.053-.054v-.498c0-.13.079-.21.21-.21 1.16-.078 1.81-.29 2.546-1.97l5.826-13.65c.288-.682.5-.946.895-.946.365 0 .498.264.707.788l5.38 14.227c.37 1.02.895 1.42 1.945 1.523l.288.025c.132 0 .264.078.263.211v.497l-.078.053s-2.02-.053-3.046-.053c-.92 0-3.49.053-3.492.053l-.025-.053v-.497c0-.133.053-.21.187-.21l.735-.054c.996-.078 1.37-.395 1.103-1.128l-1.602-4.438h-5.461c-.63 0-.787.105-.918.444l-1.524 3.807c-.262.66.079 1.24 1.05 1.318m6.431-6.67-2.546-7.007h-.052l-2.625 6.667c-.105.265.078.341.655.342h4.568v-.001z"/></svg>'
+      );
+      content: url("data:image/svg+xml,@{svg}");
+    }
+
+    .mw-logo-tagline {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 117 13"><path fill="@{text}" d="M89.777 3.326c.104 0 .17.039.17.092 0 0-.055.363-.055.832 0 .093.076.081.117.039.584-.594 1.3-.921 1.781-.921 1.33 0 2.3 1.27 2.301 2.651 0 1.05-.352 1.86-.963 2.457-.533.509-1.18.729-1.91.729-.41 0-.812-.072-1.131-.201-.133-.055-.182-.071-.182.098v1.403c0 1.08.143 1.13 1.064 1.185.078.077.078.352 0 .428-.558-.011-.96-.025-1.572-.025-.572 0-.91.014-1.455.025-.078-.078-.078-.353 0-.431.793-.038.936-.104.936-1.184V4.951c0-.74-.143-.818-.846-.885-.025-.078-.053-.285-.025-.363.896-.116 1.4-.233 1.77-.377m-17.266.144c.078.078.078.353 0 .431-.479.039-.869.455-1.053.832-.688 1.46-1.26 2.8-2.301 5.305-.16.385-.33.757-.533 1.117-.467.834-.989.938-1.26.938-.352 0-.611-.209-.611-.48 0-.17.195-.561.572-.561.143 0 .193.039.377.039.324 0 .506-.116.648-.377.195-.402.354-.762.508-1.195.131-.363-.068-.961-.182-1.223l-1.473-3.419c-.354-.828-.459-.923-1.023-.976-.078-.078-.078-.353 0-.431q.388.023 1.053.024c.469 0 .988-.012 1.469-.024.078.078.078.353 0 .431-.797.062-.66.297-.426.846l1.152 2.703c.109.259.221.224.311.014l1.291-2.977c.203-.473-.215-.547-.625-.586-.078-.078-.078-.353 0-.431.48.015.729.024 1.184.024.363 0 .6-.012.922-.024M105.829.002c.117 0 .17.039.17.13 0 0-.046.448-.052 1.189l-.001 6.065c0 .639.117.885.949.949.078.078.078.273 0 .352-.793.092-1.38.285-1.664.521a.5.5 0 0 1-.299 0s.014-.639.014-.768c0-.092-.094-.067-.156-.019-.637.526-1.12.785-1.625.785-1.4 0-2.21-1.17-2.211-2.771 0-.963.338-1.73.898-2.286.52-.494 1.09-.781 1.949-.781.43 0 .963.222 1.014.222.092 0 .117-.026.117-.117V1.809c0-1.09-.156-1.03-.832-1.065-.078-.076-.104-.284-.078-.391.52-.039 1.48-.221 1.807-.351m7.457 3.372c.949 0 1.96.352 1.965 2.197v1.938c0 .6.014 1.1.52 1.105.273 0 .328-.209.404-.209.051 0 .168.131.168.222 0 .063-.467.585-1.104.585-.694 0-.924-.48-1.002-.754h-.024l-.001-.005-.258.206c-.572.441-.82.547-1.418.547-.91 0-1.64-.377-1.639-1.404 0-.884.898-1.57 2.146-1.885l1.115-.273c.039-.013.078-.064.078-.154 0-1.47-.609-1.69-1.055-1.689-.492 0-1.08.145-1.078.546 0 .146.014.224.025.263a.6.6 0 0 1 .039.231c0 .169-.195.429-.572.429-.299 0-.455-.143-.455-.455 0-.699 1.08-1.44 2.146-1.441m-15.579.018c1.81 0 2.2 1.17 2.197 2.265 0 .143-.09.221-.246.221l-3.459-.025c0 .754.154 1.35.416 1.78.402.663.949.937 1.418.937.754 0 1.13-.207 1.609-.701.156.011.234.078.273.206-.52.676-1.22 1.13-2.211 1.131-.936 0-1.55-.312-1.988-.832-.43-.494-.609-1.2-.609-1.924 0-1.98 1.47-3.06 2.6-3.058m-13.081-.024c2.02 0 2.73 1.57 2.73 2.926 0 1.3-.818 2.91-2.756 2.912-1.83 0-2.73-1.47-2.73-2.795 0-1.65 1-3.04 2.756-3.043m-49.254.024c1.81 0 2.2 1.17 2.197 2.265 0 .143-.091.221-.247.221l-3.458-.025c0 .754.156 1.35.416 1.78.403.663.949.937 1.417.937.754 0 1.13-.207 1.612-.701.156.011.234.078.273.206-.52.676-1.22 1.13-2.21 1.131-.936 0-1.55-.312-1.989-.832-.429-.494-.611-1.2-.611-1.924 0-1.98 1.47-3.06 2.6-3.058m5.85 0c1.81 0 2.2 1.17 2.197 2.265 0 .143-.091.221-.247.221l-3.458-.025c0 .754.156 1.35.416 1.78.403.663.949.937 1.417.937.754 0 1.13-.207 1.612-.701.156.011.234.078.273.206-.52.676-1.22 1.13-2.21 1.131-.936 0-1.55-.312-1.989-.832-.429-.494-.611-1.2-.611-1.924 0-1.98 1.47-3.06 2.6-3.058m-25.009 0c1.81 0 2.2 1.17 2.197 2.265 0 .143-.091.221-.247.221l-3.458-.025c0 .754.156 1.35.416 1.78.403.663.949.937 1.417.937.754 0 1.13-.207 1.612-.701.156.011.234.078.273.206-.52.676-1.22 1.13-2.21 1.131-.936 0-1.55-.312-1.989-.832-.429-.494-.611-1.2-.611-1.924 0-1.98 1.47-3.06 2.6-3.058m47.407-.024c1.25 0 1.99.521 1.988 1.234 0 .402-.363.571-.637.571s-.453-.117-.494-.468c-.053-.455-.156-.91-.924-.91-.857 0-1.48.857-1.482 2.288 0 1.52.795 2.48 1.742 2.481.561 0 1.12-.285 1.561-.856.117.013.221.063.273.183-.65 1.07-1.34 1.32-2.119 1.315-1.64 0-2.57-1.16-2.574-2.834 0-1.85 1.38-3 2.666-3.004m12.037 0c1.25 0 1.99.521 1.988 1.234 0 .402-.363.571-.637.571-.271 0-.453-.117-.494-.468-.051-.455-.154-.91-.922-.91-.859 0-1.48.857-1.482 2.288 0 1.52.793 2.48 1.742 2.481.559 0 1.12-.285 1.561-.856.117.013.221.063.271.183-.648 1.07-1.34 1.32-2.119 1.315-1.64 0-2.57-1.16-2.572-2.834 0-1.85 1.38-3 2.664-3.004m-45.836-.035c.104 0 .169.038.169.091 0 0-.065.624-.065 1.04 0 .063.039.13.117-.015.299-.506.832-1.08 1.443-1.078.546 0 .78.375.78.623 0 .326-.299.649-.611.649-.273 0-.403-.247-.533-.377-.078-.077-.182-.091-.273-.091-.156 0-.455.43-.598.637-.156.234-.312.533-.312.871v1.809c0 1.08.156 1.12 1.066 1.184.078.078.078.354 0 .43a61 61 0 0 0-1.573-.025c-.52 0-.936.014-1.482.025-.078-.076-.078-.352 0-.43.806-.053.962-.104.962-1.184V4.958c0-.719-.143-.822-.845-.886-.052-.078-.052-.285-.026-.362.897-.117 1.42-.234 1.781-.377M80.104.002c.115 0 .168.039.168.13 0 0-.046.448-.052 1.189l-.001 6.168c0 1.08.145 1.14.938 1.184.078.078.078.352 0 .43-.561-.014-.885-.025-1.443-.025-.572 0-.91.014-1.457.025-.078-.078-.078-.352 0-.43.793-.039.938-.104.938-1.184l-.001-5.68c0-1.09-.156-1.03-.832-1.065-.078-.076-.105-.284-.078-.391.52-.039 1.49-.221 1.82-.351M52.231.633c.039 0 .052.013.052.039.026.104.221 1.35.286 1.885a.7.7 0 0 1-.429.065c-.286-.897-.494-1.42-1.469-1.417h-1.365c-.312 0-.468.26-.468.571v2.601h1.183c1.1.006 1.14-.163 1.183-.878.078-.078.351-.078.429 0-.013.39-.026.676-.026 1.117s.013.688.026 1.145c-.078.078-.351.078-.429 0-.039-.585-.078-.884-1.183-.884h-1.183V8.01c0 .353.182.56.468.56h1.768c.988 0 1.44-.768 1.703-1.703a.6.6 0 0 1 .455.064 21 21 0 0 1-.481 2.172s-.914-.022-1.543-.025h-2.963c-.21.003-1.09.015-1.643.025-.078-.078-.078-.352 0-.43.91-.039 1.13-.104 1.131-1.184V2.276c0-1.08-.221-1.15-1.131-1.185-.078-.078-.078-.353 0-.431.65.015 1.68.025 1.677.025h3.315c.312 0 .416-.013.637-.052m56.966 2.696c.104 0 .168.039.168.092 0 0-.051.832-.051 1.479v2.592c-.001 1.08.142 1.13.935 1.181.078.078.078.352 0 .43-.559-.014-.885-.025-1.443-.025-.57 0-.908.014-1.457.025-.074-.078-.074-.352 0-.43.793-.064.938-.104.938-1.184V4.954c0-.74-.137-.816-.846-.883-.025-.078-.054-.287-.025-.364.896-.117 1.41-.234 1.781-.378M27.199.633c.031 0 .046.009.052.039.018.099.214 1.35.282 1.885l-.403.065c-.286-.897-.494-1.42-1.469-1.417h-1.365c-.312 0-.468.13-.468.442v2.729h1.209c1.1 0 1.14-.169 1.183-.885.078-.077.351-.077.429 0-.013.391-.026.677-.026 1.119 0 .439.013.688.026 1.144-.078.078-.351.078-.429 0-.039-.585-.078-.884-1.183-.884h-1.209v2.619c0 1.08.221 1.14 1.131 1.184.078.078.078.352 0 .43-.65-.014-1.03-.025-1.677-.025-.663 0-1.05.014-1.69.025-.078-.078-.078-.352 0-.43.91-.039 1.13-.104 1.131-1.184V2.276c0-1.08-.221-1.15-1.131-1.185-.078-.078-.078-.353 0-.431.65.015 1.68.025 1.677.025h3.319c.308 0 .384-.008.611-.052M8.398 0c.104 0 .156.039.156.13 0 0-.037.455-.039 1.3l-.009 2.992c0 .183.083.048.127 0 .793-.884 1.42-1.05 2.054-1.054.455 0 .861.156 1.079.44.303.396.351 1.03.351 1.742v1.938c0 1.06.143 1.12.871 1.184.065.078.065.352 0 .43-.559-.014-.845-.025-1.378-.025-.52 0-.78.014-1.326.025-.065-.078-.065-.352 0-.43.676-.064.806-.117.806-1.184V5.51c0-.39-.026-.743-.156-1.001-.151-.298-.424-.468-.689-.468-.512 0-1.01.28-1.508.767a.76.76 0 0 0-.221.549v2.131c0 1.08.117 1.13.777 1.184.078.078.078.352 0 .43-.547-.014-.777-.025-1.285-.025-.559 0-.892.014-1.427.025-.078-.078-.078-.352 0-.43.754-.053.907-.104.907-1.184V1.805c0-.299 0-.598-.91-.598H4.927c-.468 0-.598.233-.598.676v5.604c0 1.08.221 1.14 1.261 1.184.078.078.078.352 0 .43-.65-.014-1.1-.025-1.807-.025-.715 0-1.18.014-1.82.025-.078-.078-.078-.352 0-.43 1.04-.039 1.26-.104 1.261-1.184V1.843c0-.401-.13-.637-.598-.637H1.534C.819 1.206.65 1.361.39 2.4L0 2.337C.156 1.649.234.977.286.335l.351.052c0 .078 0 .301.273.301h5.174c1.1 0 1.26-.099 2.314-.688m47.33 3.328c.104 0 .156.039.156.104 0 0-.065.6-.065.988 0 .183.091.052.13 0 .792-.882 1.42-1.05 2.054-1.052.455 0 .857.156 1.078.44.301.403.352 1.03.352 1.742v1.938c0 1.06.145 1.12.871 1.184.064.078.064.352 0 .43-.559-.014-.846-.025-1.377-.025-.521 0-.779.014-1.327.025-.065-.078-.065-.352 0-.43.676-.064.806-.117.806-1.184V5.51c0-.39-.026-.74-.156-1.001-.156-.299-.429-.468-.689-.468-.507 0-1.01.284-1.508.767a.77.77 0 0 0-.221.549v2.131c0 1.06.117 1.12.78 1.184.078.078.078.352 0 .43-.546-.014-.78-.025-1.287-.025-.559 0-.897.014-1.43.025-.078-.078-.078-.352 0-.43.78-.064.91-.117.91-1.184V4.953c0-.754-.143-.818-.845-.883-.026-.078-.052-.287-.026-.364.897-.117 1.43-.234 1.794-.378m28.755.473c-1.09-.003-1.49 1.18-1.494 2.312 0 1 .494 2.67 1.846 2.666.611 0 1.4-.353 1.404-2.066 0-1.91-.637-2.91-1.756-2.912m6.942.163c-.379 0-.91.338-1.312.754-.167.175-.208.303-.208.575v2.418c0 .47.051.545.311.778.234.209.689.273.924.273 1.46 0 1.83-1.33 1.832-2.395 0-1.47-.715-2.4-1.547-2.403m22.819 2.084-1.032.274c-.959.254-1.23.846-1.234 1.431 0 .401.285.923.938.923.363 0 .809-.286 1.146-.561.104-.078.182-.168.182-.338zm-10.588-2.225c-.26 0-.809.039-1.209.648-.193.271-.377.793-.377 1.729 0 1.62.729 2.39 1.432 2.393.322 0 .738-.208 1.223-.624.184-.158.207-.26.207-.507V4.993c0-.402-.039-.493-.221-.701-.262-.299-.586-.469-1.055-.469m-68.284 0c-.312 0-1.22.117-1.469 1.586l2.353-.039c.143-.002.195-.064.195-.183 0-1.09-.585-1.36-1.079-1.364m-19.159 0c-.312 0-1.22.117-1.469 1.586l2.353-.039c.143-.002.195-.064.195-.183 0-1.09-.585-1.36-1.079-1.364m25.009 0c-.312 0-1.22.117-1.469 1.586l2.353-.039c.143-.002.195-.064.195-.183 0-1.09-.585-1.36-1.079-1.364m56.482 0c-.311 0-1.22.117-1.469 1.586l2.354-.039c.145-.002.195-.064.195-.183 0-1.09-.586-1.36-1.08-1.364M108.805.665c.352 0 .623.363.623.676 0 .273-.312.624-.676.624-.312 0-.623-.338-.623-.677.001-.311.364-.623.676-.623"/></svg>'
+      );
+      content: url("data:image/svg+xml,@{svg}");
+    }
+
+    .vector-page-titlebar
+      .mw-portlet-lang
+      .vector-dropdown-label.cdx-button--action-progressive.cdx-button--weight-quiet::after {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="@{accent}" d="m11.05 3.996-.965-1.053-4.035 3.86-3.947-3.86L1.05 3.996l5 5z"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+      filter: none;
+    }
+
+    .vector-icon {
+      filter: none !important;
+
+      &.mw-ui-icon-wikimedia-menu {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M1 3v2h18V3zm0 8h18V9H1zm0 6h18v-2H1z" fill="@{text}"/></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-ellipsis {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="@{text}"><circle cx="10" cy="10" r="2"/><circle cx="3" cy="10" r="2"/><circle cx="17" cy="10" r="2"/></g></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-appearance {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.25 14.5a4.25 4.25 0 0 0 4.247-4.092c.3-.21.706-.21 1.006 0a4.25 4.25 0 0 0 8.431.59L19 11a1 1 0 1 0-.182-1.984 4.252 4.252 0 0 0-7.896-.615 2.9 2.9 0 0 0-1.844 0 4.25 4.25 0 0 0-7.896.615 1 1 0 1 0-.116 1.981A4.25 4.25 0 0 0 5.25 14.5m0-2a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5M17 10.25a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0" fill="@{text}"/></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-expand {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="@{text}" d="m11.05 3.996-.965-1.053-4.035 3.86-3.947-3.86L1.05 3.996l5 5z"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}") !important;
+      }
+
+      &.mw-ui-icon-wikimedia-language-progressive {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M20 18h-1.44a.6.6 0 0 1-.4-.12.8.8 0 0 1-.23-.31L17 15h-5l-1 2.54a.8.8 0 0 1-.22.3.6.6 0 0 1-.4.14H9l4.55-11.47h1.89zm-3.53-4.31L14.89 9.5a12 12 0 0 1-.39-1.24q-.09.37-.19.69l-.19.56-1.58 4.19zm-6.3-1.58a13.4 13.4 0 0 1-2.91-1.41 11.46 11.46 0 0 0 2.81-5.37H12V4H7.31a4 4 0 0 0-.2-.56C6.87 2.79 6.6 2 6.6 2l-1.47.5s.4.89.6 1.5H0v1.33h2.15A11.23 11.23 0 0 0 5 10.7a17.2 17.2 0 0 1-5 2.1q.56.82.87 1.38a23.3 23.3 0 0 0 5.22-2.51 15.6 15.6 0 0 0 3.56 1.77zM3.63 5.33h4.91a8.1 8.1 0 0 1-2.45 4.45 9.1 9.1 0 0 1-2.46-4.45" fill="@{accent}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}") !important;
+      }
+
+      &.mw-ui-icon-wikimedia-language {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M20 18h-1.44a.6.6 0 0 1-.4-.12.8.8 0 0 1-.23-.31L17 15h-5l-1 2.54a.8.8 0 0 1-.22.3.6.6 0 0 1-.4.14H9l4.55-11.47h1.89zm-3.53-4.31L14.89 9.5a12 12 0 0 1-.39-1.24q-.09.37-.19.69l-.19.56-1.58 4.19zm-6.3-1.58a13.4 13.4 0 0 1-2.91-1.41 11.46 11.46 0 0 0 2.81-5.37H12V4H7.31a4 4 0 0 0-.2-.56C6.87 2.79 6.6 2 6.6 2l-1.47.5s.4.89.6 1.5H0v1.33h2.15A11.23 11.23 0 0 0 5 10.7a17.2 17.2 0 0 1-5 2.1q.56.82.87 1.38a23.3 23.3 0 0 0 5.22-2.51 15.6 15.6 0 0 0 3.56 1.77zM3.63 5.33h4.91a8.1 8.1 0 0 1-2.45 4.45 9.1 9.1 0 0 1-2.46-4.45" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}") !important;
+      }
+
+      &.mw-ui-icon-wikimedia-listBullet {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="@{text}"><path d="M7 15h12v2H7zm0-6h12v2H7zm0-6h12v2H7z"/><circle cx="3" cy="4" r="2"/><circle cx="3" cy="10" r="2"/><circle cx="3" cy="16" r="2"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}") !important;
+      }
+
+      &.mw-ui-icon-wikimedia-fullScreen {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M1 1v6h2V3h4V1zm2 12H1v6h6v-2H3zm14 4h-4v2h6v-6h-2zm0-16h-4v2h4v4h2V1z" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-userAvatar {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="@{text}"><path d="M10 11c-5.92 0-8 3-8 5v3h16v-3c0-2-2.08-5-8-5"/><circle cx="10" cy="5.5" r="4.5"/></g></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-watchlist {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M1 3h16v2H1Zm0 6h6v2H1Zm0 6h8v2H1Zm8-4.24h3.85L14.5 7l1.65 3.76H20l-3 3.17.9 4.05-3.4-2.14L11.1 18l.9-4.05Z" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-tray {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M3 1a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm14 12h-4l-1 2H8l-1-2H3V3h14z" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-bell {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M16 7a5.38 5.38 0 0 0-4.46-4.85C11.6 1.46 11.53 0 10 0S8.4 1.46 8.46 2.15A5.38 5.38 0 0 0 4 7v6l-2 2v1h16v-1l-2-2zm-6 13a3 3 0 0 0 3-3H7a3 3 0 0 0 3 3" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-star {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M20 7h-7L10 .5 7 7H0l5.46 5.47-1.64 7 6.18-3.7 6.18 3.73-1.63-7zm-10 6.9-3.76 2.27 1-4.28L3.5 8.5h4.61L10 4.6l1.9 3.9h4.6l-3.73 3.4 1 4.28z" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-userTalk {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M18 0H2a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m-4 4a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 14 4M6 4a1.5 1.5 0 1 1-1.5 1.5A1.5 1.5 0 0 1 6 4m4 8c-2.61 0-4.83-.67-5.65-3h11.3c-.82 2.33-3.04 3-5.65 3" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-sandbox {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M8 12V9l6-6 3 3-6 6zm10-7-3-3 2-2 3 3zM8 2h2v2H8zM4 2h2v2H4zM0 3a1 1 0 0 1 1-1h1v2H0zm0 3h2v2H0zm0 4h2v2H0zm0 4h2v2H0zm0 4h2v2H1a1 1 0 0 1-1-1zm4 0h2v2H4zm4 0h2v2H8zm4 0h2v1a1 1 0 0 1-1 1h-1zm0-4h2v2h-2z" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-settings {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20"><g fill="@{text}"><g xmlns:xlink="http://www.w3.org/1999/xlink" transform="translate(10 10)"><path id="a" d="M1.5-10h-3l-1 6.5h5m0 7h-5l1 6.5h3"/><use xlink:href="#a" transform="rotate(45)"/><use xlink:href="#a" transform="rotate(90)"/><use xlink:href="#a" transform="rotate(135)"/></g><path d="M10 2.5a7.5 7.5 0 0 0 0 15 7.5 7.5 0 0 0 0-15v4a3.5 3.5 0 0 1 0 7 3.5 3.5 0 0 1 0-7"/></g></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-unStar {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M20 7h-7L10 .5 7 7H0l5.46 5.47-1.64 7 6.18-3.7 6.18 3.73-1.63-7z" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-labFlask {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M13 7.61V3h1V1H6v2h1v4.61l-5.86 9.88A1 1 0 0 0 2 19h16a1 1 0 0 0 .86-1.51zm-4.2.88a1 1 0 0 0 .2-.6V3h2v4.89a1 1 0 0 0 .14.51l2.14 3.6H6.72z" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-userContributions {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="@{text}"><circle cx="15.5" cy="10.5" r="2.5"/><path d="M1 15h8v2H1Zm0-6h10v2H1Zm0-6h16v2H1Zm14.5 10.6c-3.3 0-4.5 1.6-4.5 2.7V18h9v-1.7c0-1-1.2-2.7-4.5-2.7"/></g></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-logOut {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="@{text}"><path d="M3 3h8V1H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8v-2H3z"/><path d="M13 5v4H5v2h8v4l6-5z"/></g></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-search {
+        @svg: escape(
+          '<svg fill="@{text}" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.2 13.6a7 7 0 1 1 1.4-1.4l5.4 5.4-1.4 1.4zM13 8A5 5 0 1 1 3 8a5 5 0 0 1 10 0"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-edit {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="m16.77 8 1.94-2a1 1 0 0 0 0-1.41l-3.34-3.3a1 1 0 0 0-1.41 0L12 3.23zM1 14.25V19h4.75l9.96-9.96-4.75-4.75z" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-history {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="@{text}"><path d="M9 6v5h.06l2.48 2.47 1.41-1.41L11 10.11V6z"/><path d="M10 1a9 9 0 0 0-7.85 13.35L.5 16H6v-5.5l-2.38 2.38A7 7 0 1 1 10 17v2a9 9 0 0 0 0-18"/></g></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-speechBubbles {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="@{text}"><path d="M17 4v7a2 2 0 0 1-2 2H4v1a2 2 0 0 0 2 2h10l4 4V6a2 2 0 0 0-2-2zM6 10H0v6z"/><rect width="16" height="12" rx="2"/></g></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+
+      &.mw-ui-icon-wikimedia-editLock {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M12 12a2 2 0 0 1-2-2V5.25l-9 9V19h4.75l7-7zm7-8h-.5V2.5a2.5 2.5 0 0 0-5 0V4H13a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1m-3 4a1 1 0 1 1 1-1 1 1 0 0 1-1 1m1.5-4h-3V2.75C14.5 2 14.5 1 16 1s1.5 1 1.5 1.75z" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+    }
+  }
+
+  /* Root */
+  :root:has(.central-featured) {
+    #catppuccin(@lightFlavor);
+
+    &, body {
+      color: @text;
+      background-color: @base;
+
+      .svg-Wikipedia_wordmark {
+        filter: @text-filter;
+      }
+
+      .central-featured-lang small,
+      .other-project-tagline,
+      .site-license,
+      .footer-sidebar-text {
+        color: @subtext1;
+      }
+
+      .central-featured-lang :hover {
+        background-color: @surface1;
+      }
+
+      .other-project-link:hover {
+        background-color: @surface1;
+      }
+
+      .search-container {
+        #searchInput {
+          color: @text;
+          background-color: @mantle;
+          border-color: @overlay2;
+          box-shadow: none;
+
+          &:focus {
+            border-color: @accent;
+          }
+        }
+
+        .js-langpicker-label {
+          color: @subtext0;
+        }
+        .styled-select:hover {
+          background-color: @surface1;
+        }
+        .sprite.svg-arrow-down {
+          filter: @text-filter;
+        }
+
+        button[type="submit"] {
+          background-color: @accent;
+          border-color: @accent;
+
+          .svg-search-icon {
+            filter: @crust-filter;
+          }
+        }
+
+        .suggestions-dropdown {
+          background-color: @mantle;
+          border-color: @overlay2;
+
+          .suggestion-link {
+            border-bottom-color: @overlay0;
+
+            &.active {
+              background-color: fade(@accent, 10%);
+            }
+
+            .suggestion-thumbnail {
+              @svg: escape(
+                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56"><path fill="@{surface1}" d="M0 0h56v56H0z"/><path fill="@{overlay2}" d="M36.4 13.5H17.8v24.9c0 1.4.9 2.3 2.3 2.3h18.7v-25c.1-1.4-1-2.2-2.4-2.2M30.2 17h5.1v6.4h-5.1zm-8.8 0h6v1.8h-6zm0 4.6h6v1.8h-6zm0 15.5v-1.8h13.8v1.8zm13.8-4.5H21.4v-1.8h13.8zm0-4.7H21.4v-1.8h13.8z"/></svg>',
+              );
+              background-image: url("data:image/svg+xml,@{svg}");
+            }
+
+            .suggestion-title {
+              color: @text;
+            }
+          }
+        }
+      }
+
+      hr {
+        border-bottom-color: @surface1;
+      }
+
+      .lang-list-border {
+        background-color: @surface2;
+      }
+      .lang-list-button {
+        background-color: @mantle;
+        color: @accent;
+        outline-color: @mantle;
+        border-color: @surface2;
+
+        .svg-language-icon,
+        .svg-arrow-down-blue {
+          filter: @accent-filter;
+        }
+
+        &:focus {
+          box-shadow: inset 0 0 0 1px @accent;
+        }
+      }
+      .lang-list-container {
+        background-color: @surface0;
+
+        .bookshelf {
+          border-top-color: @overlay1;
+          box-shadow: none;
+
+          .text {
+            color: @text;
+            background-color: @surface2;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
+
+/* deno-fmt-ignore */
+@catppuccin-filters: {
+  @latte: { @rosewater: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(1048%) hue-rotate(323deg) brightness(92%) contrast(86%); @flamingo: brightness(0) saturate(100%) invert(84%) sepia(44%) saturate(4533%) hue-rotate(310deg) brightness(98%) contrast(75%); @pink: brightness(0) saturate(100%) invert(60%) sepia(32%) saturate(775%) hue-rotate(266deg) brightness(93%) contrast(97%); @mauve: brightness(0) saturate(100%) invert(26%) sepia(59%) saturate(3315%) hue-rotate(255deg) brightness(94%) contrast(100%); @red: brightness(0) saturate(100%) invert(16%) sepia(78%) saturate(7275%) hue-rotate(342deg) brightness(84%) contrast(94%); @maroon: brightness(0) saturate(100%) invert(31%) sepia(56%) saturate(2395%) hue-rotate(331deg) brightness(99%) contrast(82%); @peach: brightness(0) saturate(100%) invert(38%) sepia(81%) saturate(1292%) hue-rotate(356deg) brightness(103%) contrast(99%); @yellow: brightness(0) saturate(100%) invert(74%) sepia(47%) saturate(4570%) hue-rotate(354deg) brightness(95%) contrast(83%); @green: brightness(0) saturate(100%) invert(51%) sepia(25%) saturate(4134%) hue-rotate(76deg) brightness(95%) contrast(66%); @teal: brightness(0) saturate(100%) invert(41%) sepia(45%) saturate(1101%) hue-rotate(139deg) brightness(100%) contrast(82%); @sky: brightness(0) saturate(100%) invert(47%) sepia(76%) saturate(2427%) hue-rotate(166deg) brightness(99%) contrast(97%); @sapphire: brightness(0) saturate(100%) invert(52%) sepia(41%) saturate(6982%) hue-rotate(160deg) brightness(102%) contrast(75%); @blue: brightness(0) saturate(100%) invert(30%) sepia(80%) saturate(1850%) hue-rotate(209deg) brightness(94%) contrast(105%); @lavender: brightness(0) saturate(100%) invert(48%) sepia(61%) saturate(538%) hue-rotate(194deg) brightness(102%) contrast(98%); @text: brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(1259%) hue-rotate(196deg) brightness(97%) contrast(91%); @subtext1: brightness(0) saturate(100%) invert(36%) sepia(10%) saturate(890%) hue-rotate(196deg) brightness(98%) contrast(90%); @subtext0: brightness(0) saturate(100%) invert(47%) sepia(6%) saturate(1263%) hue-rotate(195deg) brightness(90%) contrast(81%); @overlay2: brightness(0) saturate(100%) invert(59%) sepia(7%) saturate(825%) hue-rotate(195deg) brightness(83%) contrast(91%); @overlay1: brightness(0) saturate(100%) invert(59%) sepia(14%) saturate(333%) hue-rotate(194deg) brightness(95%) contrast(89%); @overlay0: brightness(0) saturate(100%) invert(85%) sepia(7%) saturate(595%) hue-rotate(191deg) brightness(77%) contrast(81%); @surface2: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(482%) hue-rotate(189deg) brightness(82%) contrast(88%); @surface1: brightness(0) saturate(100%) invert(85%) sepia(8%) saturate(281%) hue-rotate(187deg) brightness(92%) contrast(88%); @surface0: brightness(0) saturate(100%) invert(96%) sepia(1%) saturate(5123%) hue-rotate(185deg) brightness(93%) contrast(83%); @base: brightness(0) saturate(100%) invert(89%) sepia(5%) saturate(140%) hue-rotate(182deg) brightness(109%) contrast(94%); @mantle: brightness(0) saturate(100%) invert(93%) sepia(19%) saturate(55%) hue-rotate(182deg) brightness(98%) contrast(92%); @crust: brightness(0) saturate(100%) invert(91%) sepia(1%) saturate(4489%) hue-rotate(196deg) brightness(106%) contrast(82%); };
+  @frappe: { @rosewater: brightness(0) saturate(100%) invert(90%) sepia(6%) saturate(734%) hue-rotate(321deg) brightness(95%) contrast(99%); @flamingo: brightness(0) saturate(100%) invert(88%) sepia(52%) saturate(817%) hue-rotate(293deg) brightness(113%) contrast(84%); @pink: brightness(0) saturate(100%) invert(76%) sepia(15%) saturate(844%) hue-rotate(280deg) brightness(107%) contrast(91%); @mauve: brightness(0) saturate(100%) invert(71%) sepia(25%) saturate(725%) hue-rotate(225deg) brightness(94%) contrast(91%); @red: brightness(0) saturate(100%) invert(67%) sepia(3%) saturate(7209%) hue-rotate(305deg) brightness(91%) contrast(99%); @maroon: brightness(0) saturate(100%) invert(61%) sepia(14%) saturate(957%) hue-rotate(307deg) brightness(109%) contrast(90%); @peach: brightness(0) saturate(100%) invert(68%) sepia(28%) saturate(662%) hue-rotate(335deg) brightness(96%) contrast(94%); @yellow: brightness(0) saturate(100%) invert(94%) sepia(88%) saturate(684%) hue-rotate(309deg) brightness(105%) contrast(80%); @green: brightness(0) saturate(100%) invert(89%) sepia(23%) saturate(582%) hue-rotate(42deg) brightness(87%) contrast(89%); @teal: brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(986%) hue-rotate(110deg) brightness(85%) contrast(81%); @sky: brightness(0) saturate(100%) invert(75%) sepia(15%) saturate(623%) hue-rotate(141deg) brightness(109%) contrast(81%); @sapphire: brightness(0) saturate(100%) invert(77%) sepia(20%) saturate(730%) hue-rotate(157deg) brightness(97%) contrast(76%); @blue: brightness(0) saturate(100%) invert(68%) sepia(16%) saturate(1070%) hue-rotate(185deg) brightness(96%) contrast(95%); @lavender: brightness(0) saturate(100%) invert(75%) sepia(20%) saturate(626%) hue-rotate(201deg) brightness(101%) contrast(89%); @text: brightness(0) saturate(100%) invert(83%) sepia(12%) saturate(582%) hue-rotate(191deg) brightness(98%) contrast(96%); @subtext1: brightness(0) saturate(100%) invert(80%) sepia(18%) saturate(411%) hue-rotate(190deg) brightness(96%) contrast(84%); @subtext0: brightness(0) saturate(100%) invert(82%) sepia(6%) saturate(1287%) hue-rotate(192deg) brightness(86%) contrast(85%); @overlay2: brightness(0) saturate(100%) invert(65%) sepia(36%) saturate(230%) hue-rotate(190deg) brightness(92%) contrast(82%); @overlay1: brightness(0) saturate(100%) invert(55%) sepia(12%) saturate(638%) hue-rotate(189deg) brightness(98%) contrast(87%); @overlay0: brightness(0) saturate(100%) invert(49%) sepia(13%) saturate(662%) hue-rotate(192deg) brightness(94%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(41%) sepia(20%) saturate(469%) hue-rotate(191deg) brightness(93%) contrast(86%); @surface1: brightness(0) saturate(100%) invert(34%) sepia(14%) saturate(771%) hue-rotate(190deg) brightness(89%) contrast(85%); @surface0: brightness(0) saturate(100%) invert(28%) sepia(7%) saturate(1468%) hue-rotate(193deg) brightness(92%) contrast(95%); @base: brightness(0) saturate(100%) invert(20%) sepia(17%) saturate(747%) hue-rotate(192deg) brightness(96%) contrast(97%); @mantle: brightness(0) saturate(100%) invert(8%) sepia(7%) saturate(7271%) hue-rotate(198deg) brightness(88%) contrast(75%); @crust: brightness(0) saturate(100%) invert(7%) sepia(7%) saturate(7415%) hue-rotate(197deg) brightness(86%) contrast(79%); };
+  @macchiato: { @rosewater: brightness(0) saturate(100%) invert(88%) sepia(13%) saturate(322%) hue-rotate(321deg) brightness(102%) contrast(91%); @flamingo: brightness(0) saturate(100%) invert(82%) sepia(3%) saturate(3070%) hue-rotate(314deg) brightness(107%) contrast(88%); @pink: brightness(0) saturate(100%) invert(80%) sepia(23%) saturate(509%) hue-rotate(280deg) brightness(102%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(903%) hue-rotate(222deg) brightness(104%) contrast(93%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(1541%) hue-rotate(305deg) brightness(110%) contrast(86%); @maroon: brightness(0) saturate(100%) invert(71%) sepia(10%) saturate(1331%) hue-rotate(306deg) brightness(93%) contrast(101%); @peach: brightness(0) saturate(100%) invert(73%) sepia(13%) saturate(1676%) hue-rotate(330deg) brightness(103%) contrast(92%); @yellow: brightness(0) saturate(100%) invert(87%) sepia(89%) saturate(321%) hue-rotate(314deg) brightness(101%) contrast(87%); @green: brightness(0) saturate(100%) invert(93%) sepia(12%) saturate(1128%) hue-rotate(48deg) brightness(92%) contrast(85%); @teal: brightness(0) saturate(100%) invert(92%) sepia(10%) saturate(1176%) hue-rotate(110deg) brightness(87%) contrast(90%); @sky: brightness(0) saturate(100%) invert(78%) sepia(57%) saturate(230%) hue-rotate(142deg) brightness(96%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(35%) saturate(438%) hue-rotate(156deg) brightness(92%) contrast(93%); @blue: brightness(0) saturate(100%) invert(67%) sepia(17%) saturate(1007%) hue-rotate(183deg) brightness(99%) contrast(94%); @lavender: brightness(0) saturate(100%) invert(74%) sepia(6%) saturate(2559%) hue-rotate(198deg) brightness(103%) contrast(94%); @text: brightness(0) saturate(100%) invert(81%) sepia(9%) saturate(726%) hue-rotate(192deg) brightness(104%) contrast(92%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(5%) saturate(1453%) hue-rotate(193deg) brightness(94%) contrast(86%); @subtext0: brightness(0) saturate(100%) invert(75%) sepia(18%) saturate(361%) hue-rotate(190deg) brightness(91%) contrast(86%); @overlay2: brightness(0) saturate(100%) invert(67%) sepia(9%) saturate(814%) hue-rotate(191deg) brightness(92%) contrast(88%); @overlay1: brightness(0) saturate(100%) invert(49%) sepia(38%) saturate(203%) hue-rotate(190deg) brightness(101%) contrast(93%); @overlay0: brightness(0) saturate(100%) invert(46%) sepia(16%) saturate(552%) hue-rotate(193deg) brightness(93%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(16%) saturate(611%) hue-rotate(192deg) brightness(101%) contrast(87%); @surface1: brightness(0) saturate(100%) invert(30%) sepia(11%) saturate(1085%) hue-rotate(194deg) brightness(92%) contrast(89%); @surface0: brightness(0) saturate(100%) invert(18%) sepia(21%) saturate(880%) hue-rotate(193deg) brightness(97%) contrast(84%); @base: brightness(0) saturate(100%) invert(12%) sepia(42%) saturate(570%) hue-rotate(194deg) brightness(90%) contrast(90%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(6%) saturate(7499%) hue-rotate(200deg) brightness(93%) contrast(85%); @crust: brightness(0) saturate(100%) invert(5%) sepia(8%) saturate(5346%) hue-rotate(202deg) brightness(98%) contrast(88%); };
+  @mocha: { @rosewater: brightness(0) saturate(100%) invert(92%) sepia(5%) saturate(704%) hue-rotate(320deg) brightness(99%) contrast(93%); @flamingo: brightness(0) saturate(100%) invert(81%) sepia(5%) saturate(987%) hue-rotate(315deg) brightness(107%) contrast(90%); @pink: brightness(0) saturate(100%) invert(86%) sepia(11%) saturate(1177%) hue-rotate(283deg) brightness(101%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(58%) saturate(255%) hue-rotate(224deg) brightness(96%) contrast(102%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(997%) hue-rotate(294deg) brightness(104%) contrast(91%); @maroon: brightness(0) saturate(100%) invert(66%) sepia(16%) saturate(1301%) hue-rotate(306deg) brightness(116%) contrast(84%); @peach: brightness(0) saturate(100%) invert(68%) sepia(57%) saturate(278%) hue-rotate(338deg) brightness(98%) contrast(101%); @yellow: brightness(0) saturate(100%) invert(90%) sepia(70%) saturate(380%) hue-rotate(313deg) brightness(102%) contrast(95%); @green: brightness(0) saturate(100%) invert(88%) sepia(6%) saturate(2015%) hue-rotate(63deg) brightness(104%) contrast(78%); @teal: brightness(0) saturate(100%) invert(92%) sepia(12%) saturate(991%) hue-rotate(108deg) brightness(93%) contrast(90%); @sky: brightness(0) saturate(100%) invert(84%) sepia(21%) saturate(1302%) hue-rotate(164deg) brightness(106%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(20%) saturate(876%) hue-rotate(156deg) brightness(96%) contrast(93%); @blue: brightness(0) saturate(100%) invert(68%) sepia(18%) saturate(951%) hue-rotate(180deg) brightness(98%) contrast(100%); @lavender: brightness(0) saturate(100%) invert(73%) sepia(7%) saturate(1670%) hue-rotate(195deg) brightness(102%) contrast(99%); @text: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(879%) hue-rotate(190deg) brightness(100%) contrast(93%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(19%) saturate(381%) hue-rotate(193deg) brightness(91%) contrast(89%); @subtext0: brightness(0) saturate(100%) invert(84%) sepia(9%) saturate(767%) hue-rotate(192deg) brightness(84%) contrast(84%); @overlay2: brightness(0) saturate(100%) invert(63%) sepia(15%) saturate(428%) hue-rotate(191deg) brightness(96%) contrast(84%); @overlay1: brightness(0) saturate(100%) invert(56%) sepia(15%) saturate(455%) hue-rotate(192deg) brightness(90%) contrast(88%); @overlay0: brightness(0) saturate(100%) invert(44%) sepia(6%) saturate(1275%) hue-rotate(194deg) brightness(97%) contrast(88%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(8%) saturate(1015%) hue-rotate(195deg) brightness(99%) contrast(89%); @surface1: brightness(0) saturate(100%) invert(25%) sepia(6%) saturate(1950%) hue-rotate(197deg) brightness(99%) contrast(86%); @surface0: brightness(0) saturate(100%) invert(19%) sepia(5%) saturate(2844%) hue-rotate(199deg) brightness(91%) contrast(93%); @base: brightness(0) saturate(100%) invert(7%) sepia(4%) saturate(7496%) hue-rotate(202deg) brightness(93%) contrast(87%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(4%) saturate(7465%) hue-rotate(202deg) brightness(95%) contrast(90%); @crust: brightness(0) saturate(100%) invert(3%) sepia(13%) saturate(6863%) hue-rotate(220deg) brightness(95%) contrast(91%); };
+};

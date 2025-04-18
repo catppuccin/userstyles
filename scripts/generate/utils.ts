@@ -18,7 +18,7 @@ export function updateReadme({
   newContent: string;
 }): string {
   const preamble =
-    "<!-- the following section is auto-generated, do not edit -->";
+    "<!-- The following section is auto-generated, do not edit. -->";
   const startMarker = `<!-- AUTOGEN:${section.toUpperCase()} START -->`;
   const endMarker = `<!-- AUTOGEN:${section.toUpperCase()} END -->`;
   const wrapped = `${startMarker}\n${preamble}\n${newContent}\n${endMarker}`;
