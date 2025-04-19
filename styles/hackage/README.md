@@ -13,18 +13,13 @@
 	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/hackage/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
-<p align="center">
-  <img src="preview.webp"/>
-</p>
-
 ## Usage
 
 See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
-
 ## 💝 Current Maintainer
-- [Sena](https://github.com/jn-sena)
+- [jn-sena](https://github.com/jn-sena)
 
 
 &nbsp;

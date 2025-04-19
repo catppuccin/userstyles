@@ -13,21 +13,19 @@
 	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/libreddit/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
-<p align="center">
-  <img src="preview.webp"/>
-</p>
-
 ## Usage
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+> [!IMPORTANT]
+> This userstyle also applies to [Redlib](https://github.com/redlib-org/redlib).
 
+See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## ❤️‍🩹 Unmaintained
 This userstyle currently lacks maintainers, and may not work correctly. Please feel free to contribute for any issues you find!
 
 ## 💖 Past Maintainer
-- [Lemon](https://github.com/unseen-ninja)
+- [unseen-ninja](https://github.com/unseen-ninja)
 
 &nbsp;
 
