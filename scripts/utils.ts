@@ -108,7 +108,7 @@ export async function getCategoriesData(): Promise<
   CategoriesSchema.CategoryDefinitions
 > {
   const content = await fetch(
-    "https://raw.githubusercontent.com/catppuccin/catppuccin/de9d2cd963059753c8fd66fbb6f807be95c6cc1e/resources/categories.yml",
+    "https://raw.githubusercontent.com/catppuccin/catppuccin/d4f82739e687cfd19d168be355367fdbbcc8e029/resources/categories.yml",
   ).then((res) => res.text());
 
   const data = validateYaml<CategoriesSchema.CategoryDefinitions>(
