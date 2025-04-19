@@ -1,18 +1,18 @@
-import * as path from "@std/path";
-import { REPO_ROOT } from "@/constants.ts";
+import path from "node:path";
 
-import { syncIssueLabels } from "@/generate/labels.ts";
-import { generateMainReadme } from "@/generate/readme-repo.ts";
-import { generateStyleReadmes } from "@/generate/readme-styles.ts";
-import { writeWithPreamble } from "@/generate/utils.ts";
+import { REPO_ROOT } from "../constants.ts";
+import { getCategoriesData, getUserstylesData } from "../utils/data.ts";
 import {
   getAuthenticatedOctokit,
-  getCategoriesData,
-  getUserstylesData,
   getUserstylesTeamMembers,
-} from "@/utils.ts";
+} from "../utils/octokit.ts";
 
-if (!Deno.env.get("CI")) {
+import { syncIssueLabels } from "./labels.ts";
+import { generateMainReadme } from "./readme-repo.ts";
+import { generateStyleReadmes } from "./readme-styles.ts";
+import { writeWithPreamble } from "./utils.ts";
+
+if (!process.env.CI) {
   throw new Error(
     "This script should only be used in CI. Generated READMEs and other health files are automatically updated after pull requests are merged.",
   );
@@ -43,13 +43,12 @@ await syncIssueLabels(userstylesData.userstyles);
  */
 function maintainersCodeOwners() {
   return Object.entries(userstylesData.userstyles!)
-    .filter(([_, { "current-maintainers": currentMaintainers }]) =>
-      currentMaintainers.length > 0
+    .filter(
+      ([_, { "current-maintainers": currentMaintainers }]) =>
+        currentMaintainers.length > 0,
     )
     .map(([slug, { "current-maintainers": currentMaintainers }]) => {
-      const codeOwners = currentMaintainers
-        .map((name) => `@${name}`)
-        .join(" ");
+      const codeOwners = currentMaintainers.map((name) => `@${name}`).join(" ");
       return `/styles/${slug} ${codeOwners}`;
     })
     .join("\n");
@@ -62,11 +61,12 @@ async function userstylesStaffCodeOwners() {
     octokit,
     "userstyles-staff",
   );
-  return paths.map((path) =>
-    `${path} ${staffMembers.map((member) => "@" + member).join(" ")}`
-  ).join(
-    "\n",
-  );
+  return paths
+    .map(
+      (path) =>
+        `${path} ${staffMembers.map((member) => "@" + member).join(" ")}`,
+    )
+    .join("\n");
 }
 await writeWithPreamble(
   path.join(REPO_ROOT, ".github/CODEOWNERS"),

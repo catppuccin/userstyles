@@ -1,10 +1,12 @@
 {
-  deno,
+  nodejs-slim_23,
+  pnpm,
   mkShellNoCC,
   ...
 }:
 mkShellNoCC {
   packages = [
-    deno
+    nodejs-slim_23
+    (pnpm.override { nodejs = nodejs-slim_23; })
   ];
 }

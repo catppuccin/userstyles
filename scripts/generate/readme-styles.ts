@@ -1,19 +1,14 @@
-import type { UserstylesSchema } from "@/types/mod.ts";
-import { REPO_ROOT } from "@/constants.ts";
+import type { UserstylesSchema } from "../types/mod.ts";
 
-import * as path from "@std/path";
+import path from "node:path";
+
 import Handlebars from "handlebars";
-import { formatListOfItems } from "@/utils.ts";
 
-// we can have some nice things :)
-Handlebars.registerHelper(
-  "pluralize",
-  (c: number | unknown[], str: string): string => {
-    if (typeof c === "undefined") return str;
-    const num = Array.isArray(c) ? c.length : c;
-    return num === 1 ? str : `${str}s`;
-  },
-);
+import { REPO_ROOT, STYLES_ROOT } from "../constants.ts";
+import { formatListOfItems, pluralize } from "../utils/format.ts";
+import { readTextFileSync, writeTextFile } from "../utils/fs.ts";
+
+Handlebars.registerHelper("pluralize", pluralize);
 
 const heading = (
   name: UserstylesSchema.Name,
@@ -49,28 +44,26 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
     REPO_ROOT,
     "scripts/generate/templates/userstyle.md",
   );
-  const stylesReadmeContent = Deno.readTextFileSync(stylesReadmePath);
+  const stylesReadmeContent = readTextFileSync(stylesReadmePath);
 
   Object.entries(userstyles).map(
-    (
-      [
-        slug,
-        {
-          name,
-          link,
-          note,
-          supports,
-          "current-maintainers": currentMaintainers,
-          "past-maintainers": pastMaintainers,
-        },
-      ],
-    ) => {
+    ([
+      slug,
+      {
+        name,
+        link,
+        note,
+        supports,
+        "current-maintainers": currentMaintainers,
+        "past-maintainers": pastMaintainers,
+      },
+    ]) => {
       console.log(`Generating README for styles/${slug}...`);
-      const readmeContent = Handlebars.compile(stylesReadmeContent)({
+      const content = Handlebars.compile(stylesReadmeContent)({
         heading: heading(name, link, supports),
         supportedWebsites: formatListOfItems(
-          Object.values(supports ?? {}).map(({ name, link }) =>
-            `[${name}](${link})`
+          Object.values(supports ?? {}).map(
+            ({ name, link }) => `[${name}](${link})`,
           ),
         ),
         slug,
@@ -80,10 +73,9 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
           pastMaintainers: getNameWithGitHubUrl(pastMaintainers),
         },
       });
-      Deno.writeTextFile(
-        path.join(REPO_ROOT, "styles", slug.toString(), "README.md"),
-        readmeContent,
-      ).catch((e) => console.error(e));
+      writeTextFile(path.join(STYLES_ROOT, slug, "README.md"), content).catch(
+        (e) => console.error(e),
+      );
     },
   );
 }

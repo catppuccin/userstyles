@@ -1,14 +1,16 @@
-import type { Userstyles } from "@/types/userstyles.d.ts";
-import { REPO_ROOT } from "@/constants.ts";
+import type { Userstyles } from "../types/userstyles.d.ts";
+
+import path from "node:path";
 
 import * as color from "@std/fmt/colors";
-import * as path from "@std/path";
 import { sprintf } from "@std/fmt/printf";
-
 // @ts-types="@/types/usercss-meta.d.ts";
 import usercssMeta from "usercss-meta";
-import { log } from "@/logger.ts";
-import { formatListOfItems } from "@/utils.ts";
+
+import { REPO_ROOT } from "../constants.ts";
+import { formatListOfItems } from "../utils/format.ts";
+import { readTextFile, writeTextFileSync } from "../utils/fs.ts";
+import { log } from "../utils/logger.ts";
 
 export async function verifyMetadata(
   file: string,
@@ -29,7 +31,7 @@ export async function verifyMetadata(
 
   // Pretty print / annotate the parsing errors.
   for (const error of parsingErrors) {
-    let startLine;
+    let startLine: undefined | number;
     if (error.index !== undefined && !Number.isNaN(error.index)) {
       startLine = 0;
       for (const line of lines) {
@@ -55,20 +57,20 @@ export async function verifyMetadata(
     const atKey = "@" + key;
 
     if (current !== expected) {
-      const line = lines
-        .findIndex((line) => line.includes(`${atKey} `)) + 1;
+      const line = lines.findIndex((line) => line.includes(`${atKey} `)) + 1;
 
-      const message = current === undefined
-        ? sprintf(
-          "UserCSS metadata property `%s` is undefined",
-          color.bold(atKey),
-        )
-        : sprintf(
-          'UserCSS metadata property `%s` should be "%s" but is "%s"',
-          color.bold(atKey),
-          color.green(expected),
-          color.red(String(current)),
-        );
+      const message =
+        current === undefined
+          ? sprintf(
+              "UserCSS metadata property `%s` is undefined",
+              color.bold(atKey),
+            )
+          : sprintf(
+              'UserCSS metadata property `%s` should be "%s" but is "%s"',
+              color.bold(atKey),
+              color.green(expected),
+              color.red(String(current)),
+            );
 
       log.error(message, {
         file,
@@ -85,31 +87,27 @@ export async function verifyMetadata(
     }
   }
 
-  Deno.writeTextFileSync(file, content);
+  writeTextFileSync(file, content);
 
-  const template = (await Deno.readTextFile(
-    path.join(REPO_ROOT, "template/catppuccin.user.less"),
-  ))
-    .split("\n");
+  const template = (
+    await readTextFile(path.join(REPO_ROOT, "template/catppuccin.user.less"))
+  ).split("\n");
 
   for (const variable of ["darkFlavor", "lightFlavor", "accentColor"]) {
     const declaration = `@var select ${variable}`;
 
     const expected = template.find((line) => line.includes(declaration))!;
-    const current = lines.findIndex((line) => line.includes(declaration)) +
-      1;
+    const current = lines.findIndex((line) => line.includes(declaration)) + 1;
 
     if (current === 0) {
       // This variable is undefined so there isn't a line for it, so we just put it at the bottom of the variables section.
-      const line = lines
-        .findLastIndex((line: string) => line.includes("==/UserStyle== */")) +
-        1;
+      const line =
+        lines.findLastIndex((line: string) =>
+          line.includes("==/UserStyle== */"),
+        ) + 1;
 
       log.error(
-        sprintf(
-          "Metadata variable `%s` should exist",
-          color.bold(variable),
-        ),
+        sprintf("Metadata variable `%s` should exist", color.bold(variable)),
         {
           file,
           startLine: line !== 0 ? line : undefined,
@@ -139,10 +137,10 @@ export async function verifyMetadata(
   // `@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]`
   // gets parsed as
   // `lightFlavor: "latte"`.
-  const globalVars = Object.entries(metadata.vars)
-    .reduce((acc, [k, v]) => {
-      return { ...acc, [k]: v.default };
-    }, {});
+  const globalVars = Object.entries(metadata.vars).reduce((acc, [k, v]) => {
+    acc[k] = v.default;
+    return acc;
+  }, {});
 
   return {
     globalVars,
@@ -162,24 +160,20 @@ function generateAssertions(userstyle: string, userstyles: Userstyles) {
         file: "scripts/userstyles.yml",
       },
     );
-    Deno.exit(1);
+    process.exit(1);
   }
 
   return {
-    name: `${
-      [
-        userstyleData.name,
-        ...Object.values(userstyleData.supports ?? {}).map(({ name }) => name),
-      ].join("/")
-    } Catppuccin`,
+    name: `${[
+      userstyleData.name,
+      ...Object.values(userstyleData.supports ?? {}).map(({ name }) => name),
+    ].join("/")} Catppuccin`,
     namespace: `github.com/catppuccin/userstyles/styles/${userstyle}`,
     homepageURL: `${prefix}/tree/main/styles/${userstyle}`,
-    description: `Soothing pastel theme for ${
-      formatListOfItems([
-        userstyleData.name,
-        ...Object.values(userstyleData.supports ?? {}).map(({ name }) => name),
-      ])
-    }`,
+    description: `Soothing pastel theme for ${formatListOfItems([
+      userstyleData.name,
+      ...Object.values(userstyleData.supports ?? {}).map(({ name }) => name),
+    ])}`,
     author: "Catppuccin",
     updateURL: `${prefix}/raw/main/styles/${userstyle}/catppuccin.user.less`,
     supportURL: `${prefix}/issues?q=is%3Aopen+is%3Aissue+label%3A${userstyle}`,
