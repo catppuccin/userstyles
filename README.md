@@ -101,6 +101,15 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 </details>
 <details open>
+<summary>📦 Package Registries</summary>
+
+- [crates.io](styles/crates.io)
+- [Hackage](styles/hackage)
+- [npm](styles/npm)
+- [PyPI](styles/pypi)
+
+</details>
+<details open>
 <summary>🗺️ Translation Tools</summary>
 
 - [Crowdin](styles/crowdin)
