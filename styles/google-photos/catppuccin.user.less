@@ -15,14 +15,29 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
+#rgbify(@color) {
+  @rgb: red(@color), green(@color), blue(@color);
+}
+
 @-moz-document domain("photos.google.com") {
-  :root {
-    @media (prefers-color-scheme: light) {
+  @media (prefers-color-scheme: light) {
+    :root {
       #catppuccin(@lightFlavor);
     }
-    @media (prefers-color-scheme: dark) {
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
       #catppuccin(@darkFlavor);
     }
+  }
+
+  .zKHdkd {
+    #catppuccin(@lightFlavor);
+  }
+
+  .dm7YTc {
+    #catppuccin(@darkFlavor);
   }
 
   #catppuccin(@flavor) {
@@ -54,7 +69,9 @@
     @crust: @catppuccin[@@flavor][@crust];
     @accent: @catppuccin[@@flavor][@@accentColor];
 
-    color-scheme: if(@flavor = latte, light, dark);
+    @inverseTheme: if(@flavor = latte, mocha, latte);
+    @inverseAccent: @catppuccin[@@inverseTheme][@@accentColor];
+    @color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
       background-color: fade(@accent, 30%);
@@ -67,719 +84,597 @@
       }
     }
 
-    --pkw-background: @surface0;
-    --gm3-dialog-refactored-container-color: @base;
-    --pkw-on-surface-variant: @subtext0;
-    --pkw-on-surface: @text;
-    --gm-colortextbutton-ink-color: @blue;
-    --gm3-sys-color-on-surface-variant: @text;
-    --gm3-sys-color-surface: @mantle;
-    --gm3-sys-color-on-primary: @mantle;
-    --gm3-sys-color-surface-container: @mantle;
-    --gm3-sys-color-primary: @blue;
-    --gm3-sys-color-outline-variant: @overlay0;
-    --gm3-list-list-item-label-text-color: @text;
+    #gm3-provider(
+      @rosewater,
+      @flamingo,
+      @pink,
+      @mauve,
+      @red,
+      @maroon,
+      @peach,
+      @yellow,
+      @green,
+      @teal,
+      @sky,
+      @sapphire,
+      @blue,
+      @lavender,
+      @text,
+      @subtext1,
+      @subtext0,
+      @overlay2,
+      @overlay1,
+      @overlay0,
+      @surface2,
+      @surface1,
+      @surface0,
+      @base,
+      @mantle,
+      @crust,
+      @accent,
+      @inverseTheme,
+      @inverseAccent,
+    ) {
+      @gm3-sys-color-error: @red;
+      @gm3-sys-color-error-rgb: #rgbify(@gm3-sys-color-error)[];
+      @gm3-sys-color-error-container: desaturate(darken(@red, 50%), 50%);
+      @gm3-sys-color-error-container-rgb: #rgbify(
+        @gm3-sys-color-error-container,
+      )[];
 
-    .gp1Lgf {
-      --gm3-card-outlined-hover-outline-color: @surface2;
-      --gm3-card-outlined-container-color: @surface0;
-      --gm3-card-outlined-outline-color: @surface2;
-    }
-    .hIolmc {
-      --gm3-chip-assist-flat-label-text-color: @text;
-      --gm3-chip-assist-flat-hover-label-text-color: @accent;
-      --gm3-chip-assist-flat-outline-color: @surface2;
-      --gm3-sys-color-outline: @surface2;
-    }
-    .I2nt9 {
-      --gm3-text-field-filled-container-color: @surface2;
-      --gm3-text-field-filled-input-text-color: @text;
-      --gm3-sys-color-primary: @accent;
-      --gm3-sys-color-on-surface: @text;
-      --gm3-text-field-filled-caret-color: @accent;
-      --gm3-text-field-filled-label-text-color: @text;
-    }
-    /* checkbox */
-    --mdc-checkbox-selected-icon-color: @accent;
-    --mdc-checkbox-selected-checkmark-color: @mantle;
-    --mdc-checkbox-unselected-icon-color: @surface0;
-    /* radio checkbox/switches */
-    .bEtrNb {
-      --gm3-radio-selected-focus-icon-color: @accent;
-      --gm3-radio-selected-hover-icon-color: @accent;
-      --gm3-radio-selected-icon-color: @accent;
-      --gm3-radio-selected-pressed-icon-color: @accent;
-      --gm3-radio-selected-hover-state-layer-color: @accent;
-      --gm3-radio-unselected-icon-color: @surface0;
-      --gm3-radio-unselected-hover-icon-color: @surface2;
-    }
+      @gm3-sys-color-on-error: darken(desaturate(@red, 20%), 50%);
+      @gm3-sys-color-on-error-rgb: #rgbify(@gm3-sys-color-on-error)[];
+      @gm3-sys-color-on-error-container: desaturate(darken(@red, -10%), 50%);
+      @gm3-sys-color-on-error-container-rgb: #rgbify(
+        @gm3-sys-color-on-error-container,
+      )[];
 
-    .OKFoxe {
-      --gm3-switch-selected-focus-track-color: @accent;
-      --gm3-switch-selected-hover-state-layer-color: @accent;
-      --gm3-switch-selected-track-color: @accent;
-      --gm3-switch-selected-hover-track-color: @accent;
-      --gm3-switch-selected-pressed-state-layer-color: @accent;
-      --gm3-switch-selected-pressed-track-color: @accent;
-      --gm3-switch-selected-hover-handle-color: darken(@accent, 20%);
-      --gm3-switch-selected-pressed-handle-color: darken(@accent, 15%);
-      --gm3-switch-selected-handle-color: darken(@accent, 10%);
-      --gm3-switch-selected-icon-color: @base;
-    }
-    /* uploading photo popups */
-    .z1QT7e {
-      --gm3-card-elevated-container-color: @surface0;
-    }
+      @gm3-sys-color-primary: @accent;
+      @gm3-sys-color-primary-rgb: #rgbify(@gm3-sys-color-primary)[];
+      @gm3-sys-color-primary-fixed: lighten(@accent, 5%);
+      @gm3-sys-color-primary-fixed-rgb: #rgbify(@gm3-sys-color-primary-fixed)[];
+      @gm3-sys-color-primary-fixed-dim: darken(@accent, 5%);
+      @gm3-sys-color-primary-fixed-dim-rgb: #rgbify(
+        @gm3-sys-color-primary-fixed-dim,
+      )[];
 
-    /* editing photo sidebar */
-    .dm7YTc .FcHdhd {
-      --gm3-navigation-drawer-coplanar-container-color: @base;
-    }
+      @gm3-sys-color-on-primary: saturate(
+        mix(@gm3-sys-color-primary, @base, 20%),
+        25%
+      );
+      @gm3-sys-color-on-primary-rgb: #rgbify(@gm3-sys-color-on-primary)[];
+      @gm3-sys-color-on-primary-fixed: darken(@gm3-sys-color-on-primary, 5%);
+      @gm3-sys-color-on-primary-fixed-rgb: #rgbify(
+        @gm3-sys-color-on-primary-fixed,
+      )[];
+      @gm3-sys-color-on-primary-fixed-variant: lighten(
+        @gm3-sys-color-on-primary,
+        5%
+      );
+      @gm3-sys-color-on-primary-fixed-variant-rgb: #rgbify(
+        @gm3-sys-color-on-primary-fixed-variant,
+      )[];
 
-    /* loading circle */
-    .DMuDh {
-      --gm3-circular-progress-active-indicator-color: @accent;
-    }
+      @gm3-sys-color-primary-container: saturate(
+        mix(@gm3-sys-color-primary, @mantle, 30%),
+        20%
+      );
+      @gm3-sys-color-primary-container-rgb: #rgbify(
+        @gm3-sys-color-primary-container,
+      )[];
+      @gm3-sys-color-on-primary-container: saturate(
+        mix(@gm3-sys-color-primary, @text, 20%),
+        25%
+      );
+      @gm3-sys-color-on-primary-container-rgb: #rgbify(
+        @gm3-sys-color-on-primary-container,
+      )[];
 
-    /* main background */
-    .uGCjIb,
-    .HnzzId,
-    body {
-      background-color: @base !important;
-      color: @text !important;
-    }
-    /* uploading photo popups */
-    .RUTfA {
-      background-color: @blue !important;
-      color: @mantle !important;
-    }
-    .uq8qae,
-    .wgq1ae {
-      color: @text !important;
-    }
-    .BNcPhf {
-      background-color: @blue !important;
-    }
-    /* top bar */
-    .fXq1Rc .QtDoYb {
-      background-color: @crust;
-      border-color: @crust;
-    }
-    .tRojY {
-      color: @text !important;
-    }
-    /* top bar when selected */
-    .KWdEHf.QtDoYb.CWVNI {
-      background-color: @crust;
-      border-color: @crust;
-    }
+      @gm3-sys-color-secondary: desaturate(@accent, 20%);
+      @gm3-sys-color-secondary-rgb: #rgbify(@gm3-sys-color-secondary)[];
+      @gm3-sys-color-secondary-fixed: lighten(@gm3-sys-color-secondary, 5%);
+      @gm3-sys-color-secondary-fixed-rgb: #rgbify(
+        @gm3-sys-color-secondary-fixed,
+      )[];
+      @gm3-sys-color-secondary-fixed-dim: darken(@gm3-sys-color-secondary, 5%);
+      @gm3-sys-color-secondary-fixed-dim-rgb: #rgbify(
+        @gm3-sys-color-secondary-fixed-dim,
+      )[];
 
-    /* selected photo background */
-    .rtIMgb.WjVZdb {
-      background-color: @overlay0;
-    }
-    /* move to archive buttonn */
-    .QFDibd {
-      color: @text;
-    }
-    .JoLw2e {
-      background-color: @base;
-    }
-    /* blue move to archive suggestion */
-    .mVK51d {
-      background-color: @blue;
-    }
-    .FkI4sc {
-      color: @mantle;
-    }
-    .rtMuCd {
-      border-bottom-color: @blue;
-    }
-    /* updates page */
-    .Ej4G6c, .rE87Fd {
-      color: @text;
-    }
-    .cUt0Kd.pCrjvd {
-      background-color: @accent !important;
-    }
-    .pCrjvd .XmOa0b {
-      color: @crust !important;
-    }
-    /* don't miss a moment notif popup */
-    .KG4Qee,
-    .RODueb {
-      background-color: @surface0;
-    }
-    .R5XrWc {
-      color: @text;
-    }
-    .yERkJe {
-      color: @subtext0;
-    }
-    /* grey popup in the bottom left corner */
-    .zyTWof-YAxtVc {
-      background-color: @surface0;
-    }
-    .zyTWof-gIZMF {
-      color: @text;
-    }
-    /* search bar in the top bar */
-    .Aul2T,
-    .cI2tlc .jBmls {
-      background-color: @surface0 !important;
-    }
-    .LAL5ie .ZAGvjd {
-      color: @text;
-      -webkit-text-fill-color: @text;
-    }
-    .cI2tlc .jBmls {
-      box-shadow: none !important;
-    }
-    .l9dCke,
-    .ggIr1e,
-    .OmFprf {
-      border-color: @surface1 !important;
-    }
-    .LAL5ie .jBmls {
-      border-top-color: @surface1;
-    }
-    .obNJBf.wH28vf > .lEclge {
-      color: @text;
-    }
-    .obNJBf {
-      color: @subtext0;
-    }
-    /* the word photos in the google photos logo */
-    .EIug8e {
-      color: @text;
-    }
-    /* the text in the carousel at the top of the main page */
-    .oedbUb {
-      color: @text;
-    }
-    /* date of when the photos were taken */
-    .xA0gfb {
-      color: @subtext1;
-    }
-    /* place where photos were taken */
-    .LzExud {
-      color: @subtext0;
-    }
-    /* top and sidebar svgs */
-    .v1262d,
-    .gb_Ra.gb_Ja svg {
-      fill: @text !important;
-    }
-    .uprWmb .v1262d {
-      fill: @mantle !important;
-    }
-    /* sidebar */
-    .RSjvib {
-      background-color: @crust;
-    }
-    .uprWmb:hover,
-    .uprWmb {
-      background: @accent !important;
-    }
-    .HksvWb,
-    .HEHjMc {
-      color: @text;
-    }
-    .HEHjMc:hover {
-      color: @accent;
-    }
+      @gm3-sys-color-on-secondary: saturate(
+        mix(@gm3-sys-color-secondary, @base, 20%),
+        25%
+      );
+      @gm3-sys-color-on-secondary-rgb: #rgbify(@gm3-sys-color-on-secondary)[];
+      @gm3-sys-color-on-secondary-fixed: darken(
+        @gm3-sys-color-on-secondary,
+        5%
+      );
+      @gm3-sys-color-on-secondary-fixed-rgb: #rgbify(
+        @gm3-sys-color-on-secondary-fixed,
+      )[];
+      @gm3-sys-color-on-secondary-fixed-variant: lighten(
+        @gm3-sys-color-on-primary,
+        5%
+      );
+      @gm3-sys-color-on-secondary-fixed-variant-rgb: #rgbify(
+        @gm3-sys-color-on-secondary-fixed-variant,
+      )[];
 
-    .uprWmb .HksvWb {
-      color: @mantle !important;
-    }
-    .ylKyWb {
-      color: @subtext0;
-    }
-    .lJ21id {
-      background-color: @surface0;
-    }
-    .Olf00,
-    .J0dufb {
-      background-color: @accent !important;
-      color: @mantle;
-    }
-    /* sidebar slider */
-    .bButFf {
-      background-color: @surface0;
-      border-bottom-color: @accent;
-      color: @text;
-    }
-    /* year when scrolling */
-    .HrGXnb {
-      background-color: @surface0;
-      color: @text;
-    }
-    /* unlock storage discount button */
-    .z3RRjd:not(:disabled) {
-      color: @accent;
-      border-color: @surface0;
-    }
-    /* locked photo dialog */
-    .uW2Fw-P5QLlc {
-      background-color: @base !important;
-    }
-    .uW2Fw-k2Wrsb {
-      color: @text;
-    }
-    /* search bar */
-    .fXq1Rc:not(.A82uMb) .Aul2T.qs41qe {
-      background: @surface1;
-    }
-    /* storage used bar */
-    .XCxRFf {
-      background-color: @accent;
-      box-shadow: 2px 0 0 lighten(@accent, 10%);
-    }
-    .DFG23b {
-      background-color: @overlay0;
-    }
-    /* storage category breakdown */
-    .W7g1Rb-rymPhb-fpDzbe-fmcmS {
-      color: @text !important;
-    }
-    /* carousel buttons */
-    .yhB1zd {
-      background: @surface0;
-    }
+      @gm3-sys-color-secondary-container: saturate(
+        mix(@gm3-sys-color-secondary, @mantle, 35%),
+        10%
+      );
+      @gm3-sys-color-secondary-container-rgb: #rgbify(
+        @gm3-sys-color-secondary-container,
+      )[];
+      @gm3-sys-color-on-secondary-container: saturate(
+        mix(@gm3-sys-color-secondary, @text, 75%),
+        25%
+      );
+      @gm3-sys-color-on-secondary-container-rgb: #rgbify(
+        @gm3-sys-color-on-secondary-container,
+      )[];
 
-    /* favorites page */
-    .ZEmz6b {
-      color: @text;
-    }
+      @gm3-sys-color-tertiary: @accent;
+      @gm3-sys-color-tertiary-rgb: #rgbify(@gm3-sys-color-tertiary)[];
+      @gm3-sys-color-tertiary-fixed: lighten(@gm3-sys-color-tertiary, 5%);
+      @gm3-sys-color-tertiary-fixed-rgb: #rgbify(
+        @gm3-sys-color-tertiary-fixed,
+      )[];
+      @gm3-sys-color-tertiary-fixed-dim: darken(@gm3-sys-color-tertiary, 5%);
+      @gm3-sys-color-tertiary-fixed-dim-rgb: #rgbify(
+        @gm3-sys-color-tertiary-fixed-dim,
+      )[];
 
-    /* albums page */
-    /* background */
-    .gN5aAe,
-    .eReC4e {
-      background-color: @base;
-    }
-    /* album title */
-    .mfQCM,
-    .go6nxb,
-    .MXxZYe,
-    .NbrDvb,
-    .mfQCMe {
-      color: @text;
-    }
-    .kmqzh .tL9Q4c {
-      color: @text;
-      background-color: @surface0;
-    }
-    /* # of photos in album */
-    .UV4Xae,
-    .Me6kjf {
-      color: @subtext0;
-    }
-    /* album date */
-    .UmNiJe {
-      color: @subtext0;
-    }
-    /* play highlights button */
-    .HQ97kd {
-      color: @text;
-      background-color: @base;
-    }
-    /* sharing dialog */
-    .ju3TMb,
-    .hUsHhf,
-    .ex6r4d,
-    .dqAVOd {
-      color: @text;
-      background-color: @surface0;
-    }
-    .J2j0Cc.uH98yc {
-      background-color: @surface2;
-    }
-    /* ... menu in album */
-    .s2VtY.JPdR6b {
-      background-color: @surface0;
-    }
-    .o7Osof .oJeWuf {
-      color: @text;
-    }
-    /* add to album */
-    .Purf9b {
-      background-color: @base;
-    }
-    .Pk50Ic {
-      background: @accent;
-    }
-    /* underline on album title */
-    .kmqzh .cXrdqd::before,
-    .kmqzh .cXrdqd::after {
-      background: @blue !important;
-    }
+      @gm3-sys-color-on-tertiary: darken(
+        desaturate(@gm3-sys-color-tertiary, 25%),
+        50%
+      );
+      @gm3-sys-color-on-tertiary-rgb: #rgbify(@gm3-sys-color-on-tertiary)[];
+      @gm3-sys-color-on-tertiary-fixed: darken(@gm3-sys-color-on-tertiary, 5%);
+      @gm3-sys-color-on-tertiary-fixed-rgb: #rgbify(
+        @gm3-sys-color-on-tertiary-fixed,
+      )[];
+      @gm3-sys-color-on-tertiary-fixed-variant: lighten(
+        @gm3-sys-color-on-tertiary,
+        5%
+      );
+      @gm3-sys-color-on-tertiary-fixed-variant-rgb: #rgbify(
+        @gm3-sys-color-on-tertiary-fixed-variant,
+      )[];
 
-    /* favorites page */
-    .YzU3ub.Sn08je {
-      background-color: @surface0;
+      @gm3-sys-color-tertiary-container: saturate(
+        mix(@gm3-sys-color-tertiary, @mantle, 20%),
+        0%
+      );
+      @gm3-sys-color-tertiary-container-rgb: #rgbify(
+        @gm3-sys-color-tertiary-container,
+      )[];
+      @gm3-sys-color-on-tertiary-container: lighten(
+        saturate(@gm3-sys-color-tertiary-container, 50%),
+        65%
+      );
+      @gm3-sys-color-on-tertiary-container-rgb: #rgbify(
+        @gm3-sys-color-on-tertiary-container,
+      )[];
+
+      @gm3-sys-color-background: @base;
+      @gm3-sys-color-background-rgb: #rgbify(@gm3-sys-color-background)[];
+      @gm3-sys-color-on-background: @text;
+      @gm3-sys-color-on-background-rgb: #rgbify(@gm3-sys-color-on-background)[];
+
+      @gm3-sys-color-surface: @base;
+      @gm3-sys-color-surface-rgb: #rgbify(@gm3-sys-color-surface)[];
+      @gm3-sys-color-surface-bright: @surface0;
+      @gm3-sys-color-surface-bright-rgb: #rgbify(
+        @gm3-sys-color-surface-bright,
+      )[];
+      @gm3-sys-color-surface-dim: @crust;
+      @gm3-sys-color-surface-dim-rgb: #rgbify(@gm3-sys-color-surface-dim)[];
+      @gm3-sys-color-surface-variant: mix(@mantle, @accent, 87.5%);
+      @gm3-sys-color-surface-variant-rgb: #rgbify(
+        @gm3-sys-color-surface-variant,
+      )[];
+      @gm3-sys-color-surface-tint: @accent;
+      @gm3-sys-color-surface-tint-rgb: #rgbify(@gm3-sys-color-surface-tint)[];
+
+      @gm3-sys-color-on-surface: @text;
+      @gm3-sys-color-on-surface-rgb: #rgbify(@gm3-sys-color-on-surface)[];
+      @gm3-sys-color-on-surface-variant: @subtext0;
+      @gm3-sys-color-on-surface-variant-rgb: #rgbify(
+        @gm3-sys-color-on-surface-variant,
+      )[];
+
+      @gm3-sys-color-inverse-surface: @text;
+      @gm3-sys-color-inverse-surface-rgb: #rgbify(
+        @gm3-sys-color-inverse-surface,
+      )[];
+      @gm3-sys-color-inverse-on-surface: @mantle;
+      @gm3-sys-color-inverse-on-surface-rgb: #rgbify(
+        @gm3-sys-color-inverse-on-surface,
+      )[];
+      @gm3-sys-color-inverse-primary: @inverseAccent; // TODO: Colour role clarification
+      @gm3-sys-color-inverse-primary-rgb: #rgbify(
+        @gm3-sys-color-inverse-primary,
+      )[];
+
+      @gm3-sys-color-surface-container-highest: @surface1;
+      @gm3-sys-color-surface-container-highest-rgb: #rgbify(
+        @gm3-sys-color-surface-container-highest,
+      )[];
+      @gm3-sys-color-surface-container-high: @surface0;
+      @gm3-sys-color-surface-container-high-rgb: #rgbify(
+        @gm3-sys-color-surface-container-high,
+      )[];
+      @gm3-sys-color-surface-container: @surface0;
+      @gm3-sys-color-surface-container-rgb: #rgbify(
+        @gm3-sys-color-surface-container,
+      )[];
+      @gm3-sys-color-surface-container-low: @mantle;
+      @gm3-sys-color-surface-container-low-rgb: #rgbify(
+        @gm3-sys-color-surface-container-low,
+      )[];
+      @gm3-sys-color-surface-container-lowest: @crust;
+      @gm3-sys-color-surface-container-lowest-rgb: #rgbify(
+        @gm3-sys-color-surface-container-lowest,
+      )[];
+
+      @gm3-sys-color-outline: @overlay2;
+      @gm3-sys-color-outline-rgb: #rgbify(@gm3-sys-color-outline)[];
+      @gm3-sys-color-outline-variant: @overlay0;
+      @gm3-sys-color-outline-variant-rgb: #rgbify(
+        @gm3-sys-color-outline-variant,
+      )[];
+
+      @gm3-sys-color-scrim: #000;
+      @gm3-sys-color-scrim-rgb: #rgbify(@gm3-sys-color-scrim)[];
+      @gm3-sys-color-shadow: #000;
+      @gm3-sys-color-shadow-rgb: #rgbify(@gm3-sys-color-shadow)[];
+
+      --gm3-sys-color-background: @gm3-sys-color-background;
+      --gm3-sys-color-background-rgb: @gm3-sys-color-background-rgb;
+      --gm3-sys-color-error: @gm3-sys-color-error;
+      --gm3-sys-color-error-rgb: @gm3-sys-color-error-rgb;
+      --gm3-sys-color-error-container: @gm3-sys-color-error-container;
+      --gm3-sys-color-error-container-rgb: @gm3-sys-color-error-container-rgb;
+      --gm3-sys-color-inverse-on-surface: @gm3-sys-color-inverse-on-surface;
+      --gm3-sys-color-inverse-on-surface-rgb: @gm3-sys-color-inverse-on-surface-rgb;
+      --gm3-sys-color-inverse-primary: @gm3-sys-color-inverse-primary;
+      --gm3-sys-color-inverse-primary-rgb: @gm3-sys-color-inverse-primary-rgb;
+      --gm3-sys-color-inverse-surface: @gm3-sys-color-inverse-surface;
+      --gm3-sys-color-inverse-surface-rgb: @gm3-sys-color-inverse-surface-rgb;
+      --gm3-sys-color-on-background: @gm3-sys-color-on-background;
+      --gm3-sys-color-on-background-rgb: @gm3-sys-color-on-background-rgb;
+      --gm3-sys-color-on-error: @gm3-sys-color-on-error;
+      --gm3-sys-color-on-error-rgb: @gm3-sys-color-on-error-rgb;
+      --gm3-sys-color-on-error-container: @gm3-sys-color-on-error-container;
+      --gm3-sys-color-on-error-container-rgb: @gm3-sys-color-on-error-container-rgb;
+      --gm3-sys-color-on-primary: @gm3-sys-color-on-primary;
+      --gm3-sys-color-on-primary-rgb: @gm3-sys-color-on-primary-rgb;
+      --gm3-sys-color-on-primary-container: @gm3-sys-color-on-primary-container;
+      --gm3-sys-color-on-primary-container-rgb: @gm3-sys-color-on-primary-container-rgb;
+      --gm3-sys-color-on-primary-fixed: @gm3-sys-color-on-primary-fixed;
+      --gm3-sys-color-on-primary-fixed-rgb: @gm3-sys-color-on-primary-fixed-rgb;
+      --gm3-sys-color-on-primary-fixed-variant: @gm3-sys-color-on-primary-fixed-variant;
+      --gm3-sys-color-on-primary-fixed-variant-rgb: @gm3-sys-color-on-primary-fixed-variant-rgb;
+      --gm3-sys-color-on-secondary: @gm3-sys-color-on-secondary;
+      --gm3-sys-color-on-secondary-rgb: @gm3-sys-color-on-secondary-rgb;
+      --gm3-sys-color-on-secondary-container: @gm3-sys-color-on-secondary-container;
+      --gm3-sys-color-on-secondary-container-rgb: @gm3-sys-color-on-secondary-container-rgb;
+      --gm3-sys-color-on-secondary-fixed: @gm3-sys-color-on-secondary-fixed;
+      --gm3-sys-color-on-secondary-fixed-rgb: @gm3-sys-color-on-secondary-fixed-rgb;
+      --gm3-sys-color-on-secondary-fixed-variant: @gm3-sys-color-on-secondary-fixed-variant;
+      --gm3-sys-color-on-secondary-fixed-variant-rgb: @gm3-sys-color-on-secondary-fixed-variant-rgb;
+      --gm3-sys-color-on-surface: @gm3-sys-color-on-surface;
+      --gm3-sys-color-on-surface-rgb: @gm3-sys-color-on-surface-rgb;
+      --gm3-sys-color-on-surface-variant: @gm3-sys-color-on-surface-variant;
+      --gm3-sys-color-on-surface-variant-rgb: @gm3-sys-color-on-surface-variant-rgb;
+      --gm3-sys-color-on-tertiary: @gm3-sys-color-on-tertiary;
+      --gm3-sys-color-on-tertiary-rgb: @gm3-sys-color-on-tertiary-rgb;
+      --gm3-sys-color-on-tertiary-container: @gm3-sys-color-on-tertiary-container;
+      --gm3-sys-color-on-tertiary-container-rgb: @gm3-sys-color-on-tertiary-container-rgb;
+      --gm3-sys-color-on-tertiary-fixed: @gm3-sys-color-on-tertiary-fixed;
+      --gm3-sys-color-on-tertiary-fixed-rgb: @gm3-sys-color-on-tertiary-fixed-rgb;
+      --gm3-sys-color-on-tertiary-fixed-variant: @gm3-sys-color-on-tertiary-fixed-variant;
+      --gm3-sys-color-on-tertiary-fixed-variant-rgb: @gm3-sys-color-on-tertiary-fixed-variant-rgb;
+      --gm3-sys-color-outline: @gm3-sys-color-outline;
+      --gm3-sys-color-outline-rgb: @gm3-sys-color-outline-rgb;
+      --gm3-sys-color-outline-variant: @gm3-sys-color-outline-variant;
+      --gm3-sys-color-outline-variant-rgb: @gm3-sys-color-outline-variant-rgb;
+      --gm3-sys-color-primary: @gm3-sys-color-primary;
+      --gm3-sys-color-primary-rgb: @gm3-sys-color-primary-rgb;
+      --gm3-sys-color-primary-container: @gm3-sys-color-primary-container;
+      --gm3-sys-color-primary-container-rgb: @gm3-sys-color-primary-container-rgb;
+      --gm3-sys-color-primary-fixed: @gm3-sys-color-primary-fixed;
+      --gm3-sys-color-primary-fixed-rgb: @gm3-sys-color-primary-fixed-rgb;
+      --gm3-sys-color-primary-fixed-dim: @gm3-sys-color-primary-fixed-dim;
+      --gm3-sys-color-primary-fixed-dim-rgb: @gm3-sys-color-primary-fixed-dim-rgb;
+      --gm3-sys-color-scrim: @gm3-sys-color-scrim;
+      --gm3-sys-color-scrim-rgb: @gm3-sys-color-scrim-rgb;
+      --gm3-sys-color-secondary: @gm3-sys-color-secondary;
+      --gm3-sys-color-secondary-rgb: @gm3-sys-color-secondary-rgb;
+      --gm3-sys-color-secondary-container: @gm3-sys-color-secondary-container;
+      --gm3-sys-color-secondary-container-rgb: @gm3-sys-color-secondary-container-rgb;
+      --gm3-sys-color-secondary-fixed: @gm3-sys-color-secondary-fixed;
+      --gm3-sys-color-secondary-fixed-rgb: @gm3-sys-color-secondary-fixed-rgb;
+      --gm3-sys-color-secondary-fixed-dim: @gm3-sys-color-secondary-fixed-dim;
+      --gm3-sys-color-secondary-fixed-dim-rgb: @gm3-sys-color-secondary-fixed-dim-rgb;
+      --gm3-sys-color-shadow: @gm3-sys-color-shadow;
+      --gm3-sys-color-shadow-rgb: @gm3-sys-color-shadow-rgb;
+      --gm3-sys-color-surface: @gm3-sys-color-surface;
+      --gm3-sys-color-surface-rgb: @gm3-sys-color-surface-rgb;
+      --gm3-sys-color-surface-bright: @gm3-sys-color-surface-bright;
+      --gm3-sys-color-surface-bright-rgb: @gm3-sys-color-surface-bright-rgb;
+      --gm3-sys-color-surface-container: @gm3-sys-color-surface-container;
+      --gm3-sys-color-surface-container-rgb: @gm3-sys-color-surface-container-rgb;
+      --gm3-sys-color-surface-container-high: @gm3-sys-color-surface-container-high;
+      --gm3-sys-color-surface-container-high-rgb: @gm3-sys-color-surface-container-high-rgb;
+      --gm3-sys-color-surface-container-highest: @gm3-sys-color-surface-container-highest;
+      --gm3-sys-color-surface-container-highest-rgb: @gm3-sys-color-surface-container-highest-rgb;
+      --gm3-sys-color-surface-container-low: @gm3-sys-color-surface-container-low;
+      --gm3-sys-color-surface-container-low-rgb: @gm3-sys-color-surface-container-low-rgb;
+      --gm3-sys-color-surface-container-lowest: @gm3-sys-color-surface-container-lowest;
+      --gm3-sys-color-surface-container-lowest-rgb: @gm3-sys-color-surface-container-lowest-rgb;
+      --gm3-sys-color-surface-dim: @gm3-sys-color-surface-dim;
+      --gm3-sys-color-surface-dim-rgb: @gm3-sys-color-surface-dim-rgb;
+      --gm3-sys-color-surface-tint: @gm3-sys-color-surface-tint;
+      --gm3-sys-color-surface-tint-rgb: @gm3-sys-color-surface-tint-rgb;
+      --gm3-sys-color-surface-variant: @gm3-sys-color-surface-variant;
+      --gm3-sys-color-surface-variant-rgb: @gm3-sys-color-surface-variant-rgb;
+      --gm3-sys-color-tertiary: @gm3-sys-color-tertiary;
+      --gm3-sys-color-tertiary-rgb: @gm3-sys-color-tertiary-rgb;
+      --gm3-sys-color-tertiary-container: @gm3-sys-color-tertiary-container;
+      --gm3-sys-color-tertiary-container-rgb: @gm3-sys-color-tertiary-container-rgb;
+      --gm3-sys-color-tertiary-fixed: @gm3-sys-color-tertiary-fixed;
+      --gm3-sys-color-tertiary-fixed-rgb: @gm3-sys-color-tertiary-fixed-rgb;
+      --gm3-sys-color-tertiary-fixed-dim: @gm3-sys-color-tertiary-fixed-dim;
+      --gm3-sys-color-tertiary-fixed-dim-rgb: @gm3-sys-color-tertiary-fixed-dim-rgb;
+      --mdc-ripple-color: var(--gm3-sys-color-primary);
     }
 
-    /* print store */
-    .E2jkGc,
-    .bVnuib,
-    .D8oEA,
-    .mKmjtc,
-    .GVzd9d {
-      color: @text;
-    }
-    /* products */
-    .CxyEyc {
-      background-color: @surface0;
-      border-color: @surface2;
-    }
-    /* photo books and canvases */
-    .bYS0Le .p102md {
-      background-color: @surface0;
-      border-color: @surface2;
-    }
-    .INNc9c,
-    .fGZ5Db,
-    .KhXBec {
-      color: @text;
-    }
-    .b9GWRb {
-      color: @subtext0;
+    #gm3-photos-provider(
+      @rosewater,
+      @flamingo,
+      @pink,
+      @mauve,
+      @red,
+      @maroon,
+      @peach,
+      @yellow,
+      @green,
+      @teal,
+      @sky,
+      @sapphire,
+      @blue,
+      @lavender,
+      @text,
+      @subtext1,
+      @subtext0,
+      @overlay2,
+      @overlay1,
+      @overlay0,
+      @surface2,
+      @surface1,
+      @surface0,
+      @base,
+      @mantle,
+      @crust,
+      @accent,
+      @inverseTheme,
+      @inverseAccent,
+    ) {
+      @gm3-sys-color-caution: #fbd27b;
+      @gm3-sys-color-caution-rgb: #rgbify(@gm3-sys-color-caution)[];
+      @gm3-sys-color-on-caution: #261900;
+      @gm3-sys-color-on-caution-rgb: #rgbify(@gm3-sys-color-on-caution)[];
+      @gm3-sys-color-caution-container: #2d2a1e;
+      @gm3-sys-color-caution-container-rgb: #rgbify(
+        @gm3-sys-color-caution-container,
+      )[];
+      @gm3-sys-color-on-caution-container: #ffefd5;
+      @gm3-sys-color-on-caution-container-rgb: #rgbify(
+        @gm3-sys-color-on-caution-container,
+      )[];
+      @gm3-sys-color-storage-meter-normal-primary: @blue;
+      @gm3-sys-color-storage-meter-normal-primary-rgb: #rgbify(
+        @gm3-sys-color-storage-meter-normal-primary,
+      )[];
+      @gm3-sys-color-storage-meter-normal-secondary: lighten(
+        spin(@blue, -20deg),
+        10%
+      );
+      @gm3-sys-color-storage-meter-normal-secondary-rgb: #rgbify(
+        @gm3-sys-color-storage-meter-normal-secondary,
+      )[];
+      @gm3-sys-color-storage-meter-caution-primary: saturate(
+        darken(@yellow, 10%),
+        10%
+      );
+      @gm3-sys-color-storage-meter-caution-primary-rgb: #rgbify(
+        @gm3-sys-color-storage-meter-caution-primary,
+      )[];
+      @gm3-sys-color-storage-meter-caution-secondary: @yellow;
+      @gm3-sys-color-storage-meter-caution-secondary-rgb: #rgbify(
+        @gm3-sys-color-storage-meter-caution-secondary,
+      )[];
+      @gm3-sys-color-storage-meter-warning-primary: saturate(
+        darken(@red, 10%),
+        10%
+      );
+      @gm3-sys-color-storage-meter-warning-primary-rgb: #rgbify(
+        @gm3-sys-color-storage-meter-warning-primary,
+      )[];
+      @gm3-sys-color-storage-meter-warning-secondary: @red;
+      @gm3-sys-color-storage-meter-warning-secondary-rgb: #rgbify(
+        @gm3-sys-color-storage-meter-warning-secondary,
+      )[];
+      @gm3-sys-color-on-scrim: #fff;
+      @gm3-sys-color-on-scrim-rgb: #rgbify(@gm3-sys-color-on-scrim)[];
+      @gm3-sys-color-lights-out-background: #000;
+      @gm3-sys-color-lights-out-background-rgb: #rgbify(
+        @gm3-sys-color-lights-out-background,
+      )[];
+      @gm3-sys-color-gems-main: @blue;
+      @gm3-sys-color-gems-main-rgb: #rgbify(@gm3-sys-color-gems-main)[];
+      @gm3-sys-color-gems-muted: @sapphire;
+      @gm3-sys-color-gems-muted-rgb: #rgbify(@gm3-sys-color-gems-muted)[];
+      @gm3-sys-color-gems-analog: @lavender;
+      @gm3-sys-color-gems-analog-rgb: #rgbify(@gm3-sys-color-gems-analog)[];
+      @gm3-sys-color-gems-complement: @peach;
+      @gm3-sys-color-gems-complement-rgb: #rgbify(
+        @gm3-sys-color-gems-complement,
+      )[];
+      @gm3-sys-color-twitter: @text;
+      @gm3-sys-color-twitter-rgb: #rgbify(@gm3-sys-color-twitter)[];
+
+      --gm3-sys-color-caution: @gm3-sys-color-caution;
+      --gm3-sys-color-caution-rgb: @gm3-sys-color-caution-rgb;
+      --gm3-sys-color-on-caution: @gm3-sys-color-on-caution;
+      --gm3-sys-color-on-caution-rgb: @gm3-sys-color-on-caution-rgb;
+      --gm3-sys-color-caution-container: @gm3-sys-color-caution-container;
+      --gm3-sys-color-caution-container-rgb: @gm3-sys-color-caution-container-rgb;
+      --gm3-sys-color-on-caution-container: @gm3-sys-color-on-caution-container;
+      --gm3-sys-color-on-caution-container-rgb: @gm3-sys-color-on-caution-container-rgb;
+      --gm3-sys-color-storage-meter-normal-primary: @gm3-sys-color-storage-meter-normal-primary;
+      --gm3-sys-color-storage-meter-normal-primary-rgb: @gm3-sys-color-storage-meter-normal-primary-rgb;
+      --gm3-sys-color-storage-meter-normal-secondary: @gm3-sys-color-storage-meter-normal-secondary;
+      --gm3-sys-color-storage-meter-normal-secondary-rgb: @gm3-sys-color-storage-meter-normal-secondary-rgb;
+      --gm3-sys-color-storage-meter-caution-primary: @gm3-sys-color-storage-meter-caution-primary;
+      --gm3-sys-color-storage-meter-caution-primary-rgb: @gm3-sys-color-storage-meter-caution-primary-rgb;
+      --gm3-sys-color-storage-meter-caution-secondary: @gm3-sys-color-storage-meter-caution-secondary;
+      --gm3-sys-color-storage-meter-caution-secondary-rgb: @gm3-sys-color-storage-meter-caution-secondary-rgb;
+      --gm3-sys-color-storage-meter-warning-primary: @gm3-sys-color-storage-meter-warning-primary;
+      --gm3-sys-color-storage-meter-warning-primary-rgb: @gm3-sys-color-storage-meter-warning-primary-rgb;
+      --gm3-sys-color-storage-meter-warning-secondary: @gm3-sys-color-storage-meter-warning-secondary;
+      --gm3-sys-color-storage-meter-warning-secondary-rgb: @gm3-sys-color-storage-meter-warning-secondary-rgb;
+      --gm3-sys-color-on-scrim: @gm3-sys-color-on-scrim;
+      --gm3-sys-color-on-scrim-rgb: @gm3-sys-color-on-scrim-rgb;
+      --gm3-sys-color-lights-out-background: @gm3-sys-color-lights-out-background;
+      --gm3-sys-color-lights-out-background-rgb: @gm3-sys-color-lights-out-background-rgb;
+      --gm3-sys-color-gems-main: @gm3-sys-color-gems-main;
+      --gm3-sys-color-gems-main-rgb: @gm3-sys-color-gems-main-rgb;
+      --gm3-sys-color-gems-muted: @gm3-sys-color-gems-muted;
+      --gm3-sys-color-gems-muted-rgb: @gm3-sys-color-gems-muted-rgb;
+      --gm3-sys-color-gems-analog: @gm3-sys-color-gems-analog;
+      --gm3-sys-color-gems-analog-rgb: @gm3-sys-color-gems-analog-rgb;
+      --gm3-sys-color-gems-complement: @gm3-sys-color-gems-complement;
+      --gm3-sys-color-gems-complement-rgb: @gm3-sys-color-gems-complement-rgb;
+      --gm3-sys-color-twitter: @gm3-sys-color-twitter;
+      --gm3-sys-color-twitter-rgb: @gm3-sys-color-twitter-rgb;
     }
 
-    /* explore page */
-    .OgirMe,
-    .dykGZb {
-      color: @text;
-    }
-    /* names under faces */
-    .hsohWb {
-      color: @text;
-    }
-    /* text in photos */
-    .ydXkjb,
-    .WABMHe,
-    .fn6ocf {
-      color: @text;
-    }
-    /* categories inside the footer */
-    .QmUPuf {
-      color: @text;
-    }
-    .QkA5Vc:not(:disabled) {
-      color: @subtext0;
+    #gm3-provider(
+      @rosewater,
+      @flamingo,
+      @pink,
+      @mauve,
+      @red,
+      @maroon,
+      @peach,
+      @yellow,
+      @green,
+      @teal,
+      @sky,
+      @sapphire,
+      @blue,
+      @lavender,
+      @text,
+      @subtext1,
+      @subtext0,
+      @overlay2,
+      @overlay1,
+      @overlay0,
+      @surface2,
+      @surface1,
+      @surface0,
+      @base,
+      @mantle,
+      @crust,
+      @accent,
+      @inverseTheme,
+      @inverseAccent,
+    );
+    #gm3-photos-provider(
+      @rosewater,
+      @flamingo,
+      @pink,
+      @mauve,
+      @red,
+      @maroon,
+      @peach,
+      @yellow,
+      @green,
+      @teal,
+      @sky,
+      @sapphire,
+      @blue,
+      @lavender,
+      @text,
+      @subtext1,
+      @subtext0,
+      @overlay2,
+      @overlay1,
+      @overlay0,
+      @surface2,
+      @surface1,
+      @surface0,
+      @base,
+      @mantle,
+      @crust,
+      @accent,
+      @inverseTheme,
+      @inverseAccent,
+    );
+
+    @mocha: @catppuccin[@mocha];
+
+    // Photo editor
+    .dm7YTc {
+      #gm3-provider(
+        @mocha[@rosewater],
+        @mocha[@flamingo],
+        @mocha[@pink],
+        @mocha[@mauve],
+        @mocha[@red],
+        @mocha[@maroon],
+        @mocha[@peach],
+        @mocha[@yellow],
+        @mocha[@green],
+        @mocha[@teal],
+        @mocha[@sky],
+        @mocha[@sapphire],
+        @mocha[@blue],
+        @mocha[@lavender],
+        @mocha[@text],
+        @mocha[@subtext1],
+        @mocha[@subtext0],
+        @mocha[@overlay2],
+        @mocha[@overlay1],
+        @mocha[@overlay0],
+        @mocha[@surface2],
+        @mocha[@surface1],
+        @mocha[@surface0],
+        @mocha[@base],
+        @mocha[@mantle],
+        @mocha[@crust],
+        @mocha[@@accentColor],
+        latte,
+        @catppuccin[@latte][@@accentColor],
+      );
     }
 
-    /* cannot connect page */
-    .Ih0h6e,
-    .aPRVsf {
-      color: @text;
-    }
-    /* rety button */
-    .RSxr8 {
-      background-color: darken(@accent, 15%);
-    }
-
-    /* sharing page */
-    /* item */
-    .I7yCae {
-      color: @text;
-    }
-    .DcsHOb {
-      border-color: @surface2;
-    }
-    /* partner sharing dialog */
-    .VfPpkd-P5QLlc,
-    .I4p4db,
-    .t1IGPc,
-    .Co16uf {
-      background-color: @surface0;
-    }
-    .osOuXd:not(.VfPpkd-O1htCb-OWXEXe-OWB6Me) .VfPpkd-TkwUic,
-    .osOuXd .VfPpkd-YPmvEd {
-      background-color: @surface2;
-    }
-    .V639qd .VfPpkd-cnG4Wd,
-    .fpyzKd,
-    .osOuXd:not(.VfPpkd-O1htCb-OWXEXe-OWB6Me) .VfPpkd-uusGie-fmcmS,
-    .osOuXd.VfPpkd-OkbHre.VfPpkd-rymPhb-Gtdoyb,
-    .VfPpkd-OkbHre .VfPpkd-rymPhb-fpDzbe-fmcmS,
-    .jc9Jq,
-    .Qwsrhf,
-    .VfPpkd-k2Wrsb {
-      color: @text;
-    }
-    .osOuXd
-      .VfPpkd-OkbHre.VfPpkd-rymPhb-ibnC6b.VfPpkd-rymPhb-ibnC6b-OWXEXe-gk6SMd {
-      background-color: @overlay2;
-    }
-    /* disabled text */
-    .oFJeZc:disabled {
-      color: @surface2;
-    }
-    /* the small arrow in the dropdown box */
-    .hqBSCb:not(.VfPpkd-O1htCb-OWXEXe-OWB6Me).VfPpkd-O1htCb-OWXEXe-XpnDCe
-      .VfPpkd-t08AT-Bz112c {
-      fill: @accent;
-    }
-
-    /* sharing via links subpage */
-    /* background */
-    .Cv8Rjc {
-      background-color: @base;
-    }
-    /* page title & subtitle */
-    .UtdETd,
-    .wMLcHf {
-      color: @text;
-    }
-    /* date when it was shared */
-    .DtcBIe {
-      color: @subtext1;
-    }
-    /* item border */
-    .j90Xnb {
-      border-color: @surface1;
-    }
-
-    /* settings page */
-    /* main text */
-    h1,
-    .fl9QFd,
-    .CZ5Sfb,
-    .mSbCD,
-    .Ecvatc,
-    .C96I0d,
-    .HiceN,
-    .Qizfvf,
-    .bCPWJc,
-    .P0eWkf,
-    .rvEjke,
-    .IGdgBf,
-    .Sn08je,
-    .Ja4Wfd,
-    .tLNx2,
-    .x1vyqd,
-    .CqtWH,
-    .wbspQd,
-    .vUbGoc,
-    .GIYFWc,
-    .btKbVe,
-    .l9UZue,
-    .hEFMYc,
-    .BrvAFe {
-      color: @text;
-    }
-    /* top bar */
-    .eReC4e.FbgB9 {
-      border-color: @surface0;
-    }
-    .yNVtPc .ZAGvjd .Ny5lGc::placeholder {
-      color: @text;
-    }
-    /* upload button */
-    .s4MBmb {
-      color: @text;
-    }
-    /* automatic album label */
-    .ecTDsc {
-      background-color: @accent;
-      color: @crust;
-    }
-    /* subtext */
-    .fYwTV,
-    .rN6Qmb,
-    .eT2rxc,
-    .EqBDpe,
-    .cuFkEd,
-    .hcClrf,
-    .o7Osof .HhLEze,
-    .k4Or1e,
-    .uNz2Jf,
-    .PzGzq,
-    .QWd4Mb {
-      color: @subtext0;
-    }
-    /* "view" button links */
-    .oFJeZc:not(:disabled) {
-      color: @accent;
-    }
-    /* sectional borders */
-    .X0f2Ie,
-    .TYKfpe {
-      border-color: @surface0 !important;
-    }
-    /* storage discount button */
-    .kDryjd:not(:disabled) {
-      background-color: @accent;
-      color: @crust;
-    }
-    /* selected radial selector */
-    .bEtrNb
-      .VfPpkd-gBXA9-bMcfAe:enabled:checked
-      + .VfPpkd-RsCWK
-      .VfPpkd-wVo5xe-LkdAo,
-    .bEtrNb .VfPpkd-gBXA9-bMcfAe:enabled + .VfPpkd-RsCWK .VfPpkd-Z5TpLc-LkdAo {
-      border-color: @accent;
-    }
-    /* unselected radial selector */
-    .bEtrNb
-      .VfPpkd-gBXA9-bMcfAe:enabled:not(:checked)
-      + .VfPpkd-RsCWK
-      .VfPpkd-wVo5xe-LkdAo {
-      border-color: @surface0;
-    }
-    /* switch that is in the off position */
-    .OKFoxe .VfPpkd-uMhiad::before {
-      background: @mantle;
-    }
-    .OKFoxe:disabled .VfPpkd-l6JLsf::before {
-      background-color: @surface1 !important;
-    }
-    .OKFoxe.VfPpkd-scr2fc-OWXEXe-uqeOfd:disabled .VfPpkd-pafCAf {
-      fill: @accent;
-    }
-    /* switch that is in the on position */
-    .OKFoxe.VfPpkd-scr2fc-OWXEXe-gk6SMd:enabled .VfPpkd-uMhiad::after {
-      background-color: @accent;
-    }
-    .OKFoxe.VfPpkd-scr2fc-OWXEXe-gk6SMd:enabled .VfPpkd-pafCAf {
-      fill: @mantle;
-    }
-    .OKFoxe:enabled .VfPpkd-l6JLsf::after {
-      background: @surface1;
-    }
-
-    /* partner sharing */
-    .QYw5Ld {
-      background-color: @accent;
-      border-color: @surface0;
-    }
-
-    .QYw5Ld span {
-      color: @crust;
-    }
-
-    .Sxge7c,
-    .GkGmge {
-      color: @text !important;
-    }
-
-    /* print orders page */
-    .fwAVoc {
-      color: @text;
-    }
-
-    /* privacy page */
-    .UNOf0e,
-    .bTd6c {
-      color: @text;
-    }
-    /* footer */
-    .rniux {
-      color: @subtext0;
-    }
-
-    /* slideshow buttons */
-    .UPRhTe {
-      background-color: @base;
-    }
-
-    /* activity log page */
-    /* main backgroound */
-    .X67EZe {
-      background-color: @surface0;
-    }
-    /* main text */
-    .vLZJlf,
-    .GiPflf,
-    .iEGkef {
-      color: @text;
-    }
-    /* type of activity */
-    .PDX3vc.LMgvRb {
-      color: @green;
-    }
-    .y03tld .e2CuFe {
-      border-top-color: @green;
-    }
-    /* reached the end */
-    .EIkL5b {
-      color: @subtext0;
-    }
-
-    /* utilities page */
-    /* headings */
-    .ARSUIf {
-      color: @text;
-    }
-    /* elements */
-    .FkWMmd {
-      color: @text;
-    }
-    .lnQi4 {
-      border-color: @surface2;
-    }
-    /* "new" pill thingy idk what to call this lol */
-    .Li8WFe {
-      color: @mantle;
-      background-color: @accent;
-    }
-    /* create highlight video subpage */
-    .a4dmPd {
-      border-color: @surface0;
-    }
-    .BH0KJc {
-      color: @text;
-    }
-    .z3RRjd:disabled {
-      color: @subtext0;
-    }
-    .IZzwM.bu4MSb {
-      --gm3-chip-input-without-avatar-label-text-color: @text;
-      --gm3-chip-input-without-avatar-with-trailing-icon-trailing-icon-color: @text;
-      background-color: @overlay0;
-    }
-
-    /* trash page */
-    .NSzyed {
-      color: @text;
-    }
-
-    /* storage page */
-    .hwDBSe,
-    .tzFvIf,
-    .BZXMjd .MrqLTc,
-    .ZbJY6,
-    .NKihpc,
-    .V3WOgd {
-      color: @text;
-    }
-    .gyqWff,
-    .BZXMjd .chfDde {
-      color: @subtext0;
-    }
-
-    /* how much storage is used bar */
-    .O4tDGf:nth-of-type(1),
-    .vN9JEc:nth-of-type(1) > .ZbKZ3d {
-      background-color: @accent;
-    }
-    .O4tDGf:nth-of-type(2),
-    .vN9JEc:nth-of-type(2) > .ZbKZ3d {
-      background-color: lighten(@accent, 15%);
-    }
-    .yVr0Vb {
-      background-color: @overlay0;
-    }
     /* google 1 more storage border */
     .BZXMjd.mPxwXe {
       background-image:
-        conic-gradient(@surface0, @surface0),
+        conic-gradient(
+          var(--gm3-sys-color-background),
+          var(--gm3-sys-color-background)
+        ),
         conic-gradient(
         from 2deg,
-        @peach 0deg,
-        @peach 90deg,
+        @yellow 0deg,
+        @yellow 90deg,
         @green 90deg,
         @green 180deg,
         @blue 180deg,
@@ -787,147 +682,10 @@
         @red 270deg,
         @red 1turn
       ),
-        linear-gradient(@surface2, @surface2);
-    }
-    /* review and delete */
-    .nfTM4e,
-    .UKzvpf .ASWyTc,
-    .TTlRAe .oevqcc {
-      color: @text;
-    }
-    .UKzvpf .YvjW7c {
-      color: @subtext0;
-    }
-    .UKzvpf:not(:last-child) .e0CX4d::after {
-      background-color: @overlay0;
-    }
-    .KVhwqd .TTlRAe .e0CX4d,
-    .TTlRAe:not(:last-child) .e0CX4d {
-      border-color: @overlay0;
-    }
-
-    /* photo editing sidebar */
-    .gmtNPe {
-      background-color: @surface0;
-    }
-    .bYXAhf,
-    .hGASzd,
-    .YFLDdf,
-    .QEQULc {
-      color: @text;
-    }
-    .dm7YTc .kDryjd:disabled {
-      color: fade(@text, 35%);
-      background-color: fade(@base, 40%);
-    }
-    .ALaST {
-      border-color: @surface0;
-    }
-    /* cropping tol */
-    .j1AIcc {
-      background-color: @surface0;
-    }
-    .TERVqe {
-      background-color: @mantle;
-    }
-    /* effect sliders */
-    .dm7YTc .fEUJ5b .dCWhBf,
-    .dm7YTc .fEUJ5b .R4GWv,
-    .dm7YTc .fEUJ5b.qoCZef .dCWhBf,
-    .dm7YTc .fEUJ5b.qoCZef .R4GWv,
-    .dm7YTc .fEUJ5b.qs41qe .dCWhBf,
-    .dm7YTc .fEUJ5b.qs41qe .R4GWv,
-    .dm7YTc .fEUJ5b .bBKqme {
-      background-color: @accent;
-    }
-    /* filters tool */
-    .XlI4Ne {
-      color: @text;
-    }
-    /* pen tool */
-    .W3FYdb {
-      background-color: @surface0;
-    }
-    /* photo info  */
-    .Q77Pt {
-      background-color: @base;
-    }
-    .WUbige {
-      color: @text;
-    }
-    .wiOkb,
-    .R9U8ab,
-    .x1LMef {
-      color: @text;
-    }
-    .JzSi2b,
-    .oBMhZb {
-      color: @subtext0;
-    }
-    .KefOhc {
-      border-bottom-color: @surface0;
-    }
-    /* editing date/location */
-    .rrk4We:not(.VfPpkd-fmcmS-yrriRe-OWXEXe-OWB6Me),
-    .sGhbA,
-    .LAL5ie .jBmls,
-    .VfPpkd-fmcmS-OyKIhb::after {
-      background-color: @surface2;
-    }
-    .oMg70c:not(.VfPpkd-fmcmS-yrriRe-OWXEXe-OWB6Me) .VfPpkd-NLUYnc-V67aGc,
-    .oMg70c:not(.VfPpkd-fmcmS-yrriRe-OWXEXe-OWB6Me)
-      .VfPpkd-NLUYnc-V67aGc-OWXEXe-TATcMc-KLRBe,
-    .oMg70c:not(.VfPpkd-fmcmS-yrriRe-OWXEXe-OWB6Me) .VfPpkd-fmcmS-wGMbrd,
-    .sGhbA,
-    .osOuXd:not(.VfPpkd-O1htCb-OWXEXe-OWB6Me)
-      .VfPpkd-NLUYnc-V67aGc-OWXEXe-TATcMc-KLRBe,
-    .BnQsec,
-    .mplJGb {
-      color: @text;
-    }
-    .osOuXd:not(.VfPpkd-O1htCb-OWXEXe-OWB6Me) .VfPpkd-RWgCYc-ksKsZd::after {
-      border-color: @accent;
-    }
-    .ddaf0 .qggZ5d .d1dlne::after {
-      background-color: @accent;
-    }
-    .pRVpNc {
-      color: @subtext0;
-    }
-
-    /* unsupported videos page */
-    /* video title & amount of vid selected */
-    .nTuy2b,
-    .dSfdaf,
-    .rtExYb {
-      color: @text;
-    }
-    /* date & size of vid */
-    .iKLDRc {
-      color: @subtext0;
-    }
-    /* selected video backgrounc */
-    .s67Ibf.UYcdu {
-      background: fade(@accent, 40%);
-    }
-
-    /* skipped suggestions page */
-    /* suggestion background */
-    .AbQ7md {
-      background: @surface0;
-      border-color: @surface2;
-    }
-    /* date of suggestion */
-    .Vy0KAc {
-      color: @text;
-    }
-
-    a {
-      color: @blue;
-    }
-
-    .ATUW8c {
-      box-shadow: 0 0 0 1px var(--pkw-outline, (@surface2)) inset;
+        linear-gradient(
+        var(--gm3-sys-color-outline-variant,),
+        var(--gm3-sys-color-outline-variant,)
+      );
     }
 
     // google 1 icon
@@ -1076,6 +834,10 @@
       );
       background-image: url("data:image/svg+xml,@{svg}") !important;
     }
+  }
+
+  a {
+    color: var(--gm3-sys-color-primary);
   }
 }
 /* deno-fmt-ignore */
