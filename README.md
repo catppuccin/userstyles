@@ -42,7 +42,6 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [boringproxy](styles/boringproxy)
 - [Codeberg](styles/codeberg)
-- [crates.io](styles/crates.io)
 - [docs.rs](styles/docs.rs)
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
@@ -50,7 +49,6 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [go.dev](styles/go.dev)
 - [Grabify](styles/grabify)
 - [Graphite](styles/graphite)
-- [Hackage](styles/hackage)
 - [Home Manager Options Search](styles/home-manager-options-search)
 - [Hoogle](styles/hoogle)
 - [Hoppscotch](styles/hoppscotch)
@@ -60,9 +58,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [Next.js](styles/vercel)
 - [NixOS Manual](styles/nixos-manual)
 - [Nixpkgs Manual](styles/nixos-manual)
-- [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
-- [PyPI](styles/pypi)
 - [PythonAnywhere](styles/pythonanywhere)
 - [React.dev](styles/react.dev)
 - [Trinket](styles/trinket)
@@ -102,6 +98,15 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
 - ❤️‍🩹 [Startpage](styles/startpage)
+
+</details>
+<details open>
+<summary>📦 Package Registries</summary>
+
+- [crates.io](styles/crates.io)
+- [Hackage](styles/hackage)
+- [npm](styles/npm)
+- [PyPI](styles/pypi)
 
 </details>
 <details open>
