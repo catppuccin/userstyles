@@ -170,14 +170,13 @@
     }
 
     .page-common {
-      .fn-grey1 {
+      .fn-grey1,
+      .fn-grey3,
+      .fn-grey4{
         color: @subtext0 !important;
       }
       .fn-grey2 {
         color: @subtext1 !important;
-      }
-      .fn-grey4 {
-        color: @subtext0 !important;
       }
       .dark_text {
         color: @subtext0;
@@ -291,11 +290,12 @@
 
     .mal-alert {
       color: @text;
+      background-color: @surface0;
       &.danger {
         background-color: @surface0;
       }
-      .secondary {
-        color: @text;
+      &.secondary {
+        color: @subtext1;
         background-color: @surface0;
       }
     }
@@ -305,11 +305,15 @@
       background-color: var(--color-accent-background);
     }
 
-    button.mal-btn.secondary.outline {
+    .mal-btn.secondary.outline {
       color: @subtext0 !important;
       border-color: @surface1;
+      background-color: @surface1;
       &.noborder:hover, &.noborder.pressed {
         background-color: @surface1;
+      }
+      &.noborder.disabled {
+        background-color: @surface0 !important;
       }
     }
 
@@ -428,13 +432,6 @@
         filter: @text-filter;
         background-image: url(/images/mal-logo-xsmall-white@2x.png?v=1634263200);
         background-size: auto 32px;
-        background-repeat: no-repeat;
-      }
-      &.christmas .link-mal-logo {
-        // change white to black, keep colors
-        filter: if((@lookup = latte), invert(1) hue-rotate(170deg) brightness(80%), none);
-        background-image: url(/images/event/2023_christmas/logo_dark.png?v=1634263200);
-        background-size: auto 30px;
         background-repeat: no-repeat;
       }
 
@@ -573,7 +570,7 @@
         color: @text !important;
         background-color: @base;
         &:hover {
-          color: @mantle !important;
+          color: var(--color-text-light) !important;
           background-color: var(--color-accent-background-hover) !important;
         }
       }
@@ -768,8 +765,8 @@
         // Buttons below profile picture
         // STYLE: the colors of these really could be whatever
         .icon-user-function {
-          background-color: @crust;
-          border-color: @surface0 !important;
+          background-color: @mantle;
+          border-color: @surface1 !important;
           // icon color
           i.fas {
             color: @subtext0;
@@ -786,14 +783,13 @@
           }
         }
 
-        // STYLE: we could set both to mantle but originally it has alternating row colors
         .user-status {
           border-top-color: @surface0;
           li {
-            background-color: @crust;
+            background-color: @mantle;
           }
           li:nth-of-type(2n) {
-            background-color: @mantle;
+            background-color: transparent;
           }
           .online {
             color: @text !important;
@@ -807,6 +803,20 @@
         .user-compatability-graph .bar-outer {
           background-color: @surface0;
           border-color: @surface1;
+          .bar-outer-negative {
+            background-color: ; // TODO
+            .bar-inner {
+              color: var(--color-text-dark);
+              background-color: var(--color-watching); // TODO
+            }
+          }
+          .bar-outer-positive {
+            background-color: ; // TODO
+            .bar-inner {
+              color: var(--color-text-dark);
+              background-color: var(--color-yellow-background); // TODO
+            }
+          }
         }
       }
 
@@ -893,19 +903,19 @@
           }
         }
 
-        // TODO: comment entry box too light while dragging to resize
+        // TODO: comment entry box too light while resizing
         // TODO: in Latte, box resize indicator is hard to see
         .sceditor-container {
           background-color: @surface0;
           border-color: @surface2;
           .sceditor-toolbar {
-            background-color: @surface1;
+            background-color: @surface0;
             border-color: @surface2;
 
             .sceditor-group {
               border-right-color: @overlay0;
-              .sceditor-button {
-                color: @subtext1 !important; // TODO: not working, comment editing buttons look bad in Latte
+              .sceditor-button div::before {
+                color: @subtext1 !important;
               }
             }
           }
@@ -997,8 +1007,24 @@
         }
       }
 
-      /* Shared Anime / Manga with other user */
+      /* Profile Statistics Page */
+      .amcharts-AxisLabel {
+        color: @subtext0;
+        fill: @subtext0;
+      }
+      .chart-container-rf .right p {
+        color: @subtext0;
+      }
+      .chart-container-rf .left .chart-footer.values3 {
+        .label {
+          color: @subtext0;
+        }
+        .value {
+          color: @text;
+        }
+      }
 
+      /* Shared Anime / Manga with other user */
       .shared-table {
         tr td.borderClass {
           .shared-core-higher {
@@ -1017,7 +1043,6 @@
       }
 
       /* Anime / Manga Details page */
-
       .borderClass {
         border-color: @surface0;
       }
@@ -1072,17 +1097,18 @@
       // right side
 
       #horiznav_nav {
-        border-color: @surface2;
+        border-color: @text;
         a,
         li {
-          color: @text !important;
+          color: @subtext1 !important;
           background-color: transparent;
         }
         a:hover {
           background-color: @surface1;
         }
         .horiznav_active {
-          background-color: @surface1;
+          color: @crust !important;
+          background-color: @text;
         }
       }
 
@@ -1188,7 +1214,7 @@
       }
 
       // review header
-      .mal-navbar {
+      .anime-info-review__header.mal-navbar {
         background-color: @surface0;
         // reset since they were set to link color
         .recommended a {
@@ -1581,6 +1607,16 @@
         }
       }
 
+      .btn-show-spoilers {
+        color: @text;
+        i.fas {
+          color: @surface2;
+        }
+        &.on i.fas {
+          color: @accent-color;
+        }
+      }
+
       // anime/manga page section
       .stacks {
         .navi {
@@ -1588,15 +1624,6 @@
           .btn-show-sort {
             color: @text;
             // TODO: dropdown arrow not themed
-          }
-          .btn-show-spoilers {
-            color: @text;
-            i.fas {
-              color: @surface2;
-            }
-            &.on i.fas {
-              color: @accent-color;
-            }
           }
         }
 
@@ -1664,30 +1691,30 @@
         }
       }
 
-      .column-item {
-        border-bottom-color: @surface0;
-        .tag {
-          background-color: @base;
-          .tag-anime {
-            color: @crust;
-            background-color: var(--color-red-background);
-          }
-          .tag-manga {
-            color: @crust;
-            background-color: var(--color-yellow-background);
-          }
+      .tag {
+        background-color: @base;
+        .tag-anime {
+          color: var(--color-text-light);
+          background-color: var(--color-red-background);
         }
-        .foot .stat {
-          color: @subtext0;
+        .tag-manga {
+          color: var(--color-text-light);
+          background-color: var(--color-yellow-background);
         }
       }
+      .column-item {
+        border-bottom-color: @surface0;
+      }
+      .foot .stat {
+        color: @subtext0;
+      }
 
+      .breadcrumbs_area.underline {
+        border-bottom-color: @surface1;
+      }
 
       // individal interest stack page
       .stacks-detail {
-        .breadcrumbs_area.underline {
-          border-bottom-color: @surface1;
-        }
         h2.title {
           background-color: @base;
         }
@@ -2164,6 +2191,14 @@
     }
     .information.di-ib {
       color: @subtext1 !important;
+    }
+
+    .top-ranking-table .table-header td,
+    .top-ranking-table .table-header td:first-of-type {
+      border-left-color: @surface2;
+    }
+    .top-ranking-table tr td {
+      border-left-color: @surface1;
     }
 
     .top-ranking-table .icon-score-star {
