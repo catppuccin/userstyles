@@ -14,15 +14,18 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
+
 @-moz-document domain("gitlab.com") {
+  @import url("https://unpkg.com/@catppuccin/highlightjs@1.0.0/css/catppuccin-variables.important.css");
+
   :root:not(.gl-dark) {
-    #catppuccin(@lightFlavor, @accentColor);
+    #catppuccin(@lightFlavor);
   }
   :root.gl-dark {
-    #catppuccin(@darkFlavor, @accentColor);
+    #catppuccin(@darkFlavor);
   }
 
-  #catppuccin(@lookup, @accent) {
+  #catppuccin(@lookup) {
     @rosewater: @catppuccin[@@lookup][@rosewater];
     @flamingo: @catppuccin[@@lookup][@flamingo];
     @pink: @catppuccin[@@lookup][@pink];
@@ -49,7 +52,34 @@
     @base: @catppuccin[@@lookup][@base];
     @mantle: @catppuccin[@@lookup][@mantle];
     @crust: @catppuccin[@@lookup][@crust];
-    @accent-color: @catppuccin[@@lookup][@@accent];
+    @accent: @catppuccin[@@lookup][@@accentColor];
+
+    --ctp-rosewater: @rosewater;
+    --ctp-flamingo: @flamingo;
+    --ctp-pink: @pink;
+    --ctp-mauve: @mauve;
+    --ctp-red: @red;
+    --ctp-maroon: @maroon;
+    --ctp-peach: @peach;
+    --ctp-yellow: @yellow;
+    --ctp-green: @green;
+    --ctp-teal: @teal;
+    --ctp-sky: @sky;
+    --ctp-sapphire: @sapphire;
+    --ctp-blue: @blue;
+    --ctp-lavender: @lavender;
+    --ctp-text: @text;
+    --ctp-subtext1: @subtext1;
+    --ctp-subtext0: @subtext0;
+    --ctp-overlay2: @overlay2;
+    --ctp-overlay1: @overlay1;
+    --ctp-overlay0: @overlay0;
+    --ctp-surface2: @surface2;
+    --ctp-surface1: @surface1;
+    --ctp-surface0: @surface0;
+    --ctp-base: @base;
+    --ctp-mantle: @mantle;
+    --ctp-crust: @crust;
 
     @black: if(@lookup = latte, @text, @crust);
     @white: if(@lookup = latte, @base, @surface0);
@@ -68,17 +98,17 @@
     @neutral8: if(@lookup = latte, @overlay2, @surface0);
     @neutral7: if(@lookup = latte, @overlay1, @surface0);
     @neutral6: if(@lookup = latte, @overlay0, @surface1);
-    @neutral5: if(@lookup = latte, @surface2, @surface2);
+    @neutral5: if(@lookup = latte, @surface2, @subtext1);
     @neutral4: if(@lookup = latte, @surface1, @overlay0);
     @neutral3: if(@lookup = latte, @surface0, @overlay1);
     @neutral2: if(@lookup = latte, @base, @overlay2);
     @neutral1: if(@lookup = latte, @mantle, @subtext0);
-    @neutral0: if(@lookup = latte, @crust, @subtext1);
+    @neutral0: if(@lookup = latte, @crust, @surface0);
 
     color-scheme: if(@lookup = latte, light, dark);
 
     ::selection {
-      background-color: fade(@accent-color, 30%);
+      background-color: fade(@accent, 30%);
     }
 
     --blue: @blue;
@@ -93,35 +123,52 @@
     --cyan: @sky;
     --white: @white;
     --black: @text;
-    --primary: @accent-color;
+    --primary: @accent;
     --secondary: @base;
     --success: @green;
     --info: @sapphire;
     --warning: @peach;
     --danger: @red;
 
-    --brand-gray-05: @gray10;
-    --brand-gray-04: @gray8;
-    --brand-gray-03: @gray6;
-    --brand-gray-02: @gray4;
-    --brand-gray-01: @gray1;
-    --brand-charcoal: @black;
-    --red-950: @red;
-    --green-700: @green;
-    --green-300: @green;
-    --gray-950: @gray10;
-    --gray-900: @text;
-    --gray-800: @gray8;
-    --gray-700: @gray7;
-    --gray-600: @gray6;
-    --gray-500: @gray5;
-    --gray-400: @gray4;
-    --gray-300: @gray3;
-    --gray-200: @gray2;
-    --gray-100: @gray1;
-    --gray-50: @gray1;
-    --gray-10: @gray10;
-    --blue-600: @blue;
+    --gl-color-brand-gray-05: @gray10;
+    --gl-color-brand-gray-04: @gray8;
+    --gl-color-brand-gray-03: @gray6;
+    --gl-color-brand-gray-02: @gray4;
+    --gl-color-brand-gray-01: @gray1;
+    --gl-color-brand-charcoal: @text;
+    --gl-color-red-950: @red;
+    --gl-color-red-700: @red;
+    --gl-color-red-600: @red;
+    --gl-color-red-500: @red;
+    --gl-color-red-100: fade(@red, 40%);
+    --gl-color-green-700: @green;
+    --gl-color-green-600: @green;
+    --gl-color-green-500: @green;
+    --gl-color-green-300: @green;
+    --gl-color-green-100: fade(@green, 40%);
+    --gl-color-gray-950: @gray10;
+    --gl-color-gray-900: @text;
+    --gl-color-gray-800: @gray8;
+    --gl-color-gray-700: @gray7;
+    --gl-color-gray-600: @gray6;
+    --gl-color-gray-500: @gray5;
+    --gl-color-gray-400: @gray4;
+    --gl-color-gray-300: @gray3;
+    --gl-color-gray-200: @gray2;
+    --gl-color-gray-100: @gray1;
+    --gl-color-gray-50: @gray1;
+    --gl-color-gray-10: @gray10;
+    --gl-color-blue-800: @accent;
+    --gl-color-blue-700: @accent;
+    --gl-color-blue-600: @accent;
+    --gl-color-blue-500: @accent;
+    --gl-color-blue-100: fade(@accent, 40%);
+    --gl-color-blue-50: fade(@accent, 20%);
+    --blue-50: fade(@accent, 20%);
+    --gl-color-orange-600: @yellow;
+    --gl-color-orange-500: @yellow;
+    --gl-color-orange-100: fade(@yellow, 40%);
+    --gl-color-orange-50: fade(@yellow, 20%);
 
     --gl-color-neutral-1000: @neutral10;
     --gl-color-neutral-950: @neutral9;
@@ -136,7 +183,7 @@
     --gl-color-neutral-100: @neutral0;
     --gl-color-neutral-50: @neutral0;
     --gl-color-neutral-10: @neutral0;
-    --gl-color-neutral-0: @neutral0;
+    --gl-color-neutral-0: @base;
 
     --gl-background-color-default: @base;
     --gl-text-color-default: @text;
@@ -156,13 +203,6 @@
     --gl-badge-neutral-background-color-default: @surface1;
     --gl-badge-neutral-text-color-default: @text;
 
-    --gl-badge-muted-background-color-default: if(
-      @lookup = latte,
-      @surface0,
-      @overlay1
-    );
-    --gl-badge-muted-text-color-default: @black;
-
     /* Primary button */
     --gl-button-default-primary-foreground-color-default: @text;
     --gl-button-default-primary-background-color-default: @base;
@@ -181,20 +221,20 @@
     --gl-button-default-primary-border-color-focus: @overlay1;
 
     --gl-button-confirm-primary-foreground-color-default: @base;
-    --gl-button-confirm-primary-background-color-default: @accent-color;
-    --gl-button-confirm-primary-border-color-default: @accent-color;
+    --gl-button-confirm-primary-background-color-default: @accent;
+    --gl-button-confirm-primary-border-color-default: @accent;
 
     --gl-button-confirm-primary-foreground-color-active: @base;
-    --gl-button-confirm-primary-background-color-active: @accent-color;
-    --gl-button-confirm-primary-border-color-active: @accent-color;
+    --gl-button-confirm-primary-background-color-active: @accent;
+    --gl-button-confirm-primary-border-color-active: @accent;
 
     --gl-button-confirm-primary-foreground-color-hover: @base;
-    --gl-button-confirm-primary-background-color-hover: @accent-color;
-    --gl-button-confirm-primary-border-color-hover: @accent-color;
+    --gl-button-confirm-primary-background-color-hover: @accent;
+    --gl-button-confirm-primary-border-color-hover: @accent;
 
     --gl-button-confirm-primary-foreground-color-focus: @base;
-    --gl-button-confirm-primary-background-color-focus: @accent-color;
-    --gl-button-confirm-primary-border-color-focus: @accent-color;
+    --gl-button-confirm-primary-background-color-focus: @accent;
+    --gl-button-confirm-primary-border-color-focus: @accent;
 
     /* Secondary button */
     --gl-button-default-secondary-foreground-color-default: @blue;
@@ -278,17 +318,15 @@
     --gl-datepicker-background-color: @base;
     --gl-datepicker-date-text-color-selected: @base;
 
-    --gl-control-background-color-selected-default: @accent-color;
-    --gl-control-background-color-selected-hover: @accent-color;
-    --gl-control-background-color-selected-focus: @accent-color;
-    --gl-control-background-color-selected-active: @accent-color;
-
-    --gl-badge-success-background-color-default: fade(@green, 50%);
+    --gl-control-background-color-selected-default: @accent;
+    --gl-control-background-color-selected-hover: @accent;
+    --gl-control-background-color-selected-focus: @accent;
+    --gl-control-background-color-selected-active: @accent;
 
     --gl-background-color-subtle: @surface0;
     --gl-background-color-strong: @surface1;
     --gl-background-color-overlap: @surface0;
-    --gl-focus-ring-outer-color: @accent-color;
+    --gl-focus-ring-outer-color: @accent;
     --gl-control-background-color-default: @base;
     --gl-control-border-color-default: @subtext0;
     --gl-control-border-color-hover: @subtext0;
@@ -328,9 +366,9 @@
     .super-sidebar {
       --super-sidebar-bg: @crust;
       --super-sidebar-border-color: @surface0;
-      --super-sidebar-context-header-color: @accent-color;
-      --super-sidebar-active-indicator-color: @accent-color;
-      --super-sidebar-accent-color: @accent-color;
+      --super-sidebar-context-header-color: @accent;
+      --super-sidebar-active-indicator-color: @accent;
+      --super-sidebar-accent-color: @accent;
       --super-sidebar-user-bar-bg: @mantle;
       --super-sidebar-user-bar-button-bg: @base;
       --super-sidebar-user-bar-button-color: @text;
@@ -412,7 +450,7 @@
 
     .dropdown-menu li > button,
     .dropdown-menu li .gl-button.btn-link {
-      color: @accent-color;
+      color: @accent;
     }
 
     kbd {
@@ -492,7 +530,6 @@
     }
 
     body,
-    .commit a,
     .emoji-picker-category-active svg,
     ul.content-list li a:not(.gfm-project_member),
     li.nav-item > a.nav-link,
@@ -507,17 +544,11 @@
     }
 
     .nav-links li:not(.md-header-toolbar).active a {
-      box-shadow: inset 0 -2px 0 0 @accent-color;
+      box-shadow: inset 0 -2px 0 0 @accent;
     }
 
     .emoji-picker-category-header {
       background: linear-gradient(to bottom, @base 50%, transparent 100%);
-    }
-
-    p,
-    legend,
-    small {
-      color: @subtext1;
     }
 
     .text-muted,
@@ -536,12 +567,6 @@
       border-color: @base;
     }
 
-    .tree-holder table.tree-table tr:hover:not(.tree-truncated-warning) td,
-    .group-list-tree .group-row-contents:hover {
-      background-color: @surface0;
-      border-color: @text;
-    }
-
     .gl-pagination .page-link,
     .btn-default {
       background-color: @base;
@@ -558,8 +583,8 @@
     }
 
     .gl-pagination .page-item:not(.disabled) a.active {
-      background-color: @accent-color;
-      border-color: @accent-color;
+      background-color: @accent;
+      border-color: @accent;
       color: @base;
     }
 
@@ -580,15 +605,6 @@
       background-color: @surface2;
     }
 
-    .ref-container {
-      background-color: @lavender;
-    }
-
-    .ref-container,
-    .ref-container a {
-      color: @base !important;
-    }
-
     div[data-testid="groups-projects-more-actions-dropdown"]
       button[aria-label="More actions"],
     button#dropdown-toggle-btn-33 {
@@ -603,7 +619,7 @@
       &.ref-name,
       &.js-view-all,
       &.mr-iid {
-        color: @accent-color;
+        color: @accent;
       }
     }
 
@@ -614,7 +630,7 @@
 
     .gl-tab-nav-item.active {
       &::before {
-        border-bottom-color: @accent-color;
+        border-bottom-color: @accent;
       }
     }
 
@@ -631,19 +647,19 @@
       }
 
       &[data-level="1"] {
-        fill: fade(@accent-color, 25%);
+        fill: fade(@accent, 25%);
       }
 
       &[data-level="2"] {
-        fill: fade(@accent-color, 50%);
+        fill: fade(@accent, 50%);
       }
 
       &[data-level="3"] {
-        fill: fade(@accent-color, 75%);
+        fill: fade(@accent, 75%);
       }
 
       &[data-level="4"] {
-        fill: @accent-color;
+        fill: @accent;
       }
     }
 
@@ -658,16 +674,6 @@
 
     .term-fg-yellow {
       color: @yellow;
-    }
-
-    .line_holder .line_content,
-    .line_holder .line-coverage {
-      background-color: @base;
-      color: @text;
-    }
-
-    .line_holder .diff-line-num {
-      background-color: @surface0;
     }
 
     .code.diff-line-expand-button {
@@ -721,18 +727,18 @@
     }
 
     .line_holder .diff-line-num.is-over {
-      background-color: @accent-color;
+      background-color: @accent;
       color: @text;
     }
 
     .note-button.add-diff-note {
       background-color: @base;
-      border-color: @accent-color;
-      color: @accent-color;
+      border-color: @accent;
+      color: @accent;
     }
 
     .note-button.add-diff-note:hover {
-      background-color: @accent-color;
+      background-color: @accent;
       color: @base;
     }
 
@@ -857,34 +863,6 @@
     .cd {
       color: @subtext0;
     }
-    .ci-icon {
-      .ci-icon-colored(@color) {
-        background-color: if(@lookup = latte, lighten(@color, 35%), @color);
-        border-color: if(@lookup = latte, lighten(@color, 35%), @color);
-
-        .ci-icon-gl-icon-wrapper {
-          color: if(@lookup = latte, lighten(@color, 35%), @color);
-          background-color: if(@lookup = latte, @color, darken(@color, 35%));
-          border-color: if(@lookup = latte, @color, darken(@color, 35%));
-        }
-      }
-
-      &.ci-icon-variant-success {
-        .ci-icon-colored(@green);
-      }
-
-      &.ci-icon.ci-icon-variant-info {
-        .ci-icon-colored(@blue);
-      }
-
-      &.ci-icon.ci-icon-variant-warning {
-        .ci-icon-colored(@peach);
-      }
-
-      &.ci-icon.ci-icon-variant-danger {
-        .ci-icon-colored(@red);
-      }
-    }
 
     .commit-sha-container {
       color: @subtext0 !important;
@@ -895,7 +873,7 @@
     }
 
     span[data-testid="job-name"] {
-      color: @accent-color;
+      color: @accent;
     }
 
     div[data-testid="job-duration"],
@@ -906,7 +884,7 @@
     a[data-testid="job-sidebar-value-link"],
     a[data-testid="link-commit"],
     a[data-testid="pipeline-path"] {
-      color: @accent-color !important;
+      color: @accent !important;
     }
 
     a[data-testid="source-ref-link"] {
@@ -928,6 +906,25 @@
 
       background-color: @crust;
       color: @text;
+    }
+
+    // Commit file tree modified icon indicator.
+    .file-modified, .file-modified-solid {
+      color: @yellow;
+    }
+
+    // Code blocks
+    .code.white,
+    .code.white pre.code,
+    .code.white code.code,
+    .code.white .line_holder .line_content {
+      background-color: @crust;
+      color: @text;
+    }
+    .code.white .line-numbers,
+    .code.white .diff-line-num,
+    .code.white .code-search-line {
+      background-color: @mantle;
     }
   }
 }
