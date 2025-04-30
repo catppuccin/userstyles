@@ -18,11 +18,9 @@ const maintainers = [
     Object.values(userstyles).flatMap((
       style: Userstyle,
     ) =>
-      style["current-maintainers"].map((m) => {
-        const username = m.url.split("github.com/")?.pop();
-        // Check that they follow github.com/username pattern.
-        assert.assertExists(username);
-        return username.toLowerCase();
+      style["current-maintainers"].map((name) => {
+        assert.assertExists(name);
+        return name.toLowerCase();
       })
     ),
   ),

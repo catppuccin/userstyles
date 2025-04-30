@@ -13,22 +13,17 @@
 	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/chess.com/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
-<p align="center">
-  <img src="preview.webp"/>
-</p>
-
 ## Usage
 
 See [the userstyle usage instructions](../../docs/USAGE.md).
-
 
 
 ## 💝 Current Maintainer
 - [uncenter](https://github.com/uncenter)
 
 ## 💖 Past Maintainers
-- [skele](https://github.com/skelebro1)
-- [Isabel](https://github.com/isabelroses)
+- [skelebro1](https://github.com/skelebro1)
+- [isabelroses](https://github.com/isabelroses)
 - [coldenate](https://github.com/coldenate)
 
 &nbsp;

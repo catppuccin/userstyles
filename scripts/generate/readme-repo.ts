@@ -1,4 +1,4 @@
-import type { PortsSchema, UserstylesSchema } from "@/types/mod.ts";
+import type { CategoriesSchema, UserstylesSchema } from "@/types/mod.ts";
 import { REPO_ROOT } from "@/constants.ts";
 
 import * as path from "@std/path";
@@ -14,30 +14,39 @@ type MappedPorts = {
 
 export async function generateMainReadme(
   userstyles: UserstylesSchema.Userstyles,
-  portsData: PortsSchema.PortsSchema,
+  categoriesData: CategoriesSchema.CategoryDefinitions,
 ) {
-  if (!portsData.categories) throw ("Ports data is missing categories");
+  if (!categoriesData) throw ("Categories data is missing categories");
 
   const categorized = Object.entries(userstyles)
-    .reduce((acc, [slug, { categories, ...port }]) => {
+    .reduce((acc, [slug, { categories, supports, ...userstyle }]) => {
       // initialize category array if it doesn't exist
       // only care about the first (primary) category in the categories array
       acc[categories[0]] ??= [];
 
-      acc[categories[0]].push({
+      const baseUserstyle = {
         path: `styles/${slug}`,
         categories,
-        ...port,
-      });
+        ...userstyle,
+      };
 
-      // Sort by name, first array entry if necessary
-      acc[categories[0]].sort((a, b) =>
-        [a.name].flat()[0].localeCompare([b.name].flat()[0])
+      acc[categories[0]].push(
+        baseUserstyle,
+        // supported websites themed by the userstyle are added as their own entries for the README
+        ...(Object.values(supports ?? {}).map(({ name, link }) => ({
+          ...baseUserstyle,
+          name,
+          link,
+        }))),
       );
+
+      // sort by name
+      acc[categories[0]].sort((a, b) => a.name.localeCompare(b.name));
+
       return acc;
     }, {} as MappedPorts);
 
-  const portListData = portsData.categories
+  const portListData = categoriesData
     .filter((category) => categorized[category.key] !== undefined)
     .map((category) => {
       return { meta: category, ports: categorized[category.key] };
@@ -48,11 +57,12 @@ export async function generateMainReadme(
 <summary>{{emoji}} {{name}}</summary>
 
 {{#each ports}}
-- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{#each name}}{{ this }}{{#unless @last}}, {{/unless}}{{/each}}]({{ path }})
+- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{ name }}]({{ path }})
 {{/each}}
 
 </details>
-{{/each}}`)({
+{{/each}}
+`)({
     category: portListData.map(({ meta, ports }) => {
       return {
         emoji: meta.emoji,
@@ -66,7 +76,7 @@ export async function generateMainReadme(
             },
           ) => {
             return {
-              name: [name].flat(),
+              name,
               maintained: currentMaintainers.length > 0,
               path,
             };

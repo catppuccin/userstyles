@@ -13,21 +13,16 @@
 	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/perplexity/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
-<p align="center">
-  <img src="preview.webp"/>
-</p>
-
 ## Usage
 
 See [the userstyle usage instructions](../../docs/USAGE.md).
-
 
 
 ## 💝 Current Maintainer
 - [Tnixc](https://github.com/Tnixc)
 
 ## 💖 Past Maintainer
-- [Isabel](https://github.com/isabelroses)
+- [isabelroses](https://github.com/isabelroses)
 
 &nbsp;
 

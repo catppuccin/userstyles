@@ -7,7 +7,7 @@
       "$id": "#userstyles",
       "title": "Userstyles",
       "type": "object",
-      "description": "All userstyles in the Catppuccin org.",
+      "description": "All userstyles in the Catppuccin organisation.",
       "patternProperties": {
         "[A-Za-z0-9_\\-]": {
           "$id": "#userstyles/userstyle",
@@ -18,121 +18,58 @@
           "additionalProperties": false,
           "properties": {
             "name": {
-              "$id": "#userstyles/userstyle/name",
-              "title": "Name",
-              "description": "The name of the userstyle(s).",
-              "oneOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "minItems": 2,
-                  "examples": [["AniList", "AniChart"]]
-                },
-                {
-                  "type": "string",
-                  "examples": ["YouTube"]
-                }
-              ]
+              "description": "The name of the userstyle.",
+              "$ref": "#/$defs/name"
+            },
+            "link": {
+              "$ref": "#/$defs/link"
             },
             "categories": {
-              "$id": "#userstyles/userstyle/categories",
-              "title": "Categories",
-              "description": "The categories that fit the userstyle the most, the first category is the primary category which the userstyle will be listed under on the README.",
               "$ref": "#/$defs/categories"
             },
             "color": {
-              "$id": "#userstyles/userstyle/color",
-              "title": "Color",
-              "description": "The fill color for the icon on the Catppuccin website, which should match the color used by Simple Icons. If the icon does not exist in Simple Icons, choose the most suitable color from the branding.",
-              "type": "string",
-              "enum": [
-                "rosewater",
-                "flamingo",
-                "pink",
-                "mauve",
-                "red",
-                "maroon",
-                "peach",
-                "yellow",
-                "green",
-                "teal",
-                "sky",
-                "sapphire",
-                "blue",
-                "lavender",
-                "text"
-              ],
-              "examples": ["pink"]
+              "$ref": "#/$defs/color"
             },
             "icon": {
-              "$id": "#userstyles/userstyle/icon",
-              "title": "Icon",
-              "description": "The icon to use on the website. This should be the same name as the SVG file on https://simpleicons.org/. If a `.svg` suffix is present, it's taken from the local website repository resources.",
-              "type": "string",
-              "examples": ["twitch", "twitch.svg"]
+              "$ref": "#/$defs/icon"
             },
-            "readme": {
-              "$id": "#userstyles/userstyle/readme",
-              "title": "README",
-              "description": "Options to help in the auto-generation of the userstyle README.",
+            "note": {
+              "$id": "#userstyles/userstyle/note",
+              "title": "Note",
+              "description": "An additional note that users should read.",
+              "type": "string"
+            },
+            "supports": {
+              "$id": "#userstyles/userstyle/supports",
+              "title": "Supports",
               "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "app-link": {
-                  "$id": "#userstyles/userstyle/readme/app-link",
-                  "title": "Application Link",
-                  "description": "The hyperlink of the app that is being themed.",
-                  "oneOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "minItems": 2,
-                      "examples": [
-                        ["https://anilist.co", "https://anichart.net"]
-                      ]
+              "description": "All websites that the userstyle also supports.",
+              "patternProperties": {
+                "[A-Za-z0-9_\\-]": {
+                  "$id": "#userstyles/userstyle/supports/website",
+                  "title": "Website",
+                  "type": "object",
+                  "description": "The unique identifier of the supported website, usually the name of the website lowercased.",
+                  "examples": ["anichart"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "$id": "#userstyles/userstyle/supports/website/name",
+                      "title": "Website Name",
+                      "description": "The name of the website.",
+                      "examples": ["AniChart"],
+                      "$ref": "#/$defs/name"
                     },
-                    {
-                      "type": "string",
-                      "examples": ["https://github.com"]
+                    "link": {
+                      "$ref": "#/$defs/link"
                     }
+                  },
+                  "required": [
+                    "name",
+                    "link"
                   ]
-                },
-                "note": {
-                  "$id": "#userstyles/userstyle/readme/note",
-                  "title": "Note",
-                  "description": "An additional note for the Usage section of the userstyle README.",
-                  "type": "string"
-                },
-                "faq": {
-                  "$id": "#userstyles/userstyle/readme/faq",
-                  "title": "FAQ",
-                  "description": "The FAQ section of the userstyle README.",
-                  "type": "array",
-                  "minItems": 1,
-                  "items": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "properties": {
-                      "question": {
-                        "type": "string",
-                        "title": "Question",
-                        "description": "A question that a user may have about the userstyle."
-                      },
-                      "answer": {
-                        "type": "string",
-                        "title": "Answer",
-                        "description": "An answer to the question about the userstyle."
-                      }
-                    },
-                    "required": ["question", "answer"]
-                  }
                 }
-              },
-              "required": ["app-link"]
+              }
             },
             "current-maintainers": {
               "$id": "#userstyles/userstyle/current-maintainers",
@@ -153,7 +90,7 @@
           "required": [
             "name",
             "categories",
-            "readme",
+            "link",
             "color",
             "current-maintainers"
           ]
@@ -170,76 +107,67 @@
     }
   },
   "$defs": {
+    "name": {
+      "$id": "#name",
+      "title": "Name",
+      "type": "string",
+      "examples": ["YouTube"]
+    },
+    "link": {
+      "$id": "#link",
+      "title": "Link",
+      "description": "The url of the website that is being themed.",
+      "type": "string"
+    },
+    "color": {
+      "$id": "#color",
+      "title": "Color",
+      "description": "The fill color for the icon on the Catppuccin website, which should match the color used by Simple Icons. If the icon does not exist in Simple Icons, choose the most suitable color from the branding.",
+      "type": "string",
+      "enum": [
+        "rosewater",
+        "flamingo",
+        "pink",
+        "mauve",
+        "red",
+        "maroon",
+        "peach",
+        "yellow",
+        "green",
+        "teal",
+        "sky",
+        "sapphire",
+        "blue",
+        "lavender",
+        "text"
+      ],
+      "examples": ["pink"]
+    },
+    "icon": {
+      "$id": "#icon",
+      "title": "Icon",
+      "description": "The icon to use on the website. This should be the same name as the SVG file on https://simpleicons.org/. If a `.svg` suffix is present, it's taken from the local website repository resources.",
+      "type": "string",
+      "examples": ["twitch", "twitch.svg"]
+    },
     "collaborators": {
       "$id": "#collaborators",
+      "description": "The GitHub username of the collaborator.",
       "type": "array",
       "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Display Name",
-            "description": "The display name of the collaborator to show in the userstyle README."
-          },
-          "url": {
-            "type": "string",
-            "title": "GitHub Profile",
-            "description": "The GitHub profile link of the collaborator to show in the userstyle README."
-          }
-        },
-        "required": ["url"]
+        "type": "string"
       }
     },
     "categories": {
       "$id": "#categories",
       "type": "array",
+      "title": "Categories",
+      "description": "The categories that fit the userstyle the most, the first category is the primary category which the userstyle will be listed under on the README.",
       "minItems": 1,
       "maxItems": 3,
       "items": {
-        "$ref": "#/$defs/category"
+        "$ref": "https://raw.githubusercontent.com/catppuccin/catppuccin/refs/heads/main/resources/categories.schema.json#/$defs/category"
       }
-    },
-    "category": {
-      "$id": "#category",
-      "type": "string",
-      "enum": [
-        "3d_modelling",
-        "analytics",
-        "application_launcher",
-        "artificial_intelligence",
-        "boot_loader",
-        "browser",
-        "browser_extension",
-        "cli",
-        "code_editor",
-        "desktop_environment",
-        "development",
-        "discussion_forum",
-        "document_viewer",
-        "education",
-        "email_client",
-        "entertainment",
-        "file_manager",
-        "game",
-        "game_development",
-        "health_and_fitness",
-        "library",
-        "music",
-        "note_taking",
-        "notification_daemon",
-        "photo_and_video",
-        "productivity",
-        "search_engine",
-        "self_hosted",
-        "social_networking",
-        "system",
-        "terminal",
-        "translation_tool",
-        "userstyle",
-        "wiki",
-        "window_manager"
-      ]
     }
   }
 }
