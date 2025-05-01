@@ -1,0 +1,251 @@
+/* ==UserStyle==
+@name Claude Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/claude
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/claude
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/claude/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aclaude
+@description Soothing pastel theme for Claude
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain("claude.ai") {
+  :root[data-mode="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+  :root[data-mode="light"],
+  /* Login page */
+  [data-theme="claude"][data-mode="light"] {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    --accent-brand: #hslify(@accent) [];
+    --accent-main-000: #hslify(@accent) [];
+    --accent-main-100: #hslify(@accent) [];
+    --accent-main-200: #hslify(@accent) [];
+    --accent-main-900: #hslify(@accent) [];
+    --accent-pro-000: #hslify(@accent) [];
+    --accent-pro-100: #hslify(@accent) [];
+    --accent-pro-200: #hslify(@accent) [];
+    --accent-pro-900: #hslify(@accent) [];
+    --accent-secondary-000: #hslify(@accent) [];
+    --accent-secondary-100: #hslify(@accent) [];
+    --accent-secondary-200: #hslify(@accent) [];
+    --accent-secondary-900: #hslify(@accent) [];
+    --bg-000: #hslify(@mantle) [];
+    --bg-100: #hslify(@base) [];
+    --bg-200: #hslify(@base) [];
+    --bg-300: #hslify(@surface0) [];
+    --bg-400: #hslify(@surface1) [];
+    --bg-500: #hslify(@surface2) [];
+    --border-000: #hslify(@base) [];
+    --border-100: #hslify(@crust) [];
+    --border-200: #hslify(@crust) [];
+    --border-300: #hslify(@overlay0) [];
+    --border-400: #hslify(@overlay1) [];
+    --border-500: #hslify(@overlay2) [];
+    --danger-000: #hslify(@maroon) [];
+    --danger-100: #hslify(@red) [];
+    --danger-200: #hslify(@red) [];
+    --danger-900: #hslify(@pink) [];
+    --oncolor-000: #hslify(darken(@mantle, 5%)) [];
+    --oncolor-100: #hslify(@mantle) [];
+    --oncolor-200: #hslify(@mantle) [];
+    --oncolor-300: #hslify(lighten(@mantle, 5%)) [];
+    --text-000: #hslify(darken(@text, 5%)) [];
+    --text-100: #hslify(@text) [];
+    --text-200: #hslify(@text) [];
+    --text-300: #hslify(@subtext0) [];
+    --text-400: #hslify(@subtext1) [];
+    --text-500: #hslify(@subtext0) [];
+
+    /* Side bar */
+    nav.\!bg-bg-200 {
+      background: @mantle !important;
+    }
+
+    /* Code blocks */
+    pre.code-block__code {
+      background: @crust !important;
+
+      code {
+        /* Default color */
+        span {
+          color: @text !important;
+        }
+
+        /* Green */
+        span.token[style="color: rgb(152, 195, 121);"] {
+          color: @green !important;
+        }
+
+        /* Yellow */
+        span.token[style="color: rgb(209, 154, 102);"] {
+          color: @yellow !important;
+        }
+
+        /* Blue */
+        span.token[style="color: rgb(97, 175, 239);"] {
+          color: @blue !important;
+        }
+
+        /* Red */
+        span.token[style="color: rgb(224, 108, 117);"] {
+          color: @red !important;
+        }
+
+        /* Magenta */
+        span.token[style="color: rgb(198, 120, 221);"] {
+          color: @mauve !important;
+        }
+      }
+    }
+
+    /* Inline code */
+    code.text-danger-000 {
+      color: @accent !important;
+    }
+
+    /* Tooltip */
+    div.bg-black\/80 {
+      background: @crust !important;
+    }
+    div.text-white {
+      color: @text !important;
+    }
+
+    /* Logo */
+    svg path[fill="#D97757"] {
+      fill: @accent !important;
+    }
+
+    /* "New chat" plus icon */
+    svg.text-always-white {
+      color: @base !important;
+    }
+
+    /* "Subscribe to Pro" and "Create Team Account" buttons */
+    button.bg-accent-pro-100 > span.inline-block {
+      color: @base !important;
+    }
+
+    /* Pay monthly/annually buttons */
+    button.bg-accent-secondary-900 {
+      span.text-text-000 {
+        color: @base !important;
+      }
+      span.text-text-300 {
+        color: @surface2 !important;
+      }
+      div.bg-accent-secondary-000 {
+        background: darken(@accent, 15%) !important;
+      }
+    }
+
+    /* Delete conversation button */
+    div.\!text-danger-000.\[\&\[data-highlighted\]\]\:bg-danger-900[data-highlighted] {
+      background: fade(@red, 20%) !important;
+    }
+
+    /* Checkbox */
+    input[type="checkbox"] + div.bg-bg-000 {
+      background: @text !important;
+    }
+
+    /* "Add writing example" button */
+    button.\!text-accent-secondary-100.bg-accent-secondary-900 {
+      color: @base !important;
+      &:hover {
+        color: @text !important;
+      }
+    }
+
+    /* "Describe your style" list */
+    button.\!bg-accent-secondary-900.text-accent-secondary-000 {
+      color: @base !important;
+    }
+
+    /* "Be as descriptive as possible..." helper text */
+    div.bg-accent-secondary-900.text-text-200 {
+      color: @base !important;
+    }
+
+    /* "Preview with an example..." pills */
+    button.hover\:bg-accent-secondary-900.hover\:text-accent-secondary-000 {
+      color: @accent !important;
+      &:hover {
+      color: @base !important;
+      }
+    }
+
+    /* "Previewing with ..." dropdown button */
+    button.\!text-accent-secondary-100.hover\:\!bg-accent-secondary-900 {
+      color: @accent !important;
+      &:hover {
+      color: @base !important;
+      }
+    }
+  }
+}
+
+#hslify(@color) {
+  @raw: e(
+    %("%s %s% %s%", hue(@color), saturation(@color), lightness(@color))
+  );
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
