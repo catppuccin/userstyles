@@ -90,6 +90,7 @@
     @hover-regular: fade(@surface2, 50%);
     @hover-accent: mix(@base, @accent, 70%);
     @hover-button: @surface1;
+    @hover-flush-button: fade(@surface1, 30%);
 
     /* GENERAL UI CHANGES */
 
@@ -236,6 +237,9 @@
         > div[class$="modalFooter"] {
           background-color: @surface0;
           border-color: @surface1;
+          button {
+            .neutral-button();
+          }
         }
       }
     }
@@ -399,9 +403,6 @@
         }
         color: @text;
       }
-      color: @text;
-      background-color: @surface0;
-      border-color: @surface1;
       path[fill="#000000"] {
         fill: @text;
       }
@@ -416,48 +417,99 @@
       }
     }
 
-    .searchButton__container button,
-    span[type="button"],
-    a:has(.css-1rpus1y-baseButton__content),
-    button:has(.css-1rpus1y-baseButton__content) {
-      .neutral-button();
+    /* this is for buttons that are accent-colored */
+    .accent-button() {
+      background-color: @accent;
+      border-color: @surface1;
+      &:disabled {
+        filter: brightness(85%);
+      }
+      &:not(:disabled):hover {
+        > [class$="baseButton__content"] {
+          filter: brightness(115%);
+        }
+      }
+      path[fill="#000000"] {
+        fill: @mantle;
+      }
+      > [class$="baseButton__content"] {
+        transition-property: all;
+        color: @mantle;
+        background-color: @accent;
+        border-color: @surface1;
+      }
     }
 
+    .searchButton__container button,
+    span[type="button"] {
+      .neutral-button();
+    }
+    // a:has(.css-1rpus1y-baseButton__content),
+    // button:has(.css-1rpus1y-baseButton__content) {
+    //   .neutral-button();
+    // }
+
+    /* this is for buttons that have no border/background until hovered */
+    .flush-button() {
+      color: @text;
+      background-color: transparent;
+      border-color: transparent;
+      &:hover {
+        background-color: @hover-flush-button;
+        > [class$="baseButton__content"] {
+          background-color: @hover-flush-button;
+        }
+        color: @text;
+      }
+      path[fill="#000000"] {
+        fill: @text;
+      }
+      > [class$="baseButton__content"] {
+        color: @text;
+        transition-property: background, transform, filter;
+      }
+      [class$="text"] {
+        color: @text;
+      }
+    }
+
+
+
     /* the below styles are taken from canvas's common css sheet */
-    .btn,
-    .Button,
+    .btn:not(.btn-primary, .btn-link),
+    .Button:not(.Button--link, .Button--primary),
     .ui-button {
       background-color: @surface0;
       color: @text;
       border-color: @surface1;
     }
 
-    .btn:focus,
-    .Button:focus,
+    .btn:not(.btn-primary, .btn-link):focus,
+    .Button:not(.Button--link, .Button--primary):focus,
     .ui-button:focus {
       color: @text;
     }
 
-    .btn:hover,
-    .Button:hover,
+    .btn:not(.btn-primary, .btn-link):hover,
+    .Button:not(.Button--link, .Button--primary):hover,
     .ui-button:hover {
       background-color: @hover-button;
       color: @text;
     }
 
-    .btn:hover.ui-state-hover,
-    .Button:hover.ui-state-hover,
+    .btn:not(.btn-primary, .btn-link):hover.ui-state-hover,
+    .Button:not(.Button--link, .Button--primary):hover.ui-state-hover,
     .ui-button:hover.ui-state-hover {
       background-color: @hover-button;
       color: @text;
       border-color: darken(@surface1, 5%);
     }
 
-    .btn.active,
-    .btn.Button--active,
-    .Button.active,
+    .btn:not(.btn-primary, .btn-link).active,
+    .btn:not(.btn-primary, .btn-link).Button--active,
+    .Button:not(.Button--link, .Button--primary).active,
     .active.ui-button,
-    .Button.Button--active,
+    .Button:not(.Button--link, .Button--primary).Button--active,
     .Button--active.ui-button,
     .ui-button.ui-state-active:hover,
     .ui-button.ui-state-active,
@@ -467,8 +519,8 @@
       color: @mantle;
     }
 
-    .btn:active,
-    .Button:active,
+    .btn:not(.btn-primary, .btn-link):active,
+    .Button:not(.Button--link, .Button--primary):active,
     .ui-button:active {
       background-color: darken(@hover-button, 3%);
     }
@@ -482,55 +534,10 @@
       background: transparent;
     }
 
-    /* filled-in buttons with colored bg */
     --ic-brand-button--primary-bgd: @accent;
     --ic-brand-button--primary-text: @crust;
     --ic-brand-button--primary-bgd-darkened-5: darken(@accent, 5%);
     --ic-brand-button--primary-bgd-darkened-15: darken(@accent, 15%);
-    .btn-primary,
-    .Button--primary {
-      background: var(--ic-brand-button--primary-bgd);
-      color: var(--ic-brand-button--primary-text);
-      border-color: var(--ic-brand-button--primary-bgd-darkened-15);
-    }
-    .btn-primary.active,
-    .btn-primary.Button--active,
-    .btn-primary.ui-button.ui-state-active,
-    .ui-progressbar .btn-primary.ui-button.ui-widget-header,
-    .btn-primary:active,
-    .Button--primary.active,
-    .Button--primary.Button--active,
-    .Button--primary.ui-button.ui-state-active,
-    .ui-progressbar .Button--primary.ui-button.ui-widget-header,
-    .Button--primary:active {
-      background: var(--ic-brand-button--primary-bgd-darkened-5);
-    }
-    .btn-primary:hover,
-    .Button--primary:hover {
-      background: var(--ic-brand-button--primary-bgd-darkened-5);
-      color: var(--ic-brand-button--primary-text);
-    }
-    .btn-link,
-    .Button--link {
-      border-color: transparent;
-      cursor: pointer;
-      color: var(--ic-link-color);
-    }
-
-    .btn-link:hover:focus,
-    .Button--link:hover:focus {
-      color: var(--ic-link-color);
-    }
-    .btn-link:hover,
-    .Button--link:hover {
-      color: var(--ic-link-color-darkened-10);
-      background: transparent;
-    }
-
-    .btn-link:focus,
-    .Button--link:focus {
-      color: var(--ic-link-color);
-    }
 
     .btn-link.active,
     .btn-link.Button--active,
@@ -603,39 +610,22 @@
     }
     /* end of copy-pasted styles */
 
+    span[role="button"]::before, /* drag handle */
     :is(button, a)[class$="baseButton"]::before {
       border-color: @accent;
     }
 
-    .accent-button() {
-      &:disabled {
-        filter: brightness(85%);
-      }
-      &:not(:disabled):hover {
-        > [class$="baseButton__content"] {
-          filter: brightness(115%);
-        }
-      }
-      background-color: @accent;
-      border-color: @surface1;
-      path[fill="#000000"] {
-        fill: @mantle;
-      }
-      > [class$="baseButton__content"] {
-        transition-property: all;
-        color: @mantle;
-        background-color: @accent;
-        border-color: @surface1;
-      }
-    }
 
     .ActionButtons button[id^="Drilldown"] {
       .accent-button();
     }
 
-    .Button--icon-action,
-    .Button--icon-action-rev {
-      background-color: transparent;
+    .Button--icon-action:hover,.Button--icon-action-danger:hover,.Button--icon-action-rev:hover,.Button--icon-action:focus,.Button--icon-action-danger:focus,.Button--icon-action-rev:focus {
+      background: transparent !important;
+    }
+
+    .btn-primary:focus,.Button--primary:focus {
+      box-shadow: inset 0 0 0 2px @crust;
     }
 
     /* checkboxes */
@@ -796,10 +786,9 @@
         color: @text;
       }
     }
-    #DashboardOptionsMenu_Container svg {
-      color: @text;
+    #DashboardOptionsMenu_Container button {
+      .flush-button();
     }
-
     .ic-DashboardCard {
       background-color: @surface0;
       .ic-DashboardCard__header_content {
@@ -1293,17 +1282,7 @@
       background-color: @mantle;
       border-color: @surface2;
       button {
-        &::before {
-          /* on-click-outline */
-          border-color: var(--ic-link-color);
-        }
-        svg {
-          color: @text;
-        }
-        span {
-          background-color: @surface0;
-          border-color: @surface1;
-        }
+        .neutral-button();
       }
     }
     button[data-testid="address-button"] {
@@ -1317,9 +1296,6 @@
         color: @text;
         background-color: @surface1;
       }
-    }
-    #send-message-button {
-      .accent-button();
     }
     #inbox-conversation-holder > div > div > div {
       /* each email entry */
@@ -1341,9 +1317,7 @@
       }
       button[data-testid="visible-not-starred"],
       button[data-testid="visible-starred"] {
-        svg {
-          color: @text;
-        }
+        .flush-button();
       }
     }
     [data-testid="unread-badge"] span svg {
@@ -1354,27 +1328,36 @@
     }
 
     /* right side */
-    span:has(> #inbox-conversation-holder) + span > div > div {
-      border-color: @surface1;
+    span:has(> #inbox-conversation-holder) + span {
+      > div > div {
+        border-color: @surface1;
+      }
+      button {
+        .flush-button();
+      }
     }
     /* compose message overlay */
     span[data-testid="compose-modal-desktop"] {
       background-color: @surface0;
       border-color: @surface1;
-      span:has(> label[for^="TextArea"]) {
+      span[class$="view"]:has(label[for^="TextArea"]) {
         border-color: @surface1;
         textarea {
           color: @text;
-        }
-        span[class$="textArea__outline"] {
-          border-color: @accent;
         }
       }
       span[data-testid="past-messages"] div[class$="view"] {
         border-color: @surface1;
       }
-      button[class$="baseButton"]:not([data-testid="send-button"]) {
-        .neutral-button();
+      > div[class$="modalBody"] {
+        button {
+          .neutral-button();
+        }
+      }
+      > div[class$="modalFooter"] {
+        #send-message-button {
+          .accent-button();
+        }
       }
     }
 
@@ -1564,6 +1547,9 @@
     .module-sequence-footer .module-sequence-footer-content {
       background-color: @base;
       border-color: @surface1;
+      a {
+        .neutral-button();
+      }
     }
 
     /* submitting */
@@ -1842,12 +1828,8 @@
     }
     [data-testid="RCEStatusBar"] {
       color: @subtext0;
-      /* .css-1kjxjg4-view--inlineBlock-baseButton */
-      button > span {
-        color: @text;
-      }
-      button:hover > span {
-        background-color: fade(@surface0, 50%);
+      button {
+        .flush-button();
       }
       > span > div {
         border-color: @surface1 !important;
@@ -1871,6 +1853,9 @@
     }
     .discussions-index-manage-menu > button {
       .neutral-button();
+    }
+    #add_discussion {
+      .accent-button();
     }
 
     /* author profile picture placeholder */
