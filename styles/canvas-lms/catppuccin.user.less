@@ -73,6 +73,9 @@
         color: @subtext0 !important;
       }
     }
+    textarea + span[class$="textArea__outline"] {
+      border-color: @accent;
+    }
 
     /* GLOBALS/VARIABLES */
     --ic-brand-primary: @accent;
@@ -199,7 +202,12 @@
 
     a[class$="link"]:not(.btn, .ic-DashboardCard__link),
     a[class$="link"] > span,
-    button[class$="link"]:not(.btn),
+    button[class$="link"]:not(.btn) {
+      color: @blue;
+      &:focus {
+        outline-color: @accent;
+      }
+    }
     a.external span {
       color: @blue;
     }
@@ -223,13 +231,17 @@
     /* fullscreen background for modal popups */
     body > span > span[class*="mask"] {
       background-color: fade(@overlay0, 75%);
+      /* modals */
       > span {
         color: @text;
         background-color: @base;
         border-color: @surface1;
-        > div[class$="modalHeader"] {
+        div[class$="modalHeader"] {
           background-color: transparent;
           border-color: @surface1;
+          button:has(svg[name="IconX"]) {
+            .flush-button();
+          }
         }
         img {
           background-color: transparent;
@@ -291,7 +303,13 @@
         .menu-item__text {
           background-color: transparent;
         }
+        .ic-app-header__menu-list-link:focus {
+          box-shadow: inset 0 0 0 .125rem @base,inset 0 0 0 .25rem var(--ic-brand-global-nav-menu-item__text-color--active);
+        }
       }
+    }
+    .ic-app-header__menu-list-link:focus {
+      box-shadow: inset 0 0 0 .125rem @surface1, inset 0 0 0 .25rem @surface2;
     }
     --ic-brand-global-nav-menu-item__text-color--active: @accent;
     --ic-brand-global-nav-menu-item__badge-text--active: @mantle;
@@ -396,6 +414,9 @@
 
     /* filled-in buttons - this auto-generated class covers a lot of them */
     .neutral-button() {
+      color: @text;
+      background-color: @surface0;
+      border-color: @surface1;
       &:hover {
         background-color: @hover-button;
         > [class$="baseButton__content"] {
@@ -629,13 +650,20 @@
     }
 
     /* checkboxes */
-    input:not(:checked) + label span[class$="checkboxFacade__facade"] {
+    [class$="checkboxFacade__facade"] {
+      &::before {
+        border-color: @accent;
+      }
+    }
+    input + label span[class$="checkboxFacade__facade"] {
       border-color: @surface2;
       background-color: @base;
     }
-    /* input:checked + label span[class$="checkboxFacade__facade"] { */
-    /*   background-color: @surface2; */
-    /* } */
+    input:checked + label span[class$="checkboxFacade__facade"] {
+      border-color: @surface2;
+      background-color: @text;
+      color: @base;
+    }
     input + label span[class$="label"] {
       color: @text;
     }
@@ -647,6 +675,9 @@
       border-color: @surface2;
       input {
         color: @text !important;
+      }
+      &::before {
+        border-color: @accent;
       }
     }
     select {
@@ -1288,6 +1319,9 @@
     button[data-testid="address-button"] {
       .neutral-button();
     }
+    svg[name="IconEmail"] {
+      color: @text;
+    }
 
     /* left side */
     [data-testid="conversation"] {
@@ -1376,9 +1410,9 @@
       border-color: @surface2;
     }
 
-    .attachment_wrapper {
+    span:has(> [class$="fileDrop__labelContent"]) {
       [class$="fileDrop__labelContent"] {
-        border-color: @text;
+        border-color: @overlay1;
         &:hover {
           border-color: @accent;
         }
@@ -2123,6 +2157,12 @@
         '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36"><title>folder</title><path d="M14.43 10.81 11.23 6H.43v21.58A2.4 2.4 0 0 0 2.82 30h22.36a2.4 2.4 0 0 0 2.4-2.4V10.81ZM26 27.58a.8.8 0 0 1-.8.8H2.82a.8.8 0 0 1-.8-.8v-20h8.35l2.13 3.19H3.62v1.6H26Z" fill="@{text}" fill-rule="evenodd"/></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}");
+    }
+    .ef-big-icon {
+      filter: @text-filter;
+    }
+    .al-trigger-gray {
+      color: @overlay1;
     }
 
     /* CHAT */
