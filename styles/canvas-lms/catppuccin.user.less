@@ -73,9 +73,6 @@
         color: @subtext0 !important;
       }
     }
-    textarea + span[class$="textArea__outline"] {
-      border-color: @accent;
-    }
 
     /* GLOBALS/VARIABLES */
     --ic-brand-primary: @accent;
@@ -609,20 +606,48 @@
       box-shadow: inset 0 0 0 2px @crust;
     }
 
-    /* checkboxes */
-    [class$="checkboxFacade__facade"] {
+    /* outlines around clicked elements */
+    [class$="__facade"] {
       &::before {
         border-color: @accent;
       }
     }
-    input + label span[class$="checkboxFacade__facade"] {
-      border-color: @surface2;
-      background-color: @base;
+    textarea + span[class$="textArea__outline"] {
+      border-color: @accent;
     }
-    input:checked + label span[class$="checkboxFacade__facade"] {
-      border-color: @surface2;
-      background-color: @text;
-      color: @base;
+
+    /* checkboxes */
+    input + label span {
+      &[class*="checkboxFacade__facade"],
+      &[class*="toggleFacade__facade"] {
+        border-color: @surface1;
+        background-color: @surface0;
+        span[class$="__iconToggle"] {
+          &::before {
+            background-color: @mantle;
+            border-color: @surface2;
+          }
+          svg {
+            color: @text;
+          }
+        }
+      }
+    }
+    input:checked + label span {
+      &[class*="checkboxFacade__facade"],
+      &[class*="toggleFacade__facade"] {
+        border-color: @surface1;
+        background-color: @green;
+        span[class$="__iconToggle"] {
+          &::before {
+            background-color: @mantle;
+            border-color: @green;
+          }
+          svg {
+            color: @green;
+          }
+        }
+      }
     }
     input + label span[class$="label"] {
       color: @text;
@@ -635,9 +660,6 @@
       border-color: @surface2;
       input {
         color: @text !important;
-      }
-      &::before {
-        border-color: @accent;
       }
     }
     select {
@@ -683,6 +705,58 @@
     /* pdf reader */
     .Pages {
       background-color: @surface0;
+    }
+
+    /* ui tabs */
+    .ui-tabs {
+      .ui-tabs-panel,
+      .ui-tabs-nav {
+        border-color: @surface1;
+      }
+      .ui-tabs-nav li.ui-state-hover,
+      .ui-tabs-nav li:hover,
+      .ui-tabs-nav li.ui-tabs-active,
+      .ui-tabs-nav li.ui-tabs-active.ui-state-hover,
+      .ui-tabs-nav li.ui-tabs-active:hover {
+        background-color: @base;
+        border-color: @surface1;
+        a {
+          color: @text;
+        }
+      }
+
+      .ui-state-hover {
+        background-color: mix(@overlay2, @surface1, 20%);
+      }
+      .ui-tabs-panel {
+        background-color: @base;
+      }
+      #assignments {
+        tr .title {
+          border-color: @surface1;
+        }
+      }
+    }
+    div[class$="view-tabs__container"] {
+      background-color: transparent;
+      div[class$="view-tab"] {
+        background-color: transparent;
+        color: @text;
+        &[aria-selected="true"] {
+          border-color: @surface2;
+          border-bottom-color: @base;
+        }
+      }
+      div[role="tabpanel"] > div {
+        background-color: transparent;
+        border-color: @surface1;
+      }
+    }
+    div[role="tab"] {
+      color: @text;
+      &[aria-selected="true"]::after {
+        background-color: @accent;
+      }
     }
 
     /* RECENT ACTIVITY/HOME */
@@ -885,23 +959,6 @@
     }
     #ColorPicker__Apply {
       .accent-button();
-    }
-    span[data-position-content^="Popover"]:has(
-      div[class$="view-tabs__container"]
-    ) {
-      div[class$="view-tab"] {
-        background-color: @surface1;
-        border-bottom-color: @surface2;
-        color: @text;
-        &[aria-selected="true"] {
-          border-color: @surface2;
-          border-bottom-color: transparent;
-        }
-      }
-      div[role="tabpanel"] > div {
-        border-color: @surface2;
-        background-color: @surface1;
-      }
     }
     .ColorPicker__Container {
       background-color: @surface1;
@@ -2265,19 +2322,6 @@
     #gradebook-student-search {
       label span {
         color: @subtext1;
-      }
-    }
-    div[class$="view-tabs__container"] {
-      div[role="tabpanel"] > div {
-        background-color: transparent;
-        border-color: @surface1;
-      }
-      background-color: transparent;
-    }
-    div[role="tab"] {
-      color: @text;
-      &[aria-selected="true"]::after {
-        background-color: @accent;
       }
     }
 
