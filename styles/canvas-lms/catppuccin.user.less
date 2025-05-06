@@ -89,8 +89,6 @@
     /* hover colors, used based on whether canvas's css has a blue hover or grayed-out hover color */
     @hover-regular: fade(@surface2, 50%);
     @hover-accent: mix(@base, @accent, 70%);
-    @hover-button: @surface1;
-    @hover-flush-button: fade(@surface1, 30%);
 
     /* GENERAL UI CHANGES */
 
@@ -413,6 +411,7 @@
     }
 
     /* filled-in buttons - this auto-generated class covers a lot of them */
+    @hover-button: @surface1;
     .neutral-button() {
       color: @text;
       background-color: @surface0;
@@ -439,6 +438,7 @@
     }
 
     /* this is for buttons that are accent-colored */
+    @hover-accent-button: mix(@base, @accent, 20%);
     .accent-button() {
       background-color: @accent;
       border-color: @surface1;
@@ -451,6 +451,13 @@
         background-color: @accent;
         border-color: @surface1;
       }
+      &:hover {
+        background-color: @hover-accent-button;
+        > [class$="baseButton__content"] {
+          background-color: @hover-accent-button;
+        }
+        color: @mantle;
+      }
     }
 
     span[type="button"] {
@@ -458,6 +465,7 @@
     }
 
     /* this is for buttons that have no border/background until hovered */
+    @hover-flush-button: fade(@surface1, 30%);
     .flush-button() {
       color: @text;
       background-color: transparent;
@@ -482,7 +490,13 @@
     }
 
     .btn:not(.btn-primary, .btn-link),
-    .Button:not(.Button--link, .Button--primary),
+    .Button:not(
+      .Button--link,
+      .Button--primary,
+      .Button--icon-action,
+      .Button--icon-action-danger,
+      .Button--icon-action-rev
+    ),
     .ui-button {
       background-color: @surface0;
       color: @text;
@@ -600,6 +614,10 @@
     .Button--icon-action-danger:focus,
     .Button--icon-action-rev:focus {
       background: transparent !important;
+    }
+
+    .Button--icon-action-rev:focus {
+      box-shadow: inset 0 0 0 2px @text;
     }
 
     .btn-primary:focus, .Button--primary:focus {
@@ -1769,6 +1787,9 @@
       }
       [data-testid="mathml-preview-element"] {
         color: @text;
+      }
+      button[data-testid="equation-editor-modal-done"] {
+        .accent-button();
       }
     }
 
