@@ -67,6 +67,12 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 </details>
 <details open>
+<summary>📜 Documentation Generators</summary>
+
+- [mdBook](styles/mdbook)
+
+</details>
+<details open>
 <summary>🌱 Terminals</summary>
 
 - [Ghostty.org](styles/ghostty.org)
@@ -123,7 +129,6 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>🧠 Wikis</summary>
 
 - ❤️‍🩹 [Arch Wiki](styles/arch-wiki)
-- [mdBook](styles/mdbook)
 - [NixOS Wiki](styles/wiki.nixos.org)
 - [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
