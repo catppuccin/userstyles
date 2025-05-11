@@ -2,7 +2,7 @@
 @name Canvas LMS Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/canvas-lms
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/canvas-lms
-@version 2025.03.13.1
+@version 2025.05.05
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/canvas-lms/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Acanvas-lms
 @description Soothing pastel theme for Canvas LMS
@@ -59,7 +59,7 @@
     @blue-filter: @catppuccin-filters[@@flavor][@blue];
     @green-filter: @catppuccin-filters[@@flavor][@green];
     @yellow-filter: @catppuccin-filters[@@flavor][@yellow];
-    @surface2-filter: @catppuccin-filters[@@flavor][@surface2];
+    @surface1-filter: @catppuccin-filters[@@flavor][@surface1];
 
     color-scheme: if(@flavor = latte, light, dark);
 
@@ -72,6 +72,9 @@
       &::placeholder {
         color: @subtext0 !important;
       }
+    }
+    textarea + span[class$="textArea__outline"] {
+      border-color: @accent;
     }
 
     /* GLOBALS/VARIABLES */
@@ -90,6 +93,7 @@
     @hover-regular: fade(@surface2, 50%);
     @hover-accent: mix(@base, @accent, 70%);
     @hover-button: @surface1;
+    @hover-flush-button: fade(@surface1, 30%);
 
     /* GENERAL UI CHANGES */
 
@@ -198,7 +202,12 @@
 
     a[class$="link"]:not(.btn, .ic-DashboardCard__link),
     a[class$="link"] > span,
-    button[class$="link"]:not(.btn),
+    button[class$="link"]:not(.btn) {
+      color: @blue;
+      &:focus {
+        outline-color: @accent;
+      }
+    }
     a.external span {
       color: @blue;
     }
@@ -222,13 +231,17 @@
     /* fullscreen background for modal popups */
     body > span > span[class*="mask"] {
       background-color: fade(@overlay0, 75%);
+      /* modals */
       > span {
         color: @text;
         background-color: @base;
         border-color: @surface1;
-        > div[class$="modalHeader"] {
+        div[class$="modalHeader"] {
           background-color: transparent;
           border-color: @surface1;
+          button:has(svg[name="IconX"]) {
+            .flush-button();
+          }
         }
         img {
           background-color: transparent;
@@ -236,6 +249,9 @@
         > div[class$="modalFooter"] {
           background-color: @surface0;
           border-color: @surface1;
+          button {
+            .neutral-button();
+          }
         }
       }
     }
@@ -287,7 +303,16 @@
         .menu-item__text {
           background-color: transparent;
         }
+        .ic-app-header__menu-list-link:focus {
+          box-shadow:
+            inset 0 0 0 0.125rem @base,
+            inset 0 0 0 0.25rem
+            var(--ic-brand-global-nav-menu-item__text-color--active);
+        }
       }
+    }
+    .ic-app-header__menu-list-link:focus {
+      box-shadow: inset 0 0 0 0.125rem @surface1, inset 0 0 0 0.25rem @surface2;
     }
     --ic-brand-global-nav-menu-item__text-color--active: @accent;
     --ic-brand-global-nav-menu-item__badge-text--active: @mantle;
@@ -392,6 +417,9 @@
 
     /* filled-in buttons - this auto-generated class covers a lot of them */
     .neutral-button() {
+      color: @text;
+      background-color: @surface0;
+      border-color: @surface1;
       &:hover {
         background-color: @hover-button;
         > [class$="baseButton__content"] {
@@ -399,9 +427,6 @@
         }
         color: @text;
       }
-      color: @text;
-      background-color: @surface0;
-      border-color: @surface1;
       path[fill="#000000"] {
         fill: @text;
       }
@@ -416,61 +441,88 @@
       }
     }
 
-    .PlannerItem-styles__secondary button,
-    .discussions-index-manage-menu > button,
-    span[type="button"],
-    [data-testid="compose-modal-desktop"]
-      button[class$="baseButton"]:not([data-testid="send-button"]),
-    #immersive_reader_mount_point button,
-    #immersive_reader_mobile_mount_point button,
-    .ColorPicker__Actions button[class$="baseButton"]:not([id$="Apply"]),
-    #grades_summary a[role="button"],
-    #planner-today-btn,
-    form[action="/logout"] button,
-    button[data-testid="address-button"],
-    button[data-testid="gradebook-settings-button"],
-    .searchButton__container button,
-    a:has(.css-1rpus1y-baseButton__content),
-    button:has(.css-1rpus1y-baseButton__content) {
+    /* this is for buttons that are accent-colored */
+    .accent-button() {
+      background-color: @accent;
+      border-color: @surface1;
+      path[fill="#000000"] {
+        fill: @mantle;
+      }
+      > [class$="baseButton__content"] {
+        transition-property: all;
+        color: @mantle;
+        background-color: @accent;
+        border-color: @surface1;
+      }
+    }
+
+    span[type="button"] {
       .neutral-button();
     }
 
-    /* the below styles are taken from canvas's common css sheet */
-    .btn,
-    .Button,
+    /* this is for buttons that have no border/background until hovered */
+    .flush-button() {
+      color: @text;
+      background-color: transparent;
+      border-color: transparent;
+      &:hover {
+        background-color: @hover-flush-button;
+        > [class$="baseButton__content"] {
+          background-color: @hover-flush-button;
+        }
+        color: @text;
+      }
+      path[fill="#000000"] {
+        fill: @text;
+      }
+      > [class$="baseButton__content"] {
+        color: @text;
+        transition-property: background, transform, filter;
+      }
+      [class$="text"] {
+        color: @text;
+      }
+    }
+
+    .btn:not(.btn-primary, .btn-link),
+    .Button:not(.Button--link, .Button--primary),
     .ui-button {
       background-color: @surface0;
       color: @text;
       border-color: @surface1;
+      &:focus {
+        color: @text;
+      }
+      &:hover {
+        background-color: @hover-button;
+        color: @text;
+      }
+      &.ui-state-hover {
+        background-color: @hover-button;
+        color: @text;
+        border-color: darken(@surface1, 5%);
+      }
+      &:active {
+        background-color: darken(@hover-button, 3%);
+      }
+      &.active, &.Button--active {
+        background-color: @subtext0;
+        border-color: lighten(@surface1, 10%);
+        color: @mantle;
+      }
     }
 
-    .btn:focus,
-    .Button:focus,
-    .ui-button:focus {
-      color: @text;
+    .btn-link,
+    .Button--link {
+      &.active, &.Button--active, &.ui-button.ui-state-active, &:active {
+        background: @surface0;
+      }
+      &.disabled, &.ui-button.ui-state-disabled, &[disabled] {
+        background: transparent;
+      }
     }
 
-    .btn:hover,
-    .Button:hover,
-    .ui-button:hover {
-      background-color: @hover-button;
-      color: @text;
-    }
-
-    .btn:hover.ui-state-hover,
-    .Button:hover.ui-state-hover,
-    .ui-button:hover.ui-state-hover {
-      background-color: @hover-button;
-      color: @text;
-      border-color: darken(@surface1, 5%);
-    }
-
-    .btn.active,
-    .btn.Button--active,
-    .Button.active,
-    .active.ui-button,
-    .Button.Button--active,
-    .Button--active.ui-button,
+    /* the below styles are taken from canvas's common css sheet */
     .ui-button.ui-state-active:hover,
     .ui-button.ui-state-active,
     .ui-progressbar .ui-button.ui-widget-header {
@@ -479,94 +531,14 @@
       color: @mantle;
     }
 
-    .btn:active,
-    .Button:active,
-    .ui-button:active {
-      background-color: darken(@hover-button, 3%);
-    }
-
-    .btn-link,
-    .btn-link:active,
-    .btn-link[disabled],
-    .Button--link,
-    .Button--link:active,
-    .Button--link[disabled] {
-      background: transparent;
-    }
-
-    /* filled-in buttons with colored bg */
     --ic-brand-button--primary-bgd: @accent;
     --ic-brand-button--primary-text: @crust;
     --ic-brand-button--primary-bgd-darkened-5: darken(@accent, 5%);
     --ic-brand-button--primary-bgd-darkened-15: darken(@accent, 15%);
-    .btn-primary,
-    .Button--primary {
-      background: var(--ic-brand-button--primary-bgd);
-      color: var(--ic-brand-button--primary-text);
-      border-color: var(--ic-brand-button--primary-bgd-darkened-15);
-    }
-    .btn-primary.active,
-    .btn-primary.Button--active,
-    .btn-primary.ui-button.ui-state-active,
-    .ui-progressbar .btn-primary.ui-button.ui-widget-header,
-    .btn-primary:active,
-    .Button--primary.active,
-    .Button--primary.Button--active,
-    .Button--primary.ui-button.ui-state-active,
-    .ui-progressbar .Button--primary.ui-button.ui-widget-header,
-    .Button--primary:active {
-      background: var(--ic-brand-button--primary-bgd-darkened-5);
-    }
-    .btn-primary:hover,
-    .Button--primary:hover {
-      background: var(--ic-brand-button--primary-bgd-darkened-5);
-      color: var(--ic-brand-button--primary-text);
-    }
-    .btn-link,
-    .Button--link {
-      border-color: transparent;
-      cursor: pointer;
-      color: var(--ic-link-color);
-    }
 
-    .btn-link:hover:focus,
-    .Button--link:hover:focus {
-      color: var(--ic-link-color);
-    }
-    .btn-link:hover,
-    .Button--link:hover {
-      color: var(--ic-link-color-darkened-10);
-      background: transparent;
-    }
-
-    .btn-link:focus,
-    .Button--link:focus {
-      color: var(--ic-link-color);
-    }
-
-    .btn-link.active,
-    .btn-link.Button--active,
-    .btn-link.ui-button.ui-state-active,
     .ui-progressbar .btn-link.ui-button.ui-widget-header,
-    .btn-link:active,
-    .Button--link.active,
-    .Button--link.Button--active,
-    .Button--link.ui-button.ui-state-active,
-    .ui-progressbar .Button--link.ui-button.ui-widget-header,
-    .Button--link:active {
+    .ui-progressbar .Button--link.ui-button.ui-widget-header {
       background: @surface0;
-      border-color: transparent;
-      color: var(--ic-link-color);
-    }
-
-    .btn-link.disabled,
-    .btn-link.ui-button.ui-state-disabled,
-    .btn-link[disabled],
-    .Button--link.disabled,
-    .Button--link.ui-button.ui-state-disabled,
-    .Button--link[disabled] {
-      color: var(--ic-brand-font-color-dark);
-      background: transparent;
     }
 
     .btn-published,
@@ -615,52 +587,43 @@
     }
     /* end of copy-pasted styles */
 
+    span[role="button"]::before, /* drag handle */
     :is(button, a)[class$="baseButton"]::before {
       border-color: @accent;
     }
 
-    .accent-button() {
-      &:disabled {
-        filter: brightness(85%);
-      }
-      &:not(:disabled):hover {
-        > [class$="baseButton__content"] {
-          filter: brightness(115%);
-        }
-      }
-      background-color: @accent;
-      border-color: @surface1;
-      path[fill="#000000"] {
-        fill: @mantle;
-      }
-      > [class$="baseButton__content"] {
-        transition-property: all;
-        color: @mantle;
-        background-color: @accent;
-        border-color: @surface1;
-      }
-    }
-
-    #apply_select_menus,
-    #ColorPicker__Apply,
-    .ActionButtons button[id^="Drilldown"],
-    #send-message-button {
+    .ActionButtons button[id^="Drilldown"] {
       .accent-button();
     }
 
-    .Button--icon-action,
-    .Button--icon-action-rev {
-      background-color: transparent;
+    .Button--icon-action:hover,
+    .Button--icon-action-danger:hover,
+    .Button--icon-action-rev:hover,
+    .Button--icon-action:focus,
+    .Button--icon-action-danger:focus,
+    .Button--icon-action-rev:focus {
+      background: transparent !important;
+    }
+
+    .btn-primary:focus, .Button--primary:focus {
+      box-shadow: inset 0 0 0 2px @crust;
     }
 
     /* checkboxes */
-    input:not(:checked) + label span[class$="checkboxFacade__facade"] {
+    [class$="checkboxFacade__facade"] {
+      &::before {
+        border-color: @accent;
+      }
+    }
+    input + label span[class$="checkboxFacade__facade"] {
       border-color: @surface2;
       background-color: @base;
     }
-    /* input:checked + label span[class$="checkboxFacade__facade"] { */
-    /*   background-color: @surface2; */
-    /* } */
+    input:checked + label span[class$="checkboxFacade__facade"] {
+      border-color: @surface2;
+      background-color: @text;
+      color: @base;
+    }
     input + label span[class$="label"] {
       color: @text;
     }
@@ -672,6 +635,9 @@
       border-color: @surface2;
       input {
         color: @text !important;
+      }
+      &::before {
+        border-color: @accent;
       }
     }
     select {
@@ -749,6 +715,9 @@
     .ic-item-row__meta-content-timestamp > p {
       color: @subtext0;
     }
+    #mark_all_announcement_read {
+      .neutral-button();
+    }
 
     /* DASHBOARD */
     .StickyButton-styles__root {
@@ -782,6 +751,10 @@
         color: @subtext0;
       }
     }
+    #planner-today-btn,
+    .PlannerItem-styles__secondary button {
+      .neutral-button();
+    }
 
     .CompletedItemsFacade-styles__root {
       border-color: @surface1;
@@ -807,10 +780,9 @@
         color: @text;
       }
     }
-    #DashboardOptionsMenu_Container svg {
-      color: @text;
+    #DashboardOptionsMenu_Container button {
+      .flush-button();
     }
-
     .ic-DashboardCard {
       background-color: @surface0;
       .ic-DashboardCard__header_content {
@@ -868,6 +840,9 @@
         border-color: @surface1;
       }
     }
+    form[action="/logout"] button {
+      .neutral-button();
+    }
     .PlannerHeader [id^="Badge"] {
       background-color: @accent;
       color: @crust;
@@ -884,13 +859,10 @@
     }
 
     /* popup menus */
-    /* extra selectors are to avoid styling tooltips because their arrows are hard to style */
-    span[data-position-content^="Menu"]:not(
-      [data-position-content^="Menu__label"]
-    ),
+    span[data-position-content^="Menu"],
     span[data-position-content^="Popover"] {
-      span[class$="arrow"]::after {
-        filter: @surface2-filter;
+      span[class$="arrow"] {
+        filter: @surface1-filter;
       }
       > span {
         color: @text;
@@ -908,6 +880,12 @@
     }
 
     /* color picker menu (e.g. on dashboard) */
+    .ColorPicker__Actions button[class$="baseButton"]:not([id$="Apply"]) {
+      .neutral-button();
+    }
+    #ColorPicker__Apply {
+      .accent-button();
+    }
     span[data-position-content^="Popover"]:has(
       div[class$="view-tabs__container"]
     ) {
@@ -1011,13 +989,11 @@
     }
 
     /* dropdown menu */
-    span[data-position-content^="Menu"]:not(
-      [data-position-content^="Menu__label"]
-    ) {
+    span[data-position-content^="Menu___"] {
       span {
         color: @text;
       }
-      ul[role="menu"] {
+      [role="menu"] {
         &::before {
           border-color: @accent;
         }
@@ -1300,18 +1276,14 @@
       background-color: @mantle;
       border-color: @surface2;
       button {
-        &::before {
-          /* on-click-outline */
-          border-color: var(--ic-link-color);
-        }
-        svg {
-          color: @text;
-        }
-        span {
-          background-color: @surface0;
-          border-color: @surface1;
-        }
+        .neutral-button();
       }
+    }
+    button[data-testid="address-button"] {
+      .neutral-button();
+    }
+    svg[name="IconEmail"] {
+      color: @text;
     }
 
     /* left side */
@@ -1342,9 +1314,7 @@
       }
       button[data-testid="visible-not-starred"],
       button[data-testid="visible-starred"] {
-        svg {
-          color: @text;
-        }
+        .flush-button();
       }
     }
     [data-testid="unread-badge"] span svg {
@@ -1355,24 +1325,36 @@
     }
 
     /* right side */
-    span:has(> #inbox-conversation-holder) + span > div > div {
-      border-color: @surface1;
+    span:has(> #inbox-conversation-holder) + span {
+      > div > div {
+        border-color: @surface1;
+      }
+      button {
+        .flush-button();
+      }
     }
     /* compose message overlay */
     span[data-testid="compose-modal-desktop"] {
       background-color: @surface0;
       border-color: @surface1;
-      span:has(> label[for^="TextArea"]) {
+      span[class$="view"]:has(label[for^="TextArea"]) {
         border-color: @surface1;
         textarea {
           color: @text;
         }
-        span[class$="textArea__outline"] {
-          border-color: @accent;
-        }
       }
       span[data-testid="past-messages"] div[class$="view"] {
         border-color: @surface1;
+      }
+      > div[class$="modalBody"] {
+        button {
+          .neutral-button();
+        }
+      }
+      > div[class$="modalFooter"] {
+        #send-message-button {
+          .accent-button();
+        }
       }
     }
 
@@ -1390,6 +1372,22 @@
     .quiz-header {
       border-color: @surface2;
     }
+
+    span:has(> [class$="fileDrop__labelContent"]) {
+      [class$="fileDrop__labelContent"] {
+        border-color: @overlay1;
+        &:hover {
+          border-color: @accent;
+        }
+      }
+      [class$="fileDrop__layout"] * {
+        background-color: transparent;
+      }
+      label > span::before {
+        border-color: @accent;
+      }
+    }
+
     .question.fill_in_multiple_blanks_question .answer_group,
     .question.multiple_dropdowns_question .answer_group {
       border-color: @surface1;
@@ -1546,6 +1544,9 @@
     .module-sequence-footer .module-sequence-footer-content {
       background-color: @base;
       border-color: @surface1;
+      a {
+        .neutral-button();
+      }
     }
 
     /* submitting */
@@ -1587,9 +1588,6 @@
     .file-upload-submission {
       background-color: @surface0;
     }
-    /* #upload_media_tab { */
-    /*   img  */
-    /* } */
     .submission-details-header__heading-and-grades {
       border-color: @surface1;
     }
@@ -1816,6 +1814,19 @@
         color: @text;
       }
     }
+
+    #DrawerLayoutTray {
+      /* split screen layout */
+      background-color: @base;
+      border-color: @surface1;
+    }
+    button[class$="baseButton"]:has(svg[name="IconX"]) {
+      .flush-button();
+    }
+    button[class$="baseButton"]:has(svg[name="IconMore"]) {
+      .flush-button();
+    }
+
     .communication_message {
       border-color: @surface1;
     }
@@ -1827,12 +1838,8 @@
     }
     [data-testid="RCEStatusBar"] {
       color: @subtext0;
-      /* .css-1kjxjg4-view--inlineBlock-baseButton */
-      button > span {
-        color: @text;
-      }
-      button:hover > span {
-        background-color: fade(@surface0, 50%);
+      button {
+        .flush-button();
       }
       > span > div {
         border-color: @surface1 !important;
@@ -1847,12 +1854,45 @@
     .discussions-container__wrapper [class$="summaryText"] {
       color: @text;
     }
-    .ic-unread-badge__total-count,
     .ic-unread-badge__unread-count {
       color: @mantle;
     }
+    .ic-unread-badge__total-count {
+      background-color: @surface1;
+    }
     hr[data-testid="post-separator"] {
       border-color: @surface1 !important;
+    }
+    .searchButton__container button,
+    .discussions-index-manage-menu > button {
+      .neutral-button();
+    }
+    #add_discussion {
+      .accent-button();
+    }
+    .discussions-editor + div {
+      button[data-testid="attach-btn"] {
+        .flush-button();
+      }
+      .discussions-editor-cancel button {
+        .neutral-button();
+      }
+      .discussions-editor-submit button {
+        .accent-button();
+      }
+    }
+    .discussion-topic-reply-button button {
+      .accent-button();
+    }
+    .discussion-post-manage-discussion button {
+      .flush-button;
+    }
+    .discussion-post-subscribe button {
+      .flush-button();
+    }
+    button[data-testid="splitscreenButton"],
+    button[data-testid="ExpandCollapseThreads-button"] {
+      .neutral-button();
     }
 
     /* author profile picture placeholder */
@@ -1999,6 +2039,9 @@
       tr.final_grade {
         border-color: @surface2;
       }
+      a[role="button"] {
+        .neutral-button();
+      }
     }
 
     .ic-Form-control.ic-Form-control--checkbox .ic-Label::before {
@@ -2018,6 +2061,12 @@
         color: @text;
         background-color: @surface0;
       }
+    }
+    #apply_select_menus {
+      .accent-button();
+    }
+    #GradeSummarySelectMenuGroup label > span {
+      color: @text;
     }
 
     /* PEOPLE */
@@ -2051,6 +2100,11 @@
     #syllabus tr.detail_list td.not_last {
       border-color: @surface0;
     }
+    #immersive_reader_mount_point button,
+    #immersive_reader_mobile_mount_point button {
+      .neutral-button();
+    }
+
     .mini_calendar {
       .day {
         color: @subtext0;
@@ -2105,6 +2159,12 @@
         '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36"><title>folder</title><path d="M14.43 10.81 11.23 6H.43v21.58A2.4 2.4 0 0 0 2.82 30h22.36a2.4 2.4 0 0 0 2.4-2.4V10.81ZM26 27.58a.8.8 0 0 1-.8.8H2.82a.8.8 0 0 1-.8-.8v-20h8.35l2.13 3.19H3.62v1.6H26Z" fill="@{text}" fill-rule="evenodd"/></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}");
+    }
+    .ef-big-icon {
+      filter: @text-filter;
+    }
+    .al-trigger-gray {
+      color: @overlay1;
     }
 
     /* CHAT */
@@ -2197,6 +2257,9 @@
     .ui-state-default,
     .ui-widget-header {
       color: @subtext1;
+    }
+    button[data-testid="gradebook-settings-button"] {
+      .neutral-button();
     }
     #gradebook-assignment-search,
     #gradebook-student-search {
