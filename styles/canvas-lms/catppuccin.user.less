@@ -73,9 +73,6 @@
         color: @subtext0 !important;
       }
     }
-    textarea + span[class$="textArea__outline"] {
-      border-color: @accent;
-    }
 
     /* GLOBALS/VARIABLES */
     --ic-brand-primary: @accent;
@@ -92,8 +89,6 @@
     /* hover colors, used based on whether canvas's css has a blue hover or grayed-out hover color */
     @hover-regular: fade(@surface2, 50%);
     @hover-accent: mix(@base, @accent, 70%);
-    @hover-button: @surface1;
-    @hover-flush-button: fade(@surface1, 30%);
 
     /* GENERAL UI CHANGES */
 
@@ -229,9 +224,9 @@
     }
 
     /* fullscreen background for modal popups */
-    body > span > span[class*="mask"] {
-      background-color: fade(@overlay0, 75%);
+    :where(body > span > span[class*="mask"]) {
       /* modals */
+      background-color: fade(@overlay0, 75%);
       > span {
         color: @text;
         background-color: @base;
@@ -328,7 +323,7 @@
       fill: @text !important;
     }
 
-    /* sidebar trays (e.g. slide in from right side) */
+    /* sidebar sliding trays */
     body > span > [class*="tray"] {
       background-color: @mantle;
       fieldset,
@@ -345,6 +340,11 @@
         border-color: @surface1;
         background-color: @crust;
       }
+    }
+
+    div[aria-label="Global Navigation"] [class$="summaryText"] svg {
+      /* mobile nav menu icons */
+      color: @blue;
     }
 
     #nav-tray-portal {
@@ -376,6 +376,11 @@
           color: @accent;
         }
       }
+    }
+
+    .profile-tray button[aria-describedby^="Tooltip"] {
+      /* info tooltip on high contrast ui checkbox */
+      .flush-button();
     }
 
     /* link sidebar for courses */
@@ -416,6 +421,7 @@
     }
 
     /* filled-in buttons - this auto-generated class covers a lot of them */
+    @hover-button: @surface1;
     .neutral-button() {
       color: @text;
       background-color: @surface0;
@@ -442,6 +448,7 @@
     }
 
     /* this is for buttons that are accent-colored */
+    @hover-accent-button: mix(@base, @accent, 20%);
     .accent-button() {
       background-color: @accent;
       border-color: @surface1;
@@ -454,6 +461,13 @@
         background-color: @accent;
         border-color: @surface1;
       }
+      &:hover {
+        background-color: @hover-accent-button;
+        > [class$="baseButton__content"] {
+          background-color: @hover-accent-button;
+        }
+        color: @mantle;
+      }
     }
 
     span[type="button"] {
@@ -461,6 +475,7 @@
     }
 
     /* this is for buttons that have no border/background until hovered */
+    @hover-flush-button: fade(@surface1, 30%);
     .flush-button() {
       color: @text;
       background-color: transparent;
@@ -485,7 +500,13 @@
     }
 
     .btn:not(.btn-primary, .btn-link),
-    .Button:not(.Button--link, .Button--primary),
+    .Button:not(
+      .Button--link,
+      .Button--primary,
+      .Button--icon-action,
+      .Button--icon-action-danger,
+      .Button--icon-action-rev
+    ),
     .ui-button {
       background-color: @surface0;
       color: @text;
@@ -605,16 +626,25 @@
       background: transparent !important;
     }
 
+    .Button--icon-action-rev:focus {
+      box-shadow: inset 0 0 0 2px @text;
+    }
+
     .btn-primary:focus, .Button--primary:focus {
       box-shadow: inset 0 0 0 2px @crust;
     }
 
-    /* checkboxes */
-    [class$="checkboxFacade__facade"] {
+    /* outlines around clicked elements */
+    [class$="__facade"] {
       &::before {
         border-color: @accent;
       }
     }
+    textarea + span[class$="textArea__outline"] {
+      border-color: @accent;
+    }
+
+    /* checkboxes */
     input + label span[class$="checkboxFacade__facade"] {
       border-color: @surface2;
       background-color: @base;
@@ -624,6 +654,35 @@
       background-color: @text;
       color: @base;
     }
+
+    /* toggle switches */
+    input + label [class*="toggleFacade__facade"] {
+      border-color: @surface1;
+      background-color: @surface0;
+      span[class$="__iconToggle"] {
+        &::before {
+          background-color: @text;
+          border-color: @surface2;
+        }
+        svg {
+          color: @mantle;
+        }
+      }
+    }
+    input:checked + label [class*="toggleFacade__facade"] {
+      border-color: @surface1;
+      background-color: @green;
+      span[class$="__iconToggle"] {
+        &::before {
+          background-color: @mantle;
+          border-color: @green;
+        }
+        svg {
+          color: @green;
+        }
+      }
+    }
+
     input + label span[class$="label"] {
       color: @text;
     }
@@ -635,9 +694,6 @@
       border-color: @surface2;
       input {
         color: @text !important;
-      }
-      &::before {
-        border-color: @accent;
       }
     }
     select {
@@ -683,6 +739,59 @@
     /* pdf reader */
     .Pages {
       background-color: @surface0;
+    }
+
+    /* ui tabs */
+    .ui-tabs {
+      .ui-tabs-panel,
+      .ui-tabs-nav {
+        border-color: @surface1;
+      }
+      .ui-tabs-nav li.ui-state-hover,
+      .ui-tabs-nav li:hover,
+      .ui-tabs-nav li.ui-tabs-active,
+      .ui-tabs-nav li.ui-tabs-active.ui-state-hover,
+      .ui-tabs-nav li.ui-tabs-active:hover {
+        background-color: @base;
+        border-color: @surface1;
+        a {
+          color: @text;
+        }
+      }
+
+      .ui-state-hover {
+        background-color: mix(@overlay2, @surface1, 20%);
+      }
+      .ui-tabs-panel {
+        background-color: @base;
+      }
+      #assignments {
+        tr .title {
+          border-color: @surface1;
+        }
+      }
+    }
+
+    div[class$="view-tabs__container"] {
+      background-color: transparent;
+      div[class$="view-tab"] {
+        background-color: transparent;
+        color: @text;
+        &[aria-selected="true"] {
+          border-color: @surface2;
+          border-bottom-color: @base;
+        }
+      }
+      div[role="tabpanel"] > div {
+        background-color: transparent;
+        border-color: @surface1;
+      }
+    }
+    div[role="tab"] {
+      color: @text;
+      &[aria-selected="true"]::after {
+        background-color: @accent;
+      }
     }
 
     /* RECENT ACTIVITY/HOME */
@@ -885,23 +994,6 @@
     }
     #ColorPicker__Apply {
       .accent-button();
-    }
-    span[data-position-content^="Popover"]:has(
-      div[class$="view-tabs__container"]
-    ) {
-      div[class$="view-tab"] {
-        background-color: @surface1;
-        border-bottom-color: @surface2;
-        color: @text;
-        &[aria-selected="true"] {
-          border-color: @surface2;
-          border-bottom-color: transparent;
-        }
-      }
-      div[role="tabpanel"] > div {
-        border-color: @surface2;
-        background-color: @surface1;
-      }
     }
     .ColorPicker__Container {
       background-color: @surface1;
@@ -1611,6 +1703,7 @@
         background-color: fade(@overlay2, 50%);
         color: @subtext0;
         fill: @subtext0;
+        box-shadow: 0 0 0 2px @accent;
       }
       .tox-tbtn,
       .tox-split-button,
@@ -1688,9 +1781,33 @@
       .tox-collection__item--active {
         background-color: mix(@accent, @base, 30%);
       }
+      .tox-collection--list .tox-collection__item--enabled {
+        background-color: @surface1;
+      }
+      .tox-tbtn:focus:not(.tox-tbtn--disabled) svg {
+        fill: @text;
+      }
     }
     .canvas-rce__skins--root {
       background-color: @base;
+    }
+
+    /* equation editor */
+    span[aria-label="Equation Editor"] {
+      div[class$="panel"] button {
+        .neutral-button();
+      }
+      textarea,
+      math-field {
+        color: @text;
+        border-color: @surface2 !important;
+      }
+      [data-testid="mathml-preview-element"] {
+        color: @text;
+      }
+      button[data-testid="equation-editor-modal-done"] {
+        .accent-button();
+      }
     }
 
     #rubrics {
@@ -1703,39 +1820,12 @@
           background-color: @surface0;
           border-color: @surface1;
         }
-        table.ratings td {
+        .ratings * {
           border-color: @surface1;
         }
       }
-    }
-
-    .ui-tabs {
-      .ui-tabs-panel,
-      .ui-tabs-nav {
+      .rubric-footer {
         border-color: @surface1;
-      }
-      .ui-tabs-nav li.ui-state-hover,
-      .ui-tabs-nav li:hover,
-      .ui-tabs-nav li.ui-tabs-active,
-      .ui-tabs-nav li.ui-tabs-active.ui-state-hover,
-      .ui-tabs-nav li.ui-tabs-active:hover {
-        background-color: @base;
-        border-color: @surface1;
-        a {
-          color: @text;
-        }
-      }
-
-      .ui-state-hover {
-        background-color: mix(@overlay2, @surface1, 20%);
-      }
-      .ui-tabs-panel {
-        background-color: @base;
-      }
-      #assignments {
-        tr .title {
-          border-color: @surface1;
-        }
       }
     }
 
@@ -1843,6 +1933,9 @@
       }
       > span > div {
         border-color: @surface1 !important;
+      }
+      [data-btn-id="rce-editormessage-btn"] {
+        .neutral-button();
       }
     }
     button[data-testid="attach-btn"] > span {
@@ -1988,6 +2081,9 @@
           color: @text;
         }
       }
+    }
+    button[id^="webcam"] {
+      .neutral-button();
     }
 
     /* GRADES */
@@ -2248,6 +2344,9 @@
       background-color: @surface0;
       border-color: @surface1;
       color: @text;
+      &:hover {
+        background-color: @surface1;
+      }
       svg {
         fill: @text;
       }
@@ -2265,19 +2364,6 @@
     #gradebook-student-search {
       label span {
         color: @subtext1;
-      }
-    }
-    div[class$="view-tabs__container"] {
-      div[role="tabpanel"] > div {
-        background-color: transparent;
-        border-color: @surface1;
-      }
-      background-color: transparent;
-    }
-    div[role="tab"] {
-      color: @text;
-      &[aria-selected="true"]::after {
-        background-color: @accent;
       }
     }
 
