@@ -18,6 +18,7 @@
 @var select highlightColor2 "Highlight 2" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green*", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 @var select highlightColor3 "Highlight 3" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach*", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 @var select highlightColor4 "Highlight 4" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue*", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var checkbox styleBoard "Style Pieces" 1
 ==/UserStyle== */
 
 @-moz-document domain("chess.com") {
@@ -276,13 +277,14 @@
         }
       }
     }
-    .ui_v5-select-component {
-      --borderColor: @surface0;
-      --borderFocus: @surface1;
-      --bgColor: @base;
-      --textColor: @text;
-      --arrowColor: @subtext0;
-    }
+      .ui_v5-select-component {
+        --borderColor: @surface0;
+        --borderFocus: @surface1;
+        --bgColor: @base;
+        --textColor: @text;
+        --arrowColor: @subtext0;
+      }
+    
     .ui_pagination-item-component {
       --paginationColor: @text;
       --paginationBgColor: @surface1;
@@ -497,6 +499,7 @@
       background-color: @surface1;
     }
 
+    
     .arrow {
       &[style*="rgba(248, 85, 63, 0.8)"] {
         fill: @highlight1 !important;
@@ -592,7 +595,6 @@
     .popup-component {
       background-color: @surface0;
       color: @text;
-
       &.popup-left .popup-arrow {
         border-left-color: @surface0;
       }
@@ -643,16 +645,19 @@
       '<svg width="1600" height="1600" viewBox="0 0 1600 1600" xmlns="http://www.w3.org/2000/svg"><path fill="@{dark-cell}" d="M200 0v200h200V0Zm200 200v200h200V200Zm200 0h200V0H600Zm200 0v200h200V200Zm200 0h200V0h-200Zm200 0v200h200V200Zm200 0h200V0h-200zm0 200v200h200V400zm0 200h-200v200h200zm0 200v200h200V800Zm0 200h-200v200h200zm0 200v200h200v-200zm0 200h-200v200h200zm-200 0v-200h-200v200zm-200 0H800v200h200zm-200 0v-200H600v200zm-200 0H400v200h200zm-200 0v-200H200v200zm-200 0H0v200h200zm0-200v-200H0v200zm0-200h200V800H200Zm0-200V600H0v200zm0-200h200V400H200Zm0-200V200H0v200zm200 200v200h200V600Zm200 0h200V400H600Zm200 0v200h200V600Zm200 0h200V400h-200Zm0 200v200h200V800Zm0 200H800v200h200zm-200 0V800H600v200zm-200 0H400v200h200z"/><path fill="@{light-cell}" d="M0 0v200h200V0Zm200 200v200h200V200Zm200 0h200V0H400zm200 0v200h200V200Zm200 0h200V0H800Zm200 0v200h200V200Zm200 0h200V0h-200zm200 0v200h200V200Zm0 200h-200v200h200zm0 200v200h200V600Zm0 200h-200v200h200zm0 200v200h200v-200Zm0 200h-200v200h200zm0 200v200h200v-200zm-200 0h-200v200h200zm-200 0v-200H800v200zm-200 0H600v200h200zm-200 0v-200H400v200zm-200 0H200v200h200zm-200 0v-200H0v200zm0-200h200v-200H200Zm0-200V800H0v200zm0-200h200V600H200Zm0-200V400H0v200zm200 0h200V400H400zm200 0v200h200V600Zm200 0h200V400H800Zm200 0v200h200V600Zm0 200H800v200h200zm0 200v200h200v-200Zm-200 0H600v200h200zm-200 0V800H400v200z"/></svg>'
     );
 
-    #board-play-computer,
-    .fade-in-overlay {
-      background-image: url("data:image/svg+xml,@{board}");
-    }
+    & when (@styleBoard = 1) {
+      #board-play-computer,
+      .fade-in-overlay {
+        background-image: url("data:image/svg+xml,@{board}");
+      }
 
-    .coordinate-light {
-      fill: @dark-cell;
-    }
-    .coordinate-dark {
-      fill: @light-cell;
+      .coordinate-light {
+        fill: @dark-cell;
+      }
+      .coordinate-dark {
+        fill: @light-cell;
+      }
+
     }
 
     /*
@@ -707,65 +712,68 @@
       @result: url("data:image/svg+xml,@{svg}");
     }
 
-    --theme-board-style-image: url("data:image/svg+xml,@{board}");
-    --theme-board-style-highlight-color: @highlight1;
-
-    --theme-piece-set-wp: #piece(@pawn, "white")[];
-    --theme-piece-set-wn: #piece(@knight, "white")[];
-    --theme-piece-set-wr: #piece(@rook, "white")[];
-    --theme-piece-set-wb: #piece(@bishop, "white")[];
-    --theme-piece-set-wq: #piece(@queen, "white")[];
-    --theme-piece-set-wk: #piece(@king, "white")[];
-    --theme-piece-set-bp: #piece(@pawn, "black")[];
-    --theme-piece-set-bn: #piece(@knight, "black")[];
-    --theme-piece-set-bb: #piece(@bishop, "black")[];
-    --theme-piece-set-br: #piece(@rook, "black")[];
-    --theme-piece-set-bq: #piece(@queen, "black")[];
-    --theme-piece-set-bk: #piece(@king, "black")[];
-
     .board-popover-component {
       background-color: @surface0;
     }
+    
+    & when (@styleBoard = 1) {
+      
+      --theme-board-style-image: url("data:image/svg+xml,@{board}");
+      --theme-board-style-highlight-color: @highlight1;
 
-    .piece {
-      /* Black */
-      &.bp {
-        background-image: #piece(@pawn, "black")[] !important;
-      }
-      &.bn {
-        background-image: #piece(@knight, "black")[] !important;
-      }
-      &.bb {
-        background-image: #piece(@bishop, "black")[] !important;
-      }
-      &.br {
-        background-image: #piece(@rook, "black")[] !important;
-      }
-      &.bk {
-        background-image: #piece(@king, "black")[] !important;
-      }
-      &.bq {
-        background-image: #piece(@queen, "black")[] !important;
-      }
+      --theme-piece-set-wp: #piece(@pawn, "white")[];
+      --theme-piece-set-wn: #piece(@knight, "white")[];
+      --theme-piece-set-wr: #piece(@rook, "white")[];
+      --theme-piece-set-wb: #piece(@bishop, "white")[];
+      --theme-piece-set-wq: #piece(@queen, "white")[];
+      --theme-piece-set-wk: #piece(@king, "white")[];
+      --theme-piece-set-bp: #piece(@pawn, "black")[];
+      --theme-piece-set-bn: #piece(@knight, "black")[];
+      --theme-piece-set-bb: #piece(@bishop, "black")[];
+      --theme-piece-set-br: #piece(@rook, "black")[];
+      --theme-piece-set-bq: #piece(@queen, "black")[];
+      --theme-piece-set-bk: #piece(@king, "black")[];
 
-      /* White */
-      &.wp {
-        background-image: #piece(@pawn, "white")[] !important;
-      }
-      &.wn {
-        background-image: #piece(@knight, "white")[] !important;
-      }
-      &.wb {
-        background-image: #piece(@bishop, "white")[] !important;
-      }
-      &.wr {
-        background-image: #piece(@rook, "white")[] !important;
-      }
-      &.wk {
-        background-image: #piece(@king, "white")[] !important;
-      }
-      &.wq {
-        background-image: #piece(@queen, "white")[] !important;
+      .piece {
+        /* Black */
+        &.bp {
+          background-image: #piece(@pawn, "black")[] !important;
+        }
+        &.bn {
+          background-image: #piece(@knight, "black")[] !important;
+        }
+        &.bb {
+          background-image: #piece(@bishop, "black")[] !important;
+        }
+        &.br {
+          background-image: #piece(@rook, "black")[] !important;
+        }
+        &.bk {
+          background-image: #piece(@king, "black")[] !important;
+        }
+        &.bq {
+          background-image: #piece(@queen, "black")[] !important;
+        }
+
+        /* White */
+        &.wp {
+          background-image: #piece(@pawn, "white")[] !important;
+        }
+        &.wn {
+          background-image: #piece(@knight, "white")[] !important;
+        }
+        &.wb {
+          background-image: #piece(@bishop, "white")[] !important;
+        }
+        &.wr {
+          background-image: #piece(@rook, "white")[] !important;
+        }
+        &.wk {
+          background-image: #piece(@king, "white")[] !important;
+        }
+        &.wq {
+          background-image: #piece(@queen, "white")[] !important;
+        }
       }
     }
 
