@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-A curated collection of customized themes designed for various websites and web applications. These themes showcase delightful pastel colors, creating a soothing and visually pleasing experience when browsing the web.
+A curated collection of soothing pastel themes for your favorite websites and web applications.
 </p>
 
 <p align="center">
