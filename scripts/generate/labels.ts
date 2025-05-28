@@ -16,7 +16,11 @@ const macchiatoHex = flavors.macchiato.colorEntries
     return acc;
   }, {} as Record<ColorName, string>);
 
-const toIssueLabel = (slug: string | number) => `lbl:${slug}`;
+const toIssueLabel = (key: string) => `lbl:${key}`;
+
+const toIssueLabelRegex = (key: string) => `/${toIssueLabel(key)}(,.*)?$/gm`;
+
+const toPrLabel = (key: string) => `styles/${key}/**/*`;
 
 export async function syncIssueLabels(userstyles: UserstylesSchema.Userstyles) {
   // .github/issue-labeler.yml
@@ -24,8 +28,11 @@ export async function syncIssueLabels(userstyles: UserstylesSchema.Userstyles) {
     path.join(REPO_ROOT, ".github/issue-labeler.yml"),
     yaml.stringify(
       Object.entries(userstyles)
-        .reduce((acc, [key]) => {
-          acc[key.toString()] = [`/${toIssueLabel(key)}(,.*)?$/gm`];
+        .reduce((acc, [key, { supports }]) => {
+          acc[key.toString()] = [toIssueLabelRegex(key)];
+          Object.keys(supports ?? {}).forEach((key) => {
+            acc[key.toString()] = [toIssueLabelRegex(key)];
+          });
           return acc;
         }, {} as Record<string, string[]>),
     ),
@@ -42,7 +49,12 @@ export async function syncIssueLabels(userstyles: UserstylesSchema.Userstyles) {
       `"$LABELS"`,
       `${
         Object.entries(userstyles)
-          .map(([key]) => `"${toIssueLabel(key)}"`)
+          .flatMap(([slug, { supports }]) =>
+            [slug, ...Object.keys(supports ?? {})].map((key) =>
+              `"${toIssueLabel(key)}"`
+            )
+          )
+          .sort()
           .join(", ")
       }`,
     ),
@@ -53,8 +65,11 @@ export async function syncIssueLabels(userstyles: UserstylesSchema.Userstyles) {
     path.join(REPO_ROOT, ".github/pr-labeler.yml"),
     yaml.stringify(
       Object.entries(userstyles)
-        .reduce((acc, [key]) => {
-          acc[`${key}`] = `styles/${key}/**/*`;
+        .reduce((acc, [key, { supports }]) => {
+          acc[key] = toPrLabel(key);
+          Object.keys(supports ?? {}).forEach((supportedKey) => {
+            acc[supportedKey] = toPrLabel(key);
+          });
           return acc;
         }, {} as Record<string, string>),
     ),
@@ -64,14 +79,20 @@ export async function syncIssueLabels(userstyles: UserstylesSchema.Userstyles) {
   await writeWithPreamble(
     path.join(REPO_ROOT, ".github/labels.yml"),
     yaml.stringify(
-      Object.entries(userstyles)
-        .map(([slug, style]) => {
-          return {
-            name: slug,
-            description: [style.name].flat().join(", "),
-            color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
-          };
-        }),
+      Object.entries(userstyles).flatMap(([key, style]) => [
+        {
+          name: key,
+          description: style.name,
+          color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
+        },
+        ...Object.entries(style.supports ?? {}).map((
+          [supportedKey, { name }],
+        ) => ({
+          name: supportedKey,
+          description: name,
+          color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
+        })),
+      ]),
     ),
   );
 }

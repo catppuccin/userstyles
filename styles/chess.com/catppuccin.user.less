@@ -2,7 +2,7 @@
 @name Chess.com Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/chess.com
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/chess.com
-@version 2025.02.09
+@version 2025.03.24
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/chess.com/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Achess.com
 @description Soothing pastel theme for Chess.com
@@ -14,7 +14,10 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 
-@var select highlightColor "Highlight" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon*", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select highlightColor1 "Highlight 1" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red*", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select highlightColor2 "Highlight 2" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green*", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select highlightColor3 "Highlight 3" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach*", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select highlightColor4 "Highlight 4" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue*", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
 @-moz-document domain("chess.com") {
@@ -55,7 +58,10 @@
     @crust: @catppuccin[@@flavor][@crust];
     @accent: @catppuccin[@@flavor][@@accentColor];
 
-    @highlight: @catppuccin[@@flavor][@@highlightColor];
+    @highlight1: @catppuccin[@@flavor][@@highlightColor1];
+    @highlight2: @catppuccin[@@flavor][@@highlightColor2];
+    @highlight3: @catppuccin[@@flavor][@@highlightColor3];
+    @highlight4: @catppuccin[@@flavor][@@highlightColor4];
 
     color-scheme: if(@flavor = latte, light, dark);
 
@@ -438,7 +444,18 @@
     }
 
     .highlight {
-      background: @highlight !important;
+      &[style*="rgb(235, 97, 80)"] {
+        background: fade(@highlight1, 80%) !important;
+      }
+      &[style*="rgb(172, 206, 89)"] {
+        background: fade(@highlight2, 80%) !important;
+      }
+      &[style*="rgb(255, 170, 0)"] {
+        background: fade(@highlight3, 80%) !important;
+      }
+      &[style*="rgb(82, 176, 220)"] {
+        background: fade(@highlight4, 80%) !important;
+      }
       opacity: 1 !important;
     }
     .hover-square rect {
@@ -481,7 +498,18 @@
     }
 
     .arrow {
-      fill: @overlay0 !important;
+      &[style*="rgba(248, 85, 63, 0.8)"] {
+        fill: @highlight1 !important;
+      }
+      &[style*="rgba(159, 207, 63, 0.8)"] {
+        fill: @highlight2 !important;
+      }
+      &[style*="rgba(255, 170, 0, 0.8)"] {
+        fill: @highlight3 !important;
+      }
+      &[style*="rgba(72, 193, 249, 0.8)"] {
+        fill: @highlight4 !important;
+      }
     }
 
     g#winner [fill="#dbac16"] {
@@ -680,7 +708,7 @@
     }
 
     --theme-board-style-image: url("data:image/svg+xml,@{board}");
-    --theme-board-style-highlight-color: @highlight;
+    --theme-board-style-highlight-color: @highlight1;
 
     --theme-piece-set-wp: #piece(@pawn, "white")[];
     --theme-piece-set-wn: #piece(@knight, "white")[];

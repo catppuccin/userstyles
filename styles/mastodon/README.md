@@ -13,18 +13,10 @@
 	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/mastodon/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
-<p align="center">
-  <img src="preview.webp"/>
-</p>
-
 ## Usage
 
 See [the userstyle usage instructions](../../docs/USAGE.md).
 
-
-## 🙋 FAQ
-- Q: **The theme does not look the same as the preview?**\
-  A: Your Mastodon instance may be using its own custom CSS, which is changing the look of the theme.
 
 ## 💝 Current Maintainer
 - [comfysage](https://github.com/comfysage)
