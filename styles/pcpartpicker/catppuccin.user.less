@@ -1,0 +1,550 @@
+/* ==UserStyle==
+@name PCPartPicker Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/pcpartpicker
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/pcpartpicker
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/pcpartpicker/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Apcpartpicker
+@description Soothing pastel theme for PCPartPicker
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain("pcpartpicker.com") {
+  :root[class*="dark-mode"] {
+    #catppuccin(@darkFlavor);
+  }
+  :root[class*="light-mode"] {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    background-color: @base !important;
+    color: @text !important;
+
+    // General Elements
+    .subTitle {
+      border-color: @surface0;
+      h2 {
+        color: @text;
+      }
+    }
+    .button {
+      background-color: @accent !important;
+      border-color: @accent !important;
+      color: @base !important;
+      svg {
+        fill: @base !important;
+      }
+    }
+    .button:not(.button--disabled):not(:disabled):hover {
+      background-color: lighten(@accent, 5%) !important;
+      border-color: lighten(@accent, 5%) !important;
+    }
+
+    .text-input {
+      color: @text !important;
+      background-color: @mantle !important;
+      border-color: @mantle !important;
+    }
+    .tooltipText {
+      color: @base;
+      background-color: @accent;
+      &::after {
+        border-color: @accent transparent transparent transparent;
+      }
+    }
+
+    // === Header === //
+    .navDesktop {
+      .nav__top {
+        background-color: @crust;
+        a, select {
+          color: @text !important;
+        }
+        a:hover, select:hover {
+          color: @accent !important;
+        }
+        select {
+          @svg: escape("<svg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 18 18' enable-background='new 0 0 18 18' xml:space='preserve'><polygon points='9,13.6 2.2,6.8 3.8,5.2 9,10.4 14.2,5.2 15.8,6.8 ' fill='@{text}'/></svg>");
+          background-image: url("data:image/svg+xml,@{svg}");
+        }
+      }
+      .flag-icon {
+        border-color: @text;
+      }
+    }
+    .nav__bottom {
+      background-color: @crust;
+      border-color: @surface0 !important;
+      border-bottom: solid @surface0 1px;
+      a {
+        svg {
+          fill: @subtext0 !important;
+        }
+        color: @subtext0 !important;
+        border-color: @surface0 !important;
+        &:hover {
+          svg {
+            fill: @accent !important;
+          }
+          background-color: @base;
+        }
+      }
+      .nav__categories--active {
+        svg {
+          fill: @accent !important;
+        }
+      }
+    }
+  // === Footer === //
+  footer {
+    background-color: @crust;
+    .footer {
+      border-color: @surface0;
+    }
+    h2, p {
+      color: @text;
+      border-color: @surface0;
+    }
+    a {
+      color: @accent;
+      &:hover {
+        color: lighten(@accent, 5%);
+      }
+    }
+  }
+
+  // === Homepage === //
+  #homepage {
+    .wrapper__intro-2023 {
+      background-color: @base !important;
+      .intro__info {
+        h1 {
+          color: @text;
+        }
+        p {
+          color: @subtext0;
+        }
+      }
+    }
+
+    .wrapper__buildGuides {
+      background-color: @mantle !important;
+      .guides__info {
+        h1 {
+          color: @text;
+        }
+        p {
+          color: @subtext0;
+        }
+      }
+      .guideGroup__card_2023 {
+        background-color: @surface0 !important;
+        .guide__title {
+          color: @text;
+        }
+        li {
+          color: @subtext0;
+        }
+        .guide__numbers {
+          border-color: @text;
+          color: @text;
+          .icon {
+            fill: @text;
+          }
+        }
+      }
+    }
+
+    .wrapper__completedBuilds {
+      background-color: @base;
+      .completed-builds__info {
+        h1 {
+          color: @text;
+        }
+        p {
+          color: @subtext0;
+        }
+      }
+      .logGroup__card--featured_2023 {
+        background-color: @accent;
+      }
+      .logGroup__card_2023 {
+        background-color: @surface0;
+        .log__author a {
+          color: @accent;
+        }
+        h1 {
+          color: @text;
+        }
+        li {
+          color: @subtext0;
+        }
+        .log__numbers {
+          border-color: @text;
+          p {
+            color: @text;
+          }
+          .icon {
+            fill: @text;
+          }
+        }
+      }
+    }
+  }
+
+  // === Part List === //
+  #partlist {
+
+    .note__tag {
+      color: @base !important;
+    }
+    .note__tag--info {
+      background-color: @blue;
+    }
+    .note__text--info span {
+      color: @blue;
+    }
+    .note__tag--warning {
+      background-color: @peach;
+    }
+    .note__text--warning span {
+      color: @peach;
+    }
+    .note__tag--problem {
+      background-color: @red;
+    }
+    .note__text--problem span {
+      color: @red;
+    }
+
+    .wrapper__pageTitle {
+      background-color: @mantle;
+      .pageTitle {
+        color: @text;
+      }
+      #tabs {
+        a:not(.active) {
+          color: @subtext0;
+          &:hover {
+            background-color: @surface0;
+          }
+        }
+        .active {
+          background-color: @base;
+          color: @text;
+        }
+      }
+    }
+
+    .wrapper__pageContent {
+      background-color: @base;
+
+      .actionBox__wrapper .actionBoxGroup {
+        background-color: @surface0;
+        .actionBox__permalink--copy {
+          background-color: @base;
+          border-color: @base;
+          svg {
+            fill: @subtext0;
+          }
+          &:hover svg {
+            fill: @accent;
+          }
+        }
+        .text-input:hover {
+          color: @accent !important;
+        }
+        .actionBox__markup {
+          color: @text;
+          svg {
+            fill: @text;
+          }
+        }
+        .actionBox__options > li {
+          border-color: @mantle;
+          a {
+            border-color: @mantle;
+            background-color: @mantle;
+            color: @text;
+            .icon {
+              fill: @text;
+            }
+            &:hover {
+              color: @accent;
+            }
+          }
+        }
+      }
+    }
+    .partlist__metrics-2023 {
+      .partlist__compatibility {
+        svg {
+          fill: @base;
+        }
+        a, p, span {
+          color: @base;
+        }
+      }
+      .partlist__compatibility--noIssues {
+        background-color: @green;
+      }
+      .partlist__compatibility--warning {
+        background-color: @peach;
+      }
+      .partlist__compatibility--notes {
+        background-color: @teal;
+      }
+      .partlist__compatibility--error {
+        background-color: @red;
+      }
+      .partlist__keyMetric {
+        background-color: @blue;
+        svg {
+          fill: @base;
+        }
+        a, p, span {
+          color: @base;
+        }
+      }
+    }
+    .partlist {
+      th, td, td > a:not(.button) {
+        color: @text;
+      }
+      .td--empty::after {
+        background-color: @surface0;
+      }
+      .td__component a {
+        color: @accent !important;
+        &:hover {
+          color: lighten(@accent, 5%) !important;
+        } 
+      }
+      tr, th {
+        border-color: @surface0 !important;
+      }
+      tr[class=""] a, tr[class="tr__product--last"] a {
+        color: @accent !important;
+      }
+      .td__name {
+        .ul__parametric--parts a, .p__parametric a {
+          color: @subtext1;
+        }
+        a:hover {
+          color: @accent;
+        }
+      }
+      .td__settings svg:hover {
+        fill: @accent;
+      }
+      .td__remove svg:hover {
+        fill: @red;
+      }
+      .td__price {
+        color: @text;
+      }
+    }
+
+    .partlist__promos {
+      h6, li { color: @text; }
+      svg { fill: @text; }
+    }
+
+    #disclosure p {
+      color: @text;
+      a {
+        color: @accent;
+        &:hover {
+        color: lighten(@accent, 5%) !important;
+        }
+      }
+    }
+
+    #compatibility_notes {
+      h2, .note__text {
+        color: @text;
+      }
+    }
+    
+    #allocation_container {
+      h2 { color: @text; }
+      .allocationGroup__note {
+        color: @text;
+      }
+      .allocations__component {
+        h6 {
+          color: @text;
+        }
+        .img__part {
+          border-color: transparent;
+        }
+      }
+      .allocation__header, .allocation__port {
+        background-color: @crust;
+        border-color: transparent;
+        box-shadow: none;
+        h6 {
+          color: @text;
+        }
+        .port__block {
+          border-color: @surface0;
+          .port__label { 
+            color: @subtext0;
+            span { color: @overlay0; }
+          }
+        }
+        .port__blockSolid--info {
+          border-color: @blue;
+          &::after { background-color: @blue; }
+          .port__label { color: @blue; }
+        }
+        .port__blockSolid--warning {
+          border-color: @peach;
+          &::after { background-color: @peach; }
+          .port__label { color: @peach; }
+        }
+        .port__blockSolid--problem {
+          border-color: @red;
+          &::after { background-color: @red; }
+          .port__label { color: @red; }
+        }
+        .port__blockEmpty--problem {
+          &::before {
+          background-color: transparent;
+          box-shadow: inset 0px 0px 0px 2px @red;
+          }
+          &::after {
+            background: repeating-linear-gradient(to right,transparent,transparent 9px,@red 9px,@red 18px)
+          }
+        }
+        .port__blockEmpty--warning {
+          &::before {
+          background-color: transparent;
+          box-shadow: inset 0px 0px 0px 2px @peach;
+          }
+          &::after {
+            background: repeating-linear-gradient(to right,transparent,transparent 9px,@peach 9px,@peach 18px)
+          }
+        }
+        .port__blockEmpty--info {
+          &::before {
+          background-color: transparent;
+          box-shadow: inset 0px 0px 0px 2px @blue;
+          }
+          &::after {
+            background: repeating-linear-gradient(to right,transparent,transparent 9px,@blue 9px,@blue 18px)
+          }
+        }
+      }
+      .allocation__connection {
+        .connection__block--info {
+          background-color: @blue;
+        }
+        .connection__block--warning {
+          background-color: @peach;
+        }
+        .connection__block--problem {
+          background-color: @red;
+        }
+      }
+      .allocation__part {
+        .part__label {
+            color: @base;
+            a {
+              color: @base;
+              &:hover {
+                color: @surface0;
+              }
+            }
+            span {
+              color: @base;
+            }
+        }
+        .part__block--info {
+          background-color: @blue;
+          border-color: @blue;
+        }
+        .part__block--warning {
+          background-color: @peach;
+          border-color: @peach;
+        }
+        .part__block--problem {
+          background-color: @red;
+          border-color: @red;
+        }
+      }
+    }
+    
+    #price_history {
+      .pricing-table-legend {
+        .price-history-legend-item {
+          color: @text;
+          // The colors for the key are randomly generated and the canvas can't be styled so i've left all of them unstyled
+        }
+      }
+      .price-history-chart {
+        div { 
+          color: @text;
+          border-color: @surface0; 
+        }
+      }
+    }
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+    @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+    @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+    @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+    @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
+}
