@@ -2,7 +2,7 @@
 @name Google Photos Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/google-photos
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/google-photos
-@version 2025.03.10
+@version 2025.05.01
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/google-photos/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agoogle-photos
 @description Soothing pastel theme for Google Photos
@@ -23,6 +23,14 @@
     @media (prefers-color-scheme: dark) {
       #catppuccin(@darkFlavor);
     }
+  }
+
+  .zKHdkd {
+    #catppuccin(@lightFlavor);
+  }
+
+  .dm7YTc {
+    #catppuccin(@darkFlavor);
   }
 
   #catppuccin(@flavor) {
@@ -54,7 +62,9 @@
     @crust: @catppuccin[@@flavor][@crust];
     @accent: @catppuccin[@@flavor][@@accentColor];
 
-    color-scheme: if(@flavor = latte, light, dark);
+    @inverse-theme: if(@flavor = latte, mocha, latte);
+    @inverse-accent: @catppuccin[@@inverse-theme][@@accentColor];
+    @color-scheme: if(@flavor = latte, light, dark);
 
     ::selection {
       background-color: fade(@accent, 30%);
@@ -67,719 +77,451 @@
       }
     }
 
-    --pkw-background: @surface0;
-    --gm3-dialog-refactored-container-color: @base;
-    --pkw-on-surface-variant: @subtext0;
-    --pkw-on-surface: @text;
-    --gm-colortextbutton-ink-color: @blue;
-    --gm3-sys-color-on-surface-variant: @text;
-    --gm3-sys-color-surface: @mantle;
-    --gm3-sys-color-on-primary: @mantle;
-    --gm3-sys-color-surface-container: @mantle;
-    --gm3-sys-color-primary: @blue;
-    --gm3-sys-color-outline-variant: @overlay0;
-    --gm3-list-list-item-label-text-color: @text;
+    // GM3 base
 
-    .gp1Lgf {
-      --gm3-card-outlined-hover-outline-color: @surface2;
-      --gm3-card-outlined-container-color: @surface0;
-      --gm3-card-outlined-outline-color: @surface2;
-    }
-    .hIolmc {
-      --gm3-chip-assist-flat-label-text-color: @text;
-      --gm3-chip-assist-flat-hover-label-text-color: @accent;
-      --gm3-chip-assist-flat-outline-color: @surface2;
-      --gm3-sys-color-outline: @surface2;
-    }
-    .I2nt9 {
-      --gm3-text-field-filled-container-color: @surface2;
-      --gm3-text-field-filled-input-text-color: @text;
-      --gm3-sys-color-primary: @accent;
-      --gm3-sys-color-on-surface: @text;
-      --gm3-text-field-filled-caret-color: @accent;
-      --gm3-text-field-filled-label-text-color: @text;
-    }
-    /* checkbox */
-    --mdc-checkbox-selected-icon-color: @accent;
-    --mdc-checkbox-selected-checkmark-color: @mantle;
-    --mdc-checkbox-unselected-icon-color: @surface0;
-    /* radio checkbox/switches */
-    .bEtrNb {
-      --gm3-radio-selected-focus-icon-color: @accent;
-      --gm3-radio-selected-hover-icon-color: @accent;
-      --gm3-radio-selected-icon-color: @accent;
-      --gm3-radio-selected-pressed-icon-color: @accent;
-      --gm3-radio-selected-hover-state-layer-color: @accent;
-      --gm3-radio-unselected-icon-color: @surface0;
-      --gm3-radio-unselected-hover-icon-color: @surface2;
-    }
+    @gm3-sys-color-error: @red;
+    @gm3-sys-color-error-rgb: #rgbify(@gm3-sys-color-error)[];
+    @gm3-sys-color-error-container: saturate(
+      mix(@gm3-sys-color-error, @mantle, 30%),
+      20%
+    );
+    @gm3-sys-color-error-container-rgb: #rgbify(
+      @gm3-sys-color-error-container,
+    )[];
 
-    .OKFoxe {
-      --gm3-switch-selected-focus-track-color: @accent;
-      --gm3-switch-selected-hover-state-layer-color: @accent;
-      --gm3-switch-selected-track-color: @accent;
-      --gm3-switch-selected-hover-track-color: @accent;
-      --gm3-switch-selected-pressed-state-layer-color: @accent;
-      --gm3-switch-selected-pressed-track-color: @accent;
-      --gm3-switch-selected-hover-handle-color: darken(@accent, 20%);
-      --gm3-switch-selected-pressed-handle-color: darken(@accent, 15%);
-      --gm3-switch-selected-handle-color: darken(@accent, 10%);
-      --gm3-switch-selected-icon-color: @base;
-    }
-    /* uploading photo popups */
-    .z1QT7e {
-      --gm3-card-elevated-container-color: @surface0;
-    }
+    @gm3-sys-color-on-error: saturate(
+      mix(@gm3-sys-color-error, @base, 20%),
+      25%
+    );
+    @gm3-sys-color-on-error-rgb: #rgbify(@gm3-sys-color-on-error)[];
+    @gm3-sys-color-on-error-container: saturate(
+      mix(@gm3-sys-color-error-container, @text, 20%),
+      25%
+    );
+    @gm3-sys-color-on-error-container-rgb: #rgbify(
+      @gm3-sys-color-on-error-container,
+    )[];
 
-    /* editing photo sidebar */
-    .dm7YTc .FcHdhd {
-      --gm3-navigation-drawer-coplanar-container-color: @base;
-    }
+    @gm3-sys-color-primary: @accent;
+    @gm3-sys-color-primary-rgb: #rgbify(@gm3-sys-color-primary)[];
+    @gm3-sys-color-primary-fixed: lighten(@accent, 5%);
+    @gm3-sys-color-primary-fixed-rgb: #rgbify(@gm3-sys-color-primary-fixed)[];
+    @gm3-sys-color-primary-fixed-dim: darken(@accent, 5%);
+    @gm3-sys-color-primary-fixed-dim-rgb: #rgbify(
+      @gm3-sys-color-primary-fixed-dim,
+    )[];
 
-    /* loading circle */
-    .DMuDh {
-      --gm3-circular-progress-active-indicator-color: @accent;
-    }
+    @gm3-sys-color-on-primary: saturate(
+      mix(@gm3-sys-color-primary, @base, 20%),
+      25%
+    );
+    @gm3-sys-color-on-primary-rgb: #rgbify(@gm3-sys-color-on-primary)[];
+    @gm3-sys-color-on-primary-fixed: darken(@gm3-sys-color-on-primary, 5%);
+    @gm3-sys-color-on-primary-fixed-rgb: #rgbify(
+      @gm3-sys-color-on-primary-fixed,
+    )[];
+    @gm3-sys-color-on-primary-fixed-variant: lighten(
+      @gm3-sys-color-on-primary,
+      5%
+    );
+    @gm3-sys-color-on-primary-fixed-variant-rgb: #rgbify(
+      @gm3-sys-color-on-primary-fixed-variant,
+    )[];
 
-    /* main background */
-    .uGCjIb,
-    .HnzzId,
-    body {
-      background-color: @base !important;
-      color: @text !important;
-    }
-    /* uploading photo popups */
-    .RUTfA {
-      background-color: @blue !important;
-      color: @mantle !important;
-    }
-    .uq8qae,
-    .wgq1ae {
-      color: @text !important;
-    }
-    .BNcPhf {
-      background-color: @blue !important;
-    }
-    /* top bar */
-    .fXq1Rc .QtDoYb {
-      background-color: @crust;
-      border-color: @crust;
-    }
-    .tRojY {
-      color: @text !important;
-    }
-    /* top bar when selected */
-    .KWdEHf.QtDoYb.CWVNI {
-      background-color: @crust;
-      border-color: @crust;
-    }
+    @gm3-sys-color-primary-container: saturate(
+      mix(@gm3-sys-color-primary, @mantle, 30%),
+      20%
+    );
+    @gm3-sys-color-primary-container-rgb: #rgbify(
+      @gm3-sys-color-primary-container,
+    )[];
+    @gm3-sys-color-on-primary-container: saturate(
+      mix(@gm3-sys-color-primary, @text, 20%),
+      25%
+    );
+    @gm3-sys-color-on-primary-container-rgb: #rgbify(
+      @gm3-sys-color-on-primary-container,
+    )[];
 
-    /* selected photo background */
-    .rtIMgb.WjVZdb {
-      background-color: @overlay0;
-    }
-    /* move to archive buttonn */
-    .QFDibd {
-      color: @text;
-    }
-    .JoLw2e {
-      background-color: @base;
-    }
-    /* blue move to archive suggestion */
-    .mVK51d {
-      background-color: @blue;
-    }
-    .FkI4sc {
-      color: @mantle;
-    }
-    .rtMuCd {
-      border-bottom-color: @blue;
-    }
-    /* updates page */
-    .Ej4G6c, .rE87Fd {
-      color: @text;
-    }
-    .cUt0Kd.pCrjvd {
-      background-color: @accent !important;
-    }
-    .pCrjvd .XmOa0b {
-      color: @crust !important;
-    }
-    /* don't miss a moment notif popup */
-    .KG4Qee,
-    .RODueb {
-      background-color: @surface0;
-    }
-    .R5XrWc {
-      color: @text;
-    }
-    .yERkJe {
-      color: @subtext0;
-    }
-    /* grey popup in the bottom left corner */
-    .zyTWof-YAxtVc {
-      background-color: @surface0;
-    }
-    .zyTWof-gIZMF {
-      color: @text;
-    }
-    /* search bar in the top bar */
-    .Aul2T,
-    .cI2tlc .jBmls {
-      background-color: @surface0 !important;
-    }
-    .LAL5ie .ZAGvjd {
-      color: @text;
-      -webkit-text-fill-color: @text;
-    }
-    .cI2tlc .jBmls {
-      box-shadow: none !important;
-    }
-    .l9dCke,
-    .ggIr1e,
-    .OmFprf {
-      border-color: @surface1 !important;
-    }
-    .LAL5ie .jBmls {
-      border-top-color: @surface1;
-    }
-    .obNJBf.wH28vf > .lEclge {
-      color: @text;
-    }
-    .obNJBf {
-      color: @subtext0;
-    }
-    /* the word photos in the google photos logo */
-    .EIug8e {
-      color: @text;
-    }
-    /* the text in the carousel at the top of the main page */
-    .oedbUb {
-      color: @text;
-    }
-    /* date of when the photos were taken */
-    .xA0gfb {
-      color: @subtext1;
-    }
-    /* place where photos were taken */
-    .LzExud {
-      color: @subtext0;
-    }
-    /* top and sidebar svgs */
-    .v1262d,
-    .gb_Ra.gb_Ja svg {
-      fill: @text !important;
-    }
-    .uprWmb .v1262d {
-      fill: @mantle !important;
-    }
-    /* sidebar */
-    .RSjvib {
-      background-color: @crust;
-    }
-    .uprWmb:hover,
-    .uprWmb {
-      background: @accent !important;
-    }
-    .HksvWb,
-    .HEHjMc {
-      color: @text;
-    }
-    .HEHjMc:hover {
-      color: @accent;
-    }
+    @gm3-sys-color-secondary: desaturate(@accent, 20%);
+    @gm3-sys-color-secondary-rgb: #rgbify(@gm3-sys-color-secondary)[];
+    @gm3-sys-color-secondary-fixed: lighten(@gm3-sys-color-secondary, 5%);
+    @gm3-sys-color-secondary-fixed-rgb: #rgbify(
+      @gm3-sys-color-secondary-fixed,
+    )[];
+    @gm3-sys-color-secondary-fixed-dim: darken(@gm3-sys-color-secondary, 5%);
+    @gm3-sys-color-secondary-fixed-dim-rgb: #rgbify(
+      @gm3-sys-color-secondary-fixed-dim,
+    )[];
 
-    .uprWmb .HksvWb {
-      color: @mantle !important;
-    }
-    .ylKyWb {
-      color: @subtext0;
-    }
-    .lJ21id {
-      background-color: @surface0;
-    }
-    .Olf00,
-    .J0dufb {
-      background-color: @accent !important;
-      color: @mantle;
-    }
-    /* sidebar slider */
-    .bButFf {
-      background-color: @surface0;
-      border-bottom-color: @accent;
-      color: @text;
-    }
-    /* year when scrolling */
-    .HrGXnb {
-      background-color: @surface0;
-      color: @text;
-    }
-    /* unlock storage discount button */
-    .z3RRjd:not(:disabled) {
-      color: @accent;
-      border-color: @surface0;
-    }
-    /* locked photo dialog */
-    .uW2Fw-P5QLlc {
-      background-color: @base !important;
-    }
-    .uW2Fw-k2Wrsb {
-      color: @text;
-    }
-    /* search bar */
-    .fXq1Rc:not(.A82uMb) .Aul2T.qs41qe {
-      background: @surface1;
-    }
-    /* storage used bar */
-    .XCxRFf {
-      background-color: @accent;
-      box-shadow: 2px 0 0 lighten(@accent, 10%);
-    }
-    .DFG23b {
-      background-color: @overlay0;
-    }
-    /* storage category breakdown */
-    .W7g1Rb-rymPhb-fpDzbe-fmcmS {
-      color: @text !important;
-    }
-    /* carousel buttons */
-    .yhB1zd {
-      background: @surface0;
-    }
+    @gm3-sys-color-on-secondary: saturate(
+      mix(@gm3-sys-color-secondary, @base, 20%),
+      25%
+    );
+    @gm3-sys-color-on-secondary-rgb: #rgbify(@gm3-sys-color-on-secondary)[];
+    @gm3-sys-color-on-secondary-fixed: darken(
+      @gm3-sys-color-on-secondary,
+      5%
+    );
+    @gm3-sys-color-on-secondary-fixed-rgb: #rgbify(
+      @gm3-sys-color-on-secondary-fixed,
+    )[];
+    @gm3-sys-color-on-secondary-fixed-variant: lighten(
+      @gm3-sys-color-on-primary,
+      5%
+    );
+    @gm3-sys-color-on-secondary-fixed-variant-rgb: #rgbify(
+      @gm3-sys-color-on-secondary-fixed-variant,
+    )[];
 
-    /* favorites page */
-    .ZEmz6b {
-      color: @text;
-    }
+    @gm3-sys-color-secondary-container: saturate(
+      mix(@gm3-sys-color-secondary, @mantle, 35%),
+      10%
+    );
+    @gm3-sys-color-secondary-container-rgb: #rgbify(
+      @gm3-sys-color-secondary-container,
+    )[];
+    @gm3-sys-color-on-secondary-container: saturate(
+      mix(@gm3-sys-color-secondary, @text, 75%),
+      25%
+    );
+    @gm3-sys-color-on-secondary-container-rgb: #rgbify(
+      @gm3-sys-color-on-secondary-container,
+    )[];
 
-    /* albums page */
-    /* background */
-    .gN5aAe,
-    .eReC4e {
-      background-color: @base;
-    }
-    /* album title */
-    .mfQCM,
-    .go6nxb,
-    .MXxZYe,
-    .NbrDvb,
-    .mfQCMe {
-      color: @text;
-    }
-    .kmqzh .tL9Q4c {
-      color: @text;
-      background-color: @surface0;
-    }
-    /* # of photos in album */
-    .UV4Xae,
-    .Me6kjf {
-      color: @subtext0;
-    }
-    /* album date */
-    .UmNiJe {
-      color: @subtext0;
-    }
-    /* play highlights button */
-    .HQ97kd {
-      color: @text;
-      background-color: @base;
-    }
-    /* sharing dialog */
-    .ju3TMb,
-    .hUsHhf,
-    .ex6r4d,
-    .dqAVOd {
-      color: @text;
-      background-color: @surface0;
-    }
-    .J2j0Cc.uH98yc {
-      background-color: @surface2;
-    }
-    /* ... menu in album */
-    .s2VtY.JPdR6b {
-      background-color: @surface0;
-    }
-    .o7Osof .oJeWuf {
-      color: @text;
-    }
-    /* add to album */
-    .Purf9b {
-      background-color: @base;
-    }
-    .Pk50Ic {
-      background: @accent;
-    }
-    /* underline on album title */
-    .kmqzh .cXrdqd::before,
-    .kmqzh .cXrdqd::after {
-      background: @blue !important;
-    }
+    @gm3-sys-color-tertiary: @accent;
+    @gm3-sys-color-tertiary-rgb: #rgbify(@gm3-sys-color-tertiary)[];
+    @gm3-sys-color-tertiary-fixed: lighten(@gm3-sys-color-tertiary, 5%);
+    @gm3-sys-color-tertiary-fixed-rgb: #rgbify(@gm3-sys-color-tertiary-fixed)[];
+    @gm3-sys-color-tertiary-fixed-dim: darken(@gm3-sys-color-tertiary, 5%);
+    @gm3-sys-color-tertiary-fixed-dim-rgb: #rgbify(
+      @gm3-sys-color-tertiary-fixed-dim,
+    )[];
 
-    /* favorites page */
-    .YzU3ub.Sn08je {
-      background-color: @surface0;
-    }
+    @gm3-sys-color-on-tertiary: saturate(
+      mix(@gm3-sys-color-tertiary, @base, 20%),
+      25%
+    );
+    @gm3-sys-color-on-tertiary-rgb: #rgbify(@gm3-sys-color-on-tertiary)[];
+    @gm3-sys-color-on-tertiary-fixed: darken(@gm3-sys-color-on-tertiary, 5%);
+    @gm3-sys-color-on-tertiary-fixed-rgb: #rgbify(
+      @gm3-sys-color-on-tertiary-fixed,
+    )[];
+    @gm3-sys-color-on-tertiary-fixed-variant: lighten(
+      @gm3-sys-color-on-tertiary,
+      5%
+    );
+    @gm3-sys-color-on-tertiary-fixed-variant-rgb: #rgbify(
+      @gm3-sys-color-on-tertiary-fixed-variant,
+    )[];
 
-    /* print store */
-    .E2jkGc,
-    .bVnuib,
-    .D8oEA,
-    .mKmjtc,
-    .GVzd9d {
-      color: @text;
-    }
-    /* products */
-    .CxyEyc {
-      background-color: @surface0;
-      border-color: @surface2;
-    }
-    /* photo books and canvases */
-    .bYS0Le .p102md {
-      background-color: @surface0;
-      border-color: @surface2;
-    }
-    .INNc9c,
-    .fGZ5Db,
-    .KhXBec {
-      color: @text;
-    }
-    .b9GWRb {
-      color: @subtext0;
-    }
+    @gm3-sys-color-tertiary-container: saturate(
+      mix(@gm3-sys-color-tertiary, @mantle, 20%),
+      0%
+    );
+    @gm3-sys-color-tertiary-container-rgb: #rgbify(
+      @gm3-sys-color-tertiary-container,
+    )[];
+    @gm3-sys-color-on-tertiary-container: saturate(
+      mix(@gm3-sys-color-tertiary-container, @text, 20%),
+      25%
+    );
+    @gm3-sys-color-on-tertiary-container-rgb: #rgbify(
+      @gm3-sys-color-on-tertiary-container,
+    )[];
 
-    /* explore page */
-    .OgirMe,
-    .dykGZb {
-      color: @text;
-    }
-    /* names under faces */
-    .hsohWb {
-      color: @text;
-    }
-    /* text in photos */
-    .ydXkjb,
-    .WABMHe,
-    .fn6ocf {
-      color: @text;
-    }
-    /* categories inside the footer */
-    .QmUPuf {
-      color: @text;
-    }
-    .QkA5Vc:not(:disabled) {
-      color: @subtext0;
-    }
+    @gm3-sys-color-background: @base;
+    @gm3-sys-color-background-rgb: #rgbify(@gm3-sys-color-background)[];
+    @gm3-sys-color-on-background: @text;
+    @gm3-sys-color-on-background-rgb: #rgbify(@gm3-sys-color-on-background)[];
 
-    /* cannot connect page */
-    .Ih0h6e,
-    .aPRVsf {
-      color: @text;
-    }
-    /* rety button */
-    .RSxr8 {
-      background-color: darken(@accent, 15%);
-    }
+    @gm3-sys-color-surface: @base;
+    @gm3-sys-color-surface-rgb: #rgbify(@gm3-sys-color-surface)[];
+    @gm3-sys-color-surface-bright: @surface0;
+    @gm3-sys-color-surface-bright-rgb: #rgbify(@gm3-sys-color-surface-bright)[];
+    @gm3-sys-color-surface-dim: @crust;
+    @gm3-sys-color-surface-dim-rgb: #rgbify(@gm3-sys-color-surface-dim)[];
+    @gm3-sys-color-surface-variant: mix(@mantle, @accent, 87.5%);
+    @gm3-sys-color-surface-variant-rgb: #rgbify(
+      @gm3-sys-color-surface-variant,
+    )[];
+    @gm3-sys-color-surface-tint: @accent;
+    @gm3-sys-color-surface-tint-rgb: #rgbify(@gm3-sys-color-surface-tint)[];
 
-    /* sharing page */
-    /* item */
-    .I7yCae {
-      color: @text;
-    }
-    .DcsHOb {
-      border-color: @surface2;
-    }
-    /* partner sharing dialog */
-    .VfPpkd-P5QLlc,
-    .I4p4db,
-    .t1IGPc,
-    .Co16uf {
-      background-color: @surface0;
-    }
-    .osOuXd:not(.VfPpkd-O1htCb-OWXEXe-OWB6Me) .VfPpkd-TkwUic,
-    .osOuXd .VfPpkd-YPmvEd {
-      background-color: @surface2;
-    }
-    .V639qd .VfPpkd-cnG4Wd,
-    .fpyzKd,
-    .osOuXd:not(.VfPpkd-O1htCb-OWXEXe-OWB6Me) .VfPpkd-uusGie-fmcmS,
-    .osOuXd.VfPpkd-OkbHre.VfPpkd-rymPhb-Gtdoyb,
-    .VfPpkd-OkbHre .VfPpkd-rymPhb-fpDzbe-fmcmS,
-    .jc9Jq,
-    .Qwsrhf,
-    .VfPpkd-k2Wrsb {
-      color: @text;
-    }
-    .osOuXd
-      .VfPpkd-OkbHre.VfPpkd-rymPhb-ibnC6b.VfPpkd-rymPhb-ibnC6b-OWXEXe-gk6SMd {
-      background-color: @overlay2;
-    }
-    /* disabled text */
-    .oFJeZc:disabled {
-      color: @surface2;
-    }
-    /* the small arrow in the dropdown box */
-    .hqBSCb:not(.VfPpkd-O1htCb-OWXEXe-OWB6Me).VfPpkd-O1htCb-OWXEXe-XpnDCe
-      .VfPpkd-t08AT-Bz112c {
-      fill: @accent;
-    }
+    @gm3-sys-color-on-surface: @text;
+    @gm3-sys-color-on-surface-rgb: #rgbify(@gm3-sys-color-on-surface)[];
+    @gm3-sys-color-on-surface-variant: @subtext0;
+    @gm3-sys-color-on-surface-variant-rgb: #rgbify(
+      @gm3-sys-color-on-surface-variant,
+    )[];
 
-    /* sharing via links subpage */
-    /* background */
-    .Cv8Rjc {
-      background-color: @base;
-    }
-    /* page title & subtitle */
-    .UtdETd,
-    .wMLcHf {
-      color: @text;
-    }
-    /* date when it was shared */
-    .DtcBIe {
-      color: @subtext1;
-    }
-    /* item border */
-    .j90Xnb {
-      border-color: @surface1;
-    }
+    @gm3-sys-color-inverse-surface: @text;
+    @gm3-sys-color-inverse-surface-rgb: #rgbify(
+      @gm3-sys-color-inverse-surface,
+    )[];
+    @gm3-sys-color-inverse-on-surface: @mantle;
+    @gm3-sys-color-inverse-on-surface-rgb: #rgbify(
+      @gm3-sys-color-inverse-on-surface,
+    )[];
+    @gm3-sys-color-inverse-primary: @inverse-accent;
+    @gm3-sys-color-inverse-primary-rgb: #rgbify(
+      @gm3-sys-color-inverse-primary,
+    )[];
 
-    /* settings page */
-    /* main text */
-    h1,
-    .fl9QFd,
-    .CZ5Sfb,
-    .mSbCD,
-    .Ecvatc,
-    .C96I0d,
-    .HiceN,
-    .Qizfvf,
-    .bCPWJc,
-    .P0eWkf,
-    .rvEjke,
-    .IGdgBf,
-    .Sn08je,
-    .Ja4Wfd,
-    .tLNx2,
-    .x1vyqd,
-    .CqtWH,
-    .wbspQd,
-    .vUbGoc,
-    .GIYFWc,
-    .btKbVe,
-    .l9UZue,
-    .hEFMYc,
-    .BrvAFe {
-      color: @text;
-    }
-    /* top bar */
-    .eReC4e.FbgB9 {
-      border-color: @surface0;
-    }
-    .yNVtPc .ZAGvjd .Ny5lGc::placeholder {
-      color: @text;
-    }
-    /* upload button */
-    .s4MBmb {
-      color: @text;
-    }
-    /* automatic album label */
-    .ecTDsc {
-      background-color: @accent;
-      color: @crust;
-    }
-    /* subtext */
-    .fYwTV,
-    .rN6Qmb,
-    .eT2rxc,
-    .EqBDpe,
-    .cuFkEd,
-    .hcClrf,
-    .o7Osof .HhLEze,
-    .k4Or1e,
-    .uNz2Jf,
-    .PzGzq,
-    .QWd4Mb {
-      color: @subtext0;
-    }
-    /* "view" button links */
-    .oFJeZc:not(:disabled) {
-      color: @accent;
-    }
-    /* sectional borders */
-    .X0f2Ie,
-    .TYKfpe {
-      border-color: @surface0 !important;
-    }
-    /* storage discount button */
-    .kDryjd:not(:disabled) {
-      background-color: @accent;
-      color: @crust;
-    }
-    /* selected radial selector */
-    .bEtrNb
-      .VfPpkd-gBXA9-bMcfAe:enabled:checked
-      + .VfPpkd-RsCWK
-      .VfPpkd-wVo5xe-LkdAo,
-    .bEtrNb .VfPpkd-gBXA9-bMcfAe:enabled + .VfPpkd-RsCWK .VfPpkd-Z5TpLc-LkdAo {
-      border-color: @accent;
-    }
-    /* unselected radial selector */
-    .bEtrNb
-      .VfPpkd-gBXA9-bMcfAe:enabled:not(:checked)
-      + .VfPpkd-RsCWK
-      .VfPpkd-wVo5xe-LkdAo {
-      border-color: @surface0;
-    }
-    /* switch that is in the off position */
-    .OKFoxe .VfPpkd-uMhiad::before {
-      background: @mantle;
-    }
-    .OKFoxe:disabled .VfPpkd-l6JLsf::before {
-      background-color: @surface1 !important;
-    }
-    .OKFoxe.VfPpkd-scr2fc-OWXEXe-uqeOfd:disabled .VfPpkd-pafCAf {
-      fill: @accent;
-    }
-    /* switch that is in the on position */
-    .OKFoxe.VfPpkd-scr2fc-OWXEXe-gk6SMd:enabled .VfPpkd-uMhiad::after {
-      background-color: @accent;
-    }
-    .OKFoxe.VfPpkd-scr2fc-OWXEXe-gk6SMd:enabled .VfPpkd-pafCAf {
-      fill: @mantle;
-    }
-    .OKFoxe:enabled .VfPpkd-l6JLsf::after {
-      background: @surface1;
-    }
+    @gm3-sys-color-surface-container-highest: @surface1;
+    @gm3-sys-color-surface-container-highest-rgb: #rgbify(
+      @gm3-sys-color-surface-container-highest,
+    )[];
+    @gm3-sys-color-surface-container-high: @surface0;
+    @gm3-sys-color-surface-container-high-rgb: #rgbify(
+      @gm3-sys-color-surface-container-high,
+    )[];
+    @gm3-sys-color-surface-container: @surface0;
+    @gm3-sys-color-surface-container-rgb: #rgbify(
+      @gm3-sys-color-surface-container,
+    )[];
+    @gm3-sys-color-surface-container-low: @mantle;
+    @gm3-sys-color-surface-container-low-rgb: #rgbify(
+      @gm3-sys-color-surface-container-low,
+    )[];
+    @gm3-sys-color-surface-container-lowest: @crust;
+    @gm3-sys-color-surface-container-lowest-rgb: #rgbify(
+      @gm3-sys-color-surface-container-lowest,
+    )[];
 
-    /* partner sharing */
-    .QYw5Ld {
-      background-color: @accent;
-      border-color: @surface0;
-    }
+    @gm3-sys-color-outline: @overlay2;
+    @gm3-sys-color-outline-rgb: #rgbify(@gm3-sys-color-outline)[];
+    @gm3-sys-color-outline-variant: @overlay0;
+    @gm3-sys-color-outline-variant-rgb: #rgbify(
+      @gm3-sys-color-outline-variant,
+    )[];
 
-    .QYw5Ld span {
-      color: @crust;
-    }
+    @gm3-sys-color-scrim: #000;
+    @gm3-sys-color-scrim-rgb: #rgbify(@gm3-sys-color-scrim)[];
+    @gm3-sys-color-shadow: #000;
+    @gm3-sys-color-shadow-rgb: #rgbify(@gm3-sys-color-shadow)[];
 
-    .Sxge7c,
-    .GkGmge {
-      color: @text !important;
-    }
+    --gm3-sys-color-background: @gm3-sys-color-background;
+    --gm3-sys-color-background-rgb: @gm3-sys-color-background-rgb;
+    --gm3-sys-color-error: @gm3-sys-color-error;
+    --gm3-sys-color-error-rgb: @gm3-sys-color-error-rgb;
+    --gm3-sys-color-error-container: @gm3-sys-color-error-container;
+    --gm3-sys-color-error-container-rgb: @gm3-sys-color-error-container-rgb;
+    --gm3-sys-color-inverse-on-surface: @gm3-sys-color-inverse-on-surface;
+    --gm3-sys-color-inverse-on-surface-rgb: @gm3-sys-color-inverse-on-surface-rgb;
+    --gm3-sys-color-inverse-primary: @gm3-sys-color-inverse-primary;
+    --gm3-sys-color-inverse-primary-rgb: @gm3-sys-color-inverse-primary-rgb;
+    --gm3-sys-color-inverse-surface: @gm3-sys-color-inverse-surface;
+    --gm3-sys-color-inverse-surface-rgb: @gm3-sys-color-inverse-surface-rgb;
+    --gm3-sys-color-on-background: @gm3-sys-color-on-background;
+    --gm3-sys-color-on-background-rgb: @gm3-sys-color-on-background-rgb;
+    --gm3-sys-color-on-error: @gm3-sys-color-on-error;
+    --gm3-sys-color-on-error-rgb: @gm3-sys-color-on-error-rgb;
+    --gm3-sys-color-on-error-container: @gm3-sys-color-on-error-container;
+    --gm3-sys-color-on-error-container-rgb: @gm3-sys-color-on-error-container-rgb;
+    --gm3-sys-color-on-primary: @gm3-sys-color-on-primary;
+    --gm3-sys-color-on-primary-rgb: @gm3-sys-color-on-primary-rgb;
+    --gm3-sys-color-on-primary-container: @gm3-sys-color-on-primary-container;
+    --gm3-sys-color-on-primary-container-rgb: @gm3-sys-color-on-primary-container-rgb;
+    --gm3-sys-color-on-primary-fixed: @gm3-sys-color-on-primary-fixed;
+    --gm3-sys-color-on-primary-fixed-rgb: @gm3-sys-color-on-primary-fixed-rgb;
+    --gm3-sys-color-on-primary-fixed-variant: @gm3-sys-color-on-primary-fixed-variant;
+    --gm3-sys-color-on-primary-fixed-variant-rgb: @gm3-sys-color-on-primary-fixed-variant-rgb;
+    --gm3-sys-color-on-secondary: @gm3-sys-color-on-secondary;
+    --gm3-sys-color-on-secondary-rgb: @gm3-sys-color-on-secondary-rgb;
+    --gm3-sys-color-on-secondary-container: @gm3-sys-color-on-secondary-container;
+    --gm3-sys-color-on-secondary-container-rgb: @gm3-sys-color-on-secondary-container-rgb;
+    --gm3-sys-color-on-secondary-fixed: @gm3-sys-color-on-secondary-fixed;
+    --gm3-sys-color-on-secondary-fixed-rgb: @gm3-sys-color-on-secondary-fixed-rgb;
+    --gm3-sys-color-on-secondary-fixed-variant: @gm3-sys-color-on-secondary-fixed-variant;
+    --gm3-sys-color-on-secondary-fixed-variant-rgb: @gm3-sys-color-on-secondary-fixed-variant-rgb;
+    --gm3-sys-color-on-surface: @gm3-sys-color-on-surface;
+    --gm3-sys-color-on-surface-rgb: @gm3-sys-color-on-surface-rgb;
+    --gm3-sys-color-on-surface-variant: @gm3-sys-color-on-surface-variant;
+    --gm3-sys-color-on-surface-variant-rgb: @gm3-sys-color-on-surface-variant-rgb;
+    --gm3-sys-color-on-tertiary: @gm3-sys-color-on-tertiary;
+    --gm3-sys-color-on-tertiary-rgb: @gm3-sys-color-on-tertiary-rgb;
+    --gm3-sys-color-on-tertiary-container: @gm3-sys-color-on-tertiary-container;
+    --gm3-sys-color-on-tertiary-container-rgb: @gm3-sys-color-on-tertiary-container-rgb;
+    --gm3-sys-color-on-tertiary-fixed: @gm3-sys-color-on-tertiary-fixed;
+    --gm3-sys-color-on-tertiary-fixed-rgb: @gm3-sys-color-on-tertiary-fixed-rgb;
+    --gm3-sys-color-on-tertiary-fixed-variant: @gm3-sys-color-on-tertiary-fixed-variant;
+    --gm3-sys-color-on-tertiary-fixed-variant-rgb: @gm3-sys-color-on-tertiary-fixed-variant-rgb;
+    --gm3-sys-color-outline: @gm3-sys-color-outline;
+    --gm3-sys-color-outline-rgb: @gm3-sys-color-outline-rgb;
+    --gm3-sys-color-outline-variant: @gm3-sys-color-outline-variant;
+    --gm3-sys-color-outline-variant-rgb: @gm3-sys-color-outline-variant-rgb;
+    --gm3-sys-color-primary: @gm3-sys-color-primary;
+    --gm3-sys-color-primary-rgb: @gm3-sys-color-primary-rgb;
+    --gm3-sys-color-primary-container: @gm3-sys-color-primary-container;
+    --gm3-sys-color-primary-container-rgb: @gm3-sys-color-primary-container-rgb;
+    --gm3-sys-color-primary-fixed: @gm3-sys-color-primary-fixed;
+    --gm3-sys-color-primary-fixed-rgb: @gm3-sys-color-primary-fixed-rgb;
+    --gm3-sys-color-primary-fixed-dim: @gm3-sys-color-primary-fixed-dim;
+    --gm3-sys-color-primary-fixed-dim-rgb: @gm3-sys-color-primary-fixed-dim-rgb;
+    --gm3-sys-color-scrim: @gm3-sys-color-scrim;
+    --gm3-sys-color-scrim-rgb: @gm3-sys-color-scrim-rgb;
+    --gm3-sys-color-secondary: @gm3-sys-color-secondary;
+    --gm3-sys-color-secondary-rgb: @gm3-sys-color-secondary-rgb;
+    --gm3-sys-color-secondary-container: @gm3-sys-color-secondary-container;
+    --gm3-sys-color-secondary-container-rgb: @gm3-sys-color-secondary-container-rgb;
+    --gm3-sys-color-secondary-fixed: @gm3-sys-color-secondary-fixed;
+    --gm3-sys-color-secondary-fixed-rgb: @gm3-sys-color-secondary-fixed-rgb;
+    --gm3-sys-color-secondary-fixed-dim: @gm3-sys-color-secondary-fixed-dim;
+    --gm3-sys-color-secondary-fixed-dim-rgb: @gm3-sys-color-secondary-fixed-dim-rgb;
+    --gm3-sys-color-shadow: @gm3-sys-color-shadow;
+    --gm3-sys-color-shadow-rgb: @gm3-sys-color-shadow-rgb;
+    --gm3-sys-color-surface: @gm3-sys-color-surface;
+    --gm3-sys-color-surface-rgb: @gm3-sys-color-surface-rgb;
+    --gm3-sys-color-surface-bright: @gm3-sys-color-surface-bright;
+    --gm3-sys-color-surface-bright-rgb: @gm3-sys-color-surface-bright-rgb;
+    --gm3-sys-color-surface-container: @gm3-sys-color-surface-container;
+    --gm3-sys-color-surface-container-rgb: @gm3-sys-color-surface-container-rgb;
+    --gm3-sys-color-surface-container-high: @gm3-sys-color-surface-container-high;
+    --gm3-sys-color-surface-container-high-rgb: @gm3-sys-color-surface-container-high-rgb;
+    --gm3-sys-color-surface-container-highest: @gm3-sys-color-surface-container-highest;
+    --gm3-sys-color-surface-container-highest-rgb: @gm3-sys-color-surface-container-highest-rgb;
+    --gm3-sys-color-surface-container-low: @gm3-sys-color-surface-container-low;
+    --gm3-sys-color-surface-container-low-rgb: @gm3-sys-color-surface-container-low-rgb;
+    --gm3-sys-color-surface-container-lowest: @gm3-sys-color-surface-container-lowest;
+    --gm3-sys-color-surface-container-lowest-rgb: @gm3-sys-color-surface-container-lowest-rgb;
+    --gm3-sys-color-surface-dim: @gm3-sys-color-surface-dim;
+    --gm3-sys-color-surface-dim-rgb: @gm3-sys-color-surface-dim-rgb;
+    --gm3-sys-color-surface-tint: @gm3-sys-color-surface-tint;
+    --gm3-sys-color-surface-tint-rgb: @gm3-sys-color-surface-tint-rgb;
+    --gm3-sys-color-surface-variant: @gm3-sys-color-surface-variant;
+    --gm3-sys-color-surface-variant-rgb: @gm3-sys-color-surface-variant-rgb;
+    --gm3-sys-color-tertiary: @gm3-sys-color-tertiary;
+    --gm3-sys-color-tertiary-rgb: @gm3-sys-color-tertiary-rgb;
+    --gm3-sys-color-tertiary-container: @gm3-sys-color-tertiary-container;
+    --gm3-sys-color-tertiary-container-rgb: @gm3-sys-color-tertiary-container-rgb;
+    --gm3-sys-color-tertiary-fixed: @gm3-sys-color-tertiary-fixed;
+    --gm3-sys-color-tertiary-fixed-rgb: @gm3-sys-color-tertiary-fixed-rgb;
+    --gm3-sys-color-tertiary-fixed-dim: @gm3-sys-color-tertiary-fixed-dim;
+    --gm3-sys-color-tertiary-fixed-dim-rgb: @gm3-sys-color-tertiary-fixed-dim-rgb;
+    --mdc-ripple-color: var(--gm3-sys-color-primary);
 
-    /* print orders page */
-    .fwAVoc {
-      color: @text;
-    }
+    // GM3 Photos
 
-    /* privacy page */
-    .UNOf0e,
-    .bTd6c {
-      color: @text;
-    }
-    /* footer */
-    .rniux {
-      color: @subtext0;
-    }
+    @gm3-sys-color-caution: @yellow;
+    @gm3-sys-color-caution-rgb: #rgbify(@gm3-sys-color-caution)[];
+    @gm3-sys-color-on-caution: saturate(
+      mix(@gm3-sys-color-caution, @base, 20%),
+      25%
+    );
+    @gm3-sys-color-on-caution-rgb: #rgbify(@gm3-sys-color-on-caution)[];
+    @gm3-sys-color-caution-container: saturate(
+      mix(@gm3-sys-color-caution, @mantle, 30%),
+      20%
+    );
+    @gm3-sys-color-caution-container-rgb: #rgbify(
+      @gm3-sys-color-caution-container,
+    )[];
+    @gm3-sys-color-on-caution-container: saturate(
+      mix(@gm3-sys-color-caution-container, @text, 20%),
+      25%
+    );
+    @gm3-sys-color-on-caution-container-rgb: #rgbify(
+      @gm3-sys-color-on-caution-container,
+    )[];
+    @gm3-sys-color-storage-meter-normal-primary: @blue;
+    @gm3-sys-color-storage-meter-normal-primary-rgb: #rgbify(
+      @gm3-sys-color-storage-meter-normal-primary,
+    )[];
+    @gm3-sys-color-storage-meter-normal-secondary: lighten(
+      spin(@blue, -20deg),
+      10%
+    );
+    @gm3-sys-color-storage-meter-normal-secondary-rgb: #rgbify(
+      @gm3-sys-color-storage-meter-normal-secondary,
+    )[];
+    @gm3-sys-color-storage-meter-caution-primary: saturate(
+      darken(@yellow, 10%),
+      10%
+    );
+    @gm3-sys-color-storage-meter-caution-primary-rgb: #rgbify(
+      @gm3-sys-color-storage-meter-caution-primary,
+    )[];
+    @gm3-sys-color-storage-meter-caution-secondary: @yellow;
+    @gm3-sys-color-storage-meter-caution-secondary-rgb: #rgbify(
+      @gm3-sys-color-storage-meter-caution-secondary,
+    )[];
+    @gm3-sys-color-storage-meter-warning-primary: saturate(
+      darken(@red, 10%),
+      10%
+    );
+    @gm3-sys-color-storage-meter-warning-primary-rgb: #rgbify(
+      @gm3-sys-color-storage-meter-warning-primary,
+    )[];
+    @gm3-sys-color-storage-meter-warning-secondary: @red;
+    @gm3-sys-color-storage-meter-warning-secondary-rgb: #rgbify(
+      @gm3-sys-color-storage-meter-warning-secondary,
+    )[];
+    @gm3-sys-color-on-scrim: #fff;
+    @gm3-sys-color-on-scrim-rgb: #rgbify(@gm3-sys-color-on-scrim)[];
+    @gm3-sys-color-lights-out-background: #000;
+    @gm3-sys-color-lights-out-background-rgb: #rgbify(
+      @gm3-sys-color-lights-out-background,
+    )[];
+    @gm3-sys-color-gems-main: @blue;
+    @gm3-sys-color-gems-main-rgb: #rgbify(@gm3-sys-color-gems-main)[];
+    @gm3-sys-color-gems-muted: @sapphire;
+    @gm3-sys-color-gems-muted-rgb: #rgbify(@gm3-sys-color-gems-muted)[];
+    @gm3-sys-color-gems-analog: @lavender;
+    @gm3-sys-color-gems-analog-rgb: #rgbify(@gm3-sys-color-gems-analog)[];
+    @gm3-sys-color-gems-complement: @peach;
+    @gm3-sys-color-gems-complement-rgb: #rgbify(
+      @gm3-sys-color-gems-complement,
+    )[];
+    @gm3-sys-color-twitter: @text;
+    @gm3-sys-color-twitter-rgb: #rgbify(@gm3-sys-color-twitter)[];
 
-    /* slideshow buttons */
-    .UPRhTe {
-      background-color: @base;
-    }
+    --gm3-sys-color-caution: @gm3-sys-color-caution;
+    --gm3-sys-color-caution-rgb: @gm3-sys-color-caution-rgb;
+    --gm3-sys-color-on-caution: @gm3-sys-color-on-caution;
+    --gm3-sys-color-on-caution-rgb: @gm3-sys-color-on-caution-rgb;
+    --gm3-sys-color-caution-container: @gm3-sys-color-caution-container;
+    --gm3-sys-color-caution-container-rgb: @gm3-sys-color-caution-container-rgb;
+    --gm3-sys-color-on-caution-container: @gm3-sys-color-on-caution-container;
+    --gm3-sys-color-on-caution-container-rgb: @gm3-sys-color-on-caution-container-rgb;
+    --gm3-sys-color-storage-meter-normal-primary: @gm3-sys-color-storage-meter-normal-primary;
+    --gm3-sys-color-storage-meter-normal-primary-rgb: @gm3-sys-color-storage-meter-normal-primary-rgb;
+    --gm3-sys-color-storage-meter-normal-secondary: @gm3-sys-color-storage-meter-normal-secondary;
+    --gm3-sys-color-storage-meter-normal-secondary-rgb: @gm3-sys-color-storage-meter-normal-secondary-rgb;
+    --gm3-sys-color-storage-meter-caution-primary: @gm3-sys-color-storage-meter-caution-primary;
+    --gm3-sys-color-storage-meter-caution-primary-rgb: @gm3-sys-color-storage-meter-caution-primary-rgb;
+    --gm3-sys-color-storage-meter-caution-secondary: @gm3-sys-color-storage-meter-caution-secondary;
+    --gm3-sys-color-storage-meter-caution-secondary-rgb: @gm3-sys-color-storage-meter-caution-secondary-rgb;
+    --gm3-sys-color-storage-meter-warning-primary: @gm3-sys-color-storage-meter-warning-primary;
+    --gm3-sys-color-storage-meter-warning-primary-rgb: @gm3-sys-color-storage-meter-warning-primary-rgb;
+    --gm3-sys-color-storage-meter-warning-secondary: @gm3-sys-color-storage-meter-warning-secondary;
+    --gm3-sys-color-storage-meter-warning-secondary-rgb: @gm3-sys-color-storage-meter-warning-secondary-rgb;
+    --gm3-sys-color-on-scrim: @gm3-sys-color-on-scrim;
+    --gm3-sys-color-on-scrim-rgb: @gm3-sys-color-on-scrim-rgb;
+    --gm3-sys-color-lights-out-background: @gm3-sys-color-lights-out-background;
+    --gm3-sys-color-lights-out-background-rgb: @gm3-sys-color-lights-out-background-rgb;
+    --gm3-sys-color-gems-main: @gm3-sys-color-gems-main;
+    --gm3-sys-color-gems-main-rgb: @gm3-sys-color-gems-main-rgb;
+    --gm3-sys-color-gems-muted: @gm3-sys-color-gems-muted;
+    --gm3-sys-color-gems-muted-rgb: @gm3-sys-color-gems-muted-rgb;
+    --gm3-sys-color-gems-analog: @gm3-sys-color-gems-analog;
+    --gm3-sys-color-gems-analog-rgb: @gm3-sys-color-gems-analog-rgb;
+    --gm3-sys-color-gems-complement: @gm3-sys-color-gems-complement;
+    --gm3-sys-color-gems-complement-rgb: @gm3-sys-color-gems-complement-rgb;
+    --gm3-sys-color-twitter: @gm3-sys-color-twitter;
+    --gm3-sys-color-twitter-rgb: @gm3-sys-color-twitter-rgb;
 
-    /* activity log page */
-    /* main backgroound */
-    .X67EZe {
-      background-color: @surface0;
-    }
-    /* main text */
-    .vLZJlf,
-    .GiPflf,
-    .iEGkef {
-      color: @text;
-    }
-    /* type of activity */
-    .PDX3vc.LMgvRb {
-      color: @green;
-    }
-    .y03tld .e2CuFe {
-      border-top-color: @green;
-    }
-    /* reached the end */
-    .EIkL5b {
-      color: @subtext0;
-    }
-
-    /* utilities page */
-    /* headings */
-    .ARSUIf {
-      color: @text;
-    }
-    /* elements */
-    .FkWMmd {
-      color: @text;
-    }
-    .lnQi4 {
-      border-color: @surface2;
-    }
-    /* "new" pill thingy idk what to call this lol */
-    .Li8WFe {
-      color: @mantle;
-      background-color: @accent;
-    }
-    /* create highlight video subpage */
-    .a4dmPd {
-      border-color: @surface0;
-    }
-    .BH0KJc {
-      color: @text;
-    }
-    .z3RRjd:disabled {
-      color: @subtext0;
-    }
-    .IZzwM.bu4MSb {
-      --gm3-chip-input-without-avatar-label-text-color: @text;
-      --gm3-chip-input-without-avatar-with-trailing-icon-trailing-icon-color: @text;
-      background-color: @overlay0;
-    }
-
-    /* trash page */
-    .NSzyed {
-      color: @text;
-    }
-
-    /* storage page */
-    .hwDBSe,
-    .tzFvIf,
-    .BZXMjd .MrqLTc,
-    .ZbJY6,
-    .NKihpc,
-    .V3WOgd {
-      color: @text;
-    }
-    .gyqWff,
-    .BZXMjd .chfDde {
-      color: @subtext0;
-    }
-
-    /* how much storage is used bar */
-    .O4tDGf:nth-of-type(1),
-    .vN9JEc:nth-of-type(1) > .ZbKZ3d {
-      background-color: @accent;
-    }
-    .O4tDGf:nth-of-type(2),
-    .vN9JEc:nth-of-type(2) > .ZbKZ3d {
-      background-color: lighten(@accent, 15%);
-    }
-    .yVr0Vb {
-      background-color: @overlay0;
-    }
     /* google 1 more storage border */
     .BZXMjd.mPxwXe {
       background-image:
-        conic-gradient(@surface0, @surface0),
+        conic-gradient(
+          var(--gm3-sys-color-background),
+          var(--gm3-sys-color-background)
+        ),
         conic-gradient(
         from 2deg,
-        @peach 0deg,
-        @peach 90deg,
+        @yellow 0deg,
+        @yellow 90deg,
         @green 90deg,
         @green 180deg,
         @blue 180deg,
@@ -787,150 +529,13 @@
         @red 270deg,
         @red 1turn
       ),
-        linear-gradient(@surface2, @surface2);
-    }
-    /* review and delete */
-    .nfTM4e,
-    .UKzvpf .ASWyTc,
-    .TTlRAe .oevqcc {
-      color: @text;
-    }
-    .UKzvpf .YvjW7c {
-      color: @subtext0;
-    }
-    .UKzvpf:not(:last-child) .e0CX4d::after {
-      background-color: @overlay0;
-    }
-    .KVhwqd .TTlRAe .e0CX4d,
-    .TTlRAe:not(:last-child) .e0CX4d {
-      border-color: @overlay0;
+        linear-gradient(
+        var(--gm3-sys-color-outline-variant,),
+        var(--gm3-sys-color-outline-variant,)
+      );
     }
 
-    /* photo editing sidebar */
-    .gmtNPe {
-      background-color: @surface0;
-    }
-    .bYXAhf,
-    .hGASzd,
-    .YFLDdf,
-    .QEQULc {
-      color: @text;
-    }
-    .dm7YTc .kDryjd:disabled {
-      color: fade(@text, 35%);
-      background-color: fade(@base, 40%);
-    }
-    .ALaST {
-      border-color: @surface0;
-    }
-    /* cropping tol */
-    .j1AIcc {
-      background-color: @surface0;
-    }
-    .TERVqe {
-      background-color: @mantle;
-    }
-    /* effect sliders */
-    .dm7YTc .fEUJ5b .dCWhBf,
-    .dm7YTc .fEUJ5b .R4GWv,
-    .dm7YTc .fEUJ5b.qoCZef .dCWhBf,
-    .dm7YTc .fEUJ5b.qoCZef .R4GWv,
-    .dm7YTc .fEUJ5b.qs41qe .dCWhBf,
-    .dm7YTc .fEUJ5b.qs41qe .R4GWv,
-    .dm7YTc .fEUJ5b .bBKqme {
-      background-color: @accent;
-    }
-    /* filters tool */
-    .XlI4Ne {
-      color: @text;
-    }
-    /* pen tool */
-    .W3FYdb {
-      background-color: @surface0;
-    }
-    /* photo info  */
-    .Q77Pt {
-      background-color: @base;
-    }
-    .WUbige {
-      color: @text;
-    }
-    .wiOkb,
-    .R9U8ab,
-    .x1LMef {
-      color: @text;
-    }
-    .JzSi2b,
-    .oBMhZb {
-      color: @subtext0;
-    }
-    .KefOhc {
-      border-bottom-color: @surface0;
-    }
-    /* editing date/location */
-    .rrk4We:not(.VfPpkd-fmcmS-yrriRe-OWXEXe-OWB6Me),
-    .sGhbA,
-    .LAL5ie .jBmls,
-    .VfPpkd-fmcmS-OyKIhb::after {
-      background-color: @surface2;
-    }
-    .oMg70c:not(.VfPpkd-fmcmS-yrriRe-OWXEXe-OWB6Me) .VfPpkd-NLUYnc-V67aGc,
-    .oMg70c:not(.VfPpkd-fmcmS-yrriRe-OWXEXe-OWB6Me)
-      .VfPpkd-NLUYnc-V67aGc-OWXEXe-TATcMc-KLRBe,
-    .oMg70c:not(.VfPpkd-fmcmS-yrriRe-OWXEXe-OWB6Me) .VfPpkd-fmcmS-wGMbrd,
-    .sGhbA,
-    .osOuXd:not(.VfPpkd-O1htCb-OWXEXe-OWB6Me)
-      .VfPpkd-NLUYnc-V67aGc-OWXEXe-TATcMc-KLRBe,
-    .BnQsec,
-    .mplJGb {
-      color: @text;
-    }
-    .osOuXd:not(.VfPpkd-O1htCb-OWXEXe-OWB6Me) .VfPpkd-RWgCYc-ksKsZd::after {
-      border-color: @accent;
-    }
-    .ddaf0 .qggZ5d .d1dlne::after {
-      background-color: @accent;
-    }
-    .pRVpNc {
-      color: @subtext0;
-    }
-
-    /* unsupported videos page */
-    /* video title & amount of vid selected */
-    .nTuy2b,
-    .dSfdaf,
-    .rtExYb {
-      color: @text;
-    }
-    /* date & size of vid */
-    .iKLDRc {
-      color: @subtext0;
-    }
-    /* selected video backgrounc */
-    .s67Ibf.UYcdu {
-      background: fade(@accent, 40%);
-    }
-
-    /* skipped suggestions page */
-    /* suggestion background */
-    .AbQ7md {
-      background: @surface0;
-      border-color: @surface2;
-    }
-    /* date of suggestion */
-    .Vy0KAc {
-      color: @text;
-    }
-
-    a {
-      color: @blue;
-    }
-
-    .ATUW8c {
-      box-shadow: 0 0 0 1px var(--pkw-outline, (@surface2)) inset;
-    }
-
-    // google 1 icon
+    // google one icon
     .BZXMjd.mPxwXe .oXxEid {
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="m14.573 7.63-.003.001-4.245 3.561a1.725 1.725 0 1 0 2.216 2.642l1.413-1.184V8.952c0-.53.241-1.007.62-1.323z" fill="@{yellow}"/><path fill-rule="evenodd" clip-rule="evenodd" d="M15.68 22.771c.952 0 1.724-.772 1.724-1.725v-1.52l-3.45-2.675v4.195c0 .953.773 1.725 1.725 1.725z" fill="@{green}"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17.404 8.944a1.72 1.72 0 0 1-.616 1.33l-2.833 2.376v4.2l3.45 2.676V8.943z" fill="@{blue}"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17.404 8.944v-.016a2 2 0 0 0-.009-.154V8.77a2 2 0 0 0-.025-.16v-.001a2 2 0 0 0-.04-.16s0-.002-.002-.003a1 1 0 0 0-.056-.154q0-.003-.002-.005a2 2 0 0 0-.072-.152v-.002a2 2 0 0 0-.195-.286l-.005-.006a2 2 0 0 0-.112-.12l-.014-.013a1.5 1.5 0 0 0-.249-.2q-.011-.005-.023-.013a2 2 0 0 0-.125-.072l-.019-.01a1 1 0 0 0-.136-.061l-.013-.006a2 2 0 0 0-.147-.05l-.008-.001a2 2 0 0 0-.154-.037l-.008-.001a2 2 0 0 0-.154-.021l-.014-.001a1 1 0 0 0-.152-.006h-.015a2 2 0 0 0-.154.009h-.004a2 2 0 0 0-.16.024h-.002a2 2 0 0 0-.159.04l-.004.002a3 3 0 0 0-.154.056l-.006.002q-.075.032-.149.072h-.004a2 2 0 0 0-.146.09v.002a1.72 1.72 0 0 0-.757 1.427v3.697l2.832-2.375a1.72 1.72 0 0 0 .616-1.331" fill="@{red}"/><mask id="a" maskUnits="userSpaceOnUse" x="14" y="29" width="2" height="1"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.325 29.491h1.35V30h-1.35z" fill="@{text}"/></mask><g mask="url(#a)"><path fill-rule="evenodd" clip-rule="evenodd" d="M15 30q.338 0 .674-.016h-1.349Q14.66 30 15 30" fill="@{green}"/></g><mask id="b" maskUnits="userSpaceOnUse" x="10" y="29" width="10" height="1"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.685 29.176h8.63V30h-8.63z" fill="@{text}"/></mask><g mask="url(#b)"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.685 29.369c1.18.354 2.397.56 3.641.615h1.348a15 15 0 0 0 3.642-.615h-8.63z" fill="@{green}"/></g><path fill-rule="evenodd" clip-rule="evenodd" d="M20.84 28.82a15 15 0 0 0 4.56-3.013h.002l.206-.201.005-.006-1.566-1.196-.049.047a13 13 0 0 1-3.919 2.573A13 13 0 0 1 15 28.05c-1.762 0-3.472-.345-5.08-1.026a13 13 0 0 1-4.146-2.797 13 13 0 0 1-2.076-2.702l-1.512 1.272a15 15 0 0 0 2.208 2.809 14.96 14.96 0 0 0 6.291 3.763h8.63a15 15 0 0 0 1.524-.548z" fill="@{green}"/><path fill-rule="evenodd" clip-rule="evenodd" d="M3.604 8.637a13 13 0 0 1 2.168-2.865A13 13 0 0 1 15 1.95a12.98 12.98 0 0 1 8.37 3.036l1.51-1.27a14.9 14.9 0 0 0-9.205-3.7h-1.35a14.96 14.96 0 0 0-9.932 4.378A15 15 0 0 0 2.13 7.291l-.002-.002-.107.184-.037.064L3.55 8.736c.02-.034.035-.066.054-.099" fill="@{red}"/><mask id="c" maskUnits="userSpaceOnUse" x="14" y="0" width="2" height="1"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.324 0h1.351v.508h-1.35V0z" fill="@{text}"/></mask><g mask="url(#c)"><path fill-rule="evenodd" clip-rule="evenodd" d="M15 0q-.339 0-.676.016h1.351A14 14 0 0 0 15 0" fill="@{red}"/></g><path fill-rule="evenodd" clip-rule="evenodd" d="M3.405 20.993A13 13 0 0 1 1.951 15c0-1.762.345-3.471 1.024-5.08.169-.4.364-.796.576-1.184L1.984 7.539l-.044.077h.002A14.9 14.9 0 0 0 .001 15a14.9 14.9 0 0 0 1.731 7.003H1.73l.076.14.104.193.003-.003q.133.234.272.465l1.513-1.272q-.153-.262-.293-.532z" fill="@{yellow}"/><mask id="d" maskUnits="userSpaceOnUse" x="23" y="3" width="8" height="23"><path fill-rule="evenodd" clip-rule="evenodd" d="M23.37 3.716H30V25.6h-6.63z" fill="@{text}"/></mask><g mask="url(#d)"><path fill-rule="evenodd" clip-rule="evenodd" d="M23.776 5.342A13 13 0 0 1 28.05 15c0 1.762-.344 3.47-1.024 5.079a13 13 0 0 1-2.797 4.148q-.09.09-.18.177l1.565 1.196.011-.01.045-.045v-.001A14.97 14.97 0 0 0 30 15a14.96 14.96 0 0 0-4.394-10.607l-.152-.147.002-.002-.157-.148-.002-.002-.115-.11-.002.003a11 11 0 0 0-.3-.271l-1.51 1.27q.205.173.405.356z" fill="@{blue}"/></g></svg>'
@@ -938,7 +543,7 @@
       background-image: url("data:image/svg+xml,@{svg}") !important;
     }
 
-    //google logo
+    // google logo
     .UDKXKd,
     .uuRyud {
       @svg: escape(
@@ -962,7 +567,7 @@
       }
     }
 
-    //google play install button
+    // google play install button
     .Od6mvf {
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" width="135" height="40" viewBox="0 0 135 40"><path d="M130 40H5c-2.75 0-5-2.25-5-5V5c0-2.75 2.25-5 5-5h125c2.75 0 5 2.25 5 5v30c0 2.75-2.25 5-5 5"/><path fill="@{overlay0}" d="M130 .8a4.2 4.2 0 0 1 4.2 4.2v30a4.2 4.2 0 0 1-4.2 4.2H5A4.2 4.2 0 0 1 .8 35V5A4.2 4.2 0 0 1 5 .8zm0-.8H5C2.25 0 0 2.25 0 5v30c0 2.75 2.25 5 5 5h125c2.75 0 5-2.25 5-5V5c0-2.75-2.25-5-5-5"/><path d="M47.42 10.24c0 .84-.25 1.51-.75 2-.56.59-1.3.89-2.2.89-.87 0-1.6-.3-2.21-.9s-.91-1.35-.91-2.23c0-.89.3-1.63.91-2.23s1.34-.9 2.21-.9c.43 0 .84.08 1.23.25s.7.39.94.67l-.53.53c-.4-.47-.94-.71-1.64-.71-.63 0-1.18.22-1.64.67-.46.44-.69 1.02-.69 1.73s.23 1.29.69 1.73 1.01.67 1.64.67c.67 0 1.23-.22 1.68-.67.29-.29.46-.7.5-1.22h-2.18v-.73h2.91c.02.16.04.31.04.45zm4.61-2.5H49.3v1.9h2.46v.72H49.3v1.9h2.73V13h-3.5V7h3.5zM55.28 13h-.77V7.74h-1.68V7h4.12v.74h-1.68V13zm4.66 0V7h.77v6zm4.19 0h-.77V7.74h-1.68V7h4.12v.74h-1.68V13zm9.48-.78c-.59.61-1.32.91-2.2.91s-1.61-.3-2.2-.91-.88-1.35-.88-2.22.29-1.62.88-2.22c.59-.61 1.32-.91 2.2-.91.87 0 1.6.3 2.2.91.59.61.89 1.35.89 2.22-.01.88-.3 1.62-.89 2.22zm-3.83-.5c.44.45.99.67 1.63.67s1.19-.22 1.63-.67.67-1.02.67-1.72-.22-1.27-.67-1.72c-.44-.45-.99-.68-1.63-.68s-1.19.22-1.63.67c-.44.46-.67 1.03-.67 1.73s.23 1.27.67 1.72zm5.8 1.28V7h.94l2.92 4.67h.03l-.03-1.16V7h.77v6h-.8l-3.05-4.89h-.03l.03 1.16V13z" fill="@{text}" stroke="@{text}" stroke-width=".2" stroke-miterlimit="10"/><path fill="@{text}" d="M68.14 21.75c-2.35 0-4.27 1.79-4.27 4.25 0 2.45 1.92 4.25 4.27 4.25s4.27-1.8 4.27-4.25c0-2.46-1.92-4.25-4.27-4.25m0 6.83c-1.29 0-2.4-1.06-2.4-2.58 0-1.53 1.11-2.58 2.4-2.58s2.4 1.05 2.4 2.58c0 1.52-1.12 2.58-2.4 2.58m-9.32-6.83c-2.35 0-4.27 1.79-4.27 4.25 0 2.45 1.92 4.25 4.27 4.25s4.27-1.8 4.27-4.25c0-2.46-1.92-4.25-4.27-4.25m0 6.83c-1.29 0-2.4-1.06-2.4-2.58 0-1.53 1.11-2.58 2.4-2.58s2.4 1.05 2.4 2.58c0 1.52-1.11 2.58-2.4 2.58m-11.08-5.52v1.8h4.32c-.13 1.01-.47 1.76-.98 2.27-.63.63-1.61 1.32-3.33 1.32-2.66 0-4.74-2.14-4.74-4.8s2.08-4.8 4.74-4.8c1.43 0 2.48.56 3.25 1.29l1.27-1.27c-1.08-1.03-2.51-1.82-4.53-1.82-3.64 0-6.7 2.96-6.7 6.61 0 3.64 3.06 6.61 6.7 6.61 1.97 0 3.45-.64 4.61-1.85 1.19-1.19 1.56-2.87 1.56-4.22 0-.42-.03-.81-.1-1.13h-6.07zm45.31 1.4c-.35-.95-1.43-2.71-3.64-2.71-2.19 0-4.01 1.72-4.01 4.25 0 2.38 1.8 4.25 4.22 4.25 1.95 0 3.08-1.19 3.54-1.88l-1.45-.97c-.48.71-1.14 1.18-2.09 1.18s-1.63-.43-2.06-1.29l5.69-2.35zm-5.8 1.42c-.05-1.64 1.27-2.48 2.22-2.48.74 0 1.37.37 1.58.9zM82.63 30h1.87V17.5h-1.87zm-3.06-7.3h-.07c-.42-.5-1.22-.95-2.24-.95-2.13 0-4.08 1.87-4.08 4.27 0 2.38 1.95 4.24 4.08 4.24 1.01 0 1.82-.45 2.24-.97h.06v.61c0 1.63-.87 2.5-2.27 2.5-1.14 0-1.85-.82-2.14-1.51l-1.63.68c.47 1.13 1.71 2.51 3.77 2.51 2.19 0 4.04-1.29 4.04-4.43v-7.64h-1.77v.69zm-2.15 5.88c-1.29 0-2.37-1.08-2.37-2.56 0-1.5 1.08-2.59 2.37-2.59 1.27 0 2.27 1.1 2.27 2.59.01 1.48-.99 2.56-2.27 2.56m24.39-11.08h-4.47V30h1.87v-4.74h2.61c2.07 0 4.1-1.5 4.1-3.88s-2.05-3.88-4.11-3.88m.04 6.02H99.2v-4.29h2.65c1.4 0 2.19 1.16 2.19 2.14s-.79 2.15-2.19 2.15m11.54-1.79c-1.35 0-2.75.6-3.33 1.91l1.66.69c.35-.69 1.01-.92 1.7-.92.96 0 1.95.58 1.96 1.61v.13c-.34-.19-1.06-.48-1.95-.48-1.79 0-3.6.98-3.6 2.81 0 1.67 1.46 2.75 3.1 2.75 1.25 0 1.95-.56 2.38-1.22h.06v.97h1.8v-4.79c.01-2.22-1.65-3.46-3.78-3.46m-.23 6.85c-.61 0-1.46-.31-1.46-1.06 0-.96 1.06-1.33 1.98-1.33.82 0 1.21.18 1.7.42a2.26 2.26 0 0 1-2.22 1.97M123.74 22l-2.14 5.42h-.06L119.32 22h-2.01l3.33 7.58-1.9 4.21h1.95L125.82 22zm-16.8 8h1.87V17.5h-1.87z"/><linearGradient id="a" gradientUnits="userSpaceOnUse" x1="21.8" y1="173.29" x2="5.017" y2="156.508" gradientTransform="matrix(1 0 0 -1 0 182)"><stop offset="0" stop-color="@{blue}"/><stop offset=".007" stop-color="@{blue}"/><stop offset=".26" stop-color="@{blue}"/><stop offset=".512" stop-color="@{blue}"/><stop offset=".76" stop-color="@{blue}"/><stop offset="1" stop-color="@{blue}"/></linearGradient><path fill="url(#a)" d="M10.44 7.54c-.29.31-.46.79-.46 1.4v22.12c0 .62.17 1.1.46 1.4l.07.07L22.9 20.15v-.3L10.51 7.47z"/><linearGradient id="b" gradientUnits="userSpaceOnUse" x1="33.834" y1="161.999" x2="9.637" y2="161.999" gradientTransform="matrix(1 0 0 -1 0 182)"><stop offset="0" stop-color="@{yellow}"/><stop offset=".409" stop-color="@{yellow}"/><stop offset=".775" stop-color="@{peach}"/><stop offset="1" stop-color="@{peach}"/></linearGradient><path fill="url(#b)" d="m27.03 24.28-4.13-4.13v-.3l4.13-4.13.09.05 4.89 2.78c1.4.79 1.4 2.09 0 2.89l-4.89 2.78z"/><linearGradient id="c" gradientUnits="userSpaceOnUse" x1="24.827" y1="159.704" x2="2.069" y2="136.946" gradientTransform="matrix(1 0 0 -1 0 182)"><stop offset="0" stop-color="@{red}"/><stop offset="1" stop-color="@{maroon}"/></linearGradient><path fill="url(#c)" d="M27.12 24.22 22.9 20 10.44 32.46c.46.49 1.22.55 2.08.06z"/><linearGradient id="d" gradientUnits="userSpaceOnUse" x1="7.297" y1="181.824" x2="17.46" y2="171.661" gradientTransform="matrix(1 0 0 -1 0 182)"><stop offset="0" stop-color="@{green}"/><stop offset=".069" stop-color="@{green}"/><stop offset=".476" stop-color="@{green}"/><stop offset=".801" stop-color="@{green}"/><stop offset="1" stop-color="@{green}"/></linearGradient><path fill="url(#d)" d="m27.12 15.78-14.61-8.3c-.86-.49-1.62-.43-2.08.06L22.9 20z"/><path opacity=".2" d="m27.03 24.13-14.52 8.25c-.81.46-1.54.43-2 .01l-.07.07.07.07c.47.42 1.19.45 2-.01l14.61-8.3z"/><path opacity=".12" d="M10.44 32.32c-.29-.31-.46-.79-.46-1.4v.15c0 .62.17 1.1.46 1.4l.07-.07zM32.01 21.3l-4.99 2.83.09.09L32 21.44c.7-.4 1.05-.92 1.05-1.44-.05.47-.4.94-1.04 1.3"/><path opacity=".25" fill="@{text}" d="m12.51 7.62 19.5 11.08c.63.36.99.82 1.05 1.3 0-.52-.35-1.05-1.05-1.44L12.51 7.48c-1.4-.79-2.54-.13-2.54 1.47v.15c0-1.61 1.15-2.27 2.54-1.48"/></svg>'
@@ -993,7 +598,7 @@
       background-image: url("data:image/svg+xml,@{svg}") !important;
     }
 
-    //album image
+    // album image
     .AAF8rf {
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" width="276" height="82" fill="none"><g clip-path="url(#a)"><path d="M166 2h16v79h-16z" fill="@{red}"/><path d="M121 0h19v81h-19z" fill="@{blue}"/><path d="M125.5 4.5h10v72h-10z" stroke="@{crust}"/><path fill="@{yellow}" d="M140 5h26v76h-26z"/><path d="M161.5 43c0 8.804-1.004 16.757-2.617 22.492-.808 2.871-1.76 5.158-2.796 6.716-1.049 1.577-2.102 2.292-3.087 2.292s-2.038-.715-3.087-2.292c-1.036-1.558-1.988-3.845-2.796-6.716C145.504 59.756 144.5 51.804 144.5 43s1.004-16.756 2.617-22.492c.808-2.871 1.76-5.158 2.796-6.716 1.049-1.577 2.102-2.292 3.087-2.292s2.038.715 3.087 2.292c1.036 1.558 1.988 3.845 2.796 6.716C160.496 26.244 161.5 34.196 161.5 43z" stroke="@{crust}"/><path fill="@{green}" d="m181.912 19.98 14.672-3.119 12.995 61.136-14.672 3.118z"/><path d="M181.912 19.98a7.5 7.5 0 0 0 14.673-3.118l-7.337 1.56-7.336 1.559z" fill="@{text}"/><path stroke="@{crust}" d="m186.071 39.544 14.672-3.119m-8.851 30.507 14.673-3.119"/><path d="M86.904 26.702s-15.95 18.923-7.512 40.21" stroke="@{crust}" stroke-miterlimit="10" stroke-linejoin="bevel"/><path d="m79.675 26.522 1.427-.337-1.444-.38c-1.695-.432-2.582-2.288-1.887-3.896s2.635-2.187 4.13-1.295l1.267.793-.733-1.27c-.869-1.522-.225-3.452 1.42-4.104 1.612-.639 3.436.313 3.844 2.017l.338 1.427.379-1.445c.432-1.694 2.288-2.582 3.896-1.887s2.187 2.636 1.295 4.131l-.792 1.266 1.27-.732c1.521-.87 3.451-.226 4.103 1.42.64 1.611-.313 3.435-2.016 3.844l-1.427.337 1.444.38c1.695.432 2.583 2.288 1.888 3.896s-2.636 2.186-4.132 1.295l-1.266-.793.733 1.27c.869 1.521.225 3.452-1.42 4.104-1.612.639-3.436-.313-3.844-2.017l-.338-1.427-.379 1.445c-.432 1.694-2.288 2.582-3.896 1.887s-2.187-2.636-1.295-4.131l.792-1.266-1.27.732c-1.521.87-3.451.226-4.103-1.42-.64-1.611.313-3.435 2.016-3.844" fill="@{red}"/><path d="M87.992 29.735c.234.592.923.89 1.516.655.592-.234.89-.923.655-1.516a1.18 1.18 0 0 0-1.516-.655c-.625.248-.903.891-.655 1.516m-2.374-5.988c.235.593.924.89 1.516.656a1.18 1.18 0 0 0 .656-1.516 1.18 1.18 0 0 0-1.517-.656c-.625.248-.89.924-.655 1.516m5.664 2.476c.592-.235.89-.924.655-1.516a1.18 1.18 0 0 0-1.516-.655c-.592.234-.89.923-.655 1.516.235.592.924.89 1.516.655m-5.955 2.36c.592-.234.89-.923.655-1.516a1.18 1.18 0 0 0-1.516-.655c-.592.235-.89.924-.655 1.516s.924.89 1.516.655" fill="@{red}"/><path d="M88.442 60.18a13 13 0 0 0-.864-1.094l-2.835-3.637c-1.66-2.118-1.901-5.048-.622-7.45H70.845c1.28 2.402 1.037 5.332-.622 7.45l-2.835 3.637a13 13 0 0 0-.864 1.094A13.85 13.85 0 0 0 64 68.194c0 7.52 5.947 13.699 13.31 13.805C84.847 82.105 91 75.89 91 68.229c-.034-3-.968-5.79-2.558-8.049" fill="@{flamingo}"/><path stroke="@{crust}" d="M28 81.5h220"/></g><defs><clipPath id="a"><path fill="{@text}" d="M0 0h276v82H0z"/></clipPath></defs></svg>'
@@ -1001,7 +606,7 @@
       background-image: url("data:image/svg+xml,@{svg}") !important;
     }
 
-    //archive image
+    // archive image
     .ZgMovb {
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" width="132" height="132" fill="none"><path d="M36 52h60l8 12H28z" fill="@{peach}"/><path d="M39 64V33.37c1.09-1.025 2.326-1.831 3.634-2.124 2.518-.62 4.983.592 7.398 1.779.443.217.884.434 1.323.639 2.762 1.319 5.742 2.198 8.576 1.465 1.665-.42 3.21-1.391 4.76-2.366 1.156-.727 2.314-1.456 3.526-1.957 2.907-1.246 6.25-1.026 9.085.513 1.082.606 2.115 1.4 3.15 2.197 1.465 1.127 2.934 2.258 4.553 2.86 2.69.952 5.67.366 7.995-1.54V64z" fill="@{blue}"/><path d="M63.092 38a6.7 6.7 0 0 0-3.41.936 6.9 6.9 0 0 0-2.495 2.56 4.57 4.57 0 0 0-2.018-1.134 4.5 4.5 0 0 0-2.3.01c-.754.203-1.445.6-2.008 1.151a4.75 4.75 0 0 0-1.215 2.005h-2.519a4.08 4.08 0 0 0-2.918 1.24A4.3 4.3 0 0 0 43 47.765c0 1.123.435 2.2 1.209 2.995A4.07 4.07 0 0 0 47.127 52h15.965a6.7 6.7 0 0 0 2.636-.506 6.8 6.8 0 0 0 2.243-1.511 7 7 0 0 0 1.501-2.282 7.16 7.16 0 0 0 0-5.4 7 7 0 0 0-1.5-2.281 6.8 6.8 0 0 0-2.243-1.511A6.7 6.7 0 0 0 63.091 38z" fill="@{text}"/><path d="m79.45 54.589-7.9 7.74-13.5-13.227c-1.5-1.47-4-1.47-5.5 0L39 62.378V71h54v-8.622l-8-7.838c-1.55-1.47-4.05-1.47-5.55.049" fill="@{green}"/><path d="M80 51c3.327 0 6-2.673 6-6s-2.673-6-6-6-6 2.673-6 6 2.673 6 6 6M28 64h76v40H28z" fill="@{yellow}"/><path d="M54.5 70.5h23V72a3.5 3.5 0 0 1-3.5 3.5H58a3.5 3.5 0 0 1-3.5-3.5z" stroke="@{crust}"/></svg>'
@@ -1024,7 +629,7 @@
       }
     }
 
-    //app download page image
+    // app download page image
     .TN5Asf {
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" width="654" height="536" fill="none"><path fill="@{base}" d="M0 0h654v536H0z"/><path d="M307.5 443c94.165 0 170.5-76.112 170.5-170s-76.335-170-170.5-170S137 179.112 137 273s76.335 170 170.5 170z" stroke="@{text}" stroke-width="4" stroke-miterlimit="10" stroke-linecap="round" stroke-dasharray="0.01 24"/><path d="m141.807 269.137 2.806 8.552a3.09 3.09 0 0 0 2.942 2.137h9.059a3.1 3.1 0 0 1 2.956 2.135 3.08 3.08 0 0 1-1.137 3.458l-7.326 5.301a3.11 3.11 0 0 0-1.124 3.421l2.797 8.551a3.08 3.08 0 0 1-1.149 3.424 3.11 3.11 0 0 1-3.621-.004l-7.327-5.301a3.11 3.11 0 0 0-3.646 0l-7.326 5.301a3.102 3.102 0 0 1-4.75-1.523 3.1 3.1 0 0 1-.02-1.897l2.797-8.551a3.07 3.07 0 0 0-1.124-3.421l-7.326-5.301a3.085 3.085 0 0 1-1.137-3.458 3.1 3.1 0 0 1 2.956-2.135h9.059a3.11 3.11 0 0 0 2.951-2.137l2.797-8.552a3.1 3.1 0 0 1 1.124-1.546 3.11 3.11 0 0 1 3.645 0c.529.384.923.925 1.124 1.546" fill="@{yellow}"/><path d="M495.81 243.226a44.9 44.9 0 0 1-18.779 11.551A45 45 0 0 1 455 256.002l2.256-11.596a33.1 33.1 0 0 0 16.211-.903A33 33 0 0 0 487.282 235z" fill="@{red}"/><path d="M166.232 187.422a19.23 19.23 0 0 1-6.202-13.09 19.22 19.22 0 0 1 4.699-13.697 19.365 19.365 0 0 1 26.819-2.287" fill="@{green}"/><path d="M452.721 189.392c4.264 0 7.721-3.446 7.721-7.696S456.985 174 452.721 174 445 177.446 445 181.696s3.457 7.696 7.721 7.696" fill="@{blue}"/><path fill="@{base}" d="M184 388h67v63h-67z"/><path d="M277.198 49a50.75 50.75 0 0 1 25.755 7.017c7.831 4.603 14.334 11.225 18.855 19.202a34.6 34.6 0 0 1 15.246-8.503 34.16 34.16 0 0 1 17.381.074 34.6 34.6 0 0 1 15.174 8.634 35.5 35.5 0 0 1 9.179 15.036h19.028c8.271 0 16.202 3.347 22.05 9.305 5.849 5.957 9.134 14.038 9.134 22.463s-3.285 16.506-9.134 22.463c-5.848 5.958-13.779 9.305-22.05 9.305H277.198a50.7 50.7 0 0 1-19.924-3.8 51.5 51.5 0 0 1-16.945-11.333 52.6 52.6 0 0 1-11.342-17.114A53.3 53.3 0 0 1 225 101.502a53.3 53.3 0 0 1 3.987-20.246 52.6 52.6 0 0 1 11.342-17.114 51.5 51.5 0 0 1 16.945-11.333 50.7 50.7 0 0 1 19.924-3.8z" fill="@{blue}"/><circle cx="326.125" cy="104.875" fill="@{base}" r="9.625"/><path d="m326.125 112.75 9.851 17.062h-19.702z" fill="@{base}"/><rect x="114" y="350" width="78" height="156" rx="8" fill="@{mantle}"/><path fill="@{text}" d="M117 361h72v134h-72z"/><mask id="a" maskUnits="userSpaceOnUse" x="117" y="392" width="72" height="72"><path fill="@{yellow}" d="M117 392h72v72h-72z"/></mask><g mask="url(#a)"><path fill="@{yellow}" d="M117 392h72v72h-72z"/><path d="M28.765 291.978c8.223 9.946 9.311 23.919 2.895 35.033l-2.016 3.491L221.897 441.5l-7.088 12.277c24.031 13.875 54.779 5.636 68.653-18.395L23.012 285.011z" fill="@{blue}"/><path d="M34.55 346.058c11.653-.565 15.282.676 18.075 2.289s5.681 4.134 11.019 14.508a18.2 18.2 0 0 0 4.873 6.073c.748.586 1.553 1.207 2.426 1.71 3.308 2.065 7.279 3.116 11.355 2.91l.034-.059c11.503-.573 15.13.668 17.924 2.28 2.793 1.613 5.682 4.134 11.019 14.509a19.68 19.68 0 0 0 18.563 10.717c11.653-.565 15.281.676 18.074 2.289s5.682 4.134 11.02 14.508a19.67 19.67 0 0 0 18.562 10.717c11.653-.565 15.281.676 18.074 2.289s5.682 4.134 11.02 14.508c1.859 3.634 4.754 6.547 8.196 8.379l9.071-15.711c-3.442-1.832-6.338-4.745-8.197-8.378-5.337-10.375-8.226-12.896-11.019-14.509s-6.421-2.854-18.075-2.289a19.68 19.68 0 0 1-18.562-10.717c-5.337-10.374-8.226-12.896-11.019-14.508-2.793-1.613-6.421-2.854-18.075-2.289a19.68 19.68 0 0 1-18.562-10.717c-5.337-10.374-8.226-12.896-11.019-14.508-2.793-1.613-6.422-2.854-18.075-2.289a20.1 20.1 0 0 1-11.238-2.842c-3.05-1.839-5.539-4.517-7.266-7.842-5.337-10.374-8.226-12.895-11.02-14.508-2.792-1.613-6.42-2.854-18.074-2.289-4.318.222-8.488-1.021-11.96-3.337l-9.071 15.711a19.24 19.24 0 0 0 11.927 3.395" fill="@{text}"/><path d="m186.547 429.419-.056 9.709c0 1.443.888 2.719 2.275 3.163l9.21 3.051c3.052.999 3.052 5.382-.055 6.325l-9.266 2.941a3.33 3.33 0 0 0-2.33 3.162l-.056 9.709c0 3.218-4.161 4.55-6.047 1.942l-5.659-7.934a3.32 3.32 0 0 0-3.718-1.22l-9.265 2.94c-3.052.999-5.604-2.552-3.717-5.159l5.77-7.823c.832-1.166.887-2.719 0-3.94l-5.659-7.934c-1.887-2.607.665-6.103 3.772-5.104l9.21 3.052c1.387.443 2.885 0 3.718-1.166l5.77-7.823c1.997-2.496 6.103-1.165 6.103 2.109" fill="@{red}"/><path d="M182.83 449.947c-1.055 3.218-4.55 4.938-7.712 3.884-3.218-1.054-4.938-4.549-3.884-7.712 1.054-3.218 4.549-4.938 7.712-3.884 3.218 1.055 4.938 4.494 3.884 7.712" fill="@{red}"/><path d="m152 442.439-9.525-5.545a16.17 16.17 0 0 0-.653-14.745c-4.436-7.698-14.222-10.373-21.921-5.937s-10.373 14.223-5.937 21.921c2.675 4.698 7.372 7.503 12.396 7.96v11.026z" fill="@{surface2}"/><path d="m119.887 416.481 18.834 32.85" stroke="@{surface2}" stroke-miterlimit="10"/><path d="m129.523 414.541 9.198 34.79-25.404-25.53" stroke="@{surface2}" stroke-miterlimit="10" stroke-linejoin="bevel"/><path d="m138.846 419.046-.125 30.285-26.217-15.205" stroke="@{surface2}" stroke-miterlimit="10" stroke-linejoin="bevel"/></g><path fill="@{yellow}" d="M117 361h35v30h-35zm36 0h36v30h-36zm0 104h36v30h-36zm-36 0h35v30h-35z"/><path d="M240 304a3 3 0 0 1 3-3h303a3 3 0 0 1 3 3v191H240z" fill="@{text}" stroke="@{mantle}" stroke-width="2"/><path d="M215 496a2 2 0 0 1 2-2h355a2 2 0 0 1 2 2v2a8 8 0 0 1-8 8H223a8 8 0 0 1-8-8z" fill="@{mantle}"/><mask id="b" maskUnits="userSpaceOnUse" x="243" y="304" width="188" height="188"><path fill="@{yellow}" d="M243 304h188v188H243z"/></mask><g mask="url(#b)"><path fill="@{yellow}" d="M243 304h188v188H243z"/><path d="M12.61 42.833c21.47 25.969 24.31 62.453 7.556 91.473l-5.263 9.116 501.995 289.827-18.508 32.058c62.749 36.229 143.034 14.717 179.262-48.033L-2.412 24.639z" fill="@{blue}"/><path d="M27.714 184.04c30.428-1.475 39.901 1.766 47.194 5.977 7.293 4.21 14.837 10.794 28.774 37.883 3.084 6.238 7.477 11.61 12.725 15.855 1.951 1.532 4.055 3.152 6.334 4.468 8.637 5.391 19.004 8.136 29.648 7.596l.088-.152c30.036-1.499 39.51 1.742 46.802 5.953s14.837 10.794 28.774 37.883a51.37 51.37 0 0 0 48.467 27.983c30.428-1.475 39.902 1.766 47.195 5.977 7.293 4.21 14.836 10.794 28.773 37.883a51.37 51.37 0 0 0 48.467 27.983c30.429-1.475 39.902 1.766 47.195 5.977 7.293 4.21 14.836 10.794 28.773 37.883 4.854 9.487 12.415 17.094 21.403 21.878l23.684-41.023c-8.988-4.784-16.548-12.39-21.402-21.878-13.937-27.089-21.481-33.673-28.774-37.883s-16.766-7.452-47.194-5.977a51.38 51.38 0 0 1-48.468-27.983c-13.936-27.089-21.48-33.672-28.773-37.883-7.293-4.21-16.766-7.451-47.194-5.977a51.38 51.38 0 0 1-48.468-27.982c-13.937-27.089-21.48-33.673-28.773-37.884s-16.766-7.451-47.195-5.976a52.4 52.4 0 0 1-29.344-7.421c-7.965-4.801-14.462-11.793-18.971-20.474-13.937-27.089-21.481-33.673-28.773-37.884-7.293-4.21-16.767-7.451-47.195-5.976-11.275.58-22.162-2.667-31.232-8.713L-3.43 175.175c8.981 6.199 19.87 9.446 31.144 8.865" fill="@{text}"/><path d="m424.595 401.705-.145 25.352c0 3.767 2.318 7.098 5.939 8.257l24.049 7.968c7.968 2.608 7.968 14.053-.145 16.515l-24.193 7.679c-3.622 1.159-6.085 4.491-6.085 8.257l-.145 25.352c0 8.403-10.865 11.88-15.791 5.071l-14.776-20.716c-2.173-3.043-6.085-4.347-9.707-3.188l-24.193 7.678c-7.968 2.608-14.632-6.664-9.706-13.472l15.066-20.427c2.173-3.042 2.318-7.099 0-10.286l-14.776-20.716c-4.926-6.809 1.738-15.936 9.851-13.328l24.048 7.968c3.622 1.159 7.533 0 9.706-3.043l15.067-20.426c5.215-6.52 15.936-3.043 15.936 5.505" fill="@{maroon}"/><path d="M414.888 455.307c-2.752 8.402-11.879 12.893-20.137 10.141-8.402-2.753-12.893-11.879-10.14-20.137 2.752-8.403 11.879-12.893 20.137-10.141 8.402 2.753 12.893 11.735 10.14 20.137" fill="@{red}"/><path d="m334.389 435.702-24.872-14.48c5.452-11.925 5.281-26.234-1.703-38.5-11.584-20.101-37.137-27.086-57.239-15.502s-27.086 37.137-15.502 57.239c6.984 12.265 19.25 19.59 32.367 20.783v28.79z" fill="@{text}"/><path d="m250.538 367.923 49.178 85.775" stroke="@{crust}" stroke-width="1.5" stroke-miterlimit="10"/><path d="m275.699 362.856 24.017 90.84-66.332-66.659" stroke="@{crust}" stroke-width="1.5" stroke-miterlimit="10" stroke-linejoin="bevel"/><path d="m300.043 374.621-.327 79.076-68.456-39.702" stroke="@{crust}" stroke-width="1.5" stroke-miterlimit="10" stroke-linejoin="bevel"/></g><g clip-path="url(#c)"><path fill="@{yellow}" d="M432 304h114v94H432z"/><path d="m465.215 290.633 8.284 10.585c1.239 1.566 3.306 2.182 5.204 1.464l12.687-4.659c4.193-1.557 7.96 3.2 5.375 6.912l-7.599 11.21c-1.134 1.682-1.068 3.883.172 5.448l8.283 10.586c2.766 3.492-.638 8.538-4.94 7.341l-13.003-3.713c-1.911-.544-3.977.21-5.112 1.892l-7.599 11.21c-2.476 3.725-8.317 2.08-8.496-2.383l-.417-13.483c-.092-1.985-1.367-3.719-3.386-4.275l-13.003-3.713c-4.302-1.197-4.517-7.199-.263-8.804l12.688-4.659c1.897-.719 3.153-2.497 3.061-4.482l-.417-13.483c.037-4.438 5.668-6.546 8.481-2.994" fill="@{maroon}"/><path d="M478.709 316.239c1.63 4.422-.697 9.318-5.058 10.9-4.422 1.631-9.319-.697-10.901-5.058-1.63-4.422.698-9.318 5.059-10.9 4.422-1.631 9.27.637 10.9 5.058" fill="@{red}"/><path d="m483.394 422.284 9.696-16.655c7.985 3.65 17.567 3.536 25.781-1.141 13.46-7.757 18.137-24.868 10.38-38.328s-24.868-18.138-38.328-10.381c-8.214 4.677-13.119 12.89-13.917 21.674h-19.279z" fill="@{surface2}"/><path d="m528.781 366.135-57.438 32.931" stroke="@{mantle}" stroke-width="1.5" stroke-miterlimit="10"/><path d="m532.173 382.984-60.829 16.082 44.637-44.418" stroke="@{mantle}" stroke-width="1.5" stroke-miterlimit="10" stroke-linejoin="bevel"/><path d="m524.296 399.285-52.952-.219 26.585-45.841" stroke="@{mantle}" stroke-width="1.5" stroke-miterlimit="10" stroke-linejoin="bevel"/></g><g clip-path="url(#d)"><path fill="@{yellow}" d="M432 399h114v93H432z"/><path d="M625.531 503.596c-20.67-7.703-34.221-27.478-34.221-49.438v-6.899H211.896V423C164.47 423 126 461.516 126 509h514z" fill="@{blue}"/><path d="M570.461 428.367c-16.753 10.908-23.179 12.185-28.686 12.185s-11.934-1.277-28.686-12.185a30.9 30.9 0 0 0-12.393-4.874c-1.606-.232-3.327-.464-5.048-.464-6.656-.232-13.425 1.625-19.277 5.454v.116c-16.524 10.792-22.949 12.069-28.457 12.069s-11.933-1.277-28.686-12.185a33.28 33.28 0 0 0-36.603 0c-16.753 10.908-23.179 12.185-28.686 12.185s-11.934-1.277-28.686-12.185a33.29 33.29 0 0 0-36.604 0c-16.753 10.908-23.178 12.185-28.686 12.185s-11.933-1.277-28.686-12.185c-5.852-3.829-12.622-5.686-19.277-5.454v31.332c6.655-.232 13.425 1.625 19.277 5.454C248.03 470.723 254.455 472 259.963 472s11.933-1.276 28.686-12.185a33.29 33.29 0 0 1 36.604 0C342.005 470.724 348.431 472 353.939 472s11.933-1.276 28.686-12.185a33.28 33.28 0 0 1 36.603 0C435.981 470.724 442.406 472 447.914 472s11.933-1.276 28.686-12.185a34 34 0 0 1 19.048-5.454c6.081.116 12.048 1.973 17.441 5.454C529.841 470.724 536.267 472 541.775 472s11.933-1.276 28.686-12.185c6.196-4.061 13.425-5.802 20.539-5.338v-31.332a32.57 32.57 0 0 0-20.539 5.222" fill="@{text}"/></g><defs><clipPath id="c"><path fill="#fff" d="M432 304h114v94H432z"/></clipPath><clipPath id="d"><path fill="#fff" d="M432 399h114v93H432z"/></clipPath></defs></svg>'
@@ -1039,7 +644,7 @@
       }
     }
 
-    //google shield icon
+    // google shield icon
     .SAdUce {
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="96" xml:space="preserve"><path fill="none" d="M0 0v96h96V0z" opacity=".6"/><path fill="@{lavender}" d="M13 40.6c.07 3.3.32 6.49.76 9.76 2.07 14 9.93 29.86 31.47 40.97 1.74.9 3.8.9 5.54 0 21.54-11.11 29.4-26.97 31.47-40.97.44-3.27.69-6.46.76-9.76V21.27a7.2 7.2 0 0 0-4.75-6.77L50.45 4.43a7.23 7.23 0 0 0-4.9 0L17.75 14.5A7.19 7.19 0 0 0 13 21.27z"/><defs><path id="a" d="M13 40.6c.07 3.3.32 6.49.76 9.76 2.07 14 9.93 29.86 31.47 40.97 1.74.9 3.8.9 5.54 0 21.54-11.11 29.4-26.97 31.47-40.97.44-3.27.69-6.46.76-9.76V21.27a7.2 7.2 0 0 0-4.75-6.77L50.45 4.43a7.23 7.23 0 0 0-4.9 0L17.75 14.5A7.19 7.19 0 0 0 13 21.27z"/></defs><clipPath id="b"><use xlink:href="#a" overflow="visible"/></clipPath><path clip-path="url(#b)" fill="@{blue}" d="M4 3h44v90H4z"/><path fill="none" d="M27.6 23.2h40.8V64H27.6z"/><path fill="@{text}" d="M48 47.64h11.46c-.82 4.78-4.96 8.29-11.03 8.29-6.68 0-12.09-5.65-12.09-12.32s5.41-12.32 12.09-12.32c3.01 0 5.7 1.04 7.83 3.06l5.82-5.82c-3.54-3.3-8.15-5.32-13.65-5.32-11.27 0-20.4 9.13-20.4 20.4s9.13 20.4 20.4 20.4c11.78 0 19.54-8.28 19.54-19.94 0-1.49-.13-2.92-.38-4.29H48z"/><defs><path id="c" d="M48 47.64h11.46c-.82 4.78-4.96 8.29-11.03 8.29-6.68 0-12.09-5.65-12.09-12.32s5.41-12.32 12.09-12.32c3.01 0 5.7 1.04 7.83 3.06l5.82-5.82c-3.54-3.3-8.15-5.32-13.65-5.32-11.27 0-20.4 9.13-20.4 20.4s9.13 20.4 20.4 20.4c11.78 0 19.54-8.28 19.54-19.94 0-1.49-.13-2.92-.38-4.29H48z"/></defs><clipPath id="d"><use xlink:href="#c" overflow="visible"/></clipPath><path clip-path="url(#d)" fill="@{subtext0}" d="M27.6 22.14H48v42.92H27.6z"/></svg>'
@@ -1053,7 +658,7 @@
       }
     }
 
-    //trash icon
+    // trash icon
     .bR1LEf {
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill="none"><ellipse cx="100" cy="145" rx="36" ry="12" fill="@{surface0}"/><ellipse cx="100" cy="55" rx="48" ry="12" fill="@{surface0}"/><path fill-rule="evenodd" clip-rule="evenodd" d="M52.108 55.813 64 145c0 6.627 16.118 12 36 12s36-5.373 36-12l11.892-89.187C146.22 62.06 125.417 67 100 67s-46.22-4.939-47.892-11.187" fill="@{surface2}"/><mask id="b" maskUnits="userSpaceOnUse" x="52" y="55" width="96" height="102"><path fill-rule="evenodd" clip-rule="evenodd" d="M52.108 55.813 64 145c0 6.627 16.118 12 36 12s36-5.373 36-12l11.892-89.187C146.22 62.06 125.417 67 100 67s-46.22-4.939-47.892-11.187" fill="@{overlay0}"/></mask><g clip-path="url(#a)" stroke="@{text}" mask="url(#b)"><path d="M-6.773 109.396 99.293 215.462M3.834 98.79 109.9 204.856M14.44 88.183l106.066 106.066M25.047 77.577l106.066 106.066M35.653 66.97l106.066 106.066M46.26 56.363l106.066 106.066M56.867 45.757l106.066 106.066M67.473 35.15l106.066 106.066M78.08 24.544 184.146 130.61M88.686 13.937l106.066 106.066M99.293 3.33l106.066 106.066M99.293 4.038-6.773 110.104M109.9 14.644 3.834 120.71m116.672-95.459L14.44 131.317m116.673-95.46L25.047 141.923m116.672-95.459L35.653 152.53m116.673-95.459L46.26 163.137m116.673-95.46L56.867 173.743m116.672-95.459L67.473 184.35m116.673-95.46L78.08 194.956m116.672-95.459L88.686 205.563m116.673-95.459L99.293 216.17"/></g><defs><clipPath id="a"><path fill="@{text}" d="M-7.127 109.75 100 2.624 207.127 109.75 100 216.877z"/></clipPath></defs></svg>'
@@ -1077,7 +682,16 @@
       background-image: url("data:image/svg+xml,@{svg}") !important;
     }
   }
+
+  a {
+    color: var(--gm3-sys-color-primary);
+  }
 }
+
+#rgbify(@color) {
+  @rgb: red(@color), green(@color), blue(@color);
+}
+
 /* deno-fmt-ignore */
 @catppuccin: {
   @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };

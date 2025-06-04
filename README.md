@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-A curated collection of customized themes designed for various websites and web applications. These themes showcase delightful pastel colors, creating a soothing and visually pleasing experience when browsing the web.
+A curated collection of soothing pastel themes for your favorite websites and web applications.
 </p>
 
 <p align="center">
@@ -42,7 +42,6 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [boringproxy](styles/boringproxy)
 - [Codeberg](styles/codeberg)
-- [crates.io](styles/crates.io)
 - [docs.rs](styles/docs.rs)
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
@@ -50,7 +49,6 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [go.dev](styles/go.dev)
 - [Grabify](styles/grabify)
 - [Graphite](styles/graphite)
-- [Hackage](styles/hackage)
 - [Home Manager Options Search](styles/home-manager-options-search)
 - [Hoogle](styles/hoogle)
 - [Hoppscotch](styles/hoppscotch)
@@ -60,14 +58,18 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [Next.js](styles/vercel)
 - [NixOS Manual](styles/nixos-manual)
 - [Nixpkgs Manual](styles/nixos-manual)
-- [npm](styles/npm)
 - [paste.rs](styles/paste.rs)
-- [PyPI](styles/pypi)
 - [PythonAnywhere](styles/pythonanywhere)
 - [React.dev](styles/react.dev)
 - [Trinket](styles/trinket)
 - [Vercel](styles/vercel)
 - [web.dev](styles/web.dev)
+
+</details>
+<details open>
+<summary>📜 Documentation Generators</summary>
+
+- [mdBook](styles/mdbook)
 
 </details>
 <details open>
@@ -105,6 +107,15 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 </details>
 <details open>
+<summary>📦 Package Registries</summary>
+
+- [crates.io](styles/crates.io)
+- [Hackage](styles/hackage)
+- [npm](styles/npm)
+- [PyPI](styles/pypi)
+
+</details>
+<details open>
 <summary>🗺️ Translation Tools</summary>
 
 - [Crowdin](styles/crowdin)
@@ -118,7 +129,6 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>🧠 Wikis</summary>
 
 - ❤️‍🩹 [Arch Wiki](styles/arch-wiki)
-- [mdBook](styles/mdbook)
 - [NixOS Wiki](styles/wiki.nixos.org)
 - [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
@@ -260,6 +270,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>🤖 Artificial Intelligence</summary>
 
 - [ChatGPT](styles/chatgpt)
+- [Claude](styles/claude)
 - [Google Gemini](styles/google-gemini)
 - [InvokeAI](styles/invokeai)
 - [Ollama](styles/ollama)
