@@ -22,10 +22,6 @@ Feel free to leave this section empty if you don't have anything more to say.
 - [ ] I have made a new directory underneath `/styles/<name-of-website>` containing the contents of the [`/template`](https://github.com/catppuccin/userstyles/blob/main/template/) directory.
   - [ ] I have ensured that the new directory is in **lower-kebab-case**.
   - [ ] I have followed the template and kept the preprocessor as [LESS](https://lesscss.org/#overview).
-- [ ] I have made sure to update the
-      [`userstyles.yml`](https://github.com/catppuccin/userstyles/blob/main/scripts/userstyles.yml)
-      file with information about the new userstyle.
+- [ ] I have made sure to update the [`userstyles.yml`](https://github.com/catppuccin/userstyles/blob/main/scripts/userstyles.yml) file with information about the new userstyle.
 - [ ] I have included the following files:
-  - [ ] `catppuccin.user.css` - all the CSS for the userstyle, based on the
-        template.
-  - [ ] `preview.webp` - composite image of all four individual flavor screenshots (taken with the default accent color of mauve) stitched together, generated via [Catwalk](https://github.com/catppuccin/catwalk).
+  - [ ] `catppuccin.user.less` - all the CSS for the userstyle, based on the template.

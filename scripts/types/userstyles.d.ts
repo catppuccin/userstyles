@@ -1,9 +1,13 @@
 // deno-fmt-ignore-file
 
 /**
- * The name of the userstyle(s).
+ * The name of the userstyle.
  */
-export type Name = [string, string, ...string[]] | string;
+export type Name = string;
+/**
+ * The url of the website that is being themed.
+ */
+export type Link = string;
 /**
  * The categories that fit the userstyle the most, the first category is the primary category which the userstyle will be listed under on the README.
  *
@@ -25,6 +29,7 @@ export type Category =
   | "development"
   | "discussion_forum"
   | "document_viewer"
+  | "documentation_generator"
   | "education"
   | "email_client"
   | "entertainment"
@@ -34,13 +39,15 @@ export type Category =
   | "health_and_fitness"
   | "library"
   | "music"
+  | "news_and_journalism"
   | "note_taking"
   | "notification_daemon"
+  | "package_registry"
   | "photo_and_video"
   | "productivity"
   | "search_engine"
-  | "self_hosted"
   | "social_networking"
+  | "syntax_highlighting"
   | "system"
   | "terminal"
   | "translation_tool"
@@ -71,95 +78,36 @@ export type Color =
  */
 export type Icon = string;
 /**
- * The hyperlink of the app that is being themed.
+ * An additional note that users should read.
  */
-export type ApplicationLink = [string, string, ...string[]] | string;
+export type Note = string;
 /**
- * The Usage section of the userstyle README.
+ * The name of the website.
  */
-export type Usage = string;
-/**
- * The FAQ section of the userstyle README.
- *
- * @minItems 1
- */
-export type FAQ = [
-  {
-    question: Question;
-    answer: Answer;
-    [k: string]: unknown;
-  },
-  ...{
-    question: Question;
-    answer: Answer;
-    [k: string]: unknown;
-  }[]
-];
-/**
- * A question that a user may have about the userstyle.
- */
-export type Question = string;
-/**
- * An answer to the question about the userstyle.
- */
-export type Answer = string;
-/**
- * The display name of the collaborator to show in the userstyle README.
- */
-export type DisplayName = string;
-/**
- * The GitHub profile link of the collaborator to show in the userstyle README.
- */
-export type GitHubProfile = string;
+export type WebsiteName = string;
 /**
  * List of all active maintainers for this userstyle.
  */
-export type CurrentMaintainers = {
-  name?: DisplayName;
-  url: GitHubProfile;
-  [k: string]: unknown;
-}[];
+export type CurrentMaintainers = string[];
 /**
  * List of all users that have maintained this userstyle in the past.
  *
  * @minItems 1
  */
-export type PastMaintainers = [
-  {
-    name?: DisplayName;
-    url: GitHubProfile;
-    [k: string]: unknown;
-  },
-  ...{
-    name?: DisplayName;
-    url: GitHubProfile;
-    [k: string]: unknown;
-  }[]
-];
+export type PastMaintainers = [string, ...string[]];
 /**
  * Represents all maintainers and contributors to all userstyles.
  *
  * @minItems 1
  */
-export type AllCollaborators = [
-  {
-    name?: DisplayName;
-    url: GitHubProfile;
-    [k: string]: unknown;
-  },
-  ...{
-    name?: DisplayName;
-    url: GitHubProfile;
-    [k: string]: unknown;
-  }[]
-];
+export type AllCollaborators = [string, ...string[]];
 
 export interface UserstylesSchema {
   userstyles?: Userstyles;
   collaborators?: AllCollaborators;
 }
 /**
- * All userstyles in the Catppuccin org.
+ * All userstyles in the Catppuccin organisation.
  */
 export interface Userstyles {
   [k: string]: Userstyle;
@@ -172,19 +120,28 @@ export interface Userstyles {
  */
 export interface Userstyle {
   name: Name;
+  link: Link;
   categories: Categories;
   color: Color;
   icon?: Icon;
-  readme: README;
+  note?: Note;
+  supports?: Supports;
   "current-maintainers": CurrentMaintainers;
   "past-maintainers"?: PastMaintainers;
 }
 /**
- * Options to help in the auto-generation of the userstyle README.
+ * All websites that the userstyle also supports.
  */
-export interface README {
-  "app-link": ApplicationLink;
-  usage?: Usage;
-  faq?: FAQ;
-  [k: string]: unknown;
+export interface Supports {
+  [k: string]: Website;
+}
+/**
+ * The unique identifier of the supported website, usually the name of the website lowercased.
+ *
+ * This interface was referenced by `Supports`'s JSON-Schema definition
+ * via the `patternProperty` "[A-Za-z0-9_\-]".
+ */
+export interface Website {
+  name: WebsiteName;
+  link: Link;
 }

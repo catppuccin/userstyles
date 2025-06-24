@@ -1,0 +1,492 @@
+/* ==UserStyle==
+@name Migadu Webmail Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/migadu-webmail
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/migadu-webmail
+@version 2024.12.31
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/migadu-webmail/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Amigadu-webmail
+@description Soothing pastel theme for Migadu Webmail
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var checkbox hideProfilePictures "Hide Profile Pictures" 0
+==/UserStyle== */
+
+@-moz-document domain("webmail.migadu.com") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    @orange: mix(@peach, @yellow);
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    --main-color: @text;
+    --main-bg-color: @base;
+    --border-color: @surface0;
+    --dropdown-menu-color: @text;
+    --dropdown-menu-bg-color: @base;
+    --dropdown-menu-hover-bg-color: @surface1;
+    --dropdown-menu-hover-color: @text;
+    --dropdown-menu-disabled-color: @subtext0;
+    --dropdown-menu-border-clr: @surface0;
+    --folders-color: @text;
+    --folders-disabled-color: @surface2;
+    --folders-selected-color: @blue;
+    --folders-selected-bg-color: fade(@blue, 10%);
+    --folders-focused-color: @blue;
+    --folders-hover-color: @text;
+    --folders-hover-bg-color: @base;
+    --folders-drop-color: @text;
+    --settings-menu-color: @text;
+    --settings-menu-selected-color: @blue;
+    --settings-menu-selected-bg-color: fade(@blue, 10%);
+    --settings-menu-hover-color: @text;
+    --settings-menu-hover-bg-color: @base;
+    --message-list-toolbar-bg-color: @overlay0;
+    --panel-bg-clr: @base;
+    --message-header-bg-clr: @mantle;
+    --hr-color: @surface0;
+    --dialog-bg-clr: @base;
+    --dialog-clr: @text;
+    --tr-hover-bg-clr: @crust;
+    --loading-color: @text;
+    --login-color: @text;
+    --login-bg-color: @crust;
+    --tab-hover-border-clr: @surface0;
+    --tab-active-bg-clr: @crust;
+    --tr-odd-bg-clr: @mantle;
+
+    /* Login page */
+    .LoginView .btn,
+    .LoginView input {
+      border-color: @surface0;
+    }
+    .LoginView input:focus,
+    .LoginView input:hover {
+      border-color: @surface1;
+    }
+
+    /* Inbox */
+    .messageItemHeader,
+    .bodySubHeader,
+    .thm-message-list-top-toolbar,
+    .thm-message-list-bottom-toolbar {
+      background: @mantle !important;
+    }
+
+    /* Buttons */
+    --btn-clr: @text;
+    --btn-border-clr: @overlay0;
+    .btn [class^="icon-"] {
+      color: @text;
+    }
+    .btn.btn-success {
+      &,
+      [class^="icon-"] {
+        color: @green !important;
+      }
+      background-color: fade(@green, 20%);
+      &:hover,
+      &:active {
+        background-color: fade(@green, 40%);
+      }
+    }
+    .btn.btn-warning {
+      &,
+      [class^="icon-"] {
+        color: @yellow !important;
+      }
+      background-color: fade(@yellow, 20%);
+      &:hover,
+      &:active {
+        background-color: fade(@yellow, 40%);
+      }
+    }
+    .btn.btn-danger {
+      &,
+      [class^="icon-"] {
+        color: @red !important;
+      }
+      background-color: fade(@red, 20%);
+      &:hover,
+      &:active {
+        background-color: fade(@red, 40%);
+      }
+    }
+    .btn.disabled,
+    .btn.disabled.fontastic,
+    .btn.disabled .fontastic {
+      color: @surface0 !important;
+    }
+    .btn,
+    .btn.disabled,
+    .btn[disabled],
+    .btn.disabled:hover,
+    .btn[disabled]:hover {
+      border-color: @surface0 !important;
+      text-shadow: none !important;
+      background-color: @base;
+    }
+    .btn:hover {
+      background-color: @mantle;
+    }
+
+    /* Links */
+
+    --link-color: @blue;
+    #messageItem .b-text-part a:visited {
+      color: @mauve;
+    }
+
+    /* Inputs */
+
+    --input-bg-clr: @base;
+    --input-border-clr: @surface0;
+    --input-focus-border-clr: @overlay0;
+    --input-clr: @subtext1;
+
+    .select,
+    select {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" height="10px" width="15px"><text x="0" y="10" fill="@{subtext1}">▾</text></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    .e-checkbox.material-design input:checked + div {
+      border-color: darken(@green, 10%);
+    }
+
+    /* stylelint-disable property-disallowed-list */
+    @keyframes checkmark-to-box {
+      0% {
+        top: -1px;
+        left: 5px;
+        width: 10px;
+        height: 18px;
+        border: 2px solid darken(@green, 10%);
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+
+      50% {
+        top: 13px;
+        left: 5px;
+        width: 4px;
+        height: 4px;
+        transform: rotate(45deg);
+      }
+
+      100% {
+        top: 0;
+        left: 0;
+        width: 18px;
+        height: 18px;
+        border: 2px solid @overlay0;
+        transform: rotate(0);
+      }
+    }
+
+    @keyframes box-to-checkmark {
+      0% {
+        top: 0;
+        left: 0;
+        width: 18px;
+        height: 18px;
+        border: 2px solid @overlay0;
+        transform: rotate(0);
+      }
+
+      50% {
+        top: 13px;
+        left: 5px;
+        width: 4px;
+        height: 4px;
+        transform: rotate(45deg);
+      }
+
+      100% {
+        top: -1px;
+        left: 5px;
+        width: 10px;
+        height: 18px;
+        border: 2px solid darken(@green, 10%);
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+    }
+    /* stylelint-enable property-disallowed-list */
+
+    /* Nothing selected */
+    .messageView .b-message-view-desc,
+    #V-PopupsContacts .b-view-content .b-contact-view-desc {
+      color: @overlay0;
+    }
+
+    /* Loading messages */
+    .messageList .b-content {
+      .listDragOver,
+      .listEmptyMessage,
+      .listError,
+      .listLoading {
+        color: @overlay0;
+      }
+
+      .listError {
+        color: @red;
+      }
+    }
+    #messageItem .loading,
+    #V-PopupsContacts .b-list-content .listEmptyList,
+    #V-PopupsContacts .b-list-content .listEmptyListLoading,
+    #V-PopupsContacts .b-list-content .listEmptySearchList {
+      color: @overlay0;
+    }
+
+    .icon-spinner {
+      border-color: @surface1;
+      border-top-color: @text;
+    }
+    .iconcolor-green {
+      color: @green;
+    }
+    .iconcolor-red {
+      color: @red;
+    }
+    .b-folders .is-flagged .flag-icon::after,
+    .messageListItem.hasFlaggedSubMessage .flagParent::after,
+    .messageListItem.msgflag-\\flagged .flagParent::after {
+      color: @orange;
+    }
+
+    /* Tags */
+
+    .msgflag-\$important .checkboxMessage {
+      background-color: @red;
+    }
+
+    .msgflag-\$important.focused {
+      background-color: fade(@red, 30%);
+    }
+
+    .msgflag-\$important:not(.focused) {
+      color: @red;
+    }
+
+    .msgflag-\$todo .checkboxMessage {
+      background-color: @blue;
+      color: @text;
+    }
+
+    .msgflag-\$todo.focused {
+      background-color: fade(@blue, 30%);
+    }
+
+    .msgflag-\$todo:not(.focused) {
+      color: @blue;
+    }
+
+    .msgflag-\$label5 .checkboxMessage {
+      background-color: darken(@pink, 10%);
+      color: @text;
+    }
+
+    .msgflag-\$label4 .checkboxMessage {
+      background-color: @blue;
+      color: @text;
+    }
+
+    .msgflag-\$label3 .checkboxMessage {
+      background-color: @green;
+      color: @text;
+    }
+
+    .msgflag-\$label2 .checkboxMessage {
+      background-color: @orange;
+      color: @text;
+    }
+
+    .msgflag-\$label1 .checkboxMessage {
+      background-color: @red;
+      color: @text;
+    }
+
+    .msgflag-\$label5.focused {
+      background-color: fade(@pink, 30%);
+    }
+
+    .msgflag-\$label4.focused {
+      background-color: fade(@blue, 30%);
+    }
+
+    .msgflag-\$label3.focused {
+      background-color: fade(@green, 30%);
+    }
+
+    .msgflag-\$label2.focused {
+      background-color: fade(mix(@red, @yellow), 30%);
+    }
+
+    .msgflag-\$label1.focused {
+      background-color: fade(@red, 30%);
+    }
+
+    .msgflag-\$label5:not(.focused) {
+      color: darken(@pink, 10%);
+    }
+
+    .msgflag-\$label4:not(.focused) {
+      color: @blue;
+    }
+
+    .msgflag-\$label3:not(.focused) {
+      color: @green;
+    }
+
+    .msgflag-\$label2:not(.focused) {
+      color: @orange;
+    }
+
+    .msgflag-\$label1:not(.focused) {
+      color: @red;
+    }
+
+    .messageList .b-content .listSearchDesc {
+      border-bottom-color: @surface0;
+    }
+
+    /* Profile pictures */
+    img.fromPic when (@hideProfilePictures = 1) {
+      display: none;
+    }
+
+    /* Settings */
+    #V-Settings-Themes figure {
+      &.selected {
+        background-color: fade(@green, 40%);
+        border-color: @text;
+      }
+      &:hover {
+        border-color: @surface0;
+      }
+    }
+
+    #V-PopupsContacts .e-contact-item,
+    .messageListItem {
+      &.focused {
+        border-left-color: @surface2;
+        background-color: @surface0;
+      }
+
+      &.checked {
+        border-left-color: lighten(@accent, 10%);
+      }
+
+      &.checked.focused,
+      &.selected {
+        border-left-color: @accent;
+      }
+
+      &.selected {
+        background-color: fade(@accent, 30%);
+      }
+    }
+
+    #V-PopupsContacts .e-contact-item {
+      border-left-color: @surface0;
+    }
+
+    /* Send mail modal */
+    .squire-toolbar,
+    #V-PopupsCompose .attachmentAreaParent {
+      border-color: @surface0;
+    }
+    #V-PopupsCompose header {
+      color: @text;
+    }
+    /* Minimize and close icons */
+    #V-PopupsCompose header div.pull-right a.minimize-custom,
+    #V-PopupsCompose .close,
+    .close {
+      border-color: @text;
+      color: @text;
+    }
+    /* Email address field */
+    .emailaddresses {
+      li[draggable] {
+        background-color: @mantle;
+        border-color: @surface0;
+        box-shadow: 0 1px 0 fade(@mantle, 75%) inset;
+        color: @text;
+      }
+      li a {
+        color: @surface0;
+      }
+    }
+
+    /* Untheme message content */
+    div:has(> .bodyText) {
+      color: #333;
+      background-color: #fff;
+    }
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
