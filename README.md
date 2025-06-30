@@ -99,11 +99,11 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [Brave Search](styles/brave-search)
 - [DuckDuckGo](styles/duckduckgo)
 - [Ecosia](styles/ecosia)
-- ❤️‍🩹 [Google](styles/google)
+- [Google](styles/google) [❤️‍🩹](#unmaintained-)
 - [Mullvad Leta](styles/mullvad-leta)
 - [NixOS Search](styles/nixos-search)
 - [SearXNG](styles/searxng)
-- ❤️‍🩹 [Startpage](styles/startpage)
+- [Startpage](styles/startpage) [❤️‍🩹](#unmaintained)
 
 </details>
 <details open>
@@ -128,7 +128,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <details open>
 <summary>🧠 Wikis</summary>
 
-- ❤️‍🩹 [Arch Wiki](styles/arch-wiki)
+- [Arch Wiki](styles/arch-wiki) [❤️‍🩹](#unmaintained)
 - [NixOS Wiki](styles/wiki.nixos.org)
 - [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
@@ -160,7 +160,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [homepage](styles/homepage)
 - [inoreader](styles/inoreader)
 - [keybr.com](styles/keybr.com)
-- ❤️‍🩹 [Microsoft Word](styles/microsoft-word)
+- [Microsoft Word](styles/microsoft-word) [❤️‍🩹](#unmaintained)
 - [Porkbun](styles/porkbun)
 - [Proton](styles/proton)
 - [Raindrop](styles/raindrop)
@@ -172,7 +172,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <details open>
 <summary>💌 Email Clients</summary>
 
-- [Gmail](styles/gmail)
+- [Gmail](styles/gmail) [⚠️](#flakey)
 - [Migadu Webmail](styles/migadu-webmail)
 - [Tuta](styles/tuta)
 
@@ -227,10 +227,10 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [Hacker News](styles/hacker-news)
 - [Lemmy](styles/lemmy)
-- ❤️‍🩹 [Libreddit](styles/libreddit)
+- [Libreddit](styles/libreddit) [❤️‍🩹](#unmaintained)
 - [Lobsters](styles/lobste.rs)
-- ❤️‍🩹 [Reddit](styles/reddit)
-- ❤️‍🩹 [Redlib](styles/libreddit)
+- [Reddit](styles/reddit) [❤️‍🩹](#unmaintained)
+- [Redlib](styles/libreddit) [❤️‍🩹](#unmaintained)
 - [Stack Overflow](styles/stack-overflow)
 - [TabNews](styles/tabnews)
 
@@ -243,7 +243,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [AniList](styles/anilist)
 - [ChatReplay](styles/chatreplay)
 - [Holodex](styles/holodex)
-- ❤️‍🩹 [Invidious](styles/invidious)
+- [Invidious](styles/invidious) [❤️‍🩹](#unmaintained)
 - [Picrew](styles/picrew)
 - [Twitch](styles/twitch)
 - [YouTube](styles/youtube)
@@ -255,7 +255,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [Advent Of Code](styles/advent-of-code)
 - [Chess.com](styles/chess.com)
 - [Lichess](styles/lichess)
-- ❤️‍🩹 [Minesweeper Online](styles/minesweeper)
+- [Minesweeper Online](styles/minesweeper) [❤️‍🩹](#unmaintained)
 - [Modrinth](styles/modrinth)
 - [Planet Minecraft](styles/planet-minecraft)
 
@@ -279,6 +279,16 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 </details>
 
 <!-- AUTOGEN:USERSTYLES END -->
+
+### Userstyles Status Key
+
+#### Unmaintained ❤️‍🩹
+
+This userstyle currently lacks maintainers, and may not work correctly. Please feel free to contribute for any issues you find!
+
+#### Flakey ⚠️
+
+This userstyle has frequently recurring issues that are not easily fixable and it's not recommended to use it.
 
 &nbsp;
 

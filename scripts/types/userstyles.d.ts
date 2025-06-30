@@ -96,6 +96,10 @@ export type CurrentMaintainers = string[];
  */
 export type PastMaintainers = [string, ...string[]];
 /**
+ * If the userstyle is flakey, meaning it has issues that are not easily fixable and it's not recommended to use it.
+ */
+export type Flakey = boolean;
+/**
  * Represents all maintainers and contributors to all userstyles.
  *
  * @minItems 1
@@ -128,6 +132,7 @@ export interface Userstyle {
   supports?: Supports;
   "current-maintainers": CurrentMaintainers;
   "past-maintainers"?: PastMaintainers;
+  flakey?: Flakey;
 }
 /**
  * All websites that the userstyle also supports.

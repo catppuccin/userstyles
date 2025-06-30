@@ -57,7 +57,7 @@ export async function generateMainReadme(
 <summary>{{emoji}} {{name}}</summary>
 
 {{#each ports}}
-- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{ name }}]({{ path }})
+- [{{ name }}]({{ path }}){{#if indicators }} {{ indicators }}{{/if}}
 {{/each}}
 
 </details>
@@ -73,11 +73,14 @@ export async function generateMainReadme(
               name,
               path,
               "current-maintainers": currentMaintainers,
+              flakey,
             },
           ) => {
             return {
               name,
-              maintained: currentMaintainers.length > 0,
+              indicators:
+                (currentMaintainers.length === 0 ? "[❤️‍🩹](#unmaintained)" : "") +
+                (flakey ? "[⚠️](#flakey)" : ""),
               path,
             };
           },
