@@ -14,7 +14,7 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 
-@var checkbox lighterMessages "Lighter incoming messages" 0
+@var checkbox lighterMessages "Elevated incoming messages" 0
 ==/UserStyle== */
 
 @-moz-document domain("web.whatsapp.com") {
@@ -66,6 +66,8 @@
     @mantle: @catppuccin[@@flavor][@mantle];
     @crust: @catppuccin[@@flavor][@crust];
     @accent: @catppuccin[@@flavor][@@accentColor];
+    
+    @accentText: if(@flavor = latte, #FFF, darken(saturate(@accent, 100%), 65%));
 
     color-scheme: if(@flavor = latte, light, dark);
 
@@ -80,257 +82,113 @@
       }
     }
     
-    @deemphasized-fade: if(@flavor = latte, 15%, 30%);
-    
-    @WDS-accent: @accent;
-    @WDS-accent-deemphasized: fade(@accent, @deemphasized-fade);
-    @WDS-accent-emphasized: lighten(@accent, 10%);
-    
-    @WDS-secondary-negative: @red;
-    @WDS-secondary-negative-deemphasized: fade(@red, @deemphasized-fade);
-    @WDS-secondary-negative-emphasized: lighten(@red, 10%);
-    
-    @WDS-secondary-positive: @green;
-    @WDS-secondary-positive-deemphasized: fade(@green, @deemphasized-fade);
-    
-    @WDS-secondary-warning: @yellow;
-    @WDS-secondary-warning-deemphasized: fade(@yellow, @deemphasized-fade);
-    
-    @WDS-content-default: @text;
-    @WDS-content-deemphasized: @overlay2;
-    @WDS-content-disabled: fade(@text, 50%);
-    
-    @WDS-content-on-accent: if(@flavor = latte, #FFF, #000);
-    @WDS-content-action-default: @WDS-accent;
-    @WDS-content-action-emphasized: @WDS-accent-emphasized;
-    @WDS-content-external-link: @blue;
-    @WDS-content-inverse: @crust;
-    @WDS-content-read: @blue;
-    
-    @WDS-background-wash-inset: @crust;
-    @WDS-background-wash-plain: @crust;
-    @WDS-background-elevated-wash-plain: @crust;
-    @WDS-background-elevated-wash-inset: @crust;
-    @WDS-background-dimmer: fade(#000, 30%);
-    
-    @WDS-surface-default: @mantle;
-    @WDS-surface-emphasized: @base;
-    @WDS-surface-elevated-default: @base;
-    @WDS-surface-elevated-emphasized: mix(@text, @base, 8%);
-    @WDS-surface-highlight: fade(@text, 20%);
-    @WDS-surface-inverse: @text;
-    @WDS-surface-pressed: fade(@text, 20%);
-    
-    @WDS-lines-divider: fade(@text, 10%);
-    @WDS-lines-outline-default: @overlay0;
-    @WDS-lines-outline-deemphasized: fade(@text, 20%);
-    
-    @WDS-persistent-activity-indicator: fade(@green, 90%);
-    @WDS-persistent-always-black: #000;
-    @WDS-persistent-always-white: #FFF;
-    @WDS-persistent-always-branded: @accent;
-    
-    @WDS-systems-bubble-surface-incoming: @base;
-    & when (@lighterMessages = 1) {
-      @WDS-systems-bubble-surface-incoming: @surface1;
-    }
-    @WDS-systems-bubble-surface-outgoing: mix(@accent, @base, @deemphasized-fade);
-    @WDS-systems-bubble-content-deemphasized: fade(@text, 50%);
-    
-    @WDS-systems-bubble-surface-overlay: @mantle;
-    @WDS-systems-bubble-surface-system: @mantle;
-    
-    @WDS-systems-bubble-surface-e2e: mix(@yellow, @mantle, 5%);
-    @WDS-systems-bubble-content-e2e: @yellow;
-    
-    @WDS-systems-bubble-surface-business: mix(@teal, @mantle, 5%);
-    
-    @WDS-systems-chat-surface-composer: @base;
-    @WDS-systems-chat-background-wallpaper: @crust;
-    @WDS-systems-chat-foreground-wallpaper: @mantle;
-    @WDS-systems-chat-surface-tray: @base;
-    @WDS-systems-status-seen: @WDS-content-disabled;
-    
-    @WDS-components-platform-gesture-bar: fade(@crust, 50%);
-    @WDS-components-platform-status-bar: fade(@crust, 80%);
-    @WDS-components-surface-nav-bar: @base;
-    
-    @WDS-app-wash: @surface0;
-    
-    --WDS-accent: @WDS-accent;
-    --WDS-accent-RGB: #rgbify(@WDS-accent)[];
-    --WDS-accent-deemphasized: @WDS-accent-deemphasized;
-    --WDS-accent-deemphasized-RGB: #rgbify(@WDS-accent-deemphasized)[];
-    --WDS-accent-emphasized: @WDS-accent-emphasized;
-    --WDS-accent-emphasized-RGB: #rgbify(@WDS-accent-emphasized)[];
-    --WDS-secondary-negative: @WDS-secondary-negative;
-    --WDS-secondary-negative-RGB: #rgbify(@WDS-secondary-negative)[];
-    --WDS-secondary-negative-deemphasized: @WDS-secondary-negative-deemphasized;
-    --WDS-secondary-negative-deemphasized-RGB: #rgbify(@WDS-secondary-negative-deemphasized)[];
-    --WDS-secondary-negative-emphasized: @WDS-secondary-negative-emphasized;
-    --WDS-secondary-negative-emphasized-RGB: #rgbify(@WDS-secondary-negative-emphasized)[];
-    --WDS-secondary-positive: @WDS-secondary-positive;
-    --WDS-secondary-positive-RGB: #rgbify(@WDS-secondary-positive)[];
-    --WDS-secondary-positive-deemphasized: @WDS-secondary-positive-deemphasized;
-    --WDS-secondary-positive-deemphasized-RGB: #rgbify(@WDS-secondary-positive-deemphasized)[];
-    --WDS-secondary-warning: @WDS-secondary-warning;
-    --WDS-secondary-warning-RGB: #rgbify(@WDS-secondary-warning)[];
-    --WDS-secondary-warning-deemphasized: @WDS-secondary-warning-deemphasized;
-    --WDS-secondary-warning-deemphasized-RGB: #rgbify(@WDS-secondary-warning-deemphasized)[];
-    --WDS-content-default: @WDS-content-default;
-    --WDS-content-default-RGB: #rgbify(@WDS-content-default)[];
-    --WDS-content-deemphasized: @WDS-content-deemphasized;
-    --WDS-content-deemphasized-RGB: #rgbify(@WDS-content-deemphasized)[];
-    --WDS-content-disabled: @WDS-content-disabled;
-    --WDS-content-disabled-RGB: #rgbify(@WDS-content-disabled)[];
-    --WDS-content-on-accent: @WDS-content-on-accent;
-    --WDS-content-on-accent-RGB: #rgbify(@WDS-content-on-accent)[];
-    --WDS-content-action-default: @WDS-content-action-default;
-    --WDS-content-action-default-RGB: #rgbify(@WDS-content-action-default)[];
-    --WDS-content-action-emphasized: @WDS-content-action-emphasized;
-    --WDS-content-action-emphasized-RGB: #rgbify(@WDS-content-action-emphasized)[];
-    --WDS-content-external-link: @WDS-content-external-link;
-    --WDS-content-external-link-RGB: #rgbify(@WDS-content-external-link)[];
-    --WDS-content-inverse: @WDS-content-inverse;
-    --WDS-content-inverse-RGB: #rgbify(@WDS-content-inverse)[];
-    --WDS-content-read: @WDS-content-read;
-    --WDS-content-read-RGB: #rgbify(@WDS-content-read)[];
-    --WDS-background-wash-plain: @WDS-background-wash-plain;
-    --WDS-background-wash-plain-RGB: #rgbify(@WDS-background-wash-plain)[];
-    --WDS-background-wash-inset: @WDS-background-wash-inset;
-    --WDS-background-wash-inset-RGB: #rgbify(@WDS-background-wash-inset)[];
-    --WDS-background-elevated-wash-plain: @WDS-background-elevated-wash-plain;
-    --WDS-background-elevated-wash-plain-RGB: #rgbify(@WDS-background-elevated-wash-plain)[];
-    --WDS-background-elevated-wash-inset: @WDS-background-elevated-wash-inset;
-    --WDS-background-elevated-wash-inset-RGB: #rgbify(@WDS-background-elevated-wash-inset)[];
-    --WDS-background-dimmer: @WDS-background-dimmer;
-    --WDS-background-dimmer-RGB: #rgbify(@WDS-background-dimmer)[];
-    --WDS-surface-default: @WDS-surface-default;
-    --WDS-surface-default-RGB: #rgbify(@WDS-surface-default)[];
-    --WDS-surface-emphasized: @WDS-surface-emphasized;
-    --WDS-surface-emphasized-RGB: #rgbify(@WDS-surface-emphasized)[];
-    --WDS-surface-elevated-default: @WDS-surface-elevated-default;
-    --WDS-surface-elevated-default-RGB: #rgbify(@WDS-surface-elevated-default)[];
-    --WDS-surface-elevated-emphasized: @WDS-surface-elevated-emphasized;
-    --WDS-surface-elevated-emphasized-RGB: #rgbify(@WDS-surface-elevated-emphasized)[];
-    --WDS-surface-highlight: @WDS-surface-highlight;
-    --WDS-surface-highlight-RGB: #rgbify(@WDS-surface-highlight)[];
-    --WDS-surface-inverse: @WDS-surface-inverse;
-    --WDS-surface-inverse-RGB: #rgbify(@WDS-surface-inverse)[];
-    --WDS-surface-pressed: @WDS-surface-pressed;
-    --WDS-surface-pressed-RGB: #rgbify(@WDS-surface-pressed)[];
-    --WDS-lines-divider: @WDS-lines-divider;
-    --WDS-lines-divider-RGB: #rgbify(@WDS-lines-divider)[];
-    --WDS-lines-outline-default: @WDS-lines-outline-default;
-    --WDS-lines-outline-default-RGB: #rgbify(@WDS-lines-outline-default)[];
-    --WDS-lines-outline-deemphasized: @WDS-lines-outline-deemphasized;
-    --WDS-lines-outline-deemphasized-RGB: #rgbify(@WDS-lines-outline-deemphasized)[];
-    --WDS-persistent-activity-indicator: @WDS-persistent-activity-indicator;
-    --WDS-persistent-activity-indicator-RGB: #rgbify(@WDS-persistent-activity-indicator)[];
-    --WDS-persistent-always-black: @WDS-persistent-always-black;
-    --WDS-persistent-always-black-RGB: #rgbify(@WDS-persistent-always-black)[];
-    --WDS-persistent-always-white: @WDS-persistent-always-white;
-    --WDS-persistent-always-white-RGB: #rgbify(@WDS-persistent-always-white)[];
-    --WDS-persistent-always-branded: @WDS-persistent-always-branded;
-    --WDS-persistent-always-branded-RGB: #rgbify(@WDS-persistent-always-branded)[];
-    --WDS-systems-bubble-surface-incoming: @WDS-systems-bubble-surface-incoming;
-    --WDS-systems-bubble-surface-incoming-RGB: #rgbify(@WDS-systems-bubble-surface-incoming)[];
-    --WDS-systems-bubble-surface-outgoing: @WDS-systems-bubble-surface-outgoing;
-    --WDS-systems-bubble-surface-outgoing-RGB: #rgbify(@WDS-systems-bubble-surface-outgoing)[];
-    --WDS-systems-bubble-content-deemphasized: @WDS-systems-bubble-content-deemphasized;
-    --WDS-systems-bubble-content-deemphasized-RGB: #rgbify(@WDS-systems-bubble-content-deemphasized)[];
-    --WDS-systems-bubble-surface-overlay: @WDS-systems-bubble-surface-overlay;
-    --WDS-systems-bubble-surface-overlay-RGB: #rgbify(@WDS-systems-bubble-surface-overlay)[];
-    --WDS-systems-bubble-surface-system: @WDS-systems-bubble-surface-system;
-    --WDS-systems-bubble-surface-system-RGB: #rgbify(@WDS-systems-bubble-surface-system)[];
-    --WDS-systems-bubble-surface-e2e: @WDS-systems-bubble-surface-e2e;
-    --WDS-systems-bubble-surface-e2e-RGB: #rgbify(@WDS-systems-bubble-surface-e2e)[];
-    --WDS-systems-bubble-content-e2e: @WDS-systems-bubble-content-e2e;
-    --WDS-systems-bubble-content-e2e-RGB: #rgbify(@WDS-systems-bubble-content-e2e)[];
-    --WDS-systems-bubble-surface-business: @WDS-systems-bubble-surface-business;
-    --WDS-systems-bubble-surface-business-RGB: #rgbify(@WDS-systems-bubble-surface-business)[];
-    --WDS-systems-chat-surface-composer: @WDS-systems-chat-surface-composer;
-    --WDS-systems-chat-surface-composer-RGB: #rgbify(@WDS-systems-chat-surface-composer)[];
-    --WDS-systems-chat-background-wallpaper: @WDS-systems-chat-background-wallpaper;
-    --WDS-systems-chat-background-wallpaper-RGB: #rgbify(@WDS-systems-chat-background-wallpaper)[];
-    --WDS-systems-chat-foreground-wallpaper: @WDS-systems-chat-foreground-wallpaper;
-    --WDS-systems-chat-foreground-wallpaper-RGB: #rgbify(@WDS-systems-chat-foreground-wallpaper)[];
-    --WDS-systems-chat-surface-tray: @WDS-systems-chat-surface-tray;
-    --WDS-systems-chat-surface-tray-RGB: #rgbify(@WDS-systems-chat-surface-tray)[];
-    --WDS-systems-status-seen: @WDS-systems-status-seen;
-    --WDS-systems-status-seen-RGB: #rgbify(@WDS-systems-status-seen)[];
-    --WDS-components-platform-gesture-bar: @WDS-components-platform-gesture-bar;
-    --WDS-components-platform-gesture-bar-RGB: #rgbify(@WDS-components-platform-gesture-bar)[];
-    --WDS-components-platform-status-bar: @WDS-components-platform-status-bar;
-    --WDS-components-platform-status-bar-RGB: #rgbify(@WDS-components-platform-status-bar)[];
-    --WDS-components-surface-nav-bar: @WDS-components-surface-nav-bar;
-    --WDS-components-surface-nav-bar-RGB: #rgbify(@WDS-components-surface-nav-bar)[];
-    --WDS-app-wash: @WDS-app-wash;
-    --WDS-app-wash-RGB: #rgbify(@WDS-app-wash)[];
-    
-    @attachment-type-stickers-color: @green;
-    @attachment-type-polls-color: @yellow;
-    @attachment-type-contacts-color: @sky;
-    @attachment-type-camera-color: @pink;
-    @attachment-type-photos-color: @blue;
-    @attachment-type-documents-color: @mauve;
-    @attachment-type-audio-color: @peach;
-    @attachment-type-event-color: @pink;
-    
-    @toast-background: @surface1;
-    @toast-text: @text;
+    @emphasize: 10%;
+    @deemphasize: if(@flavor = latte, 15%, 30%);
 
-    @picker-background: @surface1;
-
-    @butterbar-blue-nux-background: @sky;
-    @butterbar-blue-nux-icon-background: darken(@sky, 30%);
-    @blue-light: @blue;
-
-    @gray-500: @WDS-content-deemphasized;
-
-    @focus-animation-deeper: mix(@accent, @base, 30%);
+    @scrim: 30%;
+    @pressed: 20%;
     
-    --attachment-type-stickers-color: @attachment-type-stickers-color;
-    --attachment-type-stickers-color-rgb: #rgbify(@attachment-type-stickers-color)[];
-    --attachment-type-polls-color: @attachment-type-polls-color;
-    --attachment-type-polls-color-rgb: #rgbify(@attachment-type-polls-color)[];
-    --attachment-type-contacts-color: @attachment-type-contacts-color;
-    --attachment-type-contacts-color-rgb: #rgbify(@attachment-type-contacts-color)[];
-    --attachment-type-camera-color: @attachment-type-camera-color;
-    --attachment-type-camera-color-rgb: #rgbify(@attachment-type-camera-color)[];
-    --attachment-type-photos-color: @attachment-type-photos-color;
-    --attachment-type-photos-color-rgb: #rgbify(@attachment-type-photos-color)[];
-    --attachment-type-documents-color: @attachment-type-documents-color;
-    --attachment-type-documents-color-rgb: #rgbify(@attachment-type-documents-color)[];
-    --attachment-type-audio-color: @attachment-type-audio-color;
-    --attachment-type-audio-color-rgb: #rgbify(@attachment-type-audio-color)[];
-    --attachment-type-event-color: @attachment-type-event-color;
-    --attachment-type-event-color-rgb: #rgbify(@attachment-type-event-color)[];
-    --toast-background: @toast-background;
-    --toast-background-rgb: #rgbify(@toast-background)[];
-    --toast-text: @toast-text;
-    --toast-text-rgb: #rgbify(@toast-text)[];
-    --picker-background: @picker-background;
-    --picker-background-rgb: #rgbify(@picker-background)[];
-    --butterbar-blue-nux-background: @butterbar-blue-nux-background;
-    --butterbar-blue-nux-background-rgb: #rgbify(@butterbar-blue-nux-background)[];
-    --butterbar-blue-nux-icon-background: @butterbar-blue-nux-icon-background;
-    --butterbar-blue-nux-icon-background-rgb: #rgbify(@butterbar-blue-nux-icon-background)[];
-    --blue-light: @blue-light;
-    --blue-light-rgb: #rgbify(@blue-light)[];
-    --gray-500: @gray-500;
-    --gray-500-rgb: #rgbify(@gray-500)[];
-    --focus-animation-deeper: @focus-animation-deeper;
-    --focus-animation-deeper-rgb: #rgbify(@focus-animation-deeper)[];
+    #WDS(accent, @accent);
+    #WDS(accent-deemphasized, fade(@accent, @deemphasize));
+    #WDS(accent-emphasized, lighten(@accent, @emphasize));
+
+    #WDS(secondary-negative, @red);
+    #WDS(secondary-negative-deemphasized, fade(@red, @deemphasize));
+    #WDS(secondary-negative-emphasized, lighten(@red, @emphasize));
+
+    #WDS(secondary-positive, @green);
+    #WDS(secondary-positive-deemphasized, fade(@green, @deemphasize));
+
+    #WDS(secondary-warning, @yellow);
+    #WDS(secondary-warning-deemphasized, fade(@yellow, @deemphasize));
+
+    #WDS(content-default, @text);
+    #WDS(content-deemphasized, @overlay2);
+    #WDS(content-disabled, fade(@text, 50%));
+
+    #WDS(content-on-accent, @accentText);
+    #WDS(content-action-default, @accent);
+    #WDS(content-action-emphasized, lighten(@accent, @emphasize));
+    #WDS(content-external-link, @blue);
+    #WDS(content-inverse, @crust);
+    #WDS(content-read, @blue);
+
+    #WDS(background-wash-inset, @crust);
+    #WDS(background-wash-plain, @crust);
+    #WDS(background-elevated-wash-plain, @crust);
+    #WDS(background-elevated-wash-inset, @crust);
+    #WDS(background-dimmer, fade(#000, @scrim));
+
+    #WDS(surface-default, @mantle);
+    #WDS(surface-emphasized, @base);
+    #WDS(surface-elevated-default, @base);
+    #WDS(surface-elevated-emphasized, mix(@text, @base, @emphasize));
+    #WDS(surface-highlight, fade(@text, @pressed));
+    #WDS(surface-inverse, @text);
+    #WDS(surface-pressed, fade(@text, @pressed));
+
+    #WDS(lines-divider, fade(@text, 10%));
+    #WDS(lines-outline-default, @overlay0);
+    #WDS(lines-outline-deemphasized, fade(@text, @deemphasize));
+
+    #WDS(persistent-activity-indicator, fade(@green, 90%));
+    #WDS(persistent-always-black, #000);
+    #WDS(persistent-always-white, #FFF);
+    #WDS(persistent-always-branded, @accent);
+
+    #WDS(systems-bubble-surface-incoming, if(@lighterMessages = 1, @surface1, @base));
+
+    #WDS(systems-bubble-surface-outgoing, mix(@accent, @base, @deemphasize));
+    #WDS(systems-bubble-content-deemphasized, fade(@text, 50%));
+
+    #WDS(systems-bubble-surface-overlay, @mantle);
+    #WDS(systems-bubble-surface-system, @mantle);
+
+    #WDS(systems-bubble-surface-e2e, mix(@yellow, @mantle, 5%));
+    #WDS(systems-bubble-content-e2e, @yellow);
+
+    #WDS(systems-bubble-surface-business, mix(@teal, @mantle, 5%));
+
+    #WDS(systems-chat-surface-composer, @base);
+    #WDS(systems-chat-background-wallpaper, @crust);
+    #WDS(systems-chat-foreground-wallpaper, @mantle);
+    #WDS(systems-chat-surface-tray, @base);
+    #WDS(systems-status-seen, fade(@text, 50%));
+
+    #WDS(components-platform-gesture-bar, fade(@crust, 50%));
+    #WDS(components-platform-status-bar, fade(@crust, 80%));
+    #WDS(components-surface-nav-bar, @base);
+
+    #WDS(app-wash, @surface0);
+    
+    #RGB(attachment-type-stickers-color, @green);
+    #RGB(attachment-type-polls-color, @yellow);
+    #RGB(attachment-type-contacts-color, @sky);
+    #RGB(attachment-type-camera-color, @pink);
+    #RGB(attachment-type-photos-color, @blue);
+    #RGB(attachment-type-documents-color, @mauve);
+    #RGB(attachment-type-audio-color, @peach);
+    /* \/ Note: Seems to be overwritten by a generated
+    CSS variable, so has no effect :( */
+    #RGB(attachment-type-event-color, @pink);
+    
+    #RGB(toast-background, @surface1);
+    #RGB(toast-text, @text);
+
+    #RGB(picker-background, @surface1);
+
+    #RGB(butterbar-blue-nux-background, @sky);
+    #RGB(butterbar-blue-nux-icon-background, darken(@sky, 30%));
+    #RGB(blue-light, @blue);
+
+    #RGB(gray-500, @overlay2);
+
+    #RGB(focus-animation-deeper, mix(@accent, @base, 30%));
     
     /* "About AI messages" icon */
     .st0 {
       fill: @accent !important;
       stroke: @surface0;
-    }
-    /* Toast action (Normally yellow) */
-    .x17daq4n {
-      color: @accent;
     }
     
     /* TODO: Meta AI/other bot colours */
@@ -342,12 +200,23 @@
     input[type="date"]::-webkit-datetime-edit-year-field:focus,
     input[type="date"]::-webkit-datetime-edit-month-field:focus,
     input[type="date"]::-webkit-datetime-edit-day-field:focus {
-      background-color: @WDS-accent;
-      color: @WDS-content-on-accent;
+      background-color: @accent;
+      color: @accentText;
     }
   }
 }
 
+#WDS(@name, @color) {
+    --WDS-@{name}: @color;
+    --WDS-@{name}-RGB: #rgbify(@color)[];
+}
+
+#RGB(@name, @color) {
+    --@{name}: @color;
+    --@{name}-rgb: #rgbify(@color)[];
+}
+
+// Commas are added to fit WhatsApp's variable schema.
 #rgbify(@color) {
   @rgb: red(@color), green(@color), blue(@color);
 }
@@ -358,4 +227,4 @@
   @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
   @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
   @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-};
+}; 
