@@ -42,6 +42,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [boringproxy](styles/boringproxy)
 - [Codeberg](styles/codeberg)
+- [docs.deno.com](styles/docs.deno.com)
 - [docs.rs](styles/docs.rs)
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
