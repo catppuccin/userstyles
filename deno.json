@@ -2,36 +2,56 @@
   "imports": {
     "@/": "./scripts/",
     "@actions/core": "npm:@actions/core@1.11.1",
-    "@catppuccin/palette": "npm:@catppuccin/palette@1.3.0",
-    "@octokit/rest": "npm:@octokit/rest@21.0.1",
-    "@std/assert": "jsr:@std/assert@^1.0.5",
-    "@std/cli": "jsr:@std/cli@^1.0.6",
+    "@catppuccin/catppuccin/": "https://raw.githubusercontent.com/catppuccin/catppuccin/d4f82739e687cfd19d168be355367fdbbcc8e029/",
+    "@catppuccin/palette": "npm:@catppuccin/palette@^1.7.1",
+    "@octokit/rest": "npm:@octokit/rest@^21.0.2",
+    "@std/assert": "jsr:@std/assert@^1.0.9",
+    "@std/cli": "jsr:@std/cli@^1.0.8",
     "@std/fmt": "jsr:@std/fmt@^1.0.2",
-    "@std/fs": "jsr:@std/fs@^1.0.3",
-    "@std/path": "jsr:@std/path@^1.0.6",
+    "@std/fs": "jsr:@std/fs@^1.0.6",
+    "@std/path": "jsr:@std/path@^1.0.8",
     "@std/yaml": "jsr:@std/yaml@^1.0.5",
     "ajv": "npm:ajv@8.17.1",
-    "catppuccin-repo/": "https://raw.githubusercontent.com/catppuccin/catppuccin/d4f2666c2b04337f0a8632713de0889d9a7d332d/",
     "handlebars": "npm:handlebars@4.7.8",
-    "json-schema-to-typescript": "npm:json-schema-to-typescript@15.0.2",
-    "less": "npm:less@4.2.0",
+    "json-schema-to-typescript": "npm:json-schema-to-typescript@^15.0.3",
+    "less": "npm:less@4.2.1",
     "postcss-less": "npm:postcss-less@6.0.0",
     "postcss-value-parser": "npm:postcss-value-parser@4.2.0",
-    "stylelint": "npm:stylelint@16.9.0",
+    "stylelint": "npm:stylelint@^16.12.0",
     "stylelint-config-recommended": "npm:stylelint-config-recommended@14.0.1",
     "stylelint-config-standard": "npm:stylelint-config-standard@36.0.1",
     "svgo": "npm:svgo@3.3.2",
-    "type-fest": "npm:type-fest@4.23.0",
+    "type-fest": "npm:type-fest@^4.30.2",
     "usercss-meta": "npm:usercss-meta@0.12.0"
   },
   "tasks": {
     "ci:generate": "deno run -A ./scripts/generate/main.ts",
-    "ci:generate-import": "deno run -A ./scripts/import-styles/main.ts",
+    "ci:stylus-import": "deno run -A ./scripts/stylus-import/main.ts",
     "ci:sync-maintainers": "deno run -A ./scripts/sync-maintainers/main.ts",
+    "ci:update-types": "deno run -A ./scripts/types/update-types.ts",
+    "ci:bump": "deno run -A ./scripts/bump-version/main.ts",
     "lint": "deno run -A ./scripts/lint/main.ts",
-    "lint:fix": "deno task lint --fix",
-    "update-types": "deno run -A ./scripts/update-types.ts",
-    "format": "deno run -A npm:prettier@3.2.4 --write ."
+    "lint:fix": "deno task lint --fix"
   },
-  "nodeModulesDir": true
+  "nodeModulesDir": "auto",
+  "fmt": {
+    "indentWidth": 2,
+    "proseWrap": "never",
+    "exclude": [
+      ".github/ISSUE_TEMPLATE/userstyle.yml",
+      ".github/*.yml",
+      "styles/**/*.md",
+      "scripts/generate/templates/userstyle.md"
+    ]
+  },
+  "lint": {
+    "rules": {
+      "tags": [
+        "recommended"
+      ],
+      "include": [
+        "verbatim-module-syntax"
+      ]
+    }
+  }
 }

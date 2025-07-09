@@ -1,10 +1,11 @@
-import { join } from "@std/path";
+import type { UserstylesSchema } from "@/types/mod.ts";
+import { REPO_ROOT } from "@/constants.ts";
 
-import { REPO_ROOT } from "@/deps.ts";
-import { updateFile } from "@/generate/utils.ts";
-import { UserStylesSchema } from "@/types/mod.ts";
-import { stringify } from "@std/yaml";
+import * as path from "@std/path";
+import * as yaml from "@std/yaml";
+
 import { type ColorName, flavors } from "@catppuccin/palette";
+import { writeWithPreamble } from "@/generate/utils.ts";
 
 /**
  * Macchiato color definitions as hex values.
@@ -15,60 +16,83 @@ const macchiatoHex = flavors.macchiato.colorEntries
     return acc;
   }, {} as Record<ColorName, string>);
 
-const toIssueLabel = (slug: string | number) => `lbl:${slug}`;
+const toIssueLabel = (key: string) => `lbl:${key}`;
 
-export const syncIssueLabels = async (
-  userstyles: UserStylesSchema.Userstyles,
-) => {
-  updateFile(
-    join(REPO_ROOT, ".github/issue-labeler.yml"),
-    stringify(
+const toIssueLabelRegex = (key: string) => `/${toIssueLabel(key)}(,.*)?$/gm`;
+
+const toPrLabel = (key: string) => `styles/${key}/**/*`;
+
+export async function syncIssueLabels(userstyles: UserstylesSchema.Userstyles) {
+  // .github/issue-labeler.yml
+  await writeWithPreamble(
+    path.join(REPO_ROOT, ".github/issue-labeler.yml"),
+    yaml.stringify(
       Object.entries(userstyles)
-        .reduce((acc, [key]) => {
-          acc[key.toString()] = [`/${toIssueLabel(key)}(,.*)?$/gm`];
+        .reduce((acc, [key, { supports }]) => {
+          acc[key.toString()] = [toIssueLabelRegex(key)];
+          Object.keys(supports ?? {}).forEach((key) => {
+            acc[key.toString()] = [toIssueLabelRegex(key)];
+          });
           return acc;
         }, {} as Record<string, string[]>),
     ),
   );
 
-  const userstyleIssueContent = Deno.readTextFileSync(join(
+  // .github/ISSUE_TEMPLATE/userstyle.yml
+  const userstyleIssueTemplate = Deno.readTextFileSync(path.join(
     REPO_ROOT,
     "scripts/generate/templates/userstyle-issue.yml",
   ));
-  Deno.writeTextFileSync(
-    join(REPO_ROOT, ".github/ISSUE_TEMPLATE/userstyle.yml"),
-    userstyleIssueContent.replace(
+  await Deno.writeTextFile(
+    path.join(REPO_ROOT, ".github/ISSUE_TEMPLATE/userstyle.yml"),
+    userstyleIssueTemplate.replace(
       `"$LABELS"`,
       `${
         Object.entries(userstyles)
-          .map(([key]) => `"${toIssueLabel(key)}"`)
+          .flatMap(([slug, { supports }]) =>
+            [slug, ...Object.keys(supports ?? {})].map((key) =>
+              `"${toIssueLabel(key)}"`
+            )
+          )
+          .sort()
           .join(", ")
       }`,
     ),
   );
 
   // .github/pr-labeler.yml
-  updateFile(
-    join(REPO_ROOT, ".github/pr-labeler.yml"),
-    stringify(
+  await writeWithPreamble(
+    path.join(REPO_ROOT, ".github/pr-labeler.yml"),
+    yaml.stringify(
       Object.entries(userstyles)
-        .reduce((acc, [key]) => {
-          acc[`${key}`] = `styles/${key}/**/*`;
+        .reduce((acc, [key, { supports }]) => {
+          acc[key] = toPrLabel(key);
+          Object.keys(supports ?? {}).forEach((supportedKey) => {
+            acc[supportedKey] = toPrLabel(key);
+          });
           return acc;
         }, {} as Record<string, string>),
     ),
   );
 
   // .github/labels.yml
-  const syncLabelsContent = Object.entries(userstyles)
-    .map(([slug, style]) => {
-      return {
-        name: slug,
-        description: [style.name].flat().join(", "),
-        color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
-      };
-    });
-  const syncLabels = join(REPO_ROOT, ".github/labels.yml");
-  // deno-lint-ignore no-explicit-any
-  await updateFile(syncLabels, stringify(syncLabelsContent as any));
-};
+  await writeWithPreamble(
+    path.join(REPO_ROOT, ".github/labels.yml"),
+    yaml.stringify(
+      Object.entries(userstyles).flatMap(([key, style]) => [
+        {
+          name: key,
+          description: style.name,
+          color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
+        },
+        ...Object.entries(style.supports ?? {}).map((
+          [supportedKey, { name }],
+        ) => ({
+          name: supportedKey,
+          description: name,
+          color: style.color ? macchiatoHex[style.color] : macchiatoHex.blue,
+        })),
+      ]),
+    ),
+  );
+}

@@ -3,26 +3,23 @@ name: Sync Maintainers
 on:
   workflow_dispatch:
   push:
-    paths:
-      - "scripts/userstyles.yml"
+    branches: [main]
+    paths: ["scripts/userstyles.yml"]
 
 jobs:
   sync-maintainers:
-    name: Sync maintainers
+    if: github.repository == 'catppuccin/userstyles'
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
 
       - name: Setup Deno
         uses: nekowinston/setup-deno@main
         with:
-          deno-version: v1.x
+          deno-version: v2.3.5
 
       - name: Sync maintainers
-        if: ${{ github.repository == 'catppuccin/userstyles' && github.ref == 'refs/heads/main' }}
         run: deno task ci:sync-maintainers
         env:
           GITHUB_TOKEN: ${{ secrets.USERSTYLES_TOKEN }}

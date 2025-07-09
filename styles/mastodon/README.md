@@ -10,24 +10,20 @@
 
 <p align="center">
 	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Amastodon"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/mastodon?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/mastodon/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/mastodon/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
-<p align="center">
-  <img src="preview.webp"/>
-</p>
+## Usage
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
-## 🙋 FAQ
-- Q: **The theme does not look the same as the preview?**\
-  A: Your Mastodon instance may be using its own custom CSS, which is changing the look of the theme.
-
-## 🚧 Looking for Maintainers 🚧
-- If you are interested in maintaining this userstyle, please raise a **Pull Request** and add yourself into the `current-maintainers` array in the `userstyles.yml` file.
+## 💝 Current Maintainer
+- [comfysage](https://github.com/comfysage)
 
 ## 💖 Past Maintainers
-- [Lemon](https://github.com/unseen-ninja)
-- [Isabel](https://github.com/isabelroses)
+- [unseen-ninja](https://github.com/unseen-ninja)
+- [isabelroses](https://github.com/isabelroses)
 
 &nbsp;
 

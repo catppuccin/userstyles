@@ -1,38 +1,52 @@
-import { join } from "@std/path";
+import type { CategoriesSchema, UserstylesSchema } from "@/types/mod.ts";
+import { REPO_ROOT } from "@/constants.ts";
+
+import * as path from "@std/path";
 import Handlebars from "handlebars";
 
-import { REPO_ROOT } from "@/deps.ts";
-import { PortsSchema, UserStylesSchema } from "@/types/mod.ts";
-import { updateFile, updateReadme } from "@/generate/utils.ts";
+import { updateReadme } from "@/generate/utils.ts";
 
 type MappedPorts = {
   [k: string]: (
-    UserStylesSchema.Userstyle & { path: string }
+    UserstylesSchema.Userstyle & { path: string }
   )[];
 };
 
-export const generateMainReadme = async (
-  userstyles: UserStylesSchema.Userstyles,
-  portsData: PortsSchema.PortsSchema,
-) => {
-  if (!portsData.categories) throw ("Ports data is missing categories");
+export async function generateMainReadme(
+  userstyles: UserstylesSchema.Userstyles,
+  categoriesData: CategoriesSchema.CategoryDefinitions,
+) {
+  if (!categoriesData) throw ("Categories data is missing categories");
 
   const categorized = Object.entries(userstyles)
-    .reduce((acc, [slug, { categories, ...port }]) => {
+    .reduce((acc, [slug, { categories, supports, ...userstyle }]) => {
       // initialize category array if it doesn't exist
       // only care about the first (primary) category in the categories array
       acc[categories[0]] ??= [];
 
-      acc[categories[0]].push({ path: `styles/${slug}`, categories, ...port });
+      const baseUserstyle = {
+        path: `styles/${slug}`,
+        categories,
+        ...userstyle,
+      };
 
-      // Sort by name, first array entry if necessary
-      acc[categories[0]].sort((a, b) =>
-        [a.name].flat()[0].localeCompare([b.name].flat()[0])
+      acc[categories[0]].push(
+        baseUserstyle,
+        // supported websites themed by the userstyle are added as their own entries for the README
+        ...(Object.values(supports ?? {}).map(({ name, link }) => ({
+          ...baseUserstyle,
+          name,
+          link,
+        }))),
       );
+
+      // sort by name
+      acc[categories[0]].sort((a, b) => a.name.localeCompare(b.name));
+
       return acc;
     }, {} as MappedPorts);
 
-  const portListData = portsData.categories
+  const portListData = categoriesData
     .filter((category) => categorized[category.key] !== undefined)
     .map((category) => {
       return { meta: category, ports: categorized[category.key] };
@@ -43,19 +57,26 @@ export const generateMainReadme = async (
 <summary>{{emoji}} {{name}}</summary>
 
 {{#each ports}}
-- {{#unless maintained}}🚧 {{/unless}}[{{#each name}}{{ this }}{{#unless @last}}, {{/unless}}{{/each}}]({{ path }})
+- {{#unless maintained}}❤️‍🩹 {{/unless}}[{{ name }}]({{ path }})
 {{/each}}
 
 </details>
-{{/each}}`)({
+{{/each}}
+`)({
     category: portListData.map(({ meta, ports }) => {
       return {
         emoji: meta.emoji,
         name: meta.name,
         ports: ports.map(
-          ({ name, path, "current-maintainers": currentMaintainers }) => {
+          (
+            {
+              name,
+              path,
+              "current-maintainers": currentMaintainers,
+            },
+          ) => {
             return {
-              name: [name].flat(),
+              name,
               maintained: currentMaintainers.length > 0,
               path,
             };
@@ -65,14 +86,13 @@ export const generateMainReadme = async (
     }),
   });
 
-  const readmePath = join(REPO_ROOT, "README.md");
-  await updateFile(
+  const readmePath = path.join(REPO_ROOT, "README.md");
+  await Deno.writeTextFile(
     readmePath,
     updateReadme({
       readme: Deno.readTextFileSync(readmePath),
       section: "userstyles",
       newContent: portContent,
     }),
-    false,
   ).catch((e) => console.error(e));
-};
+}

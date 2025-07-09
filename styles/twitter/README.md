@@ -10,21 +10,18 @@
 
 <p align="center">
 	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Atwitter"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/twitter?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/twitter/catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
-</p>
-
-<p align="center">
-  <img src="preview.webp"/>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/twitter/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 ## Usage
+
+See [the userstyle usage instructions](../../docs/USAGE.md).
+
 > [!NOTE]
-> Set Twitter's built-in theme to **Lights out** with the blue accent. Also requires the [:has()](https://developer.mozilla.org/en-US/docs/Web/CSS/:has) selector.
-
-
+> Set Twitter's built-in theme to **Lights out** with the blue accent.
 
 ## 💝 Current Maintainer
-- [Ren](https://github.com/watatomo)
+- [watatomo](https://github.com/watatomo)
 
 
 &nbsp;

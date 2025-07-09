@@ -1,12 +1,14 @@
-#!/usr/bin/env -S deno run -A
+import type { Userstyle } from "@/types/userstyles.d.ts";
+
 import * as assert from "@std/assert";
-import { Octokit } from "@octokit/rest";
 
-import type { UserStylesSchema } from "@/types/mod.ts";
-import { getUserstylesData } from "@/utils.ts";
-
-const octokit = new Octokit({ auth: Deno.env.get("GITHUB_TOKEN") });
-const team = { org: "catppuccin", team_slug: "userstyles-maintainers" };
+import {
+  addUserstylesTeamMember,
+  getAuthenticatedOctokit,
+  getUserstylesData,
+  getUserstylesTeamMembers,
+  removeUserstylesTeamMember,
+} from "@/utils.ts";
 
 const { userstyles } = getUserstylesData();
 
@@ -14,57 +16,51 @@ const { userstyles } = getUserstylesData();
 const maintainers = [
   ...new Set(
     Object.values(userstyles).flatMap((
-      style: UserStylesSchema.Userstyle,
+      style: Userstyle,
     ) =>
-      style["current-maintainers"].map((m) => {
-        const username = m.url.split("github.com/")?.pop();
-        // Check that they follow github.com/username pattern.
-        assert.assertExists(username);
-        return username.toLowerCase();
+      style["current-maintainers"].map((name) => {
+        assert.assertExists(name);
+        return name.toLowerCase();
       })
     ),
   ),
 ];
 
-// Lowercase usernames of all maintainers in the current GitHub team.
-const teamMembers = await octokit.teams
-  .listMembersInOrg({
-    ...team,
-    per_page: 100,
-  })
-  .then((res) => res.data.map((m) => m.login.toLowerCase()));
+assert.assertExists(maintainers);
+assert.assert(Array.isArray(maintainers));
+assert.assertGreater(maintainers.length, 0);
 
-const syncMaintainers = async () => {
-  if (!maintainers) return;
-  if (assert.equal(maintainers, teamMembers)) {
-    console.log("Maintainers are in sync");
-    return;
-  }
+const octokit = getAuthenticatedOctokit();
+const team = "userstyles-maintainers";
+const maintainersTeamMembers = await getUserstylesTeamMembers(
+  octokit,
+  team,
+);
 
-  const toAdd = maintainers.filter((m) => !teamMembers.includes(m));
-  const toRemove = teamMembers.filter((m) => !maintainers.includes(m));
+if (assert.equal(maintainers, maintainersTeamMembers)) {
+  console.log("Maintainers are in sync.");
+  Deno.exit(0);
+}
 
-  for (const m of toAdd) {
-    await octokit.teams.addOrUpdateMembershipForUserInOrg({
-      ...team,
-      username: m,
-    });
-    console.log(`Added ${m} to the ${team.org}/${team.team_slug} team.`);
-  }
+const toAdd = maintainers.filter((m) => !maintainersTeamMembers.includes(m));
+const toRemove = maintainersTeamMembers.filter((m) => !maintainers.includes(m));
+
+for (const maintainer of toAdd) {
+  await addUserstylesTeamMember(octokit, team, maintainer);
   console.log(
-    `${toAdd.length} users added to the ${team.org}/${team.team_slug} team.`,
+    `Added ${maintainer} to the catppuccin/${team} team.`,
   );
+}
+console.log(
+  `${toAdd.length} users added to the catppuccin/${team} team.`,
+);
 
-  for (const m of toRemove) {
-    await octokit.teams.removeMembershipForUserInOrg({
-      ...team,
-      username: m,
-    });
-    console.log(`Removed ${m} from the ${team.org}/${team.team_slug} team.`);
-  }
+for (const member of toRemove) {
+  await removeUserstylesTeamMember(octokit, team, member);
   console.log(
-    `${toRemove.length} users removed from the ${team.org}/${team.team_slug} team.`,
+    `Removed ${member} from the catppuccin/${team} team.`,
   );
-};
-
-await syncMaintainers();
+}
+console.log(
+  `${toRemove.length} users removed from the catppuccin/${team} team.`,
+);
