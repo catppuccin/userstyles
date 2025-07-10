@@ -1,0 +1,2735 @@
+/* ==UserStyle==
+@name Crunchyroll Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/crunchyroll
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/crunchyroll
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/crunchyroll/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Acrunchyroll
+@description Soothing pastel theme for Crunchyroll
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var select playerFlavor "Player: Flavor" ["auto:Auto*", "latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select playerSetting "Player: Setting" ["none:None", "minimal:Minimal", "medium:Medium*", "full:Full"]
+@var select playerBackground "Player: Themed Background" ["never:Never", "notfullscreen:Not Fullscreen*", "always:Always"]
+==/UserStyle== */
+
+@-moz-document regexp(
+    "^https:\/\/(www\.|sso\.)?crunchyroll\.com(\/(?!(..\/)?(comics|games|news|simulcastcalendar|about|tos|welcome|premium)).*)?$"
+  ) {
+  /*  Userstyle as Mixin
+   *  This takes the following Parameters:
+   *  @flavor – which is the desired Flavor */
+  #catppuccinMain(@flavor) {
+    #palette(@flavor);
+
+    // MIXINS - START
+
+    // Prettier does not really like rules as parameters in
+    // the following mixins so they are disabled for now.
+    // But they are still here for future reference.
+
+    // // Applies @rules when hovered or focused
+    // .highlight(@rules) {
+    //   @media (hover: hover) {
+    //     &:focus,
+    //     &:hover {
+    //       @rules();
+    //     }
+    //   }
+    // }
+
+    // // Applies @rules when hovered, focused or when the element also has a class that contains @{active-class}--
+    // .highlight(@rules, @selector) {
+    //   .highlight(@rules);
+
+    //   &@{selector} {
+    //     @rules();
+    //   }
+    // }
+
+    .clickable(@property, @hover-value) {
+      @media (hover: hover) {
+        &:focus,
+        &:hover {
+          @{property}: @hover-value;
+        }
+      }
+    }
+
+    .clickable(@property, @base-value, @hover-value) {
+      @{property}: @base-value;
+
+      .clickable(@property, @hover-value);
+    }
+
+    .clickable-text(@hover-value) {
+      .clickable(color, @hover-value);
+    }
+
+    .clickable-text(@base-value, @hover-value) {
+      .clickable(color, @base-value, @hover-value);
+    }
+
+    .clickable-text-subtle() {
+      .clickable-text(@overlay2, @text);
+    }
+
+    .clickable-text-accent() {
+      .clickable-text(@accent, @accent-dim);
+    }
+
+    .clickable-background(@hover-value) {
+      .clickable(background-color, @hover-value);
+    }
+
+    .clickable-background(@base-value, @hover-value) {
+      .clickable(background-color, @base-value, @hover-value);
+    }
+
+    .clickable-background-accent() {
+      .clickable-background(@accent, @accent-dim);
+    }
+
+    .clickable-fill(@hover-value) {
+      .clickable(fill, @hover-value);
+    }
+
+    .clickable-fill(@base-value, @hover-value) {
+      .clickable(fill, @base-value, @hover-value);
+    }
+
+    .card(@cardname) {
+      [class*="@{cardname}--"] {
+        [class*="@{cardname}-title--"],
+        [class*="@{cardname}__title--"],
+        [class*="@{cardname}__title-link--"] {
+          color: @text;
+        }
+
+        [class*="@{cardname}-subtitle--"],
+        [class*="@{cardname}__subtitle--"],
+        [class*="@{cardname}__footer--"] {
+          color: @subtext0;
+        }
+      }
+    }
+
+    .card-hover(@shadow-size: var(--hover-shadow-size)) {
+      background-color: @mantle;
+      box-shadow: 0 0 0 @shadow-size $background-color;
+    }
+
+    .clickable-card(@cardname) {
+      .card(@cardname);
+
+      [class*="@{cardname}--"] {
+        @highlight: {
+          .card-hover();
+        };
+
+        @media (hover: hover) {
+          &:focus,
+          &:hover {
+            @highlight();
+          }
+        }
+
+        &[class*="@{cardname}--is-now-playing--"] {
+          @highlight();
+        }
+      }
+
+      [class*="@{cardname}-actions--"] {
+        [class*="@{cardname}-actions__icon-button--"] {
+          .clickable-text-subtle();
+        }
+      }
+    }
+
+    // Clickable card that shows additional information on hover
+    // where @hover-elem is the sub-element that the hover background is applied to
+    .clickable-card-hover(@cardname, @hover-elem: "hover") {
+      .card(@cardname);
+
+      [class*="@{cardname}--"] {
+        [class*="@{cardname}-@{hover-elem}--"] {
+          .card-hover(0.5rem);
+
+          [class*="@{cardname}-hover__title--"],
+          [class*="@{cardname}-hover__title-link--"],
+          [class*="@{cardname}-hover__description--"] {
+            color: @text;
+          }
+
+          [class*="@{cardname}-hover__meta--"] {
+            color: @subtext0;
+          }
+        }
+      }
+    }
+    // MIXINS - END
+
+    // NAVBAR - START
+    .erc-large-header {
+      .header-content {
+        background-color: @mantle;
+
+        .erc-header-tile {
+          color: @subtext0;
+
+          .erc-header-svg {
+            color: @subtext0;
+          }
+
+          @highlight: {
+            &,
+            .erc-header-svg {
+              color: @text;
+            }
+            background-color: @surface0;
+          };
+
+          @media (hover: hover) {
+            &:focus,
+            &:hover {
+              @highlight();
+            }
+          }
+
+          &.state-active {
+            @highlight();
+          }
+
+          &.erc-header-free-trial-tile {
+            .premium-icon svg {
+              fill: @yellow;
+            }
+
+            .first-row {
+              color: @yellow;
+            }
+          }
+        }
+
+        .header-logo .erc-logo {
+          .logo-icon {
+            fill: @accent;
+          }
+
+          &:hover {
+            .logo-icon {
+              fill: @accent-dim;
+            }
+          }
+        }
+
+        .header-menu, .header-external-links {
+          [class*="browse-menu--"],
+          .erc-news-menu-dropdown,
+          .erc-vertical-menu-dropdown {
+            background-color: @crust;
+
+            [class*="browse-menu-section__title--"],
+            .section-title,
+            .menu-section-title {
+              color: @subtext0;
+            }
+
+            .erc-submenu-dropdown {
+              background-color: @mantle;
+            }
+
+            [class*="browse-menu-item__link--"],
+            [class*="browse-submenu-item__link--"],
+            .erc-menu-item-title,
+            .erc-submenu-item .submenu-item-title {
+              color: @text;
+
+              &:hover {
+                background-color: @surface0;
+              }
+            }
+
+            [class*="browse-menu-section--"] {
+              border-inline-start-color: @surface0;
+            }
+          }
+
+          .erc-browse-menu-dropdown .menu-wrapper .genres-wrapper {
+            border-left-color: @surface0;
+          }
+
+          .erc-vertical-menu-dropdown .menu-section:first-child {
+            border-bottom-color: @surface0;
+          }
+        }
+
+        .header-actions {
+          [class*="user-menu--"] {
+            background-color: @crust;
+
+            [class*="user-menu-account-item--"] {
+              color: @text;
+
+              [class*="user-menu-account-item__title--"] {
+                color: @text;
+              }
+
+              [class*="user-menu-account-item__premium-icon--"] {
+                fill: @yellow;
+              }
+
+              [class*="user-menu-account-item__premium-label--"] {
+                color: @yellow;
+              }
+            }
+
+            [class*="user-menu-account-item--is-interactive--"] {
+              @media (hover: hover) {
+                &:focus,
+                &:hover {
+                  background-color: @surface0;
+                }
+              }
+            }
+
+            [class*="user-menu-nav-item--"] {
+              color: @text;
+
+              [class*="user-menu-nav-item__description-text--"] {
+                color: @subtext0;
+              }
+
+              &:hover {
+                background-color: @surface0;
+              }
+            }
+
+            [class*="user-menu-section--is-sticky--"] {
+              background-color: @crust;
+            }
+
+            [class*="user-menu-section--has-delimiter--"] {
+              border-block-start-color: @surface0;
+            }
+          }
+
+          .erc-upsell-popup {
+            .erc-upsell-popup-background {
+              background-color: @base;
+
+              .left-up-stars,
+              .right-up-star,
+              .right-bottom-lines-star,
+              .left-bottom-lines {
+                [stroke="#FAB818"] {
+                  stroke: @yellow;
+                }
+
+                [stroke="#FFC94D"] {
+                  stroke: @peach;
+                }
+
+                [stroke="#FFF"] {
+                  stroke: @text;
+                }
+              }
+            }
+
+            .premium-title-icon,
+            .close-icon {
+              fill: @text;
+            }
+
+            .close-icon {
+              .clickable-fill(@subtext0);
+            }
+
+            .content {
+              color: @text;
+            }
+          }
+        }
+      }
+    }
+    // NAVBAR - END
+
+    // STICKY HEADER - START
+    .erc-sticky-header {
+      &.state-static {
+        background-color: @base;
+      }
+
+      &.state-sticky {
+        background-color: @crust;
+      }
+    }
+    // STICKY HEADER - END
+
+    // HOME PAGE - START
+    .erc-feed {
+      /* HERO CAROUSEL - START */
+      [class*="hero-carousel--"] {
+        background-color: @base;
+
+        [class*="hero-carousel__arrows--"] [class*="hero-carousel__arrow--"] {
+          fill: @text;
+
+          &:hover {
+            fill: @accent;
+          }
+        }
+
+        [class*="hero-carousel__item--"] {
+          [class*="hero-content-card__description--"] {
+            color: @text;
+          }
+
+          [class*="hero-background--"]::after {
+            background: linear-gradient(
+              180deg,
+              fade(@base, 0%),
+              fade(@base, 20%) 20%,
+              fade(@base, 60%) 56%,
+              @base
+            );
+
+            @media (min-width: 50em) {
+              background:
+                linear-gradient(
+                  to bottom,
+                  #0000 ~"min(40vh, 50%)",
+                  @base 100%
+                ),
+                linear-gradient(
+                to var(--cr-end-direction),
+                fade(@base, 80%) 0,
+                fade(@base, 60%) 30%,
+                #0000 70%
+              );
+            }
+          }
+        }
+
+        /* HERO CAROUSEL PAGINATION PILLS - START */
+        [class*="hero-carousel__pagination--"]
+          [class*="hero-carousel__page--"] {
+          .clickable(--pill-color, @surface2, @accent);
+
+          [class*="hero-carousel__page-loader--"],
+          [class*="hero-carousel__page--is-active--"] {
+            background-color: @accent;
+          }
+        }
+
+        &[class*="hero-carousel--is-paused--"] {
+          --active-page-color: @accent;
+        }
+        /* HERO CAROUSEL PAGINATION PILLS - END */
+      }
+      /* HERO CAROUSEL - END */
+
+      /* FEED - START */
+      [class*="feed-header--"] {
+        [class*="feed-header__description--"],
+        [class*="feed-header__view-link--"] {
+          .clickable-text-subtle();
+        }
+      }
+      /* FEED - END */
+
+      /* RELEASE EPISODES SECTION - START */
+      [class*="release-episodes-section--"] {
+        [class*="release-episodes-section__group--"] {
+          [class*="release-episodes-section__group-heading-divider--"] {
+            background-color: @overlay0;
+          }
+
+          [class*="release-episodes-section__group-content--"] {
+            /* RELEASE EPISODE CARD BASE - START */
+            [class*="release-episode-card-base--"] {
+              [class*="release-episode-card-body--"] {
+                [class*="release-episode-card-media-type--"] {
+                  [class*="release-episode-card-media-type__label--"] {
+                    color: @subtext0;
+                  }
+                }
+
+                [class*="release-episode-card-meta-data--"]
+                  [class*="release-episode-card-publish-time--"] {
+                  color: @accent;
+                }
+              }
+            }
+            /* RELEASE EPISODE CARD BASE - END */
+
+            /* RELEASE EPISODE CARD - START */
+            .clickable-card-hover("release-episode-card");
+
+            [class*="release-episode-card--"]
+              [class*="release-episode-card-hover--"]
+              [class*="release-episode-card-hover__body--"]
+              [class*="release-episode-card-hover__play-label--"] {
+              color: @accent;
+            }
+            /* RELEASE EPISODE CARD - END */
+
+            /* RELEASE EPISODE CARD STACK - START */
+            [class*="release-episode-card-stack--"] {
+              [class*="release-episode-card-stack__thumbnail--"]
+                [class*="release-episode-card-stack__thumbnail-image--"],
+              [class*="release-episode-card-stack-hover__thumbnail--"]
+                [class*="release-episode-card-stack-hover__thumbnail-image--"] {
+                box-shadow:
+                  var(--first-layer-offset) 0 0 fade(@text, 60%),
+                  var(--first-layer-offset) 0 0 @base,
+                  var(--second-layer-offset) 0 0 fade(@text, 40%),
+                  var(--second-layer-offset) 0 0 @base,
+                  var(--third-layer-offset) 0 0 fade(@text, 20%),
+                  var(--third-layer-offset) 0 0 @base;
+              }
+
+              [class*="release-episode-card-body--"]
+                [class*="release-episode-card-title--"]
+                [class*="release-episode-card-stack__title-link--"] {
+                color: @text;
+              }
+
+              [class*="release-episode-card-stack-hover--"] {
+                .card-hover(0.5rem);
+              }
+            }
+            /* RELEASE EPISODE CARD STACK - END */
+          }
+        }
+      }
+      /* RELEASE EPISODES SECTION - END */
+
+      /* NEWS AND EDITORIAL SECTION - START */
+      [class*="news-and-editorial--"] {
+        [class*="news-and-editorial-background--"] {
+          &[class*="news-and-editorial-background--is-even--"] {
+            background-image: linear-gradient(
+              180deg,
+              spin(@accent, 20),
+              spin(@accent, -20)
+            );
+          }
+
+          svg[class*="news-and-editorial-background__illustration--"] {
+            #news-and-editorial-orange-a {
+              stop[offset="0"] {
+                stop-color: spin(@accent, 20);
+              }
+
+              stop[offset=".313151595"] {
+                stop-color: spin(@accent, 0);
+              }
+
+              stop[offset=".38184216"] {
+                stop-color: spin(@accent, 10);
+              }
+
+              stop[offset="1"] {
+                stop-color: spin(@accent, -20);
+              }
+            }
+
+            #news-and-editorial-orange-b {
+              stop[offset="0"] {
+                stop-color: spin(@accent, 20);
+              }
+
+              stop[offset="1"] {
+                stop-color: @accent;
+              }
+            }
+          }
+        }
+
+        [class*="news-and-editorial__content-wrapper--"] {
+          &::before {
+            background-color: @base;
+          }
+        }
+      }
+      /* NEWS AND EDITORIAL SECTION - END */
+    }
+    // HOME PAGE - END
+
+    // BROWSE PAGE - START
+    .erc-browse {
+      .erc-alphabetical-slider {
+        .letters-item {
+          .letter {
+            color: @text;
+          }
+
+          &.state-active .letter {
+            color: @accent;
+          }
+
+          &.state-inactive .letter {
+            color: @overlay0;
+          }
+        }
+      }
+
+      .erc-alphabetical-letter-separator .letter-separator {
+        border-top-color: @overlay0;
+      }
+    }
+    // BROWSE PAGE - END
+
+    // GENRE PAGE - START
+    .erc-genres-header {
+      .icon {
+        filter: @text-filter;
+      }
+    }
+
+    .erc-genres-collection {
+      .view-all-link {
+        .clickable-text-subtle();
+      }
+    }
+    // GENRE PAGE - END
+
+    // SUB GENRE PAGE - START
+    .erc-subgenres-header {
+      .breadcrumbs-with-filters {
+        --fade-color: @base;
+      }
+
+      .subgenres-header-sticky.state-sticky .breadcrumbs-with-filters {
+        --fade-color: @crust;
+      }
+    }
+    // SUB GENRE PAGE - END
+
+    // WATCH EPISODE PAGE - START
+    .erc-watch-episode {
+      // CURRENT MEDIA INFO - START
+      .erc-current-media-info {
+        .show-title-link {
+          .clickable-text-accent();
+
+          &::after {
+            background-color: @overlay0;
+          }
+        }
+
+        svg[class*="watchlist-toggle__icon--"] {
+          fill: @text;
+        }
+
+        .episode-actions {
+          [class*="episode-rate-action--"] {
+            svg[class*="episode-rate-action__icon--"] {
+              fill: @text;
+            }
+
+            [class*="episode-rate-action__text--"] {
+              color: @text;
+            }
+          }
+        }
+      }
+      // CURRENT MEDIA INFO - END
+
+      // COMMENTING SECTION - START
+      .erc-commenting-section {
+        .create-comment {
+          [class*="comment-textarea__signature--"] {
+            [class*="comment-textarea__info-text--"] {
+              color: @subtext0;
+            }
+          }
+
+          textarea[class*="comment-textarea__editable-area--"] {
+            background-color: @mantle;
+            border-color: @overlay0;
+            color: @text;
+          }
+        }
+
+        .erc-comments {
+          [class*="comment--"] {
+            [class*="comment__signature--"] {
+              [class*="comment__publication-date--"] {
+                color: @subtext0;
+              }
+            }
+
+            [class*="comment__body--"] {
+              [class*="comment-deleted--"] {
+                color: @overlay1;
+              }
+
+              button[class*="comment-spoiler-section__toggle--"] {
+                .clickable-text-subtle();
+              }
+            }
+
+            [class*="comment-actions--"] {
+              [class*="comment-actions__item--"] {
+                .clickable-text-subtle();
+
+                &[class*="comment-actions__item--is-open--"] {
+                  color: @text;
+                  background-color: @surface0;
+                }
+              }
+
+              [class*="comment-actions__options--"] {
+                background-color: @mantle;
+
+                [class*="comment-actions__options-item--"] {
+                  color: @text;
+
+                  .clickable-background(@surface0);
+                }
+              }
+            }
+          }
+
+          .erc-replies {
+            .erc-replies-button .replies-button {
+              .clickable-text-accent();
+            }
+          }
+        }
+      }
+      // COMMENTING SECTION - END
+
+      // WATCH MORE (SIDEBAR) - START
+      .erc-watch-more-episodes {
+        .erc-prev-next-episode .title {
+          color: @text;
+        }
+      }
+      // WATCH MORE (SIDEBAR) - END
+    }
+    // WATCH EPISODE PAGE - END
+
+    // WATCH MUSIC PAGE - START
+    .erc-watch-music {
+      .erc-current-music-info {
+        .artist-name-link {
+          .clickable-text-accent();
+
+          &::after {
+            background-color: @overlay0;
+          }
+        }
+
+        .copyright {
+          color: @overlay0;
+        }
+      }
+
+      .erc-watch-more-music {
+        .erc-prev-next-music .title {
+          color: @text;
+        }
+      }
+    }
+    // WATCH MUSIC PAGE - END
+
+    // SERIES PAGE - START
+    .erc-series {
+      [data-t="series-hero-container"] {
+        [data-t="series-hero-background"] {
+          @media (min-width: 90em) {
+            --fade-gradients:
+              linear-gradient(
+              var(--deg),
+              fade(@base, 55%) 5%,
+              #0000 20%
+            ),linear-gradient(
+              to var(--cr-end-direction),
+              fade(@base, 85%) 0%,
+              fade(@base, 50%) 30%,
+              #0000 55%
+            ),linear-gradient(to bottom, #0000 45%, @base 85%);
+          }
+
+          @media (min-width: 50em) {
+            --fade-gradients:
+              linear-gradient(
+              var(--deg),
+              fade(@base, 55%) 5%,
+              #0000 25%
+            ),linear-gradient(
+              to var(--cr-end-direction),
+              fade(@base, 85%) 0%,
+              fade(@base, 50%) 30%,
+              #0000 55%
+            ),linear-gradient(to bottom, #0000 50.04%, @base 100%);
+          }
+
+          --fade-gradients:
+            linear-gradient(
+            var(--deg),
+            fade(@base, 60%) 0%,
+            #0000 20%
+          ),linear-gradient(
+            to bottom,
+            #0000 40%,
+            fade(@base, 75%) 65%,
+            @base 90%
+          );
+        }
+      }
+
+      .erc-series-hero-actions {
+        .erc-series-hero-action-tooltip, .hero-more-trigger {
+          .clickable-text-accent();
+        }
+
+        .hero-more-trigger {
+          .clickable-background(@surface1);
+        }
+      }
+
+      .erc-series-details {
+        .details-item-name {
+          color: @text;
+        }
+
+        .details-item {
+          color: @subtext0;
+        }
+      }
+
+      .erc-reviews-section {
+        .erc-reviews-header {
+          .average-rating-title {
+            color: @text;
+          }
+        }
+
+        .erc-write-review-section {
+          background-color: @mantle;
+
+          .write-review-section-signature-text {
+            color: @subtext0;
+          }
+        }
+
+        [class*="review-form--"] {
+          background-color: @mantle;
+
+          [class*="review-form__info-text--"] {
+            color: @text;
+          }
+
+          [class*="review-form__rating-text--"],
+          [class*="character-counter--"] {
+            color: @subtext0;
+          }
+
+          [class*="review-form__title-input--"],
+          [class*="review-form__textarea--"] {
+            background-color: @crust;
+            border-color: @overlay0;
+            color: @text;
+          }
+        }
+
+        .erc-reviews {
+          [class*="review--"] > [class*="review__content--"] {
+            [class*="review__details--"] {
+              [class*="review__meta--"] {
+                color: @subtext0;
+              }
+
+              [class*="review-spoiler-body__toggle--"] {
+                .clickable-text-subtle();
+              }
+            }
+
+            [class*="review__footer--"] {
+              [class*="review-votings--"] {
+                color: @subtext0;
+
+                [class*="review-votings__options--"] {
+                  [class*="review-votings__option--"] {
+                    color: @accent;
+
+                    &[class*="review-votings__option--is-disabled--"] {
+                      color: @overlay0;
+                    }
+
+                    &:not([class*="review-votings__option--is-disabled--"]) {
+                      .clickable-text(@text);
+                    }
+                  }
+                }
+              }
+
+              [class*="review-actions--"] {
+                [class*="review-actions__item--"] {
+                  .clickable-text-subtle();
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    // SERIES PAGE - END
+
+    // SEARCH PAGE - START
+    .erc-search-page {
+      // SEARCH FIELD - START
+      .search-field-wrapper {
+        background-color: @base;
+
+        .erc-search-field .search-input-wrapper {
+          border-bottom-color: @overlay0;
+
+          &.state-focused {
+            border-bottom-color: @accent;
+          }
+
+          .search-input {
+            color: @text;
+          }
+        }
+      }
+      // SEARCH FIELD - END
+
+      .erc-search-results-back-button {
+        .clickable-text-subtle();
+      }
+    }
+    // SEARCH PAGE - END
+
+    // CRUNCHYLISTS PAGE - START
+    .erc-empty-list-info-box {
+      border-color: @overlay2;
+
+      .description {
+        color: @text;
+      }
+    }
+
+    .erc-create-custom-list-form .modal-description {
+      color: @subtext0;
+    }
+
+    .erc-single-custom-list {
+      .single-custom-list-navigation .navigation-link {
+        .clickable-text-subtle();
+      }
+
+      .erc-empty-single-custom-list-description .description-link {
+        .clickable-text-accent();
+      }
+
+      .settings-dropdown-item {
+        .clickable-text-subtle();
+      }
+
+      .card-separator {
+        border-bottom-color: @overlay0;
+      }
+    }
+
+    .erc-custom-lists-content {
+      [class*="custom-list-item--"] {
+        background-color: @surface0;
+
+        [class*="custom-list-item__dropdown-option--"] {
+          .clickable-text-subtle();
+        }
+      }
+    }
+    // CRUNCHYLISTS PAGE - END
+
+    // ACCOUNT PAGES - START
+    .erc-account {
+      .erc-account-user-info .user-status {
+        color: @yellow;
+      }
+
+      .erc-account-nav-link {
+        color: @overlay2;
+        &:not(.state-active) {
+          .clickable-text(@text);
+        }
+        .clickable-background(@surface1);
+
+        &.state-active {
+          color: @accent;
+        }
+      }
+
+      .account-content {
+        background-color: @surface0;
+
+        .erc-membership-info {
+          .header-description {
+            color: @subtext0;
+          }
+
+          .membership-info-content {
+            border-bottom-color: @overlay0;
+
+            .erc-premium {
+              .title-wrapper {
+                color: @yellow;
+              }
+
+              .price-wrapper {
+                color: @text;
+
+                .taxes {
+                  color: @subtext1;
+                }
+              }
+
+              .renewal-date {
+                color: @subtext0;
+              }
+
+              .premium-cta {
+                .clickable-text-subtle();
+              }
+            }
+          }
+
+          .membership-info-order-history {
+            .order-history-description {
+              color: @subtext1;
+            }
+
+            .order-history-link {
+              .clickable-text-accent();
+            }
+          }
+        }
+
+        .erc-profile-preferences {
+          .preferences-description {
+            color: @subtext0;
+          }
+
+          .erc-maturity-restrictions-faq .faq-link {
+            .clickable-text-accent();
+          }
+        }
+
+        .erc-email-notifications {
+          .email-notification-description {
+            color: @subtext0;
+          }
+
+          .erc-email-notification-body {
+            .toggle-all-notifications {
+              border-bottom-color: @overlay0;
+            }
+          }
+        }
+
+        .erc-activate-device-old {
+          .activate-device-subtitle,
+          .activate-device-disclaimer {
+            color: @subtext0;
+          }
+
+          .activate-device-nav-link {
+            .clickable-text-accent();
+          }
+        }
+
+        .erc-device-management {
+          .device-management-subtitle {
+            color: @subtext0;
+          }
+
+          .device-management-content-status {
+            border-color: @overlay0;
+          }
+
+          .device-management-content-activated-count {
+            color: @text;
+          }
+
+          .device-management-content-deactivate-cta,
+          .device-management-activate-link {
+            .clickable-text-accent();
+          }
+
+          .erc-devices-list {
+            .devices-list-item {
+              border-bottom-color: @overlay0;
+
+              .devices-list-deactivate-cta {
+                .clickable-text-accent();
+              }
+
+              .erc-device {
+                .device-location,
+                .device-activation-date,
+                .device-last-used-date {
+                  color: @subtext0;
+                }
+              }
+            }
+          }
+        }
+
+        .erc-account-connected-apps {
+          .page-description {
+            color: @subtext0;
+          }
+
+          [class*="connected-apps-item--"] {
+            [class*="connected-apps-item__description--"] {
+              color: @subtext0;
+            }
+
+            [class*="connected-apps-item__checkmark--"] {
+              circle {
+                fill: @green;
+                stroke: @base;
+              }
+
+              path {
+                fill: @base;
+              }
+            }
+          }
+        }
+
+        .erc-account-change-email {
+          .header-description,
+          .current-email-label {
+            color: @subtext0;
+          }
+
+          .change-email-instructions {
+            color: @text;
+          }
+
+          .page-action-link {
+            .clickable-text-accent();
+          }
+        }
+
+        .erc-change-password {
+          .password-description {
+            color: @subtext0;
+          }
+
+          [class*="alert-info--"] {
+            color: @text;
+          }
+        }
+      }
+    }
+    // ACCOUNT PAGES - END
+
+    // MUSIC LANDING PAGE - START
+    .erc-music-feed {
+      [class*="hero-carousel--"] {
+        [class*="hero-carousel-background--"] {
+          [class*="hero-carousel-background__blue--"] {
+            background-color: @blue;
+
+            svg {
+              > g > path {
+                fill: mix(@blue, @base, 50%);
+              }
+
+              > g > g > path {
+                fill: mix(@blue, @base, 20%);
+              }
+            }
+          }
+
+          [class*="hero-carousel-background__yellow--"] {
+            background-image: linear-gradient(
+              to var(--cr-end-direction),
+              @yellow,
+              @peach 59%,
+              @yellow
+            );
+
+            svg[class*="hero-carousel-background__yellow-left-asset---"] {
+              lineargradient {
+                stop {
+                  stop-color: @peach;
+                }
+              }
+            }
+
+            svg[class*="hero-carousel-background__yellow-right-asset---"] {
+              lineargradient {
+                stop {
+                  stop-color: @text;
+                }
+              }
+
+              path {
+                stroke: @text;
+              }
+            }
+          }
+
+          [class*="hero-carousel-background__orange--"] {
+            background-image: linear-gradient(
+              to var(--cr-end-direction),
+              @peach,
+              @yellow
+            );
+
+            svg[class*="hero-carousel-background__orange-asset--"] {
+              lineargradient#hero-carousel-orange-left {
+                stop[offset="0"] {
+                  stop-color: mix(@peach, @yellow, 50%);
+                }
+
+                stop[offset="1"] {
+                  stop-color: @peach;
+                }
+              }
+
+              lineargradient#hero-carousel-orange-right {
+                stop[offset="1"] {
+                  stop-color: mix(@peach, @yellow, 50%);
+                }
+
+                stop[offset="0"] {
+                  stop-color: @peach;
+                }
+              }
+            }
+          }
+        }
+
+        [class*="carousel-tabs--"] {
+          [class*="carousel-tabs__tab--"] {
+            background-color: @overlay0;
+
+            &[class*="carousel-tabs__tab--is-active--"] {
+              background-color: @overlay1;
+            }
+
+            [class*="carousel-tabs__tab-indicator--"] {
+              background-color: fade(@crust, 50%);
+
+              &::before {
+                background-color: @accent;
+              }
+            }
+
+            [class*="carousel-tabs__text--"] {
+              color: @text;
+            }
+          }
+        }
+      }
+
+      .feed-header {
+        [class*="feed-header__description--"] {
+          color: @subtext0;
+        }
+
+        [class*="feed-divider--is-odd--"] {
+          background-image: linear-gradient(
+            to var(--cr-start-direction),
+            @green,
+            @teal
+          );
+        }
+
+        [class*="feed-divider--is-even--"] {
+          background-image: linear-gradient(
+            to var(--cr-start-direction),
+            @yellow,
+            @peach
+          );
+        }
+      }
+    }
+    // MUSIC LANDING PAGE - END
+
+    // INPUT GIFT CARD PAGE - START
+    .erc-redeem {
+      .input-gift-card {
+        .hero-block {
+          .subtitle {
+            color: @subtext0;
+          }
+
+          .need-help-wrapper .need-help-cta {
+            .clickable-text-subtle();
+          }
+        }
+
+        .footnote {
+          img {
+            display: none;
+          }
+
+          .info {
+            .footnote-subtitle {
+              color: @subtext0;
+            }
+            .more-link {
+              .clickable-text-accent();
+            }
+          }
+        }
+      }
+    }
+    // INPUT GIFT CARD PAGE - END
+
+    // AUTH PAGES (CREATE ACCOUNT / LOGIN) - START
+    [class*="LayoutDecorations_decoration__"] {
+      [class*="LayoutDecorations_lines__"] {
+        fill: @accent;
+      }
+    }
+
+    .cx-app {
+      background-color: @base;
+
+      [class*="Header_header__"] {
+        background-color: @mantle;
+
+        [class*="Header_logo__"] {
+          fill: @accent;
+        }
+      }
+
+      [class*="AuthForm_authForm__"] {
+        [class*="AuthForm_card__"] {
+          background-color: @surface0;
+        }
+
+        a {
+          .clickable-text-accent();
+        }
+
+        [class*="AuthForm_legalInfo__"] {
+          color: @subtext0;
+        }
+      }
+
+      [class*="Footer_footer__"] {
+        [class*="Footer_link__"] {
+          .clickable-text-subtle();
+        }
+
+        [class*="Footer_linksListItem__"]:not(:last-child)::after,
+        [class*="Footer_sonyLogo__"]::after {
+          background-color: @overlay0;
+        }
+
+        [class*="Footer_topSection__"] {
+          border-block-end-color: @overlay0;
+        }
+
+        [class*="Footer_sonyLogo__"] svg path {
+          fill: @subtext0;
+        }
+
+        [class*="Footer_copy__"] {
+          color: @subtext0;
+        }
+      }
+    }
+    // AUTH PAGES (CREATE ACCOUNT / LOGIN) - END
+
+    // FOOTER - START
+    .erc-footer,
+    .erc-redeem .minimal-footer-wrapper {
+      background: @base linear-gradient(180deg, #0000, fade(@accent, 10%));
+
+      .footer-top-wrapper {
+        border-bottom-color: @overlay0;
+      }
+
+      .erc-footer-section-item .as {
+        .clickable-text-subtle();
+      }
+
+      .erc-footer-copyright-section {
+        .footer-copyright {
+          color: @subtext0;
+        }
+      }
+    }
+    // FOOTER - END
+
+    // BROWSE CARD
+    .clickable-card-hover("browse-card", "hover__content");
+
+    // WATCHLIST CARD
+    .clickable-card("watchlist-card");
+
+    // PLAYABLE CARD - START
+    .card("playable-card");
+
+    [class*="playable-card--"] {
+      [class*="playable-card__body--"] {
+        [class*="playable-card__show-link--"] {
+          .clickable-text-accent();
+        }
+
+        [class*="playable-card__show-title--"] {
+          color: @accent;
+        }
+      }
+
+      [class*="playable-card-hover--"],
+      &[class*="playable-card--is-now-playing--"] {
+        .card-hover();
+
+        [class*="playable-card-hover__body--"] {
+          [class*="playable-card-hover__secondary-title-link--"] {
+            color: @accent;
+          }
+
+          [class*="playable-card-hover__release--"] {
+            color: @subtext0;
+          }
+
+          [class*="playable-card-hover__play--"] {
+            color: @accent;
+          }
+        }
+      }
+    }
+    // PLAYABLE CARD - END
+
+    // PLAYABLE CARD MINI
+    .clickable-card("playable-card-mini-static");
+
+    // HISTORY PLAYABLE CARD - START
+    .clickable-card("history-playable-card");
+
+    [class*="history-playable-card--"]
+      [class*="history-playable-card__body--"]
+      [class*="history-playable-card__footer--"]
+      [class*="history-playable-card__trash-button--"] {
+      .clickable-text-subtle();
+    }
+    // HISTORY PLAYABLE CARD - END
+
+    // SQUARE NEWS CARD - START
+    .clickable-card("square-news-card");
+
+    [class*="square-news-card--"] {
+      [class*="square-news-card__posted-date--"],
+      [class*="square-news-card__meta--"] {
+        color: @subtext0;
+      }
+    }
+    // SQUARE NEWS CARD - END
+
+    // WIDE NEWS CARD - START
+    .clickable-card("wide-news-card");
+
+    [class*="wide-news-card--"]
+      [class*="wide-news-card__content--"]
+      [class*="wide-news-card__information--"] {
+      color: @subtext0;
+    }
+    // WIDE NEWS CARD - END
+
+    // SINGLE SHOW CARD
+    .card("single-show-card");
+
+    // SINGLE PROMO SHOW CARD - START
+    [class*="single-promo-show-card--"] {
+      [class*="single-promo-show-card__background-wrapper--"] {
+        [class*="single-promo-background--"] {
+          &[class*="single-promo-background--is-even--"] {
+            background-image: linear-gradient(
+              to var(--cr-start-direction),
+              spin(@accent, 30),
+              (@accent) 47%,
+              spin(@accent, -30)
+            );
+          }
+
+          &[class*="single-promo-background--is-odd--"] {
+            background-image: linear-gradient(180deg, @teal 22%, @sky);
+          }
+
+          [class*="single-promo-background__assets-wrapper--"] {
+            [class*="single-promo-background__even-bottom-asset--"] {
+              lineargradient#a {
+                stop[offset="0"] {
+                  stop-color: spin(@accent, 10);
+                }
+
+                stop[offset="1"] {
+                  stop-color: spin(@accent, 30);
+                }
+              }
+
+              lineargradient#b {
+                stop[offset="0"] {
+                  stop-color: spin(@accent, -10);
+                }
+
+                stop[offset="1"] {
+                  stop-color: @accent;
+                }
+              }
+            }
+
+            [class*="single-promo-background__even-top-asset--"] {
+              lineargradient#a {
+                stop[offset="0"] {
+                  stop-color: @accent;
+                }
+
+                stop[offset="1"] {
+                  stop-color: spin(@accent, -10);
+                }
+              }
+            }
+
+            [class*="single-promo-background__odd-asset--"] {
+              g[class*="single-promo-circles__wrapper--"] {
+                fill: spin(@sky, -10);
+              }
+            }
+          }
+        }
+
+        [class*="single-promo-show-card__content-background--"] {
+          &::before {
+            background-color: @mantle;
+          }
+        }
+      }
+
+      [class*="single-promo-show-card__info--"] {
+        [class*="single-promo-show-card__title--"] {
+          color: @text;
+        }
+
+        [class*="single-promo-show-card__watchlist-button--"]
+          [class*="single-promo-show-card__watchlist-icon--"] {
+          fill: @text;
+
+          &[class*="single-promo-show-card__watchlist-icon--is-filled--"] {
+            fill: @accent;
+          }
+        }
+      }
+    }
+    // SINGLE PROMO SHOW CARD - END
+
+    // HORIZONTAL CARD - START
+    .card("horizontal-card");
+
+    [class*="horizontal-card--"] {
+      [class*="horizontal-card-hover--"]
+        [class*="horizontal-card-hover__content--"] {
+        .card-hover();
+
+        [class*="horizontal-card-hover__body--"] {
+          [class*="horizontal-card-hover__title-link--"] {
+            color: @accent;
+          }
+        }
+      }
+    }
+    // HORIZONTAL CARD - END
+
+    // MUSIC CARD
+    .clickable-card("music-card");
+
+    // MUSIC CARD MINI
+    .clickable-card("music-card-mini");
+
+    // SEARCH SHOW CARD
+    .clickable-card-hover("search-show-card", "hover__content");
+
+    // SEARCH SHOW CARD STATIC
+    .clickable-card("search-show-card-static");
+
+    [class*="search-show-card-static--"] {
+      [class*="search-show-card-static__action-button--"] {
+        .clickable-text-accent();
+      }
+    }
+
+    // SEARCH EPISODE CARD - START
+    .clickable-card-hover("search-episode-card");
+
+    [class*="search-episode-card--"] {
+      [class*="search-episode-card__episode-name--"]
+        [class*="search-episode-card__episode-link--"],
+      [class*="search-episode-card-hover__episode-name--"]
+        [class*="search-episode-card-hover__episode-link--"] {
+        color: @text;
+      }
+
+      [class*="search-episode-card-hover__play--"] {
+        color: @accent;
+      }
+
+      [class*="search-episode-card-hover__link--"] {
+        @media (hover: hover) {
+          &:focus,
+          &:hover {
+            ~ [class*="search-episode-card-hover__body--"]
+              [class*="search-episode-card-hover__play--"] {
+              color: @accent-dim;
+            }
+          }
+        }
+      }
+    }
+    // SEARCH EPISODE CARD - END
+
+    // CUSTOM LIST CARD - START
+    .clickable-card-hover("custom-list-card");
+
+    [class*="custom-list-card--"] {
+      [class*="custom-list-card-hover--"] {
+        outline-color: @mantle;
+      }
+
+      [class*="custom-list-card-delete-button--"] {
+        .clickable-text-subtle();
+      }
+    }
+    // CUSTOM LIST CARD - END
+
+    // SEARCH MUSIC CARD - START
+    .clickable-card("search-music-card");
+
+    [class*="search-music-card--"] {
+      [class*="search-music-card__music-name--"]
+        [class*="search-music-card__music-link--"] {
+        color: @text;
+      }
+    }
+    // SEARCH MUSIC CARD - END
+
+    // CARD WATCHLIST LABEL - START
+    // Watchlist label on the top right of the card
+    [class*="card-watchlist-label--"] {
+      color: @base;
+
+      svg[class*="card-watchlist-label__icon--"] {
+        fill: @accent;
+      }
+    }
+    // CARD WATCHLIST LABEL - END
+
+    // PLAYABLE THUMBNAIL - START
+    [class*="playable-thumbnail--"] {
+      [class*="playable-thumbnail-icon__play-overlay--"]
+        [class*="play-media-icon--"] {
+        background-color: fade(@base, 40%);
+
+        svg[class*="play-media-icon__symbol--"] {
+          fill: @text;
+        }
+      }
+
+      [class*="progress-bar--"] {
+        background-color: @surface0;
+
+        [class*="progress-bar__progress--"] {
+          background-color: @accent;
+        }
+      }
+
+      [class*="playable-thumbnail__duration--"] {
+        background-color: fade(@base, 60%);
+        color: @text;
+      }
+    }
+    // PLAYABLE THUMBNAIL - END
+
+    // BUTTONS - START
+    [class*="button--"] {
+      &[class*="tooltip-icon__action-icon-button--"],
+      &[class*="button--is-type-one-weak--"] {
+        .clickable-text-accent();
+      }
+
+      &[class*="button--is-type-one--"],
+      &[class*="button--is-type-four--"] {
+        .clickable-background-accent();
+        color: @base;
+      }
+
+      &[class*="expandable-section__button--"],
+      &[class*="button--is-type-two-weak--"] {
+        .clickable-text-subtle();
+      }
+
+      &[class*="button--is-disabled--"] {
+        color: @overlay0;
+      }
+    }
+
+    .erc-add-to-watchlist-button.remove-from-watchlist .remove-hover {
+      color: @accent;
+    }
+
+    .erc-add-to-custom-list-button .add-to-list-button {
+      .clickable-text-subtle();
+      .clickable-background(@surface0);
+    }
+
+    .erc-share-button {
+      .clickable-text-subtle();
+    }
+    // BUTTONS - END
+
+    // DROPDOWN - START
+    [class*="dropdown--"] {
+      [class*="dropdown-trigger--"] {
+        @highlight: {
+          color: @text;
+          background-color: @surface1;
+
+          .down-arrow-icon {
+            fill: @text;
+          }
+        };
+
+        @media (hover: hover) {
+          &:focus,
+          &:hover {
+            @highlight();
+          }
+        }
+
+        &[class*="dropdown-trigger--is-open--"] {
+          @highlight();
+        }
+
+        color: @overlay2;
+
+        .down-arrow-icon {
+          fill: @overlay2;
+        }
+      }
+
+      [class*="dropdown-content--"] {
+        background-color: @surface0;
+
+        [class*="dropdown-content__fade--"] {
+          &::before {
+            background-image: linear-gradient(180deg, @surface0, #0000);
+          }
+
+          &::after {
+            background-image: linear-gradient(0deg, @surface0, #0000);
+          }
+        }
+
+        [class*="dropdown-content__children--"] {
+          // DROPDOWN OPTIONS - START
+          .option-with-active(@basename) {
+            [class*="@{basename}--"] {
+              color: @text;
+
+              &[class*="@{basename}--is-active--"] {
+                color: @accent;
+              }
+
+              .clickable-background(@surface1);
+            }
+          }
+
+          .option-with-active("select-content__option");
+          .option-with-active("extended-option");
+          .option-with-active("stacked-option");
+
+          [class*="dropdown-radio-option--"]
+            [class*="dropdown-radio-option__label--"]:not(
+              [class*="dropdown-radio-option__label--is-disabled--"]
+            ),
+          [class*="dropdown-checkbox-option--"]
+            [class*="dropdown-checkbox-option__label--"],
+          [class*="dropdown-text-option---"] {
+            .clickable-background(@surface1);
+          }
+
+          [class*="dropdown-text-option--is-dimmed--"] {
+            color: @subtext0;
+          }
+          // DROPDOWN OPTIONS - END
+
+          .erc-add-item-dropdown-empty {
+            color: @overlay0;
+          }
+
+          .erc-add-item-dropdown {
+            .search-series-card-wrapper {
+              border-bottom-color: @overlay0;
+            }
+          }
+        }
+      }
+    }
+    // DROPDOWN - END
+
+    // BASIC INPUT - START
+    [class*="basic-input--"] {
+      [class*="input--"] {
+        color: @text;
+      }
+
+      [class*="clear-input__clear-action--"] {
+        background-color: @overlay0;
+
+        [class*="clear-input__icon--"] {
+          fill: @text;
+        }
+      }
+
+      [class*="password-input__button--"] {
+        .clickable-text-subtle();
+      }
+    }
+    // BASIC INPUT - END
+
+    // STRENGTH METER - START
+    .password-strength-meter, // ACCOUNT SETTINGS
+    [class*="PasswordStrengthMeter_strengthMeter__"] // CREATE ACCOUNT
+    {
+      .strength-meter-label,
+      [class*="PasswordStrengthMeter_label__"] {
+        color: @subtext0;
+
+        &.status-label-error,
+        &[class*="PasswordStrengthMeter_error__"] {
+          color: @red;
+        }
+      }
+
+      .strength-meter-tile,
+      [class*="PasswordStrengthMeter_tile__"] {
+        background-color: @overlay0;
+      }
+
+      .status-tile-success,
+      [class*="PasswordStrengthMeter_tileSuccess__"] {
+        background-color: @green;
+      }
+
+      .status-tile-weak,
+      [class*="PasswordStrengthMeter_tileWeak__"] {
+        background-color: @subtext0;
+      }
+    }
+    // STRENGTH METER - END
+
+    // CHECKBOX - START
+    [class*="checkbox--"] {
+      [class*="checkbox__label--"] {
+        color: @overlay2;
+
+        [class*="checkbox__checkmark--"] {
+          background-color: @crust;
+          border-color: @overlay2;
+        }
+
+        &[class*="checkbox__label--is-checked--"] {
+          color: @text;
+
+          [class*="checkbox__checkmark--"] {
+            border-color: @accent;
+          }
+
+          path[class*="checkbox__path--"] {
+            stroke: @accent;
+          }
+        }
+
+        &:not([class*="checkbox__label--is-checked--"]) {
+          &:focus,
+          &:hover {
+            color: @text;
+
+            [class*="checkbox__checkmark--"] {
+              border-color: @text;
+            }
+          }
+        }
+      }
+    }
+    // CHECKBOX - END
+
+    // RADIO BUTTON - START
+    [class*="radio-button--"] {
+      [class*="radio-button__label--"] {
+        color: @overlay2;
+
+        &[class*="radio-button__label--is-checked--"] {
+          color: @accent;
+        }
+
+        [class*="radio-button__checkmark--"] {
+          border-color: @overlay2;
+          background-color: @crust;
+
+          &::after {
+            background-color: @accent;
+          }
+        }
+
+        [class*="radio-button__input--"]:checked
+          ~ [class*="radio-button__checkmark--"] {
+          border-color: @accent;
+        }
+
+        @media (hover: hover) {
+          &:focus,
+          &:hover {
+            &:not([class*="radio-button__label--is-checked--"]) {
+              color: @text;
+
+              [class*="radio-button__checkmark--"] {
+                border-color: @text;
+              }
+            }
+          }
+        }
+      }
+    }
+    // RADIO BUTTON - END
+
+    // SELECT - START
+    [class*="select-label--"] {
+      [class*="select-label__label--"] {
+        color: @subtext0;
+      }
+
+      &::after {
+        background-color: @overlay0;
+      }
+    }
+    // SELECT - END
+
+    // TOGGLE - START
+    [class*="toggle--"] {
+      [class*="toggle__controls--"] {
+        .clickable-text-subtle();
+
+        [class*="toggle__switch--"] {
+          background-color: @crust;
+        }
+
+        [class*="toggle__label--"] {
+          color: @subtext0;
+        }
+
+        @media (hover: hover) {
+          &:focus,
+          &:hover {
+            [class*="toggle__label--"] {
+              color: @text;
+            }
+          }
+        }
+      }
+
+      &[class*="toggle--is-checked--"] {
+        [class*="toggle__controls--"] {
+          color: @accent;
+
+          [class*="toggle__label--"] {
+            color: @accent;
+          }
+        }
+      }
+
+      [class*="toggle__description--"] {
+        color: @subtext0;
+      }
+    }
+
+    // MODAL - START
+    .erc-modal {
+      .close-button {
+        fill: @text;
+      }
+
+      .content {
+        background-color: @base;
+        color: @text;
+
+        .erc-episode-list-modal,
+        .erc-music-list-modal {
+          .modal-heading {
+            background-color: @mantle;
+          }
+
+          .scrollable-section-fade {
+            &::before {
+              background-image: linear-gradient(180deg, @mantle, #0000);
+            }
+
+            &::after {
+              background-image: linear-gradient(0deg, @mantle, #0000);
+            }
+          }
+        }
+      }
+
+      @media (min-width: 50em) {
+        .overlay {
+          background-color: fade(@base, 50%);
+        }
+      }
+    }
+    // MODAL - END
+
+    // FLASH MESSAGE - START
+    [class*="flash-message--"] {
+      &[class*="flash-message--is-success--"] {
+        background-color: @green;
+      }
+
+      [class*="flash-message__text--"] {
+        color: @base;
+      }
+
+      [class*="flash-message__close-icon--"] {
+        fill: @base;
+      }
+    }
+    // FLASH MESSAGE - END
+
+    // CAROUSEL - START
+    [class*="carousel--"] {
+      [class*="cards-carousel__arrow-wrapper--"] {
+        [class*="cards-carousel__arrow--"] {
+          background-color: @surface0;
+          color: @text;
+
+          @media (min-width: 35.5em) {
+            .clickable-background(initial, @surface0);
+          }
+        }
+      }
+
+      [class*="carousel-pagination--"] {
+        [class*="carousel-pagination__page--"]::after {
+          background-color: @overlay0;
+        }
+
+        [class*="carousel-pagination__page--is-active--"]::after,
+        [class*="carousel-pagination__page--"]:active::after {
+          background-color: @accent;
+        }
+      }
+    }
+
+    [class*="wide-cards-carousel--"] {
+      [class*="wide-cards-carousel__arrow-wrapper--"] {
+        [class*="wide-cards-carousel__arrow--"] {
+          color: @text;
+
+          &::before {
+            background: linear-gradient(
+              var(--gradient-dir),
+              fade(@base, 0%),
+              fade(@base, 50%) calc(var(--arrow-width) / 2),
+              fade(@base, 70%)
+            );
+          }
+        }
+      }
+    }
+    // CAROUSEL - END
+
+    // TOOLTIP - START
+    [class*="tooltip-content--"] {
+      background-color: @surface0;
+      color: @text;
+
+      [class*="tooltip-content__arrow--"] {
+        border-top-color: @surface0;
+      }
+    }
+    // TOOLTIP - END
+
+    // STAR RATING - START
+    [class*="star-rating--"] {
+      [class*="star-rating__stars-controls--"] {
+        &::after {
+          background-color: @overlay0;
+        }
+
+        [class*="star-rating-controls__star-button--"] {
+          color: @subtext0;
+        }
+      }
+
+      [class*="star-rating__meta--"] {
+        color: @subtext0;
+
+        [class*="star-rating-average-data--"] {
+          button[class*="star-rating-average-data__toggletip-trigger--"] {
+            .clickable-text(@subtext0, @text);
+
+            &::after {
+              background-color: @overlay0;
+            }
+          }
+
+          [class*="star-rating-average-data__label--"] {
+            color: @text;
+          }
+
+          svg[class*="star-rating-average-data__toggletip-trigger-icon--"] {
+            fill: @text;
+          }
+        }
+
+        [class*="star-rating__reviews-link--lkG9-"] {
+          .clickable-text(@subtext0, @text);
+        }
+      }
+    }
+    // STAR RATING - END
+
+    // STAR RATING SHORT - START
+    [class*="star-rating-short--"] {
+      &,
+      [class*="star-rating-short-static__rating--"],
+      svg[class*="star-rating-short-static__star-icon--"],
+      [class*="star-rating-short-static__votes-count--"] {
+        color: @subtext0;
+      }
+
+      &:hover {
+        color: @text;
+      }
+
+      [class*="star-rating-short__trigger--"] {
+        [class*="star-rating-short-static--"] {
+          color: @subtext0;
+        }
+
+        svg[class*="star-rating-short__trigger-icon--"] {
+          fill: @subtext0;
+        }
+      }
+    }
+    // STAR RATING SHORT - END
+
+    // STAR RATING SHORT STATIC - START
+    [class*="star-rating-short-static--"]
+      [class*="star-rating-short-static__rating--"],
+    [class*="star-rating-short-static__star-icon--"],
+    [class*="star-rating-short-static__votes-count--"] {
+      color: @subtext0;
+    }
+    // STAR RATING SHORT STATIC - END
+
+    // STAR RATING CONTROLS - START
+    [class*="star-rating-controls--"] {
+      color: @text;
+
+      button[class*="star-rating-controls__star-button--"] {
+        color: @text;
+      }
+
+      &:hover {
+        [class*="star-rating-controls__star-icon--"] {
+          fill: @accent;
+        }
+      }
+    }
+    // STAR RATING CONTROLS - END
+
+    // MATURITY RATING - START
+    [class*="maturity-rating__icon--"] {
+      [fill="#4A4E58"] {
+        fill: @overlay0;
+      }
+
+      [fill="#DADADA"] {
+        fill: @text;
+      }
+    }
+    // MATURITY RATING - END
+
+    // RATING DATA TOGGLETIP - START
+    [class*="rating-data-toggletip--"] {
+      background-color: @mantle;
+      color: @text;
+
+      [class*="rating-data-toggletip-scale--"] {
+        color: @text;
+
+        [class*="rating-data-toggletip-scale-bar--"] {
+          background-color: @crust;
+
+          [class*="rating-data-toggletip-scale-bar__percentage--"] {
+            background-color: @text;
+          }
+        }
+      }
+    }
+    // RATING DATA TOGGLETIP - END
+
+    // BADGE - START
+    [class*="badge--"] {
+      background-color: @accent;
+
+      [class*="badge__text-wrapper--"] {
+        &[class*="badge__text-wrapper--is-link--"] {
+          border-right-color: @accent-dim;
+        }
+
+        .clickable-background(#ffffff40);
+      }
+
+      [class*="badge__text--"] {
+        color: @base;
+      }
+    }
+    // BADGE - END
+
+    // DETAILS TABLE
+    [class*="details-table__table-row--"] {
+      box-shadow: inset 0 -0.0625rem 0 0 @overlay0;
+    }
+
+    // TABS - START
+    [class*="tabs--"] [class*="tabs__content-wrapper--"] {
+      &::before {
+        background-color: @overlay0;
+      }
+
+      [class*="tabs-item--"] {
+        color: @subtext0;
+
+        @media (hover: hover) {
+          &:focus,
+          &:hover {
+            background-color: @crust;
+            box-shadow: inset 0 -0.125rem 0 0 @overlay2;
+          }
+        }
+
+        &[class*="tabs-item--is-active--"] {
+          color: @text;
+
+          &::after {
+            background-color: @accent;
+          }
+        }
+      }
+    }
+    // TABS - END
+
+    // BREADCRUMBS - START
+    [class*="breadcrumbs--"] {
+      [class*="breadcrumbs__link--"] {
+        .clickable-text-subtle();
+      }
+
+      [class*="breadcrumbs__divider--"] {
+        color: @overlay0;
+      }
+    }
+    // BREADCRUMBS - END
+
+    // MISC - START
+    background-color: @base;
+
+    color: @text;
+
+    a {
+      .clickable-text(@text);
+    }
+
+    ::selection {
+      background-color: fade(@surface2, 60%);
+      color: @text;
+    }
+
+    [class*="meta-tags--"] {
+      color: @subtext0;
+      --meta-color: @subtext0;
+
+      span[class*="meta-tags__type--is-one--"] {
+        color: @accent;
+      }
+
+      span[class*="meta-tags__type--is-three--"] {
+        color: @red;
+      }
+    }
+
+    [class*="info-tag--is-one--"] {
+      background-color: @accent;
+      color: @base;
+    }
+
+    [class*="info-tag--is-six--"] {
+      background-color: @base;
+      color: @accent;
+    }
+
+    [class*="loader__icon--"] {
+      color: @accent;
+    }
+
+    [class*="username--"] {
+      color: @text;
+    }
+
+    [class*="username--is-premium--"] {
+      color: @yellow;
+    }
+
+    svg[class*="premium-filled-icon--"] {
+      fill: @yellow;
+    }
+
+    [class*="label--"] {
+      border-color: @overlay0;
+
+      &[class*="label--is-focus--"] {
+        border-color: @accent;
+      }
+
+      &[class*="label--is-dirty--"] [class*="label__text--"],
+      &[class*="label--is-focus--"] [class*="label__text--"] {
+        color: @subtext0;
+      }
+
+      &[class*="label--is-error--"] [class*="label__text--"] {
+        color: @red;
+      }
+    }
+
+    .erc-season-navigation {
+      .divider {
+        background-color: @overlay0;
+      }
+
+      .cta-wrapper {
+        color: @overlay2;
+
+        &:not(.state-disabled) {
+          .clickable-text(@text);
+        }
+      }
+
+      .state-disabled {
+        color: @overlay0;
+      }
+    }
+
+    .erc-see-more {
+      .clickable-text-subtle();
+    }
+
+    .erc-history-content .clear-history-button {
+      .clickable-text-subtle();
+    }
+
+    [class*="loading--"] {
+      color: @overlay0;
+    }
+
+    [class*="content-image__figure-sizer--is-background-type-one--"],
+    [class*="content-image__figure-sizer--is-background-type-two--"] {
+      background-color: @overlay0;
+    }
+
+    [class*="app-layout__overlay--"] {
+      background-color: fade(@base, 80%);
+    }
+    // MISC - END
+
+    // MAL SYNC - START
+    #malStatus,
+    #malTotal,
+    #malEpisodes,
+    #malUserRating,
+    #malRating,
+    #malVolumes,
+    #malTotalVol,
+    #malTotalCha,
+    #AddMal {
+      color: @text;
+    }
+    // MAL SYNC - END
+  }
+
+  /*  Application of the Theme */
+  // synced colorscheme
+  @media (prefers-color-scheme: light) {
+    body {
+      #catppuccinMain(@lightFlavor);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    body {
+      #catppuccinMain(@darkFlavor);
+    }
+  }
+} /* /@-moz-document */
+
+// PLAYER - START
+@-moz-document url("https://static.crunchyroll.com/vilos-v2/web/vilos/player.html") {
+  #catppuccinPlayer(@flavor) {
+    #vilosRoot {
+      & when (@playerSetting = minimal) {
+        #catppuccinPlayerMinimal(@flavor);
+      }
+
+      & when (@playerSetting = medium) {
+        #catppuccinPlayerMedium(@flavor);
+      }
+
+      & when (@playerSetting = full) {
+        #catppuccinPlayerFull(@flavor);
+      }
+    }
+  }
+
+  #catppuccinPlayerMinimal(@flavor) {
+    #palette(@flavor);
+
+    // PLAYER BACKGROUND - START
+    .playerBackground(@background-color) {
+      &,
+      #velocity-player-package,
+      #velocity-overlay-package div:has(> [data-testid="vilos-loading"]) {
+        background-color: @background-color;
+      }
+    }
+
+    & when (not(@playerBackground = never)) {
+      .playerBackground(@crust);
+    }
+
+    & when (@playerBackground = notfullscreen) {
+      // sth like @media (not (display-mode: fullscreen)) does not work in stylus currently
+      @media (display-mode: fullscreen) {
+        .playerBackground(unset);
+      }
+
+      // alternative if the above does not work
+      &.r-1pi2tsx.r-13qz1uu {
+        .playerBackground(unset);
+      }
+    }
+    // PLAYER BACKGROUND - END
+
+    #vilosControlsContainer {
+      // TIMELINE PROGRESS + CURRENT POSITION + CURRENT VOLUME
+      [style*="background-color: rgb(255, 94, 0);"] {
+        background-color: @accent !important;
+      }
+    }
+
+    // LOADING CIRCLE
+    path[stroke="rgb(228,106,22)"] {
+      stroke: @accent !important;
+    }
+  }
+
+  #catppuccinPlayerMedium(@flavor) {
+    #catppuccinPlayerMinimal(@flavor);
+
+    // rplaces white icons with @text colored icons
+    .iconTextFilter() {
+      img,
+      [style*='background-image: url("data:image/svg+xml;utf8,'] {
+        filter: @text-filter !important;
+      }
+    }
+
+    #velocity-controls-package {
+      // whole player darkens on hover
+      [style*="background-color: rgba(0, 0, 0, 0.2);"] {
+        background-color: fade(@base, 20%) !important;
+      }
+
+      // SHADOW ON TOP when video starts playing
+      [style*="background-image: linear-gradient(rgb(0, 0, 0), rgba(0, 0, 0, 0));"] {
+        background-image: linear-gradient(@base, fade(@base, 0%)) !important;
+      }
+
+      // CONTENT WARNINGS
+      [style*="height: 48px; width: 90px;"] + div {
+        color: @text;
+      }
+
+      // SKIP BUTTON
+      [data-testid="skipButton"] {
+        * {
+          color: @text !important;
+        }
+
+        > div {
+          background-color: @surface0 !important;
+        }
+
+        // SKIP ICON
+        .iconTextFilter();
+      }
+    }
+
+    #velocity-settings-menu {
+      background-color: @mantle !important;
+
+      * {
+        color: @text !important;
+      }
+
+      // HOVER BACKGROUND
+      [style*="background-color: rgb(35, 37, 43);"] {
+        background-color: @surface0 !important;
+      }
+
+      // TOGGLE ACTIVE BORDER
+      [style*="border-color: rgb(40, 189, 187);"] {
+        border-color: @accent !important;
+        background-color: @crust;
+      }
+
+      // TOGGLE INACTIVE BORDER
+      [style*="border-color: rgb(160, 160, 160);"] {
+        border-color: @overlay2 !important;
+        background-color: @crust;
+      }
+
+      // TOGGLE HOVER BORDER
+      [style*="border-color: rgb(255, 255, 255);"] {
+        border-color: @text !important;
+        background-color: @crust;
+      }
+
+      // TOGGLE ACTIVE DOT
+      [style*="background-color: rgb(40, 189, 187);"] {
+        background-color: @accent !important;
+      }
+
+      // TOGGLE INACTIVE DOT
+      [style*="background-color: rgb(160, 160, 160);"] {
+        background-color: @overlay2 !important;
+      }
+
+      // TOGGLE HOVER DOT
+      [style*="background-color: rgb(255, 255, 255);"] {
+        background-color: @text !important;
+      }
+
+      // RADIO BUTTON ACTIVE
+      [style*="fill: rgb(68, 195, 171);"] {
+        fill: @accent !important;
+      }
+
+      // RADIO BUTTON BACKGROUND
+      [style*="fill: rgb(25, 46, 56);"] {
+        fill: @crust !important;
+      }
+
+      // RADIO BUTTON INACTIVE
+      [style*="fill: rgb(160, 160, 160);"] {
+        fill: @overlay2 !important;
+      }
+
+      // RADIO BUTTON HOVER
+      [style*="fill: rgb(255, 255, 255);"] {
+        fill: @text !important;
+      }
+
+      // CHEVRONS
+      .iconTextFilter();
+
+      [style*="color: rgb(244, 117, 33);"] {
+        color: @accent !important;
+      }
+    }
+  }
+
+  #catppuccinPlayerFull(@flavor) {
+    #catppuccinPlayerMedium(@flavor);
+
+    #velocity-controls-package {
+      #vilosControlsContainer {
+        * {
+          color: @text !important;
+        }
+
+        // TIMELINE CACHED
+        [style*="background-color: rgb(216, 216, 216);"] {
+          background-color: @subtext0 !important;
+        }
+
+        // TIMELINE & VOLUME SLIDER BACKGROUND
+        [style*="background-color: rgb(160, 160, 160);"] {
+          background-color: @overlay1 !important;
+        }
+
+        // THUMBNAIL BACKGROUND
+        [style*="background-color: rgb(35, 37, 43);"] {
+          background-color: @base !important;
+        }
+
+        // VOLUME SLIDER ACTIVE
+        [style*="background-color: rgb(198, 198, 205);"] {
+          background-color: @text !important;
+        }
+
+        // BACKDROP
+        [style*="background-image: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.738) 19%, rgba(0, 0, 0, 0.54) 34%, rgba(0, 0, 0, 0.38) 47%, rgba(0, 0, 0, 0.28) 56.5%, rgba(0, 0, 0, 0.194) 65%, rgba(0, 0, 0, 0.126) 73%, rgba(0, 0, 0, 0.075) 80.2%, rgba(0, 0, 0, 0.042) 86.1%, rgba(0, 0, 0, 0.02) 91%, rgba(0, 0, 0, 0.008) 95.2%, rgba(0, 0, 0, 0.002) 98.2%, rgba(0, 0, 0, 0) 100%);"] {
+          background-image: linear-gradient(
+            0deg,
+            fade(@base, 100%) 0%,
+            fade(@base, 73.8%) 19%,
+            fade(@base, 54%) 34%,
+            fade(@base, 38%) 47%,
+            fade(@base, 28%) 56.5%,
+            fade(@base, 19.4%) 65%,
+            fade(@base, 12.6%) 73%,
+            fade(@base, 7.5%) 80.2%,
+            fade(@base, 4.2%) 86.1%,
+            fade(@base, 2%) 91%,
+            fade(@base, 0.8%) 95.2%,
+            fade(@base, 0.2%) 98.2%,
+            fade(@base, 0%) 100%
+          ) !important;
+        }
+
+        // ICONS
+        .iconTextFilter();
+
+        // ICON BACKGROUND HOVER
+        [style*="background-color: rgba(0, 0, 0, 0.6);"] {
+          background-color: fade(@base, 60%) !important;
+        }
+
+        // ICON BACKGROUND ACTIVE
+        [style*="background-color: rgb(20, 21, 25);"],
+        div[data-testid="vilos-settings_button"]
+          > div:not(:has([style*="opacity"])) {
+          background-color: @base !important;
+        }
+      }
+    }
+  }
+
+  & when (@playerFlavor = auto) {
+    @media (prefers-color-scheme: light) {
+      #catppuccinPlayer(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccinPlayer(@darkFlavor);
+    }
+  }
+
+  & when not(@playerFlavor = auto) {
+    #catppuccinPlayer(@playerFlavor);
+  }
+}
+// PLAYER - END
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
+
+/* deno-fmt-ignore */
+@catppuccin-filters: {
+  @latte: { @rosewater: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(1048%) hue-rotate(323deg) brightness(92%) contrast(86%); @flamingo: brightness(0) saturate(100%) invert(84%) sepia(44%) saturate(4533%) hue-rotate(310deg) brightness(98%) contrast(75%); @pink: brightness(0) saturate(100%) invert(60%) sepia(32%) saturate(775%) hue-rotate(266deg) brightness(93%) contrast(97%); @mauve: brightness(0) saturate(100%) invert(26%) sepia(59%) saturate(3315%) hue-rotate(255deg) brightness(94%) contrast(100%); @red: brightness(0) saturate(100%) invert(16%) sepia(78%) saturate(7275%) hue-rotate(342deg) brightness(84%) contrast(94%); @maroon: brightness(0) saturate(100%) invert(31%) sepia(56%) saturate(2395%) hue-rotate(331deg) brightness(99%) contrast(82%); @peach: brightness(0) saturate(100%) invert(38%) sepia(81%) saturate(1292%) hue-rotate(356deg) brightness(103%) contrast(99%); @yellow: brightness(0) saturate(100%) invert(74%) sepia(47%) saturate(4570%) hue-rotate(354deg) brightness(95%) contrast(83%); @green: brightness(0) saturate(100%) invert(51%) sepia(25%) saturate(4134%) hue-rotate(76deg) brightness(95%) contrast(66%); @teal: brightness(0) saturate(100%) invert(41%) sepia(45%) saturate(1101%) hue-rotate(139deg) brightness(100%) contrast(82%); @sky: brightness(0) saturate(100%) invert(47%) sepia(76%) saturate(2427%) hue-rotate(166deg) brightness(99%) contrast(97%); @sapphire: brightness(0) saturate(100%) invert(52%) sepia(41%) saturate(6982%) hue-rotate(160deg) brightness(102%) contrast(75%); @blue: brightness(0) saturate(100%) invert(30%) sepia(80%) saturate(1850%) hue-rotate(209deg) brightness(94%) contrast(105%); @lavender: brightness(0) saturate(100%) invert(48%) sepia(61%) saturate(538%) hue-rotate(194deg) brightness(102%) contrast(98%); @text: brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(1259%) hue-rotate(196deg) brightness(97%) contrast(91%); @subtext1: brightness(0) saturate(100%) invert(36%) sepia(10%) saturate(890%) hue-rotate(196deg) brightness(98%) contrast(90%); @subtext0: brightness(0) saturate(100%) invert(47%) sepia(6%) saturate(1263%) hue-rotate(195deg) brightness(90%) contrast(81%); @overlay2: brightness(0) saturate(100%) invert(59%) sepia(7%) saturate(825%) hue-rotate(195deg) brightness(83%) contrast(91%); @overlay1: brightness(0) saturate(100%) invert(59%) sepia(14%) saturate(333%) hue-rotate(194deg) brightness(95%) contrast(89%); @overlay0: brightness(0) saturate(100%) invert(85%) sepia(7%) saturate(595%) hue-rotate(191deg) brightness(77%) contrast(81%); @surface2: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(482%) hue-rotate(189deg) brightness(82%) contrast(88%); @surface1: brightness(0) saturate(100%) invert(85%) sepia(8%) saturate(281%) hue-rotate(187deg) brightness(92%) contrast(88%); @surface0: brightness(0) saturate(100%) invert(96%) sepia(1%) saturate(5123%) hue-rotate(185deg) brightness(93%) contrast(83%); @base: brightness(0) saturate(100%) invert(89%) sepia(5%) saturate(140%) hue-rotate(182deg) brightness(109%) contrast(94%); @mantle: brightness(0) saturate(100%) invert(93%) sepia(19%) saturate(55%) hue-rotate(182deg) brightness(98%) contrast(92%); @crust: brightness(0) saturate(100%) invert(91%) sepia(1%) saturate(4489%) hue-rotate(196deg) brightness(106%) contrast(82%); };
+  @frappe: { @rosewater: brightness(0) saturate(100%) invert(90%) sepia(6%) saturate(734%) hue-rotate(321deg) brightness(95%) contrast(99%); @flamingo: brightness(0) saturate(100%) invert(88%) sepia(52%) saturate(817%) hue-rotate(293deg) brightness(113%) contrast(84%); @pink: brightness(0) saturate(100%) invert(76%) sepia(15%) saturate(844%) hue-rotate(280deg) brightness(107%) contrast(91%); @mauve: brightness(0) saturate(100%) invert(71%) sepia(25%) saturate(725%) hue-rotate(225deg) brightness(94%) contrast(91%); @red: brightness(0) saturate(100%) invert(67%) sepia(3%) saturate(7209%) hue-rotate(305deg) brightness(91%) contrast(99%); @maroon: brightness(0) saturate(100%) invert(61%) sepia(14%) saturate(957%) hue-rotate(307deg) brightness(109%) contrast(90%); @peach: brightness(0) saturate(100%) invert(68%) sepia(28%) saturate(662%) hue-rotate(335deg) brightness(96%) contrast(94%); @yellow: brightness(0) saturate(100%) invert(94%) sepia(88%) saturate(684%) hue-rotate(309deg) brightness(105%) contrast(80%); @green: brightness(0) saturate(100%) invert(89%) sepia(23%) saturate(582%) hue-rotate(42deg) brightness(87%) contrast(89%); @teal: brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(986%) hue-rotate(110deg) brightness(85%) contrast(81%); @sky: brightness(0) saturate(100%) invert(75%) sepia(15%) saturate(623%) hue-rotate(141deg) brightness(109%) contrast(81%); @sapphire: brightness(0) saturate(100%) invert(77%) sepia(20%) saturate(730%) hue-rotate(157deg) brightness(97%) contrast(76%); @blue: brightness(0) saturate(100%) invert(68%) sepia(16%) saturate(1070%) hue-rotate(185deg) brightness(96%) contrast(95%); @lavender: brightness(0) saturate(100%) invert(75%) sepia(20%) saturate(626%) hue-rotate(201deg) brightness(101%) contrast(89%); @text: brightness(0) saturate(100%) invert(83%) sepia(12%) saturate(582%) hue-rotate(191deg) brightness(98%) contrast(96%); @subtext1: brightness(0) saturate(100%) invert(80%) sepia(18%) saturate(411%) hue-rotate(190deg) brightness(96%) contrast(84%); @subtext0: brightness(0) saturate(100%) invert(82%) sepia(6%) saturate(1287%) hue-rotate(192deg) brightness(86%) contrast(85%); @overlay2: brightness(0) saturate(100%) invert(65%) sepia(36%) saturate(230%) hue-rotate(190deg) brightness(92%) contrast(82%); @overlay1: brightness(0) saturate(100%) invert(55%) sepia(12%) saturate(638%) hue-rotate(189deg) brightness(98%) contrast(87%); @overlay0: brightness(0) saturate(100%) invert(49%) sepia(13%) saturate(662%) hue-rotate(192deg) brightness(94%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(41%) sepia(20%) saturate(469%) hue-rotate(191deg) brightness(93%) contrast(86%); @surface1: brightness(0) saturate(100%) invert(34%) sepia(14%) saturate(771%) hue-rotate(190deg) brightness(89%) contrast(85%); @surface0: brightness(0) saturate(100%) invert(28%) sepia(7%) saturate(1468%) hue-rotate(193deg) brightness(92%) contrast(95%); @base: brightness(0) saturate(100%) invert(20%) sepia(17%) saturate(747%) hue-rotate(192deg) brightness(96%) contrast(97%); @mantle: brightness(0) saturate(100%) invert(8%) sepia(7%) saturate(7271%) hue-rotate(198deg) brightness(88%) contrast(75%); @crust: brightness(0) saturate(100%) invert(7%) sepia(7%) saturate(7415%) hue-rotate(197deg) brightness(86%) contrast(79%); };
+  @macchiato: { @rosewater: brightness(0) saturate(100%) invert(88%) sepia(13%) saturate(322%) hue-rotate(321deg) brightness(102%) contrast(91%); @flamingo: brightness(0) saturate(100%) invert(82%) sepia(3%) saturate(3070%) hue-rotate(314deg) brightness(107%) contrast(88%); @pink: brightness(0) saturate(100%) invert(80%) sepia(23%) saturate(509%) hue-rotate(280deg) brightness(102%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(903%) hue-rotate(222deg) brightness(104%) contrast(93%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(1541%) hue-rotate(305deg) brightness(110%) contrast(86%); @maroon: brightness(0) saturate(100%) invert(71%) sepia(10%) saturate(1331%) hue-rotate(306deg) brightness(93%) contrast(101%); @peach: brightness(0) saturate(100%) invert(73%) sepia(13%) saturate(1676%) hue-rotate(330deg) brightness(103%) contrast(92%); @yellow: brightness(0) saturate(100%) invert(87%) sepia(89%) saturate(321%) hue-rotate(314deg) brightness(101%) contrast(87%); @green: brightness(0) saturate(100%) invert(93%) sepia(12%) saturate(1128%) hue-rotate(48deg) brightness(92%) contrast(85%); @teal: brightness(0) saturate(100%) invert(92%) sepia(10%) saturate(1176%) hue-rotate(110deg) brightness(87%) contrast(90%); @sky: brightness(0) saturate(100%) invert(78%) sepia(57%) saturate(230%) hue-rotate(142deg) brightness(96%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(35%) saturate(438%) hue-rotate(156deg) brightness(92%) contrast(93%); @blue: brightness(0) saturate(100%) invert(67%) sepia(17%) saturate(1007%) hue-rotate(183deg) brightness(99%) contrast(94%); @lavender: brightness(0) saturate(100%) invert(74%) sepia(6%) saturate(2559%) hue-rotate(198deg) brightness(103%) contrast(94%); @text: brightness(0) saturate(100%) invert(81%) sepia(9%) saturate(726%) hue-rotate(192deg) brightness(104%) contrast(92%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(5%) saturate(1453%) hue-rotate(193deg) brightness(94%) contrast(86%); @subtext0: brightness(0) saturate(100%) invert(75%) sepia(18%) saturate(361%) hue-rotate(190deg) brightness(91%) contrast(86%); @overlay2: brightness(0) saturate(100%) invert(67%) sepia(9%) saturate(814%) hue-rotate(191deg) brightness(92%) contrast(88%); @overlay1: brightness(0) saturate(100%) invert(49%) sepia(38%) saturate(203%) hue-rotate(190deg) brightness(101%) contrast(93%); @overlay0: brightness(0) saturate(100%) invert(46%) sepia(16%) saturate(552%) hue-rotate(193deg) brightness(93%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(16%) saturate(611%) hue-rotate(192deg) brightness(101%) contrast(87%); @surface1: brightness(0) saturate(100%) invert(30%) sepia(11%) saturate(1085%) hue-rotate(194deg) brightness(92%) contrast(89%); @surface0: brightness(0) saturate(100%) invert(18%) sepia(21%) saturate(880%) hue-rotate(193deg) brightness(97%) contrast(84%); @base: brightness(0) saturate(100%) invert(12%) sepia(42%) saturate(570%) hue-rotate(194deg) brightness(90%) contrast(90%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(6%) saturate(7499%) hue-rotate(200deg) brightness(93%) contrast(85%); @crust: brightness(0) saturate(100%) invert(5%) sepia(8%) saturate(5346%) hue-rotate(202deg) brightness(98%) contrast(88%); };
+  @mocha: { @rosewater: brightness(0) saturate(100%) invert(92%) sepia(5%) saturate(704%) hue-rotate(320deg) brightness(99%) contrast(93%); @flamingo: brightness(0) saturate(100%) invert(81%) sepia(5%) saturate(987%) hue-rotate(315deg) brightness(107%) contrast(90%); @pink: brightness(0) saturate(100%) invert(86%) sepia(11%) saturate(1177%) hue-rotate(283deg) brightness(101%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(58%) saturate(255%) hue-rotate(224deg) brightness(96%) contrast(102%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(997%) hue-rotate(294deg) brightness(104%) contrast(91%); @maroon: brightness(0) saturate(100%) invert(66%) sepia(16%) saturate(1301%) hue-rotate(306deg) brightness(116%) contrast(84%); @peach: brightness(0) saturate(100%) invert(68%) sepia(57%) saturate(278%) hue-rotate(338deg) brightness(98%) contrast(101%); @yellow: brightness(0) saturate(100%) invert(90%) sepia(70%) saturate(380%) hue-rotate(313deg) brightness(102%) contrast(95%); @green: brightness(0) saturate(100%) invert(88%) sepia(6%) saturate(2015%) hue-rotate(63deg) brightness(104%) contrast(78%); @teal: brightness(0) saturate(100%) invert(92%) sepia(12%) saturate(991%) hue-rotate(108deg) brightness(93%) contrast(90%); @sky: brightness(0) saturate(100%) invert(84%) sepia(21%) saturate(1302%) hue-rotate(164deg) brightness(106%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(20%) saturate(876%) hue-rotate(156deg) brightness(96%) contrast(93%); @blue: brightness(0) saturate(100%) invert(68%) sepia(18%) saturate(951%) hue-rotate(180deg) brightness(98%) contrast(100%); @lavender: brightness(0) saturate(100%) invert(73%) sepia(7%) saturate(1670%) hue-rotate(195deg) brightness(102%) contrast(99%); @text: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(879%) hue-rotate(190deg) brightness(100%) contrast(93%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(19%) saturate(381%) hue-rotate(193deg) brightness(91%) contrast(89%); @subtext0: brightness(0) saturate(100%) invert(84%) sepia(9%) saturate(767%) hue-rotate(192deg) brightness(84%) contrast(84%); @overlay2: brightness(0) saturate(100%) invert(63%) sepia(15%) saturate(428%) hue-rotate(191deg) brightness(96%) contrast(84%); @overlay1: brightness(0) saturate(100%) invert(56%) sepia(15%) saturate(455%) hue-rotate(192deg) brightness(90%) contrast(88%); @overlay0: brightness(0) saturate(100%) invert(44%) sepia(6%) saturate(1275%) hue-rotate(194deg) brightness(97%) contrast(88%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(8%) saturate(1015%) hue-rotate(195deg) brightness(99%) contrast(89%); @surface1: brightness(0) saturate(100%) invert(25%) sepia(6%) saturate(1950%) hue-rotate(197deg) brightness(99%) contrast(86%); @surface0: brightness(0) saturate(100%) invert(19%) sepia(5%) saturate(2844%) hue-rotate(199deg) brightness(91%) contrast(93%); @base: brightness(0) saturate(100%) invert(7%) sepia(4%) saturate(7496%) hue-rotate(202deg) brightness(93%) contrast(87%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(4%) saturate(7465%) hue-rotate(202deg) brightness(95%) contrast(90%); @crust: brightness(0) saturate(100%) invert(3%) sepia(13%) saturate(6863%) hue-rotate(220deg) brightness(95%) contrast(91%); };
+};
+
+#palette(@flavor) {
+  @rosewater: @catppuccin[@@flavor][@rosewater];
+  @flamingo: @catppuccin[@@flavor][@flamingo];
+  @pink: @catppuccin[@@flavor][@pink];
+  @mauve: @catppuccin[@@flavor][@mauve];
+  @red: @catppuccin[@@flavor][@red];
+  @maroon: @catppuccin[@@flavor][@maroon];
+  @peach: @catppuccin[@@flavor][@peach];
+  @yellow: @catppuccin[@@flavor][@yellow];
+  @green: @catppuccin[@@flavor][@green];
+  @teal: @catppuccin[@@flavor][@teal];
+  @sky: @catppuccin[@@flavor][@sky];
+  @sapphire: @catppuccin[@@flavor][@sapphire];
+  @blue: @catppuccin[@@flavor][@blue];
+  @lavender: @catppuccin[@@flavor][@lavender];
+  @text: @catppuccin[@@flavor][@text];
+  @subtext1: @catppuccin[@@flavor][@subtext1];
+  @subtext0: @catppuccin[@@flavor][@subtext0];
+  @overlay2: @catppuccin[@@flavor][@overlay2];
+  @overlay1: @catppuccin[@@flavor][@overlay1];
+  @overlay0: @catppuccin[@@flavor][@overlay0];
+  @surface2: @catppuccin[@@flavor][@surface2];
+  @surface1: @catppuccin[@@flavor][@surface1];
+  @surface0: @catppuccin[@@flavor][@surface0];
+  @base: @catppuccin[@@flavor][@base];
+  @mantle: @catppuccin[@@flavor][@mantle];
+  @crust: @catppuccin[@@flavor][@crust];
+  @accent: @catppuccin[@@flavor][@@accentColor];
+
+  @rosewater-filter: @catppuccin-filters[@@flavor][@rosewater];
+  @flamingo-filter: @catppuccin-filters[@@flavor][@flamingo];
+  @pink-filter: @catppuccin-filters[@@flavor][@pink];
+  @mauve-filter: @catppuccin-filters[@@flavor][@mauve];
+  @red-filter: @catppuccin-filters[@@flavor][@red];
+  @maroon-filter: @catppuccin-filters[@@flavor][@maroon];
+  @peach-filter: @catppuccin-filters[@@flavor][@peach];
+  @yellow-filter: @catppuccin-filters[@@flavor][@yellow];
+  @green-filter: @catppuccin-filters[@@flavor][@green];
+  @teal-filter: @catppuccin-filters[@@flavor][@teal];
+  @sky-filter: @catppuccin-filters[@@flavor][@sky];
+  @sapphire-filter: @catppuccin-filters[@@flavor][@sapphire];
+  @blue-filter: @catppuccin-filters[@@flavor][@blue];
+  @lavender-filter: @catppuccin-filters[@@flavor][@lavender];
+  @text-filter: @catppuccin-filters[@@flavor][@text];
+  @subtext1-filter: @catppuccin-filters[@@flavor][@subtext1];
+  @subtext0-filter: @catppuccin-filters[@@flavor][@subtext0];
+  @overlay2-filter: @catppuccin-filters[@@flavor][@overlay2];
+  @overlay1-filter: @catppuccin-filters[@@flavor][@overlay1];
+  @overlay0-filter: @catppuccin-filters[@@flavor][@overlay0];
+  @surface2-filter: @catppuccin-filters[@@flavor][@surface2];
+  @surface1-filter: @catppuccin-filters[@@flavor][@surface1];
+  @surface0-filter: @catppuccin-filters[@@flavor][@surface0];
+  @base-filter: @catppuccin-filters[@@flavor][@base];
+  @mantle-filter: @catppuccin-filters[@@flavor][@mantle];
+  @crust-filter: @catppuccin-filters[@@flavor][@crust];
+  @accent-filter: @catppuccin-filters[@@flavor][@@accentColor];
+
+  @accent-dim: if(
+    (@flavor = latte),
+    desaturate(lighten(@accent, 8%), 10%),
+    desaturate(darken(@accent, 8%), 10%)
+  );
+}
+
+// vim:ft=less
