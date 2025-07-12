@@ -182,5 +182,7 @@ export default {
     "at-rule-no-vendor-prefix": null,
 
     "no-descending-specificity": null,
+
+    "import-notation": null,
   },
 };
