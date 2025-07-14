@@ -1,47 +1,29 @@
 /* ==UserStyle==
-@name <port-name> Catppuccin
-@namespace github.com/catppuccin/userstyles/styles/<port-name>
-@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/<port-name>
+@name i3wm.org Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/example.org
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/i3wm.org
 @version 2000.01.01
-@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/<port-name>/catppuccin.user.less
-@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3A<port-name>
-@description Soothing pastel theme for <port-name>
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/i3wm.org/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ai3wm.org
+@description Soothing pastel theme for i3wm.org
 @author Catppuccin
 @license MIT
 
 @preprocessor less
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
-@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire*", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document domain("<website-domain>") {
-  /* This section applies the light/dark themes automatically based on the user's system theme.
-     Use the below example CSS to start if the website you are theming doesn't have a light/dark mode toggle.
-     For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/brave-search/catppuccin.user.css#L16-L29.
-  */
+@-moz-document domain("i3wm.org") {
   :root {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
     }
+
     @media (prefers-color-scheme: dark) {
       #catppuccin(@darkFlavor);
     }
-  }
-
-  /* If the website you are theming *does* have a light/dark mode toggle,
-     you can conditionally enable light/dark flavors by targeting whatever
-     attribute that website uses to indicate the theme. *The example below gives you an idea of what
-     to look for. The website you are theming may use a class-based approach (e.g. :root.theme-dark),
-     or any of the myriad of other methods like this.*
-     Use the below example CSS to start if this is the case.
-     For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/youtube/catppuccin.user.css#L21-L30.
-  */
-  :root[data-theme="dark"] {
-    #catppuccin(@darkFlavor);
-  }
-  :root[data-theme="light"] {
-    #catppuccin(@lightFlavor);
   }
 
   #catppuccin(@flavor) {
@@ -73,7 +55,7 @@
     @crust: @catppuccin[@@flavor][@crust];
     @accent: @catppuccin[@@flavor][@@accentColor];
 
-    color-scheme: if(@flavor = latte, light, dark);
+    color-scheme: if(@flavor =latte, light, dark);
 
     ::selection {
       background-color: fade(@accent, 30%);
@@ -87,22 +69,88 @@
     }
 
     /* Start styling your website here: */
-    background-color: @base;
-
-    /* If you need to specify an overwrite specific to a flavor
-     *  (e.g. only when the flavor is set to latte), you can use a `when` guard clause. */
-    & when (@flavor = latte) {
-      /* ... */
+    .info {
+      background-color: @surface0 !important;
+      color: @text !important;
     }
-    /* You can also negate the statement above by using
-     *  a `when not` guard clause. */
-    & when not(@flavor = latte) {
-      /* ... */
+
+    p,
+    header,
+    nav,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    footer {
+      color: @text !important;
+    }
+
+    body a,
+    strong,
+    div#toctitle {
+      color: @blue !important;
+    }
+
+    main a:visited {
+      color: @accent !important;
+    }
+
+    body {
+      background-color: @base !important;
+    }
+
+    footer {
+      border-color: @surface1 !important;
+    }
+
+    nav ul li a {
+      border-bottom: 2px solid @base !important;
+      color: @text !important;
+    }
+
+    nav ul li a:hover {
+      border-bottom: solid 2px @accent !important;
+    }
+
+    div.item.highlight {
+      background-color: @surface0 !important;
+    }
+
+    span.author,
+    figcaption {
+      color: @subtext0 !important;
+      opacity: 1 !important;
+    }
+
+    span
+
+    div.content:has(pre) {
+      background-color: @surface0 !important;
+      border-color: @overlay0 !important;
+    }
+
+    pre,
+    tt {
+      color: @text !important;
+    }
+
+    a.download {
+      color: @mantle !important;
+      background-color: @blue;
+    }
+    .download:visited {
+      color: @surface0 !important;
+    }
+
+    a.logo img {
+      @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="8508.032" height="2453.625"><defs><radialGradient xlink:href="#a" id="b" gradientUnits="userSpaceOnUse" gradientTransform="matrix(9.07854 -9.26301 16.08582 15.21234 -6979.153 -2584.42)" cx="351.155" cy="372.063" fx="351.155" fy="372.063" r="163.571"/><linearGradient id="a"><stop offset="0" style="stop-color:#189fff;stop-opacity:.38039216"/><stop offset="1" style="stop-color:#010b2b;stop-opacity:1"/></linearGradient><filter id="c" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="13.396"/></filter></defs><g style="display:inline"><path style="fill:#fff;fill-opacity:1;stroke:#fff;stroke-width:155.6656189;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" d="M507.665-2114.552h2380.248V176.025H507.665z" transform="translate(-403.163 2196.616)"/><path style="fill:url(#b);fill-opacity:1;fill-rule:nonzero;stroke:none" d="M407.126-2192.653h2558.925V253.046H407.126z" transform="translate(-403.163 2196.616)"/><path style="opacity:.09583333;fill:#fff;fill-opacity:1;stroke:none" d="M413.863-2192.587c-15.252 33.253-2.328 78.562-6.309 116.638l5.163 1141.347c93.882 82.986 229.274 70.384 345.492 86.49 423.978 27.29 850.312 28.62 1272.944-19.411 269.686-27.226 539.378-69.204 799.642-145.938 66.257-22.249 149.488-73.1 135.292-153.303v-1025.823z" transform="translate(-403.163 2196.616)"/><g transform="rotate(-45.119 1701.386 518.09)scale(3.80496)" style="opacity:.5;fill:#000;fill-opacity:1;filter:url(#c)"><path style="fill:#000;fill-opacity:1;fill-rule:evenodd;stroke:none" d="M412.75 98.594c-16.556.241-29.787 13.85-29.562 30.406v196.313c0 23.307-12.117 39.131-38.22 53.468-26.101 14.337-64.972 22.875-103.874 22.875s-77.773-8.538-103.875-22.875S99 348.62 99 325.312c0-54.373.441-103.355.656-138.874.108-17.76.177-32.116.094-42.344-.042-5.114-.13-9.108-.281-12.469-.076-1.68-.137-3.056-.406-5.25-.135-1.097-.169-2.212-1-5.187-.416-1.488-.787-3.397-3.188-7.438C92.475 109.71 84.912 99 69 99a30.003 30.003 0 0 0-29.437 37.5c.063 2.03.156 4.327.187 8.094.078 9.54.013 23.815-.094 41.5-.214 35.37-.656 84.53-.656 139.219 0 47.582 30.913 84.954 69.344 106.062s85.609 30.281 132.75 30.281c47.14 0 94.32-9.173 132.75-30.281s69.344-58.48 69.344-106.062V129a30.003 30.003 0 0 0-30.438-30.406"/><path style="fill:#000;fill-opacity:1;fill-rule:evenodd;stroke:none" d="M239.563 99.5c-16.557.242-29.787 13.85-29.563 30.406V350a30.003 30.003 0 1 0 60 0V129.906A30.003 30.003 0 0 0 239.563 99.5"/><path style="fill:#000;fill-opacity:1;stroke-width:60;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" d="M100 40c0 16.569-13.431 30-30 30S40 56.569 40 40s13.431-30 30-30 30 13.431 30 30" transform="translate(0 -10)"/><path transform="translate(170 -10)" d="M100 40c0 16.569-13.431 30-30 30S40 56.569 40 40s13.431-30 30-30 30 13.431 30 30" style="fill:#000;fill-opacity:1;stroke-width:60;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"/><path style="fill:#000;fill-opacity:1;stroke-width:60;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" d="M100 40c0 16.569-13.431 30-30 30S40 56.569 40 40s13.431-30 30-30 30 13.431 30 30" transform="translate(345 -10)"/></g><g style="font-size:110.96224976000000595px;font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0;word-spacing:0;text-anchor:start;fill:@{blue};fill-opacity:1;stroke:none;font-family:Union;-inkscape-font-specification:Union"><path d="M3677.907-1919.728h-180.56v-164.4h180.56zm-264.711 747.323v-77.463l105.884-40.125v-375.612l-120.931-42.354v-98.082h279.758v516.048l105.885 40.125v77.463zm624.162-739.521-41.24 114.244H3880.76v-202.296q163.843-19.503 245.207-19.505 295.92.001 295.92 211.212 0 76.907-52.385 125.947-51.828 48.485-137.093 61.302v30.651q37.894.558 89.166 16.719 51.27 16.161 87.494 59.072 36.78 42.354 36.781 110.343 0 118.146-93.067 185.02-92.51 66.317-232.389 66.317-118.702 0-231.832-26.192l16.162-108.672q99.197 19.506 169.972 19.505 204.525 0 204.525-137.092 0-65.76-51.27-101.427-51.271-35.666-189.478-35.666h-34.552v-107h43.468q91.953.001 150.468-39.01 58.515-39.009 58.515-110.343 0-57.956-36.223-87.494-36.225-30.093-103.099-30.094-33.994.001-79.692 4.459" style="font-size:1141.32604979999996431px;font-weight:700;fill:@{blue};-inkscape-font-specification:Union Bold;fill-opacity:1" transform="translate(-403.163 2845.326)"/></g><text xml:space="preserve" style="font-size:110.96224976px;font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0;word-spacing:0;text-anchor:start;fill:#fff;fill-opacity:1;stroke:none;font-family:Union;-inkscape-font-specification:Union" x="3388.86" y="107.441" transform="translate(-403.163 2196.616)"><tspan x="3388.86" y="107.441" style="font-size:570.6630249px;fill:@{text};fill-opacity:1">improved tiling wm</tspan></text></g><g style="display:inline"><path style="fill:none;stroke:#000;stroke-width:7.92587519;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" d="M407.126-2192.653h2558.925V253.046H407.126z" transform="translate(-403.163 2196.616)"/><path style="fill:none;stroke:#000;stroke-width:7.92587519;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;display:inline" d="M407.126-2192.653h2558.925V253.046H407.126z" transform="translate(-403.163 2196.616)"/><path style="fill:none;stroke:#000;stroke-width:7.92587519;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dashoffset:0;display:inline" d="M1516.749-2192.653V253.046z" transform="translate(-403.163 2196.616)"/><path d="M1513.264-1393.838H410.61zm0 840.143H410.61z" style="fill:none;stroke:#000;stroke-width:7.92587519;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" transform="translate(-403.163 2196.616)"/></g><g style="display:inline"><path style="opacity:.87000002;color:#000;fill:#fff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:60;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" d="M1910.9-1686.672c-43.801 45.286-42.635 117.494 2.606 161.342l529.282 527.08c62.84 62.577 72.973 137.732 41.545 246.6s-112.772 236.592-217.22 341.477c-104.45 104.885-231.833 186.76-340.568 218.642-108.736 31.882-183.933 22.062-246.772-40.516-146.597-145.987-277.474-278.69-372.662-374.635-47.594-47.973-86.113-86.705-113.912-113.941-13.9-13.619-24.903-24.104-34.372-32.72-4.735-4.307-8.607-7.835-15.246-13-3.32-2.582-6.415-5.486-16.67-11.232-5.128-2.872-11.27-6.998-28.611-11.375-17.34-4.377-66.518-12.741-109.24 30.16a114.16 114.16 0 0 0 22.068 180.05c5.645 5.283 12.088 11.196 22.325 21.226 25.928 25.403 64.243 63.905 111.637 111.676 94.788 95.544 226.143 228.726 373.589 375.558 128.288 127.755 312.046 144.748 472.138 97.808s311.493-149.51 438.062-276.607 228.508-278.927 274.78-439.212c46.27-160.286 28.511-343.972-99.777-471.727l-529.282-527.08a114.16 114.16 0 0 0-163.7.426" transform="translate(-403.163 2196.616)"/><path style="opacity:.87000002;fill:#fff;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline" d="M1448.352-1217.304c-43.8 45.286-42.634 117.494 2.606 161.341l593.4 590.93c28.758 29.46 71.152 41.154 110.947 30.603 39.795-10.55 70.827-41.712 81.212-81.55 10.385-39.84-1.485-82.184-31.066-110.82l-593.399-590.93a114.16 114.16 0 0 0-163.7.426" transform="translate(-403.163 2196.616)"/><path style="opacity:.87000002;color:#000;fill:#fff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:124.98213196;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" d="M100 40c0 16.569-13.431 30-30 30S40 56.569 40 40s13.431-30 30-30 30 13.431 30 30" transform="rotate(-45.119 1655.593 537.114)scale(3.80496)"/><path transform="rotate(-45.119 1332.171 -241.4)scale(3.80496)" d="M100 40c0 16.569-13.431 30-30 30S40 56.569 40 40s13.431-30 30-30 30 13.431 30 30" style="opacity:.87000002;color:#000;fill:#fff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:124.98213196;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"/><path style="opacity:.87000002;color:#000;fill:#fff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:124.98213196;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" d="M100 40c0 16.569-13.431 30-30 30S40 56.569 40 40s13.431-30 30-30 30 13.431 30 30" transform="rotate(-45.119 999.237 -1042.808)scale(3.80496)"/></g></svg>');
+      content: url("data:image/svg+xml,@{svg}") !important;
     }
   }
 }
 
-/* deno-fmt-ignore */
+  /* deno-fmt-ignore */
 @catppuccin: {
   @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
   @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
