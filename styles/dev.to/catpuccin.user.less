@@ -53,7 +53,7 @@
     @crust: @catppuccin[@@flavor][@crust];
     @accent: @catppuccin[@@flavor][@@accentColor];
 
-    color-scheme: if(@flavor = latte, light, dark);
+    color-scheme: if(@flavor =latte, light, dark);
 
     ::selection {
       background-color: fade(@accent, 30%);
@@ -67,7 +67,7 @@
     }
 
     --body-bg: @crust;
-    --black: @crust; // @crust as black suits better in shadows
+    --black: @crust;
     --body-color: @text;
 
     --header-bg: @base;
@@ -80,14 +80,14 @@
     --form-bg-focus: @base;
     --form-border: @surface0;
     --form-border-hover: @surface1;
-    --form-border-focus: darken(@accent, 20%);
-    --focus: lighten(@accent, 10%) !important;
+    --form-border-focus: @accent;
+    --focus: @accent !important;
 
     --base-100: @text;
-    --base-90: lighten(@subtext1, 5%);
+    --base-90: @subtext1;
     --base-80: @subtext1;
-    --base-70: lighten(@subtext0, 5%);
-    --base-60: @subtext0;
+    --base-70: @subtext0;
+    --base-60: @overlay2;
     --base-50: @overlay1;
     --base-20: @base;
     --base-0: @crust;
@@ -113,20 +113,20 @@
     --btn-bg-hover: @surface0;
     --btn-color: @text;
     --btn-color-hover: @accent;
-    --btn-primary-bg: darken(@accent, 10%);
-    --btn-primary-bg-hover: @accent;
+    --btn-primary-bg: @accent;
+    --btn-primary-bg-hover: fade(@accent, 90%);
     --btn-primary-color: @base;
     --btn-primary-color-hover: @crust;
 
     --button-primary-color: @base;
     --button-primary-color-hover: @base;
-    --button-primary-bg: darken(@accent, 10%);
-    --button-primary-bg-hover: @accent;
+    --button-primary-bg: @accent;
+    --button-primary-bg-hover: fade(@accent, 90%);
     --button-secondary-bg: @surface1;
-    --button-secondary-bg-hover: lighten(@surface1, 10%);
+    --button-secondary-bg-hover: fade(@surface1, 90%);
     --button-secondary-color: @subtext1;
     --button-secondary-color-hover: @text;
-    --button-outlined-bg-hover: fade(@mantle, 70%);
+    --button-outlined-bg-hover: @mantle;
     --button-outlined-color: @subtext1;
     --button-outlined-color-hover: @text;
     --button-outlined-border: @surface0;
@@ -135,7 +135,7 @@
     --button-ghost-color: @text;
     --button-ghost-color-hover: @text;
 
-    --reaction-like-bg: fade(@red, 20%);
+    --reaction-like-bg: fade(@red, 10%);
     --reaction-comment-color: @yellow;
     --reaction-save-color: @blue;
 
@@ -145,7 +145,7 @@
     --label-secondary: @subtext1;
 
     --accent-brand: @accent;
-    --accent-danger-darker: darken(@red, 10%);
+    --accent-danger-darker: @red;
     --accent-danger: @red;
     --accent-warning: @yellow;
     --accent-warning-a10: fade(@yellow, 10%);
@@ -153,12 +153,12 @@
     --card-bg: @mantle;
     --card-color: @text;
     --card-border: @mantle;
-    --card-secondary-bg: lighten(@mantle, 5%);
-    --card-secondary-bg-hover: @mantle;
+    --card-secondary-bg: @surface0;
+    --card-secondary-bg-hover: fade(@surface0, 90%);
     --card-secondary-color: @subtext1;
-    --card-secondary-border: lighten(@mantle, 5%);
-    --card-tertiary-bg: lighten(@mantle, 10%);
-    --card-tertiary-bg-hover: lighten(@mantle, 5%);
+    --card-secondary-border: @surface0;
+    --card-tertiary-bg: @surface0;
+    --card-tertiary-bg-hover: fade(@surface0, 90%);
     --card-color-tertiary: @text;
 
     --cta-branded-bg-hover: @accent;
@@ -175,9 +175,9 @@
     --tag-bg: fade(@blue, 10%);
     --tag-bg-hover: fade(@blue, 20%);
     --tag-color: @blue;
-    --tag-color-hover: darken(@blue, 10%);
-    --tag-prefix: darken(@blue, 20%);
-    --tag-prefix-hover: darken(@blue, 30%);
+    --tag-color-hover: @blue;
+    --tag-prefix: @blue;
+    --tag-prefix-hover: @blue;
 
     --indicator-bg: @blue;
     --indicator-color: @base;
@@ -187,45 +187,22 @@
     // popular colors have accent colors. These colors are dynamically assigned,
     // whereas other tags fallback color is not overrided by root variables.
     .crayons-tag__prefix {
-      --tag-prefix: darken(@blue, 20%);
+      --tag-prefix: @blue;
     }
 
-    & when (@flavor = latte) {
+    & when (@flavor =latte) {
       --black: @text;
-
-      --form-border-focus: @accent;
-      --focus: @accent !important;
-
-      --base-90: darken(@subtext1, 5%);
-      --base-70: darken(@subtext0, 5%);
-
-      --button-secondary-bg-hover: darken(@surface1, 5%);
-
-      --accent-danger-darker: lighten(@red, 10%);
-
-      --card-secondary-bg: darken(@mantle, 5%);
-      --card-secondary-border: darken(@mantle, 5%);
-      --card-tertiary-bg: darken(@mantle, 10%);
-      --card-tertiary-bg-hover: darken(@mantle, 5%);
-
-      --tag-color-hover: lighten(@blue, 10%);
-      --tag-prefix: lighten(@blue, 20%);
-      --tag-prefix-hover: lighten(@blue, 30%);
-
-      .crayons-tag__prefix {
-        --tag-prefix: lighten(@blue, 20%);
-      }
     }
 
     // danger button
     .crayons-btn--danger {
-      --color: darken(@red, 70%);
-      --color-hover: darken(@red, 80%);
+      --color: @base;
+      --color-hover: @crust;
     }
 
     // billboard cards on right column has statically coded borders
     .text-styles--billboard {
-      > div {
+      >div {
         border-color: @surface0 !important;
       }
     }
@@ -250,20 +227,29 @@
       .tw-bg-zinc-950 {
         background-color: @crust;
       }
-      .tw-bg-zinc-100, .tw-bg-zinc-200, .tw-bg-zinc-800, .tw-bg-zinc-900 {
+
+      .tw-bg-zinc-100,
+      .tw-bg-zinc-200,
+      .tw-bg-zinc-800,
+      .tw-bg-zinc-900 {
         background-color: @mantle;
       }
 
       // text
-      .tw-text-black, .tw-text-white, .tw-text-zinc-50, .tw-text-zinc-950 {
+      .tw-text-black,
+      .tw-text-white,
+      .tw-text-zinc-50,
+      .tw-text-zinc-950 {
         color: @text;
       }
+
       .tw-text-zinc-100,
       .tw-text-zinc-200,
       .tw-text-zinc-800,
       .tw-text-zinc-900 {
         color: @subtext1;
       }
+
       .tw-text-zinc-300,
       .tw-text-zinc-400,
       .tw-text-zinc-600,
@@ -272,7 +258,8 @@
       }
 
       // border
-      .tw-border-zinc-800, .tw-border-zinc-600 {
+      .tw-border-zinc-800,
+      .tw-border-zinc-600 {
         border-color: @surface0;
       }
     }
