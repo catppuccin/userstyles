@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-A curated collection of customized themes designed for various websites and web applications. These themes showcase delightful pastel colors, creating a soothing and visually pleasing experience when browsing the web.
+A curated collection of soothing pastel themes for your favorite websites and web applications.
 </p>
 
 <p align="center">
@@ -42,6 +42,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [boringproxy](styles/boringproxy)
 - [Codeberg](styles/codeberg)
+- [docs.deno.com](styles/docs.deno.com)
 - [docs.rs](styles/docs.rs)
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
@@ -64,6 +65,12 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [Trinket](styles/trinket)
 - [Vercel](styles/vercel)
 - [web.dev](styles/web.dev)
+
+</details>
+<details open>
+<summary>📜 Documentation Generators</summary>
+
+- [mdBook](styles/mdbook)
 
 </details>
 <details open>
@@ -123,7 +130,6 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>🧠 Wikis</summary>
 
 - ❤️‍🩹 [Arch Wiki](styles/arch-wiki)
-- [mdBook](styles/mdbook)
 - [NixOS Wiki](styles/wiki.nixos.org)
 - [Wikipedia](styles/wikipedia)
 - [Wikiwand](styles/wikiwand)
