@@ -19,7 +19,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [cecelot](https://github.com/cecelot)
+- [sydrinea](https://github.com/sydrinea)
 
 
 &nbsp;
