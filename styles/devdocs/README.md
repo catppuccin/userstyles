@@ -4,13 +4,13 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-  Catppuccin for <a href="https://www.ecosia.org">Ecosia</a>
+  Catppuccin for <a href="https://devdocs.io">DevDocs</a>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
 <p align="center">
-	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Aecosia"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/ecosia?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/ecosia/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Adevdocs"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/devdocs?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/devdocs/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 ## Usage
@@ -18,11 +18,9 @@
 See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
-## ❤️‍🩹 Unmaintained
-This userstyle currently lacks maintainers, and may not work correctly. Please feel free to contribute for any issues you find!
+## 💝 Current Maintainer
+- [ashish0kumar](https://github.com/ashish0kumar)
 
-## 💖 Past Maintainer
-- [isabelroses](https://github.com/isabelroses)
 
 &nbsp;
 
