@@ -18,9 +18,11 @@
 See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
-## 💝 Current Maintainer
-- [isabelroses](https://github.com/isabelroses)
+## ❤️‍🩹 Unmaintained
+This userstyle currently lacks maintainers, and may not work correctly. Please feel free to contribute for any issues you find!
 
+## 💖 Past Maintainer
+- [isabelroses](https://github.com/isabelroses)
 
 &nbsp;
 
