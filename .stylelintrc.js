@@ -6,10 +6,13 @@
 export default {
   extends: "stylelint-config-standard",
   plugins: [
+    "stylelint-use-nesting",
     "./scripts/lint/stylelint-custom/index.js",
   ],
   customSyntax: "postcss-less",
   rules: {
+    "csstools/use-nesting": "always",
+
     "catppuccin/optimized-svgs": true,
     "catppuccin/color-operations": true,
     "catppuccin/no-redundant-parent-selector": true,
