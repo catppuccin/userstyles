@@ -13,20 +13,16 @@
 	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/vercel/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
-<p align="center">
-  <img src="preview.webp"/>
-</p>
-
 ## Usage
+
+> [!IMPORTANT]
+> This userstyle also applies to [Next.js](https://nextjs.org).
 
 See [the userstyle usage instructions](../../docs/USAGE.md).
 
-> [!NOTE]
-> This theme also applies to the [Next.js](https://nextjs.org/) website.
-
 
 ## 💝 Current Maintainers
-- [Ryan Cao](https://github.com/ryanccn)
+- [ryanccn](https://github.com/ryanccn)
 - [Dandraghas](https://github.com/Dandraghas)
 
 

@@ -13,10 +13,6 @@
 	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/github/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
-<p align="center">
-  <img src="preview.webp"/>
-</p>
-
 ## Usage
 
 See [the userstyle usage instructions](../../docs/USAGE.md).
@@ -24,14 +20,13 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 > [!NOTE]
 > Switch to a default GitHub light/dark theme via **Settings** > **Appearance** for the best experience!
 
-
 ## 💝 Current Maintainer
 - [uncenter](https://github.com/uncenter)
 
 ## 💖 Past Maintainers
-- [Lemon](https://github.com/unseen-ninja)
+- [unseen-ninja](https://github.com/unseen-ninja)
 - [Pocco81](https://github.com/Pocco81)
-- [Umbreon](https://github.com/GlowingUmbreon)
+- [GlowingUmbreon](https://github.com/GlowingUmbreon)
 
 &nbsp;
 

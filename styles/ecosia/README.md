@@ -13,19 +13,16 @@
 	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/ecosia/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
-<p align="center">
-  <img src="preview.webp"/>
-</p>
-
 ## Usage
 
 See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
+## ❤️‍🩹 Unmaintained
+This userstyle currently lacks maintainers, and may not work correctly. Please feel free to contribute for any issues you find!
 
-## 💝 Current Maintainer
-- [Isabel](https://github.com/isabelroses)
-
+## 💖 Past Maintainer
+- [isabelroses](https://github.com/isabelroses)
 
 &nbsp;
 

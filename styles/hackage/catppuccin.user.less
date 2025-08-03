@@ -2,7 +2,7 @@
 @name Hackage Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/hackage
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/hackage
-@version 2025.01.28
+@version 2025.06.06
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/hackage/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ahackage
 @description Soothing pastel theme for Hackage
@@ -15,7 +15,8 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document domain("hackage.haskell.org") {
+@-moz-document domain("hackage.haskell.org"),
+  domain("hackage-content.haskell.org") {
   :root {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
@@ -94,6 +95,15 @@
       color: average(@overlay2, @subtext0);
     }
 
+    button {
+      background-color: @mantle;
+      color: @text;
+
+      &:hover {
+        background-color: @crust;
+      }
+    }
+
     .caption,
     h1,
     h2,
@@ -133,7 +143,8 @@
     .declname,
     .declbut,
     .topdecl,
-    .arg {
+    .arg,
+    .inline-code {
       background-color: @mantle;
       color: @text;
     }
@@ -198,6 +209,10 @@
       input,
       button {
         color: @base;
+      }
+
+      button {
+        background-color: transparent;
       }
     }
 
@@ -277,7 +292,12 @@
       background-color: @mantle;
     }
 
-    #table-of-contents {
+    h2#table-of-contents {
+      background-color: @mantle;
+      color: @text;
+    }
+
+    div#table-of-contents {
       background-color: @base;
       border-color: @surface1;
     }
@@ -482,17 +502,20 @@
         &:link:hover,
         &:visited:hover {
           background-image: none;
-          background-color: @surface1;
+          background-color: @mantle;
           border-color: transparent;
         }
       }
 
-      .current,
-      .current:hover {
+      .current {
         background-image: none;
-        background-color: @surface0;
+        background-color: @mantle;
         color: @accent;
         border-color: transparent;
+
+        &:hover {
+          background-color: @crust !important;
+        }
       }
     }
 
@@ -519,6 +542,7 @@
 
     input {
       background-color: @mantle;
+      color: @text;
       border-style: solid;
       border-color: @surface0;
       border-radius: 4px;
@@ -537,10 +561,6 @@
         border-color: @surface0;
         height: 1em !important;
       }
-    }
-
-    input[type="submit"] {
-      color: @text;
     }
 
     input[type="range"]:hover,
