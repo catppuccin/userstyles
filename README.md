@@ -228,6 +228,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <details open>
 <summary>🗣️ Discussion Forums</summary>
 
+- [DEV Community](styles/dev.to)
 - [Hacker News](styles/hacker-news)
 - [Lemmy](styles/lemmy)
 - ❤️‍🩹 [Libreddit](styles/libreddit)
