@@ -50,7 +50,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [gleam.run](styles/gleam.run)
 - [go.dev](styles/go.dev)
 - [Grabify](styles/grabify)
-- [Graphite](styles/graphite)
+- ❤️‍🩹 [Graphite](styles/graphite)
 - [Home Manager Options Search](styles/home-manager-options-search)
 - [Hoogle](styles/hoogle)
 - [Hoppscotch](styles/hoppscotch)
@@ -100,7 +100,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [Brave Search](styles/brave-search)
 - [DuckDuckGo](styles/duckduckgo)
-- [Ecosia](styles/ecosia)
+- ❤️‍🩹 [Ecosia](styles/ecosia)
 - ❤️‍🩹 [Google](styles/google)
 - [Mullvad Leta](styles/mullvad-leta)
 - [NixOS Search](styles/nixos-search)
@@ -195,6 +195,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>🎓 Education</summary>
 
 - [Canvas LMS](styles/canvas-lms)
+- [Desmos](styles/desmos)
 - [Formative](styles/formative)
 - [Quizlet](styles/quizlet)
 
@@ -212,7 +213,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [Cinny](styles/cinny)
 - [Elk](styles/elk)
 - [Instagram](styles/instagram)
-- [LinkedIn](styles/linkedin)
+- ❤️‍🩹 [LinkedIn](styles/linkedin)
 - [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
 - [Phanpy](styles/phanpy)
