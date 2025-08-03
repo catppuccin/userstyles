@@ -195,6 +195,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>🎓 Education</summary>
 
 - [Canvas LMS](styles/canvas-lms)
+- [Desmos](styles/desmos)
 - [Formative](styles/formative)
 - [Quizlet](styles/quizlet)
 
