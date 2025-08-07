@@ -4,6 +4,7 @@ import "postcss-less";
 import stylelint from "stylelint";
 import "stylelint-config-standard";
 import "stylelint-config-recommended";
+import "stylelint-use-nesting";
 
 import { log } from "@/logger.ts";
 
