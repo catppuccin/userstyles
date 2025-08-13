@@ -13,6 +13,8 @@
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var checkbox accentb "Use accent for default user message bubble color" 1
 ==/UserStyle== */
 
 @-moz-document domain("chatgpt.com") {
@@ -124,6 +126,21 @@
 
     color: @text;
 
+    [data-state="closed"] .composer-submit-button-color {
+      background-color: fade(@accent, 50%);
+    }
+
+    .composer-submit-button-color,
+    .composer-secondary-button-color {
+      background-color: @accent;
+    }
+
+    & when (@accentb = 1) {
+      .user-message-bubble-color {
+        background-color: @accent;
+      }
+    }
+
     @white: if(@flavor = latte, @crust, @text);
     @black: if(@flavor = latte, @text, @crust);
     --white: @white;
@@ -157,6 +174,7 @@
       --sidebar-surface-tertiary: var(--gray-700);
       --bg-elevated-secondary: var(--gray-900);
       .popover,
+      .markdown,
       .dark,
       .dark .popover,
       .dark.popover,
@@ -167,6 +185,11 @@
         --text-primary: var(--white) !important;
         --text-secondary: var(--gray-200) !important;
         --text-tertiary: var(--gray-300) !important;
+      }
+      & when (@accentb = 1) {
+        .user-message-bubble-color .whitespace-pre-wrap {
+          color: var(--gray-800)
+        }
       }
     }
     & when (@flavor = latte) {
@@ -196,6 +219,7 @@
       --sidebar-surface-tertiary: var(--gray-300);
       --bg-elevated-secondary: var(--gray-100);
       .popover,
+      .markdown,
       .dark .popover,
       .dark.popover,
       .popover .dark {
@@ -206,6 +230,11 @@
         --text-secondary: var(--gray-600) !important;
         --text-tertiary: var(--gray-500) !important;
         --interactive-bg-secondary-hover: var(--gray-600) !important;
+      }
+      & when (@accentb = 1) {
+        .user-message-bubble-color .whitespace-pre-wrap {
+          color: var(--gray-200)
+        }
       }
     }
 
