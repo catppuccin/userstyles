@@ -100,6 +100,7 @@
     --uikit-grey-card-border: @surface0 !important;
     --uikit-grey-border: @overlay0 !important;
     --uikit-grey-disabled-text: @subtext1 !important;
+    --uikit-disabled-border: @overlay0 !important;
     --uikit-grey-light: @surface1 !important;
     --uikit-grey-bg: @base !important;
     --uikit-neutral: @surface1 !important;
@@ -154,6 +155,16 @@
     /* Popover */
     .Popover_menu__1uJ_3 {
       border-radius: 0.5rem;
+      opacity: 0;
+      transform: translateY(-10px);
+      animation: modalCardFadeIn 0.15s forwards;
+    }
+
+    @keyframes popoverFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .Popover_item__Sz_rR:not(.Popover_disabledItem__LpnlT):hover
@@ -204,6 +215,16 @@
       color: @base !important;
     }
 
+    /* badges */
+    .ongoing {
+      border: 1px solid @surface1;
+      cursor: default;
+    }
+
+    .Phoenix__Tag {
+      color: @text !important;
+    }
+
     /* toast */
     .Phoenix__Toast__icon-container svg, .Phoenix__Toast__icon-container path {
       fill: @base !important;
@@ -215,21 +236,44 @@
       color: @base !important;
       border-radius: 0.5rem;
 
-      transition: background-color 0.2s ease;
+      transition: background-color 0.3s ease;
 
       &:hover {
         background-color: fade(@accent, 80%) !important;
       }
     }
 
-    .Phoenix--Button__outlined {
+    .Phoenix--Button__destructive {
+      background-color: @red !important;
+      color: @base !important;
       border-radius: 0.5rem;
-      transition: background-color 0.2s, color 0.2s;
+
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: fade(@red, 80%) !important;
+      }
+    }
+
+    .Phoenix--Button__outlined, .Phoenix__Alert__button {
+      border-radius: 0.5rem;
+      border-color: @surface0;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+
+      svg path {
+        transition: fill 0.2s, color 0.2s;
+      }
+
       &:active,
       &:hover {
         background-color: @accent !important;
-        border-color: transparent;
+        border-color: @accent;
         color: @base !important;
+
+        svg path {
+          fill: @base !important;
+          color: @base !important;
+        }
       }
     }
 
@@ -443,15 +487,14 @@
     }
 
     /* dashboard cards */
-    .dashboard-card.jsx-3277314316:not(.dashboard-card-disabled):hover {
+    .dashboard-card:not(.dashboard-card-disabled):hover {
       color: @accent;
       border-color: @accent;
     }
 
-    .dashboard-card.jsx-3277314316:not(.dashboard-card-disabled):hover
-      .dashboard-card-icon.jsx-3277314316,
-    .dashboard-card.jsx-3277314316:not(.dashboard-card-disabled):focus-visible
-      .dashboard-card-icon.jsx-3277314316 {
+    .dashboard-card:not(.dashboard-card-disabled):hover .dashboard-card-icon,
+    .dashboard-card:not(.dashboard-card-disabled):focus-visible
+      .dashboard-card-icon {
       color: @accent !important;
     }
 
@@ -531,7 +574,9 @@
     .header-subtitle,
     .details,
     .heading__title-suffix,
-    .u-subdued {
+    .u-subdued,
+    .subdued,
+    .UpCloudEssentialSideSection_featureDescUnified__mi0Fd {
       color: @subtext0 !important;
     }
 
@@ -585,11 +630,23 @@
       stroke: @accent !important;
     }
 
-    .recharts-default-tooltip {
+    .recharts-default-tooltip, .Phoenix__Tooltip, .Phoenix__Tooltip2__content {
       background-color: @surface0 !important;
       border: 0.05px solid @surface1 !important;
       color: @text !important;
       border-radius: 0.25rem;
+    }
+
+    .Phoenix__Tooltip2__content svg {
+      fill: @surface0 !important;
+    }
+
+    .Phoenix__Tooltip2__content path {
+      stroke: @surface1 !important;
+    }
+
+    .Phoenix__Tooltip::after {
+      border-color: @surface0 transparent transparent !important;
     }
 
     .recharts-tooltip-item,
@@ -693,7 +750,12 @@
       color: @accent !important;
     }
 
-    .backup-card--selected, .backup-feature {
+    .backup-card .backup-extra, .backup-feature {
+      color: @subtext0 !important;
+    }
+
+    .backup-card--selected .backup-feature,
+    .backup-card--selected .backup-extra {
       color: @text !important;
     }
 
@@ -712,6 +774,35 @@
         0 20px 20px 30px fade(@base, 90%);
     }
 
+    /* "essentials" */
+    .UpCloudEssentialSideSection_headerTitle__AaJ6J, .item-title {
+      color: @text !important;
+    }
+
+    a .item-title {
+      color: @accent !important;
+    }
+
+    /* usage graph */
+    .usage-graph .label {
+      color: @accent !important;
+    }
+
+    .billing-graph img {
+      /* Apply filter to match @base color for dark themes */
+      filter: if(@flavor = latte, none, brightness(0) invert(1)) !important;
+      opacity: 0.15;
+    }
+
+    /* "intercom"/chat button */
+    .intercom-lightweight-app-launcher {
+      background-color: @accent;
+    }
+
+    .intercom-lightweight-app-launcher-icon-open svg path {
+      fill: @base !important;
+    }
+
     /* main app */
 
     .app-main, .app {
@@ -727,17 +818,6 @@
     .image-wrapper {
       opacity: 0.1;
     }
-
-    /* If you need to specify an overwrite specific to a flavor
-     *  (e.g. only when the flavor is set to latte), you can use a `when` guard clause. */
-    & when (@flavor = latte) {
-      /* ... */
-    }
-    /* You can also negate the statement above by using
-     *  a `when not` guard clause. */
-    & when not(@flavor = latte) {
-      /* ... */
-    }
   }
 }
 
@@ -747,4 +827,118 @@
   @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
   @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
   @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
+@catppuccin: {
+  @latte: {
+    @rosewater: #dc8a78;
+    @flamingo: #dd7878;
+    @pink: #ea76cb;
+    @mauve: #8839ef;
+    @red: #d20f39;
+    @maroon: #e64553;
+    @peach: #fe640b;
+    @yellow: #df8e1d;
+    @green: #40a02b;
+    @teal: #179299;
+    @sky: #04a5e5;
+    @sapphire: #209fb5;
+    @blue: #1e66f5;
+    @lavender: #7287fd;
+    @text: #4c4f69;
+    @subtext1: #5c5f77;
+    @subtext0: #6c6f85;
+    @overlay2: #7c7f93;
+    @overlay1: #8c8fa1;
+    @overlay0: #9ca0b0;
+    @surface2: #acb0be;
+    @surface1: #bcc0cc;
+    @surface0: #ccd0da;
+    @base: #eff1f5;
+    @mantle: #e6e9ef;
+    @crust: #dce0e8;
+  };
+  @frappe: {
+    @rosewater: #f2d5cf;
+    @flamingo: #eebebe;
+    @pink: #f4b8e4;
+    @mauve: #ca9ee6;
+    @red: #e78284;
+    @maroon: #ea999c;
+    @peach: #ef9f76;
+    @yellow: #e5c890;
+    @green: #a6d189;
+    @teal: #81c8be;
+    @sky: #99d1db;
+    @sapphire: #85c1dc;
+    @blue: #8caaee;
+    @lavender: #babbf1;
+    @text: #c6d0f5;
+    @subtext1: #b5bfe2;
+    @subtext0: #a5adce;
+    @overlay2: #949cbb;
+    @overlay1: #838ba7;
+    @overlay0: #737994;
+    @surface2: #626880;
+    @surface1: #51576d;
+    @surface0: #414559;
+    @base: #303446;
+    @mantle: #292c3c;
+    @crust: #232634;
+  };
+  @macchiato: {
+    @rosewater: #f4dbd6;
+    @flamingo: #f0c6c6;
+    @pink: #f5bde6;
+    @mauve: #c6a0f6;
+    @red: #ed8796;
+    @maroon: #ee99a0;
+    @peach: #f5a97f;
+    @yellow: #eed49f;
+    @green: #a6da95;
+    @teal: #8bd5ca;
+    @sky: #91d7e3;
+    @sapphire: #7dc4e4;
+    @blue: #8aadf4;
+    @lavender: #b7bdf8;
+    @text: #cad3f5;
+    @subtext1: #b8c0e0;
+    @subtext0: #a5adcb;
+    @overlay2: #939ab7;
+    @overlay1: #8087a2;
+    @overlay0: #6e738d;
+    @surface2: #5b6078;
+    @surface1: #494d64;
+    @surface0: #363a4f;
+    @base: #24273a;
+    @mantle: #1e2030;
+    @crust: #181926;
+  };
+  @mocha: {
+    @rosewater: #f5e0dc;
+    @flamingo: #f2cdcd;
+    @pink: #f5c2e7;
+    @mauve: #cba6f7;
+    @red: #f38ba8;
+    @maroon: #eba0ac;
+    @peach: #fab387;
+    @yellow: #f9e2af;
+    @green: #a6e3a1;
+    @teal: #94e2d5;
+    @sky: #89dceb;
+    @sapphire: #74c7ec;
+    @blue: #89b4fa;
+    @lavender: #b4befe;
+    @text: #cdd6f4;
+    @subtext1: #bac2de;
+    @subtext0: #a6adc8;
+    @overlay2: #9399b2;
+    @overlay1: #7f849c;
+    @overlay0: #6c7086;
+    @surface2: #585b70;
+    @surface1: #45475a;
+    @surface0: #313244;
+    @base: #1e1e2e;
+    @mantle: #181825;
+    @crust: #11111b;
+  };
 };
