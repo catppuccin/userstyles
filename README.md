@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-A curated collection of customized themes designed for various websites and web applications. These themes showcase delightful pastel colors, creating a soothing and visually pleasing experience when browsing the web.
+A curated collection of soothing pastel themes for your favorite websites and web applications.
 </p>
 
 <p align="center">
@@ -42,13 +42,15 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [boringproxy](styles/boringproxy)
 - [Codeberg](styles/codeberg)
+- [DevDocs](styles/devdocs)
+- [docs.deno.com](styles/docs.deno.com)
 - [docs.rs](styles/docs.rs)
 - [freedesktop.org](styles/freedesktop)
 - [GitHub](styles/github)
 - [gleam.run](styles/gleam.run)
 - [go.dev](styles/go.dev)
 - [Grabify](styles/grabify)
-- [Graphite](styles/graphite)
+- ❤️‍🩹 [Graphite](styles/graphite)
 - [Home Manager Options Search](styles/home-manager-options-search)
 - [Hoogle](styles/hoogle)
 - [Hoppscotch](styles/hoppscotch)
@@ -98,7 +100,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 
 - [Brave Search](styles/brave-search)
 - [DuckDuckGo](styles/duckduckgo)
-- [Ecosia](styles/ecosia)
+- ❤️‍🩹 [Ecosia](styles/ecosia)
 - ❤️‍🩹 [Google](styles/google)
 - [Mullvad Leta](styles/mullvad-leta)
 - [NixOS Search](styles/nixos-search)
@@ -193,6 +195,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <summary>🎓 Education</summary>
 
 - [Canvas LMS](styles/canvas-lms)
+- [Desmos](styles/desmos)
 - [Formative](styles/formative)
 - [Quizlet](styles/quizlet)
 
@@ -210,7 +213,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [Cinny](styles/cinny)
 - [Elk](styles/elk)
 - [Instagram](styles/instagram)
-- [LinkedIn](styles/linkedin)
+- ❤️‍🩹 [LinkedIn](styles/linkedin)
 - [Mastodon](styles/mastodon)
 - [Nitter](styles/nitter)
 - [Phanpy](styles/phanpy)
@@ -225,6 +228,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 <details open>
 <summary>🗣️ Discussion Forums</summary>
 
+- [DEV Community](styles/dev.to)
 - [Hacker News](styles/hacker-news)
 - [Lemmy](styles/lemmy)
 - ❤️‍🩹 [Libreddit](styles/libreddit)
