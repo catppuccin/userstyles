@@ -1,0 +1,633 @@
+/* ==UserStyle==
+@name itch.io Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/itch.io
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/itch.io
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/itch.io/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aitch.io
+@description Soothing pastel theme for itch.io
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain("itch.io") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    @text-filter: @catppuccin-filters[@@flavor][@text];
+    @accent-filter: @catppuccin-filters[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    select {
+      background-color: @base;
+      border-color: @surface2;
+      color: @subtext1;
+    }
+
+    input[type="checkbox"] {
+      accent-color: @accent;
+    }
+
+    /* Variables apply to both the root and .header_widget.gray on user/game subdomained pages. */
+    &, .header_widget.gray {
+      --itchio_ui_bg: @base;
+      --itchio_white_back: @base;
+      --itchio_gray_back: @crust;
+      --itchio_body_color: @text;
+      --itchio_body_color_med: @subtext1;
+      --itchio_body_color_light: @subtext0;
+      --itchio_body_color_lighter: @subtext0;
+      --itchio_body_color_gray: @overlay2;
+      --itchio_border_color: @surface1;
+      --itchio_edge_border_color: @overlay1;
+      --itchio_input_border_color: @surface2;
+      --itchio_input_focus_color: darken(@mauve, 10%);
+      --itchio_light_highlight: @mantle;
+      --itchio_warning_bg: @yellow;
+      --itchio_target_bg: @green;
+      --itchio_button_color: @accent;
+      --itchio_button_fg_color: @crust;
+      --itchio_link_color: @accent;
+    }
+
+    a {
+      color: @accent;
+    }
+
+    .user_panel_widget .panel_button:hover {
+      background-color: @base;
+      color: @accent;
+    }
+
+    .header_widget {
+      .minimal_logo {
+        filter: @text-filter;
+      }
+
+      .header_buttons .header_button {
+        &:hover, &.active {
+          border-bottom-color: @accent;
+        }
+      }
+
+      .submit_btn.is_active svg.icon_search {
+        stroke: @accent;
+      }
+
+      .header_dropdown {
+        background-color: @surface0;
+        background-image: none;
+      }
+
+      .header_logo > img.full_logo {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="774.78" height="198.93" viewBox="0 0 774.7776 198.92646"><g fill="@{accent}"><path d="M253.95 174.12V70.95h34.81v103.17zm17.614-111.56q-8.808 0-13.63-4.404-4.614-4.403-4.614-11.743 0-6.92 4.613-11.743 4.823-4.823 13.63-4.823t13.422 4.823q4.823 4.823 4.823 11.743 0 7.34-4.823 11.743-4.613 4.404-13.42 4.404zM340.7 176.22q-15.1 0-22.86-7.97-7.548-8.177-7.548-22.647v-48.86h-13.84V70.948h13.84V45.784h34.81V70.95h22.65v25.79H345.1v43.828q0 4.824 1.888 6.92 2.097 1.888 6.29 1.888 5.663 0 12.373-5.033l7.97 22.858q-6.08 4.2-13.84 6.71-7.76 2.31-19.08 2.31zm85.62 0q-23.907 0-37.747-13.63-13.63-13.632-13.63-39.635 0-18.873 7.758-31.665 7.97-13.21 19.93-17.825 12.58-4.823 23.28-4.823 13.42 0 22.44 5.452 9.02 5.243 13.21 11.534 4.41 6.29 6.29 9.856l-24.11 15.518q-3.35-6.92-7.34-10.905-3.98-3.984-9.64-3.984-7.97 0-12.58 6.29-4.61 6.292-4.61 19.084 0 13.84 5.45 20.34 5.45 6.502 15.52 6.502 7.97 0 13.21-2.94 5.45-2.94 10.277-7.55l11.115 26q-5.034 4.19-14.89 8.39-9.856 3.98-23.906 3.98zm50.65-2.1V34.04h35.02v42.57q4.403-3.146 10.694-5.452 6.29-2.517 15.1-2.517 18.453 0 27.47 10.49 9.227 10.49 9.227 29.57v65.43h-35.02v-61.24q0-8.8-3.35-12.79-3.35-4.19-8.81-4.19-4.61 0-8.6 2.1-3.98 2.1-6.71 4.41v71.72h-35.02zm124.4 2.1q-8.39 0-13.212-4.823-4.823-4.823-4.823-12.372 0-7.55 4.823-12.582t13.21-5.033q7.97 0 12.793 5.033 4.83 5.033 4.83 12.582t-4.82 12.372q-4.61 4.823-12.79 4.823zm25.75-2.1V70.95h34.81v103.17zm17.61-111.54q-8.81 0-13.632-4.404-4.613-4.404-4.613-11.743 0-6.92 4.613-11.743 4.823-4.823 13.63-4.823t13.422 4.823q4.823 4.823 4.823 11.743 0 7.34-4.823 11.743-4.613 4.404-13.42 4.404m78.67 113.64q-12.164 0-21.6-3.984-9.437-4.194-16.147-11.324-6.5-7.34-10.066-17.196-3.355-10.066-3.355-21.81 0-17.404 7.55-30.406 7.758-12.792 19.292-17.825 11.743-5.033 24.325-5.033 18.03 0 29.77 8.388 11.95 8.388 16.78 20.97 4.82 12.582 4.82 23.906 0 11.743-3.57 21.81-3.35 9.855-10.07 17.195-6.5 7.13-16.15 11.33-9.435 3.99-21.6 3.99zm0-26.842q8.807 0 12.79-7.34 3.985-7.55 3.985-20.13 0-11.954-4.194-19.084-4.19-7.13-12.58-7.13-8.18 0-12.37 7.13t-4.19 19.083q0 12.582 3.99 20.13 4.2 7.34 12.58 7.34z"/><path d="M28.832 1.228C19.188 6.954.186 28.785.004 34.51v9.478c0 12.014 11.23 22.572 21.424 22.572 12.24 0 22.44-10.146 22.442-22.187 0 12.04 9.85 22.187 22.093 22.187s21.776-10.146 21.776-22.187c0 12.04 10.47 22.187 22.71 22.187h.22c12.24 0 22.72-10.146 22.72-22.187 0 12.04 9.53 22.187 21.77 22.187s22.09-10.146 22.09-22.187c0 12.04 10.2 22.187 22.44 22.187 10.19 0 21.42-10.557 21.42-22.572V34.51c-.19-5.725-19.19-27.556-28.83-33.282-29.97-1.053-50.76-1.234-81.73-1.23C79.59 0 37.36.483 28.83 1.228zm58.753 59.674a25.3 25.3 0 0 1-4.308 5.546 25.6 25.6 0 0 1-17.94 7.32c-6.985 0-13.356-2.8-17.976-7.322-1.67-1.64-2.94-3.394-4.11-5.436v.004c-1.16 2.046-2.79 3.798-4.46 5.44a25.66 25.66 0 0 1-17.97 7.317c-.84 0-1.71-.23-2.42-.47-.982 10.25-1.4 20.04-1.545 27.19v.04c-.02 3.63-.035 6.61-.054 10.75.19 21.51-2.13 69.7 9.48 81.54 17.99 4.2 51.094 6.11 84.31 6.12h.003c33.214-.01 66.32-1.92 84.31-6.11 11.61-11.843 9.29-60.033 9.48-81.536-.017-4.14-.034-7.122-.053-10.75v-.04c-.15-7.142-.565-16.935-1.55-27.183-.71.24-1.587.473-2.43.473a25.68 25.68 0 0 1-17.975-7.316c-1.675-1.644-3.3-3.396-4.463-5.44l-.005-.006c-1.166 2.04-2.437 3.797-4.112 5.436-4.62 4.522-10.99 7.322-17.973 7.322s-13.32-2.8-17.94-7.32a25.4 25.4 0 0 1-4.31-5.547 25.2 25.2 0 0 1-4.266 5.546 25.67 25.67 0 0 1-17.98 7.32c-.244 0-.49-.01-.73-.02h-.008c-.243.01-.486.02-.73.02-6.986 0-13.357-2.8-17.978-7.32a25.2 25.2 0 0 1-4.27-5.544zM69.123 84.775l-.002.008h.02c7.31.016 13.81 0 21.85 8.783 6.34-.663 12.95-.996 19.58-.985h.01c6.63-.01 13.24.33 19.58.99 8.05-8.78 14.54-8.76 21.85-8.78h.02v-.01c3.458 0 17.27 0 26.9 27.04l10.347 37.1c7.665 27.6-2.453 28.28-15.073 28.3-18.72-.69-29.08-14.29-29.08-27.88-10.36 1.7-22.45 2.55-34.535 2.55h-.005c-12.086 0-24.172-.85-34.53-2.55 0 13.59-10.36 27.18-29.078 27.88-12.62-.02-22.74-.7-15.073-28.29l10.34-37.1c9.63-27.04 23.45-27.04 26.9-27.04zm41.44 21.25v.007c-.017.017-19.702 18.096-23.24 24.526l12.89-.516v11.24c0 .527 5.174.313 10.35.074h.007c5.177.24 10.35.453 10.35-.073v-11.24l12.89.514c-3.538-6.43-23.24-24.525-23.24-24.525v-.006l-.002.002z" color="@{accent}"/></g></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+      }
+    }
+
+    .developers_page .index_sticky_bar {
+      background-color: @base;
+
+      img.sticky_logo {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="774.78" height="198.93" viewBox="0 0 774.7776 198.92646"><g fill="@{accent}"><path d="M253.95 174.12V70.95h34.81v103.17zm17.614-111.56q-8.808 0-13.63-4.404-4.614-4.403-4.614-11.743 0-6.92 4.613-11.743 4.823-4.823 13.63-4.823t13.422 4.823q4.823 4.823 4.823 11.743 0 7.34-4.823 11.743-4.613 4.404-13.42 4.404zM340.7 176.22q-15.1 0-22.86-7.97-7.548-8.177-7.548-22.647v-48.86h-13.84V70.948h13.84V45.784h34.81V70.95h22.65v25.79H345.1v43.828q0 4.824 1.888 6.92 2.097 1.888 6.29 1.888 5.663 0 12.373-5.033l7.97 22.858q-6.08 4.2-13.84 6.71-7.76 2.31-19.08 2.31zm85.62 0q-23.907 0-37.747-13.63-13.63-13.632-13.63-39.635 0-18.873 7.758-31.665 7.97-13.21 19.93-17.825 12.58-4.823 23.28-4.823 13.42 0 22.44 5.452 9.02 5.243 13.21 11.534 4.41 6.29 6.29 9.856l-24.11 15.518q-3.35-6.92-7.34-10.905-3.98-3.984-9.64-3.984-7.97 0-12.58 6.29-4.61 6.292-4.61 19.084 0 13.84 5.45 20.34 5.45 6.502 15.52 6.502 7.97 0 13.21-2.94 5.45-2.94 10.277-7.55l11.115 26q-5.034 4.19-14.89 8.39-9.856 3.98-23.906 3.98zm50.65-2.1V34.04h35.02v42.57q4.403-3.146 10.694-5.452 6.29-2.517 15.1-2.517 18.453 0 27.47 10.49 9.227 10.49 9.227 29.57v65.43h-35.02v-61.24q0-8.8-3.35-12.79-3.35-4.19-8.81-4.19-4.61 0-8.6 2.1-3.98 2.1-6.71 4.41v71.72h-35.02zm124.4 2.1q-8.39 0-13.212-4.823-4.823-4.823-4.823-12.372 0-7.55 4.823-12.582t13.21-5.033q7.97 0 12.793 5.033 4.83 5.033 4.83 12.582t-4.82 12.372q-4.61 4.823-12.79 4.823zm25.75-2.1V70.95h34.81v103.17zm17.61-111.54q-8.81 0-13.632-4.404-4.613-4.404-4.613-11.743 0-6.92 4.613-11.743 4.823-4.823 13.63-4.823t13.422 4.823q4.823 4.823 4.823 11.743 0 7.34-4.823 11.743-4.613 4.404-13.42 4.404m78.67 113.64q-12.164 0-21.6-3.984-9.437-4.194-16.147-11.324-6.5-7.34-10.066-17.196-3.355-10.066-3.355-21.81 0-17.404 7.55-30.406 7.758-12.792 19.292-17.825 11.743-5.033 24.325-5.033 18.03 0 29.77 8.388 11.95 8.388 16.78 20.97 4.82 12.582 4.82 23.906 0 11.743-3.57 21.81-3.35 9.855-10.07 17.195-6.5 7.13-16.15 11.33-9.435 3.99-21.6 3.99zm0-26.842q8.807 0 12.79-7.34 3.985-7.55 3.985-20.13 0-11.954-4.194-19.084-4.19-7.13-12.58-7.13-8.18 0-12.37 7.13t-4.19 19.083q0 12.582 3.99 20.13 4.2 7.34 12.58 7.34z"/><path d="M28.832 1.228C19.188 6.954.186 28.785.004 34.51v9.478c0 12.014 11.23 22.572 21.424 22.572 12.24 0 22.44-10.146 22.442-22.187 0 12.04 9.85 22.187 22.093 22.187s21.776-10.146 21.776-22.187c0 12.04 10.47 22.187 22.71 22.187h.22c12.24 0 22.72-10.146 22.72-22.187 0 12.04 9.53 22.187 21.77 22.187s22.09-10.146 22.09-22.187c0 12.04 10.2 22.187 22.44 22.187 10.19 0 21.42-10.557 21.42-22.572V34.51c-.19-5.725-19.19-27.556-28.83-33.282-29.97-1.053-50.76-1.234-81.73-1.23C79.59 0 37.36.483 28.83 1.228zm58.753 59.674a25.3 25.3 0 0 1-4.308 5.546 25.6 25.6 0 0 1-17.94 7.32c-6.985 0-13.356-2.8-17.976-7.322-1.67-1.64-2.94-3.394-4.11-5.436v.004c-1.16 2.046-2.79 3.798-4.46 5.44a25.66 25.66 0 0 1-17.97 7.317c-.84 0-1.71-.23-2.42-.47-.982 10.25-1.4 20.04-1.545 27.19v.04c-.02 3.63-.035 6.61-.054 10.75.19 21.51-2.13 69.7 9.48 81.54 17.99 4.2 51.094 6.11 84.31 6.12h.003c33.214-.01 66.32-1.92 84.31-6.11 11.61-11.843 9.29-60.033 9.48-81.536-.017-4.14-.034-7.122-.053-10.75v-.04c-.15-7.142-.565-16.935-1.55-27.183-.71.24-1.587.473-2.43.473a25.68 25.68 0 0 1-17.975-7.316c-1.675-1.644-3.3-3.396-4.463-5.44l-.005-.006c-1.166 2.04-2.437 3.797-4.112 5.436-4.62 4.522-10.99 7.322-17.973 7.322s-13.32-2.8-17.94-7.32a25.4 25.4 0 0 1-4.31-5.547 25.2 25.2 0 0 1-4.266 5.546 25.67 25.67 0 0 1-17.98 7.32c-.244 0-.49-.01-.73-.02h-.008c-.243.01-.486.02-.73.02-6.986 0-13.357-2.8-17.978-7.32a25.2 25.2 0 0 1-4.27-5.544zM69.123 84.775l-.002.008h.02c7.31.016 13.81 0 21.85 8.783 6.34-.663 12.95-.996 19.58-.985h.01c6.63-.01 13.24.33 19.58.99 8.05-8.78 14.54-8.76 21.85-8.78h.02v-.01c3.458 0 17.27 0 26.9 27.04l10.347 37.1c7.665 27.6-2.453 28.28-15.073 28.3-18.72-.69-29.08-14.29-29.08-27.88-10.36 1.7-22.45 2.55-34.535 2.55h-.005c-12.086 0-24.172-.85-34.53-2.55 0 13.59-10.36 27.18-29.078 27.88-12.62-.02-22.74-.7-15.073-28.29l10.34-37.1c9.63-27.04 23.45-27.04 26.9-27.04zm41.44 21.25v.007c-.017.017-19.702 18.096-23.24 24.526l12.89-.516v11.24c0 .527 5.174.313 10.35.074h.007c5.177.24 10.35.453 10.35-.073v-11.24l12.89.514c-3.538-6.43-23.24-24.525-23.24-24.525v-.006l-.002.002z" color="@{accent}"/></g></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+      }
+
+      .simple_social_buttons_widget a:hover {
+        color: @accent;
+      }
+    }
+
+    .filter_picker_widget {
+      .filter_options .filter_option:hover,
+      &:hover .filter_value .value_label {
+        color: @accent;
+      }
+    }
+
+    .browse_sort_options_widget > ul li {
+      > a:hover,
+      > a.active,
+      button:hover,
+      button.active {
+        color: @accent;
+      }
+
+      > a.active::after,
+      button.active::after {
+        background-color: @accent;
+      }
+    }
+
+    .index_page {
+      .app_banner {
+        color: @text;
+        background-image:
+          linear-gradient(
+            to right,
+            @surface0,
+            fade(@surface0, 80%) 60%,
+            fade(@accent, 40%)
+          ),
+          url("https://static.itch.io/images/app-banner.png"),
+          linear-gradient(to right, @surface2, @accent);
+
+        .outline_button {
+          border-color: @text;
+          color: @text;
+
+          &:hover {
+            color: @crust;
+            background-color: @accent;
+            border-color: @accent;
+          }
+        }
+      }
+
+      .index_sidebar .sidebar_browse_group .browse_filters a:hover,
+      .sidebar_social .get_app:hover,
+      .sidebar_social .icon:hover,
+      .index_sidebar .blog_post_section .post_link:hover,
+      .index_sidebar .blog_post_section p a:hover {
+        color: @accent;
+      }
+    }
+
+    .index_game_cell_widget {
+      .meta_tag.price_tag {
+        background-color: @crust !important;
+        background-image: none;
+        color: @text;
+      }
+
+      .sale_flag {
+        border-top-color: @overlay2;
+        border-left-color: @overlay2;
+        background-color: @accent;
+        color: @base;
+      }
+
+      .meta_tag.web_tag,
+      .meta_tag.demo_tag,
+      .meta_tag.free_tag {
+        background-color: @crust;
+      }
+    }
+
+    .browse_related_tags_widget .tag_segmented_btn > a:hover {
+      background-color: @accent;
+      color: @base;
+    }
+
+    .browse_tags_page .tag_list .tag_cell {
+      border-color: @surface2;
+    }
+
+    .jam_grid_widget .jam {
+      border-color: @surface2;
+    }
+
+    .browse_base_page .youtube_banner {
+      box-shadow: 5px 5px 0 @accent;
+      background-image: linear-gradient(to right, @blue, fade(#0fff, 60%)) 50%
+        50% no-repeat;
+
+      .new {
+        background-color: @base;
+        color: @text;
+      }
+    }
+
+    .game_grid_widget .game_cell {
+      .game_cell_tools .action_btn {
+        background-color: @base;
+        color: @text;
+        border-color: @accent;
+      }
+
+      .meta_tag {
+        > div {
+          background-image: linear-gradient(
+            to top right,
+            @crust 0%,
+            @crust 100%
+          );
+        }
+        .sale_tag {
+          background-image: linear-gradient(
+            to top right,
+            @accent 0%,
+            @accent 100%
+          );
+          color: @base;
+        }
+      }
+    }
+
+    .browse_filter_group_widget {
+
+      .toggle_more_btn:hover {
+        background-color: @surface0;
+        color: var(--itchio_body_color_med);
+      }
+      > ul li:not(.active) > a:hover,
+      > ul li:not(.active) > button:hover,
+      > ul li:not(.active) .filter_append:hover {
+        background-color: @surface0;
+        color: @text;
+      }
+
+      > ul li.active > a,
+      > ul li.active > button,
+      > ul li.active .filter_append {
+        color: @accent;
+      }
+
+      &.active {
+        border-color: @surface2;
+      }
+
+      .filter_clear {
+        color: @base;
+
+        > .svgicon {
+          background-color: @text;
+        }
+      }
+
+      .active,
+      .main .inner_column {
+        border-color: @surface2;
+      }
+    }
+
+    .browse_base_page .filter_tags {
+      .filter_tag {
+        border-color: @surface2;
+      }
+
+      .filter_clear {
+        color: @base;
+
+        > .svgicon {
+          background-color: @text;
+        }
+      }
+    }
+
+    .popup_details {
+      background-color: @base;
+      color: @text;
+      box-shadow: 0 0 0 2px @crust, 0 0 0 4px @text;
+
+      &:hover {
+        background-color: @mantle;
+      }
+      .game_title {
+        background-color: @surface0;
+        border-color: @surface0;
+      }
+      .game_text {
+        color: @text;
+      }
+      .popup_description_tags li.popup_description_tag {
+        color: @subtext1;
+        background-color: @surface0;
+      }
+    }
+
+    .button {
+      background-color: @accent;
+      text-shadow: 0 1px 0 @accent;
+      color: @base;
+
+      &.fat {
+        background-color: @accent;
+        color: @base;
+        text-shadow: 0 1px 0 var(--itchio_button_shadow_color, @accent);
+      }
+
+      &.outline {
+        color: @accent;
+        border-color: fade(@accent, 50%);
+        background-color: transparent;
+        text-shadow: none;
+
+        &:hover {
+          border-color: @accent;
+        }
+      }
+    }
+
+    .knowledge_base_article_page {
+      box-shadow: inset 50vw 0 0 @base;
+
+      .nav_column .tab_btn.selected a {
+        color: @accent;
+        border-bottom-color: @accent;
+      }
+    }
+
+    .grid_results_page .grid_header .filters_row .filter_btn.active {
+      box-shadow: inset 0 -2px 0 @accent;
+    }
+
+    .star_value .star_fill {
+      color: @accent;
+    }
+
+    .jams_page {
+      .jam_jam_calendar_widget .jam_cell {
+        background-color: @subtext0;
+      }
+
+      .jam_filtered_jam_calendar_widget .jam_calendar_filters > .label {
+        color: @text;
+      }
+    }
+
+    .blog_post_grid_widget .blog_post .post_type > span,
+    .blog_post_grid_widget .blog_post .post_type > a {
+      background-color: @red;
+      color: @base;
+    }
+
+    .page_tabs .tab.active, .page_tabs .tab:hover {
+      box-shadow: inset 0 -2px 0 0 var(--itchio_link_color, @accent);
+    }
+
+    .register_form_widget .validated {
+      &.valid input {
+        border-color: @green;
+      }
+      .icon {
+        color: @green;
+      }
+
+      &.invalid input {
+        border-color: @red;
+      }
+      .input_error_message {
+        color: @red;
+      }
+    }
+
+    .events_page .event_row {
+      border-color: @surface1;
+
+      .event_header .action_btn:not(.disabled):hover {
+        color: @text;
+      }
+
+      .button_row .outline_button:hover {
+        background-color: @accent;
+        color: @crust;
+        border-color: @accent;
+      }
+    }
+
+    .feed_page .right_column .mega_notification {
+      background: @red;
+      color: @crust;
+    }
+
+    .tooltip_drop .tooltip {
+      box-shadow: 0 0 0 2px @accent;
+
+      &::after {
+        filter: @accent-filter;
+      }
+    }
+
+    .dashboard_page .header_notification {
+      background-color: fade(@accent, 20%);
+      color: @accent;
+    }
+
+    /* Creator Dashboard Analytics */
+    .graph_container .label circle,
+    .graph_container .popup_trigger .dot,
+    .graph_container .graph path {
+      stroke: @accent;
+    }
+
+    /* featured bundle */
+    .sale_list_widget {
+    
+      .sale_row {
+        border-color: @surface2;
+      }
+
+      .sale_games .sale_gradient {
+        background-image: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0),
+          @base
+        );
+      }
+    }
+
+    .selectize-control.single .selectize-input {
+      background-image: linear-gradient(to bottom, @base, @base);
+      box-shadow: 0 0;
+      border-color: @surface2;
+      color: @text;
+      background-color: @base;
+
+      input {
+        color: @text;
+      }
+
+      &::after {
+        border-color: @overlay0 transparent transparent transparent;
+      }
+
+      &.input-active {
+        background-color: @base;
+      }
+    }
+
+    .selectize-dropdown {
+      background-color: @base;
+      border-color: @surface2;
+      color: @text;
+
+      .active {
+        color: @text;
+        background-color: @surface0;
+      }
+
+      .create {
+        color: @text;
+      }
+
+      &.single {
+        border-color: @surface2;
+
+        .selectize-input.input-active {
+          background-color: @base;
+        }
+      }
+    }
+
+    .selectize-input.dropdown-active::before {
+      background-color: @surface2;
+    }
+
+    .pager {
+      color: @subtext0;
+    }
+
+    /* blog post like button, the header, and social media hovering */
+    .blog_post_page {
+      .post_like_button {
+        box-shadow: inset 0 0 0 2px @accent;
+        color: @accent;
+      }
+
+      &.has_header_image .header_column h1,
+      &.has_header_image .header_column .post_meta {
+        color: @text;
+
+        a {
+          color: @accent;
+        }
+      }
+      .simple_social_buttons_widget a:hover {
+        color: @accent;
+      }
+    }
+
+    /* my library sidebar hovering */
+    .library_base_page_page
+      .library_columns
+      .library_sidebar
+      .link_list
+      li
+      a:hover {
+      color: @accent;
+    }
+
+    /* warning box */
+    .warning_box {
+      color: @base;
+
+      h2, h3, h4 {
+        color: @mantle;
+      }
+    }
+
+    /* settings coloring */
+
+    .feedback_widget {
+      background-color: @accent;
+      color: @base;
+      text-shadow: 1px 1px 2px darken(@accent, 10%);
+    }
+
+    .global_flash {
+      background-color: @accent;
+      background-image: linear-gradient(
+        to top,
+        darken(@accent, 10%) 0%,
+        @accent 100%
+      );
+      color: @base;
+      text-shadow: 1px 1px 1px darken(@accent, 20%);
+    }
+
+    .tab_columns .tab_column {
+      .tab_header {
+        border-color: @surface0;
+      }
+
+      .tab_btn.selected {
+        background-color: @surface0;
+
+        &::before {
+          background-color: @accent;
+        }
+      }
+    }
+
+    .redactor-box .redactor-toolbar li a:hover {
+      background-color: @accent;
+
+      i {
+        color: @base;
+      }
+    }
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
+
+/* deno-fmt-ignore */
+@catppuccin-filters: {
+  @latte: { @rosewater: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(1048%) hue-rotate(323deg) brightness(92%) contrast(86%); @flamingo: brightness(0) saturate(100%) invert(84%) sepia(44%) saturate(4533%) hue-rotate(310deg) brightness(98%) contrast(75%); @pink: brightness(0) saturate(100%) invert(60%) sepia(32%) saturate(775%) hue-rotate(266deg) brightness(93%) contrast(97%); @mauve: brightness(0) saturate(100%) invert(26%) sepia(59%) saturate(3315%) hue-rotate(255deg) brightness(94%) contrast(100%); @red: brightness(0) saturate(100%) invert(16%) sepia(78%) saturate(7275%) hue-rotate(342deg) brightness(84%) contrast(94%); @maroon: brightness(0) saturate(100%) invert(31%) sepia(56%) saturate(2395%) hue-rotate(331deg) brightness(99%) contrast(82%); @peach: brightness(0) saturate(100%) invert(38%) sepia(81%) saturate(1292%) hue-rotate(356deg) brightness(103%) contrast(99%); @yellow: brightness(0) saturate(100%) invert(74%) sepia(47%) saturate(4570%) hue-rotate(354deg) brightness(95%) contrast(83%); @green: brightness(0) saturate(100%) invert(51%) sepia(25%) saturate(4134%) hue-rotate(76deg) brightness(95%) contrast(66%); @teal: brightness(0) saturate(100%) invert(41%) sepia(45%) saturate(1101%) hue-rotate(139deg) brightness(100%) contrast(82%); @sky: brightness(0) saturate(100%) invert(47%) sepia(76%) saturate(2427%) hue-rotate(166deg) brightness(99%) contrast(97%); @sapphire: brightness(0) saturate(100%) invert(52%) sepia(41%) saturate(6982%) hue-rotate(160deg) brightness(102%) contrast(75%); @blue: brightness(0) saturate(100%) invert(30%) sepia(80%) saturate(1850%) hue-rotate(209deg) brightness(94%) contrast(105%); @lavender: brightness(0) saturate(100%) invert(48%) sepia(61%) saturate(538%) hue-rotate(194deg) brightness(102%) contrast(98%); @text: brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(1259%) hue-rotate(196deg) brightness(97%) contrast(91%); @subtext1: brightness(0) saturate(100%) invert(36%) sepia(10%) saturate(890%) hue-rotate(196deg) brightness(98%) contrast(90%); @subtext0: brightness(0) saturate(100%) invert(47%) sepia(6%) saturate(1263%) hue-rotate(195deg) brightness(90%) contrast(81%); @overlay2: brightness(0) saturate(100%) invert(59%) sepia(7%) saturate(825%) hue-rotate(195deg) brightness(83%) contrast(91%); @overlay1: brightness(0) saturate(100%) invert(59%) sepia(14%) saturate(333%) hue-rotate(194deg) brightness(95%) contrast(89%); @overlay0: brightness(0) saturate(100%) invert(85%) sepia(7%) saturate(595%) hue-rotate(191deg) brightness(77%) contrast(81%); @surface2: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(482%) hue-rotate(189deg) brightness(82%) contrast(88%); @surface1: brightness(0) saturate(100%) invert(85%) sepia(8%) saturate(281%) hue-rotate(187deg) brightness(92%) contrast(88%); @surface0: brightness(0) saturate(100%) invert(96%) sepia(1%) saturate(5123%) hue-rotate(185deg) brightness(93%) contrast(83%); @base: brightness(0) saturate(100%) invert(89%) sepia(5%) saturate(140%) hue-rotate(182deg) brightness(109%) contrast(94%); @mantle: brightness(0) saturate(100%) invert(93%) sepia(19%) saturate(55%) hue-rotate(182deg) brightness(98%) contrast(92%); @crust: brightness(0) saturate(100%) invert(91%) sepia(1%) saturate(4489%) hue-rotate(196deg) brightness(106%) contrast(82%); };
+  @frappe: { @rosewater: brightness(0) saturate(100%) invert(90%) sepia(6%) saturate(734%) hue-rotate(321deg) brightness(95%) contrast(99%); @flamingo: brightness(0) saturate(100%) invert(88%) sepia(52%) saturate(817%) hue-rotate(293deg) brightness(113%) contrast(84%); @pink: brightness(0) saturate(100%) invert(76%) sepia(15%) saturate(844%) hue-rotate(280deg) brightness(107%) contrast(91%); @mauve: brightness(0) saturate(100%) invert(71%) sepia(25%) saturate(725%) hue-rotate(225deg) brightness(94%) contrast(91%); @red: brightness(0) saturate(100%) invert(67%) sepia(3%) saturate(7209%) hue-rotate(305deg) brightness(91%) contrast(99%); @maroon: brightness(0) saturate(100%) invert(61%) sepia(14%) saturate(957%) hue-rotate(307deg) brightness(109%) contrast(90%); @peach: brightness(0) saturate(100%) invert(68%) sepia(28%) saturate(662%) hue-rotate(335deg) brightness(96%) contrast(94%); @yellow: brightness(0) saturate(100%) invert(94%) sepia(88%) saturate(684%) hue-rotate(309deg) brightness(105%) contrast(80%); @green: brightness(0) saturate(100%) invert(89%) sepia(23%) saturate(582%) hue-rotate(42deg) brightness(87%) contrast(89%); @teal: brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(986%) hue-rotate(110deg) brightness(85%) contrast(81%); @sky: brightness(0) saturate(100%) invert(75%) sepia(15%) saturate(623%) hue-rotate(141deg) brightness(109%) contrast(81%); @sapphire: brightness(0) saturate(100%) invert(77%) sepia(20%) saturate(730%) hue-rotate(157deg) brightness(97%) contrast(76%); @blue: brightness(0) saturate(100%) invert(68%) sepia(16%) saturate(1070%) hue-rotate(185deg) brightness(96%) contrast(95%); @lavender: brightness(0) saturate(100%) invert(75%) sepia(20%) saturate(626%) hue-rotate(201deg) brightness(101%) contrast(89%); @text: brightness(0) saturate(100%) invert(83%) sepia(12%) saturate(582%) hue-rotate(191deg) brightness(98%) contrast(96%); @subtext1: brightness(0) saturate(100%) invert(80%) sepia(18%) saturate(411%) hue-rotate(190deg) brightness(96%) contrast(84%); @subtext0: brightness(0) saturate(100%) invert(82%) sepia(6%) saturate(1287%) hue-rotate(192deg) brightness(86%) contrast(85%); @overlay2: brightness(0) saturate(100%) invert(65%) sepia(36%) saturate(230%) hue-rotate(190deg) brightness(92%) contrast(82%); @overlay1: brightness(0) saturate(100%) invert(55%) sepia(12%) saturate(638%) hue-rotate(189deg) brightness(98%) contrast(87%); @overlay0: brightness(0) saturate(100%) invert(49%) sepia(13%) saturate(662%) hue-rotate(192deg) brightness(94%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(41%) sepia(20%) saturate(469%) hue-rotate(191deg) brightness(93%) contrast(86%); @surface1: brightness(0) saturate(100%) invert(34%) sepia(14%) saturate(771%) hue-rotate(190deg) brightness(89%) contrast(85%); @surface0: brightness(0) saturate(100%) invert(28%) sepia(7%) saturate(1468%) hue-rotate(193deg) brightness(92%) contrast(95%); @base: brightness(0) saturate(100%) invert(20%) sepia(17%) saturate(747%) hue-rotate(192deg) brightness(96%) contrast(97%); @mantle: brightness(0) saturate(100%) invert(8%) sepia(7%) saturate(7271%) hue-rotate(198deg) brightness(88%) contrast(75%); @crust: brightness(0) saturate(100%) invert(7%) sepia(7%) saturate(7415%) hue-rotate(197deg) brightness(86%) contrast(79%); };
+  @macchiato: { @rosewater: brightness(0) saturate(100%) invert(88%) sepia(13%) saturate(322%) hue-rotate(321deg) brightness(102%) contrast(91%); @flamingo: brightness(0) saturate(100%) invert(82%) sepia(3%) saturate(3070%) hue-rotate(314deg) brightness(107%) contrast(88%); @pink: brightness(0) saturate(100%) invert(80%) sepia(23%) saturate(509%) hue-rotate(280deg) brightness(102%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(903%) hue-rotate(222deg) brightness(104%) contrast(93%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(1541%) hue-rotate(305deg) brightness(110%) contrast(86%); @maroon: brightness(0) saturate(100%) invert(71%) sepia(10%) saturate(1331%) hue-rotate(306deg) brightness(93%) contrast(101%); @peach: brightness(0) saturate(100%) invert(73%) sepia(13%) saturate(1676%) hue-rotate(330deg) brightness(103%) contrast(92%); @yellow: brightness(0) saturate(100%) invert(87%) sepia(89%) saturate(321%) hue-rotate(314deg) brightness(101%) contrast(87%); @green: brightness(0) saturate(100%) invert(93%) sepia(12%) saturate(1128%) hue-rotate(48deg) brightness(92%) contrast(85%); @teal: brightness(0) saturate(100%) invert(92%) sepia(10%) saturate(1176%) hue-rotate(110deg) brightness(87%) contrast(90%); @sky: brightness(0) saturate(100%) invert(78%) sepia(57%) saturate(230%) hue-rotate(142deg) brightness(96%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(35%) saturate(438%) hue-rotate(156deg) brightness(92%) contrast(93%); @blue: brightness(0) saturate(100%) invert(67%) sepia(17%) saturate(1007%) hue-rotate(183deg) brightness(99%) contrast(94%); @lavender: brightness(0) saturate(100%) invert(74%) sepia(6%) saturate(2559%) hue-rotate(198deg) brightness(103%) contrast(94%); @text: brightness(0) saturate(100%) invert(81%) sepia(9%) saturate(726%) hue-rotate(192deg) brightness(104%) contrast(92%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(5%) saturate(1453%) hue-rotate(193deg) brightness(94%) contrast(86%); @subtext0: brightness(0) saturate(100%) invert(75%) sepia(18%) saturate(361%) hue-rotate(190deg) brightness(91%) contrast(86%); @overlay2: brightness(0) saturate(100%) invert(67%) sepia(9%) saturate(814%) hue-rotate(191deg) brightness(92%) contrast(88%); @overlay1: brightness(0) saturate(100%) invert(49%) sepia(38%) saturate(203%) hue-rotate(190deg) brightness(101%) contrast(93%); @overlay0: brightness(0) saturate(100%) invert(46%) sepia(16%) saturate(552%) hue-rotate(193deg) brightness(93%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(16%) saturate(611%) hue-rotate(192deg) brightness(101%) contrast(87%); @surface1: brightness(0) saturate(100%) invert(30%) sepia(11%) saturate(1085%) hue-rotate(194deg) brightness(92%) contrast(89%); @surface0: brightness(0) saturate(100%) invert(18%) sepia(21%) saturate(880%) hue-rotate(193deg) brightness(97%) contrast(84%); @base: brightness(0) saturate(100%) invert(12%) sepia(42%) saturate(570%) hue-rotate(194deg) brightness(90%) contrast(90%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(6%) saturate(7499%) hue-rotate(200deg) brightness(93%) contrast(85%); @crust: brightness(0) saturate(100%) invert(5%) sepia(8%) saturate(5346%) hue-rotate(202deg) brightness(98%) contrast(88%); };
+  @mocha: { @rosewater: brightness(0) saturate(100%) invert(92%) sepia(5%) saturate(704%) hue-rotate(320deg) brightness(99%) contrast(93%); @flamingo: brightness(0) saturate(100%) invert(81%) sepia(5%) saturate(987%) hue-rotate(315deg) brightness(107%) contrast(90%); @pink: brightness(0) saturate(100%) invert(86%) sepia(11%) saturate(1177%) hue-rotate(283deg) brightness(101%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(58%) saturate(255%) hue-rotate(224deg) brightness(96%) contrast(102%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(997%) hue-rotate(294deg) brightness(104%) contrast(91%); @maroon: brightness(0) saturate(100%) invert(66%) sepia(16%) saturate(1301%) hue-rotate(306deg) brightness(116%) contrast(84%); @peach: brightness(0) saturate(100%) invert(68%) sepia(57%) saturate(278%) hue-rotate(338deg) brightness(98%) contrast(101%); @yellow: brightness(0) saturate(100%) invert(90%) sepia(70%) saturate(380%) hue-rotate(313deg) brightness(102%) contrast(95%); @green: brightness(0) saturate(100%) invert(88%) sepia(6%) saturate(2015%) hue-rotate(63deg) brightness(104%) contrast(78%); @teal: brightness(0) saturate(100%) invert(92%) sepia(12%) saturate(991%) hue-rotate(108deg) brightness(93%) contrast(90%); @sky: brightness(0) saturate(100%) invert(84%) sepia(21%) saturate(1302%) hue-rotate(164deg) brightness(106%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(20%) saturate(876%) hue-rotate(156deg) brightness(96%) contrast(93%); @blue: brightness(0) saturate(100%) invert(68%) sepia(18%) saturate(951%) hue-rotate(180deg) brightness(98%) contrast(100%); @lavender: brightness(0) saturate(100%) invert(73%) sepia(7%) saturate(1670%) hue-rotate(195deg) brightness(102%) contrast(99%); @text: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(879%) hue-rotate(190deg) brightness(100%) contrast(93%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(19%) saturate(381%) hue-rotate(193deg) brightness(91%) contrast(89%); @subtext0: brightness(0) saturate(100%) invert(84%) sepia(9%) saturate(767%) hue-rotate(192deg) brightness(84%) contrast(84%); @overlay2: brightness(0) saturate(100%) invert(63%) sepia(15%) saturate(428%) hue-rotate(191deg) brightness(96%) contrast(84%); @overlay1: brightness(0) saturate(100%) invert(56%) sepia(15%) saturate(455%) hue-rotate(192deg) brightness(90%) contrast(88%); @overlay0: brightness(0) saturate(100%) invert(44%) sepia(6%) saturate(1275%) hue-rotate(194deg) brightness(97%) contrast(88%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(8%) saturate(1015%) hue-rotate(195deg) brightness(99%) contrast(89%); @surface1: brightness(0) saturate(100%) invert(25%) sepia(6%) saturate(1950%) hue-rotate(197deg) brightness(99%) contrast(86%); @surface0: brightness(0) saturate(100%) invert(19%) sepia(5%) saturate(2844%) hue-rotate(199deg) brightness(91%) contrast(93%); @base: brightness(0) saturate(100%) invert(7%) sepia(4%) saturate(7496%) hue-rotate(202deg) brightness(93%) contrast(87%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(4%) saturate(7465%) hue-rotate(202deg) brightness(95%) contrast(90%); @crust: brightness(0) saturate(100%) invert(3%) sepia(13%) saturate(6863%) hue-rotate(220deg) brightness(95%) contrast(91%); };
+};
