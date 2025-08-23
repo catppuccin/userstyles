@@ -1,0 +1,364 @@
+/* ==UserStyle==
+@name Facebook Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/facebook
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/facebook
+@version 2025.08.23
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/facebook/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Afacebook
+@description Soothing pastel theme for facebook
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@-moz-document domain("facebook.com") {
+  /* This section applies the light/dark themes automatically based on the user's system theme.
+     Use the below example CSS to start if the website you are theming doesn't have a light/dark mode toggle.
+     For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/brave-search/catppuccin.user.css#L16-L29.
+  */
+    /* System AUTO: only when FB hasn't set a theme class/attr */
+    @media (prefers-color-scheme: light) {
+      :root:not(.__fb-dark-mode):not([data-theme="dark"]),
+      html:not(.__fb-dark-mode):not([data-theme="dark"]),
+      body:not(.__fb-dark-mode):not([data-theme="dark"]),
+      #facebook:not(.__fb-dark-mode):not([data-theme="dark"]),
+      :root.x73z65k:not(.__fb-dark-mode) {  /* FB's hashed root when on auto */
+        #catppuccin(@lightFlavor);
+      }
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not(.__fb-light-mode):not([data-theme="light"]),
+      html:not(.__fb-light-mode):not([data-theme="light"]),
+      body:not(.__fb-light-mode):not([data-theme="light"]),
+      #facebook:not(.__fb-light-mode):not([data-theme="light"]),
+      :root.x73z65k:not(.__fb-light-mode) { /* FB's hashed root when on auto */
+        #catppuccin(@darkFlavor);
+      }
+    }
+
+  /* If the website you are theming *does* have a light/dark mode toggle,
+     you can conditionally enable light/dark flavors by targeting whatever
+     attribute that website uses to indicate the theme. *The example below gives you an idea of what
+     to look for. The website you are theming may use a class-based approach (e.g. :root.theme-dark),
+     or any of the myriad of other methods like this.*
+     Use the below example CSS to start if this is the case.
+     For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/youtube/catppuccin.user.css#L21-L30.
+  */
+    
+    :root.__fb-light-mode,
+    html.__fb-light-mode,
+    body.__fb-light-mode,
+    #facebook.__fb-light-mode { #catppuccin(@lightFlavor); }
+
+    :root.__fb-dark-mode,
+    html.__fb-dark-mode,
+    body.__fb-dark-mode,
+    #facebook.__fb-dark-mode { #catppuccin(@darkFlavor); }
+
+    :root[data-theme="light"],
+    html[data-theme="light"],
+    body[data-theme="light"] { #catppuccin(@lightFlavor); }
+
+    :root[data-theme="dark"],
+    html[data-theme="dark"],
+    body[data-theme="dark"] { #catppuccin(@darkFlavor); }
+
+  #catppuccin(@flavor) {
+    @rosewater: @catppuccin[@@flavor][@rosewater];
+    @flamingo: @catppuccin[@@flavor][@flamingo];
+    @pink: @catppuccin[@@flavor][@pink];
+    @mauve: @catppuccin[@@flavor][@mauve];
+    @red: @catppuccin[@@flavor][@red];
+    @maroon: @catppuccin[@@flavor][@maroon];
+    @peach: @catppuccin[@@flavor][@peach];
+    @yellow: @catppuccin[@@flavor][@yellow];
+    @green: @catppuccin[@@flavor][@green];
+    @teal: @catppuccin[@@flavor][@teal];
+    @sky: @catppuccin[@@flavor][@sky];
+    @sapphire: @catppuccin[@@flavor][@sapphire];
+    @blue: @catppuccin[@@flavor][@blue];
+    @lavender: @catppuccin[@@flavor][@lavender];
+    @text: @catppuccin[@@flavor][@text];
+    @subtext1: @catppuccin[@@flavor][@subtext1];
+    @subtext0: @catppuccin[@@flavor][@subtext0];
+    @overlay2: @catppuccin[@@flavor][@overlay2];
+    @overlay1: @catppuccin[@@flavor][@overlay1];
+    @overlay0: @catppuccin[@@flavor][@overlay0];
+    @surface2: @catppuccin[@@flavor][@surface2];
+    @surface1: @catppuccin[@@flavor][@surface1];
+    @surface0: @catppuccin[@@flavor][@surface0];
+    @base: @catppuccin[@@flavor][@base];
+    @mantle: @catppuccin[@@flavor][@mantle];
+    @crust: @catppuccin[@@flavor][@crust];
+    @accent: @catppuccin[@@flavor][@@accentColor];
+
+    color-scheme: if(@flavor = latte, light, dark);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    /* Start styling your website here: */
+    &,
+    :root,
+    html,
+    body,
+    #facebook,
+    :root.__fb-light-mode,
+    :root.__fb-dark-mode,
+    .__fb-light-mode,
+    .__fb-dark-mode,
+    :root.__fb-light-mode:root,
+    :root.__fb-dark-mode:root {
+      /* Backgrounds */
+      --surface-background: @base !important;
+      --card-background: @mantle !important;
+      --card-background-flat: @surface0 !important;
+      --popover-background: @mantle !important;
+      --popover-card-background: var(--card-background) !important;
+      --comment-background: @surface0 !important;
+      --comment-footer-background: @surface0 !important;
+      --background-deemphasized: fade(@text, 10%) !important;
+      --wash: @surface0 !important;
+      --web-wash: @crust !important;
+      --nav-bar-background: @base !important;
+      --messenger-card-background: @mantle !important;
+      --messenger-reply-background: @surface0 !important;
+
+      /* Text & icons */
+      --primary-text: @text !important;
+      --secondary-text: @subtext0 !important;
+      --section-header-text: @subtext1 !important;
+      --placeholder-text: @overlay1 !important;
+      --primary-icon: @text !important;
+      --secondary-icon: @overlay1 !important;
+      --disabled-icon: @overlay0 !important;
+
+      /* Dividers / lines / inputs */
+      --divider: @surface1 !important;
+      --divider-on-color: @surface2 !important;
+      --comment-threading-lines: @surface1 !important;
+      --input-border-color: @surface1 !important;
+      --input-border-color-hover: @overlay1 !important;
+      --input-background: @mantle !important;
+      --input-background-hover: @mantle !important;
+      --input-background-disabled: @surface0 !important;
+      --input-label-color-highlighted: @accent !important;
+      --input-label-color-inside: @subtext0 !important;
+      --input-label-color-disabled: @overlay0 !important;
+
+      /* Accent / links / focus / rings */
+      --accent: @accent !important;
+      --blue-link: @accent !important;
+      --toast-text-link: @accent !important;
+      --focus-ring-blue: @accent !important;
+      --primary-web-focus-indicator: @accent !important;
+      --text-highlight: fade(@accent, 25%) !important;
+      --progress-ring-blue-background: fade(@accent, 20%) !important;
+      --progress-ring-blue-foreground: @accent !important;
+      --highlight-bg: fade(@accent, 15%) !important;
+      --new-notification-background: fade(@accent, 15%) !important;
+
+      /* Buttons */
+      --primary-button-background: @accent !important;
+      --primary-button-text: if(@flavor = latte, @crust, @base) !important;
+      --primary-button-icon: if(@flavor = latte, @crust, @base) !important;
+      --primary-deemphasized-button-background: fade(@accent, 18%) !important;
+      --primary-deemphasized-button-text: @accent !important;
+      --primary-deemphasized-button-icon: @accent !important;
+      --secondary-button-background: fade(@text, 10%) !important;
+      --secondary-button-text: @text !important;
+      --secondary-button-background-floating: @surface1 !important;
+
+      /* States / badges / notif */
+      --positive: @green !important;
+      --positive-background: fade(@green, 18%) !important;
+      --positive-deemphasized: fade(@green, 16%) !important;
+      --negative: @red !important;
+      --negative-background: fade(@red, 20%) !important;
+      --warning: @yellow !important;
+      --notification-badge: @red !important;
+
+      /* Reactions */
+      --reaction-like: @accent !important;
+      --reaction-love: @red !important;
+      --reaction-anger: @red !important;
+      --reaction-haha: @yellow !important;
+      --reaction-wow: @yellow !important;
+      --reaction-sorry: @yellow !important;
+      --reaction-support: @yellow !important;
+
+      /* Stories (rings + on-media text tokens) */
+      --story-unseen: @accent !important;
+      --story-seen: @overlay1 !important;
+      --primary-text-on-media: if(@flavor = latte, @crust, @text) !important;
+      --secondary-text-on-media: if(@flavor = latte, fade(@crust, 88%), fade(@text, 88%)) !important;
+      --placeholder-text-on-media: if(@flavor = latte, fade(@crust, 60%), fade(@text, 60%)) !important;
+      --primary-icon-on-media: if(@flavor = latte, @crust, @text) !important;
+      --link-on-media: @accent !important;
+
+      /* Media / hover */
+      --media-hover: fade(@text, 15%) !important;
+      --media-pressed: fade(@text, 35%) !important;
+      --non-media-pressed: fade(@text, 15%) !important;
+      --overlay-on-media: if(@flavor = latte, fade(#000, 68%), fade(#000, 82%)) !important;
+
+      /* Scrollbar */
+      --scroll-thumb: @surface1 !important;
+
+      /* Logo / wordmark */
+      --fb-logo: @accent !important;
+      --fb-wordmark: @accent !important;
+
+      /* Ratings / misc */
+      --rating-star-active: @peach !important;
+      --placeholder-icon: @overlay1 !important;
+      --placeholder-image: @overlay1 !important;
+
+      /* HSLa components for inputs */
+      --accent-h: hue(@accent) !important;
+      --accent-s: saturation(@accent) !important;
+      --accent-l: lightness(@accent) !important;
+
+      /* Toasters / tooltip / banners / attachments */
+      --toast-background: @mantle !important;
+      --toast-text: @text !important;
+      --tooltip-background: fade(@mantle, 90%) !important;
+      --hero-banner-background: @mantle !important;
+      --attachment-footer-background: @surface0 !important;
+
+      /* Borders & focus */
+      --border-focused: @overlay1 !important;
+      --popover-border-color: transparent !important;
+
+      /* Progress rings (neutral & on-media) */
+      --progress-ring-neutral-background: fade(@text, 20%) !important;
+      --progress-ring-neutral-foreground: @text !important;
+      --progress-ring-on-media-background: fade(@base, 20%) !important;
+      --progress-ring-on-media-foreground: @text !important;
+
+      /* Gradients */
+      --nav-bar-background-gradient: linear-gradient(
+        to top,
+        @base,
+        fade(@base, 90%),
+        fade(@base, 70%),
+        fade(@base, 40%),
+        fade(@base, 0%)
+      ) !important;
+      --nav-bar-background-gradient-wash: linear-gradient(
+        to top,
+        @mantle,
+        fade(@mantle, 90%),
+        fade(@mantle, 70%),
+        fade(@mantle, 40%),
+        fade(@mantle, 0%)
+      ) !important;
+
+      /* Messenger extras */
+      --mwp-header-button-color: @accent !important;
+      --mwp-message-row-background: @mantle !important;
+    }
+
+    /* ===== System-auto shims (FB drops the theme classes and uses hashed vars) ===== */
+    @media (prefers-color-scheme: light) {
+      :root, .x73z65k {
+        /* Surfaces / text */
+        --xlq2kmo: @base !important;        /* was #FFFFFF */
+        --x1h50e4l: @text !important;       /* was #080809 */
+        --xiw6jcg: @overlay2 !important;    /* was #323436 */
+        --xe31vrr: @surface1 !important;    /* was #E2E5E9 (borders) */
+        --x15p7unm: @surface0 !important;   /* was #F0F0F0 (inputs) */
+
+        /* Brand -> accent */
+        --x215qz1: @accent !important;      /* brand blue */
+        --xdvz3pk: @accent !important;
+
+        /* Status colors */
+        --xqt9fth: @red !important;                     /* error */
+        --xkg1yw: fade(@red, 20%) !important;           /* error bg */
+        --x17h09wl: @overlay2 !important;               /* slate-ish */
+
+        /* Misc that can affect visibility */
+        --x1h50e4l: @text !important;        /* (dup by design to win cascade) */
+        --x11psvdz: @overlay1 !important;    /* placeholder text */
+        --x1wb1v04: @text !important;        /* another primary text */
+        --x1pwsir7: @surface1 !important;    /* alt border */
+      }
+    }
+    @media (prefers-color-scheme: dark) {
+      :root, .x73z65k {
+        /* Surfaces / text */
+        --xlq2kmo: @mantle !important;      /* main cards */
+        --x1h50e4l: @text !important;       /* primary text */
+        --xkvygis: @overlay1 !important;    /* secondary text */
+        --xe31vrr: @surface1 !important;    /* borders */
+        --x15p7unm: @surface0 !important;   /* inputs */
+
+        /* Brand -> accent */
+        --x215qz1: @accent !important;
+        --xdvz3pk: @accent !important;
+
+        /* Status colors */
+        --xqt9fth: @red !important;                     /* error */
+        --xkg1yw: fade(@red, 20%) !important;           /* error bg */
+
+        /* Bubbles / buttons (Messenger) */
+        --bubbleContentUserBackgroundColor: @accent !important;
+        --buttonSendBackgroundColor: @accent !important;
+
+        /* Placeholders / misc */
+        --x11psvdz: @overlay1 !important;   /* placeholder */
+        --x1wb1v04: @text !important;       /* text variant */
+        --x1pwsir7: @surface1 !important;   /* alt border */
+      }
+    }
+
+    /* ===== Forced light / dark (manual toggle beats system) ===== */
+    :root.__fb-light-mode,
+    .__fb-light-mode,
+    :root[data-theme="light"] {
+      /* usually base already matches Latte; keep minimal unless you need extra tweaks */
+    }
+
+    :root.__fb-dark-mode,
+    .__fb-dark-mode,
+    :root[data-theme="dark"] {
+      /* ensure key accents survive class toggling */
+      --primary-button-background: @accent !important;
+      --blue-link: @accent !important;
+      --fb-logo: @accent !important;
+      --fb-wordmark: @accent !important;
+    }
+
+    /* If you need to specify an overwrite specific to a flavor
+     *  (e.g. only when the flavor is set to latte), you can use a `when` guard clause. */
+    & when (@flavor = latte) {
+      /* ... */
+    }
+    /* You can also negate the statement above by using
+     *  a `when not` guard clause. */
+    & when not(@flavor = latte) {
+      /* ... */
+    }
+  }
+}
+
+/* deno-fmt-ignore */
+@catppuccin: {
+  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
+  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
+  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
+  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
+};
