@@ -20,25 +20,27 @@
      Use the below example CSS to start if the website you are theming doesn't have a light/dark mode toggle.
      For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/brave-search/catppuccin.user.css#L16-L29.
   */
-    /* System AUTO: only when FB hasn't set a theme class/attr */
-    @media (prefers-color-scheme: light) {
-      :root:not(.__fb-dark-mode):not([data-theme="dark"]),
-      html:not(.__fb-dark-mode):not([data-theme="dark"]),
-      body:not(.__fb-dark-mode):not([data-theme="dark"]),
-      #facebook:not(.__fb-dark-mode):not([data-theme="dark"]),
-      :root.x73z65k:not(.__fb-dark-mode) {  /* FB's hashed root when on auto */
-        #catppuccin(@lightFlavor);
-      }
+  /* ===== System AUTO: only when FB hasn't set a theme class/attr ===== */
+  @media (prefers-color-scheme: light) {
+    :root:not(.__fb-dark-mode):not([data-theme="dark"]),
+    html:not(.__fb-dark-mode):not([data-theme="dark"]),
+    body:not(.__fb-dark-mode):not([data-theme="dark"]),
+    #facebook:not(.__fb-dark-mode):not([data-theme="dark"]),
+    :root.x73z65k:not(.__fb-dark-mode),
+    .x73z65k:not(.__fb-dark-mode) {
+      #catppuccin(@lightFlavor);
     }
-    @media (prefers-color-scheme: dark) {
-      :root:not(.__fb-light-mode):not([data-theme="light"]),
-      html:not(.__fb-light-mode):not([data-theme="light"]),
-      body:not(.__fb-light-mode):not([data-theme="light"]),
-      #facebook:not(.__fb-light-mode):not([data-theme="light"]),
-      :root.x73z65k:not(.__fb-light-mode) { /* FB's hashed root when on auto */
-        #catppuccin(@darkFlavor);
-      }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not(.__fb-light-mode):not([data-theme="light"]),
+    html:not(.__fb-light-mode):not([data-theme="light"]),
+    body:not(.__fb-light-mode):not([data-theme="light"]),
+    #facebook:not(.__fb-light-mode):not([data-theme="light"]),
+    :root.x73z65k:not(.__fb-light-mode),
+    .x73z65k:not(.__fb-light-mode) {
+      #catppuccin(@darkFlavor);
     }
+  }
 
   /* If the website you are theming *does* have a light/dark mode toggle,
      you can conditionally enable light/dark flavors by targeting whatever
@@ -49,23 +51,24 @@
      For an actual example of this, see https://github.com/catppuccin/userstyles/blob/39288b593278e5efa48007d5fc001292cf910672/styles/youtube/catppuccin.user.css#L21-L30.
   */
     
-    :root.__fb-light-mode,
-    html.__fb-light-mode,
-    body.__fb-light-mode,
-    #facebook.__fb-light-mode { #catppuccin(@lightFlavor); }
+  /* ===== Site toggle support (classes/attrs) ===== */
+  :root.__fb-light-mode,
+  html.__fb-light-mode,
+  body.__fb-light-mode,
+  #facebook.__fb-light-mode { #catppuccin(@lightFlavor); }
 
-    :root.__fb-dark-mode,
-    html.__fb-dark-mode,
-    body.__fb-dark-mode,
-    #facebook.__fb-dark-mode { #catppuccin(@darkFlavor); }
+  :root.__fb-dark-mode,
+  html.__fb-dark-mode,
+  body.__fb-dark-mode,
+  #facebook.__fb-dark-mode { #catppuccin(@darkFlavor); }
 
-    :root[data-theme="light"],
-    html[data-theme="light"],
-    body[data-theme="light"] { #catppuccin(@lightFlavor); }
+  :root[data-theme="light"],
+  html[data-theme="light"],
+  body[data-theme="light"] { #catppuccin(@lightFlavor); }
 
-    :root[data-theme="dark"],
-    html[data-theme="dark"],
-    body[data-theme="dark"] { #catppuccin(@darkFlavor); }
+  :root[data-theme="dark"],
+  html[data-theme="dark"],
+  body[data-theme="dark"] { #catppuccin(@darkFlavor); }
 
   #catppuccin(@flavor) {
     @rosewater: @catppuccin[@@flavor][@rosewater];
@@ -110,23 +113,15 @@
     }
 
     /* Start styling your website here: */
-    html, body, #facebook { 
-      background: var(--surface-background) !important; 
-      color: var(--primary-text) !important;
-    }
+    html, body, #facebook { background: var(--surface-background) !important; color: var(--primary-text) !important; }
       
     &,
-    :root,
-    html,
-    body,
-    #facebook,
-    :root.__fb-light-mode,
-    :root.__fb-dark-mode,
-    .__fb-light-mode,
-    .__fb-dark-mode,
-    :root.__fb-light-mode:root,
-    :root.__fb-dark-mode:root {
-      /* Backgrounds */
+    :root, html, body, #facebook,
+    :root.__fb-light-mode, :root.__fb-dark-mode,
+    .__fb-light-mode, .__fb-dark-mode,
+    :root.__fb-light-mode:root, :root.__fb-dark-mode:root {
+
+      /* Surfaces */
       --surface-background: @base !important;
       --card-background: @mantle !important;
       --card-background-flat: @surface0 !important;
@@ -134,7 +129,6 @@
       --popover-card-background: var(--card-background) !important;
       --comment-background: @surface0 !important;
       --comment-footer-background: @surface0 !important;
-      --background-deemphasized: fade(@text, 10%) !important;
       --wash: @surface0 !important;
       --web-wash: @crust !important;
       --nav-bar-background: @base !important;
@@ -150,7 +144,7 @@
       --secondary-icon: @overlay1 !important;
       --disabled-icon: @overlay0 !important;
 
-      /* Dividers / lines / inputs */
+      /* Dividers / inputs */
       --divider: @surface1 !important;
       --divider-on-color: @surface2 !important;
       --comment-threading-lines: @surface1 !important;
@@ -163,10 +157,9 @@
       --input-label-color-inside: @subtext0 !important;
       --input-label-color-disabled: @overlay0 !important;
 
-      /* Accent / links / focus / rings */
+      /* Accent / links / focus */
       --accent: @accent !important;
       --blue-link: @accent !important;
-      --toast-text-link: @accent !important;
       --focus-ring-blue: @accent !important;
       --primary-web-focus-indicator: @accent !important;
       --text-highlight: fade(@accent, 25%) !important;
@@ -184,9 +177,9 @@
       --primary-deemphasized-button-icon: @accent !important;
       --secondary-button-background: fade(@text, 10%) !important;
       --secondary-button-text: @text !important;
-      --secondary-button-background-floating: @surface1 !important;
+      --secondary-button-background-floating: @overlay1 !important;
 
-      /* States / badges / notif */
+      /* States / badges */
       --positive: @green !important;
       --positive-background: fade(@green, 18%) !important;
       --positive-deemphasized: fade(@green, 16%) !important;
@@ -204,14 +197,24 @@
       --reaction-sorry: @yellow !important;
       --reaction-support: @yellow !important;
 
-      /* Stories (rings + on-media text tokens) */
+      /* Stories / on-media text */
       --story-unseen: @accent !important;
       --story-seen: @overlay1 !important;
+      --primary-text-on-media: #fff !important;
+      --secondary-text-on-media: fade(#fff, 88%) !important;
+      --placeholder-text-on-media: fade(#fff, 60%) !important;
+      --primary-icon-on-media: #fff !important;
+      --link-on-media: #fff !important;
+      --filter-blue-link-icon: invert(100%) !important;
 
-      /* Media / hover */
+      /* Hovers / overlays */
+      --background-deemphasized: fade(@text, 10%) !important;
       --media-hover: fade(@text, 15%) !important;
       --media-pressed: fade(@text, 35%) !important;
       --non-media-pressed: fade(@text, 15%) !important;
+      --media-hovered: fade(@text, 15%) !important;
+      --hover-overlay: fade(@text, 12%) !important;
+      --press-overlay: fade(@text, 20%) !important;
       --overlay-on-media: if(@flavor = latte, fade(#000, 68%), fade(#000, 82%)) !important;
 
       /* Scrollbar */
@@ -221,19 +224,20 @@
       --fb-logo: @accent !important;
       --fb-wordmark: @accent !important;
 
-      /* Ratings / misc */
+      /* Misc */
       --rating-star-active: @peach !important;
       --placeholder-icon: @overlay1 !important;
       --placeholder-image: @overlay1 !important;
 
-      /* HSLa components for inputs */
+      /* HSLa components */
       --accent-h: hue(@accent) !important;
       --accent-s: saturation(@accent) !important;
       --accent-l: lightness(@accent) !important;
 
-      /* Toasters / tooltip / banners / attachments */
+      /* Toasts / banners / tooltips */
       --toast-background: @mantle !important;
       --toast-text: @text !important;
+      --toast-text-link: @accent !important;
       --tooltip-background: fade(@mantle, 90%) !important;
       --hero-banner-background: @mantle !important;
       --attachment-footer-background: @surface0 !important;
@@ -242,162 +246,155 @@
       --border-focused: @overlay1 !important;
       --popover-border-color: transparent !important;
 
-      /* Progress rings (neutral & on-media) */
+      /* Progress (neutral & on-media) */
       --progress-ring-neutral-background: fade(@text, 20%) !important;
       --progress-ring-neutral-foreground: @text !important;
-      --progress-ring-on-media-background: fade(@base, 20%) !important;
-      --progress-ring-on-media-foreground: @text !important;
-
-      /* Generic overlay tints */
-      --hover-overlay: fade(@text, 12%) !important;
-      --press-overlay: fade(@text, 20%) !important;
-
-      /* Primary button pressed states */
-      --primary-button-pressed: mix(@accent, @text, 35%) !important;
-      --primary-deemphasized-button-pressed: fade(@accent, 24%) !important;
-      --primary-deemphasized-button-pressed-overlay: fade(@accent, 15%) !important;
-
-      /* On-media text/icons (Stories, lightboxes) */
-      --primary-text-on-media: #fff !important;
-      --secondary-text-on-media: fade(#fff, 88%) !important;
-      --placeholder-text-on-media: fade(#fff, 60%) !important;
-      --primary-icon-on-media: #fff !important;
-      --link-on-media: #fff !important;                 /* was @accent */
-      --filter-blue-link-icon: invert(100%) !important;   /* icons beside links go white */
-
-      /* Selection, loaders, tooltips */
-      --hosted-view-selected-state: fade(@accent, 12%) !important;
+      --progress-ring-on-media-background: fade(#fff, 20%) !important;
       --progress-ring-on-media-foreground: #fff !important;
 
       /* Gradients */
-      --nav-bar-background-gradient: linear-gradient(
-        to top,
-        @base,
-        fade(@base, 90%),
-        fade(@base, 70%),
-        fade(@base, 40%),
-        fade(@base, 0%)
-      ) !important;
-      --nav-bar-background-gradient-wash: linear-gradient(
-        to top,
-        @mantle,
-        fade(@mantle, 90%),
-        fade(@mantle, 70%),
-        fade(@mantle, 40%),
-        fade(@mantle, 0%)
-      ) !important;
+      --nav-bar-background-gradient: linear-gradient(to top, @base, fade(@base, 90%), fade(@base, 70%), fade(@base, 40%), fade(@base, 0%)) !important;
+      --nav-bar-background-gradient-wash: linear-gradient(to top, @mantle, fade(@mantle, 90%), fade(@mantle, 70%), fade(@mantle, 40%), fade(@mantle, 0%)) !important;
 
       /* Messenger extras */
-      --mwp-header-button-color: @accent !important;
+      --mwp-header-button-color: fade(@accent, 60%) !important;
       --mwp-message-row-background: @mantle !important;
+
+      /* ===== FB legacy/FDS tokens aligned to theme ===== */
+      --base-blue: @accent !important;
+      --blue-link: @accent !important;
+      --text-badge-info-background: @accent !important;
+      --switch-active: @accent !important;
+      --badge-background-color-blue: @accent !important;
+      --primary-web-focus-indicator: @accent !important;
+      --focus-ring-blue: @accent !important;
+
+      /* FDS blue ramp */
+      --fds-blue-60: @accent !important;
+      --fds-blue-40: mix(@accent, @base, 50%) !important;
+      --fds-blue-30: mix(@accent, @base, 70%) !important;
+      --fds-blue-70: mix(@accent, @text, 60%) !important;
+      --fds-blue-80: mix(@accent, @text, 75%) !important;
+      --fds-blue-05: mix(@accent, @base, 90%) !important;
+
+      /* Greys → Catppuccin neutrals */
+      --fds-gray-00: @base !important;
+      --fds-gray-05: @surface0 !important;
+      --fds-gray-10: @surface1 !important;
+      --fds-gray-20: @surface1 !important;
+      --fds-gray-25: @surface1 !important;
+      --fds-gray-30: @surface2 !important;
+      --fds-gray-45: @overlay1 !important;
+      --fds-gray-70: @overlay2 !important;
+      --fds-gray-80: @subtext0 !important;
+      --fds-gray-90: @subtext1 !important;
+      --fds-gray-100: @text !important;
+
+      /* Primary tokens / comments */
+      --fds-primary-text: @text !important;
+      --fds-primary-icon: @text !important;
+      --fds-button-text: @text !important;
+      --fds-comment-background: @surface0 !important;
+
+      /* Accents & status */
+      --fds-green-55: @green !important;
+      --fds-green-65: mix(@green, @base, 65%) !important;
+      --fds-red-55: @red !important;
+      --fds-yellow-20: @yellow !important;
+      --fds-highlight: @accent !important;
+      --fds-highlight-cell-background: fade(@accent, 20%) !important;
+
+      /* Placeholders / disabled */
+      --disabled-text: @overlay0 !important;
+      --disabled-icon: @overlay0 !important;
+      --disabled-button-text: @overlay0 !important;
+      --disabled-button-background: @surface1 !important;
+      --placeholder-text: @overlay1 !important;
+      --placeholder-icon: @overlay1 !important;
+
+      /* Inputs (FB mapped) */
+      --input-background: @mantle !important;
+      --input-background-hover: @mantle !important;
+      --input-background-disabled: @surface0 !important;
+      --input-border-color: @surface1 !important;
+      --input-border-color-hover: @overlay1 !important;
+      --input-label-color-highlighted: @accent !important;
+      --input-label-color-inside: @subtext0 !important;
+      --input-label-color-disabled: @overlay0 !important;
+
+      /* Chat bubbles */
+      --chat-incoming-message-bubble-background-color: @surface0 !important;
+      --chat-outgoing-message-background-gradient: none !important; /* kills the scroll tint */
+      --chat-outgoing-message-bubble-background-color: @accent !important; /* actual bubble fill */
+      --chat-composer-button-color: fade(@accent, 60%) !important;
+      --chat-composer-caret-color: @accent !important;
+      --chat-composer-input-background-color: var(--comment-background) !important;
+      --chat-edit-message-overlay-color: var(--surface-background) !important;
+      --chat-replied-message-background-color: fade(@accent, 12%) !important;
+
+      /* Pills & reactions */
+      --reaction-pill-multireact-selected-color: mix(@mauve, @base, 88%) !important;
+
+      /* MW Platform extras */
+      --mwp-primary-theme-color: if(@flavor = latte, @crust, #fff) !important;
+      --mwp-reply-background-color: var(--comment-footer-background) !important;
+      --mwp-message-list-actions-gap: 0px !important;
+      --mwp-message-list-actions-width: calc(84px + 2 * var(--mwp-message-list-actions-gap)) !important;
+      --mwp-message-list-profile-start-padding: 8px !important;
+
+      /* Data viz (soft mapping) */
+      --dataviz-blue-primary: @accent !important;
+      --dataviz-blue-secondary: mix(@accent, @text, 75%) !important;
+      --dataviz-orange: @peach !important;
+      --dataviz-primary-1: @teal !important;
     }
 
-    /* ===== System-auto shims (FB drops the theme classes and uses hashed vars) ===== */
+    /* ===== AUTO Theme ===== */
     @media (prefers-color-scheme: light) {
       :root, .x73z65k {
-          
-        /* Surfaces / text */
-        --xlq2kmo: @base !important;        /* was #FFFFFF */
-        --x1h50e4l: @text !important;       /* was #080809 */
-        --xiw6jcg: @overlay2 !important;    /* was #323436 */
-        --xe31vrr: @surface1 !important;    /* was #E2E5E9 (borders) */
-        --x15p7unm: @surface0 !important;   /* was #F0F0F0 (inputs) */
+        --xlq2kmo:@base !important; --xmqvuy9:@base !important; --x149dqt:@base !important;
+        --x1ihezxe:@base !important; --x1p42rpq:@base !important; --x1xj48ei:@base !important;
+        --x1c0tkqy:@base !important; --x12qb30c:@base !important; --x1n7ggmb:@surface0 !important;
+        --x1u1kd6g:@surface0 !important; --xe31vrr:@surface1 !important; --x1dxmqov:@surface1 !important;
 
-         /* more surfaces */
-        --xmqvuy9: @base !important;     /* was #FFFFFF */
-        --x149dqt: @base !important;     /* was #FFFFFF */
-        --x1ihezxe: @base !important;    /* was #FFFFFF */
-        --x1p42rpq: @base !important;    /* was #FFFFFF */
+        --x1h50e4l:@text !important; --x11psvdz:@overlay1 !important; --x1wb1v04:@text !important;
+        --x1rhfrof:@text !important; --x1a4bunx:@text !important; --x1sh5t3h:@text !important;
+        --x125vgxg:@text !important; --xbdfujg:@text !important; --x15bmxmr:@text !important;
 
-        /* more greys */
-        --x1n7ggmb: @surface0 !important; /* was #F0F0F0 */
-        --x1u1kd6g: @surface0 !important; /* was #F0F0F0 */
-
-        /* extra text tokens that were hard-coded black */
-        --x1rhfrof: @text !important;    /* was #000000 */
-        --x1a4bunx: @text !important;    /* was #000000 */
-        /* Brand -> accent */
-        --x215qz1: @accent !important;      /* brand blue */
-        --xdvz3pk: @accent !important;
-
-        /* Status colors */
-        --xqt9fth: @red !important;                     /* error */
-        --xkg1yw: fade(@red, 20%) !important;           /* error bg */
-        --x17h09wl: @overlay2 !important;               /* slate-ish */
-
-        /* Misc that can affect visibility */
-        --x1h50e4l: @text !important;        /* (dup by design to win cascade) */
-        --x11psvdz: @overlay1 !important;    /* placeholder text */
-        --x1wb1v04: @text !important;        /* another primary text */
-        --x1pwsir7: @surface1 !important;    /* alt border */
-        --x1xj48ei: @base !important;        /* common surface/card bg */
-        --x1c0tkqy: @base !important;        /* alt card bg */
-        --x12qb30c: @base !important;        /* another surface token */
+        --x215qz1:@accent !important; --xdvz3pk:@accent !important;
+        --buttonSendBackgroundColor:@accent !important;
+        --bubbleContentUserBackgroundColor:@accent !important;
       }
     }
     @media (prefers-color-scheme: dark) {
       :root, .x73z65k {
-        /* Surfaces / text */
-        --xlq2kmo: @mantle !important;      /* main cards */
-        --x1h50e4l: @text !important;       /* primary text */
-        --xkvygis: @overlay1 !important;    /* secondary text */
-        --xe31vrr: @surface1 !important;    /* borders */
-        --x15p7unm: @surface0 !important;   /* inputs */
-        
-        /* more surfaces */
-        --xmqvuy9: @mantle !important;
-        --x149dqt: @mantle !important;
-        --x1ihezxe: @mantle !important;
-        --x1p42rpq: @mantle !important;
+        --xlq2kmo:@mantle !important; --xmqvuy9:@mantle !important; --x149dqt:@mantle !important;
+        --x1ihezxe:@mantle !important; --x1p42rpq:@mantle !important; --x1xj48ei:@mantle !important;
+        --x1c0tkqy:@mantle !important; --x12qb30c:@mantle !important; --xe31vrr:@surface1 !important;
+        --x1dxmqov:@surface1 !important; --x1n7ggmb:@surface0 !important; --x1u1kd6g:@surface0 !important;
 
-        /* more greys */
-        --x1n7ggmb: @surface0 !important;
-        --x1u1kd6g: @surface0 !important;
+        --x1h50e4l:@text !important; --xkvygis:@overlay1 !important; --x11psvdz:@overlay1 !important;
+        --x1wb1v04:@text !important; --x1rhfrof:@text !important; --x1a4bunx:@text !important;
+        --x1sh5t3h:@text !important; --x125vgxg:@text !important; --xbdfujg:@text !important; --x15bmxmr:@text !important;
 
-        /* extra text tokens */
-        --x1rhfrof: @text !important;
-        --x1a4bunx: @text !important;
-          
-        /* Brand -> accent */
-        --x215qz1: @accent !important;
-        --xdvz3pk: @accent !important;
+        --x215qz1:@accent !important; --xdvz3pk:@accent !important;
+        --buttonSendBackgroundColor:@accent !important;
+        --bubbleContentUserBackgroundColor:@accent !important;
 
-        /* Status colors */
-        --xqt9fth: @red !important;                     /* error */
-        --xkg1yw: fade(@red, 20%) !important;           /* error bg */
-
-        /* Bubbles / buttons (Messenger) */
-        --bubbleContentUserBackgroundColor: @accent !important;
-        --buttonSendBackgroundColor: @accent !important;
-
-        /* Placeholders / misc */
-        --x11psvdz: @overlay1 !important;   /* placeholder */
-        --x1wb1v04: @text !important;       /* text variant */
-        --x1pwsir7: @surface1 !important;   /* alt border */
-        --x1xj48ei: @mantle !important;     /* common surface/card bg */
-        --x1c0tkqy: @mantle !important;     /* alt card bg */
-        --x12qb30c: @mantle !important;     /* another surface token */
         --secondary-button-background-on-dark: fade(#fff, 40%) !important;
-
       }
     }
+  
 
-    /* ===== Forced light / dark (manual toggle beats system) ===== */
-    :root.__fb-light-mode,
-    .__fb-light-mode,
-    :root[data-theme="light"] {
-      /* usually base already matches Latte; keep minimal unless you need extra tweaks */
-    }
+  /* ===== Manual override ===== */
+  :root.__fb-light-mode, .__fb-light-mode, :root[data-theme="light"] { }
+  :root.__fb-dark-mode,  .__fb-dark-mode,  :root[data-theme="dark"] {
+    --primary-button-background: @accent !important;
+    --blue-link: @accent !important;
+    --fb-logo: @accent !important;
+    --fb-wordmark: @accent !important;
+  }
 
-    :root.__fb-dark-mode,
-    .__fb-dark-mode,
-    :root[data-theme="dark"] {
-      /* ensure key accents survive class toggling */
-      --primary-button-background: @accent !important;
-      --blue-link: @accent !important;
-      --fb-logo: @accent !important;
-      --fb-wordmark: @accent !important;
-    }
 
     /* If you need to specify an overwrite specific to a flavor
      *  (e.g. only when the flavor is set to latte), you can use a `when` guard clause. */
