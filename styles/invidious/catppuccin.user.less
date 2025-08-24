@@ -17,6 +17,8 @@
 @var checkbox styleVideoPlayer "Style Video Player" 1
 ==/UserStyle== */
 
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
 /**
  * kept up-to-date with
  * `curl https://api.invidious.io/instances.json | jq '.[] | select(.[1].type=="https") | .[0]'`
@@ -71,34 +73,10 @@
   }
 
   #catppuccin(@flavor) {
-    @rosewater: @catppuccin[@@flavor][@rosewater];
-    @flamingo: @catppuccin[@@flavor][@flamingo];
-    @pink: @catppuccin[@@flavor][@pink];
-    @mauve: @catppuccin[@@flavor][@mauve];
-    @red: @catppuccin[@@flavor][@red];
-    @maroon: @catppuccin[@@flavor][@maroon];
-    @peach: @catppuccin[@@flavor][@peach];
-    @yellow: @catppuccin[@@flavor][@yellow];
-    @green: @catppuccin[@@flavor][@green];
-    @teal: @catppuccin[@@flavor][@teal];
-    @sky: @catppuccin[@@flavor][@sky];
-    @sapphire: @catppuccin[@@flavor][@sapphire];
-    @blue: @catppuccin[@@flavor][@blue];
-    @lavender: @catppuccin[@@flavor][@lavender];
-    @text: @catppuccin[@@flavor][@text];
-    @subtext1: @catppuccin[@@flavor][@subtext1];
-    @subtext0: @catppuccin[@@flavor][@subtext0];
-    @overlay2: @catppuccin[@@flavor][@overlay2];
-    @overlay1: @catppuccin[@@flavor][@overlay1];
-    @overlay0: @catppuccin[@@flavor][@overlay0];
-    @surface2: @catppuccin[@@flavor][@surface2];
-    @surface1: @catppuccin[@@flavor][@surface1];
-    @surface0: @catppuccin[@@flavor][@surface0];
-    @base: @catppuccin[@@flavor][@base];
-    @mantle: @catppuccin[@@flavor][@mantle];
-    @crust: @catppuccin[@@flavor][@crust];
-    @accent: @catppuccin[@@flavor][@@accentColor];
+    #lib.palette();
+    #lib.defaults();
 
+    // TODO: Can we remove lightenOrDarken in favor of shades/tints? Should we add it to the shared lib for now?
     #lightenOrDarken(@color, @value) {
       @result: if(
         @flavor = latte,
@@ -109,19 +87,6 @@
 
     @link-color: @accent;
     @link-hover: #lightenOrDarken(@accent, 5%)[@result];
-
-    color-scheme: if(@flavor = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent, 30%);
-    }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
 
     background-color: @base !important;
     color: @text !important;
