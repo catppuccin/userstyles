@@ -169,6 +169,7 @@ To get started contributing to catppuccin/userstyles, see [Contributing](docs/CO
 - [Rentry.co](styles/rentry.co)
 - [tldraw](styles/tldraw)
 - [Vikunja](styles/vikunja)
+- [Zen Browser Docs](styles/zen-browser-docs)
 
 </details>
 <details open>
