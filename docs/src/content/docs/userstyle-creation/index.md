@@ -13,7 +13,7 @@ To create a userstyle, follow the instructions below. If you are unsure how to t
 1. Fork the `catppuccin/userstyles` repository.
 2. Create a new branch under the name `feat/<name-of-website>`, (e.g. `feat/nixos-search` instead of NixOS Search).
 3. Create a new folder `styles/<name-of-website>`. The name must be `lower-kebab-case`.
-4. Copy the contents of the [`template`](../template/) folder into `styles/<name-of-website>`.
+4. Copy the contents of the [`template`](https://github.com/catppuccin/userstyles/tree/main/template) folder into `styles/<name-of-website>`.
    - **The template uses [LESS](https://lesscss.org/#overview), a preprocessor for Stylus. Please do not change this as we will only accept userstyles based on the template.**
 5. [Write the userstyle](/userstyle-creation/tutorials/writing-a-userstyle/).
 6. [Edit the `userstyles.yml` file](/guides/userstylesyml/) and enter the details of your port.

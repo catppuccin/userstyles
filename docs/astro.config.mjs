@@ -84,7 +84,7 @@ export default defineConfig({
       plugins: [
         catppuccin(),
         starlightLinksValidator({
-          errorOnRelativeLinks: false,
+          exclude: ["styles/*"],
         }),
         starlightGitHubAlerts(),
         starlightImageZoom(),
