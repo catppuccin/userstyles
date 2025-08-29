@@ -1,6 +1,6 @@
 ---
 title: Using hot reloading in Stylus
-description: Tips for setting up hot reloading.
+description: See changes from your IDE in real time with Stylus's "Live reloading" feature.
 sidebar: 
   order: 2
   label: See changes in real time (hot reloading)
