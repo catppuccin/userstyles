@@ -1,5 +1,5 @@
 ---
-title: See changes in real time
+title: Using hot reloading in Stylus
 description: Tips for setting up hot reloading.
 sidebar: 
   order: 2
