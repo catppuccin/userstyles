@@ -1,6 +1,6 @@
 ---
 title: FAQ
-description: Frequently Asked Questions about Catppuccin Userstyle
+description: Answers to frequently asked questions about Catppuccin Userstyles.
 sidebar: 
   order: 3
 ---
