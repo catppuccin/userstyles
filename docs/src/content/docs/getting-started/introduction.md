@@ -7,7 +7,7 @@ sidebar:
 
 A curated collection of soothing pastel themes for your favorite websites and web applications.
 
-![Catppuccin Preview on some popular sites](../../../assets/preview.jpg)
+![Catppuccin Preview on some popular sites](../../../assets/preview.webp)
 
 ## Getting started
 

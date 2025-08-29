@@ -224,6 +224,6 @@ Combining all of the previous steps, we have a working userstyle!
 
 | Original                                 | Themed                                 |
 | ---------------------------------------- | -------------------------------------- |
-| ![](../../../../assets/example.org-original.jpg) | ![](../../../../assets/example.org-themed.jpg) |
+| ![](../../../../assets/example.org-original.webp) | ![](../../../../assets/example.org-themed.webp) |
 
 Complete the rest of the steps in [Userstyle Creation](../userstyle-creation), and then submit your PR!
