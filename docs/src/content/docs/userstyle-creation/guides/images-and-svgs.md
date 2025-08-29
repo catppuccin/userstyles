@@ -2,7 +2,7 @@
 title: Images and SVGs
 description: Guide for how to theme images and SVGs.
 sidebar: 
-  order: 1
+  order: 2
 ---
 
 ## SVGs as `background-image`s

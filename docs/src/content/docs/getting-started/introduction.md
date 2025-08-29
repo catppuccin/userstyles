@@ -11,9 +11,9 @@ A curated collection of soothing pastel themes for your favorite websites and we
 
 ## Getting started
 
-To get started using the catppuccin/userstyles collection, see [Usage](docs/USAGE.md).
+To get started using the catppuccin/userstyles collection, see [Usage](/getting-started/usage/).
 
-To get started contributing to catppuccin/userstyles, see [Contributing](docs/CONTRIBUTING.md) and [Userstyle Creation](docs/userstyle-creation.md).
+To get started contributing to catppuccin/userstyles, see [Contributing](/guides/contributing/) and [Userstyle Creation](/userstyle-creation/).
 
 ## 🖌 Userstyles
 

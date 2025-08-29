@@ -2,7 +2,7 @@
 title: Syntax Highlighting
 description: Guide for how to theme syntax highlighting.
 sidebar: 
-  order: 2
+  order: 3
 ---
 
 If a website uses [highlight.js](https://highlightjs.org/), [Pygments](https://pygments.org/), or [Prism.js](https://prismjs.com/) for syntax highlighting, follow the steps for the syntax higlighter in use below. First though, you'll need to add the following lines beneath the color definition section (`@<color>: @catppuccin[@@lookup][@<color>];`) in the `#catppuccin` mixin:
