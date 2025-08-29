@@ -68,6 +68,19 @@
     background-color: @base !important;
     color: @text !important;
 
+    // Common Mixins
+    .accentA() {
+      color: @accent !important;
+      &:hover {
+        color: lighten(@accent, 5%) !important;
+      }
+    }
+    .accentA-selector() {
+      a:not(.button, .ratingStars, .ratingPercentage) {
+        .accentA();
+      }
+    }
+
     // General Elements
     body {
       .subTitle {
@@ -76,97 +89,129 @@
           color: @text;
         }
       }
-      .button {
-        background-color: @accent !important;
-        border-color: @accent !important;
-        color: @base;
-        svg {
-          fill: @base !important;
-        }
-      }
-      .button:not(.button--disabled):not(:disabled):hover {
-        background-color: lighten(@accent, 5%) !important;
-        border-color: lighten(@accent, 5%) !important;
-        color: @base !important;
-      }
 
-      .radio + label::before {
-        border-color: @surface0 !important;
-        background-color: @crust !important;
-      }
-      .radio:checked + label::before {
-        border-color: @accent !important;
-        background-color: @base !important;
-      }
-      .checkbox + label::before {
-        background-color: @crust;
-        border-color: transparent; 
-      }
-      .checkbox:checked + label::before {
-        background-color: @accent;
-        border-color: @accent;
-        @svg: escape(
-          "<svg viewBox='0 -0.5 25 25' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M5.5 12.5L10.167 17L19.5 8' stroke='@{base}' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>"
-        );
-        background-image: url("data:image/svg+xml,@{svg}") !important;
-      }
-      .filter_slider--wrapper {
-        .ui-slider {
-          background-color: @surface0;
-        }
-        .ui-slider-range, .ui-slider-handle {
-          background-color: @accent;
-        }
-        a {
-          color: @accent;
-          &:hover {
-            color: lighten(@accent, 5%);
-          }
-        }
-        .labelbox-input {
+      // Checkboxes, Buttons, Input and Select
+      & {
+        input {
+          background-color: @mantle !important;
+          border-color: @mantle !important;
           color: @text;
+          box-shadow: none !important;
         }
-        input[type="text"] {
-          background-color: @crust;
-          color: @text;
+        select {
+          background-color: @mantle;
+          color: @text !important;
+          @svg: escape(
+            "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 18 18' enable-background='new 0 0 18 18' xml:space='preserve'><polygon points='9,13.6 2.2,6.8 3.8,5.2 9,10.4 14.2,5.2 15.8,6.8 ' fill='@{text}'/></svg>"
+          );
+          background-image: url("data:image/svg+xml,@{svg}");
+          box-shadow: none !important;
+        }
+        .text-input {
+          color: @text !important;
+          background-color: @mantle !important;
+          border-color: @mantle !important;
           &:hover, &:focus {
             box-shadow:
               inset 0px 1px 2px 0px @accent,
               inset 0px 0px 0px 1px @accent;
           }
         }
+        .button {
+          background-color: @accent !important;
+          border-color: @accent !important;
+          color: @base;
+          svg {
+            fill: @base !important;
+          }
+        }
+        .button:not(.button--disabled):not(:disabled):hover {
+          background-color: lighten(@accent, 5%) !important;
+          border-color: lighten(@accent, 5%) !important;
+          color: @base !important;
+        }
+
+        .radio + label::before {
+          border-color: @surface0 !important;
+          background-color: @crust !important;
+        }
+        .radio:checked + label::before {
+          border-color: @accent !important;
+          background-color: @base !important;
+        }
+        .checkbox + label::before {
+          background-color: @crust;
+          border-color: transparent;
+        }
+        .checkbox:checked + label::before {
+          background-color: @accent;
+          border-color: @accent;
+          @svg: escape(
+            "<svg viewBox='0 -0.5 25 25' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M5.5 12.5L10.167 17L19.5 8' stroke='@{base}' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>"
+          );
+          background-image: url("data:image/svg+xml,@{svg}") !important;
+        }
+        .filter_slider--wrapper {
+          .ui-slider {
+            background-color: @surface0;
+          }
+          .ui-slider-range, .ui-slider-handle {
+            background-color: @accent;
+          }
+          a {
+            color: @accent;
+            &:hover {
+              color: lighten(@accent, 5%);
+            }
+          }
+          .labelbox-input {
+            color: @text;
+          }
+          input[type="text"] {
+            background-color: @crust;
+            color: @text;
+            &:hover, &:focus {
+              box-shadow:
+                inset 0px 1px 2px 0px @accent,
+                inset 0px 0px 0px 1px @accent;
+            }
+          }
+        }
+        .filter-selector {
+          background-color: @mantle !important;
+        }
       }
-      .filter-selector {
-        background-color: @mantle !important;
+
+      // Ratings
+      & {
+        .ratingBar .ratingBar__track {
+          background-color: @crust !important;
+          .ratingBar__bar {
+            background-color: @yellow !important;
+            &:hover {
+              background-color: lighten(@yellow, 5%) !important;
+            }
+          }
+        }
+        .ratingStars, .ratingPercentage {
+          color: @yellow !important;
+          &:hover {
+            color: lighten(@yellow, 5%) !important;
+          }
+        }
+        .icon.shape-star-full, .icon.shape-star-half {
+          fill: @yellow !important;
+        }
+        .icon.shape-star-empty {
+          fill: @surface0 !important;
+        }
       }
 
       .moreless {
-        color: @accent !important;
-        &:hover {
-          color: lighten(@accent, 5%) !important;
-        }
+        .accentA();
         svg {
           fill: @accent;
         }
-      }
-      .icon.shape-star-full, .icon.shape-star-half {
-        fill: @yellow !important;
-      }
-      .icon.shape-star-empty {
-        fill: @surface0 !important;
-      }
-      .text-input {
-        color: @text !important;
-        background-color: @mantle !important;
-        border-color: @mantle !important;
-        &:hover, &:focus {
-          box-shadow:
-            inset 0px 1px 2px 0px @accent,
-            inset 0px 0px 0px 1px @accent;
-        }
-      }
-      .td__image {
-        border-color: transparent !important;
       }
       .tooltipText {
         color: @base;
@@ -175,6 +220,8 @@
           border-color: @accent transparent transparent transparent;
         }
       }
+
+      // Page Titles
       .wrapper__pageTitle {
         background-color: @mantle !important;
         .pageTitle {
@@ -198,7 +245,7 @@
         ul {
           color: @text;
         }
-          a {
+        a {
           color: @accent;
         }
         .pagination--current {
@@ -210,26 +257,10 @@
         border-color: @surface0;
       }
 
-     input {
-        background-color: @mantle !important;
-        border-color: @mantle !important;
-        color: @text;
-        box-shadow: none !important;
-      }
-      select {
-        background-color: @mantle;
-        color: @text !important;
-        @svg: escape(
-          "<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 18 18' enable-background='new 0 0 18 18' xml:space='preserve'><polygon points='9,13.6 2.2,6.8 3.8,5.2 9,10.4 14.2,5.2 15.8,6.8 ' fill='@{text}'/></svg>"
-        );
-        background-image: url("data:image/svg+xml,@{svg}");
-        box-shadow: none !important;
-      }
-
       // Popup Windows
       .modal__container {
         background-color: @surface0;
-        
+
         select {
           background-color: @base !important;
         }
@@ -268,7 +299,72 @@
           }
         }
       }
+
+      // Build Cards
+      .logGroup__card_2023 {
+        &:hover {
+          h1 {
+            color: @accent;
+          }
+        }
+        background-color: @mantle;
+        h1, p, li {
+          color: @text;
+        }
+        svg {
+          fill: @text;
+        }
+        .accentA-selector();
+        .log__numbers {
+          border-color: @surface0;
+        }
+      }
+
+      // Tables
+      table {
+        p, td {
+          color: @text;
+        }
+        tr {
+          border-color: @surface0;
+        }
+        th {
+          color: @text;
+          border-color: @surface1;
+        }
+        .accentA-selector();
+        .td--empty::after {
+          background-color: @surface0;
+        }
+        .th--sorted {
+          border-color: @accent !important;
+          .sortArrow svg {
+            fill: @accent !important;
+          }
+        }
+        .th--sortable {
+          .sortArrow svg {
+            fill: @surface0;
+          }
+          &:hover {
+            border-color: @accent !important;
+            .sortArrow svg {
+              fill: @accent !important;
+            }
+          }
+        }
+        .td__promoNote span {
+          background-color: @yellow !important;
+          border-color: @yellow !important;
+          color: @base !important;
+          border-radius: 0.25rem;
+        }
+        .td__image {
+          border-color: transparent !important;
+        }
+      }
     }
+
     // === Header === //
     header {
       .navDesktop {
@@ -303,6 +399,7 @@
               fill: @accent !important;
             }
             background-color: @base;
+            color: @accent !important;
           }
         }
         .nav__categories--active {
@@ -312,6 +409,9 @@
         }
         .browseProducts {
           background-color: @base;
+          h2 {
+            color: @text;
+          }
           .browseProducts__block--group1 .list-unstyled {
             a:hover {
               box-shadow: inset 0px 0px 0px 2px @accent;
@@ -331,12 +431,7 @@
         color: @text;
         border-color: @surface0;
       }
-      a {
-        color: @accent;
-        &:hover {
-          color: lighten(@accent, 5%);
-        }
-      }
+      .accentA-selector();
     }
 
     // === Homepage === //
@@ -396,8 +491,8 @@
         }
         .logGroup__card_2023 {
           background-color: @surface0;
-          .log__author a {
-            color: @accent;
+          .log__author {
+            .accentA-selector();
           }
           h1 {
             color: @text;
@@ -520,11 +615,8 @@
         .td--empty::after {
           background-color: @surface0;
         }
-        .td__component a {
-          color: @accent !important;
-          &:hover {
-            color: lighten(@accent, 5%) !important;
-          }
+        .td__component {
+          .accentA-selector();
         }
         tr, th {
           border-color: @surface0 !important;
@@ -565,12 +657,7 @@
 
       #disclosure p {
         color: @text;
-        a {
-          color: @accent;
-          &:hover {
-            color: lighten(@accent, 5%) !important;
-          }
-        }
+        .accentA-selector();
       }
 
       #compatibility_notes {
@@ -744,7 +831,7 @@
       }
     }
 
-    // === Products === //
+    // === Products + Userbuilds === //
     #products, #userbuild-index {
       .wrapper__pageContent {
         background-color: @base;
@@ -766,12 +853,7 @@
             .list-unstyled {
               li {
                 color: @text;
-                a {
-                  color: @accent;
-                  &:hover {
-                    color: lighten(@accent, 5%);
-                  }
-                }
+                .accentA-selector();
               }
             }
           }
@@ -781,7 +863,7 @@
               fill: @text;
               &:after, &:before {
                 background-color: @text;
-              } 
+              }
             }
           }
           label {
@@ -824,12 +906,7 @@
           }
           .productList__actions {
             .productList__actions--left {
-              a {
-                color: @accent;
-                &:hover {
-                  color: lighten(@accent, 5%) !important;
-                }
-              }
+              .accentA-selector();
               .disabled {
                 color: @subtext0;
               }
@@ -844,59 +921,34 @@
               }
             }
           }
+        }
+      }
+    }
 
-          .productList__wrapper {
-            table {
-              p, td {
-                color: @text;
-              }
-              tr {
-                border-color: @surface0;
-              }
-              th {
-                border-color: @surface1;
-              }
-              .th--sorted {
-                border-color: @accent;
-                .sortArrow svg {
-                  fill: @accent;
-                }
-              }
-              .th--sortable:hover {
-                border-color: @accent;
-                .sortArrow svg {
-                  fill: @accent;
-                }
-              }
-            }
+    // === Product Page === //
+    #product-page {
+      .wrapper__pageTitle {
+        .breadcrumb a {
+          color: @subtext0;
+          &:hover {
+            color: @accent;
           }
-
-          .logGrid {
-            .logGroup__card_2023 {
-              background-color: @mantle;
-              h1, p, li {
-                color: @text;
-              }
-              svg {
-                fill: @text;
-              }
-              a {
-                color: @accent;
-              }
-              .log__numbers {
-                border-color: @surface0;
-              }
-            }
-            .logGroup__card_2023:hover {
-              h1 {
-                color: @accent;
-              }
-            }
+        }
+        div {
+          color: @subtext0;
+        }
+      }
+      .wrapper__pageContent {
+        background-color: @base;
+        .actionBoxGroup--product-2023 {
+          background-color: @surface0;
+          label, h6, li {
+            color: @text;
           }
         }
       }
     }
-  
+
     #search-results {
       .wrapper__pageContent {
         background-color: @base;
