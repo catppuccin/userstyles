@@ -224,6 +224,6 @@ Combining all of the previous steps, we have a working userstyle!
 
 | Original                                 | Themed                                 |
 | ---------------------------------------- | -------------------------------------- |
-| ![](../../../../assets/example.org-original.webp) | ![](../../../../assets/example.org-themed.webp) |
+| ![Screenshot of example.com](../../../../assets/example.org-original.webp) | ![Screenshot of example.com, split into four quarters with Catppuccin theming. The flavors Latte, Frappé, Macchiato and Mocha are displayed left to right.](../../../../assets/example.org-themed.webp) |
 
 Complete the rest of the steps in [Userstyle Creation](../userstyle-creation), and then submit your PR!
