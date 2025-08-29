@@ -1,6 +1,6 @@
 ---
 title: userstyles.yml
-description: Guide for how to add a new userstyle to the Catppuccin project.
+description: Guide for adding and removing userstyles and maintainers.
 sidebar: 
   order: 3
 ---
