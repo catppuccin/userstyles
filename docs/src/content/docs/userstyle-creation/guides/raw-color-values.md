@@ -1,5 +1,6 @@
 ---
 title: Raw color values
+description: Useful information about how to get raw color values.
 sidebar: 
   order: 3
 ---

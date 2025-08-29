@@ -1,5 +1,6 @@
 ---
 title: Images and SVGs
+description: Guide for how to theme images and SVGs.
 sidebar: 
   order: 1
 ---

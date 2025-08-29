@@ -1,5 +1,6 @@
 ---
 title: userstyles.yml
+description: Guide for how to add a new userstyle to the Catppuccin project.
 sidebar: 
   order: 3
 ---

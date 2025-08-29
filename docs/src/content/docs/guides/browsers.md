@@ -1,5 +1,6 @@
 ---
 title: Browsers
+description: Useful information about browser versions and common issues.
 sidebar: 
   order: 2
 ---

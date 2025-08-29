@@ -1,5 +1,6 @@
 ---
 title: Usage
+description: Guide for how to use the Catppuccin Userstyles.
 sidebar: 
   order: 2
 ---

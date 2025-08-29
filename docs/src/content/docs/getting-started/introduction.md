@@ -1,5 +1,6 @@
 ---
 title: Introduction
+description: Introduction to Catppuccin Userstyles.
 sidebar: 
   order: 1
 ---

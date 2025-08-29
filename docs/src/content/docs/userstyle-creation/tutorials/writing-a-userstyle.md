@@ -1,5 +1,6 @@
 ---
 title: Writing a userstyle
+description: Tutorial about writing a new userstyle
 sidebar: 
   order: 1
 ---
