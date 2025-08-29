@@ -1,6 +1,6 @@
 ---
 title: See changes in real time
-description: Reference to Stylus Wiki about real time changes (hot reloading).
+description: Tips for setting up hot reloading.
 sidebar: 
   order: 2
   label: See changes in real time (hot reloading)
