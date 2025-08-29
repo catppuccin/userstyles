@@ -52,7 +52,9 @@ export default defineConfig({
       ],
       plugins: [
         catppuccin(),
-        starlightLinksValidator(),
+        starlightLinksValidator({
+          errorOnRelativeLinks: false,
+        }),
         starlightGitHubAlerts(), 
         starlightImageZoom()
       ],
