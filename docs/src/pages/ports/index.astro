@@ -1,0 +1,71 @@
+---
+import { ports } from "../../lib/port";
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+
+// Helper: convert slug-like categories → Title Case
+function formatCategory(cat: string) {
+  return cat
+    .replace(/[-_]/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+// Group ports by category
+const categoryMap: Record<string, typeof ports> = {};
+for (const port of ports) {
+  for (const cat of port.categories) {
+    if (!categoryMap[cat]) categoryMap[cat] = [];
+    categoryMap[cat].push(port);
+  }
+}
+
+// Sort categories alphabetically
+const categories = Object.keys(categoryMap).sort();
+
+// Build headings for Starlight sidebar
+const headings = categories.map((cat) => ({
+  depth: 2,
+  slug: formatCategory(cat).toLowerCase().replace(/\s+/g, "-"),
+  text: formatCategory(cat),
+}));
+---
+
+<StarlightPage frontmatter={{ title: "Ports" }} headings={headings}>
+  <div class="prose">
+    <p>This is the full list of userstyle ports grouped by category.</p>
+
+    {categories.map((cat) => {
+      const formatted = formatCategory(cat);
+      return (
+        <section>
+          <h2 id={formatted.toLowerCase().replace(/\s+/g, "-")}>{formatted}</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Maintainers</th>
+              </tr>
+            </thead>
+            <tbody>
+              {categoryMap[cat].map((port) => {
+                // Collect all maintainers (current + past + supports keys)
+                const allMaintainers = [
+                  ...(port.currentMaintainers ?? []),
+                  ...(port.pastMaintainers ?? []),
+                  ...(port.supports ? Object.keys(port.supports) : []),
+                ];
+                return (
+                  <tr>
+                    <td>
+                      <a href={`/ports/${port.slug}`}>{port.name}</a>
+                    </td>
+                    <td>{allMaintainers.length > 0 ? allMaintainers.join(", ") : "—"}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </section>
+      );
+    })}
+  </div>
+</StarlightPage>
