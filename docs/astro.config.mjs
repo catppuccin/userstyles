@@ -14,10 +14,11 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Catppuccin Userstyles",
-      logo: {
-        src: "./public/favicon.png",
-      },
       favicon: "/favicon.png",
+      logo: {
+        dark: "/public/pepperjack-dark.png",
+        light: "/public/pepperjack-light.png",
+      },
       social: [
         {
           icon: "blueSky",
@@ -30,6 +31,27 @@ export default defineConfig({
           href: "https://github.com/catppuccin/userstyles",
         },
       ],
+      editLink: {
+        baseUrl: "https://github.com/catppuccin/userstyles/edit/main/docs",
+      },
+      expressiveCode: {
+        themes: ["catppuccin-mocha", "catppuccin-latte"],
+        styleOverrides: {
+          frames: {
+            tooltipSuccessBackground: "var(--green)",
+            tooltipSuccessForeground: "var(--base)",
+          },
+          textMarkers: {
+            insBackground:
+              "color-mix(in oklab, var(--sl-color-green-high) 25%, var(--sl-color-gray-6));",
+            insBorderColor: "var(--sl-color-gray-5)",
+            delBackground:
+              "color-mix(in oklab, var(--sl-color-red-high) 25%, var(--sl-color-gray-6));",
+            delBorderColor: "var(--sl-color-gray-5)",
+          },
+          codeBackground: "var(--sl-color-gray-6)",
+        },
+      },
       sidebar: [
         {
           label: "Start here",
@@ -59,7 +81,6 @@ export default defineConfig({
           ],
         },
       ],
-      customCss: ["./src/styles/landing.css", "./src/styles/custom.css"],
       plugins: [
         catppuccin(),
         starlightLinksValidator({
@@ -68,7 +89,6 @@ export default defineConfig({
         starlightGitHubAlerts(),
         starlightImageZoom(),
       ],
-      routeMiddleware: "./src/routeData.ts",
     }),
   ],
 });
