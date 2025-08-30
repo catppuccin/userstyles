@@ -1,16 +1,13 @@
 ---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import AnchorHeading from '@astrojs/starlight/components/AnchorHeading.astro';
 import Card from "../../components/ShowcaseCard.astro";
 import FluidGrid from "../../components/FluidGrid.astro";
-import { ports } from "../../lib/port";
-import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import { ports } from "../../lib/ports";
+import { getCategories } from "../../lib/categories";
 import { Markdown } from 'astro-remote';
 
-// Helper: convert slug-like categories → Title Case
-function formatCategory(cat: string) {
-  return cat
-    .replace(/[-_]/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-}
+const categories = await getCategories();
 
 // Group ports by category
 const categoryMap: Record<string, typeof ports> = {};
@@ -21,42 +18,51 @@ for (const port of ports) {
   }
 }
 
-// Sort categories alphabetically
-const categories = Object.keys(categoryMap).sort();
+// Sort categories by name
+const sortedCats = Object.keys(categoryMap).sort((a, b) => {
+  const aName = categories[a]?.name ?? a;
+  const bName = categories[b]?.name ?? b;
+  return aName.localeCompare(bName);
+});
 
-// Build headings for Starlight sidebar
-const headings = categories.map((cat) => ({
-  depth: 2,
-  slug: formatCategory(cat).toLowerCase().replace(/\s+/g, "-"),
-  text: formatCategory(cat),
-}));
+// Sidebar headings: emoji + name
+const headings = sortedCats.map((cat) => {
+  const def = categories[cat];
+  const emoji = def?.emoji ? `${def.emoji} ` : "";
+  return {
+    depth: 2,
+    slug: (def?.name ?? cat).toLowerCase().replace(/\s+/g, "-"),
+    text: `${emoji}${def?.name ?? cat}`,
+  };
+});
 ---
 
 <StarlightPage frontmatter={{ title: "Ports" }} headings={headings}>
-  <div class="prose">
-    <p>This is the full list of ports grouped by category.</p>
+  <p>This is the full list of ports grouped by category.</p>
 
-    {categories.map((cat) => {
-      const formatted = formatCategory(cat);
-      return (
-        <section>
-          <h2 id={formatted.toLowerCase().replace(/\s+/g, "-")}>{formatted}</h2>
-          <FluidGrid>
-            {categoryMap[cat]
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map((port) => (
-                <Card
-                  title={port.name}
-                  href={`https://github.com/catppuccin/userstyles/tree/main/styles/${port.slug}`}
-                >
-                  {port.note && (
-                    <Markdown content={port.note} />
-                  )}
-                </Card>
-              ))}
-          </FluidGrid>
-        </section>
-      );
-    })}
-  </div>
+  {sortedCats.map((cat) => {
+    const def = categories[cat];
+    const emoji = def?.emoji ? `${def.emoji} ` : "";
+    const title = def?.name ?? cat;
+    return (
+      <>
+        <AnchorHeading level="2" id={title.toLowerCase().replace(/\s+/g, "-")}>{emoji}{title}</AnchorHeading>
+        {def?.description && <p class="text-neutral-600">{def.description}</p>}
+        <FluidGrid>
+          {categoryMap[cat]
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((port) => (
+              <Card
+                title={port.name}
+                href={`https://github.com/catppuccin/userstyles/tree/main/styles/${port.slug}`}
+              >
+                {port.note && (
+                  <Markdown content={port.note} />
+                )}
+              </Card>
+            ))}
+        </FluidGrid>
+      </>
+    );
+  })}
 </StarlightPage>
