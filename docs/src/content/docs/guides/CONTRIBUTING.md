@@ -11,7 +11,7 @@ If it is your first time contributing to a project on GitHub, please see the pop
 
 This repositories uses [Deno](https://deno.com/) extensively for linting, formatting, and automation. We recommend setting up Deno locally to improve your workflow — see ["Installation" - Deno Docs](https://docs.deno.com/runtime/manual/getting_started/installation). With Deno installed locally, you can run the lint script using `deno task lint` (and `deno task lint:fix` to automatically apply fixes) and the formatting script using `deno fmt`.
 
-When editing a userstyle, we suggest setting up live reloading so your local changes can be automatically reloaded through Stylus. See ["How can I see my changes in real time?"](/userstyle-creation/tips-and-tricks/hot-reloading/).
+When editing a userstyle, we suggest setting up live reloading so that local changes (from your IDE) can be automatically reloaded through Stylus. See ["Using hot reloading in Stylus"](/userstyle-creation/tips-and-tricks/hot-reloading/).
 
 ## Recommendations
 
