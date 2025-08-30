@@ -4,6 +4,7 @@ import catppuccin from "@catppuccin/starlight";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightImageZoom from "starlight-image-zoom";
 import starlightGitHubAlerts from "starlight-github-alerts";
+import mermaid from "astro-mermaid";
 import { remarkHeadingId } from "remark-custom-heading-id";
 
 export default defineConfig({
@@ -12,6 +13,7 @@ export default defineConfig({
     remarkPlugins: [remarkHeadingId],
   },
   integrations: [
+    mermaid(),
     starlight({
       title: "Catppuccin Userstyles",
       favicon: "/favicon.png",
