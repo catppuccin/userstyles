@@ -1,4 +1,5 @@
 import YAML from "yaml";
+import { PortEntry, ports } from "./ports.ts";
 
 export type Category = {
   key: string;
@@ -10,17 +11,29 @@ export type Category = {
 const CATEGORIES_URL =
   "https://raw.githubusercontent.com/catppuccin/catppuccin/d4f82739e687cfd19d168be355367fdbbcc8e029/resources/categories.yml";
 
-/**
- * Loads the categories.yml from the Catppuccin repo.
- * Runs at build time (Astro will await this).
- */
-export async function getCategories(): Promise<Record<string, Category>> {
-  const content = await fetch(
-    CATEGORIES_URL,
-  ).then((res) => res.text());
+const content = await fetch(
+  CATEGORIES_URL,
+).then((res) => res.text());
+const parsed = YAML.parse(content) as Category[];
 
-  const parsed = YAML.parse(content) as Category[];
+// Turn into a lookup table by key
+export const categories = Object.fromEntries(parsed.map((c) => [c.key, c]));
 
-  // Turn into a lookup table by key
-  return Object.fromEntries(parsed.map((c) => [c.key, c]));
-}
+// Group ports by category
+export const categoryMap: Record<string, typeof ports> = ports.reduce(
+  (acc, port) => {
+    for (const cat of port.categories) {
+      if (!acc[cat]) acc[cat] = [];
+      acc[cat].push(port);
+    }
+    return acc;
+  },
+  {} as Record<string, PortEntry[]>,
+);
+
+// Sort categories by name
+export const sortedCategories = Object.keys(categoryMap).sort((a, b) => {
+  const aName = categories[a]?.name ?? a;
+  const bName = categories[b]?.name ?? b;
+  return aName.localeCompare(bName);
+});
