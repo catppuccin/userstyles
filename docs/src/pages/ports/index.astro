@@ -1,6 +1,9 @@
 ---
+import Card from "../../components/ShowcaseCard.astro";
+import FluidGrid from "../../components/FluidGrid.astro";
 import { ports } from "../../lib/port";
 import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+import { Markdown } from 'astro-remote';
 
 // Helper: convert slug-like categories → Title Case
 function formatCategory(cat: string) {
@@ -31,39 +34,27 @@ const headings = categories.map((cat) => ({
 
 <StarlightPage frontmatter={{ title: "Ports" }} headings={headings}>
   <div class="prose">
-    <p>This is the full list of userstyle ports grouped by category.</p>
+    <p>This is the full list of ports grouped by category.</p>
 
     {categories.map((cat) => {
       const formatted = formatCategory(cat);
       return (
         <section>
           <h2 id={formatted.toLowerCase().replace(/\s+/g, "-")}>{formatted}</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Maintainers</th>
-              </tr>
-            </thead>
-            <tbody>
-              {categoryMap[cat].map((port) => {
-                // Collect all maintainers (current + past + supports keys)
-                const allMaintainers = [
-                  ...(port.currentMaintainers ?? []),
-                  ...(port.pastMaintainers ?? []),
-                  ...(port.supports ? Object.keys(port.supports) : []),
-                ];
-                return (
-                  <tr>
-                    <td>
-                      <a href={`/ports/${port.slug}`}>{port.name}</a>
-                    </td>
-                    <td>{allMaintainers.length > 0 ? allMaintainers.join(", ") : "—"}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <FluidGrid>
+            {categoryMap[cat]
+              .sort((a, b) => a.name.localeCompare(b.name))
+              .map((port) => (
+                <Card
+                  title={port.name}
+                  href={`https://github.com/catppuccin/userstyles/tree/main/styles/${port.slug}`}
+                >
+                  {port.note && (
+                    <Markdown content={port.note} />
+                  )}
+                </Card>
+              ))}
+          </FluidGrid>
         </section>
       );
     })}
