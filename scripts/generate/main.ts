@@ -58,6 +58,8 @@ async function userstylesStaffCodeOwners() {
   const paths = ["/.github/", "/scripts/", "/template/", "/lib/"];
 
   const octokit = getAuthenticatedOctokit();
+  // Set codeowners to include each member of the userstyles-staff team specifically instead of the team as a whole,
+  // to require individual reviews from each member instead of just one on behalf of the team.
   const staffMembers = await getUserstylesTeamMembers(
     octokit,
     "userstyles-staff",
