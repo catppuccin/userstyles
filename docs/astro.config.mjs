@@ -23,11 +23,6 @@ export default defineConfig({
       },
       social: [
         {
-          icon: "blueSky",
-          label: "Bluesky",
-          href: "https://bsky.app/profile/catppuccin.com",
-        },
-        {
           icon: "github",
           label: "GitHub",
           href: "https://github.com/catppuccin/userstyles",
