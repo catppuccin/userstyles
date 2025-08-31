@@ -55,7 +55,7 @@ function maintainersCodeOwners() {
     .join("\n");
 }
 async function userstylesStaffCodeOwners() {
-  const paths = ["/.github/", "/scripts/", "/template/"];
+  const paths = ["/.github/", "/scripts/", "/template/", "/lib/"];
 
   const octokit = getAuthenticatedOctokit();
   const staffMembers = await getUserstylesTeamMembers(
