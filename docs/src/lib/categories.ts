@@ -1,5 +1,5 @@
 import YAML from "yaml";
-import { PortEntry, ports } from "./ports.ts";
+import { type PortEntry, ports } from "./ports.ts";
 
 export type Category = {
   key: string;
