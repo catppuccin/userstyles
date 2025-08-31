@@ -5,13 +5,6 @@ sidebar:
   order: 1
 ---
 
-- [Prerequisites](#prerequisites)
-- [Usercss Metadata](#usercss-metadata)
-- [`@-moz-document`](#-moz-document)
-- [Applying the theme](#applying-the-theme)
-- [The `#catppuccin` mixin](#the-catppuccin-mixin)
-- [Putting it all together](#putting-it-all-together)
-
 ## Prerequisites
 
 - [Stylus](https://github.com/openstyles/stylus) ([Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/) / [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension).
