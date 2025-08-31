@@ -1,3 +1,5 @@
+// deno-lint-ignore-file no-explicit-any
+
 import fs from "fs";
 import path from "path";
 import YAML from "yaml";
@@ -17,11 +19,16 @@ export type PortEntry = {
   supports?: Record<string, { name: string; link: string }>;
 };
 
-const file = fs.readFileSync(path.resolve("../scripts/userstyles.yml"), "utf-8");
+const file = fs.readFileSync(
+  path.resolve("../scripts/userstyles.yml"),
+  "utf-8",
+);
 const parsed = YAML.parse(file) as {
   collaborators: Collaborator[];
   userstyles: Record<string, any>;
 };
+
+// TODO: Use proper types from scripts lib once possible.
 
 // Normalize keys (camelCase)
 function normalizePort(slug: string, data: any): PortEntry {
@@ -40,6 +47,5 @@ function normalizePort(slug: string, data: any): PortEntry {
 }
 
 export const ports: PortEntry[] = Object.entries(parsed.userstyles).map(
-  ([slug, data]) => normalizePort(slug, data)
+  ([slug, data]) => normalizePort(slug, data),
 );
-
