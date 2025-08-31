@@ -1,5 +1,6 @@
 ---
 title: How can I theme ...?
+description: Guides for common userstyle theming techniques.
 sidebar:
   order: 1
   label: Overview
