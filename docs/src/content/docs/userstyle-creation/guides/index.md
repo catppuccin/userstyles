@@ -5,4 +5,4 @@ sidebar:
   label: Overview
 ---
 
-In this guide section you can find out how to theme [Images and SVGs](/userstyle-creation/guides/images-and-svgs/), [Syntax Highlighting](/userstyle-creation/guides/syntax-highlighting/) and how to find out [raw color values](/userstyle-creation/guides/raw-color-values/)
+In this guide section, you can find out how to [theme images and SVGs](/userstyle-creation/guides/images-and-svgs/), [theme syntax highlighting](/userstyle-creation/guides/syntax-highlighting/), and [obtain raw color values](/userstyle-creation/guides/raw-color-values/).

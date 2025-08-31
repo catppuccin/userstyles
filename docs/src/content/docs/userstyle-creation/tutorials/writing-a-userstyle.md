@@ -1,11 +1,9 @@
 ---
 title: Writing a userstyle
-description: Tutorial about writing a new userstyle
+description: Beginner-friendly walkthrough of creating a userstyle!
 sidebar: 
   order: 1
 ---
-
-Beginner-friendly walkthrough of creating a userstyle!
 
 - [Prerequisites](#prerequisites)
 - [Usercss Metadata](#usercss-metadata)

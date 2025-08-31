@@ -1,6 +1,6 @@
 ---
 title: Userstyle Creation
-description: Get a general picture of the userstyle creation.
+description: Overview of the userstyle creation process.
 sidebar:
   label: Overview
 ---

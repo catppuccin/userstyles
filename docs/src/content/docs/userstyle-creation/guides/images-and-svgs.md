@@ -1,6 +1,6 @@
 ---
 title: Images and SVGs
-description: Guide for how to theme images and SVGs.
+description: Guide for theming images and SVGs in userstyles.
 sidebar: 
   order: 2
 ---

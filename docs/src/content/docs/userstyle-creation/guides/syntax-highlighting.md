@@ -1,6 +1,6 @@
 ---
 title: Syntax Highlighting
-description: Guide for how to theme syntax highlighting.
+description: Guide for theming syntax highlighting in userstyles.
 sidebar: 
   order: 3
 ---
