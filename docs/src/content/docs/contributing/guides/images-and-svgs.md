@@ -1,7 +1,7 @@
 ---
 title: Images and SVGs
 description: Guide for theming images and SVGs in userstyles.
-sidebar: 
+sidebar:
   order: 2
 ---
 

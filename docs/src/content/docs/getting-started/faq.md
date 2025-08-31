@@ -1,7 +1,7 @@
 ---
 title: FAQ
 description: Answers to frequently asked questions about Catppuccin Userstyles.
-sidebar: 
+sidebar:
   order: 3
 ---
 

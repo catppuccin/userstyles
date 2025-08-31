@@ -1,7 +1,7 @@
 ---
 title: Using hot reloading in Stylus
 description: See changes from your IDE in real time with Stylus's "Live reloading" feature.
-sidebar: 
+sidebar:
   order: 2
 ---
 

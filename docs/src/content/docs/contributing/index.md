@@ -1,7 +1,7 @@
 ---
 title: Contributing
 description: Contribution guidelines for the Catppuccin Userstyles project.
-sidebar: 
+sidebar:
   label: Overview
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Writing a userstyle
 description: Beginner-friendly walkthrough of creating a userstyle!
-sidebar: 
+sidebar:
   order: 1
 ---
 
@@ -213,8 +213,8 @@ Combining all of the previous steps, we have a working userstyle!
 };
 ```
 
-| Original                                 | Themed                                 |
-| ---------------------------------------- | -------------------------------------- |
+| Original                                                                                     | Themed                                                                                                                                                                                                                           |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ![Screenshot of the default example.com page.](../../../../assets/example.org-original.webp) | ![Combined screenshots of the example.com page, with the page seen using the Catppuccin palette. Images for flavors Latte, Frappé, Macchiato and Mocha are displayed left to right.](../../../../assets/example.org-themed.webp) |
 
 Complete the rest of the steps in [Creating Userstyles](/contributing/creating-userstyles/), and then submit your PR!

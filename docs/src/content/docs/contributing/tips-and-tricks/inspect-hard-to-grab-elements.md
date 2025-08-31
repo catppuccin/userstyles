@@ -1,7 +1,7 @@
 ---
 title: Inspect hard to grab elements
 description: Useful tip for inspecting elements that are hard to debug.
-sidebar: 
+sidebar:
   order: 1
 ---
 
