@@ -2,12 +2,10 @@ import * as path from "@std/path";
 import { REPO_ROOT } from "@/constants.ts";
 
 import { syncIssueLabels } from "@/generate/labels.ts";
-import { generateMainReadme } from "@/generate/readme-repo.ts";
 import { generateStyleReadmes } from "@/generate/readme-styles.ts";
 import { writeWithPreamble } from "@/generate/utils.ts";
 import {
   getAuthenticatedOctokit,
-  getCategoriesData,
   getUserstylesData,
   getUserstylesTeamMembers,
 } from "@/utils.ts";
@@ -19,12 +17,7 @@ if (!Deno.env.get("CI")) {
 }
 
 const userstylesData = getUserstylesData();
-const categoriesData = await getCategoriesData();
 
-/**
- * Generate the main README.md, listing all ports as a table of contents
- */
-await generateMainReadme(userstylesData.userstyles, categoriesData);
 /**
  * Generate README.md files for each style
  */
