@@ -60,27 +60,29 @@ export default defineConfig({
           autogenerate: { directory: "getting-started" },
         },
         {
-          label: "Guides",
-          autogenerate: { directory: "guides" },
-        },
-        {
-          label: "Userstyle Creation",
+          label: "Contributing",
           collapsed: true,
           items: [
-            "userstyle-creation",
+            "contributing",
+            "contributing/userstyle-creation",
+            "contributing/userstylesyml",
             {
               label: "How can I theme ...?",
-              autogenerate: { directory: "userstyle-creation/guides" },
+              autogenerate: { directory: "contributing/guides" },
             },
             {
               label: "Tutorials",
-              autogenerate: { directory: "userstyle-creation/tutorials" },
+              autogenerate: { directory: "contributing/tutorials" },
             },
             {
               label: "Tips and Tricks",
-              autogenerate: { directory: "userstyle-creation/tips-and-tricks" },
+              autogenerate: { directory: "contributing/tips-and-tricks" },
             },
           ],
+        },
+        {
+          label: "Reference",
+          autogenerate: { directory: "reference" },
         },
       ],
       plugins: [

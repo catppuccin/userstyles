@@ -17,7 +17,7 @@ sidebar:
 - [Stylus](https://github.com/openstyles/stylus) ([Firefox](https://addons.mozilla.org/en-GB/firefox/addon/styl-us/) / [Chrome](https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne) extension).
 - A website to theme!
 
-Assuming you have completed steps 1-4 of [Creating Userstyles](/userstyle-creation/), you should have a new `catppuccin.user.less` file under the `styles/<name-of-website>/` directory. Follow along in that `catppuccin.user.less` file as we write an example userstyle for [example.org](http://example.org/).
+Assuming you have completed steps 1-4 of [Creating Userstyles](/contributing/userstyle-creation/), you should have a new `catppuccin.user.less` file under the `styles/<name-of-website>/` directory. Follow along in that `catppuccin.user.less` file as we write an example userstyle for [example.org](http://example.org/).
 
 ## Usercss Metadata
 
@@ -224,4 +224,4 @@ Combining all of the previous steps, we have a working userstyle!
 | ---------------------------------------- | -------------------------------------- |
 | ![Screenshot of the default example.com page.](../../../../assets/example.org-original.webp) | ![Combined screenshots of the example.com page, with the page seen using the Catppuccin palette. Images for flavors Latte, Frappé, Macchiato and Mocha are displayed left to right.](../../../../assets/example.org-themed.webp) |
 
-Complete the rest of the steps in [Userstyle Creation](/userstyle-creation/), and then submit your PR!
+Complete the rest of the steps in [Userstyle Creation](/contributing/userstyle-creation/), and then submit your PR!

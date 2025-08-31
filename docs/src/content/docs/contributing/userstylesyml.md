@@ -1,8 +1,6 @@
 ---
 title: userstyles.yml
 description: Guide for adding and removing userstyles and maintainers.
-sidebar: 
-  order: 3
 ---
 
 The [`userstyles.yml`](https://github.com/catppuccin/userstyles/tree/main/scripts/userstyles.yml) file is responsible for tracking all userstyle and maintainer metadata.

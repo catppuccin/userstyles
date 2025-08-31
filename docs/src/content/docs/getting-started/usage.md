@@ -20,7 +20,7 @@ For both of the below installation methods, you will need the Stylus browser ext
 ## Individual Userstyles
 
 1. Enable CSP Patching from Stylus's **Settings** > **Advanced**.
-2. Install your choice of [available userstyles](https://github.com/catppuccin/userstyles#-userstyles) by clicking the **Stylus Install** badge in each README.
+2. Install your choice of [available userstyles](/getting-started/introduction/#userstyles) by clicking the **Stylus Install** badge in each README.
 
 # Configuration
 
