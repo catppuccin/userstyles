@@ -94,41 +94,35 @@
       }
     }
 
-    --primary: #hsla(@accent)[];
-    --background-primary: #hsla(@base)[];
-    --background-secondary: #hsla(@mantle)[];
-    --background-tertiary: #hsla(@crust)[];
-    --foreground-primary: #hsla(@text)[];
-    --foreground-secondary: #hsla(@subtext1)[];
-    --foreground-tertiary: #hsla(@overlay0)[];
-    --foreground-quaternary: #hsla(@surface0)[];
-    --runtime-background: 124deg, 100%, 3%;
-    --runtime-foreground: 184deg, 100%, 90%;
-    --note: #hsla(@blue)[];
-    --info: #hsla(@teal)[];
-    --caution: #hsla(@yellow)[];
-    --tip: #hsla(@green)[];
+    --color-runtime: @accent;
+    --color-primary: @accent;
+    --color-background-raw: @base;
+    --color-foreground-primary: @text;
+    --color-foreground-secondary: @subtext1;
+    --color-foreground-tertiary: @subtext0;
+    --color-background-tertiary: @surface1;
 
-    .banner-runtime {
-      background-color: fade(@accent, 10%);
-      color: @text;
-      border-color: @accent;
-    }
-    .banner-deploy {
-      background-color: fade(@sky, 10%);
-      color: @text;
-      border-color: @sky;
+    --color-white: @base;
+    --color-gray-50: @mantle; // footer background
+
+    [data-component="logo"] {
+      --logoColor: @text;
+      --textColor: @text;
+      --eyeColor: @text;
     }
 
-    .runtime-link {
-      color: @accent;
-      text-decoration-color: @accent;
+    [data-services-page="true"] {
+      --color-primary: @sky;
+      --color-header-highlight: @sapphire;
 
-      &:hover {
-        color: darken(@accent, 5%);
-        text-decoration-color: darken(@accent, 5%);
+      .bg-deploy-50 {
+        background-color: fade(@sapphire, 20%);
+      }
+      .border-deploy-500 {
+        border-color: @sapphire;
       }
     }
+
     .deploy-link {
       color: @sky;
       text-decoration-color: @sky;
@@ -138,26 +132,11 @@
         text-decoration-color: @sapphire;
       }
     }
-    .help-link {
-      color: @mauve;
-      text-decoration-color: @mauve;
 
-      &:hover {
-        color: darken(@mauve, 5%);
-        text-decoration-color: darken(@mauve, 5%);
-      }
-    }
-
-    .heading-runtime {
-      text-decoration-color: @accent;
-    }
-    .heading-deploy {
-      text-decoration-color: @sky;
-    }
-    .heading-purple {
-      text-decoration-color: @mauve;
-    }
-
+    // "Explore built-in Node APIs": https://docs.deno.com/runtime/fundamentals/node/, https://docs.deno.com/runtime/reference/node_apis/
+    // "Deno FFI Reference Docs": https://docs.deno.com/runtime/fundamentals/ffi/
+    // "Explore all Deno APIs": https://docs.deno.com/runtime/reference/deno_namespace_apis/
+    // "Explore supported Web APIs": https://docs.deno.com/runtime/reference/web_platform_apis/
     .runtime-cta {
       background-color: @accent;
       border-color: @accent;
@@ -166,6 +145,7 @@
         background-color: darken(@accent, 5%);
       }
     }
+    // "See all packages on JSR": https://docs.deno.com/runtime/fundamentals/standard_library/
     .jsr-cta {
       background-color: @yellow;
       border-color: @yellow;
@@ -173,15 +153,6 @@
 
       &:hover {
         background-color: darken(@yellow, 5%);
-      }
-    }
-    .deploy-cta {
-      background-color: @sky;
-      border-color: @sky;
-      color: @crust;
-
-      &:hover {
-        background-color: @sapphire;
       }
     }
 
@@ -196,31 +167,31 @@
       --color-accent-fg: @accent;
       --color-accent-emphasis: darken(@accent, 5%);
       --color-danger-fg: @red;
+      --color-neutral-muted: @surface0; // inline code background
 
+      // Diff codeblocks on https://docs.deno.com/runtime/reference/migration_guide/, https://github.com/catppuccin/prismjs/issues/1.
       --color-prettylights-syntax-markup-deleted-bg: fade(@red, 20%);
       --color-prettylights-syntax-markup-inserted-bg: fade(@green, 20%);
     }
 
-    // Logo
-    .fill-black {
-      fill: @text;
-    }
-
-    &.light {
-      .theme-toggle {
-        @svg: escape(
-          '<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="@{text}"><path d="M17.293 13.293A8 8 0 0 1 6.707 2.707a8.001 8.001 0 1 0 10.586 10.586"/></svg>'
-        );
-        background-image: url("data:image/svg+xml,@{svg}");
-      }
-    }
-    &.dark {
-      .theme-toggle {
+    #theme-toggle {
+      img[src="/img/light.svg"] {
         @svg: escape(
           '<svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill="@{text}" d="M10 2a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1m4 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0m-.464 4.95.707.707a1 1 0 0 0 1.414-1.414l-.707-.707a1 1 0 0 0-1.414 1.414m2.12-10.607a1 1 0 0 1 0 1.414l-.706.707a1 1 0 1 1-1.414-1.414l.707-.707a1 1 0 0 1 1.414 0zM17 11a1 1 0 1 0 0-2h-1a1 1 0 1 0 0 2zm-7 4a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1M5.05 6.464A1 1 0 1 0 6.465 5.05l-.708-.707a1 1 0 0 0-1.414 1.414zm1.414 8.486-.707.707a1 1 0 0 1-1.414-1.414l.707-.707a1 1 0 0 1 1.414 1.414M4 11a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2z"/></svg>'
         );
         background-image: url("data:image/svg+xml,@{svg}");
       }
+
+      img[src="/img/dark.svg"] {
+        @svg: escape(
+          '<svg fill="@{text}" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 0 1 6.707 2.707a8.001 8.001 0 1 0 10.586 10.586"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+    }
+
+    .btn:hover {
+      color: @crust;
     }
 
     .markdownBlockTitle {
@@ -232,63 +203,60 @@
       stroke: @green !important;
     }
     .markdown-body .admonition {
+      background-color: @surface0;
+
+      .title {
+        color: @crust;
+      }
+
       &.note {
-        background-color: fade(@blue, 5%);
-        .title::before {
-          @svg: escape(
-            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="@{blue}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4"/></svg>'
-          );
-          background-image: url("data:image/svg+xml,@{svg}");
+        background-color: fade(@blue, 20%);
+
+        .title {
+          background-color: @blue;
         }
       }
       &.tip {
-        background-color: fade(@green, 5%);
-        .title::before {
-          @svg: escape(
-            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="@{green}" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6 6 0 0 0 1.5-.189m-1.5.189a6 6 0 0 1-1.5-.189m3.75 7.478a12.1 12.1 0 0 1-4.5 0m3.75 2.383a14.4 14.4 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg>'
-          );
-          background-image: url("data:image/svg+xml,@{svg}");
+        background-color: fade(@green, 20%);
+
+        .title {
+          background-color: @green;
         }
       }
       &.caution {
-        background-color: fade(@yellow, 5%);
+        background-color: fade(@yellow, 20%);
 
-        .title::before {
-          @svg: escape(
-            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="@{yellow}"><path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5zM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75m0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5" clip-rule="evenodd"/></svg>'
-          );
-          background-image: url("data:image/svg+xml,@{svg}");
+        .title {
+          background-color: @yellow;
         }
       }
       &.info {
-        background-color: fade(@teal, 5%);
+        background-color: fade(@teal, 20%);
 
-        .title::before {
-          @svg: escape(
-            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="@{teal}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4"/></svg>'
-          );
-          background-image: url("data:image/svg+xml,@{svg}");
+        .title {
+          background-color: @teal;
         }
       }
     }
 
     // "Did you find what you needed?"
-    .bg-blue-50 {
-      background-color: fade(@blue, 20%);
-    }
-    .border-blue-100 {
-      border-color: fade(@blue, 30%);
-    }
+    --color-blue-splash: fade(@blue, 20%);
 
     // Breadcrumbs
-    .crumb-link::after {
+    [class*="after:[background:url(./img/chevron.svg)_no-repeat_center]"]::after {
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" transform="rotate(90)"><path fill="@{overlay1}" d="M7.41 15.41 12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>'
       );
       background-image: url("data:image/svg+xml,@{svg}");
     }
 
-    // Toggle switches (tutorial filters)
+    // https://docs.deno.com/examples/
+    .bg-blue-50 {
+      background-color: fade(@blue, 10%);
+    }
+    .border-blue-100 {
+      border-color: fade(@blue, 20%);
+    }
     .slider {
       background-color: @overlay2;
     }
@@ -316,6 +284,14 @@
     }
 
     /* API reference */
+    .toc-list .documentNavigation a {
+      color: @subtext0;
+
+      &:hover {
+        color: @accent;
+      }
+    }
+
     .ddoc {
       #ddoc(@token, @color) {
         .text-@{token} {
