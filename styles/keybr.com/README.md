@@ -19,7 +19,7 @@ See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
 ## 💝 Current Maintainer
-- [TadoTheMiner](https://github.com/TadoTheMiner)
+- [janTatesa](https://github.com/janTatesa)
 
 
 &nbsp;

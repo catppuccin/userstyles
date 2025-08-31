@@ -18,8 +18,9 @@
 See [the userstyle usage instructions](../../docs/USAGE.md).
 
 
-## 💝 Current Maintainer
+## 💝 Current Maintainers
 - [FrancoRav](https://github.com/FrancoRav)
+- [WalkQuackBack](https://github.com/WalkQuackBack)
 
 
 &nbsp;
