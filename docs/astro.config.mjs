@@ -59,7 +59,7 @@ export default defineConfig({
           collapsed: true,
           items: [
             "contributing",
-            "contributing/userstyle-creation",
+            "contributing/creating-userstyles",
             "contributing/userstylesyml",
             {
               label: "How can I theme ...?",
