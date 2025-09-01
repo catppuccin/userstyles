@@ -18,8 +18,9 @@
 See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 
-## 💝 Current Maintainer
+## 💝 Current Maintainers
 - [GenShibe](https://github.com/GenShibe)
+- [WalkQuackBack](https://github.com/WalkQuackBack)
 
 
 &nbsp;
