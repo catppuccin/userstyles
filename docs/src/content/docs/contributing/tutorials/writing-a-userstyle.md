@@ -75,14 +75,14 @@ This section of the template is about applying the user's light/dark flavors. Re
 > [!TIP]
 > For more on how Less mixins work, see ["Mixins" - lesscss.org](https://lesscss.org/features/#mixins-feature) and ["A Comprehensive Introduction to Less: Mixins" - SitePoint](https://www.sitepoint.com/a-comprehensive-introduction-to-less-mixins/).
 
-We'll refer to this next section of the template as the "`#catppuccin` mixin". The first part contains a series of mixins/function calls to include the Catppuccin palette variables and standard library:
+We'll refer to this next section of the template as the "`#catppuccin` mixin". The first part contains a series of mixin calls to include the Catppuccin palette and style defaults from the standard library:
 
 ```less
 #lib.palette();
 #lib.defaults();
 ```
 
-Following that, you will write the CSS rules for your port here. Here is what it looks like for our `example.org` port:
+Following that, you will write the CSS rules for your port. Here is what it looks like for our `example.org` port:
 
 ```less
 #catppuccin(@flavor) {
