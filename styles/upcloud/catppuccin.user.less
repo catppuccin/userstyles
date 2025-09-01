@@ -20,6 +20,7 @@
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
     }
+
     @media (prefers-color-scheme: dark) {
       #catppuccin(@darkFlavor);
     }
@@ -54,7 +55,12 @@
     @crust: @catppuccin[@@flavor][@crust];
     @accent: @catppuccin[@@flavor][@@accentColor];
 
-    color-scheme: if(@flavor = latte, light, dark);
+    // Border radius variables
+    @border-radius: 0.5rem;
+    @border-radius-small: 0.25rem;
+    @border-radius-large: 1rem;
+
+    color-scheme: if(@flavor =latte, light, dark);
 
     ::selection {
       background-color: fade(@accent, 30%);
@@ -77,7 +83,7 @@
     --uikit-danger: @red !important;
     --uikit-grey: @subtext0 !important;
     --uikit-grey-card-border: @surface0 !important;
-    --uikit-grey-border: @overlay0 !important;
+    --uikit-grey-border: @surface1 !important;
     --uikit-grey-disabled-text: @subtext1 !important;
     --uikit-disabled-border: @overlay0 !important;
     --uikit-grey-light: @surface1 !important;
@@ -90,6 +96,8 @@
     --uikit-grey-lighter: @surface0 !important;
     --uikit-destructive: @red !important;
     --uikit-progressbar-bg: @surface0 !important;
+    --uikit-success: @green !important;
+    --uikit-warning: @yellow !important;
     /* highlights */
     --highlight-default: @accent !important;
     /* borders */
@@ -132,11 +140,38 @@
     }
 
     /* Popover */
-    [class*="Popover_menu"] {
-      border-radius: 0.5rem;
+    [class*="Popover_menu"],
+    .Phoenix__Select__Select__menu,
+    [class*="menu"],
+    .selector-list-wrapper {
+      border-radius: @border-radius;
       opacity: 0;
       transform: translateY(-10px);
       animation: modalCardFadeIn 0.15s forwards;
+    }
+
+    .selector-list-wrapper {
+      background-color: @crust !important;
+    }
+
+    .selector-list-wrapper .selector-wrapper {
+      background-color: transparent !important;
+      transition: background-color 0.1s ease;
+      border-radius: @border-radius;
+
+      &:hover {
+        background-color: @surface0 !important;
+      }
+    }
+
+    .Phoenix__Select__Select__menu [class*="menu"] {
+      background-color: var(--white);
+      border: 0.5px solid @surface0;
+      box-shadow: none;
+    }
+
+    .Phoenix__Select__Select__option {
+      background: transparent !important;
     }
 
     @keyframes popoverFadeIn {
@@ -146,12 +181,11 @@
       }
     }
 
-    [class*="Popover_item"]:not([class*="Popover_disabledItem"]):hover
-      [class*="Popover_itemContent"] {
+    [class*="Popover_item"]:not([class*="Popover_disabledItem"]):hover [class*="Popover_itemContent"] {
       background-color: fade(white, 5%);
       color: @accent;
       transition: background 0.2s, color 0.2s;
-      border-radius: 0.5rem;
+      border-radius: @border-radius;
     }
 
     // "info boxes"
@@ -161,7 +195,8 @@
       color: @text !important;
     }
 
-    .infobox::before, .infobox::after {
+    .infobox::before,
+    .infobox::after {
       border-color: @surface1 transparent transparent !important;
     }
 
@@ -183,9 +218,11 @@
     .disclaimer--error {
       border-color: @red !important;
     }
+
     .disclaimer--error .disclaimer__icon {
       background-color: @red !important;
     }
+
     .disclaimer--warning .disclaimer__icon {
       background-color: @yellow !important;
     }
@@ -205,7 +242,8 @@
     }
 
     /* toast */
-    .Phoenix__Toast__icon-container svg, .Phoenix__Toast__icon-container path {
+    .Phoenix__Toast__icon-container svg,
+    .Phoenix__Toast__icon-container path {
       fill: @base !important;
     }
 
@@ -213,7 +251,7 @@
     .Phoenix--Button__primary {
       background-color: @accent !important;
       color: @base !important;
-      border-radius: 0.5rem;
+      border-radius: @border-radius;
 
       transition: opacity 0.3s ease;
 
@@ -225,7 +263,7 @@
     .Phoenix--Button__destructive {
       background-color: @red !important;
       color: @base !important;
-      border-radius: 0.5rem;
+      border-radius: @border-radius;
 
       transition: background-color 0.2s ease;
 
@@ -234,8 +272,9 @@
       }
     }
 
-    .Phoenix--Button__outlined, .Phoenix__Alert__button {
-      border-radius: 0.5rem;
+    .Phoenix--Button__outlined,
+    .Phoenix__Alert__button {
+      border-radius: @border-radius;
       border-color: @surface0;
       transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 
@@ -263,9 +302,18 @@
       color: @text !important;
     }
 
+    .Phoenix__MiniButton {
+      transition: border-color 0.1s ease;
+    }
+
     .expired-session__modal .Phoenix__CardHead {
       background-color: @accent !important;
       color: @base !important;
+    }
+
+    /* switch */
+    .Phoenix__Switch__slider::before {
+      background-color: @base;
     }
 
     /* modals */
@@ -280,6 +328,7 @@
       transform: translateY(20px);
       animation: modalCardFadeIn 0.3s forwards;
     }
+
     @keyframes modalCardFadeIn {
       to {
         opacity: 1;
@@ -290,22 +339,23 @@
     .Phoenix__CardHead {
       color: @text !important;
       border-bottom: 0.5px solid @surface0 !important;
-      border-radius: 0.5rem 0.5rem 0 0;
+      border-radius: @border-radius @border-radius 0 0;
+
       &.Phoenix__CardHead--collapsed {
-        border-radius: 0.5rem;
+        border-radius: @border-radius;
       }
     }
 
     .Phoenix--Modal__content .Phoenix__Card {
       box-shadow: none;
-      border-radius: 0.5rem;
+      border-radius: @border-radius;
     }
 
     .Phoenix__Card {
       border: 0.5px solid @surface0 !important;
     }
 
-    .Phoenix__CardDataRow__Cell + .Phoenix__CardDataRow__Cell {
+    .Phoenix__CardDataRow__Cell+.Phoenix__CardDataRow__Cell {
       border-left: 0.5px solid @surface0;
     }
 
@@ -314,9 +364,11 @@
     }
 
     /* cards */
-    .card-section + .card-section,
-    .footer-wrapper {
-      border-top: 0.5px solid @surface0;
+    .card-section+.card-section,
+    .card-section,
+    .footer-wrapper,
+    .templates .Phoenix__SortableTable__Row td {
+      border-top: 0.5px solid @surface0 !important;
     }
 
     .Phoenix__CardDataRow__Cell--editable .Phoenix__CardDataRow__Cell__content,
@@ -325,7 +377,7 @@
     }
 
     .Phoenix__Card {
-      border-radius: 0.5rem;
+      border-radius: @border-radius;
     }
 
     /* state indicators */
@@ -349,7 +401,8 @@
       color: @text !important;
     }
 
-    .server-state-label {
+    .server-state-label,
+    .switch-row__description {
       color: @subtext0 !important;
     }
 
@@ -357,6 +410,7 @@
     .latest-events-wrapper::before {
       background-color: var(--uikit-neutral) !important;
     }
+
     .event-header {
       color: @subtext1 !important;
     }
@@ -367,24 +421,40 @@
 
     /* checkbox */
 
-    .chunkbox {
+    .chunkbox,
+    .checkbox,
+    .Phoenix__Checkbox__icon {
       background-color: @surface0;
-      border-radius: 0.25rem;
+      border-radius: @border-radius-small;
       transition: all 0.2s ease;
+      border-color: @surface1;
 
-      &.checked {
-        background-color: @accent;
-        border-color: @accent;
+      &.checked,
+      &.selected {
+        background-color: @accent !important;
+        border-color: @accent !important;
+      }
+
+      &:hover {
+        border-color: @accent !important;
       }
 
       &::before {
         border: 2px solid @overlay2;
-        border-radius: 0.25rem;
+        border-radius: @border-radius-small;
       }
 
       &::after {
         border-color: @base !important;
       }
+
+      .Phoenix--Icon {
+        color: @base !important;
+      }
+    }
+
+    .checkbox-wrapper:hover .checkbox {
+      border-color: @accent !important;
     }
 
     /* dropdown inputs */
@@ -398,24 +468,25 @@
 
     .dropdown {
       background: @base;
-      border-radius: 0.5rem;
+      border-radius: @border-radius;
       border: 1px solid @surface0;
       box-shadow: none;
       color: @text;
     }
 
-    .border-top {
+    .border-top,
+    .resize-wrapper__footer {
       border-top: 0.5px solid @surface0;
     }
 
     /* radio inputs */
-    input:checked + .Phoenix--Radio__glyph::after {
+    input:checked+.Phoenix--Radio__glyph::after {
       background: transparent !important;
     }
 
-    .Phoenix__RadioCard > label {
+    .Phoenix__RadioCard>label {
       border: 0.5px solid @surface0 !important;
-      border-radius: 0.5rem !important;
+      border-radius: @border-radius !important;
       transition: border-color 0.2s ease, background-color 0.2s ease;
     }
 
@@ -426,32 +497,33 @@
     }
 
     /* tables */
-    .Phoenix__SortableTable__Body {
+    :not(.Phoenix__SortableTable.Phoenix__SortableTable--separated)>.Phoenix__SortableTable__Body {
       background: @mantle !important;
       color: @text !important;
 
-      & > * {
+      &>* {
         --uikit-grey-border: @surface0 !important;
       }
     }
 
     /* sidebar */
+
+    .Phoenix__Sidebar__Head .logo {
+      filter: if(@flavor =latte, none, brightness(0) invert(1));
+    }
+
+    .Phoenix__Sidebar__NavItem,
+    .firewall-status-state,
     .Phoenix__Sidebar__Head {
       color: @text;
     }
 
-    .Phoenix__Sidebar__Head .logo {
-      filter: if(@flavor = latte, none, brightness(0) invert(1));
-    }
-
-    .Phoenix__Sidebar__NavItem {
-      color: @text;
-    }
-
     .Phoenix__Sidebar__NavItem--has-subnav a.active::before,
-    .Phoenix__Sidebar__SubNavItem a::before {
+    .Phoenix__Sidebar__SubNavItem a::before,
+    .tab::after {
       background: @accent !important;
     }
+
 
     .Phoenix__Sidebar__inner {
       background-color: @mantle;
@@ -461,7 +533,8 @@
 
     /* resource (dashboard) */
     .resource-summary-graph-bar-success,
-    .resource-summary-value-success::before {
+    .resource-summary-value-success::before,
+    .firewall-status-indicator.enabled {
       background-color: @green !important;
     }
 
@@ -472,12 +545,12 @@
     }
 
     .dashboard-card:not(.dashboard-card-disabled):hover .dashboard-card-icon,
-    .dashboard-card:not(.dashboard-card-disabled):focus-visible
-      .dashboard-card-icon {
+    .dashboard-card:not(.dashboard-card-disabled):focus-visible .dashboard-card-icon {
       color: @accent !important;
     }
 
-    .resource-summary-label, .dashboard-card-empty {
+    .resource-summary-label,
+    .dashboard-card-empty {
       color: @subtext0 !important;
     }
 
@@ -485,7 +558,8 @@
       border-top: 1px solid @surface1 !important;
     }
 
-    .backup-summary-legend, .list-item {
+    .backup-summary-legend,
+    .list-item {
       color: @subtext1 !important;
     }
 
@@ -503,11 +577,16 @@
     }
 
     // generic cards
-    .card, .dashboard-card, .graph, .network-card-header, .card-header {
+    .card,
+    .dashboard-card,
+    .graph,
+    .network-card-header,
+    .card-header {
       background-color: @mantle;
       color: @text;
 
-      &.card, &.dashboard-card {
+      &.card,
+      &.dashboard-card {
         border: 0.1px solid @surface0;
       }
 
@@ -529,7 +608,8 @@
       border-top: 0.1px solid @surface1;
     }
 
-    .network-card-item, .card-item {
+    .network-card-item,
+    .card-item {
       background-color: @mantle;
       color: @text;
       transition: color 0.2s ease, border-color 0.2s ease;
@@ -575,6 +655,7 @@
     .header-dots-item {
       background-color: @surface1;
     }
+
     .header-dots-item-active {
       background-color: @accent;
     }
@@ -597,6 +678,10 @@
       background-color: transparent;
     }
 
+    .recharts-cartesian-grid line {
+      stroke: @surface1 !important;
+    }
+
     .recharts-reference-line-line {
       stroke: @overlay0 !important;
     }
@@ -609,11 +694,13 @@
       stroke: @accent !important;
     }
 
-    .recharts-default-tooltip, .Phoenix__Tooltip, .Phoenix__Tooltip2__content {
+    .recharts-default-tooltip,
+    .Phoenix__Tooltip,
+    .Phoenix__Tooltip2__content {
       background-color: @surface0 !important;
       border: 0.05px solid @surface1 !important;
       color: @text !important;
-      border-radius: 0.25rem;
+      border-radius: @border-radius-small;
     }
 
     .Phoenix__Tooltip2__content svg {
@@ -650,7 +737,7 @@
 
     /* server list */
     [class*="serverListItemCard"] {
-      border-radius: 0.5rem;
+      border-radius: @border-radius;
     }
 
     .sort-desc::after {
@@ -658,21 +745,24 @@
       border-top-color: @accent !important;
     }
 
-    .sort-asc::after {
+    .sort-asc::after,
+    .tab.selected {
       border-bottom-color: @accent !important;
     }
 
     /* deploy a server */
-    .summary, .server-summary {
+    .summary,
+    .server-summary {
       background-color: @crust;
-      border-radius: 0.5rem;
+      border-radius: @border-radius;
     }
 
     .summary-totals {
       border-top: 0.05px solid @surface0;
     }
 
-    .summary-totals__monthly, .summary-totals__hourly {
+    .summary-totals__monthly,
+    .summary-totals__hourly {
       color: @accent;
     }
 
@@ -690,17 +780,30 @@
       border: none;
     }
 
-    .plans-radio-table, .plans-content {
+    .plans-radio-table,
+    .plans-content,
+    .upcloud-os-card .Phoenix__Select__Select__placeholder,
+    .Phoenix__Select__Select__placeholder {
       color: @text !important;
     }
 
-    .plan .Phoenix__RadioCard:not(.Phoenix__RadioCard--disabled):hover > label {
+    .plan .Phoenix__RadioCard:not(.Phoenix__RadioCard--disabled)>label,
+    .Phoenix__SortableTable__Row.hilite-on-hover+.expandable-row__details td,
+    .Phoenix__SortableTable__Row.hilite-on-hover td {
+      transition: border-color 0.2s ease;
+    }
+
+    .plan .Phoenix__RadioCard:not(.Phoenix__RadioCard--disabled):hover>label,
+    .Phoenix__SortableTable__Row.hilite-on-hover:hover+.expandable-row__details td,
+    .Phoenix__SortableTable__Row.hilite-on-hover:hover td {
       border-color: @accent !important;
+      transition: border-color 0.2s ease;
     }
 
     .plan-column:not(:last-child) {
       border-right: 0.1px solid @surface1 !important;
     }
+
     .plan.selected {
       color: @accent !important;
     }
@@ -708,11 +811,11 @@
     .plan.selected {
       background-color: @mantle !important;
       border: 0.5px solid @accent !important;
-      border-radius: 0.5rem !important;
+      border-radius: @border-radius !important;
     }
 
     .gpu-quota-row {
-      border-radius: 0.5rem;
+      border-radius: @border-radius;
       color: @text !important;
       background-color: rgba(123, 0, 255, 0.05);
     }
@@ -729,7 +832,8 @@
       color: @accent !important;
     }
 
-    .backup-card .backup-extra, .backup-feature {
+    .backup-card .backup-extra,
+    .backup-feature {
       color: @subtext0 !important;
     }
 
@@ -738,10 +842,25 @@
       color: @text !important;
     }
 
+    .network,
+    .server-optionals-subsection,
+    .disk-config-wrapper,
+    .metadata {
+      border-bottom: 1px solid @surface0;
+    }
+
+    .divider {
+      background-color: @surface0;
+    }
+
+    .collapse-toggle {
+      background-color: transparent;
+      color: @accent;
+    }
+
     /* referral */
     .overlay {
-      background: linear-gradient(fade(@base, 85%) 0%, fade(@base, 95%) 100%)
-        !important;
+      background: linear-gradient(fade(@base, 85%) 0%, fade(@base, 95%) 100%) !important;
     }
 
     [class*="ReferralProgram"][class*="disabledTextContainer"],
@@ -754,8 +873,15 @@
         0 20px 20px 30px fade(@base, 90%);
     }
 
+    /* servers */
+    .tab {
+      border-color: @surface0 !important;
+    }
+
     /* "essentials" */
-    [class*="headerTitle"], [class*="item-title"], .item-title {
+    [class*="headerTitle"],
+    [class*="item-title"],
+    .item-title {
       color: @text !important;
     }
 
@@ -770,7 +896,7 @@
 
     .billing-graph img {
       /* Apply filter to match @base color for dark themes */
-      filter: if(@flavor = latte, none, brightness(0) invert(1)) !important;
+      filter: if(@flavor =latte, none, brightness(0) invert(1)) !important;
       opacity: 0.15;
     }
 
@@ -784,8 +910,13 @@
     }
 
     /* backups */
-    .Phoenix__SortableTable__Body .Phoenix__SortableTable__Cell {
-      background-color: transparent !important;
+    .Phoenix__SortableTable__Row.hilite-on-hover:hover+.expandable-row__details td {
+      border-top-color: var(--uikit-grey-border) !important;
+    }
+
+    .Phoenix__SortableTable__Body .Phoenix__SortableTable__Cell,
+    .Phoenix__GenericTable__Head {
+      background-color: @mantle !important;
     }
 
     .summary {
@@ -801,13 +932,15 @@
 
     /* main app */
 
-    .app-main, .app {
+    .app-main,
+    .app {
       background-color: @base;
       color: @text;
     }
 
-    .logo, .image-wrapper {
-      filter: if(@flavor = latte, none, brightness(0) invert(1));
+    .logo,
+    .image-wrapper {
+      filter: if(@flavor =latte, none, brightness(0) invert(1));
       color: @text !important;
     }
 
@@ -819,8 +952,129 @@
 
 /* deno-fmt-ignore */
 @catppuccin: {
-  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-};
+  @latte: {
+    @rosewater: #dc8a78;
+    @flamingo: #dd7878;
+    @pink: #ea76cb;
+    @mauve: #8839ef;
+    @red: #d20f39;
+    @maroon: #e64553;
+    @peach: #fe640b;
+    @yellow: #df8e1d;
+    @green: #40a02b;
+    @teal: #179299;
+    @sky: #04a5e5;
+    @sapphire: #209fb5;
+    @blue: #1e66f5;
+    @lavender: #7287fd;
+    @text: #4c4f69;
+    @subtext1: #5c5f77;
+    @subtext0: #6c6f85;
+    @overlay2: #7c7f93;
+    @overlay1: #8c8fa1;
+    @overlay0: #9ca0b0;
+    @surface2: #acb0be;
+    @surface1: #bcc0cc;
+    @surface0: #ccd0da;
+    @base: #eff1f5;
+    @mantle: #e6e9ef;
+    @crust: #dce0e8;
+  }
+
+  ;
+
+  @frappe: {
+    @rosewater: #f2d5cf;
+    @flamingo: #eebebe;
+    @pink: #f4b8e4;
+    @mauve: #ca9ee6;
+    @red: #e78284;
+    @maroon: #ea999c;
+    @peach: #ef9f76;
+    @yellow: #e5c890;
+    @green: #a6d189;
+    @teal: #81c8be;
+    @sky: #99d1db;
+    @sapphire: #85c1dc;
+    @blue: #8caaee;
+    @lavender: #babbf1;
+    @text: #c6d0f5;
+    @subtext1: #b5bfe2;
+    @subtext0: #a5adce;
+    @overlay2: #949cbb;
+    @overlay1: #838ba7;
+    @overlay0: #737994;
+    @surface2: #626880;
+    @surface1: #51576d;
+    @surface0: #414559;
+    @base: #303446;
+    @mantle: #292c3c;
+    @crust: #232634;
+  }
+
+  ;
+
+  @macchiato: {
+    @rosewater: #f4dbd6;
+    @flamingo: #f0c6c6;
+    @pink: #f5bde6;
+    @mauve: #c6a0f6;
+    @red: #ed8796;
+    @maroon: #ee99a0;
+    @peach: #f5a97f;
+    @yellow: #eed49f;
+    @green: #a6da95;
+    @teal: #8bd5ca;
+    @sky: #91d7e3;
+    @sapphire: #7dc4e4;
+    @blue: #8aadf4;
+    @lavender: #b7bdf8;
+    @text: #cad3f5;
+    @subtext1: #b8c0e0;
+    @subtext0: #a5adcb;
+    @overlay2: #939ab7;
+    @overlay1: #8087a2;
+    @overlay0: #6e738d;
+    @surface2: #5b6078;
+    @surface1: #494d64;
+    @surface0: #363a4f;
+    @base: #24273a;
+    @mantle: #1e2030;
+    @crust: #181926;
+  }
+
+  ;
+
+  @mocha: {
+    @rosewater: #f5e0dc;
+    @flamingo: #f2cdcd;
+    @pink: #f5c2e7;
+    @mauve: #cba6f7;
+    @red: #f38ba8;
+    @maroon: #eba0ac;
+    @peach: #fab387;
+    @yellow: #f9e2af;
+    @green: #a6e3a1;
+    @teal: #94e2d5;
+    @sky: #89dceb;
+    @sapphire: #74c7ec;
+    @blue: #89b4fa;
+    @lavender: #b4befe;
+    @text: #cdd6f4;
+    @subtext1: #bac2de;
+    @subtext0: #a6adc8;
+    @overlay2: #9399b2;
+    @overlay1: #7f849c;
+    @overlay0: #6c7086;
+    @surface2: #585b70;
+    @surface1: #45475a;
+    @surface0: #313244;
+    @base: #1e1e2e;
+    @mantle: #181825;
+    @crust: #11111b;
+  }
+
+  ;
+}
+
+;
