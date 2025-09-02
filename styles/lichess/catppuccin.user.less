@@ -14,6 +14,7 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 @var checkbox stylePieces "Style Pieces" 1
+@var checkbox styleBoard "Style Board" 1
 ==/UserStyle== */
 
 @-moz-document domain("lichess.org") {
@@ -283,11 +284,30 @@
     }
 
     /* Chess Game */
-    .brown .is2d cg-board {
-      @svg: escape(
-        '<svg shape-rendering="crispEdges" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="f"><g id="e"><g id="d"><g id="c"><path id="a" d="M0 0h1v1H0z" fill="@{subtext0}"/><use x="1" xlink:href="#a" y="1"/><path id="b" d="M0 1h1v1H0z" fill="@{crust}"/><use x="1" xlink:href="#b" y="-1"/></g><use x="2" xlink:href="#c"/></g><use x="4" xlink:href="#d"/></g><use xlink:href="#e" y="2"/></g><use xlink:href="#f" y="4"/></svg>'
-      );
-      background-image: url("data:image/svg+xml,@{svg}") !important;
+    @light-cell: if(@flavor = latte, @surface0, @accent);
+    @dark-cell: if(@flavor = latte, @accent, @surface0);
+    & when (@styleBoard = 1) {
+      /* Board */
+      .is2d cg-board::before {
+        @svg: escape(
+          '<svg shape-rendering="crispEdges" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="f"><g id="e"><g id="d"><g id="c"><path id="a" d="M0 0h1v1H0z" fill="@{light-cell}"/><use x="1" xlink:href="#a" y="1"/><path id="b" d="M0 1h1v1H0z" fill="@{dark-cell}"/><use x="1" xlink:href="#b" y="-1"/></g><use x="2" xlink:href="#c"/></g><use x="4" xlink:href="#d"/></g><use xlink:href="#e" y="2"/></g><use xlink:href="#f" y="4"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}") !important;
+      }
+
+      /* File and Rank Coords */
+      .orientation-white .files coord:nth-child(2n+1),
+      .orientation-white .ranks coord:nth-child(2n),
+      .orientation-black .files coord:nth-child(2n),
+      .orientation-black .ranks coord:nth-child(2n+1) {
+        color: @light-cell;
+      }
+      .orientation-white .files coord:nth-child(2n),
+      .orientation-white .ranks coord:nth-child(2n+1),
+      .orientation-black .files coord:nth-child(2n+1),
+      .orientation-black .ranks coord:nth-child(2n) {
+        color: @dark-cell;
+      }
     }
     & when (@stylePieces = 1) {
       .is2d .pawn {
@@ -376,18 +396,6 @@
       }
     }
 
-    .orientation-white .files coord:nth-child(2n+1),
-    .orientation-white .ranks coord:nth-child(2n),
-    .orientation-black .files coord:nth-child(2n),
-    .orientation-black .ranks coord:nth-child(2n+1) {
-      color: @base;
-    }
-    .orientation-white .files coord:nth-child(2n),
-    .orientation-white .ranks coord:nth-child(2n+1),
-    .orientation-black .files coord:nth-child(2n+1),
-    .orientation-black .ranks coord:nth-child(2n) {
-      color: @crust;
-    }
     square.move-dest {
       background: radial-gradient(
         fade(@accent, 50%) 19%,
