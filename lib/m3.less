@@ -1,11 +1,5 @@
 // TODO: run FMT pass
 #m3() {
-  // Temporary helper function, replace later
-  .rgb(@id, @color) {
-    --@{id}: @color;
-    --@{id}-rgb: #lib.rgbify(@color) [];
-  }
-  
   .base() {
     @m3-primary: @accent;
     @m3-secondary: desaturate(@accent, 15%);
@@ -20,62 +14,67 @@
   
   .color-system() {
     .generate(@prefix) {
-      #__m3-rgb(@{prefix}background, @base);
-      #__m3-rgb(@{prefix}error, @red);
-      #__m3-rgb(@{prefix}error-container, fade(@red, @m3-tint));
-      #__m3-rgb(@{prefix}inverse-on-surface, @base);
+      .token(@id, @color) {
+        --@{prefix}@{id}: @color;
+        --@{prefix}@{id}-rgb: #lib.rgbify(@color) [];
+      }
+      
+      .token(background, @base);
+      .token(error, @red);
+      .token(error-container, fade(@red, @m3-tint));
+      .token(inverse-on-surface, @base);
       // m3-primary
-      #__m3-rgb(@{prefix}inverse-primary, @catppuccin[@@m3-inverse-flavor][@accent]);
-      #__m3-rgb(@{prefix}inverse-surface, @text);
-      #__m3-rgb(@{prefix}on-background, @text);
-      #__m3-rgb(@{prefix}on-error, @base);
-      #__m3-rgb(@{prefix}on-error-container, lighten(@red, @m3-emphasize));
-      #__m3-rgb(@{prefix}on-primary, @base);
-      #__m3-rgb(@{prefix}on-primary-container, lighten(@m3-primary, @m3-emphasize));
-      #__m3-rgb(@{prefix}on-primary-fixed, @catppuccin[@mocha][@base]);
-      #__m3-rgb(@{prefix}on-primary-fixed-variant, @catppuccin[@mocha][@base]);
-      #__m3-rgb(@{prefix}on-secondary, @base);
-      #__m3-rgb(@{prefix}on-secondary-container, lighten(@m3-secondary, @m3-emphasize));
-      #__m3-rgb(@{prefix}on-secondary-fixed, @catppuccin[@mocha][@base]);
-      #__m3-rgb(@{prefix}on-secondary-fixed-variant, @catppuccin[@mocha][@base]);
-      #__m3-rgb(@{prefix}on-surface, @text);
-      #__m3-rgb(@{prefix}on-surface-variant, @subtext0);
-      #__m3-rgb(@{prefix}on-tertiary, @base);
-      #__m3-rgb(@{prefix}on-tertiary-container, lighten(@m3-tertiary, @m3-emphasize));
-      #__m3-rgb(@{prefix}on-tertiary-fixed, @catppuccin[@mocha][@base]);
-      #__m3-rgb(@{prefix}on-tertiary-fixed-variant, @catppuccin[@mocha][@base]);
-      #__m3-rgb(@{prefix}outline, @overlay2);
-      #__m3-rgb(@{prefix}outline-variant, @overlay0);
-      #__m3-rgb(@{prefix}primary, @m3-primary);
-      #__m3-rgb(@{prefix}primary-container, fade(@m3-primary, @m3-tint));
+      .token(inverse-primary, @catppuccin[@@m3-inverse-flavor][@accent]);
+      .token(inverse-surface, @text);
+      .token(on-background, @text);
+      .token(on-error, @base);
+      .token(on-error-container, lighten(@red, @m3-emphasize));
+      .token(on-primary, @base);
+      .token(on-primary-container, lighten(@m3-primary, @m3-emphasize));
+      .token(on-primary-fixed, @catppuccin[@mocha][@base]);
+      .token(on-primary-fixed-variant, @catppuccin[@mocha][@base]);
+      .token(on-secondary, @base);
+      .token(on-secondary-container, lighten(@m3-secondary, @m3-emphasize));
+      .token(on-secondary-fixed, @catppuccin[@mocha][@base]);
+      .token(on-secondary-fixed-variant, @catppuccin[@mocha][@base]);
+      .token(on-surface, @text);
+      .token(on-surface-variant, @subtext0);
+      .token(on-tertiary, @base);
+      .token(on-tertiary-container, lighten(@m3-tertiary, @m3-emphasize));
+      .token(on-tertiary-fixed, @catppuccin[@mocha][@base]);
+      .token(on-tertiary-fixed-variant, @catppuccin[@mocha][@base]);
+      .token(outline, @overlay2);
+      .token(outline-variant, @overlay0);
+      .token(primary, @m3-primary);
+      .token(primary-container, fade(@m3-primary, @m3-tint));
       // m3-primary
-      #__m3-rgb(@{prefix}primary-fixed, @catppuccin[@mocha][@accent]);
+      .token(primary-fixed, @catppuccin[@mocha][@accent]);
       // m3-primary
-      #__m3-rgb(@{prefix}primary-fixed-dim, darken(@catppuccin[@mocha][@accent], @m3-deemphasize));
-      #__m3-rgb(@{prefix}scrim, @m3-black);
-      #__m3-rgb(@{prefix}secondary, @m3-secondary);
-      #__m3-rgb(@{prefix}secondary-container, fade(@m3-secondary, @m3-tint));
+      .token(primary-fixed-dim, darken(@catppuccin[@mocha][@accent], @m3-deemphasize));
+      .token(scrim, @m3-black);
+      .token(secondary, @m3-secondary);
+      .token(secondary-container, fade(@m3-secondary, @m3-tint));
       // m3-secondary
-      #__m3-rgb(@{prefix}secondary-fixed, desaturate(@catppuccin[@mocha][@accent], 15%));
+      .token(secondary-fixed, desaturate(@catppuccin[@mocha][@accent], 15%));
       // m3-secondary
-      #__m3-rgb(@{prefix}secondary-fixed-dim, darken(desaturate(@catppuccin[@mocha][@accent], 15%), @m3-deemphasize));
-      #__m3-rgb(@{prefix}shadow, @m3-black);
-      #__m3-rgb(@{prefix}surface, @base);
-      #__m3-rgb(@{prefix}surface-bright, @surface0);
-      #__m3-rgb(@{prefix}surface-container, @surface0);
-      #__m3-rgb(@{prefix}surface-container-high, @surface1);
-      #__m3-rgb(@{prefix}surface-container-highest, @surface2);
-      #__m3-rgb(@{prefix}surface-container-low, @mantle);
-      #__m3-rgb(@{prefix}surface-container-lowest, @crust);
-      #__m3-rgb(@{prefix}surface-dim, @mantle);
-      #__m3-rgb(@{prefix}surface-tint, @accent);
-      #__m3-rgb(@{prefix}surface-variant, @overlay1);
-      #__m3-rgb(@{prefix}tertiary, @m3-tertiary);
-      #__m3-rgb(@{prefix}tertiary-container, fade(@m3-tertiary, @m3-tint));
+      .token(secondary-fixed-dim, darken(desaturate(@catppuccin[@mocha][@accent], 15%), @m3-deemphasize));
+      .token(shadow, @m3-black);
+      .token(surface, @base);
+      .token(surface-bright, @surface0);
+      .token(surface-container, @surface0);
+      .token(surface-container-high, @surface1);
+      .token(surface-container-highest, @surface2);
+      .token(surface-container-low, @mantle);
+      .token(surface-container-lowest, @crust);
+      .token(surface-dim, @mantle);
+      .token(surface-tint, @accent);
+      .token(surface-variant, @overlay1);
+      .token(tertiary, @m3-tertiary);
+      .token(tertiary-container, fade(@m3-tertiary, @m3-tint));
       // m3-tertiary
-      #__m3-rgb(@{prefix}tertiary-fixed, lighten(@catppuccin[@mocha][@accent], 5%));
+      .token(tertiary-fixed, lighten(@catppuccin[@mocha][@accent], 5%));
       // m3-tertiary
-      #__m3-rgb(@{prefix}tertiary-fixed-dim, darken(lighten(@catppuccin[@mocha][@accent], 5%), @m3-deemphasize));
+      .token(tertiary-fixed-dim, darken(lighten(@catppuccin[@mocha][@accent], 5%), @m3-deemphasize));
     }
-}
+  }
 }
