@@ -401,18 +401,33 @@
       }
     }
 
-    square.move-dest {
-      background: radial-gradient(
-        @overlay1 19%,
-        rgba(0, 0, 0, 0) 20%
-      );
+    square {
+      &.move-dest {
+        background: radial-gradient(
+          @overlay1 19%,
+          rgba(0, 0, 0, 0) 20%
+        );
+      }
+
+      &.selected {
+        background: fade(@accent, 50%);
+      }
+
+      &.last-move {
+        background-color: fade(@lastMove, 75%);
+      }
+
+      &.check {
+        background: radial-gradient(
+          ellipse at center,
+          @check 0%,
+          @check 25%,
+          fade(@check, 0%) 89%,
+          fade(@check, 0%) 100%
+        );
+      }
     }
-    square.selected {
-      background: fade(@accent, 50%);
-    }
-    square.last-move {
-      background-color: fade(@lastMove, 75%);
-    }
+
     .rclock .time {
       background: @mantle;
       color: @text;
@@ -423,16 +438,6 @@
     .rclock .bar {
       background: @accent;
     }
-    square.check {
-      background: radial-gradient(
-        ellipse at center,
-        @check 0%,
-        @check 25%,
-        fade(@check, 0%) 89%,
-        fade(@check, 0%) 100%
-      );
-    }
-
     /* Analysis Arrows */
     svg.cg-shapes g {
       &[cgHash$="green"] {
@@ -562,13 +567,14 @@
     }
     .ceval .bar span {
       background: @green;
+
+      &.threat {
+        background: @red;
+      }
     }
     .show-threat.active,
     .show-threat:hover:not(.hidden) {
       color: @red;
-    }
-    .ceval .bar span.threat {
-      background: @red;
     }
     /* Openings */
     .opening__config,
