@@ -7,4 +7,4 @@ E.g. Fixes unthemed buttons on the home page.
 
 ## 🗒 Checklist 🗒
 
-- [ ] I have read and followed Catppuccin's [contributing guidelines](https://userstyles.catppuccin.com/).
+- [ ] I have read and followed Catppuccin's [contributing guidelines](https://userstyles.catppuccin.com/contributing/).
