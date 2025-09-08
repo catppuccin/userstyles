@@ -31,7 +31,7 @@ Below is an example of what a rule for an external SVG URL could look like.
 }
 ```
 
-The easiest way to theme external SVGs is to visit the URL of the SVG and paste its contents.
+To obtain the contents of this remote SVG resource, you can either: visit the URL of the SVG, right click and select **View Page Source**, and copy its contents from the resulting page; or, run `curl "https://example.org/assets/xyz.svg"` and copy the contents from the terminal output (copy the contents automatically with `curl "https://example.org/assets/xyz.svg" | pbcopy` on macOS).
 
 ### Inlined SVG data URL
 
