@@ -18,7 +18,7 @@
 > [!IMPORTANT]
 > This userstyle also applies to [Nixpkgs Manual](https://nixos.org/manual/nixpkgs).
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 
 ## 💝 Current Maintainer

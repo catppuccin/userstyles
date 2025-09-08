@@ -15,7 +15,7 @@
 
 ## Usage
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 > [!NOTE]
 > Holodex's selected theme is ignored.
