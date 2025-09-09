@@ -73,7 +73,7 @@ if (didLintFail || log.failed) {
     console.log(
       `\n  ${
         color.bold(color.inverse(color.green(`${THIN_SPACE}TIP${THIN_SPACE}`)))
-      }: Run ${color.bold("deno task lint:fix")} to fix autofixable issues.`,
+      } Run ${color.bold("deno task lint:fix")} to fix autofixable issues.`,
     );
   }
   Deno.exit(1);
