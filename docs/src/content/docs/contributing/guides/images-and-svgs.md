@@ -7,7 +7,7 @@ sidebar:
 
 ## Monochrome `<img>` elements
 
-If you encounter an `<img>` element with monochrome contents, the easiest approach is to apply a CSS color filter. You can use the `@<color>-filter` variables provided out of the box.
+If you encounter an `<img>` element with bitonal contents, the easiest way to theme it is to apply a CSS color filter. The `@<color>-filter` filters can be used to theme Catppuccin colours.
 
 For example:
 
