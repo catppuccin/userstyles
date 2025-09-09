@@ -43,7 +43,11 @@ Below is an example of what a rule for an inlined SVG data URL could look like.
 }
 ```
 
-The contents past `data:image/svg+xml,` are almost gibberish. This is because they are URL encoded. To get the actual SVG contents, you'll need to URL decode the string. This can be done with the JavaScript builtin function `decodeURIComponent`; run `node -e 'console.log(decodeURIComponent("..."))'`, inserting your URL encoded SVG contents in between the double quotes in place of the `...`. Alternatively, use an online tool such as https://www.urldecoder.io/.
+The text after `data:image/svg+xml,` is URL encoded. To get the contents of the SVG, the string needs to be URL decoded.
+
+There are two ways to do this:
+- Using the JavaScript built-in function `decodeURIComponent`. You can run `node -e 'console.log(decodeURIComponent("..."))'`, with the URL encoded SVG contents placed between the double quotes in place of `...`.
+- Use an online tool such as [https://www.urldecoder.io/](URLDecoder).
 
 ---
 
