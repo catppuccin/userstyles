@@ -58,7 +58,7 @@ Once you have obtained the SVG contents, paste them in between the single quotes
 ```
 
 > [!NOTE]
-> Make sure the quotes in `escape('')` are single quotes, not double quotes (`escape("")`), before pasting the SVG contents. Using double quotes will not work as double quotes are also used in the contents of SVGs.
+> Ensure `escape()` uses single quotes, not double quotes, before pasting the SVG contents — `escape('')`, not `escape("")`.
 
 > [!WARNING]
 > The error `Invalid % without number` appears until an interpolated color is added in the SVG contents. This is covered in the following section.
