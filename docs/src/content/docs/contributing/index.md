@@ -9,7 +9,11 @@ If it is your first time contributing to a project on GitHub, please see the pop
 
 ## Development environment
 
-This repositories uses [Deno](https://deno.com/) extensively for linting, formatting, and automation. We highly recommend setting up Deno locally to improve your workflow — see ["Installation" - Deno Docs](https://docs.deno.com/runtime/manual/getting_started/installation). With Deno installed locally, you can run the lint script using `deno task lint` (and `deno task lint:fix` to automatically apply fixes) and the formatting script using `deno fmt`.
+This repository uses [Deno](https://deno.com/) extensively for linting, formatting, and automation. It is highly recommended to set up Deno locally to improve your workflow — see ["Installation" - Deno Docs](https://docs.deno.com/runtime/manual/getting_started/installation).
+
+With Deno installed locally, you can lint all userstyles with `deno task lint`, and if any issues are found, `deno task lint:fix` to automatically apply fixes in some cases. For quicker linting, specify the userstyle to lint with `deno task lint my-userstyle` (or equivalently using the relative path/autocomplete, `deno task lint styles/my-userstyle`).
+
+It's helpful to maintainers to run formatting with `deno fmt` before opening a pull request, though not strictly necessary.
 
 > [!IMPORTANT]
 > `deno task lint` is not to be confused with Deno's built-in linter, `deno lint`. `deno lint` only checks our TypeScript files in `scripts/`, whereas `deno task lint` is the custom Deno task for linting userstyles that you should be using.
