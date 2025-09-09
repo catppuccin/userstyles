@@ -86,7 +86,9 @@ There is only one color used, `fill="#1D9BF0"`. That hex code is a shade of blue
 
 ## External SVGs through `<img>` elements
 
-Theming an external SVG in an `<img>>` element is similar, but the `content` property is used instead of `background-image` to cover up the original image with our new one. As with the previous tip for `background-image`, you only need to update the SVG inside of the `escape('')` (see above for details).
+Theming an external SVG referenced from an `<img>` element is similar. However, the `content` property is used instead of `background-image` to replace the image.
+
+As with the previous tip for `background-image`, only the SVG inside of the `escape('')` needs to be updated.
 
 ```less
 img.xyz {
