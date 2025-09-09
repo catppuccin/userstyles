@@ -61,7 +61,7 @@ Once you have obtained the SVG contents, paste them in between the single quotes
 > Make sure the quotes in `escape('')` are single quotes, not double quotes (`escape("")`), before pasting the SVG contents. Using double quotes will not work as double quotes are also used in the contents of SVGs.
 
 > [!WARNING]
-> The `Invalid % without number` error may appear until an interpolated color is added in the SVG contents (as is detailed below).
+> The error `Invalid % without number` appears until an interpolated color is added in the SVG contents. This is covered in the following section.
 
 Now, replace any colors in the SVG with their respective Catppuccin variants. For example, take the following SVG icon for Twitter:
 
