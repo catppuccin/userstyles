@@ -32,6 +32,7 @@ Below is an example of what a rule for an external SVG URL could look like.
 ```
 
 To obtain the contents of this remote SVG resource, you can either:
+
 - Visit the URL of the SVG, right click and select **View Page Source**, and copy its contents from the resulting page.
 - Run `curl "https://example.org/assets/xyz.svg"` and copy the contents from the terminal output.
 
@@ -51,6 +52,7 @@ Below is an example of what a rule for an inlined SVG data URL could look like.
 The text after `data:image/svg+xml,` is URL encoded. To get the contents of the SVG, the string needs to be URL decoded.
 
 There are two ways to do this:
+
 - Using the JavaScript built-in function `decodeURIComponent`. You can run `node -e 'console.log(decodeURIComponent("..."))'`, with the URL encoded SVG contents placed between the double quotes in place of `...`.
 - Use an online tool such as [https://www.urldecoder.io/](URLDecoder).
 
