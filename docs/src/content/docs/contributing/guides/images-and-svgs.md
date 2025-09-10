@@ -31,7 +31,12 @@ Below is an example of what a rule for an external SVG URL could look like.
 }
 ```
 
-To obtain the contents of this remote SVG resource, you can either: visit the URL of the SVG, right click and select **View Page Source**, and copy its contents from the resulting page; or, run `curl "https://example.org/assets/xyz.svg"` and copy the contents from the terminal output (copy the contents automatically with `curl "https://example.org/assets/xyz.svg" | pbcopy` on macOS).
+To obtain the contents of this remote SVG resource, you can either:
+- Visit the URL of the SVG, right click and select **View Page Source**, and copy its contents from the resulting page.
+- Run `curl "https://example.org/assets/xyz.svg"` and copy the contents from the terminal output.
+
+> [!TIP]
+> On macOS, copy the SVG contents after `curl`-ing automatically with `| pbcopy`: `curl "https://example.org/assets/xyz.svg" | pbcopy`.
 
 ### Inlined SVG data URL
 
