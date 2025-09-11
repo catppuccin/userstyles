@@ -54,7 +54,7 @@ The text after `data:image/svg+xml,` is URL encoded. To get the contents of the 
 There are two ways to do this:
 
 - Using the JavaScript built-in function `decodeURIComponent`. You can run `node -e 'console.log(decodeURIComponent("..."))'`, with the URL encoded SVG contents placed between the double quotes in place of `...`.
-- Use an online tool such as [https://www.urldecoder.io/](URLDecoder).
+- Use an online tool such as [urldecoder.io](https://www.urldecoder.io/).
 
 ---
 
