@@ -45,11 +45,61 @@
     @lastMove: @catppuccin[@@flavor][@@lastMoveColor];
     @check: @catppuccin[@@flavor][@@checkColor];
 
+    * {
+      --c-accent: @accent;
+      --c-bad: @red;
+      --c-bg-box: @base;
+      --c-bg-popup: @surface0;
+      --c-border: @surface0;
+      --c-brag: @peach;
+      --c-dasher: @green;
+      --c-dasher-light: @accent;
+      --c-good: @green;
+      --c-error: @red;
+      --c-link: @blue;
+      --c-primary: @accent;
+      --c-shade: @surface1;
+      --c-font: @text;
+      --c-font-dim: @subtext0;
+      --m-accent--fade-50: fade(@accent, 50%);
+      --m-accent--fade-80: fade(@accent, 20%);
+      --m-secondary--fade-30: fade(@green, 70%);
+    }
+
     &,
     body {
       background: @base linear-gradient(to bottom, @crust, @base 116px)
         no-repeat;
       color: @text !important;
+    }
+
+    /* Login page */
+    .auth .submit.button {
+      background: @accent !important;
+      color: @base;
+    }
+
+    /* Registration page */
+    .password-complexity-meter {
+      > * {
+        background-color: @surface2;
+      }
+
+      [style="background-color: red;"] {
+        background-color: @red !important;
+      }
+
+      [style="background-color: rgb(255, 128, 0);"] {
+        background-color: @peach !important;
+      }
+
+      [style="background-color: rgb(255, 200, 0);"] {
+        background-color: @yellow !important;
+      }
+
+      [style="background-color: green;"] {
+        background-color: @green !important;
+      }
     }
 
     /* Button */
@@ -68,7 +118,55 @@
       background-color: fade(@accent, 50%);
     }
 
+    /* Create game menus */
+    .time-mode-config input[class="range"] {
+      background: none;
+    }
+    group.radio input:checked + label {
+      /* Selected Stockfish level */
+      text-shadow: none !important;
+      color: @base;
+    }
+
+    /* Play with a friend */
+    .challenge-page {
+      .details-wrapper {
+        ---font: @accent;
+        ---bg: fade(@accent, 10%);
+      }
+
+      .invite > div {
+        background: @base;
+      }
+
+      .button-red {
+        background: @red !important;
+        color: @mantle;
+
+        &:hover {
+          background: @accent !important;
+        }
+      }
+
+      .accept button {
+        background: @green !important;
+        color: @mantle;
+
+        &:hover {
+          background: @accent !important;
+        }
+      }
+
+      .copy-me__button:not(.button-metal) {
+        color: @blue;
+      }
+    }
+
     /* Topbar */
+    header.scrolled {
+      background: none;
+      border-color: none;
+    }
     #topnav.hover section:hover > a,
     #topnav section:active > a,
     #topnav div,
@@ -82,16 +180,56 @@
     #topnav.hover section:hover > a,
     #topnav section:active > a,
     #topnav div a,
-    #dasher_app .selector button,
-    #dasher_app .head,
-    #dasher_app .piece .no-square,
-    #dasher_app .theme .list button,
-    #dasher_app .links a,
-    #dasher_app .links button,
-    #dasher_app .subs .sub,
-    .site-buttons .dropdown a,
-    .site-buttons .dropdown button {
-      color: @text;
+    #dasher_app {
+      .selector button,
+      .head,
+      .piece .no-square,
+      .theme .list button,
+      .links a,
+      .links button,
+      .subs .sub,
+      .site-buttons .dropdown a,
+      .site-buttons .dropdown button {
+        color: @text;
+      }
+
+      .sub::before,
+      .is-green::before {
+        color: @green;
+      }
+
+      .links a, .sub, .logout button, .selector button, .langs form button {
+        &:hover, &:hover::before {
+          color: @surface0;
+        }
+      }
+
+      .langs .current, .active, .active::before {
+        color: @surface0 !important;
+
+        &:hover {
+          color: @surface0 !important;
+        }
+      }
+
+      .langs .help:hover {
+        color: @base;
+      }
+
+      .piece {
+        .no-square:not(.active):hover {
+          background: @surface1;
+        }
+
+        .list {
+          background-color: @surface0;
+          background-image: none;
+        }
+      }
+
+      .sub:hover label {
+        color: @text;
+      }
     }
     #topnav.hover section:hover > a,
     #topnav section:active > a,
@@ -101,12 +239,27 @@
     signal > i {
       background-color: @green;
     }
-    #dasher_app .sub::before,
-    .is-green::before {
-      color: @green;
-    }
     #challenge-app .empty {
       background: @crust;
+    }
+
+    /* Hamburger menu */
+    .hbg__in {
+      &, &::before, &::after {
+        background-color: @overlay1;
+      }
+    }
+    .topnav-toggle:checked ~ .hbg {
+      background: @base;
+    }
+    @media (max-width: 1019.29px) {
+      #topnav {
+        background: @crust;
+
+        .community-patron::after {
+          color: @peach;
+        }
+      }
     }
 
     /* Popup skining */
@@ -221,6 +374,14 @@
     }
     .lobby__box tr:nth-child(even) {
       background: @crust;
+    }
+    .lobby {
+      .progress {
+        background: @base;
+      }
+      .progress__bar {
+        background: fade(@blue, 25%);
+      }
     }
 
     /* Non-main page sidebar nav colors */
@@ -412,15 +573,34 @@
       }
     }
 
-    .rclock .time {
-      background: @mantle;
-      color: @text;
-    }
-    .rclock.running .time {
-      background: #384722; /* putting it back to default so that the time on the clock is readable */
-    }
-    .rclock .bar {
-      background: @accent;
+    .rclock {
+      .time {
+        background: @mantle;
+        color: @text;
+      }
+
+      &.running .time {
+        background: @green;
+        color: @surface0;
+      }
+
+      &.emerg .time {
+        background: @red;
+        color: @surface0;
+      }
+
+      sep {
+        color: @surface0;
+        opacity: 1;
+
+        &.low {
+          color: @overlay0;
+        }
+      }
+
+      .bar {
+        background: @accent;
+      }
     }
 
     /* Game Cards */
@@ -430,12 +610,36 @@
     }
     rm6 {
       background: @mantle;
+
+      rb1 {
+        background: @mantle;
+
+        .fbt:hover:not(.disabled):not([disabled]), .fbt.active {
+          background: @green !important;
+
+          &::before {
+            color: @mantle;
+          }
+        }
+      }
+
+      kwdb.a1t {
+        background: @blue;
+        color: @mantle;
+      }
+
+      .board-menu {
+        border-top-color: @green;
+      }
     }
     rm6 .buttons,
     rm6 i5z {
       background: @base;
     }
 
+    .rematch.fbt {
+      background: @surface0;
+    }
     /* Messages */
     .msg-app__convo__head,
     .msg-app__side__search,
