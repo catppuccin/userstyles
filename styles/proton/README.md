@@ -13,17 +13,12 @@
 	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/proton/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
-<p align="center">
-  <img src="preview.webp"/>
-</p>
-
 ## Usage
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 > [!NOTE]
 > Set Proton Mail's built-in theme to 'Snow' if you're using Latte or 'Carbon' if you're using the others.
-
 
 ## 💝 Current Maintainer
 - [soya-daizu](https://github.com/soya-daizu)

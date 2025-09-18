@@ -13,25 +13,19 @@
 	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/{{ slug }}/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
-<p align="center">
-  <img src="preview.webp"/>
-</p>
-
 ## Usage
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+{{#if supportedWebsites}}
+> [!IMPORTANT]
+> This userstyle also applies to {{ supportedWebsites }}.
+
+{{/if~}}
+
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 {{#if note}}
 > [!NOTE]
 > {{{ note }}}
-{{/if}}
-
-{{#if faq}}
-## 🙋 FAQ
-{{#each faq}}
-- Q: {{{ question }}}\
-  A: {{{ answer }}}
-{{/each}}
 {{/if}}
 
 {{#if collaborators.currentMaintainers.length}}

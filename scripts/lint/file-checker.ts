@@ -8,7 +8,6 @@ import { log } from "@/logger.ts";
 
 const requiredFiles = [
   "catppuccin.user.less",
-  "preview.webp",
 ];
 
 export async function checkForMissingFiles() {
