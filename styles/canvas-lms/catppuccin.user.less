@@ -2,7 +2,7 @@
 @name Canvas LMS Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/canvas-lms
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/canvas-lms
-@version 2025.03.13.1
+@version 2025.09.06
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/canvas-lms/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Acanvas-lms
 @description Soothing pastel theme for Canvas LMS
@@ -15,6 +15,8 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
 @-moz-document domain("instructure.com"), domain("instructuremedia.com") {
   :root {
     @media (prefers-color-scheme: light) {
@@ -26,53 +28,8 @@
   }
 
   #catppuccin(@flavor) {
-    @rosewater: @catppuccin[@@flavor][@rosewater];
-    @flamingo: @catppuccin[@@flavor][@flamingo];
-    @pink: @catppuccin[@@flavor][@pink];
-    @mauve: @catppuccin[@@flavor][@mauve];
-    @red: @catppuccin[@@flavor][@red];
-    @maroon: @catppuccin[@@flavor][@maroon];
-    @peach: @catppuccin[@@flavor][@peach];
-    @yellow: @catppuccin[@@flavor][@yellow];
-    @green: @catppuccin[@@flavor][@green];
-    @teal: @catppuccin[@@flavor][@teal];
-    @sky: @catppuccin[@@flavor][@sky];
-    @sapphire: @catppuccin[@@flavor][@sapphire];
-    @blue: @catppuccin[@@flavor][@blue];
-    @lavender: @catppuccin[@@flavor][@lavender];
-    @text: @catppuccin[@@flavor][@text];
-    @subtext1: @catppuccin[@@flavor][@subtext1];
-    @subtext0: @catppuccin[@@flavor][@subtext0];
-    @overlay2: @catppuccin[@@flavor][@overlay2];
-    @overlay1: @catppuccin[@@flavor][@overlay1];
-    @overlay0: @catppuccin[@@flavor][@overlay0];
-    @surface2: @catppuccin[@@flavor][@surface2];
-    @surface1: @catppuccin[@@flavor][@surface1];
-    @surface0: @catppuccin[@@flavor][@surface0];
-    @base: @catppuccin[@@flavor][@base];
-    @mantle: @catppuccin[@@flavor][@mantle];
-    @crust: @catppuccin[@@flavor][@crust];
-    @accent: @catppuccin[@@flavor][@@accentColor];
-
-    @text-filter: @catppuccin-filters[@@flavor][@text];
-    @red-filter: @catppuccin-filters[@@flavor][@red];
-    @blue-filter: @catppuccin-filters[@@flavor][@blue];
-    @green-filter: @catppuccin-filters[@@flavor][@green];
-    @yellow-filter: @catppuccin-filters[@@flavor][@yellow];
-    @surface2-filter: @catppuccin-filters[@@flavor][@surface2];
-
-    color-scheme: if(@flavor = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent, 30%);
-    }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
+    #lib.palette();
+    #lib.defaults();
 
     /* GLOBALS/VARIABLES */
     --ic-brand-primary: @accent;
@@ -81,6 +38,7 @@
     --ic-brand-primary-darkened-10: darken(@accent, 3%);
     --ic-brand-font-color-dark: @text;
     --ic-brand-font-color-dark-lightened-15: @subtext1;
+    --ic-brand-font-color-dark-lightened-28: @subtext0;
     --ic-brand-font-color-dark-lightened-30: @subtext0;
     --ic-link-color: @blue;
     --ic-link-color-darkened-10: fade(@blue, 90%);
@@ -89,7 +47,6 @@
     /* hover colors, used based on whether canvas's css has a blue hover or grayed-out hover color */
     @hover-regular: fade(@surface2, 50%);
     @hover-accent: mix(@base, @accent, 70%);
-    @hover-button: @surface1;
 
     /* GENERAL UI CHANGES */
 
@@ -198,7 +155,12 @@
 
     a[class$="link"]:not(.btn, .ic-DashboardCard__link),
     a[class$="link"] > span,
-    button[class$="link"]:not(.btn),
+    button[class$="link"]:not(.btn) {
+      color: @blue;
+      &:focus {
+        outline-color: @accent;
+      }
+    }
     a.external span {
       color: @blue;
     }
@@ -220,15 +182,19 @@
     }
 
     /* fullscreen background for modal popups */
-    body > span > span[class*="mask"] {
+    :where(body > span > span[class*="mask"]) {
+      /* modals */
       background-color: fade(@overlay0, 75%);
       > span {
         color: @text;
         background-color: @base;
         border-color: @surface1;
-        > div[class$="modalHeader"] {
+        div[class$="modalHeader"] {
           background-color: transparent;
           border-color: @surface1;
+          button:has(svg[name="IconX"]) {
+            .flush-button();
+          }
         }
         img {
           background-color: transparent;
@@ -236,6 +202,9 @@
         > div[class$="modalFooter"] {
           background-color: @surface0;
           border-color: @surface1;
+          button {
+            .neutral-button();
+          }
         }
       }
     }
@@ -287,7 +256,16 @@
         .menu-item__text {
           background-color: transparent;
         }
+        .ic-app-header__menu-list-link:focus {
+          box-shadow:
+            inset 0 0 0 0.125rem @base,
+            inset 0 0 0 0.25rem
+            var(--ic-brand-global-nav-menu-item__text-color--active);
+        }
       }
+    }
+    .ic-app-header__menu-list-link:focus {
+      box-shadow: inset 0 0 0 0.125rem @surface1, inset 0 0 0 0.25rem @surface2;
     }
     --ic-brand-global-nav-menu-item__text-color--active: @accent;
     --ic-brand-global-nav-menu-item__badge-text--active: @mantle;
@@ -303,7 +281,7 @@
       fill: @text !important;
     }
 
-    /* sidebar trays (e.g. slide in from right side) */
+    /* sidebar sliding trays */
     body > span > [class*="tray"] {
       background-color: @mantle;
       fieldset,
@@ -320,6 +298,11 @@
         border-color: @surface1;
         background-color: @crust;
       }
+    }
+
+    div[aria-label="Global Navigation"] [class$="summaryText"] svg {
+      /* mobile nav menu icons */
+      color: @blue;
     }
 
     #nav-tray-portal {
@@ -351,6 +334,11 @@
           color: @accent;
         }
       }
+    }
+
+    .profile-tray button[aria-describedby^="Tooltip"] {
+      /* info tooltip on high contrast ui checkbox */
+      .flush-button();
     }
 
     /* link sidebar for courses */
@@ -391,7 +379,11 @@
     }
 
     /* filled-in buttons - this auto-generated class covers a lot of them */
+    @hover-button: @surface1;
     .neutral-button() {
+      color: @text;
+      background-color: @surface0;
+      border-color: @surface1;
       &:hover {
         background-color: @hover-button;
         > [class$="baseButton__content"] {
@@ -399,9 +391,6 @@
         }
         color: @text;
       }
-      color: @text;
-      background-color: @surface0;
-      border-color: @surface1;
       path[fill="#000000"] {
         fill: @text;
       }
@@ -416,61 +405,103 @@
       }
     }
 
-    .PlannerItem-styles__secondary button,
-    .discussions-index-manage-menu > button,
-    span[type="button"],
-    [data-testid="compose-modal-desktop"]
-      button[class$="baseButton"]:not([data-testid="send-button"]),
-    #immersive_reader_mount_point button,
-    #immersive_reader_mobile_mount_point button,
-    .ColorPicker__Actions button[class$="baseButton"]:not([id$="Apply"]),
-    #grades_summary a[role="button"],
-    #planner-today-btn,
-    form[action="/logout"] button,
-    button[data-testid="address-button"],
-    button[data-testid="gradebook-settings-button"],
-    .searchButton__container button,
-    a:has(.css-1rpus1y-baseButton__content),
-    button:has(.css-1rpus1y-baseButton__content) {
+    /* this is for buttons that are accent-colored */
+    @hover-accent-button: mix(@base, @accent, 20%);
+    .accent-button() {
+      background-color: @accent;
+      border-color: @surface1;
+      path[fill="#000000"] {
+        fill: @mantle;
+      }
+      > [class$="baseButton__content"] {
+        transition-property: all;
+        color: @mantle;
+        background-color: @accent;
+        border-color: @surface1;
+      }
+      &:hover {
+        background-color: @hover-accent-button;
+        > [class$="baseButton__content"] {
+          background-color: @hover-accent-button;
+        }
+        color: @mantle;
+      }
+    }
+
+    span[type="button"] {
       .neutral-button();
     }
 
-    /* the below styles are taken from canvas's common css sheet */
-    .btn,
-    .Button,
+    /* this is for buttons that have no border/background until hovered */
+    @hover-flush-button: fade(@surface1, 30%);
+    .flush-button() {
+      color: @text;
+      background-color: transparent;
+      border-color: transparent;
+      &:hover {
+        background-color: @hover-flush-button;
+        > [class$="baseButton__content"] {
+          background-color: @hover-flush-button;
+        }
+        color: @text;
+      }
+      path[fill="#000000"] {
+        fill: @text;
+      }
+      > [class$="baseButton__content"] {
+        color: @text;
+        transition-property: background, transform, filter;
+      }
+      [class$="text"] {
+        color: @text;
+      }
+    }
+
+    .btn:not(.btn-primary, .btn-link),
+    .Button:not(
+      .Button--link,
+      .Button--primary,
+      .Button--icon-action,
+      .Button--icon-action-danger,
+      .Button--icon-action-rev
+    ),
     .ui-button {
       background-color: @surface0;
       color: @text;
       border-color: @surface1;
+      &:focus {
+        color: @text;
+      }
+      &:hover {
+        background-color: @hover-button;
+        color: @text;
+      }
+      &.ui-state-hover {
+        background-color: @hover-button;
+        color: @text;
+        border-color: darken(@surface1, 5%);
+      }
+      &:active {
+        background-color: darken(@hover-button, 3%);
+      }
+      &.active, &.Button--active {
+        background-color: @subtext0;
+        border-color: lighten(@surface1, 10%);
+        color: @mantle;
+      }
     }
 
-    .btn:focus,
-    .Button:focus,
-    .ui-button:focus {
-      color: @text;
+    .btn-link,
+    .Button--link {
+      &.active, &.Button--active, &.ui-button.ui-state-active, &:active {
+        background: @surface0;
+      }
+      &.disabled, &.ui-button.ui-state-disabled, &[disabled] {
+        background: transparent;
+      }
     }
 
-    .btn:hover,
-    .Button:hover,
-    .ui-button:hover {
-      background-color: @hover-button;
-      color: @text;
-    }
-
-    .btn:hover.ui-state-hover,
-    .Button:hover.ui-state-hover,
-    .ui-button:hover.ui-state-hover {
-      background-color: @hover-button;
-      color: @text;
-      border-color: darken(@surface1, 5%);
-    }
-
-    .btn.active,
-    .btn.Button--active,
-    .Button.active,
-    .active.ui-button,
-    .Button.Button--active,
-    .Button--active.ui-button,
+    /* the below styles are taken from canvas's common css sheet */
     .ui-button.ui-state-active:hover,
     .ui-button.ui-state-active,
     .ui-progressbar .ui-button.ui-widget-header {
@@ -479,94 +510,14 @@
       color: @mantle;
     }
 
-    .btn:active,
-    .Button:active,
-    .ui-button:active {
-      background-color: darken(@hover-button, 3%);
-    }
-
-    .btn-link,
-    .btn-link:active,
-    .btn-link[disabled],
-    .Button--link,
-    .Button--link:active,
-    .Button--link[disabled] {
-      background: transparent;
-    }
-
-    /* filled-in buttons with colored bg */
     --ic-brand-button--primary-bgd: @accent;
     --ic-brand-button--primary-text: @crust;
     --ic-brand-button--primary-bgd-darkened-5: darken(@accent, 5%);
     --ic-brand-button--primary-bgd-darkened-15: darken(@accent, 15%);
-    .btn-primary,
-    .Button--primary {
-      background: var(--ic-brand-button--primary-bgd);
-      color: var(--ic-brand-button--primary-text);
-      border-color: var(--ic-brand-button--primary-bgd-darkened-15);
-    }
-    .btn-primary.active,
-    .btn-primary.Button--active,
-    .btn-primary.ui-button.ui-state-active,
-    .ui-progressbar .btn-primary.ui-button.ui-widget-header,
-    .btn-primary:active,
-    .Button--primary.active,
-    .Button--primary.Button--active,
-    .Button--primary.ui-button.ui-state-active,
-    .ui-progressbar .Button--primary.ui-button.ui-widget-header,
-    .Button--primary:active {
-      background: var(--ic-brand-button--primary-bgd-darkened-5);
-    }
-    .btn-primary:hover,
-    .Button--primary:hover {
-      background: var(--ic-brand-button--primary-bgd-darkened-5);
-      color: var(--ic-brand-button--primary-text);
-    }
-    .btn-link,
-    .Button--link {
-      border-color: transparent;
-      cursor: pointer;
-      color: var(--ic-link-color);
-    }
 
-    .btn-link:hover:focus,
-    .Button--link:hover:focus {
-      color: var(--ic-link-color);
-    }
-    .btn-link:hover,
-    .Button--link:hover {
-      color: var(--ic-link-color-darkened-10);
-      background: transparent;
-    }
-
-    .btn-link:focus,
-    .Button--link:focus {
-      color: var(--ic-link-color);
-    }
-
-    .btn-link.active,
-    .btn-link.Button--active,
-    .btn-link.ui-button.ui-state-active,
     .ui-progressbar .btn-link.ui-button.ui-widget-header,
-    .btn-link:active,
-    .Button--link.active,
-    .Button--link.Button--active,
-    .Button--link.ui-button.ui-state-active,
-    .ui-progressbar .Button--link.ui-button.ui-widget-header,
-    .Button--link:active {
+    .ui-progressbar .Button--link.ui-button.ui-widget-header {
       background: @surface0;
-      border-color: transparent;
-      color: var(--ic-link-color);
-    }
-
-    .btn-link.disabled,
-    .btn-link.ui-button.ui-state-disabled,
-    .btn-link[disabled],
-    .Button--link.disabled,
-    .Button--link.ui-button.ui-state-disabled,
-    .Button--link[disabled] {
-      color: var(--ic-brand-font-color-dark);
-      background: transparent;
     }
 
     .btn-published,
@@ -615,52 +566,81 @@
     }
     /* end of copy-pasted styles */
 
+    span[role="button"]::before, /* drag handle */
     :is(button, a)[class$="baseButton"]::before {
       border-color: @accent;
     }
 
-    .accent-button() {
-      &:disabled {
-        filter: brightness(85%);
-      }
-      &:not(:disabled):hover {
-        > [class$="baseButton__content"] {
-          filter: brightness(115%);
-        }
-      }
-      background-color: @accent;
-      border-color: @surface1;
-      path[fill="#000000"] {
-        fill: @mantle;
-      }
-      > [class$="baseButton__content"] {
-        transition-property: all;
-        color: @mantle;
-        background-color: @accent;
-        border-color: @surface1;
-      }
-    }
-
-    #apply_select_menus,
-    #ColorPicker__Apply,
-    .ActionButtons button[id^="Drilldown"],
-    #send-message-button {
+    .ActionButtons button[id^="Drilldown"] {
       .accent-button();
     }
 
-    .Button--icon-action,
-    .Button--icon-action-rev {
-      background-color: transparent;
+    .Button--icon-action:hover,
+    .Button--icon-action-danger:hover,
+    .Button--icon-action-rev:hover,
+    .Button--icon-action:focus,
+    .Button--icon-action-danger:focus,
+    .Button--icon-action-rev:focus {
+      background: transparent !important;
+    }
+
+    .Button--icon-action-rev:focus {
+      box-shadow: inset 0 0 0 2px @text;
+    }
+
+    .btn-primary:focus, .Button--primary:focus {
+      box-shadow: inset 0 0 0 2px @crust;
+    }
+
+    /* outlines around clicked elements */
+    [class$="__facade"] {
+      &::before {
+        border-color: @accent;
+      }
+    }
+    textarea + span[class$="textArea__outline"] {
+      border-color: @accent;
     }
 
     /* checkboxes */
-    input:not(:checked) + label span[class$="checkboxFacade__facade"] {
+    input + label span[class$="checkboxFacade__facade"] {
       border-color: @surface2;
       background-color: @base;
     }
-    /* input:checked + label span[class$="checkboxFacade__facade"] { */
-    /*   background-color: @surface2; */
-    /* } */
+    input:checked + label span[class$="checkboxFacade__facade"] {
+      border-color: @surface2;
+      background-color: @text;
+      color: @base;
+    }
+
+    /* toggle switches */
+    input + label [class*="toggleFacade__facade"] {
+      border-color: @surface1;
+      background-color: @surface0;
+      span[class$="__iconToggle"] {
+        &::before {
+          background-color: @text;
+          border-color: @surface2;
+        }
+        svg {
+          color: @mantle;
+        }
+      }
+    }
+    input:checked + label [class*="toggleFacade__facade"] {
+      border-color: @surface1;
+      background-color: @green;
+      span[class$="__iconToggle"] {
+        &::before {
+          background-color: @mantle;
+          border-color: @green;
+        }
+        svg {
+          color: @green;
+        }
+      }
+    }
+
     input + label span[class$="label"] {
       color: @text;
     }
@@ -719,6 +699,59 @@
       background-color: @surface0;
     }
 
+    /* ui tabs */
+    .ui-tabs {
+      .ui-tabs-panel,
+      .ui-tabs-nav {
+        border-color: @surface1;
+      }
+      .ui-tabs-nav li.ui-state-hover,
+      .ui-tabs-nav li:hover,
+      .ui-tabs-nav li.ui-tabs-active,
+      .ui-tabs-nav li.ui-tabs-active.ui-state-hover,
+      .ui-tabs-nav li.ui-tabs-active:hover {
+        background-color: @base;
+        border-color: @surface1;
+        a {
+          color: @text;
+        }
+      }
+
+      .ui-state-hover {
+        background-color: mix(@overlay2, @surface1, 20%);
+      }
+      .ui-tabs-panel {
+        background-color: @base;
+      }
+      #assignments {
+        tr .title {
+          border-color: @surface1;
+        }
+      }
+    }
+
+    div[class$="view-tabs__container"] {
+      background-color: transparent;
+      div[class$="view-tab"] {
+        background-color: transparent;
+        color: @text;
+        &[aria-selected="true"] {
+          border-color: @surface2;
+          border-bottom-color: @base;
+        }
+      }
+      div[role="tabpanel"] > div {
+        background-color: transparent;
+        border-color: @surface1;
+      }
+    }
+    div[role="tab"] {
+      color: @text;
+      &[aria-selected="true"]::after {
+        background-color: @accent;
+      }
+    }
+
     /* RECENT ACTIVITY/HOME */
     .recent-activity-header,
     .stream-category {
@@ -748,6 +781,9 @@
 
     .ic-item-row__meta-content-timestamp > p {
       color: @subtext0;
+    }
+    #mark_all_announcement_read {
+      .neutral-button();
     }
 
     /* DASHBOARD */
@@ -782,6 +818,10 @@
         color: @subtext0;
       }
     }
+    #planner-today-btn,
+    .PlannerItem-styles__secondary button {
+      .neutral-button();
+    }
 
     .CompletedItemsFacade-styles__root {
       border-color: @surface1;
@@ -807,10 +847,9 @@
         color: @text;
       }
     }
-    #DashboardOptionsMenu_Container svg {
-      color: @text;
+    #DashboardOptionsMenu_Container button {
+      .flush-button();
     }
-
     .ic-DashboardCard {
       background-color: @surface0;
       .ic-DashboardCard__header_content {
@@ -868,6 +907,9 @@
         border-color: @surface1;
       }
     }
+    form[action="/logout"] button {
+      .neutral-button();
+    }
     .PlannerHeader [id^="Badge"] {
       background-color: @accent;
       color: @crust;
@@ -884,13 +926,10 @@
     }
 
     /* popup menus */
-    /* extra selectors are to avoid styling tooltips because their arrows are hard to style */
-    span[data-position-content^="Menu"]:not(
-      [data-position-content^="Menu__label"]
-    ),
+    span[data-position-content^="Menu"],
     span[data-position-content^="Popover"] {
-      span[class$="arrow"]::after {
-        filter: @surface2-filter;
+      span[class$="arrow"] {
+        filter: @surface1-filter;
       }
       > span {
         color: @text;
@@ -908,22 +947,11 @@
     }
 
     /* color picker menu (e.g. on dashboard) */
-    span[data-position-content^="Popover"]:has(
-      div[class$="view-tabs__container"]
-    ) {
-      div[class$="view-tab"] {
-        background-color: @surface1;
-        border-bottom-color: @surface2;
-        color: @text;
-        &[aria-selected="true"] {
-          border-color: @surface2;
-          border-bottom-color: transparent;
-        }
-      }
-      div[role="tabpanel"] > div {
-        border-color: @surface2;
-        background-color: @surface1;
-      }
+    .ColorPicker__Actions button[class$="baseButton"]:not([id$="Apply"]) {
+      .neutral-button();
+    }
+    #ColorPicker__Apply {
+      .accent-button();
     }
     .ColorPicker__Container {
       background-color: @surface1;
@@ -1011,13 +1039,11 @@
     }
 
     /* dropdown menu */
-    span[data-position-content^="Menu"]:not(
-      [data-position-content^="Menu__label"]
-    ) {
+    span[data-position-content^="Menu___"] {
       span {
         color: @text;
       }
-      ul[role="menu"] {
+      [role="menu"] {
         &::before {
           border-color: @accent;
         }
@@ -1300,18 +1326,14 @@
       background-color: @mantle;
       border-color: @surface2;
       button {
-        &::before {
-          /* on-click-outline */
-          border-color: var(--ic-link-color);
-        }
-        svg {
-          color: @text;
-        }
-        span {
-          background-color: @surface0;
-          border-color: @surface1;
-        }
+        .neutral-button();
       }
+    }
+    button[data-testid="address-button"] {
+      .neutral-button();
+    }
+    svg[name="IconEmail"] {
+      color: @text;
     }
 
     /* left side */
@@ -1342,9 +1364,7 @@
       }
       button[data-testid="visible-not-starred"],
       button[data-testid="visible-starred"] {
-        svg {
-          color: @text;
-        }
+        .flush-button();
       }
     }
     [data-testid="unread-badge"] span svg {
@@ -1355,24 +1375,36 @@
     }
 
     /* right side */
-    span:has(> #inbox-conversation-holder) + span > div > div {
-      border-color: @surface1;
+    span:has(> #inbox-conversation-holder) + span {
+      > div > div {
+        border-color: @surface1;
+      }
+      button {
+        .flush-button();
+      }
     }
     /* compose message overlay */
     span[data-testid="compose-modal-desktop"] {
       background-color: @surface0;
       border-color: @surface1;
-      span:has(> label[for^="TextArea"]) {
+      span[class$="view"]:has(label[for^="TextArea"]) {
         border-color: @surface1;
         textarea {
           color: @text;
         }
-        span[class$="textArea__outline"] {
-          border-color: @accent;
-        }
       }
       span[data-testid="past-messages"] div[class$="view"] {
         border-color: @surface1;
+      }
+      > div[class$="modalBody"] {
+        button {
+          .neutral-button();
+        }
+      }
+      > div[class$="modalFooter"] {
+        #send-message-button {
+          .accent-button();
+        }
       }
     }
 
@@ -1390,6 +1422,22 @@
     .quiz-header {
       border-color: @surface2;
     }
+
+    span:has(> [class$="fileDrop__labelContent"]) {
+      [class$="fileDrop__labelContent"] {
+        border-color: @overlay1;
+        &:hover {
+          border-color: @accent;
+        }
+      }
+      [class$="fileDrop__layout"] * {
+        background-color: transparent;
+      }
+      label > span::before {
+        border-color: @accent;
+      }
+    }
+
     .question.fill_in_multiple_blanks_question .answer_group,
     .question.multiple_dropdowns_question .answer_group {
       border-color: @surface1;
@@ -1546,6 +1594,9 @@
     .module-sequence-footer .module-sequence-footer-content {
       background-color: @base;
       border-color: @surface1;
+      a {
+        .neutral-button();
+      }
     }
 
     /* submitting */
@@ -1587,9 +1638,6 @@
     .file-upload-submission {
       background-color: @surface0;
     }
-    /* #upload_media_tab { */
-    /*   img  */
-    /* } */
     .submission-details-header__heading-and-grades {
       border-color: @surface1;
     }
@@ -1613,6 +1661,7 @@
         background-color: fade(@overlay2, 50%);
         color: @subtext0;
         fill: @subtext0;
+        box-shadow: 0 0 0 2px @accent;
       }
       .tox-tbtn,
       .tox-split-button,
@@ -1690,9 +1739,33 @@
       .tox-collection__item--active {
         background-color: mix(@accent, @base, 30%);
       }
+      .tox-collection--list .tox-collection__item--enabled {
+        background-color: @surface1;
+      }
+      .tox-tbtn:focus:not(.tox-tbtn--disabled) svg {
+        fill: @text;
+      }
     }
     .canvas-rce__skins--root {
       background-color: @base;
+    }
+
+    /* equation editor */
+    span[aria-label="Equation Editor"] {
+      div[class$="panel"] button {
+        .neutral-button();
+      }
+      textarea,
+      math-field {
+        color: @text;
+        border-color: @surface2 !important;
+      }
+      [data-testid="mathml-preview-element"] {
+        color: @text;
+      }
+      button[data-testid="equation-editor-modal-done"] {
+        .accent-button();
+      }
     }
 
     #rubrics {
@@ -1705,39 +1778,12 @@
           background-color: @surface0;
           border-color: @surface1;
         }
-        table.ratings td {
+        .ratings * {
           border-color: @surface1;
         }
       }
-    }
-
-    .ui-tabs {
-      .ui-tabs-panel,
-      .ui-tabs-nav {
+      .rubric-footer {
         border-color: @surface1;
-      }
-      .ui-tabs-nav li.ui-state-hover,
-      .ui-tabs-nav li:hover,
-      .ui-tabs-nav li.ui-tabs-active,
-      .ui-tabs-nav li.ui-tabs-active.ui-state-hover,
-      .ui-tabs-nav li.ui-tabs-active:hover {
-        background-color: @base;
-        border-color: @surface1;
-        a {
-          color: @text;
-        }
-      }
-
-      .ui-state-hover {
-        background-color: mix(@overlay2, @surface1, 20%);
-      }
-      .ui-tabs-panel {
-        background-color: @base;
-      }
-      #assignments {
-        tr .title {
-          border-color: @surface1;
-        }
       }
     }
 
@@ -1816,6 +1862,19 @@
         color: @text;
       }
     }
+
+    #DrawerLayoutTray {
+      /* split screen layout */
+      background-color: @base;
+      border-color: @surface1;
+    }
+    button[class$="baseButton"]:has(svg[name="IconX"]) {
+      .flush-button();
+    }
+    button[class$="baseButton"]:has(svg[name="IconMore"]) {
+      .flush-button();
+    }
+
     .communication_message {
       border-color: @surface1;
     }
@@ -1827,15 +1886,14 @@
     }
     [data-testid="RCEStatusBar"] {
       color: @subtext0;
-      /* .css-1kjxjg4-view--inlineBlock-baseButton */
-      button > span {
-        color: @text;
-      }
-      button:hover > span {
-        background-color: fade(@surface0, 50%);
+      button {
+        .flush-button();
       }
       > span > div {
         border-color: @surface1 !important;
+      }
+      [data-btn-id="rce-editormessage-btn"] {
+        .neutral-button();
       }
     }
     button[data-testid="attach-btn"] > span {
@@ -1847,12 +1905,45 @@
     .discussions-container__wrapper [class$="summaryText"] {
       color: @text;
     }
-    .ic-unread-badge__total-count,
     .ic-unread-badge__unread-count {
       color: @mantle;
     }
+    .ic-unread-badge__total-count {
+      background-color: @surface1;
+    }
     hr[data-testid="post-separator"] {
       border-color: @surface1 !important;
+    }
+    .searchButton__container button,
+    .discussions-index-manage-menu > button {
+      .neutral-button();
+    }
+    #add_discussion {
+      .accent-button();
+    }
+    .discussions-editor + div {
+      button[data-testid="attach-btn"] {
+        .flush-button();
+      }
+      .discussions-editor-cancel button {
+        .neutral-button();
+      }
+      .discussions-editor-submit button {
+        .accent-button();
+      }
+    }
+    .discussion-topic-reply-button button {
+      .accent-button();
+    }
+    .discussion-post-manage-discussion button {
+      .flush-button;
+    }
+    .discussion-post-subscribe button {
+      .flush-button();
+    }
+    button[data-testid="splitscreenButton"],
+    button[data-testid="ExpandCollapseThreads-button"] {
+      .neutral-button();
     }
 
     /* author profile picture placeholder */
@@ -1949,6 +2040,9 @@
         }
       }
     }
+    button[id^="webcam"] {
+      .neutral-button();
+    }
 
     /* GRADES */
     .ic-Table th {
@@ -1999,6 +2093,9 @@
       tr.final_grade {
         border-color: @surface2;
       }
+      a[role="button"] {
+        .neutral-button();
+      }
     }
 
     .ic-Form-control.ic-Form-control--checkbox .ic-Label::before {
@@ -2018,6 +2115,12 @@
         color: @text;
         background-color: @surface0;
       }
+    }
+    #apply_select_menus {
+      .accent-button();
+    }
+    #GradeSummarySelectMenuGroup label > span {
+      color: @text;
     }
 
     /* PEOPLE */
@@ -2051,6 +2154,11 @@
     #syllabus tr.detail_list td.not_last {
       border-color: @surface0;
     }
+    #immersive_reader_mount_point button,
+    #immersive_reader_mobile_mount_point button {
+      .neutral-button();
+    }
+
     .mini_calendar {
       .day {
         color: @subtext0;
@@ -2106,6 +2214,12 @@
       );
       background-image: url("data:image/svg+xml,@{svg}");
     }
+    .ef-big-icon {
+      filter: @text-filter;
+    }
+    .al-trigger-gray {
+      color: @overlay1;
+    }
 
     /* CHAT */
     /* this has terrible autogenerated css class names */
@@ -2155,9 +2269,7 @@
       }
     }
 
-    /***************  */
     /* CREATOR SIDE */
-    /***************  */
     /* not prioritized in this userstyle */
 
     /* DASHBOARD */
@@ -2188,6 +2300,9 @@
       background-color: @surface0;
       border-color: @surface1;
       color: @text;
+      &:hover {
+        background-color: @surface1;
+      }
       svg {
         fill: @text;
       }
@@ -2198,23 +2313,13 @@
     .ui-widget-header {
       color: @subtext1;
     }
+    button[data-testid="gradebook-settings-button"] {
+      .neutral-button();
+    }
     #gradebook-assignment-search,
     #gradebook-student-search {
       label span {
         color: @subtext1;
-      }
-    }
-    div[class$="view-tabs__container"] {
-      div[role="tabpanel"] > div {
-        background-color: transparent;
-        border-color: @surface1;
-      }
-      background-color: transparent;
-    }
-    div[role="tab"] {
-      color: @text;
-      &[aria-selected="true"]::after {
-        background-color: @accent;
       }
     }
 
@@ -2308,21 +2413,83 @@
     .page-action-list a {
       border-bottom-color: @surface1;
     }
+
+    /* EXTENSIONS */
+    /* ksucpea/bettercanvas */
+    .bettercanvas-card-grade,
+    .bettercanvas-assignment-container:hover {
+      background: @surface1;
+    }
+    .bettercanvas-gpa {
+      background-color: @surface0;
+      box-shadow: 0 1px 5px @surface1 !important;
+    }
+    .bettercanvas-custom-btn,
+    .bettercanvas-course-percent,
+    .bettercanvas-course-credit {
+      background-color: @surface1;
+      border-color: @surface2;
+    }
+    .bettercanvas-dashboard-notes {
+      border-color: @surface1;
+    }
+    .bettercanvas-todosidebar button {
+      color: @text;
+    }
+    .bettercanvas-todo-container,
+    .bettercanvas-todo-container:hover,
+    .bettercanvas-todo-item,
+    .bettercanvas-todo-item:hover {
+      color: @subtext0;
+    }
+    .bettercanvas-hover-preview {
+      background: @surface1;
+      color: @text;
+    }
+    .bettercanvas-hover-preview::after {
+      background: linear-gradient(0deg, @surface1 50%, transparent);
+    }
+    .bettercanvas-gpa-card {
+      background-color: @surface0;
+    }
+    .bettercanvas-gpa-edit-btn {
+      background: @surface1;
+      border-color: @surface2;
+      color: @text;
+    }
+    .bettercanvas-due-soon {
+      background: @red;
+      color: @mantle;
+    }
+    .bettercanvas-assignment-overdue {
+      background: @red !important;
+      color: @mantle !important;
+    }
+    .bettercanvas-todo-label {
+      background: var(--ic-link-color);
+      color: @mantle;
+    }
+    .bettercanvas-todo-actions {
+      background: @surface1;
+      color: @text;
+      border-color: @surface2;
+    }
+    .bettercanvas-todo-action:hover {
+      background: @surface2;
+    }
+    .bettercanvas-todo-svg {
+      fill: @text !important;
+    }
+    .bettercanvas-reminder-wrapper {
+      background: @surface1 !important;
+    }
+    .bettercanvas-reminder-title,
+    .bettercanvas-reminder-due {
+      color: @text !important;
+    }
+    .bettercanvas-reminder-hide {
+      color: @text !important;
+      background: @surface2 !important;
+    }
   }
 }
-
-/* deno-fmt-ignore */
-@catppuccin: {
-  @latte: { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-  @frappe: { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-  @mocha: { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-};
-
-/* deno-fmt-ignore */
-@catppuccin-filters: {
-  @latte: { @rosewater: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(1048%) hue-rotate(323deg) brightness(92%) contrast(86%); @flamingo: brightness(0) saturate(100%) invert(84%) sepia(44%) saturate(4533%) hue-rotate(310deg) brightness(98%) contrast(75%); @pink: brightness(0) saturate(100%) invert(60%) sepia(32%) saturate(775%) hue-rotate(266deg) brightness(93%) contrast(97%); @mauve: brightness(0) saturate(100%) invert(26%) sepia(59%) saturate(3315%) hue-rotate(255deg) brightness(94%) contrast(100%); @red: brightness(0) saturate(100%) invert(16%) sepia(78%) saturate(7275%) hue-rotate(342deg) brightness(84%) contrast(94%); @maroon: brightness(0) saturate(100%) invert(31%) sepia(56%) saturate(2395%) hue-rotate(331deg) brightness(99%) contrast(82%); @peach: brightness(0) saturate(100%) invert(38%) sepia(81%) saturate(1292%) hue-rotate(356deg) brightness(103%) contrast(99%); @yellow: brightness(0) saturate(100%) invert(74%) sepia(47%) saturate(4570%) hue-rotate(354deg) brightness(95%) contrast(83%); @green: brightness(0) saturate(100%) invert(51%) sepia(25%) saturate(4134%) hue-rotate(76deg) brightness(95%) contrast(66%); @teal: brightness(0) saturate(100%) invert(41%) sepia(45%) saturate(1101%) hue-rotate(139deg) brightness(100%) contrast(82%); @sky: brightness(0) saturate(100%) invert(47%) sepia(76%) saturate(2427%) hue-rotate(166deg) brightness(99%) contrast(97%); @sapphire: brightness(0) saturate(100%) invert(52%) sepia(41%) saturate(6982%) hue-rotate(160deg) brightness(102%) contrast(75%); @blue: brightness(0) saturate(100%) invert(30%) sepia(80%) saturate(1850%) hue-rotate(209deg) brightness(94%) contrast(105%); @lavender: brightness(0) saturate(100%) invert(48%) sepia(61%) saturate(538%) hue-rotate(194deg) brightness(102%) contrast(98%); @text: brightness(0) saturate(100%) invert(30%) sepia(10%) saturate(1259%) hue-rotate(196deg) brightness(97%) contrast(91%); @subtext1: brightness(0) saturate(100%) invert(36%) sepia(10%) saturate(890%) hue-rotate(196deg) brightness(98%) contrast(90%); @subtext0: brightness(0) saturate(100%) invert(47%) sepia(6%) saturate(1263%) hue-rotate(195deg) brightness(90%) contrast(81%); @overlay2: brightness(0) saturate(100%) invert(59%) sepia(7%) saturate(825%) hue-rotate(195deg) brightness(83%) contrast(91%); @overlay1: brightness(0) saturate(100%) invert(59%) sepia(14%) saturate(333%) hue-rotate(194deg) brightness(95%) contrast(89%); @overlay0: brightness(0) saturate(100%) invert(85%) sepia(7%) saturate(595%) hue-rotate(191deg) brightness(77%) contrast(81%); @surface2: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(482%) hue-rotate(189deg) brightness(82%) contrast(88%); @surface1: brightness(0) saturate(100%) invert(85%) sepia(8%) saturate(281%) hue-rotate(187deg) brightness(92%) contrast(88%); @surface0: brightness(0) saturate(100%) invert(96%) sepia(1%) saturate(5123%) hue-rotate(185deg) brightness(93%) contrast(83%); @base: brightness(0) saturate(100%) invert(89%) sepia(5%) saturate(140%) hue-rotate(182deg) brightness(109%) contrast(94%); @mantle: brightness(0) saturate(100%) invert(93%) sepia(19%) saturate(55%) hue-rotate(182deg) brightness(98%) contrast(92%); @crust: brightness(0) saturate(100%) invert(91%) sepia(1%) saturate(4489%) hue-rotate(196deg) brightness(106%) contrast(82%); };
-  @frappe: { @rosewater: brightness(0) saturate(100%) invert(90%) sepia(6%) saturate(734%) hue-rotate(321deg) brightness(95%) contrast(99%); @flamingo: brightness(0) saturate(100%) invert(88%) sepia(52%) saturate(817%) hue-rotate(293deg) brightness(113%) contrast(84%); @pink: brightness(0) saturate(100%) invert(76%) sepia(15%) saturate(844%) hue-rotate(280deg) brightness(107%) contrast(91%); @mauve: brightness(0) saturate(100%) invert(71%) sepia(25%) saturate(725%) hue-rotate(225deg) brightness(94%) contrast(91%); @red: brightness(0) saturate(100%) invert(67%) sepia(3%) saturate(7209%) hue-rotate(305deg) brightness(91%) contrast(99%); @maroon: brightness(0) saturate(100%) invert(61%) sepia(14%) saturate(957%) hue-rotate(307deg) brightness(109%) contrast(90%); @peach: brightness(0) saturate(100%) invert(68%) sepia(28%) saturate(662%) hue-rotate(335deg) brightness(96%) contrast(94%); @yellow: brightness(0) saturate(100%) invert(94%) sepia(88%) saturate(684%) hue-rotate(309deg) brightness(105%) contrast(80%); @green: brightness(0) saturate(100%) invert(89%) sepia(23%) saturate(582%) hue-rotate(42deg) brightness(87%) contrast(89%); @teal: brightness(0) saturate(100%) invert(91%) sepia(13%) saturate(986%) hue-rotate(110deg) brightness(85%) contrast(81%); @sky: brightness(0) saturate(100%) invert(75%) sepia(15%) saturate(623%) hue-rotate(141deg) brightness(109%) contrast(81%); @sapphire: brightness(0) saturate(100%) invert(77%) sepia(20%) saturate(730%) hue-rotate(157deg) brightness(97%) contrast(76%); @blue: brightness(0) saturate(100%) invert(68%) sepia(16%) saturate(1070%) hue-rotate(185deg) brightness(96%) contrast(95%); @lavender: brightness(0) saturate(100%) invert(75%) sepia(20%) saturate(626%) hue-rotate(201deg) brightness(101%) contrast(89%); @text: brightness(0) saturate(100%) invert(83%) sepia(12%) saturate(582%) hue-rotate(191deg) brightness(98%) contrast(96%); @subtext1: brightness(0) saturate(100%) invert(80%) sepia(18%) saturate(411%) hue-rotate(190deg) brightness(96%) contrast(84%); @subtext0: brightness(0) saturate(100%) invert(82%) sepia(6%) saturate(1287%) hue-rotate(192deg) brightness(86%) contrast(85%); @overlay2: brightness(0) saturate(100%) invert(65%) sepia(36%) saturate(230%) hue-rotate(190deg) brightness(92%) contrast(82%); @overlay1: brightness(0) saturate(100%) invert(55%) sepia(12%) saturate(638%) hue-rotate(189deg) brightness(98%) contrast(87%); @overlay0: brightness(0) saturate(100%) invert(49%) sepia(13%) saturate(662%) hue-rotate(192deg) brightness(94%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(41%) sepia(20%) saturate(469%) hue-rotate(191deg) brightness(93%) contrast(86%); @surface1: brightness(0) saturate(100%) invert(34%) sepia(14%) saturate(771%) hue-rotate(190deg) brightness(89%) contrast(85%); @surface0: brightness(0) saturate(100%) invert(28%) sepia(7%) saturate(1468%) hue-rotate(193deg) brightness(92%) contrast(95%); @base: brightness(0) saturate(100%) invert(20%) sepia(17%) saturate(747%) hue-rotate(192deg) brightness(96%) contrast(97%); @mantle: brightness(0) saturate(100%) invert(8%) sepia(7%) saturate(7271%) hue-rotate(198deg) brightness(88%) contrast(75%); @crust: brightness(0) saturate(100%) invert(7%) sepia(7%) saturate(7415%) hue-rotate(197deg) brightness(86%) contrast(79%); };
-  @macchiato: { @rosewater: brightness(0) saturate(100%) invert(88%) sepia(13%) saturate(322%) hue-rotate(321deg) brightness(102%) contrast(91%); @flamingo: brightness(0) saturate(100%) invert(82%) sepia(3%) saturate(3070%) hue-rotate(314deg) brightness(107%) contrast(88%); @pink: brightness(0) saturate(100%) invert(80%) sepia(23%) saturate(509%) hue-rotate(280deg) brightness(102%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(18%) saturate(903%) hue-rotate(222deg) brightness(104%) contrast(93%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(1541%) hue-rotate(305deg) brightness(110%) contrast(86%); @maroon: brightness(0) saturate(100%) invert(71%) sepia(10%) saturate(1331%) hue-rotate(306deg) brightness(93%) contrast(101%); @peach: brightness(0) saturate(100%) invert(73%) sepia(13%) saturate(1676%) hue-rotate(330deg) brightness(103%) contrast(92%); @yellow: brightness(0) saturate(100%) invert(87%) sepia(89%) saturate(321%) hue-rotate(314deg) brightness(101%) contrast(87%); @green: brightness(0) saturate(100%) invert(93%) sepia(12%) saturate(1128%) hue-rotate(48deg) brightness(92%) contrast(85%); @teal: brightness(0) saturate(100%) invert(92%) sepia(10%) saturate(1176%) hue-rotate(110deg) brightness(87%) contrast(90%); @sky: brightness(0) saturate(100%) invert(78%) sepia(57%) saturate(230%) hue-rotate(142deg) brightness(96%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(35%) saturate(438%) hue-rotate(156deg) brightness(92%) contrast(93%); @blue: brightness(0) saturate(100%) invert(67%) sepia(17%) saturate(1007%) hue-rotate(183deg) brightness(99%) contrast(94%); @lavender: brightness(0) saturate(100%) invert(74%) sepia(6%) saturate(2559%) hue-rotate(198deg) brightness(103%) contrast(94%); @text: brightness(0) saturate(100%) invert(81%) sepia(9%) saturate(726%) hue-rotate(192deg) brightness(104%) contrast(92%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(5%) saturate(1453%) hue-rotate(193deg) brightness(94%) contrast(86%); @subtext0: brightness(0) saturate(100%) invert(75%) sepia(18%) saturate(361%) hue-rotate(190deg) brightness(91%) contrast(86%); @overlay2: brightness(0) saturate(100%) invert(67%) sepia(9%) saturate(814%) hue-rotate(191deg) brightness(92%) contrast(88%); @overlay1: brightness(0) saturate(100%) invert(49%) sepia(38%) saturate(203%) hue-rotate(190deg) brightness(101%) contrast(93%); @overlay0: brightness(0) saturate(100%) invert(46%) sepia(16%) saturate(552%) hue-rotate(193deg) brightness(93%) contrast(84%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(16%) saturate(611%) hue-rotate(192deg) brightness(101%) contrast(87%); @surface1: brightness(0) saturate(100%) invert(30%) sepia(11%) saturate(1085%) hue-rotate(194deg) brightness(92%) contrast(89%); @surface0: brightness(0) saturate(100%) invert(18%) sepia(21%) saturate(880%) hue-rotate(193deg) brightness(97%) contrast(84%); @base: brightness(0) saturate(100%) invert(12%) sepia(42%) saturate(570%) hue-rotate(194deg) brightness(90%) contrast(90%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(6%) saturate(7499%) hue-rotate(200deg) brightness(93%) contrast(85%); @crust: brightness(0) saturate(100%) invert(5%) sepia(8%) saturate(5346%) hue-rotate(202deg) brightness(98%) contrast(88%); };
-  @mocha: { @rosewater: brightness(0) saturate(100%) invert(92%) sepia(5%) saturate(704%) hue-rotate(320deg) brightness(99%) contrast(93%); @flamingo: brightness(0) saturate(100%) invert(81%) sepia(5%) saturate(987%) hue-rotate(315deg) brightness(107%) contrast(90%); @pink: brightness(0) saturate(100%) invert(86%) sepia(11%) saturate(1177%) hue-rotate(283deg) brightness(101%) contrast(92%); @mauve: brightness(0) saturate(100%) invert(65%) sepia(58%) saturate(255%) hue-rotate(224deg) brightness(96%) contrast(102%); @red: brightness(0) saturate(100%) invert(61%) sepia(19%) saturate(997%) hue-rotate(294deg) brightness(104%) contrast(91%); @maroon: brightness(0) saturate(100%) invert(66%) sepia(16%) saturate(1301%) hue-rotate(306deg) brightness(116%) contrast(84%); @peach: brightness(0) saturate(100%) invert(68%) sepia(57%) saturate(278%) hue-rotate(338deg) brightness(98%) contrast(101%); @yellow: brightness(0) saturate(100%) invert(90%) sepia(70%) saturate(380%) hue-rotate(313deg) brightness(102%) contrast(95%); @green: brightness(0) saturate(100%) invert(88%) sepia(6%) saturate(2015%) hue-rotate(63deg) brightness(104%) contrast(78%); @teal: brightness(0) saturate(100%) invert(92%) sepia(12%) saturate(991%) hue-rotate(108deg) brightness(93%) contrast(90%); @sky: brightness(0) saturate(100%) invert(84%) sepia(21%) saturate(1302%) hue-rotate(164deg) brightness(106%) contrast(84%); @sapphire: brightness(0) saturate(100%) invert(74%) sepia(20%) saturate(876%) hue-rotate(156deg) brightness(96%) contrast(93%); @blue: brightness(0) saturate(100%) invert(68%) sepia(18%) saturate(951%) hue-rotate(180deg) brightness(98%) contrast(100%); @lavender: brightness(0) saturate(100%) invert(73%) sepia(7%) saturate(1670%) hue-rotate(195deg) brightness(102%) contrast(99%); @text: brightness(0) saturate(100%) invert(86%) sepia(6%) saturate(879%) hue-rotate(190deg) brightness(100%) contrast(93%); @subtext1: brightness(0) saturate(100%) invert(84%) sepia(19%) saturate(381%) hue-rotate(193deg) brightness(91%) contrast(89%); @subtext0: brightness(0) saturate(100%) invert(84%) sepia(9%) saturate(767%) hue-rotate(192deg) brightness(84%) contrast(84%); @overlay2: brightness(0) saturate(100%) invert(63%) sepia(15%) saturate(428%) hue-rotate(191deg) brightness(96%) contrast(84%); @overlay1: brightness(0) saturate(100%) invert(56%) sepia(15%) saturate(455%) hue-rotate(192deg) brightness(90%) contrast(88%); @overlay0: brightness(0) saturate(100%) invert(44%) sepia(6%) saturate(1275%) hue-rotate(194deg) brightness(97%) contrast(88%); @surface2: brightness(0) saturate(100%) invert(34%) sepia(8%) saturate(1015%) hue-rotate(195deg) brightness(99%) contrast(89%); @surface1: brightness(0) saturate(100%) invert(25%) sepia(6%) saturate(1950%) hue-rotate(197deg) brightness(99%) contrast(86%); @surface0: brightness(0) saturate(100%) invert(19%) sepia(5%) saturate(2844%) hue-rotate(199deg) brightness(91%) contrast(93%); @base: brightness(0) saturate(100%) invert(7%) sepia(4%) saturate(7496%) hue-rotate(202deg) brightness(93%) contrast(87%); @mantle: brightness(0) saturate(100%) invert(6%) sepia(4%) saturate(7465%) hue-rotate(202deg) brightness(95%) contrast(90%); @crust: brightness(0) saturate(100%) invert(3%) sepia(13%) saturate(6863%) hue-rotate(220deg) brightness(95%) contrast(91%); };
-};

@@ -153,8 +153,9 @@ export async function verifyMetadata(
 
 function generateAssertions(userstyle: string, userstyles: Userstyles) {
   const prefix = "https://github.com/catppuccin/userstyles";
+  const userstyleData = userstyles[userstyle];
 
-  if (!userstyles[userstyle]) {
+  if (!userstyleData) {
     log.error(
       `Metadata section for \`${color.bold(userstyle)}\` userstyle is missing`,
       {
@@ -166,16 +167,18 @@ function generateAssertions(userstyle: string, userstyles: Userstyles) {
 
   return {
     name: `${
-      Array.isArray(userstyles[userstyle].name)
-        ? (userstyles[userstyle].name as string[]).join("/")
-        : userstyles[userstyle].name
+      [
+        userstyleData.name,
+        ...Object.values(userstyleData.supports ?? {}).map(({ name }) => name),
+      ].join("/")
     } Catppuccin`,
     namespace: `github.com/catppuccin/userstyles/styles/${userstyle}`,
     homepageURL: `${prefix}/tree/main/styles/${userstyle}`,
     description: `Soothing pastel theme for ${
-      Array.isArray(userstyles[userstyle].name)
-        ? formatListOfItems(userstyles[userstyle].name as string[])
-        : userstyles[userstyle].name
+      formatListOfItems([
+        userstyleData.name,
+        ...Object.values(userstyleData.supports ?? {}).map(({ name }) => name),
+      ])
     }`,
     author: "Catppuccin",
     updateURL: `${prefix}/raw/main/styles/${userstyle}/catppuccin.user.less`,

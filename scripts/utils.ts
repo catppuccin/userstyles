@@ -108,7 +108,7 @@ export async function getCategoriesData(): Promise<
   CategoriesSchema.CategoryDefinitions
 > {
   const content = await fetch(
-    "https://raw.githubusercontent.com/catppuccin/catppuccin/de9d2cd963059753c8fd66fbb6f807be95c6cc1e/resources/categories.yml",
+    "https://raw.githubusercontent.com/catppuccin/catppuccin/d4f82739e687cfd19d168be355367fdbbcc8e029/resources/categories.yml",
   ).then((res) => res.text());
 
   const data = validateYaml<CategoriesSchema.CategoryDefinitions>(
@@ -130,6 +130,8 @@ export async function getCategoriesData(): Promise<
  * formatListOfItems(['x', 'y', 'z']); // 'x, y, and z'
  */
 export function formatListOfItems(items: unknown[]): string {
+  // If there are no items, return an empty string.
+  if (items.length === 0) return "";
   // If there are two items, connect them with an "and".
   if (items.length === 2) return items.join(" and ");
   // Otherwise, there is either just one item or more than two items.
