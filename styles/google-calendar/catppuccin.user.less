@@ -2,7 +2,7 @@
 @name Google Calendar Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/google-calendar
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/google-calendar
-@version 2025.03.20
+@version 2000.01.01
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/google-calendar/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agoogle-calendar
 @description Soothing pastel theme for Google Calendar
@@ -15,503 +15,99 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+// @import "https://userstyles.catppuccin.com/lib/m3.less";
+@import "https://github.com/catppuccin/userstyles/raw/refs/heads/feat/m3-lib/lib/m3.less";
+
 @-moz-document domain("calendar.google.com") {
-  // DO879e refers to body element,
-  // PC2yOb is unknown but in the source CSS for specificity,
-  // CcsDpe refers to the dark theme being enabled.
+  // Initial load, before JS init
+  .DO879e.PC2yOb {
+    #catppuccin(@lightFlavor);
+  }
+  @media (prefers-color-scheme: dark) {
+    .DO879e.PC2yOb {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
   .DO879e:not(.PC2yOb).CcsDpe {
     #catppuccin(@darkFlavor);
   }
-
-  // Requires separate :not statements for highest specificity.
-  /* stylelint-disable-next-line selector-not-notation */
   .DO879e:not(.PC2yOb):not(.CcsDpe) {
     #catppuccin(@lightFlavor);
   }
 
-  #rgbify(@color) {
-    @rgb: red(@color), green(@color), blue(@color);
+  // Embed preview page
+  [data-ui-kind="1"] {
+    #catppuccin(@lightFlavor);
   }
 
   #catppuccin(@flavor) {
-    @rosewater: @catppuccin[@@flavor][@rosewater];
-    @flamingo: @catppuccin[@@flavor][@flamingo];
-    @pink: @catppuccin[@@flavor][@pink];
-    @mauve: @catppuccin[@@flavor][@mauve];
-    @red: @catppuccin[@@flavor][@red];
-    @maroon: @catppuccin[@@flavor][@maroon];
-    @peach: @catppuccin[@@flavor][@peach];
-    @yellow: @catppuccin[@@flavor][@yellow];
-    @green: @catppuccin[@@flavor][@green];
-    @teal: @catppuccin[@@flavor][@teal];
-    @sky: @catppuccin[@@flavor][@sky];
-    @sapphire: @catppuccin[@@flavor][@sapphire];
-    @blue: @catppuccin[@@flavor][@blue];
-    @lavender: @catppuccin[@@flavor][@lavender];
-    @text: @catppuccin[@@flavor][@text];
-    @subtext1: @catppuccin[@@flavor][@subtext1];
-    @subtext0: @catppuccin[@@flavor][@subtext0];
-    @overlay2: @catppuccin[@@flavor][@overlay2];
-    @overlay1: @catppuccin[@@flavor][@overlay1];
-    @overlay0: @catppuccin[@@flavor][@overlay0];
-    @surface2: @catppuccin[@@flavor][@surface2];
-    @surface1: @catppuccin[@@flavor][@surface1];
-    @surface0: @catppuccin[@@flavor][@surface0];
-    @base: @catppuccin[@@flavor][@base];
-    @mantle: @catppuccin[@@flavor][@mantle];
-    @crust: @catppuccin[@@flavor][@crust];
-    @accent: @catppuccin[@@flavor][@@accentColor];
+    #lib.palette();
+    #lib.defaults();
 
-    @gm3-sys-color-error: @red;
-    @gm3-sys-color-error-rgb: #rgbify(@gm3-sys-color-error)[];
-    @gm3-sys-color-error-container: desaturate(darken(@red, 50%), 50%);
-    @gm3-sys-color-error-container-rgb: #rgbify(
-      @gm3-sys-color-error-container,
-    )[];
+    #__m3.base();
+    #__m3.with-prefix(gm3-sys-color-);
+    #__m3.with-prefix(cal-sys-color-);
+    
+    --cal-sys-color-warning: @yellow;
+    --cal-sys-color-warning-container: fade(@yellow, @m3-tint);
+    --cal-sys-color-on-warning: @base;
+    --cal-sys-color-on-warning-container: lighten(@yellow, @m3-emphasize);
 
-    @gm3-sys-color-on-error: darken(desaturate(@red, 20%), 50%);
-    @gm3-sys-color-on-error-rgb: #rgbify(@gm3-sys-color-on-error)[];
-    @gm3-sys-color-on-error-container: desaturate(darken(@red, -10%), 50%);
-    @gm3-sys-color-on-error-container-rgb: #rgbify(
-      @gm3-sys-color-on-error-container,
-    )[];
+    --cal-sys-color-conflict: @peach;
+    --cal-sys-color-conflict-container: fade(@peach, @m3-tint);
+    --cal-sys-color-on-conflict: @base;
+    --cal-sys-color-on-conflict-container: lighten(@peach, @m3-emphasize);
 
-    @gm3-sys-color-primary: @accent;
-    @gm3-sys-color-primary-rgb: #rgbify(@gm3-sys-color-primary)[];
-    @gm3-sys-color-primary-fixed: lighten(@accent, 5%);
-    @gm3-sys-color-primary-fixed-rgb: #rgbify(@gm3-sys-color-primary-fixed)[];
-    @gm3-sys-color-primary-fixed-dim: darken(@accent, 5%);
-    @gm3-sys-color-primary-fixed-dim-rgb: #rgbify(
-      @gm3-sys-color-primary-fixed-dim,
-    )[];
+    --cal-sys-color-success: @green;
+    --cal-sys-color-success-container: fade(@green, @m3-tint);
+    --cal-sys-color-on-success: @base;
+    --cal-sys-color-on-success-container: lighten(@green, @m3-emphasize);
+    
+    --cal-sys-color-night: @lavender;
+    --cal-sys-color-night-container: fade(@lavender, @m3-tint);
+    --cal-sys-color-on-night: @base;
+    --cal-sys-color-on-night-container: lighten(@lavender, @m3-emphasize);
 
-    @gm3-sys-color-on-primary: saturate(
-      mix(@gm3-sys-color-primary, @base, 20%),
-      25%
-    );
-    @gm3-sys-color-on-primary-rgb: #rgbify(@gm3-sys-color-on-primary)[];
-    @gm3-sys-color-on-primary-fixed: darken(@gm3-sys-color-on-primary, 5%);
-    @gm3-sys-color-on-primary-fixed-rgb: #rgbify(
-      @gm3-sys-color-on-primary-fixed,
-    )[];
-    @gm3-sys-color-on-primary-fixed-variant: lighten(
-      @gm3-sys-color-on-primary,
-      5%
-    );
-    @gm3-sys-color-on-primary-fixed-variant-rgb: #rgbify(
-      @gm3-sys-color-on-primary-fixed-variant,
-    )[];
+    --cal-sys-color-scrollbar: var(--cal-sys-color-outline-variant);
+    --cal-sys-color-scrollbar-hover: color-mix(in oklab, var(--cal-sys-color-outline-variant), var(--cal-sys-color-on-surface) 12%);
+    --cal-sys-color-scrollbar-active: color-mix(in oklab, var(--cal-sys-color-outline-variant), var(--cal-sys-color-on-surface) 20%);
+   
+    --cal-sys-color-now-indicator: @maroon;
+    --cal-sys-color-helper-variant: var(--cal-sys-color-on-surface-variant);
+    --cal-sys-color-everyone-available: @green;
+    --cal-sys-color-bubble-banner: cyan;
 
-    @gm3-sys-color-primary-container: saturate(
-      mix(@gm3-sys-color-primary, @mantle, 40%),
-      20%
-    );
-    @gm3-sys-color-primary-container-rgb: #rgbify(
-      @gm3-sys-color-primary-container,
-    )[];
-    @gm3-sys-color-on-primary-container: saturate(
-      mix(@gm3-sys-color-primary, @text, 10%),
-      25%
-    );
-    @gm3-sys-color-on-primary-container-rgb: #rgbify(
-      @gm3-sys-color-on-primary-container,
-    )[];
+    // --ae-genai-generation-gradient: linear-gradient(135deg,#217bfe,#078efb,#ac87eb,#217bfe);
+    // --ae-sidekick-container-color: var(--gm3-sys-color-surface-dim,#131314);
+    // --ae-sidekick-prompt-input-text-color: #fff;
+    // --ae-sidekick-prompt-input-text-placeholder-color: #c4c7c5;
+    // --ae-sidekick-user-message-container-color: var(--gm3-sys-color-on-primary,#062e6f);
+    // --ae-sidekick-shimmer-blend-mode: darken;
+    // --ae-sidekick-gem-display-light: none;
+    // --ae-sidekick-gem-display-dark: flex;
 
-    @gm3-sys-color-secondary: desaturate(@accent, 40%);
-    @gm3-sys-color-secondary-rgb: #rgbify(@gm3-sys-color-secondary)[];
-    @gm3-sys-color-secondary-fixed: lighten(@gm3-sys-color-secondary, 5%);
-    @gm3-sys-color-secondary-fixed-rgb: #rgbify(
-      @gm3-sys-color-secondary-fixed,
-    )[];
-    @gm3-sys-color-secondary-fixed-dim: darken(@gm3-sys-color-secondary, 5%);
-    @gm3-sys-color-secondary-fixed-dim-rgb: #rgbify(
-      @gm3-sys-color-secondary-fixed-dim,
-    )[];
-
-    @gm3-sys-color-on-secondary: saturate(
-      mix(@gm3-sys-color-secondary, @base, 20%),
-      25%
-    );
-    @gm3-sys-color-on-secondary-rgb: #rgbify(@gm3-sys-color-on-secondary)[];
-    @gm3-sys-color-on-secondary-fixed: darken(@gm3-sys-color-on-secondary, 5%);
-    @gm3-sys-color-on-secondary-fixed-rgb: #rgbify(
-      @gm3-sys-color-on-secondary-fixed,
-    )[];
-    @gm3-sys-color-on-secondary-fixed-variant: lighten(
-      @gm3-sys-color-on-primary,
-      5%
-    );
-    @gm3-sys-color-on-secondary-fixed-variant-rgb: #rgbify(
-      @gm3-sys-color-on-secondary-fixed-variant,
-    )[];
-
-    @gm3-sys-color-secondary-container: saturate(
-      mix(@gm3-sys-color-secondary, @mantle, 20%),
-      10%
-    );
-    @gm3-sys-color-secondary-container-rgb: #rgbify(
-      @gm3-sys-color-secondary-container,
-    )[];
-    @gm3-sys-color-on-secondary-container: saturate(
-      mix(@gm3-sys-color-secondary, @text, 10%),
-      25%
-    );
-    @gm3-sys-color-on-secondary-container-rgb: #rgbify(
-      @gm3-sys-color-on-secondary-container,
-    )[];
-
-    @gm3-sys-color-tertiary: @accent;
-    @gm3-sys-color-tertiary-rgb: #rgbify(@gm3-sys-color-tertiary)[];
-    @gm3-sys-color-tertiary-fixed: lighten(@gm3-sys-color-tertiary, 5%);
-    @gm3-sys-color-tertiary-fixed-rgb: #rgbify(@gm3-sys-color-tertiary-fixed)[];
-    @gm3-sys-color-tertiary-fixed-dim: darken(@gm3-sys-color-tertiary, 5%);
-    @gm3-sys-color-tertiary-fixed-dim-rgb: #rgbify(
-      @gm3-sys-color-tertiary-fixed-dim,
-    )[];
-
-    @gm3-sys-color-on-tertiary: saturate(
-      mix(@gm3-sys-color-tertiary, @base, 20%),
-      25%
-    );
-    @gm3-sys-color-on-tertiary-rgb: #rgbify(@gm3-sys-color-on-tertiary)[];
-    @gm3-sys-color-on-tertiary-fixed: darken(@gm3-sys-color-on-tertiary, 5%);
-    @gm3-sys-color-on-tertiary-fixed-rgb: #rgbify(
-      @gm3-sys-color-on-tertiary-fixed,
-    )[];
-    @gm3-sys-color-on-tertiary-fixed-variant: lighten(
-      @gm3-sys-color-on-tertiary,
-      5%
-    );
-    @gm3-sys-color-on-tertiary-fixed-variant-rgb: #rgbify(
-      @gm3-sys-color-on-tertiary-fixed-variant,
-    )[];
-
-    @gm3-sys-color-tertiary-container: saturate(
-      mix(@gm3-sys-color-tertiary, @mantle, 20%),
-      0%
-    );
-    @gm3-sys-color-tertiary-container-rgb: #rgbify(
-      @gm3-sys-color-tertiary-container,
-    )[];
-    @gm3-sys-color-on-tertiary-container: lighten(
-      saturate(@gm3-sys-color-tertiary-container, 50%),
-      65%
-    );
-    @gm3-sys-color-on-tertiary-container-rgb: #rgbify(
-      @gm3-sys-color-on-tertiary-container,
-    )[];
-
-    @gm3-sys-color-background: @base;
-    @gm3-sys-color-background-rgb: #rgbify(@gm3-sys-color-background)[];
-    @gm3-sys-color-on-background: @text;
-    @gm3-sys-color-on-background-rgb: #rgbify(@gm3-sys-color-on-background)[];
-
-    @gm3-sys-color-surface: @base;
-    @gm3-sys-color-surface-rgb: #rgbify(@gm3-sys-color-surface)[];
-    @gm3-sys-color-surface-bright: @surface0;
-    @gm3-sys-color-surface-bright-rgb: #rgbify(@gm3-sys-color-surface-bright)[];
-    @gm3-sys-color-surface-dim: @crust;
-    @gm3-sys-color-surface-dim-rgb: #rgbify(@gm3-sys-color-surface-dim)[];
-    @gm3-sys-color-surface-variant: mix(@mantle, @accent, 87.5%);
-    @gm3-sys-color-surface-variant-rgb: #rgbify(
-      @gm3-sys-color-surface-variant,
-    )[];
-    @gm3-sys-color-surface-tint: @accent;
-    @gm3-sys-color-surface-tint-rgb: #rgbify(@gm3-sys-color-surface-tint)[];
-
-    @gm3-sys-color-on-surface: @text;
-    @gm3-sys-color-on-surface-rgb: #rgbify(@gm3-sys-color-on-surface)[];
-    @gm3-sys-color-on-surface-variant: @subtext0;
-    @gm3-sys-color-on-surface-variant-rgb: #rgbify(
-      @gm3-sys-color-on-surface-variant,
-    )[];
-
-    @gm3-sys-color-inverse-surface: @text;
-    @gm3-sys-color-inverse-surface-rgb: #rgbify(
-      @gm3-sys-color-inverse-surface,
-    )[];
-    @gm3-sys-color-inverse-on-surface: @mantle;
-    @gm3-sys-color-inverse-on-surface-rgb: #rgbify(
-      @gm3-sys-color-inverse-on-surface,
-    )[];
-    @gm3-sys-color-inverse-primary: if(
-      @flavor = latte,
-      @catppuccin[@mocha][@@accentColor],
-      @catppuccin[@latte][@@accentColor]
-    ); // TODO: Colour role clarification
-    @gm3-sys-color-inverse-primary-rgb: #rgbify(
-      @gm3-sys-color-inverse-primary,
-    )[];
-
-    @gm3-sys-color-surface-container-highest: @surface1;
-    @gm3-sys-color-surface-container-highest-rgb: #rgbify(
-      @gm3-sys-color-surface-container-highest,
-    )[];
-    @gm3-sys-color-surface-container-high: @surface0;
-    @gm3-sys-color-surface-container-high-rgb: #rgbify(
-      @gm3-sys-color-surface-container-high,
-    )[];
-    @gm3-sys-color-surface-container: @surface0;
-    @gm3-sys-color-surface-container-rgb: #rgbify(
-      @gm3-sys-color-surface-container,
-    )[];
-    @gm3-sys-color-surface-container-low: @mantle;
-    @gm3-sys-color-surface-container-low-rgb: #rgbify(
-      @gm3-sys-color-surface-container-low,
-    )[];
-    @gm3-sys-color-surface-container-lowest: @crust;
-    @gm3-sys-color-surface-container-lowest-rgb: #rgbify(
-      @gm3-sys-color-surface-container-lowest,
-    )[];
-
-    @gm3-sys-color-outline: @overlay2;
-    @gm3-sys-color-outline-rgb: #rgbify(@gm3-sys-color-outline)[];
-    @gm3-sys-color-outline-variant: @overlay0;
-    @gm3-sys-color-outline-variant-rgb: #rgbify(
-      @gm3-sys-color-outline-variant,
-    )[];
-
-    @gm3-sys-color-scrim: #000;
-    @gm3-sys-color-scrim-rgb: #rgbify(@gm3-sys-color-scrim)[];
-    @gm3-sys-color-shadow: #000;
-    @gm3-sys-color-shadow-rgb: #rgbify(@gm3-sys-color-shadow)[];
-
-    @cal-sys-color-warning: @yellow;
-    @cal-sys-color-warning-container: saturate(mix(@yellow, @mantle, 20%), 0%);
-    @cal-sys-color-on-warning: saturate(
-      mix(@cal-sys-color-warning, @base, 20%),
-      25%
-    );
-    @cal-sys-color-on-warning-container: saturate(
-      mix(@cal-sys-color-warning, @mantle, 20%),
-      25%
-    );
-
-    @cal-sys-color-conflict: @peach;
-    @cal-sys-color-conflict-container: saturate(mix(@peach, @mantle, 20%), 0%);
-    @cal-sys-color-on-conflict: saturate(
-      mix(@cal-sys-color-conflict, @base, 20%),
-      25%
-    );
-    @cal-sys-color-on-conflict-container: saturate(
-      mix(@cal-sys-color-conflict, @mantle, 20%),
-      25%
-    );
-
-    @cal-sys-color-success: @green;
-    @cal-sys-color-success-container: saturate(mix(@green, @mantle, 20%), 0%);
-    @cal-sys-color-on-success: saturate(
-      mix(@cal-sys-color-success, @base, 20%),
-      25%
-    );
-    @cal-sys-color-on-success-container: saturate(
-      mix(@cal-sys-color-success, @mantle, 20%),
-      25%
-    );
-
-    @cal-sys-color-night: @lavender;
-    @cal-sys-color-night-container: saturate(mix(@lavender, @mantle, 20%), 0%);
-    @cal-sys-color-on-night: saturate(
-      mix(@cal-sys-color-night, @base, 20%),
-      25%
-    );
-    @cal-sys-color-on-night-container: saturate(
-      mix(@cal-sys-color-night, @mantle, 20%),
-      25%
-    );
-
-    @cal-sys-color-scrollbar: @surface2;
-    @cal-sys-color-scrollbar-hover: lighten(@surface2, 6%);
-    @cal-sys-color-scrollbar-active: lighten(@surface2, 12%);
-
-    @cal-sys-color-now-indicator: @accent;
-    @cal-sys-color-helper-variant: @subtext0;
-
-    color-scheme: if(@flavor = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent, 30%);
+    // Header buttons
+    header {
+      --og-theme-color: var(--cal-sys-color-on-surface) !important;
     }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
+    
+    // User availability: Available
+    [fill="#CEEAD6"] {
+      fill: var(--cal-sys-color-success) !important;
     }
-
-    --gm3-sys-color-background: @gm3-sys-color-background;
-    --gm3-sys-color-background-rgb: @gm3-sys-color-background-rgb;
-    --gm3-sys-color-error: @gm3-sys-color-error;
-    --gm3-sys-color-error-rgb: @gm3-sys-color-error-rgb;
-    --gm3-sys-color-error-container: @gm3-sys-color-error-container;
-    --gm3-sys-color-error-container-rgb: @gm3-sys-color-error-container-rgb;
-    --gm3-sys-color-inverse-on-surface: @gm3-sys-color-inverse-on-surface;
-    --gm3-sys-color-inverse-on-surface-rgb: @gm3-sys-color-inverse-on-surface-rgb;
-    --gm3-sys-color-inverse-primary: @gm3-sys-color-inverse-primary;
-    --gm3-sys-color-inverse-primary-rgb: @gm3-sys-color-inverse-primary-rgb;
-    --gm3-sys-color-inverse-surface: @gm3-sys-color-inverse-surface;
-    --gm3-sys-color-inverse-surface-rgb: @gm3-sys-color-inverse-surface-rgb;
-    --gm3-sys-color-on-background: @gm3-sys-color-on-background;
-    --gm3-sys-color-on-background-rgb: @gm3-sys-color-on-background-rgb;
-    --gm3-sys-color-on-error: @gm3-sys-color-on-error;
-    --gm3-sys-color-on-error-rgb: @gm3-sys-color-on-error-rgb;
-    --gm3-sys-color-on-error-container: @gm3-sys-color-on-error-container;
-    --gm3-sys-color-on-error-container-rgb: @gm3-sys-color-on-error-container-rgb;
-    --gm3-sys-color-on-primary: @gm3-sys-color-on-primary;
-    --gm3-sys-color-on-primary-rgb: @gm3-sys-color-on-primary-rgb;
-    --gm3-sys-color-on-primary-container: @gm3-sys-color-on-primary-container;
-    --gm3-sys-color-on-primary-container-rgb: @gm3-sys-color-on-primary-container-rgb;
-    --gm3-sys-color-on-primary-fixed: @gm3-sys-color-on-primary-fixed;
-    --gm3-sys-color-on-primary-fixed-rgb: @gm3-sys-color-on-primary-fixed-rgb;
-    --gm3-sys-color-on-primary-fixed-variant: @gm3-sys-color-on-primary-fixed-variant;
-    --gm3-sys-color-on-primary-fixed-variant-rgb: @gm3-sys-color-on-primary-fixed-variant-rgb;
-    --gm3-sys-color-on-secondary: @gm3-sys-color-on-secondary;
-    --gm3-sys-color-on-secondary-rgb: @gm3-sys-color-on-secondary-rgb;
-    --gm3-sys-color-on-secondary-container: @gm3-sys-color-on-secondary-container;
-    --gm3-sys-color-on-secondary-container-rgb: @gm3-sys-color-on-secondary-container-rgb;
-    --gm3-sys-color-on-secondary-fixed: @gm3-sys-color-on-secondary-fixed;
-    --gm3-sys-color-on-secondary-fixed-rgb: @gm3-sys-color-on-secondary-fixed-rgb;
-    --gm3-sys-color-on-secondary-fixed-variant: @gm3-sys-color-on-secondary-fixed-variant;
-    --gm3-sys-color-on-secondary-fixed-variant-rgb: @gm3-sys-color-on-secondary-fixed-variant-rgb;
-    --gm3-sys-color-on-surface: @gm3-sys-color-on-surface;
-    --gm3-sys-color-on-surface-rgb: @gm3-sys-color-on-surface-rgb;
-    --gm3-sys-color-on-surface-variant: @gm3-sys-color-on-surface-variant;
-    --gm3-sys-color-on-surface-variant-rgb: @gm3-sys-color-on-surface-variant-rgb;
-    --gm3-sys-color-on-tertiary: @gm3-sys-color-on-tertiary;
-    --gm3-sys-color-on-tertiary-rgb: @gm3-sys-color-on-tertiary-rgb;
-    --gm3-sys-color-on-tertiary-container: @gm3-sys-color-on-tertiary-container;
-    --gm3-sys-color-on-tertiary-container-rgb: @gm3-sys-color-on-tertiary-container-rgb;
-    --gm3-sys-color-on-tertiary-fixed: @gm3-sys-color-on-tertiary-fixed;
-    --gm3-sys-color-on-tertiary-fixed-rgb: @gm3-sys-color-on-tertiary-fixed-rgb;
-    --gm3-sys-color-on-tertiary-fixed-variant: @gm3-sys-color-on-tertiary-fixed-variant;
-    --gm3-sys-color-on-tertiary-fixed-variant-rgb: @gm3-sys-color-on-tertiary-fixed-variant-rgb;
-    --gm3-sys-color-outline: @gm3-sys-color-outline;
-    --gm3-sys-color-outline-rgb: @gm3-sys-color-outline-rgb;
-    --gm3-sys-color-outline-variant: @gm3-sys-color-outline-variant;
-    --gm3-sys-color-outline-variant-rgb: @gm3-sys-color-outline-variant-rgb;
-    --gm3-sys-color-primary: @gm3-sys-color-primary;
-    --gm3-sys-color-primary-rgb: @gm3-sys-color-primary-rgb;
-    --gm3-sys-color-primary-container: @gm3-sys-color-primary-container;
-    --gm3-sys-color-primary-container-rgb: @gm3-sys-color-primary-container-rgb;
-    --gm3-sys-color-primary-fixed: @gm3-sys-color-primary-fixed;
-    --gm3-sys-color-primary-fixed-rgb: @gm3-sys-color-primary-fixed-rgb;
-    --gm3-sys-color-primary-fixed-dim: @gm3-sys-color-primary-fixed-dim;
-    --gm3-sys-color-primary-fixed-dim-rgb: @gm3-sys-color-primary-fixed-dim-rgb;
-    --gm3-sys-color-scrim: @gm3-sys-color-scrim;
-    --gm3-sys-color-scrim-rgb: @gm3-sys-color-scrim-rgb;
-    --gm3-sys-color-secondary: @gm3-sys-color-secondary;
-    --gm3-sys-color-secondary-rgb: @gm3-sys-color-secondary-rgb;
-    --gm3-sys-color-secondary-container: @gm3-sys-color-secondary-container;
-    --gm3-sys-color-secondary-container-rgb: @gm3-sys-color-secondary-container-rgb;
-    --gm3-sys-color-secondary-fixed: @gm3-sys-color-secondary-fixed;
-    --gm3-sys-color-secondary-fixed-rgb: @gm3-sys-color-secondary-fixed-rgb;
-    --gm3-sys-color-secondary-fixed-dim: @gm3-sys-color-secondary-fixed-dim;
-    --gm3-sys-color-secondary-fixed-dim-rgb: @gm3-sys-color-secondary-fixed-dim-rgb;
-    --gm3-sys-color-shadow: @gm3-sys-color-shadow;
-    --gm3-sys-color-shadow-rgb: @gm3-sys-color-shadow-rgb;
-    --gm3-sys-color-surface: @gm3-sys-color-surface;
-    --gm3-sys-color-surface-rgb: @gm3-sys-color-surface-rgb;
-    --gm3-sys-color-surface-bright: @gm3-sys-color-surface-bright;
-    --gm3-sys-color-surface-bright-rgb: @gm3-sys-color-surface-bright-rgb;
-    --gm3-sys-color-surface-container: @gm3-sys-color-surface-container;
-    --gm3-sys-color-surface-container-rgb: @gm3-sys-color-surface-container-rgb;
-    --gm3-sys-color-surface-container-high: @gm3-sys-color-surface-container-high;
-    --gm3-sys-color-surface-container-high-rgb: @gm3-sys-color-surface-container-high-rgb;
-    --gm3-sys-color-surface-container-highest: @gm3-sys-color-surface-container-highest;
-    --gm3-sys-color-surface-container-highest-rgb: @gm3-sys-color-surface-container-highest-rgb;
-    --gm3-sys-color-surface-container-low: @gm3-sys-color-surface-container-low;
-    --gm3-sys-color-surface-container-low-rgb: @gm3-sys-color-surface-container-low-rgb;
-    --gm3-sys-color-surface-container-lowest: @gm3-sys-color-surface-container-lowest;
-    --gm3-sys-color-surface-container-lowest-rgb: @gm3-sys-color-surface-container-lowest-rgb;
-    --gm3-sys-color-surface-dim: @gm3-sys-color-surface-dim;
-    --gm3-sys-color-surface-dim-rgb: @gm3-sys-color-surface-dim-rgb;
-    --gm3-sys-color-surface-tint: @gm3-sys-color-surface-tint;
-    --gm3-sys-color-surface-tint-rgb: @gm3-sys-color-surface-tint-rgb;
-    --gm3-sys-color-surface-variant: @gm3-sys-color-surface-variant;
-    --gm3-sys-color-surface-variant-rgb: @gm3-sys-color-surface-variant-rgb;
-    --gm3-sys-color-tertiary: @gm3-sys-color-tertiary;
-    --gm3-sys-color-tertiary-rgb: @gm3-sys-color-tertiary-rgb;
-    --gm3-sys-color-tertiary-container: @gm3-sys-color-tertiary-container;
-    --gm3-sys-color-tertiary-container-rgb: @gm3-sys-color-tertiary-container-rgb;
-    --gm3-sys-color-tertiary-fixed: @gm3-sys-color-tertiary-fixed;
-    --gm3-sys-color-tertiary-fixed-rgb: @gm3-sys-color-tertiary-fixed-rgb;
-    --gm3-sys-color-tertiary-fixed-dim: @gm3-sys-color-tertiary-fixed-dim;
-    --gm3-sys-color-tertiary-fixed-dim-rgb: @gm3-sys-color-tertiary-fixed-dim-rgb;
-
-    --cal-sys-color-warning: @cal-sys-color-warning;
-    --cal-sys-color-warning-container: @cal-sys-color-warning-container;
-    --cal-sys-color-on-warning: @cal-sys-color-on-warning;
-    --cal-sys-color-on-warning-container: @cal-sys-color-on-warning-container;
-    --cal-sys-color-conflict: @cal-sys-color-conflict;
-    --cal-sys-color-conflict-container: @cal-sys-color-conflict-container;
-    --cal-sys-color-on-conflict: @cal-sys-color-on-conflict;
-    --cal-sys-color-on-conflict-container: @cal-sys-color-on-conflict-container;
-    --cal-sys-color-success: @cal-sys-color-success;
-    --cal-sys-color-success-container: @cal-sys-color-success-container;
-    --cal-sys-color-on-success: @cal-sys-color-on-success;
-    --cal-sys-color-on-success-container: @cal-sys-color-on-success-container;
-    --cal-sys-color-night: @cal-sys-color-night;
-    --cal-sys-color-night-container: @cal-sys-color-night-container;
-    --cal-sys-color-on-night: @cal-sys-color-on-night;
-    --cal-sys-color-on-night-container: @cal-sys-color-on-night-container;
-    --cal-sys-color-scrollbar: @cal-sys-color-scrollbar;
-    --cal-sys-color-scrollbar-hover: @cal-sys-color-scrollbar-hover;
-    --cal-sys-color-scrollbar-active: @cal-sys-color-scrollbar-active;
-    --cal-sys-color-now-indicator: @cal-sys-color-now-indicator;
-    --cal-sys-color-helper-variant: @cal-sys-color-helper-variant;
-
-    --og-searchform-focused-color: var(--gm3-sys-color-on-surface);
-
+    [stroke="#137333"] {
+      stroke: var(--cal-sys-color-on-success) !important;
+    }
+    
     // Checkered stripe background in Day view
-    .CcsDpe.eh9LUb .TyFLN,
-    .CcsDpe.sphSn .TyFLN {
+    .TyFLN {
       @svg: escape(
         '<svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="nonzero"><path fill="@{base}" d="M0 0h12v12H0z"/><path d="M6 0h6L0 12V6zm6 6v6H6z" fill="@{surface0}"/></g></svg>'
       );
-      background-image: url("data:image/svg+xml,@{svg}");
-    }
-
-    // App bar text colours
-    .gb_Fa.gb_2a.gb_H .gb_9c.gb_ad,
-    .gb_Fa.gb_2a.gb_H a.gb_X,
-    .gb_Fa.gb_2a.gb_H span.gb_X,
-    .gb_Fa.gb_2a.gb_H .gb_sd .gb_td,
-    .gb_Fa.gb_2a.gb_H .gb_2c .gb_td,
-    .gb_Fa.gb_2a.gb_H svg {
-      --og-theme-color: var(--gm3-sys-color-on-surface);
-    }
-
-    // Legacy tooltips, seen when hovering over the names of calendars,
-    // certain topbar icon buttons, companion app icons.
-    .R8qYlc, .gb_Ac, .Kk7lMc-suEOdc {
-      background-color: var(--gm3-sys-color-inverse-surface);
-    }
-    .RM9ulf, .gb_Ac, .gb_Bc > *, .gb_Bc div:first-child, .Kk7lMc-suEOdc {
-      color: var(--gm3-sys-color-inverse-on-surface);
-    }
-
-    // Carousel dots in certain new feature onboarding dialogues
-    .fy2Kyc.wdLSAe:hover {
-      background-color: var(--gm3-sys-color-primary);
-    }
-
-    // Search bar result box dividers
-    .gssb_e {
-      border-top-color: var(--gm3-sys-color-outline-variant);
-    }
-    .gssb_l {
-      background: var(--gm3-sys-color-outline-variant);
-    }
-
-    // Search bar result box active item primary border
-    .gssb_i > .gssb_a {
-      border-left-color: var(--gm3-sys-color-primary);
-    }
-
-    // Search bar result box secondary text
-    .gstq_c, .gsan_a {
-      color: var(--gm3-sys-color-on-surface-variant);
+      background-image: url("data:image/svg+xml,@{svg}") !important;
     }
 
     // Office/Home work location calendar indicator
@@ -532,6 +128,10 @@
 
     // Images displaying the app under `Settings menu > Appearance`
     img {
+      &[src="https://ssl.gstatic.com/calendar/images/dynamiclogo_2020q4/calendar_17_2x.png"] {
+        // TODO 
+      }
+      
       &[src="https://ssl.gstatic.com/calendar/images/theme/theme_picker_light.svg"] {
         @svg: escape(
           '<svg width="140" height="162" viewBox="0 0 140 162" fill="none" var="@{base}" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#a)"><path d="M124 0H16C7.163 0 0 7.163 0 16v129.757c0 8.837 7.163 16 16 16h108c8.837 0 16-7.163 16-16V16c0-8.837-7.163-16-16-16" fill="#E6E9EF"/><path d="m33.896 17.184-4.966-.552-6.07.552-.552 5.518.552 5.518 5.518.69 5.518-.69.552-5.656z" fill="white"/><path d="M25.124 25.745q-.62-.418-.854-1.224l.957-.394q.13.497.456.77.323.272.783.272.47 0 .807-.286a.91.91 0 0 0 .338-.727q0-.45-.356-.737-.356-.285-.891-.285h-.553v-.948h.496q.46 0 .774-.248a.82.82 0 0 0 .315-.68.75.75 0 0 0-.282-.614q-.28-.23-.713-.23-.422 0-.67.224-.249.226-.362.553l-.947-.394q.187-.534.694-.942t1.294-.409q.581 0 1.045.225.465.226.727.624.262.399.262.895 0 .507-.244.858a1.7 1.7 0 0 1-.6.54v.056q.468.197.77.6.3.403.3.966t-.285 1.004-.788.694a2.5 2.5 0 0 1-1.13.254 2.34 2.34 0 0 1-1.343-.417M31 20.994l-1.047.76-.525-.797 1.886-1.36h.722v6.416H31z" fill="#1A73E8"/><path d="m33.896 33.186 4.966-4.966-2.483-1.104-2.483 1.104-1.104 2.483z" fill="#EA4335"/><path d="m21.757 30.703 1.103 2.483h11.036V28.22H22.86z" fill="#34A853"/><path d="M19.55 12.218c-.915 0-1.656.74-1.656 1.655V28.22l2.483 1.104 2.483-1.104V17.184h11.036L35 14.701l-1.104-2.483z" fill="#4285F4"/><path d="M17.894 28.22v3.31c0 .915.74 1.656 1.655 1.656h3.311V28.22z" fill="#188038"/><path d="M33.896 17.184V28.22h4.966V17.184L36.38 16.08z" fill="#FBBC04"/><path d="M38.862 17.184v-3.31c0-.915-.74-1.656-1.655-1.656h-3.311v4.966z" fill="#1967D2"/><g filter="url(#b)"><path d="M112.11 46H28c-6.627 0-12 5.373-12 12v13.838c0 6.628 5.373 12 12 12h84.11c6.627 0 12-5.372 12-12V58c0-6.627-5.373-12-12-12" fill="#F0F4F9"/></g><path d="M44.38 65.866h-6.623v6.622h-1.892v-6.622h-6.621v-1.892h6.621v-6.621h1.892v6.621h6.622zm61.486-1.893H58.568a.946.946 0 1 0 0 1.892h47.298a.946.946 0 1 0 0-1.892m8.593 34.405H25.541a.946.946 0 0 0 0 1.892h88.918a.946.946 0 1 0 0-1.892m0 17.027H25.541a.946.946 0 0 0 0 1.892h88.918a.946.946 0 1 0 0-1.892m0 17.028H25.541a.946.946 0 0 0 0 1.892h88.918a.946.946 0 1 0 0-1.892" fill="#4C4F69"/></g><defs><filter id="b" x="13" y="44" width="114.11" height="43.8385" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation="1.5"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5_1739"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation="1"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"/><feBlend mode="normal" in2="effect1_dropShadow_5_1739" result="effect2_dropShadow_5_1739"/><feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_5_1739" result="shape"/></filter><clipPath id="a"><rect width="140" height="162" fill="white"/></clipPath></defs></svg>'
@@ -559,11 +159,3 @@
     }
   }
 }
-
-/* deno-fmt-ignore */
-@catppuccin: {
-  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-};
