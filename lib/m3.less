@@ -11,20 +11,21 @@
 
   .base() {
     @m3-primary: @accent;
-    @m3-secondary: desaturate(@accent, 15%);
+    @m3-secondary: desaturate(@accent, 30%);
     @m3-tertiary: lighten(@accent, 5%);
-    @m3-emphasize: 5%;
+    @m3-emphasize: if(@flavor = latte, -30%, 12.5%);
     @m3-deemphasize: 10%;
-    @m3-tint: 30%;
+    @m3-tint: if(@flavor = latte, 25%, 30%);
 
     @m3-inverse-flavor: if(@flavor = latte, mocha, latte);
     @m3-black: @catppuccin[@mocha][@crust];
   }
 
   .with-prefix(@prefix) {
-    .token(background, @base);
+    // Container should be mixed with base, instead of using opacity.
+
     .token(error, @red);
-    .token(error-container, fade(@red, @m3-tint));
+    .token(error-container, mix(@red, @base, @m3-tint));
     .token(inverse-on-surface, @base);
     // m3-primary
     .token(inverse-primary, @catppuccin[@@m3-inverse-flavor][@@accentColor]);
@@ -49,7 +50,7 @@
     .token(outline, @overlay2);
     .token(outline-variant, @overlay0);
     .token(primary, @m3-primary);
-    .token(primary-container, fade(@m3-primary, @m3-tint));
+    .token(primary-container, mix(@m3-primary, @base, @m3-tint));
     // m3-primary
     .token(primary-fixed, @catppuccin[@mocha][@@accentColor]);
     // m3-primary
@@ -59,7 +60,7 @@
     );
     .token(scrim, @m3-black);
     .token(secondary, @m3-secondary);
-    .token(secondary-container, fade(@m3-secondary, @m3-tint));
+    .token(secondary-container, mix(@m3-secondary, @base, @m3-tint));
     // m3-secondary
     .token(
       secondary-fixed,
@@ -74,18 +75,21 @@
       ),
     );
     .token(shadow, @m3-black);
-    .token(surface, @base);
-    .token(surface-bright, @surface0);
+
+    .token(surface-container-lowest, @crust);
+    .token(surface, @mantle);
+    .token(background, @mantle);
+    .token(surface-dim, @mantle);
+    .token(surface-container-low, @base);
     .token(surface-container, @surface0);
     .token(surface-container-high, @surface1);
     .token(surface-container-highest, @surface2);
-    .token(surface-container-low, @mantle);
-    .token(surface-container-lowest, @crust);
-    .token(surface-dim, @mantle);
-    .token(surface-tint, @accent);
+    .token(surface-bright, @overlay0);
     .token(surface-variant, @overlay1);
+
+    .token(surface-tint, @accent);
     .token(tertiary, @m3-tertiary);
-    .token(tertiary-container, fade(@m3-tertiary, @m3-tint));
+    .token(tertiary-container, mix(@m3-tertiary, @base, @m3-tint));
     // m3-tertiary
     .token(tertiary-fixed, lighten(@catppuccin[@mocha][@@accentColor], 5%));
     // m3-tertiary
