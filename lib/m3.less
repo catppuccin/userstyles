@@ -9,93 +9,90 @@
     --@{prefix}@{id}-rgb: #lib.rgbify(@color)[];
   }
 
+  .token-content(@id, @color, @content) {
+    --@{prefix}@{id}: @color;
+    --@{prefix}@{id}-rgb: #lib.rgbify(@color)[];
+    
+    --@{prefix}on-@{id}: @content;
+    --@{prefix}on-@{id}-rgb: #lib.rgbify(@content)[];
+  }
+
+  .token-content-container(@id, @color, @content) {
+    .token-content(@id, @color, @content);
+
+    --@{prefix}@{id}-container: mix(@color, @base, @m3-tint);
+    --@{prefix}@{id}-container-rgb: #lib.rgbify(mix(@color, @base, @m3-tint))[];
+    --@{prefix}on-@{id}-container: lighten(@color, @m3-emphasize);
+    --@{prefix}on-@{id}-container-rgb: #lib.rgbify(lighten(@color, @m3-emphasize))[];
+  }
+
   .base() {
     @m3-primary: @accent;
     @m3-secondary: desaturate(@accent, 30%);
     @m3-tertiary: lighten(@accent, 5%);
+
+    @m3-fixed-primary: @m3-fixed-flavor[@@accentColor];
+    @m3-fixed-secondary: desaturate(@m3-fixed-flavor[@@accentColor], 30%);
+    @m3-fixed-tertiary: lighten(@m3-fixed-flavor[@@accentColor], 5%);
+    @m3-fixed-on-accent: @m3-fixed-flavor[@base];
+
+    @m3-fixed-flavor: @catppuccin[@mocha];
+
     @m3-emphasize: if(@flavor = latte, -30%, 12.5%);
     @m3-deemphasize: 10%;
     @m3-tint: if(@flavor = latte, 25%, 30%);
 
     @m3-inverse-flavor: if(@flavor = latte, mocha, latte);
-    @m3-black: @catppuccin[@mocha][@crust];
+    @m3-black: @m3-fixed-flavor[@crust];
   }
 
   .with-prefix(@prefix) {
     // Container should be mixed with base, instead of using opacity.
+    .token-content-container(error, @red, @base);
+    .token-content-container(primary, @m3-primary, @base);
+    .token-content-container(secondary, @m3-secondary, @base);
+    .token-content-container(tertiary, @m3-tertiary, @base);
 
-    .token(error, @red);
-    .token(error-container, mix(@red, @base, @m3-tint));
-    .token(inverse-on-surface, @base);
-    // m3-primary
-    .token(inverse-primary, @catppuccin[@@m3-inverse-flavor][@@accentColor]);
-    .token(inverse-surface, @text);
-    .token(on-background, @text);
-    .token(on-error, @base);
-    .token(on-error-container, lighten(@red, @m3-emphasize));
-    .token(on-primary, @base);
-    .token(on-primary-container, lighten(@m3-primary, @m3-emphasize));
-    .token(on-primary-fixed, @catppuccin[@mocha][@base]);
-    .token(on-primary-fixed-variant, @catppuccin[@mocha][@base]);
-    .token(on-secondary, @base);
-    .token(on-secondary-container, lighten(@m3-secondary, @m3-emphasize));
-    .token(on-secondary-fixed, @catppuccin[@mocha][@base]);
-    .token(on-secondary-fixed-variant, @catppuccin[@mocha][@base]);
-    .token(on-surface, @text);
-    .token(on-surface-variant, @subtext0);
-    .token(on-tertiary, @base);
-    .token(on-tertiary-container, lighten(@m3-tertiary, @m3-emphasize));
-    .token(on-tertiary-fixed, @catppuccin[@mocha][@base]);
-    .token(on-tertiary-fixed-variant, @catppuccin[@mocha][@base]);
-    .token(outline, @overlay2);
-    .token(outline-variant, @overlay0);
-    .token(primary, @m3-primary);
-    .token(primary-container, mix(@m3-primary, @base, @m3-tint));
-    // m3-primary
-    .token(primary-fixed, @catppuccin[@mocha][@@accentColor]);
-    // m3-primary
-    .token(
-      primary-fixed-dim,
-      darken(@catppuccin[@mocha][@@accentColor], @m3-deemphasize),
-    );
-    .token(scrim, @m3-black);
-    .token(secondary, @m3-secondary);
-    .token(secondary-container, mix(@m3-secondary, @base, @m3-tint));
-    // m3-secondary
-    .token(
-      secondary-fixed,
-      desaturate(@catppuccin[@mocha][@@accentColor], 15%),
-    );
-    // m3-secondary
-    .token(
-      secondary-fixed-dim,
-      darken(
-        desaturate(@catppuccin[@mocha][@@accentColor], 15%),
-        @m3-deemphasize
-      ),
-    );
-    .token(shadow, @m3-black);
+    // Fixed variants
+    .token-content(primary-fixed, @m3-fixed-primary, @m3-fixed-on-accent);
+    .token(on-primary-fixed-variant, @m3-fixed-on-accent);
+    .token(primary-fixed-dim, darken(@m3-fixed-primary, @m3-deemphasize));
 
+    .token-content(secondary-fixed, @m3-fixed-secondary, @m3-fixed-on-accent);
+    .token(on-secondary-fixed-variant, @m3-fixed-on-accent);
+    .token(secondary-fixed-dim, darken(@m3-fixed-secondary, @m3-deemphasize));
+
+    .token-content(tertiary-fixed, @m3-fixed-tertiary, @m3-fixed-on-accent);
+    .token(on-tertiary-fixed-variant, @m3-fixed-on-accent);
+    .token(tertiary-fixed-dim, darken(@m3-fixed-tertiary, @m3-deemphasize));
+
+    // Elevation scale
     .token(surface-container-lowest, @crust);
-    .token(surface, @mantle);
-    .token(background, @mantle);
+    .token-content(surface, @mantle, @text);
+    .token-content(background, @mantle, @text);
     .token(surface-dim, @mantle);
     .token(surface-container-low, @base);
     .token(surface-container, @surface0);
     .token(surface-container-high, @surface1);
     .token(surface-container-highest, @surface2);
     .token(surface-bright, @overlay0);
-    .token(surface-variant, @overlay1);
+    .token-content(surface-variant, @overlay1, @subtext0);
+    // Elevation scale end
 
+    // Inverse variants
+    .token(inverse-primary, @catppuccin[@@m3-inverse-flavor][@@accentColor]);
+    .token(inverse-surface, @text);
+    .token(inverse-on-surface, @base);
+
+    // Outline/Disabled text
+    .token(outline, @overlay2);
+    .token(outline-variant, @overlay0);
+
+    // Backdrop
+    .token(scrim, @m3-black);
+    .token(shadow, @m3-black);
+
+    // Deprecated
     .token(surface-tint, @accent);
-    .token(tertiary, @m3-tertiary);
-    .token(tertiary-container, mix(@m3-tertiary, @base, @m3-tint));
-    // m3-tertiary
-    .token(tertiary-fixed, lighten(@catppuccin[@mocha][@@accentColor], 5%));
-    // m3-tertiary
-    .token(
-      tertiary-fixed-dim,
-      darken(lighten(@catppuccin[@mocha][@@accentColor], 5%), @m3-deemphasize),
-    );
   }
 }
