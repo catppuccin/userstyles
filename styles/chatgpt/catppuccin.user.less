@@ -82,6 +82,9 @@
       --gray-950: @crust;
       --brand-purple: @accent;
       --bg-primary: var(--gray-800) !important;
+      --bg-secondary: var(--main-surface-secondary) !important;
+      --bg-tertiary: var(--main-surface-tertiary) !important;
+      --interactive-bg-tertiary-hover: lighten(@surface1, 5%);
       --text-primary: var(--gray-100) !important;
       --text-secondary: var(--gray-200) !important;
       --text-tertiary: var(--gray-300) !important;
@@ -106,6 +109,10 @@
         --text-secondary: var(--gray-200) !important;
         --text-tertiary: var(--gray-300) !important;
       }
+      --switch-track-off-bg: @surface1;
+      --switch-track-on-bg: @accent;
+      --switch-thumb-bg: @overlay2;
+      --switch-border: fade(@text, 14%);
     }
     & when (@flavor = latte) {
       --gray-50: @crust;
@@ -121,6 +128,9 @@
       --gray-950: @text;
       --brand-purple: @accent;
       --bg-primary: var(--gray-200) !important;
+      --bg-secondary: var(--main-surface-secondary) !important;
+      --bg-tertiary: var(--main-surface-tertiary) !important;
+      --interactive-bg-tertiary-hover: darken(@surface0, 5%);
       --text-primary: var(--gray-950);
       --text-secondary: var(--gray-600);
       --text-tertiary: var(--gray-400);
@@ -145,6 +155,10 @@
         --text-tertiary: var(--gray-500) !important;
         --interactive-bg-secondary-hover: var(--gray-600) !important;
       }
+      --switch-track-off-bg: @surface1;
+      --switch-track-on-bg: @accent;
+      --switch-thumb-bg: @text;
+      --switch-border: fade(@text, 18%);
     }
 
     --border-light: fade(@text, 10%);
@@ -163,6 +177,11 @@
       --tw-ring-color: @accent;
     }
 
+    /* Table row hover */
+    tr:hover {
+      transition: background-color 0.12s ease;
+    }
+
     /* ChatGPT logo */
     [style*="background-color: rgb(25, 195, 125);"] {
       background-color: @green !important;
@@ -178,23 +197,23 @@
       background-image: url("data:image/svg+xml;@{svg}");
     }
 
-    [multiple],
-    [type="date"],
-    [type="datetime-local"],
-    [type="email"],
-    [type="month"],
-    [type="number"],
-    [type="password"],
-    [type="search"],
-    [type="tel"],
-    [type="text"],
-    [type="time"],
-    [type="url"],
-    [type="week"],
-    select,
-    textarea {
+    [type="text"]:not([class*="bg-token-"]),
+    [type="search"]:not([class*="bg-token-"]),
+    [type="email"]:not([class*="bg-token-"]),
+    [type="password"]:not([class*="bg-token-"]),
+    [type="number"]:not([class*="bg-token-"]),
+    [type="tel"]:not([class*="bg-token-"]),
+    [type="url"]:not([class*="bg-token-"]),
+    [type="time"]:not([class*="bg-token-"]),
+    [type="date"]:not([class*="bg-token-"]),
+    [type="datetime-local"]:not([class*="bg-token-"]),
+    [type="month"]:not([class*="bg-token-"]),
+    [type="week"]:not([class*="bg-token-"]),
+    textarea:not([class*="bg-token-"]),
+    select:not([class*="bg-token-"]) {
       background-color: @base;
       border-color: @overlay2;
+      color: @text;
     }
 
     [type="checkbox"],
@@ -202,6 +221,14 @@
       background-color: @base;
       border-color: @overlay2;
       color: @accent;
+    }
+
+    /* Tokenized Inputs */
+    input[class*="bg-token-"],
+    textarea[class*="bg-token-"],
+    select[class*="bg-token-"] {
+      background-color: var(--main-surface-primary) !important;
+      color: var(--text-primary) !important;
     }
 
     .form-input,
@@ -295,6 +322,28 @@
       background-color: @text;
     }
 
+    /* Radix Switch */
+    button[role="switch"] {
+      background-color: var(--switch-track-off-bg) !important;
+      border: 1px solid var(--switch-border) !important;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    button[role="switch"][data-state="checked"] {
+      background-color: var(--switch-track-on-bg) !important;
+      border-color: var(--switch-border) !important;
+    }
+
+    button[role="switch"] > span {
+      background-color: var(--switch-thumb-bg) !important;
+      box-shadow: 0 1px 2px 0 fade(@black, 25%);
+    }
+
+    button[role="switch"]:focus-visible {
+      --tw-ring-color: @accent;
+      --tw-ring-offset-color: @base;
+    }
+
     /* Borders */
 
     .border-black,
@@ -366,6 +415,13 @@
     }
 
     /* Backgrounds */
+    .bg-token-bg-tertiary {
+      background-color: var(--bg-tertiary) !important;
+    }
+    .bg-token-main-surface-primary {
+      background-color: var(--main-surface-primary) !important;
+    }
+
     .\!bg-brand-purple {
       background-color: @accent !important;
     }
@@ -670,6 +726,10 @@
     }
 
     /* Text */
+
+    .text-token-text-primary {
+      color: var(--text-primary) !important;
+    }
 
     .\!text-black {
       color: @black !important;
