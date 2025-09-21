@@ -1,0 +1,721 @@
+/* ==UserStyle==
+@name Google Cloud Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/google-cloud
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/google-cloud
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/google-cloud/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agoogle-cloud
+@description Soothing pastel theme for Google Cloud
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+// @import "https://userstyles.catppuccin.com/lib/m3.less";
+@import "https://github.com/catppuccin/userstyles/raw/refs/heads/feat/m3-lib/lib/m3.less";
+
+@-moz-document domain("console.cloud.google.com") {
+  body:not([data-cm-color-scheme="dark"]),
+  body:not([data-cm-dark-launched="true"]) {
+    .cm-md1,
+    .cm-gm2[sandboxuid],
+    .cm-gm2:where(:not([sandboxuid])) {
+      #catppuccin(@lightFlavor);
+    }
+  }
+  
+  body[data-cm-color-scheme=dark]:where([data-cm-dark-launched=true]) {
+    .cm-md1,
+    .cm-gm2[sandboxuid],
+    .cm-gm2:where(:not([sandboxuid])) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    
+    #__m3.base();
+    
+    #__m3.with-prefix(gm3-sys-color-);
+    #__m3.with-prefix(cm-sys-color-);
+    #__m3.with-prefix(mat-sys-);
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+    
+    // --cm-sys-color-primary: #0c67df;
+    // --cm-sys-color-on-primary: #fff;
+    --cm-sys-color-primary-inverse: var(--cm-sys-color-inverse-primary);
+    --cm-sys-color-on-primary-inverse: var(--cm-sys-color-primary);
+    
+    // --cm-sys-color-surface: #fff;
+    // --cm-sys-color-surface-variant: #f9fafb;
+    // --cm-sys-color-on-surface: #202124;
+    // --cm-sys-color-on-surface-variant: #5f6368;
+    --cm-sys-color-surface-inverse: var(--cm-sys-color-inverse-surface);
+    --cm-sys-color-on-surface-inverse: var(--cm-sys-color-inverse-on-surface);
+    
+    --cm-sys-color-surface-modal: var(--cm-sys-color-surface);
+    --cm-sys-color-surface-elevation: var(--cm-sys-color-surface);
+    
+    --cm-sys-color-container-high: var(--cm-sys-color-surface-container-high);
+    --cm-sys-color-container-primary: var(--cm-sys-color-primary-container);
+    
+    --cm-sys-color-primary-on-container: var(--cm-sys-color-on-primary-container);
+    
+    --cm-sys-color-media-surface: #000;
+    --cm-sys-color-media-on-surface: #fff;
+    
+    --cm-sys-color-container: var(--cm-sys-color-surface-container);
+    --cm-sys-color-on-container: var(--cm-sys-color-on-surface);
+    
+    --cm-sys-color-placeholder: var(--cm-sys-color-surface-variant);
+    
+    --cm-sys-color-state-primary-on-surface-hover: rgba(var(--cm-sys-color-primary-rgb), 0.04);
+    --cm-sys-color-state-primary-on-surface-active: rgba(var(--cm-sys-color-primary-rgb), 0.1);
+    --cm-sys-color-state-primary-on-surface-focus: rgba(var(--cm-sys-color-primary-rgb), 0.12);
+    --cm-sys-color-state-on-primary-on-surface-state: var(--cm-sys-color-primary);
+    
+    --cm-sys-color-state-neutral-on-surface-hover: rgba(var(--cm-sys-color-on-surface-rgb), 0.04);
+    --cm-sys-color-state-neutral-on-surface-active: rgba(var(--cm-sys-color-on-surface-rgb), 0.1);
+    --cm-sys-color-state-neutral-on-surface-focus: rgba(var(--cm-sys-color-on-surface-rgb), 0.12);
+    --cm-sys-color-state-on-neutral-on-surface-state: var(--cm-sys-color-on-surface);
+    
+    --cm-sys-color-scrim-modal: rgba(0,0,0,0.6);
+    --cm-sys-color-scrim-loading: rgba(255,255,255,0.6);
+    
+    // --cm-sys-color-shadow: #3c4043;
+    // --cm-sys-color-outline: #80868b;
+    --cm-sys-color-outline-active: var(--cm-sys-color-outline);
+    --cm-sys-color-hairline: var(--cm-sys-color-outline-variant);
+    
+    --cm-sys-color-selection: var(--cm-sys-color-primary);
+    --cm-sys-color-selection-container: var(--cm-sys-color-container-primary);
+    
+    --cm-sys-color-link-default: @accent;
+    --cm-sys-color-link-visited: @sky;
+    
+    --cm-sys-color-state-disabled: rgba(var(--cm-sys-color-on-surface-rgb), 0.38);
+    --cm-sys-color-state-disabled-container: rgba(var(--cm-sys-color-on-surface-rgb), 0.12);
+    
+    --cm-sys-color-status-success: @green;
+    --cm-sys-color-status-on-success: @base;
+    --cm-sys-color-status-success-container: mix(@green, @base, @m3-tint);
+    
+    --cm-sys-color-status-warning: @yellow;
+    --cm-sys-color-status-on-warning: @base;
+    --cm-sys-color-status-warning-container: mix(@yellow, @base, @m3-tint);
+    
+    --cm-sys-color-status-error: var(--cm-sys-color-error);
+    --cm-sys-color-status-on-error: var(--cm-sys-color-on-error);
+    --cm-sys-color-status-error-container: var(--cm-sys-color-error-container);
+    
+    --cm-sys-color-status-neutral: var(--cm-sys-color-surface-variant);
+    --cm-sys-color-status-on-neutral: var(--cm-sys-color-on-surface-variant);
+    --cm-sys-color-status-neutral-container: var(--cm-sys-color-surface-container);
+    
+    --cm-sys-color-logo-blue-soft-tone: #8ab4f8;
+    --cm-sys-color-logo-blue-medium-tone: #4285f4;
+    --cm-sys-color-logo-blue-deep-tone: #0c67df;
+    --cm-sys-color-logo-grey-soft-tone: #9aa0a6;
+    --cm-sys-color-logo-grey-medium-tone: #80868b;
+    --cm-sys-color-logo-grey-deep-tone: #5f6368;
+    
+    /*
+    --cm-sys-color-charts-category1: #0c67df;
+    --cm-sys-color-charts-category2: #12a4af;
+    --cm-sys-color-charts-category3: #e52592;
+    --cm-sys-color-charts-category4: #f4511e;
+    --cm-sys-color-charts-category5: #9334e6;
+    --cm-sys-color-charts-category6: #689f38;
+    --cm-sys-color-charts-category7: #3949ab;
+    --cm-sys-color-charts-category8: #546e7a;
+    --cm-sys-color-charts-category9: #ef6c00;
+    --cm-sys-color-charts-category10: #d93025;
+    --cm-sys-color-charts-category11: #1e8e3e;
+    --cm-sys-color-charts-category12: #039be5;
+    */
+    --cm-sys-color-charts-category1: @blue;
+    --cm-sys-color-charts-category2: @teal;
+    --cm-sys-color-charts-category3: @pink;
+    --cm-sys-color-charts-category4: @peach;
+    --cm-sys-color-charts-category5: @mauve;
+    --cm-sys-color-charts-category6: saturate(@green, 80%);
+    --cm-sys-color-charts-category7: @lavender;
+    --cm-sys-color-charts-category8: @overlay1;
+    --cm-sys-color-charts-category9: @yellow;
+    --cm-sys-color-charts-category10: @maroon;
+    --cm-sys-color-charts-category11: @green;
+    --cm-sys-color-charts-category12: @sapphire;
+    
+    --cm-sys-color-charts-category-unfilled: @surface1;
+    
+    --cm-sys-color-brand-achromatic: #000;
+    --cm-sys-color-brand-blue: #4285f4;
+    --cm-sys-color-brand-green: #34a853;
+    --cm-sys-color-brand-red: #ea4335;
+    --cm-sys-color-brand-yellow: #fbbc04;
+    
+    --cm-sys-color-charts-primary-outline: #0c67df;
+    --cm-sys-color-charts-primary-default: #0c67df;
+    --cm-sys-color-charts-primary-medium: #8ab4f8;
+    --cm-sys-color-charts-primary-low: #d2e3fc;
+    --cm-sys-color-charts-neutral-outline: #80868b;
+    --cm-sys-color-charts-neutral-default: #80868b;
+    --cm-sys-color-charts-neutral-medium: #dadce0;
+    --cm-sys-color-charts-neutral-low: #f1f3f4;
+    --cm-sys-color-charts-success-outline: #188038;
+    --cm-sys-color-charts-success-default: #188038;
+    --cm-sys-color-charts-success-medium: #81c995;
+    --cm-sys-color-charts-success-low: #ceead6;
+    --cm-sys-color-charts-warning-outline: #d93025;
+    --cm-sys-color-charts-warning-default: #f9ab00;
+    --cm-sys-color-charts-warning-medium: #fdd663;
+    --cm-sys-color-charts-warning-low: #feefc3;
+    --cm-sys-color-charts-error-outline: #d93025;
+    --cm-sys-color-charts-error-default: #d93025;
+    --cm-sys-color-charts-error-medium: #f28b82;
+    --cm-sys-color-charts-error-low: #fad2cf;
+    --cm-sys-color-charts-unfilled: #dadce0;
+    
+    --cm-sys-color-charts-category1-outline: var(--cm-sys-color-charts-primary-outline);
+    --cm-sys-color-charts-category1-default: var(--cm-sys-color-charts-primary-default);
+   
+   --cm-sys-color-charts-category1-high: #185abc;
+    --cm-sys-color-charts-category1-medium: var(--cm-sys-color-charts-primary-medium);
+    --cm-sys-color-charts-category1-low: var(--cm-sys-color-charts-primary-low);
+    --cm-sys-color-charts-category2-outline: #e52592;
+    --cm-sys-color-charts-category2-default: #e52592;
+    --cm-sys-color-charts-category2-high: #b80672;
+    --cm-sys-color-charts-category2-medium: #ff8bcb;
+    --cm-sys-color-charts-category2-low: #fdcfe8;
+    --cm-sys-color-charts-category3-outline: #12a4af;
+    --cm-sys-color-charts-category3-default: #12b5cb;
+    --cm-sys-color-charts-category3-high: #098591;
+    --cm-sys-color-charts-category3-medium: #78d9ec;
+    --cm-sys-color-charts-category3-low: #cbf0f8;
+    --cm-sys-color-charts-category4-outline: #e8710a;
+    --cm-sys-color-charts-category4-default: #e8710a;
+    --cm-sys-color-charts-category4-high: #c26401;
+    --cm-sys-color-charts-category4-medium: #fcad70;
+    --cm-sys-color-charts-category4-low: #fedfc8;
+    --cm-sys-color-charts-category5-outline: #9334e6;
+    --cm-sys-color-charts-category5-default: #9334e6;
+    --cm-sys-color-charts-category5-high: #7627bb;
+    --cm-sys-color-charts-category5-medium: #c58af9;
+    --cm-sys-color-charts-category5-low: #e9d2fd;
+    --cm-sys-color-charts-category6-outline: #d93025;
+    --cm-sys-color-charts-category6-default: #f9ab00;
+    --cm-sys-color-charts-category6-high: #ea8600;
+    --cm-sys-color-charts-category6-medium: #fdd663;
+    --cm-sys-color-charts-category6-low: #feefc3;
+    --cm-sys-color-charts-category7-outline: #188038;
+    --cm-sys-color-charts-category7-default: #689f38;
+    --cm-sys-color-charts-category7-high: #33691e;
+    --cm-sys-color-charts-category7-medium: #aed581;
+    --cm-sys-color-charts-category7-low: #dcedc8;
+    --cm-sys-color-charts-category8-outline: var(--cm-sys-color-charts-neutral-outline);
+    --cm-sys-color-charts-category8-default: var(--cm-sys-color-charts-neutral-default);
+    --cm-sys-color-charts-category8-high: #3c4043;
+    --cm-sys-color-charts-category8-medium: var(--cm-sys-color-charts-neutral-medium);
+    --cm-sys-color-charts-category8-low: var(--cm-sys-color-charts-neutral-low);
+    
+    --cm-sys-color-charts-area-category1-outline: #1967d2;
+    --cm-sys-color-charts-area-category1-fill: var(--cm-sys-color-charts-primary-low);
+    --cm-sys-color-charts-area-category2-outline: #c92786;
+    --cm-sys-color-charts-area-category2-fill: var(--cm-sys-color-charts-category2-low);
+    --cm-sys-color-charts-area-category3-outline: #007b83;
+    --cm-sys-color-charts-area-category3-fill: var(--cm-sys-color-charts-category3-low);
+    --cm-sys-color-charts-area-category4-outline: #e64a19;
+    --cm-sys-color-charts-area-category4-fill: #ffccbc;
+    --cm-sys-color-charts-area-category5-outline: #8430ce;
+    --cm-sys-color-charts-area-category5-fill: var(--cm-sys-color-charts-category5-low);
+    --cm-sys-color-charts-area-category6-outline: #c5221f;
+    --cm-sys-color-charts-area-category6-fill: var(--cm-sys-color-charts-category6-low);
+    --cm-sys-color-charts-area-category7-outline: #188038;
+    --cm-sys-color-charts-area-category7-fill: #ceead6;
+    --cm-sys-color-charts-area-category8-outline: #5f6368;
+    --cm-sys-color-charts-area-category8-fill: var(--cm-sys-color-charts-neutral-low);
+    
+    --cm-sys-color-charts-line-category1: var(--cm-sys-color-charts-primary-default);
+    --cm-sys-color-charts-line-category2: #f439a0;
+    --cm-sys-color-charts-line-category3: #12a4af;
+    --cm-sys-color-charts-line-category4: #ff5722;
+    --cm-sys-color-charts-line-category5: #af5cf7;
+    --cm-sys-color-charts-line-category6: #689f38;
+    --cm-sys-color-charts-line-category7: #3949ab;
+    --cm-sys-color-charts-line-category8: #e37400;
+    --cm-sys-color-charts-line-category9: #188038;
+    --cm-sys-color-charts-line-category10: #9c27b0;
+    --cm-sys-color-charts-line-category11: #ea4335;
+    --cm-sys-color-charts-line-category12: #039be5;
+    
+    --cm-sys-color-charts-axis: #80868b;
+    --cm-sys-color-charts-axis-label: #5f6368;
+    --cm-sys-color-charts-legend-label: #5f6368;
+    --cm-sys-color-charts-ticks: #80868b;
+    --cm-sys-color-charts-grid: #dadce0;
+    --cm-sys-color-charts-threshold: #5f6368;
+    --cm-sys-color-charts-card-surface: var(--cm-sys-color-surface-modal);
+    --cm-sys-color-charts-title: #3c4043;
+    --cm-sys-color-charts-subtitle: #5f6368;
+    
+    --cm-sys-color-ai-surface: linear-gradient(90deg,#f2f7ff,#e6efff);
+    
+    --cm-sys-elevation-shadow:
+      0 1px 8px 0 rgba(var(--cm-sys-color-shadow-rgb),.2),
+      0 3px 4px 0 rgba(var(--cm-sys-color-shadow-rgb),.14),
+      0 3px 3px -2px rgba(var(--cm-sys-color-shadow-rgb),.12);
+    
+    --cm-comp-message-info-container-color: var(--cm-sys-color-surface-container-low);
+    --cm-comp-message-error-container-color: var(--cm-sys-color-status-error-container);
+    
+    --cm-comp-button-non-primary-default-label-color: var(--cm-sys-color-on-surface);
+    --cm-comp-button-primary-hover-label-color: var(--cm-sys-color-primary);
+    --cm-comp-button-primary-pressed-ripple-color: rgba(var(--cm-sys-color-on-surface-rgb), 0.2);
+    --cm-comp-button-primary-hovered-container-color: var(--cm-sys-color-state-primary-on-surface-hover,rgba(12,103,223,0.04));
+    --cm-comp-button-non-primary-hovered-container-color: #f6f6f6;
+    --cm-comp-toggle-button-selected-container-color: var(--cm-sys-color-container-primary,#e8f0fe);
+    --cm-comp-interval-picker-selected-container-color: var(--cm-sys-color-container,#fafafa);
+    
+    --cm-button-text-color: var(--cm-sys-color-on-surface);
+    --cm-button-ripple-background-color: var(--cm-sys-color-primary);
+    --cm-button-primary-text-color: var(--cm-sys-color-primary);
+    --cm-button-raised-color: var(--cm-sys-color-on-surface);
+    --cm-button-raised-primary-color: var(--cm-sys-color-primary);
+    
+    --cm-icon-button-color: var(--cm-sys-color-on-surface);
+    --cm-icon-button-hovered-color: var(--cm-sys-color-on-surface);
+    --cm-icon-button-ripple-background-color: var(--cm-sys-color-on-surface);
+    --cm-icon-button-ripple-element-background-color: var(--cm-sys-color-on-surface);
+    --cm-icon-button-disabled-color: var(--cm-sys-color-outline);
+    
+    --cm-comp-outlined-button-container-color: transparent;
+    
+    --cm-md1-form-field-outline-color: var(--cm-sys-color-outline);
+    --cm-md1-form-field-disabled-label-color: var(--cm-sys-color-outline);
+    --cm-comp-input-container-color: transparent;
+    --cm-md1-list-primary-text-ink-color: var(--cm-sys-color-primary);
+    --cm-md1-list-secondary-text-ink-color: var(--cm-sys-color-primary);
+    
+    --cm-comp-interval-picker-selected-container-color: var(--cm-sys-color-secondary-container);
+    --cm-comp-toggle-button-selected-container-color: var(--cm-sys-color-secondary-container);
+    
+    [class*="mat"][class][class][class][class] {
+      #reset();
+      #resetOverride();
+    }
+    
+    cfc-tooltip-overlay.cfc-tooltip-overlay-simple {
+      color: var(--cm-sys-color-on-surface-inverse, #fff) !important;
+      background: var(--cm-sys-color-surface-inverse, #000) !important;
+    }
+    
+    .mat-snack-bar-actions[sandboxuid],
+    .cfc-snack-bar-actions[sandboxuid] {
+      --cm-sys-color-state-disabled: rgba(var(--cm-sys-color-on-surface-rgb), 0.38);
+      --cm-comp-button-non-primary-default-label-color: var(--cm-sys-color-inverse-primary);
+    }
+    
+    &.cm-md1 {
+      .cm-chip.mat-mdc-chip:not(.mat-basic-chip)[color="primary"] {
+        --mat-chip-label-text-color: var(--cm-sys-color-on-primary);
+        --mat-chip-elevated-container-color: var(--cm-sys-color-primary);
+      }
+      .cm-form-field.mat-focused:not(.mat-form-field-disabled, .mat-form-field-invalid) {
+        --cm-md1-form-field-outline-color: var(--cm-sys-color-primary);
+      }
+
+      .cm-snack-bar .mat-mdc-snack-bar-container {
+        --cm-button-ripple-hover-opacity: 0.08;
+        --cm-icon-button-ripple-background-color: var(--cm-sys-color-inverse-on-surface);
+        --cm-icon-button-ripple-opacity: 0.08;
+        --cm-icon-button-color: var(--cm-sys-inverse-on-surface);
+        --cm-icon-button-hovered-color: var(--cm-sys-inverse-on-surface);
+      }
+      .cm-snack-bar .mat-mdc-snack-bar-container .mat-mdc-snack-bar-label[sandboxuid] {
+        color: inherit;
+      } 
+    }
+    
+    .cfc-logo {
+      filter: @text-filter;
+    }
+  }
+  
+  #resetOverride() {
+    --private-gmat-button-text-stateful-color: var(--mat-sys-primary);
+    --private-gmat-button-outlined-stateful-color: var(--mat-sys-primary);
+    
+    --mat-chip-elevated-container-color: var(--mat-sys-surface-container);
+    --mat-chip-elevated-disabled-container-color: var(--mat-sys-surface-container);
+    
+    --gm-outlinedtextfield-caret-color: var(--cm-sys-color-primary);
+    --gm-outlinedtextfield-caret-color--error: var(--cm-sys-color-error);
+    --gm-outlinedtextfield-character-counter-color--disabled: var(--cm-sys-color-outline);
+    --gm-outlinedtextfield-helper-text-color: var(--cm-sys-color-on-surface-variant);
+    --gm-outlinedtextfield-helper-text-color--disabled: var(--cm-sys-color-outline);
+    --gm-outlinedtextfield-helper-text-color--error: var(--cm-sys-color-error);
+    --gm-outlinedtextfield-icon-color--disabled: var(--cm-sys-color-outline);
+    --gm-outlinedtextfield-icon-color--error: var(--cm-sys-color-error);
+    --gm-outlinedtextfield-ink-color: var(--cm-sys-color-on-surface);
+    --gm-outlinedtextfield-ink-color--disabled: var(--cm-sys-color-outline);
+    --gm-outlinedtextfield-label-color: var(--cm-sys-color-on-surface);
+    --gm-outlinedtextfield-label-color--disabled: var(--cm-sys-color-outline);
+    --gm-outlinedtextfield-label-color--error: var(--cm-sys-color-error);
+    --gm-outlinedtextfield-label-color--stateful: var(--cm-sys-color-primary);
+    --gm-outlinedtextfield-outline-color: var(--cm-sys-color-outline);
+    --gm-outlinedtextfield-outline-color--disabled: var(--cm-sys-color-outline-variant);
+    --gm-outlinedtextfield-outline-color--error: var(--cm-sys-color-error);
+    --gm-outlinedtextfield-outline-color--error-stateful: var(--cm-sys-color-error);
+    --gm-outlinedtextfield-outline-color--stateful: var(--cm-sys-color-primary);
+    --gm-outlinedtextfield-placeholder-color: var(--cm-sys-color-outline);
+    --gm-outlinedtextfield-placeholder-color--disabled: var(--cm-sys-color-outline);
+    --gm-outlinedtextfield-prefix-color: var(--cm-sys-color-error);
+    --gm-outlinedtextfield-prefix-color--disabled: var(--cm-sys-color-outline);
+    --gm-outlinedtextfield-suffix-color: var(--cm-sys-color-error);
+    --gm-outlinedtextfield-suffix-color--disabled: var(--cm-sys-color-outline);
+  }
+  
+  #reset() {
+    --mat-divider-color: initial;
+    --mat-autocomplete-container-elevation-shadow: initial;
+    --mat-button-protected-container-elevation-shadow: initial;
+    --mat-button-protected-disabled-container-elevation-shadow: initial;
+    --mat-button-protected-focus-container-elevation-shadow: initial;
+    --mat-button-protected-hover-container-elevation-shadow: initial;
+    --mat-button-protected-pressed-container-elevation-shadow: initial;
+    --mat-checkbox-disabled-selected-checkmark-color: initial;
+    --mat-dialog-container-elevation-shadow: initial;
+    --mat-list-active-indicator-color: initial;
+    --mat-list-list-item-container-color: initial;
+    --mat-list-list-item-selected-container-color: initial;
+    --mat-list-list-item-leading-avatar-color: initial;
+    --mat-list-list-item-disabled-state-layer-color: initial;
+    --mat-slide-toggle-disabled-unselected-track-outline-color: initial;
+    --mat-slide-toggle-selected-track-outline-color: initial;
+    --mat-slide-toggle-track-outline-color: initial;
+    --mat-slider-handle-elevation: initial;
+    --mat-tab-divider-color: initial;
+    --mat-option-selected-state-label-text-color: initial;
+    --mat-button-outlined-outline-color: initial;
+    --mat-fab-small-state-layer-color: initial;
+    --mat-checkbox-unselected-hover-state-layer-color: initial;
+    --mat-checkbox-selected-hover-state-layer-color: initial;
+    --mat-checkbox-unselected-focus-state-layer-color: initial;
+    --mat-checkbox-selected-focus-state-layer-color: initial;
+    --mat-checkbox-disabled-selected-icon-color: initial;
+    --mat-checkbox-disabled-unselected-icon-color: initial;
+    --mat-checkbox-unselected-focus-icon-color: initial;
+    --mat-checkbox-selected-focus-icon-color: initial;
+    --mat-chip-disabled-outline-color: initial;
+    --mat-chip-focus-outline-color: initial;
+    --mat-chip-outline-color: initial;
+    --mat-chip-selected-trailing-action-state-layer-color: initial;
+    --mat-chip-trailing-action-state-layer-color: initial;
+    --mat-chip-label-text-color: initial;
+    --mat-chip-disabled-label-text-color: initial;
+    --mat-chip-with-icon-icon-color: initial;
+    --mat-chip-with-icon-disabled-icon-color: initial;
+    --mat-chip-with-icon-selected-icon-color: initial;
+    --mat-chip-with-trailing-icon-disabled-trailing-icon-color: initial;
+    --mat-chip-with-trailing-icon-trailing-icon-color: initial;
+    --mat-chip-focus-state-layer-color: initial;
+    --mat-chip-elevated-container-color: initial;
+    --mat-chip-elevated-disabled-container-color: initial;
+    --mat-chip-elevated-selected-container-color: initial;
+    --mat-chip-flat-disabled-selected-container-color: initial;
+    --mat-chip-selected-label-text-color: initial;
+    --mat-chip-hover-state-layer-color: initial;
+    --mat-chip-selected-focus-state-layer-color: initial;
+    --mat-chip-selected-hover-state-layer-color: initial;
+    --mat-chip-selected-disabled-trailing-icon-color: initial;
+    --mat-chip-selected-trailing-icon-color: initial;
+    --mat-slide-toggle-unselected-handle-color: initial;
+    --mat-slide-toggle-unselected-track-outline-color: initial;
+    --mat-slide-toggle-handle-elevation-shadow: initial;
+    --mat-slide-toggle-selected-focus-handle-color: initial;
+    --mat-slide-toggle-selected-focus-state-layer-color: initial;
+    --mat-slide-toggle-selected-focus-track-color: initial;
+    --mat-slide-toggle-selected-handle-color: initial;
+    --mat-slide-toggle-selected-hover-handle-color: initial;
+    --mat-slide-toggle-selected-hover-state-layer-color: initial;
+    --mat-slide-toggle-selected-hover-track-color: initial;
+    --mat-slide-toggle-selected-icon-color: initial;
+    --mat-slide-toggle-selected-pressed-handle-color: initial;
+    --mat-slide-toggle-selected-pressed-state-layer-color: initial;
+    --mat-slide-toggle-selected-pressed-track-color: initial;
+    --mat-slide-toggle-selected-track-color: initial;
+    --mat-slide-toggle-unselected-focus-handle-color: initial;
+    --mat-slide-toggle-unselected-focus-state-layer-color: initial;
+    --mat-slide-toggle-unselected-focus-track-color: initial;
+    --mat-slide-toggle-unselected-hover-handle-color: initial;
+    --mat-slide-toggle-unselected-hover-state-layer-color: initial;
+    --mat-slide-toggle-unselected-hover-track-color: initial;
+    --mat-slide-toggle-unselected-icon-color: initial;
+    --mat-slide-toggle-unselected-pressed-handle-color: initial;
+    --mat-slide-toggle-unselected-pressed-state-layer-color: initial;
+    --mat-slide-toggle-unselected-pressed-track-color: initial;
+    --mat-slide-toggle-unselected-track-color: initial;
+    --mat-slide-toggle-disabled-selected-track-outline-color: initial;
+    --mat-slide-toggle-disabled-selected-track-color: initial;
+    --mat-slide-toggle-disabled-unselected-track-color: initial;
+    --mat-snack-bar-container-color: initial;
+    --mat-snack-bar-supporting-text-color: initial;
+    --mat-icon-button-state-layer-color: initial;
+    --mat-tab-inactive-label-text-color: initial;
+    --mat-tab-inactive-focus-label-text-color: initial;
+    --mat-tab-inactive-hover-label-text-color: initial;
+    --mat-tab-inactive-ripple-color: initial;
+    --mat-tab-active-label-text-color: initial;
+    --mat-tab-active-focus-label-text-color: initial;
+    --mat-tab-active-hover-label-text-color: initial;
+    --mat-tab-active-focus-indicator-color: initial;
+    --mat-tab-active-ripple-color: initial;
+    --mat-tab-pagination-icon-color: initial;
+    --mat-focus-indicator-border-color: initial;
+    --mat-app-background-color: initial;
+    --mat-app-text-color: initial;
+    --mat-app-elevation-shadow-level-0: initial;
+    --mat-app-elevation-shadow-level-1: initial;
+    --mat-app-elevation-shadow-level-2: initial;
+    --mat-app-elevation-shadow-level-3: initial;
+    --mat-app-elevation-shadow-level-4: initial;
+    --mat-app-elevation-shadow-level-5: initial;
+    --mat-app-elevation-shadow-level-6: initial;
+    --mat-app-elevation-shadow-level-7: initial;
+    --mat-app-elevation-shadow-level-8: initial;
+    --mat-app-elevation-shadow-level-9: initial;
+    --mat-app-elevation-shadow-level-10: initial;
+    --mat-app-elevation-shadow-level-11: initial;
+    --mat-app-elevation-shadow-level-12: initial;
+    --mat-app-elevation-shadow-level-13: initial;
+    --mat-app-elevation-shadow-level-14: initial;
+    --mat-app-elevation-shadow-level-15: initial;
+    --mat-app-elevation-shadow-level-16: initial;
+    --mat-app-elevation-shadow-level-17: initial;
+    --mat-app-elevation-shadow-level-18: initial;
+    --mat-app-elevation-shadow-level-19: initial;
+    --mat-app-elevation-shadow-level-20: initial;
+    --mat-app-elevation-shadow-level-21: initial;
+    --mat-app-elevation-shadow-level-22: initial;
+    --mat-app-elevation-shadow-level-23: initial;
+    --mat-app-elevation-shadow-level-24: initial;
+    --mat-ripple-color: initial;
+    --mat-option-label-text-color: initial;
+    --mat-option-hover-state-layer-color: initial;
+    --mat-option-focus-state-layer-color: initial;
+    --mat-option-selected-state-layer-color: initial;
+    --mat-optgroup-label-text-color: initial;
+    --mat-pseudo-checkbox-full-selected-icon-color: initial;
+    --mat-pseudo-checkbox-full-selected-checkmark-color: initial;
+    --mat-pseudo-checkbox-full-unselected-icon-color: initial;
+    --mat-pseudo-checkbox-full-disabled-selected-checkmark-color: initial;
+    --mat-pseudo-checkbox-full-disabled-unselected-icon-color: initial;
+    --mat-pseudo-checkbox-full-disabled-selected-icon-color: initial;
+    --mat-pseudo-checkbox-minimal-selected-checkmark-color: initial;
+    --mat-pseudo-checkbox-minimal-disabled-selected-checkmark-color: initial;
+    --mat-autocomplete-background-color: initial;
+    --mat-button-filled-container-color: initial;
+    --mat-button-filled-disabled-container-color: initial;
+    --mat-button-filled-disabled-label-text-color: initial;
+    --mat-button-filled-disabled-state-layer-color: initial;
+    --mat-button-filled-label-text-color: initial;
+    --mat-button-filled-ripple-color: initial;
+    --mat-button-filled-state-layer-color: initial;
+    --mat-button-outlined-disabled-label-text-color: initial;
+    --mat-button-outlined-disabled-outline-color: initial;
+    --mat-button-outlined-disabled-state-layer-color: initial;
+    --mat-button-outlined-label-text-color: initial;
+    --mat-button-outlined-ripple-color: initial;
+    --mat-button-outlined-state-layer-color: initial;
+    --mat-button-protected-container-color: initial;
+    --mat-button-protected-disabled-container-color: initial;
+    --mat-button-protected-disabled-label-text-color: initial;
+    --mat-button-protected-disabled-state-layer-color: initial;
+    --mat-button-protected-label-text-color: initial;
+    --mat-button-protected-ripple-color: initial;
+    --mat-button-protected-state-layer-color: initial;
+    --mat-button-text-disabled-label-text-color: initial;
+    --mat-button-text-disabled-state-layer-color: initial;
+    --mat-button-text-label-text-color: initial;
+    --mat-button-text-ripple-color: initial;
+    --mat-button-text-state-layer-color: initial;
+    --mat-button-tonal-container-color: initial;
+    --mat-button-tonal-disabled-container-color: initial;
+    --mat-button-tonal-disabled-label-text-color: initial;
+    --mat-button-tonal-disabled-state-layer-color: initial;
+    --mat-button-tonal-label-text-color: initial;
+    --mat-button-tonal-ripple-color: initial;
+    --mat-button-tonal-state-layer-color: initial;
+    --mat-icon-button-disabled-icon-color: initial;
+    --mat-icon-button-disabled-state-layer-color: initial;
+    --mat-icon-button-icon-color: initial;
+    --mat-icon-button-ripple-color: initial;
+    --mat-card-elevated-container-color: initial;
+    --mat-card-elevated-container-elevation: initial;
+    --mat-card-outlined-container-color: initial;
+    --mat-card-outlined-container-elevation: initial;
+    --mat-card-outlined-outline-color: initial;
+    --mat-card-subtitle-text-color: initial;
+    --mat-card-filled-container-color: initial;
+    --mat-card-filled-container-elevation: initial;
+    --mat-checkbox-disabled-label-color: initial;
+    --mat-checkbox-label-text-color: initial;
+    --mat-checkbox-selected-checkmark-color: initial;
+    --mat-checkbox-selected-hover-icon-color: initial;
+    --mat-checkbox-selected-icon-color: initial;
+    --mat-checkbox-selected-pressed-icon-color: initial;
+    --mat-checkbox-unselected-hover-icon-color: initial;
+    --mat-checkbox-unselected-icon-color: initial;
+    --mat-checkbox-selected-pressed-state-layer-color: initial;
+    --mat-checkbox-unselected-pressed-state-layer-color: initial;
+    --mat-dialog-container-color: initial;
+    --mat-dialog-subhead-color: initial;
+    --mat-dialog-supporting-text-color: initial;
+    --mat-form-field-focus-select-arrow-color: initial;
+    --mat-form-field-filled-caret-color: initial;
+    --mat-form-field-filled-focus-active-indicator-color: initial;
+    --mat-form-field-filled-focus-label-text-color: initial;
+    --mat-form-field-outlined-caret-color: initial;
+    --mat-form-field-outlined-focus-outline-color: initial;
+    --mat-form-field-outlined-focus-label-text-color: initial;
+    --mat-form-field-disabled-input-text-placeholder-color: initial;
+    --mat-form-field-state-layer-color: initial;
+    --mat-form-field-error-text-color: initial;
+    --mat-form-field-select-option-text-color: initial;
+    --mat-form-field-select-disabled-option-text-color: initial;
+    --mat-form-field-leading-icon-color: initial;
+    --mat-form-field-disabled-leading-icon-color: initial;
+    --mat-form-field-trailing-icon-color: initial;
+    --mat-form-field-disabled-trailing-icon-color: initial;
+    --mat-form-field-error-focus-trailing-icon-color: initial;
+    --mat-form-field-error-hover-trailing-icon-color: initial;
+    --mat-form-field-error-trailing-icon-color: initial;
+    --mat-form-field-enabled-select-arrow-color: initial;
+    --mat-form-field-disabled-select-arrow-color: initial;
+    --mat-form-field-filled-container-color: initial;
+    --mat-form-field-filled-disabled-container-color: initial;
+    --mat-form-field-filled-label-text-color: initial;
+    --mat-form-field-filled-hover-label-text-color: initial;
+    --mat-form-field-filled-disabled-label-text-color: initial;
+    --mat-form-field-filled-input-text-color: initial;
+    --mat-form-field-filled-disabled-input-text-color: initial;
+    --mat-form-field-filled-input-text-placeholder-color: initial;
+    --mat-form-field-filled-error-hover-label-text-color: initial;
+    --mat-form-field-filled-error-focus-label-text-color: initial;
+    --mat-form-field-filled-error-label-text-color: initial;
+    --mat-form-field-filled-error-caret-color: initial;
+    --mat-form-field-filled-active-indicator-color: initial;
+    --mat-form-field-filled-disabled-active-indicator-color: initial;
+    --mat-form-field-filled-hover-active-indicator-color: initial;
+    --mat-form-field-filled-error-active-indicator-color: initial;
+    --mat-form-field-filled-error-focus-active-indicator-color: initial;
+    --mat-form-field-filled-error-hover-active-indicator-color: initial;
+    --mat-form-field-outlined-label-text-color: initial;
+    --mat-form-field-outlined-hover-label-text-color: initial;
+    --mat-form-field-outlined-disabled-label-text-color: initial;
+    --mat-form-field-outlined-input-text-color: initial;
+    --mat-form-field-outlined-disabled-input-text-color: initial;
+    --mat-form-field-outlined-input-text-placeholder-color: initial;
+    --mat-form-field-outlined-error-caret-color: initial;
+    --mat-form-field-outlined-error-focus-label-text-color: initial;
+    --mat-form-field-outlined-error-label-text-color: initial;
+    --mat-form-field-outlined-error-hover-label-text-color: initial;
+    --mat-form-field-outlined-outline-color: initial;
+    --mat-form-field-outlined-disabled-outline-color: initial;
+    --mat-form-field-outlined-hover-outline-color: initial;
+    --mat-form-field-outlined-error-focus-outline-color: initial;
+    --mat-form-field-outlined-error-hover-outline-color: initial;
+    --mat-form-field-outlined-error-outline-color: initial;
+    --mat-list-list-item-label-text-color: initial;
+    --mat-list-list-item-supporting-text-color: initial;
+    --mat-list-list-item-leading-icon-color: initial;
+    --mat-list-list-item-trailing-supporting-text-color: initial;
+    --mat-list-list-item-trailing-icon-color: initial;
+    --mat-list-list-item-selected-trailing-icon-color: initial;
+    --mat-list-list-item-disabled-label-text-color: initial;
+    --mat-list-list-item-disabled-leading-icon-color: initial;
+    --mat-list-list-item-disabled-trailing-icon-color: initial;
+    --mat-list-list-item-hover-label-text-color: initial;
+    --mat-list-list-item-hover-leading-icon-color: initial;
+    --mat-list-list-item-hover-state-layer-color: initial;
+    --mat-list-list-item-hover-trailing-icon-color: initial;
+    --mat-list-list-item-focus-label-text-color: initial;
+    --mat-list-list-item-focus-state-layer-color: initial;
+    --mat-progress-spinner-active-indicator-color: initial;
+    --mat-slide-toggle-disabled-selected-icon-color: initial;
+    --mat-slide-toggle-disabled-label-text-color: initial;
+    --mat-slide-toggle-disabled-handle-elevation-shadow: initial;
+    --mat-slide-toggle-disabled-selected-handle-color: initial;
+    --mat-slide-toggle-disabled-unselected-handle-color: initial;
+    --mat-slide-toggle-disabled-unselected-icon-color: initial;
+    --mat-slide-toggle-handle-surface-color: initial;
+    --mat-slide-toggle-label-text-color: initial;
+    --mat-slider-active-track-color: initial;
+    --mat-slider-focus-handle-color: initial;
+    --mat-slider-handle-color: initial;
+    --mat-slider-hover-handle-color: initial;
+    --mat-slider-focus-state-layer-color: initial;
+    --mat-slider-hover-state-layer-color: initial;
+    --mat-slider-inactive-track-color: initial;
+    --mat-slider-ripple-color: initial;
+    --mat-slider-with-tick-marks-active-container-color: initial;
+    --mat-slider-with-tick-marks-inactive-container-color: initial;
+    --mat-slider-disabled-active-track-color: initial;
+    --mat-slider-disabled-handle-color: initial;
+    --mat-slider-disabled-inactive-track-color: initial;
+    --mat-slider-label-container-color: initial;
+    --mat-slider-label-label-text-color: initial;
+    --mat-slider-with-overlap-handle-outline-color: initial;
+    --mat-slider-with-tick-marks-disabled-container-color: initial;
+    --mat-snack-bar-button-color: initial;
+    --mat-radio-checked-ripple-color: initial;
+    --mat-radio-disabled-label-color: initial;
+    --mat-radio-disabled-selected-icon-color: initial;
+    --mat-radio-disabled-unselected-icon-color: initial;
+    --mat-radio-label-text-color: initial;
+    --mat-radio-ripple-color: initial;
+    --mat-radio-selected-focus-icon-color: initial;
+    --mat-radio-selected-hover-icon-color: initial;
+    --mat-radio-selected-icon-color: initial;
+    --mat-radio-selected-pressed-icon-color: initial;
+    --mat-radio-unselected-focus-icon-color: initial;
+    --mat-radio-unselected-hover-icon-color: initial;
+    --mat-radio-unselected-icon-color: initial;
+    --mat-radio-unselected-pressed-icon-color: initial;
+    --mat-progress-bar-active-indicator-color: initial;
+    --mat-progress-bar-track-color: initial;
+    --mat-mdc-radio-checked-ripple-color: initial;
+    --mat-tab-disabled-ripple-color: initial;
+    --mat-tab-active-hover-indicator-color: initial;
+    --mat-tab-active-indicator-color: initial;
+    --mat-tab-background-color: initial;
+    --mat-tab-foreground-color: initial;
+    --mat-button-toggle-selected-state-text-color: initial;
+    --mat-button-toggle-selected-state-background-color: initial;
+    --mat-expansion-container-elevation-shadow: initial;
+    --mat-expansion-container-background-color: initial;
+    --mat-expansion-container-text-color: initial;
+    --mat-expansion-actions-divider-color: initial;
+    --mat-expansion-header-hover-state-layer-color: initial;
+    --mat-expansion-header-focus-state-layer-color: initial;
+    --mat-expansion-header-disabled-state-text-color: initial;
+    --mat-expansion-header-text-color: initial;
+    --mat-expansion-header-description-color: initial;
+    --mat-expansion-header-indicator-color: initial;
+  }
+}
+
+@-moz-document domain("shell.cloud.google.com") {
+  // WIP
+}
