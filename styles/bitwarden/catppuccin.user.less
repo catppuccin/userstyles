@@ -1,0 +1,129 @@
+/* ==UserStyle==
+@name Bitwarden Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/bitwarden
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/bitwarden
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/bitwarden/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Abitwarden
+@description Soothing pastel theme for Bitwarden
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document
+  domain("bitwarden.com"),
+  url-prefix("chrome-extension://nngceckbapebfimnlniiiahkandclblb/")
+{
+  :root {
+    #catppuccin(@lightFlavor);
+  }
+  
+  .theme_dark {
+    #catppuccin(@darkFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    
+    .token(@id, @color) {
+      --color-@{id}: .rgbifyNoComma(@color) [];
+    }
+    
+    .rgbifyNoComma(@color) {
+      @rgb: red(@color) green(@color) blue(@color);
+    }
+    
+    // Ramp
+    @ramp: 8.5%;
+    
+    @secondary: saturate(@accent, -75%);
+
+    .token(shadow, rgb(0 0 0));
+
+    .token(background, @base);
+    .token(background-alt, @mantle);
+    .token(background-alt2, @surface0);
+    .token(background-alt3, @surface1);
+    .token(background-alt4, @base);
+    
+    // Ramp centre is 600, assuming dark theme.
+    // handle light theme ramp later.
+    
+    .token(primary-100, lighten(@accent, @ramp*-6));
+    .token(primary-300, lighten(@accent, @ramp*-4));
+    // Primary button
+    .token(primary-600, lighten(@accent, @ramp*0));
+    .token(primary-700, lighten(@accent, @ramp*1));
+    
+    .token(secondary-100, lighten(@secondary, @ramp*-6));
+    .token(secondary-300, lighten(@secondary, @ramp*-4));
+    .token(secondary-500, lighten(@secondary, @ramp*-1));
+    .token(secondary-600, lighten(@secondary, @ramp*0));
+    .token(secondary-700, lighten(@secondary, @ramp*1));
+    
+    .token(success-100, lighten(@green, @ramp*-6));
+    .token(success-600, lighten(@green, @ramp*0));
+    .token(success-700, lighten(@green, @ramp*1));
+    
+    .token(danger-100, lighten(@red, @ramp*-6));
+    .token(danger-600, lighten(@red, @ramp*0));
+    .token(danger-700, lighten(@red, @ramp*1));
+    
+    .token(warning-100, lighten(@yellow, @ramp*-6));
+    .token(warning-600, lighten(@yellow, @ramp*0));
+    .token(warning-700, lighten(@yellow, @ramp*1));
+    
+    .token(info-100, lighten(@blue, @ramp*-6));
+    .token(info-600, lighten(@blue, @ramp*0));
+    .token(info-700, lighten(@blue, @ramp*1));
+    
+    .token(notification-100, lighten(@pink, @ramp*-6));
+    .token(notification-600, lighten(@pink, @ramp*0));
+    
+    .token(art-primary, @text);
+    .token(art-accent, @accent);
+    
+    .token(text-main, @text);
+    .token(text-muted, @subtext0);
+    .token(text-contrast, @base);
+    .token(text-alt2, if(@flavor = latte, @base, @text));
+    .token(text-code, @pink);
+    
+    .token(marketing-logo, @text);
+
+    .token(illustration-outline, lighten(@accent, @ramp*-5));
+    .token(illustration-bg-primary, lighten(@accent, @ramp*0));
+    .token(illustration-bg-secondary, lighten(@accent, @ramp*-1));
+    .token(illustration-bg-tertiary, lighten(@accent, @ramp*4));
+    .token(illustration-tertiary, @yellow);
+    .token(illustration-logo, @text);
+    
+    --color-hover-default: fade(@accent, 15%);
+    --color-transparent-hover: fade(@text, 2%);
+    --hover-contrast: fade(@base, 15%);
+    
+    --tw-ring-offset-color: @base;
+    
+    & when (@flavor = latte) {
+      .token(background-alt2, lighten(@accent, @ramp*-1));
+      .token(background-alt3, lighten(@accent, @ramp*-2));
+      .token(background-alt4, lighten(@accent, @ramp*-3));
+      
+      .token(primary-100, mix(@accent, @base, 25%));
+      .token(secondary-100, mix(@secondary, @base, 25%));
+      .token(success-100, mix(@green, @base, 25%));
+      .token(danger-100, mix(@red, @base, 25%));
+      .token(warning-100, mix(@yellow, @base, 25%));
+      .token(info-100, mix(@blue, @base, 25%));
+      .token(notification-100, mix(@pink, @base, 25%));
+    }
+  }
+}
