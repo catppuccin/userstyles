@@ -68,16 +68,16 @@
     background-color: @base !important;
     color: @text !important;
 
-    // TODO - Finish product page and finish build guide page
-    
+    // TODO - Finish product page and finish build guide page clean up redundent code
+
     // Common Mixins
     .accentA() {
-      color: @accent !important;
+      color: @accent;
       svg {
         fill: @accent;
       }
       &:hover {
-        color: lighten(@accent, 5%) !important;
+        color: lighten(@accent, 5%);
         svg {
           fill: lighten(@accent, 5%);
         }
@@ -91,8 +91,12 @@
 
     // General Elements
     body {
+      a[href] {
+        .accentA();
+      }
+
       .subTitle {
-        border-color: @surface0;
+        border-color: @surface1;
         h2 {
           color: @text;
         }
@@ -128,7 +132,7 @@
         .button {
           background-color: @accent !important;
           border-color: @accent !important;
-          color: @base;
+          color: @base !important;
           svg {
             fill: @base !important;
           }
@@ -188,6 +192,13 @@
         .filter-selector {
           background-color: @mantle !important;
         }
+        // Button to show more/less info
+        .moreless {
+          .accentA() !important;
+          svg {
+            fill: @accent;
+          }
+        }
       }
 
       // Ratings
@@ -215,12 +226,22 @@
         }
       }
 
-      .moreless {
-        .accentA();
-        svg {
-          fill: @accent;
+      // User Details
+      .userDetails li {
+        color: @text;
+      }
+
+      // Graphs
+      .pricing-table {
+        .flot-text {
+          color: @text !important;
+        }
+        .price-history-tooltip {
+          background-color: @mantle;
+          color: @text;
         }
       }
+
       .tooltipText {
         color: @base;
         background-color: @accent;
@@ -330,12 +351,11 @@
         }
         background-color: @mantle;
         h1, p, li {
-          color: @text;
+          color: @text !important;
         }
         svg {
           fill: @text;
         }
-        .accentA-selector();
         .log__numbers, .guide__numbers {
           border-color: @surface0;
           svg {
@@ -356,7 +376,12 @@
           color: @text !important;
           border-color: @surface1 !important;
         }
-        .accentA-selector();
+        a[href]:not(.button, .ratingStars, .ratingPercentage) {
+          color: @accent !important;
+          &:hover {
+            color: lighten(@accent, 5%) !important;
+          }
+        }
         .td--empty::after {
           background-color: @surface0 !important;
         }
@@ -494,83 +519,25 @@
         color: @text;
         border-color: @surface0;
       }
-      .accentA-selector();
     }
 
     // === Homepage === //
     #homepage {
+      h1, p {
+        color: @text !important;
+      }
       .wrapper__intro-2023 {
         background-color: @base !important;
-        .intro__info {
-          h1 {
-            color: @text;
-          }
-          p {
-            color: @subtext0;
-          }
-        }
       }
-
       .wrapper__buildGuides {
-        background-color: @mantle !important;
-        .guides__info {
-          h1 {
-            color: @text;
-          }
-          p {
-            color: @subtext0;
-          }
-        }
-        .guideGroup__card_2023 {
-          background-color: @surface0 !important;
-          .guide__title {
-            color: @text;
-          }
-          li {
-            color: @subtext0;
-          }
-          .guide__numbers {
-            border-color: @text;
-            color: @text;
-            .icon {
-              fill: @text;
-            }
-          }
-        }
+        background-color: @crust;
       }
-
       .wrapper__completedBuilds {
         background-color: @base;
-        .completed-builds__info {
-          h1 {
-            color: @text;
-          }
-          p {
-            color: @subtext0;
-          }
-        }
         .logGroup__card--featured_2023 {
           background-color: @accent;
-        }
-        .logGroup__card_2023 {
-          background-color: @surface0;
-          .log__author {
-            .accentA-selector();
-          }
-          h1 {
-            color: @text;
-          }
-          li {
-            color: @subtext0;
-          }
-          .log__numbers {
-            border-color: @text;
-            p {
-              color: @text;
-            }
-            .icon {
-              fill: @text;
-            }
+          .featured__message h1 {
+            color: @base !important;
           }
         }
       }
@@ -578,26 +545,29 @@
 
     // === Part List === //
     #partlist {
-      .note__tag {
-        color: @base !important;
-      }
-      .note__tag--info {
-        background-color: @blue;
-      }
-      .note__text--info span {
-        color: @blue;
-      }
-      .note__tag--warning {
-        background-color: @peach;
-      }
-      .note__text--warning span {
-        color: @peach;
-      }
-      .note__tag--problem {
-        background-color: @red;
-      }
-      .note__text--problem span {
-        color: @red;
+      // Note Tags
+      & {
+        .note__tag {
+          color: @base !important;
+        }
+        .note__tag--info {
+          background-color: @blue;
+        }
+        .note__text--info span {
+          color: @blue;
+        }
+        .note__tag--warning {
+          background-color: @peach;
+        }
+        .note__text--warning span {
+          color: @peach;
+        }
+        .note__tag--problem {
+          background-color: @red;
+        }
+        .note__text--problem span {
+          color: @red;
+        }
       }
 
       .actionBoxGroup {
@@ -620,6 +590,9 @@
           svg {
             fill: @text;
           }
+          .actionBox__markupLink:hover svg {
+              fill: @accent;
+            }
         }
         .actionBox__options > li {
           border-color: @mantle;
@@ -627,11 +600,14 @@
             border-color: @mantle;
             background-color: @mantle;
             color: @text;
-            .icon {
+            svg {
               fill: @text;
             }
             &:hover {
               color: @accent;
+              svg {
+                fill: @accent;
+              }
             }
           }
         }
@@ -644,6 +620,9 @@
           }
           a, p, span {
             color: @base;
+          }
+          a:hover {
+            color: @surface2;
           }
         }
         .partlist__compatibility--noIssues {
@@ -961,14 +940,39 @@
         }
       }
       .wrapper__pageContent {
-        .actionBoxGroup--product-2023 {
-          background-color: @surface0;
-          .accentA-selector();
-          label, h6, li {
-            color: @text;
+        color: @text;
+        .sidebar-content {
+          .actionBoxGroup--product-2023 {
+            background-color: @surface0;
+            .accentA-selector();
+            label, h6, li {
+              color: @text;
+            }
+            .actionBox-2023 {
+              border-color: @overlay0;
+            }
           }
-          .actionBox-2023 {
-            border-color: @overlay0;
+          .actionBoxGroup--productSeries {
+            a {
+              background-color: @surface0;
+              border-color: @surface0;
+              color: @text;
+              &:hover {
+                border-color: @accent;
+                background-color: @accent;
+                color: @base;
+              }
+            }
+            .active {
+              background-color: @accent;
+              border-color: @accent;
+              color: @base;
+            }
+          }
+          .specs {
+            .group--spec {
+              border-color: @surface0;
+            }
           }
         }
       }
@@ -976,7 +980,7 @@
 
     // Buildguides
     #buildguide-view {
-        #partlist();
+      #partlist();
     }
 
     // Benchmarks
