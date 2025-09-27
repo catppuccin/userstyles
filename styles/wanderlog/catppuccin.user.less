@@ -1,0 +1,371 @@
+/* ==UserStyle==
+@name Wanderlog Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/wanderlog
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/wanderlog
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/wanderlog/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Awanderlog
+@description Soothing pastel theme for Wanderlog
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("wanderlog.com") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+  :root[data-theme="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+  :root[data-theme="light"] {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    * {
+      --brand: @accent;
+
+      --blue: @blue;
+      --indigo: @lavender;
+      --purple: @mauve;
+      --pink: @pink;
+      --red: @red;
+      --orange: @peach;
+      --yellow: @yellow;
+      --green: @green;
+      --teal: @teal;
+      --cyan: @sky;
+      --white: #fff;
+      --gray: #6c757d;
+      --gray-dark: #343a40;
+      --primary: @accent;
+      --secondary: #6c757d;
+      --success: @green;
+      --info: @blue;
+      --warning: @peach;
+      --danger: @red;
+      --light: #f3f4f5;
+      --dark: #343a40;
+
+      --indigo--base: @blue;
+      --gray--900: @subtext0;
+    }
+
+    /* General */
+
+    body {
+      background-color: @base;
+      color: @text;
+    }
+
+    h1 {
+      color: @accent !important;
+    }
+
+    h2, h3 {
+      color: @text !important;
+    }
+
+    p {
+      color: @text !important;
+    }
+
+    section {
+      background-color: @base;
+    }
+
+    .brand-button {
+      color: @base;
+
+      &:hover {
+        /* TODO: hover color */
+      }
+    }
+    .Button__brand {
+      background-color: @accent;
+      border-color: @accent;
+      color: @mantle;
+
+      &:not(.Button__disabled):hover {
+        /* TODO: hover color */
+        background-color: red;
+        border-color: red;
+      }
+    }
+
+    // Text buttons
+    .Button__flat, .flat-button, .flat-button-text-block {
+      color: @accent;
+
+      &:hover {
+        color: @blue;
+      }
+    }
+
+    .DropdownMenu {
+      border-color: @accent;
+      background-color: @surface0;
+    }
+    .DropdownItem {
+      color: @text;
+      &:hover {
+        background-color: @accent;
+        color: @base;
+      }
+    }
+
+    // Top bar Wanderlog logo
+    img[class^="Logo"] {
+      filter: @accent-filter;
+    }
+
+    .text-muted {
+      color: @subtext0 !important;
+    }
+
+    .form-control {
+      background-color: @surface0;
+      border-color: @accent;
+    }
+
+    /* Homepage */
+
+    .NavbarContainer {
+      background-color: @mantle !important;
+      &.bg-white {
+        border-bottom-color: @accent;
+      }
+    }
+    // Navbar link
+    .navbar-light .navbar-nav .nav-link {
+      color: @text;
+    }
+    .NavbarNavLink {
+      border-bottom-color: @accent;
+
+      &:hover {
+        background-color: @accent !important;
+        color: @mantle !important;
+      }
+    }
+
+    // Demo usage video
+    div[class^="demo-video"], #hero-section-video-web {
+      border-color: @accent;
+    }
+
+    // Review information for people
+    // Used in "What travelers are raving about" and "Find your next adventure" sections
+    .avatar-name {
+      &-name {
+        color: @text;
+      }
+      &-description {
+        color: @subtext0;
+      }
+    }
+
+    // "What travelers are raving about" section
+    .card-review {
+      background-color: @surface0;
+      border-color: @accent;
+
+      .stars-small {
+        filter: @yellow-filter;
+      }
+    }
+    .reviews-overlay---see-more {
+      background-image: linear-gradient(#0000, @base);
+    }
+
+    // "Features to replace all your other tools" section
+    .small-features-card {
+      &-title {
+        color: @text;
+      }
+      &-body-text {
+        color: @subtext0;
+      }
+    }
+
+    // "Recommended by the press" section
+    .spotlight-card {
+      background-color: @surface0;
+      border-color: @accent;
+
+      &-quote, &-author-text-author {
+        color: @text;
+      }
+
+      &-author-text-username {
+        color: @blue;
+      }
+    }
+    .spotlight-splide {
+      // Left right arrows
+      .splide__arrows button {
+        background-color: @accent;
+        border-color: @accent;
+
+        svg {
+          filter: @mantle-filter;
+        }
+      }
+    }
+
+    // "Trips planned", "Reviews", "Rating on App Store", "Rating on Google Play" section
+    .infographics-card {
+      &-header {
+        color: @accent;
+      }
+
+      &-subheader, &-body {
+        color: @subtext0;
+      }
+
+      img {
+        filter: @accent-filter;
+      }
+    }
+
+    // Carousel section
+    .swiper {
+      .swiper-slide-active .home__feature_tab_icon_container {
+        background-color: @accent !important;
+        svg {
+          filter: @base-filter;
+        }
+      }
+      .home__feature_tab_icon_container {
+        background-color: @base !important;
+        border-color: @accent;
+
+        svg {
+          filter: @text-filter;
+        }
+      }
+      .home__feature_tab_title {
+        color: @text;
+      }
+    }
+
+    // "Maximize your trip planning with Pro" section
+    .pro-features-card {
+      background-color: @surface0;
+
+      svg {
+        filter: @accent-filter;
+      }
+
+      &-title {
+        color: @text;
+      }
+
+      &-body-text {
+        color: @subtext0;
+      }
+    }
+
+    // "Find your next adventure" section
+    .travel-guides-card {
+      &-title {
+        color: @text;
+      }
+
+      &-subtitle {
+        color: @subtext0;
+      }
+    }
+    .views-likes {
+      div {
+        color: @subtext0;
+      }
+      img {
+        filter: @accent-filter;
+      }
+    }
+
+    // "Create your ultimate travel itinerary" block
+    .market-badges-container {
+      background: @accent;
+      .section-heading {
+        color: @base !important;
+      }
+      .rating {
+        background-color: @base;
+      }
+
+      .stars {
+        filter: @yellow-filter;
+      }
+
+      .market-badges-text span {
+        color: @text;
+      }
+    }
+
+    // "Top 20 ..." links
+    .links-container a {
+      color: @blue;
+    }
+
+    // Footer
+    .footer, .footer-container {
+      background-color: @mantle;
+      color: @text;
+    }
+    .footer-column-title {
+      color: @text;
+    }
+    .footer-link, .contact-us-button {
+      color: @blue;
+    }
+    .footer-heart-wrapper {
+      filter: @accent-filter;
+    }
+    .footer-language-dropdown button {
+      background-color: @surface0;
+      border-color: @accent;
+      color: @text;
+
+      svg {
+        filter: @accent-filter;
+      }
+
+      &:hover {
+        background-color: @accent;
+        color: @base;
+
+        svg {
+          filter: @base-filter;
+        }
+      }
+    }
+
+    /* If you need to specify an overwrite specific to a flavor
+     *  (e.g. only when the flavor is set to latte), you can use a `when` guard clause. */
+    & when (@flavor = latte) {
+      /* ... */
+    }
+    /* You can also negate the statement above by using
+     *  a `when not` guard clause. */
+    & when not(@flavor = latte) {
+      /* ... */
+    }
+  }
+}
