@@ -2,7 +2,7 @@
 @name Microsoft Word Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/microsoft-word
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/microsoft-word
-@version 2025.09.06
+@version 2000.01.01
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/microsoft-word/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Amicrosoft-word
 @description Soothing pastel theme for Microsoft Word
@@ -13,387 +13,2026 @@
 @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
-
-@var checkbox applyToDocument "Apply Theme to Document" 0
 ==/UserStyle== */
 
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
-@-moz-document domain("live.com") {
-  #catppuccin(@lightFlavor);
+@-moz-document domain("word.cloud.microsoft"),
+  domain("officeapps.live.com"),
+  domain("onedrive.live.com") {
+  [data-theme="fluent-light"] {
+    #catppuccin(@lightFlavor);
+  }
 
-  .UxDarkMode {
-    #catppuccin(@darkFlavor);
+  body {
+    &:not(.UxDarkMode) {
+      #catppuccin(@lightFlavor);
+      [class*="fui-FluentProvider"] {
+        #catppuccin(@lightFlavor);
+      }
+    }
+    &.UxDarkMode {
+      #catppuccin(@darkFlavor);
+      [class*="fui-FluentProvider"] {
+        #catppuccin(@darkFlavor);
+      }
+    }
   }
 
   #catppuccin(@flavor) {
     #lib.palette();
     #lib.defaults();
 
-    .fui-FluentProvider2,
-    .fui-FluentProvider86,
-    .fui-FluentProvider102 {
-      --colorNeutralStroke1: @surface1;
-      --colorBrandForeground1: @accent;
-      --colorNeutralForeground1: @text;
-      --colorNeutralBackground1: @surface0;
-      --colorNeutralForeground2: @text;
-      --colorNeutralBackground3: @base;
-      --colorNeutralStroke1Hover: @surface2;
-      --colorNeutralForeground1Hover: @text;
-      --colorNeutralStrokeAccessible: @surface2;
-      --colorNeutralBackground1Hover: @surface1;
-      --colorNeutralBackground3Hover: @surface0;
-      --colorNeutralForegroundOnBrand: @base;
-      --colorNeutralBackground1Selected: @surface1;
-    }
+    #__fui();
+
+    @applyToDocument: 1;
 
     .o365sx-navbar,
-    .o365cs-base .o365sx-button,
-    [data-unique-id="GoPremiumButton"],
-    [data-unique-id="DocumentTitleButton"],
-    #SearchButton {
-      background-color: @base !important;
-      color: @text !important;
-    }
-
-    .OfficeIconColors_mUpgradeProductGlyphColorless,
-    [aria-label="Saved to OneDrive"] > i:nth-child(1) > svg:nth-child(1),
-    #SearchButton > span:nth-child(1) > i:nth-child(1),
-    ._3_LjxRBZZiG458goXcTPLs.o365sx-neutral-dark-font,
-    ._3eLVxYuaVkSqw02CcIH8ec.o365sx-neutral-dark-font.o365sx-neutral-lighter-hover-background,
-    span.ms-Icon--WaffleOffice365._2hFKF2Ng35BcYrXwyNH86a {
-      fill: @text !important;
-      color: @text !important;
-    }
-
-    #RibbonContainer > div:nth-child(1) > div:nth-child(2) > div:nth-child(1),
-    #RibbonContainer > div:nth-child(1) > div:nth-child(2) > div:nth-child(2),
-    #RibbonTopBarContainer {
-      background-color: @base !important;
-    }
-
-    #tablist > div:nth-child(1) {
-      > div > div:nth-child(1) > button:nth-child(1) {
-        color: @text !important;
-      }
-    }
-
-    #Home-tabpanel,
-    #Home-tabpanel > div:nth-child(2),
-    #appLauncherTop,
-    #appLauncherMainView,
-    #ContextMenu-ContextMenu {
-      background-color: @surface0 !important;
-    }
-
-    #ShareMenu {
-      background-color: @accent;
-      color: @base;
-    }
-
-    #Floatie-FontPicker-Floatie > div:nth-child(1),
-    #Floatie-FontSize-Floatie > div:nth-child(2) {
+    .o365cs-base .o365sx-button {
       background-color: @base;
-    }
-
-    #Floatie-FontPicker-Floatie > div:nth-child(1) > input:nth-child(1),
-    #Floatie-FontSize-Floatie-input {
       color: @text;
     }
 
-    #Floatie-FontPicker-Floatie > div:nth-child(1) {
-      border-color: 1px solid @surface2;
-    }
-
-    #Floatie-FontSize-Floatiewrapper {
-      border-color: @surface2;
-    }
-
-    [data-unique-id="ReactTabbedPanelMenuContainer"] > div:nth-child(1) {
-      background-color: @base !important;
-    }
-
-    #TellMe-Menu > div:nth-child(1) {
-      background-color: @surface0 !important;
-      > ul:nth-child(1) > li,
-      ul:nth-child(1) > li:nth-child(2) {
-        div:nth-child(1) > ul:nth-child(1) {
-          > li {
-            background-color: @surface0 !important;
-            > button:nth-child(1) {
-              color: @text;
-              &:hover {
-                background-color: @surface1 !important;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    ._1acxHZf6WaSGxss7AMw7aZ.o365sx-neutral-lighter-hover-background:hover,
-    ._3eLVxYuaVkSqw02CcIH8ec.o365sx-neutral-dark-font.o365sx-neutral-lighter-hover-background:hover,
-    .ribbon-bottom-bar-divider,
-    .divider-745,
-    .divider-766 {
-      background-color: @surface1 !important;
-    }
-
-    #WACViewPanel {
-      background-color: @mantle !important;
-    }
-
-    & when (@applyToDocument = 1) {
-      .Page {
-        background-color: @base !important;
-        border-color: @surface1 !important;
-      }
-      span.NormalTextRun,
-      .FileMenuButtonPrimaryText,
-      [class="NewDocumentTemplateLabel"] {
-        color: @text !important;
-      }
-    }
-
-    .Paragraph,
-    #TellMe-Menusection-0-title > div:nth-child(1) > span:nth-child(2),
-    #TellMe-Menusection-1-title > div:nth-child(1) > span:nth-child(2) {
-      color: @text !important;
-    }
-
-    .PageAdornmentHeaderLabelThemed,
-    .PageAdornmentFooterLabelThemed {
-      background-color: @base !important;
-      border-color: @text !important;
+    // Some dialog text
+    [class*="root-"] {
       color: @subtext0;
     }
 
-    [id="WACStatusBarContainer"]
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > div:nth-child(1) {
-      div:nth-child(1),
-      div:nth-child(3) {
-        > button,
-        div:nth-child(2) > div:nth-child(1) {
-          &:hover {
-            background-color: @surface1 !important;
-          }
-        }
+    [class*="label-"] {
+      color: @text;
+    }
+
+    .secondaryTextMenu {
+      color: @subtext0;
+    }
+
+    // Ribbon item label
+    .body-110 {
+      color: @subtext0;
+    }
+
+    .ribbon-divider-wrapper > span,
+    [class^="divider-"] {
+      background-color: @overlay0;
+    }
+
+    #callout > [class^="calloutMain"],
+    .ms-Callout-main,
+    .ms-Callout-main > [role="menu"] > div > ul > li,
+    .ms-Callout-main > [role="menu"] > div > ul > li > div > ul > li {
+      background-color: var(--colorNeutralBackground2);
+      > button[aria-checked="true"] {
+        border-color: @text;
+        background-color: var(--colorNeutralBackground2Selected);
       }
-      div:nth-child(3)
-        > div:nth-child(2)
-        > div:nth-child(1)
-        > div:nth-child(2)
-        > div:nth-child(1) {
-        > div:nth-child(1) > span:nth-child(1) {
-          background: @accent !important;
-        }
+    }
+
+    .ms-ContextualMenu-item [role="menuitemradio"] {
+      &:hover {
+        background-color: var(--colorNeutralBackground2Hover);
       }
-      div:nth-child(1) {
-        > span:nth-child(1) {
-          background: @subtext0 !important;
+      &:active {
+        background-color: var(--colorNeutralBackground2Pressed);
+      }
+      &.is-checked,
+      &[aria-checked="true"] {
+        background-color: var(--colorNeutralBackground1);
+        border-color: @text;
+        &:hover {
+          background-color: var(--colorNeutralBackground1Hover);
         }
-        > span:nth-child(3) {
-          background: @subtext0 !important;
-        }
-        > span:nth-child(4) {
-          background: @subtext0 !important;
+        &:active {
+          background-color: var(--colorNeutralBackground1Pressed);
         }
       }
     }
 
-    #ReactFloatie > div:nth-child(1) {
-      background: @surface0 !important;
+    .ms-ComboBox-option {
+      &:hover {
+        background: var(--colorNeutralBackground2Hover);
+      }
+      &:active {
+        background: var(--colorNeutralBackground2Pressed);
+      }
+      &[aria-selected="true"] {
+        background: var(--colorNeutralBackground2Selected);
+        color: @text;
+      }
     }
 
-    #documentTitle
-      > span:nth-child(1)
-      > div:nth-child(2)
-      > i:nth-child(1)
-      > svg:nth-child(1) {
+    .ms-DetailsList {
+      background-color: var(--colorNeutralBackground3);
+    }
+
+    .ms-DetailsList .ms-SelectionZone,
+    .ms-DetailsList .ms-DetailsRow {
+      background-color: transparent;
+    }
+    .ms-DetailsList .ms-DetailsRow {
+      &.is-selected {
+        background-color: var(--colorNeutralBackground3Selected);
+      }
+      &:hover {
+        background-color: var(--colorNeutralBackground3Hover);
+      }
+    }
+
+    .checkbox-checkbox,
+    [class^="spinButtonWrapper"] {
+      background-color: var(--colorNeutralBackground2);
+      border-color: var(--colorNeutralStroke1);
+    }
+
+    // Inline styles
+    // Brand text
+    [style="color: rgb(89, 143, 236);"],
+    [style*="color: rgb(24, 90, 189);"] {
+      color: @accent !important;
+    }
+    .ms-OverflowSet-item > .pivot-header-root > div:last-child,
+    [style="background: rgb(89, 143, 236);"] {
+      background-color: @accent !important;
+    }
+    // Input field outline
+    [style*="border-color: rgb(138, 136, 134);"] {
+      border-color: @overlay1 !important;
+    }
+
+    // Autogen icon colours
+    path.OfficeIconColors_m20 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m21 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m22 {
       fill: @text;
     }
+    svg > path.OfficeIconColors_m23 {
+      fill: @subtext0;
+    }
+    svg > path.OfficeIconColors_m24 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m25 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m26 {
+      fill: @surface2;
+    }
+    svg > path.OfficeIconColors_m27 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m28 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m29 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m210 {
+      fill: @peach;
+    }
+    svg > path.OfficeIconColors_m211 {
+      fill: @peach;
+    }
+    svg > path.OfficeIconColors_m212 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m213 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m214 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m215 {
+      fill: @rosewater;
+    }
+    svg > path.OfficeIconColors_m216 {
+      fill: @peach;
+    }
+    svg > path.OfficeIconColors_m217 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m218 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m219 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m220 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m221 {
+      fill: @pink;
+    }
+    svg > path.OfficeIconColors_m222 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m223 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m224 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m225 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m226 {
+      fill: @subtext1;
+    }
+    svg > path.OfficeIconColors_m227 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m228 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m229 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m230 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m231 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m232 {
+      fill: @overlay0;
+    }
+    svg > path.OfficeIconColors_m233 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m234 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m235 {
+      fill: @rosewater;
+    }
+    svg > path.OfficeIconColors_m236 {
+      fill: @subtext1;
+    }
+    svg > path.OfficeIconColors_m237 {
+      fill: @overlay0;
+    }
+    svg > path.OfficeIconColors_m238 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m239 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m240 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m241 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m242 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m243 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m244 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m245 {
+      fill: @peach;
+    }
+    svg > path.OfficeIconColors_m246 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m247 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m248 {
+      fill: @overlay1;
+    }
+    svg > path.OfficeIconColors_m249 {
+      fill: @overlay2;
+    }
+    svg > path.OfficeIconColors_m250 {
+      fill: @surface2;
+    }
+    svg > path.OfficeIconColors_m251 {
+      fill: @pink;
+    }
+    svg > path.OfficeIconColors_m252 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m253 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m254 {
+      fill: @teal;
+    }
+    svg > path.OfficeIconColors_m255 {
+      fill: @subtext1;
+    }
+    svg > path.OfficeIconColors_m256 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m257 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m258 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m259 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m260 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m261 {
+      fill: @teal;
+    }
+    svg > path.OfficeIconColors_m262 {
+      fill: @peach;
+    }
+    svg > path.OfficeIconColors_m263 {
+      fill: @teal;
+    }
+    svg > path.OfficeIconColors_m264 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m265 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m266 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m267 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m268 {
+      fill: @pink;
+    }
+    svg > path.OfficeIconColors_m269 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m270 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m271 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m272 {
+      fill: @subtext1;
+    }
+    svg > path.OfficeIconColors_m273 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m274 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m275 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m276 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m277 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m278 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m279 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m280 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m281 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m282 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m283 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m284 {
+      fill: @peach;
+    }
+    svg > path.OfficeIconColors_m285 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m286 {
+      fill: @sapphire;
+    }
+    svg > path.OfficeIconColors_m287 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m288 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m289 {
+      fill: @rosewater;
+    }
+    svg > path.OfficeIconColors_m290 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m291 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m292 {
+      fill: @sapphire;
+    }
+    svg > path.OfficeIconColors_m293 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m294 {
+      fill: @overlay1;
+    }
+    svg > path.OfficeIconColors_m295 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m296 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m297 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m298 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m299 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2100 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2101 {
+      fill: @surface2;
+    }
+    svg > path.OfficeIconColors_m2102 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2103 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2104 {
+      fill: @sapphire;
+    }
+    svg > path.OfficeIconColors_m2105 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2106 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2107 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2108 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2109 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2110 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2111 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2112 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2113 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2114 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2115 {
+      fill: @teal;
+    }
+    svg > path.OfficeIconColors_m2116 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2117 {
+      fill: @overlay0;
+    }
+    svg > path.OfficeIconColors_m2118 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2119 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2120 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2121 {
+      fill: @overlay2;
+    }
+    svg > path.OfficeIconColors_m2122 {
+      fill: @overlay2;
+    }
+    svg > path.OfficeIconColors_m2123 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2124 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2125 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m2126 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m2127 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m2128 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2129 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2130 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m2131 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2132 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2133 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2134 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2135 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2136 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2137 {
+      fill: @pink;
+    }
+    svg > path.OfficeIconColors_m2138 {
+      fill: @sapphire;
+    }
+    svg > path.OfficeIconColors_m2139 {
+      fill: @lavender;
+    }
+    svg > path.OfficeIconColors_m2140 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2141 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m2142 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m2143 {
+      fill: @pink;
+    }
+    svg > path.OfficeIconColors_m2144 {
+      fill: @teal;
+    }
+    svg > path.OfficeIconColors_m2145 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2146 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2147 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2148 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2149 {
+      fill: @subtext0;
+    }
+    svg > path.OfficeIconColors_m2150 {
+      fill: @flamingo;
+    }
+    svg > path.OfficeIconColors_m2151 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2152 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2153 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2154 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m2155 {
+      fill: @sapphire;
+    }
+    svg > path.OfficeIconColors_m2156 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m2157 {
+      fill: @overlay0;
+    }
+    svg > path.OfficeIconColors_m2158 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2159 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2160 {
+      fill: @subtext1;
+    }
+    svg > path.OfficeIconColors_m2161 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2162 {
+      fill: @rosewater;
+    }
+    svg > path.OfficeIconColors_m2163 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2164 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2165 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2166 {
+      fill: @teal;
+    }
+    svg > path.OfficeIconColors_m2167 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m2168 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2169 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2170 {
+      fill: @lavender;
+    }
+    svg > path.OfficeIconColors_m2171 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2172 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2173 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2174 {
+      fill: @subtext0;
+    }
+    svg > path.OfficeIconColors_m2175 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2176 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2177 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2178 {
+      fill: @teal;
+    }
+    svg > path.OfficeIconColors_m2179 {
+      fill: @teal;
+    }
+    svg > path.OfficeIconColors_m2180 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2181 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2182 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2183 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2184 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2185 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2186 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2187 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2188 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2189 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2190 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2191 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2192 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2193 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2194 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2195 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2196 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2197 {
+      fill: @rosewater;
+    }
+    svg > path.OfficeIconColors_m2198 {
+      fill: @peach;
+    }
+    svg > path.OfficeIconColors_m2199 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m2200 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2201 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2202 {
+      fill: @pink;
+    }
+    svg > path.OfficeIconColors_m2203 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m2204 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m2205 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m2206 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2207 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2208 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2209 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2210 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2211 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2212 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2213 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2214 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2215 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2216 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2217 {
+      fill: @lavender;
+    }
+    svg > path.OfficeIconColors_m2218 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2219 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2220 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2221 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2222 {
+      fill: @teal;
+    }
+    svg > path.OfficeIconColors_m2223 {
+      fill: @teal;
+    }
+    svg > path.OfficeIconColors_m2224 {
+      fill: @subtext1;
+    }
+    svg > path.OfficeIconColors_m2225 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2226 {
+      fill: @peach;
+    }
+    svg > path.OfficeIconColors_m2227 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2228 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2229 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2230 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2231 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2232 {
+      fill: @surface2;
+    }
+    svg > path.OfficeIconColors_m2233 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m2234 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2235 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2236 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2237 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m2238 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2239 {
+      fill: @lavender;
+    }
+    svg > path.OfficeIconColors_m2240 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2241 {
+      fill: @flamingo;
+    }
+    svg > path.OfficeIconColors_m2242 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m2243 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2244 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2245 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2246 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m2247 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2248 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2249 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2250 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2251 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2252 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2253 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2254 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m2255 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m2256 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m2257 {
+      fill: @pink;
+    }
+    svg > path.OfficeIconColors_m2258 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2259 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2260 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m2261 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2262 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2263 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2264 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2265 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m2266 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2267 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2268 {
+      fill: @teal;
+    }
+    svg > path.OfficeIconColors_m2269 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2270 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2271 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2272 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m2273 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m2274 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m2275 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m2276 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m2277 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2278 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2279 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2280 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2281 {
+      fill: @teal;
+    }
+    svg > path.OfficeIconColors_m2282 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2283 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2284 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2285 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m2286 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2287 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m2288 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2289 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2290 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2291 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2292 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2293 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2294 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2295 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2296 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2297 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2298 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2299 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2300 {
+      fill: @subtext1;
+    }
+    svg > path.OfficeIconColors_m2301 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2302 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_m2303 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2304 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2305 {
+      fill: @maroon;
+    }
+    svg > path.OfficeIconColors_m2306 {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_m2307 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2308 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m2309 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m2310 {
+      fill: @pink;
+    }
+    svg > path.OfficeIconColors_m2311 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2312 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2313 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2314 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2315 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2316 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2317 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2318 {
+      fill: @lavender;
+    }
+    svg > path.OfficeIconColors_m2319 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2320 {
+      fill: @lavender;
+    }
+    svg > path.OfficeIconColors_m2321 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2322 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2323 {
+      fill: @subtext1;
+    }
+    svg > path.OfficeIconColors_m2324 {
+      fill: @teal;
+    }
+    svg > path.OfficeIconColors_m2325 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_m2326 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2327 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2328 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_m2329 {
+      fill: @flamingo;
+    }
+    svg > path.OfficeIconColors_m2330 {
+      fill: @pink;
+    }
+    svg > path.OfficeIconColors_m2331 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2332 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_m2333 {
+      fill: @subtext1;
+    }
+    svg > path.OfficeIconColors_m2334 {
+      fill: @sapphire;
+    }
+    svg > path.OfficeIconColors_m2335 {
+      fill: @sapphire;
+    }
+    svg > path.OfficeIconColors_m2336 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2337 {
+      fill: @blue;
+    }
+    svg > path.OfficeIconColors_m2338 {
+      fill: @lavender;
+    }
+    svg > path.OfficeIconColors_m2339 {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_m2340 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m2341 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m2342 {
+      fill: @mauve;
+    }
+    svg > path.OfficeIconColors_m2343 {
+      fill: @lavender;
+    }
+    svg > path.OfficeIconColors_DynamicColor {
+      fill: currentcolor;
+    }
+    svg > path.OfficeIconColors_mWord0001 {
+      fill: @surface2;
+    }
+    svg > path.OfficeIconColors_mWord0002 {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_mWord0003 {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_mWord0004 {
+      fill: @red;
+    }
+    svg > path.OfficeIconColors_mMSLogoGrey {
+      fill: @subtext0;
+    }
+    svg > path.OfficeIconColors_MSLogoOrange {
+      fill: @peach;
+    }
+    svg > path.OfficeIconColors_MSLogoGreen {
+      fill: @green;
+    }
+    svg > path.OfficeIconColors_MSLogoBlue {
+      fill: @sky;
+    }
+    svg > path.OfficeIconColors_MSLogoYellow {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_MSLogoWithVisioBlack {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_Transparent {
+      fill: transparent;
+    }
+    svg > path.OfficeIconColors_mIconGray {
+      fill: @overlay1;
+    }
+    svg > path.OfficeIconColors_mIconLightBlack {
+      fill: @text;
+    }
+    svg > path.OfficeIconColors_IllustrationYellow {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_IllustrationPink {
+      fill: @rosewater;
+    }
+    svg > path.OfficeIconColors_IllustrationLightPink1 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_IllustrationLightPink2 {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_IllustrationDarkPink {
+      fill: @flamingo;
+    }
+    svg > path.OfficeIconColors_IllustrationFillWhiteAndStrokeGray {
+      fill: @surface1;
+      stroke: @surface2;
+    }
+    svg > path.OfficeIconColors_IllustrationFillWhiteAndStrokeDarkGray {
+      fill: @surface1;
+      stroke: @overlay2;
+    }
+    svg > path.OfficeIconColors_White {
+      fill: @surface1;
+    }
+    svg > path.OfficeIconColors_mWhite {
+      fill: @surface1;
+    }
+    svg > rect.OfficeIconColors_mYellow {
+      fill: @yellow;
+    }
+    svg > path.OfficeIconColors_mNeutralDark {
+      fill: @text;
+    }
+    .OfficeIconColors_mSocialMediaIconPath {
+      fill: @text;
+    }
+    .OfficeIconColors_mRewriteCopilotPath {
+      fill: @subtext1;
+    }
+    .OfficeIconColors_mRewriteErrorWarningPath {
+      fill: @peach;
+    }
+    .OfficeIconColors_mRewriteStopGeneratingSuggestionsPath {
+      fill: @subtext1;
+    }
 
-    #ProgressBar {
-      background-color: @surface0;
-      &:hover {
-        background-color: @surface1;
+    .OfficeIconColors_mChatPPTDark {
+      fill: @text;
+    }
+    .OfficeIconColors_mChatPPTLight {
+      fill: @surface1;
+    }
+    .OfficeIconColors_mChatPPTBlue {
+      fill: @blue;
+    }
+    .OfficeIconColors_mChatPPTRectStroke {
+      stroke: @surface1;
+    }
+    .OfficeIconColors_mChatPPTWhite {
+      fill: @surface1;
+    }
+
+    #__fui {
+      // https://storybooks.fluentui.dev/?path=/docs/theme-colors--docs
+
+      // Foreground, Background, Stroke
+
+      @fg-hover: if(@flavor = latte, -8%, 8%);
+      @fg-pressed: if(@flavor = latte, -16%, -8%);
+      @fg-selected: -6%;
+      @fg-disabled: -10%;
+
+      @bg-hover: if(@flavor = latte, 6%, 8%);
+      @bg-pressed: if(@flavor = latte, -6%, -8%);
+      @bg-selected: if(@flavor = latte, -12%, 12%);
+      @bg-disabled: -10%;
+
+      @st-hover: if(@flavor = latte, -8%, 8%);
+      @st-pressed: if(@flavor = latte, -16%, -8%);
+      @st-selected: -6%;
+      @st-disabled: -10%;
+      @st-contrast: 0%;
+
+      @ramp: 8%;
+
+      @fixed-flavor: @catppuccin[@mocha];
+      @inverse-flavor: if(@flavor = latte, @fixed-flavor, @catppuccin[@latte]);
+
+      --shadow-rgb: #lib.rgbify(@fixed-flavor[@base])[];
+
+      // Variant generator
+      .g(
+        @id: "";
+        @baseColor: cyan;
+        @hover: null;
+        @pressed: null;
+        @selected: null;
+        @disabled: null;
+      ) {
+        --@{id}: @baseColor;
+        .g-var(@id, @baseColor, @hover, @pressed, @selected, @disabled);
       }
-      > div:nth-child(2) {
-        background-color: @surface2 !important;
-        > div:nth-child(1) {
-          background: @accent;
+
+      .g-var(
+        @id: "";
+        @baseColor: cyan;
+        @hover: null;
+        @pressed: null;
+        @selected: null;
+        @disabled: null;
+      ) {
+        & when not(@hover = null) {
+          --@{id}Hover: lighten(@baseColor, @hover);
+        }
+        & when not(@pressed = null) {
+          --@{id}Pressed: lighten(@baseColor, @pressed);
+        }
+        & when not(@selected = null) {
+          --@{id}Selected: lighten(@baseColor, @selected);
+        }
+        & when not(@disabled = null) {
+          --@{id}Disabled: mix(@baseColor, @base, @disabled);
         }
       }
-    }
 
-    #ProgressBar > div:nth-child(3) {
-      > span:nth-child(1) {
-        color: @text;
-      }
-      > span:nth-child(2) {
-        color: @accent;
-      }
-      > span:nth-child(3) {
-        color: @text;
-      }
-    }
+      // Foreground
 
-    #AppBrand > div:nth-child(1) > div:nth-child(1) > a:nth-child(1) {
-      &:hover {
-        background-color: @surface0;
-      }
-    }
+      .g(colorNeutralForeground1, @text, 0%, 0%, 0%);
 
-    #appLauncherTop > div:nth-child(1) {
-      > div:nth-child(1) > button:nth-child(1) {
-        &:hover {
-          background-color: @surface1;
-        }
-      }
-      > a:nth-child(2) {
-        color: @accent;
-      }
-    }
+      .g(colorNeutralForeground2, @subtext1, 0%, 0%, 0%);
+      .g-var(colorNeutralForeground2Brand, @accent, 0%, @fg-pressed, 0%);
 
-    #allAppsLink {
-      color: @accent;
-    }
+      .g(colorNeutralForeground3, @subtext0, 0%, 0%, 0%);
+      .g-var(colorNeutralForeground3Brand, @accent, 0%, @fg-pressed, 0%);
 
-    #ProgressCardScore {
-      > div:nth-child(1) {
-        color: @accent;
-      }
-      > div:nth-child(2) {
-        color: @accent;
-      }
-    }
+      .g(colorNeutralForeground4, @overlay2, null, null, null, 40%);
 
-    #WACStatusBarContainer
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > div:nth-child(1) {
-      background-color: @surface0;
-      border-top-color: @surface1;
-      > div:nth-child(1)
-        > div:nth-child(1)
-        > div:nth-child(1)
-        > div:nth-child(1) {
-        > div:nth-child(1) > button,
-        div:nth-child(3) > button {
-          color: @subtext0 !important;
-        }
-      }
-    }
+      --colorNeutralForegroundDisabled: @overlay0;
+      --colorNeutralForegroundInvertedDisabled: fade(@fixed-flavor[@text], 40%);
 
-    [data-unique-id="TellMeControl"] {
-      background: @surface0 !important;
-      > div:nth-child(2) > label:nth-child(1),
-      [data-icon-name="Search"] {
-        color: @subtext0 !important;
-      }
-    }
+      .g(
+        colorBrandForegroundLink,
+        @accent,
+        @fg-hover,
+        @fg-pressed,
+        @fg-selected,
+      );
+      // Same as NeutralForeground2
+      .g(colorNeutralForeground2Link, @subtext1, 0%, 0%, 0%);
 
-    #ReactTabbedPanelMenuPageContainer {
-      background-color: @surface0 !important;
-    }
+      .g(colorCompoundBrandForeground1, @accent, @fg-hover, @fg-pressed);
+      .g(colorCompoundBrandBackground, @accent, @fg-hover, @fg-pressed);
 
-    #UploadDocumentFromHomeTab,
-    #pageSection2CompoundButtonSectionProps
-      > div:nth-child(2)
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > div:nth-child(1)
-      > button {
-      background-color: @surface0 !important;
-      &:hover {
-        background-color: @surface1 !important;
-      }
-    }
+      --colorBrandForeground1: @accent;
+      .g(
+        colorBrandForeground2,
+        lighten(@accent, @ramp),
+        @fg-hover,
+        if(@flavor = latte, -16%, 16%),
+      );
 
-    #MultilineRibbon-RibbonModeToggleDropdown,
-    #FarPeripheralControls-ModeSwitcherDropdown,
-    #MultilineRibbon-RibbonModeToggleDropdownsection-0-title,
-    #MultilineRibbon-RibbonModeToggleDropdownsection-1-title {
-      background-color: @surface0 !important;
-      > div:nth-child(1) > span:nth-child(2) {
-        color: @text !important;
-      }
-    }
+      --colorNeutralForeground1Static: @fixed-flavor[@base];
+      --colorNeutralForegroundStaticInverted: @fixed-flavor[@text];
 
-    .PageAdornmentNumberLabel,
-    .FileMenuButtonSecondaryText,
-    #New,
-    #Open,
-    #Recent {
-      color: @subtext0 !important;
-    }
+      .g(colorNeutralForegroundInverted, @base, 0%, 0%, 0%);
+      --colorNeutralForegroundInverted2: @base;
 
-    #Clipboard_MLR-label,
-    #Font_MLR-label,
-    #Paragraph_MLR-label,
-    #Styles-label,
-    #Editing-label,
-    #Dictation-label,
-    #GetAddins-label,
-    #Editor-label {
-      color: @subtext0 !important;
-    }
+      --colorNeutralForegroundOnBrand: @base;
 
-    svg {
-      path.OfficeIconColors_m22 {
-        fill: @text;
-      }
-      path.OfficeIconColors_m24,
-      path.OfficeIconColors_m25,
-      path.OfficeIconColors_m26,
-      path.OfficeIconColors_m2262 {
-        fill: @accent;
-      }
-      path.OfficeIconColors_m27 {
-        fill: @green;
-      }
-      path.OfficeIconColors_m211 {
-        fill: @yellow;
-      }
-      path.OfficeIconColors_m212 {
-        fill: @peach;
-      }
-      path.OfficeIconColors_m220,
-      path.OfficeIconColors_m221 {
-        fill: @mauve;
-      }
-      path.OfficeIconColors_m213 {
-        fill: @red;
-      }
-      path.OfficeIconColors_m229 {
-        fill: @red;
-      }
-      path.OfficeIconColors_m295 {
-        fill: @blue;
-      }
-      path.OfficeIconColors_m2131 {
-        fill: @green;
-      }
-      path.OfficeIconColors_m2227 {
-        fill: @peach;
-      }
-      path.OfficeIconColors_m2251 {
-        fill: @text;
-      }
+      .g(colorNeutralForegroundInvertedLink, @fixed-flavor[@text], 0%, 0%, 0%);
+
+      .g(
+        colorBrandForegroundInverted,
+        @inverse-flavor[@@accentColor],
+        @fg-hover,
+        @fg-pressed,
+      );
+      .g(
+        colorBrandForegroundOnLight,
+        @catppuccin[@latte][@@accentColor],
+        @fg-hover,
+        @fg-pressed,
+        @fg-selected,
+      );
+
+      // Background
+
+      .g(
+        colorNeutralBackground1,
+        @surface1,
+        @bg-hover,
+        @bg-pressed,
+        @bg-selected,
+      );
+      .g(
+        colorNeutralBackground2,
+        @surface0,
+        @bg-hover,
+        @bg-pressed,
+        @bg-selected,
+      );
+      .g(colorNeutralBackground3, @base, @bg-hover, @bg-pressed, @bg-selected);
+      .g(
+        colorNeutralBackground4,
+        @mantle,
+        @bg-hover,
+        @bg-pressed,
+        @bg-selected,
+      );
+      .g(colorNeutralBackground5, @crust, @bg-hover, @bg-pressed, @bg-selected);
+
+      // Not sure what to set this to...
+      --colorNeutralBackground6: @surface0;
+
+      --colorNeutralBackgroundInverted: @text;
+
+      --colorNeutralBackgroundStatic: @fixed-flavor[@base];
+      --colorNeutralBackgroundAlpha: fade(@base, 50%);
+      --colorNeutralBackgroundAlpha2: fade(@base, 70%);
+
+      --colorSubtleBackground: transparent;
+      .g-var(
+        colorSubtleBackground,
+        @base,
+        @bg-hover,
+        @bg-pressed,
+        @bg-selected,
+      );
+
+      --colorSubtleBackgroundLightAlphaHover: lighten(
+        fade(@base, 50%),
+        @bg-hover
+      );
+      --colorSubtleBackgroundLightAlphaPressed: lighten(
+        fade(@base, 70%),
+        @bg-pressed
+      );
+      --colorSubtleBackgroundLightAlphaSelected: transparent;
+
+      --colorSubtleBackgroundInverted: transparent;
+      --colorSubtleBackgroundInvertedHover: fade(@fixed-flavor[@base], 10%);
+      --colorSubtleBackgroundInvertedPressed: fade(@fixed-flavor[@base], 30%);
+      --colorSubtleBackgroundInvertedSelected: fade(@fixed-flavor[@base], 20%);
+
+      --colorTransparentBackground: transparent;
+      --colorTransparentBackgroundHover: transparent;
+      --colorTransparentBackgroundPressed: transparent;
+      --colorTransparentBackgroundSelected: transparent;
+
+      --colorNeutralBackgroundDisabled: mix(@base, @crust, 25%);
+      --colorNeutralBackgroundInvertedDisabled: fade(@fixed-flavor[@text], 10%);
+
+      --colorNeutralStencil1: @overlay0;
+      --colorNeutralStencil2: @surface2;
+      --colorNeutralStencil1Alpha: fade(@text, 10%);
+      --colorNeutralStencil2Alpha: fade(@text, 5%);
+
+      --colorBackgroundOverlay: fade(@fixed-flavor[@crust], 50%);
+      --colorScrollbarOverlay: fade(@text, 60%);
+
+      .g(colorBrandBackground, @accent, @bg-hover, @bg-pressed, @bg-selected);
+      .g(colorCompoundBackground, @accent, @bg-hover, @bg-pressed);
+
+      --colorBrandBackgroundStatic: @fixed-flavor[@@accentColor];
+
+      .g(
+        colorBrandBackground2,
+        mix(@accent, @base, 30%),
+        @bg-hover,
+        @bg-pressed,
+      );
+      --colorBrandBackground3Static: #6f22c0;
+      --colorBrandBackground4Static: #4e1a82;
+
+      .g(
+        colorBrandBackgroundInverted,
+        mix(@fixed-flavor[@@accentColor], @fixed-flavor[@base], 30%),
+        @bg-hover,
+        @bg-pressed,
+        @bg-selected,
+      );
+
+      .g(
+        colorNeutralCardBackground,
+        @surface0,
+        @bg-hover,
+        @bg-pressed,
+        @bg-selected,
+        @bg-disabled,
+      );
+
+      .g(colorNeutralStrokeAccessible, @subtext1, @st-hover, @st-pressed);
+      --colorNeutralStrokeAccessibleSelected: @accent;
+
+      .g(colorNeutralStroke1, @overlay1, @st-hover, @st-pressed, @st-selected);
+      --colorNeutralStroke2: @overlay0;
+      --colorNeutralStroke3: @surface2;
+
+      --colorNeutralStrokeSubtle: mix(@text, @base, 10%);
+
+      --colorNeutralStrokeOnBrand: @base;
+      .g(colorNeutralStrokeOnBrand2, @fixed-flavor[@text], 0%, 0%, 0%);
+
+      --colorBrandStroke1: @accent;
+      --colorBrandStroke2: lighten(@accent, @ramp * -1);
+      --colorBrandStroke2Hover: lighten(@accent, @ramp * -1 + @st-hover);
+      --colorBrandStroke2Pressed: lighten(@accent, @ramp * -1 + @st-pressed);
+      --colorBrandStroke2Contrast: lighten(@accent, @ramp * -1 + @st-contrast);
+
+      --colorCompoundBrandStroke: @accent;
+      .g(colorCompoundBrandStroke, @accent, @st-hover, @st-pressed);
+
+      --colorNeutralStrokeDisabled: mix(@text, @base, 50%);
+      --colorNeutralStrokeInvertedDisabled: fade(fixed-flavor[@text], 40%);
+
+      --colorTransparentStroke: transparent;
+      --colorTransparentStrokeInteractive: transparent;
+      --colorTransparentStrokeDisabled: transparent;
+
+      --colorNeutralStrokeAlpha: fade(@text, 10%);
+      --colorNeutralStrokeAlpha2: fade(@fixed-flavor[@text], 20%);
+
+      --colorStrokeFocus1: @base;
+      --colorStrokeFocus2: @text;
+
+      --colorNeutralShadowAmbient: rgba(var(--shadow-rgb), 0.24);
+      --colorNeutralShadowKey: rgba(var(--shadow-rgb), 0.28);
+      --colorNeutralShadowAmbientLighter: rgba(var(--shadow-rgb), 0.12);
+      --colorNeutralShadowKeyLighter: rgba(var(--shadow-rgb), 0.14);
+      --colorNeutralShadowAmbientDarker: rgba(var(--shadow-rgb), 0.40);
+      --colorNeutralShadowKeyDarker: rgba(var(--shadow-rgb), 0.48);
+      --colorBrandShadowAmbient: rgba(var(--shadow-rgb), 0.30);
+      --colorBrandShadowKey: rgba(var(--shadow-rgb), 0.25);
+
+      --colorPaletteRedBackground1: #3f1011;
+      --colorPaletteRedBackground2: #751d1f;
+      --colorPaletteRedBackground3: #d13438;
+      --colorPaletteRedForeground1: #e37d80;
+      --colorPaletteRedForeground2: #f1bbbc;
+      --colorPaletteRedForeground3: #e37d80;
+      --colorPaletteRedBorderActive: #e37d80;
+      --colorPaletteRedBorder1: #d13438;
+      --colorPaletteRedBorder2: #e37d80;
+      --colorPaletteGreenBackground1: #052505;
+      --colorPaletteGreenBackground2: #094509;
+      --colorPaletteGreenBackground3: #107c10;
+      --colorPaletteGreenForeground1: #54b054;
+      --colorPaletteGreenForeground2: #9fd89f;
+      --colorPaletteGreenForeground3: #9fd89f;
+      --colorPaletteGreenBorderActive: #54b054;
+      --colorPaletteGreenBorder1: #107c10;
+      --colorPaletteGreenBorder2: #9fd89f;
+      --colorPaletteDarkOrangeBackground1: #411200;
+      --colorPaletteDarkOrangeBackground2: #7a2101;
+      --colorPaletteDarkOrangeBackground3: #da3b01;
+      --colorPaletteDarkOrangeForeground1: #e9835e;
+      --colorPaletteDarkOrangeForeground2: #f4bfab;
+      --colorPaletteDarkOrangeForeground3: #e9835e;
+      --colorPaletteDarkOrangeBorderActive: #e9835e;
+      --colorPaletteDarkOrangeBorder1: #da3b01;
+      --colorPaletteDarkOrangeBorder2: #e9835e;
+      --colorPaletteYellowBackground1: #4c4400;
+      --colorPaletteYellowBackground2: #817400;
+      --colorPaletteYellowBackground3: #fde300;
+      --colorPaletteYellowForeground1: #feee66;
+      --colorPaletteYellowForeground2: #fef7b2;
+      --colorPaletteYellowForeground3: #fdea3d;
+      --colorPaletteYellowBorderActive: #feee66;
+      --colorPaletteYellowBorder1: #fde300;
+      --colorPaletteYellowBorder2: #fdea3d;
+      --colorPaletteBerryBackground1: #3a1136;
+      --colorPaletteBerryBackground2: #6d2064;
+      --colorPaletteBerryBackground3: #c239b3;
+      --colorPaletteBerryForeground1: #da7ed0;
+      --colorPaletteBerryForeground2: #edbbe7;
+      --colorPaletteBerryForeground3: #d161c4;
+      --colorPaletteBerryBorderActive: #da7ed0;
+      --colorPaletteBerryBorder1: #c239b3;
+      --colorPaletteBerryBorder2: #d161c4;
+      --colorPaletteLightGreenBackground1: #063004;
+      --colorPaletteLightGreenBackground2: #0b5a08;
+      --colorPaletteLightGreenBackground3: #13a10e;
+      --colorPaletteLightGreenForeground1: #5ec75a;
+      --colorPaletteLightGreenForeground2: #a7e3a5;
+      --colorPaletteLightGreenForeground3: #3db838;
+      --colorPaletteLightGreenBorderActive: #5ec75a;
+      --colorPaletteLightGreenBorder1: #13a10e;
+      --colorPaletteLightGreenBorder2: #3db838;
+      --colorPaletteMarigoldBackground1: #463100;
+      --colorPaletteMarigoldBackground2: #835b00;
+      --colorPaletteMarigoldBackground3: #eaa300;
+      --colorPaletteMarigoldForeground1: #f2c661;
+      --colorPaletteMarigoldForeground2: #f9e2ae;
+      --colorPaletteMarigoldForeground3: #efb839;
+      --colorPaletteMarigoldBorderActive: #f2c661;
+      --colorPaletteMarigoldBorder1: #eaa300;
+      --colorPaletteMarigoldBorder2: #efb839;
+      --colorPaletteRedForegroundInverted: #d13438;
+      --colorPaletteGreenForegroundInverted: #107c10;
+      --colorPaletteYellowForegroundInverted: #817400;
+      --colorPaletteDarkRedBackground2: #590815;
+      --colorPaletteDarkRedForeground2: #d69ca5;
+      --colorPaletteDarkRedBorderActive: #ac4f5e;
+      --colorPaletteCranberryBackground2: #6e0811;
+      --colorPaletteCranberryForeground2: #eeacb2;
+      --colorPaletteCranberryBorderActive: #dc626d;
+      --colorPalettePumpkinBackground2: #712d09;
+      --colorPalettePumpkinForeground2: #efc4ad;
+      --colorPalettePumpkinBorderActive: #df8e64;
+      --colorPalettePeachBackground2: #8f4e00;
+      --colorPalettePeachForeground2: #ffddb3;
+      --colorPalettePeachBorderActive: #ffba66;
+      --colorPaletteGoldBackground2: #6c5700;
+      --colorPaletteGoldForeground2: #ecdfa5;
+      --colorPaletteGoldBorderActive: #dac157;
+      --colorPaletteBrassBackground2: #553e06;
+      --colorPaletteBrassForeground2: #e0cea2;
+      --colorPaletteBrassBorderActive: #c1a256;
+      --colorPaletteBrownBackground2: #50301a;
+      --colorPaletteBrownForeground2: #ddc3b0;
+      --colorPaletteBrownBorderActive: #bb8f6f;
+      --colorPaletteForestBackground2: #294903;
+      --colorPaletteForestForeground2: #bdd99b;
+      --colorPaletteForestBorderActive: #85b44c;
+      --colorPaletteSeafoamBackground2: #00723b;
+      --colorPaletteSeafoamForeground2: #a8f0cd;
+      --colorPaletteSeafoamBorderActive: #5ae0a0;
+      --colorPaletteDarkGreenBackground2: #063b06;
+      --colorPaletteDarkGreenForeground2: #9ad29a;
+      --colorPaletteDarkGreenBorderActive: #4da64d;
+      --colorPaletteLightTealBackground2: #00666d;
+      --colorPaletteLightTealForeground2: #a6e9ed;
+      --colorPaletteLightTealBorderActive: #58d3db;
+      --colorPaletteTealBackground2: #02494c;
+      --colorPaletteTealForeground2: #9bd9db;
+      --colorPaletteTealBorderActive: #4cb4b7;
+      --colorPaletteSteelBackground2: #00333f;
+      --colorPaletteSteelForeground2: #94c8d4;
+      --colorPaletteSteelBorderActive: #4496a9;
+      --colorPaletteBlueBackground2: #004377;
+      --colorPaletteBlueForeground2: #a9d3f2;
+      --colorPaletteBlueBorderActive: #5caae5;
+      --colorPaletteRoyalBlueBackground2: #002c4e;
+      --colorPaletteRoyalBlueForeground2: #9abfdc;
+      --colorPaletteRoyalBlueBorderActive: #4a89ba;
+      --colorPaletteCornflowerBackground2: #2c3c85;
+      --colorPaletteCornflowerForeground2: #c8d1fa;
+      --colorPaletteCornflowerBorderActive: #93a4f4;
+      --colorPaletteNavyBackground2: #001665;
+      --colorPaletteNavyForeground2: #a3b2e8;
+      --colorPaletteNavyBorderActive: #546fd2;
+      --colorPaletteLavenderBackground2: #3f3682;
+      --colorPaletteLavenderForeground2: #d2ccf8;
+      --colorPaletteLavenderBorderActive: #a79cf1;
+      --colorPalettePurpleBackground2: #341a51;
+      --colorPalettePurpleForeground2: #c6b1de;
+      --colorPalettePurpleBorderActive: #9470bd;
+      --colorPaletteGrapeBackground2: #4c0d55;
+      --colorPaletteGrapeForeground2: #d9a7e0;
+      --colorPaletteGrapeBorderActive: #b55fc1;
+      --colorPaletteLilacBackground2: #63276d;
+      --colorPaletteLilacForeground2: #e6bfed;
+      --colorPaletteLilacBorderActive: #cf87da;
+      --colorPalettePinkBackground2: #80215d;
+      --colorPalettePinkForeground2: #f7c0e3;
+      --colorPalettePinkBorderActive: #ef85c8;
+      --colorPaletteMagentaBackground2: #6b0043;
+      --colorPaletteMagentaForeground2: #eca5d1;
+      --colorPaletteMagentaBorderActive: #d957a8;
+      --colorPalettePlumBackground2: #5a003b;
+      --colorPalettePlumForeground2: #d696c0;
+      --colorPalettePlumBorderActive: #ad4589;
+      --colorPaletteBeigeBackground2: #444241;
+      --colorPaletteBeigeForeground2: #d7d4d4;
+      --colorPaletteBeigeBorderActive: #afabaa;
+      --colorPaletteMinkBackground2: #343231;
+      --colorPaletteMinkForeground2: #cecccb;
+      --colorPaletteMinkBorderActive: #9e9b99;
+      --colorPalettePlatinumBackground2: #3b4447;
+      --colorPalettePlatinumForeground2: #cdd6d8;
+      --colorPalettePlatinumBorderActive: #a0adb2;
+      --colorPaletteAnchorBackground2: #202427;
+      --colorPaletteAnchorForeground2: #bcc3c7;
+      --colorPaletteAnchorBorderActive: #808a90;
+
+      --colorStatusSuccessBackground1: #052505;
+      --colorStatusSuccessBackground2: #094509;
+      --colorStatusSuccessBackground3: #107c10;
+      --colorStatusSuccessForeground1: #54b054;
+      --colorStatusSuccessForeground2: #9fd89f;
+      --colorStatusSuccessForeground3: #9fd89f;
+      --colorStatusSuccessBorderActive: #54b054;
+      --colorStatusSuccessForegroundInverted: #0e700e;
+      --colorStatusSuccessBorder1: #107c10;
+      --colorStatusSuccessBorder2: #9fd89f;
+
+      --colorStatusWarningBackground1: #4a1e04;
+      --colorStatusWarningBackground2: #8a3707;
+      --colorStatusWarningBackground3: #f7630c;
+      --colorStatusWarningForeground1: #faa06b;
+      --colorStatusWarningForeground2: #fdcfb4;
+      --colorStatusWarningForeground3: #f98845;
+      --colorStatusWarningBorderActive: #faa06b;
+      --colorStatusWarningForegroundInverted: #bc4b09;
+      --colorStatusWarningBorder1: #f7630c;
+      --colorStatusWarningBorder2: #f98845;
+
+      --colorStatusDangerBackground1: #3b0509;
+      --colorStatusDangerBackground2: #6e0811;
+      --colorStatusDangerBackground3: #c50f1f;
+      --colorStatusDangerForeground1: #dc626d;
+      --colorStatusDangerForeground2: #eeacb2;
+      --colorStatusDangerForeground3: #eeacb2;
+      --colorStatusDangerBorderActive: #dc626d;
+      --colorStatusDangerForegroundInverted: #b10e1c;
+      --colorStatusDangerBorder1: #c50f1f;
+      --colorStatusDangerBorder2: #dc626d;
+      --colorStatusDangerBackground3Hover: #b10e1c;
+      --colorStatusDangerBackground3Pressed: #960b18;
+
+      --shadow2:
+        0 0 2px rgba(var(--shadow-rgb), 0.24), 0 1px 2px rgba(
+        var(--shadow-rgb),
+        0.28
+      );
+      --shadow4:
+        0 0 2px rgba(var(--shadow-rgb), 0.24), 0 2px 4px rgba(
+        var(--shadow-rgb),
+        0.28
+      );
+      --shadow8:
+        0 0 2px rgba(var(--shadow-rgb), 0.24), 0 4px 8px rgba(
+        var(--shadow-rgb),
+        0.28
+      );
+      --shadow16:
+        0 0 2px rgba(var(--shadow-rgb), 0.24), 0 8px 16px rgba(
+        var(--shadow-rgb),
+        0.28
+      );
+      --shadow28:
+        0 0 8px rgba(var(--shadow-rgb), 0.24), 0 14px 28px rgba(
+        var(--shadow-rgb),
+        0.28
+      );
+      --shadow64:
+        0 0 8px rgba(var(--shadow-rgb), 0.24), 0 32px 64px rgba(
+        var(--shadow-rgb),
+        0.28
+      );
+      --shadow2Brand:
+        0 0 2px rgba(var(--shadow-rgb), 0.30), 0 1px 2px rgba(
+        var(--shadow-rgb),
+        0.25
+      );
+      --shadow4Brand:
+        0 0 2px rgba(var(--shadow-rgb), 0.30), 0 2px 4px rgba(
+        var(--shadow-rgb),
+        0.25
+      );
+      --shadow8Brand:
+        0 0 2px rgba(var(--shadow-rgb), 0.30), 0 4px 8px rgba(
+        var(--shadow-rgb),
+        0.25
+      );
+      --shadow16Brand:
+        0 0 2px rgba(var(--shadow-rgb), 0.30), 0 8px 16px rgba(
+        var(--shadow-rgb),
+        0.25
+      );
+      --shadow28Brand:
+        0 0 8px rgba(var(--shadow-rgb), 0.30), 0 14px 28px rgba(
+        var(--shadow-rgb),
+        0.25
+      );
+      --shadow64Brand:
+        0 0 8px rgba(var(--shadow-rgb), 0.30), 0 32px 64px rgba(
+        var(--shadow-rgb),
+        0.25
+      );
+
+      // MS (WIP)
+      --ms-palette-themeDarker: #004578;
+      --ms-palette-themeDark: #005a9e;
+      --ms-palette-themeDarkAlt: #106ebe;
+      --ms-palette-themePrimary: #0078d4;
+      --ms-palette-themeSecondary: #2b88d8;
+      --ms-palette-themeTertiary: #71afe5;
+
+      --ms-palette-themeLight: #c7e0f4;
+      --ms-palette-themeLighter: #deecf9;
+      --ms-palette-themeLighterAlt: #eff6fc;
+
+      --ms-palette-black: #000;
+      --ms-palette-blackTranslucent40: rgba(0, 0, 0, 0.4);
+
+      --ms-palette-neutralDark: #141414;
+      --ms-palette-neutralPrimary: #242424;
+      --ms-palette-neutralPrimaryAlt: #424242;
+      --ms-palette-neutralSecondary: #616161;
+      --ms-palette-neutralSecondaryAlt: #8a8a8a;
+      --ms-palette-neutralTertiary: #9e9e9e;
+      --ms-palette-neutralTertiaryAlt: #c7c7c7;
+      --ms-palette-neutralQuaternary: #d1d1d1;
+      --ms-palette-neutralQuaternaryAlt: #e0e0e0;
+      --ms-palette-neutralLight: @overlay0;
+      --ms-palette-neutralLighter: @overlay1;
+      --ms-palette-neutralLighterAlt: @overlay2;
+
+      --ms-palette-accent: #0078d4;
+      --ms-palette-white: #fff;
+      --ms-palette-whiteTranslucent40: rgba(255, 255, 255, 0.4);
+
+      --ms-palette-yellowDark: #d29200;
+      --ms-palette-yellow: #ffb900;
+      --ms-palette-yellowLight: #fff100;
+
+      --ms-palette-orange: #d83b01;
+      --ms-palette-orangeLight: #ea4300;
+      --ms-palette-orangeLighter: #ff8c00;
+
+      --ms-palette-redDark: #a4262c;
+      --ms-palette-red: #e81123;
+
+      --ms-palette-magentaDark: #5c005c;
+      --ms-palette-magenta: #b4009e;
+      --ms-palette-magentaLight: #e3008c;
+
+      --ms-palette-purpleDark: #32145a;
+      --ms-palette-purple: #5c2d91;
+      --ms-palette-purpleLight: #b4a0ff;
+
+      --ms-palette-blueDark: #002050;
+      --ms-palette-blueMid: #00188f;
+      --ms-palette-blue: #0078d4;
+      --ms-palette-blueLight: #00bcf2;
+
+      --ms-palette-tealDark: #004b50;
+      --ms-palette-teal: #008272;
+      --ms-palette-tealLight: #00b294;
+
+      --ms-palette-greenDark: #004b1c;
+      --ms-palette-green: #107c10;
+      --ms-palette-greenLight: #bad80a;
+
+      --ms-palette-grey96: #f5f5f5;
+      --ms-palette-grey74: #bdbdbd;
+
+      --ms-semanticColors-bodyBackground: #fafafa;
+      --ms-semanticColors-bodyFrameBackground: #fff;
+      --ms-semanticColors-accentButtonText: #fff;
+      --ms-semanticColors-buttonBackground: #fff;
+      --ms-semanticColors-primaryButtonText: #fff;
+      --ms-semanticColors-primaryButtonTextHovered: #fff;
+      --ms-semanticColors-primaryButtonTextPressed: #fff;
+      --ms-semanticColors-inputBackground: #fff;
+      --ms-semanticColors-inputForegroundChecked: #fff;
+      // --ms-semanticColors-listBackground: #FFFFFF;
+      --ms-semanticColors-listBackground: @base;
+      --ms-semanticColors-menuBackground: #fff;
+      --ms-semanticColors-cardStandoutBackground: #fff;
+      --ms-semanticColors-bodyTextChecked: #000;
+      --ms-semanticColors-buttonTextCheckedHovered: #242424;
+      --ms-semanticColors-link: #0078d4;
+      --ms-semanticColors-primaryButtonBackground: #0078d4;
+      --ms-semanticColors-inputBackgroundChecked: #0078d4;
+      --ms-semanticColors-inputIcon: #0078d4;
+      --ms-semanticColors-inputFocusBorderAlt: #0078d4;
+      --ms-semanticColors-menuIcon: #0078d4;
+      --ms-semanticColors-menuHeader: #0078d4;
+      --ms-semanticColors-accentButtonBackground: #0078d4;
+      --ms-semanticColors-primaryButtonBackgroundPressed: #004578;
+      --ms-semanticColors-inputBackgroundCheckedHovered: #005a9e;
+      --ms-semanticColors-inputIconHovered: #005a9e;
+      --ms-semanticColors-linkHovered: #004578;
+      --ms-semanticColors-primaryButtonBackgroundHovered: #106ebe;
+      --ms-semanticColors-inputPlaceholderBackgroundChecked: #deecf9;
+      --ms-semanticColors-bodyBackgroundChecked: #ebebeb;
+      --ms-semanticColors-bodyFrameDivider: #e0e0e0;
+      --ms-semanticColors-bodyDivider: @overlay0;
+      --ms-semanticColors-variantBorder: #ebebeb;
+      --ms-semanticColors-buttonBackgroundCheckedHovered: #e0e0e0;
+      --ms-semanticColors-buttonBackgroundPressed: #e0e0e0;
+      --ms-semanticColors-listItemBackgroundChecked: #ebebeb;
+      --ms-semanticColors-listHeaderBackgroundPressed: #ebebeb;
+      --ms-semanticColors-menuItemBackgroundPressed: #e0e0e0;
+      --ms-semanticColors-menuItemBackgroundChecked: #ebebeb;
+      --ms-semanticColors-bodyBackgroundHovered: #f5f5f5;
+      --ms-semanticColors-buttonBackgroundHovered: #f5f5f5;
+      --ms-semanticColors-buttonBackgroundDisabled: #f0f0f0;
+      --ms-semanticColors-buttonBorderDisabled: #e0e0e0;
+      --ms-semanticColors-primaryButtonBackgroundDisabled: #f0f0f0;
+      --ms-semanticColors-disabledBackground: #f0f0f0;
+      // --ms-semanticColors-listItemBackgroundHovered: #F5F5F5;
+      --ms-semanticColors-listItemBackgroundHovered: @surface0;
+      --ms-semanticColors-listHeaderBackgroundHovered: #f5f5f5;
+      --ms-semanticColors-menuItemBackgroundHovered: #f5f5f5;
+      --ms-semanticColors-primaryButtonTextDisabled: #bdbdbd;
+      --ms-semanticColors-disabledSubtext: #e0e0e0;
+      --ms-semanticColors-listItemBackgroundCheckedHovered: #e0e0e0;
+      --ms-semanticColors-disabledBodyText: #bdbdbd;
+      --ms-semanticColors-variantBorderHovered: #9e9e9e;
+      --ms-semanticColors-buttonTextDisabled: #bdbdbd;
+      --ms-semanticColors-inputIconDisabled: #bdbdbd;
+      --ms-semanticColors-disabledText: #bdbdbd;
+      --ms-semanticColors-bodyText: #242424;
+      --ms-semanticColors-actionLink: #424242;
+      --ms-semanticColors-buttonText: #242424;
+      --ms-semanticColors-inputBorderHovered: #424242;
+      --ms-semanticColors-inputText: #242424;
+      --ms-semanticColors-listText: #242424;
+      --ms-semanticColors-menuItemText: #424242;
+      --ms-semanticColors-bodyStandoutBackground: #fafafa;
+      --ms-semanticColors-defaultStateBackground: #fafafa;
+      --ms-semanticColors-actionLinkHovered: #242424;
+      --ms-semanticColors-buttonTextHovered: #242424;
+      --ms-semanticColors-buttonTextChecked: #242424;
+      --ms-semanticColors-buttonTextPressed: #242424;
+      --ms-semanticColors-inputTextHovered: #242424;
+      --ms-semanticColors-menuItemTextHovered: #424242;
+      --ms-semanticColors-bodySubtext: #616161;
+      --ms-semanticColors-focusBorder: #000;
+      --ms-semanticColors-inputBorder: #616161;
+      --ms-semanticColors-smallInputBorder: #616161;
+      --ms-semanticColors-inputPlaceholderText: #616161;
+      --ms-semanticColors-buttonBorder: #d1d1d1;
+      --ms-semanticColors-disabledBodySubtext: #bdbdbd;
+      --ms-semanticColors-disabledBorder: #e0e0e0;
+      --ms-semanticColors-buttonBackgroundChecked: #ebebeb;
+      --ms-semanticColors-menuDivider: #e0e0e0;
+      --ms-semanticColors-cardShadow:
+        0px 2px 4px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+      --ms-semanticColors-cardShadowHovered:
+        0px 4px 8px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+      --ms-semanticColors-primaryButtonBorder: transparent;
+      --ms-semanticColors-errorText: #a4262c;
+      --ms-semanticColors-messageText: #242424;
+      --ms-semanticColors-messageLink: #005a9e;
+      --ms-semanticColors-messageLinkHovered: #004578;
+      --ms-semanticColors-infoIcon: #616161;
+      --ms-semanticColors-errorIcon: #a80000;
+      --ms-semanticColors-blockingIcon: #fde7e9;
+      --ms-semanticColors-warningIcon: #797775;
+      --ms-semanticColors-severeWarningIcon: #d83b01;
+      --ms-semanticColors-successIcon: #107c10;
+      --ms-semanticColors-infoBackground: #f0f0f0;
+      --ms-semanticColors-errorBackground: #fde7e9;
+      --ms-semanticColors-blockingBackground: #fde7e9;
+      --ms-semanticColors-warningBackground: #fff4ce;
+      --ms-semanticColors-severeWarningBackground: #fed9cc;
+      --ms-semanticColors-successBackground: #dff6dd;
+      --ms-semanticColors-warningHighlight: #ffb900;
+      --ms-semanticColors-successText: #107c10;
+      --ms-semanticColors-listTextColor: #323130;
+      --ms-semanticColors-warningText: #323130;
+      --ms-fonts-tiny-fontSize: 10px;
+      --ms-fonts-tiny-fontWeight: 400;
+      --ms-fonts-xSmall-fontSize: 10px;
+      --ms-fonts-xSmall-fontWeight: 400;
+      --ms-fonts-small-fontSize: 12px;
+      --ms-fonts-small-fontWeight: 400;
+      --ms-fonts-smallPlus-fontSize: 12px;
+      --ms-fonts-smallPlus-fontWeight: 400;
+      --ms-fonts-medium-fontSize: 14px;
+      --ms-fonts-medium-fontWeight: 400;
+      --ms-fonts-mediumPlus-fontSize: 16px;
+      --ms-fonts-mediumPlus-fontWeight: 400;
+      --ms-fonts-large-fontSize: 18px;
+      --ms-fonts-large-fontWeight: 400;
+      --ms-fonts-xLarge-fontSize: 20px;
+      --ms-fonts-xLarge-fontWeight: 600;
+      --ms-fonts-xLargePlus-fontSize: 24px;
+      --ms-fonts-xLargePlus-fontWeight: 600;
+      --ms-fonts-xxLarge-fontSize: 28px;
+      --ms-fonts-xxLarge-fontWeight: 600;
+      --ms-fonts-xxLargePlus-fontSize: 32px;
+      --ms-fonts-xxLargePlus-fontWeight: 600;
+      --ms-fonts-superLarge-fontSize: 42px;
+      --ms-fonts-superLarge-fontWeight: 600;
+      --ms-fonts-mega-fontSize: 68px;
+      --ms-fonts-mega-fontWeight: 600;
+      --ms-effects-elevation4:
+        0px 2px 4px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+      --ms-effects-elevation8:
+        0px 4px 8px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+      --ms-effects-elevation16:
+        0px 8px 16px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+      --ms-effects-elevation64:
+        0px 32px 64px rgba(0, 0, 0, 0.24), 0px 0px 8px rgba(0, 0, 0, 0.2);
+      --ms-effects-roundedCorner2: 2px;
+      --ms-effects-roundedCorner4: 4px;
+      --ms-effects-roundedCorner6: 6px;
+      --ms-effects-elevation2:
+        0px 1px 2px rgba(0, 0, 0, 0.14), 0px 0px 2px rgba(0, 0, 0, 0.12);
+      --ms-effects-elevation28:
+        0px 14px 28.8px rgba(0, 0, 0, 0.24), 0px 0px 8px rgba(0, 0, 0, 0.2);
+      --ms-effects-roundedCorner8: 8px;
+      --ms-effects-roundedCornerCircle: 50%;
     }
   }
 }
