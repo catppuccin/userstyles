@@ -1,0 +1,1601 @@
+/* ==UserStyle==
+@name Nitro Type Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/nitrotype
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/nitrotype
+@version 0.0.1
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/nitrotype/catppuccin.user.css
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Anitrotype
+@description Soothing pastel theme for Nitro Type
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var checkbox styleRaceBox "Style Race Box" 1
+@var checkbox preserveGoldGradient "Keep the gold lower gradients in boxes." 0
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+/* '/teachers' path is disabled because it is unfinished */
+@-moz-document regexp("^https?://(www\\.)?nitrotype\\.com(?!/teachers).*") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+  :root[data-theme="light"] {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    @border: @crust;
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+    }
+
+    input,
+    textarea {
+      &::placeholder {
+        color: @subtext0 !important;
+      }
+    }
+
+    body {
+      background: url("/dist/site/images/backgrounds/bg-tires.png"), @base;
+      border-color: @border !important;
+      color: @text !important;
+    }
+
+    /* NT-specific vars */
+    /* color */
+    /* the border surrounding a mantle box */
+
+    @text-shadow: @border;
+    @tooltip: @overlay0;
+    @input-field: @surface0;
+    @colored-button-text: @crust;
+    @tab-selected: @overlay0;
+    @row1: @surface2;
+    @row2: @surface1;
+
+    /* Shared Components */
+    /* link */
+    a {
+      color: @blue;
+    }
+    /* colors generic */
+    .tc-emerald,
+    .link--emerald {
+      color: @green;
+    }
+    /* password required */
+    .input-require,
+    .input-optional {
+      color: @red;
+    }
+    /* progress bar */
+    .prog--c .prog-barFill {
+      background-color: @blue;
+    }
+    /* gradient banner */
+    .bg--gradient,
+    .bg--gradient2 {
+      background: @crust;
+    }
+    /* table */
+    .table {
+      border-bottom-color: fade(@crust, 10%);
+      background-color: @row1;
+    }
+    /* these elements inhert from .table */
+    tr,
+    tbody {
+      border-color: fade(@crust, 10%);
+    }
+    /* btns */
+    /* modal close button */
+    .btn--negative {
+      background-color: @red;
+      color: @colored-button-text;
+    }
+    /* red */
+    .btn--primary,
+    .modal--bundle-offer--purchase-option,
+    .season--xmaxx-2023 .header > .header-core .header-login {
+      background-color: @accent;
+      color: @colored-button-text;
+    }
+    .link--error {
+      color: @red;
+    }
+    /* green */
+    .btn.is-on,
+    .is-on.modal--bundle-offer--purchase-option,
+    .is-on.friends-list--friend-status--join-race-button,
+    .btn.is-on:focus,
+    .is-on.modal--bundle-offer--purchase-option:focus,
+    .is-on.friends-list--friend-status--join-race-button:focus {
+      color: @green;
+    }
+    /* btn secondary "Return to Garage" */
+    /* friends buttons | "Race With Friends" and "Refresh" */
+    .btn--outline.events--garage-not-joined--btn:not(.is-active):not(
+      .is-disabled
+    ):not(:disabled):not(.is-success):not(.is-failure):not(:hover).btn--light,
+    .btn--outline.friends-list--friend-status--join-race-button:not(
+      .is-active
+    ):not(.is-disabled):not(:disabled):not(.is-success):not(.is-failure):not(
+      :hover
+    ).btn--light,
+    .btn--outline.modal--bundle-offer--purchase-option:not(.is-active):not(
+      .is-disabled
+    ):not(:disabled):not(.is-success):not(.is-failure):not(:hover).btn--light,
+    .btn.btn--outline:not(.is-active):not(.is-disabled):not(:disabled):not(
+      .is-success
+    ):not(.is-failure):not(:hover).btn--light {
+      color: @text;
+      border-color: @border;
+    }
+    /* switch box */
+    .switch {
+      background: fade(@crust, 50%);
+      border-color: @border;
+    }
+    /* badges */
+    .rarity-badge {
+      color: @colored-button-text;
+    }
+    /* input box */
+    /* friends page */
+    /* "Search for New Friends */
+    .input-field {
+      /* before: 1px solid #666 */
+      border: 1px solid @overlay2;
+    }
+    .input-action--left {
+      border: 1px solid @overlay2;
+      border-right: none;
+    }
+    /* popups */
+    /* growl (notify) */
+    /* body */
+    .growl--a {
+      background-color: @overlay2;
+      color: @text;
+    }
+    /* team name */
+    span.growl-user > span {
+      color: @blue !important;
+    }
+    /* close btn */
+    .growl-close {
+      background-color: @red;
+      border-color: @red;
+      color: @colored-button-text;
+    }
+    /* logout popup */
+    .modal--error .modal-container {
+      background: @red !important;
+      border-color: @red;
+    }
+    /* "Yes, I'm here! btn */
+    .btn--light {
+      background-color: @mantle;
+      color: @text;
+    }
+    /* text generic */
+    .tc-i {
+      color: @text;
+    }
+    /* cash popup claim */
+    .modal-close {
+      background-color: @accent;
+      color: @colored-button-text;
+    }
+    .modal--a .modal-container {
+      background-color: @crust;
+    }
+    /* loading */
+    /* loader spin wheel */
+    /* wheel balls */
+    .loader--default .loader-animBall {
+      color: @blue;
+    }
+    /* loading text */
+    .loader--default .loader-text {
+      color: @text;
+    }
+    /* notifications */
+    /* friend online notifications */
+    .notification--friend-online--info {
+      background: fade(@overlay0, 90%);
+      color: @text;
+      text-shadow: 0 1px 0 @crust;
+      box-shadow:
+        inset 0 0 0 1px fade(@overlay0, 15%),
+        0 2px 11px fade(@crust, 30%);
+    }
+
+    #root {
+      /* loading overlay */
+      > div:not(.structure, .growls) {
+        background-color: @base !important;
+      }
+      /* center modal */
+      > div:not(.structure) {
+        > div:not(.modal-container) {
+          background-color: @mantle !important;
+        }
+        /* "loading..." text */
+        > div > div:nth-child(2) {
+          color: @text;
+        }
+      }
+    }
+
+    /* NT logo, NT logo on the home page, NT logo on the loading screen */
+    div.header-core > div > a > svg,
+    div.header-core.g.g--flag.g--f > div.g-b.g-b--6of12 > div > a > svg,
+    #root > div > div > div:nth-child(1) > svg {
+      /* the first letter "N" */
+      > path:nth-child(7) {
+        fill: @accent !important;
+      }
+      /* the rest of the letters */
+      > path {
+        fill: @text !important;
+      }
+      /* the  slash at the end of the logo */
+      > path:nth-child(1) {
+        fill: @accent !important;
+      }
+    }
+
+    #root /* account dropdown */ .dropdown--account {
+      background-color: @crust;
+      /* account logo */
+      .dropdown-accountIcon {
+        color: @green;
+      }
+      /* logout btn */
+      .dropdown-item:last-child .dropdown-link {
+        background-color: @accent;
+        color: @text;
+      }
+      .dropdown-trigger {
+        color: @text;
+      }
+      .dropdown-link {
+        color: @text;
+        &:hover {
+          background-color: @mantle;
+        }
+      }
+    }
+    .dropdown--account,
+    .dropdown--account .dropdown-items {
+      background-color: @crust;
+    }
+
+    /* home page */
+    .swoop--hero--bottom {
+      fill: @mantle;
+    }
+    .swoop--hero {
+      background: @blue;
+    }
+    .home--overview--icon {
+      background: @mantle;
+      color: @red;
+    }
+    :root .swoop--hero--bottom {
+      fill: @crust;
+    }
+    /* btns */
+    .home--card--badge {
+      /* before: rgb(200, 230, 252) 0px 0px 0px 1px inset; */
+      box-shadow: @blue 0px 0px 0px 1px inset;
+      color: @blue;
+      background: @surface0;
+    }
+    /* text */
+    .home--hero {
+      color: @text;
+    }
+    .home--hero--car::after {
+      /* before: `rgba(0, 0, 0, 0.4) 0px 1px 3px;` */
+      text-shadow: 0 2px 2px fade(@crust, 25%);
+    }
+    /* season dates */
+    .seasonTeaser {
+      color: @text;
+    }
+    .home--stats--stat-value {
+      background: @blue;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    /* icons */
+    .icon {
+      fill: @blue;
+    }
+    .home--card--icon {
+      color: @blue;
+    }
+    div.home--card--content.home--overview--intro-card--content > a > svg {
+      fill: @text;
+    }
+    div.home--testimonials--intro > svg > path:nth-child(1) {
+      fill: @accent;
+    }
+    /* the original background on the quote div is disabled and a pseudo-element is created to apply the color filter just to apply the filter to the background-quote and not the rest of the text on the div */
+    /* before the background was: https://www.nitrotype.com/dist/site/images/pages/homepage/images/quote.jpg */
+    /* converted to a PNG and edited to remove the previous pastel-colored bg in Photopea */
+    .home--overview--quote {
+      position: relative;
+      overflow: hidden;
+      background: none;
+      & > * {
+        z-index: 1;
+        position: relative;
+      }
+      &::before {
+        z-index: 0;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        background-size: 88px auto;
+        background-repeat: no-repeat;
+        background-image: url("data:image/png;base64,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");
+        filter: @blue-filter;
+      }
+    }
+    /* before the background was https://www.nitrotype.com/dist/site/images/pages/homepage/images/nt-logo-bg.jpg */
+    .home--overview--content {
+      position: relative;
+      overflow: hidden;
+      background: none;
+      & > * {
+        z-index: 1;
+      }
+      &::before {
+        z-index: 0;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: 390px auto;
+        background-position: 60% 20%;
+        background-image: url("data:image/png;base64,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");
+        filter: @blue-filter;
+      }
+    }
+    /* btn */
+    .home--overview--learn-more {
+      background: @blue !important;
+    }
+    /* text */
+    .home--news--item {
+      background: @mantle;
+      p {
+        color: @text;
+      }
+      h3 {
+        color: @text;
+      }
+    }
+    /* modals */
+    /* testimonials */
+    .swoop--testimonials--bottom {
+      fill: @mantle;
+    }
+    .home--testimonials {
+      [data-quote="0"] {
+        background-color: @peach;
+      }
+      /* from Michelle F */
+      [data-quote="1"] {
+        background-color: @blue;
+      }
+      /* from Lauren W */
+      [data-quote="2"] {
+        background-color: @yellow;
+      }
+      /* quote author unknown */
+      [data-quote="3"] {
+        background-color: @green;
+      }
+      /* from Mary H. */
+      [data-quote="4"] {
+        background-color: @peach;
+      }
+      /* from Antoniettte J. */
+      [data-quote="5"] {
+        background-color: @blue;
+      }
+      /* from Michelle M */
+      [data-quote="6"] {
+        background-color: @yellow;
+      }
+      [data-quote="7"] {
+        background-color: @green;
+      }
+      /* from Matthew D. */
+      [data-quote="8"] {
+        background-color: @peach;
+      }
+      /* from Ivan V. */
+      [data-quote="9"] {
+        background-color: @blue;
+      }
+    }
+
+    /* settings page */
+    .input--checkbox .input-checkbox.checked + .input-label,
+    .input--checkbox .input-checkbox:checked + .input-label {
+      color: @green;
+    }
+    .input--checkbox .input-checkbox.checked + .input-label:before,
+    .input--checkbox .input-checkbox:checked + .input-label:before {
+      border-color: @green;
+    }
+    .input--checkbox .input-checkbox.checked + .input-label:after,
+    .input--checkbox .input-checkbox:checked + .input-label:after {
+      border-color: @green;
+    }
+
+    /* NT description */
+    .hp-heroCopy {
+      color: @text;
+    }
+    .hp-heroBG {
+      background-color: @mantle;
+    }
+    .hp-heroBG::after {
+      background-color: @crust;
+    }
+    /* "Teacher Portal" btn */
+    .btn--secondary {
+      background-color: @input-field;
+      color: @text;
+    }
+    /* "Login" btn */
+    .btn.btn--outline:not(
+      .is-active,
+      .is-disabled,
+      :disabled,
+      .is-success,
+      .is-failure,
+      :hover
+    ).btn--secondary,
+    .btn--outline.modal--bundle-offer--purchase-option:not(
+      .is-active,
+      .is-disabled,
+      :disabled,
+      .is-success,
+      .is-failure,
+      :hover
+    ).btn--secondary,
+    .btn--outline.friends-list--friend-status--join-race-button:not(
+      .is-active,
+      .is-disabled,
+      :disabled,
+      .is-success,
+      .is-failure,
+      :hover
+    ).btn--secondary {
+      color: @blue;
+      border-color: @blue;
+    }
+    /* Race with Friends */
+    .btn.btn--outline:not(
+      .is-active,
+      .is-disabled,
+      :disabled,
+      .is-success,
+      .is-failure,
+      :hover
+    ).btn--light,
+    .btn--outline.modal--bundle-offer--purchase-option:not(
+      .is-active,
+      .is-disabled,
+      :disabled,
+      .is-success,
+      .is-failure,
+      :hover
+    ).btn--light,
+    .btn--outline.friends-list--friend-status--join-race-button:not(
+      .is-active,
+      .is-disabled,
+      :disabled,
+      .is-success,
+      .is-failure,
+      :hover
+    ).btn--light {
+      border-color: @text;
+      color: @text;
+    }
+    /* navbar */
+    .nav {
+      /* original gradient: linear-gradient(to right, #5E5474 0%, #383C50 15%, #494E6A 100%) */
+      background: linear-gradient(
+        to right,
+        @surface2 0%,
+        @surface0 15%,
+        @surface1 100%
+      );
+    }
+    .nav-link {
+      color: @text;
+    }
+    /* current (selected) */
+    .nav-list-item.is-current {
+      background:
+        radial-gradient(
+          40px at 50% 100%,
+          fade(@overlay0, 15%) 0%,
+          fade(@overlay0, 0%) 100%
+        ),
+        @crust;
+      border-color: @border;
+      .nav-list-item {
+        background-color: @crust;
+      }
+      .nav-link {
+        color: @text;
+      }
+    }
+    .nav,
+    .nav-list-item.is-current {
+      /* before: rgba(2,2,2,.2) rgba(46,49,65,.2) #3b3d4c */
+      border-color: fade(black, 20%) fade(#2e3141, 20%) @crust;
+    }
+
+    /* "Garage" page */
+    /* bg */
+    .theme--pDefault .profile-bgHead {
+      background:
+        url("/dist/site/images/themes/profiles/default/bg-mid.png") no-repeat
+        75% -50%/45%,
+        url("/dist/site/images/backgrounds/bg-noise.png") top left repeat,
+        @crust;
+    }
+    /* bottom bg (NT gold only) */
+    .theme--pDefault.is-gold .profile-bg {
+      & when (@preserveGoldGradient = 1) {
+        background:
+          linear-gradient(
+            130deg,
+            fade(@mantle, 90%) 30%,
+            fade(@mantle, 60%) 60%,
+            fade(@mantle, 0%) 60%,
+            fade(@mantle, 0%) 65%,
+            fade(@mantle, 40%) 70%,
+            fade(@mantle, 0%) 70%
+          ),
+          linear-gradient(to bottom, #fadb66 96%, #fce797 100%);
+      }
+      & when (@preserveGoldGradient = 0) {
+        background: @mantle;
+      }
+    }
+    .card--a {
+      background-color: @mantle;
+      color: @text;
+    }
+    /* car tooltip */
+    .profile--active-car--car-name {
+      background-color: @tooltip;
+      color: @colored-button-text;
+    }
+    /* "Join Race" btn */
+    .btn--tertiary,
+    .friends-list--friend-status--join-race-button {
+      background-color: @green;
+      color: @colored-button-text;
+    }
+    /* friends race modal */
+    /* friends table */
+    .modal--friends-race--friend-list-item {
+      background-color: @row1;
+    }
+    .modal--friends-race--friend-list-item:nth-child(odd) {
+      background-color: @row2;
+    }
+    /* notify */
+    div.notify,
+    div.notify::before {
+      background-color: @accent;
+    }
+    /* invite hint */
+    .modal--friends-race--friends-invite-hint {
+      background: @crust;
+      color: @text;
+    }
+    /* "Race Settings"
+    /* toggle button */
+    .pop::before {
+      box-shadow: 0 8px 4px fade(@surface2, 25%);
+    }
+    .toggle::before {
+      background: @blue;
+    }
+    .toggle:not(.is-toggled) > div:nth-child(1) > div > div,
+    .toggle.is-toggled > div:nth-child(2) > div > div {
+      color: @colored-button-text;
+    }
+    /* tooltip */
+    .pop--dark::before {
+      color: @text;
+      background: @surface0;
+      border-top-color: @surface2;
+    }
+    /* triangle */
+    .pop--dark[class*="pop--top"]::after {
+      border-top-color: @surface0;
+    }
+    /* widgets */
+    /* season progress */
+    .season-progress-widget {
+      color: @text;
+    }
+    .season-progress-widget--level-progress-bar {
+      background-color: @yellow;
+    }
+    /* "Daily Challenges" box */
+    .card--d {
+      background-color: @mantle;
+      color: @text;
+    }
+    /* in-progress */
+    .daily-challenge-progress--progress-bar {
+      background-color: @blue;
+    }
+    /* completed */
+    .daily-challenge-progress.is-complete
+      .daily-challenge-progress--progress-bar {
+      background-color: @green;
+    }
+    /* new arrival date, challenge name, progress, progress label, xp earned count */
+    .daily-challenge-list--arriving-label,
+    .daily-challenge-progress--name,
+    .daily-challenge-progress--xp,
+    .daily-challenge-progress--label,
+    .daily-challenge-progress--status {
+      color: @text;
+    }
+    /* complete check box */
+    .daily-challenge-progress.is-complete
+      .daily-challenge-progress--badge::before {
+      box-shadow: inset 0 0 0 26px @green, 0 1px 5px fade(@crust, 50%);
+    }
+    .daily-challenge-list--challenges {
+      color: @colored-button-text;
+    }
+    /* Mystery Box */
+    .mysteryBox-title,
+    .mysteryBox-arrival {
+      color: @text;
+    }
+    /* "Mystery Box is arriving in..." box */
+    .mysteryBox,
+    .mysteryBox.is-coming {
+      background: linear-gradient(0deg, fade(@crust, 50%), fade(@crust, 70%));
+    }
+    .mysteryBox {
+      background: fade(@crust, 70%);
+      background: linear-gradient(0deg, fade(@crust, 80%), fade(@crust, 60%));
+      box-shadow: 0 3px 10px fade(@crust, 50%);
+    }
+    /* lootbox modal */
+    .modal--mysterybox .modal-container {
+      & when (@preserveGoldGradient = 1) {
+        background:
+          linear-gradient(
+            to bottom,
+            fade(@crust, 0%) 75%,
+            fade(@yellow, 80%) 100%
+          ) center center repeat-x,
+          url("/dist/site/images/mystery-box/mystery-box-qs.png") center center
+          repeat,
+          url("/dist/site/images/backgrounds/bg-noise.png") top left repeat,
+          @crust;
+      }
+      & when (@preserveGoldGradient = 0) {
+        background-color: @crust;
+      }
+    }
+    .lootbox.is-money .lootbox-desc {
+      color: @green;
+    }
+    .btn.is-disabled:not(.is-frozen),
+    .is-disabled.modal--bundle-offer--purchase-option:not(.is-frozen),
+    .is-disabled.friends-list--friend-status--join-race-button:not(.is-frozen),
+    .btn:disabled:not(.is-frozen),
+    .modal--bundle-offer--purchase-option:disabled:not(.is-frozen),
+    .friends-list--friend-status--join-race-button:disabled:not(.is-frozen),
+    .btn[disabled]:not(.is-frozen),
+    .modal--bundle-offer--purchase-option[disabled]:not(.is-frozen),
+    .friends-list--friend-status--join-race-button[disabled]:not(.is-frozen) {
+      color: @text;
+    }
+    /* claim btn */
+    .btn.is-disabled:not(.is-frozen),
+    .is-disabled.modal--bundle-offer--purchase-option:not(.is-frozen),
+    .is-disabled.friends-list--friend-status--join-race-button:not(.is-frozen),
+    .btn:disabled:not(.is-frozen),
+    .modal--bundle-offer--purchase-option:disabled:not(.is-frozen),
+    .friends-list--friend-status--join-race-button:disabled:not(.is-frozen),
+    .btn[disabled]:not(.is-frozen),
+    .modal--bundle-offer--purchase-option[disabled]:not(.is-frozen),
+    .friends-list--friend-status--join-race-button[disabled]:not(.is-frozen) {
+      background-color: @mantle !important;
+    }
+    /* garage spot */
+    .garage-spot::before {
+      background-color: @yellow;
+    }
+    /* lane divider */
+    .garage-spot {
+      border-color: @overlay2;
+    }
+    /* garage spot tooltip */
+    .reactTooltip {
+      box-shadow:
+        0 28px 28px 0 fade(@crust, 5%),
+        0 17px 17px 0 fade(@crust, 20%),
+        0 8px 8px 0 fade(@crust, 15%);
+      color: @colored-button-text !important;
+      background-color: @blue !important;
+    }
+    .reactTooltip,
+    .reactTooltip.place-top::after {
+      border-top-color: @blue !important;
+    }
+    /* footer */
+    .footer {
+      background:
+        url("/dist/site/images/backgrounds/bg-noise.png") top left repeat,
+        @crust;
+    }
+    .footer-copyright {
+      background-color: @mantle;
+    }
+    .footer-card {
+      background-color: @overlay0;
+    }
+    .link--nav {
+      color: @text;
+    }
+
+    /* Racer Profile page */
+    .theme--pDefault .profile-totalRaces {
+      color: @text;
+    }
+
+    /* "Customizer" page */
+    /* about title */
+    .customizer--about--title::after,
+    .customizer--about--title::before,
+    .customizer--about--title {
+      background-color: @accent;
+      color: @colored-button-text;
+    }
+    /* tabs */
+    /* current tab */
+    .customizer--tab--selected {
+      background-color: @overlay0 !important;
+    }
+    /* other tabs */
+    .customizer--tabs {
+      background-color: @crust;
+      box-shadow: 0 1px 8px @crust, inset 0 0 0 1px @overlay2;
+    }
+    /* tab label */
+    .customizer--tab--label {
+      color: @text;
+    }
+    /* search elements */
+    /* car search, sort by dropdown */
+    .input-field,
+    .input-select {
+      background-color: @input-field;
+      color: @text;
+    }
+    .input-select {
+      border-color: @blue;
+    }
+    /* clear btn */
+    .customizer--item-selector-controls--filter-clear {
+      background-color: @surface0;
+      color: @text;
+    }
+    /* current car */
+    .section-cars .customizer--preview .customizer--trail-selection--name,
+    .section-cars .customizer--preview .customizer--vehicle-selection--name,
+    .section-cars .customizer--preview .customizer--nametag-selection--name,
+    .section-cars .customizer--preview .customizer--nitro-selection--name,
+    .section-nitro .customizer--preview .customizer--trail-selection--name,
+    .section-nitro .customizer--preview .customizer--vehicle-selection--name,
+    .section-nitro .customizer--preview .customizer--nametag-selection--name,
+    .section-nitro .customizer--preview .customizer--nitro-selection--name,
+    .section-fanfare .customizer--preview .customizer--trail-selection--name,
+    .section-fanfare .customizer--preview .customizer--vehicle-selection--name,
+    .section-fanfare .customizer--preview .customizer--nametag-selection--name,
+    .section-fanfare .customizer--preview .customizer--nitro-selection--name,
+    .section-nametags .customizer--preview .customizer--trail-selection--name,
+    .section-nametags .customizer--preview .customizer--vehicle-selection--name,
+    .section-nametags .customizer--preview .customizer--nametag-selection--name,
+    .section-nametags .customizer--preview .customizer--nitro-selection--name,
+    .section-nitros .customizer--preview .customizer--trail-selection--name,
+    .section-nitros .customizer--preview .customizer--vehicle-selection--name,
+    .section-nitros .customizer--preview .customizer--nametag-selection--name,
+    .section-nitros .customizer--preview .customizer--nitro-selection--name,
+    .section-trails .customizer--preview .customizer--trail-selection--name,
+    .section-trails .customizer--preview .customizer--vehicle-selection--name,
+    .section-trails .customizer--preview .customizer--nametag-selection--name,
+    .section-trails .customizer--preview .customizer--nitro-selection--name {
+      color: @text;
+      text-shadow: fade(@crust, 50%);
+    }
+    /* sticker preview */
+    .sticker-selection-item--selected {
+      background: radial-gradient(
+        circle,
+        fade(@crust, 60%) 0%,
+        fade(@crust, 0%) 65%
+      );
+    }
+    /* "Maximum Stickers Selected" msg */
+    box-shadow {
+      background: fade(@crust, 30%);
+      box-shadow: inset @crust 1px fade(@overlay0, 20%);
+    }
+    /* car selector */
+    /* card */
+    .customizer--item-selector {
+      background-color: @crust;
+      border-color: @border;
+    }
+    /* remove inner gradient in car selector box */
+    .customizer--item-selector-content::before,
+    .customizer--item-selector-content::after {
+      background: none;
+    }
+    .customizer--item-selector-item,
+    .customizer--item-selector-item--labels {
+      color: @colored-button-text;
+    }
+    /* scroll bar */
+    .customizer .ScrollbarsCustom-Thumb.ScrollbarsCustom-ThumbY {
+      background-color: @blue !important;
+    }
+    /* indicators */
+    /* car equipped isndicator */
+    .customizer--item-selector-item--equipped {
+      background-color: @accent;
+    }
+    /* border */
+    .customizer--item-selector-item.is-equipped::before {
+      box-shadow: inset 0 0 0 2px @accent;
+    }
+    /* new indicator */
+    .customizer--item-selector-item--new {
+      background-color: @blue;
+    }
+    /* shop notification */
+    .customizer--shop-notification {
+      box-shadow: inset 0 0 0 1px fade(@crust, 20%);
+      text-shadow: 0 1px 3px @text-shadow;
+    }
+    /* description */
+    .customizer--shop-notification--desc {
+      color: @text;
+    }
+
+    /* "Season" page */
+    .card--season {
+      background:
+        url("/dist/site/images/pages/season/season-slashes.png"),
+        url("/dist/site/images/backgrounds/bg-noise.png"),
+        @crust;
+    }
+    /* title */
+    .season--default .seasonInspector-copyTitle,
+    .season--default .seasonInspector-copySubtitle {
+      color: @text;
+    }
+    /* scroll arrow */
+    .season-arrow {
+      color: @subtext0;
+    }
+    /* reward progress line */
+    .seasonReward.is-complete .seasonReward-progress {
+      background-color: @green;
+    }
+    /* reward checkbox */
+    .seasonReward-status--claimed {
+      background-color: @green;
+      border-color: @green;
+      color: @colored-button-text;
+    }
+    /* reward tier */
+    .seasonReward.is-complete .seasonReward-tier {
+      background-color: @green;
+      color: @colored-button-text;
+    }
+    /* reward boxes */
+    .seasonReward-tag--free {
+      color: @subtext0;
+    }
+    .seasonReward-tag--free,
+    .seasonReward.is-selected .seasonReward-tag--free,
+    .seasonReward.is-selected:hover .seasonReward-tag--free {
+      background: @green;
+      color: @colored-button-text;
+    }
+
+    /* "Shop" page */
+    /* cash */
+    .page-shop--current-balance {
+      color: @text;
+    }
+    .page-shop--current-balance--money {
+      color: @green;
+      text-shadow: 0 0 7px @green;
+    }
+    /* time remaining */
+    .page-shop--time-remaining {
+      background-color: @blue;
+      color: @colored-button-text;
+      fill: @colored-button-text;
+    }
+    /* dealerships */
+    /* panel */
+    .page-shop--dealership-option {
+      background-color: @crust;
+    }
+    /* selected dealership */
+    .page-shop--dealership-option.is-selected {
+      background-color: @tab-selected;
+    }
+    /* owned badge */
+    .page-shop--owned::before {
+      background: @yellow;
+      text-shadow: -2px 2px 3px fade(@crust, 40%);
+      color: @colored-button-text;
+    }
+    /* buy modal */
+    /* cash */
+    /* current cash title */
+    .page-shop--modal--cash-balance-title {
+      color: @text;
+    }
+    /* cash balance */
+    .page-shop--modal--cash-balance,
+    .page-shop--modal--season-item {
+      color: @text;
+    }
+    /* text generic */
+    .page-shop--modal--summary {
+      color: @text;
+    }
+
+    /* "Login" page */
+    /* "N" in Nitrotype logo */
+
+    /* back to homepage. username/password */
+    .link--i,
+    .input-label {
+      color: @text;
+    }
+    .input-action {
+      background-color: @input-field;
+    }
+    /* focused input field, show btn */
+    .has-action .input-field:focus,
+    .has-action.has-action--right .input-action {
+      background-color: @surface1;
+    }
+    .has-action.has-action--right .input-action:focus {
+      background-color: @surface1;
+      border-color: @blue !important;
+    }
+    /* "No account found..." */
+    .input-alert {
+      background: fade(@red, 50%);
+    }
+    /* message box */
+    .show-error .input-field,
+    .input.is-error .input-field {
+      background: fade(@red, 20%);
+    }
+    .input-alert,
+    .show-error .input-field,
+    .input.is-error .input-field {
+      border-color: @red;
+      color: @text;
+    }
+    /* "Need an account?" */
+    .tc-ts {
+      color: @text;
+    }
+    /* "Forget your password?" */
+    .link--ts {
+      color: @text;
+    }
+    /* login buttons */
+    .btn--google,
+    .btn--clever,
+    .btn--classlink,
+    .btn--facebook {
+      background-color: @input-field;
+      color: @text;
+    }
+
+    /* "You must be logged in..." page */
+    /* "Achievements" page */
+    /* bg */
+    .card--b {
+      background-color: @mantle;
+      color: @text;
+    }
+    /* achievements */
+    .achievement,
+    .achievement-name,
+    .achievement.is-claimable .achievement-description {
+      color: @text;
+    }
+    .achievement {
+      background: @overlay0;
+    }
+    /* complete achievements */
+    .achievement.is-complete .achievement-name,
+    .achievement.is-complete .achievement-description {
+      color: @green;
+    }
+    .achievement.is-complete {
+      background: @overlay1;
+    }
+    /* prize money */
+    .achievement-prize--money .achievement-prizeCopy {
+      color: @green;
+    }
+    /* claim prize btn */
+    .btn--positive {
+      background-color: @green;
+      color: @colored-button-text;
+    }
+
+    /* "Friends" page */
+    /* tabs */
+    /* selected (active) tab */
+    .tabs--a .tab.is-active {
+      background-color: @tab-selected;
+      color: @text;
+    }
+    /* other tabs */
+    .tabs--a .tab {
+      background: linear-gradient(to bottom, fade(@surface2, 60%), @surface0);
+      color: @text;
+    }
+    /* switch friends online/offline */
+    .switch-label {
+      color: @text;
+    }
+    .switch-input:checked + .switch-label {
+      color: @text;
+    }
+    .switch {
+      /* before: 1px solid #303343 */
+      border: 1px solid @crust;
+    }
+    .switch-selection {
+      background-color: @green;
+      box-shadow: ;
+    }
+    .switch-input:checked:nth-child(1) + .switch-label {
+      color: @colored-button-text;
+    }
+    /* switch off */
+    .switch-input:checked + .switch-label--off ~ .switch-selection,
+    .switch.checked .switch-selection {
+      background: @red;
+    }
+    /* table */
+    /* header */
+    .table-head .table-cell {
+      background-color: @input-field;
+    }
+    /* show all friends */
+    .link--h {
+      color: @blue;
+    }
+    /* "Friends" page table */
+    .table--striped
+      .table-body
+      .table-row:nth-child(odd):not(
+        .table-row--gold,
+        .table-row--silver,
+        .table-row--bronze
+      ) {
+      background: @row2;
+    }
+    :root .table-row {
+      background: @row1;
+    }
+    /* "Join Now" btn" */
+    .friends-list--friend-status--join-race-button {
+      background-color: @green;
+    }
+    .friends-list--row.is-friend-racing:hover
+      .friends-list--friend-status--join-race-label {
+      color: @colored-button-text;
+    }
+
+    /* "League" page */
+    /* "Current League" text */
+    .leagues--overview--joined {
+      color: @green;
+    }
+    /* "Legend League" text */
+    .leagues--overview--name {
+      color: @text;
+    }
+    /* promotion text, days until leagues end */
+    .leagues--overview--promoting,
+    .leagues--overview--remaining {
+      color: @text;
+    }
+    /* promotion zone */
+    .leagues--promotion-zone.promote {
+      color: @green;
+      background: fade(@green, 15%);
+    }
+    .leagues--promotion-zone.demote {
+      color: @accent;
+      background: fade(@accent, 15%);
+    }
+    /* league icons */
+    .league-ranking--icon.is-hidden .league-ranking--icon--container {
+      background: @surface1;
+      box-shadow: inset @crust 1px fade(@overlay0, 30%);
+    }
+
+    /* "Team" page */
+    .bg--blk50 {
+      background-color: fade(@crust, 50%);
+    }
+    .motds {
+      background-color: fade(@crust, 30%);
+    }
+
+    /* "Achievement" page */
+    /* vertical tabs */
+    /* selected (active) tab */
+    .btn.is-active,
+    .is-active.modal--bundle-offer--purchase-option,
+    .is-active.friends-list--friend-status--join-race-button {
+      background-color: @tab-selected;
+      color: @text;
+      text-shadow: 0 2px 2px fade(@crust, 25%);
+    }
+    /* other tabs */
+    .btn.btn--thick:not(.btn.is-active) {
+      background-color: @crust;
+      /* remember that @border is only for mantle, while this is using crust */
+      border-color: @overlay1;
+      color: @text;
+    }
+    /* progress overview */
+    /* points completed */
+    .prog-points {
+      color: @text;
+    }
+    /* claim modal */
+    /* bg */
+    .modal--achmoney .modal-achBox,
+    .modal--achtitle .modal-achBox,
+    .modal--achcar .modal-achBox,
+    .modal--achloot .modal-achBox {
+      background: fade(@green, 75%);
+    }
+    .modal--achmoney .modal-body,
+    .modal--achtitle .modal-body,
+    .modal--achcar .modal-body,
+    .modal--achloot .modal-body {
+      background-color: @crust;
+    }
+    /* titles */
+    .modal--achmoney .modal-achName,
+    .modal--achtitle .modal-achName,
+    .modal--achcar .modal-achName,
+    .modal--achloot .modal-achName,
+    .modal--achmoney .modal-achTitle,
+    .modal--achtitle .modal-achTitle,
+    .modal--achcar .modal-achTitle,
+    .modal--achloot .modal-achTitle {
+      color: @green;
+    }
+    /* money earned */
+    .modal--achmoney .modal-achMoneyEarned {
+      color: @green;
+    }
+
+    /* "Team" page */
+    /* MoTDs */
+    /* the horizontal bar behind the blockquote */
+    .blockquote-copy {
+      border-color: @text;
+    }
+    /* reactions */
+    .boosts-list--item {
+      background: fade(@overlay0, 50%);
+      box-shadow: inset @crust 1px fade(@overlay0, 10%);
+      color: @text;
+    }
+    /* "View Older MoTD's" */
+    .motds-toggleBtn {
+      color: @blue;
+    }
+    /* player badge */
+    /* officer */
+    .bg--dodger {
+      background-color: @blue !important;
+    }
+    /* captain */
+    .bg--lemon {
+      background-color: @yellow !important;
+    }
+    /* captain text */
+    .type-rank,
+    .tc-t {
+      color: @colored-button-text;
+    }
+
+    /* "News" page */
+    .link--bare,
+    .news-byline,
+    .news-teaser {
+      color: @text;
+    }
+    /* card */
+    .card--e {
+      background: unset;
+      color: @text;
+    }
+
+    /* "Stats" page */
+    .card--bc-brick {
+      border-color: @red;
+    }
+    .tc-brick {
+      color: @red;
+    }
+    .card--bc-dodger {
+      border-color: @blue;
+    }
+    .tc-dodger {
+      color: @blue;
+    }
+    .card--bc-emerald {
+      border-color: @green;
+    }
+
+    /* "Race" page */
+    /* race loader */
+    .racePanel--loading {
+      background:
+        radial-gradient(
+          circle closest-side at center center,
+          fade(@blue, 20%) 0%,
+          fade(@blue, 0%)
+        ) 5%,
+        @mantle;
+    }
+    .raceLoader-circle {
+      stroke: @blue;
+    }
+    .raceLoader {
+      color: @blue !important;
+    }
+    /* dash actions (under the race box) */
+    .btn--ghost,
+    .btn--ghost:focus:not(:hover) {
+      color: fade(@text, 80%);
+    }
+    & when (@styleRaceBox = 1) {
+      /* race box */
+      .dash-copyContainer {
+        background: @crust;
+      }
+      /* upcoming letter */
+      .dash-copy {
+        color: @text;
+      }
+      .dash-letter {
+        /* caret */
+        &.is-waiting {
+          background-color: @blue;
+        }
+        /* incorrect caret */
+        &.is-incorrect {
+          background-color: @red;
+        }
+        /* letter correct */
+        &.is-correct {
+          color: @subtext1;
+        }
+      }
+    }
+    /* warm up practice */
+    /* box */
+    .waiting-for-leader--overlay,
+    .waiting-for-leader--status--estimate,
+    .waiting-for-leader--status--position,
+    .waiting-for-leader--leader--status {
+      color: @text;
+    }
+    /* instructions */
+    .waiting-for-leader--warm-up--instructions {
+      background-color: @blue;
+      box-shadow: 0 1px 8px fade(@crust, 40%);
+      color: @colored-button-text;
+    }
+    /* race box */
+    & when (@styleRaceBox = 1) {
+      .waiting-for-leader--warm-up--entry {
+        background: @crust;
+        box-shadow: inset 0 0 15px @surface2, 0 1px 8px fade(@crust, 20%);
+      }
+      .waiting-for-leader--warm-up--word {
+        color: @text;
+        &.waiting-for-leader--warm-up--word div[class*="letter-"].current {
+          background: @blue;
+          color: @text;
+          &.error {
+            background: @red;
+            color: @text;
+          }
+        }
+      }
+    }
+
+    /* word progress counter */
+    .waiting-for-leader--warm-up--progress {
+      text-shadow: 0 0 7px fade(@text-shadow, 70%);
+      color: @text;
+    }
+
+    /* race message */
+    .nmDash-message {
+      background-color: @surface0;
+      color: @text;
+    }
+    /* race chat */
+    /* sticker box */
+    .raceChat-pickerContainer {
+      background: @surface0;
+    }
+    /* sticker box btn */
+    .raceChat-picker.is-toggled .raceChat-pickerToggle {
+      background: @overlay0;
+    }
+    /* triangle */
+    .tooltip--a.tooltip--r::before {
+      border-color: transparent @blue transparent transparent;
+    }
+    /* message btn */
+    .raceChat-pickerToggle,
+    .raceChat-pickerToggle::before {
+      background-color: @overlay0;
+    }
+    .raceChat-pickerToggle {
+      color: @blue;
+    }
+    /* sticker # */
+    .raceChat.show-keyboard-shortcuts .raceChat-pickerOpt .raceChat-btn::after {
+      background-color: @overlay2;
+      color: @text;
+    }
+    /* sticker choice */
+    .raceChat-btn {
+      background-color: @overlay1;
+    }
+    /* page choice */
+    .raceChat-pages {
+      background-color: @overlay2;
+    }
+    /* sticker */
+    .raceChat-page.selected {
+      box-shadow: inset 0 0 0 2px @overlay0;
+      background-color: @overlay2;
+    }
+    /* "Race Results" page */
+    /* bg */
+    .raceResults--default {
+      background:
+        url("/dist/site/images/backgrounds/bg-noise.png") left top repeat,
+        @crust;
+      border-color: @crust;
+      color: @text;
+    }
+    /* footer bg */
+    .raceResults-footer {
+      background-color: @mantle;
+      border-color: @border;
+      text-shadow: 3px 2px 0 fade(@crust, 25%);
+    }
+    /* footer, table */
+    .raceResults-footer,
+    .gridTable--raceResults .gridTable-row {
+      border-color: @mantle;
+    }
+    /* table row */
+    .gridTable-cell {
+      background-color: @mantle;
+    }
+    .gridTable-row {
+      text-shadow: 3px 2px 0 fade(@crust, 25%);
+    }
+    /* winner name */
+    .type-gold {
+      text-shadow: 3px 2px 0 fade(@crust, 40%);
+    }
+    /* cards */
+    .raceResults-rewards,
+    .raceResults-dailyChallenges,
+    .raceResults-userFeedback {
+      background-color: @mantle;
+      color: @text;
+    }
+    /* "Race Results" title */
+    .raceResults-title--main,
+    .raceResults-title--main::after {
+      background-color: @accent;
+      color: @colored-button-text;
+    }
+    /* title, placement subtitle */
+    .raceResults-title--place,
+    .raceResults-title--place::after {
+      background-color: @mantle;
+      color: @accent;
+    }
+    /* race placement */
+    .raceResults-placement-other {
+      color: @text;
+    }
+    /* rewards */
+    .raceResults-reward-cash {
+      color: @green;
+    }
+    .raceResults-reward-xp {
+      color: @blue;
+    }
+    /* close button */
+    .raceResults-close {
+      color: @colored-button-text;
+    }
+    /* race again tooltip */
+    .pop--secondary::before {
+      background-color: @tooltip;
+      color: @colored-button-text;
+    }
+    .pop--secondary[class*="pop--top"]::after {
+      border-top-color: @tooltip;
+    }
+    /* "Daily Challenge Progress" modal */
+    /* title */
+    .daily-challenge-completed-notification--header {
+      color: @text;
+    }
+
+    /* "Stats" page */
+    /* "Summary" table */
+    :root
+      .table--striped
+      .table-body
+      .table-row:nth-child(odd):not(
+        .table-row--gold,
+        .table-row--silver,
+        .table-row--bronze
+      ) {
+      background-color: @row2;
+    }
+    /* "Details" chart */
+    .link--filter.is-current {
+      color: @text;
+    }
+    .link--filter {
+      color: @subtext0;
+    }
+    .rv-xy-plot {
+      color: @text;
+    }
+
+    /* Demo Race page */
+    /* WPM result */
+    .wpm-display--progress {
+      stroke: @yellow;
+    }
+    .signup-form--summary-agreement {
+      color: @text;
+    }
+    /* "Log In" btn */
+    :root
+      .btn.btn--outline:not(
+        .is-active,
+        .is-disabled,
+        :disabled,
+        .is-success,
+        .is-failure,
+        :hover
+      ).btn--secondary,
+    :root
+      .btn--outline.modal--bundle-offer--purchase-option:not(
+        .is-active,
+        .is-disabled,
+        :disabled,
+        .is-success,
+        .is-failure,
+        :hover
+      ).btn--secondary {
+      border-color: @blue;
+      color: @blue;
+    }
+    /* tutorial tooltips */
+    .tooltip--trigger-container .tooltip--a.tooltip,
+    .tooltip--a::after {
+      background-color: @blue;
+      color: @colored-button-text;
+    }
+    .tooltip--a.tooltip--bottom::before {
+      border-color: transparent transparent transparent @blue;
+    }
+    .tooltip--a.tooltip--c::before,
+    .tooltip--a.tooltip--left::before {
+      border-color: @blue transparent transparent transparent;
+    }
+    /* green */
+    .tooltip--go::after {
+      background-color: @green;
+    }
+    /* triangle */
+    .tooltip--go.tooltip--c::before {
+      border-color: @green transparent transparent transparent;
+    }
+
+    /* 404 page */
+    .error {
+      border-color: @red;
+    }
+    .error-titleCopy {
+      color: @red;
+    }
+  }
+}
+
+// vim:ft=less
