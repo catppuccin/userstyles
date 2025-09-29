@@ -44,6 +44,26 @@
 
     @border: @crust;
 
+    /* the NitroType Gold coloring is kept because it is iconic */
+    @gold-start: #fadb66;
+    @gold-end: #fce797;
+
+    .btn-primary() {
+      background-color: @accent;
+      color: @colored-button-text;
+    }
+    .btn-negative() {
+      background-color: @red;
+      color: @colored-button-text;
+    }
+    .btn-light() {
+      background-color: @mantle;
+      color: @text;
+    }
+    .modal-container-base() {
+      background-color: @crust;
+    }
+
     ::selection {
       background-color: fade(@accent, 30%);
     }
@@ -110,15 +130,13 @@
     /* btns */
     /* modal close button */
     .btn--negative {
-      background-color: @red;
-      color: @colored-button-text;
+      .btn-negative();
     }
     /* red */
     .btn--primary,
     .modal--bundle-offer--purchase-option,
     .season--xmaxx-2023 .header > .header-core .header-login {
-      background-color: @accent;
-      color: @colored-button-text;
+      .btn-primary();
     }
     .link--error {
       color: @red;
@@ -189,14 +207,15 @@
       color: @colored-button-text;
     }
     /* logout popup */
-    .modal--error .modal-container {
-      background: @red !important;
-      border-color: @red;
+    .modal--error {
+      .modal-container {
+        background: @red !important;
+        border-color: @red;
+      }
     }
     /* "Yes, I'm here! btn */
     .btn--light {
-      background-color: @mantle;
-      color: @text;
+      .btn-light();
     }
     /* text generic */
     .tc-i {
@@ -207,18 +226,22 @@
       background-color: @accent;
       color: @colored-button-text;
     }
-    .modal--a .modal-container {
-      background-color: @crust;
+    .modal--a {
+      .modal-container {
+        .modal-container-base();
+      }
     }
     /* loading */
-    /* loader spin wheel */
-    /* wheel balls */
-    .loader--default .loader-animBall {
-      color: @blue;
-    }
-    /* loading text */
-    .loader--default .loader-text {
-      color: @text;
+    .loader--default {
+      /* loader spin wheel */
+      /* wheel balls */
+      .loader-animBall {
+        color: @blue;
+      }
+      /* loading text */
+      .loader-text {
+        color: @text;
+      }
     }
     /* notifications */
     /* friend online notifications */
@@ -454,17 +477,21 @@
     }
 
     /* settings page */
-    .input--checkbox .input-checkbox.checked + .input-label,
-    .input--checkbox .input-checkbox:checked + .input-label {
-      color: @green;
-    }
-    .input--checkbox .input-checkbox.checked + .input-label:before,
-    .input--checkbox .input-checkbox:checked + .input-label:before {
-      border-color: @green;
-    }
-    .input--checkbox .input-checkbox.checked + .input-label:after,
-    .input--checkbox .input-checkbox:checked + .input-label:after {
-      border-color: @green;
+    .input--checkbox {
+      .input-checkbox {
+        &.checked + .input-label,
+        &:checked + .input-label {
+          color: @green;
+        }
+        &.checked + .input-label:before,
+        &:checked + .input-label:before {
+          border-color: @green;
+        }
+        &.checked + .input-label:after,
+        &:checked + .input-label:after {
+          border-color: @green;
+        }
+      }
     }
 
     /* NT description */
@@ -473,9 +500,9 @@
     }
     .hp-heroBG {
       background-color: @mantle;
-    }
-    .hp-heroBG::after {
-      background-color: @crust;
+      &::after {
+        background-color: @crust;
+      }
     }
     /* "Teacher Portal" btn */
     .btn--secondary {
@@ -571,35 +598,37 @@
     .nav,
     .nav-list-item.is-current {
       /* before: rgba(2,2,2,.2) rgba(46,49,65,.2) #3b3d4c */
-      border-color: fade(black, 20%) fade(#2e3141, 20%) @crust;
+      border-color: fade(@crust, 20%) fade(@base, 20%) @mantle;
     }
 
     /* "Garage" page */
-    /* bg */
-    .theme--pDefault .profile-bgHead {
-      background:
-        url("/dist/site/images/themes/profiles/default/bg-mid.png") no-repeat
-        75% -50%/45%,
-        url("/dist/site/images/backgrounds/bg-noise.png") top left repeat,
-        @crust;
-    }
-    /* bottom bg (NT gold only) */
-    .theme--pDefault.is-gold .profile-bg {
-      & when (@preserveGoldGradient = 1) {
+    .theme--pDefault {
+      /* bg */
+      .profile-bgHead {
         background:
-          linear-gradient(
-            130deg,
-            fade(@mantle, 90%) 30%,
-            fade(@mantle, 60%) 60%,
-            fade(@mantle, 0%) 60%,
-            fade(@mantle, 0%) 65%,
-            fade(@mantle, 40%) 70%,
-            fade(@mantle, 0%) 70%
-          ),
-          linear-gradient(to bottom, #fadb66 96%, #fce797 100%);
+          url("/dist/site/images/themes/profiles/default/bg-mid.png") no-repeat
+          75% -50%/45%,
+          url("/dist/site/images/backgrounds/bg-noise.png") top left repeat,
+          @crust;
       }
-      & when (@preserveGoldGradient = 0) {
-        background: @mantle;
+      /* bottom bg (NT gold only) */
+      &.is-gold .profile-bg {
+        & when (@preserveGoldGradient = 1) {
+          background:
+            linear-gradient(
+              130deg,
+              fade(@mantle, 90%) 30%,
+              fade(@mantle, 60%) 60%,
+              fade(@mantle, 0%) 60%,
+              fade(@mantle, 0%) 65%,
+              fade(@mantle, 40%) 70%,
+              fade(@mantle, 0%) 70%
+            ),
+            linear-gradient(to bottom, @gold-start 96%, @gold-end 100%);
+        }
+        & when (@preserveGoldGradient = 0) {
+          background: @mantle;
+        }
       }
     }
     .card--a {
@@ -711,25 +740,29 @@
       box-shadow: 0 3px 10px fade(@crust, 50%);
     }
     /* lootbox modal */
-    .modal--mysterybox .modal-container {
-      & when (@preserveGoldGradient = 1) {
-        background:
-          linear-gradient(
-            to bottom,
-            fade(@crust, 0%) 75%,
-            fade(@yellow, 80%) 100%
-          ) center center repeat-x,
-          url("/dist/site/images/mystery-box/mystery-box-qs.png") center center
-          repeat,
-          url("/dist/site/images/backgrounds/bg-noise.png") top left repeat,
-          @crust;
-      }
-      & when (@preserveGoldGradient = 0) {
-        background-color: @crust;
+    .modal--mysterybox {
+      .modal-container {
+        & when (@preserveGoldGradient = 1) {
+          background:
+            linear-gradient(
+              to bottom,
+              fade(@crust, 0%) 75%,
+              fade(@yellow, 80%) 100%
+            ) center center repeat-x,
+            url("/dist/site/images/mystery-box/mystery-box-qs.png") center
+            center repeat,
+            url("/dist/site/images/backgrounds/bg-noise.png") top left repeat,
+            @crust;
+        }
+        & when (@preserveGoldGradient = 0) {
+          .modal-container-base();
+        }
       }
     }
-    .lootbox.is-money .lootbox-desc {
-      color: @green;
+    .lootbox.is-money {
+      .lootbox-desc {
+        color: @green;
+      }
     }
     .btn.is-disabled:not(.is-frozen),
     .is-disabled.modal--bundle-offer--purchase-option:not(.is-frozen),
@@ -834,32 +867,21 @@
       color: @text;
     }
     /* current car */
-    .section-cars .customizer--preview .customizer--trail-selection--name,
-    .section-cars .customizer--preview .customizer--vehicle-selection--name,
-    .section-cars .customizer--preview .customizer--nametag-selection--name,
-    .section-cars .customizer--preview .customizer--nitro-selection--name,
-    .section-nitro .customizer--preview .customizer--trail-selection--name,
-    .section-nitro .customizer--preview .customizer--vehicle-selection--name,
-    .section-nitro .customizer--preview .customizer--nametag-selection--name,
-    .section-nitro .customizer--preview .customizer--nitro-selection--name,
-    .section-fanfare .customizer--preview .customizer--trail-selection--name,
-    .section-fanfare .customizer--preview .customizer--vehicle-selection--name,
-    .section-fanfare .customizer--preview .customizer--nametag-selection--name,
-    .section-fanfare .customizer--preview .customizer--nitro-selection--name,
-    .section-nametags .customizer--preview .customizer--trail-selection--name,
-    .section-nametags .customizer--preview .customizer--vehicle-selection--name,
-    .section-nametags .customizer--preview .customizer--nametag-selection--name,
-    .section-nametags .customizer--preview .customizer--nitro-selection--name,
-    .section-nitros .customizer--preview .customizer--trail-selection--name,
-    .section-nitros .customizer--preview .customizer--vehicle-selection--name,
-    .section-nitros .customizer--preview .customizer--nametag-selection--name,
-    .section-nitros .customizer--preview .customizer--nitro-selection--name,
-    .section-trails .customizer--preview .customizer--trail-selection--name,
-    .section-trails .customizer--preview .customizer--vehicle-selection--name,
-    .section-trails .customizer--preview .customizer--nametag-selection--name,
-    .section-trails .customizer--preview .customizer--nitro-selection--name {
-      color: @text;
-      text-shadow: fade(@crust, 50%);
+    .section-cars,
+    .section-nitro,
+    .section-fanfare,
+    .section-nametags,
+    .section-nitros,
+    .section-trails {
+      .customizer--preview {
+        .customizer--trail-selection--name,
+        .customizer--vehicle-selection--name,
+        .customizer--nametag-selection--name,
+        .customizer--nitro-selection--name {
+          color: @text;
+          text-shadow: fade(@crust, 50%);
+        }
+      }
     }
     /* sticker preview */
     .sticker-selection-item--selected {
@@ -1115,7 +1137,6 @@
     }
     .switch-selection {
       background-color: @green;
-      box-shadow: ;
     }
     .switch-input:checked:nth-child(1) + .switch-label {
       color: @colored-button-text;
