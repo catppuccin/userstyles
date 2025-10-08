@@ -15,11 +15,11 @@
 
 ## Usage
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 
 ## 💝 Current Maintainer
-- [TadoTheMiner](https://github.com/TadoTheMiner)
+- [janTatesa](https://github.com/janTatesa)
 
 
 &nbsp;
