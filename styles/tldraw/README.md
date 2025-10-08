@@ -15,15 +15,17 @@
 
 ## Usage
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 > [!NOTE]
 > This theme only changes how the colors appear on the tldraw canvas. Exported graphics **will not be Catppuccin-themed**.
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer
+- [NekoDrone](https://github.com/NekoDrone)
+
+## 💖 Past Maintainers
 - [GenShibe](https://github.com/GenShibe)
 - [uncenter](https://github.com/uncenter)
-
 
 &nbsp;
 
