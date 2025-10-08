@@ -17,13 +17,14 @@
 
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
-@-moz-document regexp(
-    "^https?:\\/\\/(www|[a-z]{2}).pinterest.(com(.(au|mx))?|co(.(uk|kr))?|at|ca|ch|cl|de|dk|es|fr|ie|it|jp|nz|ph|pt|ru|se)\\/.*"
-  ) {
+@-moz-document regexp("^https?:\\/\\/(www|[a-z]{2}).pinterest.(com(.(au|mx))?|co(.(uk|kr))?|at|ca|ch|cl|de|dk|es|fr|ie|it|jp|nz|ph|pt|ru|se)\\/.*"
+
+) {
   :root {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
     }
+
     @media (prefers-color-scheme: dark) {
       #catppuccin(@darkFlavor);
     }
@@ -33,44 +34,72 @@
     #lib.palette();
     #lib.defaults();
 
-    &, body {
+    &,
+    body {
       color: @text;
       background: @base;
     }
 
     --sema-color-background-default: @base;
     --sema-color-background-secondary: @surface0;
+    --sema-color-hover-background-secondary: @surface1;
+    --sema-color-background-tertiary: @overlay0; // send message to conversation button
+    --sema-color-hover-background-tertiary: @overlay2;
     --sema-color-text-default: @text;
     --sema-color-text-subtle: @subtext1;
+    --sema-color-text-link: @accent;
+    --sema-color-text-dark: @text;
     --sema-color-icon-primary: @accent; // logo
+    --sema-color-icon-inverse: @mantle;
+    --sema-color-border-decorative: @surface1;
     --sema-color-border-interactive: @overlay0; // form inputs
     --sema-color-hover-border-interactive: @overlay1;
+    --sema-color-border-focus-outer-default: @accent;
 
     /* Pins */
     --sema-color-background-primary: @accent;
     --sema-color-hover-background-primary: darken(@accent, 5%);
+    --sema-color-background-wash-light: @base;
     --sema-color-pressed-background-primary: darken(@accent, 5%);
     --comp-button-color-background-primary-selected: @surface1; // select dropdown
+    --comp-button-color-hover-background-tertiary-semi-transparent-default: fade(@base, 50%); //
+    --comp-button-color-background-tertiary-semi-transparent-default: fade(@base, 50%);
+
+    [data-test-id="more-description-container"] {
+      background-color: @base !important;
+      [style*="background: linear-gradient"] {
+        background: linear-gradient(90deg, transparent 0%, @base 100%) !important;
+      }
+    }
+    [data-test-id="closeup-metadata-details-divider"] {
+      border-top-color: var(--sema-color-border-decorative) !important;
+    }
     [data-test-id="PinBetterSaveDropdown"] {
       --sema-color-text-inverse: @text;
+      --sema-color-icon-inverse: @text;
     }
+
     --sema-color-background-error-default: @maroon;
     --sema-color-icon-error: @red;
 
     /* Boards */
     --sema-color-background-checked: @accent; // "Secret" toggle
     --sema-color-hover-background-checked: darken(@accent, 5%);
+    --sema-color-pressed-background-checked: darken(@accent, 10%);
     --comp-switch-color-background-container-enabled-off: @surface2;
     --comp-switch-color-hover-background-container-enabled-off: @overlay0;
     --comp-button-color-hover-background-secondary-default: @surface1; // "Cancel" button hover
+
     [data-test-id="profile-board-card"] [style*="border-color: white;"] {
       // pin preview collage images
       border-color: @base !important;
     }
+
     --sema-color-border-inverse: @base; // around profile pictures under previews
     --sema-color-pressed-background-default: @surface2; // "Edit" icon / edit modal "X" icon buttons
     --comp-button-color-pressed-background-secondary-default: @surface2; // active "View profile" button
-    --sema-color-pressed-background-elevation: @surface2; /* plus action */
+    --sema-color-pressed-background-elevation: @surface2;
+    /* plus action */
 
     /* Sidebar */
     --sema-color-icon-default: @text;
@@ -85,10 +114,11 @@
 
     /* Search */
     --sema-color-icon-subtle: @overlay2;
-    #searchBoxContainer > div {
+
+    #searchBoxContainer>div {
       background-color: @mantle !important;
 
-      > div[style*="box-shadow:"] {
+      >div[style*="box-shadow:"] {
         // on focus
         box-shadow: fade(@accent, 50%) 0 0 0 4px !important;
       }
@@ -98,19 +128,25 @@
       [style*="background: rgb(216, 216, 216);"] {
         background: @surface1 !important;
       }
+
+      input {
+        color: @subtext1 !important;
+      }
     }
-    [id^="SuggestionGroup-Option"][aria-selected="true"] > a > div {
+
+    [id^="SuggestionGroup-Option"][aria-selected="true"]>a>div {
       background-color: @surface1;
     }
 
     /* Home */
-    [data-test-id="homefeed-feed"]
-      div:has(
-        > [data-root-margin="more-ideas-tabs"]
-      )[style*="background-color: rgb(255, 255, 255);"] {
+    [data-test-id="homefeed-feed"] div:has(> [data-root-margin="more-ideas-tabs"])[style*="background-color: rgb(255, 255, 255);"] {
       background-color: @base !important;
     }
+
     --sema-color-background-selected: @accent; // active tab underline
+    --sema-color-hover-background-selected: darken(@accent, 5%);
+    --sema-color-pressed-background-selected: darken(@accent, 10%);
+
     // share modal
     [data-test-id="lego-share-social-bar-auth"] button {
       background-color: @base !important;
@@ -118,5 +154,61 @@
 
     /* Settings */
     --sema-color-text-disabled: @overlay2; // disabled "Reset"/"Save" buttons
+
+    /* Messages */
+    textarea#messageDraft {
+      background-color: transparent !important;
+      color: @subtext1;
+      caret-color: @text !important;
+    }
+
+    div[data-test-id="add-pin-to-conversation"] {
+      div[style="border: 1px solid rgb(218, 218, 218); box-shadow: rgba(0, 132, 255, 0) 0px 0px 0px 4px; min-height: 48px; width: 100%;"] {
+        border-color: @mantle !important;
+      }
+
+      div[style="border: 1px solid transparent; box-shadow: rgba(0, 132, 255, 0.5) 0px 0px 0px 4px; min-height: 48px; width: 100%;"] {
+        box-shadow: fade(@accent, 50%) 0 0 0 4px !important;
+      }
+    }
+
+    /* Loading */
+    .mainContainer>div[style*="0.5"] {
+      background-color: @base !important;
+    }
+
+    /* Emoji Picker */
+   .EmojiPickerReact {
+      --epr-bg-color: @base;
+      --epr-text-color: @text;
+      --epr-picker-border-color: @base;
+      --epr-category-label-bg-color: @base;
+      --epr-search-input-bg-color: @mantle;
+      --epr-skin-tone-picker-menu-color: @mantle;
+      --epr-category-icon-active-color: @accent;
+      --epr-highlight-color: @accent;
+      --epr-hover-bg-color: @surface0;
+      --epr-focus-bg-color: @surface0;
+    }
+
+    /* suggestion bar */
+    --sema-color-pressed-background-secondary: @surface2;
+    [data-test-id="one-bar-pill"] {
+      --sema-color-text-dark: if(@flavor = latte, @text, @base);
+    }
+    [data-test-id="one-bar-navigation-arrows"] {
+      &[style*="to left"]:not([style*="to right"]) {
+        background: linear-gradient(to left, @base, transparent 40px) !important;
+      }
+      &[style*="to right"]:not([style*="to left"]) {
+        background: linear-gradient(to right, @base, transparent 40px) !important;
+      }
+      &[style*="to left"][style*="to right"] {
+        background: linear-gradient(to left, @base, transparent 40px), linear-gradient(to right, @base, transparent 40px) !important;
+      }
+    }
+    [data-test-id="multi-select-filter-fade-bottom-edge"] {
+      background:linear-gradient(0deg, @base 0%, transparent 100%) !important;
+    }
   }
 }
