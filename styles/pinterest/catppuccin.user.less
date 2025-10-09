@@ -49,13 +49,14 @@
     --sema-color-text-subtle: @subtext1;
     --sema-color-text-link: @accent; // links / messages username
     --sema-color-text-dark: @text; // commenter username / bar pills text
-    --sema-color-text-light: @base; // notification badge
+    --sema-color-text-light: if(@flavor = latte, @base, @text); // Explore suggested articles link
     --sema-color-icon-primary: @accent; // logo
     --sema-color-icon-inverse: @mantle;
     --sema-color-border-decorative: @surface2;
     --sema-color-border-interactive: @overlay0; // form inputs
     --sema-color-hover-border-interactive: @overlay1;
     --sema-color-border-focus-outer-default: @accent;
+    --sema-color-border-focus-inner-default: @base;
     --sema-color-border-disabled: @surface1;
     --sema-color-icon-disabled: @subtext0; // board actions in organize mode
 
@@ -89,8 +90,10 @@
       --sema-color-icon-inverse: @text;
     }
 
+    --sema-color-text-error: @red;
     --sema-color-background-error-default: @maroon;
     --sema-color-icon-error: @red;
+    --sema-color-border-error: @red;
 
     /* Boards */
     --sema-color-background-checked: @accent; // "Secret" toggle
@@ -124,11 +127,20 @@
     --sema-color-icon-default: @text;
     --sema-color-hover-background-default: @surface0;
     --base-color-grayscale-100: @surface0; // border
+    [aria-label="You have new Updates"] {
+      --sema-color-text-light: @base; // notification badge
+    }
     // Explore
+    [data-test-id="topic-rep-title"] {
+      --sema-color-text-inverse: @text; // Explore categories
+    }
     --sema-color-background-elevation: @mantle;
     --sema-color-hover-background-elevation: @base;
     // Create
     --sema-color-icon-dark: @text;
+    [data-test-id="drag-behavior-container"] {
+      --sema-color-text-default: if(@flavor = latte, @text, @surface2) // drag container error
+    }
     // Tooltips
     --sema-color-background-inverse: @text;
     --sema-color-text-inverse: @base;
@@ -242,5 +254,14 @@
 
     /* Toasts */
     --comp-toast-color-background-default: @overlay2;
+
+    /* SaveButton */
+    [data-test-id="SaveButton"] > [class^="SaveButton"] {
+      // Your saved ideas pins "Save" button
+      background-color: var(--sema-color-background-primary);
+      &:hover {
+        background-color: var(--sema-color-hover-background-primary);
+      }
+    }
   }
 }
