@@ -1,0 +1,570 @@
+// Why is the linter decapitalizing the name?
+/* ==UserStyle==
+@name excalidraw Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/excalidraw
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/excalidraw
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/excalidraw/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aexcalidraw
+@description Soothing pastel theme for excalidraw
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var checkbox straightInvert "Higher contrast canvas in dark flavor" 0
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document url-prefix("https://excalidraw.com") {
+  :root {
+    // The .dark class only seems to be updated on first page load
+    &:not(.dark),
+    .excalidraw:not(.theme--dark) {
+      #catppuccin(@lightFlavor);
+    }
+    &.dark,
+    .excalidraw.theme--dark {
+      #catppuccin(@darkFlavor);
+    }
+
+    &:not(.dark) {
+      background: @catppuccin[@@lightFlavor][@crust];
+    }
+    &.dark {
+      background: @catppuccin[@@darkFlavor][@crust];
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    @inverseFlavor: if(
+      @flavor = latte,
+      @catppuccin[@mocha],
+      @catppuccin[@latte]
+    );
+    @tint: if(@flavor = latte, 15%, 30%);
+    @emp: if(@flavor = latte, -20%, 7.5%);
+
+    #darkenVar(@id, @color) {
+      --@{id}: @color;
+      --@{id}-dark: darken(@color, 2%);
+      --@{id}-darker: darken(@color, 4%);
+      --@{id}-darkest: darken(@color, 6%);
+    }
+
+    accent-color: @accent;
+
+    &.theme--dark {
+      --theme-filter: if(
+        @straightInvert = 1,
+        invert(1) hue-rotate(180deg),
+        invert(93%) hue-rotate(180deg)
+      );
+    }
+
+    --button-destructive-bg-color: @red;
+    // ^^ This seems unused.
+    --button-destructive-color: @red;
+
+    --button-gray-1: @surface0;
+    --button-gray-2: @surface1;
+    --button-gray-3: @surface2;
+
+    --mobile-action-button-bg: fade(@base, 50%);
+
+    --button-special-active-bg-color: mix(@green, @base, @tint);
+    --focus-highlight-color: @accent;
+    --icon-green-fill-color: @green;
+
+    --default-bg-color: @mantle;
+
+    --input-bg-color: @base;
+    --input-border-color: @surface0;
+    --input-hover-bg-color: @base;
+    --input-label-color: @subtext0;
+
+    --island-bg-color: @base;
+
+    --link-color: @blue;
+    --overlay-bg-color: fade(@base, 88%);
+
+    --popup-text-color: @text;
+    --popup-secondary-bg-color: @base;
+    --popup-text-inverted-color: @base;
+
+    --select-highlight-color: @accent;
+    --color-slider-track: @accent;
+    --color-selection: @accent;
+
+    --color-icon-white: @base;
+
+    #darkenVar(color-primary, @accent);
+    --color-primary-light: mix(@accent, @base, @tint);
+    --color-primary-light-darker: darken(mix(@accent, @base, @tint), 8%);
+    --color-primary-hover: lighten(@accent, 4%);
+
+    --color-gray-10: @text;
+    --color-gray-20: @subtext1;
+    --color-gray-30: @subtext0;
+    --color-gray-40: @overlay2;
+    --color-gray-50: @overlay1;
+    --color-gray-60: @overlay0;
+    --color-gray-70: @surface2;
+    --color-gray-80: @surface1;
+    --color-gray-85: @surface0;
+    --color-gray-90: @base;
+    --color-gray-100: @mantle;
+
+    #darkenVar(color-warning, @yellow);
+    --color-text-warning: lighten(@yellow, @emp);
+    --color-warning-background: mix(@yellow, @base, @tint);
+    --color-warning-icon-background: mix(@yellow, @base, @tint);
+    --color-warning-color: lighten(@yellow, @emp);
+    --color-warning-icon-color: lighten(@yellow, @emp);
+
+    #darkenVar(color-danger, @red);
+    --color-danger-text: lighten(@red, @emp);
+    --color-danger-background: mix(@green, @base, @tint);
+    --color-danger-icon-background: mix(@green, @base, @tint);
+    --color-danger-color: lighten(@red, @emp);
+    --color-danger-icon-color: lighten(@red, @emp);
+
+    #darkenVar(color-success, @green);
+    --color-success-text: lighten(@green, @emp);
+    --color-success-contrast: lighten(@green, @emp);
+    --color-success-contrast-hover: lighten(@green, @emp - 2%);
+    --color-success-contrast-active: lighten(@green, @emp - 4%);
+
+    --color-logo-text: @base;
+
+    --color-surface-high: @surface1;
+    --color-surface-mid: @surface0;
+    --color-surface-low: @base;
+    --color-surface-lowest: @mantle;
+
+    --color-on-surface: @text;
+
+    --color-brand-hover: var(--color-primary-hover);
+    --color-brand-active: darken(@accent, 4%);
+
+    --color-on-primary-container: lighten(@accent, @emp);
+
+    --color-border-outline: @overlay2;
+    --color-border-outline-variant: @overlay0;
+
+    --color-surface-primary-container: mix(@accent, @base, @tint);
+
+    --color-badge: @green;
+    --background-color-badge: mix(@accent, @green, @tint);
+
+    --scrollbar-thumb: var(--button-gray-2);
+    --scrollbar-thumb-hover: var(--button-gray-3);
+
+    // Shadows
+    --shadow-rgb: #lib.rgbify(@catppuccin[@mocha][@crust])[];
+
+    --shadow-island:
+      0 0 0.9310 0 rgba(var(--shadow-rgb), 0.17), 0 0
+      3.1271px 0 rgba(var(--shadow-rgb), 0.08), 0 7px 14px 0
+      rgba(
+      0,
+      0,
+      0,
+      0.05
+    );
+
+    --modal-shadow:
+      0 100px 80px rgba(var(--shadow-rgb), 0.07), 0 41.7776px 33.4221px
+      rgba(
+      0,
+      0,
+      0,
+      0.0503
+    ), 0 22.3363px 17.869px rgba(var(--shadow-rgb), 0.0417), 0 12.5216px
+      10.0172px rgba(var(--shadow-rgb), 0.035), 0 6.6501px 5.3201px rgba(
+      var(--shadow-rgb),
+      0.0283
+    ), 0 2.7673px 2.2138px rgba(var(--shadow-rgb), 0.0197);
+
+    --sidebar-shadow:
+      0 100px 80px rgba(var(--shadow-rgb), 0.07), 0 41.7776px 33.4221px
+      rgba(
+      0,
+      0,
+      0,
+      0.0503
+    ), 0 22.3363px 17.869px rgba(var(--shadow-rgb), 0.0417), 0 12.5216px
+      10.0172px rgba(var(--shadow-rgb), 0.035), 0 6.6501px 5.3201px rgba(
+      var(--shadow-rgb),
+      0.0283
+    ), 0 2.7673px 2.2138px rgba(var(--shadow-rgb), 0.0197);
+
+    --library-dropdown-shadow:
+      0 15px 6px rgba(var(--shadow-rgb), 0.01), 0 8px 5px rgba(
+      var(--shadow-rgb),
+      0.05
+    ), 0 4px 4px rgba(var(--shadow-rgb), 0.09), 0 1px 2px rgba(
+      var(--shadow-rgb),
+      0.1
+    ), 0 0 0 rgba(var(--shadow-rgb), 0.1);
+
+    // Export dialog cards
+    [style="--card-color: #74b816; --card-color-darker: #66a80f; --card-color-darkest: #5c940d;"] {
+      #darkenVar(card-color, @green) !important;
+    }
+    [style="--card-color: #d6336c; --card-color-darker: #c2255c; --card-color-darkest: #a61e4d;"] {
+      #darkenVar(card-color, @red) !important;
+    }
+    [style="--color-logo-icon: #fff; width: 2.8rem; height: 2.8rem;"] {
+      --color-logo-icon: @base !important;
+    }
+
+    .color-picker-content--canvas-title {
+      color: @surface1;
+    }
+
+    .color-picker-type-canvasBackground .color-picker-keybinding {
+      color: @base;
+    }
+
+    .color-picker-type-elementBackground .color-picker-keybinding {
+      color: @base;
+    }
+
+    .color-picker-swatch[aria-label="transparent"] .color-picker-keybinding {
+      color: @base;
+    }
+
+    .color-picker-type-elementStroke .color-picker-keybinding {
+      color: @base;
+    }
+
+    .picker-type-canvasBackground .picker-keybinding {
+      color: @base;
+    }
+
+    .picker-type-elementBackground .picker-keybinding {
+      color: @base;
+    }
+
+    .picker-swatch[aria-label="transparent"] .picker-keybinding {
+      color: @base;
+    }
+
+    .picker-type-elementStroke .picker-keybinding {
+      color: @base;
+    }
+
+    .excalidraw-tooltip {
+      background-color: @text;
+      color: @base;
+    }
+
+    .ExcButton--variant-filled {
+      &.ExcButton--color-primary,
+      &.ExcButton--color-warning,
+      &.ExcButton--color-success {
+        --text-color: @base;
+      }
+    }
+
+    .Checkbox:hover .Checkbox-box {
+      background-color: fade(@accent, 20%);
+    }
+
+    .Checkbox.is-checked .Checkbox-box {
+      background-color: @surface1;
+    }
+
+    .Checkbox.is-checked:hover .Checkbox-box {
+      background-color: @sky;
+    }
+
+    .Checkbox .Checkbox-box {
+      color: @blue;
+    }
+
+    .excalidraw-hyperlinkContainer button {
+      color: @blue;
+    }
+
+    .excalidraw-hyperlinkContainer
+      button.excalidraw-hyperlinkContainer--remove {
+      color: @red;
+    }
+
+    .excalidraw-hyperlinkContainer--remove .ToolIcon__icon svg {
+      color: @red;
+    }
+
+    /* On accent text */
+    .Dialog__action-button--danger {
+      color: @base;
+    }
+    .Dialog__action-button--primary {
+      color: @base;
+    }
+
+    .publish-library__fields label span {
+      color: @surface1;
+    }
+
+    .publish-library__fields label .required {
+      color: @red;
+    }
+
+    .publish-library__buttons--confirm.ToolIcon_type_button {
+      background-color: @blue;
+    }
+
+    .publish-library__buttons--confirm.ToolIcon_type_button:hover {
+      background-color: @blue;
+    }
+
+    .publish-library__buttons--cancel.ToolIcon_type_button {
+      background-color: @surface0;
+    }
+
+    .publish-library__buttons--cancel.ToolIcon_type_button:hover {
+      background-color: @surface1;
+    }
+
+    .publish-library__buttons .ToolIcon__icon {
+      color: @base;
+    }
+
+    .publish-library__buttons .ToolIcon__icon .Spinner {
+      --spinner-color: @base;
+    }
+
+    .publish-library-warning {
+      color: @red;
+    }
+
+    .single-library-item-status {
+      color: @red;
+    }
+
+    .single-library-item__svg {
+      background-color: @base;
+    }
+
+    .single-library-item .ToolIcon__icon {
+      background-color: @base;
+    }
+
+    .single-library-item .ToolIcon,
+    .single-library-item .ToolIcon_type_button:hover {
+      background-color: @base;
+    }
+
+    .single-library-item .required, .single-library-item .error {
+      color: @red;
+    }
+
+    .single-library-item--remove .ToolIcon__icon {
+      background-color: @red;
+    }
+
+    .single-library-item--remove .ToolIcon__icon:hover {
+      background-color: @red;
+    }
+
+    .single-library-item--remove .ToolIcon__icon:active {
+      background-color: @red;
+    }
+
+    .single-library-item--remove svg {
+      color: @base;
+    }
+
+    .publish-library-success-close.ToolIcon_type_button {
+      background-color: @blue;
+    }
+
+    .publish-library-success-close.ToolIcon_type_button:hover {
+      background-color: @blue;
+    }
+
+    .publish-library-success-close.ToolIcon_type_button .ToolIcon__icon {
+      color: @base;
+    }
+
+    .library-menu-browse-button {
+      color: @base;
+    }
+
+    .Modal__background {
+      background-color: fade(@base, 20%);
+    }
+
+    .context-menu-item-separator {
+      border-color: @overlay0;
+    }
+
+    .context-menu-item.dangerous .context-menu-item__label {
+      color: @red;
+    }
+
+    .context-menu-item:hover.dangerous {
+      background-color: @red;
+    }
+
+    .UserList__collaborator-status-icon-speaking-indicator div {
+      background-color: @teal;
+    }
+
+    .layer-ui__search-header .ExcTextField__input {
+      background-color: @surface0;
+    }
+
+    .ttd-dialog-output-error {
+      color: @peach;
+    }
+
+    .ttd-dialog-panel-button.excalidraw-button {
+      color: @base;
+    }
+
+    .ttd-dialog-panel-button div.Spinner {
+      --spinner-color: @base;
+    }
+
+    .ElementLinkDialog .ElementLinkDialog__input .ElementLinkDialog__remove {
+      color: @red;
+    }
+
+    .ElementLinkDialog
+      .ElementLinkDialog__input
+      .ElementLinkDialog__remove
+      .ToolIcon__icon
+      svg {
+      color: @red;
+    }
+
+    --ImageExportModal-preview-border: @base;
+
+    .HelpDialog__btn:hover {
+      --background: var(--color-surface-mid);
+    }
+
+    .Card .Card-icon {
+      color: @base;
+    }
+
+    .Card .Card-button.ToolIcon_type_button .ToolIcon__label {
+      color: @base;
+    }
+
+    .Card .Card-button.ToolIcon_type_button .Spinner {
+      --spinner-color: @base;
+    }
+
+    button.ExportDialog-imageExportButton {
+      color: @base;
+    }
+
+    .collab-button.active.active {
+      background-color: @teal;
+      border-color: @teal;
+    }
+
+    .collab-button.active.active svg {
+      color: @base;
+    }
+
+    .collab-button.active.active:hover, .collab-button.active.active:active {
+      background-color: @teal;
+      border-color: @teal;
+    }
+
+    .CollabButton-collaborators {
+      background-color: @green;
+      color: @base;
+      box-shadow: 0 0 0 1px @base;
+    }
+
+    .App-mobile-menu,
+    .App-menu__left {
+      --button-hover-bg: var(--color-surface-mid);
+    }
+
+    .divider {
+      background-color: @mantle;
+    }
+
+    .App-toolbar .eraser.ToolIcon:hover {
+      --icon-fill-color: @base;
+      --keybinding-color: @base;
+    }
+
+    .ErrorSplash.ErrorSplash-messageContainer {
+      background-color: @rosewater;
+    }
+
+    .excalidraw__embeddable-container .excalidraw__embeddable-hint {
+      color: @base;
+    }
+
+    .dropdown-menu-container .dropdown-menu-item.active-collab {
+      background-color: mix(@teal, @base, @tint);
+      color: lighten(@teal, @emp);
+    }
+
+    .dropdown-menu-button:hover {
+      background-color: var(--color-surface-mid);
+    }
+
+    .ttd-dialog-submit-shortcut__key {
+      border-color: @overlay0;
+    }
+  }
+}
+
+@-moz-document url-prefix("https://libraries.excalidraw.com") {
+  html {
+    &:not(.theme--dark) {
+      #catppuccin(@lightFlavor);
+    }
+    &.theme--dark {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    &.theme--dark {
+      filter: none;
+    }
+
+    body {
+      background-color: @base;
+    }
+
+    --text: @text;
+    --muted: @subtext0;
+    --link: @blue;
+    --link-hover: lighten(@blue, 4%);
+    --primary: @accent;
+    --primary-hover: lighten(@accent, 4%);
+    --border-color: @overlay0;
+
+    :focus {
+      box-shadow: 0 0 0 2px @accent;
+    }
+
+    #search-input {
+      background: transparent;
+      border-color: @overlay0;
+    }
+  }
+}
