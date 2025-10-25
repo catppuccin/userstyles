@@ -65,10 +65,16 @@
       }
     }
 
-    background-color: @base !important;
-    color: @text !important;
+    body {
+      background-color: @base !important;
+      color: @text !important;
+    }
 
-    // TODO - Finish product page and finish build guide page clean up redundent code
+
+    // TODO - Finsh offcanvas elements (saved parts list, favorite parts, completed builds, etc)
+    // TODO - Heading in light mode looks ugly. Figure out way to fix.
+    // TODO - Forums
+    // TODO - Clean up redundent code
 
     // Common Mixins
     .accentA() {
@@ -93,6 +99,19 @@
     body {
       a[href] {
         .accentA();
+      }
+      
+      .group {
+        border-color: @surface0;
+      }
+      .ugcActions {
+        // The only place I could find this used was after reporting something. No idea what ucg stands for.
+        color: @text;
+      }
+      .ratio {
+        // Used in wallpapers page at pcpartpicker.com/downloads
+        background-color: @accent !important;
+        color: @base;
       }
 
       .subTitle {
@@ -119,6 +138,9 @@
           background-image: url("data:image/svg+xml,@{svg}");
           box-shadow: none !important;
         }
+        textarea {
+          background-color: @mantle !important;
+        }
         .text-input {
           color: @text !important;
           background-color: @mantle !important;
@@ -136,11 +158,37 @@
           svg {
             fill: @base !important;
           }
+          &.button--negative {
+            background-color: @red !important;
+            border-color: @red !important;
+          }
+          &.button--success {
+            background-color: @green !important;
+            border-color: @green !important;
+          }
+          &.button--dark {
+            background-color: @base !important;
+            border-color: @base !important;
+            color: @text !important;
+          }
         }
         .button:not(.button--disabled):not(:disabled):hover {
           background-color: lighten(@accent, 5%) !important;
           border-color: lighten(@accent, 5%) !important;
           color: @base !important;
+          &.button--negative {
+            background-color: lighten(@red, 5%) !important;
+            border-color: lighten(@red, 5%) !important;
+          }
+          &.button--success {
+            background-color: lighten(@green, 5%) !important;
+            border-color: lighten(@green, 5%) !important;
+          }
+          &.button--dark {
+            background-color: @mantle !important;
+            border-color: @mantle !important;
+            color: @text !important;
+          }
         }
 
         .radio + label::before {
@@ -199,6 +247,23 @@
             fill: @accent;
           }
         }
+
+        .toggle + label > .toggle__track {
+          background-color: @crust;
+          border-color: @surface0;
+          &::before {
+            background-color: @text;
+            border-color: @crust;
+          }
+        }
+        .toggle:checked + label > .toggle__track {
+          background-color: @accent;
+          border-color: @accent;
+          &::before {
+            background-color: @crust;
+            border-color: @accent;
+          }
+        }
       }
 
       // Ratings
@@ -223,6 +288,20 @@
         }
         .icon.shape-star-empty {
           fill: @surface0 !important;
+        }
+      }
+
+      // Markdown
+      .markdown {
+        p, h1, h2, h3, h4, h5, h6 {
+          color: @text;
+        }
+        blockquote {
+          background-color: fade(@accent, 10%);
+          border-color: @accent;
+        }
+        hr {
+          border-color: @surface1;
         }
       }
 
@@ -303,42 +382,11 @@
       .modal__container {
         background-color: @surface0;
 
-        select {
-          background-color: @base !important;
-        }
-        input {
-          background-color: @base !important;
-          border-color: @base !important;
+        p, label, h2, div {
           color: @text;
-        }
-
-        label, h2, div {
-          color: @text;
-        }
-        a {
-          color: @accent;
-          fill: @surface0;
-          &:hover {
-            color: lighten(@accent, 5%);
-            fill: lighten(@accent, 5%);
-          }
-        }
-        .modal__close svg {
-          fill: @subtext0 !important;
-          &:hover {
-            fill: lighten(@accent, 5%) !important;
-          }
         }
         svg {
           fill: @text;
-        }
-        textarea {
-          background-color: @crust;
-          &:hover, &:focus {
-            box-shadow:
-              inset 0px 1px 2px 0px @accent,
-              inset 0px 0px 0px 1px @accent;
-          }
         }
       }
 
@@ -366,10 +414,10 @@
 
       // Tables
       table {
-        p, td {
+        p, td, h4 {
           color: @text !important;
         }
-        tr {
+        tr, .td__component {
           border-color: @surface0 !important;
         }
         th {
@@ -406,10 +454,21 @@
           background-color: @yellow !important;
           border-color: @yellow !important;
           color: @base !important;
-          border-radius: 0.25rem;
         }
         .td__image, .td__image a {
           border-color: transparent !important;
+        }
+        .td__locked svg {
+          fill: @subtext0 !important;
+          &:hover {
+            fill: @accent !important;
+          }
+        }
+        .td__remove svg {
+          fill: @subtext0 !important;
+          &:hover {
+            fill: @red !important;
+          }
         }
       }
     }
@@ -449,25 +508,31 @@
       }
       .nav__bottom {
         background-color: @crust;
-        border-color: @surface0 !important;
-        a {
-          svg {
-            fill: @subtext0 !important;
-          }
+        border-color: @base !important;
+
+        .nav__categories > li > a {
           color: @subtext0 !important;
-          border-color: @surface0 !important;
+          border-color: @base !important;
+          svg {
+            fill: @text !important;
+          }
+
           &:hover {
+            background-color: @mantle !important;
+            color: @text !important;
             svg {
               fill: @accent !important;
             }
-            background-color: @base;
+          }
+          &.nav__categories--active {
+            background-color: @base !important;
+            color: @accent !important;
+            svg {
+              fill: @accent !important;
+            }
           }
         }
-        .nav__categories--active {
-          svg {
-            fill: @accent !important;
-          }
-        }
+
         .browseProducts {
           background-color: @base;
           h2 {
@@ -481,11 +546,19 @@
             }
           }
           .browseProducts__block--group1 .list-unstyled {
+            a {
+              background-color: @crust !important;
+              border-color: @crust !important;
+              box-shadow: none;
+            }
             a:hover {
               box-shadow: inset 0px 0px 0px 2px @accent;
               background-color: fade(@accent, 15%);
             }
           }
+        }
+        .nav__search svg {
+          fill: @text !important;
         }
         .nav__search:hover, .nav__search--active {
           background-color: @base;
@@ -591,8 +664,8 @@
             fill: @text;
           }
           .actionBox__markupLink:hover svg {
-              fill: @accent;
-            }
+            fill: @accent;
+          }
         }
         .actionBox__options > li {
           border-color: @mantle;
@@ -666,6 +739,10 @@
         h2, .note__text {
           color: @text;
         }
+      }
+
+      .partlist--totals {
+        border-color: @surface1;
       }
 
       #allocation_container {
@@ -975,12 +1052,43 @@
             }
           }
         }
+        .partReviews__name {
+          color: @subtext0;
+          a {
+            .accentA();
+          }
+        }
       }
     }
 
-    // Buildguides
-    #buildguide-view {
+    // Build Pages
+    #buildguide-view, #userbuild-view {
       #partlist();
+      .product__image-2024 {
+        background-color: @surface0;
+      }
+      .thumbnail-active {
+        background-color: @mantle;
+        border-color: @mantle;
+        &.active {
+          border-color: @accent;
+        }
+      }
+      .actionBox__actions a {
+        border-color: transparent;
+        background-color: @mantle;
+        color: @text;
+        svg {
+          fill: @text;
+        }
+        &:hover {
+          border-color: @accent;
+          color: @accent;
+          svg {
+            fill: @accent;
+          }
+        }
+      }
     }
 
     // Benchmarks
@@ -1016,6 +1124,24 @@
       .sidebar-content .offCanvas__sidebar {
         background-color: @base;
         .accentA-selector();
+      }
+    }
+
+    // User Preferences
+    #user-preferences {
+      h6, label {
+        color: @text;
+      }
+      .sidebar-content .userPref__nav {
+        background-color: @crust;
+        border-color: transparent;
+        li {
+          border-color: @surface0;
+        }
+        .list-active a {
+          background-color: @accent;
+          color: @base;
+        }
       }
     }
   }
