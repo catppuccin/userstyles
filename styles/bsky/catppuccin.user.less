@@ -370,7 +370,8 @@
 
     /* blue text only button (e.g. cancel post button) */
     div[style*="color: rgb(66, 145, 255)"], // dark
-    div[style*="color: rgb(77, 151, 255)"] // dim
+    div[style*="color: rgb(77, 151, 255)"], // dim
+    div[style*="color: rgb(0, 89, 214)"] // latte !! this overlaps with dark. might break?
     {
       color: @accent !important;
     }
@@ -381,9 +382,10 @@
       color: @text;
     }
 
-    /* some button background color (when hovering) */
+    /* some button background color (when hovering) [primary_100] */
     [style*="background-color: rgb(0, 40, 97)"], // dark
-    [style*="background-color: rgb(18, 52, 100)"],
+    [style*="background-color: rgb(18, 52, 100)"], // dim
+    [style*="background-color: rgb(204, 225, 255)"], // latte
     /* add alt text modal */
     [style*="background-color: rgb(14, 73, 137)"] {
       background-color: fade(@accent, 30%) !important;
@@ -398,12 +400,12 @@
 
     /* the white buttons text */
     [style*="color: rgb(0, 0, 0)"] {
-      color: @crust !important;
+      color: if(@flavor = latte, @text, @crust) !important;
     }
 
     /* replace dark fill icons with crust ones */
     path[fill="#000000"] {
-      fill: @crust;
+      fill: if(@flavor = latte, @text, @crust);
     }
 
     /* fixes a contrast issue when the suggested follows button is enabled (very ugly selector) */
