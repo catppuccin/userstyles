@@ -91,9 +91,16 @@
     }
 
     // Text
+    .text-brand {
+      color: @accent;
+    }
+    a.text-brand:active, a.text-brand:focus, a.text-brand:hover {
+      color: var(--accent-darker);
+    }
     .text-white {
       color: @text !important;
     }
+    .color-gray-600,
     .text-muted {
       color: @subtext1 !important;
     }
@@ -103,6 +110,14 @@
     .text-secondary {
       color: @subtext0 !important;
     }
+    .link-unstyled,
+    .link-unstyled:active,
+    .link-unstyled:active:hover,
+    .link-unstyled:focus,
+    .link-unstyled:hover,
+    .link-unstyled:visited {
+      color: inherit !important;
+    }
 
     // Backgrounds
     .bg-white {
@@ -110,6 +125,9 @@
     }
     .bg-gray-100 {
       background-color: @mantle;
+    }
+    .bg-light {
+      background-color: @surface0 !important;
     }
 
     // Navbar
@@ -159,16 +177,25 @@
       background-color: @accent;
     }
 
+    // Notifications popup
+    .popover {
+      background-color: @surface0;
+    }
+    .NotificationButtonLoaded__popover .popover {
+      border-color: @accent;
+    }
+
     // Buttons
-    .Button__brand {
+    .Button__brand, .Button__dark {
       background-color: @accent;
       border-color: @accent;
 
-      &, &:hover {
+      &, &:hover, &:active {
         color: @base;
       }
 
-      &:not(.Button__disabled):hover {
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled):active {
         background-color: var(--accent-darker);
         border-color: var(--accent-darker);
       }
@@ -184,6 +211,8 @@
     .flat-button,
     .Button__flat-primary,
     .Button__flat-primary .Button__icon,
+    .Button__flat .Button__icon,
+    .Button__flat:hover,
     .Button__flat-primary:hover {
       color: @accent;
 
@@ -193,6 +222,12 @@
       &:not(.Button__disabled):active .Button__icon {
         color: var(--accent-darker);
       }
+    }
+    .Button__brand,
+    .Button__brand .Button__icon,
+    .Button__brand:hover,
+    .Button__brand:not(.Button__disabled):hover .Button__icon {
+      color: @base;
     }
     .Button__flat-secondary, .btn {
       &, .Button__icon {
@@ -263,17 +298,6 @@
         }
       }
     }
-    .Button__dark {
-      background-color: @text;
-      border-color: @text;
-      color: @base;
-
-      &:not(.Button__disabled):hover, &:not(.Button__disabled):active {
-        background-color: @subtext1;
-        border-color: @subtext1;
-        color: @base;
-      }
-    }
     .Button__light-gray {
       background-color: @surface0;
       border-color: @accent;
@@ -293,7 +317,7 @@
       border-color: @surface1;
 
       &, .Button__icon, &:hover {
-        color: @subtext1;
+        color: @text;
       }
 
       &:not(.Button__disabled):hover, &:not(.Button__disabled):active {
@@ -333,19 +357,106 @@
         background-color: fade(@base, 80%);
       }
     }
+    .Button__translucent-black {
+      background-color: transparent;
+      &, .Button__icon, &:hover, &:active {
+        color: @text;
+      }
+
+      &:not(.Button__disabled):hover, &:not(.Button__disabled):active {
+        background-color: transparent;
+        border-color: transparent;
+        .Button__icon {
+          color: @text;
+        }
+      }
+    }
+    .Button__transparent-black-outline {
+      border-color: @accent;
+
+      &, .Button__icon {
+        color: @text;
+      }
+      &:hover, &:active {
+        color: @subtext1;
+      }
+
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled):active {
+        border-color: var(--accent-darker);
+      }
+    }
 
     // Badges
     .Badge__light,
-    .Badge__lightGray {
+    .Badge__lightGray,
+    .Badge__brand {
       background-color: @accent;
       color: @base;
     }
+    .Badge__yellowWithWhiteText {
+      background-color: @yellow;
+      color: @base;
+    }
+    .Badge__redWithWhiteText {
+      background-color: @red;
+      color: @base;
+    }
+    .VisitGeosBadgeIcon__gold {
+      color: @peach;
+    }
+
     .VerifiedBadge {
       background-color: @accent;
 
       svg {
         color: @base;
       }
+    }
+
+    // Bubbles
+    .UserBubblesList__bubble {
+      border-color: @accent;
+    }
+    .EditorBubble__container {
+      background-color: @accent;
+    }
+    .TextBubble__colorTheme {
+      &__white {
+        background-color: @mantle;
+        color: @text;
+      }
+      &__gray200 {
+        background-color: @surface1;
+        color: @text;
+      }
+    }
+
+    // Tooltips
+    .tooltip.show {
+      opacity: 1;
+    }
+    .ChildrenTargetedTooltip__tooltipInner__error {
+      background-color: @red;
+      color: @base;
+
+      .Button__icon {
+        color: @surface0;
+      }
+      .Button:hover .Button__icon, .Button:active .Button__icon {
+        color: @base;
+      }
+    }
+    .bs-tooltip-auto[x-placement^="bottom"]
+      .ChildrenTargetedTooltip__arrow__error::before,
+    .bs-tooltip-bottom .ChildrenTargetedTooltip__arrow__error::before {
+      // Error tooltip arrow (pointing up)
+      border-bottom-color: @red !important;
+    }
+    .bs-tooltip-auto[x-placement^="top"]
+      .ChildrenTargetedTooltip__arrow__error::before,
+    .bs-tooltip-top .ChildrenTargetedTooltip__arrow__error::before {
+      border-top-color: @red !important;
     }
 
     // Inputs
@@ -455,7 +566,7 @@
       }
 
       &-item {
-        color: @text;
+        color: @text !important;
         &:hover, &:active, &:focus {
           background-color: @surface1;
         }
@@ -488,6 +599,41 @@
       svg[color="#de703c"] {
         color: var(--warning);
       }
+    }
+
+    // Text radio buttons
+    .TextRadioButtons {
+      &__tabs {
+        background-color: @surface0;
+      }
+      &__tab:hover {
+        background-color: @surface1;
+      }
+      &__tabSelected {
+        background-color: @accent;
+        color: @base;
+
+        &:hover {
+          background-color: var(--accent-darker) !important;
+        }
+      }
+    }
+
+    // Toggle switches
+    .react-switch-bg {
+      background-color: @surface0 !important;
+
+      &[style*="background: rgb(63, 82, 227)"] {
+        background-color: var(--accent-darker) !important;
+      }
+    }
+    .react-switch-handle {
+      background-color: @text !important;
+    }
+
+    // Share menu
+    .LinkSharing {
+      border-color: @accent;
     }
 
     // Footer
@@ -712,6 +858,43 @@
       .links-list-rich-text-block a {
         color: var(--gray--600);
       }
+    }
+
+    /* Homepage (logged in) */
+
+    // Promos
+    // NOTE: Not sure how consistent these selectors will be as they are for promos
+    .HeaderPromoWithButtons__container {
+      background-color: @surface0;
+    }
+    img.HeaderPromoWithButtons__background {
+      filter: @accent-filter;
+    }
+    .HeaderPromoWithButtons__body {
+      color: @subtext0;
+    }
+    @media (max-width: 768px) {
+      .HeaderPromoWithButtons__closeButton {
+        .Button__icon {
+          color: @text;
+        }
+        &:hover .Button__icon, &:active .Button__icon {
+          color: @subtext0 !important;
+        }
+      }
+    }
+    .HeaderPromoWithButtons__closeButton {
+      .Button__icon {
+        color: @base;
+      }
+      &:hover .Button__icon, &:active .Button__icon {
+        color: @crust !important;
+      }
+    }
+
+    // Your trips
+    .YourTripsAndGuidesColumn__horizontalLine {
+      border-color: @subtext0;
     }
 
     /* Login Page */
