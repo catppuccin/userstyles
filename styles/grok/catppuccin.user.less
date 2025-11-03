@@ -1,0 +1,212 @@
+/* ==UserStyle==
+@name Grok Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/grok
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/grok
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/grok/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agrok
+@description Soothing pastel theme for Grok
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("grok.com") {
+  :root {
+    &.dark, .dark {
+      #catppuccin(@darkFlavor) !important;
+    }
+    &.light, .light {
+      #catppuccin(@lightFlavor) !important;
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    
+    #withHslify(@id, @color) {
+      --@{id}: .hslifyNoCommas(@color) [];
+    }
+    
+    .hslifyNoCommas(@color) {
+      @raw: e(
+        %("%s %s% %s%", hue(@color), saturation(@color), lightness(@color))
+      );
+    }
+    
+    #withHslify(white, @text);
+
+    #withHslify(surface-inset, @crust);
+    #withHslify(surface-base, @mantle);
+    #withHslify(surface-l1, @base);
+    #withHslify(surface-l1-hover, @surface0);
+    #withHslify(surface-l2, @surface1);
+    #withHslify(surface-l3, @surface1);
+    #withHslify(surface-l4, @surface1);
+    #withHslify(surface-l4-hover, @surface2);
+    #withHslify(surface-invert, @text);
+    
+    --overlay: hsl(var(--black)/50%);
+    
+    --button-ghost-hover: hsl(var(--white)/8%);
+    --button-ghost-active: hsl(var(--white)/10%);
+    
+    --border-l1: hsl(var(--white)/8%);
+    --border-l2: hsl(var(--white)/14%);
+    --border-l3: hsl(var(--white)/20%);
+    
+    --ring: @accent;
+    
+    #withHslify(fg-primary, @text);
+    #withHslify(fg-secondary, @subtext0);
+    #withHslify(fg-tertiary, @overlay1);
+    #withHslify(fg-invert, @base);
+    --fg-danger: @red;
+    --fg-positive: @green;
+    
+    --input-background: #313234;
+    --input-background-hover: #36383a;
+    --input-button-background: #313234;
+    --input-button-background-hover: #424446;
+    --input-button-background-selected: #626365;
+    --input-button-border: #444446;
+    --input-button-border-hover: #707172;
+    --incognito-input-background: #222329;
+    --incognito-input-background-hover: #26252e;
+    --incognito-input-button-background: #222329;
+    --incognito-input-button-background-hover: #33333b;
+    --incognito-input-button-background-selected: #5a5a61;
+    --incognito-input-button-border: #36373c;
+    
+    --incognito-input-button-border-hover: #66666a;
+    --background-color: @base;
+    --background: @base;
+    --background-secondary: red;
+    
+    --foreground: hsl(var(--color-dove)/8%);
+    --highlight: hsl(var(--color-pewter)/30%);
+    --gradient: hsl(var(--color-pewter)/10%);
+    --gradient-bg: #222325;
+    --important: hsl(var(--color-ash));
+    --important-hover: hsl(var(--color-steel));
+    
+    --button-filled: @text;
+    --button-filled-hover: lighten(@text, 4%);
+    --button-filled-active: darken(@text, 4%);
+    --button-primary: fade(@text, 90%);
+    --button-primary-hover: @text;
+    
+    --button-secondary: fade(@text, 12%);
+    --button-secondary-hover: fade(@text, 20%);
+    --button-secondary-selected: fade(@text, 30%);
+    
+    --button-text-hover: hsl(var(--color-dove)/8%);
+    --button-outline-border: hsl(var(--color-dove)/8%);
+    
+    --input: hsl(var(--color-iron)/100%);
+    --input-glow: hsl(var(--color-pewter)/20%);
+    --input-border: hsl(var(--color-dove)/4%);
+    --input-hover: hsl(var(--color-iron)/100%);
+    --input-border-focus: hsl(var(--color-white)/16%);
+    --input-foreground-hover: hsl(var(--color-tin)/100%);
+    
+    --toggle-border: hsl(var(--color-white)/9%);
+    --toggle-hover: hsl(var(--color-white)/6%);
+    --toggle-selected: hsl(var(--color-white)/24%);
+    --toggle-disabled: hsl(var(--color-white)/8%);
+    
+    --popover: @surface0;
+    --popover-border: @overlay0;
+    --popover-hover: fade(@text, 8%);
+    
+    --card: hsl(var(--color-dove)/8%);
+    --card-hover: hsl(var(--color-dove)/6%);
+    --card-focus: hsl(var(--color-dove)/14%);
+    --card-border: hsl(var(--color-dove)/4%);
+    --card-border-focus: hsl(var(--color-dove)/4%);
+    
+    --chip: hsl(var(--color-dove)/5%);
+    
+    --link: hsl(var(--color-gale));
+    --link-hover: hsl(var(--color-cobalt));
+    
+    #withHslify(primary, @text);
+    --secondary: var(--color-silver);
+    
+    --incognito: hsl(var(--color-twilight));
+    --input-incognito: hsl(var(--color-twilight)/4%);
+    --input-glow-incognito: hsl(var(--color-twilight)/25%);
+    --input-border-incognito: hsl(var(--color-twilight)/35%);
+    --input-hover-incognito: hsl(var(--color-twilight)/7%);
+    --input-border-focus-incognito: hsl(var(--color-twilight)/55%);
+    --border-incognito: hsl(var(--color-twilight));
+    --ring-incognito: hsl(var(--color-twilight));
+    
+    --card-foreground: 0 0% 98%;
+    --popover-foreground: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    #withHslify(muted-foreground, @overlay1);
+    --accent: 240 4% 16%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 5% 26%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Other TW colours used */
+    #withHslify(gray-600, @surface0);
+    
+    /* Semantic colours */
+    #withHslify(gray-300, @subtext0);
+    #withHslify(orange-300, @peach);
+    #withHslify(yellow-300, @yellow);
+    #withHslify(lime-300, @green);
+    #withHslify(green-300, @green);
+    #withHslify(teal-300, @teal);
+    #withHslify(blue-300, @blue);
+    #withHslify(purple-300, @mauve);
+    #withHslify(pink-300, @pink);
+    #withHslify(red-300, @red);
+    
+    #withHslify(blue-500, @blue);
+    #withHslify(blue-200, fade(@blue, 20%));
+    
+    [data-sonner-toaster][data-theme][data-theme] {
+      --normal-bg: #000;
+      --normal-border: hsl(0, 0%, 20%);
+      --normal-text: @text;
+      --success-bg: hsl(150, 100%, 6%);
+      --success-border: hsl(147, 100%, 12%);
+      --success-text: hsl(150, 86%, 65%);
+      --info-bg: hsl(215, 100%, 6%);
+      --info-border: hsl(223, 100%, 12%);
+      --info-text: hsl(216, 87%, 65%);
+      --warning-bg: hsl(64, 100%, 6%);
+      --warning-border: hsl(60, 100%, 12%);
+      --warning-text: hsl(46, 87%, 65%);
+      --error-bg: hsl(358, 76%, 10%);
+      --error-border: hsl(357, 89%, 16%);
+      --error-text: hsl(358, 100%, 81%);
+    }
+  }
+}
