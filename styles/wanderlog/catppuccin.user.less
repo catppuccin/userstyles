@@ -114,7 +114,7 @@
     .text-secondary {
       color: @subtext0 !important;
     }
-    .text-dark {
+    .text-body, .text-dark {
       color: @text !important;
     }
     .link-unstyled,
@@ -127,6 +127,9 @@
     }
     .color-primary-darkest {
       color: @text;
+    }
+    .small-uppercase-title {
+      color: @subtext0;
     }
 
     // Backgrounds
@@ -835,6 +838,15 @@
       }
     }
 
+    // Cards
+    .IconAndTextRowButton__div {
+      background-color: @surface0;
+
+      &:hover {
+        background-color: @surface1;
+      }
+    }
+
     // Quotes
     .IndentedQuote {
       border-left-color: @accent;
@@ -859,12 +871,40 @@
         fill: @text !important;
       }
 
+      // Gradients
+      #colortemperature stop, #colorhours stop, #colorspeed stop {
+        stop-color: @accent !important;
+      }
+
       // Splines and legend icons
       path[stroke="#e23e57"] {
         stroke: @red;
       }
       path[stroke="#3498db"] {
         stroke: @blue;
+      }
+      path[stroke="#f75940"], path[stroke="#ec9b3b"] {
+        stroke: @accent;
+      }
+
+      // Bar graphs
+      .recharts-rectangle {
+        &[fill="#46cdcf"],
+        &[fill="#3498db"],
+        &[fill="#7045af"] {
+          fill: @overlay1;
+        }
+        &[fill="#215b63"],
+        &[fill="#17b978"],
+        &[fill="#2a7aaf"],
+        &[fill="#4a266a"] {
+          fill: @accent;
+        }
+
+        // Background behind bars on hover
+        &.recharts-tooltip-cursor {
+          fill: @surface0;
+        }
       }
 
       // Legend text
@@ -882,10 +922,34 @@
 
         div[style="color: rgb(226, 62, 87);"] {
           color: @red !important;
+
+          & + div[style="color: rgb(52, 152, 219);"] {
+            // Set blue tooltip text if it directly follows red tooltip text
+            // Used for setting high low temp tool tip color as typically blue text is set to accent
+            color: @blue !important;
+          }
         }
 
-        div[style="color: rgb(52, 152, 219);"] {
-          color: @blue !important;
+        div[style="color: rgb(247, 89, 64);"],
+        div[style="color: rgb(70, 205, 207);"],
+        div[style="color: rgb(23, 185, 120);"],
+        div[style="color: rgb(52, 152, 219);"],
+        div[style="color: rgb(112, 69, 175);"],
+        div[style="color: rgb(236, 155, 59);"] {
+          color: @accent !important;
+        }
+      }
+      circle.recharts-dot {
+        stroke: @text;
+
+        &[fill="#e23e57"] {
+          fill: @red;
+        }
+        &[fill="#3498db"] {
+          fill: @blue;
+        }
+        &[fill="#f75940"], &[fill="#ec9b3b"] {
+          fill: @accent;
         }
       }
     }
@@ -1377,6 +1441,31 @@
       &__footer {
         background-color: @mantle !important;
       }
+    }
+
+    /* Weather pages https://wanderlog.com/weather/countries */
+    .TemperatureSummary {
+      background-color: @surface0;
+      color: @text;
+
+      .btn-light {
+        background-color: @surface0;
+        border-color: @accent;
+
+        svg {
+          color: @subtext1;
+        }
+
+        &:hover, &:active {
+          background-color: @surface1;
+          border-color: @accent;
+        }
+      }
+    }
+
+    // General weather stats
+    .StatIcon svg {
+      color: @accent;
     }
   }
 }
