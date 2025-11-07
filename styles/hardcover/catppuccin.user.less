@@ -17,7 +17,7 @@
 
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
-@-moz-document domain("hardcover.app") {
+@-moz-document url-prefix("https://hardcover.app"), url-prefix("https://staging.hardcover.app") {
   :root.dark {
     #catppuccin(@darkFlavor);
   }
@@ -137,9 +137,9 @@
       --card-foreground: @text;
       --popover: @crust;
       --popover-foreground: @text;
-      --secondary: @surface0;
+      --secondary: @crust;
       --secondary-foreground: @text;
-      --tertiary: @surface1;
+      --tertiary: @crust;
       --tertiary-foreground: @text;
       --muted: @surface0;
       --muted-foreground: @subtext0;
@@ -161,12 +161,6 @@
     // Color
     .text-black,
     .text-white,
-    .text-card-foreground,
-    .text-foreground,
-    .text-tertiary,
-    .hover\:text-foreground:hover,
-    .text-popover-foreground,
-    .text-secondary-foreground,
     .text-gray-50,
     .hover\:text-gray-500:hover,
     .hover\:text-gray-600:hover,
@@ -178,12 +172,12 @@
     .text-stone-800 {
       color: @text !important;
     }
-    .text-tertiary .text-foreground\/50,
     .text-gray-400,
     .text-gray-500,
     .text-gray-600,
     .text-gray-700,
-    .group:hover .group-hover\:text-gray-600 {
+    .group:hover .group-hover\:text-gray-600,
+    .text-secondary {
       color: @subtext0 !important;
     }
 
@@ -199,17 +193,12 @@
     }
 
     // Background Color
-    .bg-white,
     .dark\:bg-gray-700,
     .bg-gray-100\/40,
     .bg-smoke-400,
     .bg-gray-900\/30 {
       background-color: @crust !important;
     }
-    .bg-background,
-    .bg-popover,
-    .bg-secondary,
-    .bg-white\/70,
     .dark\:bg-gray-800,
     .dark\:bg-gray-900,
     .focus\:bg-gray-50:focus,
@@ -218,19 +207,16 @@
     .hover\:bg-gray-100:hover,
     .hover\:bg-gray-50:hover,
     .hover\:bg-grey-100:hover,
-    .hover\:bg-secondary:hover,
     .hover\:bg-stone-300:hover {
       background-color: @mantle !important;
     }
+    .bg-white,
     .md\:bg-white\/70 {
       background-color: @base !important;
     }
-    .bg-card,
-    .hover\:bg-card:hover,
     .bg-slate-100,
     .bg-stone-300,
     .bg-white\/80,
-    .hover\:bg-background:hover,
     .bg-gray-50,
     .bg-gray-100,
     .bg-gray-100\/30,
@@ -252,20 +238,14 @@
     }
 
     // Border Colors
-    .lg\:border-secondary,
     .hover\:bg-gray-100:hover,
     .border-gray-100,
-    .dark\:border-gray-700,
-    .border-tertiary,
-    .dark\:border-secondary {
+    .dark\:border-gray-700 {
       border-color: @mantle;
     }
     .border-gray-200,
     .border-gray-300,
-    .border-gray-400,
-    .border-muted,
-    .border-input,
-    .border-secondary {
+    .border-gray-400 {
       border-color: @surface0;
     }
 
@@ -298,6 +278,9 @@
     }
     .dark\:fill-gray-300 {
       fill: @text;
+    }
+    .dark\:text-gray-300 {
+      color: @text;
     }
     .bg-white.text-black {
       color: @text !important;
@@ -369,8 +352,11 @@
     }
     .from-indigo-700.to-indigo-900 {
       background-image: none;
-      .coloredElement(@accent);
-
+      background-color: @accent;
+      p, div, .text-indigo-400, .fill-indigo-400 {
+        color: @base !important;
+        fill: @base !important;
+      }
       // Special case for animated spin
       svg.animate-reversespin {
         fill: initial;
@@ -378,6 +364,24 @@
     }
     .to-gray-200 {
       --tw-gradient-to: @surface0;
+    }
+    .fill-white {
+      // Used as contrast against accent and as popup connector
+      fill: @mantle; 
+    }
+    .dark\:text-white {
+      color: @text;
+    }
+    .stroke-gray-200 {
+      stroke: @crust;
+    }
+    .text-accent[fill="currentColor"] {
+      // For rating stars, in original website yellow is accent in some places and is also used as star color
+      fill: @yellow; 
+    }
+    .dark\:bg-gray-900 > div > svg {
+      // Homepage feature box icons
+      fill: @text;
     }
 
     // === SVG Elements ===
@@ -472,7 +476,7 @@
       strong {
         color: @text;
       }
-      a {
+      a:not(.text-primary-foreground) { // :not required for 2024 recap 
         color: @accent !important;
         text-decoration-color: fade(@accent, 30%) !important;
       }
@@ -556,9 +560,9 @@
 
     // Misc
     button[aria-label="Close toast"] {
-      fill: @text;
-      color: @text;
-      border-color: @base;
+      background-color: @red !important;
+      color: @base !important;
+      border-color: @red;
     }
     div[id*="headlessui-menu-item-"] {
       border-color: @surface0;
