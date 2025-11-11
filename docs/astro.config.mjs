@@ -73,6 +73,8 @@ export default defineConfig({
               label: "Tips and Tricks",
               autogenerate: { directory: "contributing/tips-and-tricks" },
             },
+            "contributing/standard-library",
+            "contributing/library-modules",
           ],
         },
         {
