@@ -17,7 +17,8 @@
 
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
-@-moz-document url-prefix("https://hardcover.app"), url-prefix("https://staging.hardcover.app") {
+@-moz-document url-prefix("https://hardcover.app"),
+  url-prefix("https://staging.hardcover.app") {
   :root.dark {
     #catppuccin(@darkFlavor);
   }
@@ -54,7 +55,7 @@
     }
 
     .tailwindColorUtilities(@colorName, @colorValue) {
-      // Spaces used with ^= here to prevent matching classes with dark: prefix 
+      // Spaces used with ^= here to prevent matching classes with dark: prefix
       // and match all classes starting with the specified color
 
       // Border classes
@@ -126,7 +127,7 @@
         .coloredElement(@colorValue);
       }
     }
-    
+
     body {
       --background: @base;
       --foreground: @text;
@@ -256,6 +257,9 @@
     .tailwindColorUtilities(~"accent", @accent);
 
     // Specific overrides for edge cases
+    .bg-primary {
+      .coloredElement(@accent);
+    }
     .text-yellow-900 {
       color: @base;
     }
@@ -304,7 +308,9 @@
     }
 
     // Divides
-    .divide-secondary > :not(:last-child), .divide-gray-200 > :not(:last-child), .divide-gray-100 > :not(:last-child){
+    .divide-secondary > :not(:last-child),
+    .divide-gray-200 > :not(:last-child),
+    .divide-gray-100 > :not(:last-child) {
       border-color: @surface0 !important;
     }
 
@@ -362,7 +368,7 @@
     }
     .fill-white {
       // Used as contrast against accent and as popup connector
-      fill: @base; 
+      fill: @base;
     }
     .dark\:text-white {
       color: @text;
@@ -372,7 +378,7 @@
     }
     .text-accent[fill="currentColor"] {
       // For rating stars, in original website yellow is accent in some places and is also used as star color
-      fill: @yellow; 
+      fill: @yellow;
     }
     .dark\:bg-gray-900 > div > svg {
       // Homepage feature box icons
@@ -527,9 +533,26 @@
       box-shadow: none;
     }
 
+    // Inputs
+    input.bg-background, textarea.bg-background {
+      background-color: @crust;
+    }
+    // Radio
+    .form-radio {
+      background-color: @crust;
+      --tw-ring-offset-color: @accent;
+      &:checked {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" fill="@{base}" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3" /></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+        background-color: @accent;
+      }
+    }
     // Checkboxes
     .form-checkbox {
-      background-color: @base;
+      background-color: @crust;
+      --tw-ring-offset-color: @accent;
       &:checked {
         @svg: escape(
           '<svg xmlns="http://www.w3.org/2000/svg" fill="@{base}" viewBox="0 0 16 16"><path d="M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0"/></svg>'
@@ -552,20 +575,6 @@
     .bg-\[rgba\(255\,255\,255\,0\.7\)\] {
       background-color: fade(@base, 70%);
     }
-    
-    // Radio and Checkbox
-    [type="checkbox"], [type="radio"] {
-      color: @accent;
-      @svg: escape(
-          '<svg viewBox="0 0 16 16" fill="@{base} xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="3"/></svg>'
-        );
-      background-image: url("data:image/svg+xml,@{svg}");
-    }
-
-    // Inputs
-    input.bg-background {
-      background-color: @crust;
-    }
 
     // Misc
     :where([data-close-button]) {
@@ -579,7 +588,7 @@
     @property --tw-ring-offset-color {
       syntax: "*";
       initial-value: @surface0;
-      inherits: false; 
+      inherits: false;
     }
   }
 }
