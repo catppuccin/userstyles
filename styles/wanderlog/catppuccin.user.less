@@ -330,6 +330,13 @@
         &:not(.Button__disabled).Button__focused .Button__icon {
           color: @subtext1;
         }
+
+        &.Button__disabled,
+        &.Button__disabled .Button__icon,
+        &.Button__disabled:hover,
+        &.Button__disabled:hover .Button__icon {
+          color: @overlay1;
+        }
       }
     }
     .Button__default, .Button__primary {
@@ -490,6 +497,9 @@
         .Button__icon {
           color: @text;
         }
+      }
+      &.Button__shadow {
+        border-color: transparent;
       }
     }
     .Button__transparent-black-outline, .Button__light-brand {
@@ -2415,6 +2425,100 @@
 
       &__divider {
         background-color: @accent;
+      }
+    }
+
+    // Map buttons
+    .PlanMapWebMap {
+      &__topLeftBtns,
+      &__topMiddleBtns,
+      &__topRightBtns,
+      &__exitBtn,
+      &__exportBtn {
+        // NOTE: As these buttons use .Button__translucent-black which has its background set to transparent, we need to add a background back
+        .Button__translucent-black {
+          background-color: fade(@base, 90%);
+
+          &:not(.Button__disabled):hover,
+          &:not(.Button__disabled):active,
+          &:not(.Button__disabled).Button__focused {
+            background-color: @base;
+            border-color: transparent;
+            .Button__icon {
+              color: @text;
+            }
+          }
+        }
+      }
+    }
+    .GoogleMapWithMarkers__zoomButtons .Button__translucent-black,
+    #placeCardDismissButton {
+      // "Fit map to" button and place card overlay close button
+
+      // NOTE: As these buttons use .Button__translucent-black which has its background set to transparent, we need to add a background back
+      background-color: fade(@base, 90%);
+
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled):active,
+      &:not(.Button__disabled).Button__focused {
+        background-color: @base;
+        border-color: transparent;
+        .Button__icon {
+          color: @text;
+        }
+      }
+    }
+    .GoogleMapGeolocationButton__button {
+      color: @subtext1;
+
+      &:hover {
+        color: @text;
+      }
+    }
+    .gm-bundled-control {
+      // Google map zoom button group
+      > .gmnoprint > div {
+        // Zoom button group background
+        background-color: @base !important;
+      }
+      .gm-control-active {
+        // Zoom buttons
+        background-color: @base !important;
+
+        > img {
+          &:nth-child(1) {
+            // Default zoom button symbol
+            filter: @text-filter;
+          }
+
+          &:nth-child(2), &:nth-child(3) {
+            // On hover and on active
+            filter: @subtext0-filter;
+          }
+
+          &:nth-child(4) {
+            // When disabled (e.g. fully zoomed out)
+            filter: @surface2-filter;
+          }
+        }
+
+        + div {
+          // Zoom button divider line
+          background-color: @surface1 !important;
+        }
+      }
+    }
+
+    .PlaceMapCardsPaginationButton__container {
+      // When there are multiple place map cards (e.g. when searching on map and multiple results show up)
+
+      background-color: fade(@base, 90%);
+      color: @text;
+
+      &:hover,
+      &.Button__focused,
+      &:active {
+        background-color: @base;
       }
     }
   }
