@@ -1,0 +1,478 @@
+/* ==UserStyle==
+@name Roblox DevForum Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/roblox-devforum
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/roblox-devforum
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/roblox-devforum/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aroblox-devforum
+@description Soothing pastel theme for Roblox DevForum
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var checkbox themedCategories "themedCategories" 1
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document url-prefix("https://devforum.roblox.com") {
+  @import url("https://unpkg.com/@catppuccin/highlightjs@1.0.0/css/catppuccin-variables.important.css");
+
+  @media (prefers-color-scheme: light) {
+    #catppuccin(@lightFlavor);
+  }
+  @media (prefers-color-scheme: dark) {
+    #catppuccin(@darkFlavor);
+  }
+
+  #w-rgb(@id, @color) {
+    --@{id}: @color;
+    --@{id}-rgb: #lib.rgbify(@color)[];
+  }
+
+  #w-hover(@id, @color) {
+    --@{id}: @color;
+    --@{id}-hover: lighten(@color, @hover);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+
+    @hover: 10%;
+
+    @veryLow: 8%;
+    @low: 24%;
+    @medium: 52%;
+    @high: 84%;
+    @veryHigh: 90%;
+
+    a {
+      color: @accent;
+      &:visited {
+        color: @accent;
+      }
+      &:hover {
+        color: @accent;
+      }
+    }
+
+    body,
+    .d-header {
+      background: @base !important;
+    }
+
+    :root {
+      #lib.defaults();
+      #lib.css-variables();
+
+      color-scheme: light dark;
+      scrollbar-color: @overlay1 @base;
+
+      --scheme-type: dark;
+
+      #w-rgb(primary, @text); // primary-50
+      #w-rgb(primary-very-low, @surface0); // primary-200
+      #w-rgb(primary-low, @surface2); // primary-400
+      #w-rgb(primary-low-mid, @overlay1); // primary-600
+      #w-rgb(primary-medium, @subtext0); // primary-800
+      #w-rgb(primary-high, @text); // primary-900
+      #w-rgb(primary-very-high, @text);
+
+      --primary-50: @surface0;
+      --primary-100: @surface1;
+      --primary-200: @surface2;
+      --primary-300: @overlay0;
+      --primary-400: @overlay1;
+      --primary-500: @overlay2;
+      --primary-600: @subtext0;
+      --primary-700: @subtext1;
+      --primary-800: @text;
+      --primary-900: @text;
+
+      --primary-or-primary-low-mid: var(--primary-low-mid);
+
+      #w-rgb(secondary, @base);
+      --secondary-low: @subtext0;
+      --secondary-medium: @overlay1;
+      --secondary-high: @surface2;
+      --secondary-very-high: @surface0;
+
+      --primary-med-or-secondary-med: var(--secondary-medium);
+      --primary-med-or-secondary-high: var(--secondary-high);
+      --primary-high-or-secondary-low: var(--secondary-low);
+      --primary-low-mid-or-secondary-high: var(--secondary-high);
+      --primary-low-mid-or-secondary-low: var(--secondary-low);
+
+      #w-rgb(tertiary, @accent);
+      --tertiary-very-low: var(--tertiary-50);
+      --tertiary-low: var(--tertiary-300);
+      --tertiary-medium: var(--tertiary-600);
+      --tertiary-high: var(--tertiary-900);
+
+      --tertiary-hover: lighten(@accent, @hover);
+
+      --tertiary-25: mix(@accent, @base, (7% * 4)-28%);
+      --tertiary-50: mix(@accent, @base, (9% * 4)-28%);
+      --tertiary-100: mix(@accent, @base, (10% * 4)-28%);
+      --tertiary-200: mix(@accent, @base, (12% * 4)-28%);
+      --tertiary-300: mix(@accent, @base, (13% * 4)-28%);
+      --tertiary-400: mix(@accent, @base, (16% * 4)-28%);
+      --tertiary-500: mix(@accent, @base, (18% * 4)-28%);
+      --tertiary-600: mix(@accent, @base, (20% * 4)-28%);
+      --tertiary-700: mix(@accent, @base, (23% * 4)-28%);
+      --tertiary-800: mix(@accent, @base, (26% * 4)-28%);
+      --tertiary-900: mix(@accent, @base, (28% * 4)-28%);
+
+      --tertiary-or-tertiary-low: var(--tertiary-low);
+      --tertiary-low-or-tertiary-high: var(--tertiary-high);
+      --tertiary-med-or-tertiary: var(--tertiary);
+
+      --quaternary: @accent;
+      --quaternary-low: mix(@accent, @base, @low);
+
+      --header_background: @base;
+
+      --header_primary: var(--primary);
+      --header_primary-low: var(--primary-low);
+      --header_primary-low-mid: var(--primary-low-mid);
+      --header_primary-medium: var(--primary-medium);
+      --header_primary-high: var(--primary-high);
+      --header_primary-very-high: var(--primary-very-high);
+
+      --highlight: @accent;
+      --highlight-bg: mix(@accent, @base, @veryLow);
+      --highlight-low: mix(@accent, @base, @low);
+      --highlight-medium: mix(@accent, @base, @medium);
+      --highlight-high: mix(@accent, @base, @high);
+
+      --danger: @red;
+      --danger-low: mix(@red, @base, @low);
+      --danger-low-mid: fade(mix(@red, @base, @low), 70%);
+      --danger-medium: mix(@red, @base, @medium);
+      --danger-hover: lighten(@red, @hover);
+
+      --success: @green;
+      --success-low: mix(@green, @base, @low);
+      --success-medium: mix(@green, @base, @medium);
+      --success-hover: lighten(@green, @hover);
+
+      --love: @red;
+      --love-low: mix(@red, @base, @low);
+
+      --d-selected: @base;
+      --d-hover: @surface0;
+
+      --wiki: @green;
+
+      --blend-primary-secondary-5: @surface0;
+      --highlight-low-or-medium: var(--highlight-medium);
+
+      --secondary-or-primary: var(--primary);
+      --tertiary-or-white: #fff;
+      --facebook-or-white: #fff;
+      --twitter-or-white: #fff;
+
+      #w-hover(google, #fff);
+      #w-hover(instagram, #e1306c);
+      #w-hover(facebook, #0866ff);
+      #w-hover(cas, #70ba61);
+      #w-hover(twitter, #000);
+      #w-hover(github, #100e0f);
+      #w-hover(discord, #7289da);
+
+      --gold: @yellow;
+      --silver: @subtext1;
+      --bronze: @peach;
+    }
+
+    @solved-color: @green;
+
+    .fa.accepted {
+      color: @solved-color;
+    }
+
+    .post-controls .extra-buttons {
+      // anon text
+      .accepted-text {
+        .d-icon,
+        .accepted-label {
+          color: @solved-color;
+        }
+      } // logged in button
+      .accepted {
+        .d-icon,
+        .d-button-label {
+          color: @solved-color;
+        }
+      }
+    }
+    
+    a.attachment::before {
+      @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" width="14px" height="16px" viewBox="0 0 512 512" fill="@{accent}"><path d="M216 0h80c13.3 0 24 10.7 24 24v168h87.7c17.8 0 26.7 21.5 14.1 34.1L269.7 378.3c-7.5 7.5-19.8 7.5-27.3 0L90.1 226.1c-12.6-12.6-3.7-34.1 14.1-34.1H192V24c0-13.3 10.7-24 24-24m296 376v112c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V376c0-13.3 10.7-24 24-24h146.7l49 49c20.1 20.1 52.5 20.1 72.6 0l49-49H488c13.3 0 24 10.7 24 24m-124 88c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20m64 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20"/></svg>');
+      content: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    & when (@themedCategories = 1) {
+      #cc(@in, @out) {
+        @cbc: %("--category-badge-color: %a;", @in);
+        [style="@{cbc}"i] {
+          --category-badge-color: @out !important;
+        }
+        // There isn't a good way to theme subcategory gradients.
+        @bgc: %("background: linear-gradient(90deg, %a 50%, %a 50%)", @in, @in);
+        [style="@{bgc}"i] {
+          background: @out !important;
+        }
+        @blc: %("border-left-color: %a ", @in);
+        [style="@{blc}"i] {
+          border-left-color: @out !important;
+        }
+        @bdc: %("border-color: %a ", @in);
+        [style="@{bdc}"i] {
+          border-left-color: @out !important;
+        }
+      }
+
+      // Category colours
+      #cc(#fd28a4, @pink);
+      #cc(#a5603d, @maroon);
+      #cc(#d64f4f, @maroon);
+      #cc(#e2231a, @red);
+      #cc(#fd2843, @red);
+      #cc(#ab9364, @peach);
+      #cc(#f68802, @peach);
+      #cc(#ffd200, @yellow);
+      #cc(#ffd600, @yellow);
+      #cc(#f6c902, @yellow);
+      #cc(#a3e2bd, @teal);
+      #cc(#015227, @teal);
+      #cc(#00823d, @green);
+      #cc(#73c856, @green);
+      #cc(#8eb479, @green);
+      #cc(#02b757, @green);
+      #cc(#1dc462, @green);
+      #cc(#33e078, @green);
+      #cc(#99daff, @sky);
+      #cc(#00a2ff, @blue);
+      #cc(#0088cc, @blue);
+      #cc(#38b9cc, @sapphire);
+      #cc(#d357fe, @mauve);
+      #cc(#7d26cd, @mauve);
+      #cc(#e3e3e3, @text);
+      #cc(#eeefdd, @text);
+      #cc(#b8b8b8, @overlay1);
+      #cc(#757575, @overlay0);
+      #cc(#191919, @crust);
+      #cc(#000000, @crust);
+
+      :root {
+        --category-1-color: @text;
+        --category-8-color: @mauve;
+        --category-10-color: @peach;
+        --category-12-color: @overlay1;
+        --category-20-color: @pink;
+        --category-23-color: @blue;
+        --category-24-color: @red;
+        --category-25-color: @green;
+        --category-26-color: @mauve;
+        --category-28-color: @blue;
+        --category-29-color: @red;
+        --category-30-color: @green;
+        --category-31-color: @mauve;
+        --category-36-color: @red;
+        --category-45-color: @red;
+        --category-46-color: @maroon;
+        --category-52-color: @overlay0;
+        --category-53-color: @overlay0;
+        --category-54-color: @sky;
+        --category-55-color: @maroon;
+        --category-56-color: @green;
+        --category-57-color: @blue;
+        --category-62-color: @green;
+        --category-63-color: @maroon;
+        --category-71-color: @yellow;
+        --category-72-color: @yellow;
+        --category-74-color: @green;
+        --category-75-color: @peach;
+        --category-81-color: @teal;
+        --category-82-color: @green;
+        --category-83-color: @sapphire;
+        --category-90-color: @mauve;
+        --category-103-color: @mauve;
+        --category-129-color: @text;
+        --category-145-color: @blue;
+        --category-146-color: @peach;
+        --category-147-color: @green;
+        --category-155-color: @blue;
+        --category-158-color: @mauve;
+        --category-159-color: @green;
+        --category-160-color: @blue;
+        --category-170-color: @green;
+        --category-184-color: @text;
+        --category-185-color: @text;
+        --category-193-color: @yellow;
+        --category-196-color: @blue;
+        --category-197-color: @blue;
+        --category-198-color: @blue;
+        --category-209-color: @blue;
+        --category-228-color: @blue;
+        --category-247-color: @yellow;
+        --category-261-color: @text;
+        --category-278-color: @crust;
+        --category-341-color: @mauve;
+        --category-342-color: @overlay1;
+        --category-343-color: @teal;
+        --category-344-color: @text;
+        --category-345-color: @crust;
+        --category-370-color: @blue;
+        --category-379-color: @crust;
+        --category-405-color: @mauve;
+        --category-407-color: @blue;
+      }
+    }
+
+    @heatmap-base: @peach;
+
+    .heatmap-high,
+    .heatmap-high a,
+    .heatmap-high .d-icon,
+    .heatmap-high .d-button-label {
+      color: @heatmap-base !important;
+    }
+
+    .heatmap-med,
+    .heatmap-med a,
+    .heatmap-med .d-icon,
+    .heatmap-med .d-button-label {
+      color: fade(@heatmap-base, 80%) !important;
+    }
+
+    .heatmap-low,
+    .heatmap-low a,
+    .heatmap-low .d-icon,
+    .heatmap-low .d-button-label {
+      color: fade(@heatmap-base, 60%) !important;
+    }
+
+    // Last visit lines
+    .topic-list .topic-list-item-separator td,
+    .small-action.topic-post-visited .topic-post-visited-line {
+      border-color: var(--tertiary);
+    }
+    .topic-list .topic-list-item-separator td span,
+    .small-action.topic-post-visited
+      .topic-post-visited-line
+      .topic-post-visited-message,
+    .topic-list .topic-list-item-separator .topic-list-data span {
+      color: var(--tertiary);
+    }
+    .topic-list .topic-list-item-separator .topic-list-data {
+      border-color: var(--tertiary);
+    }
+
+    // Topic Status Button
+    .topic-status-btn-open,
+    .topic-status-btn-needs-information,
+    .topic-status-btn-fixed,
+    .topic-status-btn-closed {
+      color: @base;
+    }
+    .topic-status-btn-open {
+      background-color: @text;
+    }
+    .topic-status-btn-needs-information {
+      background-color: @yellow;
+    }
+    .topic-status-btn-fixed {
+      background-color: @green;
+    }
+    .topic-status-btn-closed {
+      background-color: @blue;
+    }
+
+    .badge-card .badge-contents .badge-icon {
+      &.badge-type-gold .fa {
+        color: var(--gold) !important;
+      }
+
+      &.badge-type-silver .fa {
+        color: var(--silver) !important;
+      }
+
+      &.badge-type-bronze .fa {
+        color: var(--bronze) !important;
+      }
+    }
+
+    // RBX branding 
+    #site-logo {
+      filter: @text-filter;
+    }
+
+    #d-splash {
+      --dot-color: var(--tertiary);
+    }
+
+    #creator_hub_navigation_rbx {
+      header {
+        border-color: @surface0;
+      }
+      nav {
+        background: @base;
+      }
+      [class*="colorSecondary"] {
+        color: @subtext0;
+      }
+      .MuiTabs-root {
+        [class*="Typography-root-title-unselected"],
+        a {
+          color: @subtext0;
+          &:hover {
+            &:not(.Mui-selected) {
+              color: @text;
+            }
+          }
+        }
+        a.Mui-selected {
+          color: @text;
+        }
+      }
+      [class*="headerButton"],
+      [class*="logo"] {
+        color: @text;
+      }
+    }
+    .MuiMenu-paper,
+    .MuiMenuItem-root {
+      color: inherit;
+    }
+    .MuiMenuItem-root:hover {
+      background-color: fade(@text, 8%);
+    }
+    .MuiPaper-elevation {
+      background-color: @surface0 !important;
+    }
+    .MuiTouchRipple-child {
+      background-color: @accent;
+    }
+
+    #footer_rbx {
+      filter: none;
+      span {
+        color: @overlay2;
+        filter: none;
+      }
+      .MuiLink-root {
+        color: @subtext0;
+        filter: none;
+      }
+      [alt="footerLogo"] {
+        filter: @text-filter;
+      }
+    }
+  }
+}
