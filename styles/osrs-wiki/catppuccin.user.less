@@ -18,18 +18,6 @@
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
 @-moz-document domain("oldschool.runescape.wiki") {
-  :root {
-    body {
-      @media (prefers-color-scheme: light) {
-        #catppuccin(@lightFlavor);
-      }
-
-      @media (prefers-color-scheme: dark) {
-        #catppuccin(@darkFlavor);
-      }
-    }
-  }
-
   body {
     &.wgl-theme-light {
       #catppuccin(@lightFlavor);
@@ -45,7 +33,6 @@
     #lib.defaults();
 
     & {
-      --body-background-image:url('/images/Old_School_RuneScape_Wiki_background_darkmode.png');
       --body-background-color:@base;
       --body-main:@mantle;
       --body-light:@base;
@@ -64,7 +51,7 @@
       --bearcat-green:@green;
       --awb-purple:@mauve;
       --sidebar:@base;
-      --button-background:rgba(@accent, 0.5);
+      --button-background:fade(@accent, 50%);
       --button-dark:@accent;
       --button-border:@accent;
       --button-light:@accent;
@@ -74,7 +61,7 @@
       --wikitable-bg-lighter:@surface0;
       --wikitable-color:var(--text-color);
       --wikitable-alternating-bg:@surface0;
-      --table-na-background:rgba(0,0,0,0.2);
+      --table-na-background:@mantle;
       --table-na-color:@text;
       --table-yes-background:@green;
       --table-yes-color:@base;
@@ -92,15 +79,15 @@
       --ooui-text:@text;
       --ooui-interface:@base;
       --ooui-interface-border:@surface0;
-      --ooui-window-background:rgba(25,25,25,0.6);
-      --ooui-input:rgba(@accent, 0.2);
+      --ooui-window-background:@base;
+      --ooui-input:fade(@accent, 20%);
       --ooui-input-border:@accent;
       --ooui-input-border--hover:@accent;
-      --ooui-normal:rgba(@accent, 0.5);
-      --ooui-normal--hover:rgba(@accent, 0.75);
+      --ooui-normal:fade(@accent, 50%);
+      --ooui-normal--hover:fade(@accent, 75%);
       --ooui-normal-border:@surface0;
-      --ooui-progressive:rgba(@accent, 0.5);
-      --ooui-progressive--hover:rgba(@accent, 0.75);
+      --ooui-progressive:fade(@accent, 50%);
+      --ooui-progressive--hover:fade(@accent, 75%);
       --ooui-accent:var(--link-color);
       --ooui-disabled:@surface2;
       --ooui-disabled-border:@surface2;
@@ -273,8 +260,8 @@
       --vector-tab-background:@mantle;
       --vector-tab-background--hover:@crust;
       --vector-tab-link-color:@text;
-      --lighttable-bg-hover:rgba(@accent, 0.5);
-      --lighttable-bg-active:rgba(@accent, 0.5);
+      --lighttable-bg-hover:fade(@accent, 50%);
+      --lighttable-bg-active:fade(@accent, 50%);
       --lighttable-link-color:@text;
       --personal-links-bg:@base;
       --tbz-unlocked-background:repeating-linear-gradient(-45deg,@green 0 20px,@green 20px 30px);
@@ -285,13 +272,22 @@
       --tbz-partial-unlock-border-color:@green;
     }
 
-    body {
-      background: var(--body-background-color);
-    }
+    @googleBrand: hsl(255, 100%, 100%);
+    @brandToAccentHue: hue-rotate(0deg + (hue(@accent) - hue(@googleBrand)));
+    @intensivity: if(@flavor = latte, 150%, 100%);
+    @brandToAccentSat: saturate(
+      @intensivity + (saturation(@accent) - saturation(@googleBrand))
+    );
+    @brandToAccentLig: brightness(
+        @intensivity + (lightness(@accent) - lightness(@googleBrand))
+      )
+      hue-rotate(20deg);
+
+    background: var(--body-background-color);
 
     #p-logo {
       a {
-        filter: hue-rotate(300deg);
+        filter: @brandToAccentHue @brandToAccentLig @brandToAccentSat;
       }
     }
 
@@ -305,7 +301,7 @@
     }
 
     .mp-popular-page-light {
-      background-color: rgba(@accent, 0.65);
+      background-color: fade(@accent, 65%);
       a { color: @text; }
     }
 
@@ -362,7 +358,7 @@
           background-color: @accent;
           color: @base;
           border-color: @accent;
-          box-shadow: 0px 0px 1px 1px rgba(@accent, 0.5);
+          box-shadow: 0 0 1px 1px fade(@accent, 50%);
         }
       }
     }
@@ -374,6 +370,24 @@
 
     .vector-search-box .cdx-search-input__end-button.cdx-button {
       filter: @accent-filter;
+    }
+
+    #pt-anonuserpage,
+    .oo-ui-icon-feedback,
+    .oo-ui-icon-advanced {
+      filter: @text-filter !important;
+    }
+
+    .in-game-message {
+      color: @text !important;
+      text-shadow: 0.5px 0.5px 0px @crust !important;
+      background: @crust !important;
+    }
+
+    .QtyCalc {
+      color: @text;
+      background: @mantle;
+      border: 1px solid @mantle;
     }
 
   }
