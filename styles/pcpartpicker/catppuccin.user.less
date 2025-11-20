@@ -229,6 +229,9 @@
       .nav__logo--icon {
         content: url("data:image/svg+xml,@{logoSmall}");
       }
+      .nav__top, .navLogoOnly {
+        background-color: @crust;
+      }
 
       .navDesktop {
         background-color: @crust;
@@ -359,9 +362,9 @@
           }
         }
         .navCard__content a {
-          color: @text !important;
+          color: @text;
           &:hover {
-            color: @accent !important;
+            color: @accent;
           }
         }
       }
@@ -863,328 +866,356 @@
     }
 
     // === Misc Elements === //
-    body {
-      //==Ratings==//
-      .ratingBar .ratingBar__track {
-        background-color: @crust !important;
-        .ratingBar__bar {
-          background-color: @yellow !important;
-          &:hover {
-            background-color: lighten(@yellow, 5%) !important;
-          }
-        }
-      }
-      .ratingStars, .ratingPercentage {
-        color: @yellow !important;
+
+    //==Ratings==//
+    .ratingBar .ratingBar__track {
+      background-color: @crust !important;
+      .ratingBar__bar {
+        background-color: @yellow !important;
         &:hover {
-          color: lighten(@yellow, 5%) !important;
+          background-color: lighten(@yellow, 5%) !important;
         }
       }
-      .icon.shape-star-full, .icon.shape-star-half {
-        fill: @yellow !important;
+    }
+    .ratingStars, .ratingPercentage {
+      color: @yellow !important;
+      &:hover {
+        color: lighten(@yellow, 5%) !important;
       }
-      .icon.shape-star-empty {
-        fill: @surface0 !important;
-      }
+    }
+    .icon.shape-star-full, .icon.shape-star-half {
+      fill: @yellow !important;
+    }
+    .icon.shape-star-empty {
+      fill: @surface0 !important;
+    }
 
-      //==Inputs==//
-      // Input
-      input {
-        background-color: @mantle !important;
-        border-color: @mantle !important;
+    //==Inputs==//
+    // Input
+    input {
+      background-color: @mantle !important;
+      border-color: @mantle !important;
+      color: @text !important;
+      box-shadow: none !important;
+    }
+    .wrapper-formField label {
+      color: @text !important;
+    }
+
+    // Select
+    select {
+      background-color: @mantle;
+      color: @text !important;
+      // Down arrow
+      @svg: escape(
+        '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 18 18" enable-background="new 0 0 18 18" xml:space="preserve"><polygon points="9,13.6 2.2,6.8 3.8,5.2 9,10.4 14.2,5.2 15.8,6.8" fill="@{text}"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+      box-shadow: none !important;
+    }
+    textarea {
+      background-color: @mantle !important;
+    }
+
+    // Buttons (all types)
+    .button {
+      background-color: @accent !important;
+      border-color: @accent !important;
+      color: @base !important;
+      svg {
+        fill: @base !important;
+      }
+      &.button--negative {
+        background-color: @red !important;
+        border-color: @red !important;
+      }
+      &.button--success {
+        background-color: @green !important;
+        border-color: @green !important;
+      }
+      &.button--dark {
+        background-color: @base !important;
+        border-color: @base !important;
         color: @text !important;
-        box-shadow: none !important;
       }
 
-      // Select
-      select {
+      &:not(.button--disabled):not(:disabled):hover {
+        background-color: lighten(@accent, 5%) !important;
+        border-color: lighten(@accent, 5%) !important;
+        color: @base !important;
+        &.button--negative {
+          background-color: lighten(@red, 5%) !important;
+          border-color: lighten(@red, 5%) !important;
+        }
+        &.button--success {
+          background-color: lighten(@green, 5%) !important;
+          border-color: lighten(@green, 5%) !important;
+        }
+        &.button--dark {
+          background-color: @mantle !important;
+          border-color: @mantle !important;
+          color: @text !important;
+        }
+      }
+    }
+
+    // Radio
+    .radio + label::before {
+      border-color: @surface0 !important;
+      background-color: @crust !important;
+    }
+    .radio:checked + label::before {
+      border-color: @accent !important;
+      background-color: @base !important;
+    }
+
+    // Checkbox
+    .checkbox + label::before {
+      background-color: @crust;
+      border-color: transparent;
+    }
+    .checkbox:checked + label::before {
+      background-color: @accent;
+      border-color: @accent;
+      @svg: escape(
+        '<svg viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m5.5 12.5 4.667 4.5L19.5 8" stroke="@{base}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    // Slider to select a range of values
+    .filter_slider--wrapper {
+      .ui-slider {
+        background-color: @surface0;
+      }
+      .ui-slider-range, .ui-slider-handle {
+        background-color: @accent;
+      }
+    }
+    // Buttons to show more/less info
+    .moreless {
+      color: @accent !important;
+      &:hover {
+        color: lighten(@accent, 5%) !important;
+      }
+      svg {
+        fill: @accent !important;
+      }
+    }
+    .collapse-toggle::after, .collapse-toggle::before {
+      background-color: @text !important;
+    }
+
+    // Switch Toggle
+    .toggle + label > .toggle__track {
+      background-color: @crust;
+      border-color: @crust;
+      &::before {
+        background-color: @subtext1;
+        border-color: @crust;
+      }
+    }
+    .toggle:checked + label > .toggle__track {
+      background-color: @accent;
+      border-color: @accent;
+      &::before {
+        background-color: @crust;
+        border-color: @accent;
+      }
+    }
+
+    //==Random Small Elements==//
+
+    // Cookies
+    .cc-window {
+      background-color: @blue;
+      color: @base;
+      a {
+        color: @mantle !important;
+        &:hover {
+          color: @crust !important;
+        }
+      }
+      .cc-btn:not(:first-child) {
+        background-color: @text;
+      }
+    }
+
+    // Register / Login
+    #register .card, #login .card {
+      background-color: @crust !important;
+      .checkbox:not(:checked) + label:before {
         background-color: @mantle;
-        color: @text !important;
-        // Down arrow
-        @svg: escape(
-          '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 18 18" enable-background="new 0 0 18 18" xml:space="preserve"><polygon points="9,13.6 2.2,6.8 3.8,5.2 9,10.4 14.2,5.2 15.8,6.8" fill="@{text}"/></svg>'
-        );
-        background-image: url("data:image/svg+xml,@{svg}");
-        box-shadow: none !important;
       }
-      textarea {
-        background-color: @mantle !important;
+      .note--belowButton {
+        border-color: @surface0;
       }
+    }
 
-      // Buttons (all types)
-      .button {
+    // Page selection
+    #module-pagination {
+      .pagination--current {
+        background-color: @accent;
+        color: @base;
+      }
+    }
+
+    // Applied Filters
+    .appliedFilter {
+      .pp-filter-breadcrumb {
         background-color: @accent !important;
         border-color: @accent !important;
-        color: @base !important;
-        svg {
-          fill: @base !important;
-        }
-        &.button--negative {
+        // Normally only transitions border color but we need to also transition background color
+        transition: all 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
+        &:hover {
           background-color: @red !important;
           border-color: @red !important;
         }
-        &.button--success {
-          background-color: @green !important;
-          border-color: @green !important;
-        }
-        &.button--dark {
-          background-color: @base !important;
-          border-color: @base !important;
-          color: @text !important;
-        }
-
-        &:not(.button--disabled):not(:disabled):hover {
-          background-color: lighten(@accent, 5%) !important;
-          border-color: lighten(@accent, 5%) !important;
+        .appliedFilter__value {
           color: @base !important;
-          &.button--negative {
-            background-color: lighten(@red, 5%) !important;
-            border-color: lighten(@red, 5%) !important;
-          }
-          &.button--success {
-            background-color: lighten(@green, 5%) !important;
-            border-color: lighten(@green, 5%) !important;
-          }
-          &.button--dark {
-            background-color: @mantle !important;
-            border-color: @mantle !important;
-            color: @text !important;
+          svg {
+            fill: @base !important;
           }
         }
       }
+    }
 
-      // Radio
-      .radio + label::before {
-        border-color: @surface0 !important;
-        background-color: @crust !important;
-      }
-      .radio:checked + label::before {
-        border-color: @accent !important;
-        background-color: @base !important;
-      }
-
-      // Checkbox
-      .checkbox + label::before {
-        background-color: @crust;
-        border-color: transparent;
-      }
-      .checkbox:checked + label::before {
-        background-color: @accent;
-        border-color: @accent;
-        @svg: escape(
-          '<svg viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="m5.5 12.5 4.667 4.5L19.5 8" stroke="@{base}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-        );
-        background-image: url("data:image/svg+xml,@{svg}") !important;
-      }
-
-      // Slider to select a range of values
-      .filter_slider--wrapper {
-        .ui-slider {
-          background-color: @surface0;
-        }
-        .ui-slider-range, .ui-slider-handle {
-          background-color: @accent;
-        }
-      }
-      // Buttons to show more/less info
-      .moreless {
-        color: @accent !important;
-        &:hover {
-          color: lighten(@accent, 5%) !important;
-        }
-        svg {
-          fill: @accent !important;
-        }
-      }
-      .collapse-toggle::after, .collapse-toggle::before {
-        background-color: @text !important;
-      }
-
-      // Switch Toggle
-      .toggle + label > .toggle__track {
-        background-color: @crust;
-        border-color: @crust;
-        &::before {
-          background-color: @subtext1;
-          border-color: @crust;
-        }
-      }
-      .toggle:checked + label > .toggle__track {
-        background-color: @accent;
-        border-color: @accent;
-        &::before {
-          background-color: @crust;
-          border-color: @accent;
-        }
-      }
-
-      //==Random Small Elements==//
-
-      // Page selection
-      #module-pagination {
-        .pagination--current {
-          background-color: @accent;
-          color: @base;
-        }
-      }
-
-      // Applied Filters
-      .appliedFilter {
-        .pp-filter-breadcrumb {
-          background-color: @accent !important;
-          border-color: @accent !important;
-          // Normally only transitions border color but we need to also transition background color
-          transition: all 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
-          &:hover {
-            background-color: @red !important;
-            border-color: @red !important;
-          }
-          .appliedFilter__value {
-            color: @base !important;
-            svg {
-              fill: @base !important;
-            }
-          }
-        }
-      }
-
-      // Price Graphs
-      .pricing-table {
-        .flot-text {
-          color: @text !important;
-        }
-        .price-history-tooltip {
-          background-color: @mantle;
-          color: @text;
-        }
-      }
-
-      // Box showing saved part lists. Used in user profile
-      .partlist__saved {
-        background-color: @mantle;
-        border-color: @mantle;
-      }
-
-      // Image editor for userbuilds
-      .productGallery__wrapper {
-        background-color: @base !important;
-        border-color: @surface0 !important;
-      }
-      .build-carousel-edit-images {
-        background-color: @base !important;
-        border-color: @base !important;
-      }
-
-      // Dragable Lists
-      .list-movable.list-active a {
-        background-color: @crust !important;
-      }
-
-      // Tooltip popups
-      .tooltipText {
-        color: @base;
-        background-color: @accent;
-        &::after {
-          border-color: @accent transparent transparent transparent;
-        }
-      }
-
-      // User content
-      .ugcActions {
-        color: @text;
-        .comment-voted-up svg, .comment-vote-up svg:hover {
-          fill: @green !important;
-        }
-        .comment-voted-down svg, .comment-vote-down svg:hover {
-          fill: @red !important;
-        }
-      }
-      .comment--nested .comment__wrapper, .comment__wrapper {
-        border-color: @surface1;
-        .comment {
-          border-color: @surface1;
-        }
-      }
-      // Username
-      .user a {
-        color: @accent !important;
-        &:hover {
-          color: lighten(@accent, 5%) !important;
-        }
-      }
-      // Various tags that appear next to commenters names
-      .userDetails__userModifier {
-        background-color: @text;
-        span {
-          color: @base;
-        }
-      }
-      .comment-modifier-staff svg {
-        background-color: @blue;
-        fill: @base !important;
-      }
-      .comment-modifier-submitter svg {
-        background-color: @green;
-        fill: @base !important;
-      }
-
-      // Benchmark Percentile Bars
-      .lhs-benchmark, .category-benchmark {
-        // Percentage bars that show the percentile of the benchmarked part in specific stats
-        background-color: @surface0;
-        .lhs-benchmark-inner, .category-benchmark-inner {
-          background-color: @accent;
-        }
-      }
-
-      // Small Popups
-      .pageMessage p {
-        // Mostly used as confirmation of an action such as copying a permalink through a button
-        background-color: @green;
-        color: @base;
-      }
-
-      // Box with aspect ratio info
-      .ratio {
-        // Used in wallpapers page at pcpartpicker.com/downloads
-        background-color: @accent !important;
-        color: @base;
-      }
-
-      .subTitle {
-        border-color: @surface1;
-      }
-      .group {
-        border-color: @surface0 !important;
-      }
-      .group__title {
+    // Price Graphs
+    .pricing-table {
+      .flot-text {
         color: @text !important;
       }
-
-      .list-unstyled li {
+      .price-history-tooltip {
+        background-color: @mantle;
         color: @text;
-        border-color: @surface0;
       }
+    }
 
-      .offCanvas {
-        // Sidebars commonly found in user pages
-        background-color: @base;
+    // Box showing saved part lists. Used in user profile
+    .partlist__saved {
+      background-color: @mantle;
+      border-color: @mantle;
+    }
+
+    // Image editor for userbuilds
+    .productGallery__wrapper {
+      background-color: @base !important;
+      border-color: @surface0 !important;
+    }
+    .build-carousel-edit-images {
+      background-color: @base !important;
+      border-color: @base !important;
+    }
+
+    // Dragable Lists
+    .list-movable.list-active a {
+      background-color: @crust !important;
+    }
+
+    // Tooltip popups
+    .tooltipText {
+      color: @base;
+      background-color: @accent;
+      &::after {
+        border-color: @accent transparent transparent transparent;
       }
+    }
 
-      div[style*="color: red;"] {
-        // Only used when uploading a new userbuild and no images attached (as far as I know)
-        color: @red !important;
+    // User content
+    .ugcActions {
+      color: @text;
+      .comment-voted-up svg, .comment-vote-up svg:hover {
+        fill: @green !important;
       }
-
-      .row--lastPostTimestamp p {
-        // Only appears on mobile
-        color: @subtext0 !important;
+      .comment-voted-down svg, .comment-vote-down svg:hover {
+        fill: @red !important;
       }
+    }
+    .comment--nested .comment__wrapper, .comment__wrapper {
+      border-color: @surface1;
+      .comment {
+        border-color: @surface1;
+      }
+    }
+    // Username
+    .user a {
+      color: @accent !important;
+      &:hover {
+        color: lighten(@accent, 5%) !important;
+      }
+    }
+    // Various tags that appear next to commenters names
+    .userDetails__userModifier {
+      background-color: @text;
+      span {
+        color: @base;
+      }
+    }
+    .comment-modifier-staff svg {
+      background-color: @blue;
+      fill: @base !important;
+    }
+    .comment-modifier-submitter svg {
+      background-color: @green;
+      fill: @base !important;
+    }
 
-      .tabsGroup > ul > li.more:hover {
-        ul, > a {
-          background-color: @surface0 !important;
-        }
+    // Benchmark Percentile Bars
+    .lhs-benchmark, .category-benchmark {
+      // Percentage bars that show the percentile of the benchmarked part in specific stats
+      background-color: @surface0;
+      .lhs-benchmark-inner, .category-benchmark-inner {
+        background-color: @accent;
+      }
+    }
+
+    // Small Popups
+    .pageMessage p {
+      // Mostly used as confirmation of an action such as copying a permalink through a button
+      background-color: @green;
+      color: @base;
+    }
+
+    // Box with aspect ratio info
+    .ratio {
+      // Used in wallpapers page at pcpartpicker.com/downloads
+      background-color: @accent !important;
+      color: @base;
+    }
+
+    .subTitle {
+      border-color: @surface1;
+    }
+    .group {
+      border-color: @surface0 !important;
+    }
+    .group__title {
+      color: @text !important;
+    }
+
+    .list-unstyled li {
+      color: @text;
+      border-color: @surface0;
+    }
+
+    .offCanvas {
+      // Sidebars commonly found in user pages
+      background-color: @base;
+    }
+
+    div[style*="color: red;"] {
+      // Only used when uploading a new userbuild and no images attached (as far as I know)
+      color: @red !important;
+    }
+
+    .row--lastPostTimestamp p {
+      // Only appears on mobile
+      color: @subtext0 !important;
+    }
+
+    .tabsGroup > ul > li.more:hover {
+      ul, > a {
+        background-color: @surface0 !important;
       }
     }
   }
