@@ -1,0 +1,1396 @@
+/* ==UserStyle==
+@name MyDramaList Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/mydramalist
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/mydramalist
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/mydramalist/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Amydramalist
+@description Soothing pastel theme for MyDramaList
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("mydramalist.com") {
+  :root {
+    &:not(.dark-mode) {
+      #catppuccin(@lightFlavor);
+    }
+    &.dark-mode {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    // Mixins
+    .bg-accent() {
+      background-color: @accent;
+      color: @base;
+      border-color: transparent;
+    }
+
+    .accent-focus() {
+      border-color: @accent;
+      color: @accent;
+    }
+
+    .btn-bootstrap(
+      @text-color;
+      @bg-color;
+      @hover-bg: @bg-color;
+      @border-color: @bg-color;
+      @hover-border: @hover-bg;
+    ) {
+      color: @text-color;
+      background-color: @bg-color;
+
+      & when not(@border-color = @bg-color) {
+        border-color: @border-color;
+      }
+
+      &.focus,
+      &:focus,
+      &:hover {
+        color: @text-color;
+        background-color: @hover-bg;
+      }
+
+      &.active,
+      &:active,
+      .open > &.dropdown-toggle {
+        color: @text-color;
+        background-color: @hover-bg;
+        border-color: @hover-border;
+        &.focus,
+        &:focus,
+        &:hover {
+          color: @text-color;
+          background-color: @hover-bg;
+        }
+      }
+
+      &.disabled,
+      &:disabled {
+        &.focus,
+        &:focus,
+        &:hover {
+          background-color: @bg-color;
+        }
+      }
+    }
+
+    // Outline bootstrap buttons
+    .btn-outline-bootstrap(@color) {
+      color: @color;
+      background-image: none;
+      background-color: transparent;
+
+      &.active,
+      &.focus,
+      &:active,
+      &:focus,
+      &:hover,
+      .open > &.dropdown-toggle {
+        color: @base;
+        background-color: @color;
+      }
+
+      &.active,
+      &:active,
+      .open > &.dropdown-toggle {
+        &.focus,
+        &:focus,
+        &:hover {
+          color: @base;
+          background-color: @color;
+        }
+      }
+    }
+
+    // Text colour variants
+    .color-variant(@selector; @color) {
+      .@{selector} {
+        color: @base;
+        background-color: @color;
+
+        .lt {
+          background-color: @color;
+        }
+        .dk {
+          background-color: @color;
+        }
+        .bg {
+          background-color: @color;
+        }
+      }
+
+      a.@{selector}:hover {
+        background-color: @color;
+      }
+
+      a.text-@{selector}:hover {
+        color: @color;
+      }
+
+      .text-@{selector} {
+        color: @color;
+      }
+
+      .text-@{selector}-hover a:hover {
+        color: @color;
+      }
+    }
+
+    // Tag variants
+    .tag-variant(@bg-color) {
+      background-color: @bg-color;
+
+      &[href] {
+        &:focus,
+        &:hover {
+          background-color: @bg-color;
+        }
+      }
+    }
+
+    // Latte specfic overrides (does this get enough specifity?)
+    & when (@flavor = latte) {
+      #calendar-nav {
+        .menu-item,
+        .quarter {
+          &.exact-active,
+          &:hover {
+            border-bottom-color: @base;
+            color: @text;
+          }
+        }
+
+        .menu-item {
+          border-bottom-color: @base;
+          color: @text;
+
+          &:hover {
+            color: @text;
+          }
+        }
+
+        a {
+          color: @text;
+        }
+      }
+
+      .black {
+        color: @text;
+      }
+    }
+
+    // CSS variables
+    --mdl-primary: @accent;
+    --mdl-primary-text: @accent;
+    --mdl-primary-text-2: @subtext0;
+    --mdl-title: @accent;
+    --mdl-link: @accent;
+
+    --mdl-nav-header: @crust;
+    --mdl-nav-header-border: 0;
+
+    --mdl-background: @crust;
+    --mdl-background-2: transparent;
+
+    --mdl-text: @text;
+    --mdl-text-inverted: hsla(0, 0%, 100%, 0.87);
+    --mdl-text-lighter: @subtext0;
+    --mdl-text-muted: @overlay1;
+
+    --mdl-box-background: @base;
+    --mdl-box-background-2: @mantle;
+    --mdl-box-background-4: @mantle;
+    --mdl-box-border: @crust;
+
+    --mdl-btn-white: @surface0;
+    --mdl-btn-white-border: @mantle;
+    --mdl-btn-hover: @surface1;
+    --mdl-btn-background: @mantle;
+    --mdl-btn-background-hover: @crust;
+    --mdl-btn-hover-text: @text;
+    --mdl-btn-active: @accent;
+    --mdl-btn-shadow: none;
+    --mdl-btn-plain: @base;
+    --mdl-btn-primary-background: @accent;
+    --mdl-btn-primary-plain: fade(@crust, 50%);
+    --mdl-btn-primary-disabled: fade(@accent, 50%);
+    --mdl-btn-danger-background: @flamingo;
+    --mdl-btn-danger-plain: @red;
+    --mdl-btn-danger-border: @flamingo;
+    --mdl-btn-ml-border: @surface2;
+    --mdl-btn-ml-text: @text;
+
+    --mdl-border: @surface1;
+    --mdl-border-lighter: @surface2;
+    --mdl-threadline: fade(@accent, 50%);
+    --mdl-placeholder: @surface2;
+
+    --mdl-black: @base;
+    --mdl-light: @mantle;
+    --mdl-light-b: @base;
+    --mdl-light-b2: @mantle;
+    --mdl-light-dk: @base;
+
+    --mdl-spoiler-background: @base;
+    --mdl-box-header-light-b: @text;
+
+    --mdl-tag-background: @crust;
+    --mdl-tag-background-2: @crust;
+    --mdl-tag-text: @text;
+    --mdl-tag-text-2: @text;
+    --mdl-tag-active-background: @overlay1;
+    --mdl-tag-vip: @teal;
+    --mdl-tag-vip-border: @teal;
+
+    --mdl-green: @green;
+    --mdl-red: @red;
+
+    --mdl-readonly-background: @mantle;
+
+    --mdl-input-placeholder: @text;
+    --mdl-input-text: @text;
+    --mdl-input-background: @crust;
+    --mdl-input-border: @overlay1;
+    --mdl-input-border-hover: @overlay1;
+
+    --mdl-spnsr-background: transparent;
+
+    --mdl-feeds-media-tag: @crust;
+    --mdl-feeds-media-border: @crust;
+    --mdl-feeds-attachment: @crust;
+    --mdl-feeds-spoiler-background: @crust;
+    --mdl-feeds-spoiler-border: @crust;
+    --mdl-feeds-cmts-background: @base;
+
+    --mdl-review-box-rating: @base;
+
+    --mdl-dropdown-border: @crust;
+    --mdl-dropitem-hover: fade(@text, 10%);
+    --mdl-dropitem-active: fade(@text, 20%);
+    --mdl-dropitem-divider: @overlay0;
+
+    --mdl-cal-btn-border: @overlay1;
+    --mdl-cal-btn-background: @base;
+    --mdl-cal-btn-weekday: @base;
+    --mdl-cal-btn-weekday-color: @text;
+
+    --mdl-gradient-3: @base;
+
+    --mdl-sticky-background: @mantle;
+    --mdl-clist-placeholder: @overlay1;
+    --mdl-item-hover-background: @mantle;
+    --mdl-item-hover-color: @text;
+    --mdl-chart-text-1: @teal;
+    --mdl-chart-text-2: @peach;
+
+    --tealRaw: #lib.rgbify(@teal)[];
+    --peachRaw: #lib.rgbify(@peach)[];
+
+    --base: @crust;
+    --crustRaw: #lib.rgbify(@crust)[];
+
+    --text: @text;
+    --textBlack: rgb(30, 30, 46);
+    --accent: @accent !important;
+    --accent-dim: fade(@accent, 50%) !important;
+
+    --crust: @base;
+    --mantle: @mantle;
+
+    --overlay: @overlay2;
+    --subtext0: @subtext0;
+    --subtext1: @subtext1;
+
+    --SoftRed: @red;
+    --SoftPurple: @mauve;
+    --rating: @yellow;
+
+    --green: @green;
+    --red: @red;
+    --peach: @peach;
+    --sapphire: @sapphire;
+
+    // General
+    .app-header {
+      background: @base !important;
+    }
+
+    a.thread--category-tag {
+      color: @text;
+    }
+
+    .dark-mode {
+      .mode-dark {
+        background-color: @surface0;
+        color: @text;
+      }
+
+      .mode-light {
+        color: @base;
+        background-color: @text;
+      }
+    }
+
+    .el-card {
+      transition: none;
+    }
+
+    .navbar-brand {
+      img,
+      svg {
+        filter: @text-filter;
+      }
+    }
+
+    [src="/assets/logo_w.png"] {
+      filter: @text-filter;
+    }
+
+    .markdown-body a {
+      color: @accent;
+    }
+
+    // Headers and navigation
+
+    .primary {
+      .bg-accent();
+    }
+
+    .nav-active-primary {
+      .nav-link.active,
+      .nav > li.active > a {
+        .bg-accent();
+      }
+    }
+
+    #dramalist .table thead th,
+    .style-default .table thead th {
+      .bg-accent();
+
+      > a {
+        color: @crust !important;
+      }
+    }
+
+    #calendar-nav {
+      background-color: @accent;
+      color: @base;
+
+      .menu-icon {
+        color: @text;
+        background-color: @base;
+      }
+
+      .menu-item {
+        &.exact-active,
+        &:hover {
+          border-bottom-color: @base;
+          color: @crust;
+        }
+
+        border-bottom-color: @base;
+        color: @crust;
+      }
+
+      .quarter {
+        &:hover,
+        &.exact-active {
+          border-bottom-color: @base;
+          color: @crust;
+        }
+      }
+
+      a {
+        color: @crust;
+
+        &:hover {
+          color: @crust;
+        }
+      }
+    }
+
+    #episode_calendar {
+      .weekday.active {
+        background-color: @accent;
+        color: @base;
+      }
+
+      .display-format {
+        color: @accent;
+      }
+    }
+
+    .edit-container h5 {
+      color: @accent;
+    }
+
+    .mdl-nav > li.active > a {
+      color: @accent;
+    }
+
+    .nav-notifications,
+    .notifications-list {
+      .list-group-item {
+        .block a,
+        .message a {
+          color: @accent;
+        }
+      }
+    }
+
+    .feed-spoiler {
+      color: @accent;
+    }
+
+    #upcoming-episode .calendar {
+      color: @accent;
+    }
+
+    .box-navbar > ul .nav-item.active {
+      border-bottom-color: @accent;
+    }
+
+    .box-header .primary a {
+      color: @crust !important;
+    }
+
+    // MDL buttons
+    // .btn-primary,
+    .group-manage-list > .btn,
+    :where(.el-button--primary) {
+      .bg-accent();
+
+      &:hover {
+        background-color: fade(@accent, 50%);
+      }
+    }
+
+    #episode_calendar .display-options {
+      > .el-button--primary,
+      > .el-button {
+        .bg-accent();
+      }
+    }
+
+    .nav-feeds .nav-item.active {
+      .bg-accent();
+    }
+
+    .pager,
+    .pagination {
+      > .active {
+        > a,
+        > span {
+          .bg-accent();
+        }
+      }
+    }
+
+    // Text Accent Buttons / Links
+    .btn-link,
+    .html_content_block a {
+      color: @accent;
+    }
+
+    .advanced-search {
+      .filter-box-adv .filter-select {
+        &.active,
+        &:hover {
+          color: @accent;
+        }
+      }
+
+      .keyword-search.active {
+        color: @accent;
+      }
+    }
+
+    #collection-lists .box-body .list-bars a {
+      color: @accent;
+    }
+
+    a.m-r i:hover {
+      color: @accent;
+    }
+
+    #edit-collection {
+      .btn-list-close {
+        color: @accent;
+      }
+
+      .list-option {
+        background-color: @mantle;
+
+        &.selected,
+        &:hover {
+          color: @accent;
+          border-color: @accent;
+          background-color: @crust;
+
+          > i {
+            color: @accent;
+          }
+        }
+      }
+    }
+
+    .btn {
+      &.white,
+      &.primary {
+        border-color: @overlay0;
+      }
+
+      &.white {
+        &:hover a,
+        a:hover,
+        &:hover {
+          color: @text !important;
+        }
+      }
+
+      &.btn-trailer i {
+        color: @teal;
+      }
+
+      &:not([disabled]) {
+        &.active,
+        &:focus,
+        &:hover {
+          box-shadow: inset 0 0 0 6rem
+            color-mix(in srgb, currentcolor 20%, transparent);
+        }
+      }
+    }
+
+    .btn-default {
+      a:hover,
+      &:hover {
+        color: @crust !important;
+      }
+    }
+
+    #episode_calendar .episode-card-large .stats i {
+      color: @accent;
+    }
+
+    .el-pager li.active {
+      color: @accent;
+    }
+
+    .mdl-theme.fr-popup .fr-action-buttons button.fr-command {
+      color: @accent;
+    }
+
+    .el-dropdown-menu__item.privacy-item:hover {
+      color: @accent;
+    }
+
+    .el-button {
+      &.el-button--default:hover {
+        color: @accent;
+      }
+
+      &--text:hover {
+        color: @text !important;
+      }
+
+      &--danger.is-plain {
+        color: @text !important;
+      }
+
+      &--success {
+        &.is-disabled,
+        &.is-disabled:hover,
+        &:hover {
+          color: @text;
+          background-color: @teal;
+          border-color: @teal;
+        }
+      }
+
+      &.is-plain {
+        &:focus,
+        &:hover {
+          .accent-focus();
+        }
+      }
+    }
+
+    .el-message-box__title,
+    .el-input-group__append {
+      color: @text !important;
+    }
+
+    .box-user-profile .btn.btn-default {
+      color: @base;
+      background-color: @accent;
+    }
+
+    #footer .btn-social.btn-icon {
+      color: @text;
+    }
+
+    // Forms and inputs
+
+    .el-checkbox {
+      color: @text;
+
+      &__inner {
+        border-color: @overlay0;
+        background-color: transparent;
+
+        &::after {
+          border-color: @base;
+        }
+
+        &:hover {
+          .accent-focus();
+        }
+      }
+
+      &.is-bordered.is-checked {
+        .accent-focus();
+      }
+    }
+
+    .el-checkbox__input {
+      &.is-checked + .el-checkbox__label {
+        color: @accent;
+      }
+
+      &.is-checked,
+      &.is-indeterminate,
+      &.is-focus {
+        .el-checkbox__inner {
+          .accent-focus();
+        }
+      }
+    }
+
+    .el-checkbox-button {
+      &.is-checked,
+      &.is-focus {
+        .el-checkbox-button__inner {
+          .accent-focus();
+        }
+      }
+    }
+
+    .el-textarea__inner {
+      &::placeholder {
+        color: @subtext0;
+      }
+
+      &:hover {
+        border-color: @overlay2;
+      }
+
+      &:focus {
+        .accent-focus();
+      }
+    }
+
+    .el-form-item.is-error .el-textarea__inner:focus {
+      border-color: @flamingo;
+    }
+
+    .el-range-editor.is-active:hover {
+      border-color: @overlay2;
+    }
+
+    .el-input__inner:focus {
+      .accent-focus();
+    }
+
+    mdl-manage-modal .watch-points .el-button.selected {
+      .accent-focus();
+    }
+
+    .el-switch.is-checked .el-switch__core {
+      .accent-focus();
+    }
+
+    .el-upload {
+      &--picture-card:hover {
+        .accent-focus();
+      }
+
+      &:focus {
+        .accent-focus();
+
+        .el-upload-dragger {
+          .accent-focus();
+        }
+      }
+    }
+
+    .el-upload-dragger:hover {
+      .accent-focus();
+    }
+
+    .el-select .el-input.is-focus .el-input__inner {
+      .accent-focus();
+    }
+
+    .el-dropdown-menu__item {
+      &:focus,
+      &:not(.is-disabled):hover {
+        .accent-focus();
+      }
+    }
+
+    .el-select-dropdown__item.selected {
+      color: @accent;
+    }
+
+    .el-radio {
+      color: @accent;
+
+      .el-radio__inner {
+        background-color: @base;
+        border-color: @overlay0;
+      }
+
+      &:focus:not(.is-focus):not(:active):not(.is-disabled) {
+        .el-radio__inner {
+          box-shadow: 0 0 2px 2px @accent;
+        }
+      }
+
+      &__input {
+        &.is-checked {
+          + .el-radio__label {
+            color: @accent;
+          }
+
+          .el-radio__inner {
+            .bg-accent();
+          }
+        }
+      }
+    }
+
+    .el-message-box {
+      background-color: @crust;
+    }
+
+    .el-slider__button {
+      border-color: @accent;
+    }
+
+    .el-dropdown-menu__item.active {
+      .bg-accent();
+    }
+
+    .el-pagination.is-background .el-pager li:not(.disabled).active {
+      .bg-accent();
+    }
+
+    .md-check > i::before {
+      border-color: @text;
+    }
+
+    .dropdown-header {
+      color: @subtext0;
+    }
+
+    // Tags and labels
+    #mdl-lang {
+      color: @text;
+      border-color: @overlay1;
+
+      span {
+        color: inherit;
+      }
+
+      &:hover {
+        background-color: fade(@accent, 25%);
+      }
+    }
+
+    .fs-ranked > span {
+      background-color: @accent;
+      color: @crust;
+    }
+
+    .label {
+      color: @base;
+    }
+
+    .show-tags .edit-tags {
+      color: @mauve;
+    }
+
+    .alert-info {
+      background-color: fade(@mauve, 40%);
+      border-color: @mauve;
+      color: @text;
+    }
+
+    .alert-warning {
+      background-color: fade(@peach, 40%);
+      border-color: @peach;
+      color: @text;
+    }
+
+    .leaderboards .fs-rank {
+      .icon-arrow-up {
+        fill: @green;
+      }
+
+      .icon-arrow-down {
+        fill: @flamingo;
+      }
+    }
+
+    .articles-nav-pills .nav-pills .nav-link.active,
+    .grid-top-airing .nav-pills .nav-link.active {
+      color: @accent;
+    }
+
+    .tag {
+      color: @base;
+
+      &:focus,
+      &:hover {
+        color: @base;
+      }
+    }
+
+    // Tag variants
+    .tag-default {
+      .tag-variant(@overlay1);
+    }
+    .tag-primary {
+      .tag-variant(@accent);
+    }
+    .tag-success {
+      .tag-variant(@green);
+    }
+    .tag-info {
+      .tag-variant(@blue);
+    }
+    .tag-warning {
+      .tag-variant(@yellow);
+    }
+    .tag-danger {
+      .tag-variant(@red);
+    }
+
+    .style-default .list-statistics label > .cnt {
+      background-color: @sapphire;
+      color: @base;
+    }
+
+    // Comments and content
+    .btn-like,
+    .jbtn-like {
+      &.active .like-cntb {
+        color: @flamingo;
+      }
+    }
+
+    .post-message {
+      .btn-spoiler {
+        background-color: @crust;
+        color: @accent !important;
+      }
+
+      a {
+        color: fade(@accent, 70%);
+      }
+
+      .spoiler {
+        border-color: @accent;
+      }
+    }
+
+    .html_content_block table {
+      td.fr-highlighted,
+      th.fr-highlighted {
+        border-color: @accent;
+      }
+    }
+
+    .post-list .threadline {
+      border-color: var(--mdl-threadline);
+    }
+
+    .media-tag-title {
+      color: @accent;
+    }
+
+    #top-contributors .stats .details div p {
+      color: @accent;
+    }
+
+    .html_content_block a {
+      color: @accent;
+    }
+
+    .mdl-theme {
+      .fr-view a {
+        color: @accent;
+      }
+
+      &.fr-toolbar,
+      &.fr-popup {
+        .fr-command.fr-btn.fr-active {
+          color: @accent;
+        }
+      }
+    }
+
+    .feed-body .feed-status > a {
+      color: @accent;
+    }
+
+    .article-item,
+    .carousel-articles {
+      .category-name {
+        color: @catppuccin[@mocha][@mauve];
+      }
+    }
+
+    .thread {
+      &.is--announcement,
+      &.is--sticky {
+        .thread--discussion a.text-primary {
+          background-color: @accent;
+          color: @base;
+        }
+      }
+
+      &.is--sticky .thread--discussion a:hover {
+        color: @text !important;
+      }
+    }
+
+    .feed-body .progress-bar.info {
+      background-color: @accent;
+      color: @base;
+    }
+
+    .mdl-verified {
+      color: @overlay2;
+    }
+
+    .mdl-elite,
+    .mdl-star {
+      color: @mauve;
+    }
+
+    .post-list .post.highlight > .post-content {
+      background-color: @mantle;
+    }
+
+    #pm .pm-item.unread {
+      background-color: @mantle;
+    }
+
+    .html_content_block table.fr-alternate-rows tbody tr:nth-child(2n) {
+      background-color: @mantle;
+    }
+
+    .mdl-theme .fr-view {
+      table.fr-alternate-rows tbody tr:nth-child(2n) {
+        background-color: @mantle;
+      }
+
+      table th {
+        background-color: @mantle;
+      }
+    }
+
+    #episode_calendar .cover-large {
+      background-color: var(--mdl-placeholder);
+    }
+
+    #dramalist .table tbody tr td .airing,
+    .style-default .table tbody tr td .airing {
+      background-color: @teal;
+      color: @base;
+    }
+
+    // Reviews and ratings
+
+    .col-film-rating .deep-orange {
+      background: linear-gradient(@yellow, @peach);
+      color: @crust;
+    }
+
+    .rating {
+      color: @yellow;
+      filter: @yellow-filter;
+
+      .fill {
+        color: @yellow;
+      }
+    }
+
+    .dstar-rating {
+      &.rated .dstar-fill,
+      .dstar-fill {
+        color: @yellow;
+      }
+    }
+
+    #collection-lists .list-group-item .group-item-rating i {
+      &.fa,
+      &.far {
+        color: @yellow;
+      }
+    }
+
+    .review {
+      .rating-overall {
+        color: @accent;
+      }
+
+      .review-body .read-more {
+        background-image: linear-gradient(
+          fade(@crust, 0%),
+          fade(@crust, 92%),
+          @crust
+        );
+
+        > a {
+          color: @accent;
+        }
+      }
+
+      .review-spoiler {
+        color: @flamingo;
+      }
+    }
+
+    .box-tool .text-info {
+      color: @accent;
+    }
+
+    #reviews-filter .filter-dropdown-link {
+      color: @accent;
+    }
+
+    .grid-reviews .review-score {
+      color: @accent;
+    }
+
+    .review-tag {
+      &.completed {
+        color: @green;
+        border-color: @green;
+      }
+
+      &.ongoing {
+        color: @teal;
+        border-color: @teal;
+      }
+
+      &.dropped {
+        color: @flamingo;
+        border-color: @flamingo;
+      }
+    }
+
+    #games-list,
+    .game-list {
+      .game-chart-bar {
+        background-color: fade(@teal, 25%);
+      }
+
+      .game-chart-item.chart-1 .game-chart-bar {
+        background-color: fade(@peach, 20%);
+      }
+    }
+
+    #game-container .game-type {
+      color: @mauve;
+    }
+
+    // Year in review
+
+    #year-in-review {
+      h3 {
+        color: @accent;
+      }
+
+      .dramas-stats,
+      .movies-stats,
+      .people-stats,
+      .watchlist-updates {
+        i.fa-arrow-right {
+          color: @accent;
+        }
+      }
+
+      .bars-ratings .bar {
+        &:first-child {
+          background-color: fade(@accent, 30%);
+        }
+
+        &:nth-child(2) {
+          background-color: fade(@accent, 50%);
+        }
+
+        &:nth-child(3) {
+          background-color: fade(@accent, 80%);
+        }
+
+        &:nth-child(4) {
+          background-color: @accent;
+        }
+      }
+    }
+
+    // Utility classes
+
+    .black,
+    .dark,
+    .grey {
+      .form-control {
+        background-color: @surface0 !important;
+      }
+
+      .input-group-btn .btn {
+        background-color: @surface0 !important;
+      }
+    }
+
+    .color-variant(primary, var(--mdl-primary-text));
+    .color-variant(warn, @yellow);
+    .color-variant(accent, @mauve);
+    .color-variant(success, @green);
+    .color-variant(info, @lavender);
+    .color-variant(warning, @red);
+    .color-variant(danger, @red);
+
+    // Custom variants
+    a.dark:hover {
+      background-color: #293846;
+    }
+
+    a.text-dark:hover {
+      color: #293846;
+    }
+
+    .text-dark {
+      color: #2e3e4e;
+    }
+
+    .text-dark-hover a:hover {
+      color: #2e3e4e;
+    }
+
+    a.blue:hover {
+      background-color: @blue;
+    }
+
+    a.text-blue:hover {
+      color: @blue;
+    }
+
+    .text-blue {
+      color: @blue;
+    }
+
+    .text-blue-hover a:hover {
+      color: @blue;
+    }
+
+    // TODO: find where text-X is used
+
+    .text-white {
+      color: #fff !important;
+    }
+
+    .text-white-lt {
+      color: hsla(0, 0%, 100%, 0.54);
+    }
+
+    .text-white-dk {
+      color: hsla(0, 0%, 100%, 0.87);
+    }
+
+    .text-black {
+      color: #000;
+    }
+
+    .text-black-lt {
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+    .text-black-dk {
+      color: rgba(0, 0, 0, 0.87);
+    }
+
+    .text-color {
+      color: @text;
+    }
+
+    // TODO: find where lt, dk and bg are used
+
+    .black {
+      background-color: var(--mdl-black);
+
+      color: @text;
+      .box, .white {
+        background-color: @base;
+      }
+
+      .lt {
+        background-color: #2f3044;
+      }
+
+      .dk {
+        background-color: #252635;
+      }
+
+      .bg {
+        background-color: #2a2b3c;
+      }
+    }
+
+    .dark {
+      background-color: #2e3e4e;
+
+      .lt {
+        background-color: #334456;
+      }
+
+      .dk {
+        background-color: #293846;
+      }
+
+      .bg {
+        background-color: #2e3e4e;
+      }
+    }
+
+    .grey {
+      background-color: #424242;
+
+      .lt {
+        background-color: #484848;
+      }
+
+      .dk {
+        background-color: #3c3c3c;
+      }
+
+      .bg {
+        background-color: #424242;
+      }
+    }
+
+    .blue {
+      background-color: @blue;
+
+      .lt {
+        background-color: @blue;
+      }
+
+      .dk {
+        background-color: @blue;
+      }
+
+      .bg {
+        background-color: @blue;
+      }
+    }
+
+    .white-overlay {
+      background-color: fade(white, 85%);
+    }
+
+    .black-overlay {
+      background-color: fade(black, 85%);
+    }
+
+    // Bootstrap buttons
+    .btn-primary {
+      .btn-bootstrap(@base; @blue);
+    }
+    .btn-secondary {
+      .btn-bootstrap(@subtext0; @base; @base; @overlay0; @base);
+    }
+    .btn-info {
+      .btn-bootstrap(@base; @sky);
+    }
+    .btn-success {
+      .btn-bootstrap(@base; @green);
+    }
+    .btn-warning {
+      .btn-bootstrap(@base; @yellow; @peach; @peach; @yellow);
+    }
+    .btn-danger {
+      .btn-bootstrap(@base; @maroon; @red; @red; @red);
+    }
+    .btn-outline-primary {
+      .btn-outline-bootstrap(@blue);
+    }
+    .btn-outline-secondary {
+      .btn-outline-bootstrap(@base);
+      &.active,
+      &:active,
+      .open > &.dropdown-toggle {
+        &.focus,
+        &:focus,
+        &:hover {
+          background-color: @overlay1;
+        }
+      }
+    }
+    .btn-outline-info {
+      .btn-outline-bootstrap(@sky);
+    }
+    .btn-outline-success {
+      .btn-outline-bootstrap(@green);
+    }
+    .btn-outline-warning {
+      .btn-outline-bootstrap(@yellow);
+    }
+    .btn-outline-danger {
+      .btn-outline-bootstrap(@maroon);
+      &.active,
+      &:active,
+      .open > &.dropdown-toggle {
+        &.focus,
+        &:focus,
+        &:hover {
+          background-color: @red;
+        }
+      }
+    }
+
+    .btn-link {
+      color: @blue;
+
+      &:focus,
+      &:hover {
+        color: @sky;
+      }
+
+      &:disabled {
+        &:focus,
+        &:hover {
+          color: @overlay1;
+        }
+      }
+    }
+  }
+}
