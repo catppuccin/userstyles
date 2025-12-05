@@ -1,0 +1,348 @@
+/* ==UserStyle==
+@name RetroAchievements Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/retro-achievements
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/retro-achievements
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/retro-achievements/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aretro-achievements
+@description Soothing pastel theme for RetroAchievements
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("retroachievements.org") {
+    [data-scheme=""], [data-scheme="black"] {
+        #catppuccin(@darkFlavor);
+    }
+    [data-scheme="light"] {
+        #catppuccin(@lightFlavor);
+    }
+
+    [data-scheme="system"] {
+      @media (prefers-color-scheme: light) {
+        #catppuccin(@lightFlavor);
+      }
+      @media (prefers-color-scheme: dark) {
+        #catppuccin(@darkFlavor);
+      }
+    }
+
+    #catppuccin(@flavor) {
+        #lib.palette();
+        #lib.defaults();
+
+        --bg-color: @base !important;
+        --box-bg-color: @mantle !important;
+        --box-shadow-color: @crust !important;
+        --embed-color: @crust !important;
+        --embed-highlight-color: @base !important;
+        --link-hover-color: @text;
+        --menu-link-color: @accent;
+        --menu-link-hover-color: @text;
+        --text-color-danger: @red;
+        --text-color-muted: @surface1;
+        --divider-color: @surface1;
+
+        --tw-gradient-stops: @accent, @accent;
+
+        --heading-color: @accent;
+        --link-color: @accent;
+        --text-color: @text;
+
+        //
+        // Globals
+        //
+        .btn-base--default,
+        .btn-base--outline{
+            border-color: @surface1;
+            background-color: @base;
+            color: @accent;
+        }
+        .btn-base--default:hover,
+        .btn-base--outline:hover{
+            border-color: @accent;
+        }
+        /* Dropdown for some "buttons" */
+        .bg-neutral-950 {
+            background-color: @base
+        }
+        /* Divider for the above dropdown */
+        .ring-offset-neutral-950 {
+            --tw-ring-offset-color: @crust;
+        }
+        ul.highlighted-list li:nth-child(2n+1),
+        tbody tr:nth-child(2n+1),
+        .game-set-item:nth-child(2n+1),
+        .zebra-list > :nth-child(2n+1){
+            background-color: @base;
+        }
+        .bg-neutral-800\/70 {
+            background-color: @base;
+        }
+        article,
+        aside {
+            background: @mantle;
+        }
+        .smalldate {
+            color: var(--text-color-muted)
+        }
+        /* Green text */
+        .text-green-500 {
+            color: @green
+        }
+        /* Yellow Text */
+        [class^='text-[gold]'],
+        [class*='text-yellow']{
+            color: @yellow;
+        }
+        .bg-yellow-600 {
+            background-color: @yellow;
+        }
+        [class*='text-neutral'] {
+            color: @text;
+        }
+        //
+        // Frontpage
+        //
+        /* Online history graph */
+        .recharts-layer {
+            --color-playersOnline: @accent;
+        }
+        #fillPlayersOnline {
+            --color-playersOnline: @accent;
+        }
+        .recharts-area-dot {
+            fill:@accent
+        }
+        /* Platform icon in "most recent master/completed" */
+        .bg-zinc-800 {
+            background: @base;
+        }
+        /* Table hover */
+        table.table-highlight tr:not(.do-not-highlight):hover {
+            background-color: @surface0;
+        }
+        /* Active players hover */
+        .hover\:bg-zinc-800:hover {
+            --tw-bg-opacity: 1;
+            background-color: @base;
+        }
+        /* News hover */
+        .hover\:bg-neutral-950\/30:hover {
+             background-color: @base;
+        }
+        /* Search box */
+        .bg-neutral-800\/40 {
+            background: @mantle;
+        }
+        .bg-neutral-800\/40:hover {
+            background: @mantle;
+        }
+        /* Search box Ctrl+K text */
+        .bg-neutral-800\/40 > .text-neutral-400 {
+            background: @base;
+        }
+        /* [New] flag on news */
+        .bg-stone-700 {
+            background-color: @surface1;
+        }
+        //
+        // Navbar
+        //
+        .TrueRatio {
+            color: @text;
+        }
+        /* Make hardcore points highlited */
+        .nav-link > .text-color {
+            color: @accent
+        }
+        //
+        // Game page
+        // Example: https://retroachievements.org/game/5613
+        //
+        .bg-gradient-to-r {
+            background-image: linear-gradient(to right, var(--tw-gradient-stops));
+        }
+        /* Gradients */
+        .from-amber-500 {
+            --tw-gradient-from: @accent
+        }
+        .to-\[gold\] {
+            --tw-gradient-to: @accent
+        }
+        /* Hardcroe progressbar */
+        .cprogress-pbar__root > div[role="progressbar"] > div:first-child {
+            --tw-gradient-from: @yellow var(--tw-gradient-from-position);
+            --tw-gradient-to: @yellow var(--tw-gradient-to-position);
+        }
+        /* Softcore progressbar */
+        .bg-neutral-500 {
+            background-color: @overlay1;
+        }
+        /* Progressbar bg */
+        .bg-zinc-950 {
+            background: var(--box-shadow-color)
+        }
+        /* Distribution Graph */
+        .recharts-rectangle {
+            --color-softcore: @surface0;
+            --color-hardcore: @accent;
+        }
+        /* Right Sidebar */
+        .bg-\[rgba\(50\,50\,50\,0\.3\)\],
+        .bg-zinc-800\/30 {
+            background-color: @base
+        }
+        /* Screenshot block background */
+        .bg-zinc-900\/50 {
+            background-color: @crust;
+        }
+        //
+        // Download page
+        // https://retroachievements.org/downloads
+        //
+        /* Selection highlight */
+        .text-neutral-50 {
+            color: @text
+        }
+        .\!bg-neutral-800 {
+            background-color: @base !important;
+        }
+        .border-neutral-200 {
+            border-color: @subtext0;
+        }
+        .border-neutral-700,
+        .border-neutral-700\/80 {
+            border-color: @surface0;
+        }
+        //
+        // Listing pages
+        // Example: https://retroachievements.org/system/5-game-boy-advance/games
+        //
+        /* Search filters */
+        .bg-neutral-800 {
+            background-color: @surface0;
+        }
+        /* Checkbox */
+        .data-\[state\=checked\]\:bg-neutral-700[data-state="checked"]{
+            background: @base;
+        }
+        //
+        // Achievement page
+        // Example: https://retroachievements.org/achievement/537183
+        //
+        /* Achievement card */
+        .odd\:bg-\[rgba\(50\,50\,50\,0\.4\)\]:nth-child(2n+1) {
+            background-color: @base;
+        }
+        //
+        // Event page
+        // Example: https://retroachievements.org/event/1-achievement-of-the-week-2025
+        //
+        /* Badge tiers */
+        .bg-zinc-800\/50 {
+            background-color: @base;
+        }
+        /* Highlighted badge(s) */
+        .bg-zinc-700\/50 {
+            background-color: @surface0;
+        }
+        /* Badge achievement count card */
+        .bg-white\/5 {
+            background-color: @overlay0
+        }
+        /* Distribution Graph */
+        [data-chart="chart-«R2fl»"] {
+            --color-hardcore: @accent;
+            --color-softcore: @overlay1;
+        }
+        .recharts-reference-line > line {
+            stroke: @accent;
+        }
+        /* Event progressbar */
+        .bg-yellow-500 {
+            background: @accent;
+        }
+        //
+        // Profile page
+        // Example: https://retroachievements.org/user/Mahonzu
+        //
+        /* Hardcore chart */
+        #chart_recentprogress > div > div > div > svg > g > g > g:nth-child(4) > path:nth-child(1) {
+            stroke: @accent
+        }
+        #chart_recentprogress > div > div > div > svg > g > g > g > g:nth-child(1) > path {
+            fill: @accent
+        }
+        /* Sopftcore chart */
+        #chart_recentprogress > div > div > div > svg > g > g > g:nth-child(4) > path:nth-child(2) {
+            stroke: @overlay1
+        }
+        #chart_recentprogress > div > div > div > svg > g > g > g > g:nth-child(2) > path {
+            fill: @overlay1
+        }
+        /* Game progress: Hardcore */
+        .cprogress-pbar__root > div > div:nth-child(1){
+            --tw-gradient-from: @accent !important;
+            --tw-gradient-to: @accent !important;
+        }
+        /* Game progress: Softcore */
+        .cprogress-pbar__root > div > div:nth-child(2){
+            background-color: @overlay1;
+        }
+        /* Progress status: Legend */
+        p.text-\[gold\].light\:text-yellow-600.font-bold.text-xs{
+            /* Since all other things related to progress are using accent color, change this from yellow to acccent */
+            color:@accent
+        }
+        div.rounded-full.w-2.h-2.bg-yellow-600 {
+            background-color: @accent;
+        }
+        /* Progress status: Games mastered */
+        .progression-status-row > .border-yellow-600 {
+            /* Since all other things related to progress are using accent color, change this from yellow to acccent */
+            background-color: fade(@accent, 25%);
+            border-color: @accent;
+            div {
+                color: @accent
+            }
+        }
+        .progression-status-row > .border-yellow-600:hover {
+            text-decoration: underline;
+        }
+        .progression-status-row .bg-\[gold\]{
+            background-color: @accent;
+        }
+        /* Progress status: Games beaten */
+        .progression-status-row > .border-zinc-400\/50 {
+            background-color: fade(@overlay1, 25%);
+            border-color: @overlay1;
+            div {
+                color: @overlay1
+            }
+        }
+        .progression-status-row > .border-zinc-400\/50:hover {
+            text-decoration: underline;
+        }
+        .progression-status-row .bg-zinc-300 {
+            background-color: @overlay1;
+        }
+        .goldimage {
+            border-color: @accent;
+        }
+        /* Progress, displayed on right sidebar */
+        .gprogress-ind__root[data-award="mastered"]{
+            border-color: @accent;
+            background-color: @crust
+        }
+        .gprogress-ind__root[data-award="mastered"] > div{
+            background-color: @accent
+        }
+    }
+}
