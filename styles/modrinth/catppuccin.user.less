@@ -18,12 +18,17 @@
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
 @-moz-document domain("modrinth.com") {
-  .light-mode {
+  .light,
+  .light-mode,
+  .light-properties,
+  html {
     #catppuccin(@lightFlavor);
   }
 
+  .dark,
   .dark-mode,
-  .oled-mode {
+  .oled-mode,
+  :root[data-theme="dark"] {
     #catppuccin(@darkFlavor);
   }
 
@@ -33,8 +38,53 @@
 
     // TODO: Use Catppuccin palette colors? `fade()`-ed?
     @shadow: if(@flavor = latte, #dbdfef, #010409);
+    
+    #css-variables() !important;
+    
+    // homepage
+    .blob-demonstration,
+    .blob-demonstration::after {
+      background: linear-gradient(
+        0deg,
+        fade(@accent, 20%),
+        fade(@base, 10%)
+      ) !important;
+    }
+    .logo-banner path {
+      fill: @accent !important;
+    }
+    .logo-banner > svg > g > rect {
+      display: none;
+    }
 
-    * {
+    [tabindex="0"]:focus-visible,
+    a:focus-visible,
+    button:focus-visible {
+      outline-color: @accent;
+    }
+
+    .BDVE3s9MFQttmbMUeYup-2 a b,
+    .BDVE3s9MFQttmbMUeYup-2 a strong {
+      color: @accent;
+    }
+
+    // dropdown icon
+    .multiselect__select::before {
+      border-color: @text transparent transparent;
+      color: @text;
+    }
+    // header button hover
+    .btn-wrapper:hover {
+      a,
+      button {
+        --tw-brightness: none !important;
+      }
+    }
+    .nuxt-loading-indicator {
+      background: @accent !important;
+    }
+    
+    #css-variables() {
       --text-color: @text;
       --color-base: @text;
       --color-bg: @crust;
@@ -127,48 +177,6 @@
       --color-text-primary: @text;
       --color-text-default: @subtext1;
       --color-text-tertiary: @subtext0;
-    }
-    // homepage
-    .blob-demonstration,
-    .blob-demonstration::after {
-      background: linear-gradient(
-        0deg,
-        fade(@accent, 20%),
-        fade(@base, 10%)
-      ) !important;
-    }
-    .logo-banner path {
-      fill: @accent !important;
-    }
-    .logo-banner > svg > g > rect {
-      display: none;
-    }
-
-    [tabindex="0"]:focus-visible,
-    a:focus-visible,
-    button:focus-visible {
-      outline-color: @accent;
-    }
-
-    .BDVE3s9MFQttmbMUeYup-2 a b,
-    .BDVE3s9MFQttmbMUeYup-2 a strong {
-      color: @accent;
-    }
-
-    // dropdown icon
-    .multiselect__select::before {
-      border-color: @text transparent transparent;
-      color: @text;
-    }
-    // header button hover
-    .btn-wrapper:hover {
-      a,
-      button {
-        --tw-brightness: none !important;
-      }
-    }
-    .nuxt-loading-indicator {
-      background: @accent !important;
     }
   }
 }
