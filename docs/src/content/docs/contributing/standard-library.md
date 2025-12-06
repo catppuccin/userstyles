@@ -15,17 +15,31 @@ In userstyles, the standard library is imported at the top like so (along with o
 
 The standard library exposes a `#lib` namespace.
 
-### `#lib.palette()`
+### `#lib.palette(...config)`
 
 The standard library palette mixin provides Less variable definitions for hex colors and CSS filters from the palette. Call the mixin at the top of the `#catppuccin` mixin to inject the variables into the userstyle context. This is used in all userstyles.
+
+#### Arguments
+
+##### `@rgbify-default-sep`
+
+Change the default separator to either `"comma"` or `"space"` separated for the `rgbify` utility. Defaults to `"comma"`.
 
 ### `#lib.defaults()`
 
 The standard library defaults mixin provides a set of default styles for text selection and native/input elements. This is generally applied in all userstyles, with some exceptions.
 
-### `#lib.rgbify()`
+### `#lib.rgbify(@color)`
 
 The standard library `rgbify` mixin is a utility mixin for extracting the color in `r, g, b` format from a palette variable.
+
+#### Arguments
+
+##### `@color`
+
+##### `@spaces`/`@commas`
+
+Depending on `.palette()` configuration, either enables spaces in commas-by-default mode or commas in spaces-by-default mode.
 
 #### Examples
 
