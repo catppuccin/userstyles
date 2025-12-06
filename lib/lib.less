@@ -15,7 +15,7 @@
 };
 
 #lib {
-  .palette(@rgbify-default-sep: "comma") {
+  .palette(@rgbify-default-sep: "comma", @hslify-default-sep: "comma") {
     @rosewater: @catppuccin[@@flavor][@rosewater];
     @flamingo: @catppuccin[@@flavor][@flamingo];
     @pink: @catppuccin[@@flavor][@pink];
@@ -88,6 +88,7 @@
     }
   }
 
+  // rgbify()
   & when (@rgbify-default-sep = "comma") {
     .rgbify(@color, @spaces: false) {
       @with-spaces: red(@color) green(@color) blue(@color);
@@ -95,7 +96,6 @@
       @result: if(@spaces = true, @with-spaces, @with-commas);
     }
   }
-
   & when (@rgbify-default-sep = "space") {
     .rgbify(@color, @commas: false) {
       @with-spaces: red(@color) green(@color) blue(@color);
@@ -104,10 +104,26 @@
     }
   }
 
-  .hslify(@color) {
-    @raw: e(
-      %("%s, %s%, %s%", hue(@color), saturation(@color), lightness(@color))
-    );
+  // hslify()
+  & when (@hslify-default-sep = "comma") {
+    .hslify(@color, @spaces: false) {
+      @result: if(
+        @spaces = true,
+        e(%("%s %s% %s%", hue(@color), saturation(@color), lightness(@color))),
+        e(%("%s, %s%, %s%", hue(@color), saturation(@color), lightness(@color)))
+      );
+    }
+  }
+  & when (@hslify-default-sep = "space") {
+    .hslify(@color, @commas: false) {
+      @result: if(
+        @commas = true,
+        e(
+          %("%s, %s%, %s%", hue(@color), saturation(@color), lightness(@color))
+        ),
+        e(%("%s %s% %s%", hue(@color), saturation(@color), lightness(@color)))
+      );
+    }
   }
 
   .css-variables() {

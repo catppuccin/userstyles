@@ -25,6 +25,10 @@ The standard library palette mixin provides Less variable definitions for hex co
 
 Change the default separator to either `"comma"` or `"space"` separated for the `rgbify` utility. Defaults to `"comma"`.
 
+##### `@hslify-default-sep`
+
+Change the default separator to either `"comma"` or `"space"` separated for the `hslify` utility. Defaults to `"comma"`.
+
 ### `#lib.defaults()`
 
 The standard library defaults mixin provides a set of default styles for text selection and native/input elements. This is generally applied in all userstyles, with some exceptions.
@@ -39,22 +43,36 @@ The standard library `rgbify` mixin is a utility mixin for extracting the color 
 
 ##### `@spaces`/`@commas`
 
-Depending on `.palette()` configuration, either enables spaces in commas-by-default mode or commas in spaces-by-default mode.
+_Optional_
+
+Depending on `.palette()` configuration, either enables space separation in commas-by-default mode or comma separation in spaces-by-default mode.
 
 #### Examples
 
 ```less
 --my-variable-rgb: #lib.rgbify(@base) []; // -> 30, 30, 46
+--my-variable-rgb-spaces: #lib.rgbify(@base, true) []; // -> 30 30 46
 ```
 
-### `#lib.hslify()`
+### `#lib.hslify(@color)`
 
 The standard library `hslify` mixin is a utility mixin for extracting the color in `h, s, l` format from a palette variable.
+
+#### Arguments
+
+##### `@color`
+
+##### `@spaces`/`@commas`
+
+_Optional_
+
+Depending on `.palette()` configuration, either enables space separation in commas-by-default mode or comma separation in spaces-by-default mode.
 
 #### Examples
 
 ```less
 --my-variable-hsl: #lib.hslify(@base) []; // -> 240, 21.052631578947366%, 14.901960784313726%
+--my-variable-hsl-spaces: #lib.hslify(@base, true) []; // -> 240 21.052631578947366% 14.901960784313726%
 ```
 
 ### `#lib.css-variables()`
