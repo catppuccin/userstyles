@@ -15,7 +15,7 @@
 };
 
 #lib {
-  .palette() {
+  .palette(@rgbify-default-sep: "comma") {
     @rosewater: @catppuccin[@@flavor][@rosewater];
     @flamingo: @catppuccin[@@flavor][@flamingo];
     @pink: @catppuccin[@@flavor][@pink];
@@ -88,8 +88,20 @@
     }
   }
 
-  .rgbify(@color) {
-    @rgb: red(@color), green(@color), blue(@color);
+  & when (@rgbify-default-sep = "comma") {
+    .rgbify(@color, @spaces: false) {
+      @with-spaces: red(@color) green(@color) blue(@color);
+      @with-commas: red(@color), green(@color), blue(@color);
+      @result: if(@spaces = true, @with-spaces, @with-commas);
+    }
+  }
+
+  & when (@rgbify-default-sep = "space") {
+    .rgbify(@color, @commas: false) {
+      @with-spaces: red(@color) green(@color) blue(@color);
+      @with-commas: red(@color), green(@color), blue(@color);
+      @result: if(@commas = true, @with-commas, @with-spaces);
+    }
   }
 
   .hslify(@color) {
