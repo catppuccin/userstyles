@@ -4,28 +4,23 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-  Catppuccin for <a href="https://www.tldraw.com">tldraw</a>
+  Catppuccin for <a href="https://searchix.ovh">Searchix</a>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
 <p align="center">
-	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Atldraw"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/tldraw?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/tldraw/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Asearchix"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/searchix?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/searchix/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 ## Usage
 
 See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
-> [!NOTE]
-> This theme only changes how the colors appear on the tldraw canvas. Exported graphics **will not be Catppuccin-themed**.
 
 ## 💝 Current Maintainer
-- [NekoDrone](https://github.com/NekoDrone)
+- [adamperkowski](https://github.com/adamperkowski)
 
-## 💖 Past Maintainers
-- [GenShibe](https://github.com/GenShibe)
-- [uncenter](https://github.com/uncenter)
 
 &nbsp;
 
