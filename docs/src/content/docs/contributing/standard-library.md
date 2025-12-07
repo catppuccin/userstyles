@@ -23,11 +23,11 @@ The standard library palette mixin provides Less variable definitions for hex co
 
 ##### `@rgbify-default-sep`
 
-Change the default separator to either `"comma"` or `"space"` separated for the `rgbify` utility. Defaults to `"comma"`.
+Sets the default separator for the `rgbify` utility. Can be either `"comma"` or `"space"`. Defaults to `"comma"`.
 
 ##### `@hslify-default-sep`
 
-Change the default separator to either `"comma"` or `"space"` separated for the `hslify` utility. Defaults to `"comma"`.
+Sets the default separator for the `hslify` utility. Can be either `"comma"` or `"space"`. Defaults to `"comma"`.
 
 ### `#lib.defaults()`
 
