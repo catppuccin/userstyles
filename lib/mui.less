@@ -3,6 +3,7 @@
         .rgbify(@color) {
             @rgb: red(@color) green(@color) blue(@color);
         }
+
         .standard-palette(@name, @value) {
 
             --mui-palette-@{name}-main: @value;
@@ -19,6 +20,7 @@
             --mui-palette-@{name}-darkChannel: .rgbify(darken(@value, 5%)) [];
             --mui-palette-@{name}-contrastTextChannel: .rgbify(contrast(@value, @base, @text)) [];
         }
+
         .standard-palette(primary, @accent);
         .standard-palette(secondary, @overlay1);
         .standard-palette(error, @red);
@@ -181,19 +183,25 @@
         --mui-palette-Tooltip-bg: @surface2;
         --mui-palette-AppBar-darkColor: @base;
         --mui-palette-misc-a: lighten(@accent, 5%);
-        --mui-palette-fenced-bg: @mantle;
         --mui-palette-code-bg: @crust;
         --mui-palette-tip-main: @green;
+        --mui-palette-fenced-bg: if(@flavor =latte,
+            @mantle,
+            @surface0);
+        --mui-palette-header-default: if(@flavor =latte,
+            lighten(@accent, 10%),
+            @mantle);
         mark {
             background-color: @accent;
             color: var(--mui-palette-background-default);
         }
+
         header,
         .MuiAppBar-root {
             background: linear-gradient(90deg, var(--mui-palette-primary-main) 0%, var(--mui-palette-primary-dark) 100%) !important;
         }
     }
-
+    
     .with_name(@name) {
         .shade-generate(@color, @ctp_color_name) {
             --mui-palette-@{name}-@{color}-50: lighten(@ctp_color_name, 45%);
