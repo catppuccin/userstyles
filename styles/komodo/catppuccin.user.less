@@ -30,19 +30,19 @@
     #lib.palette();
     #lib.defaults();
 
-    --background: #lib.hslify(@crust) [];
+    --background: #lib.hslify(@base) [];
     --foreground: #lib.hslify(@text) [];
     --card: #lib.hslify(@base) [];
     --card-foreground: #lib.hslify(@text) [];
     --popover: #lib.hslify(@base) [];
     --popover-foreground: #lib.hslify(@text) [];
-    --primary: #lib.hslify(@accent) [];
+    --primary: #lib.hslify(@text) [];
     --primary-foreground: #lib.hslify(@base) [];
     --secondary: #lib.hslify(@surface0) [];
     --secondary-foreground: #lib.hslify(@text) [];
     --muted: #lib.hslify(@mantle) [];
     --muted-foreground: #lib.hslify(@subtext0) [];
-    --accent: #lib.hslify(@base) [];
+    --accent: #lib.hslify(@crust) [];
     --accent-foreground: #lib.hslify(@text) [];
     --destructive: #lib.hslify(@red) [];
     --destructive-foreground: #lib.hslify(@base) [];
@@ -54,98 +54,58 @@
     --chart-3: #lib.hslify(@yellow) [];
     --chart-4: #lib.hslify(@blue) [];
     --chart-5: #lib.hslify(@pink) [];
-    button:hover {
-      background-color: @surface2;
+
+    .bg-accent\/50,
+    .bg-accent\/75,
+    .hover\:bg-accent:hover {
+        background-color: @surface0;
     }
-    // Green
-    path[stroke="#22C55E"] {
-      stroke: @green;
+
+    /* Status indicator */
+    .fill-green-500 {
+      fill: @green;
     }
-    svg.stroke-green-500,
-    svg.stroke-green-600 {
-      stroke: @green;
+    /* Warning indicator */
+    .bg-red-500 {
+      background: @red;
     }
-    .text-green-400,
-    .text-green-700 {
-      color: @green;
+    /* Notification indicator */
+    .fill-blue-500.stroke-blue-500 {
+      fill: @accent;
+      stroke: @accent;
     }
-    [style*="stroke: rgb(34, 197, 94);"] {
-      stroke: @green !important;
-    }
-    [style*="fill: rgb(34, 197, 94);"] {
-      fill: @green !important;
-    }
-    // Red
-    path[stroke="#EF0044"] {
+    /* CI status icons */
+    .stroke-red-500 {
       stroke: @red;
     }
-    svg.stroke-red-500,
-    svg.stroke-red-600 {
-      stroke: @red;
+    .stroke-green-500 {
+      stroke: @green;
     }
-    .text-red-400,
-    .text-red-700 {
-      color: @red;
+
+
+    #--color(@color, @name, @hex, @rgb) {
+      path[stroke="#@{hex}"] {
+        stroke: @color;
+      }
+      svg.stroke-@{name}-500,
+      svg.stroke-@{name}-600 {
+        stroke: @color;
+      }
+      .text-@{name}-400,
+      .text-@{name}-700 {
+        color: @color;
+      }
+      [style*="stroke: rgb(@{rgb});"] {
+        stroke: @color !important;
+      }
+      [style*="fill: rgb(@{rgb});"] {
+        fill: @color !important;
+      }
     }
-    [style*="stroke: rgb(239, 0, 68);"] {
-      stroke: @red !important;
-    }
-    [style*="fill: rgb(239, 0, 68);"] {
-      fill: @red !important;
-    }
-    // Yellow
-    path[stroke="#EAB308"] {
-      stroke: @yellow;
-    }
-    svg.stroke-yellow-500,
-    svg.stroke-yellow-600 {
-      stroke: @yellow;
-    }
-    .text-yellow-400,
-    .text-yellow-500 {
-      color: @yellow;
-    }
-    [style*="stroke: rgb(234, 179, 8);"] {
-      stroke: @yellow !important;
-    }
-    [style*="fill: rgb(234, 179, 8);"] {
-      fill: @yellow !important;
-    }
-    // Blue
-    path[stroke="#3B82F6"] {
-      stroke: @blue;
-    }
-    svg.stroke-blue-500,
-    svg.stroke-blue-600 {
-      stroke: @blue;
-    }
-    .text-blue-400,
-    .text-blue-700 {
-      color: @blue;
-    }
-    [style*="stroke: rgb(59, 130, 246);"] {
-      stroke: @blue !important;
-    }
-    [style*="fill: rgb(59, 130, 246);"] {
-      fill: @blue !important;
-    }
-    // Purple
-    path[stroke="#A855F7"] {
-      stroke: @mauve;
-    }
-    svg.stroke-purple-500,
-    svg.stroke-purple-600 {
-      stroke: @mauve;
-    }
-    .text-purple-400,
-    .text-purple-700 {
-      color: @mauve;
-    }
-    [style*="stroke: rgb(168, 85, 247);"] {
-      stroke: @mauve !important;
-    }
-    [style*="fill: rgb(168, 85, 247);"] {
-      fill: @mauve !important;
-    }
+    #--color(@green, "green", "22C55E", "34, 197, 94");
+    #--color(@red, "red", "EF0044", "239, 0, 68");
+    #--color(@yellow, "yellow", "EAB308", "234, 179, 8");
+    #--color(@blue, "blue", "3B82F6", "59, 130, 246");
+    #--color(@mauve, "purple", "A855F7", "168, 85, 247");
   }
 }
