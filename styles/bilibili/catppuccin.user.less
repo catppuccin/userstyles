@@ -392,6 +392,7 @@
         background-color: @surface0 !important;
         box-shadow: none !important;
         border-radius: 10px !important;
+        overflow: hidden !important; /* clip children so corners don't show white */
         -webkit-background-clip: padding-box !important;
     }
     /* 超高优先级（尽可能覆盖内联样式）：增加元素层级和属性选择器 */
@@ -403,6 +404,27 @@
         border: 1px solid @surface1 !important;
         box-shadow: 0 1px 0 fade(@mantle, 8%) inset !important;
     }
+    /* 保证输入框本身与父容器使用一致圆角并被裁剪 */
+    .bpx-player-video-inputbar-wrap .bpx-player-dm-input,
+    .bpx-player-sending-bar .bpx-player-dm-input,
+    .bpx-player-video-inputbar-wrap input.bpx-player-dm-input {
+        border-radius: inherit !important;
+        background-clip: padding-box !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        height: auto !important;
+        line-height: normal !important;
+    }
+    /* 保证发送按钮区域与输入框在同一背景、无白边 */
+    .bpx-player-video-btn-dm,
+    .bpx-player-video-btn-send,
+    .bpx-player-dm-wrap,
+    .bpx-player-dm-root {
+        background: transparent !important;
+        background-color: transparent !important;
+        border: 0 !important;
+        box-shadow: none !important;
+    }
     /* 兼容 shadow DOM / 深度选择（如果使用 userstyles 扩展支持） */
     :root ::-webkit-media-controls-panel,
     :root ::-webkit-media-controls-mute-button {
@@ -412,7 +434,7 @@
         fill: @mauve !important; //视频播放界面弹幕输入框图标颜色
     }
     .bui-danmaku-switch-label{
-        background-color: @mauve !important; //弹幕开关按钮
+        color: @mauve !important; //弹幕开关按钮
     }
     
     .bpx-player-dm-hint{
