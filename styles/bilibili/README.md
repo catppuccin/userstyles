@@ -3,15 +3,25 @@
 
 <h3 align="center">
   <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
+  <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
   Catppuccin for <a href="https://www.bilibili.com">Bilibili</a>
+  <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
 <p align="center">
-  <a href="https://github.com/sixuan911/catppuccin-bilibili/issues">
-    <img src="https://img.shields.io/github/issues/sixuan911/catppuccin-bilibili?style=for-the-badge&colorA=363a4f&colorB=f5a97f">
+  <!-- Issues -->
+  <a href="https://github.com/sixuan911/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Abilibili">
+    <img src="https://img.shields.io/github/issues/sixuan911/userstyles/bilibili?color=89b4fa&style=for-the-badge"/>
   </a>
-  <a href="https://raw.githubusercontent.com/sixuan911/catppuccin-bilibili/main/bilibili.user.less">
-    <img src="https://img.shields.io/badge/stylus-install-cba6f7?style=for-the-badge&colorA=363a4f">
+
+  <!-- Repo (B 方案：指向当前 fork 中的 bilibili 目录) -->
+  <a href="https://github.com/sixuan911/userstyles/tree/main/styles/bilibili">
+    <img src="https://img.shields.io/badge/repo-userstyles-eba0ac?style=for-the-badge"/>
+  </a>
+
+  <!-- Stylus install -->
+  <a href="https://raw.githubusercontent.com/sixuan911/userstyles/main/styles/bilibili/catppuccin.user.less">
+    <img src="https://img.shields.io/badge/stylus-install-cba6f7?style=for-the-badge"/>
   </a>
 </p>
 
@@ -29,8 +39,7 @@ See the [userstyle usage instructions](https://userstyles.catppuccin.com/getting
 
 ---
 
-## 💝 Past Maintainer
+## 💗 Past Maintainer
 
-- _None_
-
+- None
 <!-- AUTOGEN:README END -->
