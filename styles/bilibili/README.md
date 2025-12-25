@@ -7,13 +7,19 @@
 </h3>
 
 <p align="center">
-    <!-- Stylus install button: links to raw userstyle so Stylus can import it -->
-    <a href="https://github.com/catppuccin/userstyles/raw/main/styles/bilibili/catppuccin.user.less" title="Install with Stylus" rel="noopener">
-        <img src="https://img.shields.io/badge/Stylus-Install-89ddff?style=for-the-badge&logo=stylus" alt="Stylus Install" />
+    <!-- Left: Issues (filtered by label) -->
+    <a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+label%3Abilibili" title="View issues for Bilibili" rel="noopener">
+        <img src="https://img.shields.io/badge/Issues--bilibili-ffb86c?style=for-the-badge&logo=github" alt="Issues (bilibili)" />
     </a>
-    <!-- Direct link to Stylus extension -->
-    <a href="https://add0n.com/stylus.html" title="Get Stylus extension" rel="noopener">
-        <img src="https://img.shields.io/badge/Install-Extension-9370DB?style=for-the-badge" alt="Install Stylus Extension" />
+
+    <!-- Middle: raw link so users can open the raw .user.less -->
+    <a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/bilibili/catppuccin.user.less" title="Open raw userstyle" rel="noopener">
+        <img src="https://img.shields.io/badge/Stylus--Raw-89ddff?style=for-the-badge&logo=stylus" alt="Open raw userstyle" />
+    </a>
+
+    <!-- Right: purple Install — uses stylus protocol handler to try to trigger Stylus install; fallback is raw link above -->
+    <a href="stylus://install?url=https%3A%2F%2Fraw.githubusercontent.com%2Fcatppuccin%2Fuserstyles%2Fmain%2Fstyles%2Fbilibili%2Fcatppuccin.user.less" title="Install via Stylus (protocol handler)" rel="noopener">
+        <img src="https://img.shields.io/badge/Install-Open-9b5cff?style=for-the-badge" alt="Install via Stylus" />
     </a>
 </p>
 
