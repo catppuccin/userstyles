@@ -25,21 +25,35 @@
   </a>
 </p>
 
----
+
 
 ## Usage
 
 See the [userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
----
+
 
 ## 💖 Current Maintainers
 
 - [sixuan911](https://github.com/sixuan911)
 
----
+
 
 ## 💗 Past Maintainer
 
 - None
+
+
+&nbsp;
+
+<p align="center">
+	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/footers/gray0_ctp_on_line.svg?sanitize=true" />
+</p>
+
+<p align="center">
+	Copyright &copy; 2021-present <a href="https://github.com/catppuccin" target="_blank">Catppuccin Org</a>
+</p>
+
+
+
 <!-- AUTOGEN:README END -->
