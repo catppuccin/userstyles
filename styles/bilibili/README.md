@@ -7,8 +7,14 @@
 </h3>
 
 <p align="center">
-	
-    <a href="https://github.com/sixuan911/userstyles/raw/feat/bilibili/styles/bilibili/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+    <!-- Stylus install button: links to raw userstyle so Stylus can import it -->
+    <a href="https://github.com/catppuccin/userstyles/raw/main/styles/bilibili/catppuccin.user.less" title="Install with Stylus" rel="noopener">
+        <img src="https://img.shields.io/badge/Stylus-Install-89ddff?style=for-the-badge&logo=stylus" alt="Stylus Install" />
+    </a>
+    <!-- Direct link to Stylus extension -->
+    <a href="https://add0n.com/stylus.html" title="Get Stylus extension" rel="noopener">
+        <img src="https://img.shields.io/badge/Install-Extension-9370DB?style=for-the-badge" alt="Install Stylus Extension" />
+    </a>
 </p>
 
 <p align="center">
