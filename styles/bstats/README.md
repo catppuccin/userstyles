@@ -15,7 +15,7 @@
 
 ## Usage
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 > [!NOTE]
 > Make sure to use the default **Teal** theme from the built-in color picker (located at the bottom of the page) for the best experience!
