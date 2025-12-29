@@ -40,7 +40,7 @@
       color: @accent;
     }
 
-    .btn-primary {
+    .btn-primary() {
       background-color: @accent;
       color: @crust;
 
@@ -48,6 +48,9 @@
         background-color: darken(@accent, 5%) !important;
         color: @crust !important;
       }
+    }
+    .btn-primary {
+      .btn-primary();
     }
     .btn-secondary {
       background-color: @surface0;
@@ -503,13 +506,7 @@
       }
     }
     .inbox .inbox-buttons .inbox-compose-button {
-      background-color: @accent;
-      color: @crust;
-
-      &:hover {
-        background-color: darken(@accent, 5%) !important;
-        color: @crust !important;
-      }
+      .btn-primary();
     }
 
     /* Home */
@@ -553,21 +550,64 @@
           background-color: @text;
         }
 
-        &.recs-feed-item--artist .context::after {
-          background-color: @yellow;
+        &.recs-feed-item--artist .context {
+          &::before {
+            background-color: @yellow;
+          }
+          &::after {
+            mask-position: 0 -32px;
+          }
         }
-        &.recs-feed-item--track .context::after {
-          background-color: @blue;
+        &.recs-feed-item--track .context {
+          &::before {
+            background-color: @blue;
+          }
+          &::after {
+            mask-position: 0 -96px;
+          }
         }
-        &.recs-feed-item--album .context::after {
-          background-color: @green;
+        &.recs-feed-item--album .context {
+          &::before {
+            background-color: @green;
+          }
+          &::after {
+            mask-position: 0 -64px;
+          }
         }
         .context {
+          // Hack using .mask-image() to allow us to mask icons with a background.
+          &::before {
+            border-radius: 50%;
+            content: "";
+            height: 32px;
+            left: auto;
+            position: absolute;
+            right: 15px;
+            top: -16px;
+            width: 32px;
+            z-index: 1;
+          }
+          &::after {
+            .mask-image(
+              url("/static/images/icons/rec_types_16@2x.5bf9cfd03a3e.png"),
+              @crust,
+              0 0,
+              32px 160px,
+              no-repeat,
+            );
+            z-index: 2;
+          }
+
           color: @subtext1;
           background-color: @surface0;
           box-shadow: inset 1px 0 @surface1, inset -1px -1px @surface1;
         }
       }
+    }
+
+    // Events - Browse Popular Music (no event recommendations)
+    .no-data-message-button {
+      .btn-primary();
     }
 
     .stationlinks {
@@ -758,5 +798,35 @@
     }
 
     // TODO: https://www.last.fm/music
+    // TODO: https://www.last.fm/user/*/listening-report/week (Reports)
+  }
+}
+
+// Usage:
+// .maskimage(mask-image, background-color, mask-position, mask-size, mask-repeat);
+// Setting any value to "skip" skips that attribute.
+// We cannot apply filters to psuedo elements with background-images when the pseudo element also has a background(-color), which is when this must be used.
+.mask-image(
+  @mask-image: url(""),
+  @mask-color: skip,
+  @mask-position: skip,
+  @mask-size: skip,
+  @mask-repeat: skip,
+) {
+  & when not(@mask-color = skip) {
+    background-image: none !important;
+    background-color: @mask-color;
+  }
+  & when not(@mask-image = skip) {
+    mask-image: @mask-image;
+  }
+  & when not(@mask-position = skip) {
+    mask-position: @mask-position;
+  }
+  & when not(@mask-size = skip) {
+    mask-size: @mask-size;
+  }
+  & when not(@mask-repeat = skip) {
+    mask-repeat: @mask-repeat;
   }
 }
