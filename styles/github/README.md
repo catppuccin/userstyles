@@ -15,7 +15,7 @@
 
 ## Usage
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 > [!NOTE]
 > Switch to a default GitHub light/dark theme via **Settings** > **Appearance** for the best experience!

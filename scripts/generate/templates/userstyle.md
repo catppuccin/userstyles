@@ -21,7 +21,7 @@
 
 {{/if~}}
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 {{#if note}}
 > [!NOTE]
