@@ -17,6 +17,7 @@
 @var checkbox logo "Enable YouTube logo" 1
 @var checkbox oled "Enable black bars" 0
 @var checkbox sponsorBlock "Enable SponsorBlock segments" 1
+@var checkbox hideColorSampleTint "Hide color-sampled tint" 1
 ==/UserStyle== */
 
 @import "https://userstyles.catppuccin.com/lib/lib.less";
@@ -100,7 +101,7 @@
       --yt-spec-raised-background: @base;
       --yt-spec-menu-background: @mantle;
       --yt-spec-inverted-background: @text;
-      --yt-spec-additive-background: fade(@surface1, 90%);
+      --yt-spec-additive-background: @surface0;
       --yt-spec-outline: @surface0;
       --yt-spec-shadow: fade(@crust, 75%);
       --yt-spec-text-primary: @text;
@@ -351,6 +352,26 @@
     }
 
     /* Misc */
+    
+    & when (@hideColorSampleTint = 1) {
+      // Thumbnail/video preview hover effect
+      .yt-spec-touch-feedback-shape__hover-effect {
+        background-color: @surface0 !important;
+      }
+      // Video description background (collapsed on hover)
+      ytd-watch-metadata[enable-color-sampling] {
+        --yt-saturated-raised-background: @surface1;
+        --yt-saturated-text-primary: @text;
+      }
+      // Video description text (expanded)
+      .yt-core-attributed-string--link-inherit-color {
+        color: @text !important;
+      }
+      // Video description links
+      .yt-core-attributed-string--highlight-text-decorator {
+        background-color: @surface2;
+      }
+    }
 
     & when (@logo = 0) {
       ytd-topbar-logo-renderer,
@@ -750,13 +771,6 @@
     }
 
     /* Video description */
-
-    #description {
-      [style*="color: rgb(255, 255, 255);"],
-      [style*="color: rgb(19, 19, 19);"] {
-        color: @text;
-      }
-    }
 
     .yt-core-attributed-string__link--call-to-action-color {
       color: @accent;
