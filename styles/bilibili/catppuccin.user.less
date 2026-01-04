@@ -1,0 +1,1134 @@
+/* ==UserStyle==
+@name Bilibili Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/bilibili
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/bilibili
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/bilibili/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Abilibili
+@description Soothing pastel theme for Bilibili
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("bilibili.com") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    /* Override Bilibili CSS variables | 覆盖B站的CSS变量 */
+    :root,
+    #app,
+    body {
+      --text1: @text !important;
+      --text2: @subtext0 !important;
+      --text3: @subtext1 !important;
+      --bg1: @surface0 !important; /* Main background (comment box active) | 主要背景色（评论框激活） */
+      --bg3: @surface0 !important; /* Comment box background | 评论框背景 */
+      --Ga1: @surface1 !important; /* Comment box border | 评论框边框 */
+      --graph_bg_thick: @surface0 !important; /* Active state background | 激活状态背景 */
+      --graph_weak: @surface1 !important; /* Button border | 按钮边框 */
+      --brand_blue: @accent !important; /* Brand blue to accent color | 品牌蓝色改为强调色 */
+      --brand_blue_rgb: #lib.rgbify(@accent) [] !important; /* Accent color RGB value | 强调色RGB值 */
+      --bili-comment-tag-bg-light: @surface1 !important;
+      --bili-comment-tag-color-light: @text !important;
+    }
+
+    body {
+      background-color: @base;
+
+      > div {
+        color: @text;
+        background-color: @surface0;
+      }
+    }
+
+    a:link,
+    a:visited {
+      color: @accent;
+    }
+
+    // === Homepage background colors | 首页背景色 ===
+    .bili-feed4{  // Homepage recommendation section background | 首页推荐区块背景
+        background-color:@base !important; // Base background color | base 背景色
+    }
+    .bili-header .large-header { // Header background | 头部背景
+        background-color: @mantle !important; // Mantle header background | mantle 头部背景色
+    }
+    .bili-header__bar { // Top bar | 顶部栏
+        background-color: @mantle !important; 
+    }
+
+
+    // === Top left text | 顶部左侧文字 ===
+    .bili-header__bar .left-entry span,
+    .bili-header__bar .left-entry a { // Homepage top-left title text | 主页左上角标题文字
+        color : @text !important;
+    }
+
+    .bili-header__bar .left-entry span:hover,
+    .bili-header__bar .left-entry a:hover { // Homepage left icon hover | 主页左侧图标悬停
+        color : @accent !important;
+    }
+    .bili-header__bar .left-entry .entry-title svg.zhuzhan-icon,
+    .bili-header__bar .left-entry .entry-title svg.zhuzhan-icon path,
+    .bili-header__bar .left-entry .entry-title svg.zhuzhan-icon use{
+        fill: @mauve !important; // Homepage left icon color | 主页左侧图标颜色
+        stroke: @mauve !important;
+    }
+    .zhuzhan-icon{
+        fill: @mauve !important; // Homepage left icon color | 主页左侧图标颜色
+    }
+    .bili-header .left-entry .mini-header__logo,
+    .bili-header .left-entry .mini-header__logo svg,
+    .bili-header .left-entry .mini-header__logo svg path,
+    .bili-header .left-entry svg.mini-header__logo,
+    .bili-header .left-entry svg.mini-header__logo path {
+        fill: @mauve !important; // Top-left mini logo purple | 左上角小 logo 紫色
+        stroke: @mauve !important;
+    }
+    
+
+
+    // === Top search box | 顶部搜索框 ===
+    .bili-header .center-search-container {
+        background-color: @mantle !important; // Search box background | 搜索框背景
+    }
+    .nav-search,
+    .nav-search .center-search__bar {
+        background-color: @mantle !important; // Search box dropdown | 搜索框下拉
+    }
+    .trending-item {
+        color: @text !important;   // Search box dropdown text | 搜索框下拉文字
+    }
+    .nav-search-content {
+        background-color: @mantle !important; // Search box outer ring | 搜索框外圈
+        border-color: @accent !important; // Search box outer ring border | 搜索框外圈边框
+    }
+    .nav-searchform,
+    #nav-searchform,
+    #nav-searchform.is-focus {
+        border-color: @surface1 !important; // Search box border | 搜索框边框
+        background-color: @surface0 !important; // Search box inner background | 搜索框内部背景
+    }
+    .nav-search-input {
+        background-color: @surface0 !important;
+        color: @text !important;   // Search box input | 搜索框输入
+    }
+    .nav-search-input::placeholder {
+        color: @subtext0 !important;   // Search box placeholder | 搜索框占位符
+    }
+    .search-panel { // Search suggestions dropdown | 搜索建议下拉
+        background-color: @surface0 !important;
+        border-color: @surface1 !important;
+    }
+    .history-item {
+        background-color: @surface1 !important; // Search history background | 搜索历史背景
+    }
+    .history-item:hover,
+    .search-panel .history-item:hover {
+        background-color: fade(@surface2, 50%) !important; // Search history hover background (darker) | 搜索历史悬停背景（更暗）
+    }
+    .trending-item:hover {
+        background-color: fade(@surface2, 50%) !important; // Hot search hover | 热搜悬停
+    }
+    .history .header .title{
+        color: @text !important;  // Search history title text | 搜索历史标题文字
+    }
+    .history-text{
+        color: @text !important;  // Search history text | 搜索历史文字
+    }
+    .trending .header .title{
+        color: @text !important;  // Search hot topics title text | 搜索热门标题文字
+    }
+    .trendings-rank .search-rank-top{
+        color : @yellow !important;  // Search hot topics ranking text | 搜索热门排行文字
+    }
+    .suggest-item {
+        color: @text !important;   // Search suggestion text | 搜索建议文字
+    }
+    .suggest-item:hover {
+        background-color: @surface0 !important; // Search suggestion hover | 搜索建议悬停
+        color: @accent !important;  // Search suggestion hover text | 搜索建议悬停文字
+    }
+   
+
+    // === Top right icons | 顶部右侧图标 ===
+    .bili-header .header-login-entry{
+        background: @mauve !important; //登陆图标
+        color: @text !important; //登陆文字 
+    }
+    .bili-header .right-entry__outside .right-entry-icon svg,
+    .bili-header .right-entry__outside .right-entry-icon svg path,
+    .bili-header .right-entry__outside .right-entry-icon svg use,
+    .bili-header__bar .right-entry__outside svg,
+    .bili-header__bar .right-entry__outside svg path,
+    .bili-header__bar .right-entry__outside svg use {
+        fill: @mauve !important; // Right side icon color | 右侧图标颜色
+        stroke: @mauve !important;
+        color: @mauve !important;
+    }
+    
+    // === Top navigation bar items text | 顶部导航栏文字 ===
+    .bili-header__bar .left-entry .v-popover-wrap,
+    .bili-header__bar .left-entry .default-entry,
+    .header-entry-mini,
+    .header-entry-title {
+        color: @text !important;
+    }
+    
+    .bili-header__bar .left-entry .v-popover-wrap:hover,
+    .bili-header__bar .left-entry .default-entry:hover {
+        color: @accent !important;
+    }
+    
+    // === Right side user info and icons | 右侧用户信息和图标 ===
+    .header-avatar-wrap__text,
+    .right-entry__outside .right-entry-text,
+    .right-entry__outside .right-entry-item {
+        color: @text !important;
+    }
+    
+    .header-avatar-wrap:hover .header-avatar-wrap__text,
+    .right-entry__outside .right-entry-text:hover {
+        color: @accent !important;
+    }
+    
+    .bili-header .header-upload-entry {
+        background-color: @accent !important; // Upload button background | 上传按钮背景
+        color: @base !important; // Text on accent background should be base | 强调色背景上的文字应为base
+    }
+   
+
+
+
+
+
+
+
+
+    // === Channel navigation below top bar | 顶部下面分区栏目 ===
+    .bili-header__channel {
+        background-color: @base !important; // Channel navigation background | 分区栏目背景
+    }
+    .bili-header__channel .channel-icons {
+        color: @text !important; // Channel navigation text | 分区栏目文字
+    }
+    .right-channel-container{
+        background-color: @base !important; // Channel navigation background | 分区栏目背景
+    }
+    .channel-items_left{
+        background-color: @base !important; // Channel navigation left background | 分区栏目左侧背景
+    }
+    .bili-header__channel .channel-link{
+        background-color: @surface0 !important; // Channel navigation background | 分区栏目背景
+        color: @text !important;  // Text color | 文字颜色
+        border-color: @surface1 !important; // Border color | 边框颜色
+    }
+
+    .bili-header__channel .channel-link:hover{
+        background-color: @surface1 !important; // Channel navigation hover background | 分区栏目悬停背景
+        color: @accent !important; // Hover text uses accent | 悬停文字使用强调色
+        border-color: @surface2 !important; // Hover border color | 悬停边框颜色
+    }
+    .channel-entry-more__link{//分区栏目"更多"
+        background-color: @surface0 !important; /* Subtle background | 淡色背景 */
+        color: @text !important; /* Normal text | 普通文字 */
+        border-color: @surface1 !important; /* Border color | 边框颜色 */
+    }
+
+    .channnel-entry-more__link:hover{
+        background-color: @surface1 !important; /* Hover background | 悬停背景 */
+        color: @accent !important; /* Hover text uses accent | 悬停文字使用强调色 */
+        border-color: @surface2 !important; /* Hover border color | 悬停边框颜色 */
+    }
+    
+    /* "更多"下拉菜单容器 */
+    .channel-menu {
+        background-color: @surface0 !important; /* Dropdown background | 下拉菜单背景 */
+        border-color: @surface1 !important; /* Border color | 边框颜色 */
+    }
+
+    /* Dropdown menu text links | 下拉菜单里的文字链接 */
+    .channel-menu__item,
+    .channel-menu a {
+        color: @text !important; /* Normal text color | 普通文字颜色 */
+        background-color: @surface0 !important; /* Item background | 项目背景 */
+    }
+
+    .channel-menu__item:hover,
+    .channel-menu a:hover {
+        background-color: @surface1 !important; /* Hover background | 悬停背景 */
+        color: @accent !important; /* Hover text changes to accent color | 悬停文字变强调色 */
+    }
+
+    .channel-link__right span{
+        color: @text !important; // Channel navigation right text | 分区栏目右侧文字
+    }
+    
+    .channel-icons .icon-bg__dynamic svg{
+        fill: @mauve !important; // Channel navigation dynamic icon | 分区栏目动态图标
+    }
+    .channel-icons .icon-bg__popular svg{
+        fill: @mauve !important; // Channel navigation live icon | 分区栏目直播图标
+    }
+
+
+
+    // === Sliding channel navigation | 滑动分区栏目 ===
+    .header-channel {
+        background: @surface1 !important; //channel滑动时出现的bar
+    }
+    .left-fixed-channel a{
+        color: @text !important; // Sliding channel navigation left fixed text | 滑动分区栏目左侧固定文字
+        background-color: @surface0 !important;
+        border-color: @surface1 !important; // Border color | 边框颜色
+    }
+    .left-fixed-channel a :hover{
+        color: @accent !important; // Sliding channel navigation left fixed text hover | 滑动分区栏目左侧固定文字悬停
+        background-color: @surface1 !important;
+        border-color: @surface2 !important; // Hover border color | 悬停边框颜色
+    }
+    .header-channel-fixed-right-item a{
+        color: @text !important; // Sliding channel navigation right fixed text | 滑动分区栏目右侧固定文字
+        background-color: @surface0 !important;
+        border-color: @surface1 !important; // Border color | 边框颜色
+    }
+    .header-channel-fixed-right-item a :hover{
+        color: @accent !important; // Sliding channel navigation right fixed text hover | 滑动分区栏目右侧固定文字悬停
+        background-color: @surface1 !important;
+        border-color: @surface2 !important; // Hover border color | 悬停边框颜色
+    }
+    .header-channel-fixed-right-item{
+        background: @surface0 !important;
+        border-color: @surface1 !important; // Border color | 边框颜色
+    }
+    
+
+
+
+
+
+
+
+
+
+
+    .shortcut-bg{
+        background-color: @surface0 !important; // Channel navigation overlay card video window inner background | 分区栏目叠放卡片视频窗内背景
+    }
+    .bili-video-card .bili-video-card__info--icon-text{
+        background-color: @mauve !important;
+    }
+
+
+
+
+
+
+    // === Video interface | 视频界面 ===
+    .video-container-v1{
+        background-color: @base !important; // Video playback interface background | 视频播放界面背景
+    } 
+    .video-info-container .video-info-title-inner .video-title[data-v-fe6ec38e]{
+        color: @text !important; // Video playback interface title text | 视频播放界面标题文字
+    }
+    .bpx-player-sending-bar{
+        background-color: @mantle !important; // Video comment bar background | 视频发送弹幕栏背景
+    }
+    .video-info-detail-list .copyright .copyright-icon[data-v-0c3641b4]{
+        color: @mauve !important; // 禁止转载标志 
+        fill: @mauve !important; // Copyright icon color | 版权图标颜色
+    }
+    .bpx-player-video-info-online{
+        color: @text !important; // Video playback interface online count text | 视频播放界面在线人数文字
+    }
+    .bpx-player-video-info-divide{
+        color: @text !important; // Video playback interface separator text | 视频播放界面分隔符文字
+    }
+    .bpx-player-video-info-dm{
+        color: @text !important; // Video playback interface comment count text | 视频播放界面弹幕数文字
+    }
+    .bui-button .bui-area.bui-button-blue, .bui-button .bui-area.bui-button-gray3:hover{
+        background-color: @accent !important; // Video playback interface play button background | 视频播放界面播放按钮背景
+        color: @base !important; // Text on accent background should be base | 强调色背景上的文字应为base
+    }
+    .bpx-player-inputbar-wrap{
+        background-color: @surface0 !important; // Video playback interface comment input box background | 视频播放界面弹幕输入框背景
+    }
+    .bpx-player-dm-input{
+        background-color: @surface0 !important; // Comment input box background | 弹幕输入框背景
+        color: @text !important; // Comment input box text | 弹幕输入框文字
+        border-color: @surface1 !important; // Border | 边框
+        caret-color: @accent !important;
+    }
+    .bpx-player-dm-input::placeholder{
+        color: @subtext0 !important; // Placeholder color | 占位符颜色
+    }
+    .bpx-player-dm-input:focus{
+        border-color: @accent !important; // Accent color when focused | 聚焦时的强调色
+        background-color: mix(@surface0, @mantle, 6%) !important;
+    }
+    /* Stronger override: for potentially more specific or inline site rules | 更强的覆盖：针对可能更具体或内联的站点规则 */
+    .bpx-player-video-inputbar-wrap input.bpx-player-dm-input,
+    .bpx-player-sending-bar input.bpx-player-dm-input,
+    .bpx-player-container input.bpx-player-dm-input,
+    .bpx-player-video-inputbar-wrap .bpx-player-dm-input,
+    input.bpx-player-dm-input.bpx-player-dm-input {
+        background: @surface0 !important;
+        border-color: @surface1 !important;
+        color: @text !important;
+    }
+    /* Autofill / browser styling overrides */
+    input.bpx-player-dm-input:-webkit-autofill,
+    input.bpx-player-dm-input:-webkit-autofill:hover,
+    input.bpx-player-dm-input:-webkit-autofill:focus {
+        background: @surface0 !important;
+    }
+    /* If parent container has white background, force override parent container styles | 如果父容器有白色背景，强制覆盖父容器样式 */
+    .bpx-player-sending-bar,
+    .bpx-player-video-inputbar-wrap,
+    .bpx-player-sending-bar .bpx-player-video-inputbar-wrap,
+    .bpx-player-video-inputbar-wrap .bpx-player-dm-root,
+    .bpx-player-video-inputbar-wrap .bpx-player-dm-wrap {
+        background: @surface0 !important;
+        background-color: @surface0 !important;
+    }
+    /* Super high priority (override inline styles as much as possible): increase element hierarchy and attribute selectors | 超高优先级（尽可能覆盖内联样式）：增加元素层级和属性选择器 */
+    html body .bpx-player-sending-bar[style],
+    html body .bpx-player-video-inputbar-wrap[style],
+    html body input.bpx-player-dm-input[style] {
+        background: @surface0 !important;
+        background-color: @surface0 !important;
+        border-color: @surface1 !important;
+    }
+    /* Compatible with shadow DOM / deep selection (if userstyles extension supports it) | 兼容 shadow DOM / 深度选择（如果使用 userstyles 扩展支持） */
+    :root ::-webkit-media-controls-panel,
+    :root ::-webkit-media-controls-mute-button {
+        background: @surface0 !important;
+    }
+    .bpx-common-svg-icon svg {
+        fill: @mauve !important; // Video playback interface comment input box icon color | 视频播放界面弹幕输入框图标颜色
+    }
+    .bui-danmaku-switch{
+        fill: @mauve !important; // Video playback interface comment toggle icon color | 视频播放界面弹幕开关图标颜色
+    }
+    .bui-danmaku-switch svg,
+    .bui-danmaku-switch svg path,
+    .bui-danmaku-switch-input:checked ~ .bui-danmaku-switch-label svg,
+    .bui-danmaku-switch-input:checked ~ .bui-danmaku-switch-label svg path,
+    .bui-danmaku-switch-on svg,
+    .bui-danmaku-switch-on svg path {
+        fill: @accent !important; // Danmaku switch checkmark icon | 弹幕开关勾选图标
+        stroke: @accent !important;
+        color: @accent !important;
+    }
+    .bpx-player-dm-hint{
+        color: @text !important; // Video playback interface comment input box placeholder text | 视频播放界面弹幕输入框占位符文字
+    }
+    .video-info-detail-list[data-v-0c3641b4]{
+        color: @text !important; // Video playback interface video details text | 视频播放界面视频详情文字
+    }
+    .video-tag-container .tag-panel .tag .show-more-btn[data-v-cf3f07d2]{
+        background: @accent !important; // Video playback interface video tags "More" button background | 视频播放界面视频标签"更多"按钮背景
+        color: @base !important; // Text on accent background should be base | 强调色背景上的文字应为base
+    }
+    .up-detail .up-detail-top .up-name[data-v-5f1f09f0]{
+        color: @text !important; // Video playback interface uploader name text | 视频播放界面up主名称文字
+    }
+    .up-detail .up-detail-top .send-msg[data-v-5f1f09f0]{
+        color: @text !important; // Video playback interface "Send message" text | 视频播放界面 “发消息” 文字
+    }
+    .up-detail .up-description[data-v-5f1f09f0]{
+        color: @text !important; // Video playback interface uploader description text | 视频播放界面up主描述文字
+    }
+    .upinfo-btn-panel .new-charge-btn.charge-btn-loaded[data-v-db02d4c6]{
+        background-color: @surface0 !important; // Video playback interface "Charge" button background | 视频播放界面 “充电” 按钮背景
+        border-color: @accent !important; // Video playback interface "Charge" button border color | 视频播放界面 "充电" 按钮边框颜色
+    }
+    .upinfo-btn-panel .follow-btn.not-follow[data-v-db02d4c6]{
+        background-color: @surface0 !important; // Video playback interface "Follow" button background | 视频播放界面 “关注” 按钮背景
+        color: @text !important; // Video playback interface "Follow" button text | 视频播放界面 “关注” 按钮文字
+    }
+    .bpx-player-sending-bar .bpx-player-video-inputbar .bpx-player-dm-wrap a{
+        color: @mauve !important; //登陆 注册按钮
+    }
+    .bui-collapse .bui-collapse-header{
+        background-color: @surface0 !important; // Video playback interface video description collapse bar background | 视频播放界面视频描述折叠栏背景
+        color: @text !important; // Video playback interface video description collapse bar text | 视频播放界面视频描述折叠栏文字
+    }
+    .upinfo-btn-panel .new-charge-btn[data-v-db02d4c6]{
+        color: @accent !important; // Video playback interface "Charge" button text | 视频播放界面 "充电" 按钮文字
+    }
+    .upinfo-btn-panel .new-charge-btn svg,
+    .upinfo-btn-panel .new-charge-btn svg path,
+    .charge-btn svg,
+    .charge-btn svg path {
+        fill: @mauve !important; // Charge button icon color | 充电按钮图标颜色
+        stroke: @mauve !important;
+    }
+    .video-pod[data-v-dac4fbd2]{
+        background-color: @surface1 !important; // Video playback interface series video card background | 视频播放界面系列视频卡片背景
+    }
+    .video-pod .video-pod__header .header-top .left .title[data-v-dac4fbd2]{
+        color: @text !important; // Video playback interface series video card title text | 视频播放界面系列视频卡片标题文字
+    }
+    .video-pod .video-pod__header .header-top .left .amt[data-v-dac4fbd2]{
+        color: @text !important; // Video playback interface series video card count text | 视频播放界面系列视频卡片数量文字
+    }
+    .continuous-btn .txt{
+        color: @text !important; // Video playback interface series video "Auto-play" text | 视频播放界面系列视频 “自动连播” 文字
+    }
+    .switch-btn.on{
+        background-color: @accent !important; // Video playback interface series video "Auto-play" on background | 视频播放界面系列视频 "自动连播" 开启背景
+    }
+    .switch-btn .switch-block{
+        background-color: @text !important; // Video playback interface series video "Auto-play" button color | 视频播放界面系列视频 “自动连播” 按钮颜色
+    }
+    .video-pod .video-pod__header .header-bottom[data-v-dac4fbd2]{
+        color: @text !important; //视频播放界面系列视频卡片底部文字
+    }
+    .video-pod .video-pod__header .header-bottom .right .subscribe-btn[data-v-dac4fbd2]{
+        color: @accent !important; //视频播放界面系列视频卡片"订阅合集"文字
+        border-color: @accent !important; //视频播放界面系列视频卡片"订阅合集"边框
+    }
+    .simple-base-item .title{
+        color: @text !important; // Video playback interface related recommended video title text | 视频播放界面相关推荐视频标题文字 
+    }
+    .simple-base-item .stats{
+        color: @subtext0 !important; // Video playback interface related recommended video stats text | 视频播放界面相关推荐视频统计文字
+    }
+    .video-toolbar-left-item{
+        color: @text !important; // Video playback interface toolbar text | 视频播放界面工具栏文字
+    }
+    .video-toolbar-right-item{
+        color: @text !important; // Video playback interface toolbar right text | 视频播放界面工具栏右侧文字
+    }
+    .video-desc-container .basic-desc-info[data-v-8ced1e78]{
+        color: @text !important; // Video playback interface video description text | 视频播放界面视频描述文字
+    }
+    .video-desc-container .toggle-btn-text[data-v-8ced1e78]{
+        color: @text !important; // Video playback interface video description expand/collapse text | 视频播放界面视频描述展开收起文字
+    }
+    .video-tag-container .tag-panel .tag-link{
+        background-color: @surface1 !important; // Video playback interface video tag background | 视频播放界面视频标签背景
+        color: @text !important; // Video playback interface video tag text | 视频播放界面视频标签文字
+    }
+    .activity-m-v1 .inside-wrp{
+        border-color: @mauve !important; // 广告边框
+    }
+    .video-tag-container[data-v-cf3f07d2]{
+        border-color: @surface1 !important;
+    }
+    #title h2,
+    .bili-comments-header-renderer #title h2,
+    div#title h2 {
+        color: @text !important; // Video playback interface "Comments" title | 视频播放界面标题 “评论”
+    }
+    #title #count{
+        color: @subtext0 !important; // Video playback interface comment count title | 视频播放界面标题 “评论数”
+    }
+    .button{
+        color: @subtext0 !important; // Video playback interface comment sort button text | 视频播放界面标题 “评论排序按钮”文字
+    }
+    #editor .active{
+        background-color: @surface0 !important; //视频播放界面标题 "评论条“背景
+        color: @text !important;
+    }
+    #editor.active,
+    div#editor.active {
+        background-color: @surface0 !important;
+        border-color: @accent !important;
+    }
+    .tool-btn{
+        background-color: @surface0 !important; //视频播放界面标题 "评论条"下方按钮背景
+        color: @text !important;
+        border-color: @surface1 !important;
+    }    .tool-btn svg,
+    .tool-btn svg path,
+    .button.tool-btn.emoji svg,
+    .button.tool-btn svg {
+        fill: @mauve !important; //评论工具栏图标紫色
+        stroke: @mauve !important;
+        color: @mauve !important;
+    }    #input #inner{
+        background-color: @surface0 !important; //视频播放界面标题 "转发确认方块“背景
+        border-color: @accent !important;
+    }
+    #pub button,
+    .bili-comment-box #pub button,
+    button[data-v-risk="fingerprint"] {
+        background-color: @accent !important; //视频播放界面标题 "评论发布按钮"背景
+        color: @base !important; // Text on accent background should be base | 强调色背景上的文字应为base
+      }
+    #contents a{
+        color: @accent !important; //视频播放界面标题 "评论区链接"文字
+    }
+    #comment .tag {
+    --bili-comment-tag-bg-light: @surface1 !important;
+    --bili-comment-tag-bg-dark:  @surface1 !important;
+    --bili-comment-tag-color-light: @text !important;
+    --bili-comment-tag-color-dark:  @text !important;
+
+    background-color: @surface1 !important;
+    color: @text !important;
+  }
+
+
+
+    
+
+
+
+
+
+
+      // === Video frame content | 视屏框内容 ===
+    .bpx-player-progress-schedule-current{
+        background-color: @accent !important; // Progress bar hover tip point inner | 进度条悬停提示点内部
+    }
+    .bpx-player-ctrl-btn{
+        color: @text !important; // Video playback interface control bar button text | 视频播放界面控制栏按钮文字
+        fill: @mauve !important;
+    }
+
+    .bpx-player-ctrl-btn svg,
+    .bpx-player-ctrl-btn svg path {
+       fill: @mauve !important; // Ensure SVG icons are purple | 确保 SVG 图标是紫色
+       }
+    .bpx-player-ctrl-quality-menu-wrap{
+        background-color: @surface0 !important; // Quality menu background | 清晰度菜单背景
+    }
+    .bpx-player-ctrl-quality-menu-item{
+        color: @text !important; // Quality menu text | 清晰度菜单文字
+    }
+    .bpx-player-ctrl-quality-badge .bpx-player-ctrl-quality-badge-bigvip{
+        background-color: @accent !important; // Quality menu big VIP badge background | 清晰度菜单大会员徽章背景
+        color: @base !important; // Text on accent background should be base | 强调色背景上的文字应为base
+    }
+    .bpx-player-ctrl-playbackrate-menu{
+        background-color: @surface0 !important; // Playback speed menu background | 播放速度菜单背景
+    }
+    .bpx-player-ctrl-playbackrate-menu-item{
+        color: @text !important; // Playback speed menu text | 播放速度菜单文字
+    }
+    .bpx-player-ctrl-volume-box{
+        background-color: @surface0 !important; // Volume control background | 音量调节背景
+    }
+    .bpx-player-ctrl-volume-progress .bui-slider,
+    .bui-slider {
+        background-color: @surface1 !important; // Volume bar background track | 音量条背景轨道
+    }
+    .bpx-player-ctrl-volume-progress .bui-bar,
+    .bui-bar {
+        background-color: @accent !important; // Volume bar set portion (accent color) | 音量条已设置部分（强调色）
+    }
+    .bui-slider-handle {
+        border-color: @accent !important; // Volume slider border | 音量滑块边框
+        background-color: @accent !important; // Volume slider color | 音量滑块颜色
+    }
+    .bpx-player-ctrl-volume-progress .bui-slider-handle,
+    .bui-slider .bui-slider-handle {
+        border-color: @accent !important; // Volume ball border | 音量球边框
+        background-color: @accent !important; // Volume ball color | 音量球颜色
+    }
+    .bpx-player-ctrl-volume-number{
+        color: @text !important; // Volume number text | 音量数字文字
+    }
+    .bui-slider .bui-track .bui-thumb .bui-thumb-dot{
+        background-color: @accent !important; // Volume slider small dot | 音量滑块小点
+    }
+    .bui-panel.bui-dark{
+        background-color: @surface0 !important; // Volume control dark panel background | 音量调节深色面板背景
+    }
+    .bpx-player-ctrl-setting-box{
+        color: @text !important; // Settings menu text | 设置菜单文字
+    }
+    .bui-switch-body{
+        background-color: @accent !important; // Settings switch background | 设置开关背景
+    }
+    .bui-switch-dot{
+        background-color: @surface1 !important; // Settings switch button color | 设置开关按钮颜色
+    }
+
+
+
+
+
+
+
+
+   // === Search video page | 搜索视频页面 ===
+   .search-input-container .search-input-wrap[data-v-64f8f917]{
+    background: @surface0 !important; //搜索输入框背景
+    border-color: @accent !important; //搜索输入框边框
+   }
+   .vui_tabs--navbar .vui_tabs--nav-slider{
+    background: @accent !important; //搜索页面分区栏目下划线
+   }
+   .vui_button--blue, .vui_button--blue:focus {
+    color: @base !important; // Text on accent background should be base | 强调色背景上的文字应为base
+    background: @accent !important;
+    border-color: @accent !important;
+   }
+   .vui_tabs--navbar .vui_tabs--nav-item .vui_tabs--nav-text{
+    color: @text !important; //搜索页面分区栏目文字
+   }
+   .vui_tabs--navbar .vui_tabs--nav-item:hover .vui_tabs--nav-text, .vui_tabs--navbar .vui_tabs--nav-item-active .vui_tabs--nav-text{
+    color: @accent !important; //搜索页面分区栏目文字悬停和激活
+   }
+   .vui_tabs--navbar .vui_tabs--nav-item .vui_tabs--nav-num{
+    background: @surface1 !important; //搜索页面分区栏目数字背景
+    color: @text !important; //搜索页面分区栏目数字文字
+   }
+   .vui_button--tab, .vui_button--tab:focus{
+    background: @surface1 !important; // Search page sort button background | 搜索页面排序按钮背景
+    color: @text !important; // Search page sort button text | 搜索页面排序按钮文字
+   }
+   .vui_button--tab:active, .vui_button--tab.vui_button--active, 
+   .vui_button--tab.vui_button--active:hover{
+    background: @accent !important; // Search page sort button active background | 搜索页面排序按钮激活背景
+    color: @base !important; // Text on accent background should be base | 强调色背景上的文字应为base
+    border-color: @accent !important;
+   }
+   .vui_button--tab:hover{
+    background: @surface1 !important; // Search page sort button hover background | 搜索页面排序按钮悬停背景
+    color: @text !important; // Search page sort button hover text | 搜索页面排序按钮悬停文字
+   }
+   .vui_button, .vui_button:focus{
+    background: @surface1 !important; // Search page pagination button background | 搜索页面分页按钮背景
+    color: @text !important; // Search page pagination button text | 搜索页面分页按钮文字
+   }
+   .search-input-container .search-fixed-header[data-v-64f8f917]{
+    background: @base !important; // Search page sliding header background | 搜索页面滑动出现的header背景
+   }
+   .search-date-picker .search-date-picker__trigger .date-trigger[data-v-36b38319]{
+    background-color: @surface1 !important; // Search page date picker background | 搜索页面日期选择器背景
+    color: @text !important; // Search page date picker text | 搜索页面日期选择器文字
+    border-color: @surface1 !important; // Search page date picker border | 搜索页面日期选择器边框
+   }
+   .vui_button--active-blue:active, 
+   .vui_button--active-blue.vui_button--active, 
+   .vui_button--active-blue.vui_button--active:hover{
+    border-color: @accent !important; // Search page date picker active border | 搜索页面日期选择器激活边框
+   }
+
+
+   // === Homepage primary category tabs | 首页主分类标签 ===
+   .primary-menu,
+   .channel-items__left,
+   .bili-feed4 .bili-header .channel-items__left {
+    background-color: @base !important;
+   }
+   
+   .primary-menu__item,
+   .channel-items__left .channel-link,
+   .tab-item {
+    background-color: @surface0 !important;
+    color: @text !important;
+   }
+   
+   .primary-menu__item:hover,
+   .channel-items__left .channel-link:hover,
+   .tab-item:hover {
+    background-color: @surface1 !important;
+    color: @accent !important;
+   }
+   
+   .primary-menu__item.active,
+   .channel-link.active,
+   .tab-item.active {
+    background-color: @accent !important;
+    color: @base !important;
+   }
+   
+   // === Homepage secondary category tabs | 首页二级分类标签 ===
+   .secondary-menu,
+   .sub-tab {
+    background-color: @base !important;
+   }
+   
+   .secondary-menu__item,
+   .sub-tab-item {
+    background-color: @surface0 !important;
+    color: @text !important;
+   }
+   
+   .secondary-menu__item:hover,
+   .sub-tab-item:hover {
+    background-color: @surface1 !important;
+    color: @accent !important;
+   }
+   
+   .secondary-menu__item.active,
+   .sub-tab-item.active {
+    background-color: @surface1 !important;
+    color: @accent !important;
+   }
+
+   // === Homepage video cards | 首页视频卡片 ===
+   .bili-video-card,
+   .video-card,
+   .feed-card,
+   .bili-feed-card {
+    background-color: @surface0 !important;
+    border-color: @surface1 !important;
+   }
+   
+   .bili-video-card:hover,
+   .video-card:hover,
+   .feed-card:hover,
+   .bili-feed-card:hover {
+    background-color: @surface1 !important;
+   }
+   
+   .bili-video-card__info,
+   .video-card__info,
+   .bili-feed-card__info {
+    background-color: @surface0 !important;
+   }
+   
+   // === Feed card layers and overlays | 视频卡片层叠窗口 ===
+   .bili-feed-card .layer,
+   .bili-feed-card .layer-bg,
+   .bili-feed-card .layer-tiny,
+   .floor-single-card .layer,
+   .floor-single-card .layer-bg,
+   .floor-card-inner,
+   .cover-container,
+   .card-mark,
+   .bili-video-card .cover-container,
+   .feed-card .cover-container {
+    background-color: @surface0 !important;
+    border-color: @surface1 !important;
+   }
+   
+   .bili-feed-card .layer .tiny,
+   .bili-feed-card .tiny,
+   .layer.tiny {
+    background-color: @surface0 !important;
+    color: @text !important;
+    border-color: @surface1 !important;
+   }
+   
+   // === Video card borders | 视频卡片边框 ===
+   .bili-video-card__image,
+   .video-card__image,
+   .v-img {
+    border-color: @surface1 !important;
+   }
+   
+   // === Video card hover info overlay | 视频卡片悬停信息叠层 ===
+   .bili-video-card__info--icon-text,
+   .video-card-info,
+   .card-info-bottom,
+   .bili-video-card .card-mark-text {
+    color: @text !important;
+   }
+   
+   .bili-video-card__info--tit,
+   .bili-video-card__info--tit a,
+   .video-card__info .video-name,
+   .video-name {
+    color: @text !important;
+   }
+   
+   .bili-video-card__info--tit:hover,
+   .bili-video-card__info--tit a:hover,
+   .video-name:hover {
+    color: @accent !important;
+   }
+   
+   .bili-video-card__info--author,
+   .bili-video-card__info--date,
+   .bili-video-card__stats,
+   .video-card__info .up-name,
+   .video-card__info .play-text {
+    color: @subtext0 !important;
+   }
+   
+   .bili-video-card__stats .bili-video-card__stats--item,
+   .video-card__info .play,
+   .video-card__info .danmu {
+    color: @subtext0 !important;
+   }
+   
+   .bili-video-card__stats__icon {
+    fill: @subtext0 !important;
+   }
+
+   // === Homepage category tabs | 首页分类标签 ===
+   .floor-single-card .card-list .floor-card,
+   .primary-menu .primary-menu-item {
+    background-color: @surface0 !important;
+    color: @text !important;
+   }
+   
+   .floor-single-card .card-list .floor-card:hover,
+   .primary-menu .primary-menu-item:hover {
+    background-color: @surface1 !important;
+    color: @accent !important;
+   }
+
+   // === Homepage feed container | 首页推荐流容器 ===
+   .feed-roll-btn,
+   .palette-button-wrap .palette-button,
+   .floor-single-card .card-list .floor-card-right,
+   .bili-feed4-layout .bili-header .right-entry .roll-btn {
+    background-color: @surface0 !important;
+    color: @text !important;
+    border-color: @surface1 !important;
+   }
+   
+   .feed-roll-btn:hover,
+   .palette-button-wrap .palette-button:hover,
+   .floor-single-card .card-list .floor-card-right:hover,
+   .bili-feed4-layout .bili-header .right-entry .roll-btn:hover {
+    background-color: @surface1 !important;
+    color: @accent !important;
+    border-color: @accent !important;
+   }
+   
+   // === Feed dynamic and hot icons | 动态和热门图标 ===
+   .dynamic-icon,
+   .hot-icon,
+   .bili-header__channel .channel-icons {
+    fill: @mauve !important;
+    color: @mauve !important;
+   }
+   
+   .dynamic-icon:hover,
+   .hot-icon:hover {
+    fill: @accent !important;
+    color: @accent !important;
+   }
+
+   // === Video card image overlay | 视频卡片图片遮罩 ===
+   .bili-video-card__image--duration,
+   .video-card .duration {
+    background-color: fade(@mantle, 80%) !important;
+    color: @text !important;
+   }
+
+   // === Recommended video section | 推荐视频区块 ===
+   .recommended-container_floor-aside .container,
+   .recommended-container_floor-aside .aside-area {
+    background-color: @surface0 !important;
+   }
+   
+   .storey-box {
+    background-color: @base !important;
+   }
+
+   // === Live room card | 直播间卡片 ===
+   .live-card,
+   .bili-live-card {
+    background-color: @surface0 !important;
+   }
+   
+   .live-card:hover,
+   .bili-live-card:hover {
+    background-color: @surface1 !important;
+   }
+   
+   .live-card__title,
+   .bili-live-card__title {
+    color: @text !important;
+   }
+   
+   .live-card__up,
+   .bili-live-card__up {
+    color: @subtext0 !important;
+   }
+
+   // === Scrollbar | 滚动条 ===
+   ::-webkit-scrollbar-track {
+    background: @mantle !important;
+   }
+   
+   ::-webkit-scrollbar-thumb {
+    background: @surface2 !important;
+   }
+   
+   ::-webkit-scrollbar-thumb:hover {
+    background: @overlay0 !important;
+   }
+
+   // === Popup and modal | 弹窗和模态框 ===
+   .bili-modal__mask,
+   .bili-dialog__mask {
+    background-color: fade(@base, 50%) !important; // Semi-transparent backdrop | 半透明遮罩
+   }
+   
+   .bili-modal,
+   .bili-dialog,
+   .mini-player-window {
+    background-color: @surface0 !important;
+    border-color: @surface1 !important;
+   }
+   
+   .bili-modal__header,
+   .bili-dialog__header {
+    background-color: @mantle !important;
+    color: @text !important;
+   }
+   
+   .bili-modal__body,
+   .bili-dialog__body {
+    background-color: @surface0 !important;
+    color: @text !important;
+   }
+   
+   // === Search input themed styles | 搜索框主题样式 ===
+   .v-popover-content,
+   .bili-search-panel {
+    background-color: @surface0 !important;
+    border-color: @surface1 !important;
+   }
+   
+   input[type="search"],
+   input[type="text"].search-input {
+    background-color: @surface0 !important;
+    color: @text !important;
+    border-color: @surface1 !important;
+   }
+   
+   input[type="search"]:focus,
+   input[type="text"].search-input:focus {
+    background-color: @surface0 !important;
+    border-color: @accent !important;
+   }
+   
+   // === Toggle and switch hover states | 切换按钮悬停状态 ===
+   .switch-btn:hover .txt,
+   .toggle-item:hover,
+   .setting-item:hover {
+    color: @accent !important;
+   }
+   
+   // === Borders and dividers | 边框和分割线 ===
+   .divider,
+   hr {
+    border-color: @surface1 !important;
+   }
+   
+   .video-toolbar,
+   .video-toolbar-left,
+   .video-toolbar-right {
+    border-color: @surface1 !important;
+   }
+   
+   // === Icons below video | 视频下方图标 ===
+   .video-toolbar-left .toolbar-left-item-wrap svg,
+   .video-toolbar-left .toolbar-left-item-wrap svg path,
+   .video-toolbar-right svg,
+   .video-toolbar-right svg path,
+   .video-share-info svg,
+   .video-share-info svg path {
+    fill: @mauve !important;
+    stroke: @mauve !important;
+   }
+   
+   .video-toolbar-left .toolbar-left-item-wrap:hover svg,
+   .video-toolbar-left .toolbar-left-item-wrap:hover svg path,
+   .video-toolbar-right:hover svg,
+   .video-toolbar-right:hover svg path {
+    fill: @accent !important;
+    stroke: @accent !important;
+   }
+   
+   // === Dropdown menu borders and icons | 下拉菜单边框和图标 ===
+   .bili-dropdown,
+   .v-popover,
+   .popover-content {
+    background-color: @surface0 !important;
+    border-color: @surface1 !important;
+   }
+   
+   .bili-dropdown-item svg,
+   .bili-dropdown-item svg path,
+   .popover-content svg,
+   .popover-content svg path {
+    fill: @mauve !important;
+    stroke: @mauve !important;
+   }
+   
+   .bili-dropdown-item:hover svg,
+   .bili-dropdown-item:hover svg path {
+    fill: @accent !important;
+    stroke: @accent !important;
+   }
+   
+   // === Share menu | 分享菜单 ===
+   .video-share-popover,
+   .share-container {
+    background-color: @surface0 !important;
+    border-color: @surface1 !important;
+   }
+   
+   .video-share-popover .share-item,
+   .share-container .share-item {
+    background-color: @surface0 !important;
+    color: @text !important;
+   }
+   
+   .video-share-popover .share-item:hover,
+   .share-container .share-item:hover {
+    background-color: @surface1 !important;
+   }
+   
+   .share-item svg,
+   .share-item svg path {
+    fill: @mauve !important;
+   }
+   
+   // === Header dropdown menu | 头部下拉菜单 ===
+   .header-avatar-wrap--container,
+   .right-entry-item .v-popover-content,
+   .bili-header-m .header-entry-mini .mini-pop {
+    background-color: @surface0 !important;
+    border-color: @surface1 !important;
+   }
+   
+   .header-avatar-wrap--container .item,
+   .header-avatar-wrap--container a,
+   .v-popover-content .item,
+   .v-popover-content a {
+    color: @text !important;
+   }
+   
+   .header-avatar-wrap--container .item:hover,
+   .header-avatar-wrap--container a:hover,
+   .v-popover-content .item:hover,
+   .v-popover-content a:hover {
+    background-color: @surface1 !important;
+    color: @accent !important;
+   }
+   
+   .header-avatar-wrap--container svg,
+   .header-avatar-wrap--container svg path,
+   .v-popover-content svg,
+   .v-popover-content svg path {
+    fill: @mauve !important;
+    stroke: @mauve !important;
+   }
+   .floor-card[data-v-d632646a]{
+    border-color: @surface1 !important; //叠放窗口边框
+   }
+
+  }
+}
