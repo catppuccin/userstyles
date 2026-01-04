@@ -20,8 +20,9 @@ See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting
 > [!NOTE]
 > Switch to a default Lichess light/dark theme via **Username** > **Background** for the best experience!
 
-## 💝 Current Maintainer
+## 💝 Current Maintainers
 - [coopw1](https://github.com/coopw1)
+- [zenoix](https://github.com/zenoix)
 
 
 &nbsp;
