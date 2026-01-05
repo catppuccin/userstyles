@@ -1,0 +1,171 @@
+/* ==UserStyle==
+@name ChatReplay Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/chatreplay
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/chatreplay
+@version 2025.09.06
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/chatreplay/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Achatreplay
+@description Soothing pastel theme for ChatReplay
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var range bg-opacity "Background Opacity" [0.2 , -0.05 , 1 , 0.05]
+@var range bg-blur "Background Blur" [20, 0, 100, 1, 'px']
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("chatreplay.stream") {
+  :root[dark] #chat-container {
+    #catppuccin(@darkFlavor, chat);
+  }
+  :root #chat-container {
+    #catppuccin(@lightFlavor, chat);
+  }
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor, base);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor, base);
+    }
+  }
+
+  #catppuccin(@flavor, @platform) {
+    #lib.palette();
+    #lib.defaults();
+
+    & when (@platform = chat) {
+      a:not(.username),
+      i {
+        color: @accent;
+      }
+      color: @text;
+      --text-color: @text;
+      --timestamp-color: @subtext1;
+      --bg-color: @base;
+      --bg-color-transparent: fade(@base, 10%);
+      --settings-bg-color: @mantle;
+      --btn-bg-color: @surface0;
+      --bg-color-highlight: @surface0;
+      --scrollbar-thumb: @surface0;
+      --btn-hover-bg: @surface1;
+      --link-color: @accent;
+      --border-color: @surface0;
+      --settings-shadow: 0 4px 8px fade(@crust, 40%), 0 0 4px fade(@crust, 40%);
+      .message-notice {
+        border-left-color: @accent;
+      }
+      .message--highlighted a {
+        color: @accent;
+      }
+      .message--highlighted {
+        background: @accent;
+        border-color: @accent;
+        color: @base;
+        text-shadow: none;
+      }
+      .red-dot::after {
+        background: @red;
+      }
+      &[overlay] {
+        --bg-color: rgba(@base, var(--overlay-opacity));
+        --bg-color-highlight: rgba(
+          @base,
+          max(0.4, calc(var(--overlay-opacity) * 1.2))
+        );
+        --text-shadow:
+          -1px -1px 0px @base, 0px -1px 0px @base, 1px -1px 0px @base, -1px 0px
+          0px @base, 1px 0px 0px @base, -1px 1px 0px @base, 0px 1px 0px @base,
+          1px 1px 0px @base;
+        --text-color: @text;
+      }
+      .resume-scroll {
+        background-color: @surface0;
+      }
+    }
+    @keyframes rotating {
+      0% {
+        transform: rotate(0);
+      }
+
+      100% {
+        transform: rotate(360deg);
+        scale: 1.5;
+        fill: @red;
+      }
+    }
+
+    & when (@platform = base) {
+      background-color: @base;
+      color: @text;
+
+      body {
+        color: @text;
+      }
+      .card {
+        background: fade(@crust, 80%);
+      }
+      .card.c1cw4bqg.c1cw4bqg {
+        color: @subtext0;
+      }
+      a,
+      i {
+        color: @accent;
+      }
+      button.gradient,
+      .btn.gradient {
+        background: linear-gradient(
+          45deg,
+          @accent,
+          spin(@accent, 45)
+        );
+        color: @base;
+        text-shadow: none;
+      }
+      button:not(.custom),
+      .btn {
+        background: @surface0;
+        text-shadow: none;
+        color: @text;
+      }
+      .item.zmyc33:hover,
+      .item.active.zmyc33 {
+        background-color: @surface0;
+      }
+      .video-title.damcrq,
+      .logo-text.c1j5psx1.c1j5psx1 {
+        color: @text;
+      }
+      [d="M 4,0 1,3 v 10 h 4 v 3 l 3,-3 h 2 L 15,8 V 0 Z m 10,7 -3,3 H 9 L 7,12 V 10 H 5 V 1 h 9 z"],
+      [d="m 8.5,3 3,2 -3,2 z"] {
+        fill: @accent;
+      }
+      [d="m 4,1 h 10 v 7 l -4,4 H 4 Z"] {
+        fill: @base;
+      }
+      .delete.c19loos5.c19loos5 {
+        border-color: @red;
+      }
+      .mark.z8oy0d.z8oy0d {
+        background: @accent;
+        color: @base;
+      }
+      .bg.c1ejz165.c1ejz165 {
+        opacity: @bg-opacity;
+        filter: blur(@bg-blur);
+      }
+      // .topbar-container.c1j5psx1.c1j5psx1 {
+      //   border-bottom: none;
+      // }
+      #inner-a.tmgko.tmgko {
+        background: @mantle;
+      }
+    }
+  }
+}

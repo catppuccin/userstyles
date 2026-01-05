@@ -1,5 +1,4 @@
 import type { Userstyles } from "@/types/userstyles.d.ts";
-import type { WalkEntry } from "@std/fs";
 import { REPO_ROOT } from "@/constants.ts";
 
 import * as color from "@std/fmt/colors";
@@ -12,7 +11,7 @@ import { log } from "@/logger.ts";
 import { formatListOfItems } from "@/utils.ts";
 
 export async function verifyMetadata(
-  entry: WalkEntry,
+  file: string,
   content: string,
   userstyle: string,
   userstyles: Userstyles,
@@ -22,7 +21,6 @@ export async function verifyMetadata(
   content = content.replaceAll("\r\n", "\n");
 
   const assertions = generateAssertions(userstyle, userstyles);
-  const file = path.relative(REPO_ROOT, entry.path);
 
   const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {
     allowErrors: true,
@@ -77,11 +75,20 @@ export async function verifyMetadata(
         startLine: line !== 0 ? line : undefined,
         content,
       });
+
+      if (fix) {
+        content = content.replace(
+          `${atKey} ${current}`,
+          `${atKey} ${expected}`,
+        );
+      }
     }
   }
 
+  Deno.writeTextFileSync(file, content);
+
   const template = (await Deno.readTextFile(
-    path.join(REPO_ROOT, "template/catppuccin.user.css"),
+    path.join(REPO_ROOT, "template/catppuccin.user.less"),
   ))
     .split("\n");
 
@@ -146,8 +153,9 @@ export async function verifyMetadata(
 
 function generateAssertions(userstyle: string, userstyles: Userstyles) {
   const prefix = "https://github.com/catppuccin/userstyles";
+  const userstyleData = userstyles[userstyle];
 
-  if (!userstyles[userstyle]) {
+  if (!userstyleData) {
     log.error(
       `Metadata section for \`${color.bold(userstyle)}\` userstyle is missing`,
       {
@@ -159,19 +167,21 @@ function generateAssertions(userstyle: string, userstyles: Userstyles) {
 
   return {
     name: `${
-      Array.isArray(userstyles[userstyle].name)
-        ? (userstyles[userstyle].name as string[]).join("/")
-        : userstyles[userstyle].name
+      [
+        userstyleData.name,
+        ...Object.values(userstyleData.supports ?? {}).map(({ name }) => name),
+      ].join("/")
     } Catppuccin`,
     namespace: `github.com/catppuccin/userstyles/styles/${userstyle}`,
     homepageURL: `${prefix}/tree/main/styles/${userstyle}`,
     description: `Soothing pastel theme for ${
-      Array.isArray(userstyles[userstyle].name)
-        ? formatListOfItems(userstyles[userstyle].name as string[])
-        : userstyles[userstyle].name
+      formatListOfItems([
+        userstyleData.name,
+        ...Object.values(userstyleData.supports ?? {}).map(({ name }) => name),
+      ])
     }`,
     author: "Catppuccin",
-    updateURL: `${prefix}/raw/main/styles/${userstyle}/catppuccin.user.css`,
+    updateURL: `${prefix}/raw/main/styles/${userstyle}/catppuccin.user.less`,
     supportURL: `${prefix}/issues?q=is%3Aopen+is%3Aissue+label%3A${userstyle}`,
     license: "MIT",
     preprocessor: "less",

@@ -4,17 +4,15 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths:
-      - ".github/labels.yml"
+    paths: [".github/labels.yml"]
 
 jobs:
-  update:
-    name: Sync labels
+  sync:
+    if: github.repository == 'catppuccin/userstyles'
     runs-on: ubuntu-latest
 
     steps:
       - name: Sync labels
         uses: r7kamura/github-label-sync-action@v0
-        if: ${{ github.repository == 'catppuccin/userstyles' }}
         with:
           allow_added_labels: "true"

@@ -1,0 +1,297 @@
+/* ==UserStyle==
+@name Syncthing Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/syncthing
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/syncthing
+@version 2025.09.06
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/syncthing/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Asyncthing
+@description Soothing pastel theme for Syncthing
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var text urls "URL(s) for Syncthing" "127\.0\.0\.1\:8384,0\.0\.0\.0\:8384,localhost\:8384"
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+/*
+  `replace(<stuff> ," ", "", "g")` is here to remove extra spaces (if any)
+*/
+
+@-moz-document regexp(
+    replace(replace(%("https?://(%s)/.*", @urls), ",", "|", "g"), " ", "", "g")
+  ) {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  .light-theme {
+    #catppuccin(@lightFlavor);
+  }
+  .dark-theme {
+    #catppuccin(@darkFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    body {
+      color: @text !important;
+      background-color: @base !important;
+    }
+
+    a {
+      color: @accent;
+    }
+
+    .nav-tabs > li.active > a:hover,
+    .nav-tabs > li.active > a {
+      color: @accent !important;
+    }
+
+    /* navbar */
+    .navbar {
+      background-color: @mantle !important;
+      border-color: @mantle !important;
+    }
+
+    .navbar-text,
+    .dropdown > a,
+    .dropdown-menu > li > a,
+    .hidden-xs > a,
+    .navbar-link {
+      color: @text !important;
+    }
+
+    .dropdown-menu {
+      border-color: @surface1 !important;
+      background-color: @mantle !important;
+    }
+
+    .dropdown-menu > li > a:hover,
+    .dropdown-menu > li > a:focus {
+      color: @text !important;
+      background-color: @surface0 !important;
+    }
+
+    .open > .dropdown-toggle,
+    .dropdown-toggle:hover {
+      border-color: @surface1 !important;
+      background-color: @surface0 !important;
+    }
+
+    .divider {
+      background-color: @surface1 !important;
+    }
+
+    li.hidden-xs:hover,
+    .navbar-link:hover,
+    .navbar-link:focus {
+      border-color: @surface1 !important;
+      background-color: @surface0 !important;
+    }
+
+    .dropdown-menu > .active > a {
+      color: @base !important;
+      background-color: @accent !important;
+    }
+
+    /* main panel */
+    .panel {
+      background-color: @base !important;
+    }
+
+    .panel-default {
+      border-color: @surface0 !important;
+    }
+
+    .panel-default > .panel-heading {
+      color: @text !important;
+      border-color: @surface0 !important;
+      background-color: @surface0 !important;
+    }
+
+    .panel-footer {
+      background-color: @base !important;
+    }
+
+    .table-striped > tbody > tr {
+      border-top-color: @surface0 !important;
+    }
+
+    .table-striped > tbody > tr:nth-of-type(odd) {
+      background-color: @base !important;
+    }
+
+    .panel-group .panel-heading + .panel-collapse > .panel-body,
+    .panel-group .panel-heading + .panel-collapse > .list-group {
+      border-top-color: @base !important;
+    }
+
+    .identicon > rect {
+      fill: @text !important;
+    }
+
+    /* buttons */
+    .btn-default {
+      color: @text !important;
+      background-color: transparent !important;
+      border-color: @surface0 !important;
+    }
+
+    .btn-default:hover,
+    .btn-default:focus,
+    .btn-default.focus {
+      color: @text !important;
+      background-color: @surface0 !important;
+    }
+
+    .btn-primary {
+      background-color: @accent !important;
+      color: @base;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary.focus {
+      background-color: fade(@accent, 90%) !important;
+    }
+
+    .btn-warning {
+      background-color: @yellow !important;
+      color: @base;
+    }
+
+    .btn-warning:hover,
+    .btn-warning:focus,
+    .btn-warning.focus {
+      background-color: fade(@yellow, 90%) !important;
+    }
+
+    .btn-danger {
+      background-color: @red !important;
+      color: @base;
+    }
+
+    .btn-danger:hover,
+    .btn-danger:focus,
+    .btn-danger.focus {
+      background-color: fade(@red, 90%) !important;
+    }
+
+    /* modal dialogs */
+    .modal-header {
+      border-color: @surface0 !important;
+      background-color: @mantle;
+    }
+
+    .modal-content {
+      border-color: @surface0 !important;
+      background-color: @mantle !important;
+    }
+
+    .modal-footer {
+      border-color: @surface0 !important;
+      background-color: @mantle !important;
+    }
+
+    .alert-warning {
+      background-color: @yellow !important;
+      color: @base !important;
+    }
+
+    .alert-danger {
+      background-color: @red !important;
+      color: @base !important;
+    }
+
+    .help-block {
+      color: @text !important;
+    }
+
+    .form-control {
+      color: @text !important;
+      border-color: @surface0 !important;
+      background-color: @base !important;
+    }
+
+    code.ng-binding {
+      color: @mauve !important;
+      background-color: @mantle !important;
+    }
+
+    .well,
+    .form-control[readonly="readonly"] {
+      /* read-only fields */
+      color: @subtext0 !important;
+      border-color: @subtext0 !important;
+      background-color: @mantle !important;
+    }
+
+    /* buttons for pagination */
+    .pagination > li > a,
+    .pagination > li > span {
+      background-color: @base !important;
+      border-color: @surface0 !important;
+    }
+
+    .pagination > li > a:hover,
+    .pagination > li > a:focus,
+    .pagination > li > a.focus {
+      background-color: @surface0 !important;
+    }
+
+    /* progress bars */
+    .progress-bar {
+      background-color: @accent !important;
+    }
+
+    .progress-bar-success {
+      background-color: @green !important;
+    }
+
+    .progress-bar-info {
+      background-color: @flamingo !important;
+    }
+
+    .progress-bar-warning {
+      background-color: @yellow !important;
+    }
+
+    .progress-bar-danger {
+      background-color: @red !important;
+    }
+
+    /* text */
+    .text-primary {
+      color: @accent !important;
+    }
+
+    .text-success {
+      color: @green !important;
+    }
+
+    .text-info {
+      color: @flamingo !important;
+    }
+
+    .text-warning {
+      color: @yellow !important;
+    }
+
+    .text-danger {
+      color: @red !important;
+    }
+  }
+}

@@ -1,0 +1,260 @@
+/* ==UserStyle==
+@name crates.io Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/crates.io
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/crates.io
+@version 2025.09.06
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/crates.io/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Acrates.io
+@description Soothing pastel theme for crates.io
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("crates.io") {
+  @import url("https://unpkg.com/@catppuccin/highlightjs@1.0.0/css/catppuccin-variables.important.css");
+
+  code.hljs {
+    background: none !important;
+  }
+
+  :root[data-color-scheme="system"] {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  :root[data-color-scheme="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+  :root[data-color-scheme="light"] {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    &,
+    * {
+      --shadow: none !important;
+      --csstools-color-scheme--dark: none;
+
+      --header-bg-color: @mantle;
+      --main-color: @text;
+      --main-color-light: @subtext1;
+      --main-shadow-color: @surface0;
+      --main-bg: @mantle;
+      --main-bg-dark: @base;
+      --gray-border: @surface0;
+      --link-color: @accent;
+      --link-hover-color: darken(@accent, 5%);
+      --footer-header-color: @text;
+
+      /* Main article/readme background */
+      --csstools-light-dark-toggle--63: @base;
+
+      /* Inline code background */
+      --csstools-light-dark-toggle--92: @mantle;
+      /* Code block background */
+      --csstools-light-dark-toggle--91: @mantle;
+      /* Copyable text hover */
+      --csstools-light-dark-toggle--78: @base;
+
+      /* Versions cards */
+      --csstools-light-dark-toggle--111: @text;
+      --csstools-light-dark-toggle--113: @base;
+      --csstools-light-dark-toggle--114: fade(@green, 15%);
+      --csstools-light-dark-toggle--117: fade(@yellow, 15%);
+      --csstools-light-dark-toggle--109: @surface0;
+      --csstools-light-dark-toggle--110: @surface0;
+      --csstools-light-dark-toggle--115: @surface0;
+      --csstools-light-dark-toggle--118: @surface0;
+      --csstools-light-dark-toggle--126: @text;
+      [class*="_new"] {
+        color: @green;
+      }
+      /* Dependencies cards */
+      --csstools-light-dark-toggle--83: @base;
+      --csstools-light-dark-toggle--79: @surface0;
+      --csstools-light-dark-toggle--80: @text;
+      --csstools-light-dark-toggle--81: @text;
+      --csstools-light-dark-toggle--84: @subtext0;
+      --grey600: @subtext0;
+      --grey700: @text;
+      /* Dependents cards */
+      --csstools-light-dark-toggle--89: @base;
+      --csstools-light-dark-toggle--86: @surface0;
+      /* Search results cards */
+      --csstools-light-dark-toggle--2: @base;
+      /* Homepage cards */
+      --csstools-light-dark-toggle--74: @base;
+      --csstools-light-dark-toggle--77: @surface0;
+      --csstools-light-dark-toggle--75: @subtext1;
+      --csstools-light-dark-toggle--76: @text;
+      --csstools-light-dark-toggle--19: @subtext0;
+      --csstools-light-dark-toggle--20: @subtext0;
+
+      /* Header search bar */
+      --csstools-light-dark-toggle--34: @crust;
+      --yellow500: @accent;
+      --yellow700: darken(@accent, 5%);
+
+      /* Dropdown */
+      --csstools-light-dark-toggle--23: @mantle;
+      --csstools-light-dark-toggle--35: @mantle;
+      /* Dropdown items */
+      [class*="_item_"] {
+        button:hover,
+        > a:hover,
+        [class*="_selected_"] {
+          background: @surface0;
+          color: @text !important;
+        }
+      }
+    }
+
+    /* Toasts */
+    .c-notification {
+      --ecn-green: @green;
+      --ecn-blue: @blue;
+      --ecn-orange: @peach;
+      --ecn-red: @red;
+
+      &,
+      .c-notification__icon {
+        color: @crust;
+      }
+    }
+
+    /* Tooltips */
+    .ember-tooltip {
+      color: @text;
+      background-color: @crust;
+      text-shadow: none;
+
+      &[x-placement^="top"] .ember-tooltip-arrow {
+        border-top-color: @crust;
+      }
+    }
+
+    /* Icons and icon badges */
+    [class*="downloads_"] [fill="#FFF"] {
+      fill: @surface0 !important;
+    }
+    [fill="#B13B89"],
+    [fill="#B84D94"],
+    svg[class*="_download-icon"] {
+      fill: @accent !important;
+    }
+    [stroke="#B84D94"] {
+      stroke: @accent !important;
+    }
+
+    /* Footer links */
+    ._content_hautyr {
+      h1 {
+        text-shadow: none;
+      }
+
+      a {
+        color: @accent;
+
+        &:hover {
+          color: darken(@accent, 5%);
+          text-shadow: none;
+        }
+      }
+    }
+
+    /* Misc header text */
+    [class*="_header-inner_"] {
+      &,
+      a {
+        color: @text;
+      }
+    }
+
+    /* Search bar magnifying glass icon */
+    form[action="/search"] button {
+      color: @crust;
+    }
+
+    /* Sort by search results */
+    ._icon_xsqxju {
+      color: @accent;
+    }
+
+    /* Primary buttons */
+    [class*="_tan-button_"],
+    [class*="_yellow-button_"] {
+      color: @crust !important;
+      background: @accent;
+
+      &:hover {
+        background-color: darken(@accent, 5%);
+      }
+    }
+
+    [class*="_red-button_"] {
+      --bg-color-top: @maroon;
+      --bg-color-bottom: @maroon;
+      --bg-color-top-dark: @red;
+      --bg-color-bottom-dark: @red;
+    }
+
+    /* User email settings */
+    [class*="_me-email_"] {
+      [class*="_row_"] {
+        border-color: @surface0;
+      }
+      [class*="_verified_"] {
+        color: @green;
+      }
+    }
+
+    /* Logged out home page hero */
+    [class*="_hero-title_"] {
+      color: @text;
+      text-shadow: none;
+    }
+    [class*="_hero-button_"] [class*="_icon_"] {
+      color: @crust;
+    }
+    [class*="_blurb_"] [class*="_stats-value_"] {
+      [class*="_label_"],
+      svg {
+        color: @subtext0;
+      }
+    }
+
+    /* User avatar backgrounds */
+    [class*="_avatar_"] {
+      background-color: @surface0;
+      box-shadow: none;
+    }
+
+    [class*="_yanked-badge_"] {
+      background-color: @red;
+      color: @crust;
+    }
+
+    /* Tables in READMEs */
+    table {
+      th,
+      td {
+        border-color: @surface1;
+      }
+    }
+  }
+}

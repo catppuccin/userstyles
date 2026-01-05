@@ -1,0 +1,66 @@
+/* ==UserStyle==
+@name Graphite Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/graphite
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/graphite
+@version 2025.11.07
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/graphite/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agraphite
+@description Soothing pastel theme for Graphite
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("app.graphite.com") {
+  :root[data-theme="light"] {
+    #catppuccin(@lightFlavor);
+  }
+  :root[data-theme="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+
+  #createset(@color, @type) {
+    --color-@{type}-default: @color;
+    --color-@{type}-lowest-contrast: darken(@color, 60%);
+    --color-@{type}-low-contrast: @color;
+    --color-@{type}-high-contrast: @color;
+    --color-@{type}-highest-contrast: lighten(@color, 10%);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    --color-bg-light: @base;
+    --color-bg-med: @mantle;
+    --color-bg-dark: @crust;
+
+    --text-color-light: @crust; // this means on a light background
+    --text-color-default: @text;
+    --text-color-low-contrast: @text;
+    --text-color-high-contrast: @text;
+    --text-color-disabled: @subtext0;
+
+    --btn-color-neutral-selected: @surface0;
+    --btn-color-neutral-default: @surface0;
+    --btn-color-neutral-hover: @surface0;
+
+    --icon-color-default: @text;
+
+    --border-color-default: @surface1;
+
+    --color-gray-60: @surface0;
+
+    #createset(@accent, emphasis);
+    #createset(@green, positive);
+    #createset(@peach, caution);
+    #createset(@red, negative);
+    #createset(@mauve, action);
+  }
+}

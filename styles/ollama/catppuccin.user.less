@@ -1,0 +1,211 @@
+/* ==UserStyle==
+@name Ollama Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/ollama
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/ollama
+@version 2025.09.06
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/ollama/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aollama
+@description Soothing pastel theme for Ollama
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("ollama.com") {
+  @import url("https://unpkg.com/@catppuccin/highlightjs@1.0.0/css/catppuccin-variables.css");
+
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    background-color: @base;
+    color: @text;
+
+    /* Llama logos */
+    img[src="/public/ollama.png"],
+    img[src="/public/shades.png"],
+    img[src="/public/glasses.png"] {
+      filter: @text-filter;
+    }
+
+    code,
+    pre {
+      background-color: @mantle;
+      color: @text !important;
+    }
+
+    input {
+      background-color: @mantle;
+    }
+
+    main,
+    section,
+    strong,
+    h3,
+    ul,
+    button,
+    li,
+    li::marker {
+      color: @text;
+    }
+    blockquote {
+      color: @subtext0;
+    }
+
+    a[class~=""] {
+      color: @blue;
+    }
+
+    #query,
+    #filter,
+    #search {
+      background-color: @mantle;
+      color: @text;
+    }
+    #readme,
+    #display,
+    #file-explorer {
+      color: @text;
+    }
+
+    .command {
+      color: @text;
+    }
+    .truncate {
+      color: @text;
+    }
+
+    /* Tailwind */
+
+    * {
+      border-color: @surface1;
+    }
+
+    .prose {
+      --tw-prose-headings: @text;
+      --tw-prose-links: @accent;
+    }
+
+    .text-white,
+    .text-black {
+      color: @text;
+    }
+    .text-gray-900 {
+      color: @subtext1;
+    }
+    .text-green-500,
+    .text-emerald-500,
+    .text-green-700 {
+      color: @green;
+    }
+    .text-yellow-900 {
+      color: @yellow;
+    }
+    .text-neutral-300,
+    .text-neutral-400,
+    .text-neutral-500 {
+      color: @subtext0;
+    }
+    .text-neutral-700,
+    .text-neutral-800,
+    .text-neutral-900 {
+      color: @subtext1 !important;
+    }
+    .text-red-500 {
+      color: @red;
+    }
+    .text-blue-500,
+    .text-blue-600 {
+      color: @accent;
+    }
+    /* Models page, color for non-weight pills/tags. Background color is solid from `.bg-indigo-50`. */
+    .text-indigo-600 {
+      color: @crust;
+    }
+
+    .bg-neutral-100 pre,
+    .bg-neutral-100 .command {
+      background-color: unset !important;
+    }
+    .bg-white {
+      background-color: @mantle;
+    }
+    .bg-black,
+    .hover\:bg-black:hover {
+      background-color: @surface0 !important;
+    }
+    .bg-neutral-50 {
+      background-color: @surface0;
+    }
+    .bg-neutral-100,
+    .hover\:bg-neutral-100:hover {
+      background-color: @surface2 !important;
+    }
+    .bg-neutral-700,
+    .bg-neutral-800 {
+      background-color: @surface1;
+    }
+    .bg-green-50 {
+      background-color: fade(@green, 10%);
+    }
+    .bg-yellow-50 {
+      background-color: fade(@yellow, 10%);
+    }
+    .bg-indigo-50 {
+      background-color: @accent;
+    }
+    .bg-\[\#ddf4ff\] {
+      background-color: fade(@accent, 10%);
+    }
+
+    .border {
+      border-color: @accent;
+    }
+    .border-neutral-200,
+    .border-neutral-300,
+    .divide-gray-200 > :not([hidden]) ~ :not([hidden]),
+    .divide-neutral-200 > :not([hidden]) ~ :not([hidden]) {
+      border-color: @surface1;
+    }
+    .focus\:border-blue-400:focus {
+      border-color: @accent;
+    }
+    .focus\:border-red-400:focus {
+      border-color: @red;
+    }
+
+    .ring-neutral-300 {
+      --tw-ring-color: @surface1 !important;
+    }
+    .ring-green-600\/20 {
+      --tw-ring-color: @green;
+    }
+    .ring-yellow-600\/20 {
+      --tw-ring-color: @yellow;
+    }
+    select:focus,
+    .ring-blue-300,
+    .focus\:ring-blue-300:focus {
+      --tw-ring-color: rgba(#lib.rgbify(@accent)[], var(--tw-ring-opacity));
+    }
+    .focus\:ring-red-300:focus {
+      --tw-ring-color: rgba(#lib.rgbify(@red)[], var(--tw-ring-opacity));
+    }
+  }
+}

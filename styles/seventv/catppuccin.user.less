@@ -1,0 +1,514 @@
+/* ==UserStyle==
+@name 7TV Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/seventv
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/seventv
+@version 2025.09.06
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/seventv/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aseventv
+@description Soothing pastel theme for 7TV
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("7tv.app") {
+  .light-theme {
+    #catppuccin(@lightFlavor);
+  }
+  .dark-theme {
+    #catppuccin(@darkFlavor);
+  }
+
+  .system-theme {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    background-color: @base;
+
+    --secondary: @surface0;
+    --secondary-text: @text;
+    --secondary-hover: @surface0;
+    --secondary-active: @surface0;
+    --secondary-disabled: @crust;
+    --secondary-border: transparent;
+    --primary: @accent;
+    --primary-text: @crust;
+    --primary-hover: darken(@accent, 5%);
+    --primary-active: darken(@accent, 5%);
+    --primary-disabled: @subtext0;
+    --primary-border: transparent;
+    --bg-dark: @crust;
+    --bg-medium: @mantle;
+    --bg-light: @base;
+    --text: @text;
+    --text-light: @subtext0;
+    --layout-border: transparent;
+    --border-active: @base;
+    --store: @mauve;
+    --preview: @mantle;
+    --danger: @peach;
+    --approve: @green;
+    --rename: @sapphire;
+    --staff: @red;
+    --staff-bg: fade(@red, 20%);
+    --admin-merge: @mauve;
+    --admin-unlist: @peach;
+
+    .flag {
+      &[style*="#57ab5a"] {
+        color: @green !important;
+        background-color: fade(@green, 20%) !important;
+      }
+      /* Emote is in selected emote set */
+      &[style*="#529bf5"] {
+        color: @accent !important;
+        background-color: fade(@accent, 20%) !important;
+      }
+      /* Emote is unlisted */
+      &[style*="#eb3d26"] {
+        color: @red !important;
+        &[style*="background-color"] {
+          background-color: fade(@red, 20%) !important;
+        }
+      }
+      /* Emote is trending */
+      &[style*="#e0823d"] {
+        color: @peach !important;
+        &[style*="background-color"] {
+          background-color: fade(@peach, 20%) !important;
+        }
+      }
+      /* Emote is overlaying */
+      &[style*="#fc8dc7"] {
+        color: @pink !important;
+        &[style*="background-color"] {
+          background-color: fade(@pink, 20%) !important;
+        }
+      }
+      /* Personal emote set */
+      &[style*="#b083f0"] {
+        color: @mauve !important;
+      }
+    }
+
+    .badge {
+      color: @base;
+    }
+
+    .emote,
+    .emote-set {
+      /* Emote is in selected emote set */
+      &[style*="--highlight-active: #529bf5"] {
+        --highlight: fade(@accent, 80%) !important;
+        --highlight-active: @accent !important;
+        &.emote-set .name {
+          color: @accent !important;
+        }
+      }
+
+      /* Emote is unlisted */
+      &[style*="--highlight-active: #eb3d26"] {
+        --highlight: fade(@red, 80%) !important;
+        --highlight-active: @red !important;
+      }
+
+      /* Emote is trending */
+      &[style*="--highlight-active: #e0823d"] {
+        --highlight: fade(@peach, 80%) !important;
+        --highlight-active: @peach !important;
+      }
+
+      /* Emote is overlaying */
+      &[style*="--highlight-active: #fc8dc7"] {
+        --highlight: fade(@pink, 80%) !important;
+        --highlight-active: @pink !important;
+      }
+
+      /* Emote set is a personal emote set */
+      &.emote-set[style*="--highlight-active: #b083f0"] {
+        --highlight: fade(@mauve, 80%) !important;
+        --highlight-active: @mauve !important;
+        &.emote-set .name {
+          color: @mauve !important;
+        }
+      }
+
+      /* Emote set is a special emote set */
+      &.emote-set[style*="--highlight-active: #fcc200"] {
+        --highlight: fade(@yellow, 80%) !important;
+        --highlight-active: @yellow !important;
+        &.emote-set .name,
+        &.emote-set .flag {
+          color: @yellow !important;
+        }
+      }
+    }
+
+    img.image,
+    .profile-picture,
+    .profile-name .name,
+    .user,
+    .user-link,
+    .username .name,
+    .role > span,
+    .side-bar .name,
+    .roles > span {
+      /* Admin */
+      &[style*="255, 70, 70"] {
+        &,
+        span,
+        img {
+          color: @red !important;
+          border-color: @red !important;
+        }
+      }
+
+      /* Moderator */
+      &[style*="50, 168, 82"] {
+        &,
+        span,
+        img {
+          color: @green !important;
+          border-color: @green !important;
+        }
+      }
+
+      &[style*="23, 235, 182"],
+      &[style*="177, 235, 52"],
+      &[style*="68, 194, 135"] {
+        &,
+        span {
+          color: @teal !important;
+          border-color: @teal !important;
+        }
+      }
+      /* Event coordinator */
+      &[style*="182, 56, 181"] {
+        &,
+        span,
+        img {
+          color: @pink !important;
+          border-color: @pink !important;
+        }
+      }
+
+      /* Verified */
+      &[style*="145, 70, 255"] {
+        &,
+        span,
+        img {
+          color: @mauve !important;
+          border-color: @mauve !important;
+        }
+      }
+      /* Subscriber */
+      &[style*="255, 170, 0"] {
+        &,
+        span,
+        img {
+          color: @yellow !important;
+          border-color: @yellow !important;
+        }
+      }
+    }
+
+    .hero {
+      svg {
+        color: @text !important;
+      }
+
+      color: @text;
+      .for-all {
+        -webkit-text-stroke-color: @text !important;
+      }
+
+      &::before {
+        background:
+          radial-gradient(
+            180% 80% at 0% 100%,
+            @text 0%,
+            @blue 25%,
+            fade(@mauve, 90%) 56%,
+            fade(@mauve, 50%) 79%,
+            transparent 100%
+          ),
+          @crust;
+      }
+    }
+
+    /* Sub progress bar */
+
+    .progress-circle {
+      #progress {
+        stroke: @accent;
+      }
+    }
+
+    .subgrid .badge {
+      color: @subtext0 !important;
+    }
+
+    /* Subscribe gradients */
+    .gradient {
+      color: @text !important;
+
+      &.g1 {
+        background:
+          radial-gradient(
+            150% 180% at 50% 180%,
+            @peach,
+            @yellow 1%,
+            @yellow 25%,
+            @mantle 75%
+          ),
+          var(--secondary) !important;
+      }
+
+      &.g2 {
+        background:
+          radial-gradient(
+            150% 180% at 50% 180%,
+            @text,
+            @red 1%,
+            @red 25%,
+            @mantle 75%
+          ),
+          var(--secondary) !important;
+      }
+
+      &.g3 {
+        background:
+          radial-gradient(
+            150% 180% at 50% 180%,
+            @peach,
+            @pink 1%,
+            @mauve 25%,
+            @mantle 75%
+          ),
+          var(--secondary) !important;
+      }
+
+      &.g5 {
+        background:
+          radial-gradient(
+            150% 180% at 50% 180%,
+            @peach,
+            @sapphire 1%,
+            @sapphire 25%,
+            @mantle 75%
+          ),
+          var(--secondary) !important;
+      }
+    }
+
+    /* Home page glow */
+    .weird-smiley::before,
+    .feature .background {
+      background-image: radial-gradient(
+        circle at bottom,
+        fade(@mauve, 20%),
+        fade(@sapphire, 20%)
+      ) !important;
+    }
+
+    .banner {
+      color: @base;
+
+      &[style="--gradient-color: #9227cf"] {
+        --gradient-color: @mauve !important;
+      }
+      &[style="--gradient-color: #27cfb1"] {
+        --gradient-color: @teal !important;
+      }
+      &[style="--gradient-color: #ff11bc"] {
+        --gradient-color: @red !important;
+      }
+
+      &::before {
+        background:
+          radial-gradient(
+            100% 100% at 50% 0%,
+            @text 0%,
+            var(--gradient-color) 33%,
+            @mauve 64%,
+            fade(@mauve, 50%) 80%,
+            @mantle 100%
+          ),
+          var(--bg-medium) !important;
+      }
+    }
+
+    /* Sub badge progress bar */
+
+    progress[value].bar {
+      &::-webkit-progress-bar,
+      &::-moz-progress-bar {
+        background: @accent !important;
+      }
+    }
+  }
+}
+@-moz-document domain("twitch.tv") {
+  .tw-root--theme-dark {
+    #catppuccin(@darkFlavor);
+  }
+  .tw-root--theme-light {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+
+    --seventv-text-color-normal: @text;
+    --seventv-text-color-secondary: @subtext0;
+
+    --seventv-border-transparent-1: @surface0;
+    --seventv-background-shade-1: @base;
+    --seventv-background-shade-2: @mantle;
+    --seventv-background-shade-3: @crust;
+    --seventv-background-transparent-1: @base;
+    --seventv-background-transparent-2: @mantle;
+    --seventv-background-transparent-3: @mantle;
+    --seventv-highlight-neutral-1: @surface0;
+    --seventv-input-background: @mantle;
+    --seventv-input-border: @surface0;
+    --seventv-subscriber-color: @yellow;
+
+    --seventv-highlight-color: @accent;
+    --seventv-highlight-dim-color: fade(@accent, 20%);
+
+    --seventv-primary: @accent;
+    --seventv-accent: @green;
+    --seventv-warning: @peach;
+    --seventv-muted: @subtext0;
+
+    .seventv-transparent {
+      --seventv-border-transparent-1: fade(@surface0, 77%);
+      --seventv-background-transparent-1: fade(@base, 77%);
+      --seventv-background-transparent-2: fade(@mantle, 59%);
+      --seventv-background-transparent-3: fade(@mantle, 71%);
+    }
+
+    .seventv-announce-message-container {
+      .announce-header {
+        background-color: @crust;
+      }
+      .announce-message {
+        background-color: @base;
+      }
+    }
+
+    .grabbable-inner, .grabbable-outer {
+      --color-border-input: @subtext0;
+    }
+
+    .seventv-user-message {
+      /* First time chatter */
+      &[style*="--seventv-highlight-color: #c832c8"] {
+        --seventv-highlight-color: @mauve !important;
+        --seventv-highlight-dim-color: fade(@mauve, 10%) !important;
+      }
+      /* Mention */
+      &[style*="--seventv-highlight-color: #e13232"] {
+        --seventv-highlight-color: @red !important;
+        --seventv-highlight-dim-color: fade(@red, 10%) !important;
+      }
+      /* Blocked */
+      &[style*="--seventv-highlight-color: #9488855A"] {
+        --seventv-highlight-color: @surface0 !important;
+      }
+      /* Raider */
+      &[style*="--seventv-highlight-color: #6dd126"] {
+        --seventv-highlight-color: @green !important;
+        --seventv-highlight-dim-color: fade(@green, 10%) !important;
+      }
+      /* Returning chatter */
+      &[style*="--seventv-highlight-color: #3296e6"] {
+        --seventv-highlight-color: @blue !important;
+        --seventv-highlight-dim-color: fade(@blue, 10%) !important;
+      }
+    }
+
+    .seventv-chat-message-container:hover .seventv-chat-message-background {
+      background-color: @surface0;
+    }
+
+    .seventv-sub-message-container, .seventv-reward-message-container {
+      background-color: @base;
+    }
+
+    .seventv-settings-category {
+      .seventv-settings-category-dropdown .seventv-settings-subcategory {
+        &:hover {
+          background-color: @base !important;
+        }
+        &.intersect {
+          background-color: @surface0 !important;
+        }
+      }
+
+      .settings-category-header {
+        &:hover, &:focus-within {
+          background-color: @base;
+        }
+      }
+    }
+
+    .seventv-settings-category[in-view="true"] > .settings-category-header {
+      background-color: @surface0;
+    }
+
+    .paint-tool-home {
+      h6[style="color: red;"] {
+        color: @peach !important;
+      }
+    }
+
+    section[timeline-id="LIVE"] {
+      label, div[selector="date-boundary"] {
+        color: @red;
+        border-color: @red;
+      }
+    }
+
+    .seventv-emote-container[zero-width="true"] {
+      border-color: @yellow;
+    }
+
+    .scope-labels {
+      .label-global {
+        color: @green;
+      }
+      .label-sub-feature {
+        color: @yellow;
+      }
+    }
+
+    [style*="rgb(255, 255, 255)"] .seventv-chat-user-username span {
+      color: @text !important;
+    }
+
+    .seventv-chat-mod-buttons {
+      color: @subtext0;
+
+      svg:hover {
+        color: @text;
+      }
+    }
+  }
+}

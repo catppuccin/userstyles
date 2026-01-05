@@ -1,0 +1,210 @@
+/* ==UserStyle==
+@name Claude Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/claude
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/claude
+@version 2025.09.06
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/claude/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aclaude
+@description Soothing pastel theme for Claude
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("claude.ai") {
+  :root[data-mode="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+  :root[data-mode="light"],
+  /* Login page */
+  [data-theme="claude"][data-mode="light"] {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    --accent-brand: #hslify(@accent)[];
+    --accent-main-000: #hslify(@accent)[];
+    --accent-main-100: #hslify(@accent)[];
+    --accent-main-200: #hslify(@accent)[];
+    --accent-main-900: #hslify(@accent)[];
+    --accent-pro-000: #hslify(@accent)[];
+    --accent-pro-100: #hslify(@accent)[];
+    --accent-pro-200: #hslify(@accent)[];
+    --accent-pro-900: #hslify(@accent)[];
+    --accent-secondary-000: #hslify(@accent)[];
+    --accent-secondary-100: #hslify(@accent)[];
+    --accent-secondary-200: #hslify(@accent)[];
+    --accent-secondary-900: #hslify(@accent)[];
+    --bg-000: #hslify(@mantle)[];
+    --bg-100: #hslify(@base)[];
+    --bg-200: #hslify(@base)[];
+    --bg-300: #hslify(@surface0)[];
+    --bg-400: #hslify(@surface1)[];
+    --bg-500: #hslify(@surface2)[];
+    --border-000: #hslify(@base)[];
+    --border-100: #hslify(@crust)[];
+    --border-200: #hslify(@crust)[];
+    --border-300: #hslify(@overlay0)[];
+    --border-400: #hslify(@overlay1)[];
+    --border-500: #hslify(@overlay2)[];
+    --danger-000: #hslify(@maroon)[];
+    --danger-100: #hslify(@red)[];
+    --danger-200: #hslify(@red)[];
+    --danger-900: #hslify(@pink)[];
+    --oncolor-000: #hslify(darken(@mantle, 5%))[];
+    --oncolor-100: #hslify(@mantle)[];
+    --oncolor-200: #hslify(@mantle)[];
+    --oncolor-300: #hslify(lighten(@mantle, 5%))[];
+    --text-000: #hslify(darken(@text, 5%))[];
+    --text-100: #hslify(@text)[];
+    --text-200: #hslify(@text)[];
+    --text-300: #hslify(@subtext0)[];
+    --text-400: #hslify(@subtext1)[];
+    --text-500: #hslify(@subtext0)[];
+
+    /* Side bar */
+    nav.\!bg-bg-200 {
+      background: @mantle !important;
+    }
+
+    /* Code blocks */
+    .code-block__code {
+      background: @crust !important;
+
+      code {
+        /* Default color */
+        span {
+          color: @text !important;
+        }
+
+        /* Green */
+        span.token[style="color: rgb(152, 195, 121);"] {
+          color: @green !important;
+        }
+
+        /* Yellow */
+        span.token[style="color: rgb(209, 154, 102);"] {
+          color: @yellow !important;
+        }
+
+        /* Blue */
+        span.token[style="color: rgb(97, 175, 239);"] {
+          color: @blue !important;
+        }
+
+        /* Red */
+        span.token[style="color: rgb(224, 108, 117);"] {
+          color: @red !important;
+        }
+
+        /* Magenta */
+        span.token[style="color: rgb(198, 120, 221);"] {
+          color: @mauve !important;
+        }
+
+        /* Gray */
+        span.token[style="color: rgb(171, 178, 191);"] {
+          color: @overlay2 !important;
+        }
+      }
+    }
+
+    /* Inline code */
+    code.text-danger-000 {
+      color: @accent !important;
+    }
+
+    /* Tooltip */
+    div.bg-black\/80 {
+      background: @crust !important;
+    }
+    div.text-white {
+      color: @text !important;
+    }
+
+    /* Logo */
+    div.text-\[\#D97757\] {
+      color: @accent !important;
+    }
+
+    /* "New chat" plus icon */
+    div.text-always-white svg {
+      color: @base !important;
+    }
+
+    /* "Subscribe to Pro" and "Create Team Account" buttons */
+    button.bg-accent-pro-100 > span.inline-block {
+      color: @base !important;
+    }
+
+    /* Pay monthly/annually buttons */
+    button.bg-accent-secondary-900 {
+      span.text-text-000 {
+        color: @base !important;
+      }
+      span.text-text-300 {
+        color: @surface2 !important;
+      }
+      div.bg-accent-secondary-000 {
+        background: darken(@accent, 15%) !important;
+      }
+    }
+
+    /* Delete conversation button */
+    div.\!text-danger-000.\[\&\[data-highlighted\]\]\:bg-danger-900[data-highlighted] {
+      background: fade(@red, 20%) !important;
+    }
+
+    /* Checkbox */
+    input[type="checkbox"] + div.bg-bg-000 {
+      background: @text !important;
+    }
+
+    /* "Add writing example" button */
+    button.\!text-accent-secondary-100.bg-accent-secondary-900 {
+      color: @base !important;
+      &:hover {
+        color: @text !important;
+      }
+    }
+
+    /* "Describe your style" list */
+    button.\!bg-accent-secondary-900.text-accent-secondary-000 {
+      color: @base !important;
+    }
+
+    /* "Be as descriptive as possible..." helper text */
+    div.bg-accent-secondary-900.text-text-200 {
+      color: @base !important;
+    }
+
+    /* "Preview with an example..." pills */
+    button.hover\:bg-accent-secondary-900.hover\:text-accent-secondary-000 {
+      color: @accent !important;
+      &:hover {
+        color: @base !important;
+      }
+    }
+
+    /* "Previewing with ..." dropdown button */
+    button.\!text-accent-secondary-100.hover\:\!bg-accent-secondary-900 {
+      color: @accent !important;
+      &:hover {
+        color: @base !important;
+      }
+    }
+  }
+}
+
+#hslify(@color) {
+  @raw: e(%("%s %s% %s%", hue(@color), saturation(@color), lightness(@color)));
+}

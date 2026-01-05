@@ -1,0 +1,895 @@
+/* ==UserStyle==
+@name Last.fm Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/lastfm
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/lastfm
+@version 2026.01.03
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/lastfm/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Alastfm
+@description Soothing pastel theme for Last.fm
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("last.fm") {
+  @media (prefers-color-scheme: light) {
+    #catppuccin(@lightFlavor);
+  }
+  @media (prefers-color-scheme: dark) {
+    #catppuccin(@darkFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    html, html body {
+      color: @text;
+      background-color: @base;
+    }
+
+    /* Components */
+
+    a, .mimic-link {
+      color: @accent;
+    }
+
+    .btn-primary() {
+      background-color: @accent;
+      color: @crust;
+
+      &:hover {
+        background-color: darken(@accent, 5%) !important;
+        color: @crust !important;
+      }
+    }
+    .btn-primary {
+      .btn-primary();
+    }
+    .btn-secondary {
+      background-color: @surface0;
+      color: @text;
+
+      &:hover {
+        background-color: @surface1 !important;
+        color: @text !important;
+      }
+    }
+    .btn-cancel {
+      color: @subtext1;
+    }
+
+    .dropdown-menu-clickable {
+      background: @mantle;
+      &::before {
+        filter: @mantle-filter;
+      }
+
+      .dropdown-menu-clickable-item {
+        color: @text;
+
+        &:hover {
+          background-color: @base !important;
+        }
+
+        &.dropdown-menu-clickable-item--selected {
+          color: @accent;
+        }
+      }
+    }
+    .dropdown-menu-clickable-button {
+      color: @subtext0;
+
+      &:hover, &.disclose-active {
+        color: @subtext1;
+      }
+
+      .section-with-settings &.section-control::before {
+        border-right-color: @surface2;
+      }
+
+      &::after {
+        filter: @subtext1-filter;
+      }
+    }
+
+    .content-form {
+      textarea, input, select {
+        background-color: @mantle !important;
+        color: @text !important;
+        border-color: @surface1 !important;
+
+        &:focus {
+          box-shadow: 0 3px 9px 0 @surface0 !important;
+        }
+      }
+
+      .lfm-form-radio input[type="radio"] {
+        + label::before {
+          background-color: @base;
+          border-color: @overlay1;
+        }
+        &:checked + label::before {
+          box-shadow: inset 0 0 0 4px @accent;
+          border-color: @accent;
+        }
+      }
+
+      .form-row-help-text, .footnotes {
+        color: @subtext0;
+      }
+
+      legend {
+        color: @subtext1;
+      }
+    }
+
+    .search-form {
+      .search-submit::before {
+        filter: @overlay0-filter;
+      }
+
+      &::after {
+        border-right-color: @surface1;
+      }
+    }
+
+    // Alerts
+    .alert-warning {
+      background-color: fade(@peach, 30%);
+      color: @peach;
+
+      &::before {
+        filter: @peach-filter;
+      }
+    }
+
+    // Modals
+    .modal-body {
+      background: @mantle;
+    }
+
+    // Other
+
+    .section-with-separator::after {
+      background-color: @surface0;
+    }
+
+    .container {
+      background: @base;
+    }
+
+    .content-top-back-link {
+      color: @subtext0;
+
+      a::before {
+        filter: @overlay2-filter;
+      }
+    }
+
+    /* Footer */
+    .footer {
+      background: @mantle;
+      color: @text;
+
+      .footer-heading {
+        color: @subtext0;
+      }
+
+      .footer-language {
+        color: @subtext0;
+        &.footer-language--active {
+          color: @text;
+        }
+      }
+
+      .footer-timezone {
+        color: @subtext0;
+        strong {
+          color: @text;
+        }
+      }
+
+      .footer-legal {
+        color: @subtext1;
+      }
+
+      .container {
+        background: none;
+      }
+    }
+
+    /* Header */
+    .top-bar {
+      background: @mantle;
+
+      svg {
+        filter: @accent-filter;
+      }
+    }
+    .masthead {
+      .masthead-search-toggle {
+        &::before {
+          filter: @text-filter;
+        }
+        &::after {
+          background-color: @text;
+        }
+      }
+      .masthead-nav .masthead-nav-control {
+        color: @text;
+
+        &::after {
+          background-color: @text;
+        }
+      }
+
+      .auth-avatar-notification-count-badge {
+        background: @accent;
+      }
+      .auth-dropdown-menu {
+        background: @mantle !important;
+
+        .auth-dropdown-profile {
+          background-color: @crust;
+
+          .auth-dropdown-profile-info {
+            .username {
+              color: @text;
+            }
+            .scrobble-count {
+              color: @subtext0;
+            }
+          }
+        }
+        .auth-dropdown-menu-links {
+          background: @mantle;
+
+          .auth-dropdown-menu-item .auth-dropdown-menu-link img {
+            filter: @text-filter;
+          }
+        }
+        .auth-dropdown-menu-footer {
+          background: @mantle;
+
+          .auth-upgrade-cta {
+            background: @mantle;
+            box-shadow: inset 0 0 0 1px @overlay0;
+            color: @yellow;
+
+            &:hover {
+              box-shadow: inset 0 0 0 1px @yellow !important;
+              color: @yellow !important;
+            }
+          }
+          .auth-logout-cta {
+            box-shadow: inset 0 0 0 1px @overlay0;
+            background: @mantle;
+            color: @text;
+          }
+        }
+      }
+    }
+
+    .header {
+      &.header--overview, &.header--sub-page {
+        color: @text;
+      }
+      &.header--overview .container, &.header--sub-page .container {
+        background: none;
+      }
+
+      background: @base;
+
+      .header-info {
+        .header-featured-track {
+          .featured-item-heading {
+            color: @subtext1;
+          }
+        }
+
+        .header-title-secondary {
+          .header-scrobble-since, .header-title-display-name {
+            color: @subtext1;
+          }
+        }
+
+        .header-info-secondary {
+          color: @text;
+        }
+      }
+    }
+    .header-metadata .header-metadata-title {
+      color: @subtext1;
+    }
+    .secondary-nav {
+      .secondary-nav-item-link:hover::after,
+      .secondary-nav-item-link--active::after {
+        background: @accent;
+      }
+    }
+
+    .chartlist {
+      .chartlist-row {
+        &:hover {
+          background-color: @surface0;
+        }
+
+        &.chartlist-row--highlight, &.chartlist-row--now-scrobbling {
+          background-color: fade(@accent, 20%);
+        }
+
+        .chartlist-play {
+          .chartlist-play-button {
+            &::before {
+              background-color: transparent;
+              filter: @text-filter;
+              box-shadow: 0 0 0 1px fade(@mantle, 20%);
+            }
+          }
+        }
+
+        .chartlist-loved {
+          button.chartlist-love-button {
+            &::before {
+              filter: @overlay2-filter;
+            }
+            &:hover::before, &[data-analytics-action="UnloveTrack"]::before {
+              filter: @accent-filter;
+            }
+          }
+        }
+
+        .lazy-buylinks-toggle, .chartlist-more-button {
+          &::before {
+            filter: @overlay2-filter;
+          }
+          &:hover::before {
+            filter: @subtext0-filter;
+          }
+        }
+        .chartlist-more {
+          .chartlist-more-menu {
+            .more-item--track::before,
+            .more-item--artist::before,
+            .more-item--obsession::before {
+              filter: @subtext0-filter;
+            }
+            .more-item--delete::before {
+              filter: @red-filter;
+            }
+          }
+        }
+
+        .chartlist-timestamp {
+          color: @subtext0;
+
+          .chartlist-now-scrobbling::before {
+            filter: @subtext0-filter;
+          }
+        }
+
+        .chartlist-bar {
+          .chartlist-count-bar-slug {
+            background-color: transparent !important;
+            background-image: linear-gradient(
+              to right,
+              fade(@accent, 20%),
+              fade(@accent, 20%)
+            );
+            color: @crust;
+          }
+          .chartlist-count-bar-value {
+            color: @text;
+          }
+        }
+      }
+      .chartlist-break::after, .chartlist-row::after {
+        border-bottom-color: @surface1;
+      }
+
+      .cover-art {
+        img[src="https://lastfm.freetls.fastly.net/i/u/64s/c6f59c1e5e7240a4c0d427abd71f3dbb.jpg"] {
+          mix-blend-mode: screen;
+          filter: invert(1);
+        }
+
+        &::after {
+          box-shadow: inset 0 0 0 1px fade(@subtext0, 7%);
+        }
+      }
+    }
+    #top-tracks {
+      .section-settings-toggle::before,
+      .share-chart .share-button-profile::before {
+        filter: @subtext0-filter;
+      }
+    }
+
+    /* Track Page */
+    .catalogue-metadata .lyrics-snippet-more-link a::before,
+    .more-link-fullwidth-right a::before,
+    .more-items::before,
+    .more-link a::before {
+      filter: @accent-filter;
+    }
+    .more-items {
+      color: @accent;
+    }
+    .catalogue-tags {
+      .tag a, .tags-add, .tags-add-cta {
+        color: @accent;
+        box-shadow: inset 0 0 0 1px @accent;
+
+        &:hover {
+          color: darken(@accent, 5%) !important;
+          box-shadow: inset 0 0 0 1px darken(@accent, 5%) !important;
+        }
+      }
+      .tags-add::before {
+        filter: @accent-filter;
+      }
+    }
+    .source-album .source-album-stats,
+    .about-artist .about-artist-listeners,
+    .trending-tracks .trending-tracks-item-listeners,
+    .catalogue-overview-similar-artists-item-aux-text {
+      color: @subtext1;
+    }
+
+    .trending-tracks-section {
+      &, .container {
+        color: @text;
+        background: @surface0;
+      }
+    }
+
+    .stationlink-list .stationlink::after,
+    .resource-external-link::after,
+    .play-this-track-playlink::after {
+      border-bottom-color: @surface1;
+    }
+
+    .video-preview-upload-cta {
+      background: @surface0;
+      box-shadow: 0 0 0 2px @surface1;
+
+      &:hover {
+        background: @surface1 !important;
+      }
+
+      &::before {
+        filter: @text-filter;
+      }
+    }
+
+    /* Shoutbox */
+    #shoutbox {
+      .shout,
+      .shout-form {
+        border-bottom-color: @surface0;
+      }
+
+      .shout-list {
+        .shout-user a {
+          color: @text;
+        }
+        .shout-timestamp {
+          color: @subtext0;
+
+          &:focus,
+          &:hover {
+            color: @text !important;
+          }
+        }
+
+        .shout-action,
+        .shout-reply,
+        .vote-button {
+          color: @subtext1;
+
+          &::before {
+            filter: @subtext1-filter;
+          }
+
+          &:focus,
+          &:hover {
+            color: @text !important;
+
+            &::before {
+              filter: @text-filter;
+            }
+          }
+        }
+
+        .vote-button--voted::before,
+        .vote-button--unvoted:focus::before,
+        .vote-button--unvoted:hover::before {
+          filter: @green-filter !important;
+        }
+
+        .shout-action-more {
+          .shout-more-actions {
+            &::before {
+              filter: @subtext1-filter;
+            }
+
+            &:focus::before,
+            &:hover::before {
+              filter: @text-filter !important;
+            }
+          }
+          .shout-more-actions-menu {
+            .more-item--report::before {
+              filter: @subtext0-filter;
+            }
+          }
+        }
+      }
+    }
+
+    /* Settings */
+    .main-content,
+    .content-top-has-nav .content-top,
+    .two-column-layout .content-top {
+      background: @base;
+    }
+    .two-column-layout .container, .two-column-layout .main-content {
+      background-image: none;
+    }
+    .content-top-has-nav .content-top::after,
+    .two-column-layout .content-top::after {
+      border-top-color: @surface1;
+    }
+
+    .change-username-upsell {
+      background-color: fade(@yellow, 20%);
+    }
+
+    /* Inbox/Notifications */
+    .inbox-notifications {
+      .inbox-notifications__item--hover {
+        box-shadow: inset 0 -1px @surface1;
+
+        &:hover {
+          background-color: @surface0 !important;
+        }
+      }
+      .inbox-notifications__item--highlight-hover {
+        background-color: @surface1;
+      }
+      .inbox-notifications__item-timestamp {
+        color: @subtext0;
+      }
+    }
+    .inbox .inbox-buttons .inbox-compose-button {
+      .btn-primary();
+    }
+
+    /* Home */
+    .secondary-nav-item-link {
+      &--active::after {
+        .homefeed--artists .content-top & {
+          background-color: @yellow;
+        }
+        .homefeed--albums .content-top & {
+          background-color: @green;
+        }
+        .homefeed--tracks .content-top & {
+          background-color: @blue;
+        }
+        .homefeed--events .content-top & {
+          background-color: @mauve;
+        }
+      }
+      &:hover::after {
+        .homefeed .content-top .secondary-nav-item--artists & {
+          background-color: @yellow;
+        }
+        .homefeed .content-top .secondary-nav-item--albums & {
+          background-color: @green;
+        }
+        .homefeed .content-top .secondary-nav-item--tracks & {
+          background-color: @blue;
+        }
+        .homefeed .content-top .secondary-nav-item--events & {
+          background-color: @mauve;
+        }
+      }
+    }
+    .recs-feed {
+      .recs-feed-item {
+        .recs-feed-cover-image-wrap {
+          color: @text;
+        }
+
+        .recs-feed-playlink::before {
+          background-color: @text;
+        }
+
+        &.recs-feed-item--artist .context {
+          &::before {
+            background-color: @yellow;
+          }
+          &::after {
+            mask-position: 0 -32px;
+          }
+        }
+        &.recs-feed-item--track .context {
+          &::before {
+            background-color: @blue;
+          }
+          &::after {
+            mask-position: 0 -96px;
+          }
+        }
+        &.recs-feed-item--album .context {
+          &::before {
+            background-color: @green;
+          }
+          &::after {
+            mask-position: 0 -64px;
+          }
+        }
+        .context {
+          // Hack using .mask-image() to allow us to mask icons with a background.
+          &::before {
+            border-radius: 50%;
+            content: "";
+            height: 32px;
+            left: auto;
+            position: absolute;
+            right: 15px;
+            top: -16px;
+            width: 32px;
+            z-index: 1;
+          }
+          &::after {
+            .mask-image(
+              url("/static/images/icons/rec_types_16@2x.5bf9cfd03a3e.png"),
+              @crust,
+              0 0,
+              32px 160px,
+              no-repeat,
+            );
+            z-index: 2;
+          }
+
+          color: @subtext1;
+          background-color: @surface0;
+          box-shadow: inset 1px 0 @surface1, inset -1px -1px @surface1;
+        }
+      }
+    }
+
+    // Events - Browse Popular Music (no event recommendations)
+    .no-data-message-button {
+      .btn-primary();
+    }
+
+    .stationlinks {
+      .stationlink-list .stationlink::before {
+        background-color: @text;
+      }
+    }
+    .mpu-subscription-upsell {
+      color: @subtext0;
+    }
+    .subscribe-cta {
+      background-color: fade(@yellow, 10%);
+    }
+
+    .subscribe-cta a, .btn-subscribe {
+      background-color: @yellow;
+      color: @crust;
+
+      &:hover {
+        background-color: darken(@yellow, 5%) !important;
+        color: @crust !important;
+      }
+    }
+
+    /* Profile */
+    .profile-cards-items {
+      .profile-card .profile-card-content {
+        background: linear-gradient(
+          90deg,
+          @surface0 185px 80%,
+          fade(@surface0, 75%) 95%,
+          transparent
+        );
+
+        .profile-card-content-title {
+          color: @text;
+        }
+        p {
+          color: @subtext1;
+        }
+      }
+    }
+
+    /* Reports */
+    .listening-report-promo {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+
+      .listening-report-promo-date::after {
+        filter: @overlay2-filter;
+      }
+
+      .listening-report-promo-title {
+        color: @subtext0;
+      }
+    }
+
+    /* Library */
+    .library-controls {
+      .secondary-nav-item .secondary-nav-item-link {
+        &::before {
+          filter: @text-filter;
+        }
+        &--active, &:hover {
+          color: @accent;
+
+          &::before {
+            filter: @accent-filter;
+          }
+        }
+      }
+    }
+    .library-controls-datepicker {
+      .date-range-picker-button {
+        color: @accent;
+
+        &::before, .date-range-picker-button-inner::before {
+          filter: @accent-filter;
+        }
+      }
+    }
+    .date-range-picker-content {
+      background-color: @mantle;
+
+      &::before {
+        filter: @mantle-filter;
+      }
+
+      .date-range-picker-presets a {
+        color: @text;
+
+        &:hover {
+          background-color: @surface0 !important;
+        }
+      }
+
+      .date-range-picker-form {
+        border-top-color: @surface1;
+
+        .control-label {
+          color: @subtext1;
+        }
+      }
+    }
+    #scrobble-chart-content {
+      .highcharts-background {
+        fill: @base !important;
+      }
+      .highcharts-axis-title {
+        fill: @subtext1 !important;
+      }
+      .highcharts-axis-labels text {
+        fill: @subtext0 !important;
+      }
+
+      .highcharts-yaxis-grid .highcharts-grid-line {
+        stroke: @overlay0 !important;
+      }
+      .highcharts-xaxis .highcharts-axis-line {
+        stroke: @overlay1 !important;
+      }
+
+      .highcharts-series-group {
+        .highcharts-point {
+          fill: fade(@accent, 30%);
+        }
+      }
+
+      .highcharts-tooltip {
+        .highcharts-tooltip-box:not(.highcharts-shadow) {
+          fill: @mantle !important;
+          stroke: @surface0 !important;
+        }
+
+        text {
+          fill: @text !important;
+        }
+      }
+    }
+    .metadata-title {
+      color: @subtext1;
+    }
+    .date-heading {
+      color: @subtext0;
+    }
+
+    // Pagination
+    .pagination {
+      .pagination-page {
+        &[aria-current] {
+          color: @accent;
+          box-shadow: inset 0 -2px @accent;
+        }
+        &:not(.pagination-page--ellipsis):hover {
+          box-shadow: inset 0 -2px @accent;
+        }
+      }
+    }
+
+    /* Followers */
+    .text-light {
+      color: @subtext1;
+    }
+    .user-list-follower-btn {
+      [data-toggle-button-current-state="followed"] & {
+        background-color: @green;
+
+        &:hover {
+          background-color: @red !important;
+        }
+      }
+      [data-toggle-button-current-state="unfollowed"] & {
+        background-color: @accent;
+
+        &:hover {
+          background-color: darken(@accent, 5%) !important;
+        }
+      }
+
+      &::before {
+        filter: @crust-filter;
+      }
+    }
+
+    /* Obsessions */
+    .obsession-candidates-row::before {
+      border-top-color: @surface1;
+    }
+
+    // TODO: https://www.last.fm/music
+    // TODO: https://www.last.fm/user/*/listening-report/week (Reports)
+  }
+}
+
+// Usage:
+// .maskimage(mask-image, background-color, mask-position, mask-size, mask-repeat);
+// Setting any value to "skip" skips that attribute.
+// We cannot apply filters to psuedo elements with background-images when the pseudo element also has a background(-color), which is when this must be used.
+.mask-image(
+  @mask-image: url(""),
+  @mask-color: skip,
+  @mask-position: skip,
+  @mask-size: skip,
+  @mask-repeat: skip,
+) {
+  & when not(@mask-color = skip) {
+    background-image: none !important;
+    background-color: @mask-color;
+  }
+  & when not(@mask-image = skip) {
+    mask-image: @mask-image;
+  }
+  & when not(@mask-position = skip) {
+    mask-position: @mask-position;
+  }
+  & when not(@mask-size = skip) {
+    mask-size: @mask-size;
+  }
+  & when not(@mask-repeat = skip) {
+    mask-repeat: @mask-repeat;
+  }
+}

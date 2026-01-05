@@ -1,4 +1,4 @@
-import PORTS_SCHEMA from "@catppuccin/catppuccin/resources/ports.schema.json" with {
+import CATEGORIES_SCHEMA from "@catppuccin/catppuccin/resources/categories.schema.json" with {
   type: "json",
 };
 import USERSTYLES_SCHEMA from "@/userstyles.schema.json" with {
@@ -15,4 +15,4 @@ if (!ROOT) throw new Error("ROOT was not located.");
  */
 export const REPO_ROOT = path.join(ROOT, "..");
 
-export { PORTS_SCHEMA, USERSTYLES_SCHEMA };
+export { CATEGORIES_SCHEMA, USERSTYLES_SCHEMA };

@@ -1,0 +1,297 @@
+/* ==UserStyle==
+@name Invidious Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/invidious
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/invidious
+@version 2025.09.06
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/invidious/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ainvidious
+@description Soothing pastel theme for Invidious
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var checkbox styleVideoPlayer "Style Video Player" 1
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+/**
+ * kept up-to-date with
+ * `curl https://api.invidious.io/instances.json | jq '.[] | select(.[1].type=="https") | .[0]'`
+ */
+@-moz-document domain("anontube.lvkaszus.pl"),
+  domain("inv.citw.lgbt"),
+  domain("inv.in.projectsegfau.lt"),
+  domain("inv.tux.pizza"),
+  domain("inv.us.projectsegfau.lt"),
+  domain("inv.zzls.xyz"),
+  domain("invidious.asir.dev"),
+  domain("invidious.drgns.space"),
+  domain("invidious.einfachzocken.eu"),
+  domain("invidious.fdn.fr"),
+  domain("invidious.io.lol"),
+  domain("invidious.lunar.icu"),
+  domain("invidious.nerdvpn.de"),
+  domain("invidious.no-logs.com"),
+  domain("invidious.perennialte.ch"),
+  domain("invidious.privacydev.net"),
+  domain("invidious.private.coffee"),
+  domain("invidious.projectsegfau.lt"),
+  domain("invidious.protokolla.fi"),
+  domain("invidious.slipfox.xyz"),
+  domain("iv.datura.network"),
+  domain("iv.ggtyler.dev"),
+  domain("iv.melmac.space"),
+  domain("iv.nboeck.de"),
+  domain("iv.winston.sh"),
+  domain("onion.tube"),
+  domain("vid.priv.au"),
+  domain("vid.puffyan.us"),
+  domain("yewtu.be"),
+  domain("yt.artemislena.eu"),
+  domain("yt.cdaut.de"),
+  domain("yt.drgnz.club"),
+  domain("yt.oelrichsgarcia.de") {
+  .no-theme {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  .light-theme {
+    #catppuccin(@lightFlavor);
+  }
+  .dark-theme {
+    #catppuccin(@darkFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    // TODO: Can we remove lightenOrDarken in favor of shades/tints? Should we add it to the shared lib for now?
+    #lightenOrDarken(@color, @value) {
+      @result: if(
+        @flavor = latte,
+        darken(@color, @value),
+        lighten(@color, @value)
+      );
+    }
+
+    @link-color: @accent;
+    @link-hover: #lightenOrDarken(@accent, 5%)[@result];
+
+    background-color: @base !important;
+    color: @text !important;
+
+    a,
+    /* menu under the search bar */
+    .pure-menu-heading {
+      color: @link-color;
+      &:hover,
+      &:focus,
+      &:active {
+        color: @link-hover !important;
+      }
+    }
+
+    hr,
+    /* legend borders are visible as dividers in Settings */
+    legend {
+      border-color: @surface1;
+      border-style: solid;
+    }
+
+    legend {
+      color: @accent !important;
+    }
+
+    .pure-button-primary {
+      background-color: @surface1 !important;
+      color: @text !important;
+      border-color: @surface1 !important;
+      &:hover,
+      &:focus {
+        background-color: @surface2 !important;
+        color: @text !important;
+        border-color: @surface1 !important;
+      }
+    }
+    .pure-button-secondary {
+      background-color: @accent !important;
+      color: @crust !important;
+      border-color: @surface1 !important;
+      &:hover,
+      &:focus {
+        background-color: #lightenOrDarken(@accent, 2%)[@result] !important;
+        color: @crust !important;
+        border-color: @surface1 !important;
+      }
+    }
+
+    #subscribe {
+      background-color: @link-color !important;
+      color: @crust !important;
+      :hover,
+      :focus {
+        background-color: @link-hover !important;
+        color: @crust !important;
+      }
+    }
+
+    #filters-box {
+      background-color: @surface0 !important;
+    }
+
+    .underlined {
+      border-color: @overlay1;
+    }
+
+    .video-js .vjs-control-bar,
+    .vjs-menu-button-popup .vjs-menu .vjs-menu-content {
+      background-color: @crust !important;
+      color: @text !important;
+    }
+
+    .video-js .vjs-slider:hover,
+    .video-js button:hover {
+      color: @accent !important;
+    }
+
+    .video-js .vjs-slider {
+      background-color: @surface2 !important;
+    }
+
+    .video-js .vjs-load-progress,
+    .video-js .vjs-load-progress div {
+      background-color: @surface2 !important;
+    }
+
+    .video-js.player-style-invidious .vjs-play-progress {
+      background-color: @accent !important;
+    }
+
+    .vjs-menu li.vjs-menu-item:focus,
+    .vjs-menu li.vjs-menu-item:hover {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .vjs-menu li.vjs-selected,
+    .vjs-menu li.vjs-selected:focus,
+    .vjs-menu li.vjs-selected:hover {
+      background-color: @blue !important;
+    }
+
+    .vjs-menu li.vjs-selected,
+    .vjs-menu li.vjs-selected:focus,
+    .vjs-menu li.vjs-selected:hover,
+    .js-focus-visible .vjs-menu li.vjs-selected:hover {
+      color: @crust !important;
+    }
+
+    .vjs-modal-dialog-content {
+      backdrop-filter: blur(4px);
+    }
+
+    .vjs-share__title {
+      color: @text !important;
+    }
+    .vjs-share__subtitle {
+      color: @subtext0 !important;
+      opacity: 100% !important;
+    }
+    .vjs-share__short-link {
+      color: @text !important;
+      background: @base !important;
+    }
+    .vjs-share__btn {
+      background: @crust !important;
+      svg path {
+        fill: @text !important;
+      }
+    }
+
+    #related-videos > .h-box > div:not(#autoplay-controls) {
+      margin-bottom: 48px !important;
+    }
+
+    footer a,
+    footer span {
+      color: @subtext0 !important;
+    }
+
+    footer span a,
+    footer span:has(i) {
+      &:hover {
+        color: @accent !important;
+      }
+    }
+
+    .pure-form-message-inline {
+      color: @subtext0;
+    }
+
+    select,
+    input[type="text"],
+    input[type="number"],
+    input[type="input"],
+    input[type="password"] {
+      color: @text !important;
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      box-shadow: none !important;
+      &:active {
+        color: @text !important;
+      }
+    }
+    input[type="search"] {
+      color: @text !important;
+      background-color: @base !important;
+      border-bottom-color: @overlay1 !important;
+      box-shadow: none !important;
+    }
+    input[type="checkbox"] {
+      background-color: @surface2;
+      border-color: @surface1;
+      height: 1rem;
+      width: 1rem;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+      &:checked {
+        @svg: escape(
+          '<svg viewBox="0 0 16 16" fill="@{accent}" xmlns="http://www.w3.org/2000/svg"><path d="M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+      }
+    }
+
+    /* video player background */
+    #player-container > .video-js > video,
+    /* placeholder for loading thumbnails */
+    .vjs-poster {
+      & when (@styleVideoPlayer = 1) {
+        background-color: @mantle !important;
+      }
+    }
+
+    /* watch progress on videos */
+    div.watched-indicator {
+      background-color: @red;
+    }
+
+    /* Channel owner comments */
+    a.channel-owner {
+      color: @crust;
+      background-color: @accent;
+    }
+  }
+}

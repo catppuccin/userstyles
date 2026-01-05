@@ -1,0 +1,453 @@
+/* ==UserStyle==
+@name Jisho Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/jisho
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/jisho
+@version 2025.09.06
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/jisho/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ajisho
+@description Soothing pastel theme for Jisho
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("jisho.org") {
+  :root[data-color-theme="auto"] {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  :root[data-color-theme="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+  :root[data-color-theme="light"] {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    @accent-dim: if(
+      @flavor = latte,
+      desaturate(lighten(@accent, 8%), 10%),
+      desaturate(darken(@accent, 8%), 10%)
+    );
+
+    body {
+      background-color: @base !important;
+      color: @text;
+
+      a {
+        color: @accent;
+
+        &:hover {
+          color: @accent-dim;
+        }
+      }
+    }
+
+    each(
+      range(6),
+      {
+        h@{value} {
+          color: @text;
+        }
+      }
+    );
+
+    button,
+    .button,
+    .tabs .tab-title > a {
+      background-color: @overlay0;
+      color: @text;
+
+      &:hover,
+      &:focus {
+        background-color: @overlay1;
+        color: @text;
+      }
+    }
+
+    // ! There is some white space between the buttons in the button group
+    // ! This is somewhat mitigated by using `margin: 0 -2px;` originally
+    // ! We use `display: flex;` instead
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+
+      &.radius > *,
+      > li {
+        margin: unset;
+      }
+    }
+
+    .f-dropdown {
+      background-color: @mantle;
+      border-color: @overlay0;
+
+      &::before {
+        border-bottom-color: @surface0;
+      }
+
+      li:hover {
+        background-color: @crust;
+      }
+    }
+
+    header.row {
+      background-color: @base;
+    }
+
+    h1.logo a {
+      background-image: if(
+        @flavor = latte,
+        url("//assets.jisho.org/assets/jisho-logo-v4@2x-7330091c079b9dd59601401b052b52e103978221c8fb6f5e22406d871fcc746a.png"),
+        url("//assets.jisho.org/assets/jisho-logo-v4-dark@2x-e676613b426d34187b61928823730a225b52165aaef99f948bd3dc5fc16fa787.png")
+      );
+    }
+
+    nav .links {
+      .color_theme_picker--wrapper:hover {
+        background-color: @mantle;
+      }
+
+      .color_theme_picker--choices {
+        background-color: @mantle;
+
+        li a:hover {
+          background-color: @crust;
+        }
+      }
+    }
+
+    form.search {
+      .input_methods,
+      .input_method_button h4 {
+        color: @subtext0;
+      }
+
+      .input_method_button:hover {
+        background-color: @surface0;
+      }
+
+      .main {
+        background-color: @surface0;
+        box-shadow: none;
+      }
+
+      .inner {
+        background-color: @surface1;
+
+        input {
+          color: @text;
+        }
+      }
+
+      .search_type {
+        border-right-color: @overlay0;
+        color: @subtext0;
+      }
+
+      .submit {
+        background-color: @overlay1;
+        color: @text;
+      }
+
+      .search-form_clear-button {
+        background-color: transparent; // ! Unsure if this needs a background, also extends beyond the input
+        .clear-icon {
+          fill: @subtext0;
+        }
+      }
+
+      .results,
+      #radical_area .results {
+        .result_label {
+          color: @text;
+        }
+
+        .result {
+          background-color: @surface1;
+
+          &:hover {
+            color: @text;
+          }
+        }
+
+        each(
+          range(8),
+          {
+            .g@{value} {
+              color: @blue;
+            }
+          }
+        );
+      }
+
+      #radical_area {
+        .radical_table {
+          background-image: repeating-linear-gradient(
+            180deg,
+            @surface1,
+            @surface1 32px,
+            @surface2 32px,
+            @surface2 64px
+          );
+
+          .number {
+            background-color: @text;
+            color: @base;
+          }
+
+          .radical {
+            background-image: none; // ! some radicals are rendered with a background image by default
+            color: @text;
+
+            &.available:hover {
+              background-color: @overlay0;
+            }
+
+            &.selected {
+              border-color: @text;
+              background-color: fade(@yellow, 30%);
+            }
+          }
+        }
+
+        &.combined_mode {
+          // ! what is combined mode?
+          .reset_radicals {
+            color: @subtext0;
+
+            &:hover {
+              color: @text;
+              background-color: @overlay0;
+            }
+          }
+        }
+      }
+
+      .handwriting {
+        .panel {
+          background-color: @surface1;
+        }
+
+        .pencil-icon {
+          color: @surface2 !important;
+        }
+      }
+    }
+
+    .speech_area_active #speech_button,
+    .radical_area_active #radical_button,
+    .handwriting_area_active #handwriting_button {
+      border-bottom-color: @accent;
+    }
+
+    #what_is_this {
+      color: unset;
+    }
+
+    .japanese_word__furigana-invisible {
+      opacity: 0; // ! Jisho uses `color: #fff;` to hide furigana, however this does not work in the dark theme
+    }
+
+    #zen_bar li[data-pos="Noun"] a,
+    #zen_bar li[data-pos="Proper noun"] a,
+    #zen_bar li[data-pos="Pronoun"] a,
+    #zen_bar li[data-pos="Suffix"] a,
+    #zen_bar li[data-pos="Prefix"] a,
+    #zen_bar li[data-pos="Symbol"] a,
+    #zen_bar li[data-pos="Interjection"] a,
+    #zen_bar li[data-pos="Propernoun"] a {
+      color: @peach;
+      border-bottom-color: @peach;
+    }
+
+    #zen_bar li[data-pos="Particle"] a {
+      color: @red;
+      border-bottom-color: @red;
+    }
+
+    #zen_bar li[data-pos="Verb"] a {
+      color: @subtext0;
+      border-bottom-color: @subtext0;
+    }
+
+    #main_results h4 .result_count {
+      color: @subtext0;
+    }
+
+    .fact {
+      outline-color: @mantle;
+      border-color: @base;
+      background-color: @mantle;
+    }
+
+    .concept_light {
+      border-bottom-color: @overlay0;
+    }
+
+    .concept_light-status .concept_light-tag {
+      color: @base;
+      background-color: @subtext0;
+
+      &.concept_light-common {
+        background-color: @green;
+      }
+
+      a {
+        color: @base;
+      }
+    }
+    .concept_light-meanings {
+      .meaning-tags,
+      .meaning-definition-section_divider {
+        color: @subtext0;
+      }
+    }
+
+    .concept_light .sentence,
+    .meaning-abstract,
+    .supplemental_info {
+      color: @subtext0;
+    }
+
+    .kanji_light {
+      border-bottom-color: @overlay0;
+
+      .info {
+        color: @subtext0;
+      }
+    }
+
+    .sentences_block .sentence {
+      border-bottom-color: @overlay0;
+    }
+
+    #secondary aside .minor-text {
+      color: @subtext0;
+    }
+
+    .kanji-details__main-readings-list a {
+      border-bottom-color: @subtext0;
+    }
+
+    .kanji_strokes {
+      .kanji_play_button,
+      .replay_button,
+      .toggle_kanji_actions {
+        color: @text;
+        background-color: transparent;
+      }
+
+      .actions {
+        background-color: @base;
+
+        h3 {
+          color: @text;
+        }
+      }
+
+      .noUi-target {
+        .noUi-background {
+          background-color: @accent;
+        }
+
+        .noUi-base {
+          border-color: @surface1;
+        }
+
+        .noUi-origin {
+          background-color: @overlay0;
+        }
+
+        .noUi-handle {
+          background-color: @text;
+          border-color: @surface2;
+        }
+
+        .noUi-active {
+          background-color: @subtext0;
+        }
+      }
+    }
+
+    .stroke_order_diagram--bounding_box,
+    .stroke_order_diagram--guide_line {
+      stroke: @surface0;
+    }
+
+    .stroke_order_diagram--path_start {
+      fill: fade(@red, 80%);
+    }
+
+    .stroke_order_diagram--current_path {
+      stroke: @text;
+    }
+
+    .stroke_order_diagram--existing_path {
+      stroke: fade(@subtext0, 50%);
+    }
+
+    .kanji {
+      table {
+        background-color: @mantle;
+        border-color: @overlay0;
+      }
+
+      tr {
+        background-color: @surface0;
+
+        td {
+          color: @subtext0;
+        }
+      }
+    }
+
+    .discussion_thread {
+      .comment_body {
+        background-color: @surface0;
+        border-color: @overlay0;
+
+        .discussion_status {
+          background-color: @surface1;
+          border-bottom-color: @overlay0;
+          color: @subtext0;
+        }
+
+        .discussion_about {
+          background-color: mix(@surface0, @teal, 80%);
+          color: @teal;
+        }
+
+        .comment_status {
+          background-color: @surface2;
+          color: @subtext0;
+        }
+      }
+
+      .discussion_title a {
+        color: @text !important;
+      }
+    }
+
+    footer {
+      .ornament {
+        background-color: @red;
+        box-shadow: 0 0 10px 5px if(@flavor = latte, @base, @overlay0);
+      }
+    }
+  }
+}

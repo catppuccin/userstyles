@@ -1,0 +1,777 @@
+/* ==UserStyle==
+@name Hackage Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/hackage
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/hackage
+@version 2025.09.06
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/hackage/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ahackage
+@description Soothing pastel theme for Hackage
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("hackage.haskell.org"),
+  domain("hackage-content.haskell.org") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    &,
+    body {
+      background-color: @base;
+      color: @text;
+    }
+
+    a:hover {
+      background-color: inherit;
+    }
+
+    a[href]:link {
+      color: @accent;
+    }
+    a[href]:visited {
+      color: average(@overlay2, @accent);
+    }
+
+    a[href].def:link,
+    a[href].def:visited {
+      color: @subtext0;
+    }
+    a[href].def:hover {
+      color: average(@overlay2, @subtext0);
+    }
+
+    button {
+      background-color: @mantle;
+      color: @text;
+
+      &:hover {
+        background-color: @crust;
+      }
+    }
+
+    .caption,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    summary,
+    .section1,
+    .section2,
+    .section3,
+    .section4,
+    .section5,
+    .section6 {
+      color: @text;
+      filter: none;
+    }
+
+    .collapser::before,
+    .expander::before,
+    .noexpander::before {
+      color: @accent;
+    }
+
+    pre {
+      background-color: @mantle;
+      border-color: @surface1;
+    }
+
+    blockquote {
+      background-color: @surface0;
+      border-color: @accent;
+    }
+
+    .src,
+    .decl,
+    .declname,
+    .declbut,
+    .topdecl,
+    .arg,
+    .inline-code {
+      background-color: @mantle;
+      color: @text;
+    }
+
+    .declbut {
+      border-color: @overlay0 !important;
+      a {
+        color: @overlay2 !important;
+      }
+    }
+
+    /*
+     * Headers
+     */
+
+    #page-header,
+    #package-header {
+      background-color: @accent;
+      color: @surface1;
+      border-color: shade(@accent, 25%);
+    }
+
+    #page-header .caption,
+    #package-header .caption,
+    #page-header a:link,
+    #page-header a:visited {
+      color: @base !important;
+    }
+
+    #module-header .caption,
+    .modulebar {
+      color: @accent;
+      border-color: @surface1;
+    }
+
+    #module-header {
+      background-color: inherit;
+    }
+
+    #package-header {
+      &,
+      #page-menu {
+        a:link,
+        a:visited {
+          color: @base;
+        }
+      }
+      a:hover {
+        background-color: transparent;
+      }
+
+      ul.links li {
+        border-color: @overlay0;
+
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+
+    ul.links li form {
+      input,
+      button {
+        color: @base;
+      }
+
+      button {
+        background-color: transparent;
+      }
+    }
+
+    .topbar {
+      background-color: @accent;
+
+      .topbut {
+        border-color: @overlay0;
+
+        a {
+          background-color: transparent;
+          color: @base;
+        }
+      }
+      .title {
+        color: @base;
+      }
+    }
+
+    .botbar {
+      background-color: @crust;
+      color: @text;
+    }
+
+    /*
+     * Style selectors (for old packages)
+     */
+
+    #style-menu {
+      background-color: @mantle;
+
+      li {
+        &,
+        a {
+          color: @text !important;
+        }
+        + li {
+          border-color: @overlay2;
+        }
+      }
+    }
+
+    /*
+     * Versions
+     */
+
+    a.unpreferred[href]:link,
+    a.unpreferred[href]:visited {
+      color: @yellow;
+    }
+
+    a.deprecated[href]:link,
+    a.deprecated[href]:visited {
+      color: @red;
+    }
+
+    .versions {
+      a.normal[href]:link,
+      a.normal[href]:visited {
+        color: @green;
+      }
+    }
+
+    /*
+     * Readme style
+     */
+
+    .embedded-author-content {
+      border-color: @accent;
+    }
+
+    /*
+     * Contents & synopsis
+     */
+
+    #contents-list {
+      background-color: @mantle;
+    }
+
+    h2#table-of-contents {
+      background-color: @mantle;
+      color: @text;
+    }
+
+    div#table-of-contents {
+      background-color: @base;
+      border-color: @surface1;
+    }
+
+    #synopsis {
+      summary,
+      #control\.syn {
+        @svg: escape(
+          '<svg width="128" height="104" viewBox="0 0 128 104" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><defs><filter id="a" x="-.06" y="-.03" width="1.14" height="1.07" color-interpolation-filters="sRGB"><feFlood flood-color="#000" flood-opacity=".498" result="flood"/><feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="1"/><feOffset dx="1" dy="1" in="blur" result="offset"/><feComposite in="flood" in2="offset" operator="in" result="comp1"/><feComposite in="SourceGraphic" in2="comp1" result="comp2"/></filter><filter id="b" x="-.06" y="-.03" width="1.14" height="1.07" color-interpolation-filters="sRGB"><feFlood flood-color="#000" flood-opacity=".498" result="flood"/><feGaussianBlur in="SourceGraphic" result="blur" stdDeviation="1"/><feOffset dx="1" dy="1" in="blur" result="offset"/><feComposite in="flood" in2="offset" operator="in" result="comp1"/><feComposite in="SourceGraphic" in2="comp1" result="comp2"/></filter></defs><g transform="translate(64)" filter="url(#a)"><rect x="8.5" y="8.5" width="40" height="80" rx="4" ry="4" fill="@{surface0}"/><text transform="matrix(0 -.995 1 0 0 0)" x="-86.188" y="23.735" fill="@{subtext1}" xml:space="preserve"><tspan x="-86.188" y="23.735" font-family="&quot;PT Sans&quot;,-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,Oxygen-Sans,Cantarell,&quot;Helvetica Neue&quot;,sans-serif" font-size="14px" font-weight="400">Synopsis</tspan></text><g fill="@{overlay0}"><rect transform="scale(-1 1)rotate(-45)" x="-28.7" y="-6.53" width="7.88" height="2.46" rx=".985" ry=".985"/><rect transform="rotate(-45)" x="-1.47" y="26.3" width="7.88" height="2.46" rx=".985" ry=".985"/><rect transform="scale(-1 1)rotate(-45)" x="-23.7" y="-1.58" width="7.88" height="2.46" rx=".985" ry=".985"/><rect transform="rotate(-45)" x="-6.42" y="21.4" width="7.88" height="2.46" rx=".985" ry=".985"/></g></g><g filter="url(#b)"><rect x="8.5" y="8.5" width="40" height="80" rx="4" ry="4" fill="@{surface0}"/><text transform="matrix(0 -.995 1 0 0 0)" x="-86.188" y="23.735" fill="@{subtext1}" xml:space="preserve"><tspan x="-86.188" y="23.735" font-family="&quot;PT Sans&quot;,-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,Oxygen-Sans,Cantarell,&quot;Helvetica Neue&quot;,sans-serif" font-size="14px" font-weight="400">Synopsis</tspan></text><g fill="@{overlay0}"><rect transform="rotate(-45)" x="-3.59" y="18.6" width="7.88" height="2.46" rx=".985" ry=".985"/><rect transform="scale(-1 1)rotate(-45)" x="-26.6" y="1.24" width="7.88" height="2.46" rx=".985" ry=".985"/><rect transform="rotate(-45)" x="1.36" y="23.5" width="7.88" height="2.46" rx=".985" ry=".985"/><rect transform="scale(-1 1)rotate(-45)" x="-31.5" y="-3.71" width="7.88" height="2.46" rx=".985" ry=".985"/></g></g></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}") !important;
+      }
+
+      ul {
+        &,
+        li.src {
+          background-color: @surface0;
+        }
+      }
+    }
+
+    /*
+     * Quick jump
+     */
+
+    #search p.error {
+      color: @red;
+    }
+
+    #search-form,
+    #search-results {
+      box-shadow: 2px 2px 6px fade(@mantle, 20%);
+    }
+
+    #search-form {
+      input {
+        border-color: @accent;
+      }
+    }
+
+    #search-results {
+      border-color: @accent;
+
+      > ul > li {
+        border-bottom-color: @overlay0;
+      }
+    }
+
+    .search-module > ul > li > a[href].active-link {
+      background-color: @surface2;
+    }
+
+    .search-result ul.subs::after {
+      color: @subtext1;
+    }
+
+    .more-results,
+    .more-results::before {
+      color: @subtext0;
+    }
+
+    .keyboard-shortcuts th {
+      color: @accent;
+    }
+
+    .key {
+      background-color: @mantle;
+      color: @text;
+      border-color: @mantle;
+    }
+
+    /*
+     * Dropdown
+     */
+
+    .dropdown-menu {
+      background-color: @surface0;
+      border-color: @surface0;
+
+      button {
+        background-color: @accent;
+        color: @mantle;
+        border-color: @surface2;
+
+        &:hover,
+        &:active {
+          background-color: @accent;
+          color: @mantle;
+        }
+      }
+    }
+
+    /*
+     * Tables
+     */
+
+    table {
+      &.info {
+        background-color: @base;
+        color: @subtext1;
+        border-color: @surface1;
+      }
+
+      &.fancy {
+        &,
+        tr {
+          border-color: @surface1;
+        }
+        tr.even td {
+          background-color: @mantle;
+        }
+      }
+
+      &.fancy,
+      &.properties,
+      &.dataTable.compact.fancy tbody {
+        th,
+        td {
+          background-color: @base;
+        }
+      }
+    }
+
+    .doc {
+      th,
+      td {
+        border-color: @surface1;
+      }
+      th {
+        background-color: @mantle;
+      }
+    }
+
+    .infohead,
+    .infoval {
+      color: @subtext1;
+    }
+
+    div#table_length.dataTables_length,
+    div#table_filter.dataTables_filter {
+      color: @text;
+    }
+
+    div #description table {
+      &,
+      tr td {
+        border-color: @surface1;
+      }
+      th {
+        background-color: @mantle;
+      }
+    }
+
+    /*
+     * Source links
+     */
+
+    #interface {
+      .src {
+        .link,
+        .selflink {
+          color: @overlay2 !important;
+          background-color: transparent !important;
+        }
+      }
+      p.src .link {
+        background-color: transparent;
+        color: @overlay2;
+        border-color: @overlay1;
+      }
+
+      span.fixity,
+      span.rightedge {
+        color: @overlay1;
+        border-left-color: @overlay1;
+      }
+      span.fixity {
+        color: @overlay1;
+      }
+    }
+
+    /*
+     * Paginator
+     */
+
+    .paginator {
+      span {
+        color: @text;
+      }
+
+      a {
+        color: @overlay1;
+
+        &[href]:link,
+        &:link:hover {
+          color: @accent;
+        }
+        &:visited,
+        &:visited:hover {
+          color: average(@overlay2, @accent);
+        }
+        &:link:hover,
+        &:visited:hover {
+          background-image: none;
+          background-color: @mantle;
+          border-color: transparent;
+        }
+      }
+
+      .current {
+        background-image: none;
+        background-color: @mantle;
+        color: @accent;
+        border-color: transparent;
+
+        &:hover {
+          background-color: @crust !important;
+        }
+      }
+    }
+
+    .paginate_button {
+      background-color: @overlay0;
+    }
+
+    /*
+     * Search query
+     */
+
+    #browseTable th {
+      border-color: @surface1;
+    }
+
+    #fatalError {
+      color: @red;
+    }
+
+    input:invalid {
+      border-color: @yellow;
+      box-shadow: 0 0 10px @yellow;
+    }
+
+    input {
+      background-color: @mantle;
+      color: @text;
+      border-style: solid;
+      border-color: @surface0;
+      border-radius: 4px;
+    }
+
+    input[type="range"] {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      background-color: @mantle;
+      height: 0.2em !important;
+
+      &::-moz-range-thumb,
+      &::-webkit-slider-thumb {
+        background-color: @text;
+        border-color: @surface0;
+        height: 1em !important;
+      }
+    }
+
+    input[type="range"]:hover,
+    input[type="submit"]:hover {
+      background-color: @crust;
+    }
+
+    /*
+     * Upload
+     */
+
+    input[type="file"] {
+      background-color: transparent;
+
+      &::file-selector-button {
+        background-color: @mantle;
+        color: @text;
+      }
+    }
+
+    /*
+     * Others
+     */
+
+    .candidate-warn {
+      background-color: @mantle;
+      border-color: @red;
+    }
+
+    .candidate-info {
+      background-color: @mantle;
+      border-color: @blue;
+    }
+
+    .box {
+      background-color: @base;
+      border-color: @base;
+    }
+
+    div#modal #content,
+    #search-results {
+      background-color: @surface0;
+    }
+
+    .subs,
+    .top > .doc,
+    .subs > .doc {
+      border-left-color: @surface1;
+    }
+
+    .subs .subs p.src {
+      background-color: @mantle;
+    }
+
+    .top p.src {
+      border-color: @surface0;
+    }
+
+    .warning,
+    strong.warning {
+      color: @red;
+    }
+
+    small.info,
+    .flags-table .flag-disabled {
+      color: @subtext0;
+    }
+
+    .text-button {
+      color: @accent;
+    }
+
+    p.registration-email {
+      border-color: @accent;
+    }
+
+    :target {
+      background-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 65%,
+        average(@surface0, @yellow) 60%,
+        average(@surface0, @yellow) 100%
+      );
+    }
+    :target:hover {
+      background-image: linear-gradient(
+        to bottom,
+        overlay(@surface0, @yellow) 0%,
+        overlay(@surface0, @yellow) 100%
+      );
+    }
+
+    #footer {
+      background-color: @crust;
+      color: @subtext1;
+      border-color: @overlay0;
+    }
+
+    /*
+     * MathJax
+     */
+
+    #MathJax_Message {
+      background-color: @mantle;
+      border-color: @surface1;
+      color: @text;
+    }
+
+    #MathJax_About,
+    #MathJax_Help,
+    .MathJax_Menu {
+      background-color: @surface0;
+      color: @text;
+      border-color: @accent;
+      box-shadow: 0 10px 20px @mantle;
+      -webkit-box-shadow: 0 10px 20px @mantle;
+      -moz-box-shadow: 0 10px 20px @mantle;
+    }
+
+    #MathJax_About > span,
+    #MathJax_HelpContent {
+      background-color: @surface1 !important;
+      color: @subtext1 !important;
+      border-color: @overlay0 !important;
+    }
+
+    .MathJax_MenuArrow {
+      color: @subtext1;
+    }
+
+    .MathJax_MenuRule {
+      border-top-color: @overlay0;
+    }
+
+    .MathJax_MenuActive {
+      background-color: @surface1;
+      color: @text;
+    }
+
+    .MathJax_MenuDisabled {
+      color: @overlay2;
+    }
+
+    .MathJax_MenuDisabled:focus,
+    .MathJax_MenuLabel:focus {
+      background-color: @surface1;
+    }
+
+    #MathJax_AboutClose,
+    #MathJax_HelpClose {
+      border-color: @surface2;
+      color: @subtext0;
+      span {
+        background-color: @surface2;
+      }
+
+      &:hover {
+        color: @text !important;
+        border-color: @overlay0 !important;
+        span {
+          background-color: @overlay0 !important;
+        }
+      }
+    }
+
+    span.mathjax img {
+      filter: @text-filter;
+    }
+
+    /*
+     * Sources
+     */
+
+    span.definition,
+    .hs-identifier {
+      color: @blue;
+    }
+
+    .hs-identifier.hs-type {
+      color: @yellow;
+    }
+
+    span.keyword,
+    .hs-keyword {
+      color: @mauve;
+    }
+
+    span.str,
+    span.char,
+    .hs-string,
+    .hs-char,
+    .hs-str,
+    .hs-chr {
+      color: @green;
+    }
+
+    .hs-number {
+      color: @peach;
+    }
+
+    .hs-operator {
+      color: @sky;
+    }
+
+    span.keyglyph,
+    span.layout,
+    span.conop,
+    .hs-keyglyph,
+    .hs-layout,
+    .hs-glyph,
+    .hs-special {
+      color: @overlay2;
+    }
+
+    span.comment,
+    .hs-comment,
+    .hs-comment a {
+      color: @overlay0;
+    }
+
+    span.cpp,
+    .hs-pragma,
+    .hs-cpp {
+      color: @pink;
+    }
+
+    pre a {
+      &:link,
+      &:visited {
+        border-bottom-color: @surface0;
+      }
+      &:hover,
+      &.hover-highlight {
+        background-color: @surface0;
+      }
+    }
+
+    span.annot {
+      color: @text;
+
+      &:hover {
+        background-color: @surface1;
+      }
+
+      span.annottext {
+        background-color: @surface0;
+        border-color: @accent;
+      }
+    }
+  }
+}

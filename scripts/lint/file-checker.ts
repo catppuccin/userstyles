@@ -7,8 +7,7 @@ import core from "@actions/core";
 import { log } from "@/logger.ts";
 
 const requiredFiles = [
-  "catppuccin.user.css",
-  "preview.webp",
+  "catppuccin.user.less",
 ];
 
 export async function checkForMissingFiles() {
