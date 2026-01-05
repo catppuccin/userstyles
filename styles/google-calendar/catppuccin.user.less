@@ -1,0 +1,166 @@
+/* ==UserStyle==
+@name Google Calendar Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/google-calendar
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/google-calendar
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/google-calendar/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agoogle-calendar
+@description Soothing pastel theme for Google Calendar
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+// @import "https://userstyles.catppuccin.com/lib/m3.less";
+@import "https://github.com/catppuccin/userstyles/raw/refs/heads/feat/m3-lib/lib/m3.less";
+
+@-moz-document domain("calendar.google.com") {
+  // Initial load, before JS init
+  .DO879e.PC2yOb {
+    #catppuccin(@lightFlavor);
+  }
+  @media (prefers-color-scheme: dark) {
+    .DO879e.PC2yOb {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  .DO879e:not(.PC2yOb).CcsDpe {
+    #catppuccin(@darkFlavor);
+  }
+  .DO879e:not(.PC2yOb):not(.CcsDpe) {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    #__m3.base();
+    #__m3.with-prefix(gm3-sys-color-);
+    #__m3.with-prefix(cal-sys-color-);
+    
+    --cal-sys-color-warning: @yellow;
+    --cal-sys-color-warning-container: fade(@yellow, @m3-tint);
+    --cal-sys-color-on-warning: @base;
+    --cal-sys-color-on-warning-container: lighten(@yellow, @m3-emphasize);
+
+    --cal-sys-color-conflict: @peach;
+    --cal-sys-color-conflict-container: fade(@peach, @m3-tint);
+    --cal-sys-color-on-conflict: @base;
+    --cal-sys-color-on-conflict-container: lighten(@peach, @m3-emphasize);
+
+    --cal-sys-color-success: @green;
+    --cal-sys-color-success-container: fade(@green, @m3-tint);
+    --cal-sys-color-on-success: @base;
+    --cal-sys-color-on-success-container: lighten(@green, @m3-emphasize);
+    
+    --cal-sys-color-night: @lavender;
+    --cal-sys-color-night-container: fade(@lavender, @m3-tint);
+    --cal-sys-color-on-night: @base;
+    --cal-sys-color-on-night-container: lighten(@lavender, @m3-emphasize);
+
+    --cal-sys-color-scrollbar: var(--cal-sys-color-outline-variant);
+    --cal-sys-color-scrollbar-hover: color-mix(in oklab, var(--cal-sys-color-outline-variant), var(--cal-sys-color-on-surface) 12%);
+    --cal-sys-color-scrollbar-active: color-mix(in oklab, var(--cal-sys-color-outline-variant), var(--cal-sys-color-on-surface) 20%);
+   
+    --cal-sys-color-now-indicator: @accent;
+    --cal-sys-color-helper-variant: var(--cal-sys-color-on-surface-variant);
+    --cal-sys-color-everyone-available: @green;
+    --cal-sys-color-bubble-banner: @crust;
+
+    // --ae-genai-generation-gradient: linear-gradient(135deg,#217bfe,#078efb,#ac87eb,#217bfe);
+    // --ae-sidekick-container-color: var(--gm3-sys-color-surface-dim,#131314);
+    // --ae-sidekick-prompt-input-text-color: #fff;
+    // --ae-sidekick-prompt-input-text-placeholder-color: #c4c7c5;
+    // --ae-sidekick-user-message-container-color: var(--gm3-sys-color-on-primary,#062e6f);
+    // --ae-sidekick-shimmer-blend-mode: darken;
+    // --ae-sidekick-gem-display-light: none;
+    // --ae-sidekick-gem-display-dark: flex;
+
+    // Header buttons
+    header {
+      --og-theme-color: var(--cal-sys-color-on-surface) !important;
+    }
+    
+    // User availability: Available
+    [fill="#CEEAD6"] {
+      fill: var(--cal-sys-color-success) !important;
+    }
+    [stroke="#137333"] {
+      stroke: var(--cal-sys-color-on-success) !important;
+    }
+    // User availability: No
+    [fill="#FAD2CF"] {
+      fill: var(--cal-sys-color-error) !important;
+    }
+    [stroke="#B31412"] {
+      stroke: var(--cal-sys-color-on-error) !important;
+    }
+    // User availability: Maybe
+    [fill="#E8EAED"] {
+      fill: var(--cal-sys-color-inverse-surface) !important; 
+    }
+    [stroke="#3C4043"] {
+      stroke: var(--cal-sys-color-inverse-on-surface) !important;
+    }
+    
+    // Checkered stripe background in Day view
+    .TyFLN {
+      @svg: escape(
+        '<svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="nonzero"><path fill="@{base}" d="M0 0h12v12H0z"/><path d="M6 0h6L0 12V6zm6 6v6H6z" fill="@{surface0}"/></g></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    // Office/Home work location calendar indicator
+    span[style="background-color: rgb(225, 243, 252);"],
+    span[style="background-color: rgb(47, 76, 99);"] {
+      background-color: var(--gm3-sys-color-surface-container) !important;
+    }
+
+    // Companion bar "Add Apps" icon
+    [style='background-image: url("https://fonts.gstatic.com/s/i/googlematerialicons/add/v21/black-24dp/1x/gm_add_black_24dp.png");'],
+    [style='background-image: url("https://www.gstatic.com/images/icons/material/system/1x/add_white_24dp.png");'] {
+      background-image: if(
+        @flavor = latte,
+        url("https://fonts.gstatic.com/s/i/googlematerialicons/add/v21/black-24dp/1x/gm_add_black_24dp.png"),
+        url("https://www.gstatic.com/images/icons/material/system/1x/add_white_24dp.png")
+      ) !important;
+    }
+
+    // Images displaying the app under `Settings menu > Appearance`
+    img {
+      &[src="https://ssl.gstatic.com/calendar/images/theme/theme_picker_light.svg"] {
+        @svg: escape(
+          '<svg width="140" height="162" viewBox="0 0 140 162" fill="none" var="@{base}" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#a)"><path d="M124 0H16C7.163 0 0 7.163 0 16v129.757c0 8.837 7.163 16 16 16h108c8.837 0 16-7.163 16-16V16c0-8.837-7.163-16-16-16" fill="#E6E9EF"/><path d="m33.896 17.184-4.966-.552-6.07.552-.552 5.518.552 5.518 5.518.69 5.518-.69.552-5.656z" fill="white"/><path d="M25.124 25.745q-.62-.418-.854-1.224l.957-.394q.13.497.456.77.323.272.783.272.47 0 .807-.286a.91.91 0 0 0 .338-.727q0-.45-.356-.737-.356-.285-.891-.285h-.553v-.948h.496q.46 0 .774-.248a.82.82 0 0 0 .315-.68.75.75 0 0 0-.282-.614q-.28-.23-.713-.23-.422 0-.67.224-.249.226-.362.553l-.947-.394q.187-.534.694-.942t1.294-.409q.581 0 1.045.225.465.226.727.624.262.399.262.895 0 .507-.244.858a1.7 1.7 0 0 1-.6.54v.056q.468.197.77.6.3.403.3.966t-.285 1.004-.788.694a2.5 2.5 0 0 1-1.13.254 2.34 2.34 0 0 1-1.343-.417M31 20.994l-1.047.76-.525-.797 1.886-1.36h.722v6.416H31z" fill="#1A73E8"/><path d="m33.896 33.186 4.966-4.966-2.483-1.104-2.483 1.104-1.104 2.483z" fill="#EA4335"/><path d="m21.757 30.703 1.103 2.483h11.036V28.22H22.86z" fill="#34A853"/><path d="M19.55 12.218c-.915 0-1.656.74-1.656 1.655V28.22l2.483 1.104 2.483-1.104V17.184h11.036L35 14.701l-1.104-2.483z" fill="#4285F4"/><path d="M17.894 28.22v3.31c0 .915.74 1.656 1.655 1.656h3.311V28.22z" fill="#188038"/><path d="M33.896 17.184V28.22h4.966V17.184L36.38 16.08z" fill="#FBBC04"/><path d="M38.862 17.184v-3.31c0-.915-.74-1.656-1.655-1.656h-3.311v4.966z" fill="#1967D2"/><g filter="url(#b)"><path d="M112.11 46H28c-6.627 0-12 5.373-12 12v13.838c0 6.628 5.373 12 12 12h84.11c6.627 0 12-5.372 12-12V58c0-6.627-5.373-12-12-12" fill="#F0F4F9"/></g><path d="M44.38 65.866h-6.623v6.622h-1.892v-6.622h-6.621v-1.892h6.621v-6.621h1.892v6.621h6.622zm61.486-1.893H58.568a.946.946 0 1 0 0 1.892h47.298a.946.946 0 1 0 0-1.892m8.593 34.405H25.541a.946.946 0 0 0 0 1.892h88.918a.946.946 0 1 0 0-1.892m0 17.027H25.541a.946.946 0 0 0 0 1.892h88.918a.946.946 0 1 0 0-1.892m0 17.028H25.541a.946.946 0 0 0 0 1.892h88.918a.946.946 0 1 0 0-1.892" fill="#4C4F69"/></g><defs><filter id="b" x="13" y="44" width="114.11" height="43.8385" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation="1.5"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5_1739"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation="1"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"/><feBlend mode="normal" in2="effect1_dropShadow_5_1739" result="effect2_dropShadow_5_1739"/><feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_5_1739" result="shape"/></filter><clipPath id="a"><rect width="140" height="162" fill="white"/></clipPath></defs></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+      }
+      &[src="https://ssl.gstatic.com/calendar/images/theme/theme_picker_dark.svg"] {
+        @svg: escape(
+          '<svg width="140" height="162" viewBox="0 0 140 162" fill="none" var="@{base}" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#a)"><path d="M124 0H16C7.163 0 0 7.163 0 16v129.757c0 8.837 7.163 16 16 16h108c8.837 0 16-7.163 16-16V16c0-8.837-7.163-16-16-16" fill="#1E2030"/><path d="M124 0H16C7.163 0 0 7.163 0 16v129.757c0 8.837 7.163 16 16 16h108c8.837 0 16-7.163 16-16V16c0-8.837-7.163-16-16-16" fill="#D1E1FF" fill-opacity="0.05"/><path d="m33.896 17.184-4.966-.552-6.07.552-.552 5.518.552 5.518 5.518.69 5.518-.69.552-5.656z" fill="white"/><path d="M25.124 25.745q-.62-.418-.854-1.224l.957-.394q.13.497.456.77.323.272.783.272.47 0 .807-.286a.91.91 0 0 0 .338-.727q0-.45-.356-.737-.356-.285-.891-.285h-.553v-.948h.496q.46 0 .774-.248a.82.82 0 0 0 .315-.68.75.75 0 0 0-.282-.614q-.28-.23-.713-.23-.422 0-.67.224-.249.226-.362.553l-.947-.394q.187-.534.694-.942t1.294-.409q.581 0 1.045.225.465.226.727.624.262.399.262.895 0 .507-.244.858a1.7 1.7 0 0 1-.6.54v.056q.468.197.77.6.3.403.3.966t-.285 1.004-.788.694a2.5 2.5 0 0 1-1.13.254 2.34 2.34 0 0 1-1.343-.417M31 20.994l-1.047.76-.525-.797 1.886-1.36h.722v6.416H31z" fill="#1A73E8"/><path d="m33.896 33.186 4.966-4.966-2.483-1.104-2.483 1.104-1.104 2.483z" fill="#EA4335"/><path d="m21.757 30.703 1.103 2.483h11.036V28.22H22.86z" fill="#34A853"/><path d="M19.55 12.218c-.915 0-1.656.74-1.656 1.655V28.22l2.483 1.104 2.483-1.104V17.184h11.036L35 14.701l-1.104-2.483z" fill="#4285F4"/><path d="M17.894 28.22v3.31c0 .915.74 1.656 1.655 1.656h3.311V28.22z" fill="#188038"/><path d="M33.896 17.184V28.22h4.966V17.184L36.38 16.08z" fill="#FBBC04"/><path d="M38.862 17.184v-3.31c0-.915-.74-1.656-1.655-1.656h-3.311v4.966z" fill="#1967D2"/><path d="M114.459 98.378H25.541a.946.946 0 1 0 0 1.892h88.918a.946.946 0 1 0 0-1.892m0 17.027H25.541a.946.946 0 0 0 0 1.892h88.918a.946.946 0 1 0 0-1.892m0 17.028H25.541a.946.946 0 0 0 0 1.892h88.918a.946.946 0 1 0 0-1.892" fill="#CAD3F5"/><g filter="url(#b)"><path d="M111.243 43.514H27.135c-6.628 0-12 5.372-12 12V69.35c0 6.628 5.372 12 12 12h84.108c6.627 0 12-5.372 12-12V55.515c0-6.628-5.373-12-12-12" fill="#1E2030"/></g><path d="M43.513 63.379H36.89V70H35v-6.62h-6.621v-1.892H35v-6.622h1.892v6.622h6.622zM105 61.486H57.703a.946.946 0 1 0 0 1.892H105a.946.946 0 0 0 0-1.892" fill="#CAD3F5"/></g><defs><filter id="b" x="12.1348" y="41.5137" width="114.108" height="43.8378" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation="1.5"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5_1710"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation="1"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"/><feBlend mode="normal" in2="effect1_dropShadow_5_1710" result="effect2_dropShadow_5_1710"/><feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_5_1710" result="shape"/></filter><clipPath id="a"><rect width="140" height="162" fill="white"/></clipPath></defs></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+      }
+      &[src="https://ssl.gstatic.com/calendar/images/theme/theme_picker_device_light.svg"] {
+        @svg: escape(
+          '<svg width="70" height="162" viewBox="0 0 70 162" fill="none" var="@{base}" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#a)"><mask id="b" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="70" height="162"><path d="M0 16C0 7.163 7.163 0 16 0h54v161.757H16c-8.837 0-16-7.164-16-16z" fill="white"/></mask><g mask="url(#b)"><path d="M0 16C0 7.163 7.163 0 16 0h54v161.757H16c-8.837 0-16-7.164-16-16z" fill="#E6E9EF"/><path d="m34.002 16.966-4.966-.552-6.07.552-.552 5.518.552 5.518 5.518.69 5.518-.69.552-5.656z" fill="white"/><path d="M25.23 25.527q-.62-.416-.854-1.223l.957-.395q.131.497.456.77.323.273.783.272.47 0 .807-.286a.91.91 0 0 0 .338-.727q0-.45-.356-.736-.357-.285-.89-.286h-.554v-.948h.497q.46 0 .773-.248a.82.82 0 0 0 .315-.68.75.75 0 0 0-.281-.614q-.281-.23-.714-.23-.422 0-.67.224-.248.226-.361.554l-.948-.395q.187-.534.694-.942.508-.408 1.294-.409.581 0 1.045.225.465.226.727.624.263.399.262.895.001.507-.244.858a1.7 1.7 0 0 1-.6.54v.056q.469.197.77.6.3.404.3.966 0 .563-.285 1.004-.286.442-.788.694a2.5 2.5 0 0 1-1.13.254 2.34 2.34 0 0 1-1.343-.417m5.875-4.751-1.045.76-.526-.797 1.886-1.36h.723v6.416h-1.038z" fill="#1A73E8"/><path d="m34.002 32.968 4.966-4.966-2.483-1.104-2.483 1.104-1.103 2.483z" fill="#EA4335"/><path d="m21.863 30.485 1.103 2.483h11.036v-4.966H22.966z" fill="#34A853"/><path d="M19.655 12c-.914 0-1.655.74-1.655 1.655v14.347l2.483 1.104 2.483-1.104V16.966h11.036l1.104-2.483L34.002 12z" fill="#4285F4"/><path d="M18 28.002v3.31c0 .915.74 1.656 1.655 1.656h3.311v-4.966z" fill="#188038"/><path d="M34.002 16.966v11.036h4.966V16.966l-2.483-1.104z" fill="#FBBC04"/><path d="M38.968 16.966v-3.31c0-.915-.74-1.656-1.655-1.656h-3.31v4.966z" fill="#1967D2"/><g filter="url(#c)"><path d="M111.243 43.514H27.135c-6.628 0-12 5.372-12 12V69.35c0 6.628 5.372 12 12 12h84.108c6.627 0 12-5.372 12-12V55.515c0-6.628-5.373-12-12-12" fill="#F0F4F9"/></g><path d="M43.513 63.379H36.89V70H35v-6.62h-6.621v-1.892H35v-6.622h1.892v6.622h6.622zM105 61.486H57.703a.946.946 0 1 0 0 1.892H105a.946.946 0 0 0 0-1.892m9.459 36.892H25.541a.946.946 0 1 0 0 1.892h88.918a.946.946 0 1 0 0-1.892m0 17.027H25.541a.946.946 0 0 0 0 1.892h88.918a.946.946 0 1 0 0-1.892m0 17.028H25.541a.946.946 0 0 0 0 1.892h88.918a.946.946 0 1 0 0-1.892" fill="#4C4F69"/></g></g><defs><filter id="c" x="12.1348" y="41.5137" width="114.108" height="43.8378" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation="1.5"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5_1688"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation="1"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"/><feBlend mode="normal" in2="effect1_dropShadow_5_1688" result="effect2_dropShadow_5_1688"/><feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_5_1688" result="shape"/></filter><clipPath id="a"><rect width="70" height="162" fill="white"/></clipPath></defs></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+      }
+      &[src="https://ssl.gstatic.com/calendar/images/theme/theme_picker_device_dark.svg"] {
+        @svg: escape(
+          '<svg width="140" height="162" viewBox="0 0 140 162" fill="none" var="@{base}" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#a)"><path d="M124 0H16C7.163 0 0 7.163 0 16v129.757c0 8.837 7.163 16 16 16h108c8.837 0 16-7.163 16-16V16c0-8.837-7.163-16-16-16" fill="#1E2030"/><path d="M124 0H16C7.163 0 0 7.163 0 16v129.757c0 8.837 7.163 16 16 16h108c8.837 0 16-7.163 16-16V16c0-8.837-7.163-16-16-16" fill="#D1E1FF" fill-opacity="0.05"/><g filter="url(#b)"><path d="M111.243 43.514H27.135c-6.628 0-12 5.372-12 12V69.35c0 6.628 5.372 12 12 12h84.108c6.627 0 12-5.372 12-12V55.515c0-6.628-5.373-12-12-12" fill="#1E2030"/></g><path d="M43.513 63.379H36.89V70H35v-6.62h-6.621v-1.892H35v-6.622h1.892v6.622h6.622zM105 61.486H57.703a.946.946 0 1 0 0 1.892H105a.946.946 0 0 0 0-1.892m9.459 36.892H25.541a.946.946 0 1 0 0 1.892h88.918a.946.946 0 1 0 0-1.892m0 17.027H25.541a.946.946 0 0 0 0 1.892h88.918a.946.946 0 1 0 0-1.892m0 17.028H25.541a.946.946 0 0 0 0 1.892h88.918a.946.946 0 1 0 0-1.892" fill="#CAD3F5"/></g><defs><filter id="b" x="12.1348" y="41.5137" width="114.108" height="43.8378" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation="1.5"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5_1729"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation="1"/><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0"/><feBlend mode="normal" in2="effect1_dropShadow_5_1729" result="effect2_dropShadow_5_1729"/><feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_5_1729" result="shape"/></filter><clipPath id="a"><rect width="140" height="162" fill="white"/></clipPath></defs></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+      }
+    }
+  }
+}
