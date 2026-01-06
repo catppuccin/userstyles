@@ -18,35 +18,9 @@
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 @import "http://127.0.0.1:8000/lib/mediawiki.less";
 
-/* deno-fmt-ignore */
-@-moz-document regexp("^https:\\/\\/(?!gitlab\\.)(.+\\.)*archlinux\\.org(?:\\/.*)+") {
-  :root {
-    @media (prefers-color-scheme: light) {
-      #catppuccin(@lightFlavor);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      #catppuccin(@darkFlavor);
-    }
-  }
-
-  #catppuccin(@flavor) {
-    #lib.palette();
-    #lib.defaults();
-    #lib.css-variables();
-
-    --bg-color: @base !important;
-    --color: @text !important;
-    --code-inline-bg-color: @surface0 !important;
-    --code-block-bg-color: @mantle !important;
-    --code-block-border-color: @surface2 !important;
-    --link-color: @blue !important;
-    --table-border-color: @surface2 !important;
-    --table-bg-color: @mantle !important;
-    --table-th-bg-color: @crust !important;
-    --table-focus-bg-color: @surface0 !important;
-
-    body, content, content *, img, label {
+#mixins {
+  .mixin-base() {
+    body, content, content *, img {
       color: @text !important;
     }
 
@@ -54,188 +28,21 @@
       background-color: @base !important;
     }
 
-    .timestamp {
-      color: @lavender !important;
+    label, legend {
+      color: @subtext0 !important;
+    }
+
+    span[background-image="url(Air/img/bull.png)"] {
+      filter: @accent-filter !important;
     }
 
     .box, .path {
       background-color: @mantle !important;
       border-color: @overlay0 !important;
     }
+  }
 
-    a.rss-icon {
-      filter: @peach-filter;
-
-      &:link {
-        filter: @peach-filter;
-      }
-
-      &:hover {
-        filter: @sky-filter !important;
-      }
-
-      &:active {
-        filter: @sapphire-filter !important;
-      }
-
-      &:visited {
-        filter: @lavender-filter !important;
-      }
-    }
-
-    a, a.permalink {
-      &, &:link {
-        color: @blue !important;
-
-        &:hover {
-          color: @sky !important;
-        }
-
-        &:active {
-          color: @sapphire !important;
-        }
-
-        &:visited {
-          color: @lavender !important;
-        }
-      }
-    }
-
-    a.active {
-      background-color: @surface0 !important;
-    }
-
-    li {
-      a {
-        &, &:link {
-          color: @blue !important;
-
-          &:hover {
-            color: @sky !important;
-          }
-
-          &:active {
-            color: @sapphire !important;
-          }
-
-          &:visited {
-            color: @lavender !important;
-          }
-        }
-      }
-
-      &.isactive a {
-        color: @accent !important;
-      }
-    }
-
-    h1 {
-      color: @text !important;
-      border-color: @overlay1 !important;
-    }
-
-    h2 {
-      color: @mauve !important;
-      border-color: @overlay1 !important;
-    }
-
-    h3 {
-      color: @base !important;
-      background-color: @blue !important;
-      border-color: @overlay1 !important;
-    }
-
-    h3 a {
-      &, &:link {
-        color: @base !important;
-        background-color: @blue !important;
-        border-color: @overlay1 !important;
-
-        &:hover {
-          color: @sky !important;
-        }
-
-        &:active {
-          color: @sapphire !important;
-        }
-
-        &:visited {
-          color: @lavender !important;
-        }
-      }
-    }
-
-    h3 span.arrow {
-      color: transparent !important;
-      background-color: transparent !important;
-      border-color: @blue transparent transparent transparent !important;
-    }
-
-    #pkg-updates a.rss-icon {
-      filter: @base-filter;
-
-      &:link {
-        filter: @base-filter;
-      }
-
-      &:hover {
-        filter: @sky-filter !important;
-      }
-
-      &:active {
-        filter: @sapphire-filter !important;
-      }
-
-      &:visited {
-        filter: @lavender-filter !important;
-      }
-    }
-
-    h4 {
-      color: @peach !important;
-      border-color: @overlay1 !important;
-    }
-
-    h4 a {
-      &, &:link {
-        color: @peach !important;
-
-        &:hover {
-          color: @sky !important;
-        }
-
-        &:active {
-          color: @sapphire !important;
-        }
-
-        &:visited {
-          color: @lavender !important;
-        }
-      }
-    }
-
-    h5 {
-      color: @green !important;
-    }
-
-    h5 a {
-      &, &:link {
-        color: @green !important;
-
-        &:hover {
-          color: @sky !important;
-        }
-
-        &:active {
-          color: @sapphire !important;
-        }
-
-        &:visited {
-          color: @lavender !important;
-        }
-      }
-    }
-
+  .mixin-code() {
     pre {
       background-color: @mantle !important;
       border-color: @overlay0 !important;
@@ -246,7 +53,9 @@
       color: @text !important;
       border-color: @overlay0 !important;
     }
+  }
 
+  .mixin-inputs() {
     button,
     ::file-selector-button,
     .rbox label,
@@ -264,6 +73,10 @@
       &:active, &:enabled {
         background-color: @surface2 !important;
         border-color: @overlay0 !important;
+      }
+
+      &:invalid {
+        color: @maroon !important;
       }
     }
 
@@ -310,6 +123,10 @@
         background-color: @surface2 !important;
         border-color: @overlay0 !important;
       }
+
+      &:user-invalid {
+        color: @red !important;
+      }
     }
 
     select,
@@ -352,15 +169,29 @@
         border-bottom-style: none;
       }
     }
+  }
 
-    hr {
-      color: @overlay1 !important;
-    }
-
+  .mixin-table() {
     table {
       color: @text !important;
       background-color: @mantle !important;
       border-color: @overlay0 !important;
+
+      tr {
+        border-color: @overlay0 !important;
+
+        &:nth-child(odd) td, .rowodd td {
+          background-color: @surface0 !important;
+        }
+
+        &:nth-child(even) td, .roweven td {
+          background-color: @base !important;
+        }
+
+        &:hover, &:hover td {
+          background-color: @surface2 !important;
+        }
+      }
 
       td {
         border-color: @overlay0 !important;
@@ -370,12 +201,128 @@
         color: @peach !important;
         background-color: @mantle !important;
         border-color: @overlay0 !important;
+
+        a {
+          &, &:link {
+            color: @peach !important;
+            text-decoration: underline dotted;
+
+            &:hover {
+              color: @sky !important;
+            }
+
+            &:active {
+              color: @sapphire !important;
+            }
+
+            &:visited {
+              color: @lavender !important;
+            }
+          }
+        }
       }
 
-      th a {
+      &.head tr {
+        border-color: @overlay0 !important;
+      }
+    }
+  }
+
+  .mixin-a() {
+    a, a.permalink {
+      &, &:link {
+        color: @blue !important;
+
+        &:hover {
+          color: @sky !important;
+        }
+
+        &:active {
+          color: @sapphire !important;
+        }
+
+        &:visited {
+          color: @lavender !important;
+        }
+
+        &.active {
+          background-color: @surface0 !important;
+        }
+      }
+    }
+
+    li.isactive a {
+      color: @accent !important;
+    }
+  }
+
+  .mixin-rss() {
+    a.rss-icon {
+      filter: @peach-filter;
+
+      &:link {
+        filter: @peach-filter;
+      }
+
+      &:hover {
+        filter: @sky-filter !important;
+      }
+
+      &:active {
+        filter: @sapphire-filter !important;
+      }
+
+      &:visited {
+        filter: @lavender-filter !important;
+      }
+    }
+
+    #pkg-updates a.rss-icon {
+      filter: @base-filter;
+
+      &:link {
+        filter: @base-filter;
+      }
+
+      &:hover {
+        filter: @sky-filter !important;
+      }
+
+      &:active {
+        filter: @sapphire-filter !important;
+      }
+
+      &:visited {
+        filter: @lavender-filter !important;
+      }
+    }
+  }
+
+  .mixin-h12() {
+    h1 {
+      color: @text !important;
+      background-color: inherit !important;
+      border-color: @overlay1 !important;
+    }
+
+    h2 {
+      color: @mauve !important;
+      background-color: inherit !important;
+      border-color: @overlay1 !important;
+    }
+  }
+
+  .mixin-h3() {
+    h3 {
+      color: @base !important;
+      background-color: @blue !important;
+      border-color: @overlay1 !important;
+
+      a {
         &, &:link {
-          color: @peach !important;
-          text-decoration: underline dotted;
+          color: @base !important;
+          background-color: @blue !important;
+          border-color: @overlay1 !important;
 
           &:hover {
             color: @sky !important;
@@ -391,50 +338,137 @@
         }
       }
 
-      tr:hover {
-        background-color: @surface2 !important;
-      }
-
-      tr:nth-child(odd) td {
-        background-color: @surface0 !important;
-      }
-
-      tr:nth-child(even) td {
-        background-color: @base !important;
-      }
-
-      tr:hover td {
-        background-color: @surface2 !important;
+      span.arrow {
+        color: transparent !important;
+        background: none !important;
+        border-color: @blue transparent transparent transparent !important;
       }
     }
+  }
 
-    table.head tr {
-      border-color: @overlay0 !important;
+  .mixin-h4() {
+    h4 {
+      color: @peach !important;
+      background-color: inherit !important;
+      border-color: @overlay1 !important;
+
+      a {
+        &, &:link {
+          color: @peach !important;
+
+          &:hover {
+            color: @sky !important;
+          }
+
+          &:active {
+            color: @sapphire !important;
+          }
+
+          &:visited {
+            color: @lavender !important;
+          }
+        }
+      }
+    }
+  }
+
+  .mixin-h5() {
+    h5 {
+      color: @green !important;
+
+      a {
+        &, &:link {
+          color: @green !important;
+
+          &:hover {
+            color: @sky !important;
+          }
+
+          &:active {
+            color: @sapphire !important;
+          }
+
+          &:visited {
+            color: @lavender !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+// deno-fmt-ignore
+@-moz-document regexp("^https:\\/\\/(?!gitlab\\.)(.+\\.)*archlinux\\.org(?:\\/.*)+") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
     }
 
-    /* Unknown */
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    --bg-color: @base !important;
+    --color: @text !important;
+    --code-inline-bg-color: @surface0 !important;
+    --code-block-bg-color: @mantle !important;
+    --code-block-border-color: @surface2 !important;
+    --link-color: @blue !important;
+    --table-border-color: @surface2 !important;
+    --table-bg-color: @mantle !important;
+    --table-th-bg-color: @crust !important;
+    --table-focus-bg-color: @surface0 !important;
+
+    #mixins.mixin-base();
+    #mixins.mixin-code();
+    #mixins.mixin-inputs();
+    #mixins.mixin-table();
+    #mixins.mixin-a();
+    #mixins.mixin-rss();
+
+    #mixins.mixin-h12();
+    #mixins.mixin-h3();
+    #mixins.mixin-h4();
+    #mixins.mixin-h5();
+
+    // Dividers
+    hr {
+      color: @overlay1 !important;
+    }
+
+    // Unknown
     .purple {
       color: @mauve !important;
     }
 
-    /* Low */
+    // Low
     .green {
       color: @green !important;
     }
 
-    /* Medium */
+    // Medium
     .light_orange {
       color: @yellow !important;
     }
 
-    /* High */
+    // High
     .orange {
       color: @peach !important;
     }
 
-    /* Vulnerable */
+    // Vulnerable
     .red {
       color: @red !important;
+    }
+
+    .timestamp {
+      color: @lavender !important;
     }
 
     .errorlist {
@@ -446,9 +480,7 @@
       border-bottom-color: @blue !important;
 
       #logo, &logo {
-        @svg: escape(
-          '<svg xmlns="http://www.w3.org/2000/svg" version="1" width="600" height="126"><path d="M159.568 34.427c-8.89-.014-16.267 1.809-19.12 2.803l-2.937 15.857c-.007.058 14.617-3.9 21.059-3.667 10.665.383 11.646 4.076 11.46 9.06.182.292-2.752-4.503-11.979-4.664-11.64-.2-28.069 4.122-28.046 21.692-.314 19.765 14.764 25.579 25.032 25.686 9.232-.168 13.563-3.496 15.934-5.28 3.115-3.257 6.679-6.532 10.078-10.462-3.216 5.844-6.005 9.884-8.907 12.977v2.611l14.033-2.361.096-38.144c-.143-5.399 3.096-26.057-26.703-26.108m-2.016 33.21c5.817.08 12.488 2.948 12.497 9.849.03 6.277-7.863 9.651-12.996 9.598-5.135-.053-11.949-4.036-11.979-10.155.099-5.47 6.426-9.432 12.478-9.291zm37.972-29.685-.095 63.166 16.348-3.15.027-35.814c.004-5.333 7.62-11.564 17.178-11.464 2.028-3.67 5.84-13.05 6.77-15.183-21.351-.051-21.623 6.137-25.336 9.18-.04-5.806-.013-9.292-.013-9.292zm92.002 8.292c-.158-.074-8.526-9.788-25.35-9.864-15.758-.262-33.433 5.847-33.716 32.27.138 23.232 16.979 32.311 33.805 32.488 18.007.187 25.172-11.26 25.602-11.543-2.149-1.863-10.196-9.837-10.196-9.837s-5.027 7.157-14.779 7.248c-9.755.093-18.234-7.54-18.354-18.189-.125-10.65 7.795-16.419 18.427-16.885 9.205-.002 14.516 5.943 14.516 5.943zm20.606-30.399-15.434 3.628.115 82.277 15.204-2.745.172-38.72c.033-4.06 5.874-10.295 15.626-10.097 9.325.097 11.41 6.215 11.384 6.988l.269 44.824 14.993-2.65.057-47.53c.099-4.574-10.018-14.233-26.28-14.302-7.729.012-12.009 1.762-14.187 3.052-3.726 2.879-7.985 5.637-12.17 9.157 3.869-4.97 7.117-8.407 10.29-10.961z" fill="@{text}" fill-rule="evenodd"/><path d="m360.136 17.218 6.962-1.742.33 82.95-7.074 1.204zm18.928 24.757 6.101-2.716.052 59.478-5.892 1.217zm-1.45-21.448 4.92-4.015 4.086 4.547-4.921 4.121zm19.024 20.365 6.962-1.421.033 12.434c.001.534 3.823-13.89 22.258-13.57 17.9.1 20.827 13.957 20.73 17.064l.221 43.725-6.102 1.324-.035-43.189c.07-1.261-2.79-11.927-15.439-11.966-12.646-.037-21.409 9.186-21.393 15.078l.1 38.047-7.07 1.847zm110.954 58.546-6.962 1.42-.033-12.433c-.001-.534-3.825 13.89-22.258 13.57-17.9-.1-20.827-13.957-20.73-17.064l-.221-43.725 7.397-1.494.114 43.19c.003 1.18 1.416 12.096 14.065 12.135 12.646.037 21.506-7.616 21.569-19.139l-.09-34.076 6.885-1.757zm13.645-59.037-4.882 3.82 18.717 24.494-19.963 28.3 5.179 3.843 18.766-26.28 19.368 26.902 4.791-3.82-20.757-28.765 16.56-23.262-5.092-4.305-15.085 21.525z" fill="@{blue}" fill-rule="evenodd"/><path d="M61.88 1.778c-5.385 13.203-8.633 21.839-14.629 34.649 3.676 3.896 8.188 8.434 15.516 13.559-7.878-3.242-13.252-6.497-17.267-9.874-7.673 16.011-19.695 38.818-44.09 82.65 19.174-11.068 34.037-17.893 47.889-20.497a35 35 0 0 1-.91-8.213l.023-.614c.304-12.284 6.694-21.73 14.264-21.09 7.57.642 13.454 11.126 13.15 23.41-.058 2.312-.319 4.536-.774 6.598 13.701 2.68 28.405 9.487 47.32 20.407-3.73-6.866-7.059-13.056-10.238-18.95-5.007-3.882-10.23-8.933-20.884-14.402 7.323 1.903 12.566 4.099 16.653 6.552C75.58 35.786 72.963 27.79 61.88 1.778" fill="@{blue}" fill-rule="evenodd"/><path d="M576.771 93.265V80.603h-4.73v-1.695h11.38v1.695h-4.75v12.662zm8.629 0V78.908h2.859l3.398 10.166q.47 1.42.686 2.125.245-.784.764-2.301l3.437-9.99h2.556v14.357h-1.831V81.25l-4.172 12.016h-1.714l-4.152-12.222v12.222h-1.832" font-weight="400" font-size="8.441" font-family="DejaVu Sans Mono" fill="@{subtext1}"/></svg>'
-        );
+        @svg: escape("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1\" width=\"600\" height=\"126\"><path d=\"M159.568 34.427c-8.89-.014-16.267 1.809-19.12 2.803l-2.937 15.857c-.007.058 14.617-3.9 21.059-3.667 10.665.383 11.646 4.076 11.46 9.06.182.292-2.752-4.503-11.979-4.664-11.64-.2-28.069 4.122-28.046 21.692-.314 19.765 14.764 25.579 25.032 25.686 9.232-.168 13.563-3.496 15.934-5.28 3.115-3.257 6.679-6.532 10.078-10.462-3.216 5.844-6.005 9.884-8.907 12.977v2.611l14.033-2.361.096-38.144c-.143-5.399 3.096-26.057-26.703-26.108m-2.016 33.21c5.817.08 12.488 2.948 12.497 9.849.03 6.277-7.863 9.651-12.996 9.598-5.135-.053-11.949-4.036-11.979-10.155.099-5.47 6.426-9.432 12.478-9.291zm37.972-29.685-.095 63.166 16.348-3.15.027-35.814c.004-5.333 7.62-11.564 17.178-11.464 2.028-3.67 5.84-13.05 6.77-15.183-21.351-.051-21.623 6.137-25.336 9.18-.04-5.806-.013-9.292-.013-9.292zm92.002 8.292c-.158-.074-8.526-9.788-25.35-9.864-15.758-.262-33.433 5.847-33.716 32.27.138 23.232 16.979 32.311 33.805 32.488 18.007.187 25.172-11.26 25.602-11.543-2.149-1.863-10.196-9.837-10.196-9.837s-5.027 7.157-14.779 7.248c-9.755.093-18.234-7.54-18.354-18.189-.125-10.65 7.795-16.419 18.427-16.885 9.205-.002 14.516 5.943 14.516 5.943zm20.606-30.399-15.434 3.628.115 82.277 15.204-2.745.172-38.72c.033-4.06 5.874-10.295 15.626-10.097 9.325.097 11.41 6.215 11.384 6.988l.269 44.824 14.993-2.65.057-47.53c.099-4.574-10.018-14.233-26.28-14.302-7.729.012-12.009 1.762-14.187 3.052-3.726 2.879-7.985 5.637-12.17 9.157 3.869-4.97 7.117-8.407 10.29-10.961z\" fill=\"@{text}\" fill-rule=\"evenodd\"/><path d=\"m360.136 17.218 6.962-1.742.33 82.95-7.074 1.204zm18.928 24.757 6.101-2.716.052 59.478-5.892 1.217zm-1.45-21.448 4.92-4.015 4.086 4.547-4.921 4.121zm19.024 20.365 6.962-1.421.033 12.434c.001.534 3.823-13.89 22.258-13.57 17.9.1 20.827 13.957 20.73 17.064l.221 43.725-6.102 1.324-.035-43.189c.07-1.261-2.79-11.927-15.439-11.966-12.646-.037-21.409 9.186-21.393 15.078l.1 38.047-7.07 1.847zm110.954 58.546-6.962 1.42-.033-12.433c-.001-.534-3.825 13.89-22.258 13.57-17.9-.1-20.827-13.957-20.73-17.064l-.221-43.725 7.397-1.494.114 43.19c.003 1.18 1.416 12.096 14.065 12.135 12.646.037 21.506-7.616 21.569-19.139l-.09-34.076 6.885-1.757zm13.645-59.037-4.882 3.82 18.717 24.494-19.963 28.3 5.179 3.843 18.766-26.28 19.368 26.902 4.791-3.82-20.757-28.765 16.56-23.262-5.092-4.305-15.085 21.525z\" fill=\"@{blue}\" fill-rule=\"evenodd\"/><path d=\"M61.88 1.778c-5.385 13.203-8.633 21.839-14.629 34.649 3.676 3.896 8.188 8.434 15.516 13.559-7.878-3.242-13.252-6.497-17.267-9.874-7.673 16.011-19.695 38.818-44.09 82.65 19.174-11.068 34.037-17.893 47.889-20.497a35 35 0 0 1-.91-8.213l.023-.614c.304-12.284 6.694-21.73 14.264-21.09 7.57.642 13.454 11.126 13.15 23.41-.058 2.312-.319 4.536-.774 6.598 13.701 2.68 28.405 9.487 47.32 20.407-3.73-6.866-7.059-13.056-10.238-18.95-5.007-3.882-10.23-8.933-20.884-14.402 7.323 1.903 12.566 4.099 16.653 6.552C75.58 35.786 72.963 27.79 61.88 1.778\" fill=\"@{blue}\" fill-rule=\"evenodd\"/><path d=\"M576.771 93.265V80.603h-4.73v-1.695h11.38v1.695h-4.75v12.662zm8.629 0V78.908h2.859l3.398 10.166q.47 1.42.686 2.125.245-.784.764-2.301l3.437-9.99h2.556v14.357h-1.831V81.25l-4.172 12.016h-1.714l-4.152-12.222v12.222h-1.832\" font-weight=\"400\" font-size=\"8.441\" font-family=\"DejaVu Sans Mono\" fill=\"@{subtext1}\"/></svg>");
         background-image: url("data:image/svg+xml,@{svg}") !important;
       }
 
@@ -456,8 +488,7 @@
         color: @blue;
       }
 
-      ul li.anb-selected a,
-      &.anb-aur ul li#anb-aur a {
+      ul li.anb-selected a {
         color: @accent !important;
       }
 
@@ -472,8 +503,10 @@
   }
 }
 
-/* deno-fmt-ignore */
-@-moz-document regexp("^https:\\/\\/(?!(gitlab|security)\\.)(.+\\.)*archlinux\\.org\\/(?!packages\\/?).*") {
+/// Navbar Highlighting
+
+// Homepage
+@-moz-document url("https://archlinux.org") {
   :root {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
@@ -495,6 +528,7 @@
   }
 }
 
+// Arch Official Repository
 @-moz-document url-prefix("https://archlinux.org/packages") {
   :root {
     @media (prefers-color-scheme: light) {
@@ -517,6 +551,30 @@
   }
 }
 
+// Arch User Repository
+@-moz-document domain("aur.archlinux.org") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    #archnavbar ul li#anb-aur a {
+      color: @accent !important;
+    }
+  }
+}
+
+// Arch Security
 @-moz-document url-prefix("https://security.archlinux.org/") {
   :root {
     @media (prefers-color-scheme: light) {
@@ -537,40 +595,21 @@
       color: @accent !important;
     }
 
-    .navbar ul li b {
-      color: @accent !important;
-    }
+    .navbar ul li {
+      a[href="/"] {
+        color: @accent !important;
+      }
 
-    .navbar ul li a[href="/"] {
-      color: @accent !important;
-    }
-  }
-}
-
-@-moz-document domain("aur.archlinux.org") {
-  :root {
-    @media (prefers-color-scheme: light) {
-      #catppuccin(@lightFlavor);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      #catppuccin(@darkFlavor);
-    }
-  }
-
-  #catppuccin(@flavor) {
-    #lib.palette();
-    #lib.defaults();
-    #lib.css-variables();
-
-    #archnavbar {
-      ul li#anb-aur a {
+      b {
         color: @accent !important;
       }
     }
   }
 }
 
+/// Other Specific Rules
+
+// Home, and Both Package Repositories
 @-moz-document url("https://archlinux.org/"),
   url-prefix("https://archlinux.org/packages"),
   domain("aur.archlinux.org") {
@@ -591,7 +630,7 @@
 
     .comments-header h3,
     #news h3 {
-      background-color: transparent !important;
+      background: none !important;
     }
 
     #pkgdetails {
@@ -625,30 +664,32 @@
       background-color: @mantle !important;
     }
 
-    table.tabs {
-      border-color: @blue !important;
+    table {
+      &#header {
+        tr td {
+          background-color: @base !important;
+          border-color: @overlay0 !important;
 
-      tr td {
-        background-color: @surface0 !important;
-
-        &:hover {
-          background: @surface0 !important;
+          &:hover {
+            background-color: @base !important;
+          }
         }
       }
 
-      .active {
-        color: @base !important;
-        background-color: @blue !important;
-      }
-    }
+      &.tabs {
+        border-color: @blue !important;
 
-    table#header {
-      tr td {
-        background-color: @base !important;
-        border-color: @overlay0 !important;
+        tr td {
+          background-color: @surface0 !important;
 
-        &:hover {
-          background-color: @base !important;
+          &:hover {
+            background: @surface0 !important;
+          }
+        }
+
+        .active {
+          color: @base !important;
+          background-color: @blue !important;
         }
       }
     }
@@ -696,18 +737,16 @@
       }
     }
 
-    .stats tr td.sum {
-      color: @red !important;
-    }
-
     .edited {
       color: @subtext0 !important;
     }
 
+    .stats tr td.sum {
+      color: @red !important;
+    }
+
     #cgit {
-      pre {
-        background-color: @mantle !important;
-      }
+      #mixins.mixin-code();
 
       code {
         /*****************************************************************
@@ -726,52 +765,81 @@
           - kwX: keyword group X (X: a..z)
         *****************************************************************/
 
-        /* deno-fmt-ignore */
-        .num { color: @peach !important; } /* Numerics */
+        // Numerics
+        .num {
+          color: @peach !important;
+        }
+
+        // Escape Codes
         .esc {
           color: @pink !important;
-        } /* Escape Codes */
+        }
+
+        // Strings
         .sng {
           color: @green !important;
-        } /* Strings */
+        }
+
+        // Pre-Processor Strings
         .pps {
           color: @maroon !important;
-        } /* Pre-Processor Strings */
-        .slc {
-          color: @overlay2 !important;
-        } /* Single-Line Comments */
-        .com {
-          color: @overlay2 !important;
-        } /* All Other Comments */
+        }
+
+        // All Other Pre-Processor
         .ppc {
           color: @teal !important;
-        } /* All Other Pre-Processor */
+        }
+
+        // Single-Line Comments
+        .slc {
+          color: @overlay2 !important;
+        }
+
+        // All Other Comments
+        .com {
+          color: @overlay2 !important;
+        }
+
+        // Operators
         .opt {
           color: @sky !important;
-        } /* Operators */
+        }
+
+        // String Interpolation
         .ipl {
           color: @blue !important;
-        } /* String Interpolation */
+        }
+
+        // Line Numbers
         .lin {
           color: @surface2 !important;
-        } /* Line Numbers */
+        }
+
+        // Keyword Group a - Keys?
         .kwa {
           color: @text !important;
-        } /* Keyword Group a - Keys? */
+        }
+
+        // Keyword Group b - Parameters?
         .kwb {
           color: @blue !important;
-        } /* Keyword Group b - Parameters? */
+        }
+
+        // Keyword Group c - Commands
         .kwc {
           color: @mauve !important;
-        } /* Keyword Group c - Commands */
+        }
+
+        // Keyword Group d - Symbols
         .kwd {
           color: @maroon !important;
-        } /* Keyword Group d - Symbols */
+        }
       }
     }
   }
 }
 
+// Arch BBS Forums
 @-moz-document domain("bbs.archlinux.org") {
   :root {
     @media (prefers-color-scheme: light) {
@@ -790,72 +858,27 @@
 
     .pun {
       color: @text !important;
-      background-color: @base !important;
+      background-color: @mantle !important;
       border-color: @overlay0 !important;
 
-      body, content, content *, img, label {
-        color: @text !important;
-      }
+      #mixins.mixin-base();
+      #mixins.mixin-code();
+      #mixins.mixin-inputs();
+      #mixins.mixin-table();
+      #mixins.mixin-a();
+      #mixins.mixin-rss();
 
-      body, content, content * {
-        background-color: @base !important;
-      }
-
-      legend {
-        color: @subtext0 !important;
-      }
+      #mixins.mixin-h12();
+      #mixins.mixin-h3();
+      #mixins.mixin-h4();
+      #mixins.mixin-h5();
 
       .timestamp {
         color: @lavender !important;
       }
 
-      .box, .path {
-        background-color: @mantle !important;
-        border-color: @overlay0 !important;
-      }
-
-      a, a.permalink {
-        &, &:link {
-          color: @blue !important;
-
-          &:hover {
-            color: @sky !important;
-          }
-
-          &:active {
-            color: @sapphire !important;
-          }
-
-          &:visited {
-            color: @lavender !important;
-          }
-        }
-      }
-
       li, .blockmenu {
-        a {
-          &, &:link {
-            color: @blue !important;
-            background-color: inherit;
-            border-color: @surface1 !important;
-
-            &:hover {
-              color: @sky !important;
-              background-color: @surface1 !important;
-              border-color: @surface2 !important;
-            }
-
-            &:active {
-              color: @sapphire !important;
-              background-color: @surface2 !important;
-              border-color: @overlay0 !important;
-            }
-
-            &:visited {
-              color: @lavender !important;
-            }
-          }
-        }
+        #mixins.mixin-a();
 
         &.isactive a {
           &, &:link {
@@ -864,311 +887,45 @@
         }
       }
 
-      a.rss-icon {
-        &, &:link {
-          filter: @peach-filter;
-
-          &:hover {
-            filter: @sky-filter !important;
-          }
-
-          &:active {
-            filter: @sapphire-filter !important;
-          }
-
-          &:visited {
-            filter: @lavender-filter !important;
-          }
-        }
-      }
-
-      h1 {
-        color: @text !important;
-        border-color: @overlay1 !important;
-      }
-
-      h2, #users1 h2 {
-        color: @mauve !important;
-        background-color: inherit;
-        border-color: @overlay1 !important;
-      }
-
-      h3 {
-        color: @base !important;
-        background-color: @blue !important;
-        border-color: @overlay1 !important;
-      }
-
-      h3 a {
-        &, &:link {
-          color: @base !important;
-          background-color: @blue !important;
-          border-color: @overlay1 !important;
-
-          &:hover {
-            color: @sky !important;
-          }
-
-          &:active {
-            color: @sapphire !important;
-          }
-
-          &:visited {
-            color: @lavender !important;
-          }
-        }
-      }
-
-      h3 span.arrow {
-        color: transparent !important;
-        background-color: transparent !important;
-        border-color: @blue transparent transparent transparent !important;
-      }
-
-      #pkg-updates a.rss-icon {
-        &, &:link {
-          filter: @base-filter;
-
-          &:link {
-            filter: @base-filter;
-          }
-
-          &:hover {
-            filter: @sky-filter !important;
-          }
-
-          &:active {
-            filter: @sapphire-filter !important;
-          }
-
-          &:visited {
-            filter: @lavender-filter !important;
-          }
-        }
-      }
-
-      h4 {
-        color: @peach !important;
-        border-color: @overlay1 !important;
-      }
-
-      h4 a {
-        &, &:link {
-          color: @peach !important;
-
-          &:hover {
-            color: @sky !important;
-          }
-
-          &:active {
-            color: @sapphire !important;
-          }
-
-          &:visited {
-            color: @lavender !important;
-          }
-        }
-      }
-
-      h5 {
-        color: @green !important;
-      }
-
-      h5 a {
-        &, &:link {
-          color: @green !important;
-
-          &:hover {
-            color: @sky !important;
-          }
-
-          &:active {
-            color: @sapphire !important;
-          }
-
-          &:visited {
-            color: @lavender !important;
-          }
-        }
-      }
-
-      pre {
-        background-color: @mantle !important;
-        border-color: @overlay0 !important;
-      }
-
-      code {
-        background-color: @mantle !important;
-        color: @text !important;
-        border-color: @overlay0 !important;
-      }
-
-      button,
-      ::file-selector-button,
-      .rbox label,
-      .text-button,
-      input {
-        color: @text !important;
-        background-color: @surface0 !important;
-        border-color: @surface1 !important;
-
-        &:hover {
-          background-color: @surface1 !important;
-          border-color: @surface2 !important;
-        }
-
-        &:active, &:enabled {
-          background-color: @surface2 !important;
-          border-color: @overlay0 !important;
-        }
-      }
-
-      input[type="reset"] {
-        background-color: @red !important;
-
-        border-color: @maroon !important;
-        color: @base !important;
-      }
-
-      textarea {
-        color: @text !important;
-        background-color: @surface0 !important;
-        border-color: @surface1 !important;
-
-        &:hover {
-          background-color: @surface1 !important;
-          border-color: @surface2 !important;
-        }
-
-        &:active {
-          background-color: @surface2 !important;
-          border-color: @overlay0 !important;
-        }
-      }
-
-      select,
-      select option {
-        color: @text !important;
-        background-color: @surface0 !important;
-        border-color: @surface1 !important;
-
-        &:hover {
-          background-color: @surface1 !important;
-          border-color: @surface2 !important;
-        }
-
-        &:focus {
-          background-color: fade(@accent, 30%);
-        }
-
-        &:active, &:checked {
-          background-color: @surface2 !important;
-          border-color: @overlay0 !important;
-        }
-      }
-
-      .checklist {
-        color: @text !important;
-        background-color: @surface0 !important;
-        border-color: @surface1 !important;
-
-        legend {
-          color: @peach !important;
-        }
-      }
-
-      .rbox {
-        border-color: @overlay0 !important;
-        border-bottom-width: 2px;
-        border-bottom-style: solid;
-
-        label:last-child {
-          border-bottom-style: none;
-        }
-      }
-
-      table {
-        color: @text !important;
-        background-color: @mantle !important;
-        border-color: @overlay0 !important;
-
-        td {
-          border-color: @overlay0 !important;
-        }
-
-        th {
-          color: @peach !important;
-          background-color: @mantle !important;
-          border-color: @overlay0 !important;
-        }
-
-        th a {
-          &, &:link {
-            color: @peach !important;
-            text-decoration: underline dotted;
-
-            &:hover {
-              color: @sky !important;
-            }
-
-            &:active {
-              color: @sapphire !important;
-            }
-
-            &:visited {
-              color: @lavender !important;
-            }
-          }
-        }
-
-        tr:hover {
-          background-color: fade(@overlay2, 30%) !important;
-        }
-
-        tr:nth-child(odd) td {
-          background-color: @surface0 !important;
-        }
-
-        tr:nth-child(even) td {
-          background-color: @base !important;
-        }
-
-        tr:hover td {
-          background-color: fade(@overlay2, 30%) !important;
-        }
-      }
-
-      table.head tr {
-        border-color: @overlay0 !important;
-      }
-
+      // Thread Tags: Sticky
       .stickytext {
         color: @yellow !important;
       }
 
+      // Thread Tags: Closed
       .closedtext {
         color: @maroon !important;
       }
 
+      // Forum Navigation Header
       .crumbs li * {
         color: @mauve !important;
       }
 
+      // Thread Square
       .icon {
         filter: @mauve-filter !important;
       }
 
-      .pagelink {
-        color: @subtext0 !important;
-
-        strong {
-          color: @accent !important;
-        }
+      .punwrap {
+        background-color: @base !important;
+        border-color: @overlay0 !important;
       }
 
-      .punwrap {
-        background-color: @mantle !important;
-        border-color: @overlay0 !important;
+      .inbox {
+        background-color: @base !important;
+      }
+
+      .pagelink.conl {
+        color: @subtext0 !important;
+
+        a, .spacer {
+          border: none !important;
+
+          strong {
+            color: @accent !important;
+          }
+        }
       }
 
       .usercontent {
@@ -1177,30 +934,12 @@
 
       #brdmenu {
         &, * {
-          background-color: @mantle !important;
+          background-color: @base !important;
           border: none !important;
         }
 
         li, .blockmenu {
-          a {
-            &, &:link {
-              color: @blue !important;
-
-              &:hover {
-                color: @sky !important;
-                background-color: @surface1 !important;
-              }
-
-              &:active {
-                color: @sapphire !important;
-                background-color: @surface2 !important;
-              }
-
-              &:visited {
-                color: @lavender !important;
-              }
-            }
-          }
+          #mixins.mixin-a();
 
           &.isactive a {
             &, &:link {
@@ -1210,9 +949,13 @@
         }
       }
 
+      #brdfooternav {
+        background-color: @base !important;
+      }
+
       #brdstats {
         color: @subtext0 !important;
-        border-top-color: @overlay0 !important;
+        border-top-color: @overlay1 !important;
 
         strong {
           color: @peach !important;
@@ -1225,86 +968,89 @@
 
       #brdwelcome {
         color: @subtext0 !important;
-        border-bottom-color: @overlay1 !important;
+        background-color: @base !important;
+
+        strong {
+          color: @peach !important;
+        }
       }
 
       #brdmain {
-        border-bottom-color: @overlay1 !important;
+        background-color: @base !important;
+        border-color: @overlay1 !important;
 
-        a, a.permalink {
-          &, &:link {
-            color: @blue !important;
-
-            &:hover {
-              color: @sky !important;
-            }
-
-            &:active {
-              color: @sapphire !important;
-            }
-
-            &:visited {
-              color: @lavender !important;
-            }
-          }
-        }
+        #mixins.mixin-a();
+        #mixins.mixin-h3();
+        #mixins.mixin-table();
 
         li, .blockmenu {
-          border-color: @overlay0 !important;
-
-          a {
-            &, &:link {
-              color: @blue !important;
-              background-color: inherit;
-              border-color: @surface1 !important;
-
-              &:hover {
-                color: @sky !important;
-                background-color: @surface1 !important;
-                border-color: @surface2 !important;
-              }
-
-              &:active {
-                color: @sapphire !important;
-                background-color: @surface2 !important;
-                border-color: @overlay0 !important;
-              }
-
-              &:visited {
-                color: @lavender !important;
-              }
-            }
-          }
-
-          &.isactive a {
-            &, &:link {
-              color: @accent !important;
-            }
-          }
+          #mixins.mixin-a();
+          border-color: @overlay1 !important;
         }
 
-        h3 a {
-          &, &:link {
+        .postlink.conr {
+          color: @lavender !important;
+        }
+
+        .blockpost, .blockpost * {
+          color: @text !important;
+          background-color: @base !important;
+          border-color: @overlay0 !important;
+
+          h2, .postleft dt, h2 .conr {
             color: @base !important;
             background-color: @blue !important;
             border-color: @overlay1 !important;
 
-            &:hover {
-              color: @sky !important;
-            }
+            a {
+              &, &:link {
+                color: @base !important;
+                background-color: @blue !important;
+                border-color: @overlay1 !important;
 
-            &:active {
-              color: @sapphire !important;
-            }
+                &:hover {
+                  color: @sky !important;
+                }
 
-            &:visited {
-              color: @lavender !important;
+                &:active {
+                  color: @sapphire !important;
+                }
+
+                &:visited {
+                  color: @lavender !important;
+                }
+              }
             }
           }
-        }
 
-        tr {
-          border-color: @overlay0 !important;
+          .inbox {
+            .postbody, .postfoot.clearb {
+              border: none !important;
+            }
+
+            .postfoot.clearb {
+              .postfootleft, .postfootright {
+                border-top: 1px solid @overlay0 !important;
+
+                *:not(a) {
+                  color: @teal !important;
+                }
+              }
+            }
+
+            .quotebox {
+              border-color: @surface2 !important;
+              border: solid none none none !important;
+
+              &, * {
+                background-color: @mantle !important;
+              }
+            }
+
+            &:hover, &:hover *:not(dt) {
+              background-color: @surface0 !important;
+            }
+          }
         }
       }
 
@@ -1316,6 +1062,7 @@
   }
 }
 
+// Arch Wiki
 @-moz-document domain("wiki.archlinux.org") {
   :root {
     @media (prefers-color-scheme: light) {
@@ -1336,7 +1083,9 @@
 
     #__mediawiki.base() !important;
 
-    /* Defaults */
+    /// Arch-Wiki Specific Variables
+
+    // Defaults
     --archwiki-background-color-base: @crust !important;
     --archwiki-body-background-color: @mantle !important;
     --archwiki-text-color: @text !important;
@@ -1350,12 +1099,13 @@
     --archwiki-link-color-visited: @lavender !important;
     --archwiki-link-color-new: @maroon !important;
 
-    /* Table of Contents */
-    --archwiki-toc-background-color: inherit !important;
-    --archwiki-toc-border-color: var(--archwiki-toc-background-color)
-      !important;
+    // Table of Contents - These do not work on V2022.
+    /*
+     * --archwiki-toc-background-color: inherit !important;
+     * --archwiki-toc-border-color: var(--archwiki-toc-background-color) !important;
+     */
 
-    /* Template Boxes (used for notes, warnings, tips and highlighted messages.) */
+    // Template Boxes (used for notes, warnings, tips and highlighted messages.)
     --archwiki-template-note-background-color: @surface0 !important;
     --archwiki-template-note-border-color: @peach !important;
     --archwiki-template-warning-background-color: @surface0 !important;
@@ -1363,19 +1113,19 @@
     --archwiki-template-tip-background-color: @surface0 !important;
     --archwiki-template-tip-border-color: @teal !important;
 
-    /* Navigation Bar (bottom of page, links to other articles within the group) */
+    // Navigation Bar (bottom of page, links to other articles within the group)
     --archwiki-template-navigation-background-color: @mantle !important;
     --archwiki-template-navigation-border-color: @overlay0 !important;
 
-    /* Editor-Specific Meta-related Notes */
+    // Editor-Specific Meta-related Notes
     --archwiki-template-highlight-background-color: @surface0 !important;
     --archwiki-template-highlight-border-color: @yellow !important;
 
-    /* All Other Meta-related Messages */
+    // All Other Meta-related Messages
     --archwiki-template-message-background-color: @surface0 !important;
     --archwiki-template-message-border-color: @blue !important;
 
-    /* Progress Bar */
+    // Progress Bar
     --archwiki-template-progressbar-background-color: @mantle !important;
     --archwiki-template-progressbar-border-color: @surface0 !important;
     --archwiki-template-progressbar-inner-background-color: @accent !important;
@@ -1385,16 +1135,16 @@
       border-width: 1px;
     }
 
-    /* Tables */
+    // Tables
     --archwiki-table-cell-background-red: fade(@red, 30%) !important;
     --archwiki-table-cell-background-orange: fade(@peach, 30%) !important;
     --archwiki-table-cell-background-yellow: fade(@yellow, 30%) !important;
     --archwiki-table-cell-background-green: fade(@green, 30%) !important;
     --archwiki-table-cell-background-blue: fade(@blue, 30%) !important;
     --archwiki-table-cell-background-violet: fade(@mauve, 30%) !important;
-    --archwiki-table-cell-background-grey: fade(@overlay2, 30%) !important;
+    --archwiki-table-cell-background-grey: fade(@surface2, 30%) !important;
 
-    /* Related Articles */
+    // Related Articles
     .archwiki-template-meta-related-articles {
       background-color: @surface0 !important;
 
