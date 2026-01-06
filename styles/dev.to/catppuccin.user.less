@@ -1,0 +1,260 @@
+/* ==UserStyle==
+@name DEV Community Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/dev.to
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/dev.to
+@version 2025.12.29
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/dev.to/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Adev.to
+@description Soothing pastel theme for DEV Community
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("dev.to"), domain("forem.com") {
+  @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
+
+  body.dark-theme {
+    #catppuccin(@darkFlavor);
+  }
+  body.light-theme {
+    #catppuccin(@lightFlavor);
+  }
+  body[data-user-status="logged-out"] {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    --body-bg: @mantle;
+    --black: if(@flavor = latte, @text, @crust);
+    --body-color: @text;
+    --color-primary: @subtext1;
+    --color-secondary: @subtext0;
+
+    --header-bg: @base;
+    --header-shadow: @crust;
+
+    --footer-bg: @crust;
+    --footer-color: @subtext0;
+
+    --form-bg: @crust;
+    --form-bg-focus: @base;
+    --form-border: @surface0;
+    --form-border-hover: @surface1;
+    --form-border-focus: @accent;
+    --focus: @accent !important;
+
+    --base-100: @text;
+    --base-90: @subtext1;
+    --base-80: @subtext1;
+    --base-70: @subtext0;
+    --base-60: @overlay2;
+    --base-50: @overlay1;
+    --base-20: @base;
+    --base-0: @crust;
+    --base-inverted: @surface0;
+
+    --tab-color-current: @accent;
+    --tab-color: @text;
+    --tab-color-hover: @base;
+    --tab-bg-hover: fade(@accent, 70%);
+
+    --link-branded-color: @accent;
+    --link-branded-color-hover: @accent;
+    --link-color: @text;
+    --link-color-hover: @blue;
+    --link-bg-hover: @mantle;
+    --link-color-secondary: @subtext1;
+    --link-color-secondary-hover: @text;
+    --link-bg-current: @mantle;
+    --link-color-current: @accent;
+    --link-current-bg: @surface0;
+    --link-current-color: @accent;
+
+    --btn-bg-hover: @surface0;
+    --btn-color: @text;
+    --btn-color-hover: @accent;
+    --btn-primary-bg: @accent;
+    --btn-primary-bg-hover: fade(@accent, 90%);
+    --btn-primary-color: @base;
+    --btn-primary-color-hover: @crust;
+
+    --button-primary-color: @base;
+    --button-primary-color-hover: @base;
+    --button-primary-bg: @accent;
+    --button-primary-bg-hover: fade(@accent, 90%);
+    --button-secondary-bg: @surface1;
+    --button-secondary-bg-hover: fade(@surface1, 90%);
+    --button-secondary-color: @subtext1;
+    --button-secondary-color-hover: @text;
+    --button-outlined-bg-hover: @mantle;
+    --button-outlined-color: @subtext1;
+    --button-outlined-color-hover: @text;
+    --button-outlined-border: @surface0;
+    --button-outlined-border-hover: @surface1;
+    --button-ghost-bg-hover: @base;
+    --button-ghost-color: @text;
+    --button-ghost-color-hover: @text;
+    --button-ghost-dimmed-color: @subtext0;
+    --button-ghost-dimmed-color-hover: @subtext1;
+
+    --reaction-like-bg: fade(@red, 10%);
+    --reaction-like-color: @red;
+    --reaction-comment-color: @yellow;
+    --reaction-save-color: @blue;
+    // Article like button when liked.
+    img[src^="https://assets.dev.to/assets/heart-plus-active-"] {
+      @svg: escape(
+        '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#a)"><path d="M19 14v3h3v2h-3v3h-2v-3h-3v-2h3v-3zm1.243-9.243a6 6 0 0 1 .507 7.91 6 6 0 0 0-8.061 8.127l-.69.691-8.478-8.492a6 6 0 0 1 8.48-8.464 6 6 0 0 1 8.242.228" fill="@{red}"/><path fill-rule="evenodd" clip-rule="evenodd" d="M19.076 16.974v-3h-2v3h-3v2h3v3h2v-3h3v-2zm-6.311 3.794" fill="@{overlay0}"/></g><defs><clipPath id="a"><path fill="@{mantle}" d="M0 0h24v24H0z"/></clipPath></defs></svg>'
+      );
+      content: url("data:image/svg+xml,@{svg}");
+    }
+
+    --divider: @surface0;
+
+    --label-primary: @text;
+    --label-secondary: @subtext1;
+
+    --accent-brand: @accent;
+    --accent-danger-darker: @red;
+    --accent-danger: @red;
+    --accent-warning: @yellow;
+    --accent-warning-a10: fade(@yellow, 10%);
+    --accent-success-a10: fade(
+      @green,
+      20%
+    ); // Share article link "copied to clipboard" confirmation.
+
+    --card-bg: @base;
+    --card-color: @text;
+    --card-border: @mantle;
+    --card-secondary-bg: @surface0;
+    --card-secondary-bg-hover: fade(@surface0, 90%);
+    --card-secondary-color: @subtext1;
+    --card-secondary-border: @surface0;
+    --card-tertiary-bg: @surface0;
+    --card-tertiary-bg-hover: fade(@surface0, 90%);
+    --card-color-tertiary: @text;
+
+    --cta-branded-bg-hover: @accent;
+    --cta-branded-color: @accent;
+    --cta-branded-color-hover: @base;
+    --cta-branded-border: @accent;
+    --cta-branded-border-hover: @accent;
+
+    --tooltip-bg: @surface2;
+    --tooltip-color: @text;
+
+    --modal-bg: @surface0;
+
+    --tag-bg: fade(@blue, 10%);
+    --tag-bg-hover: fade(@blue, 20%);
+    --tag-color: @blue;
+    --tag-color-hover: @blue;
+    --tag-prefix: @blue;
+    --tag-prefix-hover: @blue;
+
+    --indicator-bg: @blue;
+    --indicator-color: @base;
+    --indicator-subtle-bg: fade(@blue, 20%);
+    --indicator-subtle-color: @subtext1;
+
+    --syntax-background-color: @mantle;
+
+    // popular colors have accent colors. These colors are dynamically assigned,
+    // whereas other tags fallback color is not overrided by root variables.
+    .crayons-tag__prefix {
+      --tag-prefix: @blue;
+    }
+
+    // danger button
+    .crayons-btn--danger {
+      --color: @base;
+      --color-hover: @crust;
+    }
+
+    // like and reply button icons in comments
+    .crayons-btn--ghost .reaction-icon {
+      filter: none;
+    }
+
+    // billboard cards on right column has statically coded borders
+    .text-styles--billboard {
+      > div {
+        border-color: @surface0 !important;
+      }
+    }
+
+    // dev.to doesn't provide style for <hr />
+    hr {
+      border-color: @surface2;
+    }
+
+    // Dev++ page
+    // NOTE: This styling might change in future
+    // as it is wrapped with custom conatiner with different variables.
+    #custom {
+      background-color: @crust;
+      color: @text;
+
+      // background
+      .tw-bg-dolphin,
+      .tw-bg-white,
+      .tw-bg-black,
+      .tw-bg-zinc-50,
+      .tw-bg-zinc-950 {
+        background-color: @crust;
+      }
+
+      .tw-bg-zinc-100,
+      .tw-bg-zinc-200,
+      .tw-bg-zinc-800,
+      .tw-bg-zinc-900 {
+        background-color: @mantle;
+      }
+
+      // text
+      .tw-text-black,
+      .tw-text-white,
+      .tw-text-zinc-50,
+      .tw-text-zinc-950 {
+        color: @text;
+      }
+
+      .tw-text-zinc-100,
+      .tw-text-zinc-200,
+      .tw-text-zinc-800,
+      .tw-text-zinc-900 {
+        color: @subtext1;
+      }
+
+      .tw-text-zinc-300,
+      .tw-text-zinc-400,
+      .tw-text-zinc-600,
+      .tw-text-zinc-700 {
+        color: @subtext0;
+      }
+
+      // border
+      .tw-border-zinc-800,
+      .tw-border-zinc-600 {
+        border-color: @surface0;
+      }
+    }
+  }
+}

@@ -15,11 +15,12 @@
 
 ## Usage
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 
-## 💝 Current Maintainer
+## 💝 Current Maintainers
 - [FrancoRav](https://github.com/FrancoRav)
+- [WalkQuackBack](https://github.com/WalkQuackBack)
 
 
 &nbsp;

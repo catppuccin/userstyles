@@ -2,7 +2,7 @@
 @name tldraw Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/tldraw
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/tldraw
-@version 2024.12.31
+@version 2025.09.10
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/tldraw/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Atldraw
 @description Soothing pastel theme for tldraw
@@ -15,418 +15,463 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
 @-moz-document domain("tldraw.com") {
   .tl-theme__dark {
     #catppuccin(@darkFlavor);
   }
+
   .tl-theme__light {
     #catppuccin(@lightFlavor);
   }
 
+  :root:has(.tl-container.tl-theme__dark) .cl-modalContent {
+    #catppuccin(@darkFlavor);
+  }
+
+  :root:has(.tl-container.tl-theme__light) .cl-modalContent {
+    #catppuccin(@lightFlavor);
+  }
+
   #catppuccin(@flavor) {
-    @rosewater: @catppuccin[@@flavor][@rosewater];
-    @flamingo: @catppuccin[@@flavor][@flamingo];
-    @pink: @catppuccin[@@flavor][@pink];
-    @mauve: @catppuccin[@@flavor][@mauve];
-    @red: @catppuccin[@@flavor][@red];
-    @maroon: @catppuccin[@@flavor][@maroon];
-    @peach: @catppuccin[@@flavor][@peach];
-    @yellow: @catppuccin[@@flavor][@yellow];
-    @green: @catppuccin[@@flavor][@green];
-    @teal: @catppuccin[@@flavor][@teal];
-    @sky: @catppuccin[@@flavor][@sky];
-    @sapphire: @catppuccin[@@flavor][@sapphire];
-    @blue: @catppuccin[@@flavor][@blue];
-    @lavender: @catppuccin[@@flavor][@lavender];
-    @text: @catppuccin[@@flavor][@text];
-    @subtext1: @catppuccin[@@flavor][@subtext1];
-    @subtext0: @catppuccin[@@flavor][@subtext0];
-    @overlay2: @catppuccin[@@flavor][@overlay2];
-    @overlay1: @catppuccin[@@flavor][@overlay1];
-    @overlay0: @catppuccin[@@flavor][@overlay0];
-    @surface2: @catppuccin[@@flavor][@surface2];
-    @surface1: @catppuccin[@@flavor][@surface1];
-    @surface0: @catppuccin[@@flavor][@surface0];
-    @base: @catppuccin[@@flavor][@base];
-    @mantle: @catppuccin[@@flavor][@mantle];
-    @crust: @catppuccin[@@flavor][@crust];
-    @accent: @catppuccin[@@flavor][@@accentColor];
+    #lib.palette();
+    #lib.defaults();
 
-    color-scheme: if(@flavor = latte, light, dark);
+    --tl-color-background: @mantle;
+    --tl-color-low: @base;
+    --tl-color-low-border: @base;
+    --tl-color-panel: @surface0;
+    --tl-color-panel-contrast: @surface1;
+    --tl-color-primary: @accent;
+    --tl-color-success: @green;
+    --tl-color-info: @sky;
+    --tl-color-warning: @peach;
+    --tl-color-danger: @maroon;
+    --tl-color-laser: @red;
+    --tl-color-selected: @accent;
+    --tl-color-text: @text;
+    --tl-color-text-1: @text;
+    --tl-color-text-2: @subtext1;
+    --tl-color-text-3: @subtext0;
+    --tl-color-selected-contrast: @crust;
+    --tl-color-snap: @red;
+    --tl-color-selection-stroke: @accent;
+    --tl-color-divider: @surface1;
+    --tl-color-grid: @overlay1;
+    --tla-color-primary: @accent;
+    --tla-color-primary-hover: fade(@accent, 80%);
+    --tla-color-sidebar: @surface0;
+    --tla-color-cta: @accent;
+    --tla-color-cta-hover: fade(@accent, 80%);
+    --tla-color-text-1: @text;
+    --tla-color-text-2: @subtext1;
+    --tla-color-text-3: @subtext0;
+    --tla-color-contrast: @crust;
 
-    ::selection {
-      background-color: fade(@accent, 30%);
+    @violet: darken(@mauve, 20%);
+    @dark-green: darken(@green, 15%);
+    @dark-red: darken(@red, 10%);
+
+    button.tla-primary-button > span.i18n-msg {
+      color: var(--tla-color-contrast);
     }
 
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
+    /* colours on canvas */
+    div.tl-shape {
+      svg.tl-svg-container {
+        /* pencil draw shape fills */
+        path[fill="#f2f2f2"],
+        path[fill="#1d1d1d"] {
+          fill: @text;
+        }
+
+        path[fill="#9398b0"],
+        path[fill="#9fa8b2"] {
+          fill: @overlay2;
+        }
+
+        path[fill="#e599f7"],
+        path[fill="#e085f4"] {
+          fill: @mauve;
+        }
+
+        path[fill="#ae3ec9"] {
+          fill: @violet;
+        }
+
+        path[fill="#4f72fc"],
+        path[fill="#4465e9"] {
+          fill: @blue;
+        }
+
+        path[fill="#4dabf7"],
+        path[fill="#4ba1f1"] {
+          fill: @sky;
+        }
+
+        path[fill="#ffc034"],
+        path[fill="#f1ac4b"] {
+          fill: @yellow;
+        }
+
+        path[fill="#f76707"],
+        path[fill="#e16919"] {
+          fill: @peach;
+        }
+
+        path[fill="#099268"] {
+          fill: @dark-green;
+        }
+
+        path[fill="#40c057"],
+        path[fill="#4cb05e"] {
+          fill: @green;
+        }
+
+        path[fill="#ff8787"],
+        path[fill="#f87777"] {
+          fill: @red;
+        }
+
+        path[fill="#e03131"] {
+          fill: @dark-red;
+        }
+
+        /* shape outlines (path), arrow strokes (g) */
+        path[stroke="#f2f2f2"],
+        path[stroke="#1d1d1d"],
+        g[stroke="#f2f2f2"],
+        g[stroke="#1d1d1d"] {
+          stroke: @text;
+        }
+
+        path[stroke="#9398b0"],
+        path[stroke="#9fa8b2"],
+        g[stroke="#9398b0"],
+        g[stroke="#9fa8b2"] {
+          stroke: @overlay2;
+        }
+
+        path[stroke="#e599f7"],
+        path[stroke="#e085f4"],
+        g[stroke="#e599f7"],
+        g[stroke="#e085f4"] {
+          stroke: @mauve;
+        }
+
+        path[stroke="#ae3ec9"],
+        g[stroke="#ae3ec9"] {
+          stroke: @violet;
+        }
+
+        path[stroke="#4f72fc"],
+        path[stroke="#4465e9"],
+        g[stroke="#4f72fc"],
+        g[stroke="#4465e9"] {
+          stroke: @blue;
+        }
+
+        path[stroke="#4dabf7"],
+        path[stroke="#4ba1f1"],
+        g[stroke="#4dabf7"],
+        g[stroke="#4ba1f1"] {
+          stroke: @sky;
+        }
+
+        path[stroke="#ffc034"],
+        path[stroke="#f1ac4b"],
+        g[stroke="#ffc034"],
+        g[stroke="#f1ac4b"] {
+          stroke: @yellow;
+        }
+
+        path[stroke="#f76707"],
+        path[stroke="#e16919"],
+        g[stroke="#f76707"],
+        g[stroke="#e16919"] {
+          stroke: @peach;
+        }
+
+        path[stroke="#099268"],
+        g[stroke="#099268"] {
+          stroke: @dark-green;
+        }
+
+        path[stroke="#40c057"],
+        path[stroke="#4cb05e"],
+        g[stroke="#40c057"],
+        g[stroke="#4cb05e"] {
+          stroke: @green;
+        }
+
+        path[stroke="#ff8787"],
+        path[stroke="#f87777"],
+        g[stroke="#ff8787"],
+        g[stroke="#f87777"] {
+          stroke: @red;
+        }
+
+        path[stroke="#e03131"],
+        g[stroke="#e03131"] {
+          stroke: @dark-red;
+        }
+
+        /* shape fill - solid */
+        path[fill="#2c3036"],
+        path[fill="#e8e8e8"] {
+          fill: fade(@text, 20%);
+        }
+
+        path[fill="#33373c"],
+        path[fill="#eceef0"] {
+          fill: fade(@overlay2, 20%);
+        }
+
+        path[fill="#383442"],
+        path[fill="#f5eafa"] {
+          fill: fade(@mauve, 20%);
+        }
+
+        path[fill="#342938"],
+        path[fill="#ecdcf2"] {
+          fill: fade(@violet, 20%);
+        }
+
+        path[fill="#262d40"],
+        path[fill="#dce1f8"] {
+          fill: fade(@blue, 20%);
+        }
+
+        path[fill="#2a3642"],
+        path[fill="#ddedfa"] {
+          fill: fade(@sky, 20%);
+        }
+
+        path[fill="#3b352b"],
+        path[fill="#f9f0e6"] {
+          fill: fade(@yellow, 20%);
+        }
+
+        path[fill="#3b2e27"],
+        path[fill="#f8e2d4"] {
+          fill: fade(@peach, 20%);
+        }
+
+        path[fill="#253231"],
+        path[fill="#d3e9e3"] {
+          fill: fade(@dark-green, 20%);
+        }
+
+        path[fill="#2a3830"],
+        path[fill="#dbf0e0"] {
+          fill: fade(@green, 20%);
+        }
+
+        path[fill="#3c2b2b"],
+        path[fill="#f4dadb"] {
+          fill: fade(@red, 20%);
+        }
+
+        path[fill="#382726"] {
+          fill: fade(@dark-red, 20%);
+        }
+      }
+
+      /* sticky notes */
+      div.tl-note__container {
+        &[style*="background-color: rgb(44, 44, 44);"] {
+          background-color: @surface0 !important;
+        }
+
+        &[style*="background-color: rgb(86, 89, 95);"],
+        &[style*="background-color: rgb(192, 202, 211)"] {
+          background-color: @overlay2 !important;
+        }
+
+        &[style*="background-color: rgb(118, 47, 142);"],
+        &[style*="background-color: rgb(223, 176, 249)"] {
+          background-color: fade(@mauve, 40%) !important;
+        }
+
+        &[style*="background-color: rgb(95, 28, 112);"],
+        &[style*="background-color: rgb(219, 145, 253)"] {
+          background-color: fade(@violet, 40%) !important;
+        }
+
+        &[style*="background-color: rgb(42, 63, 152);"],
+        &[style*="background-color: rgb(138, 163, 255)"] {
+          background-color: fade(@blue, 40%) !important;
+        }
+
+        &[style*="background-color: rgb(31, 84, 149);"],
+        &[style*="background-color: rgb(155, 196, 253)"] {
+          background-color: fade(@sky, 40%) !important;
+        }
+
+        /* in light mode, the 'white' coloured sticky note is yellow, so we override it here */
+        &[style*="background-color: rgb(138, 94, 28);"],
+        &[style*="background-color: rgb(254, 212, 154)"],
+        &[style*="background-color: rgb(252, 225, 156)"] {
+          background-color: fade(@yellow, 40%) !important;
+        }
+
+        &[style*="background-color: rgb(124, 57, 5);"],
+        &[style*="background-color: rgb(250, 164, 117)"] {
+          background-color: fade(@peach, 40%) !important;
+        }
+
+        &[style*="background-color: rgb(1, 68, 41);"],
+        &[style*="background-color: rgb(111, 200, 150)"] {
+          background-color: fade(@dark-green, 60%) !important;
+        }
+
+        &[style*="background-color: rgb(33, 88, 29);"],
+        &[style*="background-color: rgb(152, 208, 138)"] {
+          background-color: fade(@green, 40%) !important;
+        }
+
+        &[style*="background-color: rgb(122, 51, 51);"],
+        &[style*="background-color: rgb(247, 165, 161)"] {
+          background-color: fade(@red, 40%) !important;
+        }
+
+        &[style*="background-color: rgb(126, 32, 31);"],
+        &[style*="background-color: rgb(252, 130, 130)"] {
+          background-color: fade(@dark-red, 40%) !important;
+        }
       }
     }
 
-    --color-accent: @accent !important;
-    --color-background: @base !important;
-    --color-brush-fill: @surface0 !important;
-    --color-brush-stroke: @surface2 !important;
-    --color-grid: @overlay0 !important;
-    --color-low: @surface0 !important;
-    --color-low-border: @overlay2 !important;
-    --color-culled: @subtext1 !important;
-    --color-muted-none: fade(@surface0, 70%);
-    --color-muted-0: @surface0;
-    --color-muted-1: @surface1;
-    --color-muted-2: @surface2 !important;
-    --color-hint: @surface2 !important;
-    --color-overlay: fade(@base, 50%) !important;
-    --color-divider: @surface1 !important;
-    --color-panel-contrast: @surface2 !important;
-    --color-panel-overlay: fade(@overlay0, 80%);
-    --color-panel: @surface0 !important;
-    --color-focus: @sky !important;
-    --color-selected: @accent !important;
-    --color-selected-contrast: @crust !important;
-    --color-selection-fill: fade(@blue, 50%);
-    --color-selection-stroke: @sapphire !important;
-    --color-text-0: @text !important;
-    --color-text-1: @text !important;
-    --color-text-3: @subtext1 !important;
-    --color-text-shadow: @subtext0 !important;
-    --color-primary: @blue !important;
-    --color-warn: @maroon !important;
-    --color-text: @text !important;
-    --color-laser: @red !important;
+    /* canvas text */
+    div.tl-text-content__wrapper {
+      &[style*="color: rgb(242, 242, 242)"],
+      &[style*="color: rgb(29, 29, 29)"] {
+        color: @text !important;
+      }
 
-    --shadow-1-1: fade(@crust, 16%);
-    --shadow-1-2: fade(@crust, 22%);
-    --shadow-2-1: fade(@crust, 66%);
-    --shadow-2-2: fade(@crust, 33%);
-    --shadow-3-1: fade(@crust, 50%);
+      &[style*="color: rgb(147, 152, 176)"],
+      &[style*="color: rgb(159, 168, 178)"] {
+        color: @overlay2 !important;
+      }
 
-    --shadow-1: 0px 1px 2px var(--shadow-1-1), 0px 1px 3px var(--shadow-1-2);
-    --shadow-2:
-      0px 1px 3px var(--shadow-2-1), 0px 2px 6px var(--shadow-2-2), inset 0px
-      0px 0px 1px var(--color-panel-contrast);
-    --shadow-3:
-      0px 1px 3px var(--shadow-3-1), 0px 2px 12px var(--shadow-3-1), inset 0px
-      0px 0px 1px var(--color-panel-contrast);
+      &[style*="color: rgb(229, 153, 247)"],
+      &[style*="color: rgb(224, 133, 244)"] {
+        color: @mauve !important;
+      }
 
-    .tlui-menu__submenu__trigger[data-state="open"]:not(:hover)::after {
-      border-radius: var(--radius-1);
-      background: linear-gradient(
-        90deg,
-        @surface0 0%,
-        var(--color-muted-2) 100%
+      &[style*="color: rgb(174, 62, 201)"] {
+        color: @violet !important;
+      }
+
+      &[style*="color: rgb(79, 114, 252)"],
+      &[style*="color: rgb(68, 101, 233)"] {
+        color: @blue !important;
+      }
+
+      &[style*="color: rgb(77, 171, 247)"],
+      &[style*="color: rgb(75, 161, 241)"] {
+        color: @sky !important;
+      }
+
+      &[style*="color: rgb(255, 192, 52)"],
+      &[style*="color: rgb(241, 172, 75)"] {
+        color: @yellow !important;
+      }
+
+      &[style*="color: rgb(247, 103, 7)"],
+      &[style*="color: rgb(225, 105, 25)"] {
+        color: @peach !important;
+      }
+
+      &[style*="color: rgb(9, 146, 104)"] {
+        color: @dark-green !important;
+      }
+
+      &[style*="color: rgb(64, 192, 87)"],
+      &[style*="color: rgb(76, 176, 94)"] {
+        color: @green !important;
+      }
+
+      &[style*="color: rgb(255, 135, 135)"],
+      &[style*="color: rgb(248, 119, 119)"] {
+        color: @red !important;
+      }
+
+      &[style*="color: rgb(224, 49, 49)"] {
+        color: @dark-red !important;
+      }
+    }
+
+    /* colour selection button fills */
+
+    [data-id="black"] {
+      color: @text !important;
+    }
+
+    [data-id="grey"] {
+      color: @overlay2 !important;
+    }
+
+    [data-id="light-violet"] {
+      color: @mauve !important;
+    }
+
+    [data-id="violet"] {
+      color: @violet !important;
+    }
+
+    [data-id="blue"] {
+      color: @blue !important;
+    }
+
+    [data-id="light-blue"] {
+      color: @sky !important;
+    }
+
+    [data-id="yellow"] {
+      color: @yellow !important;
+    }
+
+    [data-id="orange"] {
+      color: @peach !important;
+    }
+
+    [data-id="green"] {
+      color: @dark-green !important;
+    }
+
+    [data-id="light-green"] {
+      color: @green !important;
+    }
+
+    [data-id="light-red"] {
+      color: @red !important;
+    }
+
+    [data-id="red"] {
+      color: @dark-red !important;
+    }
+
+    /* clerk components */
+    --clerk-color-background: @mantle;
+    --clerk-color-primary: @text;
+    --clerk-color-primary-foreground: @crust;
+    --clerk-color-foreground: @subtext1;
+    --clerk-color-neutral: @text;
+    --clerk-color-input: @base;
+    --clerk-color-input-foreground: @text;
+    --clerk-color-border: @text;
+
+    .cl-socialButtonsBlockButton:hover {
+      background-color: @surface0;
+    }
+
+    .cl-logoImage {
+      @svg: escape(
+        '<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="200" height="200"><path fill="@{text}" d="M178.95 0H21.05C9.425 0 0 9.833 0 21.975v156.05C0 190.158 9.425 200 21.05 200h157.9c11.625 0 21.05-9.833 21.05-21.975V21.975C200 9.842 190.575 0 178.95 0M87.2 44.9q4.958-5.058 12.283-5.058 7.117 0 12.067 5.058 4.958 5.05 4.958 12.3c0 7.25-1.65 8.933-4.958 12.3a16.25 16.25 0 0 1-12.067 5.058q-7.325 0-12.283-5.058-4.95-5.05-4.95-12.3c0-7.25 1.65-8.933 4.95-12.3m26.083 95.75a40.83 40.83 0 0 1-16.817 17.8q-6.033 3.517-9.917-.217-3.65-3.517 2.167-8.35 3.225-2.417 5.383-6.15 2.15-3.742 2.8-7.692.217-1.75-1.508-1.75-4.308-.225-8.833-4.842t-4.525-11.417q0-7.25 4.95-12.308a16.83 16.83 0 0 1 12.5-5.275q6.9 0 12.067 5.275 5.167 5.042 6.033 11.417 1.725 11.867-4.308 23.517z"/></svg>'
       );
-    }
-    .tlui-menu-zone *[data-state="open"]::after {
-      background: linear-gradient(
-        180deg,
-        @surface0 0%,
-        var(--color-muted-2) 100%
-      );
-    }
-    .tlui-people-menu__avatar {
-      background-color: @green !important;
-    }
-
-    --color-black: @text;
-    --color-gray: if(@flavor = latte, @subtext0, @subtext0);
-    --color-red: @red;
-    --color-light-red: lighten(@red, 5%);
-    --color-orange: @peach;
-    --color-yellow: @yellow;
-    --color-green: darken(@green, 5%);
-    --color-light-green: lighten(@green, 5%);
-    --color-blue: @blue;
-    --color-light-blue: @sky;
-    --color-violet: darken(@mauve, 10%);
-    --color-light-violet: @mauve;
-
-    [title="Color — Black"] {
-      color: var(--color-black) !important;
-    }
-    [title="Color — Grey"] {
-      color: var(--color-gray) !important;
-    }
-    [title="Color — Red"] {
-      color: var(--color-red) !important;
-    }
-    [title="Color — Light red"] {
-      color: var(--color-light-red) !important;
-    }
-    [title="Color — Orange"] {
-      color: var(--color-orange) !important;
-    }
-    [title="Color — Yellow"] {
-      color: var(--color-yellow) !important;
-    }
-    [title="Color — Green"] {
-      color: var(--color-green) !important;
-    }
-    [title="Color — Light green"] {
-      color: var(--color-light-green) !important;
-    }
-    [title="Color — Blue"] {
-      color: var(--color-blue) !important;
-    }
-    [title="Color — Light blue"] {
-      color: var(--color-light-blue) !important;
-    }
-    [title="Color — Violet"] {
-      color: var(--color-violet) !important;
-    }
-    [title="Color — Light violet"] {
-      color: var(--color-light-violet) !important;
-    }
-    .tl-svg-container {
-      [fill="#e1e1e1"],
-      [fill="#1d1d1d"],
-      [fill="#494949"],
-      [fill="#989898"] {
-        fill: var(--color-black) !important;
-      }
-      [fill="#010403"] {
-        fill: @crust !important;
-      }
-      [fill="#9398b0"],
-      [fill="#adb5bd"],
-      [fill="#bcc3c9"],
-      [fill="#7c8187"] {
-        fill: var(--color-gray) !important;
-      }
-      [fill="#e03131"],
-      [fill="#e55959"],
-      [fill="#8f3734"] {
-        fill: var(--color-red) !important;
-      }
-      [fill="#ff8787"],
-      [fill="#fe9e9e"],
-      [fill="#a56767"] {
-        fill: var(--color-light-red) !important;
-      }
-      [fill="#f76707"],
-      [fill="#f78438"],
-      [fill="#9f552d"] {
-        fill: var(--color-orange) !important;
-      }
-      [fill="#ffc034"],
-      [fill="#ffc078"],
-      [fill="#fecb92"] {
-        fill: var(--color-yellow) !important;
-      }
-      [fill="#099268"],
-      [fill="#39a785"],
-      [fill="#366a53"] {
-        fill: var(--color-green) !important;
-      }
-      [fill="#40c057"],
-      [fill="#65cb78"],
-      [fill="#4e874e"] {
-        fill: var(--color-light-green) !important;
-      }
-      [fill="#4263eb"],
-      [fill="#6681ee"],
-      [fill="#3a4b9e"] {
-        fill: var(--color-blue) !important;
-      }
-      [fill="#4dabf7"],
-      [fill="#6fbbf8"],
-      [fill="#4d7aa9"] {
-        fill: var(--color-light-blue) !important;
-      }
-      [fill="#ae3ec9"],
-      [fill="#bd63d3"],
-      [fill="#763a8b"] {
-        fill: var(--color-violet) !important;
-      }
-      [fill="#e599f7"],
-      [fill="#e9acf8"],
-      [fill="#9770a9"] {
-        fill: var(--color-light-violet) !important;
-      }
-      [stroke="#e1e1e1"],
-      [stroke="#1d1d1d"] {
-        stroke: var(--color-black) !important;
-      }
-      [stroke="#9398b0"],
-      [stroke="#adb5bd"] {
-        stroke: var(--color-gray) !important;
-      }
-      [stroke="#e03131"] {
-        stroke: var(--color-red) !important;
-      }
-      [stroke="#ff8787"] {
-        stroke: var(--color-light-red) !important;
-      }
-      [stroke="#f76707"] {
-        stroke: var(--color-orange) !important;
-      }
-      [stroke="#ffc034"],
-      [stroke="#ffc078"] {
-        stroke: var(--color-yellow) !important;
-      }
-      [stroke="#099268"] {
-        stroke: var(--color-green) !important;
-      }
-      [stroke="#40c057"] {
-        stroke: var(--color-light-green) !important;
-      }
-      [stroke="#4263eb"] {
-        stroke: var(--color-blue) !important;
-      }
-      [stroke="#4dabf7"] {
-        stroke: var(--color-light-blue) !important;
-      }
-      [stroke="#ae3ec9"] {
-        stroke: var(--color-violet) !important;
-      }
-      [stroke="#e599f7"] {
-        stroke: var(--color-light-violet) !important;
-      }
-      [stroke="color(display-p3 0.8078 0.7225 0.0312)"],
-      [stroke="color(display-p3 0.972 0.8705 0.05)"] {
-        stroke: var(--color-yellow) !important;
-      }
-      [stroke="color(display-p3 0.6299 0.7012 0.7856)"],
-      [stroke="color(display-p3 0.8163 0.9023 0.9416)"] {
-        stroke: var(--color-text-3) !important;
-      }
-      [stroke="color(display-p3 0.7024 0.0403 0.753)"],
-      [stroke="color(display-p3 0.9676 0.5652 0.9999)"] {
-        stroke: var(--color-light-violet) !important;
-      }
-      [stroke="color(display-p3 0.5651 0.0079 0.8986)"],
-      [stroke="color(display-p3 0.7469 0.5089 0.9995)"] {
-        stroke: var(--color-violet) !important;
-      }
-      [stroke="color(display-p3 0.0032 0.4655 0.7991)"],
-      [stroke="color(display-p3 0.308 0.6632 0.9996)"] {
-        stroke: var(--color-blue) !important;
-      }
-      [stroke="color(display-p3 0.0023 0.7259 0.7735)"],
-      [stroke="color(display-p3 0.1512 0.9414 0.9996)"] {
-        stroke: var(--color-light-blue) !important;
-      }
-      [stroke="color(display-p3 0.7699 0.4937 0.0085)"],
-      [stroke="color(display-p3 0.9988 0.6905 0.266)"] {
-        stroke: var(--color-orange) !important;
-      }
-      [stroke="color(display-p3 0.0085 0.582 0.4604)"],
-      [stroke="color(display-p3 0.2536 0.984 0.7981)"] {
-        stroke: var(--color-green) !important;
-      }
-      [stroke="color(display-p3 0.2711 0.6172 0.0195)"],
-      [stroke="color(display-p3 0.563 0.9495 0.3857)"] {
-        stroke: var(--color-light-green) !important;
-      }
-      [stroke="color(display-p3 0.7849 0.0585 0.3589)"],
-      [stroke="color(display-p3 0.9988 0.5301 0.6397)"] {
-        stroke: var(--color-light-red) !important;
-      }
-      [stroke="color(display-p3 0.7978 0.0509 0.2035)"],
-      [stroke="color(display-p3 0.9992 0.4376 0.45)"] {
-        stroke: var(--color-red) !important;
-      }
-    }
-
-    [data-testid="mobile-styles.button"] {
-      &[style*="color: rgb(229, 153, 247);"] {
-        color: var(--color-light-violet) !important;
-      }
-      &[style*="color: rgb(147, 152, 176);"],
-      &[style*="color: rgb(173, 181, 189);"] {
-        color: var(--color-gray) !important;
-      }
-      &[style*="color: rgb(224, 49, 49);"] {
-        color: var(--color-red) !important;
-      }
-      &[style*="color: rgb(247, 103, 7);"] {
-        color: var(--color-orange) !important;
-      }
-      &[style*="color: rgb(255, 192, 52);"],
-      &[style*="color: rgb(255, 192, 120);"] {
-        color: var(--color-yellow) !important;
-      }
-      &[style*="color: rgb(9, 146, 104);"] {
-        color: var(--color-green) !important;
-      }
-      &[style*="color: rgb(64, 192, 87);"] {
-        color: var(--color-light-green) !important;
-      }
-      &[style*="color: rgb(66, 99, 235);"] {
-        color: var(--color-blue) !important;
-      }
-      &[style*="color: rgb(77, 171, 247);"] {
-        color: var(--color-light-blue) !important;
-      }
-      &[style*="color: rgb(174, 62, 201);"] {
-        color: var(--color-violet) !important;
-      }
-      &[style*="color: rgb(255, 135, 135);"] {
-        color: var(--color-light-red) !important;
-      }
-    }
-
-    div:has(.tl-text.tl-text-content) {
-      &[style*="color: rgb(225, 225, 225);"],
-      &[style*="color: rgb(29, 29, 29);"] {
-        color: var(--color-black) !important;
-      }
-      &[style*="color: rgb(147, 152, 176);"],
-      &[style*="color: rgb(173, 181, 189);"] {
-        color: var(--color-gray) !important;
-        background-color: var(--color-gray) !important;
-      }
-      &[style*="color: rgb(224, 49, 49);"] {
-        color: var(--color-red) !important;
-        background-color: var(--color-red) !important;
-      }
-      &[style*="color: rgb(255, 135, 135);"] {
-        color: var(--color-light-red) !important;
-        background-color: var(--color-light-red) !important;
-      }
-      &[style*="color: rgb(247, 103, 7);"] {
-        color: var(--color-orange) !important;
-        background-color: var(--color-orange) !important;
-      }
-      &[style*="color: rgb(255, 192, 52);"],
-      &[style*="color: rgb(255, 192, 120);"] {
-        color: var(--color-yellow) !important;
-        background-color: var(--color-yellow) !important;
-      }
-      &[style*="color: rgb(9, 146, 104);"] {
-        color: var(--color-green) !important;
-        background-color: var(--color-green) !important;
-      }
-      &[style*="color: rgb(64, 192, 87);"] {
-        color: var(--color-light-green) !important;
-        background-color: var(--color-light-green) !important;
-      }
-      &[style*="color: rgb(66, 99, 235);"] {
-        color: var(--color-blue) !important;
-        background-color: var(--color-blue) !important;
-      }
-      &[style*="color: rgb(77, 171, 247);"] {
-        color: var(--color-light-blue) !important;
-        background-color: var(--color-light-blue) !important;
-      }
-      &[style*="color: rgb(174, 62, 201);"] {
-        color: var(--color-violet) !important;
-        background-color: var(--color-violet) !important;
-      }
-      &[style*="color: rgb(229, 153, 247);"] {
-        color: var(--color-light-violet) !important;
-        background-color: var(--color-light-violet) !important;
-      }
+      content: url("data:image/svg+xml,@{svg}");
     }
   }
 }
-
-/* deno-fmt-ignore */
-@catppuccin: {
-  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-};

@@ -1,7 +1,6 @@
 {
   deno,
   mkShellNoCC,
-  ...
 }:
 mkShellNoCC {
   packages = [

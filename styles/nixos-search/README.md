@@ -15,11 +15,11 @@
 
 ## Usage
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 
 ## 💝 Current Maintainer
-- [cecelot](https://github.com/cecelot)
+- [sydrinea](https://github.com/sydrinea)
 
 
 &nbsp;
