@@ -1,7 +1,7 @@
-import { ctpM3 } from "./color-index";
+import { scrapeStylesheetsAndCombineForSites } from "@/scrape.ts";
 
-const ltrLocale = new Intl.Locale('en-US');
-const rtlLocale = new Intl.Locale('ar-US');
+const LTR_LOCALE = new Intl.Locale('en-US');
+const RTL_LOCALE = new Intl.Locale('ar-US');
 
 const siteList = [
   // Default
@@ -33,6 +33,11 @@ function getSitesToScrape(locale: Intl.Locale) {
   })
 };
 
-function name(params:type) {
-  
+async function buildUserstyle() {
+  const ltrUrls = getSitesToScrape(LTR_LOCALE)
+  const rtlUrls = getSitesToScrape(RTL_LOCALE)
+
+  await scrapeStylesheetsAndCombineForSites(ltrUrls)
 }
+
+buildUserstyle()

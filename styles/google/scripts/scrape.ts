@@ -1,13 +1,21 @@
 // Modified from https://github.com/WalkQuackBack/google-suite-color-theme/blob/main/scripts/dump-stylesheets.ts
 
-import puppeteer from 'npm:puppeteer@^24.34.0';
+import { chromium, devices, type Page } from 'playwright';
+import { interceptRequest } from "./utils.ts";
+
+import UserAgent from "user-agents";
 
 // TODO: Define proper type for cssSources.
-async function getSiteStyles(page: playwright.Page, url: string): Promise<[string[], any]> {
-  await page.goto(url, { 
+
+// TODO: Fix typings
+// deno-lint-ignore no-explicit-any
+async function getSiteStyles(page: Page, url: URL): Promise<[string[], any]> {
+  await page.goto(url.href, { 
     timeout: 20000,
     waitUntil: 'load'
   });
+
+  await page.screenshot({ path: `screenshots/${url.pathname}-${url.search}.png` });
 
   const cssSources = await page.evaluate(() => {
     const styleTags = Array.from(document.querySelectorAll('style')).map(tag => {
@@ -38,7 +46,19 @@ async function getSiteStyles(page: playwright.Page, url: string): Promise<[strin
   return [ stylesheetHrefs, cssSources ]
 }
 
-export async function dumpStylesheets(urls: string[], page: playwright.Page) {
+export async function scrapeStylesheetsAndCombineForSites(urls: URL[]) {
+  const userAgent = new UserAgent({
+    deviceCategory: 'desktop',
+  }).toString();
+  
+  const browser = await chromium.launch();
+  const context = await browser.newContext({
+    userAgent: userAgent
+  });
+  const page = await context.newPage();
+
+  await interceptRequest(page);
+
   let combinedCss = '';
 
   console.log('\n')
@@ -53,8 +73,8 @@ export async function dumpStylesheets(urls: string[], page: playwright.Page) {
     const cssSources = siteStyles[1]
     
     const inlineCss = cssSources.styleTags
-      .filter((s: { href: any; }) => !s.href)
-      .map((s: { content: any; }) => s.content)
+      .filter((s: { href: string; }) => !s.href)
+      .map((s: { content: string; }) => s.content)
       .join('\n');
       
       combinedCss += `${inlineCss}\n`;
@@ -77,7 +97,7 @@ export async function dumpStylesheets(urls: string[], page: playwright.Page) {
   console.log('Deduplicated fetch list:', allHrefsToFetch)
 
   console.log('Fetching stylesheets from sites...');
-  let linkedCssPromises = allHrefsToFetch.map(href =>
+  const linkedCssPromises = allHrefsToFetch.map(href =>
     fetch(href).then(res => res.text()).catch(err => {
       console.error(`Failed to fetch CSS from ${href}:`, err);
       return '';
