@@ -86,18 +86,20 @@
     .rbox label,
     .text-button,
     input {
-      color: @text !important;
-      background-color: @surface0 !important;
-      border-color: @surface1 !important;
+      &, &:enabled {
+        color: @text !important;
+        background-color: @surface0 !important;
+        border-color: @surface1 !important;
+      }
 
       &:hover {
         background-color: @surface1 !important;
         border-color: @surface2 !important;
       }
 
-      &:active, &:enabled {
+      &:active, &:focus-within {
         background-color: @surface2 !important;
-        border-color: @overlay0 !important;
+        border-color: @accent !important;
       }
 
       &:invalid {
@@ -109,15 +111,16 @@
       button,
       ::file-selector-button,
       .text-button,
-      input {
-        &, &:link {
+      input,
+      .cdx-text-input__input {
+        &, &:link, &:enabled {
           color: @blue !important;
 
           &:hover {
             color: @sky !important;
           }
 
-          &:active {
+          &:active, &:focus-within {
             color: @sapphire !important;
           }
 
@@ -128,7 +131,67 @@
       }
     }
 
-    input[type="reset"] {
+    .cdx-button:has(.mw-ui-icon-wikimedia-expand) {
+      &, &:enabled {
+        color: @text !important;
+        background-color: transparent !important;
+        border-color: transparent !important;
+      }
+
+      &:hover {
+        background-color: @surface1 !important;
+      }
+
+      &:active, &:focus-within {
+        background-color: @surface2 !important;
+      }
+
+      &:invalid {
+        color: @maroon !important;
+      }
+    }
+
+    .cdx-button .mw-ui-icon-wikimedia-expand {
+      &, &:enabled {
+        fill: @accent !important;
+      }
+
+      &:hover {
+        fill: darken(@accent, 5%) !important;
+      }
+
+      &:active, &:focus-within {
+        fill: darken(@accent, 10%) !important;
+      }
+
+      &:disabled {
+        fill: @subtext0 !important;
+      }
+    }
+
+    button[type="submit"], input[type="submit"] {
+      &, &:enabled {
+        color: @base !important;
+        background-color: @accent !important;
+        border-color: @accent !important;
+      }
+
+      &:hover {
+        background-color: darken(@accent, 5%) !important;
+        border-color: darken(@accent, 5%) !important;
+      }
+
+      &:active, &:focus-within {
+        background-color: darken(@accent, 10%) !important;
+        border-color: darken(@accent, 10%) !important;
+      }
+
+      &:invalid {
+        color: @maroon !important;
+      }
+    }
+
+    button[type="reset"], input[type="reset"] {
       background-color: @red !important;
       border-color: @maroon !important;
       color: @base !important;
@@ -144,9 +207,9 @@
         border-color: @surface2 !important;
       }
 
-      &:active {
+      &:active, &:focus-within {
         background-color: @surface2 !important;
-        border-color: @overlay0 !important;
+        border-color: @accent !important;
       }
 
       &:user-invalid {
@@ -236,7 +299,7 @@
               color: @sky !important;
             }
 
-            &:active {
+            &:active, &:focus-within {
               color: @sapphire !important;
             }
 
@@ -285,14 +348,14 @@
 
   .mixin-a() {
     a, a.permalink {
-      &, &:link {
+      &, &:link, &:enabled {
         color: @blue !important;
 
         &:hover {
           color: @sky !important;
         }
 
-        &:active {
+        &:active, &:focus-within {
           color: @sapphire !important;
         }
 
@@ -313,9 +376,7 @@
 
   .mixin-rss() {
     a.rss-icon {
-      filter: @peach-filter;
-
-      &:link {
+      &, &:link, &:enabled {
         filter: @peach-filter;
       }
 
@@ -323,7 +384,7 @@
         filter: @sky-filter !important;
       }
 
-      &:active {
+      &:active, &:focus-within {
         filter: @sapphire-filter !important;
       }
 
@@ -333,17 +394,15 @@
     }
 
     #pkg-updates a.rss-icon {
-      filter: @base-filter;
-
-      &:link {
-        filter: @base-filter;
+      &, &:link, &:enabled {
+        filter: @base-filter !important;
       }
 
       &:hover {
         filter: @sky-filter !important;
       }
 
-      &:active {
+      &:active, &:focus-within {
         filter: @sapphire-filter !important;
       }
 
@@ -358,12 +417,20 @@
       color: @text !important;
       background-color: inherit !important;
       border-color: @overlay1 !important;
+
+      &::before {
+        color: darken(@text, 5%) !important;
+      }
     }
 
-    h2 {
+    h2, h2::before {
       color: @mauve !important;
       background-color: inherit !important;
       border-color: @overlay1 !important;
+
+      &::before {
+        color: darken(@mauve, 5%) !important;
+      }
     }
   }
 
@@ -373,8 +440,12 @@
       background-color: @blue !important;
       border-color: @overlay1 !important;
 
+      &::before {
+        color: darken(@base, 5%) !important;
+      }
+
       a {
-        &, &:link {
+        &, &:link, &:enabled {
           color: @base !important;
           background-color: @blue !important;
           border-color: @overlay1 !important;
@@ -383,7 +454,7 @@
             color: @sky !important;
           }
 
-          &:active {
+          &:active, &:focus-within {
             color: @sapphire !important;
           }
 
@@ -407,15 +478,19 @@
       background-color: inherit !important;
       border-color: @overlay1 !important;
 
+      &::before {
+        color: darken(@peach, 5%) !important;
+      }
+
       a {
-        &, &:link {
+        &, &:link, &:enabled {
           color: @peach !important;
 
           &:hover {
             color: @sky !important;
           }
 
-          &:active {
+          &:active, &:focus-within {
             color: @sapphire !important;
           }
 
@@ -431,15 +506,19 @@
     h5 {
       color: @green !important;
 
+      &::before {
+        color: darken(@green, 5%) !important;
+      }
+
       a {
-        &, &:link {
+        &, &:link, &:enabled {
           color: @green !important;
 
           &:hover {
             color: @sky !important;
           }
 
-          &:active {
+          &:active, &:focus-within {
             color: @sapphire !important;
           }
 
@@ -1177,7 +1256,7 @@
                   color: @sky !important;
                 }
 
-                &:active {
+                &:active, &:focus-within {
                   color: @sapphire !important;
                 }
 
