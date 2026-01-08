@@ -2,7 +2,7 @@
 @name YouTube Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/youtube
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/youtube
-@version 2025.12.20
+@version 2026.01.03.2
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/youtube/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ayoutube
 @description Soothing pastel theme for YouTube
@@ -17,6 +17,7 @@
 @var checkbox logo "Enable YouTube logo" 1
 @var checkbox oled "Enable black bars" 0
 @var checkbox sponsorBlock "Enable SponsorBlock segments" 1
+@var checkbox hideColorSampleTint "Hide color-sampled tint" 1
 ==/UserStyle== */
 
 @import "https://userstyles.catppuccin.com/lib/lib.less";
@@ -100,7 +101,7 @@
       --yt-spec-raised-background: @base;
       --yt-spec-menu-background: @mantle;
       --yt-spec-inverted-background: @text;
-      --yt-spec-additive-background: fade(@surface1, 90%);
+      --yt-spec-additive-background: @surface0;
       --yt-spec-outline: @surface0;
       --yt-spec-shadow: fade(@crust, 75%);
       --yt-spec-text-primary: @text;
@@ -352,6 +353,26 @@
 
     /* Misc */
 
+    & when (@hideColorSampleTint = 1) {
+      // Recommended video card hover effect
+      .yt-spec-touch-feedback-shape__hover-effect {
+        background-color: @surface0 !important;
+      }
+      // Video description background (collapsed on hover)
+      ytd-watch-metadata[enable-color-sampling] {
+        --yt-saturated-raised-background: @surface1;
+        --yt-saturated-text-primary: @text;
+      }
+      // Video description text (expanded)
+      .yt-core-attributed-string--link-inherit-color {
+        color: @text !important;
+      }
+      // Video description links
+      .yt-core-attributed-string--highlight-text-decorator {
+        background-color: @surface2;
+      }
+    }
+
     & when (@logo = 0) {
       ytd-topbar-logo-renderer,
       svg.ytd-consent-bump-v2-lightbox {
@@ -597,8 +618,7 @@
     }
 
     .yt-spec-button-shape-next--disabled {
-      background-color: fade(@overlay0, 50%);
-      color: @subtext0;
+      color: @overlay1;
     }
 
     .yt-spec-button-shape-next--overlay {
@@ -750,13 +770,6 @@
     }
 
     /* Video description */
-
-    #description {
-      [style*="color: rgb(255, 255, 255);"],
-      [style*="color: rgb(19, 19, 19);"] {
-        color: @text;
-      }
-    }
 
     .yt-core-attributed-string__link--call-to-action-color {
       color: @accent;
@@ -977,29 +990,23 @@
       }
 
       .ytp-autonav-toggle-button {
-        @svg: escape(
-          '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="12" fill="none"><path opacity=".5" fill-rule="evenodd" clip-rule="evenodd" d="M22.7 11c2.95 0 5.3-2.21 5.3-5s-2.35-5-5.3-5H7.3C4.35 1 2 3.21 2 6s2.35 5 5.3 5z" fill="@{white}"/><path opacity=".5" fill-rule="evenodd" clip-rule="evenodd" d="M7.3 1C4.35 1 2 3.21 2 6s2.35 5 5.3 5h15.4A5.16 5.16 0 0 0 28 6l-.03-.54A5.16 5.16 0 0 0 22.7 1zm15.4 11c3.45 0 6.3-2.6 6.3-6s-2.85-6-6.3-6H7.3C3.85 0 1 2.6 1 6s2.85 6 6.3 6z" fill="@{black}" fill-opacity=".3"/></svg>'
-        );
-        background-image: url("data:image/svg+xml;charset=utf-8,@{svg}");
+        background-color: @surface2;
 
         &::after {
           @svg: escape(
-            '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 17 17" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15" fill="@{surface2}"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17 8.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0m-1 0a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0" fill="@{black}" fill-opacity=".15"/><path d="M5.5 12h2V5h-2zm4-7v7h2V5z" fill="@{white}"/></svg>'
+            '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M12.75 4.5h-3c-.6 0-1.17.23-1.6.65-.42.43-.65 1-.65 1.6v22.5c0 .59.23 1.16.65 1.59.43.42 1 .66 1.6.66h3c.59 0 1.16-.24 1.59-.66.42-.43.66-1 .66-1.59V6.75c0-.6-.24-1.17-.66-1.6-.43-.42-1-.65-1.59-.65m13.5 0h-3c-.6 0-1.17.23-1.6.65-.42.43-.65 1-.65 1.6v22.5c0 .59.23 1.16.65 1.59.43.42 1 .66 1.6.66h3c.59 0 1.16-.24 1.59-.66.42-.43.66-1 .66-1.59V6.75c0-.6-.24-1.17-.66-1.6-.43-.42-1-.65-1.59-.65" fill="@{white}"/></svg>'
           );
-          background-image: url("data:image/svg+xml;charset=utf-8,@{svg}");
+          background-image: url("data:image/svg+xml,@{svg}");
+          background-color: @overlay1;
         }
 
         &[aria-checked="true"] {
-          @svg: escape(
-            '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="12" fill="none"><path opacity=".5" fill-rule="evenodd" clip-rule="evenodd" d="M22.7 11c2.95 0 5.3-2.21 5.3-5s-2.35-5-5.3-5H7.3C4.35 1 2 3.21 2 6s2.35 5 5.3 5zm-2.7-.75v-8.5l6.7 4.26z" fill="@{white}"/><path opacity=".5" fill-rule="evenodd" clip-rule="evenodd" d="M7.3 1C4.35 1 2 3.21 2 6s2.35 5 5.3 5h15.4A5.16 5.16 0 0 0 28 6l-.03-.54A5.16 5.16 0 0 0 22.7 1zm15.4 11c3.45 0 6.3-2.6 6.3-6s-2.85-6-6.3-6H7.3C3.85 0 1 2.6 1 6s2.85 6 6.3 6z" fill="@{black}" fill-opacity=".3"/></svg>'
-          );
-          background-image: url("data:image/svg+xml;charset=utf-8,@{svg}");
-
           &::after {
             @svg: escape(
-              '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 17 17" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M17 8.5a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0m-5 0L6.5 5v7zm-1.86 0L7.5 6.82v3.36zM8.5 16a7.5 7.5 0 1 0 0-15 7.5 7.5 0 0 0 0 15" fill="@{black}" fill-opacity=".15"/><path fill-rule="evenodd" clip-rule="evenodd" d="M16 8.5a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0m-4 0L6.5 12V5z" fill="@{white}"/></svg>'
+              '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="m17 8.6-6.11-3.61c-1.5-.88-3.39.2-3.39 1.94v22.13c0 1.74 1.89 2.82 3.39 1.94L17 27.4zm0 0v18.8L33 18z" fill="@{black}"/></svg>'
             );
-            background-image: url("data:image/svg+xml;charset=utf-8,@{svg}");
+            background-image: url("data:image/svg+xml,@{svg}");
+            background-color: @white;
           }
         }
       }
