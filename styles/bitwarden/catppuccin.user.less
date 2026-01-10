@@ -1,0 +1,113 @@
+/* ==UserStyle==
+@name Bitwarden Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/bitwarden
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/bitwarden
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/bitwarden/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Abitwarden
+@description Soothing pastel theme for Bitwarden
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document
+  domain("bitwarden.com"),
+  url-prefix("chrome-extension://nngceckbapebfimnlniiiahkandclblb/")
+{
+  :root {
+    #catppuccin(@lightFlavor);
+  }
+  
+  .theme_dark {
+    #catppuccin(@darkFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    
+    .rgbifyNoComma(@color) {
+      @rgb: red(@color) green(@color) blue(@color);
+    }
+
+    .token(@id, @color) {
+      --color-@{id}: .rgbifyNoComma(@color) [];
+    }
+    
+    // Ramp
+    @ramp: 8.5%;
+    @tint: 25%;
+    
+    scrollbar-color: @overlay0 transparent;
+
+    .token(shadow, #000);
+
+    .token(background, @base);
+    .token(background-alt, @mantle);
+    .token(background-alt2, @surface0);
+    .token(background-alt3, @mantle);
+    .token(background-alt4, @surface0);
+    
+    .token(primary-100, mix(@accent, @base, @tint));
+    .token(primary-300, lighten(@accent, @ramp*-4));
+    // Primary button
+    .token(primary-600, @accent);
+    .token(primary-700, lighten(@accent, @ramp*1));
+    
+    .token(secondary-100, @surface1);
+    .token(secondary-300, @surface2);
+    .token(secondary-500, @overlay0);
+    .token(secondary-600, @overlay1);
+    .token(secondary-700, @overlay2);
+    
+    .token(success-100, mix(@green, @base, @tint));
+    .token(success-600, @green);
+    .token(success-700, lighten(@green, @ramp*1));
+    
+    .token(danger-100, mix(@red, @base, @tint));
+    .token(danger-600, @red);
+    .token(danger-700, lighten(@red, @ramp*1));
+    
+    .token(warning-100, mix(@yellow, @base, @tint));
+    .token(warning-600, @yellow);
+    .token(warning-700, lighten(@yellow, @ramp*1));
+    
+    .token(info-100, mix(@blue, @base, @tint));
+    .token(info-600, @blue);
+    .token(info-700, lighten(@blue, @ramp*1));
+    
+    .token(notification-100, mix(@pink, @base, @tint));
+    .token(notification-600, @pink);
+    
+    .token(art-primary, @text);
+    .token(art-accent, @accent);
+    
+    .token(text-main, @text);
+    .token(text-muted, @subtext0);
+    .token(text-contrast, @base);
+    .token(text-alt2, @subtext0);
+    .token(text-code, @pink);
+    
+    .token(marketing-logo, @text);
+
+    .token(illustration-outline, lighten(@accent, @ramp*-5));
+    .token(illustration-bg-primary, @accent);
+    .token(illustration-bg-secondary, lighten(@accent, @ramp*-1));
+    .token(illustration-bg-tertiary, lighten(@accent, @ramp*4));
+    .token(illustration-tertiary, @yellow);
+    .token(illustration-logo, @text);
+    
+    --color-hover-default: fade(@accent, 15%);
+    --color-transparent-hover: fade(@text, 2%);
+    --hover-contrast: fade(@base, 15%);
+    
+    --tw-ring-offset-color: @base;
+  }
+}
