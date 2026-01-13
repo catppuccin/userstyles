@@ -492,19 +492,41 @@
       }
     }
 
-    .mw-protection-indicator-icon--lock {
-      background-color: @text !important;
+    @supports ((-webkit-mask-image:none) or (mask-image:none))
+    {
+      .mw-protection-indicator-icon--lock {
+        background-color: @text !important;
 
-      &:hover {
-        background-color: @accent !important;
+        &:hover {
+          background-color: @accent !important;
+        }
+
+        &:active, &:focus, &:focus-within {
+          background-color: darken(@accent, 5%) !important;
+        }
+
+        &:disabled {
+          background-color: @mantle !important;
+        }
       }
+    }
 
-      &:active, &:focus, &:focus-within {
-        background-color: darken(@accent, 5%) !important;
-      }
+    @supports not ((-webkit-mask-image:none) or (mask-image:none))
+    {
+      .mw-protection-indicator-icon--lock {
+        filter: @text-filter !important;
 
-      &:disabled {
-        background-color: @mantle !important;
+        &:hover {
+          filter: @accent-filter !important;
+        }
+
+        &:active, &:focus, &:focus-within {
+          filter: @accent-filter !important;
+        }
+
+        &:disabled {
+          filter: @mantle-filter !important;
+        }
       }
     }
 
