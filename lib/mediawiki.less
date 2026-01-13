@@ -253,17 +253,10 @@
       }
     }
 
-    :where(.mw-parser-output a) {
-      &.external {
+    .mw-parser-output {
+      a.external {
         @svg: escape(
           '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="@{accent}" d="M6 1h5v5L8.86 3.85 4.7 8 4 7.3l4.15-4.16zM2 3h2v1H2v6h6V8h1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1"/></svg>'
-        );
-        background-image: url("data:image/svg+xml,@{svg}");
-      }
-
-      &.extiw {
-        @svg: escape(
-          '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="@{accent}" d="M5.002 1.01h7v7l-2-2-3 2v-1l3-2.25 1 1V2.01h-3.75l1 1-2.25 3h-1l2-3z"/><path fill="@{accent}" d="M7.002 3.01h-5v8h8v-5h-1v4h-6v-6h4z"/><path fill="@{accent}" d="M4.082 5.51c0-.621.621-.621.621-.621q2.796.932 3.728 3.728s0 .621-.62.621C6.566 7.374 5.945 6.753 4.081 5.51z"/></svg>'
         );
         background-image: url("data:image/svg+xml,@{svg}");
       }
@@ -278,7 +271,6 @@
     .oo-ui-indicator-down {
       filter: @text-filter !important;
     }
-
     .oo-ui-image-invert.oo-ui-icon-check, .mw-ui-icon-check-invert::before {
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M7 14.2 2.8 10l-1.4 1.4L7 17 19 5l-1.4-1.4z" fill="@{crust}"/></svg>'
@@ -286,6 +278,52 @@
       background-image: url("data:image/svg+xml,@{svg}");
     }
 
+    /* Non-Inverted Icons */
+    :not(.cdx-icon) svg,
+    :not(.skin-invert-image) img,
+    .oo-ui-iconElement-icon:is(
+      .oo-ui-image-progressive,
+      .oo-ui-image-destructive,
+      .oo-ui-checkboxInputWidget-checkIcon,
+      .oo-ui-image-invert,
+      .mw-no-invert
+    ) {
+      filter: @base-filter !important;
+    }
+
+    /* Inverted Icons */
+    .cdx-icon svg,
+    .skin-invert-image img,
+    .skin-invert,
+    .oo-ui-iconElement-icon:not(
+      .oo-ui-image-progressive,
+      .oo-ui-image-destructive,
+      .oo-ui-checkboxInputWidget-checkIcon,
+      .oo-ui-image-invert,
+      .mw-no-invert
+    ) {
+      filter: @text-filter !important;
+    }
+
+    /* Basic Widget */
+    .oo-ui-inputWidget-input {
+      border-color: @overlay0;
+
+      &:hover {
+        background-color: fade(@accent, 30%);
+      }
+
+      &:focus, &:focus-within {
+        border-color: @accent;
+      }
+
+      &:active {
+        color: @base;
+        background-color: darken(@accent, 10%);
+      }
+    }
+
+    /* Codex Radio Input */
     .cdx-radio__input {
       + .cdx-radio__icon, &:enabled + .cdx-radio__icon {
         background-color: @base;
@@ -296,7 +334,9 @@
         background-color: @accent;
       }
 
-      &:active + .cdx-radio__icon, &:focus-within + .cdx-radio__icon {
+      &:active + .cdx-radio__icon,
+      &:focus + .cdx-radio__icon,
+      &:focus-within + .cdx-radio__icon {
         background-color: darken(@accent, 10%);
         border-color: @surface0;
       }
@@ -318,6 +358,7 @@
       }
     }
 
+    /* Radio Input */
     .oo-ui-radioInputWidget [type="radio"] {
       + span, &:enabled + span {
         background-color: @base;
@@ -328,7 +369,9 @@
         background-color: @accent;
       }
 
-      &:active + span, &:focus-within + span {
+      &:active + span,
+      &:focus + span,
+      &:focus-within + span {
         background-color: darken(@accent, 10%);
         border-color: @surface0;
       }
@@ -350,32 +393,12 @@
       }
     }
 
-    .oo-ui-inputWidget-input {
-      border-color: @overlay0;
-
-      &:hover {
-        background-color: fade(@accent, 30%);
-      }
-
-      &:focus, &:focus-within {
-        border-color: @accent;
-      }
-
-      &:active {
-        color: @base;
-        background-color: darken(@accent, 10%);
-      }
-    }
-
     /* Inactive Button */
     :not(.oo-ui-optionWidget-selected, .oo-ui-buttonElement-active)
       .oo-ui-buttonElement-button {
       color: @text;
       background-color: @surface0;
       border-color: @overlay0;
-      .oo-ui-iconElement-icon {
-        filter: @text-filter;
-      }
 
       &:hover {
         background-color: fade(@accent, 30%);
@@ -388,10 +411,6 @@
       &:active {
         color: @base;
         background-color: darken(@accent, 10%);
-
-        .oo-ui-indicatorElement-indicator, .oo-ui-iconElement-icon {
-          filter: @base-filter;
-        }
       }
     }
 
@@ -402,10 +421,6 @@
       background-color: darken(@accent, 10%);
       border-color: @overlay0;
 
-      .oo-ui-indicatorElement-indicator, .oo-ui-iconElement-icon {
-        filter: @base-filter;
-      }
-
       &:hover {
         background-color: fade(@accent, 30%);
       }
@@ -417,10 +432,6 @@
       &:active {
         color: @base;
         background-color: darken(@accent, 10%);
-
-        .oo-ui-indicatorElement-indicator, .oo-ui-iconElement-icon {
-          filter: @base-filter;
-        }
       }
     }
 
