@@ -1,0 +1,79 @@
+/* ==UserStyle==
+@name PDSls Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/pdsls
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/pdsls
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/pdsls/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Apdsls
+@description Soothing pastel theme for PDSls
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("pdsls.dev") {
+  html.dark {
+    #catppuccin(@darkFlavor);
+  }
+
+  html:not(.dark) {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    // new
+    --color-white: @base;
+
+    --color-dark-100: @surface1;
+    --color-dark-200: @surface0;
+    --color-dark-300: @surface0;
+    --color-dark-500: @base !important;
+    --color-dark-800: @mantle;
+
+    --color-blue-400: @accent;
+    --color-red-400: @red;
+
+    & when not(@flavor =latte) {
+      --color-neutral-200: @text;
+      --color-neutral-700: @surface1;
+      --color-neutral-600: @surface1;
+    }
+
+    & when (@flavor =latte) {
+      --color-neutral-200: @surface0;
+      --color-neutral-700: @text;
+      --color-neutral-600: @subtext1;
+    }
+
+    --color-neutral-50: @base;
+    --color-neutral-100: @base;
+    --color-neutral-300: @surface1;
+    --color-neutral-400: @subtext0;
+
+
+
+    background-color: @base;
+
+    .text-neutral-900,
+    .dark\:text-neutral-200 {
+      color: @text !important;
+    }
+
+    .dark\:bg-neutral-200 {
+      background-color: @text !important;
+    }
+
+    .tabler--binary-tree-filled {
+      color: @accent;
+    }
+  }
+}
