@@ -18,913 +18,806 @@
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
 @-moz-document domain("git-scm.com") {
+  // ?FIXME: See if we can condense this?
   :root {
-    @media (prefers-color-scheme: light) {
+    @media screen and (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
     }
-    @media (prefers-color-scheme: dark) {
+    @media screen and (prefers-color-scheme: dark) {
       #catppuccin(@darkFlavor);
+    }
+
+    @media print and (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+
+      .cheat-sheet section {
+        border: 1px solid @overlay0 !important;
+      }
+      .cheat-sheet .commit-reference {
+        border-left: 1px solid @overlay0 !important;
+      }
+    }
+
+    @media print and (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+
+      .cheat-sheet section {
+        border: 1px solid @overlay0 !important;
+      }
+      .cheat-sheet .commit-reference {
+        border-left: 1px solid @overlay0 !important;
+      }
     }
   }
 
+  /*
+   * NOTE: These ones are seemingly the default ones used.
+   * Not certain if that includes browser/dynamic theming.
+   */
+  :root:not([data-theme="light"]),
   :root[data-theme="dark"] {
     #catppuccin(@darkFlavor);
   }
+  :root:not([data-theme="dark"]),
   :root[data-theme="light"] {
     #catppuccin(@lightFlavor);
-  }
-  :root[data-theme="dark"][data-celebration="git-turns-20"] img[alt="Git"] {
-    #catppuccin(@darkFlavor);
-    filter: @accent-filter !important;
-  }
-  :root[data-theme="light"][data-celebration="git-turns-20"] img[alt="Git"] {
-    #catppuccin(@lightFlavor);
-    filter: @accent-filter !important;
   }
 
   #catppuccin(@flavor) {
     #lib.palette();
     #lib.defaults();
 
+    img[alt="Git"] {
+      filter: @accent-filter !important;
+    }
+
+    // :root[data-celebration="git-turns-20"] img[alt="Git"]
+    &[data-celebration="git-turns-20"] img[alt="Git"] {
+      filter: @peach-filter !important;
+    }
+
+    --orange: @accent !important;
+    --orange-darker-5: darken(@accent, 5%) !important;
+    --blue: @blue !important;
+    --font-color: @text !important;
+    --aside-font-color: @subtext0 !important;
+    --light-font-color: @subtext0 !important;
+    --light-font-color-darker-10: darken(@subtext0, 10%) !important;
+    --light-font-color-darker-25: darken(@subtext0, 25%) !important;
+    --light-font-color-darker-35: darken(@subtext0, 35%) !important;
+    --light-font-color-darker-55: darken(@subtext0, 55%) !important;
+    --light-font-color-lighter-20: lighten(@subtext0, 20%) !important;
+    --link-color: @blue !important;
+    --nav-link-color: @blue !important;
+    --link-hover-color: @sky !important;
+    --fixed-width-font-color: @text !important;
+    --button-bg-color: linear-gradient(
+      @surface0,
+      darken(@surface0, 5%)
+    ) !important;
+    --button-bg-hover-color: linear-gradient(
+      @accent,
+      darken(@accent, 5%)
+    ) !important;
+    --button-bg-selected-color: linear-gradient(
+      darken(@accent, 5%),
+      darken(@accent, 10%)
+    ) !important;
+    --button-color: @text !important;
+    --button-border: @overlay0 !important;
+    --mark-bg-color: fade(@yellow, 30%) !important;
+    --mark-color: @yellow !important;
+    --base-border-color: @overlay0 !important;
+    --base-border-color-darker-8: darken(@overlay0, 8%) !important;
+    --base-border-color-lighter-10: darken(@overlay0, 10%) !important;
+    --callout-color: @mantle !important;
+    --highlight-bg-color: fade(@accent, 30%) !important;
+    --pre-bg-color: @mantle !important;
+    --pre-border: @overlay0 !important;
+    --black-3: @crust !important;
+    --main-bg: @base !important;
+    --main-border: @overlay0 !important;
+    --title-border: @overlay1 !important;
+    --sidebar-bg-color: @mantle !important;
+    --sidebar-toc-bg-color: @mantle !important;
+    --bg-color: @base !important;
+    --shadow-color: fade(@overlay0, 10%) !important;
+    --no-changes-bg-color: @mantle !important;
+    --dropdown-active-bg-color: @surface0 !important;
+    --versions-footer-bg-color: @mantle !important;
+    --search-border: @overlay0 !important;
+    --search-focus-border: @accent !important;
+    --logos-1: @accent !important;
+    --logos-2: darken(@accent, 5%) !important;
+    --logos-3: darken(@accent, 10%) !important;
+    --logos-4: darken(@accent, 15%) !important;
+
+    button {
+      border-color: var(--button-border) !important;
+    }
+
     fieldset {
-      border: 1px solid silver;
+      border-color: var(--pre-border) !important;
     }
 
     #book-chapters,
     #reference-version,
     .section-nav-container {
-      background-color: #ebe9e1;
-      background-color: rgba(223, 221, 213, 0.33);
+      background-color: var(--sidebar-bg-color) !important;
     }
 
     .dropdown-panel {
-      -webkit-box-shadow: 0 1px 2px #ccc;
-      -moz-box-shadow: 0 1px 2px #ccc;
-      box-shadow: 0 1px 2px #ccc;
+      box-shadow: var(--shadow-color) !important;
     }
 
     table.benchmarks tr td.desc {
-      color: #888;
+      color: var(--aside-font-color) !important;
     }
 
     abbr[title] {
-      border-bottom: 1px dotted #ddd;
+      border-bottom-color: var(--title-border) !important;
     }
 
     table td.sweet {
-      color: #25b028;
+      color: @green !important;
     }
 
     a.subtle-button {
-      background-image: linear-gradient(#f1f1e9, #eae9e1);
-      border-top: solid 1px #dedcd4;
-      border-right: solid 1px #dedcd4;
-      border-bottom: solid 1px #cdcbc4;
-      border-left: solid 1px #dedcd4;
-      -webkit-box-shadow: 0 1px 0 #f1f1e9;
-      -moz-box-shadow: 0 1px 0 #f1f1e9;
-      box-shadow: 0 1px #f1f1e9;
-    }
-    a.subtle-button:hover {
-      color: var(--link-color);
-      background-image: linear-gradient(#edede3, #e6e5db);
-    }
-    a.subtle-button.selected {
-      background-image: linear-gradient(#d7d7c1, #cbc9b4);
+      background-image: var(--button-bg-color) !important;
+      border-color: var(--base-border-color) !important;
+      box-shadow: var(--shadow-color) !important;
+
+      &:hover {
+        color: var(--link-color) !important;
+        background-image: var(--button-bg-hover-color) !important;
+      }
+
+      &.selected {
+        background-image: var(--button-bg-selected-color) !important;
+      }
     }
 
     #search-results {
-      background-color: #398a94;
-      -webkit-box-shadow: 0 0 7px rgba(0, 0, 0, 0.25);
-      -moz-box-shadow: 0 0 7px rgba(0, 0, 0, 0.25);
-      box-shadow: 0 0 7px rgba(0, 0, 0, 0.25);
-    }
-    #search-results header {
-      border: solid 1px #366769;
-    }
-    #search-results table td {
-      border-top: solid 1px #cfddde;
-    }
-    #search-results table td.category {
-      background-color: #f5fbfb;
-      border-right: solid 1px #cfddde;
-    }
-    #search-results table td.matches a.highlight,
-    #search-results table td.matches a:hover {
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-      background: #55bec4;
-      background-image: linear-gradient(#55bec4, #54b2b7);
+      background: var(--sidebar-bg-color) !important;
+      border-color: var(--search-border) !important;
+      box-shadow: var(--shadow-color) !important;
+
+      header {
+        background: var(--sidebar-bg-color) !important;
+        border-color: var(--search-focus-border) !important;
+      }
+
+      table {
+        td {
+          border-color: var(--search-border) !important;
+
+          &.category {
+            background-color: var(--sidebar-bg-color) !important;
+          }
+
+          &.matches a {
+            &.highlight, &:hover {
+              color: var(--font-color) !important;
+              text-shadow: var(--shadow-color) !important;
+              background-color: var(--button-bg-hover-color) !important;
+              background-image: unset !important;
+            }
+          }
+        }
+      }
     }
 
     #front-nav a img {
-      background-color: #cdcdc5;
-    }
-    :root[data-theme="dark"] #front-nav a img {
-      filter: invert(1);
-      background-color: #9d9c9a;
+      background-color: var(--font-color) !important;
     }
 
-    #front-downloads .downloads-box {
-      outline: 1px solid #f0c8bb;
-    }
-    #front-downloads #download-link {
-      color: #fff;
+    #front-downloads {
+      .downloads-box {
+        outline: var(--base-border-color) !important;
+      }
+
+      #download-link {
+        color: var(--font-color) !important;
+      }
     }
 
-    aside.sidebar #book-container,
-    aside.sidebar #logo-license,
-    aside.sidebar .bottom-nav,
-    aside.sidebar .callout {
-      background-color: #ebe9e1;
-      background-color: rgba(223, 221, 213, 0.33);
-    }
-    aside.sidebar.active {
-      box-shadow: 6px 2px 8px rgba(28, 28, 28, 0.1);
-      border: thin solid #ddd;
+    aside.sidebar {
+      #book-container,
+      #logo-license,
+      .bottom-nav,
+      .callout {
+        background-color: var(--callout-color) !important;
+      }
+      &.active {
+        box-shadow: var(--shadow-color) !important;
+        border-color: var(--base-border-color) !important;
+      }
     }
 
     @media (max-width: 940px) {
       .sidebar-btn:focus + .sidebar,
       .sidebar:focus-within {
-        box-shadow: 6px 2px 8px rgba(28, 28, 28, 0.1);
-        border: thin solid #ddd;
+        border: var(--main-border) !important;
+        box-shadow: var(--shadow-color) !important;
       }
     }
 
     .tooltip .tooltip-content {
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-color) !important;
     }
 
     #l10n-versions-dropdown footer a {
-      color: blue;
+      color: var(--link-color) !important;
+
+      &:hover {
+        color: var(--link-hover-color) !important;
+      }
     }
 
     ol.reference-previous-versions {
-      border-top: dotted 1px #e3e3e1;
+      border-color: var(--pre-border) !important;
     }
     ol.reference-previous-versions li a {
-      border-bottom: dotted 1px #e3e3e1;
+      border-color: var(--pre-border) !important;
     }
     ol.reference-previous-versions li a:hover {
-      background-color: #edf7f8;
+      background-color: var(--no-changes-bg-color) !important;
     }
 
-    \::-webkit-input-placeholder {
-      color: #9a9994 !important;
-    }
-    input:-moz-placeholder {
-      color: #9a9994 !important;
-    }
     input.inactive {
-      color: #9a9994 !important;
+      color: var(--light-font-color) !important;
     }
 
     form#search {
-      -webkit-box-shadow: inset 0 1px 4px #ddd;
-      -moz-box-shadow: inset 0 1px 4px #ddd;
-      box-shadow: inset 0 1px 4px #ddd;
+      @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="none" stroke="@{subtext0}" stroke-linecap="round" stroke-linejoin="round" d="M12.5 6.5a6 6 0 01-6 6 6 6 0 01-6-6 6 6 0 016-6 6 6 0 016 6m3 9L11 11"/></svg>'
+        )
+        !important;
+      color: var(--aside-font-color) !important;
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+
+      &.focus {
+        @svg: escape(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="none" stroke="@{text}" stroke-linecap="round" stroke-linejoin="round" d="M12.5 6.5a6 6 0 01-6 6 6 6 0 01-6-6 6 6 0 016-6 6 6 0 016 6m3 9L11 11"/></svg>'
+          )
+          !important;
+        color: var(--font-color) !important;
+        background-image: url("data:image/svg+xml,@{svg}") !important;
+      }
+      box-shadow: var(--shadow-color) !important;
     }
 
     #documentation #main p.nutshell {
-      background-color: #e8e7dd;
+      background-color: #e8e7dd !important;
     }
     #documentation #main .literalblock .content pre tt {
-      background-color: #eee0b5;
+      background-color: #eee0b5 !important;
     }
 
     .switch a {
-      color: #aaa;
+      color: #aaa !important;
     }
 
     .edition2 section[data-type="titlepage"] h1 {
-      border-bottom: 1px solid #333;
+      border-bottom: 1px solid #333 !important;
     }
     .edition2 nav[data-type="toc"] li[data-type="part"] > a {
-      border-bottom: 1px solid #333;
+      border-bottom: 1px solid #333 !important;
     }
     .edition2 table {
-      border-bottom: 1px solid #888;
+      border-bottom: 1px solid #888 !important;
     }
     .edition2 th {
-      border-top: 1px solid #888;
-      border-bottom: 1px solid #888;
+      border-top: 1px solid #888 !important;
+      border-bottom: 1px solid #888 !important;
     }
     .edition2 figure img {
-      border-top: 1px solid #888;
-      border-bottom: 1px solid #888;
+      border-top: 1px solid #888 !important;
+      border-bottom: 1px solid #888 !important;
     }
     .edition2 aside {
-      background-color: #d8d8d8;
-      border: 1px solid #d8d8d8;
+      background-color: #d8d8d8 !important;
+      border: 1px solid #d8d8d8 !important;
     }
     .edition2 div[data-type="note"],
     .edition2 div[data-type="warning"] {
-      border-top: 2px solid #888;
-      border-bottom: 1px solid #d8d8d8;
+      border-top: 2px solid #888 !important;
+      border-bottom: 1px solid #d8d8d8 !important;
     }
     .edition2 div[data-type="note"] h1,
     .edition2 div[data-type="warning"] h1 {
-      color: #000;
+      color: #000 !important;
     }
     .edition2 pre {
-      background: #eee;
+      background: #eee !important;
     }
     #documentation #main p .edition2 pre tt,
     .edition2 pre #documentation #main p tt,
     .edition2 pre code {
-      background: #eee;
+      background: #eee !important;
     }
     .edition2 pre {
-      color: #333;
+      color: #333 !important;
     }
     #documentation #main p .edition2 tt,
     .edition2 #documentation #main p tt,
     .edition2 code {
-      color: #333;
-      background: #eee;
-      border: 1px solid #f5f5f5;
+      color: #333 !important;
+      background: #eee !important;
+      border: 1px solid #f5f5f5 !important;
     }
     .edition2 div[data-type="example"] h5 {
-      border-bottom: 1px solid #d8d8d8;
+      border-bottom: 1px solid #d8d8d8 !important;
     }
     .edition2 div.navbar {
-      background-color: #e8e8e8;
-      border-bottom: 1px solid #d8d8d8;
+      background-color: #e8e8e8 !important;
+      border-bottom: 1px solid #d8d8d8 !important;
     }
     .edition2 div.navbar h1 {
-      color: #999;
+      color: #999 !important;
     }
     .edition2 div.navbar p a {
-      color: #999;
+      color: #999 !important;
     }
 
     @media screen and (max-width: 480px) {
       .edition2 div.navbar {
-        border-bottom: 2px solid #e8e8e8;
-        box-shadow: 0 0 #f0f0f0;
+        border-bottom: 2px solid #e8e8e8 !important;
+        box-shadow: var(--shadow-color) !important;
       }
     }
 
     #documentation #main p .edition2 pre tt.hll,
     .edition2 pre #documentation #main p tt.hll,
     .edition2 pre code.hll {
-      background-color: #ffc;
+      background-color: #ffc !important;
     }
     #documentation #main p .edition2 pre tt.c,
     .edition2 pre #documentation #main p tt.c,
     .edition2 pre code.c {
-      color: #09f;
+      color: #09f !important;
     }
     #documentation #main p .edition2 pre tt.err,
     .edition2 pre #documentation #main p tt.err,
     .edition2 pre code.err {
-      color: #a00;
+      color: #a00 !important;
     }
     #documentation #main p .edition2 pre tt.k,
     .edition2 pre #documentation #main p tt.k,
     .edition2 pre code.k {
-      color: #069;
+      color: #069 !important;
     }
     #documentation #main p .edition2 pre tt.o,
     .edition2 pre #documentation #main p tt.o,
     .edition2 pre code.o {
-      color: #555;
+      color: #555 !important;
     }
     #documentation #main p .edition2 pre tt.cm,
     .edition2 pre #documentation #main p tt.cm,
     .edition2 pre code.cm {
-      color: #35586c;
+      color: #35586c !important;
     }
     #documentation #main p .edition2 pre tt.cp,
     .edition2 pre #documentation #main p tt.cp,
     .edition2 pre code.cp {
-      color: #099;
+      color: #099 !important;
     }
     #documentation #main p .edition2 pre tt.c1,
     .edition2 pre #documentation #main p tt.c1,
     .edition2 pre code.c1 {
-      color: #35586c;
+      color: #35586c !important;
     }
     #documentation #main p .edition2 pre tt.cs,
     .edition2 pre #documentation #main p tt.cs,
     .edition2 pre code.cs {
-      color: #35586c;
+      color: #35586c !important;
     }
     #documentation #main p .edition2 pre tt.gd,
     .edition2 pre #documentation #main p tt.gd,
     .edition2 pre code.gd {
-      background-color: #fcc;
+      background-color: #fcc !important;
     }
     #documentation #main p .edition2 pre tt.gr,
     .edition2 pre #documentation #main p tt.gr,
     .edition2 pre code.gr {
-      color: red;
+      color: red !important;
     }
     #documentation #main p .edition2 pre tt.gi,
     .edition2 pre #documentation #main p tt.gi,
     .edition2 pre code.gi {
-      background-color: #cfc;
+      background-color: #cfc !important;
     }
     #documentation #main p .edition2 pre tt.go,
     .edition2 pre #documentation #main p tt.go,
     .edition2 pre code.go {
-      color: #000;
+      color: #000 !important;
     }
     #documentation #main p .edition2 pre tt.gp,
     .edition2 pre #documentation #main p tt.gp,
     .edition2 pre code.gp {
-      color: #009;
+      color: #009 !important;
     }
     #documentation #main p .edition2 pre tt.gu,
     .edition2 pre #documentation #main p tt.gu,
     .edition2 pre code.gu {
-      color: #030;
+      color: #030 !important;
     }
     #documentation #main p .edition2 pre tt.gt,
     .edition2 pre #documentation #main p tt.gt,
     .edition2 pre code.gt {
-      color: #9c6;
+      color: #9c6 !important;
     }
     #documentation #main p .edition2 pre tt.kc,
     .edition2 pre #documentation #main p tt.kc,
     .edition2 pre code.kc {
-      color: #069;
+      color: #069 !important;
     }
     #documentation #main p .edition2 pre tt.kd,
     .edition2 pre #documentation #main p tt.kd,
     .edition2 pre code.kd {
-      color: #069;
+      color: #069 !important;
     }
     #documentation #main p .edition2 pre tt.kn,
     .edition2 pre #documentation #main p tt.kn,
     .edition2 pre code.kn {
-      color: #069;
+      color: #069 !important;
     }
     #documentation #main p .edition2 pre tt.kp,
     .edition2 pre #documentation #main p tt.kp,
     .edition2 pre code.kp {
-      color: #069;
+      color: #069 !important;
     }
     #documentation #main p .edition2 pre tt.kr,
     .edition2 pre #documentation #main p tt.kr,
     .edition2 pre code.kr {
-      color: #069;
+      color: #069 !important;
     }
     #documentation #main p .edition2 pre tt.kt,
     .edition2 pre #documentation #main p tt.kt,
     .edition2 pre code.kt {
-      color: #078;
+      color: #078 !important;
     }
     #documentation #main p .edition2 pre tt.m,
     .edition2 pre #documentation #main p tt.m,
     .edition2 pre code.m {
-      color: #f60;
+      color: #f60 !important;
     }
     #documentation #main p .edition2 pre tt.s,
     .edition2 pre #documentation #main p tt.s,
     .edition2 pre code.s {
-      color: #c30;
+      color: #c30 !important;
     }
     #documentation #main p .edition2 pre tt.na,
     .edition2 pre #documentation #main p tt.na,
     .edition2 pre code.na {
-      color: #309;
+      color: #309 !important;
     }
     #documentation #main p .edition2 pre tt.nb,
     .edition2 pre #documentation #main p tt.nb,
     .edition2 pre code.nb {
-      color: #366;
+      color: #366 !important;
     }
     #documentation #main p .edition2 pre tt.nc,
     .edition2 pre #documentation #main p tt.nc,
     .edition2 pre code.nc {
-      color: #0a8;
+      color: #0a8 !important;
     }
     #documentation #main p .edition2 pre tt.no,
     .edition2 pre #documentation #main p tt.no,
     .edition2 pre code.no {
-      color: #360;
+      color: #360 !important;
     }
     #documentation #main p .edition2 pre tt.nd,
     .edition2 pre #documentation #main p tt.nd,
     .edition2 pre code.nd {
-      color: #99f;
+      color: #99f !important;
     }
     #documentation #main p .edition2 pre tt.ni,
     .edition2 pre #documentation #main p tt.ni,
     .edition2 pre code.ni {
-      color: #999;
+      color: #999 !important;
     }
     #documentation #main p .edition2 pre tt.ne,
     .edition2 pre #documentation #main p tt.ne,
     .edition2 pre code.ne {
-      color: #c00;
+      color: #c00 !important;
     }
     #documentation #main p .edition2 pre tt.nf,
     .edition2 pre #documentation #main p tt.nf,
     .edition2 pre code.nf {
-      color: #c0f;
+      color: #c0f !important;
     }
     #documentation #main p .edition2 pre tt.nl,
     .edition2 pre #documentation #main p tt.nl,
     .edition2 pre code.nl {
-      color: #99f;
+      color: #99f !important;
     }
     #documentation #main p .edition2 pre tt.nn,
     .edition2 pre #documentation #main p tt.nn,
     .edition2 pre code.nn {
-      color: #0cf;
+      color: #0cf !important;
     }
     #documentation #main p .edition2 pre tt.nt,
     .edition2 pre #documentation #main p tt.nt,
     .edition2 pre code.nt {
-      color: #309;
+      color: #309 !important;
     }
     #documentation #main p .edition2 pre tt.nv,
     .edition2 pre #documentation #main p tt.nv,
     .edition2 pre code.nv {
-      color: #033;
+      color: #033 !important;
     }
     #documentation #main p .edition2 pre tt.ow,
     .edition2 pre #documentation #main p tt.ow,
     .edition2 pre code.ow {
-      color: #000;
+      color: #000 !important;
     }
     #documentation #main p .edition2 pre tt.w,
     .edition2 pre #documentation #main p tt.w,
     .edition2 pre code.w {
-      color: #bbb;
+      color: #bbb !important;
     }
     #documentation #main p .edition2 pre tt.mf,
     .edition2 pre #documentation #main p tt.mf,
     .edition2 pre code.mf {
-      color: #f60;
+      color: #f60 !important;
     }
     #documentation #main p .edition2 pre tt.mh,
     .edition2 pre #documentation #main p tt.mh,
     .edition2 pre code.mh {
-      color: #f60;
+      color: #f60 !important;
     }
     #documentation #main p .edition2 pre tt.mi,
     .edition2 pre #documentation #main p tt.mi,
     .edition2 pre code.mi {
-      color: #f60;
+      color: #f60 !important;
     }
     #documentation #main p .edition2 pre tt.mo,
     .edition2 pre #documentation #main p tt.mo,
     .edition2 pre code.mo {
-      color: #f60;
+      color: #f60 !important;
     }
     #documentation #main p .edition2 pre tt.sb,
     .edition2 pre #documentation #main p tt.sb,
     .edition2 pre code.sb {
-      color: #c30;
+      color: #c30 !important;
     }
     #documentation #main p .edition2 pre tt.sc,
     .edition2 pre #documentation #main p tt.sc,
     .edition2 pre code.sc {
-      color: #c30;
+      color: #c30 !important;
     }
     #documentation #main p .edition2 pre tt.sd,
     .edition2 pre #documentation #main p tt.sd,
     .edition2 pre code.sd {
-      color: #c30;
+      color: #c30 !important;
     }
     #documentation #main p .edition2 pre tt.s2,
     .edition2 pre #documentation #main p tt.s2,
     .edition2 pre code.s2 {
-      color: #c30;
+      color: #c30 !important;
     }
     #documentation #main p .edition2 pre tt.se,
     .edition2 pre #documentation #main p tt.se,
     .edition2 pre code.se {
-      color: #c30;
+      color: #c30 !important;
     }
     #documentation #main p .edition2 pre tt.sh,
     .edition2 pre #documentation #main p tt.sh,
     .edition2 pre code.sh {
-      color: #c30;
+      color: #c30 !important;
     }
     #documentation #main p .edition2 pre tt.si,
     .edition2 pre #documentation #main p tt.si,
     .edition2 pre code.si {
-      color: #a00;
+      color: #a00 !important;
     }
     #documentation #main p .edition2 pre tt.sx,
     .edition2 pre #documentation #main p tt.sx,
     .edition2 pre code.sx {
-      color: #c30;
+      color: #c30 !important;
     }
     #documentation #main p .edition2 pre tt.sr,
     .edition2 pre #documentation #main p tt.sr,
     .edition2 pre code.sr {
-      color: #3aa;
+      color: #3aa !important;
     }
     #documentation #main p .edition2 pre tt.s1,
     .edition2 pre #documentation #main p tt.s1,
     .edition2 pre code.s1 {
-      color: #c30;
+      color: #c30 !important;
     }
     #documentation #main p .edition2 pre tt.ss,
     .edition2 pre #documentation #main p tt.ss,
     .edition2 pre code.ss {
-      color: #a60;
+      color: #a60 !important;
     }
     #documentation #main p .edition2 pre tt.bp,
     .edition2 pre #documentation #main p tt.bp,
     .edition2 pre code.bp {
-      color: #366;
+      color: #366 !important;
     }
     #documentation #main p .edition2 pre tt.vc,
     .edition2 pre #documentation #main p tt.vc,
     .edition2 pre code.vc {
-      color: #033;
+      color: #033 !important;
     }
     #documentation #main p .edition2 pre tt.vg,
     .edition2 pre #documentation #main p tt.vg,
     .edition2 pre code.vg {
-      color: #033;
+      color: #033 !important;
     }
     #documentation #main p .edition2 pre tt.vi,
     .edition2 pre #documentation #main p tt.vi,
     .edition2 pre code.vi {
-      color: #033;
+      color: #033 !important;
     }
     #documentation #main p .edition2 pre tt.il,
     .edition2 pre #documentation #main p tt.il,
     .edition2 pre code.il {
-      color: #f60;
+      color: #f60 !important;
     }
     #documentation #main p .edition2 pre tt.g,
     .edition2 pre #documentation #main p tt.g,
     .edition2 pre code.g {
-      color: #050;
+      color: #050 !important;
     }
     #documentation #main p .edition2 pre tt.l,
     .edition2 pre #documentation #main p tt.l,
     .edition2 pre code.l {
-      color: #c60;
+      color: #c60 !important;
     }
     #documentation #main p .edition2 pre tt.l,
     .edition2 pre #documentation #main p tt.l,
     .edition2 pre code.l {
-      color: #f90;
+      color: #f90 !important;
     }
     #documentation #main p .edition2 pre tt.n,
     .edition2 pre #documentation #main p tt.n,
     .edition2 pre code.n {
-      color: #008;
+      color: #008 !important;
     }
     #documentation #main p .edition2 pre tt.nx,
     .edition2 pre #documentation #main p tt.nx,
     .edition2 pre code.nx {
-      color: #008;
+      color: #008 !important;
     }
     #documentation #main p .edition2 pre tt.py,
     .edition2 pre #documentation #main p tt.py,
     .edition2 pre code.py {
-      color: #96f;
+      color: #96f !important;
     }
     #documentation #main p .edition2 pre tt.p,
     .edition2 pre #documentation #main p tt.p,
     .edition2 pre code.p {
-      color: #000;
+      color: #000 !important;
     }
     #documentation #main p .edition2 pre tt.x,
     .edition2 pre #documentation #main p tt.x,
     .edition2 pre code.x {
-      color: #f06;
+      color: #f06 !important;
     }
     .edition2 pre[data-code-language="console"] {
-      background: #eee;
+      background: #eee !important;
     }
     #documentation #main p .edition2 pre[data-code-language="console"] tt.go,
     .edition2 pre[data-code-language="console"] #documentation #main p tt.go,
     .edition2 pre[data-code-language="console"] code.go {
-      color: #555;
+      color: #555 !important;
     }
     #documentation #main p .edition2 pre[data-code-language="console"] tt.gp,
     .edition2 pre[data-code-language="console"] #documentation #main p tt.gp,
     .edition2 pre[data-code-language="console"] code.gp {
-      color: #090;
+      color: #090 !important;
     }
 
     ul.books-list li img {
-      border: solid 1px #b7b7b7;
+      border: solid 1px #b7b7b7 !important;
     }
 
     .bar-chart dd + dd {
-      border-left: 1px solid #ccc;
+      border-left: 1px solid #ccc !important;
     }
-    .bar-chart progress.git::-moz-progress-bar {
-      background-color: #e09fa0;
-    }
+    .bar-chart progress.git::-moz-progress-bar,
     .bar-chart progress.git::-webkit-progress-value {
-      background-color: #e09fa0;
+      background-color: #e09fa0 !important;
     }
-    .bar-chart progress.svn::-moz-progress-bar {
-      background-color: #e05f49;
-    }
+    .bar-chart progress.svn::-moz-progress-bar,
     .bar-chart progress.svn::-webkit-progress-value {
-      background-color: #e05f49;
+      background-color: #e05f49 !important;
     }
 
-    .cheat-sheet .commit-reference dl dt::before {
-      color: #666;
+    div#masthead {
+      background: 0 0 !important;
     }
-
-    :root {
-      --orange: #f14e32;
-      --orange-darker-5: #ef391a;
-      --blue: #009099;
-      --font-color: #4e443c;
-      --aside-font-color: #887668;
-      --light-font-color: #9a9994;
-      --light-font-color-darker-10: #81807a;
-      --light-font-color-darker-25: #5a5955;
-      --light-font-color-darker-35: #403f3c;
-      --light-font-color-darker-55: #0b0b0a;
-      --light-font-color-lighter-20: #cccbc8;
-      --link-color: #0388a6;
-      --nav-link-color: #413932;
-      --link-hover-color: #04b1d8;
-      --fixed-width-font-color: #4e443c;
-      --button-bg-color: #dfddd554;
-      --button-bg-hover-color: #fafafae5;
-      --button-color: #0388a6;
-      --mark-bg-color: #ff0;
-      --mark-color: #000;
-      --base-border-color: #d8d7cf;
-      --base-border-color-darker-8: #c6c4b8;
-      --base-border-color-lighter-10: #efeeeb;
-      --callout-color: #e9e8e0;
-      --highlight-bg-color: #eee0b5;
-      --pre-border: #efeee6;
-      --black-3: #333333;
-      --main-bg: #fcfcfa;
-      --main-border: #e2e0d8;
-      --sidebar-bg-color: #efefe7;
-      --sidebar-toc-bg-color: #f7f7f3;
-      --bg-color: #f0efe7 url("https://git-scm.com//images/bg/body.jpg");
-      --no-changes-bg-color: #f5f5f3;
-      --dropdown-active-bg-color: #fff;
-      --versions-footer-bg-color: #eae9e0;
-      --search-border: #ceccc5;
-      --search-focus-border: #007175;
-      --logos-1: #a6a7a1;
-      --logos-2: #90908b;
-      --logos-3: #767675;
-      --logos-4: #696c69;
+    div#masthead::before {
+      content: "" !important;
+      width: 100% !important;
+      height: 295px !important;
+      background: url("https://git-scm.com//images/bg/isometric-grid.png") 100%
+        0 repeat !important;
+      background-size: 35px 21px !important;
+      position: absolute !important;
+      filter: brightness(0.4)contrast(1.6) !important;
+      z-index: -1 !important;
     }
-    :root[data-theme="dark"] div#masthead {
-      background: 0 0;
-    }
-    :root[data-theme="dark"] div#masthead::before {
-      content: "";
-      width: 100%;
-      height: 295px;
-      background: url(https://git-scm.com//images/bg/isometric-grid.png) 100% 0
-        repeat;
-      background-size: 35px 21px;
-      position: absolute;
-      filter: brightness(0.4)contrast(1.6);
-      z-index: -1;
-    }
-    @media only screen and (-webkit-min-device-pixel-ratio: 2),
-      only screen and (min--moz-device-pixel-ratio: 2),
-      only screen and (-o-min-device-pixel-ratio: 2/1) {
-      :root[data-theme="dark"] div#masthead::before {
-        background: url(https://git-scm.com//images/bg/isometric-grid@2x.png)
-          100% 0 repeat;
-        background-size: 35px 21px;
-      }
-    }
-    :root[data-theme="dark"] img {
-      filter: brightness(0.6)contrast(1.2);
-    }
-    :root[data-theme="dark"] body#about img:not(.no-filter) {
-      filter: brightness(0.9)contrast(0.6)invert(1);
-    }
-    :root[data-theme="dark"] img[alt="Git"] {
-      filter: unset;
-      content: url("./images/logo.dark-mode.svg");
-    }
-    :root[data-theme="dark"] a.subtle-button {
-      background-image: linear-gradient(#555555, #777777);
-      border-top: solid 1px #333;
-      border-right: solid 1px #333;
-      border-bottom: solid 1px #333;
-      border-left: solid 1px #333;
-      -webkit-box-shadow: none;
-      -moz-box-shadow: none;
-      box-shadow: none;
-    }
-    :root[data-theme="dark"] hr.sidebar {
-      filter: brightness(0.5);
-    }
-    :root[data-theme="dark"] #documentation #main div.verseblock pre.content {
-      color: var(--light-font-color);
-      background-color: #5e5951;
-    }
-    :root[data-theme="dark"] form#search {
-      -webkit-box-shadow: none;
-      -moz-box-shadow: none;
-      box-shadow: none;
-    }
-    :root[data-theme="dark"] input.pagefind-ui__search-input {
-      background: var(--main-bg);
-    }
-    :root[data-theme="dark"]
-      #search-results
-      table
-      td.matches:is(a:hover, a.highlight) {
-      text-shadow: unset;
-    }
-    :root[data-theme="dark"] #reference-version {
-      background-color: #6f6e6954;
-    }
-    :root[data-theme="dark"] #l10n-versions-dropdown footer a {
-      color: #6969dd;
-    }
-    :root[data-theme="dark"] .cheat-sheet img {
-      filter: invert(60%);
-    }
-    :root[data-theme="dark"] {
-      --orange: #d7834f;
-      --orange-darker-5: #d2743a;
-      --blue: #007a7e;
-      --font-color: #b3b1b1;
-      --aside-font-color: #9a9797;
-      --light-font-color: #bdbbb0;
-      --light-font-color-darker-10: #a6a394;
-      --light-font-color-darker-25: #817e6c;
-      --light-font-color-darker-35: #666355;
-      --light-font-color-darker-55: #2e2d26;
-      --light-font-color-lighter-20: #ebebe8;
-      --link-color: #d7834f;
-      --nav-link-color: #979594;
-      --link-hover-color: #e0a079;
-      --fixed-width-font-color: #afa7a0;
-      --button-bg-color: #dfddd554;
-      --button-bg-hover-color: #dfddd599;
-      --button-color: #dfddd599;
-      --mark-bg-color: #898882;
-      --mark-color: #d2d2d2;
-      --base-border-color: #b3b2a7;
-      --base-border-color-darker-8: #a09f91;
-      --base-border-color-lighter-10: #cbcac2;
-      --callout-color: #555555;
-      --highlight-bg-color: #47412d;
-      --pre-border: #494945;
-      --black-3: #cccccc;
-      --main-bg: #333333;
-      --main-border: #5e5e5a;
-      --sidebar-bg-color: #3d3d3a;
-      --sidebar-toc-bg-color: #333333;
-      --bg-color: #2a2a2aff;
-      --no-changes-bg-color: #515150;
-      --dropdown-active-bg-color: #515150;
-      --versions-footer-bg-color: #1f1f1e;
-      --search-border: #5e5e5a;
-      --search-focus-border: #ceccc5;
-      --logos-1: #696c69;
-      --logos-2: #767675;
-      --logos-3: #90908b;
-      --logos-4: #a6a7a1;
-    }
-
-    @media screen and (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) img {
-        filter: brightness(0.6)contrast(1.2);
-      }
-      :root:not([data-theme="light"]) body#about img:not(.no-filter) {
-        filter: brightness(0.9)contrast(0.6)invert(1);
-      }
-      :root:not([data-theme="light"]) img[alt="Git"] {
-        filter: unset;
-        content: url("./images/logo.dark-mode.svg");
-      }
-      :root:not([data-theme="light"]) a.subtle-button {
-        background-image: linear-gradient(#555555, #777777);
-        border-top: solid 1px #333;
-        border-right: solid 1px #333;
-        border-bottom: solid 1px #333;
-        border-left: solid 1px #333;
-      }
-      :root:not([data-theme="light"]) hr.sidebar {
-        filter: brightness(0.5);
-      }
-      :root:not([data-theme="light"])
-        #documentation
-        #main
-        div.verseblock
-        pre.content {
-        background-color: #5e5951;
-      }
-      :root:not([data-theme="light"]) #reference-version {
-        background-color: #6f6e6954;
-      }
-      :root:not([data-theme="light"]) #l10n-versions-dropdown footer a {
-        color: #6969dd;
-      }
-      :root:not([data-theme="light"]) .cheat-sheet img {
-        filter: invert(60%);
-      }
-      :root:not([data-theme="light"]) {
-        --orange: #d7834f;
-        --orange-darker-5: #d2743a;
-        --blue: #007a7e;
-        --font-color: #b3b1b1;
-        --aside-font-color: #9a9797;
-        --light-font-color: #bdbbb0;
-        --light-font-color-darker-10: #a6a394;
-        --light-font-color-darker-25: #817e6c;
-        --light-font-color-darker-35: #666355;
-        --light-font-color-darker-55: #2e2d26;
-        --light-font-color-lighter-20: #ebebe8;
-        --link-color: #d7834f;
-        --nav-link-color: #979594;
-        --link-hover-color: #e0a079;
-        --fixed-width-font-color: #afa7a0;
-        --button-bg-color: #dfddd554;
-        --button-bg-hover-color: #dfddd599;
-        --button-color: #dfddd599;
-        --mark-bg-color: #898882;
-        --mark-color: #d2d2d2;
-        --base-border-color: #b3b2a7;
-        --base-border-color-darker-8: #a09f91;
-        --base-border-color-lighter-10: #cbcac2;
-        --callout-color: #555555;
-        --highlight-bg-color: #47412d;
-        --pre-border: #494945;
-        --black-3: #cccccc;
-        --main-bg: #333333;
-        --main-border: #5e5e5a;
-        --sidebar-bg-color: #3d3d3a;
-        --sidebar-toc-bg-color: #333333;
-        --bg-color: #2a2a2aff;
-        --no-changes-bg-color: #515150;
-        --dropdown-active-bg-color: #515150;
-        --versions-footer-bg-color: #1f1f1e;
-        --search-border: #5e5e5a;
-        --search-focus-border: #ceccc5;
-        --logos-1: #696c69;
-        --logos-2: #767675;
-        --logos-3: #90908b;
-        --logos-4: #a6a7a1;
-      }
-      :root {
-        --orange: #f14e32;
-        --orange-darker-5: #ef391a;
-        --blue: #009099;
-        --font-color: #4e443c;
-        --aside-font-color: #887668;
-        --light-font-color: #9a9994;
-        --light-font-color-darker-10: #81807a;
-        --light-font-color-darker-25: #5a5955;
-        --light-font-color-darker-35: #403f3c;
-        --light-font-color-darker-55: #0b0b0a;
-        --light-font-color-lighter-20: #cccbc8;
-        --link-color: #0388a6;
-        --nav-link-color: #413932;
-        --link-hover-color: #04b1d8;
-        --fixed-width-font-color: #4e443c;
-        --button-bg-color: #dfddd554;
-        --button-bg-hover-color: #fafafae5;
-        --button-color: #0388a6;
-        --mark-bg-color: #ff0;
-        --mark-color: #000;
-        --base-border-color: #d8d7cf;
-        --base-border-color-darker-8: #c6c4b8;
-        --base-border-color-lighter-10: #efeeeb;
-        --callout-color: #e9e8e0;
-        --highlight-bg-color: #eee0b5;
-        --pre-border: #efeee6;
-        --black-3: #333333;
-        --main-bg: #fcfcfa;
-        --main-border: #e2e0d8;
-        --sidebar-bg-color: #efefe7;
-        --sidebar-toc-bg-color: #f7f7f3;
-        --bg-color: #f0efe7 url("https://git-scm.com//images/bg/body.jpg");
-        --no-changes-bg-color: #f5f5f3;
-        --dropdown-active-bg-color: #fff;
-        --versions-footer-bg-color: #eae9e0;
-        --search-border: #ceccc5;
-        --search-focus-border: #007175;
-        --logos-1: #a6a7a1;
-        --logos-2: #90908b;
-        --logos-3: #767675;
-        --logos-4: #696c69;
+    @media only screen and (min-device-pixel-ratio: 2),
+      only screen and (min-device-pixel-ratio: 2),
+      only screen and (min-device-pixel-ratio: 2/1) {
+      div#masthead::before {
+        background: url("https://git-scm.com//images/bg/isometric-grid@2x.png")
+          100% 0 repeat !important;
+        background-size: 35px 21px !important;
       }
     }
 
-    @media print {
-      .cheat-sheet section {
-        border: 1px solid @overlay0;
+    hr.sidebar {
+      filter: @overlay1-filter !important;
+    }
+
+    #documentation #main div.verseblock pre.content {
+      color: var(--light-font-color) !important;
+      background-color: var(--pre-bg-color) !important;
+    }
+    input.pagefind-ui__search-input {
+      background: var(--main-bg) !important;
+    }
+    #reference-version {
+      background-color: #6f6e6954 !important;
+    }
+    #l10n-versions-dropdown footer a {
+      color: var(--link-color) !important;
+
+      &:hover {
+        color: var(--link-hover-color) !important;
       }
-      .cheat-sheet .commit-reference {
-        border-left: 1px solid @overlay0;
+    }
+
+    .cheat-sheet {
+      .commit-reference dl dt::before {
+        color: var(--font-color) !important;
       }
+
+      img[src="/images/pdf.png"] {
+        @svg: escape(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="none" stroke="@{accent}" stroke-linecap="round" stroke-linejoin="round" d="M2.8 14.34c1.81-1.25 3.02-3.16 3.91-5.5.9-2.33 1.86-4.33 1.44-6.63-.06-.36-.57-.73-.83-.7-1.02.06-.95 1.21-.85 1.9.24 1.71 1.56 3.7 2.84 5.56 1.27 1.87 2.32 2.16 3.78 2.26.5.03 1.25-.14 1.37-.58.77-2.8-9.02-.54-12.28 2.08-.4.33-.86 1-.6 1.46.2.36.87.4 1.23.15h0Z" /></svg>'
+          )
+          !important;
+        content: url("data:image/svg+xml,@{svg}") !important;
+        filter: brightness(60%) !important;
+
+        &:hover {
+          filter: none !important;
+        }
+      }
+    }
+
+    :is(img[src="/images/light-mode.svg"], img[src="/images/dark-mode.svg"]) {
+      @svg: escape(
+          '<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><path style="fill:@{accent} !important;stroke-width:0" d="M34 9c3 0 13 13 4 25-11 14-30 3-24 2 6 0 11-5 14-8s6-9 5-17c0-1 0-2 1-2"/></svg>'
+        )
+        !important;
+      content: url("data:image/svg+xml,@{svg}") !important;
+      filter: none !important;
+    }
+
+    a.subtle-button {
+      background-image: linear-gradient(#555, #777) !important;
+      border-top: solid 1px #333 !important;
+      border-right: solid 1px #333 !important;
+      border-bottom: solid 1px #333 !important;
+      border-left: solid 1px #333 !important;
+    }
+
+    :root:not([data-theme="light"])
+      #documentation
+      #main
+      div.verseblock
+      pre.content {
+      background-color: var(--no-changes-bg-color) !important;
+    }
+    #reference-version {
+      background-color: var(--no-changes-bg-color) !important;
     }
   }
 }
