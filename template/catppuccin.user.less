@@ -65,3 +65,63 @@
     }
   }
 }
+
+/* If the website is a wiki and uses the popular MediaWiki backend, with a Vector 2022 skin,
+   you can furthermore reset the MediaWiki variables of the site and rewrite them easily,
+   with our dedicated library. It maps the standard variables, icons, toolbar theming, and
+   much more.
+*/
+@import "https://userstyles.catppuccin.com/lib/mediawiki.less";
+
+// Outside the #catppuccin mixin, add the reset block to remove the base mediawiki settings included on the page itself.
+
+#__mediawiki.reset();
+
+@-moz-document domain("<website-domain>") {
+  /* Given that we're working with Vector 2022 skins primarily, here we can add specificity
+     by matching to skins directly.
+  */
+
+  /* This matches pages using OS/automatic/no theme. */
+  :root.skin-theme-clientpref-os,
+  .vector-feature-night-mode-enabled,
+  .skin-invert,
+  .notheme {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  /* This matches dark/night theme. */
+  :root.skin-theme-clientpref-night {
+    #catppuccin(@darkFlavor);
+  }
+
+  /* This matches light/day theme. */
+  :root.skin-theme-clientpref-day {
+    #catppuccin(@lightFlavor);
+  }
+
+  /* Now we reset the MediaWiki variables, to prepare the page for our own styling. This
+     clears any image filters that might disrupt standard behaviours we define, as well as
+     unusual MediaWiki settings that are tied to dark/automatic mode.
+  */
+  #__mediawiki.reset();
+
+  /* Within the `#catppuccin` mixin, add the base block to add the defaults, as usual. */
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    /* Then, add the base() mixin, to set the entire default MediaWiki variables and settings. */
+    #__mediawiki.base();
+
+    /* Now you can put whatever overrides that a page may have that overrides the MediaWiki
+       defaults, to its Catppuccin counterpart here!
+    */
+    /* ... */
+  }
+}
