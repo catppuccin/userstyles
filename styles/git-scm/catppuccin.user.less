@@ -16,56 +16,27 @@
 ==/UserStyle== */
 
 @import "https://userstyles.catppuccin.com/lib/lib.less";
+@import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
 
 @-moz-document domain("git-scm.com") {
-  // ?FIXME: See if we can condense this?
-  :root {
-    @media screen and (prefers-color-scheme: light) {
-      #catppuccin(@lightFlavor);
-    }
-    @media screen and (prefers-color-scheme: dark) {
+  @media screen and (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]),
+    :root[data-theme="dark"] {
       #catppuccin(@darkFlavor);
-    }
-
-    @media print and (prefers-color-scheme: dark) {
-      #catppuccin(@darkFlavor);
-
-      .cheat-sheet section {
-        border: 1px solid @overlay0 !important;
-      }
-      .cheat-sheet .commit-reference {
-        border-left: 1px solid @overlay0 !important;
-      }
-    }
-
-    @media print and (prefers-color-scheme: light) {
-      #catppuccin(@lightFlavor);
-
-      .cheat-sheet section {
-        border: 1px solid @overlay0 !important;
-      }
-      .cheat-sheet .commit-reference {
-        border-left: 1px solid @overlay0 !important;
-      }
     }
   }
 
-  /*
-   * NOTE: These ones are seemingly the default ones used.
-   * Not certain if that includes browser/dynamic theming.
-   */
-  :root:not([data-theme="light"]),
-  :root[data-theme="dark"] {
-    #catppuccin(@darkFlavor);
-  }
-  :root:not([data-theme="dark"]),
-  :root[data-theme="light"] {
-    #catppuccin(@lightFlavor);
+  @media screen and (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]),
+    :root[data-theme="light"] {
+      #catppuccin(@lightFlavor);
+    }
   }
 
   #catppuccin(@flavor) {
     #lib.palette();
     #lib.defaults();
+    #lib.css-variables();
 
     img[alt="Git"] {
       filter: @accent-filter !important;
@@ -76,61 +47,65 @@
       filter: @peach-filter !important;
     }
 
-    --orange: @accent !important;
-    --orange-darker-5: darken(@accent, 5%) !important;
-    --blue: @blue !important;
-    --font-color: @text !important;
-    --aside-font-color: @subtext0 !important;
-    --light-font-color: @subtext0 !important;
-    --light-font-color-darker-10: darken(@subtext0, 10%) !important;
-    --light-font-color-darker-25: darken(@subtext0, 25%) !important;
-    --light-font-color-darker-35: darken(@subtext0, 35%) !important;
-    --light-font-color-darker-55: darken(@subtext0, 55%) !important;
-    --light-font-color-lighter-20: lighten(@subtext0, 20%) !important;
-    --link-color: @blue !important;
-    --nav-link-color: @blue !important;
-    --link-hover-color: @sky !important;
-    --fixed-width-font-color: @text !important;
+    --orange: @accent;
+    --orange-darker-5: darken(@accent, 5%);
+    --blue: @blue;
+    --font-color: @text;
+    --aside-font-color: @subtext0;
+    --light-font-color: @subtext0;
+    --light-font-color-darker-10: darken(@subtext0, 10%);
+    --light-font-color-darker-25: darken(@subtext0, 25%);
+    --light-font-color-darker-35: darken(@subtext0, 35%);
+    --light-font-color-darker-55: darken(@subtext0, 55%);
+    --light-font-color-lighter-20: lighten(@subtext0, 20%);
+    --link-color: @blue;
+    --nav-link-color: @blue;
+    --link-hover-color: @sky;
+    --fixed-width-font-color: @text;
     --button-bg-color: linear-gradient(
       @surface0,
       darken(@surface0, 5%)
-    ) !important;
+    );
     --button-bg-hover-color: linear-gradient(
       @accent,
       darken(@accent, 5%)
-    ) !important;
+    );
     --button-bg-selected-color: linear-gradient(
       darken(@accent, 5%),
       darken(@accent, 10%)
-    ) !important;
-    --button-color: @text !important;
-    --button-border: @overlay0 !important;
-    --mark-bg-color: fade(@yellow, 30%) !important;
-    --mark-color: @yellow !important;
-    --base-border-color: @overlay0 !important;
-    --base-border-color-darker-8: darken(@overlay0, 8%) !important;
-    --base-border-color-lighter-10: darken(@overlay0, 10%) !important;
-    --callout-color: @mantle !important;
-    --highlight-bg-color: fade(@accent, 30%) !important;
-    --pre-bg-color: @mantle !important;
-    --pre-border: @overlay0 !important;
-    --black-3: @crust !important;
-    --main-bg: @base !important;
-    --main-border: @overlay0 !important;
-    --title-border: @overlay1 !important;
-    --sidebar-bg-color: @mantle !important;
-    --sidebar-toc-bg-color: @mantle !important;
-    --bg-color: @base !important;
-    --shadow-color: fade(@overlay0, 10%) !important;
-    --no-changes-bg-color: @mantle !important;
-    --dropdown-active-bg-color: @surface0 !important;
-    --versions-footer-bg-color: @mantle !important;
-    --search-border: @overlay0 !important;
-    --search-focus-border: @accent !important;
-    --logos-1: @accent !important;
-    --logos-2: darken(@accent, 5%) !important;
-    --logos-3: darken(@accent, 10%) !important;
-    --logos-4: darken(@accent, 15%) !important;
+    );
+    --button-color: @text;
+    --button-border: @overlay0;
+    --mark-bg-color: fade(@yellow, 30%);
+    --mark-color: @yellow;
+    --base-border-color: @overlay0;
+    --base-border-color-darker-8: darken(@overlay0, 8%);
+    --base-border-color-lighter-10: darken(@overlay0, 10%);
+    --callout-color: @mantle;
+    --highlight-bg-color: fade(@accent, 30%);
+    --pre-bg-color: @mantle;
+    --pre-border: @overlay0;
+    --black-3: @crust;
+    --main-bg: @base;
+    --main-border: @overlay0;
+    --title-border: @overlay1;
+    --sidebar-bg-color: @mantle;
+    --sidebar-toc-bg-color: @mantle;
+    --bg-color: @base;
+    --shadow-color: fade(@overlay0, 10%);
+    --no-changes-bg-color: @mantle;
+    --dropdown-active-bg-color: @surface0;
+    --versions-footer-bg-color: @mantle;
+    --search-border: @overlay0;
+    --search-focus-border: @accent;
+    --logos-1: @accent;
+    --logos-2: darken(@accent, 5%);
+    --logos-3: darken(@accent, 10%);
+    --logos-4: darken(@accent, 15%);
+
+    a:hover {
+      color: var(--link-hover-color) !important;
+    }
 
     button {
       border-color: var(--button-border) !important;
@@ -163,16 +138,18 @@
     }
 
     a.subtle-button {
+      color: var(--font-color) !important;
       background-image: var(--button-bg-color) !important;
       border-color: var(--base-border-color) !important;
       box-shadow: var(--shadow-color) !important;
 
       &:hover {
-        color: var(--link-color) !important;
+        color: var(--bg-color) !important;
         background-image: var(--button-bg-hover-color) !important;
       }
 
       &.selected {
+        color: var(--bg-color) !important;
         background-image: var(--button-bg-selected-color) !important;
       }
     }
@@ -228,6 +205,7 @@
       .callout {
         background-color: var(--callout-color) !important;
       }
+
       &.active {
         box-shadow: var(--shadow-color) !important;
         border-color: var(--base-border-color) !important;
@@ -256,12 +234,14 @@
 
     ol.reference-previous-versions {
       border-color: var(--pre-border) !important;
-    }
-    ol.reference-previous-versions li a {
-      border-color: var(--pre-border) !important;
-    }
-    ol.reference-previous-versions li a:hover {
-      background-color: var(--no-changes-bg-color) !important;
+
+      li a {
+        border-color: var(--pre-border) !important;
+
+        &:hover {
+          background-color: var(--pre-bg-color) !important;
+        }
+      }
     }
 
     input.inactive {
@@ -284,78 +264,62 @@
         color: var(--font-color) !important;
         background-image: url("data:image/svg+xml,@{svg}") !important;
       }
+
       box-shadow: var(--shadow-color) !important;
     }
 
-    #documentation #main p.nutshell {
-      background-color: #e8e7dd !important;
-    }
-    #documentation #main .literalblock .content pre tt {
-      background-color: #eee0b5 !important;
+    #documentation #main {
+      p.nutshell, .literalblock .content pre tt {
+        background-color: var(--pre-bg-color) !important;
+      }
     }
 
     .switch a {
-      color: #aaa !important;
+      color: var(--font-color) !important;
     }
 
-    .edition2 section[data-type="titlepage"] h1 {
-      border-bottom: 1px solid #333 !important;
+    .edition2 {
+      section[data-type="titlepage"] h1 {
+        border-bottom: 1px solid #333 !important;
+      }
+
+      nav[data-type="toc"] li[data-type="part"] > a,
+      table,
+      th,
+      figure img {
+        border-color: var(--pre-border) !important;
+      }
+
+      aside {
+        color: var(--aside-font-color) !important;
+        background-color: var(--pre-bg-color) !important;
+        border-color: var(--pre-border) !important;
+      }
+
+      div[data-type="note"],
+      div[data-type="warning"] {
+        border-color: var(--pre-border) !important;
+      }
+
+      div[data-type="note"] h1,
+      div[data-type="warning"] h1 {
+        color: @peach !important;
+      }
     }
-    .edition2 nav[data-type="toc"] li[data-type="part"] > a {
-      border-bottom: 1px solid #333 !important;
-    }
-    .edition2 table {
-      border-bottom: 1px solid #888 !important;
-    }
-    .edition2 th {
-      border-top: 1px solid #888 !important;
-      border-bottom: 1px solid #888 !important;
-    }
-    .edition2 figure img {
-      border-top: 1px solid #888 !important;
-      border-bottom: 1px solid #888 !important;
-    }
-    .edition2 aside {
-      background-color: #d8d8d8 !important;
-      border: 1px solid #d8d8d8 !important;
-    }
-    .edition2 div[data-type="note"],
-    .edition2 div[data-type="warning"] {
-      border-top: 2px solid #888 !important;
-      border-bottom: 1px solid #d8d8d8 !important;
-    }
-    .edition2 div[data-type="note"] h1,
-    .edition2 div[data-type="warning"] h1 {
-      color: #000 !important;
-    }
-    .edition2 pre {
-      background: #eee !important;
-    }
-    #documentation #main p .edition2 pre tt,
-    .edition2 pre #documentation #main p tt,
-    .edition2 pre code {
-      background: #eee !important;
-    }
-    .edition2 pre {
-      color: #333 !important;
-    }
-    #documentation #main p .edition2 tt,
-    .edition2 #documentation #main p tt,
-    .edition2 code {
-      color: #333 !important;
-      background: #eee !important;
-      border: 1px solid #f5f5f5 !important;
-    }
+
     .edition2 div[data-type="example"] h5 {
       border-bottom: 1px solid #d8d8d8 !important;
     }
+
     .edition2 div.navbar {
       background-color: #e8e8e8 !important;
       border-bottom: 1px solid #d8d8d8 !important;
     }
+
     .edition2 div.navbar h1 {
       color: #999 !important;
     }
+
     .edition2 div.navbar p a {
       color: #999 !important;
     }
@@ -367,350 +331,6 @@
       }
     }
 
-    #documentation #main p .edition2 pre tt.hll,
-    .edition2 pre #documentation #main p tt.hll,
-    .edition2 pre code.hll {
-      background-color: #ffc !important;
-    }
-    #documentation #main p .edition2 pre tt.c,
-    .edition2 pre #documentation #main p tt.c,
-    .edition2 pre code.c {
-      color: #09f !important;
-    }
-    #documentation #main p .edition2 pre tt.err,
-    .edition2 pre #documentation #main p tt.err,
-    .edition2 pre code.err {
-      color: #a00 !important;
-    }
-    #documentation #main p .edition2 pre tt.k,
-    .edition2 pre #documentation #main p tt.k,
-    .edition2 pre code.k {
-      color: #069 !important;
-    }
-    #documentation #main p .edition2 pre tt.o,
-    .edition2 pre #documentation #main p tt.o,
-    .edition2 pre code.o {
-      color: #555 !important;
-    }
-    #documentation #main p .edition2 pre tt.cm,
-    .edition2 pre #documentation #main p tt.cm,
-    .edition2 pre code.cm {
-      color: #35586c !important;
-    }
-    #documentation #main p .edition2 pre tt.cp,
-    .edition2 pre #documentation #main p tt.cp,
-    .edition2 pre code.cp {
-      color: #099 !important;
-    }
-    #documentation #main p .edition2 pre tt.c1,
-    .edition2 pre #documentation #main p tt.c1,
-    .edition2 pre code.c1 {
-      color: #35586c !important;
-    }
-    #documentation #main p .edition2 pre tt.cs,
-    .edition2 pre #documentation #main p tt.cs,
-    .edition2 pre code.cs {
-      color: #35586c !important;
-    }
-    #documentation #main p .edition2 pre tt.gd,
-    .edition2 pre #documentation #main p tt.gd,
-    .edition2 pre code.gd {
-      background-color: #fcc !important;
-    }
-    #documentation #main p .edition2 pre tt.gr,
-    .edition2 pre #documentation #main p tt.gr,
-    .edition2 pre code.gr {
-      color: red !important;
-    }
-    #documentation #main p .edition2 pre tt.gi,
-    .edition2 pre #documentation #main p tt.gi,
-    .edition2 pre code.gi {
-      background-color: #cfc !important;
-    }
-    #documentation #main p .edition2 pre tt.go,
-    .edition2 pre #documentation #main p tt.go,
-    .edition2 pre code.go {
-      color: #000 !important;
-    }
-    #documentation #main p .edition2 pre tt.gp,
-    .edition2 pre #documentation #main p tt.gp,
-    .edition2 pre code.gp {
-      color: #009 !important;
-    }
-    #documentation #main p .edition2 pre tt.gu,
-    .edition2 pre #documentation #main p tt.gu,
-    .edition2 pre code.gu {
-      color: #030 !important;
-    }
-    #documentation #main p .edition2 pre tt.gt,
-    .edition2 pre #documentation #main p tt.gt,
-    .edition2 pre code.gt {
-      color: #9c6 !important;
-    }
-    #documentation #main p .edition2 pre tt.kc,
-    .edition2 pre #documentation #main p tt.kc,
-    .edition2 pre code.kc {
-      color: #069 !important;
-    }
-    #documentation #main p .edition2 pre tt.kd,
-    .edition2 pre #documentation #main p tt.kd,
-    .edition2 pre code.kd {
-      color: #069 !important;
-    }
-    #documentation #main p .edition2 pre tt.kn,
-    .edition2 pre #documentation #main p tt.kn,
-    .edition2 pre code.kn {
-      color: #069 !important;
-    }
-    #documentation #main p .edition2 pre tt.kp,
-    .edition2 pre #documentation #main p tt.kp,
-    .edition2 pre code.kp {
-      color: #069 !important;
-    }
-    #documentation #main p .edition2 pre tt.kr,
-    .edition2 pre #documentation #main p tt.kr,
-    .edition2 pre code.kr {
-      color: #069 !important;
-    }
-    #documentation #main p .edition2 pre tt.kt,
-    .edition2 pre #documentation #main p tt.kt,
-    .edition2 pre code.kt {
-      color: #078 !important;
-    }
-    #documentation #main p .edition2 pre tt.m,
-    .edition2 pre #documentation #main p tt.m,
-    .edition2 pre code.m {
-      color: #f60 !important;
-    }
-    #documentation #main p .edition2 pre tt.s,
-    .edition2 pre #documentation #main p tt.s,
-    .edition2 pre code.s {
-      color: #c30 !important;
-    }
-    #documentation #main p .edition2 pre tt.na,
-    .edition2 pre #documentation #main p tt.na,
-    .edition2 pre code.na {
-      color: #309 !important;
-    }
-    #documentation #main p .edition2 pre tt.nb,
-    .edition2 pre #documentation #main p tt.nb,
-    .edition2 pre code.nb {
-      color: #366 !important;
-    }
-    #documentation #main p .edition2 pre tt.nc,
-    .edition2 pre #documentation #main p tt.nc,
-    .edition2 pre code.nc {
-      color: #0a8 !important;
-    }
-    #documentation #main p .edition2 pre tt.no,
-    .edition2 pre #documentation #main p tt.no,
-    .edition2 pre code.no {
-      color: #360 !important;
-    }
-    #documentation #main p .edition2 pre tt.nd,
-    .edition2 pre #documentation #main p tt.nd,
-    .edition2 pre code.nd {
-      color: #99f !important;
-    }
-    #documentation #main p .edition2 pre tt.ni,
-    .edition2 pre #documentation #main p tt.ni,
-    .edition2 pre code.ni {
-      color: #999 !important;
-    }
-    #documentation #main p .edition2 pre tt.ne,
-    .edition2 pre #documentation #main p tt.ne,
-    .edition2 pre code.ne {
-      color: #c00 !important;
-    }
-    #documentation #main p .edition2 pre tt.nf,
-    .edition2 pre #documentation #main p tt.nf,
-    .edition2 pre code.nf {
-      color: #c0f !important;
-    }
-    #documentation #main p .edition2 pre tt.nl,
-    .edition2 pre #documentation #main p tt.nl,
-    .edition2 pre code.nl {
-      color: #99f !important;
-    }
-    #documentation #main p .edition2 pre tt.nn,
-    .edition2 pre #documentation #main p tt.nn,
-    .edition2 pre code.nn {
-      color: #0cf !important;
-    }
-    #documentation #main p .edition2 pre tt.nt,
-    .edition2 pre #documentation #main p tt.nt,
-    .edition2 pre code.nt {
-      color: #309 !important;
-    }
-    #documentation #main p .edition2 pre tt.nv,
-    .edition2 pre #documentation #main p tt.nv,
-    .edition2 pre code.nv {
-      color: #033 !important;
-    }
-    #documentation #main p .edition2 pre tt.ow,
-    .edition2 pre #documentation #main p tt.ow,
-    .edition2 pre code.ow {
-      color: #000 !important;
-    }
-    #documentation #main p .edition2 pre tt.w,
-    .edition2 pre #documentation #main p tt.w,
-    .edition2 pre code.w {
-      color: #bbb !important;
-    }
-    #documentation #main p .edition2 pre tt.mf,
-    .edition2 pre #documentation #main p tt.mf,
-    .edition2 pre code.mf {
-      color: #f60 !important;
-    }
-    #documentation #main p .edition2 pre tt.mh,
-    .edition2 pre #documentation #main p tt.mh,
-    .edition2 pre code.mh {
-      color: #f60 !important;
-    }
-    #documentation #main p .edition2 pre tt.mi,
-    .edition2 pre #documentation #main p tt.mi,
-    .edition2 pre code.mi {
-      color: #f60 !important;
-    }
-    #documentation #main p .edition2 pre tt.mo,
-    .edition2 pre #documentation #main p tt.mo,
-    .edition2 pre code.mo {
-      color: #f60 !important;
-    }
-    #documentation #main p .edition2 pre tt.sb,
-    .edition2 pre #documentation #main p tt.sb,
-    .edition2 pre code.sb {
-      color: #c30 !important;
-    }
-    #documentation #main p .edition2 pre tt.sc,
-    .edition2 pre #documentation #main p tt.sc,
-    .edition2 pre code.sc {
-      color: #c30 !important;
-    }
-    #documentation #main p .edition2 pre tt.sd,
-    .edition2 pre #documentation #main p tt.sd,
-    .edition2 pre code.sd {
-      color: #c30 !important;
-    }
-    #documentation #main p .edition2 pre tt.s2,
-    .edition2 pre #documentation #main p tt.s2,
-    .edition2 pre code.s2 {
-      color: #c30 !important;
-    }
-    #documentation #main p .edition2 pre tt.se,
-    .edition2 pre #documentation #main p tt.se,
-    .edition2 pre code.se {
-      color: #c30 !important;
-    }
-    #documentation #main p .edition2 pre tt.sh,
-    .edition2 pre #documentation #main p tt.sh,
-    .edition2 pre code.sh {
-      color: #c30 !important;
-    }
-    #documentation #main p .edition2 pre tt.si,
-    .edition2 pre #documentation #main p tt.si,
-    .edition2 pre code.si {
-      color: #a00 !important;
-    }
-    #documentation #main p .edition2 pre tt.sx,
-    .edition2 pre #documentation #main p tt.sx,
-    .edition2 pre code.sx {
-      color: #c30 !important;
-    }
-    #documentation #main p .edition2 pre tt.sr,
-    .edition2 pre #documentation #main p tt.sr,
-    .edition2 pre code.sr {
-      color: #3aa !important;
-    }
-    #documentation #main p .edition2 pre tt.s1,
-    .edition2 pre #documentation #main p tt.s1,
-    .edition2 pre code.s1 {
-      color: #c30 !important;
-    }
-    #documentation #main p .edition2 pre tt.ss,
-    .edition2 pre #documentation #main p tt.ss,
-    .edition2 pre code.ss {
-      color: #a60 !important;
-    }
-    #documentation #main p .edition2 pre tt.bp,
-    .edition2 pre #documentation #main p tt.bp,
-    .edition2 pre code.bp {
-      color: #366 !important;
-    }
-    #documentation #main p .edition2 pre tt.vc,
-    .edition2 pre #documentation #main p tt.vc,
-    .edition2 pre code.vc {
-      color: #033 !important;
-    }
-    #documentation #main p .edition2 pre tt.vg,
-    .edition2 pre #documentation #main p tt.vg,
-    .edition2 pre code.vg {
-      color: #033 !important;
-    }
-    #documentation #main p .edition2 pre tt.vi,
-    .edition2 pre #documentation #main p tt.vi,
-    .edition2 pre code.vi {
-      color: #033 !important;
-    }
-    #documentation #main p .edition2 pre tt.il,
-    .edition2 pre #documentation #main p tt.il,
-    .edition2 pre code.il {
-      color: #f60 !important;
-    }
-    #documentation #main p .edition2 pre tt.g,
-    .edition2 pre #documentation #main p tt.g,
-    .edition2 pre code.g {
-      color: #050 !important;
-    }
-    #documentation #main p .edition2 pre tt.l,
-    .edition2 pre #documentation #main p tt.l,
-    .edition2 pre code.l {
-      color: #c60 !important;
-    }
-    #documentation #main p .edition2 pre tt.l,
-    .edition2 pre #documentation #main p tt.l,
-    .edition2 pre code.l {
-      color: #f90 !important;
-    }
-    #documentation #main p .edition2 pre tt.n,
-    .edition2 pre #documentation #main p tt.n,
-    .edition2 pre code.n {
-      color: #008 !important;
-    }
-    #documentation #main p .edition2 pre tt.nx,
-    .edition2 pre #documentation #main p tt.nx,
-    .edition2 pre code.nx {
-      color: #008 !important;
-    }
-    #documentation #main p .edition2 pre tt.py,
-    .edition2 pre #documentation #main p tt.py,
-    .edition2 pre code.py {
-      color: #96f !important;
-    }
-    #documentation #main p .edition2 pre tt.p,
-    .edition2 pre #documentation #main p tt.p,
-    .edition2 pre code.p {
-      color: #000 !important;
-    }
-    #documentation #main p .edition2 pre tt.x,
-    .edition2 pre #documentation #main p tt.x,
-    .edition2 pre code.x {
-      color: #f06 !important;
-    }
-    .edition2 pre[data-code-language="console"] {
-      background: #eee !important;
-    }
-    #documentation #main p .edition2 pre[data-code-language="console"] tt.go,
-    .edition2 pre[data-code-language="console"] #documentation #main p tt.go,
-    .edition2 pre[data-code-language="console"] code.go {
-      color: #555 !important;
-    }
-    #documentation #main p .edition2 pre[data-code-language="console"] tt.gp,
-    .edition2 pre[data-code-language="console"] #documentation #main p tt.gp,
-    .edition2 pre[data-code-language="console"] code.gp {
-      color: #090 !important;
-    }
-
     ul.books-list li img {
       border: solid 1px #b7b7b7 !important;
     }
@@ -718,10 +338,12 @@
     .bar-chart dd + dd {
       border-left: 1px solid #ccc !important;
     }
+
     .bar-chart progress.git::-moz-progress-bar,
     .bar-chart progress.git::-webkit-progress-value {
       background-color: #e09fa0 !important;
     }
+
     .bar-chart progress.svn::-moz-progress-bar,
     .bar-chart progress.svn::-webkit-progress-value {
       background-color: #e05f49 !important;
@@ -730,6 +352,7 @@
     div#masthead {
       background: 0 0 !important;
     }
+
     div#masthead::before {
       content: "" !important;
       width: 100% !important;
@@ -741,6 +364,7 @@
       filter: brightness(0.4)contrast(1.6) !important;
       z-index: -1 !important;
     }
+
     @media only screen and (min-device-pixel-ratio: 2),
       only screen and (min-device-pixel-ratio: 2),
       only screen and (min-device-pixel-ratio: 2/1) {
@@ -759,17 +383,30 @@
       color: var(--light-font-color) !important;
       background-color: var(--pre-bg-color) !important;
     }
+
     input.pagefind-ui__search-input {
       background: var(--main-bg) !important;
     }
-    #reference-version {
-      background-color: #6f6e6954 !important;
-    }
+
     #l10n-versions-dropdown footer a {
       color: var(--link-color) !important;
 
       &:hover {
         color: var(--link-hover-color) !important;
+      }
+    }
+
+    .diff {
+      img[src="/images/icons/green-dot.png"] {
+        filter: @green-filter !important;
+      }
+
+      img[src="/images/icons/red-dot.png"] {
+        filter: @red-filter !important;
+      }
+
+      img[src="/images/icons/grey-dot.png"] {
+        filter: @subtext0-filter !important;
       }
     }
 
@@ -792,32 +429,21 @@
       }
     }
 
-    :is(img[src="/images/light-mode.svg"], img[src="/images/dark-mode.svg"]) {
+    img[src="/images/light-mode.svg"] {
+      @svg: escape(
+        '<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><circle style="fill:none;stroke:@{accent};stroke-width:4" cx="25" cy="25" r="10"/><path style="fill:none;stroke:@{accent};stroke-width:4;stroke-linecap:round;stroke-linejoin:round" d="M25 5v5m0 35v-5m20-15h-5M5 25h5m29-14-3.5 3.5M11 39l3.5-3.5M39 39l-3.5-3.5M11 11l3.5 3.5"/></svg>'
+      );
+      content: url("data:image/svg+xml,@{svg}") !important;
+      filter: none !important;
+    }
+
+    img[src="/images/dark-mode.svg"] {
       @svg: escape(
           '<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><path style="fill:@{accent} !important;stroke-width:0" d="M34 9c3 0 13 13 4 25-11 14-30 3-24 2 6 0 11-5 14-8s6-9 5-17c0-1 0-2 1-2"/></svg>'
         )
         !important;
       content: url("data:image/svg+xml,@{svg}") !important;
       filter: none !important;
-    }
-
-    a.subtle-button {
-      background-image: linear-gradient(#555, #777) !important;
-      border-top: solid 1px #333 !important;
-      border-right: solid 1px #333 !important;
-      border-bottom: solid 1px #333 !important;
-      border-left: solid 1px #333 !important;
-    }
-
-    :root:not([data-theme="light"])
-      #documentation
-      #main
-      div.verseblock
-      pre.content {
-      background-color: var(--no-changes-bg-color) !important;
-    }
-    #reference-version {
-      background-color: var(--no-changes-bg-color) !important;
     }
   }
 }
