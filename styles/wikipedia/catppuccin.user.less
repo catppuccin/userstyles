@@ -74,8 +74,24 @@
 
     .sortable:not(.jquery-tablesorter) > * > tr:first-child > th.headerSort,
     .jquery-tablesorter th.headerSort {
-      @svg: escape("");
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="21" height="9" viewBox="0 0 21 9"><path d="m14.5 5-4 4-4-4zm0-1-4-4-4 4z" fill="@{text}"/></svg>'
+      );
       background-image: url("data:image/svg+xml, @{svg}") !important;
+
+      &.headerSortUp {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="21" height="9" viewBox="0 0 21 9"><path d="m6.5 4 4-4 4 4z" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml, @{svg}") !important;
+      }
+
+      &.headerSortDown {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="21" height="9" viewBox="0 0 21 9"><path d="m14.5 0-4 4-4-4z" fill="@{text}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml, @{svg}") !important;
+      }
     }
 
     .wikitable {
@@ -84,17 +100,38 @@
           background-color: @mantle;
         }
 
-        > td {
-          &:nth-child(2n+1) {
-            background-color: @surface0;
-          }
+        &:nth-child(2n+1) td {
+          background-color: @surface0;
+        }
 
-          &:nth-child(2n) {
-            background-color: @surface1;
-          }
+        &:nth-child(2n) td {
+          background-color: @surface1;
+        }
 
-          &:hover {
-            background-color: @surface2;
+        &:hover td {
+          background-color: @surface2;
+        }
+
+        td {
+          &.table-yes, &.table-active {
+            color: @base !important;
+            background-color: @green !important;
+          }
+          &.table-partial {
+            color: @base !important;
+            background-color: @yellow !important;
+          }
+          &.table-no {
+            color: @base !important;
+            background-color: @maroon !important;
+          }
+          &.table-proprietary {
+            color: @base !important;
+            background-color: @mauve !important;
+          }
+          &.table-free {
+            color: @base !important;
+            background-color: @pink !important;
           }
         }
       }
@@ -145,6 +182,18 @@
         background-color: @surface2;
       }
 
+      .sidebar {
+        background-color: @surface0 !important;
+
+        .sidebar-title {
+          background-color: inherit !important;
+        }
+
+        .sidebar-list-title {
+          background-color: @surface1 !important;
+        }
+      }
+
       /* https://www.mediawiki.org/wiki/MediaWiki */
       .mainpage_box {
         border-color: @surface2;
@@ -157,11 +206,11 @@
           border-top-color: @surface1;
         }
       }
-      .nmbox {
+      .nmbox, .ombox {
         background-color: @surface0;
         border-color: @surface2;
 
-        .nmbox-header {
+        .nmbox-header, .ombox-header {
           background-color: @base;
           border-color: @surface1;
         }
