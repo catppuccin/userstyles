@@ -1,0 +1,277 @@
+/* ==UserStyle==
+@name Netflix Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/netflix
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/netflix
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/netflix/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Anetflix
+@description Soothing pastel theme for Netflix
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("netflix.com") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+
+    /* Base */
+    body, .nf-root, .tall-header {
+      background-color: @base !important;
+      color: @text !important;
+    }
+
+    /* Buttons */
+    .cat-button(@bg, @fg) {
+      background-color: @bg !important;
+      color: @fg !important;
+
+      &:hover {
+        background-color: lighten(@bg, 8%) !important;
+      }
+    }
+
+    [role="button"].primary, button.primary, .btn.primary {
+      .cat-button(@accent, @base);
+    }
+    [role="button"].secondary, button.secondary, .btn.secondary {
+      .cat-button(@surface0, @text);
+      border: 1px solid @mantle !important;
+    }
+    [role="button"].destructive, button.destructive, .btn.destructive {
+      .cat-button(@red, @base);
+    }
+
+    a, a:visited {
+      color: @accent !important;
+    }
+
+    /* Rows / Tiles */
+    [data-uia="row"], [data-uia="row-header"] {
+      background: transparent !important;
+      color: @text !important;
+      font-weight: bold !important;
+    }
+
+    [data-uia="info-overlay-left"],
+    [data-uia="info-overlay-right"] {
+      background: rgba(@base, 0.6) !important;
+    }
+
+    /* Player UI */
+    [data-uia="player-controls-container"],
+    [data-uia*="controls"] {
+      background: rgba(@surface0, 0.35) !important;
+      box-shadow: none !important;
+      transition: background 0.18s ease !important;
+      backdrop-filter: blur(6px);
+    }
+
+    [data-uia="player-controls-container"] button,
+    [data-uia*="controls"] button {
+      background: transparent !important;
+      box-shadow: none !important;
+      border-radius: 4px !important;
+
+      &:hover {
+        background: rgba(@surface2, 0.28) !important;
+      }
+    }
+
+    [data-uia="player-controls-container"] svg,
+    [data-uia*="controls"] svg {
+      fill: @accent !important;
+      stroke: @accent !important;
+    }
+
+    /* Seek Bar */
+    input[type="range"] {
+      &::-webkit-slider-runnable-track {
+        background: @surface1 !important;
+        height: 6px;
+        border-radius: 999px;
+      }
+      &::-webkit-slider-thumb {
+        background: @accent !important;
+        border-radius: 50%;
+        border: none;
+        height: 12px;
+        width: 12px;
+        margin-top: -3px;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.35);
+      }
+      &::-moz-range-track {
+        background: @surface1 !important;
+      }
+      &::-moz-range-progress {
+        background-color: @accent !important;
+      }
+      &::-moz-range-thumb {
+        background-color: @accent !important;
+        border-radius: 50%;
+        border: none;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    /* Subtitles */
+    .caption-window, [data-uia*="caption"] {
+      background: rgba(@surface0, 0.6) !important;
+      color: @text !important;
+      border-radius: 4px !important;
+      padding: 4px 8px !important;
+      text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      max-width: 80% !important;
+      line-height: 1.4 !important;
+    }
+
+    /* Hero / Overlay general */
+    [data-uia*="hero"],
+    [data-uia*="hero-gradient"],
+    [role="banner"],
+    div[class*="Overlay"] {
+      background: rgba(@surface0, 0.12) !important;
+    }
+
+    /* All play buttons (including hero) - solid accent background */
+    [data-uia="play-button"] {
+      position: relative;
+      background-color: @accent !important;
+      color: @base !important;
+      border-radius: 4px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 10px !important;
+      font-weight: 600 !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+      transition: background 0.2s ease, transform 0.1s ease !important;
+
+      &:hover {
+        background-color: lighten(@accent, 8%) !important;
+      }
+      &:active {
+        transform: translateY(1px) !important;
+      }
+
+      svg, img, [role="img"] {
+        fill: @base !important;
+        stroke: none !important;
+      }
+      span, .label {
+        color: @base !important;
+      }
+    }
+
+    /* Hero-specific adjustments - larger size + uniform background (kills extra icon square) */
+    [data-uia*="hero"] [data-uia="play-button"] {
+      padding: 12px 28px !important;
+      font-size: 20px !important;
+      min-height: 56px !important;
+    }
+
+    /* Critical: remove any separate background on icon wrapper/pseudo/child */
+    [data-uia*="hero"] [data-uia="play-button"] *,
+    [data-uia*="hero"] [data-uia="play-button"] ::before,
+    [data-uia*="hero"] [data-uia="play-button"] ::after {
+      background: transparent !important;
+      background-color: transparent !important;
+      background-image: none !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+
+    /* Misc cleanups */
+    [data-uia*="gradient"],
+    [data-uia*="fade"],
+    [class*="gradient"],
+    [class*="fade"] {
+      background: none !important;
+    }
+
+    /* Netflix screens */
+    [data-uia="profile-container"] {
+      background: @base !important;
+    }
+    [data-uia="profile-name"] {
+      color: @text !important;
+    }
+    [data-uia="search-results-container"] {
+      background: @base !important;
+    }
+    [data-uia="episode-list"] {
+      background: @surface0 !important;
+    }
+    [data-uia="season-selector"] {
+      background: @surface0 !important;
+    }
+    [data-uia="modal-container"] {
+      background: @surface0 !important;
+      border-radius: 6px;
+    }
+    [data-uia="notification-toast"] {
+      background: @surface0 !important;
+      color: @text !important;
+    }
+
+    /* Light/Dark tweaks */
+    @media (prefers-color-scheme: light) {
+      [data-uia="player-controls-container"] {
+        background: rgba(@surface0, 0.6);
+      }
+      [data-uia*="controls"] button:hover {
+        background: rgba(@surface1, 0.4);
+      }
+      .caption-window, [data-uia*="caption"] {
+        background: rgba(@surface0, 0.7);
+        color: @text;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      [data-uia="player-controls-container"] {
+        background: rgba(@surface0, 0.35);
+      }
+      [data-uia*="controls"] button:hover {
+        background: rgba(@surface2, 0.3);
+      }
+      .caption-window, [data-uia*="caption"] {
+        background: rgba(@surface0, 0.6);
+        color: @text;
+      }
+    }
+
+    /* QoL */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  }
+}
