@@ -1,0 +1,3136 @@
+/* ==UserStyle==
+@name Wanderlog Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/wanderlog
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/wanderlog
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/wanderlog/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Awanderlog
+@description Soothing pastel theme for Wanderlog
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("wanderlog.com") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    --blue: @blue;
+    --brand: @accent;
+    --brand-2: @accent;
+    --cyan: @sky;
+    --danger: @red;
+    --green: @green;
+    --indigo: @mauve;
+    --info: @sapphire;
+    --orange: @peach;
+    --pink: @pink;
+    --primary: @accent;
+    --purple: @accent;
+    --red: @red;
+    --success: @green;
+    --swiper-theme-color: @accent;
+    --teal: @teal;
+    --warning: @peach;
+    --yellow: @yellow;
+    --white: @base;
+    --gray--100: @subtext1;
+    --gray--200: @subtext1;
+    --gray--300: @subtext1;
+    --gray--600: @subtext1;
+    --gray--600-2: @subtext1;
+    --gray700: @subtext0;
+    --gray700-2: @subtext0;
+    --gray--900: @text;
+    --gray--900-2: @text;
+
+    --accent-darker: darken(@accent, 5%);
+
+    /* General */
+    body:has(#react-main), .body {
+      // HACK: Use the #react-main child to ensure the chatbot iframe doesn't get styled
+      background-color: @base;
+      color: @text;
+    }
+
+    a {
+      color: @blue;
+
+      &:hover, &:active {
+        color: darken(@blue, 5%);
+      }
+    }
+
+    svg {
+      &[color="#212529"], &[color="#adb5bd"] {
+        color: @text;
+      }
+    }
+
+    hr {
+      border-top-color: @accent;
+    }
+
+    // Wanderlog animated loading logo
+    .Loading__logo {
+      filter: @accent-filter;
+    }
+
+    // Text
+    .text-brand {
+      color: @accent;
+    }
+    .text-primary {
+      color: @accent !important;
+    }
+    a.text-brand:active, a.text-brand:focus, a.text-brand:hover {
+      color: var(--accent-darker);
+    }
+    .text-white {
+      color: @text !important;
+    }
+    .color-gray-600,
+    .color-gray-900,
+    .text-muted {
+      color: @subtext1 !important;
+    }
+    .text-success {
+      color: var(--success) !important;
+    }
+    .text-danger {
+      color: @red !important;
+    }
+    .text-secondary {
+      color: @subtext0 !important;
+    }
+    .text-body, .text-dark {
+      color: @text !important;
+    }
+    .link-unstyled,
+    .link-unstyled:active,
+    .link-unstyled:active:hover,
+    .link-unstyled:focus,
+    .link-unstyled:hover,
+    .link-unstyled:visited {
+      color: inherit !important;
+    }
+    .color-primary-darkest {
+      color: @text;
+    }
+    .small-uppercase-title {
+      color: @subtext1;
+    }
+    .color-teal {
+      color: @teal;
+    }
+    .color-yellow {
+      color: @yellow;
+    }
+    .RatingWithLogo__yellowRating {
+      color: @yellow;
+    }
+
+    // Backgrounds
+    .bg-white {
+      background-color: @base !important;
+    }
+    .bg-gray-100 {
+      background-color: @mantle;
+    }
+    .bg-yellow-lightest, .bg-purple-lightest, .bg-indigo-lightest {
+      background-color: @surface1;
+    }
+    .bg-light {
+      background-color: @surface0 !important;
+    }
+    .bg-primary, .bg-primary-darkest {
+      background-color: @accent !important;
+    }
+    .bg-success {
+      background-color: var(--success) !important;
+    }
+    .bg-warning {
+      background-color: var(--warning) !important;
+    }
+
+    // Navbar
+    .NavbarContainer.bg-white {
+      background-color: @mantle !important;
+      border-bottom-color: @accent;
+    }
+    .navbar-light .navbar-nav .nav-link {
+      color: @text;
+
+      &:hover, &:focus {
+        color: @subtext1;
+      }
+    }
+    .NavbarNavLink {
+      border-bottom-color: transparent;
+
+      &:hover, &:active, &:focus {
+        background-color: @base;
+        background-color: @mantle;
+      }
+
+      &__white:hover,
+      &__white:active,
+      &__white:focus {
+        border-color: @accent;
+        background-color: @mantle !important;
+      }
+    }
+    .NavbarContainer__darkTranslucent {
+      background-color: @mantle !important;
+    }
+    .navbar-dark .navbar-brand,
+    .navbar-dark .navbar-nav .nav-link {
+      color: @text;
+    }
+    .NavbarContainer__darkBackground .btn-secondary,
+    .NavbarContainer__darkBackground .nav-link {
+      &:hover, &:active, &:focus {
+        background-color: fade(@base, 25%);
+      }
+    }
+    .Logo__logoMd {
+      filter: @accent-filter;
+    }
+
+    // Underline block for some pages
+    .Heading__underline {
+      background-color: fade(@accent, 20%);
+    }
+    .UnderlinedText__yellowLight {
+      background-color: fade(@yellow, 20%);
+    }
+
+    // Borders
+    .border {
+      border-color: @accent !important;
+    }
+    .border-top {
+      border-top-color: @text !important;
+    }
+    .border-bottom {
+      border-bottom-color: @text !important;
+    }
+
+    // Progress bars
+    .FakeTopProgressBar {
+      background-color: @accent;
+    }
+    .progress-bar {
+      background-color: @accent;
+    }
+    .progress {
+      // Progress bar backgrounds
+      background-color: @overlay0;
+    }
+
+    // Notifications popup
+    .popover {
+      background-color: @surface0;
+
+      &-header {
+        background-color: @surface1;
+        border-bottom-color: @accent;
+      }
+    }
+    .NotificationButtonLoaded__popover .popover {
+      border-color: @accent;
+    }
+
+    // Buttons
+    .Button__brand, .Button__dark {
+      background-color: @accent;
+      border-color: @accent;
+
+      &, &:hover, &:active, .Button__icon {
+        color: @base;
+      }
+
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled):active,
+      &:not(.Button__disabled):focus,
+      &:not(.Button__disabled).Button__focused {
+        background-color: var(--accent-darker);
+        border-color: var(--accent-darker);
+        color: @base;
+      }
+
+      &.Button__disabled {
+        background-color: fade(@accent, 40%);
+        border-color: fade(@accent, 40%);
+        color: @subtext0 !important;
+      }
+      &.Button__disabled,
+      &.Button__disabled .Button__icon,
+      &.Button__disabled:hover {
+        color: @subtext0;
+      }
+
+      &:not(.Button__disabled).Button__focused .Button__icon,
+      &:not(.Button__disabled):active .Button__icon,
+      &:not(.Button__disabled):hover .Button__icon {
+        color: @base;
+      }
+    }
+    .brand-button {
+      color: @base !important;
+
+      &:hover, &:active {
+        background-color: var(--accent-darker);
+      }
+    }
+    .btn-primary {
+      background-color: @accent;
+      border-color: @accent;
+      color: @base !important;
+
+      &.focus,
+      &:focus,
+      &:hover,
+      &:not(:disabled):not(.disabled).active,
+      &:not(:disabled):not(.disabled):active,
+      .show > &.dropdown-toggle {
+        background-color: var(--accent-darker);
+        border-color: var(--accent-darker);
+      }
+    }
+    .Button__flat,
+    .flat-button,
+    .Button__flat-primary,
+    .Button__flat-primary .Button__icon,
+    .Button__flat .Button__icon,
+    .Button__flat:hover,
+    .Button__flat-primary:hover,
+    .Button__flat-brand,
+    .Button__flat-brand .Button__icon,
+    .Button__flat-brand:hover {
+      color: @accent;
+
+      &:hover,
+      &:active,
+      &:not(.Button__disabled):hover .Button__icon,
+      &:not(.Button__disabled):active .Button__icon,
+      &:not(.Button__disabled).Button__focused,
+      &:not(.Button__disabled):active,
+      &:not(.Button__disabled).Button__focused .Button__icon {
+        color: var(--accent-darker);
+      }
+
+      &.Button__disabled,
+      &.Button__disabled .Button__icon,
+      &.Button__disabled:hover {
+        color: fade(@accent, 60%);
+      }
+    }
+    .Button__brand:hover,
+    .Button__brand:not(.Button__disabled):hover .Button__icon {
+      color: @base;
+    }
+    .Button__flat-secondary, .btn {
+      &, .Button__icon {
+        color: @text;
+
+        &:hover,
+        &:not(.Button__disabled):hover,
+        &:not(.Button__disabled):hover .Button__icon,
+        &:not(.Button__disabled):active,
+        &:not(.Button__disabled):active .Button__icon,
+        &:not(.Button__disabled).Button__focused,
+        &:not(.Button__disabled).Button__focused .Button__icon {
+          color: @subtext1;
+        }
+
+        &.Button__disabled,
+        &.Button__disabled .Button__icon,
+        &.Button__disabled:hover,
+        &.Button__disabled:hover .Button__icon {
+          color: @overlay1;
+        }
+      }
+    }
+    .Button__default, .Button__primary {
+      background-color: transparent;
+      border-color: @accent;
+
+      &,
+      &:hover,
+      &:active,
+      .Button__icon,
+      &:not(.Button__disabled).Button__focused,
+      &:not(.Button__disabled):active,
+      &:not(.Button__disabled).Button__focused .Button__icon,
+      &:not(.Button__disabled):hover .Button__icon,
+      &:not(.Button__disabled):active .Button__icon {
+        color: @text;
+      }
+
+      &:not(.Button__disabled).Button__focused,
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled):active {
+        background-color: @surface0;
+        border-color: var(--accent-darker);
+      }
+
+      .Button__icon {
+        img {
+          filter: @text-filter;
+        }
+      }
+    }
+    .Button__default-dark,
+    .Button__default-dark .Button__icon {
+      background-color: @accent;
+      border-color: @accent;
+
+      &:hover, &:active, &:not(.Button__disabled):hover .Button__icon {
+        background-color: var(--accent-darker);
+        border-color: var(--accent-darker);
+      }
+    }
+    .Button__flat-white,
+    .Button__flat-white .Button__icon {
+      color: @text;
+
+      &:hover, &:active {
+        color: @subtext1;
+      }
+    }
+    .Button__flat-purple,
+    .Button__flat-purple .Button__icon,
+    .Button__flat-purple:hover {
+      background-color: transparent;
+      border-color: transparent;
+      color: @mauve;
+
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled).Button__focused,
+      &:not(.Button__disabled):active {
+        background-color: transparent;
+        border-color: transparent;
+        color: darken(@accent, 5%);
+      }
+    }
+    .Button__icon-lightest-gray {
+      background-color: @surface0;
+      border-color: @surface0;
+
+      &,
+      .Button__icon,
+      &:hover {
+        color: @text;
+      }
+
+      &:not(.Button__disabled):hover, &:not(.Button__disabled):active {
+        background-color: @surface1;
+        border-color: @surface1;
+
+        .Button__icon {
+          color: @text;
+        }
+      }
+    }
+    .Button__light-gray {
+      background-color: @surface0;
+      border-color: @accent;
+
+      &,
+      .Button__icon,
+      &:hover,
+      &:not(.Button__disabled):hover .Button__icon,
+      &:not(.Button__disabled):active .Button__icon {
+        color: @text;
+      }
+
+      &:not(.Button__disabled):hover, &:not(.Button__disabled):active {
+        background-color: @surface1;
+        border-color: @accent;
+        color: @text;
+      }
+    }
+    .Button__gray {
+      background-color: @surface1;
+      border-color: @surface1;
+
+      &, .Button__icon, &:hover {
+        color: @text;
+      }
+
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled):active,
+      &:not(.Button__disabled).Button__focused {
+        background-color: @surface2;
+        border-color: @surface2;
+        color: @text;
+
+        .Button__icon {
+          color: @text;
+        }
+      }
+
+      &.Button__disabled {
+        background-color: @surface0;
+
+        &, .Button__icon, &:hover {
+          color: @subtext0 !important;
+        }
+      }
+    }
+    .outline-icon-button {
+      border-color: @accent;
+      color: @text;
+    }
+    .Button__translucent-white {
+      background-color: fade(@base, 70%);
+
+      &,
+      .Button__icon,
+      &:hover,
+      &:not(.Button__disabled):active {
+        color: @text;
+      }
+
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled):active {
+        background-color: fade(@base, 80%);
+      }
+    }
+    .Button__translucent-black {
+      background-color: transparent;
+      &, .Button__icon, &:hover, &:active {
+        color: @text;
+      }
+
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled):active,
+      &:not(.Button__disabled).Button__focused {
+        background-color: transparent;
+        border-color: transparent;
+        .Button__icon {
+          color: @text;
+        }
+      }
+      &.Button__shadow {
+        border-color: transparent;
+      }
+    }
+    .Button__transparent-black-outline, .Button__light-brand {
+      background-color: transparent !important;
+      border-color: @accent;
+
+      &, .Button__icon {
+        color: @text;
+      }
+      &:hover, &:active {
+        color: @subtext0;
+      }
+
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled):active,
+      &:not(.Button__disabled).Button__focused,
+      &:not(.Button__disabled):hover .Button__icon,
+      &:not(.Button__disabled):active .Button__icon {
+        border-color: var(--accent-darker);
+        color: @subtext0;
+      }
+    }
+    .Button__outline-brand {
+      background-color: transparent;
+      border-color: @accent;
+
+      &, .Button__icon, &:hover {
+        color: @accent;
+      }
+
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled):active,
+      &:not(.Button__disabled).Button__focused,
+      &:not(.Button__disabled):hover .Button__icon {
+        border-color: var(--accent-darker);
+        color: var(--accent-darker);
+      }
+    }
+    .close {
+      color: @text;
+      text-shadow: none;
+      opacity: 1;
+
+      &:not(:disabled):not(.disabled):focus,
+      &:not(:disabled):not(.disabled):hover {
+        color: @subtext0;
+        opacity: 1;
+      }
+    }
+    .btn-light {
+      background-color: @surface0;
+      border-color: @accent;
+      color: @subtext1;
+
+      svg {
+        color: @subtext1;
+      }
+
+      &:hover,
+      &:active,
+      &:not(:disabled):not(.disabled).active,
+      &:not(:disabled):not(.disabled):active,
+      .show > &.dropdown-toggle {
+        background-color: @surface1;
+        border-color: @accent;
+      }
+    }
+    .LargeIconButton {
+      &:focus, &:hover {
+        background-color: @surface0;
+      }
+
+      svg[color="#000000"], svg[color="#6c757d"] {
+        color: @text;
+      }
+      svg[color="#1877f2"] {
+        // Facebook logo
+        color: @blue;
+      }
+      svg[color="#e23e57"] {
+        color: @red;
+      }
+    }
+
+    .Button__indigo, .Button__purple {
+      background-color: @accent;
+      border-color: @accent;
+
+      &, .Button__icon, &:hover {
+        color: @base;
+      }
+
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled).Button__focused,
+      &:not(.Button__disabled):active {
+        background-color: var(--accent-darker);
+        border-color: var(--accent-darker);
+        color: @base;
+
+        .Button__icon {
+          color: @base;
+        }
+      }
+    }
+    .Button__danger {
+      background-color: @red;
+      border-color: @red;
+
+      &, .Button__icon, &:hover {
+        color: @base;
+      }
+
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled).Button__focused,
+      &:not(.Button__disabled):active {
+        background-color: darken(@red, 5%);
+        border-color: darken(@red, 5%);
+        color: @base;
+      }
+    }
+    .CircleButton__imageBackground {
+      background-color: @surface2;
+
+      svg[color="#000000"], svg[color="#6c757d"] {
+        color: @text;
+      }
+      svg[color="#1877f2"] {
+        // Facebook logo
+        color: @blue;
+      }
+    }
+
+    // Badges
+    .Badge__light,
+    .Badge__lightGray,
+    .Badge__brand {
+      background-color: @accent;
+      color: @base;
+    }
+    .Badge__yellowWithWhiteText {
+      background-color: @yellow;
+      color: @base;
+    }
+    .Badge__redWithWhiteText {
+      background-color: @red;
+      color: @base;
+    }
+    .VisitGeosBadgeIcon__gold {
+      color: @peach;
+    }
+    .Badge__info {
+      background-color: var(--info);
+      color: @base;
+    }
+    .Badge__warning {
+      background-color: var(--warning);
+      color: @base;
+
+      &.Badge__button:active, &.Badge__button:focus, &.Badge__button:hover {
+        background-color: @yellow;
+      }
+
+      .Badge__closeButtonIcon {
+        background-color: transparent;
+      }
+    }
+    .Badge__danger {
+      background-color: @red;
+      color: @base;
+    }
+    .Badge__whiteWithIndigoTextAndOutline {
+      background-color: @surface0;
+      border-color: @blue;
+      color: @blue;
+    }
+    .Badge__whiteDangerous {
+      background-color: fade(@base, 80%);
+      color: @text;
+    }
+    .VerifiedBadge {
+      background-color: @accent;
+
+      svg {
+        color: @base;
+      }
+    }
+    .ProBadgeCircular {
+      border-color: @text;
+
+      svg[color="#ffffff"] {
+        color: @surface0;
+      }
+    }
+
+    // Bubbles
+    .UserBubblesList__bubble {
+      border-color: @accent;
+    }
+    .EditorBubble__container {
+      background-color: @text;
+    }
+    .TextBubble__colorTheme {
+      &__white {
+        background-color: @mantle;
+        color: @text;
+      }
+      &__gray100DarkForeground {
+        background-color: @surface2;
+        color: @text;
+      }
+      &__gray200 {
+        background-color: @surface1;
+        color: @text;
+
+        svg[color="#6c757d"] {
+          color: @text;
+        }
+      }
+      &__gray300 {
+        background-color: @text;
+        color: @surface1;
+      }
+      &__gray500 {
+        background-color: @text;
+        color: @surface2;
+      }
+      &__blueBase {
+        background-color: @blue;
+        color: @base;
+      }
+      &__purpleBase, &__whiteOnPurple {
+        background-color: @mauve;
+        color: @base;
+      }
+      &__green, &__whiteOnGreen {
+        background-color: @green;
+        color: @base;
+      }
+      &__yellow, &__whiteOnYellow {
+        background-color: @yellow;
+        color: @base;
+      }
+    }
+
+    // Star icons
+    svg[data-icon="star"] {
+      &[color="#ec9b3b"], &[color="#2c365d"] {
+        color: @yellow !important;
+      }
+      &[color="#adb5bd"] {
+        color: @surface1;
+      }
+      &[color="#6c757d"] {
+        color: @subtext1;
+      }
+    }
+    svg[data-icon="star-half"] {
+      color: @yellow !important;
+    }
+
+    // Tooltips
+    .tooltip.show {
+      opacity: 1;
+    }
+    .tooltip-inner {
+      background-color: @crust;
+      color: @text;
+    }
+    .bs-tooltip-auto[x-placement^="top"] .arrow::before,
+    .bs-tooltip-top .arrow::before {
+      border-top-color: @crust;
+    }
+    .bs-tooltip-auto[x-placement^="bottom"] .arrow::before,
+    .bs-tooltip-bottom .arrow::before {
+      border-bottom-color: @crust;
+    }
+    .ChildrenTargetedTooltip__tooltipInner {
+      &__error {
+        background-color: @red;
+        color: @base;
+
+        .Button__icon {
+          color: @surface0;
+        }
+        .Button:hover .Button__icon, .Button:active .Button__icon {
+          color: @base;
+        }
+      }
+
+      &__primary {
+        background-color: @accent;
+        color: @base;
+
+        .Button__flat-white,
+        .Button__flat-white .Button__icon,
+        .Button__flat-white:hover {
+          color: @base;
+        }
+      }
+    }
+    .bs-tooltip-auto[x-placement^="bottom"]
+      .ChildrenTargetedTooltip__arrow__error::before,
+    .bs-tooltip-bottom .ChildrenTargetedTooltip__arrow__error::before {
+      // Error tooltip arrow (pointing up)
+      border-bottom-color: @red !important;
+    }
+    .bs-tooltip-auto[x-placement^="top"]
+      .ChildrenTargetedTooltip__arrow__error::before,
+    .bs-tooltip-top .ChildrenTargetedTooltip__arrow__error::before {
+      border-top-color: @red !important;
+    }
+    .bs-tooltip-auto[x-placement^="bottom"]
+      .ChildrenTargetedTooltip__arrow__primary::before,
+    .bs-tooltip-bottom .ChildrenTargetedTooltip__arrow__primary::before {
+      border-bottom-color: @accent !important;
+    }
+    .bs-tooltip-auto[x-placement^="top"]
+      .ChildrenTargetedTooltip__arrow__primary::before,
+    .bs-tooltip-top .ChildrenTargetedTooltip__arrow__primary::before {
+      border-top-color: @accent !important;
+    }
+    .SaveToDocTooltip__body {
+      color: @base;
+    }
+    .FeatureTooltipInternal__dismiss {
+      color: @base;
+    }
+
+    // Inputs
+    .Input__input {
+      border-color: @accent;
+    }
+    .form-control,
+    .form-control-gray,
+    .form-control-gray:focus {
+      color: @text;
+      background-color: @surface1;
+      border-color: @accent;
+    }
+    .InputContainer {
+      &__labelContainer {
+        color: @subtext1;
+      }
+      &__labelFocused,
+      &__boldUnfocusedLabel {
+        color: @text;
+      }
+
+      &__darkGray {
+        background-color: @surface2;
+      }
+
+      &__withLeftContent {
+        border-color: @accent;
+        background-color: @surface2;
+        svg[color="#212529"] {
+          color: @subtext1;
+        }
+      }
+      &__iconButton {
+        svg[color="#6c757d"] {
+          color: @subtext1;
+        }
+      }
+    }
+    .InputButton__button,
+    .InputButton__button:focus:not([data-focus-visible-added]):not(
+      .InputButton__focused
+    ) {
+      border-color: @accent;
+    }
+    .IconLabelCounterRow__counter {
+      border-color: @accent;
+    }
+    .TextArea__label {
+      color: @text;
+    }
+
+    // Date inputs
+    .InputDateRangePicker {
+      &__date {
+        color: @subtext0;
+      }
+      &__dateSet, &__icon {
+        color: @text;
+      }
+      &__divider {
+        background-color: @accent;
+      }
+      &__focusedDate {
+        color: @accent;
+      }
+    }
+    .DateRangePicker_picker,
+    .DayPicker,
+    .DayPicker__horizontal,
+    .CalendarMonth,
+    .CalendarMonthGrid {
+      background-color: @surface0;
+    }
+    .CalendarMonth_caption {
+      color: @text;
+    }
+    .CalendarDay {
+      &__default {
+        background-color: @surface1;
+        border-color: @overlay0;
+        color: @text;
+
+        &:hover {
+          background-color: @surface2;
+        }
+      }
+
+      &__hovered_span, &__hovered_span:hover {
+        background-color: fade(@accent, 20%) !important;
+      }
+
+      &__selected, &__selected_span {
+        background-color: @accent !important;
+        border-color: @overlay0 !important;
+        color: @base;
+
+        &:hover, &:active {
+          background-color: var(--accent-darker) !important;
+        }
+      }
+    }
+    .DayPickerNavigation {
+      &_button__default {
+        background-color: @accent;
+        border-color: @accent;
+        color: @base;
+
+        &:hover, &:active {
+          background-color: var(--accent-darker);
+        }
+      }
+      &_svg__horizontal {
+        fill: @base;
+      }
+    }
+    .DayPicker_weekHeader {
+      color: @text;
+    }
+    .DateRangePickerInput__withBorder {
+      border-color: transparent;
+      background-color: transparent;
+    }
+    .SingleDatePicker {
+      &__icon {
+        color: @text;
+      }
+      &__focusedDate {
+        color: @accent;
+      }
+
+      &Input__withBorder {
+        border-color: transparent;
+        background-color: transparent;
+      }
+    }
+    .StartEndTimePickerInner {
+      &__input, &__input:focus {
+        background-color: @surface1 !important;
+      }
+      &__dash {
+        background-color: @accent;
+      }
+    }
+
+    // Dropdowns
+    .DropdownMenu {
+      border-color: @accent;
+
+      .DropdownItem.bg-gray-200 {
+        background-color: @surface1;
+      }
+    }
+    .dropdown {
+      &-menu {
+        background-color: @surface0;
+        color: @text;
+      }
+
+      &-item {
+        color: @text !important;
+        &:hover, &:active, &:focus {
+          background-color: @surface1;
+        }
+      }
+
+      &-header {
+        color: @accent;
+      }
+
+      &-divider {
+        border-top-color: @surface0;
+      }
+    }
+    .StyledDropdownMenu {
+      &__toggle:focus {
+        background-color: @surface0;
+      }
+      &__optionSelected {
+        background-color: @accent !important;
+        color: @base !important;
+      }
+    }
+    .react-autosuggest {
+      &__suggestions-container {
+        background-color: @surface0;
+        border-color: @accent;
+      }
+
+      &__suggestion--highlighted {
+        background-color: @surface1;
+      }
+    }
+    .GooglePlaceSuggestion__inner {
+      color: @text;
+    }
+    .Select {
+      border-color: @accent;
+
+      &__option {
+        background-color: @surface0;
+
+        &:checked {
+          background-color: @surface1;
+        }
+      }
+    }
+    // When autocomplete location dropdown don't get a good match
+    .LowMatchStaticGeoAutosuggestSuggestion__suggestion {
+      background-color: fade(@peach, 30%);
+
+      // Warning symbol
+      svg[color="#de703c"] {
+        color: var(--warning);
+      }
+    }
+
+    // Text radio buttons
+    .TextRadioButtons {
+      &__tabs {
+        background-color: @surface0;
+      }
+      &__tab:hover {
+        background-color: @surface1;
+      }
+      &__tabSelected {
+        background-color: @accent;
+        color: @base;
+
+        &:hover {
+          background-color: var(--accent-darker) !important;
+        }
+      }
+    }
+
+    // Styled radio buttons
+    .StyledRadio {
+      &__circle {
+        border-color: @accent;
+      }
+    }
+    .FormButton {
+      .FormButton__icon {
+        color: @text;
+      }
+      &:active .FormButton__icon,
+      &:active .FormButton__label,
+      &:hover .FormButton__icon,
+      &:hover .FormButton__label {
+        color: @subtext1;
+      }
+
+      &:active .FormButton__sublabel, &:hover .FormButton__sublabel {
+        color: @subtext0;
+      }
+
+      &__label {
+        color: @text;
+      }
+
+      &__sublabel {
+        color: @subtext0;
+      }
+    }
+
+    // Checkboxes
+    .Checkbox {
+      &__box {
+        background: @text;
+        border-color: @surface1;
+      }
+
+      &__checked {
+        .Checkbox__box {
+          background-color: @accent;
+          color: @base;
+        }
+        .Checkbox__edit:active + .Checkbox__box,
+        .Checkbox__edit:hover + .Checkbox__box {
+          background-color: var(--accent-darker);
+        }
+      }
+    }
+    .Checkbox__edit:active + .Checkbox__box,
+    .Checkbox__edit:focus + .Checkbox__box,
+    .Checkbox__edit:hover + .Checkbox__box {
+      background-color: fade(@accent, 60%);
+      color: @base;
+    }
+
+    // Toggle switches
+    .react-switch-bg {
+      background-color: @surface0 !important;
+
+      &[style*="background: rgb(63, 82, 227)"] {
+        background-color: var(--accent-darker) !important;
+      }
+    }
+    .react-switch-handle {
+      background-color: @text !important;
+    }
+
+    // Share menu
+    .LinkSharing {
+      border-color: @accent;
+    }
+
+    // Pro modal
+    .ProPromotionsCarousel__slide {
+      svg[data-icon="star"] {
+        color: @yellow;
+      }
+
+      .Button__translucent-white {
+        background-color: @accent;
+      }
+    }
+    .SubscribeButton {
+      &__selected {
+        background-color: fade(@accent, 10%);
+        border-color: @accent;
+      }
+      &__radioCircleSelected {
+        border-color: @accent;
+      }
+    }
+
+    // Get app promos
+    .LandingPageGetAppPromo__container {
+      background-color: @surface0;
+    }
+    .GetAppPromoLeftSide {
+      &__largeAppCaption,
+      &__ratingMessage {
+        color: @text;
+      }
+    }
+
+    // Cards
+    .IconAndTextRowButton__div {
+      background-color: @surface0;
+
+      &:hover {
+        background-color: @surface1;
+      }
+    }
+
+    // Quotes
+    .IndentedQuote {
+      border-left-color: @accent;
+    }
+    .ExpandableText__inlineButton {
+      background: linear-gradient(
+        90deg,
+        hsla(0, 0%, 100%, 0),
+        fade(@base, 80%) 16px,
+        @base 32px
+      );
+    }
+
+    // Charts and graphs
+    .recharts-wrapper {
+      // Axis
+      .recharts-cartesian-axis-line,
+      .recharts-cartesian-axis-tick-line {
+        stroke: @text !important;
+      }
+      .recharts-cartesian-axis-tick-value {
+        fill: @text !important;
+      }
+
+      // Gradients
+      #colortemperature stop, #colorhours stop, #colorspeed stop {
+        stop-color: @accent !important;
+      }
+
+      // Splines and legend icons
+      path[stroke="#e23e57"] {
+        stroke: @red;
+      }
+      path[stroke="#3498db"] {
+        stroke: @blue;
+      }
+      path[stroke="#f75940"], path[stroke="#ec9b3b"] {
+        stroke: @accent;
+      }
+
+      // Bar graphs
+      .recharts-rectangle {
+        &[fill="#46cdcf"],
+        &[fill="#3498db"],
+        &[fill="#7045af"] {
+          fill: @overlay1;
+        }
+        &[fill="#215b63"],
+        &[fill="#17b978"],
+        &[fill="#2a7aaf"],
+        &[fill="#4a266a"] {
+          fill: @accent;
+        }
+
+        // Background behind bars on hover
+        &.recharts-tooltip-cursor {
+          fill: @surface0;
+        }
+      }
+
+      // Legend text
+      span[style="color: rgb(226, 62, 87);"] {
+        color: @red !important;
+      }
+      span[style="color: rgb(52, 152, 219);"] {
+        color: @blue !important;
+      }
+
+      // Tooltip on hover
+      .Graph__customTooltip {
+        background-color: @surface1;
+        border-color: @accent;
+
+        div[style="color: rgb(226, 62, 87);"] {
+          color: @red !important;
+
+          + div[style="color: rgb(52, 152, 219);"] {
+            // Set blue tooltip text if it directly follows red tooltip text
+            // Used for setting high low temp tool tip color as typically blue text is set to accent
+            color: @blue !important;
+          }
+        }
+
+        div[style="color: rgb(247, 89, 64);"],
+        div[style="color: rgb(70, 205, 207);"],
+        div[style="color: rgb(23, 185, 120);"],
+        div[style="color: rgb(52, 152, 219);"],
+        div[style="color: rgb(112, 69, 175);"],
+        div[style="color: rgb(236, 155, 59);"] {
+          color: @accent !important;
+        }
+      }
+      circle.recharts-dot {
+        stroke: @text;
+
+        &[fill="#e23e57"] {
+          fill: @red;
+        }
+        &[fill="#3498db"] {
+          fill: @blue;
+        }
+        &[fill="#f75940"], &[fill="#ec9b3b"] {
+          fill: @accent;
+        }
+      }
+    }
+
+    // Alerts
+    .alert-warning {
+      background-color: var(--warning);
+      border-color: var(--warning);
+      color: @base;
+    }
+
+    // Footer
+    .footer, #react-main > .footer {
+      background-color: @mantle;
+
+      &-container {
+        background-color: @mantle;
+      }
+
+      &-link,
+      &-link:hover,
+      .contact-us-button:hover,
+      .Footer__link a,
+      .Footer__contact {
+        color: var(--gray--900);
+      }
+
+      &-heart-wrapper svg, .Footer__noEmoji {
+        color: @accent;
+      }
+    }
+
+    /* Homepage (not logged in) */
+
+    // Main page hero text
+    .page-title-heading.text_align_center.font_weight_bold.font_color_gray_900.font_size_48.font_size_xs_36 {
+      color: @accent;
+    }
+    // Main page hero subtext
+    .body-text.font_size_18.font_color_gray_600 {
+      color: @subtext1;
+    }
+
+    // Hero video
+    .demo-video-328,
+    .demo-video-1280,
+    #hero-section-video-mobile,
+    #hero-section-video-web {
+      border-color: @accent;
+    }
+
+    // Download app popup
+    .AppDownloadPopoverInner__verticalLine {
+      border-left-color: @accent;
+    }
+
+    // Reviews section
+    .reviews-section---desktop, .reviews-section---mobile {
+      background-color: @base;
+    }
+    .reviews-overlay---see-more {
+      background-image: linear-gradient(#0000, @base);
+    }
+    .card-review {
+      background-color: @surface0;
+      border-color: @accent;
+
+      .stars-small img {
+        filter: @yellow-filter;
+      }
+    }
+
+    // Spotlight section
+    .spotlight-on-wanderlog---home {
+      background-color: fade(@accent, 10%);
+    }
+    .spotlight-card {
+      border-color: fade(@accent, 20%);
+    }
+    .spotlight-card-author-text {
+      &-author {
+        color: @subtext0;
+      }
+      &-username {
+        color: @blue;
+      }
+    }
+
+    // Infographics section
+    .infographics---home {
+      background-color: fade(@accent, 10%);
+    }
+    .infographics-card {
+      &-header {
+        color: @accent;
+      }
+      &-star {
+        filter: @accent-filter;
+      }
+    }
+
+    // Android only section
+    .branch_left_vector, .branch_right_vector {
+      filter: @green-filter;
+    }
+
+    // Features section
+    .home__feature_tab_overlay {
+      &_left {
+        background-image: linear-gradient(
+          90deg,
+          @base 0%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        mix-blend-mode: normal;
+      }
+      &_right {
+        background-image: linear-gradient(
+          270deg,
+          @base 0%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        mix-blend-mode: normal;
+      }
+    }
+    .home__feature_tab_icon {
+      filter: @text-filter;
+      &_container {
+        border-color: @accent;
+
+        &[style="background-color: rgb(255, 255, 255);"] {
+          background-color: @base !important;
+        }
+
+        &[style="background-color: rgb(0, 0, 0);"] {
+          background-color: @accent !important;
+
+          svg {
+            filter: @base-filter;
+          }
+        }
+      }
+    }
+    .swiper-slide-active .home__feature_tab_icon_container {
+      background-color: @accent;
+      svg {
+        filter: @base-filter;
+      }
+    }
+    .swiper-slide-active .home__feature_tab_title {
+      color: @text;
+    }
+
+    // Regular features section
+    .regular-feature-section {
+      background-color: @base;
+    }
+
+    // Pro features section
+    .pro-features-card {
+      background-color: @surface0;
+
+      svg {
+        color: @accent;
+      }
+    }
+
+    // Explore places section
+    .explore-places-card {
+      .text_color_white {
+        color: @text;
+      }
+
+      &-overlay {
+        background-image: linear-gradient(
+          fade(@crust, 0%),
+          fade(@crust, 60%) 50%
+        );
+      }
+    }
+
+    // Travel guides section
+    .tra vel-guides-section {
+      background-color: @base;
+    }
+    .avatar-name-views-likes-icon {
+      filter: @accent-filter;
+    }
+
+    // Market badges section
+    .market-badges {
+      &-section {
+        background-color: @base;
+      }
+
+      &-container {
+        background-image: none;
+        background-color: @accent;
+
+        .section-heading {
+          color: @base;
+        }
+
+        .rating {
+          background-color: @base;
+          border-color: @base;
+        }
+
+        .star-filled {
+          filter: @yellow-filter;
+        }
+      }
+      &-text {
+        ._4-9-on-app-store-4-7-on-google-play-0 {
+          color: @text;
+        }
+
+        span {
+          color: @subtext0;
+        }
+      }
+    }
+
+    // Links section
+    .links-section {
+      background-color: @base;
+      .links-list-title {
+        color: @text;
+      }
+
+      .links-list-rich-text-block a {
+        color: var(--gray--600);
+      }
+    }
+
+    /* Homepage (logged in) */
+
+    // Promos
+    // NOTE: Not sure how consistent these selectors will be as they are for promos
+    .HeaderPromoWithButtons__container {
+      background-color: @surface0;
+    }
+    img.HeaderPromoWithButtons__background {
+      filter: @accent-filter;
+    }
+    .HeaderPromoWithButtons__body {
+      color: @subtext0;
+    }
+    @media (max-width: 768px) {
+      .HeaderPromoWithButtons__closeButton {
+        .Button__icon {
+          color: @text;
+        }
+        &:hover .Button__icon, &:active .Button__icon {
+          color: @subtext0 !important;
+        }
+      }
+    }
+    .HeaderPromoWithButtons__closeButton {
+      .Button__icon {
+        color: @base;
+      }
+      &:hover .Button__icon, &:active .Button__icon {
+        color: @crust !important;
+      }
+    }
+
+    // Your trips
+    .YourTripsAndGuidesColumn__horizontalLine {
+      border-color: @subtext0;
+    }
+
+    /* Login Page */
+    .LoginFormBody {
+      &__hr {
+        border-top-color: @accent;
+      }
+
+      &__subtitle {
+        color: @subtext1;
+      }
+
+      > button .Button__labelText {
+        color: @text;
+
+        strong {
+          color: @accent;
+        }
+
+        &:hover strong {
+          color: var(--accent-darker);
+        }
+      }
+    }
+
+    /* Hotels page */
+
+    .LandingPage {
+      &Heading__color {
+        color: @accent !important;
+      }
+
+      &SectionHeading,
+      &SectionSubheading,
+      &FeatureTile__subheader,
+      &CallToAction__lead {
+        color: @text;
+      }
+
+      &SectionWithDivider {
+        border-top-color: @accent;
+      }
+
+      &Lead__sublead, &__sublead {
+        color: @subtext1;
+      }
+    }
+
+    /* Travel guides */
+    // Travel guide cards
+    .Card {
+      svg[data-icon="heart"], svg[data-icon="eye"] {
+        color: @accent;
+      }
+    }
+    .Card__title,
+    .ProfilePageNameLink {
+      color: @text;
+
+      &:focus, &:hover, &:active {
+        color: @subtext1;
+      }
+    }
+    // Page breadcrumbs
+    .Breadcrumbs svg[data-icon="chevron-right"] {
+      color: @accent;
+    }
+    // Links to guide categories (e.g. Madrid guides within Spain page)
+    a[href^="/guides/"]:not(.Button) {
+      color: @accent;
+
+      &:hover, &:active {
+        color: var(--accent-darker);
+      }
+    }
+
+    /* Plan a new trip and write a new guide pages */
+    .TripmatesButton__inviteButton,
+    .TripmatesButton__inviteButton .Button__icon {
+      color: @text;
+    }
+    .TripOrGuideForm__addMoreButton {
+      background-color: @accent !important;
+      border-color: @accent !important;
+
+      &:hover, &:active {
+        background-color: var(--accent-darker) !important;
+        border-color: var(--accent-darker) !important;
+      }
+
+      .Button__icon, &:hover .Button__icon, &:active .Button__icon {
+        color: @base !important;
+      }
+    }
+    .Chip {
+      border-color: @accent;
+
+      &__default {
+        color: @text;
+      }
+    }
+
+    /* History page */
+
+    // Tables
+    .table {
+      color: @text;
+
+      td, th {
+        border-top-color: @accent;
+      }
+
+      thead th {
+        color: @text;
+      }
+
+      &-hover tbody tr:hover {
+        background-color: @surface0;
+      }
+    }
+    // Table row element
+    .PlansList__inner td, .PlansList__inner td:hover {
+      color: @subtext1;
+
+      a {
+        color: @text;
+      }
+
+      .Badge__light {
+        background-color: @surface0;
+        color: @subtext1;
+      }
+    }
+
+    /* Settings page */
+    // Account
+    .EditUserDetailsInner__separator {
+      border-bottom-color: @accent;
+    }
+
+    // Pro membership
+    .SubscriptionStatusBox {
+      background-color: @surface0;
+    }
+
+    // User preferences
+    svg[data-icon="globe"][color="#6c757d"] {
+      color: @text !important;
+    }
+    div[style='font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; background-color: rgba(33, 37, 41, 0.8); pointer-events: all; display: flex; align-items: center; margin: 20px auto 0px; width: 100%; box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 24px; max-width: 600px; min-width: 284px; min-height: 64px; color: white; font-size: 16px; border-radius: 8px; opacity: 1; transition: opacity 0.2s ease-in-out;'] {
+      background-color: @accent !important;
+      color: @base !important;
+
+      button {
+        color: @base !important;
+      }
+    }
+
+    //Side tabs
+    .Tabs__tab {
+      .active {
+        border-bottom-color: @accent !important;
+        color: @accent !important;
+      }
+      .nav-link {
+        color: @text;
+      }
+    }
+
+    /* Extension page https://wanderlog.com/extension */
+    .ExtensionLandingPageHero__background {
+      background-color: fade(@accent, 10%);
+    }
+
+    /* Travel budgeting & cost tracking page https://wanderlog.com/travel-budget-expense-splitting-app */
+    .BudgetLandingPageHero__background {
+      background-color: fade(@accent, 10%);
+    }
+    .BudgetLandingPageAnimation {
+      &__section {
+        background-color: @surface0;
+        svg {
+          color: @text !important;
+        }
+      }
+
+      &__background {
+        background-color: @accent;
+        color: @base;
+      }
+
+      &__progressBar {
+        background-color: @text;
+
+        .progress-bar {
+          background-color: @base;
+        }
+      }
+    }
+
+    /* Embed map in blog page https://wanderlog.com/embed-travel-map-on-blog */
+    .MapEmbedLandingPageInner__hero {
+      background-color: fade(@accent, 10%);
+    }
+
+    /* Trip Planners by Destination page and subpages https://wanderlog.com/tp */
+    a.TripPlannerGeosListPage__geo {
+      color: @subtext1;
+    }
+    .LandingPageCreateTripPlanHero {
+      &__translucentColor {
+        color: @text;
+      }
+      &__createTripPlanBox {
+        background-color: @accent;
+        border-color: @accent;
+      }
+    }
+    .TripPlannerLandingPageInner {
+      &__sectionHeading {
+        color: @text;
+      }
+      &__sectionWithDivider {
+        border-top-color: @accent;
+      }
+      &__footer {
+        background-color: @mantle !important;
+      }
+    }
+
+    /* Weather pages https://wanderlog.com/weather/countries */
+    .TemperatureSummary {
+      background-color: @surface0;
+      color: @text;
+    }
+
+    // General weather stats
+    .StatIcon svg {
+      color: @accent;
+    }
+
+    /* Trip planner */
+
+    // Top bar item view button fix
+    .HorizontalCollapse .Button__default-dark {
+      background-color: @surface2;
+      border-color: @accent;
+
+      .Button__icon {
+        background-color: @surface2;
+        color: @text;
+      }
+
+      &:hover {
+        background-color: var(--accent-darker);
+
+        .Button__icon {
+          color: @base;
+        }
+      }
+
+      &:not(.Button__disabled).Button__focused,
+      &:not(.Button__disabled):active {
+        background-color: @accent;
+        border-color: @accent;
+        color: @base;
+
+        .Button__icon {
+          background-color: @accent;
+          color: @base;
+        }
+      }
+    }
+
+    // Card when there are no places in the planner
+    .PlanMapNoPlacesCard {
+      background-color: fade(@base, 95%);
+
+      svg[data-icon="location-dot"] {
+        color: @accent;
+      }
+
+      .btn {
+        background-color: @accent !important;
+        color: @base !important;
+
+        &:hover, &:active {
+          background-color: var(--accent-darker) !important;
+        }
+      }
+    }
+
+    .PlanPageHeader {
+      &__header {
+        background-color: @surface0;
+      }
+
+      &__title {
+        color: @text;
+      }
+
+      // Subtle overlay over header background
+      &__scrim {
+        background: linear-gradient(
+          180deg,
+          fade(@accent, 20%) 0,
+          transparent 100%
+        );
+      }
+
+      // When there is no header bg image
+      &__placeholder {
+        background-color: @base;
+      }
+
+      svg[data-icon="user-plus"] {
+        color: @text;
+      }
+    }
+
+    // Editable text titles and subtitles
+    .HoverTextInput__editableContainer:hover .HoverTextInput__dummyInput,
+    .HoverTextInput__input:focus + .HoverTextInput__dummyInput {
+      background-color: @surface1;
+    }
+    svg.HoverTextInput__edit {
+      color: @subtext1 !important;
+    }
+
+    // Select planner header background image
+    .ImageSelectCard {
+      &__button {
+        // Select image button
+        .Button__primary {
+          background-color: @accent;
+          color: @base;
+
+          &:not(.Button__disabled):hover,
+          &:not(.Button__disabled):active,
+          &:not(.Button__disabled):focus,
+          &:not(.Button__disabled).Button__focused {
+            background-color: var(--accent-darker);
+            border-color: var(--accent-darker);
+            color: @base;
+          }
+        }
+      }
+
+      &__externalLink {
+        background: radial-gradient(
+          circle 24px,
+          fade(@base, 100%),
+          transparent
+        );
+        color: @text;
+
+        &:hover, &:active {
+          color: @subtext0;
+        }
+      }
+    }
+    .ImageButton {
+      &__button {
+        background-color: @surface0;
+      }
+      &__selected, &__selected:focus {
+        box-shadow: 0 0 0 4px @accent;
+      }
+    }
+    .ImageUploadingCard {
+      &__card {
+        background-color: @surface0;
+      }
+
+      &__progressBar {
+        background-color: @base;
+      }
+
+      &__message {
+        color: @text;
+      }
+    }
+
+    .PlanPageLoaded {
+      &__grayBackground {
+        background-color: fade(@accent, 10%);
+      }
+      &__footer {
+        background-color: @mantle;
+      }
+    }
+
+    // Sidebar
+    .PlanNavSidebar {
+      &__fixed,
+      &__mobileModalBody {
+        background-color: @mantle;
+        border-right-color: @accent;
+      }
+    }
+    .NavSidebarItem {
+      &:active, &:focus, &:hover {
+        color: @subtext0 !important;
+      }
+    }
+    .PlanWideNavSidebar {
+      &Heading__activeHeadingContainer {
+        background-color: @accent;
+      }
+
+      &Heading__chevron, &Heading__heading {
+        color: @text;
+
+        &:active, &:focus, &:hover {
+          color: @subtext1 !important;
+        }
+      }
+
+      &Heading__activeChevron,
+      &Heading__activeHeading {
+        &, &:active, &:focus, &:hover {
+          color: @base !important;
+        }
+      }
+
+      &Item__label {
+        color: @text;
+      }
+      &Item__sublabel {
+        color: @subtext1;
+      }
+
+      &__hideSidebar {
+        background-color: @mantle;
+        color: @accent;
+
+        &:active, &:focus, &:hover {
+          color: var(--accent-darker) !important;
+        }
+      }
+    }
+    .PlanNarrowNavSidebar {
+      &Heading__headingContainer {
+        background-color: @surface0;
+        color: @text;
+
+        &:active, &:focus, &:hover {
+          background-color: @surface0 !important;
+          color: @accent !important;
+        }
+      }
+
+      &Heading__activeHeadingContainer {
+        background-color: @accent;
+        color: @base;
+
+        &:active, &:focus, &:hover {
+          background-color: @accent !important;
+          color: @base !important;
+        }
+      }
+
+      &Item__dot {
+        background-color: @text;
+      }
+
+      &Item__dotContainer:active .PlanNarrowNavSidebarItem__dot,
+      &Item__dotContainer:focus .PlanNarrowNavSidebarItem__dot,
+      &Item__dotContainer:hover .PlanNarrowNavSidebarItem__dot {
+        background-color: var(--accent-darker) !important;
+      }
+
+      &Item__activeDot,
+      &Item__dotContainer:active .PlanNarrowNavSidebarItem__activeDot,
+      &Item__dotContainer:focus .PlanNarrowNavSidebarItem__activeDot,
+      &Item__dotContainer:hover .PlanNarrowNavSidebarItem__activeDot {
+        background-color: @accent;
+      }
+
+      &Item__text:active, &Item__text:focus, &Item__text:hover {
+        color: var(--accent-darker) !important;
+      }
+
+      &Item__activeText {
+        color: @accent;
+      }
+
+      &__hideSidebar {
+        background-color: @mantle;
+        color: @accent;
+
+        &:active, &:focus, &:hover {
+          color: var(--accent-darker) !important;
+        }
+      }
+    }
+    .TripPlanAssistantButton {
+      background: @accent;
+
+      .fa-wand-magic-sparkles,
+      .Button__labelText {
+        color: @base;
+      }
+
+      &:hover {
+        background-color: var(--accent-darker);
+      }
+    }
+
+    // Spacers
+    .PlanBoard__spacer {
+      background-color: @mantle;
+    }
+    .InsertSectionSpacer {
+      &__dividerInner {
+        border-top-color: @accent;
+      }
+      &__textDivider {
+        color: @accent;
+      }
+    }
+
+    // Explore section
+    .PlanInspirationsInner__title {
+      color: @text;
+    }
+
+    // Add reservations and budget snapshot section
+    .AddReservationButtons {
+      // Section with the different icons
+      background-color: @surface0;
+      &__separator {
+        background-color: @accent;
+        color: @accent;
+      }
+    }
+    .AddReservationDropdownItem__count {
+      background-color: @accent;
+      color: @base;
+    }
+    .BudgetSnapshot {
+      // Budget snapshot on right
+      background-color: @surface0;
+      .text-secondary {
+        color: @accent !important;
+      }
+
+      .Button__labelText {
+        color: @subtext1;
+      }
+    }
+    .IconAndTextButton {
+      // Icon and text in add reservations section
+      &__text {
+        color: @subtext1;
+      }
+
+      &__count {
+        background-color: @accent;
+        color: @base;
+      }
+
+      &__proBadge .ProBadgeCircular__icon {
+        color: @base !important;
+      }
+    }
+    // Add already booked reservations
+    .ImportEmailsModalInner {
+      &__or {
+        color: @text;
+      }
+
+      &__yellowBackgroundWide {
+        background-color: fade(@yellow, 30%);
+      }
+    }
+    .CopyEmailButton {
+      border-color: @accent;
+    }
+    .ForwardEmailInner__noEmails {
+      color: @subtext0;
+    }
+
+    // Common section components
+    .SectionComponentHeader {
+      color: @text;
+
+      &__subheading {
+        color: @subtext1;
+
+        &Container::after {
+          background-color: @base;
+        }
+      }
+    }
+    .SectionItemControls {
+      &__mainItem > .form-control-gray {
+        // Note items
+        background-color: @surface0;
+      }
+
+      &__control {
+        color: @accent;
+
+        &:hover {
+          color: var(--accent-darker) !important;
+        }
+      }
+
+      &__selectedBar {
+        background-color: @accent;
+      }
+    }
+
+    // Notes text box
+    .SectionComponent__box {
+      background-color: @surface0;
+    }
+    .SectionComponent__textOnly .ql-editor {
+      li::before {
+        color: @accent;
+      }
+    }
+
+    // Reservations
+    .ReservationItemView {
+      &__contents .fa-arrow-right {
+        color: @accent;
+      }
+      &__grayBackground {
+        background-color: @surface0;
+      }
+
+      &__verticalLine {
+        border-left-color: @accent;
+      }
+
+      // Reservation notes
+      &__quill {
+        color: @text;
+      }
+      &__smallCaps {
+        color: @subtext1;
+      }
+    }
+    .ReservationItemEdit {
+      background-color: @surface0;
+
+      &__inputLabel {
+        color: @subtext1;
+      }
+      &__input, &__input:focus {
+        background-color: @surface1;
+        color: @text;
+      }
+
+      &__verticalLine {
+        border-left-color: @accent;
+      }
+
+      // Reservation notes
+      &__quill {
+        background-color: @surface1;
+        &, .ql-editor {
+          color: @text;
+        }
+      }
+    }
+    // Flights
+    .FlightsSectionItemView {
+      &__city, &__smallCaps {
+        color: @subtext0;
+      }
+    }
+    .FlightsSectionItemEdit {
+      &__inputLabel {
+        color: @subtext1;
+      }
+      &__input, &__input:focus {
+        background-color: @surface1;
+        color: @text;
+      }
+    }
+    .FlightAutosuggest__input button {
+      // Flight number
+      color: @text;
+    }
+    .FlightStopRow {
+      &__date,
+      &__timeInput {
+        background-color: @surface1;
+        color: @text;
+      }
+    }
+    // Hotels
+    .HotelsSectionItemEdit {
+      &__inputLabel {
+        color: @subtext1;
+      }
+      &__input, &__input:focus {
+        background-color: @surface1;
+        color: @text;
+      }
+      &__date {
+        background-color: @surface1;
+        color: @text;
+      }
+    }
+    // General attachments (pro feature)
+    .AttachmentsSectionItem {
+      background-color: @surface0;
+      &__titleInput {
+        background-color: @surface0;
+        color: @text;
+
+        &:focus {
+          background-color: @surface1;
+        }
+      }
+    }
+    .ViewFileAttachmentModal__body {
+      background-color: @crust;
+      border-top-color: @accent;
+      border-bottom-color: @accent;
+    }
+    .ql-editor.ql-blank::before {
+      color: @subtext0;
+    }
+    // Rental car, train, bus, ferry, cruise reservations
+    .RentalCarsTerminusView {
+      &__mutedText {
+        color: @subtext1;
+      }
+
+      &__address {
+        color: @subtext0;
+      }
+    }
+    .RentalCarsSectionItemEdit {
+      &__inputLabel {
+        color: @subtext1;
+      }
+    }
+    .RentalCarsTerminusEdit__inputButton {
+      background-color: @surface1;
+      color: @text;
+    }
+    .TerminusEdit {
+      &__date, &__timeInput {
+        background-color: @surface1;
+        color: @text;
+      }
+    }
+    .TransitSectionItemEdit {
+      &__inputLabel {
+        color: @subtext1;
+      }
+      &__input, &__input:focus {
+        background-color: @surface1;
+        color: @text;
+      }
+    }
+    .CruiseSectionItemEdit__input, .CruiseSectionItemEdit__input:focus {
+      background-color: @surface1;
+      color: @text;
+    }
+    .BoardBlockSeparator {
+      &__horizontalLine {
+        // Cruise itinerary separator
+        border-top-color: @text;
+      }
+      &__selected {
+        border-top-color: @accent;
+      }
+    }
+
+    // List items and itinerary section
+    .ChecklistSectionItem__container {
+      background-color: @surface0;
+
+      .text-muted {
+        color: @subtext0 !important;
+      }
+    }
+    .ChecklistItemRow {
+      &__input,
+      &__input:focus {
+        background-color: transparent;
+      }
+
+      &__controls {
+        color: @subtext0;
+      }
+    }
+    .PictureViewItem {
+      // When items are in picture view
+      &__leftContainer,
+      &__text {
+        background-color: @surface0;
+      }
+
+      &__descriptionInfoIcon svg {
+        color: @accent;
+      }
+    }
+    .ListViewItem {
+      background-color: @surface0;
+
+      &__placeButton:focus, &__placeButton:hover {
+        color: @subtext1 !important;
+      }
+    }
+    .MapsPlaceRecommendation {
+      // Recommended places under list items
+
+      &Carousel__small-subtitle {
+        color: @subtext1;
+      }
+
+      &Card__container {
+        border-color: @accent;
+      }
+
+      &Card__loadingIcon {
+        background-color: fade(@overlay0, 80%);
+
+        svg {
+          color: @text;
+        }
+      }
+    }
+    .BlockDividerContainer .BlockDividerDefault {
+      // Space between list items
+
+      &__placeSectionItemBottom {
+        // "Added by ..." text in the bottom right
+        background-color: @base;
+      }
+
+      &__dot {
+        // Dot at the start and end of an itinerary "journey"
+        border-color: @accent;
+      }
+
+      &__verticalLine line {
+        stroke: @accent !important;
+      }
+
+      &__horizontalLine {
+        .DashedLine line {
+          stroke: @text !important;
+        }
+      }
+      &__addBlockButton {
+        background-color: @base;
+        color: @accent;
+      }
+      &__addBlockIcon {
+        color: @accent;
+      }
+
+      &__travelModeToggle {
+        // Time and distance between itinerary items
+        background-color: @base !important;
+
+        .fa-caret-down {
+          color: @subtext1;
+        }
+      }
+    }
+    .NoteSectionItem__noteIcon {
+      background-color: @accent;
+      color: @base;
+    }
+    .TotalRouteInfo__infoText {
+      color: @subtext1;
+    }
+    .BlockWithIcon {
+      &__gray {
+        background-color: @surface1;
+      }
+
+      &__purple-lightest {
+        // Looks like you don't have lodging ...
+        background-color: fade(@mauve, 20%);
+      }
+    }
+    .FlightUpdatesPromo__heading {
+      // Itinerary "Live flight updates"
+      color: @text;
+    }
+
+    // Budgeting section
+    .BudgetOverview__container {
+      background-color: @surface0;
+    }
+    .BudgetBreakdownModal__graph {
+      .recharts-rectangle {
+        fill: @overlay2;
+
+        &[fill="#3f52e3"] {
+          fill: @accent;
+        }
+      }
+
+      .ExpenseTotalBarGraph__customTooltip {
+        background-color: @surface0;
+      }
+    }
+    .ExpenseSettingsModal__dropdownButton {
+      border-color: @accent;
+      box-shadow: inset 0 -1px 0 @accent;
+    }
+    .BudgetOverview__progressBar {
+      background-color: @surface1;
+    }
+    .CostSplitOptions__toggle {
+      border-color: @accent;
+      background-color: @surface1;
+    }
+    .ExpenseCategoryButton {
+      background-color: @surface0;
+      svg {
+        color: @text;
+      }
+
+      &:hover {
+        background-color: @surface1;
+      }
+    }
+    .AddOrEditExpenseScreen__dateButton:hover {
+      background-color: @surface0;
+    }
+    .SplitWithDropdown__separator {
+      border-top-color: @text;
+    }
+
+    // Planner tip
+    .TipToast__container {
+      background-color: fade(@base, 95%);
+    }
+
+    // Trip Settings
+    .TripPlanSettings {
+      &__heading {
+        color: @text;
+      }
+
+      &__divider {
+        background-color: @accent;
+      }
+    }
+
+    // Map buttons
+    .PlanMapWebMap {
+      &__topLeftBtns,
+      &__topMiddleBtns,
+      &__topRightBtns,
+      &__exitBtn,
+      &__exportBtn {
+        // NOTE: As these buttons use .Button__translucent-black which has its background set to transparent, we need to add a background back
+        .Button__translucent-black {
+          background-color: fade(@base, 90%);
+
+          &:not(.Button__disabled):hover,
+          &:not(.Button__disabled):active,
+          &:not(.Button__disabled).Button__focused {
+            background-color: @base;
+            border-color: transparent;
+            .Button__icon {
+              color: @text;
+            }
+          }
+        }
+      }
+    }
+    .GoogleMapWithMarkers__zoomButtons .Button__translucent-black,
+    #placeCardDismissButton {
+      // "Fit map to" button and place card overlay close button
+
+      // NOTE: As these buttons use .Button__translucent-black which has its background set to transparent, we need to add a background back
+      background-color: fade(@base, 90%);
+
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled):active,
+      &:not(.Button__disabled).Button__focused {
+        background-color: @base;
+        border-color: transparent;
+        .Button__icon {
+          color: @text;
+        }
+      }
+    }
+    .GoogleMapGeolocationButton__button {
+      color: @subtext1;
+
+      &:hover {
+        color: @text;
+      }
+    }
+    .gm-bundled-control {
+      // Google map zoom button group
+      > .gmnoprint > div {
+        // Zoom button group background
+        background-color: @base !important;
+      }
+      .gm-control-active {
+        // Zoom buttons
+        background-color: @base !important;
+
+        > img {
+          &:nth-child(1) {
+            // Default zoom button symbol
+            filter: @text-filter;
+          }
+
+          &:nth-child(2), &:nth-child(3) {
+            // On hover and on active
+            filter: @subtext0-filter;
+          }
+
+          &:nth-child(4) {
+            // When disabled (e.g. fully zoomed out)
+            filter: @surface2-filter;
+          }
+        }
+
+        + div {
+          // Zoom button divider line
+          background-color: @surface1 !important;
+        }
+      }
+    }
+    .PlaceMapCardsPaginationButton__container {
+      // When there are multiple place map cards (e.g. when searching on map and multiple results show up)
+
+      background-color: fade(@base, 90%);
+      color: @text;
+
+      &:hover,
+      &.Button__focused,
+      &:active {
+        background-color: @base;
+      }
+    }
+
+    // Map layers toggle menu
+    .MapLayers {
+      &Overlay {
+        background-color: @surface0;
+      }
+
+      &List__separator {
+        color: @text;
+      }
+
+      &List__horizontalLine {
+        color: @accent;
+      }
+
+      &ListRow:active, &ListRow:focus, &ListRow:hover {
+        color: @subtext0;
+      }
+
+      &Button__indicatorContainer {
+        background-color: @accent;
+      }
+
+      &Button__indicator {
+        color: @base;
+      }
+    }
+
+    // Map place card
+    .PlanMapPlaceOverlay__selectedCardInner {
+      // Dropdown for which list the item is added to
+      .SplitDropdownToggle__divider {
+        &_light-gray {
+          // When added to list
+          background-color: @surface0;
+        }
+
+        &_brand {
+          // When not added to list
+          background-color: @accent;
+        }
+      }
+      .SplitDropdownToggle__line {
+        &_light-gray {
+          // When added to list
+          background-color: @surface1;
+        }
+
+        &_brand {
+          // When not added to list
+          background-color: var(--accent-darker);
+        }
+      }
+      .Button__light-gray {
+        // We don't want the accent border when the place is added to a list
+        border-color: @surface0;
+        &:not(.Button__disabled):hover, &:not(.Button__disabled):active {
+          border-color: @surface1;
+        }
+      }
+
+      .Button__iconOnly svg {
+        // Place list selection dropdown symbol
+
+        &[color="#6c757d"] {
+          // When added to list
+          color: @text;
+        }
+
+        &[color="#ffffff"] {
+          // When not added to list
+          color: @base;
+        }
+      }
+
+      .PlaceDetails__links a.Button__default-dark {
+        // "Open in" buttons
+        color: @base;
+      }
+
+      .list-group-numbered div[style^="color: rgb(178, 186, 244);"] {
+        // "Why you should go" list numbers
+        color: @accent !important;
+      }
+
+      .bg-primary-darkest {
+        // Reviews tab big rating numbers
+        color: @base !important;
+      }
+
+      .Badge__light {
+        .text-muted {
+          color: @base !important;
+        }
+
+        .color-gray-400 {
+          color: @surface2;
+        }
+      }
+    }
+    .MinimalPlaceDetails__rating {
+      // Place rating
+      color: @yellow;
+    }
+    .IconRow__icon {
+      color: @text;
+    }
+    .BookingPriceCard__border {
+      border-color: @accent;
+    }
+    .DayBadge {
+      background-color: @surface0;
+      color: @text;
+
+      &__closed {
+        background: linear-gradient(
+          to left top,
+          @surface1 44%,
+          @overlay2 45.5%,
+          @overlay2 49.5%,
+          @surface1 51%
+        );
+
+        &Overlay {
+          background: linear-gradient(
+            to left top,
+            hsla(0, 0%, 100%, 0) 42%,
+            @overlay2 43.5%,
+            @overlay2 45.5%,
+            hsla(0, 0%, 100%, 0) 47%
+          );
+        }
+      }
+    }
+    .PlaceDetailsIconRows__showHideTimes {
+      color: @blue;
+
+      &:hover, &:active {
+        color: darken(@blue, 5%) !important;
+      }
+    }
+
+    // Arrangement and color modal
+    .RearrangeSectionRow__section {
+      background-color: @surface0;
+    }
+
+    /* Profile Page */
+    .ProfilePageUserDetails {
+      &__container {
+        border-color: @accent;
+      }
+    }
+    .NumberAndTitle__number, .NumberAndTitle__title {
+      color: @text;
+    }
+    .VisitGeosSummary {
+      background-color: fade(@base, 90%);
+
+      &:active, &:focus, &:hover {
+        background-color: @base;
+      }
+    }
+    .ProfilePageMapOverlayGroup {
+      // Make invisible buttons on profile page maps visible
+
+      &__leftTop,
+      &__rightTop {
+        .Button__default {
+          background-color: fade(@base, 80%);
+          color: @text;
+
+          &:not(.Button__disabled):hover,
+          &:not(.Button__disabled):active,
+          &:not(.Button__disabled).Button__focused {
+            background-color: fade(@base, 90%);
+            border-color: transparent;
+            .Button__icon {
+              color: @text;
+            }
+          }
+        }
+        .Button__translucent-black {
+          background-color: fade(@base, 80%);
+          color: @text;
+
+          &:not(.Button__disabled):hover,
+          &:not(.Button__disabled):active,
+          &:not(.Button__disabled).Button__focused {
+            background-color: fade(@base, 90%);
+            border-color: transparent;
+            .Button__icon {
+              color: @text;
+            }
+          }
+        }
+      }
+    }
+    .ProfilePageMapContainer__userDisplay {
+      background-color: @base;
+    }
+    .TravelLeaderboard {
+      &__container {
+        background-color: @surface0;
+      }
+
+      &__heading {
+        color: @text;
+      }
+    }
+    .LeaderboardList {
+      &__index {
+        color: @accent;
+      }
+      &__user {
+        border-bottom-color: @text;
+      }
+    }
+
+    /* Guides */
+
+    .PlacesListPageLoaded__title, .HeaderImageOverlay__header {
+      color: @text;
+    }
+
+    // Guide contents button
+    .ContentsButtonInner {
+      border-color: @accent;
+      &:not(.ContentsButtonInner__expanded):focus,
+      &:not(.ContentsButtonInner__expanded):hover {
+        border-color: var(--accent-darker);
+        background-color: @surface0;
+      }
+
+      &__expanded {
+        background-color: @surface0 !important;
+      }
+
+      &__subtitle, &__title {
+        color: @text;
+      }
+
+      &__section:focus, &__section:hover {
+        background-color: @surface1;
+      }
+    }
+    .ExpandingButton {
+      background-color: @surface0;
+
+      .Button__icon .fa-bars-staggered {
+        color: @accent;
+      }
+    }
+
+    // Guide items
+    .PlaceView__selectable {
+      &:hover,
+      &:hover .PlaceView__snippetQuote {
+        background-color: @base;
+      }
+
+      .Badge__light {
+        .text-muted {
+          color: @base !important;
+        }
+
+        .color-gray-400 {
+          color: @surface2;
+        }
+      }
+
+      .SplitDropdownToggle__divider {
+        &_light-gray {
+          // When added to list
+          background-color: @surface0;
+        }
+
+        &_gray {
+          background-color: @surface1;
+        }
+
+        &_dark {
+          // When not added to list
+          background-color: @accent;
+        }
+      }
+      .SplitDropdownToggle__line {
+        &_light-gray {
+          // When added to list
+          background-color: @surface1;
+        }
+
+        &_gray {
+          background-color: @surface2;
+        }
+
+        &_dark {
+          // When not added to list
+          background-color: var(--accent-darker);
+        }
+      }
+
+      .Button__light-gray {
+        // We don't want the accent border when the place is added to a list
+        border-color: @surface0;
+        &:not(.Button__disabled):hover, &:not(.Button__disabled):active {
+          border-color: @surface1;
+        }
+        // Place list selection dropdown symbol
+
+        svg {
+          // Dropdown chevron when added to list
+          color: @text;
+        }
+      }
+
+      .Button__gray svg {
+        color: @text;
+      }
+
+      .Button__dark svg {
+        //Dropdown chevron when not added to list
+        color: @base;
+      }
+    }
+    .PlaceView__selected, .PlaceView__selected:hover {
+      background-color: @surface0;
+
+      // Need to increase the surface level by 1 as selected bg is not base
+      .SplitDropdownToggle__divider {
+        &_light-gray {
+          // When added to list
+          background-color: @surface1;
+        }
+      }
+      .SplitDropdownToggle__line {
+        &_light-gray {
+          // When added to list
+          background-color: @surface2;
+        }
+      }
+      .Button__light-gray {
+        background-color: @surface1;
+        border-color: @surface1;
+        &:not(.Button__disabled):hover, &:not(.Button__disabled):active {
+          border-color: @surface2;
+        }
+      }
+
+      .ExpandableText__inlineButton {
+        background: linear-gradient(
+          90deg,
+          hsla(0, 0%, 100%, 0),
+          fade(@surface0, 80%) 16px,
+          @surface0 32px
+        );
+      }
+    }
+    .PlacesListPageLoaded {
+      &__floatingBottomButton {
+        // Back to top button
+        .Button__default {
+          background-color: @accent;
+          color: @base;
+
+          svg {
+            color: @base;
+          }
+
+          &:not(.Button__disabled):active,
+          &:not(.Button__disabled):hover,
+          &:not(.Button__disabled):focus,
+          &:not(.Button__disabled).Button__focused {
+            background-color: var(--accent-darker);
+          }
+        }
+      }
+    }
+
+    // Zoom into location and center map button
+    .MapGLMapWithMarkers__fitButtons .Button__translucent-black {
+      // NOTE: As these buttons use .Button__translucent-black which has its background set to transparent, we need to add a background back
+      background-color: fade(@base, 90%);
+
+      &:not(.Button__disabled):hover,
+      &:not(.Button__disabled):active,
+      &:not(.Button__disabled).Button__focused {
+        background-color: @base;
+        border-color: transparent;
+        .Button__icon {
+          color: @text;
+        }
+      }
+    }
+
+    // Photo gallery
+    .lg-counter {
+      color: @subtext0;
+    }
+    .lg-toolbar .lg-icon {
+      color: @text;
+
+      &:hover {
+        color: @subtext0;
+      }
+    }
+    .lg-sub-html {
+      color: @text;
+    }
+    .lg-outer .lg-thumb-item {
+      border-color: @overlay0;
+
+      &.active, &:hover {
+        border-color: @accent;
+      }
+    }
+    .lg-next, .lg-prev {
+      background-color: @surface0;
+      color: @text;
+
+      &:not(.disabled):hover {
+        background-color: @surface1;
+      }
+    }
+
+    // Comments
+    .CommentFormInner {
+      &__textbox {
+        border-color: @accent;
+        background-color: @surface1;
+      }
+
+      &__button {
+        background-color: @accent !important;
+        color: @base;
+
+        &:hover {
+          background-color: var(--accent-darker) !important;
+          color: @base !important;
+        }
+
+        &.Button__disabled {
+          background-color: fade(@accent, 40%) !important;
+          border-color: fade(@accent, 40%);
+          color: @subtext0 !important;
+        }
+      }
+    }
+    .CommentItemInner__button {
+      // Reply button
+      color: @subtext0 !important;
+
+      // Thumbs up button
+      .fa-thumbs-up {
+        color: @subtext0;
+      }
+    }
+
+    .RelatedGuidesSection__relatedGuidesContainer {
+      background-color: @mantle;
+    }
+
+    // Additional writing guide theming
+    .SectionComponentHeader__menuToggle {
+      background-color: @base;
+    }
+    .GuideDayPlanHeader {
+      &__dayButton, &__dayContainer {
+        color: @text;
+      }
+
+      &__buttonContainer:hover {
+        background-color: @surface0;
+      }
+
+      &__dayInput {
+        color: @text;
+      }
+    }
+    .PlanViewPageContainerPad .Button__default {
+      background-color: @base;
+    }
+    .RatingsOption {
+      // Rate guide items as "must go", "hidden gem", and "skip it"
+
+      background-color: @surface0;
+
+      // The options
+      &, &__text {
+        &[style="color: rgb(173, 181, 189);"] {
+          // Unselected
+          color: @subtext1 !important;
+        }
+
+        &[style="color: rgb(222, 112, 60);"] {
+          // Must go
+          color: @peach !important;
+        }
+
+        &[style="color: rgb(56, 164, 166);"] {
+          // Hidden gem
+          color: @blue !important;
+        }
+
+        &[style="color: rgb(226, 62, 87);"] {
+          // Skip it
+          color: @red !important;
+        }
+      }
+    }
+  }
+}
