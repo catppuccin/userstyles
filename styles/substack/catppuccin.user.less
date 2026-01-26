@@ -18,10 +18,11 @@
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
 @-moz-document domain("substack.com") {
-  :root {
+  :root, :root:is(.priority_tertiary-rlke8z, .priority_quaternary-kpMibu) {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
     }
+
     @media (prefers-color-scheme: dark) {
       #catppuccin(@darkFlavor);
     }
@@ -31,124 +32,363 @@
     #lib.palette();
     #lib.defaults();
 
-    color: @text;
-    background-color: @base !important;
+    --color-bg-primary: @base;
+    --color-bg-primary-rgb: #lib.rgbify(@base)[];
+    --color-bg-primary-raw: #lib.rgbify(@base)[];
+    --color-bg-primary-hover: @surface0;
+    --color-bg-secondary: @surface0;
+    --color-bg-tertiary: @surface1;
+    --color-bg-elevated-primary: @mantle;
+    --color-bg-elevated-secondary: @crust;
+    --color-fg-primary: @text;
+    --color-fg-secondary: @subtext1;
+    --color-fg-tertiary: @subtext0;
+    --color-utility-detail: @surface1;
+    --color-utility-white: @text;
+    --color-detail-themed: @surface1;
+    --color-accent-themed: @accent;
+    --meta-text-color: @subtext0;
 
-    &,
-    .dark-mode,
-    .dark-theme,
-    [class*="_pubTheme_"] {
-      --color-bg-primary: @base;
-      --color-bg-primary-rgb: #lib.rgbify(@base)[];
-      --color-bg-primary-raw: #lib.rgbify(@base)[];
-      --color-bg-primary-hover: @surface0;
-      --color-bg-secondary: @surface0;
-      --color-bg-tertiary: @surface1;
-      --color-bg-elevated-primary: @mantle;
-      --color-bg-elevated-secondary: @crust;
-      --color-fg-primary: @text;
-      --color-fg-secondary: @subtext1;
-      --color-fg-tertiary: @subtext0;
-      --color-utility-detail: @surface1;
-      --color-utility-white: @text;
-      --color-detail-themed: @surface1;
-      --color-accent-themed: @accent;
+    --color-accent-fg-red: @red;
+    --color-accent-bg-red: fade(@red, 20%);
 
-      --color-accent-fg-red: @red;
-      --color-accent-bg-red: fade(@red, 20%);
-      --color-semantic-error-bg-primary: @red;
-      --color-semantic-error-utility-contrast: @crust;
+    --color-semantic-substack-fg-primary: @accent;
+    --color-semantic-substack-bg-primary: @accent;
 
-      --color-accent-fg-orange: @accent;
-      --color-accent-bg-orange: fade(@accent, 20%);
+    --color-semantic-error-bg-primary: @red;
+    --color-semantic-error-utility-contrast: @crust;
 
-      --color-accent-fg-green: @green;
-      --color-accent-bg-green: fade(@green, 20%);
+    --color-accent-fg-orange: @accent;
+    --color-accent-bg-orange: fade(@accent, 20%);
 
-      --color-accent-fg-cyan: @blue;
-      --color-accent-bg-cyan: fade(@blue, 20%);
+    --color-accent-fg-green: @green;
+    --color-accent-bg-green: fade(@green, 20%);
 
-      /* Buttons */
-      --color-button-primary-bg: @accent;
-      --color-button-primary-bg-hover: darken(@accent, 5%);
-      --color-button-primary-fg: @crust;
+    --color-accent-fg-cyan: @blue;
+    --color-accent-bg-cyan: fade(@blue, 20%);
 
-      --color-button-secondary-bg: @surface0;
-      --color-button-secondary-bg-hover: @surface1;
-      --color-button-secondary-fg: @text;
+    /* Buttons */
+    --color-button-primary-bg: @accent;
+    --color-button-primary-bg-hover: darken(@accent, 5%);
+    --color-button-primary-fg: @base;
 
-      --color-button-tertiary-bg-hover: @surface1;
-      --color-button-tertiary-fg: @text;
+    --color-button-secondary-bg: @surface0;
+    --color-button-secondary-bg-hover: @surface1;
+    --color-button-secondary-fg: @text;
 
-      --color-button-mono-bg: @text;
-      --color-button-mono-bg-hover: @subtext1;
-      --color-button-mono-fg: @crust;
+    --color-button-tertiary-bg-hover: @surface1;
+    --color-button-tertiary-fg: @text;
 
-      --color-button-disabled-fg: @subtext0;
+    --color-button-mono-bg: @text;
+    --color-button-mono-bg-hover: @subtext1;
+    --color-button-mono-fg: @base;
 
-      /* Tooltips & Toasts */
-      --color-bg-tooltip: @mantle;
-      --material-thick: @mantle;
+    --color-button-disabled-fg: @subtext0;
 
-      --print_pop: @accent;
-      --print_secondary: @subtext1;
-      --background_pop: @accent;
-      --print_on_pop: @crust;
-      --color_theme_bg_pop: @accent;
-      --color_theme_bg_pop_darken: darken(@accent, 5%);
-      --color_theme_print_on_pop: @crust;
-      --border_subtle: @surface1;
-      --background_contrast_1: @mantle;
-      --background_contrast_2: @surface2;
-      --color_theme_bg_contrast_1: @surface1;
-      --color_theme_bg_contrast_2: @overlay0;
-      --color_theme_bg_contrast_4: @subtext0;
+    /* Tooltips & Toasts */
+    --color-bg-tooltip: @mantle;
+    --material-thick: @mantle;
 
-      --color-chat-other-fg-secondary: @subtext1;
+    --print_pop: @accent;
+    --print_secondary: @subtext1;
+    --background_pop: @accent;
+    --print_on_pop: @crust;
+    --color_theme_bg_pop: @accent;
+    --color_theme_bg_pop_darken: darken(@accent, 5%);
+    --color_theme_print_on_pop: @crust;
+    --border_subtle: @surface1;
+    --background_contrast_1: @mantle;
+    --background_contrast_2: @surface2;
+    --color_theme_bg_contrast_1: @surface1;
+    --color_theme_bg_contrast_2: @overlay0;
+    --color_theme_bg_contrast_4: @subtext0;
 
-      --color-semantic-select-fg-primary: @accent;
-      --color-semantic-select-utility-detail: fade(@accent, 20%);
-      --color-semantic-highlight-fg-primary: @accent;
+    --color-chat-other-fg-secondary: @subtext1;
 
-      /* Weird variables issue fixes */
-      --color-light-bg-primary: @mantle; /* Was text, changing to mantle for (select text) -> Share -> Download button color. Might break things */
-      --color-light-bg-secondary: @surface0; /* substack.com homepage sections */
-      --color-dark-bg-primary: @mantle;
-      --color-dark-bg-secondary: @base;
-      --color-dark-bg-tertiary: @surface0;
+    --color-semantic-select-fg-primary: @accent;
+    --color-semantic-select-utility-detail: fade(@accent, 20%);
+    --color-semantic-highlight-fg-primary: @accent;
 
-      /* Publications with different variables */
-      --color-primary-themed: @text;
-      --color-secondary-themed: @subtext1;
+    /* Weird variables issue fixes */
+    --color-light-bg-primary: @mantle; /* Was text, changing to mantle for (select text) -> Share -> Download button color. Might break things */
+    --color-light-bg-secondary: @surface0; /* substack.com homepage sections */
+    --color-dark-bg-primary: @mantle;
+    --color-dark-bg-secondary: @base;
+    --color-dark-bg-tertiary: @surface0;
 
-      --color-bg-secondary-themed: @surface0;
+    /* Publications with different variables */
+    --color-primary-themed: @text;
+    --color-secondary-themed: @subtext1;
 
-      --web_bg_color: @mantle;
-      --print_on_web_bg_color: @text;
-      --print_secondary_on_web_bg_color: @subtext1;
+    --color-bg-secondary-themed: @surface0;
 
-      /* Share button */
-      --material-dark-regular: @mantle;
-      /* Copy (heading link) to clipboard notification */
-      --material-dark-thick: @crust;
-      /* Button hover, faded to 0.1 */
-      --color-primitive-white-rgb: #lib.rgbify(@text)[];
+    --web_bg_color: @mantle;
+    --print_on_web_bg_color: @text;
+    --print_secondary_on_web_bg_color: @subtext1;
 
-      /* Various full screen modals for singing up, subscribing etc */
-      --cover_print_primary: @text;
-      --cover_print_secondary: @subtext1;
-      --cover_print_tertiary: @subtext0;
-      --cover_bg_color: @base;
-      --cover_input_background: @mantle;
+    /* Share button */
+    --material-dark-regular: @mantle;
+    /* Copy (heading link) to clipboard notification */
+    --material-dark-thick: @crust;
+    /* Button hover, faded to 0.1 */
+    --color-primitive-white-rgb: #lib.rgbify(@text)[];
+
+    /* Various full screen modals for singing up, subscribing etc */
+    --cover_print_primary: @text;
+    --cover_print_secondary: @subtext1;
+    --cover_print_tertiary: @subtext0;
+    --cover_bg_color: @base;
+    --cover_input_background: @mantle;
+
+    body, content, content p {
+      color: @text !important;
+      background-color: @base !important;
+    }
+
+    svg.lucide.lucide-search {
+      stroke: @subtext0 !important;
+    }
+
+    #headlessui-combobox-input-P0-0 {
+      background-color: inherit !important;
+    }
+
+    .highlight-ElgDnZ {
+      background-color: fade(@accent, 30%) !important;
+    }
+
+    select,
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"],
+    .nesty-input,
+    .text-container {
+      color: @text !important;
+      background-color: @surface0 !important;
+      border-color: @overlay0 !important;
+
+      &:hover {
+        background-color: @surface1 !important;
+      }
+
+      &:active, &:focus {
+        background-color: @surface2 !important;
+        border-color: @accent !important;
+      }
+    }
+
+    .bg-primary-zk6FDl {
+      color: @text !important;
+      background-color: @surface0 !important;
+    }
+
+    .breadcrumbs > li:last-child a {
+      color: @subtext0 !important;
+    }
+
+    .aboutHero-lZByAF {
+      background: url(/img/about_page/hero-background-mobile.png) 50%/cover
+        no-repeat !important;
+
+      div > div > h1, div > div > div {
+        color: @base !important;
+      }
+    }
+
+    .lt-search-box--small {
+      background-color: @accent !important;
+    }
+
+    .lt-breadcrumbs-wrapper {
+      background-color: @mantle !important;
+    }
+
+    .lt-article-list-item--is-promoted span {
+      color: @accent !important;
+    }
+
+    .callout {
+      color: @text !important;
+    }
+
+    .callout--info {
+      background-color: fade(@teal, 30%);
+      border-color: @teal;
+    }
+
+    .callout--success {
+      background-color: fade(@green, 30%);
+      border-color: @green;
+    }
+    .callout--transparent {
+      border-color: @overlay1;
+    }
+    .callout--warning {
+      background-color: fade(@peach, 30%);
+      border-color: @peach;
+    }
+    .callout--danger {
+      background-color: fade(@red, 30%);
+      border-color: @red;
+    }
+    .callout--primary {
+      background-color: @surface0;
+      border-color: @accent;
+    }
+
+    .lt-header {
+      border-color: @accent !important;
+    }
+
+    .lt-topbar {
+      color: @accent !important;
+      background-color: @mantle !important;
+
+      img.lt-topbar__logo {
+        filter: @accent-filter !important;
+      }
+    }
+
+    .cohort-page,
+    .cohort-page .cohort-example a,
+    .cohort-page .case-study a,
+    .title-FTslvX.title-FTslvX,
+    .boldedCell-ucZlIo,
+    .press-grid-F55Ofh a,
+    .customHeaderText-VREOmX,
+    .lt-custom-block__title {
+      color: @accent !important;
+    }
+
+    .lt-hero-unit {
+      color: @text !important;
+    }
+
+    .lt-article-box,
+    .press-grid-F55Ofh > div,
+    .s-card-app-drf_ym {
+      background-color: @surface0 !important;
+    }
+
+    .s-card-app-drf_ym .s-card-login-v8A9GY {
+      color: @subtext0 !important;
+
+      a {
+        color: @blue !important;
+      }
+    }
+
+    .bg-glass-thick-QXWmTV {
+      color: @text !important;
+      background-color: @surface0 !important;
+
+      svg {
+        fill: @text !important;
+      }
+    }
+
+    .about-showcase-fnnnEZ, .press-outer-TwAwfo {
+      background-color: @base !important;
+    }
+
+    .arrowButtonOverlaid-xLyA_z svg {
+      stroke: @base !important;
+    }
+
+    .subscriberBadge-Lpjxjx {
+      --color-bg: @accent !important;
+      --color-fg: @base !important;
     }
 
     /* Substack logos */
-    [fill="#ff6719" i] {
+    [fill="#ff6719"], [fill="#FF6719"] {
       fill: @accent !important;
     }
-    /* Inverted logo colors */
-    [fill="#FFFFFF" i] {
-      fill: @crust !important;
+
+    [stroke="#ff6719"],
+    [stroke="#ff7751"],
+    [stroke="#FF6719"],
+    [stroke="#FF7751"] {
+      stroke: @accent !important;
+    }
+
+    svg.resource-icon * {
+      stroke: @text !important;
+    }
+
+    /* Icons */
+    [stroke="#888888"],
+    [stroke="#555555"] {
+      stroke: @subtext1 !important;
+    }
+
+    .priority_secondary-outline-MgyjoK {
+      outline: @overlay0 !important;
+    }
+
+    .lt-btn--default,
+    .lt-section-subscribe button,
+    .lt-article-subscribe button,
+    .lt-community-follow button,
+    .lt-profile__buttons button,
+    .lt-profile__buttons a,
+    .lt-requests-table-toolbar .organization-subscribe button,
+    .lt-subscriptions-subscribe button,
+    .pagination-next-link,
+    .pagination-prev-link,
+    .pagination-first-link,
+    .pagination-last-link,
+    .pagination-next-link a,
+    .pagination-prev-link a,
+    .pagination-first-link a,
+    .pagination-last-link a,
+    .recent-activity-controls {
+      color: @text !important;
+      background-color: fade(@accent, 30%) !important;
+      border-color: @accent !important;
+
+      &:hover {
+        color: @text !important;
+        background-color: fade(@accent, 60%) !important;
+      }
+
+      &:active, &:focus {
+        color: @base !important;
+        background-color: @accent !important;
+      }
+    }
+
+    input[type="submit"],
+    .lt-btn--primary,
+    .buttonStyle-r7yGCK {
+      color: @base !important;
+      background-color: @accent !important;
+      border-color: @accent !important;
+
+      svg {
+        stroke: @base !important;
+      }
+
+      &:hover {
+        color: @base !important;
+        background-color: darken(@accent, 5%) !important;
+
+        svg {
+          stroke: @base !important;
+        }
+      }
     }
 
     /* Footer */
@@ -200,6 +440,22 @@
       color: @subtext1;
     }
 
+    a, a:link {
+      color: @blue;
+
+      &:hover {
+        color: @sky !important;
+      }
+
+      &:active, &:focus {
+        color: @sapphire !important;
+      }
+
+      &:visited {
+        color: @lavender !important;
+      }
+    }
+
     /* Misc inputs */
     button[role="switch"],
     input[type="radio"] + span {
@@ -222,17 +478,46 @@
       }
     }
 
+    .going-paid-guide-page {
+      color: @accent !important;
+
+      .resource {
+        background-color: @surface0 !important;
+        border-color: @overlay1 !important;
+
+        svg, svg g, svg g path {
+          fill: @text !important;
+          stroke: @text !important;
+        }
+
+        &:hover {
+          background-color: @surface1 !important;
+        }
+      }
+    }
+
+    .going-paid-guide-page .resources .navigator .floating-navigator {
+      border-color: @overlay1 !important;
+    }
+
+    .going-paid-guide-page
+      .resources
+      .navigator
+      .floating-navigator
+      .selected::before {
+      border-color: @accent !important;
+    }
+
+    .container-border,
+    .horizontalDivider-pvoteG {
+      border-color: @overlay1 !important;
+    }
+
     [aria-label="File Picker"] {
       background-color: @base;
     }
 
     /* Dashboard */
-
-    /* Icons */
-    [stroke="#888888"],
-    [stroke="#555555"] {
-      stroke: @subtext1 !important;
-    }
 
     /* Import posts */
     .signup-page > .container .signup-box {
