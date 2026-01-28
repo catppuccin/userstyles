@@ -16,9 +16,10 @@
 ==/UserStyle== */
 
 @import "https://userstyles.catppuccin.com/lib/lib.less";
-@import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
 
 @-moz-document domain("git-scm.com") {
+  @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
+
   @media screen and (prefers-color-scheme: dark),
     screen and (prefers-color-scheme: light) {
     :root[data-theme="dark"], :root:not([data-theme="light"]) {
@@ -41,11 +42,11 @@
     --font-color: @text;
     --aside-font-color: @subtext0;
     --light-font-color: @subtext0;
-    --light-font-color-darker-10: @text;
-    --light-font-color-darker-25: @base;
-    --light-font-color-darker-35: @text;
-    --light-font-color-darker-55: darken(@subtext0, 55%);
-    --light-font-color-lighter-20: lighten(@subtext0, 20%);
+    --light-font-color-darker-10: @text; // ul.stackoverflow span strong
+    --light-font-color-darker-25: @base; // ol.full-search-results a.url:hover
+    --light-font-color-darker-35: @text; // footer a
+    // --light-font-color-darker-55 seems unused.
+    --light-font-color-lighter-20: @subtext1; // ul.stackoverflow span em
     --link-color: @blue;
     --nav-link-color: @blue;
     --link-hover-color: @sky;
@@ -67,8 +68,11 @@
     --mark-bg-color: fade(@yellow, 30%);
     --mark-color: @yellow;
     --base-border-color: @overlay0;
-    --base-border-color-darker-8: darken(@overlay0, 8%);
-    --base-border-color-lighter-10: darken(@overlay0, 10%);
+    --base-border-color-darker-8: @overlay0; // .dropdown-panel, .dropdown-trigger
+    --base-border-color-lighter-10: darken(
+      @overlay0,
+      10%
+    ); // table.data :is(th, td), #book-container
     --callout-color: @mantle;
     --highlight-bg-color: fade(@accent, 30%);
     --pre-bg-color: @mantle;
@@ -87,6 +91,8 @@
     --versions-footer-bg-color: @mantle;
     --search-border: @overlay0;
     --search-focus-border: @accent;
+
+    // LOGO COLOURS
     --logos-1: @accent;
     --logos-2: darken(@accent, 10%);
     --logos-3: darken(@accent, 20%);
@@ -95,12 +101,48 @@
     --logos-6: darken(@accent, 30%);
     --logos-7: lighten(@accent, 5%);
 
+    // CODEBLOCKS
+    pre,
+    #documentation #main p.nutshell,
+    #documentation #main div.verseblock pre.content,
+    #documentation #main .literalblock .content pre tt,
+    .edition2 pre code,
+    .edition2 pre #documentation #main p tt,
+    #documentation #main p .edition2 pre tt {
+      background-color: var(--pre-bg-color) !important;
+      border-color: var(--pre-border) !important;
+    }
+
+    // UPSTREAM GREY-TEXT CODEBLOCKS
+    #documentation #main div.verseblock pre.content,
+    .edition2 pre,
+    .edition2 code,
+    .edition2 #documentation #main p tt,
+    #documentation #main p .edition2 tt {
+      color: var(--light-font-color) !important;
+    }
+
+    // INLINE CODE.
+    // ! Not sure we're keeping this. Keep an eye on Leah's decision.
+    .edition2 :not(pre) > code,
+    .edition2 :not(pre) > code *,
+    :not(.verseblock > .content) > span.synopsis,
+    :not(.verseblock > .content) > span.synopsis * {
+      background-color: var(--synopsis-bg-color) !important;
+      border-color: transparent !important;
+
+      // THIS IS GREY UPSTREAM! Used to highlight <string-substitutions> in code.
+      em {
+        color: @subtext0 !important;
+      }
+    }
+
     img[alt="Git"] {
       filter: @accent-filter !important;
     }
 
     // Icons next to text headings are added using a background on the h3 element; filtering the element themes the icon and has no visible changes to text (same color used already).
-    #topics-dropdown h3 {
+    #topics-dropdown h3, .reference-menu h3 {
       filter: @text-filter !important;
     }
 
@@ -121,14 +163,6 @@
       border-color: var(--pre-border) !important;
     }
 
-    // ! Not sure we're keeping this. Keep an eye on Leah's decision.
-    :not(.verseblock > .content) > span.synopsis,
-    :not(.verseblock > .content) > span.synopsis * {
-      color: var(--orange) !important;
-      background-color: var(--synopsis-bg-color) !important;
-      border-color: transparent !important;
-    }
-
     #book-chapters,
     #reference-version,
     .section-nav-container {
@@ -140,7 +174,7 @@
     }
 
     table.benchmarks tr td.desc {
-      color: var(--aside-font-color) !important;
+      color: var(--light-font-color) !important;
     }
 
     abbr[title] {
@@ -397,7 +431,7 @@
           '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="none" stroke="@{subtext0}" stroke-linecap="round" stroke-linejoin="round" d="M12.5 6.5a6 6 0 01-6 6 6 6 0 01-6-6 6 6 0 016-6 6 6 0 016 6m3 9L11 11"/></svg>'
         )
         !important;
-      color: var(--aside-font-color) !important;
+      color: var(--light-font-color) !important;
       background-image: url("data:image/svg+xml,@{svg}") !important;
 
       &.focus {
@@ -410,12 +444,6 @@
       }
 
       box-shadow: var(--shadow-color) !important;
-    }
-
-    #documentation #main {
-      p.nutshell, .literalblock .content pre tt {
-        background-color: var(--pre-bg-color) !important;
-      }
     }
 
     .switch a {
@@ -496,11 +524,6 @@
 
     hr.sidebar {
       filter: @overlay1-filter !important;
-    }
-
-    #documentation #main div.verseblock pre.content {
-      color: var(--light-font-color) !important;
-      background-color: var(--pre-bg-color) !important;
     }
 
     input.pagefind-ui__search-input {
