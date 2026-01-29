@@ -33,7 +33,43 @@
     #lib.palette();
     #lib.defaults();
 
-    *:not(img, svg *, video, .notificationDot) {
+    --custom-gradient: linear-gradient(
+      225deg,
+      @blue 0%,
+      @mauve 53.65%,
+      @red 100%
+    ) !important;
+
+    --custom-gradient-transparent: linear-gradient(
+      225deg,
+      fade(@blue, 30%) 0%,
+      fade(@mauve, 30%) 53.65%,
+      fade(@red, 30%) 100%
+    ) !important;
+
+    --custom-green-gradient: radial-gradient(
+      50% 50%,
+      @green,
+      0%,
+      color-mix(in hsl, @green 60%, @teal 40%) 42.71%,
+      @teal 100%
+    );
+
+    #vgen-svg-gradient-same-across-modes-primary {
+      stop:not([offset]) {
+        stop-color: @blue !important;
+      }
+
+      stop[offset="0.52"] {
+        stop-color: @mauve !important;
+      }
+
+      stop[offset="1"] {
+        stop-color: @red !important;
+      }
+    }
+
+    *:not(img, svg, svg *, video, .notificationDot) {
       color: @text;
       fill: @text;
       stroke: @text;
@@ -66,7 +102,8 @@
     body,
     content,
     content p,
-    .emHfIl {
+    .emHfIl,
+    .pageContentContainer .pageContent {
       color: @text !important;
       fill: @text !important;
       stroke: @text !important;
@@ -77,8 +114,9 @@
     .dpyhEo {
       background-color: @text !important;
 
-      svg * {
+      svg, svg * {
         fill: @base !important;
+        stroke: @base !important;
       }
     }
 
@@ -86,12 +124,85 @@
     .eBYodn {
       background-color: @base !important;
 
-      svg * {
+      svg, svg * {
         fill: @text !important;
+        stroke: @text !important;
       }
     }
 
-    // SYSTEM TOGGLE WORKS AS NORMAL CHIP SELECT, C.F. FURTHER BELOW.
+    // NB: SYSTEM TOGGLE WORKS AS NORMAL CHIP SELECT, C.F. FURTHER BELOW.
+
+    // TEXT OVERRIDES
+    .titleContainer .title,
+    .reviewButton .ratingNumber,
+    .menuCheckboxLabel,
+    .mainModalContent .languages .language .languageName,
+    .mainModalContent .detailsColumn .creatorSection .personalMessage p,
+    :is(.hHuIfY, .lhbURp) .linkInner .title,
+    .personalNoteGroup .personalNotes .personalNote pre,
+    .bio,
+    .displayNameContainer .displayName,
+    .richTextContainer .policyHeadingGroup .policyHeading,
+    .labelContainer .title {
+      color: @text !important;
+    }
+
+    // SUBTEXT0 OVERRIDES
+    .label:not(.menuCheckboxLabel),
+    .innerContent .menuHeader .menuLabel,
+    .reviewButton .reviewCount,
+    .descriptionLine .labelDescription,
+    .mainModalContent .sidePanelSectionHeader,
+    .mainModalContent .sectionHeading,
+    .mainModalContent .languages .language,
+    .mainModalContent .descriptionField,
+    .mainModalContent .subHeadings .subHeading,
+    .username,
+    .subText,
+    .reviewContainer .ratingGroup > p,
+    .pageIndex,
+    .richTextContainer .policyHeadingGroup .policyUpdated,
+    .percentageContainer .percentage,
+    .jivRMW,
+    .emptyStateContainer .emptyStateText > :is(.title, .description),
+    .cfMzOd,
+    .jxOrZA,
+    .labelText,
+    .bmISxX,
+    .bdkWir,
+    .labelContainer .description {
+      color: @subtext0 !important;
+    }
+
+    // BASE OVERRIDES
+    .MyVSONAsSection__GuestContainer-sc-f6d18038-0 p,
+    .eINUqO > .formLabel .downArrow,
+    .hLuxbv :is(.alertMessageTextContainer, .alertMessageIconContainer) {
+      color: @base !important;
+      fill: @base !important;
+      stroke: @base !important;
+
+      * {
+        fill: @base !important;
+        stroke: @base !important;
+      }
+    }
+
+    // SURFACE0 OVERRIDES
+    .iFmoSC .tooltipArrow {
+      fill: @surface0 !important;
+      stroke: @surface0 !important;
+
+      * {
+        fill: @surface0 !important;
+        stroke: @surface0 !important;
+      }
+    }
+
+    // ACCENT OVERRIDES
+    .mainModalContent h2 {
+      color: @accent !important;
+    }
 
     .serviceBody .infoContainer .infoContainerInner .mainInfo {
       .serviceName {
@@ -100,6 +211,10 @@
 
       .basePrice {
         color: @subtext0 !important;
+
+        &.fQtxio {
+          background-image: var(--custom-gradient) !important;
+        }
       }
     }
 
@@ -132,24 +247,7 @@
       }
     }
 
-    :is(.hHuIfY, .lhbURp) .linkInner .title,
-    .personalNoteGroup .personalNotes .personalNote pre,
-    .mainModalContent .detailsColumn .creatorSection .personalMessage p,
-    .bio {
-      color: @text !important;
-    }
-
-    .mainModalContent {
-      h2 {
-        color: @accent !important;
-      }
-
-      .subHeadings .subHeading {
-        color: @subtext0 !important;
-      }
-    }
-
-    // VGEN'S STYLISED UL LI A LINKS
+    // VGEN'S STYLISED LINKS
     li > a {
       color: @text !important;
 
@@ -158,7 +256,7 @@
           color: @accent !important;
         }
 
-        svg *, img * {
+        svg, svg *, img {
           fill: @accent !important;
           stroke: @accent !important;
         }
@@ -169,52 +267,91 @@
           color: darken(@accent, 5%) !important;
         }
 
-        svg *, img * {
+        svg, svg *, img * {
           fill: darken(@accent, 5%) !important;
           stroke: darken(@accent, 5%) !important;
         }
       }
     }
 
-    .mainModalContent
-      .detailsColumn
-      .creatorSection
-      .creatorDetails
-      > .center
-      > .nameContainer
-      .displayNameContainer
-      .displayName {
+    // SURFACE0 BUTTONS
+    .reviewButton,
+    .ChatChannelPreviewOptionsMenu__UserOption-sc-a149b0b1-2,
+    .formLabel button.formField,
+    .dgAcRG,
+    .kagxcm .filtersContainer .filterMenuLink,
+    :not(.str-chat__message-reaction)
+      > button:not(
+        .fgGMZO,
+        .dbQApQ,
+        .gXZdsE,
+        .dCkPXT,
+        .kFGieb,
+        .cOFbyM,
+        .OeXGs,
+        .kqIySd,
+        .khYhRB,
+        .gHEzkA,
+        .eNKZtI
+      ) {
       color: @text !important;
-    }
+      background-image: unset !important;
+      background-color: @surface0 !important;
 
-    .username {
-      color: @subtext0 !important;
-    }
-
-    .titleContainer {
-      .userContainer .userInfo {
-        .artistUsername {
-          color: @subtext0 !important;
-        }
-
-        &:hover .artistUsername {
-          color: @accent !important;
-        }
-
-        .userText .artistDisplayNameContainer .artistDisplayName {
-          color: @text !important;
-        }
+      svg, svg *, img {
+        fill: @text !important;
+        stroke: @text !important;
       }
-      .title {
-        color: @text !important;
+
+      &:hover {
+        background-color: @surface1 !important;
+      }
+
+      &:active, &:focus {
+        background-color: @surface2 !important;
       }
     }
 
-    .BaseIcon__StyledSvg-sc-6d6731c3-0.bxRwyH {
-      fill: @text !important;
-      stroke: @text !important;
+    // SURFACE1 BUTTONS
+    .actionButtons > button,
+    .kqIySd,
+    .requestForm .submitButton,
+    .kjqnAx ul li button[class$="kIdTag"],
+    .dbQApQ,
+    .gXZdsE,
+    .dCkPXT,
+    .kFGieb,
+    .cOFbyM {
+      color: @text !important;
+      background-image: unset !important;
+      background-color: @surface1 !important;
+
+      svg, svg *, img {
+        fill: @text !important;
+        stroke: @text !important;
+      }
+
+      &:hover {
+        background-color: @surface2 !important;
+      }
+
+      &:active, &:focus {
+        background-color: @overlay0 !important;
+      }
     }
 
+    // GREEN-DIENT BUTTONS
+    .eNKZtI {
+      background-image: var(--custom-green-gradient) !important;
+
+      * {
+        color: @base !important;
+        fill: @base !important;
+        stroke: @base !important;
+      }
+    }
+
+    // CUSTOM ACCENT BUTTONS
     .hXZCZF > li > a {
       :not(button, button *) {
         fill: @subtext0 !important;
@@ -235,6 +372,11 @@
       }
     }
 
+    .MyVSONAsSection__GuestContainer-sc-f6d18038-0 button {
+      background-color: transparent !important;
+    }
+
+    // CHECKBOXES
     input + .checkbox {
       background-color: @surface0 !important;
       border-color: @overlay0 !important;
@@ -252,6 +394,268 @@
       svg.checkmark path {
         fill: @base !important;
         stroke: @base !important;
+      }
+    }
+
+    /**
+     * FIXME: .cUpKKJ seems to be refusing to change.
+     * .cUpKKJ.RichTextEditor__EditorContainer_<hash>-5
+     * └ .innerEditor
+     *   └ .editableContainer
+     */
+
+    // TEXTAREAS
+    .frEZkH .str-chat__textarea__textarea,
+    .cUpKKJ,
+    .formLabel :is(input, textarea).formField,
+    .inputContainer,
+    .str-chat__message-textarea-with-emoji-picker,
+    input[type="text"],
+    textarea {
+      color: @text !important;
+      background-color: @surface1 !important;
+
+      label, ::placeholder {
+        color: @subtext0 !important;
+      }
+
+      &:hover, &:active, &:focus-within {
+        background-color: @surface2 !important;
+
+        .frEZkH .str-chat__textarea__textarea,
+        .cUpKKJ,
+        .formLabel :is(input, textarea).formField,
+        .inputContainer,
+        .str-chat__message-textarea-with-emoji-picker,
+        input[type="text"],
+        textarea {
+          background-color: @surface2 !important;
+        }
+      }
+    }
+
+    // DROPDOWN CONTAINERS
+    .selectWrapper {
+      .formField {
+        color: @text !important;
+        background-color: @surface0 !important;
+
+        .SortDropdown__OptionText-sc-5d6d1713-4 {
+          &:hover {
+            background-color: @surface1 !important;
+          }
+
+          &:active, &:focus {
+            background-color: @surface2 !important;
+          }
+        }
+      }
+
+      svg.downArrow, svg.downArrow * {
+        fill: @text !important;
+        stroke: @text !important;
+      }
+    }
+
+    .SortDropdown__FloatingContainer-sc-5d6d1713-3 {
+      color: @text !important;
+      background-color: @surface0 !important;
+
+      .SortDropdown__OptionText-sc-5d6d1713-4 {
+        &:hover {
+          background-color: @surface1 !important;
+        }
+
+        &:active, &:focus {
+          background-color: @surface2 !important;
+        }
+      }
+    }
+
+    // SLIDERS
+    .slider {
+      background-color: @overlay0 !important;
+
+      .sliderFill {
+        background-color: @accent !important;
+      }
+    }
+
+    .innerSlider .thumb {
+      background-color: @accent !important;
+
+      :not(button, button *) {
+        color: @base !important;
+        fill: @base !important;
+        stroke: @base !important;
+      }
+
+      &::before {
+        border-color: transparent !important;
+      }
+    }
+
+    .progressBarContainer {
+      background-color: @overlay0 !important;
+
+      .dYbnRe {
+        background-image: var(--custom-gradient) !important;
+      }
+    }
+
+    .progressBar {
+      background-color: @overlay0 !important;
+
+      .bar {
+        background: unset !important;
+      }
+
+      .filling {
+        background-image: var(--custom-gradient) !important;
+      }
+    }
+
+    // CHIP SELECT
+    .inputContainer:has(> label.option + label.option) {
+      color: @subtext0 !important;
+      background-color: @surface1 !important;
+
+      .title {
+        color: @subtext0 !important;
+      }
+
+      label.option {
+        &:hover {
+          background-color: @surface2 !important;
+        }
+
+        &.RoGou, &.fSGnyo, &.fBnvNt, &.eMqmWR, &.xHcof {
+          background-color: @accent !important;
+
+          :not(button, button *) {
+            color: @base !important;
+            fill: @base !important;
+            stroke: @base !important;
+          }
+
+          &:hover {
+            background-color: darken(@accent, 5%) !important;
+          }
+        }
+      }
+    }
+
+    // TOGGLES
+    .filtersContainer .filterMenuLink,
+    .tagsBarContainer .tagsBar .tagFilter {
+      color: @text !important;
+      background-image: unset !important;
+      background-color: @surface0 !important;
+      border-color: @overlay0 !important;
+
+      :not(button, button *) {
+        color: @text !important;
+        fill: @text !important;
+        stroke: @text !important;
+      }
+
+      &:hover {
+        background-color: @surface1 !important;
+      }
+
+      &:active, &:focus {
+        background-color: @surface2 !important;
+      }
+
+      &.active {
+        color: @base !important;
+        background-color: @accent !important;
+        border-color: @accent !important;
+
+        :not(button, button *) {
+          color: @base !important;
+          fill: @base !important;
+          stroke: @base !important;
+        }
+
+        &:hover {
+          background-color: darken(@accent, 5%) !important;
+        }
+
+        &:active, &:focus {
+          background-color: darken(@accent, 10%) !important;
+        }
+      }
+    }
+
+    .BookmarkServiceBadge__Container-sc-c771ec8c-0 {
+      background-color: @surface1 !important;
+      border-color: @overlay0 !important;
+
+      &:hover {
+        background-color: @surface2 !important;
+      }
+
+      &:active, &:focus {
+        background-color: @overlay0 !important;
+        border-color: transparent !important;
+      }
+
+      &:has(
+        .bxRwyH
+          > path[d="M17 3H7C5.9 3 5.01 3.9 5.01 5L5 21L12 18L19 21V5C19 3.9 18.1 3 17 3ZM17 18L12 15.82L7 18V5H17V18Z"]
+      ) {
+        fill: @text !important;
+        stroke: @text !important;
+      }
+
+      &:has(
+        .bxRwyH
+          > path[d="M17 3H7C5.9 3 5.01 3.9 5.01 5L5 21L12 18L19 21V5C19 3.9 18.1 3 17 3Z"]
+      ) {
+        background-color: @accent !important;
+        border-color: transparent !important;
+
+        .bxRwyH {
+          fill: @base !important;
+          stroke: @base !important;
+        }
+      }
+    }
+
+    // BUTTONS THAT ARE ACTUALLY STYLISED LINKS
+    .gHEzkA,
+    .khYhRB,
+    .OeXGs {
+      background-image: none !important;
+      background-color: transparent !important;
+
+      * {
+        color: @text !important;
+        fill: @text !important;
+        stroke: @text !important;
+      }
+
+      &:hover * {
+        color: @accent !important;
+        fill: @accent !important;
+        stroke: @accent !important;
+      }
+    }
+
+    // MORE USERNAMES AND STUFF
+    :is(.userContainer, .contentGroup) .userInfo {
+      .artistLocalTime,
+      .artistUsername {
+        color: @subtext0 !important;
+      }
+
+      &:hover .artistUsername {
+        color: @accent !important;
+      }
+
+      .userText .artistDisplayNameContainer .artistDisplayName {
+        color: @text !important;
       }
     }
 
@@ -315,6 +719,9 @@
     }
 
     // SURFACE0 SECTIONS
+    .cNoQco,
+    .ChatModal__Container-sc-732b8377-0,
+    .xzFMP,
     .cRsFty,
     .requestForm,
     .ModalBase__ModalStyle-sc-cf8b5bd2-1,
@@ -342,6 +749,12 @@
     }
 
     // SURFACE1 SECTIONS
+    .XlSwZ,
+    .mainModalContent ul.steps,
+    .pricePerLicenseInfoContainer,
+    .commissionMeContainer .commissionCard,
+    .ExpandedViewerModalMenu__Dropdown-sc-5aceb94c-3,
+    .mainModalContent .languages .language,
     :is(.hHuIfY, .lhbURp) .linkInner:hover,
     .personalNoteGroup .personalNotes .personalNote,
     .mainModalContent .detailsColumn .creatorSection .personalMessage,
@@ -414,12 +827,7 @@
     .iOtNJw.notistack-MuiContent,
     .bsGOTS {
       color: @base !important;
-      background-image: linear-gradient(
-        225deg,
-        @blue 0%,
-        @mauve 53.65%,
-        @red 100%
-      ) !important;
+      background-image: var(--custom-gradient) !important;
 
       :not(button, button *) {
         color: @base !important;
@@ -429,6 +837,7 @@
     }
 
     // ACCENT ELEMENTS
+    .MyVSONAsSection__GuestContainer-sc-f6d18038-0,
     .eyhMkl,
     .bjjDub,
     .fexemQ .badge {
@@ -518,10 +927,84 @@
       }
     }
 
-    // SUBTEXT0 ELEMENTS - MISC.
-    svg[fill="var(--theme-GRAY-DARKER)"] *,
-    svg[fill="var(--theme-BLACK-LIGHTEST-2)"] * {
+    // TRANSLUCENT ELEMENTS
+    .jTwCSW {
+      background-color: fade(@overlay2, 30%) !important;
+    }
+
+    .commissionBadge {
+      background-color: fade(@surface0, 30%) !important;
+    }
+
+    // CAROUSEL DOTS
+    .paging-item {
+      &[aria-selected="true"] .paging-dot {
+        fill: @text !important;
+        stroke: @text !important;
+      }
+
+      &[aria-selected="false"] .paging-dot {
+        fill: @subtext0 !important;
+        stroke: @subtext0 !important;
+      }
+    }
+
+    // GRADIENT ELEMENTS - MISC.
+    .downloadIcon, .downloadIcon * {
+      fill: url("#vgen-svg-gradient-same-across-modes-primary") !important;
+      stroke: url("#vgen-svg-gradient-same-across-modes-primary") !important;
+    }
+
+    .saleTimerContainer {
+      background-color: var(--custom-gradient-transparent) !important;
+
+      p {
+        background-image: var(--custom-gradient) !important;
+      }
+    }
+
+    .ratingDisplay .icon {
       fill: @subtext0 !important;
+      stroke: @subtext0 !important;
+
+      * {
+        fill: @subtext0 !important;
+        stroke: @subtext0 !important;
+      }
+
+      &.active {
+        fill: @accent !important;
+        stroke: @accent !important;
+
+        * {
+          fill: @accent !important;
+          stroke: @accent !important;
+        }
+      }
+    }
+
+    // TEXT ELEMENTS - MISC.
+    .bxRwyH,
+    svg[fill="var(--theme-BLACK)"] {
+      fill: @text !important;
+      stroke: @text !important;
+
+      * {
+        fill: @text !important;
+        stroke: @text !important;
+      }
+    }
+
+    // SUBTEXT0 ELEMENTS - MISC.
+    svg[fill="var(--theme-GRAY-DARKER)"],
+    svg[fill="var(--theme-BLACK-LIGHTEST-2)"] {
+      fill: @subtext0 !important;
+      stroke: @subtext0 !important;
+
+      * {
+        fill: @subtext0 !important;
+        stroke: @subtext0 !important;
+      }
     }
 
     // RED ELEMENTS - MISC.
@@ -529,37 +1012,37 @@
       color: @red !important;
     }
 
-    svg[fill="var(--theme-ERROR)"] * {
+    svg[fill="var(--theme-ERROR)"] {
       fill: @red !important;
-    }
+      stroke: @red !important;
 
-    // GREEN ELEMENTS - MISC.
-    svg[fill="var(--theme-SUCCESS-NEON)"] * {
-      fill: @green !important;
-    }
-
-    // FADED ELEMENTS
-    .jTwCSW {
-      background-color: fade(@overlay2, 30%) !important;
-    }
-
-    // OVERRIDES - MISC.
-    .eINUqO > .formLabel .downArrow *,
-    .hLuxbv :is(.alertMessageTextContainer, .alertMessageIconContainer) * {
-      color: @base !important;
-      fill: @base !important;
-      stroke: @base !important;
-    }
-
-    .iFmoSC .tooltipArrow {
       * {
-        fill: @surface0 !important;
-        stroke: @surface0 !important;
+        fill: @red !important;
+        stroke: @red !important;
       }
     }
 
-    .ccZQfx
-      .headerContentContainer
+    // GREEN ELEMENTS - MISC.
+    svg[fill="var(--theme-SUCCESS-DARK)"],
+    svg[fill="var(--theme-SUCCESS-NEON)"] {
+      fill: @green !important;
+      stroke: @green !important;
+
+      * {
+        fill: @green !important;
+        stroke: @green !important;
+      }
+    }
+
+    // LOADING SPINNER
+    .ServiceDetailsModal__LoadingContainer-sc-aaf48a06-3 svg,
+    .ServiceDetailsModal__LoadingContainer-sc-aaf48a06-3 svg * {
+      fill: @text !important;
+      stroke: @text !important;
+    }
+
+    // NOTIFICATION MENU OPEN RING
+    .headerContentContainer
       .headerContent
       .right
       .notificationButtonContainer.notificationMenuOpen {
@@ -585,256 +1068,33 @@
       color: @accent !important;
     }
 
-    // UNREAD NOTIFICATIONS
+    // READ NOTIFICATIONS
     .dWGpMh .notificationContent {
       color: @text !important;
       background-image: unset !important;
-      background-color: @surface1 !important;
+      background-color: @surface0 !important;
 
       &:hover {
-        background-color: @surface2 !important;
+        background-color: @surface1 !important;
+      }
 
-        &:active, &:focus {
-          background-color: @overlay0 !important;
-        }
+      &:active, &:focus {
+        background-color: @surface2 !important;
       }
     }
 
-    // READ NOTIFICATIONS
+    // UNREAD NOTIFICATIONS
     .iKnxmQ .notificationContent {
       color: @text !important;
       background-image: unset !important;
-      background-color: @surface0 !important;
-
-      &:hover {
-        background-color: @surface1 !important;
-
-        &:active, &:focus {
-          background-color: @surface2 !important;
-        }
-      }
-    }
-
-    // BUTTONS
-    .formLabel button.formField,
-    .dgAcRG,
-    .kagxcm .filtersContainer .filterMenuLink,
-    :not(.str-chat__message-reaction, .fgGMZO, .dbQApQ) > button {
-      color: @text !important;
-      background-image: unset !important;
-      background-color: @surface0 !important;
-
-      &:hover {
-        background-color: @surface1 !important;
-
-        &:active, &:focus {
-          background-color: @surface2 !important;
-        }
-      }
-    }
-
-    // SURFACE1 BUTTONS
-    .gXZdsE,
-    .fgGMZO,
-    .dbQApQ {
-      color: @text !important;
-      background-image: unset !important;
       background-color: @surface1 !important;
 
       &:hover {
         background-color: @surface2 !important;
-
-        &:active, &:focus {
-          background-color: @overlay0 !important;
-        }
-      }
-    }
-
-    /**
-     * FIXME: .cUpKKJ seems to be refusing to change.
-     * .cUpKKJ.RichTextEditor__EditorContainer_<hash>-5
-     * └ .innerEditor
-     *   └ .editableContainer
-     */
-
-    // TEXTAREAS
-    .cUpKKJ,
-    .formLabel :is(input, textarea).formField,
-    .inputContainer,
-    .str-chat__message-textarea-with-emoji-picker,
-    input[type="text"],
-    textarea {
-      color: @text !important;
-      background-color: @surface1 !important;
-
-      label, ::placeholder {
-        color: @subtext0 !important;
       }
 
-      &:hover, &:active, &:focus-within {
-        background-color: @surface2 !important;
-
-        .cUpKKJ,
-        .formLabel :is(input, textarea).formField,
-        .inputContainer,
-        .str-chat__message-textarea-with-emoji-picker,
-        input[type="text"],
-        textarea {
-          background-color: @surface2 !important;
-        }
-      }
-    }
-
-    // DROPDOWN CONTAINERS
-    .selectWrapper {
-      .formField {
-        color: @text !important;
-        background-color: @surface0 !important;
-
-        .SortDropdown__OptionText-sc-5d6d1713-4 {
-          &:hover {
-            background-color: @surface1 !important;
-          }
-
-          &:active, &:focus {
-            background-color: @surface2 !important;
-          }
-        }
-      }
-
-      svg.downArrow * {
-        fill: @text !important;
-        stroke: @text !important;
-      }
-    }
-
-    .SortDropdown__FloatingContainer-sc-5d6d1713-3 {
-      color: @text !important;
-      background-color: @surface0 !important;
-
-      .SortDropdown__OptionText-sc-5d6d1713-4 {
-        &:hover {
-          background-color: @surface1 !important;
-        }
-
-        &:active, &:focus {
-          background-color: @surface2 !important;
-        }
-      }
-    }
-
-    // SLIDERS
-    .slider {
-      background-color: @overlay0 !important;
-
-      .sliderFill {
-        background-color: @accent !important;
-      }
-    }
-
-    .innerSlider .thumb {
-      background-color: @accent !important;
-
-      :not(button, button *) {
-        color: @base !important;
-        fill: @base !important;
-        stroke: @base !important;
-      }
-
-      &::before {
-        border-color: transparent !important;
-      }
-    }
-
-    .progressBar {
-      // FIXME: This just doesn't work, bar writes on top of filling, and progressBar itself doesn't change with color.
-      // ?Try z-index?
-      .bar {
-        background-color: fade(@overlay0, 30%) !important;
-      }
-
-      .filling {
-        background-image: linear-gradient(
-          225deg,
-          @blue 0%,
-          @mauve 53.65%,
-          @red 100%
-        ) !important;
-
+      &:active, &:focus {
         background-color: @overlay0 !important;
-      }
-    }
-
-    // CHIP SELECT
-    .inputContainer:has(> label.option + label.option) {
-      color: @subtext0 !important;
-      background-color: @surface1 !important;
-
-      .title {
-        color: @subtext0 !important;
-      }
-
-      label.option {
-        &:hover {
-          background-color: @surface2 !important;
-        }
-
-        &.RoGou, &.fSGnyo, &.fBnvNt {
-          background-color: @accent !important;
-
-          :not(button, button *) {
-            color: @base !important;
-            fill: @base !important;
-            stroke: @base !important;
-          }
-
-          &:hover {
-            background-color: darken(@accent, 5%) !important;
-          }
-        }
-      }
-    }
-
-    // TOGGLES
-    .BookmarkServiceBadge__Container-sc-c771ec8c-0,
-    .filtersContainer .filterMenuLink {
-      color: @text !important;
-      background-image: unset !important;
-      background-color: @surface0 !important;
-      border-color: @overlay0 !important;
-
-      :not(button, button *) {
-        color: @text !important;
-        fill: @text !important;
-        stroke: @text !important;
-      }
-
-      &:hover {
-        background-color: @surface1 !important;
-
-        &:active, &:focus {
-          background-color: @surface2 !important;
-        }
-      }
-
-      &.active {
-        color: @base !important;
-        background-color: @accent !important;
-        border-color: @accent !important;
-
-        :not(button, button *) {
-          color: @base !important;
-          fill: @base !important;
-          stroke: @base !important;
-        }
-
-        &:hover {
-          background-color: darken(@accent, 5%) !important;
-
-          &:active, &:focus {
-            background-color: darken(@accent, 10%) !important;
-          }
-        }
       }
     }
 
@@ -912,51 +1172,38 @@
       }
     }
 
+    // CHAT BUTTONS
     .str-chat__message
       .str-chat__message-options
-      .str-chat__message-actions-box-button
-      .str-chat__message-action-icon
-      path,
-    .str-chat__message
-      .str-chat__message-options
-      .str-chat__message-reply-in-thread-button
-      .str-chat__message-action-icon
-      path,
-    .str-chat__message
-      .str-chat__message-options
-      .str-chat__message-reactions-button
-      .str-chat__message-action-icon
-      path,
+      .str-chat__message-action-icon,
     .str-chat__message-input
       .str-chat__message-input-inner
       .str-chat__message-textarea-container
       .str-chat__message-textarea-with-emoji-picker
       .str-chat__message-textarea-emoji-picker
       .str-chat__emoji-picker-button
-      svg
-      path,
-    .str-chat__message-input .str-chat__file-input-container svg path {
+      svg,
+    .str-chat__message-input .str-chat__file-input-container svg {
       fill: @subtext0 !important;
       stroke: @subtext0 !important;
+
+      * {
+        fill: @subtext0 !important;
+        stroke: @subtext0 !important;
+      }
 
       &:hover, &:active, &:focus {
         fill: @text !important;
         stroke: @text !important;
+
+        * {
+          fill: @text !important;
+          stroke: @text !important;
+        }
       }
     }
 
-    // LABELS & LEGENDS & OTHER SUBTLE TEXTS
-    .jivRMW,
-    .fMNUVr .emptyStateContainer .emptyStateText > :is(.title, .description),
-    .cfMzOd,
-    .jxOrZA,
-    .kJsAzt .labelText,
-    .bmISxX,
-    .bdkWir,
-    .kbXrba .mainModalContent .sidePanelSectionHeader {
-      color: @subtext0 !important;
-    }
-
+    // TABS
     .Tabs__Tab-sc-df5c1d53-3 {
       .tabTitle {
         color: @subtext0 !important;
@@ -1094,7 +1341,6 @@
     }
 
     .bufferBar,
-    .progressBar,
     .scrubber,
     .volumeControl {
       color: @accent !important;
