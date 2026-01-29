@@ -1,0 +1,1438 @@
+/* ==UserStyle==
+@name Kubernetes Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/kubernetes
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/kubernetes
+@version 2026.01.13
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/kubernetes/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Akubernetes
+@description Soothing pastel theme for Kubernetes
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("kubernetes.io") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    // Base colors
+    color-scheme: none;
+
+    body,
+    html {
+      background-color: @base !important;
+      color: @text !important;
+    }
+
+    // Headers
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: @text !important;
+    }
+
+    // Links
+    a {
+      color: @accent !important;
+
+      &:hover {
+        color: lighten(@accent, 10%) !important;
+      }
+
+      &:visited {
+        color: @mauve !important;
+      }
+
+      // Exclude buttons from link hover color change
+      &.button,
+      &[class*="button"] {
+        &:hover {
+          color: inherit !important;  // Garde la couleur définie par le bouton
+        }
+      }
+    }
+
+    // Code blocks
+    pre,
+    code,
+    .highlight,
+    div[class*="highlight"],
+    .chroma {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    // Inline code
+    p code,
+    li code,
+    td code,
+    :not(pre) > code {
+      background-color: @surface0 !important;
+      color: @accent !important;
+      border-color: @surface1 !important;
+    }
+
+    // Buttons
+    button,
+    .button,
+    .btn,
+    [class*="button"],
+    [class*="btn"] {
+      // background-color: @surface1 !important;
+      color: @text !important;
+      border-color: @surface2 !important;
+
+      &:hover {
+        // background-color: @surface2 !important;
+        color: @text !important;
+      }
+
+      &[class*="primary"],
+      &[class*="action"] {
+        background-color: @accent !important;
+        color: @crust !important;
+        border-color: @accent !important;
+
+        &:hover {
+          background-color: lighten(@accent, 10%) !important;
+          color: @crust !important;
+        }
+      }
+    }
+
+    // Fix spécifique pour les boutons primary Bootstrap/Kubernetes
+    .btn-primary,
+    a.btn-primary {
+      background: @accent !important;
+      background-color: @accent !important;
+      background-image: none !important;
+      color: @crust !important;
+      border-color: @accent !important;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background: lighten(@accent, 10%) !important;
+        background-color: lighten(@accent, 10%) !important;
+        background-image: none !important;
+        color: @crust !important;
+        border-color: lighten(@accent, 10%) !important;
+      }
+
+      &:visited {
+        background: @accent !important;
+        background-color: @accent !important;
+        background-image: none !important;
+        color: @crust !important;
+      }
+    }
+
+    // Portal buttons (boutons "View Concepts", etc.)
+    .portal-button {
+      background: @accent !important;
+      background-color: @accent !important;
+      background-image: none !important;
+      color: @crust !important;
+      border-color: @accent !important;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background: @mauve !important;
+        background-color: @mauve !important;
+        background-image: none !important;
+        color: @crust !important;
+        border-color: @mauve !important;
+      }
+    }
+
+    // Bouton "Watch Video" (desktop)
+    #desktopShowVideoButton {
+      background: @accent !important;
+      background-color: @accent !important;
+      background-image: none !important;
+      color: @crust !important;
+      border-color: @accent !important;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background: @mauve !important;
+        background-color: @mauve !important;
+        background-image: none !important;
+        color: @crust !important;
+        border-color: @mauve !important;
+      }
+    }
+
+    // Partners page buttons
+    body.cid-partners .button {
+      background-color: @accent !important;
+      color: @crust !important;
+      border-color: @accent !important;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: lighten(@accent, 10%) !important;
+        color: @crust !important;
+        border-color: lighten(@accent, 10%) !important;
+      }
+    }
+
+    // Main content buttons
+    main .button,
+    main .portal-button {
+      background-color: @accent !important;
+      color: @crust !important;
+      border: 0 !important;
+      text-decoration: none !important;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: lighten(@accent, 10%) !important;
+        color: @crust !important;
+      }
+    }
+
+    // General button links - prevent text color change on hover
+    a.button {
+      &:hover,
+      &:focus,
+      &:active {
+        color: inherit !important;  // Garde la couleur définie par le bouton
+      }
+    }
+
+    // Community CTA button
+    body.cid-community a.community-cta-button {
+      background-color: @accent !important;
+      color: @crust !important;
+      border-color: @accent !important;
+      transition: background-color 0.2s ease !important;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: lighten(@accent, 10%) !important;
+        color: @crust !important;
+      }
+
+      .community-cta {
+        color: @crust !important;
+      }
+    }
+
+    .td-navbar {
+      z-index: 1030 !important;
+      order: 1 !important;
+    }
+
+    *:has(> .td-navbar):has(> .announcement-main),
+    body:has(.td-navbar):has(.announcement-main) {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      flex-direction: column !important;
+    }
+
+    *:has(> .announcement-main) {
+      background: @base !important;
+      background-color: @base !important;
+    }
+
+    nav,
+    header,
+    [role="navigation"],
+    [class*="nav"],
+    [class*="header"] {
+      background-color: @mantle !important;
+      border-color: @surface1 !important;
+
+      a {
+        color: @text !important;
+
+        &:hover {
+          color: @accent !important;
+          * {
+            color: @accent !important;
+          }
+        }
+
+        &[class*="active"] {
+          color: @accent !important;
+        }
+      }
+
+      // Fix spécifique pour le logo Kubernetes
+      .navbar-brand {
+        &:hover {
+
+          .navbar-brand__name,
+          span {
+            color: @accent !important;
+          }
+        }
+      }
+
+      // Fix pour les dropdowns dans la navbar
+      .nav-item.dropdown {
+        .nav-link.dropdown-toggle {
+          color: @text !important;
+          background-color: transparent !important;
+
+          &:hover {
+            color: @accent !important;
+          }
+          &::after {
+            border-top-color: @text !important;
+            border-right-color: transparent !important;
+            border-bottom-color: transparent !important;
+            border-left-color: transparent !important;
+          }
+
+          &:hover::after {
+            border-top-color: @accent !important;
+          }
+        }
+      }
+
+
+    // Navbar on scroll
+    .navbar-bg-onscroll {
+      background: @mantle !important;
+      box-shadow: 0 1px 2px fade(@crust, 30%) !important;
+    }
+
+
+      .dropdown-menu {
+        background-color: @surface0 !important;
+        border-radius: 8px !important;
+        border-color: @surface1 !important;
+
+        .dropdown-item {
+          color: @text !important;
+          border-radius: 4px !important;
+
+          &:hover {
+            background-color: @surface1 !important;
+            color: @accent !important;
+          }
+        }
+      }
+    }
+
+    // Sidebar
+    aside,
+    [role="complementary"],
+    .sidebar,
+    [class*="sidebar"],
+    [id*="sidebar"] {
+      background-color: @mantle !important;
+      border-color: @surface1 !important;
+
+      a {
+        color: @text !important;
+
+        &:hover {
+          color: @accent !important;
+          background-color: fade(@accent, 20%) !important;
+          border-radius: 4px !important;
+          // Ajustement du padding pour que la bordure épouse le texte
+          padding-left: 0.75rem !important;
+          padding-right: 0.75rem !important;
+        }
+
+        &[class*="active"],
+        &.active {
+          color: @accent !important;
+          background-color: fade(@accent, 20%) !important;
+          border-radius: 4px !important;
+          border: 1px solid @accent !important;
+          padding-left: 0.75rem !important;
+          padding-right: 0.75rem !important;
+        }
+      }
+
+      // Fix pour l'élément Documentation actif
+      .td-sidebar-link__section {
+        &.active {
+          border: 1px solid @accent !important;
+          border-radius: 4px !important;
+          background-color: fade(@accent, 15%) !important;
+          padding: 0.5rem 0.75rem !important;
+        }
+      }
+
+      // Fix pour les liens de la sidebar Kubernetes
+      .td-sidebar-link {
+        &:hover {
+          background-color: fade(@accent, 20%) !important;
+          border-radius: 4px !important;
+          color: @accent !important;
+        }
+
+        &.active,
+        &.td-sidebar-link__section.active {
+          background-color: fade(@accent, 15%) !important;
+          border: 1px solid @accent !important;
+          border-radius: 4px !important;
+          color: @accent !important;
+        }
+      }
+
+      // Fix pour les sous-éléments de la sidebar
+      ul li {
+        a {
+          transition: all 0.2s ease !important;
+
+          &:hover {
+            background-color: fade(@accent, 15%) !important;
+            border-left: 3px solid @accent !important;
+            padding-left: calc(0.75rem - 3px) !important;
+          }
+        }
+      }
+
+      // Sidebar search form
+      .td-sidebar__search {
+        background-color: transparent !important;
+      }
+    }
+
+    // Tables
+    table {
+      background-color: @base !important;
+      border-color: @surface1 !important;
+
+      thead,
+      th {
+        background-color: @surface0 !important;
+        color: @text !important;
+        border-color: @surface1 !important;
+      }
+
+      tbody tr {
+        background-color: @base !important;
+        border-color: @surface1 !important;
+
+        &:nth-child(even) {
+          background-color: @mantle !important;
+        }
+
+        &:hover {
+          background-color: @surface0 !important;
+        }
+      }
+
+      td {
+        color: @text !important;
+        border-color: @surface1 !important;
+      }
+    }
+
+    .launch-card {
+      background-color: @surface0 !important;
+    }
+
+    // Launch card hover outline
+    body.docs-portal .launch-cards .launch-card:has(button:hover) {
+      outline: 0.2rem solid @mauve !important;
+    }
+
+    // Cards
+    .card,
+    [class*="card"] {
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    // Alerts
+    .alert,
+    .notification,
+    .banner,
+    [class*="alert"],
+    [class*="notification"],
+    [class*="banner"] {
+      background-color: transparent !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+
+      &[class*="info"] {
+        background-color: fade(@blue, 20%) !important;
+        border-color: @blue !important;
+      }
+
+      &[class*="warning"] {
+        background-color: fade(@yellow, 20%) !important;
+        border-color: @yellow !important;
+      }
+
+      &[class*="error"],
+      &[class*="danger"] {
+        background-color: fade(@red, 20%) !important;
+        border-color: @red !important;
+      }
+
+      &[class*="success"] {
+        background-color: fade(@green, 20%) !important;
+        border-color: @green !important;
+      }
+    }
+
+    .announcement-main {
+      z-index: 1 !important;
+      position: relative !important;
+      order: 2 !important;
+      margin-top: 56px !important;
+      width: 100% !important;
+      max-width: 1140px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      flex-basis: 100% !important;
+      box-sizing: border-box !important;
+      background: linear-gradient(
+        to right,
+        fade(@accent, 10%) 0%,
+        @surface0 8%,
+        @surface0 100%
+      ) !important;
+      border: 1px solid @surface1 !important;
+      border-left: 4px solid @accent !important;
+      border-radius: 12px !important;
+      box-shadow: 0 2px 8px fade(@base, 40%) !important;
+      color: @text !important;
+      padding: 1.25rem 1.5rem !important;
+
+      h4 {
+        color: @text !important;
+        margin-bottom: 0.5rem !important;
+
+        a {
+          color: @accent !important;
+          text-decoration: none !important;
+          transition: color 0.2s ease !important;
+
+          &:hover {
+            color: @mauve !important;
+          }
+        }
+
+        img {
+          opacity: 0.9 !important;
+        }
+      }
+
+      p {
+        color: @subtext0 !important;
+        line-height: 1.5 !important;
+        margin-bottom: 0 !important;
+
+        a {
+          color: @accent !important;
+          text-decoration: none !important;
+          transition: color 0.2s ease !important;
+
+          &:hover {
+            color: @mauve !important;
+            text-decoration: underline !important;
+          }
+        }
+      }
+    }
+
+    // Fix spécifique pour les feature-state notices
+    .feature-state-notice {
+      background-color: fade(@blue, 15%) !important;
+      border: 1px solid @blue !important;
+      border-radius: 4px !important;
+      color: @text !important;
+
+      &.feature-beta {
+        background-color: fade(@yellow, 15%) !important;
+        border-color: @yellow !important;
+      }
+
+      &.feature-alpha {
+        background-color: fade(@peach, 15%) !important;
+        border-color: @peach !important;
+      }
+
+      &.feature-stable {
+        background-color: fade(@mauve, 15%) !important;
+        border-color: @mauve !important;
+      }
+
+      &.feature-deprecated {
+        background-color: fade(@red, 15%) !important;
+        border-color: @red !important;
+      }
+
+      .feature-state-name {
+        color: @text !important;
+        background-color: transparent !important;
+      }
+
+      code {
+        background-color: transparent !important;
+      }
+    }
+
+    // Forms
+    input,
+    textarea,
+    select {
+      background-color: @surface0 !important;
+      color: @text !important;
+      border-color: @surface2 !important;
+
+      &::placeholder {
+        color: @overlay1 !important;
+      }
+
+      &:focus {
+        border-color: @accent !important;
+        outline-color: @accent !important;
+        background-color: @surface0 !important;
+      }
+    }
+
+    input[type="search"] {
+      background-color: @surface0 !important;
+      color: @text !important;
+
+      &:focus {
+        background-color: @surface0 !important;
+        box-shadow: none !important;
+      }
+    }
+
+    // Fix pour la barre de recherche Kubernetes
+    .td-navbar .td-search__input,
+    .td-search .td-search__input,
+    .td-search__input,
+    .td-search-input,
+    input.form-control.dark-theme-focus {
+      background: @surface0 !important;
+      background-color: @surface0 !important;
+      color: @text !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      text-decoration: none !important;
+      -webkit-appearance: none !important;
+      -moz-appearance: none !important;
+      appearance: none !important;
+
+      &::placeholder {
+        background: transparent !important;
+        color: @overlay1 !important;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        text-decoration: none !important;
+      }
+
+      &::before,
+      &::after {
+        display: none !important;
+      }
+
+      &:hover,
+      &:active,
+      &:focus,
+      &:focus-visible {
+        background: @surface0 !important;
+        background-color: @surface0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        outline: none !important;
+        text-decoration: none !important;
+
+        &::placeholder {
+          color: @overlay0 !important;
+        }
+      }
+    }
+
+    // Ciblage encore plus spécifique pour le placeholder
+    .td-navbar .td-search__input::placeholder,
+    .td-search .td-search__input::placeholder {
+      background: transparent !important;
+      color: @overlay1 !important;
+    }
+
+    // Supprimer l'encadrement du conteneur de recherche
+    .td-search,
+    [class*="search"] {
+      input[type="search"] {
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+
+        &:focus,
+        &:hover,
+        &:active {
+          border: none !important;
+          outline: none !important;
+          box-shadow: none !important;
+        }
+
+        &::-webkit-search-decoration,
+        &::-webkit-search-cancel-button,
+        &::-webkit-search-results-button,
+        &::-webkit-search-results-decoration {
+          display: none !important;
+        }
+      }
+    }
+
+    // Classe dark-theme-focus spécifique
+    .dark-theme-focus {
+      &:focus {
+        box-shadow: none !important;
+        outline: none !important;
+        border: none !important;
+      }
+    }
+
+    .gutter.gutter-horizontal {
+      background-color: @surface1 !important;
+      cursor: col-resize !important;
+    }
+
+    // Blockquotes
+    blockquote {
+      background-color: @surface0 !important;
+      border-left-color: @accent !important;
+      color: @text !important;
+    }
+
+    // Main content
+    main,
+    article,
+    section {
+      background-color: @base !important;
+      color: @text !important;
+    }
+
+    // Footer
+    footer {
+      background-color: @mantle !important;
+      border-top-color: @surface1 !important;
+      color: @subtext0 !important;
+
+      a {
+        color: @subtext1 !important;
+
+        &:hover {
+          color: @accent !important;
+        }
+      }
+
+      // Override bg-dark class
+      &.bg-dark {
+        background-color: @mantle !important;
+      }
+
+      // Override text-white and light-text classes for better contrast
+      .text-white,
+      .light-text,
+      a.text-white,
+      a.light-text {
+        color: @text !important;
+
+        &:hover {
+          color: @accent !important;
+        }
+      }
+
+      // Footer icons
+      .footer-icons {
+        a {
+          color: @text !important;
+
+          &:hover {
+            color: @accent !important;
+          }
+        }
+      }
+
+      // Copyright and certification notices
+      .copyright-notice,
+      .certification-notice {
+        color: @text !important;
+      }
+    }
+
+    // Syntax highlighting
+    .chroma {
+      .c,
+      .cm,
+      .c1,
+      .cs,
+      .comment {
+        color: @overlay2 !important;
+      }
+
+      .k,
+      .kc,
+      .kd,
+      .kn,
+      .kp,
+      .kr,
+      .kt,
+      .keyword {
+        color: @mauve !important;
+      }
+
+      .s,
+      .s1,
+      .s2,
+      .sa,
+      .sb,
+      .sc,
+      .sd,
+      .se,
+      .sh,
+      .si,
+      .sr,
+      .ss,
+      .sx,
+      .string {
+        color: @green !important;
+      }
+
+      .m,
+      .mb,
+      .mf,
+      .mh,
+      .mi,
+      .mo,
+      .il,
+      .number {
+        color: @peach !important;
+      }
+
+      .n,
+      .na,
+      .nb,
+      .nc,
+      .nd,
+      .ne,
+      .nf,
+      .ni,
+      .nl,
+      .nn,
+      .no,
+      .nt,
+      .nv,
+      .nx,
+      .py {
+        color: @text !important;
+      }
+
+      .o,
+      .ow,
+      .operator {
+        color: @sky !important;
+      }
+
+      .p,
+      .punctuation {
+        color: @overlay1 !important;
+      }
+
+      .err,
+      .error {
+        color: @red !important;
+      }
+
+      .gd {
+        color: @red !important;
+      }
+
+      .gi {
+        color: @green !important;
+      }
+
+      .gh {
+        color: @blue !important;
+      }
+
+      .gu {
+        color: @mauve !important;
+      }
+    }
+
+    // Dropdowns
+    .dropdown,
+    [class*="dropdown"],
+    [class*="menu"] {
+      border-color: @surface1 !important;
+
+      li,
+      a,
+      button {
+        color: @text !important;
+
+        &:hover {
+          background-color: @surface1 !important;
+          color: @accent !important;
+        }
+      }
+    }
+
+    // Tabs
+    .tabs,
+    [class*="tab"] {
+      border-color: @surface1 !important;
+
+      li,
+      a,
+      button {
+        color: @subtext0 !important;
+
+        &:hover {
+          color: @text !important;
+        }
+
+        &[class*="active"],
+        &[aria-selected="true"] {
+          color: @accent !important;
+          border-bottom-color: @accent !important;
+        }
+      }
+    }
+
+    // Badges
+    .badge,
+    .label,
+    .tag,
+    [class*="badge"],
+    [class*="label"],
+    [class*="tag"] {
+      background-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .pagination {
+      background-color: transparent !important;
+
+      .page-item {
+        .page-link {
+          background-color: @surface0 !important;
+          color: @text !important;
+          border-color: @surface1 !important;
+
+          &:hover {
+            background-color: @surface1 !important;
+            color: @accent !important;
+            border-color: @accent !important;
+          }
+
+          &:focus {
+            background-color: @surface1 !important;
+            color: @accent !important;
+            border-color: @accent !important;
+            box-shadow: 0 0 0 0.2rem fade(@accent, 25%) !important;
+          }
+        }
+
+        &.active .page-link {
+          background-color: @accent !important;
+          color: @crust !important;
+          border-color: @accent !important;
+
+          &:hover,
+          &:focus {
+            background-color: lighten(@accent, 10%) !important;
+            color: @crust !important;
+            border-color: lighten(@accent, 10%) !important;
+          }
+        }
+
+        &.disabled .page-link {
+          background-color: @surface0 !important;
+          color: @overlay1 !important;
+          border-color: @surface1 !important;
+          opacity: 0.6 !important;
+          cursor: not-allowed !important;
+        }
+      }
+    }
+
+    // Scrollbar
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: @mantle !important;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: @surface2 !important;
+      border-radius: 6px;
+
+      &:hover {
+        background: @overlay0 !important;
+      }
+    }
+
+    // Modal
+    .modal,
+    .dialog,
+    [role="dialog"],
+    [class*="modal"],
+    [class*="dialog"] {
+      background-color: @base !important;
+      border-color: @surface1 !important;
+
+      &::backdrop {
+        background-color: fade(@crust, 70%) !important;
+      }
+    }
+
+    // Breadcrumbs
+    .breadcrumb,
+    [class*="breadcrumb"] {
+      a {
+        color: @subtext0 !important;
+
+        &:hover {
+          color: @accent !important;
+        }
+      }
+
+      [class*="active"] {
+        color: @text !important;
+      }
+    }
+
+    // Pseudo-éléments (::before et ::after)
+    *::before,
+    *::after {
+      border-color: @surface1 !important;
+      color: @mauve !important;
+    }
+
+    // Navigation foldable - icônes
+    nav.foldable-nav .ul-1 .with-child > input:checked ~ label::before,
+    nav.foldable-nav .ul-1 .with-child > input:checked ~ label:before {
+      color: @accent !important;
+    }
+
+    nav.foldable-nav .with-child > label::before,
+    nav.foldable-nav .with-child > label:before {
+      color: @text !important;
+    }
+
+    .navbar-bg-onscroll .navbar-brand__logo.navbar-logo svg #its-pronounced path
+    {
+      fill: @mauve !important;
+    }
+
+    a::before,
+    a::after {
+      color: @surface1 !important;
+    }
+
+    button::before,
+    button::after {
+      color: inherit !important;
+    }
+
+    li::before,
+    li::after {
+      color: @text !important;
+    }
+
+    div[fontfamily="sans-serif"][class*="go"],
+    div[class*="go2209451903"] {
+      --bg-color: @surface0 !important;
+      --fg-color: @text !important;
+      background-color: @surface0 !important;
+      color: @text !important;
+
+      // Title sections
+      div[class*="go"][size="13"],
+      div[class*="go2800939184"],
+      div[class*="go1103498232"] {
+        color: @text !important;
+        background-color: transparent !important;
+      }
+
+      // Card containers
+      div[class*="go"][borderless="false"],
+      div[class*="go1000281005"],
+      div[class*="go3566086503"],
+      div[class*="go1097179444"] {
+        background-color: @surface0 !important;
+        border-color: @surface1 !important;
+        box-shadow: 0 2px 4px fade(@crust, 10%) !important;
+
+        &:hover {
+          border-color: @accent !important;
+          box-shadow: 0 4px 8px fade(@accent, 20%) !important;
+        }
+      }
+
+      // Links
+      a[class*="go"],
+      a[class*="go790128268"],
+      a[class*="go367820540"],
+      a[class*="go214382937"] {
+        color: @text !important;
+        background-color: transparent !important;
+
+        &:hover {
+          color: @accent !important;
+          background-color: fade(@accent, 10%) !important;
+        }
+      }
+
+      // Images (logos)
+      img[class*="go"],
+      img[class*="go1567919794"] {
+        opacity: 0.9 !important;
+        filter: brightness(0.95) !important;
+
+        &:hover {
+          opacity: 1 !important;
+          filter: brightness(1) !important;
+        }
+      }
+
+    }
+
+    // Navbar link bottom border fix
+    .nav-link {
+      &:hover,
+      &.active {
+        border-bottom-color: @accent !important;
+      }
+    }
+
+    // Sidebar active link
+    .td-sidebar-link.active {
+      border-radius: 4px !important;
+      border: 1px solid @accent !important;
+      background-color: fade(@accent, 15%) !important;
+      padding: 0.75rem !important;
+      transition: all 0.2s ease !important;
+    }
+
+    // Sidebar sub-items hover
+    .td-sidebar-link__page:hover {
+      border-left: 3px solid @accent !important;
+      background-color: fade(@accent, 10%) !important;
+      padding-left: calc(0.75rem - 3px) !important;
+    }
+
+    // Lighter gray background section
+    .lighter-gray-bg {
+      background-color: transparent !important;
+    }
+
+    // Padded lighter gray section with borders
+    .padded.lighter-gray-bg {
+      background-color: transparent !important;
+      border-top: 1px solid @surface1 !important;
+      border-bottom: 1px solid @surface1 !important;
+      border-left: none !important;
+      border-right: none !important;
+    }
+
+    // Community section
+    .community-section {
+      background-color: transparent !important;
+      border-top: 1px solid @surface1 !important;
+      border-bottom: 1px solid @surface1 !important;
+      border-left: none !important;
+      border-right: none !important;
+    }
+
+    .col-container {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      background-color: @base !important;
+      gap: 2rem !important;
+    }
+
+    .col-nav {
+      background-color: @surface0 !important;
+      border: 1px solid @surface1 !important;
+      border-radius: 8px !important;
+      color: @text !important;
+      margin: 0 !important;
+      flex: 1 1 0 !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
+
+      h5 {
+        color: @text !important;
+
+        b {
+          color: @text !important;
+        }
+      }
+
+      p {
+        color: @subtext0 !important;
+      }
+
+      .button {
+        background-color: @accent !important;
+        color: @crust !important;
+        border-color: @accent !important;
+
+        &:hover,
+        &:focus,
+        &:active {
+          background-color: lighten(@accent, 10%) !important;
+          color: @crust !important;
+          border-color: lighten(@accent, 10%) !important;
+        }
+      }
+    }
+
+    // Video CTA
+    .videocta {
+      color: @accent !important;
+      text-decoration: none !important;
+      transition: color 0.2s ease !important;
+
+      &:hover {
+        color: @mauve !important;
+      }
+    }
+
+    // Ensure proper contrast for Latte flavor
+    & when (@flavor = latte) {
+      color-scheme: light;
+
+      body,
+      html {
+        background-color: @base !important;
+      }
+
+      pre,
+      code,
+      .highlight,
+      div[class*="highlight"],
+      .chroma {
+        background-color: @mantle !important;
+      }
+
+      // Footer in light mode - ensure good contrast
+      footer {
+        background-color: @mantle !important;
+        color: @text !important;
+
+        .text-white,
+        .light-text,
+        a.text-white,
+        a.light-text {
+          color: @text !important;
+        }
+
+        .copyright-notice,
+        .certification-notice {
+          color: @text !important;
+        }
+      }
+    }
+  }
+
+  // Dark mode scrollbar track (specific override)
+  @media (prefers-color-scheme: dark) {
+    :root ::-webkit-scrollbar-track {
+      background: #1e1e2e !important;
+    }
+  }
+
+  // Dark mode navigation (specific override)
+  @media (prefers-color-scheme: dark) {
+    :root nav,
+    :root header,
+    :root [role="navigation"],
+    :root [class*="nav"],
+    :root [class*="header"] {
+      background-color: transparent !important;
+      border-color: #45475a !important;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root ::before,
+    :root ::after {
+      border-color: rgb(30, 30, 46) !important;
+      color: rgb(203, 166, 247) !important;
+    }
+  }
+
+  // Dark mode: logo noir de l'announcement → clair
+  @media (prefers-color-scheme: dark) {
+    :root .announcement-main img {
+      filter: invert(1) !important;
+    }
+  }
+
+  // Light mode scrollbar track (specific override)
+  @media (prefers-color-scheme: light) {
+    :root ::-webkit-scrollbar-track {
+      background: #e6e9ef !important;
+    }
+  }
+
+  // Light mode navigation (specific override)
+  @media (prefers-color-scheme: light) {
+    :root nav,
+    :root header,
+    :root [role="navigation"],
+    :root [class*="nav"],
+    :root [class*="header"] {
+      background-color: transparent !important;
+      border-color: #bcc0cc !important;
+    }
+  }
+
+  // Light mode pseudo-elements
+  @media (prefers-color-scheme: light) {
+    :root ::before,
+    :root ::after {
+      border-color: rgb(230, 233, 239) !important;
+      color: rgb(136, 57, 239) !important;
+    }
+  }
+
+  // Light mode col-nav - higher specificity to override body.cid-training
+  @media (prefers-color-scheme: light) {
+    :root .col-nav,
+    :root body.cid-training .col-nav,
+    :root body.cid-training #get-certified .col-nav {
+      background-color: #ccd0da !important;
+      border: 1px solid #bcc0cc !important;
+      border-radius: 8px !important;
+      color: #4c4f69 !important;
+    }
+  }
+
+  // Light mode navigation links (excluding buttons and active links)
+  @media (prefers-color-scheme: light) {
+    :root nav a:not(.button):not([class*="button"]):not(.active),
+    :root header a:not(.button):not([class*="button"]):not(.active),
+    :root [role="navigation"] a:not(.button):not([class*="button"]):not(.active),
+    :root [class*="nav"] a:not(.button):not([class*="button"]):not(.active),
+    :root [class*="header"] a:not(.button):not([class*="button"]):not(.active) {
+      color: #4c4f69 !important;
+    }
+
+    // Light mode active navigation links
+    :root nav a.active,
+    :root header a.active,
+    :root [role="navigation"] a.active,
+    :root [class*="nav"] a.active,
+    :root [class*="header"] a.active,
+    :root .nav-link.active {
+      color: #8839ef !important;
+    }
+
+    // Light mode main buttons - override navigation link color with higher specificity
+    :root main .button,
+    :root main .portal-button,
+    :root #desktopShowVideoButton {
+      background-color: #8839ef !important;
+      color: #dce0e8 !important;
+      border: 0 !important;
+      text-decoration: none !important;
+    }
+
+    // Light mode all buttons - ensure correct color
+    :root .button,
+    :root a.button,
+    :root #desktopShowVideoButton {
+      background-color: #8839ef !important;
+      color: #dce0e8 !important;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: #a78bfa !important;
+        color: #dce0e8 !important;  // Garde la même couleur au hover
+      }
+    }
+  }
+
+  // Dark mode main buttons - ensure correct color
+  @media (prefers-color-scheme: dark) {
+    :root main .button,
+    :root main .portal-button,
+    :root #desktopShowVideoButton {
+      background-color: #cba6f7 !important;
+      color: #11111b !important;
+      border: 0 !important;
+      text-decoration: none !important;
+    }
+
+    // Dark mode all buttons - ensure correct color
+    :root .button,
+    :root a.button,
+    :root #desktopShowVideoButton {
+      background-color: #cba6f7 !important;
+      color: #11111b !important;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: #ddb6f2 !important;
+        color: #11111b !important;  // Garde la même couleur au hover
+      }
+    }
+
+    // Dark mode active navigation links
+    :root nav a.active,
+    :root header a.active,
+    :root [role="navigation"] a.active,
+    :root [class*="nav"] a.active,
+    :root [class*="header"] a.active,
+    :root .nav-link.active {
+      color: #cba6f7 !important;
+    }
+
+    // Dark mode col-nav - higher specificity to override body.cid-training
+    :root .col-nav,
+    :root body.cid-training .col-nav,
+    :root body.cid-training #get-certified .col-nav {
+      background-color: #313244 !important;
+      border: 1px solid #45475a !important;
+      border-radius: 8px !important;
+      color: #cdd6f4 !important;
+    }
+  }
+
+}
