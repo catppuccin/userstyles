@@ -18,6 +18,13 @@
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
 @-moz-document domain("kubernetes.io") {
+  @import (css)
+    url("https://chroma.catppuccin.com/@{lightFlavor}-chroma-style.css")
+    (prefers-color-scheme: light);
+  @import (css)
+    url("https://chroma.catppuccin.com/@{darkFlavor}-chroma-style.css")
+    (prefers-color-scheme: dark);
+
   :root {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
@@ -30,12 +37,10 @@
   #catppuccin(@flavor) {
     #lib.palette();
     #lib.defaults();
+    #lib.css-variables();
 
-    // Base colors
-    color-scheme: none;
-
-    body,
-    html {
+    &,
+    body {
       background-color: @base !important;
       color: @text !important;
     }
@@ -66,7 +71,7 @@
       &.button,
       &[class*="button"] {
         &:hover {
-          color: inherit !important;  // Garde la couleur définie par le bouton
+          color: inherit !important;
         }
       }
     }
@@ -77,7 +82,7 @@
     .highlight,
     div[class*="highlight"],
     .chroma {
-      background-color: @surface0 !important;
+      background-color: @mantle !important;
       color: @text !important;
     }
 
@@ -119,7 +124,6 @@
       }
     }
 
-    // Fix spécifique pour les boutons primary Bootstrap/Kubernetes
     .btn-primary,
     a.btn-primary {
       background: @accent !important;
@@ -146,7 +150,6 @@
       }
     }
 
-    // Portal buttons (boutons "View Concepts", etc.)
     .portal-button {
       background: @accent !important;
       background-color: @accent !important;
@@ -165,7 +168,6 @@
       }
     }
 
-    // Bouton "Watch Video" (desktop)
     #desktopShowVideoButton {
       background: @accent !important;
       background-color: @accent !important;
@@ -220,7 +222,7 @@
       &:hover,
       &:focus,
       &:active {
-        color: inherit !important;  // Garde la couleur définie par le bouton
+        color: inherit !important;
       }
     }
 
@@ -259,8 +261,12 @@
     }
 
     *:has(> .announcement-main) {
-      background: @base !important;
-      background-color: @base !important;
+      background: @mantle !important;
+      background-color: @mantle!important;
+    }
+
+    .announcement-main img {
+      filter: invert(1) !important;
     }
 
     nav,
@@ -286,7 +292,6 @@
         }
       }
 
-      // Fix spécifique pour le logo Kubernetes
       .navbar-brand {
         &:hover {
 
@@ -297,7 +302,6 @@
         }
       }
 
-      // Fix pour les dropdowns dans la navbar
       .nav-item.dropdown {
         .nav-link.dropdown-toggle {
           color: @text !important;
@@ -355,9 +359,8 @@
 
         &:hover {
           color: @accent !important;
-          background-color: fade(@accent, 20%) !important;
+          background-color: transparent !important;
           border-radius: 4px !important;
-          // Ajustement du padding pour que la bordure épouse le texte
           padding-left: 0.75rem !important;
           padding-right: 0.75rem !important;
         }
@@ -365,7 +368,7 @@
         &[class*="active"],
         &.active {
           color: @accent !important;
-          background-color: fade(@accent, 20%) !important;
+          background-color: transparent !important;
           border-radius: 4px !important;
           border-color: @accent !important;
           padding-left: 0.75rem !important;
@@ -373,40 +376,37 @@
         }
       }
 
-      // Fix pour l'élément Documentation actif
       .td-sidebar-link__section {
         &.active {
           border-color: @accent !important;
           border-radius: 4px !important;
-          background-color: fade(@accent, 15%) !important;
+          background-color: transparent !important;
           padding: 0.5rem 0.75rem !important;
         }
       }
 
-      // Fix pour les liens de la sidebar Kubernetes
       .td-sidebar-link {
         &:hover {
-          background-color: fade(@accent, 20%) !important;
+          background-color: transparent !important;
           border-radius: 4px !important;
           color: @accent !important;
         }
 
         &.active,
         &.td-sidebar-link__section.active {
-          background-color: fade(@accent, 15%) !important;
+          background-color: transparent !important;
           border-color: @accent !important;
           border-radius: 4px !important;
           color: @accent !important;
         }
       }
 
-      // Fix pour les sous-éléments de la sidebar
       ul li {
         a {
           transition: all 0.2s ease !important;
 
           &:hover {
-            background-color: fade(@accent, 15%) !important;
+            background-color: transparent !important;
             border-left-color: @accent !important;
             padding-left: calc(0.75rem - 3px) !important;
           }
@@ -415,7 +415,7 @@
 
       // Sidebar search form
       .td-sidebar__search {
-        background-color: transparent !important;
+        background-color: @mantle !important;
       }
     }
 
@@ -560,7 +560,6 @@
       }
     }
 
-    // Fix spécifique pour les feature-state notices
     .feature-state-notice {
       background-color: fade(@blue, 15%) !important;
       border-color: @blue !important;
@@ -626,7 +625,6 @@
       }
     }
 
-    // Fix pour la barre de recherche Kubernetes
     .td-navbar .td-search__input,
     .td-search .td-search__input,
     .td-search__input,
@@ -674,14 +672,12 @@
       }
     }
 
-    // Ciblage encore plus spécifique pour le placeholder
     .td-navbar .td-search__input::placeholder,
     .td-search .td-search__input::placeholder {
       background: transparent !important;
       color: @overlay1 !important;
     }
 
-    // Supprimer l'encadrement du conteneur de recherche
     .td-search,
     [class*="search"] {
       input[type="search"] {
@@ -709,7 +705,7 @@
       }
     }
 
-    // Classe dark-theme-focus spécifique
+
     .dark-theme-focus {
       &:focus {
         box-shadow: none !important;
@@ -784,106 +780,6 @@
       .copyright-notice,
       .certification-notice {
         color: @text !important;
-      }
-    }
-
-    // Syntax highlighting
-    .chroma {
-      .c,
-      .cm,
-      .c1,
-      .cs,
-      .comment {
-        color: @overlay2 !important;
-      }
-
-      .k,
-      .kc,
-      .kd,
-      .kn,
-      .kp,
-      .kr,
-      .kt,
-      .keyword {
-        color: @mauve !important;
-      }
-
-      .s,
-      .s1,
-      .s2,
-      .sa,
-      .sb,
-      .sc,
-      .sd,
-      .se,
-      .sh,
-      .si,
-      .sr,
-      .ss,
-      .sx,
-      .string {
-        color: @green !important;
-      }
-
-      .m,
-      .mb,
-      .mf,
-      .mh,
-      .mi,
-      .mo,
-      .il,
-      .number {
-        color: @peach !important;
-      }
-
-      .n,
-      .na,
-      .nb,
-      .nc,
-      .nd,
-      .ne,
-      .nf,
-      .ni,
-      .nl,
-      .nn,
-      .no,
-      .nt,
-      .nv,
-      .nx,
-      .py {
-        color: @text !important;
-      }
-
-      .o,
-      .ow,
-      .operator {
-        color: @sky !important;
-      }
-
-      .p,
-      .punctuation {
-        color: @overlay1 !important;
-      }
-
-      .err,
-      .error {
-        color: @red !important;
-      }
-
-      .gd {
-        color: @red !important;
-      }
-
-      .gi {
-        color: @green !important;
-      }
-
-      .gh {
-        color: @blue !important;
-      }
-
-      .gu {
-        color: @mauve !important;
       }
     }
 
@@ -1033,7 +929,7 @@
       }
     }
 
-    // Pseudo-éléments (::before et ::after)
+
     *::before,
     *::after {
       border-color: @surface1 !important;
@@ -1134,19 +1030,17 @@
       }
     }
 
-    // Sidebar active link
     .td-sidebar-link.active {
       border-radius: 4px !important;
       border-color: @accent !important;
-      background-color: fade(@accent, 15%) !important;
+      background-color: transparent !important;
       padding: 0.75rem !important;
       transition: all 0.2s ease !important;
     }
 
-    // Sidebar sub-items hover
     .td-sidebar-link__page:hover {
       border-left-color: @accent !important;
-      background-color: fade(@accent, 10%) !important;
+      background-color: transparent !important;
       padding-left: calc(0.75rem - 3px) !important;
     }
 
@@ -1168,7 +1062,6 @@
     }
 
     .col-container {
-      display: flex !important;
       flex-wrap: wrap !important;
       background-color: @base !important;
       gap: 2rem !important;
@@ -1227,6 +1120,14 @@
       }
     }
 
+    iframe[id^="iframe-landscape"] {
+      color-scheme: none !important;
+    }
+
+    nav[id="TableOfContents"] {
+      background-color: @base !important;
+    }
+
     // Ensure proper contrast for Latte flavor
     & when (@flavor = latte) {
       color-scheme: light;
@@ -1234,14 +1135,6 @@
       body,
       html {
         background-color: @base !important;
-      }
-
-      pre,
-      code,
-      .highlight,
-      div[class*="highlight"],
-      .chroma {
-        background-color: @mantle !important;
       }
 
       // Footer in light mode - ensure good contrast
@@ -1263,172 +1156,4 @@
       }
     }
   }
-
-  // Dark mode scrollbar track (specific override)
-  @media (prefers-color-scheme: dark) {
-    :root ::-webkit-scrollbar-track {
-      background: #1e1e2e !important;
-    }
-  }
-
-  // Dark mode navigation (specific override)
-  @media (prefers-color-scheme: dark) {
-    :root nav,
-    :root header,
-    :root [role="navigation"],
-    :root [class*="nav"],
-    :root [class*="header"] {
-      background-color: transparent !important;
-      border-color: #45475a !important;
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root ::before,
-    :root ::after {
-      border-color: rgb(30, 30, 46) !important;
-      color: rgb(203, 166, 247) !important;
-    }
-  }
-
-  // Dark mode: logo noir de l'announcement → clair
-  @media (prefers-color-scheme: dark) {
-    :root .announcement-main img {
-      filter: invert(1) !important;
-    }
-  }
-
-  // Light mode scrollbar track (specific override)
-  @media (prefers-color-scheme: light) {
-    :root ::-webkit-scrollbar-track {
-      background: #e6e9ef !important;
-    }
-  }
-
-  // Light mode navigation (specific override)
-  @media (prefers-color-scheme: light) {
-    :root nav,
-    :root header,
-    :root [role="navigation"],
-    :root [class*="nav"],
-    :root [class*="header"] {
-      background-color: transparent !important;
-      border-color: #bcc0cc !important;
-    }
-  }
-
-  // Light mode pseudo-elements
-  @media (prefers-color-scheme: light) {
-    :root ::before,
-    :root ::after {
-      border-color: rgb(230, 233, 239) !important;
-      color: rgb(136, 57, 239) !important;
-    }
-  }
-
-  // Light mode col-nav - higher specificity to override body.cid-training
-  @media (prefers-color-scheme: light) {
-    :root .col-nav,
-    :root body.cid-training .col-nav,
-    :root body.cid-training #get-certified .col-nav {
-      background-color: #ccd0da !important;
-      border-color: #bcc0cc !important;
-      border-radius: 8px !important;
-      color: #4c4f69 !important;
-    }
-  }
-
-  // Light mode navigation links (excluding buttons and active links)
-  @media (prefers-color-scheme: light) {
-    :root nav a:not(.button):not([class*="button"]):not(.active),
-    :root header a:not(.button):not([class*="button"]):not(.active),
-    :root [role="navigation"] a:not(.button):not([class*="button"]):not(.active),
-    :root [class*="nav"] a:not(.button):not([class*="button"]):not(.active),
-    :root [class*="header"] a:not(.button):not([class*="button"]):not(.active) {
-      color: #4c4f69 !important;
-    }
-
-    // Light mode active navigation links
-    :root nav a.active,
-    :root header a.active,
-    :root [role="navigation"] a.active,
-    :root [class*="nav"] a.active,
-    :root [class*="header"] a.active,
-    :root .nav-link.active {
-      color: #8839ef !important;
-    }
-
-    // Light mode main buttons - override navigation link color with higher specificity
-    :root main .button,
-    :root main .portal-button,
-    :root #desktopShowVideoButton {
-      background-color: #8839ef !important;
-      color: #dce0e8 !important;
-      border-color: transparent !important;
-      text-decoration: none !important;
-    }
-
-    // Light mode all buttons - ensure correct color
-    :root .button,
-    :root a.button,
-    :root #desktopShowVideoButton {
-      background-color: #8839ef !important;
-      color: #dce0e8 !important;
-
-      &:hover,
-      &:focus,
-      &:active {
-        background-color: #a78bfa !important;
-        color: #dce0e8 !important;  // Garde la même couleur au hover
-      }
-    }
-  }
-
-  // Dark mode main buttons - ensure correct color
-  @media (prefers-color-scheme: dark) {
-    :root main .button,
-    :root main .portal-button,
-    :root #desktopShowVideoButton {
-      background-color: #cba6f7 !important;
-      color: #11111b !important;
-      border-color: transparent !important;
-      text-decoration: none !important;
-    }
-
-    // Dark mode all buttons - ensure correct color
-    :root .button,
-    :root a.button,
-    :root #desktopShowVideoButton {
-      background-color: #cba6f7 !important;
-      color: #11111b !important;
-
-      &:hover,
-      &:focus,
-      &:active {
-        background-color: #ddb6f2 !important;
-        color: #11111b !important;  // Garde la même couleur au hover
-      }
-    }
-
-    // Dark mode active navigation links
-    :root nav a.active,
-    :root header a.active,
-    :root [role="navigation"] a.active,
-    :root [class*="nav"] a.active,
-    :root [class*="header"] a.active,
-    :root .nav-link.active {
-      color: #cba6f7 !important;
-    }
-
-    // Dark mode col-nav - higher specificity to override body.cid-training
-    :root .col-nav,
-    :root body.cid-training .col-nav,
-    :root body.cid-training #get-certified .col-nav {
-      background-color: #313244 !important;
-      border-color: #45475a !important;
-      border-radius: 8px !important;
-      color: #cdd6f4 !important;
-    }
-  }
-
 }
