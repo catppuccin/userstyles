@@ -16,17 +16,25 @@
 ==/UserStyle== */
 
 @import "https://userstyles.catppuccin.com/lib/lib.less";
+// We need CodeMirror lib too!
 
 @-moz-document domain("codeberg.org") {
+  // GITEA
   @import (css)
     url("https://catppuccin.github.io/gitea/theme-catppuccin-@{lightFlavor}-@{accentColor}.css")
     (prefers-color-scheme: light);
   @import (css)
     url("https://catppuccin.github.io/gitea/theme-catppuccin-@{darkFlavor}-@{accentColor}.css")
     (prefers-color-scheme: dark);
-}
 
-@-moz-document domain("codeberg.org") {
+  // CHROMA
+  @import (css)
+    url("https://chroma.catppuccin.com/@{lightFlavor}-chroma-style.css")
+    (prefers-color-scheme: light);
+  @import (css)
+    url("https://chroma.catppuccin.com/@{darkFlavor}-chroma-style.css")
+    (prefers-color-scheme: dark);
+
   [data-theme="codeberg-dark"],
   [data-theme="codeberg-light"],
   [data-theme="codeberg-auto"] {
@@ -43,37 +51,279 @@
     // #lib.defaults(); // Not needed, themed in upstream Gitea port.
 
     // BASIC
-    --color-body: @base;
-    --color-link: @blue;
-    --color-caret: @text;
+    --color-body: @base; // primary bg
+    --color-shadow: fade(@base, 30%);
+    --color-text: @text; // text
+    --color-text-light: @subtext0; // subtle text, icons
+    --color-text-light-1: @subtext1; // subtle buttons hovered
+    --color-text-light-2: @subtext0; // subtle buttons, placeholder text!
+    --color-link: @blue; // link
+    --color-caret: @text; // caret
+    --color-active: @accent; // .item.active
+    --color-accent: @accent;
+    --color-small-accent: @accent;
+    --color-highlight-fg: @peach;
+    --color-highlight-bg: fade(@peach, 30%);
+    --color-overlay-backdrop: fade(@crust, 60%);
+    --checkerboard-color-1: @surface0;
+    --checkerboard-color-2: @surface1;
+    --color-tooltip-text: @text; // tippy box text (fixed page info)
+    --color-tooltip-bg: @surface0; // tippy box bg (popup)
+    --color-secondary-dark-6: @subtext0; // tippy box text (popup)
+    --color-white: @crust;
+
+    // CODE
+    --color-code-bg: @mantle; // file viewer bg
+    --color-markup-table-row: @mantle;
+    --color-markup-code-block: @mantle;
+    --color-markup-code-inline: @surface0;
+
+    // REACTIONS
+    --color-reaction-bg: @surface0;
+    --color-reaction-hover-bg: @surface1;
+    --color-reaction-active-bg: @surface2;
+
+    // ACTIVE TAB
+    --color-text-dark: @accent;
+
+    .ui.secondary.pointing.menu .active.item,
+    .ui.secondary.pointing.menu .active.item:hover,
+    .ui.secondary.pointing.menu .active.item:focus,
+    .ui.secondary.pointing.menu .dropdown.item:hover,
+    .ui.secondary.pointing.menu .dropdown.item:focus {
+      color: var(--color-text-dark);
+    }
+
+    --color-timeline: @surface0;
+
+    // MENUS (e.g. dropdown)
+    --color-menu: @surface0;
+
+    // ACTIVITY BOXES
+    --color-secondary-alpha-60: @surface0;
+    --color-primary-light-4: lighten(@accent, 10%);
+    --color-primary-light-2: lighten(@accent, 5%);
+    --color-primary-dark-2: darken(@accent, 5%);
+    --color-primary-dark-4: darken(@accent, 10%);
+
+    // PRIMARY ELEMENTS
+    --color-primary: @accent;
+    --color-primary-hover: darken(@accent, 5%);
+    --color-primary-active: darken(@accent, 10%);
+    --color-primary-contrast: @base; // contrasting text
+
+    --color-secondary: @overlay0; // border, secondary bar
+    --color-secondary-bg: @mantle; // dialog footer
+    --color-secondary-button: fade(@overlay2, 20%);
+    --color-secondary-hover: fade(@overlay2, 40%);
+    --color-secondary-active: fade(@overlay2, 60%);
+
+    // GENERAL BUTTONS
+    --color-button: fade(@overlay2, 20%);
+    --color-hover: fade(@overlay2, 30%);
+    --color-expand-button: @surface1;
+    --color-light-border: @overlay0;
+    // label button hover
+    --color-light: fade(@accent, 30%);
 
     // NAVBAR
-    --color-primary: @mantle;
-    --color-nav-text: @crust;
-    --color-nav-hover-bg: darken(@accent, 5%);
-    --color-secondary-nav-bg: @surface0;
+    --color-nav-text: @text; // .menu > .item
+    --color-nav-bg: @mantle;
+    --color-secondary-alpha-30: @accent; // a.item.active
+    --color-nav-hover-bg: darken(@accent, 5%); // a.item:is(:hover, :focus)
+    --color-secondary-nav-bg: @surface0; // dropdowns
+
+    // ACTIVE BUTTONS THAT ARE MISTHEMED FOR TEXT
+    :is(
+      .ui.pagination.menu,
+      .editor-toolbar,
+      .switch,
+      .ui.vertical.menu,
+      .ui.dropdown .menu,
+      .ui.secondary.menu,
+      .ui.menu .ui.dropdown .menu
+    )
+      .active.item,
+    .ui.button.active,
+    .ui.basic.buttons .button.active,
+    .active:is(
+      :is(details.dropdown > .content > ul > li)
+        > :is(
+          a,
+          button
+        )
+    ),
+    details.dropdown[open] > summary,
+    details.dropdown
+      > .content
+      > ul
+      > li:focus-within
+      > :is(
+        a,
+        button
+      ) {
+      color: @base !important;
+      background-color: @accent !important;
+    }
+
+    .ui:is(.red, .green).button {
+      color: @base !important;
+    }
+
+    // TABS WITH LABELS
+    --color-label-text: @text;
+    --color-label-bg: fade(@overlay2, 20%);
+    --color-label-hover-bg: fade(@overlay2, 20%);
+    --color-label-active-bg: fade(@overlay2, 20%);
 
     // FOOTER
-    --color-footer: @mantle;
-    --color-footer-text: @subtext0;
+    --color-footer: @mantle; // bg
+    --color-footer-text: @subtext0; // footer text
 
-    // DROPDOWNS
+    // FORMS
+    --color-box-header: @mantle; // header bg
+    --color-box-body: @surface0; // form and popup bg
+    --color-box-body-highlight: @surface1; // hoverable form hover
+    --color-input-background: @surface0; // input bg
+    --color-input-text: @text; // input text
+    --color-input-border: @overlay0; // input border
+    --color-input-border-hover: @overlay1; // input hover border
+    --color-input-toggle-background: @overlay0; // toggles
+
+    .form .help {
+      color: @subtext0;
+    }
+
+    // QUOTA BAR
+    --color-secondary-dark-1: @overlay0;
+    --color-secondary-dark-3: @overlay1;
+
+    // REPO TABLE
+    --color-secondary-light-1: @surface0; // tr
+    --color-secondary-dark-7: @subtext0; // icons
+    --color-secondary-dark-2: @accent; // button border hover
+
+    // CONSOLE
+    --color-console-fg: @text;
+    --color-console-fg-subtle: @subtext0;
+    --color-console-bg: @surface0;
+    --color-console-border: @overlay0;
+    --color-console-hover-bg: @surface1;
+    --color-console-active-bg: @surface2;
+    --color-console-menu-bg: @surface1;
+    --color-console-menu-border: @overlay0;
+
+    // ANSI COLOURS
+    --color-ansi-black: #1d2328;
+    --color-ansi-red: #cc4848;
+    --color-ansi-green: #87ab63;
+    --color-ansi-yellow: #cc9903;
+    --color-ansi-blue: #3a8ac6;
+    --color-ansi-magenta: #d22e8b;
+    --color-ansi-cyan: #00918a;
+    --color-ansi-white: var(--color-console-fg-subtle);
+    --color-ansi-bright-black: #424851;
+    --color-ansi-bright-red: #d15a5a;
+    --color-ansi-bright-green: #93b373;
+    --color-ansi-bright-yellow: #eaaf03;
+    --color-ansi-bright-blue: #4e96cc;
+    --color-ansi-bright-magenta: #d74397;
+    --color-ansi-bright-cyan: #00b6ad;
+    --color-ansi-bright-white: var(--color-console-fg);
+
+    // DIFFS
+    --color-diff-removed-word-bg: fade(@red, 40%);
+    --color-diff-added-word-bg: fade(@green, 40%);
+    --color-diff-removed-row-bg: fade(@red, 20%);
+    --color-diff-moved-row-bg: fade(@peach, 20%);
+    --color-diff-added-row-bg: fade(@green, 20%);
+    --color-diff-removed-row-border: @red;
+    --color-diff-moved-row-border: @peach;
+    --color-diff-added-row-border: @green;
+    --color-diff-inactive: @overlay0;
+
+    // HUNK HEADER
+    .tag-code, .tag-code td {
+      color: @peach !important;
+      background-color: @surface0 !important;
+
+      &.lines-num {
+        background-color: @surface1 !important;
+      }
+    }
+
+    // NOTIFS
+    --color-error-border: @red;
+    --color-error-bg: fade(@red, 30%);
+    --color-error-bg-active: fade(@red, 60%);
+    --color-error-bg-hover: fade(@red, 45%);
+    --color-error-text: @red;
+    --color-success-border: @green;
+    --color-success-bg: fade(@green, 30%);
+    --color-success-text: @green;
+    --color-warning-border: @peach;
+    --color-warning-bg: fade(@peach, 30%);
+    --color-warning-text: @peach;
+    --color-info-border: @teal;
+    --color-info-bg: fade(@teal, 30%);
+    --color-info-text: @teal;
+    --color-red-badge: @red;
+    --color-red-badge-bg: fade(@red, 20%);
+    --color-red-badge-hover-bg: fade(@red, 40%);
+    --color-green-badge: @green;
+    --color-green-badge-bg: fade(@green, 20%);
+    --color-green-badge-hover-bg: fade(@green, 40%);
+    --color-yellow-badge: @yellow;
+    --color-yellow-badge-bg: fade(@yellow, 20%);
+    --color-yellow-badge-hover-bg: fade(@yellow, 40%);
+    --color-orange-badge: @peach;
+    --color-orange-badge-bg: fade(@peach, 20%);
+    --color-orange-badge-hover-bg: fade(@peach, 40%);
+
+    // OTHER BASE COLOURS REQUIRED BY MANY THINGS INCLUDING ICONS
+    // (e.g. GPG key icon)
+    --color-red: @red; // red
+    --color-green: @green; // green
+    --color-yellow: @yellow; // yellow
+    --color-gold: @accent; // gold, but we're faking it!
+    --color-orange: @peach; // orange
+    // shasum right side bg override
+    .sha.label .signature {
+      --color-light: fade(@green, 30%);
+    }
+
+    .is-loading::after {
+      border-color: @overlay0 @overlay0 @text @text;
+    }
+
+    // input focus border
+    input:focus,
+    textarea:focus,
+    .ui.input input:focus,
+    .ui.form input:not([type]):focus,
+    .ui.form select:focus,
+    .ui.form textarea:focus,
+    .ui.form input[type="date"]:focus,
+    .ui.form input[type="datetime-local"]:focus,
+    .ui.form input[type="email"]:focus,
+    .ui.form input[type="file"]:focus,
+    .ui.form input[type="number"]:focus,
+    .ui.form input[type="password"]:focus,
+    .ui.form input[type="search"]:focus,
+    .ui.form input[type="tel"]:focus,
+    .ui.form input[type="text"]:focus,
+    .ui.form input[type="time"]:focus,
+    .ui.form input[type="url"]:focus,
+    .ui.selection.dropdown:focus {
+      border-color: var(--color-active) !important;
+    }
+
+    // DROPDOWN OVERRIDES
     .ui.secondary.menu .dropdown.item:hover,
     .ui.secondary.menu a.item:hover,
     .ui.secondary.menu a.active.item:hover {
       background-color: var(--color-nav-hover-bg);
       color: var(--color-black);
-    }
-
-    // RED BUTTONS
-    .ui.basic.red.buttons .button,
-    .ui.basic.red.button {
-      &:hover,
-      &:focus {
-        background-color: @red;
-        border-color: var(--color-light-border);
-        color: @crust;
-      }
     }
 
     // LOGOS
@@ -86,12 +336,14 @@
 
     // NAVBAR
     #navbar {
+      // We have to overwrite it due to it breaking
+      background-color: var(--color-nav-bg) !important;
+
       > .menu, > .menu .menu {
         a,
         button,
-        details,
-        summary {
-          color: @text !important;
+        details > summary {
+          color: @text;
         }
 
         a.item:is(:hover, :focus),
@@ -114,8 +366,18 @@
         }
       }
 
-      #navbar-logo img {
-        #codeberg-logo(@accent);
+      a#navbar-logo {
+        img {
+          #codeberg-logo(@accent);
+        }
+
+        &:hover img {
+          #codeberg-logo(@base);
+        }
+      }
+
+      a.item.active {
+        color: @base !important;
       }
     }
 
@@ -137,6 +399,23 @@
 
       a:hover {
         color: @blue !important;
+      }
+
+      .language.button {
+        &.active {
+          color: @base;
+          background-color: @accent !important;
+        }
+
+        &:hover {
+          color: @base;
+          background-color: darken(@accent, 5%) !important;
+        }
+
+        &:active, &:focus {
+          color: @base;
+          background-color: darken(@accent, 10%);
+        }
       }
     }
 
