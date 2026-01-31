@@ -42,14 +42,22 @@
     #lib.palette();
     // #lib.defaults(); // Not needed, themed in upstream Gitea port.
 
+    // BASIC
     --color-body: @base;
+    --color-link: @blue;
+    --color-caret: @text;
+
+    // NAVBAR
+    --color-primary: @mantle;
     --color-nav-text: @crust;
     --color-nav-hover-bg: darken(@accent, 5%);
     --color-secondary-nav-bg: @surface0;
-    --color-link: @blue;
+
+    // FOOTER
     --color-footer: @mantle;
     --color-footer-text: @subtext0;
 
+    // DROPDOWNS
     .ui.secondary.menu .dropdown.item:hover,
     .ui.secondary.menu a.item:hover,
     .ui.secondary.menu a.active.item:hover {
@@ -57,6 +65,7 @@
       color: var(--color-black);
     }
 
+    // RED BUTTONS
     .ui.basic.red.buttons .button,
     .ui.basic.red.button {
       &:hover,
@@ -67,6 +76,7 @@
       }
     }
 
+    // LOGOS
     #codeberg-logo(@color) {
       @svg: escape(
         '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><defs><linearGradient id="b" x1="42519.285" x2="42575.336" y1="-7078.7891" y2="-6966.9312" gradientUnits="userSpaceOnUse" href="#a"/><linearGradient id="a"><stop color="@{color}" offset="0" stop-opacity="0"/><stop offset=".495" stop-color="@{color}" stop-opacity=".3"/><stop offset="1" stop-color="@{color}" stop-opacity=".3"/></linearGradient></defs><path fill="url(#b)" d="M42519.285-7078.79a.76.568 0 0 0-.738.675l33.586 125.888a87.2 87.2 0 0 0 39.381-33.763l-71.565-92.52a.76.568 0 0 0-.664-.28" transform="translate(-5840.572 980.524)scale(.13766)"/><path fill="@{color}" d="M12.003.525A12.003 12.003 0 0 0 0 12.533 11.9 11.9 0 0 0 1.826 18.9L11.838 5.956c.068-.09.25-.09.324 0l10.007 12.939A11.9 11.9 0 0 0 24 12.522 12.003 12.003 0 0 0 12.003.525"/></svg>'
@@ -74,15 +84,49 @@
       content: url("data:image/svg+xml,@{svg}");
     }
 
-    #navbar-logo img {
-      #codeberg-logo(@crust);
-    }
-    .branding img[src^="https://design.codeberg.org/logo-kit/"] {
-      #codeberg-logo(@text);
+    // NAVBAR
+    #navbar {
+      > .menu, > .menu .menu {
+        a,
+        button,
+        details,
+        summary {
+          color: @text !important;
+        }
+
+        a.item:is(:hover, :focus),
+        details.dropdown > summary:is(:hover, :focus),
+        details.dropdown[open] > summary,
+        button.item:is(:hover, :focus) {
+          color: @base !important;
+        }
+
+        a.donation-pretty {
+          --donation-pretty-gradient-color-1: darken(@accent, 5%);
+          --donation-pretty-gradient-color-2: darken(@accent, 10%);
+
+          color: @base !important;
+
+          &:hover {
+            --donation-pretty-gradient-color-1: darken(@accent, 10%);
+            --donation-pretty-gradient-color-2: darken(@accent, 15%);
+          }
+        }
+      }
+
+      #navbar-logo img {
+        #codeberg-logo(@accent);
+      }
     }
 
-    a[aria-label="Forgejo"] {
-      filter: @text-filter;
+    .branding {
+      img[src^="https://design.codeberg.org/logo-kit/"] {
+        #codeberg-logo(@text);
+      }
+
+      img[src^="/assets/img/svg/forgejo-wordmark"] {
+        filter: @text-filter;
+      }
     }
 
     footer {
@@ -93,6 +137,100 @@
 
       a:hover {
         color: @blue !important;
+      }
+    }
+
+    // HOMEPAGE
+
+    main {
+      a.button {
+        svg {
+          filter: drop-shadow(-1px -2px 0 @yellow);
+        }
+
+        &:hover svg {
+          filter: drop-shadow(-1px -2px 0 darken(@yellow, 10%));
+        }
+      }
+
+      header {
+        color: @text;
+
+        .header-social-links a {
+          color: @accent;
+
+          &:hover {
+            color: darken(@accent, 5%);
+          }
+        }
+
+        .header-logo img {
+          filter: @text-filter;
+        }
+      }
+
+      section#home-section-about {
+        color: @text;
+
+        .home-section-about-box-container {
+          .home-section-about-box {
+            background-image: linear-gradient(
+              to top,
+              fade(@accent, 30%) 40%,
+              fade(@accent, 40%)
+            );
+          }
+
+          .home-section-about-register-button-container a {
+            color: @base;
+            text-shadow: -1px -2px 0 @yellow;
+            background-color: @yellow;
+
+            &:hover {
+              text-shadow: -1px -2px 0 darken(@yellow, 10%);
+              background-color: darken(@yellow, 5%);
+            }
+          }
+        }
+
+        .home-section-about-container div {
+          color: @accent;
+
+          p.powered-by-forgejo a {
+            color: @accent;
+          }
+        }
+      }
+
+      section#home-section-support {
+        color: @text;
+
+        // Yellow buttons
+        div a {
+          color: @base;
+          text-shadow: -1px -2px 0 @yellow;
+          background-color: @yellow;
+
+          &:hover {
+            text-shadow: -1px -2px 0 darken(@yellow, 10%);
+            background-color: darken(@yellow, 5%);
+          }
+        }
+
+        // Your support helps us grow! :hearts:
+        h3 svg.svg.codeberg-icon-hearts {
+          path:nth-child(1) {
+            fill: @peach !important;
+          }
+
+          path:nth-child(2) {
+            fill: @yellow !important;
+          }
+
+          path:nth-child(3) {
+            fill: @sapphire !important;
+          }
+        }
       }
     }
   }
