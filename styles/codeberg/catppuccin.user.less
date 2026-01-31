@@ -16,7 +16,6 @@
 ==/UserStyle== */
 
 @import "https://userstyles.catppuccin.com/lib/lib.less";
-// We need CodeMirror lib too!
 
 @-moz-document domain("codeberg.org") {
   // GITEA
@@ -35,6 +34,8 @@
     url("https://chroma.catppuccin.com/@{darkFlavor}-chroma-style.css")
     (prefers-color-scheme: dark);
 
+  // We need CodeMirror lib too!
+
   [data-theme="codeberg-dark"],
   [data-theme="codeberg-light"],
   [data-theme="codeberg-auto"] {
@@ -48,7 +49,8 @@
 
   #catppuccin(@flavor) {
     #lib.palette();
-    // #lib.defaults(); // Not needed, themed in upstream Gitea port.
+    // Below is unneeded, themed in upstream Gitea port.
+    // #lib.defaults();
 
     // BASIC
     --color-body: @base; // primary bg
@@ -126,13 +128,6 @@
     // label button hover
     --color-light: fade(@accent, 30%);
 
-    // NAVBAR
-    --color-nav-text: @text; // .menu > .item
-    --color-nav-bg: @mantle;
-    --color-secondary-alpha-30: @accent; // a.item.active
-    --color-nav-hover-bg: darken(@accent, 5%); // a.item:is(:hover, :focus)
-    --color-secondary-nav-bg: @surface0; // dropdowns
-
     // ACTIVE BUTTONS THAT ARE MISTHEMED FOR TEXT
     :is(
       .ui.pagination.menu,
@@ -176,9 +171,18 @@
     --color-label-hover-bg: fade(@overlay2, 20%);
     --color-label-active-bg: fade(@overlay2, 20%);
 
+    // NAVBAR
+    --color-nav-text: @text; // .menu > .item
+    --color-nav-bg: @mantle;
+    --color-secondary-alpha-30: @accent; // a.item.active
+    --color-nav-hover-bg: darken(@accent, 5%); // a.item:is(:hover, :focus)
+    --color-secondary-nav-bg: @surface0; // dropdowns
+
     // FOOTER
-    --color-footer: @mantle; // bg
     --color-footer-text: @subtext0; // footer text
+    // This one below is required to override the race condition of nav-bg
+    // setting with the upstream value first.
+    --color-footer: @mantle; // bg
 
     // FORMS
     --color-box-header: @mantle; // header bg
