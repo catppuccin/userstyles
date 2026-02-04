@@ -2,7 +2,7 @@
 @name DEV Community Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/dev.to
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/dev.to
-@version 2025.09.06
+@version 2025.12.29
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/dev.to/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Adev.to
 @description Soothing pastel theme for DEV Community
@@ -17,7 +17,7 @@
 
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
-@-moz-document domain("dev.to") {
+@-moz-document domain("dev.to"), domain("forem.com") {
   @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
 
   body.dark-theme {
@@ -25,6 +25,14 @@
   }
   body.light-theme {
     #catppuccin(@lightFlavor);
+  }
+  body[data-user-status="logged-out"] {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
   }
 
   #catppuccin(@flavor) {
@@ -35,6 +43,8 @@
     --body-bg: @mantle;
     --black: if(@flavor = latte, @text, @crust);
     --body-color: @text;
+    --color-primary: @subtext1;
+    --color-secondary: @subtext0;
 
     --header-bg: @base;
     --header-shadow: @crust;
