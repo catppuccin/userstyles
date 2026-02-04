@@ -7,13 +7,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import type { Page, Route } from "playwright";
+import type { BrowserContext, Route } from "playwright";
 
 /**
  * Applies various stealth techniques to make the browser appear more like a regular user browser
- * @param page - Puppeteer page object
+ * @param context - Playwright browser context object
  */
-export async function applyStealthScripts(page: Page) {
+export async function applyStealthScripts(context: BrowserContext) {
   // No need to bypass CSP, user agent
   // await page.setBypassCSP(true);
   // await page.setUserAgent(
@@ -23,7 +23,7 @@ export async function applyStealthScripts(page: Page) {
   /**
    * https://intoli.com/blog/not-possible-to-block-chrome-headless/chrome-headless-test.html
    */
-  await page.addInitScript(() => {
+  await context.addInitScript(() => {
     /**
      * Override the navigator.webdriver property
      * The webdriver read-only property of the navigator interface indicates whether the user agent is controlled by automation.
@@ -60,12 +60,12 @@ export async function applyStealthScripts(page: Page) {
 
 /**
  * Sets up request interception to block unnecessary resources and apply stealth techniques
- * @param page - Playwright page object
+ * @param context - Playwright browser context object
  */
-export async function interceptRequest(page: Page) {
-  await applyStealthScripts(page);
+export async function interceptRequest(context: BrowserContext) {
+  await applyStealthScripts(context);
 
-  await page.route("**/*", (route: Route) => {
+  await context.route("**/*", (route: Route) => {
     const request = route.request();
     // Why is this not upstream typed?
     const resourceType = request.resourceType() as

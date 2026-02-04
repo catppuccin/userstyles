@@ -5,6 +5,8 @@ import { interceptRequest } from "./utils.ts";
 
 import UserAgent from "user-agents";
 
+import * as path from "@std/path";
+
 // TODO: Define proper type for cssSources.
 
 // TODO: Fix typings
@@ -15,7 +17,7 @@ async function getSiteStyles(page: Page, url: URL): Promise<[string[], any]> {
     waitUntil: 'load'
   });
 
-  await page.screenshot({ path: `screenshots/${url.pathname}-${url.search}.png` });
+  await page.screenshot({ path: path.join('screenshots', `${url.pathname}-${url.search.replace('?', '=')}.png`) });
 
   const cssSources = await page.evaluate(() => {
     const styleTags = Array.from(document.querySelectorAll('style')).map(tag => {
@@ -49,15 +51,21 @@ async function getSiteStyles(page: Page, url: URL): Promise<[string[], any]> {
 export async function scrapeStylesheetsAndCombineForSites(urls: URL[]) {
   const userAgent = new UserAgent({
     deviceCategory: 'desktop',
+    platform: 'Win32'
   }).toString();
   
-  const browser = await chromium.launch();
+  const browser = await chromium.launch({
+    headless: false,
+    args: [
+      '--disable-blink-features=AutomationControlled',
+    ]
+  });
   const context = await browser.newContext({
     userAgent: userAgent
   });
   const page = await context.newPage();
 
-  await interceptRequest(page);
+  await interceptRequest(context);
 
   let combinedCss = '';
 
@@ -80,6 +88,8 @@ export async function scrapeStylesheetsAndCombineForSites(urls: URL[]) {
       combinedCss += `${inlineCss}\n`;
       console.log(`Combined inline styles from ${url}`);
   }
+
+  browser.close()
 
   for (let i = 0; i < allHrefsToFetch.length; i++) {
     const href = allHrefsToFetch[i];
@@ -107,6 +117,7 @@ export async function scrapeStylesheetsAndCombineForSites(urls: URL[]) {
   const linkedCss = (await Promise.all(linkedCssPromises)).join('\n');
   combinedCss += `${linkedCss}\n`
 
-  console.log(`Successfully fetched stylesheets from ${urls}`);
+  console.log(`Successfully fetched stylesheets`);
+
   return combinedCss
 }
