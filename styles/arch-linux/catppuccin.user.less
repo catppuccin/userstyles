@@ -21,9 +21,36 @@
 /// General Mixins
 #mixins {
   .a() {
-    a,
-    a.permalink,
-    :is(a, a.permalink):link {
+    :not(li.isactive)
+      > :is(
+        a:not(
+          .btn,
+          .btn-primary,
+          .accordion-button,
+          .btn-close,
+          .page-link,
+          .form-control,
+          .form-select,
+          .form-check-input,
+          .form-range
+        ),
+        a.permalink
+      ),
+    :not(li.isactive)
+      > :is(
+        a:not(
+          .btn,
+          .btn-primary,
+          .accordion-button,
+          .btn-close,
+          .page-link,
+          .form-control,
+          .form-select,
+          .form-check-input,
+          .form-range
+        ),
+        a.permalink
+      ):link {
       color: @blue !important;
 
       &:hover {
@@ -42,14 +69,20 @@
         background-color: @surface0 !important;
       }
     }
-
-    ul li.isactive a {
-      background-color: @accent !important;
-      color: @base !important;
-    }
   }
 
   .inputs() {
+    a:is(
+      .btn,
+      .btn-primary,
+      .accordion-button,
+      .btn-close,
+      .page-link,
+      .form-control,
+      .form-select,
+      .form-check-input,
+      .form-range
+    ),
     button,
     ::file-selector-button,
     .rbox label,
@@ -1499,14 +1532,18 @@
 
       #brdmenu {
         background-color: @base !important;
-        border-color: transparent !important;
 
-        ul li a {
-          background-color: @base !important;
-          border-color: transparent !important;
+        ul > li {
+          > a {
+            background-color: @base !important;
+            border-color: transparent !important;
+          }
+
+          &.isactive > a {
+            background-color: @accent !important;
+            color: @base !important;
+          }
         }
-
-        #mixins.a();
       }
 
       #brdfooternav {
@@ -1939,11 +1976,23 @@
     #lib.defaults();
     #lib.css-variables();
 
-    .manual-text {
-      table {
-        background-color: @mantle !important;
+    --bg-color: @base;
+    --color: @text;
+    --code-inline-bg-color: @surface0;
+    --code-block-bg-color: @mantle;
+    --code-block-border-color: @overlay0;
+    --link-color: @blue;
+    --table-border-color: @overlay0;
+    --table-bg-color: @surface0;
+    --table-th-bg-color: @mantle;
+    --table-focus-bg-color: @surface1;
 
-        tr, tr:hover, :is(tr, tr:hover) > td, :is(tr, tr:hover) > td code {
+    .manual-text {
+      table.tbl > tbody {
+        // For some reason, man.archlinux.org uses tr as table row 1
+        // as opposed to th as table heading class.
+        > tr:nth-child(1),
+        > tr:nth-child(1) > td {
           background-color: @mantle !important;
         }
       }
@@ -1952,6 +2001,182 @@
         dd:nth-child(n), dd:nth-child(n):hover {
           background-color: inherit !important;
         }
+      }
+    }
+  }
+}
+
+/// Arch Mailing Lists
+@-moz-document url-prefix("https://lists.archlinux.org") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    --bs-blue: @blue;
+    --bs-indigo: @lavender;
+    --bs-purple: @mauve;
+    --bs-pink: @pink;
+    --bs-red: @red;
+    --bs-orange: @peach;
+    --bs-yellow: @yellow;
+    --bs-green: @green;
+    --bs-teal: @teal;
+    --bs-cyan: @sky;
+    --bs-white: @text;
+    --bs-black: @crust;
+    --bs-gray: @subtext1;
+    --bs-gray-dark: @subtext0;
+    --bs-primary: @accent;
+    --bs-secondary: @surface0;
+    --bs-success: @green;
+    --bs-info: @teal;
+    --bs-warning: @peach;
+    --bs-danger: @red;
+    --bs-light: @subtext1;
+    --bs-dark: @mantle;
+    --bs-primary-rgb: #lib.rgbify(@accent);
+    --bs-secondary-rgb: #lib.rgbify(@surface0);
+    --bs-success-rgb: #lib.rgbify(@green);
+    --bs-info-rgb: #lib.rgbify(@teal);
+    --bs-warning-rgb: #lib.rgbify(@peach);
+    --bs-danger-rgb: #lib.rgbify(@red);
+    --bs-light-rgb: #lib.rgbify(@subtext1);
+    --bs-dark-rgb: #lib.rgbify(@mantle);
+    --bs-white-rgb: #lib.rgbify(@text);
+    --bs-black-rgb: #lib.rgbify(@crust);
+    --bs-body-color-rgb: #lib.rgbify(@text);
+    --bs-body-bg-rgb: #lib.rgbify(@base);
+    --bs-gradient: linear-gradient(
+      180deg,
+      fade(@base, 0),
+      fade(@text, 0)
+    );
+    --bs-body-color: @text;
+    --bs-body-bg: @base;
+
+    .table, [class*="table"] {
+      --bs-table-bg: @mantle;
+      --bs-table-striped-color: @text;
+      --bs-table-striped-bg: @surface0;
+      --bs-table-hover-color: @text;
+      --bs-table-hover-bg: fade(@overlay2, 30%);
+      --bs-table-active-color: @text;
+      --bs-table-active-bg: fade(@overlay2, 60%);
+    }
+
+    a:is(
+      .btn,
+      .btn-primary,
+      .accordion-button,
+      .btn-close,
+      .page-link,
+      .form-control,
+      .form-select,
+      .form-check-input,
+      .form-range
+    ):focus {
+      box-shadow: 0 0 0 0.25rem fade(@accent, 60%);
+    }
+
+    * {
+      border-color: @overlay0 !important;
+    }
+
+    header.navbar, nav#navbar-main {
+      background-color: @mantle;
+
+      .navbar-header .navbar-brand {
+        color: @accent !important;
+
+        img {
+          filter: @accent-filter;
+        }
+
+        &:hover {
+          color: darken(@accent, 5%) !important;
+        }
+
+        &:active, &:focus {
+          color: darken(@accent, 10%) !important;
+        }
+      }
+
+      a.nav-link, a.nav-link:link {
+        color: @text !important;
+
+        .fa::before {
+          color: @text !important;
+        }
+
+        &:hover {
+          color: darken(@accent, 5%) !important;
+
+          .fa::before {
+            color: darken(@accent, 5%) !important;
+          }
+        }
+
+        &:active, &:focus, &:focus-within {
+          color: darken(@accent, 10%) !important;
+
+          .fa::before {
+            color: darken(@accent, 10%) !important;
+          }
+        }
+
+        &:visited {
+          color: @lavender !important;
+
+          .fa::before {
+            color: @lavender !important;
+          }
+        }
+      }
+    }
+
+    footer {
+      background-color: @mantle;
+
+      p {
+        color: @subtext0 !important;
+      }
+    }
+
+    ul.pagination li.page-item {
+      .page-link {
+        color: @text !important;
+        background-color: @surface0 !important;
+      }
+
+      &:hover .page-link {
+        color: @text !important;
+        background-color: @surface1 !important;
+      }
+
+      &:is(:active, :focus) .page-link {
+        color: @text !important;
+        background-color: @surface2 !important;
+      }
+
+      &.active .page-link {
+        color: @base !important;
+        background-color: @accent !important;
+      }
+
+      &.disabled .page-link {
+        color: @overlay0 !important;
+        background-color: @mantle !important;
       }
     }
   }
