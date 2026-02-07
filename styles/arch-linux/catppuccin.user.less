@@ -222,21 +222,25 @@
   }
 
   .table() {
-    table {
+    table:not(
+      .head,
+      .foot,
+      .Nm
+    ) {
       color: @text !important;
       background-color: @mantle !important;
       border-color: @overlay0 !important;
 
-      tr, &.head tr {
+      > thead > tr > th {
+        color: @text !important;
+        background-color: @mantle !important;
+        border-color: @overlay0 !important;
+      }
+
+      > tbody > tr, &.head > tbody > tr {
         border-color: @overlay0 !important;
 
-        > th {
-          color: @text !important;
-          background-color: @mantle !important;
-          border-color: @overlay0 !important;
-        }
-
-        td {
+        > td {
           border-color: @overlay0 !important;
         }
 
@@ -1988,20 +1992,237 @@
     --table-th-bg-color: @mantle;
     --table-focus-bg-color: @surface1;
 
-    .manual-text {
-      table.tbl > tbody {
-        // For some reason, man.archlinux.org uses tr as table row 1
-        // as opposed to th as table heading class.
-        > tr:nth-child(1),
-        > tr:nth-child(1) > td {
-          background-color: @mantle !important;
-        }
+    // For some reason, man.archlinux.org uses tr as table row 1
+    // as opposed to th as table heading class.
+    table:not(
+      .head,
+      .foot,
+      .Nm
+    )
+      > tbody
+      > :is(
+        tr:nth-child(1),
+        tr:nth-child(1):hover
+      ) {
+      background-color: @mantle !important;
+      > td {
+        background-color: @mantle !important;
       }
+    }
 
+    table:is(
+      .head,
+      .foot
+    ) {
+      border-color: @overlay0 !important;
+    }
+
+    .manual-text {
       dl {
         dd:nth-child(n), dd:nth-child(n):hover {
           background-color: inherit !important;
         }
+      }
+
+      /* MDOC MACROS */
+
+      // SECTIONS
+      section.Sh,
+      // SUBSECTION
+      section.Ss,
+      // NAMED TABLE
+      table.Nm {
+        background-color: unset !important;
+
+        code:not(.Li) {
+          background-color: unset !important;
+        }
+      }
+
+      // NAME DESCRIPTION TD
+      .Nd,
+      // PARAGRAPH
+      .Pp {
+        color: @text;
+      }
+
+      // SECTION HEADING
+      h1.Sh,
+      h2.Ss {
+        color: @accent !important;
+
+        * {
+          color: @accent !important;
+        }
+      }
+
+      // SECTION CROSS-REFERENCE
+      .Sx, .Xr {
+        color: @blue !important;
+      }
+
+      // REFERENCE SECTION - OTHER TEXT
+      .Rs {
+        color: @subtext0 !important;
+      }
+
+      .eqn,
+      .tbl td {
+        background-color: @mantle !important;
+      }
+
+      /* SEMANTICS */
+
+      // COMMAND, KEYWORD
+      code.Nm {
+        color: @mauve !important;
+      }
+
+      // FLAGS
+      .Fl {
+        color: @blue !important;
+      }
+
+      // PARAMETER VALUES
+      .Cm {
+        color: @maroon !important;
+      }
+
+      // ARGUMENT EXPLANATION
+      .Ar {
+        color: @subtext0 !important;
+      }
+
+      // OPTIONAL ARGUMENTS
+      .Op {
+        color: @subtext1 !important;
+      }
+
+      // INTERNAL - BUILTINS
+      .Ic {
+        color: @red !important;
+      }
+
+      // ENV VARS
+      .Ev {
+        color: @rosewater !important;
+      }
+
+      // PATH
+      .Pa {
+        color: @pink !important;
+      }
+
+      /* SEMANTIC MARKUP FOR FUNCTION LIBRARIES */
+
+      // LIBRARY
+      .Lb {
+        color: @yellow !important;
+      }
+
+      // INCLUDE
+      a.In,
+      code.In {
+        color: @pink !important;
+      }
+
+      // FUNCTION DECL
+      .Fd {
+        color: @yellow !important;
+      }
+
+      // FUNCTION TYPE
+      .Ft {
+        color: @yellow !important;
+      }
+
+      // FUNCTION NAME
+      .Fn {
+        color: @mauve !important;
+      }
+
+      // FUNCTION ARGUMENT
+      .Fa {
+        color: @blue !important;
+      }
+
+      // VARIABLE TYPE
+      .Vt {
+        color: @yellow !important;
+      }
+
+      // VARIABLE
+      .Va {
+        color: @blue !important;
+      }
+
+      // ERROR
+      .Er {
+        color: @red !important;
+        text-decoration: wavy underline !important;
+      }
+
+      // DEFINED VALUES - MACROS
+      .Dv {
+        color: @rosewater !important;
+      }
+
+      /* VARIOUS SEMANTIC MARKUP */
+
+      // AUTHOR NAME
+      .An {
+        color: @text !important;
+      }
+
+      // AUTHOR MAILTO
+      .Mt {
+        color: @blue !important;
+      }
+
+      // LINKS
+      .Lk {
+        color: @blue !important;
+      }
+
+      // COMMAND
+      .Cd {
+        color: @mauve !important;
+      }
+
+      // ADDRESS
+      .Ad {}
+
+      // MANUAL SECTION
+      .Ms {
+        font-style: normal;
+        font-weight: bold;
+      }
+
+      // STANDARD
+      .St {}
+
+      // LITERALLY WHENEVER UNIX OR UNIX DISTRO NAMES ARE USED!
+      .Ux {
+        color: @accent !important;
+      }
+
+      /* PHYSICAL MARKUP */
+
+      // NORMAL
+      .No,
+      // EMPHASIS
+      .Em {
+        color: @text !important;
+      }
+
+      // SYMBOLIC TEXT
+      .Sy {
+        color: @accent !important;
+      }
+
+      // INLINE CODE
+      .Li {
+        background-color: fade(@overlay2, 10%) !important;
       }
     }
   }
