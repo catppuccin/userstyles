@@ -19,16 +19,6 @@ The standard library exposes a `#lib` namespace.
 
 The standard library palette mixin provides Less variable definitions for hex colors and CSS filters from the palette. Call the mixin at the top of the `#catppuccin` mixin to inject the variables into the userstyle context. This is used in all userstyles.
 
-#### Options
-
-##### `@rgbify-default-sep`
-
-Sets the default separator for the `rgbify` utility. Can be either `"comma"` or `"space"`. Defaults to `"comma"`.
-
-##### `@hslify-default-sep`
-
-Sets the default separator for the `hslify` utility. Can be either `"comma"` or `"space"`. Defaults to `"comma"`.
-
 ### `#lib.defaults()`
 
 The standard library defaults mixin provides a set of default styles for text selection and native/input elements. This is generally applied in all userstyles, with some exceptions.
@@ -37,42 +27,20 @@ The standard library defaults mixin provides a set of default styles for text se
 
 The standard library `rgbify` mixin is a utility mixin for extracting the color in `r, g, b` format from a palette variable.
 
-#### Options
-
-##### `@color`
-
-##### `@spaces`/`@commas`
-
-_Optional_
-
-Depending on `.palette()` configuration, either enables space separation in commas-by-default mode or comma separation in spaces-by-default mode.
-
 #### Examples
 
 ```less
 --my-variable-rgb: #lib.rgbify(@base) []; // -> 30, 30, 46
---my-variable-rgb-spaces: #lib.rgbify(@base, true) []; // -> 30 30 46
 ```
 
 ### `#lib.hslify()`
 
 The standard library `hslify` mixin is a utility mixin for extracting the color in `h, s, l` format from a palette variable.
 
-#### Options
-
-##### `@color`
-
-##### `@spaces`/`@commas`
-
-_Optional_
-
-Depending on `.palette()` configuration, either enables space separation in commas-by-default mode or comma separation in spaces-by-default mode.
-
 #### Examples
 
 ```less
 --my-variable-hsl: #lib.hslify(@base) []; // -> 240, 21.052631578947366%, 14.901960784313726%
---my-variable-hsl-spaces: #lib.hslify(@base, true) []; // -> 240 21.052631578947366% 14.901960784313726%
 ```
 
 ### `#lib.css-variables()`
