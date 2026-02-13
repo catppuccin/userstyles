@@ -225,6 +225,7 @@
     table:not(
       .head,
       .foot,
+      .blob,
       .Nm
     ) {
       color: @text !important;
@@ -352,29 +353,6 @@
       }
     }
 
-    table.arch-bio-entry {
-      td {
-        &.pic img {
-            border-color: @overlay0;
-        }
-
-        h3 {
-          border-color: @overlay1;
-        }
-      }
-
-       > tbody > tr:hover > td {
-        background: @mantle !important;
-      }
-
-      table.bio {
-        th {
-          color: @subtext0;
-          background-color: inherit !important;
-        }
-      }
-    }
-
     #taskdetails {
       color: @subtext0 !important;
       background-color: @mantle !important;
@@ -456,55 +434,81 @@
 
     #mixins.table();
 
-    table.diff {
-      tr.diff-title {
-        background-color: @mantle !important;
 
+    table {
+      &.arch-bio-entry {
         td {
-          background-color: @surface0 !important;
-
-          &.diff-side-deleted {
-            #mw-diff-otitle1, #mw-diff-ntitle1 {
-              background-color: fade(@red, 30%) !important;
-              box-shadow: none !important;
-
-              strong, strong a {
-                color: @red !important;
-              }
-            }
+          &.pic img {
+              border-color: @overlay0;
           }
 
-          &.diff-side-added {
-            #mw-diff-otitle1, #mw-diff-ntitle1 {
-              background-color: fade(@green, 30%) !important;
-              box-shadow: none !important;
+          h3 {
+            border-color: @overlay1;
+          }
+        }
 
-              strong, strong a {
-                color: @green !important;
-              }
-            }
+        > tbody > tr:hover > td {
+          background: @mantle !important;
+        }
+
+        table.bio {
+          th {
+            color: @subtext0;
+            background-color: inherit !important;
           }
         }
       }
 
-      tr > td {
-        &.diff-addedline {
-          border-color: @green !important;
+      &.diff {
+        tr.diff-title {
+          background-color: @mantle !important;
 
-          .diffchange {
-            color: @green !important;
-            background-color: fade(@green, 30%) !important;
-            box-shadow: none !important;
+          td {
+            background-color: @surface0 !important;
+
+            &.diff-side-deleted {
+              #mw-diff-otitle1, #mw-diff-ntitle1 {
+                background-color: fade(@red, 30%) !important;
+                box-shadow: none !important;
+
+                strong, strong a {
+                  color: @red !important;
+                }
+              }
+            }
+
+            &.diff-side-added {
+              #mw-diff-otitle1, #mw-diff-ntitle1 {
+                background-color: fade(@green, 30%) !important;
+                box-shadow: none !important;
+
+                strong, strong a {
+                  color: @green !important;
+                }
+              }
+            }
           }
         }
 
-        &.diff-deletedline {
-          border-color: @red !important;
+        tr > td {
+          &.diff-addedline {
+            border-color: @green !important;
 
-          .diffchange {
-            color: @red !important;
-            background-color: fade(@red, 30%) !important;
-            box-shadow: none !important;
+            .diffchange {
+              color: @green !important;
+              background-color: fade(@green, 30%) !important;
+              box-shadow: none !important;
+            }
+          }
+
+          &.diff-deletedline {
+            border-color: @red !important;
+
+            .diffchange {
+              color: @red !important;
+              background-color: fade(@red, 30%) !important;
+              box-shadow: none !important;
+            }
           }
         }
       }
@@ -898,6 +902,96 @@
             &.linenumbers a {
               color: @overlay1 !important;
             }
+
+            &.lines code {
+              color: @text !important;
+
+              /*****************************************************************
+                These definitions come from highlight: http://www.andre-simon.de
+                - std: standard / no recognition
+                - str: string
+                - num: number
+                - slc: single line comment
+                - com: multiline comment
+                - esc: escape character
+                - ppc: preprocessor
+                - pps: preprocessor string
+                - opt: operator
+                - ipl: interpolation
+                - ws:  whitespace
+                - kwX: keyword group X (X: a..z)
+              *****************************************************************/
+
+              // Numerics
+              .num {
+                color: @peach !important;
+              }
+
+              // Escape Codes
+              .esc {
+                color: @pink !important;
+              }
+
+              // Strings
+              .sng {
+                color: @green !important;
+              }
+
+              // Pre-Processor Strings
+              .pps {
+                color: @maroon !important;
+              }
+
+              // All Other Pre-Processor
+              .ppc {
+                color: @teal !important;
+              }
+
+              // Single-Line Comments
+              .slc {
+                color: @overlay2 !important;
+              }
+
+              // All Other Comments
+              .com {
+                color: @overlay2 !important;
+              }
+
+              // Operators
+              .opt {
+                color: @sky !important;
+              }
+
+              // String Interpolation
+              .ipl {
+                color: @blue !important;
+              }
+
+              // Line Numbers
+              .lin {
+                color: @overlay1 !important;
+              }
+
+              // Keyword Group a - Keys?
+              .kwa {
+                color: @text !important;
+              }
+
+              // Keyword Group b - Parameters?
+              .kwb {
+                color: @blue !important;
+              }
+
+              // Keyword Group c - Commands
+              .kwc {
+                color: @mauve !important;
+              }
+
+              // Keyword Group d - Symbols
+              .kwd {
+                color: @maroon !important;
+              }
+            }
           }
         }
 
@@ -1075,96 +1169,6 @@
       .age-months,
       .age-years {
         color: @green !important;
-      }
-
-      code {
-        color: @text !important;
-
-        /*****************************************************************
-          These definitions come from highlight: http://www.andre-simon.de
-          - std: standard / no recognition
-          - str: string
-          - num: number
-          - slc: single line comment
-          - com: multiline comment
-          - esc: escape character
-          - ppc: preprocessor
-          - pps: preprocessor string
-          - opt: operator
-          - ipl: interpolation
-          - ws:  whitespace
-          - kwX: keyword group X (X: a..z)
-        *****************************************************************/
-
-        // Numerics
-        .num {
-          color: @peach !important;
-        }
-
-        // Escape Codes
-        .esc {
-          color: @pink !important;
-        }
-
-        // Strings
-        .sng {
-          color: @green !important;
-        }
-
-        // Pre-Processor Strings
-        .pps {
-          color: @maroon !important;
-        }
-
-        // All Other Pre-Processor
-        .ppc {
-          color: @teal !important;
-        }
-
-        // Single-Line Comments
-        .slc {
-          color: @overlay2 !important;
-        }
-
-        // All Other Comments
-        .com {
-          color: @overlay2 !important;
-        }
-
-        // Operators
-        .opt {
-          color: @sky !important;
-        }
-
-        // String Interpolation
-        .ipl {
-          color: @blue !important;
-        }
-
-        // Line Numbers
-        .lin {
-          color: @overlay1 !important;
-        }
-
-        // Keyword Group a - Keys?
-        .kwa {
-          color: @text !important;
-        }
-
-        // Keyword Group b - Parameters?
-        .kwb {
-          color: @blue !important;
-        }
-
-        // Keyword Group c - Commands
-        .kwc {
-          color: @mauve !important;
-        }
-
-        // Keyword Group d - Symbols
-        .kwd {
-          color: @maroon !important;
-        }
       }
 
       .notes {
