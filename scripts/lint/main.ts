@@ -2,6 +2,7 @@ import { REPO_ROOT } from "@/constants.ts";
 
 import { parseArgs } from "@std/cli";
 import * as path from "@std/path";
+import * as color from "@std/fmt/colors";
 // @ts-types="npm:@types/less";
 import less from "less";
 
@@ -64,4 +65,16 @@ for (const style of stylesheets) {
 if (await checkForMissingFiles() === false) didLintFail = true;
 
 // Cause the workflow to fail if any issues were found.
-if (didLintFail || log.failed) Deno.exit(1);
+
+const THIN_SPACE = "\u2009";
+
+if (didLintFail || log.failed) {
+  if (!args.fix) {
+    console.log(
+      `\n  ${
+        color.bold(color.inverse(color.green(`${THIN_SPACE}TIP${THIN_SPACE}`)))
+      } Run ${color.bold("deno task lint:fix")} to fix autofixable issues.`,
+    );
+  }
+  Deno.exit(1);
+}

@@ -20,10 +20,12 @@ See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting
 > [!NOTE]
 > This theme only changes how the colors appear on the tldraw canvas. Exported graphics **will not be Catppuccin-themed**.
 
-## 💝 Current Maintainers
+## 💝 Current Maintainer
+- [NekoDrone](https://github.com/NekoDrone)
+
+## 💖 Past Maintainers
 - [GenShibe](https://github.com/GenShibe)
 - [uncenter](https://github.com/uncenter)
-
 
 &nbsp;
 
