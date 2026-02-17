@@ -49,7 +49,7 @@
     --product-library-actionable-primary-on-dark-idle-fill: @accent;
     --product-library-actionable-primary-on-dark-on-disabled-tint: @overlay1;
     --product-library-actionable-primary-on-dark-on-hover-tint: #fff;
-    --product-library-actionable-primary-on-dark-on-idle-tint: @subtext0;
+    --product-library-actionable-primary-on-dark-on-idle-tint: @base;
     --product-library-actionable-primary-on-disabled-tint: @subtext0;
     --product-library-actionable-primary-on-hover-tint: #fff;
     --product-library-actionable-primary-on-idle-tint: @base;
@@ -75,7 +75,7 @@
     --product-library-actionable-secondary-idle-tint: @text;
     --product-library-actionable-secondary-on-dark-disabled-fill: #383838;
     --product-library-actionable-secondary-on-dark-hover-fill: @subtext0;
-    --product-library-actionable-secondary-on-dark-idle-fill: #4d4d4d;
+    --product-library-actionable-secondary-on-dark-idle-fill: @surface2;
     --product-library-actionable-secondary-on-dark-idle-tint: @subtext0;
     --product-library-actionable-secondary-on-dark-on-disabled-tint: #737373;
     --product-library-actionable-secondary-on-dark-on-hover-tint: #fff;
@@ -108,8 +108,8 @@
     --product-library-background-raised-secondary: #fafafa;
     --product-library-background-raised-tertiary: #f5f5f5;
     --product-library-border-focus-tint: #b8b8b8;
-    --product-library-border-hover-tint: #ccc;
-    --product-library-border-idle-tint: #e6e6e6;
+    --product-library-border-hover-tint: @overlay0;
+    --product-library-border-idle-tint: @surface2;
     --product-library-display-accent-primary-fill: @accent;
     --product-library-display-accent-primary-tint: @accent;
     --product-library-display-accent-secondary-fill: @surface1;
@@ -121,7 +121,7 @@
     --product-library-display-secondary-idle-tint: @subtext0;
     --product-library-display-secondary-on-dark-tint: #b3b3b3;
     --product-library-display-tertiary-idle-tint: @overlay1;
-    --product-library-divider-primary: @subtext0;
+    --product-library-divider-primary: @surface2;
     --product-library-divider-secondary: @overlay2;
     --product-library-divider-tertiary: @overlay1;
     --product-library-divider-on-dark: @subtext0;
@@ -284,17 +284,21 @@
     --reactist-switch-toggle: @surface0;
 
     .plus_add_button {
-       color: @subtext0 !important;
-       &:hover {
-         svg path {
-           fill: @surface0;
-         }
-       }
+      color: @subtext0 !important;
+
+      &:hover {
+        svg path {
+          fill: @surface0;
+        }
+      }
+
       .icon_add {
         color: @text !important;
+
         svg path {
           fill: @accent;
         }
+
         &:hover {
           color: @surface0 !important;
         }
@@ -365,7 +369,9 @@
       background-color: @crust;
       border-color: none;
     }
-
+    div {
+      --reactist-content-primary: @text !important;
+    }
     .board_task:hover,
     .board_task__details__actions {
       background-image: none !important;
@@ -377,6 +383,34 @@
 
     .board_section__title {
       color: @text;
+    }
+    [filter="url(#upgrade-icon-24_svg__a)"] path {
+      fill: @base !important;
+    }
+  }
+}
+
+@-moz-document url("https://app.todoist.com/auth/login") {
+  :root.theme_dark {
+    #catppuccin(@darkFlavor);
+  }
+
+  :root.theme_todoist {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    [aria-describedby="agreement-footnote"] {
+      // SSO options
+      color: @subtext0 !important;
+    }
+    #todoist_app > div > div > div > div {
+      background-color: @base;
+    }
+    button[type="submit"] {
+      color: @base !important;
     }
   }
 }
