@@ -4,6 +4,7 @@ import catppuccin from "@catppuccin/starlight";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightImageZoom from "starlight-image-zoom";
 import starlightGitHubAlerts from "starlight-github-alerts";
+import starlightSidebarTopics from "starlight-sidebar-topics";
 import mermaid from "astro-mermaid";
 import { remarkHeadingId } from "remark-custom-heading-id";
 
@@ -49,44 +50,56 @@ export default defineConfig({
           codeBackground: "var(--sl-color-gray-6)",
         },
       },
-      sidebar: [
-        {
-          label: "Getting started",
-          autogenerate: { directory: "getting-started" },
-        },
-        {
-          label: "Contributing",
-          collapsed: true,
-          items: [
-            "contributing",
-            "contributing/creating-userstyles",
-            "contributing/userstylesyml",
-            {
-              label: "How can I theme ...?",
-              autogenerate: { directory: "contributing/guides" },
-            },
-            {
-              label: "Tutorials",
-              autogenerate: { directory: "contributing/tutorials" },
-            },
-            {
-              label: "Tips and Tricks",
-              autogenerate: { directory: "contributing/tips-and-tricks" },
-            },
-            "contributing/standard-library",
-            "contributing/library-modules",
-          ],
-        },
-        {
-          label: "Reference",
-          autogenerate: { directory: "reference" },
-        },
-      ],
       plugins: [
         catppuccin(),
         starlightLinksValidator(),
         starlightGitHubAlerts(),
         starlightImageZoom(),
+        starlightSidebarTopics([
+          {
+            label: "Usage",
+            link: "/getting-started/introduction",
+            icon: "star",
+            items: [
+              "getting-started/introduction",
+              "getting-started/usage",
+              "getting-started/faq",
+            ],
+          },
+          {
+            label: "Contributing",
+            link: "/contributing/",
+            icon: "pencil",
+            items: [
+              "contributing",
+              "contributing/creating-userstyles",
+              "contributing/userstylesyml",
+              {
+                label: "How can I theme ...?",
+                autogenerate: { directory: "contributing/guides" },
+              },
+              {
+                label: "Tutorials",
+                autogenerate: { directory: "contributing/tutorials" },
+              },
+              {
+                label: "Tips and Tricks",
+                autogenerate: { directory: "contributing/tips-and-tricks" },
+              },
+              "contributing/standard-library",
+              "contributing/library-modules",
+            ],
+          },
+          {
+            label: "Reference",
+            link: "/reference/",
+            icon: "open-book",
+            items: [{
+              label: "Reference",
+              autogenerate: { directory: "reference" },
+            }],
+          },
+        ]),
       ],
     }),
   ],
