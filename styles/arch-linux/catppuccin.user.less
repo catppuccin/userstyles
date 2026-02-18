@@ -1,0 +1,2420 @@
+/* ==UserStyle==
+@name Arch Linux Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/arch-linux
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/arch-linux
+@version 2025.09.06
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/arch-linux/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aarch-linux
+@description Soothing pastel theme for Arch Linux
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+@import "http://127.0.0.1:8000/catppuccin-styles/userstyles/lib/mediawiki.less";
+
+/// General Mixins
+#mixins {
+  .a() {
+    :not(li.isactive)
+      > a:not(
+        .btn,
+        .btn-primary,
+        .accordion-button,
+        .btn-close,
+        .page-link,
+        .form-control,
+        .form-select,
+        .form-check-input,
+        .form-range
+      ),
+    :not(li.isactive) > a.permalink {
+      color: @blue !important;
+
+      &:hover {
+        color: @sky !important;
+      }
+
+      &:active, &:focus, &:focus-within {
+        color: @sapphire !important;
+      }
+
+      &:visited {
+        color: @lavender !important;
+      }
+
+      &.active {
+        background-color: @surface0 !important;
+      }
+
+      &:link {
+        color: @blue !important;
+
+        &:hover {
+          color: @sky !important;
+        }
+
+        &:active, &:focus, &:focus-within {
+          color: @sapphire !important;
+        }
+
+        &:visited {
+          color: @lavender !important;
+        }
+
+        &.active {
+          background-color: @surface0 !important;
+        }
+      }
+    }
+  }
+
+  .inputs() {
+    a:is(
+      .btn,
+      .btn-primary,
+      .accordion-button,
+      .btn-close,
+      .page-link,
+      .form-control,
+      .form-select,
+      .form-check-input,
+      .form-range
+    ),
+    button,
+    ::file-selector-button,
+    .rbox label,
+    .text-button,
+    input,
+    select,
+    select option,
+    textarea {
+      color: @text !important;
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+
+      &:enabled {
+        color: @text !important;
+        background-color: @surface0 !important;
+        border-color: @surface1 !important;
+      }
+
+      &:hover {
+        background-color: @surface1 !important;
+        border-color: @surface2 !important;
+      }
+
+      &:active, &:focus, &:focus-within {
+        background-color: fade(@accent, 30%) !important;
+      }
+
+      &:checked {
+        background-color: @accent !important;
+        border-color: @overlay0 !important;
+      }
+
+      &:invalid,
+      &:user-invalid {
+        color: @red !important;
+      }
+
+      &:disabled {
+        background-color: @crust !important;
+        color: @mantle !important;
+      }
+
+      &:link,
+      &:link:enabled {
+        color: @blue !important;
+
+        &:hover {
+          color: @sky !important;
+        }
+
+        &:active, &:focus, &:focus-within {
+          color: @sapphire !important;
+        }
+
+        &:visited {
+          color: @lavender !important;
+        }
+      }
+    }
+
+    input[type="radio"] {
+      background-color: @surface0 !important;
+      accent-color: @accent !important;
+    }
+
+    .cdx-button:has(.mw-ui-icon-wikimedia-expand) {
+      color: @text !important;
+      background-color: transparent !important;
+      border-color: transparent !important;
+
+      &:enabled {
+        color: @text !important;
+        background-color: transparent !important;
+        border-color: transparent !important;
+      }
+
+      &:hover {
+        background-color: @surface1 !important;
+      }
+
+      &:active, &:focus, &:focus-within {
+        background-color: @surface2 !important;
+      }
+
+      &:invalid {
+        color: @maroon !important;
+      }
+    }
+
+    .cdx-button .mw-ui-icon-wikimedia-expand {
+      fill: @accent !important;
+
+      &:enabled {
+        fill: @accent !important;
+      }
+
+      &:hover {
+        fill: darken(@accent, 5%) !important;
+      }
+
+      &:active, &:focus, &:focus-within {
+        fill: darken(@accent, 10%) !important;
+      }
+
+      &:disabled {
+        fill: @mantle !important;
+      }
+    }
+
+    .multiselect {
+      color: @accent !important;
+    }
+
+    .checklist {
+      color: @text !important;
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+
+      &:active, &:focus, &:focus-within {
+        border-color: @accent !important;
+      }
+
+      legend {
+        color: @text !important;
+      }
+    }
+
+    .rbox {
+      border-color: @overlay0 !important;
+      border-bottom-width: 2px;
+      border-bottom-style: solid;
+
+      label:last-child {
+        border-bottom-style: none;
+      }
+    }
+  }
+
+  .table() {
+    table:not(
+      .head,
+      .foot,
+      .blob,
+      #header,
+      .tabs,
+      .Nm
+    ) {
+      color: @text !important;
+      background-color: @mantle !important;
+      border-color: @overlay0 !important;
+
+      thead * {
+        background-color: @mantle !important;
+      }
+
+      tr > th {
+        color: @text !important;
+        background-color: @mantle !important;
+        border-color: @overlay0 !important;
+      }
+
+      > tbody > tr, &.head > tbody > tr {
+        border-color: @overlay0 !important;
+
+        > td {
+          border-color: @overlay0 !important;
+        }
+
+        &:nth-child(odd) > td,
+        .rowodd > td {
+          background-color: @surface0 !important;
+        }
+
+        &:nth-child(even) > td,
+        .roweven > td {
+          background-color: @base !important;
+        }
+
+        &:hover,
+        &:hover > td {
+          background-color: @surface2 !important;
+        }
+      }
+    }
+  }
+}
+
+/// Globally Shared Styles
+
+// Everything
+// deno-fmt-ignore
+@-moz-document regexp("^https:\\/\\/(?!gitlab\\.)(.+\\.)*archlinux(?:\\.de|\\.org|\\.jp|cn\\.org)(?:\\/.*)+") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    body, content {
+      color: @text !important;
+      background-color: @base !important;
+    }
+
+    pre, pre code, .codebox, .codebox pre, .codebox code {
+      color: @text !important;
+      background-color: @mantle !important;
+      border-color: @overlay0 !important;
+    }
+
+    code {
+      color: @text !important;
+      background-color: @surface0 !important;
+    }
+
+    label, legend, .spacer {
+      color: @subtext0 !important;
+    }
+
+    h1, h2, h3, h4, h5 {
+      border-color: @overlay1 !important;
+    }
+
+    del,
+    [data-diff-action="remove"],
+    [data-diff-action="change-remove"] {
+      color: @red !important;
+      background-color: fade(@red, 30%) !important;
+      box-shadow: none !important;
+    }
+
+    ins,
+    [data-diff-action="insert"],
+    [data-diff-action="change-insert"] {
+      color: @green !important;
+      background-color: fade(@green, 30%) !important;
+      box-shadow: none !important;
+    }
+
+    img, p {
+      color: @text !important;
+    }
+
+    #footer, .footer {
+      color: @subtext0 !important;
+    }
+
+    .box, .path {
+      background-color: @mantle !important;
+      border-color: @overlay0 !important;
+    }
+
+    #mixins.a();
+
+    em:has(+ .DoNotPrint) {
+      color: @subtext0 !important;
+    }
+
+    #submenu a {
+      background-color: @surface0 !important;
+      border-color: @overlay0 !important;
+
+      &.active {
+        background-color: @mantle !important;
+        border-bottom-color: transparent !important;
+      }
+    }
+
+    #taskdetails {
+      color: @subtext0 !important;
+      background-color: @mantle !important;
+      border-color: @overlay0 !important;
+
+      * {
+        border-color: @overlay1 !important;
+      }
+
+      table > tbody > :is(tr, tr:hover) > td {
+        background-color: @base !important;
+        border-color: @overlay0 !important;
+
+        #taskfields table {
+          > tbody > tr:nth-child(2n + 1) > :is(th, td) {
+            background-color: @surface0 !important;
+          }
+          > tbody > tr:nth-child(2n) > :is(th, td) {
+            background-color: @surface1 !important;
+          }
+
+          #percent + td > img {
+            filter: @peach-filter !important;
+
+            &[src="../themes/ArchLinux/percent-0.png"] {
+              filter: @red-filter !important;
+            }
+
+            &[src="../themes/ArchLinux/percent-100.png"] {
+              filter: @green-filter !important;
+            }
+          }
+        }
+      }
+
+      #taskclosed {
+        background-color: @base !important;
+        border-color: @red !important;
+      }
+    }
+
+    #comments {
+      background-color: @mantle !important;
+      border-color: @overlay0 !important;
+      fieldset {
+        background-color: @surface0 !important;
+        border-color: @overlay0 !important;
+      }
+
+      .comment .commenttext {
+        color: @text !important;
+      }
+    }
+
+    blockquote, .quotebox {
+      color: @text !important;
+      border-color: @accent !important;
+      border-style: none none none solid !important;
+      background-color: @mantle !important;
+
+      * {
+        background-color: @mantle !important;
+      }
+
+      cite {
+        color: @accent !important;
+      }
+
+      // This is necessary to fit style globally.
+      p {
+        margin-left: 10px;
+      }
+
+      &:hover,
+      &:hover * {
+        background-color: @surface1 !important;
+      }
+    }
+
+    #mixins.table();
+
+
+    table {
+      &.arch-bio-entry {
+        td {
+          &.pic img {
+              border-color: @overlay0;
+          }
+
+          h3 {
+            border-color: @overlay1;
+          }
+        }
+
+        > tbody > tr:hover > td {
+          background: @mantle !important;
+        }
+
+        table.bio {
+          th {
+            color: @subtext0;
+            background-color: inherit !important;
+          }
+        }
+      }
+
+      &.diff {
+        tr.diff-title {
+          background-color: @mantle !important;
+
+          td {
+            background-color: @surface0 !important;
+
+            &.diff-side-deleted {
+              #mw-diff-otitle1, #mw-diff-ntitle1 {
+                background-color: fade(@red, 30%) !important;
+                box-shadow: none !important;
+
+                strong, strong a {
+                  color: @red !important;
+                }
+              }
+            }
+
+            &.diff-side-added {
+              #mw-diff-otitle1, #mw-diff-ntitle1 {
+                background-color: fade(@green, 30%) !important;
+                box-shadow: none !important;
+
+                strong, strong a {
+                  color: @green !important;
+                }
+              }
+            }
+          }
+        }
+
+        tr > td {
+          &.diff-addedline {
+            border-color: @green !important;
+
+            .diffchange {
+              color: @green !important;
+              background-color: fade(@green, 30%) !important;
+              box-shadow: none !important;
+            }
+          }
+
+          &.diff-deletedline {
+            border-color: @red !important;
+
+            .diffchange {
+              color: @red !important;
+              background-color: fade(@red, 30%) !important;
+              box-shadow: none !important;
+            }
+          }
+        }
+      }
+    }
+
+    .ve-ui-diffElement-no-changes,
+    .ve-ui-diffElement-attributeChange {
+      color: @subtext0 !important;
+    }
+
+    dl {
+      background-color: inherit !important;
+      border-color: @overlay0 !important;
+
+      dt {
+        color: @text !important;
+      }
+
+      dt, dd {
+        border-color: @overlay0 !important;
+      }
+
+      dd {
+        color: inherit !important;
+
+        &:nth-child(2n) {
+          background-color: @surface0 !important;
+        }
+
+        &:nth-child(4n) {
+          background-color: @base !important;
+        }
+
+        &:hover {
+          background-color: @surface2 !important;
+        }
+      }
+    }
+
+    #mixins.inputs();
+
+    .comments-header,
+    #news {
+      h3 {
+        color: @base !important;
+        background-color: transparent !important;
+        border-color: @overlay1 !important;
+
+        a {
+          color: @base !important;
+          background-color: @accent !important;
+          border-color: @overlay1 !important;
+
+          &:link, &:enabled {
+            color: @base !important;
+            background-color: @accent !important;
+            border-color: @overlay1 !important;
+
+            &:hover {
+              color: darken(@base, 5%) !important;
+            }
+
+            &:active, &:focus, &:focus-within {
+              color: darken(@base, 10%) !important;
+            }
+
+            &:visited {
+              color: @lavender !important;
+            }
+          }
+        }
+
+        span.text {
+          color: @base !important;
+          background-color: @accent !important;
+          border-color: @overlay1 !important;
+        }
+
+        span.arrow {
+          color: transparent !important;
+          background-color: transparent !important;
+          border-color: @accent transparent transparent transparent !important;
+        }
+      }
+
+      h4 {
+        color: @accent !important;
+
+        a {
+          color: @accent !important;
+
+          &:link, &:enabled {
+            color: @accent !important;
+
+            &:hover {
+              color: darken(@accent, 5%) !important;
+            }
+
+            &:active,
+            &:focus, &:focus-within {
+              color: darken(@accent, 10%) !important;
+            }
+
+            &:visited {
+              color: @lavender !important;
+            }
+          }
+        }
+      }
+    }
+
+    a.rss-icon, a.rss-icon img {
+      filter: @peach-filter !important;
+
+      &:link, &:enabled {
+        filter: @peach-filter !important;
+      }
+    }
+
+    @supports ((-webkit-mask-image:none) or (mask-image:none))
+    {
+      .mw-protection-indicator-icon--lock {
+        background-color: @text !important;
+
+        &:hover {
+          background-color: @accent !important;
+        }
+
+        &:active, &:focus, &:focus-within {
+          background-color: darken(@accent, 5%) !important;
+        }
+
+        &:disabled {
+          background-color: @mantle !important;
+        }
+      }
+    }
+
+    @supports not ((-webkit-mask-image:none) or (mask-image:none))
+    {
+      .mw-protection-indicator-icon--lock {
+        filter: @text-filter !important;
+
+        &:hover {
+          filter: @accent-filter !important;
+        }
+
+        &:active, &:focus, &:focus-within {
+          filter: @accent-filter !important;
+        }
+
+        &:disabled {
+          filter: @mantle-filter !important;
+        }
+      }
+    }
+
+    // Dividers
+    hr {
+      color: @overlay1 !important;
+    }
+
+    // Unknown
+    .purple {
+      color: @mauve !important;
+    }
+
+    // Low
+    .green {
+      color: @green !important;
+    }
+
+    // Medium
+    .light_orange {
+      color: @yellow !important;
+    }
+
+    // High
+    .orange {
+      color: @peach !important;
+    }
+
+    // Vulnerable
+    .red {
+      color: @red !important;
+    }
+
+    .timestamp {
+      color: @lavender !important;
+    }
+
+    // Error/Error List/Flagged (Out-Of-Date)
+    .error,
+    .errorlist,
+    .flagged,
+    .flagged a {
+      color: @red !important;
+    }
+
+    #archnavbar {
+      background-color: @mantle !important;
+      border-bottom-color: @accent !important;
+
+      #logo, &logo {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" version="1" width="600" height="126" viewBox="0 0 600 126"><path d="M159.568 34.427c-8.89-.014-16.267 1.809-19.12 2.803l-2.937 15.857c-.007.058 14.617-3.9 21.059-3.667 10.665.383 11.646 4.076 11.46 9.06.182.292-2.752-4.503-11.979-4.664-11.64-.2-28.069 4.122-28.046 21.692-.314 19.765 14.764 25.579 25.032 25.686 9.232-.168 13.563-3.496 15.934-5.28 3.115-3.257 6.679-6.532 10.078-10.462-3.216 5.844-6.005 9.884-8.907 12.977v2.611l14.033-2.361.096-38.144c-.143-5.399 3.096-26.057-26.703-26.108m-2.016 33.21c5.817.08 12.488 2.948 12.497 9.849.03 6.277-7.863 9.651-12.996 9.598-5.135-.053-11.949-4.036-11.979-10.155.099-5.47 6.426-9.432 12.478-9.291zm37.972-29.685-.095 63.166 16.348-3.15.027-35.814c.004-5.333 7.62-11.564 17.178-11.464 2.028-3.67 5.84-13.05 6.77-15.183-21.351-.051-21.623 6.137-25.336 9.18-.04-5.806-.013-9.292-.013-9.292zm92.002 8.292c-.158-.074-8.526-9.788-25.35-9.864-15.758-.262-33.433 5.847-33.716 32.27.138 23.232 16.979 32.311 33.805 32.488 18.007.187 25.172-11.26 25.602-11.543-2.149-1.863-10.196-9.837-10.196-9.837s-5.027 7.157-14.779 7.248c-9.755.093-18.234-7.54-18.354-18.189-.125-10.65 7.795-16.419 18.427-16.885 9.205-.002 14.516 5.943 14.516 5.943zm20.606-30.399-15.434 3.628.115 82.277 15.204-2.745.172-38.72c.033-4.06 5.874-10.295 15.626-10.097 9.325.097 11.41 6.215 11.384 6.988l.269 44.824 14.993-2.65.057-47.53c.099-4.574-10.018-14.233-26.28-14.302-7.729.012-12.009 1.762-14.187 3.052-3.726 2.879-7.985 5.637-12.17 9.157 3.869-4.97 7.117-8.407 10.29-10.961z" fill="@{text}" fill-rule="evenodd"/><path d="m360.136 17.218 6.962-1.742.33 82.95-7.074 1.204zm18.928 24.757 6.101-2.716.052 59.478-5.892 1.217zm-1.45-21.448 4.92-4.015 4.086 4.547-4.921 4.121zm19.024 20.365 6.962-1.421.033 12.434c.001.534 3.823-13.89 22.258-13.57 17.9.1 20.827 13.957 20.73 17.064l.221 43.725-6.102 1.324-.035-43.189c.07-1.261-2.79-11.927-15.439-11.966-12.646-.037-21.409 9.186-21.393 15.078l.1 38.047-7.07 1.847zm110.954 58.546-6.962 1.42-.033-12.433c-.001-.534-3.825 13.89-22.258 13.57-17.9-.1-20.827-13.957-20.73-17.064l-.221-43.725 7.397-1.494.114 43.19c.003 1.18 1.416 12.096 14.065 12.135 12.646.037 21.506-7.616 21.569-19.139l-.09-34.076 6.885-1.757zm13.645-59.037-4.882 3.82 18.717 24.494-19.963 28.3 5.179 3.843 18.766-26.28 19.368 26.902 4.791-3.82-20.757-28.765 16.56-23.262-5.092-4.305-15.085 21.525zM61.88 1.778c-5.385 13.203-8.633 21.839-14.629 34.649 3.676 3.896 8.188 8.434 15.516 13.559-7.878-3.242-13.252-6.497-17.267-9.874-7.673 16.011-19.695 38.818-44.09 82.65 19.174-11.068 34.037-17.893 47.889-20.497a35 35 0 0 1-.91-8.213l.023-.614c.304-12.284 6.694-21.73 14.264-21.09 7.57.642 13.454 11.126 13.15 23.41-.058 2.312-.319 4.536-.774 6.598 13.701 2.68 28.405 9.487 47.32 20.407-3.73-6.866-7.059-13.056-10.238-18.95-5.007-3.882-10.23-8.933-20.884-14.402 7.323 1.903 12.566 4.099 16.653 6.552C75.58 35.786 72.963 27.79 61.88 1.778" fill="@{accent}" fill-rule="evenodd"/><path d="M576.771 93.265V80.603h-4.73v-1.695h11.38v1.695h-4.75v12.662zm8.629 0V78.908h2.859l3.398 10.166q.47 1.42.686 2.125.245-.784.764-2.301l3.437-9.99h2.556v14.357h-1.831V81.25l-4.172 12.016h-1.714l-4.152-12.222v12.222h-1.832" font-weight="400" font-size="8.441" font-family="DejaVu Sans Mono" fill="@{subtext0}"/></svg>'
+        );
+        background-image: url("data:image/svg+xml, @{svg}") !important;
+        // Required for AUR, which uses custom PNG which breaks this setting.
+        background-size: 190px 40px !important;
+      }
+
+      ul#archnavbarlist li {
+        a, a:link {
+          color: @text !important;
+
+          &:hover {
+            color: @sky !important;
+          }
+
+          &:active, &:focus, &:focus-within {
+            color: @sapphire !important;
+          }
+
+          &:visited {
+            color: @lavender !important;
+          }
+        }
+
+        &.anb-selected a {
+          color: @accent !important;
+        }
+      }
+
+      &.anb-home ul li#anb-home a {
+        color: @accent !important;
+      }
+    }
+
+    #archdev-navbar ul li {
+      a, a:link {
+        color: @text !important;
+
+        &:hover {
+          color: @sky !important;
+        }
+
+        &:active, &:focus, &:focus-within {
+          color: @sapphire !important;
+        }
+
+        &:visited {
+          color: @lavender !important;
+        }
+      }
+    }
+  }
+}
+
+// Home, and Both Package Repositories
+@-moz-document url("https://archlinux.org/"),
+  url-prefix("https://archlinux.org/packages"),
+  domain("aur.archlinux.org") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    #pkgdetails {
+      h2 {
+        border-color: @overlay1 !important;
+      }
+
+      #pkginfo,
+      #pkginfo * {
+        background-color: @mantle !important;
+        border-color: @overlay0 !important;
+      }
+
+      #detailslinks > div {
+        background-color: @surface0 !important;
+        border-color: @overlay0 !important;
+      }
+
+      #metadata {
+        h3 {
+          color: @text !important;
+          background-color: @surface0 !important;
+        }
+
+        #pkgfilelist {
+          ul > li {
+            &.d {
+              color: @subtext0 !important;
+            }
+
+            &.f {
+              color: @text !important;
+            }
+          }
+        }
+      }
+    }
+
+    .delete-comment,
+    .undelete-comment,
+    .edit-comment,
+    .pin-comment {
+      background-color: inherit !important;
+      filter: @text-filter !important;
+
+      &:hover {
+        background-color: inherit !important;
+        filter: @accent-filter !important;
+      }
+    }
+
+    .comment-header, .comment-header .edited {
+      color: @subtext0 !important;
+    }
+
+    .widget:is(
+      #intro,
+      #pkg-updates
+    ) {
+      background-color: @mantle !important;
+      border-width: 1px !important;
+      border-style: solid !important;
+      border-color: @overlay0 !important;
+    }
+
+    #pkgsearch.widget {
+      background-color: @accent !important;
+      border-color: @overlay0 !important;
+
+      label {
+        color: @base !important;
+      }
+
+      .pkgsearch-typeahead {
+        color: @text !important;
+        background-color: @surface0 !important;
+        border-color: @surface1 !important;
+      }
+    }
+
+    // Big syntax highlighting block! Powered by cgit and highlight.js.
+    #cgit {
+      code,
+      pre {
+        background-color: @mantle !important;
+        border-color: @overlay0 !important;
+      }
+
+      .content {
+        border-color: @overlay0 !important;
+      }
+
+      .path {
+        color: @text !important;
+        background-color: @mantle !important;
+      }
+
+      #mixins.table();
+
+      table {
+        &.blob {
+          background-color: @mantle !important;
+          border-color: @overlay0 !important;
+
+          tr,
+          tr > td {
+            background-color: @mantle !important;
+            border-color: @overlay0 !important;
+
+            &:hover {
+              background-color: @mantle !important;
+            }
+
+            &.linenumbers,
+            &.linenumbers a {
+              color: @overlay1 !important;
+            }
+
+            &.lines code {
+              color: @text !important;
+
+              /*****************************************************************
+                These definitions come from highlight: http://www.andre-simon.de
+                - std: standard / no recognition
+                - str: string
+                - num: number
+                - slc: single line comment
+                - com: multiline comment
+                - esc: escape character
+                - ppc: preprocessor
+                - pps: preprocessor string
+                - opt: operator
+                - ipl: interpolation
+                - ws:  whitespace
+                - kwX: keyword group X (X: a..z)
+              *****************************************************************/
+
+              // Numerics
+              .num {
+                color: @peach !important;
+              }
+
+              // Escape Codes
+              .esc {
+                color: @pink !important;
+              }
+
+              // Strings
+              .sng {
+                color: @green !important;
+              }
+
+              // Pre-Processor Strings
+              .pps {
+                color: @maroon !important;
+              }
+
+              // All Other Pre-Processor
+              .ppc {
+                color: @teal !important;
+              }
+
+              // Single-Line Comments
+              .slc {
+                color: @overlay2 !important;
+              }
+
+              // All Other Comments
+              .com {
+                color: @overlay2 !important;
+              }
+
+              // Operators
+              .opt {
+                color: @sky !important;
+              }
+
+              // String Interpolation
+              .ipl {
+                color: @blue !important;
+              }
+
+              // Line Numbers
+              .lin {
+                color: @overlay1 !important;
+              }
+
+              // Keyword Group a - Keys?
+              .kwa {
+                color: @text !important;
+              }
+
+              // Keyword Group b - Parameters?
+              .kwb {
+                color: @blue !important;
+              }
+
+              // Keyword Group c - Commands
+              .kwc {
+                color: @mauve !important;
+              }
+
+              // Keyword Group d - Symbols
+              .kwd {
+                color: @maroon !important;
+              }
+            }
+          }
+        }
+
+        &#header {
+          tr,
+          tr > td {
+            background-color: @base !important;
+            border-color: @overlay0 !important;
+
+            &:hover {
+              background-color: @base !important;
+            }
+
+            &.sub {
+              color: @subtext0 !important;
+            }
+          }
+        }
+
+        &.tabs {
+          border-color: @blue !important;
+
+          tr > td {
+            background-color: @surface0 !important;
+
+            &:hover {
+              background: @surface0 !important;
+            }
+          }
+
+          .active {
+            color: @base !important;
+            background-color: @blue !important;
+          }
+        }
+
+        &.hgraph,
+        &.vgraph {
+          background-color: @mantle !important;
+        }
+
+        &.diff {
+          background-color: @mantle !important;
+
+          &:hover {
+            background-color: @mantle !important;
+          }
+
+          tr,
+          tr > td {
+            background-color: @mantle !important;
+
+            &:hover {
+              background-color: @mantle !important;
+            }
+          }
+
+          tr > td {
+            a {
+              text-decoration: underline !important;
+            }
+
+            .ctx {
+              color: @text !important;
+            }
+
+            .head {
+              color: @blue !important;
+            }
+
+            .hunk {
+              color: @peach !important;
+            }
+
+            .add {
+              color: @green !important;
+            }
+
+            .del {
+              color: @red !important;
+            }
+          }
+        }
+
+        &.ssdiff {
+          a {
+            text-decoration: underline !important;
+          }
+
+          .space {
+            background-color: @base !important;
+          }
+
+          .lineno {
+            color: @overlay1 !important;
+          }
+
+          .ctx {
+            color: @text !important;
+          }
+
+          .head {
+            color: @blue !important;
+          }
+
+          .hunk {
+            color: @peach !important;
+          }
+
+          .changed {
+            background-color: fade(@blue, 30%) !important;
+            color: @blue !important;
+          }
+
+          .add {
+            background-color: fade(@green, 30%) !important;
+            color: @green !important;
+          }
+
+          .del {
+            background-color: fade(@red, 30%) !important;
+            color: @red !important;
+          }
+        }
+
+        &.diffstat {
+          background-color: @mantle !important;
+
+          td {
+            &.mode {
+              color: @red !important;
+            }
+
+            &.right {
+              color: @peach !important;
+            }
+
+            &.upd {
+              color: @teal !important;
+            }
+          }
+
+          td.graph td {
+            &.add {
+              background-color: fade(@green, 30%) !important;
+            }
+
+            &.upd {
+              background-color: fade(@blue, 30%) !important;
+            }
+
+            &.rem {
+              background-color: fade(@red, 30%) !important;
+            }
+          }
+        }
+      }
+
+      .cgit-panel table {
+        background-color: @mantle !important;
+      }
+
+      .edited {
+        color: @subtext0 !important;
+      }
+
+      .stats tr > td.sum {
+        color: @red !important;
+      }
+
+      .age-mins,
+      .age-hours,
+      .age-days,
+      .age-weeks,
+      .age-months,
+      .age-years {
+        color: @green !important;
+      }
+
+      .notes {
+        color: @subtext0 !important;
+        background-color: @surface0 !important;
+      }
+    }
+  }
+}
+
+/// Arch Official Repository
+@-moz-document url-prefix("https://archlinux.org/packages") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    #archnavbar ul#archnavbarlist li#anb-packages a {
+      color: @accent !important;
+    }
+  }
+}
+
+/// Arch User Repository
+@-moz-document domain("aur.archlinux.org") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    #archnavbar ul#archnavbarlist li#anb-aur a {
+      color: @accent !important;
+    }
+  }
+}
+
+// AUR: Dashboard
+@-moz-document url("https://aur.archlinux.org/") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    #archdev-navbar ul li {
+      a[href="/"] {
+        color: @accent !important;
+      }
+    }
+  }
+}
+
+// AUR: Login
+@-moz-document url-prefix("https://aur.archlinux.org/login") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    #archdev-navbar ul li {
+      a[href="/login?next=/"] {
+        color: @accent !important;
+      }
+    }
+  }
+}
+
+// AUR: Packages
+@-moz-document url-prefix("https://aur.archlinux.org/packages") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    #archdev-navbar ul li {
+      a[href="/packages"] {
+        color: @accent !important;
+      }
+    }
+  }
+}
+
+// AUR: Register
+@-moz-document url-prefix("https://aur.archlinux.org/register") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    #archdev-navbar ul li {
+      a[href="/register"] {
+        color: @accent !important;
+      }
+    }
+  }
+}
+
+// AUR: Requests
+@-moz-document url-prefix("https://aur.archlinux.org/requests") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    #archdev-navbar ul li {
+      a[href="/requests"] {
+        color: @accent !important;
+      }
+    }
+  }
+}
+
+// AUR: My Account
+// deno-fmt-ignore
+@-moz-document regexp("https:\\/\\/aur\\.archlinux\\.org\\/accounts\\/.*\\/edit(?:\\/.*)?") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    #archdev-navbar ul li {
+      a[href="/packages"] {
+        color: @accent !important;
+      }
+    }
+  }
+}
+
+/// Arch Security
+@-moz-document url-prefix("https://security.archlinux.org/") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    #archnavbar ul li#anb-security a {
+      color: @accent !important;
+    }
+
+    .navbar ul li {
+      a[href="/"], b {
+        color: @accent !important;
+      }
+    }
+  }
+}
+
+/// Arch BBS Forums
+@-moz-document domain("bbs.archlinux.org") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    .pun .postmsg,
+    #punhelp code,
+    #punhelp samp {
+      color: @text !important;
+    }
+
+    .pun {
+      color: @text !important;
+      background-color: @mantle !important;
+      border-color: @overlay0 !important;
+
+      body,
+      content {
+        color: @text !important;
+        background-color: @base !important;
+      }
+
+      code,
+      pre,
+      .codebox {
+        background-color: @mantle !important;
+        border-color: @overlay0 !important;
+      }
+
+      code {
+        color: @text !important;
+      }
+
+      label,
+      legend,
+      .spacer {
+        color: @subtext0 !important;
+      }
+
+      img {
+        color: @text !important;
+      }
+
+      ins {
+        color: @base !important;
+        background-color: @yellow !important;
+      }
+
+      .box {
+        background-color: @mantle !important;
+        border-color: @overlay0 !important;
+      }
+
+      .punwrap {
+        background-color: @base !important;
+        border-color: @overlay0 !important;
+      }
+
+      #mixins.a();
+      #mixins.inputs();
+
+      h2 {
+        color: @text !important;
+        background-color: inherit !important;
+      }
+
+      #quickpost {
+        .inform fieldset legend {
+          color: @mantle !important;
+        }
+      }
+
+      .infldset {
+        background-color: @base !important;
+        border-color: @overlay0 !important;
+      }
+
+      .timestamp {
+        color: @lavender !important;
+      }
+
+      // Thread Tags: Sticky
+      #vf td.tcl span.stickytext {
+        color: @yellow !important;
+      }
+
+      // Thread Tags: Closed
+      #vf td.tcl span.closedtext {
+        color: @maroon !important;
+      }
+
+      // Forum Navigation Header
+      .crumbs li * {
+        color: @mauve !important;
+      }
+
+      // Thread Square
+      .icon {
+        filter: @accent-filter !important;
+      }
+
+      .pagelink.conl {
+        color: @subtext0 !important;
+
+        a,
+        .spacer {
+          border-color: transparent !important;
+
+          strong {
+            color: @accent !important;
+          }
+        }
+      }
+
+      fieldset p {
+        color: @subtext0 !important;
+      }
+
+      .usercontent {
+        color: @text !important;
+      }
+
+      #brdmenu {
+        background-color: @base !important;
+
+        ul > li {
+          > a {
+            background-color: @base !important;
+            border-color: transparent !important;
+          }
+
+          &.isactive > a {
+            background-color: @accent !important;
+            color: @base !important;
+          }
+        }
+      }
+
+      #brdfooternav {
+        background-color: @base !important;
+      }
+
+      #brdstats {
+        color: @text !important;
+        border-top-color: @overlay1 !important;
+
+        dl,
+        dl dt,
+        dl dd {
+          color: @text !important;
+          background-color: @base !important;
+        }
+
+        .box {
+          background-color: @base !important;
+        }
+      }
+
+      #brdwelcome {
+        color: @subtext0 !important;
+        background-color: @base !important;
+
+        strong {
+          color: @text !important;
+        }
+      }
+
+      #brdmain {
+        border-color: @overlay1 !important;
+
+        #mixins.a();
+
+        ul li {
+          border-color: @overlay1 !important;
+
+          a,
+          a.permalink {
+            &:link,
+            &:enabled {
+              color: @blue !important;
+              background-color: @surface0 !important;
+
+              &:hover {
+                color: @sky !important;
+                background-color: @surface1 !important;
+              }
+
+              &:active, &:focus, &:focus-within {
+                color: @base !important;
+                background-color: @accent !important;
+              }
+
+              &:visited {
+                color: @lavender !important;
+              }
+
+              &.active {
+                color: @base !important;
+                background-color: @accent !important;
+              }
+            }
+          }
+
+          &.isactive a,
+          &.isactive a.permalink {
+            background-color: @accent !important;
+            color: @base !important;
+
+            &:link,
+            &:enabled,
+            &.active {
+              color: @base !important;
+              background-color: @accent !important;
+
+              &:hover {
+                background-color: darken(@accent, 5%) !important;
+              }
+
+              &:active, &:focus, &:focus-within {
+                background-color: darken(@accent, 10%) !important;
+              }
+            }
+          }
+        }
+
+        .postlink.conr {
+          color: @lavender !important;
+        }
+
+        .postmsg {
+          color: @text !important;
+        }
+
+        .blocktable {
+          th {
+            color: @text !important;
+            background-color: @mantle !important;
+          }
+        }
+
+        fieldset p {
+          color: @subtext0 !important;
+        }
+
+        #users1 h2 {
+          color: @text !important;
+          background-color: @base !important;
+          border-color: @overlay1 !important;
+        }
+
+        .pagelink {
+          * {
+            border-color: @overlay0 !important;
+          }
+
+          .pages-label {
+            color: @subtext0 !important;
+          }
+
+          .spacer {
+            color: @subtext0 !important;
+          }
+
+          strong {
+            color: @accent !important;
+          }
+        }
+
+        .blockpost {
+          color: @text !important;
+          background-color: @base !important;
+          border-color: @overlay0 !important;
+
+          dl,
+          dl dt,
+          dl dd {
+            color: @text !important;
+            background-color: @base !important;
+          }
+
+          .box {
+            background-color: @base !important;
+          }
+
+          h2,
+          .postleft dt,
+          h2 .conr {
+            color: @subtext0 !important;
+            background-color: @mantle !important;
+            border-color: @overlay1 !important;
+
+            #mixins.a();
+
+            a {
+              background-color: @mantle !important;
+            }
+          }
+
+          .postedit,
+          .postleft dd :not(strong) {
+            color: @subtext0 !important;
+          }
+
+          .postbody,
+          .postfoot.clearb {
+            background-color: @base !important;
+            border-color: transparent !important;
+
+            .postfootleft,
+            .postfootright {
+              color: @lavender !important;
+              border-top-color: @overlay0 !important;
+            }
+          }
+
+          .postsignature {
+            // define default signature colour as subtle.
+            // DON'T OVERWRITE SPECIFIC STYLES.
+            * {
+              color: @subtext0;
+            }
+
+            hr {
+              background-color: @overlay1 !important;
+            }
+          }
+        }
+
+        blockquote,
+        .quotebox {
+          color: @text !important;
+          border-color: @accent !important;
+          border-style: none none none solid !important;
+          background-color: @mantle !important;
+
+          * {
+            background-color: @mantle !important;
+          }
+
+          cite {
+            color: @accent !important;
+          }
+
+          // This is necessary to fit style globally.
+          p {
+            margin-left: 10px;
+          }
+
+          &:hover,
+          &:hover * {
+            background-color: @surface1 !important;
+          }
+        }
+
+        // BBCode - styled according to "escpape sequences", as that is roughly what it is.
+        .bbu {
+          color: @pink !important;
+        }
+
+        .blockform {
+          color: @text !important;
+          border-color: @overlay1 !important;
+        }
+      }
+    }
+  }
+}
+
+/// Arch Wiki
+// deno-fmt-ignore
+@-moz-document regexp("^https:\\/\\/wiki\\.archlinux(?:\\.de|\\.org|\\.jp|cn\\.org)(?:\\/.*)+") {
+  :root.skin-theme-clientpref-os,
+  .vector-feature-night-mode-enabled,
+  .skin-invert,
+  .notheme {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  :root.skin-theme-clientpref-night {
+    #catppuccin(@darkFlavor);
+  }
+
+  :root.skin-theme-clientpref-day {
+    #catppuccin(@lightFlavor);
+  }
+
+  #__mediawiki.reset();
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    #__mediawiki.base();
+
+    dl dd:nth-child(n) {
+      background-color: @base !important;
+
+      &:hover {
+        background-color: @base !important;
+      }
+    }
+
+    h1, h2, h3, h4, h5 {
+      &::before {
+        color: @peach !important;
+      }
+    }
+
+    /// Arch-Wiki Specific Variables
+
+    // Defaults
+    --archwiki-background-color-base: @crust !important;
+    --archwiki-body-background-color: @mantle !important;
+    --archwiki-text-color: @text !important;
+    --archwiki-content-background-color: @base !important;
+    --archwiki-content-border-color: @overlay0 !important;
+    --archwiki-code-background-color: @mantle !important;
+    --archwiki-code-border-color: @surface2 !important;
+    --archwiki-link-color-normal: @blue !important;
+    --archwiki-link-color-hover: @sky !important;
+    --archwiki-link-color-active: @sapphire !important;
+    --archwiki-link-color-visited: @lavender !important;
+    --archwiki-link-color-new: @maroon !important;
+
+    // Table of Contents - These do not work on V2022.
+    /*
+     * --archwiki-toc-background-color: inherit !important;
+     * --archwiki-toc-border-color: var(--archwiki-toc-background-color) !important;
+     */
+
+    // Template Boxes (used for notes, warnings, tips and highlighted messages.)
+    --archwiki-template-note-background-color: @surface0 !important;
+    --archwiki-template-note-border-color: @peach !important;
+    --archwiki-template-warning-background-color: @surface0 !important;
+    --archwiki-template-warning-border-color: @red !important;
+    --archwiki-template-tip-background-color: @surface0 !important;
+    --archwiki-template-tip-border-color: @teal !important;
+
+    // Navigation Bar (bottom of page, links to other articles within the group)
+    --archwiki-template-navigation-background-color: @mantle !important;
+    --archwiki-template-navigation-border-color: @overlay0 !important;
+
+    // Editor-Specific Meta-related Notes
+    --archwiki-template-highlight-background-color: @surface0 !important;
+    --archwiki-template-highlight-border-color: @yellow !important;
+
+    // All Other Meta-related Messages
+    --archwiki-template-message-background-color: @surface0 !important;
+    --archwiki-template-message-border-color: @blue !important;
+
+    // Progress Bar
+    --archwiki-template-progressbar-background-color: @mantle !important;
+    --archwiki-template-progressbar-border-color: @surface0 !important;
+    --archwiki-template-progressbar-inner-background-color: @accent !important;
+
+    .archwiki-template-progressbar {
+      color: @base !important;
+      border-width: 1px;
+    }
+
+    // Tables
+    --archwiki-table-cell-background-red: fade(@red, 30%) !important;
+    --archwiki-table-cell-background-orange: fade(@peach, 30%) !important;
+    --archwiki-table-cell-background-yellow: fade(@yellow, 30%) !important;
+    --archwiki-table-cell-background-green: fade(@green, 30%) !important;
+    --archwiki-table-cell-background-blue: fade(@blue, 30%) !important;
+    --archwiki-table-cell-background-violet: fade(@mauve, 30%) !important;
+    --archwiki-table-cell-background-grey: fade(@surface2, 30%) !important;
+
+    // Related Articles
+    .archwiki-template-meta-related-articles {
+      background-color: @surface0 !important;
+
+      > p {
+        background-color: @mantle !important;
+        border-bottom-color: @blue !important;
+        color: @text !important;
+      }
+    }
+
+    .mw-body-content a.external {
+      &[href^="http://wiki.archlinux.org"], &[href^="https://wiki.archlinux.org"] {
+        background: none !important;
+      }
+    }
+
+    .mw-parser-output a.extiw {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="@{accent}" d="M5.002 1.01h7v7l-2-2-3 2v-1l3-2.25 1 1V2.01h-3.75l1 1-2.25 3h-1l2-3z"/><path fill="@{accent}" d="M7.002 3.01h-5v8h8v-5h-1v4h-6v-6h4z"/><path fill="@{accent}" d="M4.082 5.51c0-.621.621-.621.621-.621q2.796.932 3.728 3.728s0 .621-.62.621C6.566 7.374 5.945 6.753 4.081 5.51z"/></svg>'
+      );
+      background-image: url("data:image/svg+xml,@{svg}");
+    }
+
+    img.mw-file-element {
+      &[src$="Tango-view-fullscreen.svg"] {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48"><defs><linearGradient id="d"><stop offset="0" stop-color="@{base}" stop-opacity="1"/><stop offset="1" stop-color="@{base}" stop-opacity="0"/></linearGradient><linearGradient id="a"><stop offset="0" stop-color="@{base}" stop-opacity="0"/><stop offset=".5" stop-color="@{base}" stop-opacity="1"/><stop offset="1" stop-color="@{base}" stop-opacity="0"/></linearGradient><linearGradient xlink:href="#a" id="e" gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.77439 0 0 1.9697 -1892.179 -872.885)" x1="302.857" y1="366.648" x2="302.857" y2="609.505"/><linearGradient id="c"><stop offset="0" stop-color="@{accent}" stop-opacity="1"/><stop offset="1" stop-color="@{accent}" stop-opacity="0"/></linearGradient><linearGradient id="b"><stop offset="0" stop-color="@{surface0}" stop-opacity="1"/><stop offset="1" stop-color="@{surface0}" stop-opacity="1"/></linearGradient><linearGradient xlink:href="#b" id="h" gradientUnits="userSpaceOnUse" x1="22.625" y1="7.71" x2="22.625" y2="40.5" gradientTransform="translate(-.035 -.53)scale(1.01177)"/><linearGradient xlink:href="#c" id="i" x1="12.364" y1="11.394" x2="18.227" y2="17.581" gradientUnits="userSpaceOnUse"/><linearGradient xlink:href="#c" id="j" gradientUnits="userSpaceOnUse" x1="12.364" y1="11.394" x2="18.227" y2="17.581" gradientTransform="matrix(-1 0 0 1 49 0)"/><linearGradient xlink:href="#c" id="k" gradientUnits="userSpaceOnUse" x1="12.364" y1="11.394" x2="18.227" y2="17.581" gradientTransform="matrix(1 0 0 -1 0 47.031)"/><linearGradient xlink:href="#c" id="l" gradientUnits="userSpaceOnUse" gradientTransform="rotate(180 24.5 23.515)" x1="12.364" y1="11.394" x2="18.227" y2="17.581"/><radialGradient xlink:href="#d" id="g" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-2.77439 0 0 1.9697 112.762 -872.885)" cx="605.714" cy="486.648" fx="605.714" fy="486.648" r="117.143"/><radialGradient xlink:href="#d" id="f" gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.77439 0 0 1.9697 -1891.633 -872.885)" cx="605.714" cy="486.648" fx="605.714" fy="486.648" r="117.143"/></defs><g display="inline"><path style="marker:none" d="M-1559.252-150.697h1339.633V327.66h-1339.633z" transform="matrix(.02313 0 0 .01486 44.967 42.796)" opacity=".40206185" color="@{base}" fill="url(#e)" fill-opacity="1" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="miter" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="4" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/><path d="M-219.619-150.68v478.33c142.874.9 345.4-107.17 345.4-239.196S-33.655-150.68-219.619-150.68" style="marker:none" transform="matrix(.02313 0 0 .01486 44.967 42.796)" opacity=".40206185" color="@{base}" fill="url(#f)" fill-opacity="1" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="miter" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="4" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/><path style="marker:none" d="M-1559.252-150.68v478.33c-142.875.9-345.4-107.17-345.4-239.196s159.436-239.134 345.4-239.134" transform="matrix(.02313 0 0 .01486 44.967 42.796)" opacity=".40206185" color="@{base}" fill="url(#g)" fill-opacity="1" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="miter" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="4" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/></g><rect style="marker:none" width="41.988" height="41.988" x="3.506" y="2.506" rx="1.875" ry="1.875" opacity="1" color="@{base}" fill="url(#h)" fill-opacity="1" fill-rule="evenodd" stroke="@{overlay0}" stroke-width="1.00000024" stroke-linecap="round" stroke-linejoin="round" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="4" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/><path style="marker:none" d="M5.375 3.531a.82.82 0 0 0-.844.844v38.25c0 .484.36.844.844.844h37.75c.484 0 .844-.36.844-.844V4.375a.82.82 0 0 0-.844-.844z" opacity="1" color="@{base}" fill="none" fill-opacity="1" fill-rule="evenodd" stroke="@{surface0}" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="4" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/><path style="marker:none" d="M6 5v13l4.031-4.031 8 8.062L23 17l-8-8 4-4z" opacity="1" color="@{base}" fill="url(#i)" fill-opacity="1" fill-rule="evenodd" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="4" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/><path d="M43 5v13l-4.031-4.031-8 8.062L26 17l8-8-4-4z" style="marker:none" opacity="1" color="@{base}" fill="url(#j)" fill-opacity="1" fill-rule="evenodd" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="4" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/><path d="M6 42.031v-13l4.031 4.032 8-8.063L23 30.031l-8 8 4 4z" style="marker:none" opacity="1" color="@{base}" fill="url(#k)" fill-opacity="1" fill-rule="evenodd" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="4" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/><path style="marker:none" d="M43 42.031v-13l-4.031 4.032-8-8.063L26 30.031l8 8-4 4z" opacity="1" color="@{base}" fill="url(#l)" fill-opacity="1" fill-rule="evenodd" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="4" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+        filter: none !important;
+      }
+
+      &[src="/images/0/0b/Inaccurate.svg"] {
+        @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="48" height="48"><radialGradient id="a" cx="-333.08" cy="-17.604" r="9.688" gradientTransform="matrix(2.1829 0 0 -.7675 751.372 27.871)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="@{base}"/><stop offset="1" stop-opacity="0" stop-color="@{base}"/></radialGradient><path fill="url(#a)" d="M45.436 41.383c0 4.105-9.469 7.436-21.147 7.436-11.679 0-21.147-3.33-21.147-7.436 0-4.107 9.468-7.436 21.147-7.436s21.147 3.328 21.147 7.436" opacity=".409"/><path fill="@{peach}" stroke="@{surface0}" stroke-linecap="round" stroke-linejoin="round" stroke-width=".982" d="M45.088 21.404c0 11.482-9.308 20.79-20.79 20.79S3.507 32.886 3.507 21.404h0c0-11.482 9.308-20.79 20.791-20.79 11.482 0 20.79 9.308 20.79 20.79"/><path fill="none" stroke="@{surface1}" stroke-linecap="round" stroke-linejoin="round" stroke-width=".982" d="M44.555 21.313c0 11.111-9.006 20.117-20.117 20.117S4.32 32.424 4.32 21.313h0c0-11.111 9.007-20.118 20.118-20.118s20.117 9.007 20.117 20.118"/><path fill="#fff" fill-opacity=".214" d="M43.676 20.477c0 10.831-6.052-4.306-18.674.387-12.723 4.729-20.567 10.444-20.567-.387S13.225.856 24.056.856s19.62 8.79 19.62 19.621"/><path fill="@{base}" d="M29.159 7.772c5.433 0 9.843 4.41 9.843 9.843 0 5.434-4.41 9.842-9.843 9.842-2.323 0-4.373-.924-6.057-2.271.137.672.052 1.359-.505 1.844l-7.318 6.359a1.964 1.964 0 0 1-2.777-.203 1.963 1.963 0 0 1 .203-2.775l7.318-6.36c.448-.389.996-.505 1.539-.43-1.326-1.676-2.246-3.703-2.246-6.006 0-5.433 4.411-9.843 9.843-9.843m.051 2.12c-4.18 0-7.571 3.393-7.571 7.571s3.392 7.572 7.571 7.572 7.571-3.393 7.571-7.572-3.392-7.571-7.571-7.571"/><radialGradient id="b" cx="-301.841" cy="246.607" r="6.656" gradientTransform="matrix(1.7253 0 0 -1.4985 546.592 394.778)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="@{text}"/><stop offset="1" stop-color="@{text}" stop-opacity=".248"/></radialGradient><path fill="url(#b)" d="M29.456 10.644a6.27 6.27 0 0 1 6.271 6.271c0 1-.279 1.921-.696 2.761-.833.308-1.719.517-2.658.517-4.106 0-7.386-3.235-7.639-7.277 1.151-1.362 2.801-2.272 4.722-2.272" opacity=".834"/></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+        filter: none !important;
+      }
+
+			&[src$="Merge-arrows-2.svg"] {
+				@svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="40" version="1.0"><defs><linearGradient id="a"><stop offset="0" stop-color="@{blue}"/><stop offset="1" stop-color="@{text}"/></linearGradient><linearGradient id="b"><stop offset="0" stop-color="@{red}"/><stop offset="1" stop-color="@{text}"/></linearGradient><linearGradient xlink:href="#a" id="c" x1="21.91" x2="37.284" y1="14.877" y2="-.496" gradientTransform="matrix(-1 0 0 1 36.047 18.406)" gradientUnits="userSpaceOnUse"/><linearGradient xlink:href="#b" id="d" x1="21.91" x2="37.284" y1="14.877" y2="-.496" gradientUnits="userSpaceOnUse"/></defs><g stroke-width="1.054"><path fill="url(#c)" stroke="@{blue}" d="M14.203 18.656V25h21.281v8.406h-21.28v6.313L.515 29.187z" transform="translate(.906 1.031)scale(.9484)"/><path fill="url(#d)" stroke="@{red}" d="M21.844.25v6.344H.563V15h21.28v6.313L35.532 10.78z" transform="translate(.906 1.031)scale(.9484)"/></g></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+        filter: none !important;
+			}
+
+      &[src$="Tango-go-next.svg"] {
+				@svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="48" width="48" version="1.0"><defs><radialGradient gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.04673 0 0 1.55761 -19.518 3.452)" r="17.171" fy="2.897" fx="19.701" cy="2.897" cx="19.701" id="f" xlink:href="#a"/><radialGradient gradientUnits="userSpaceOnUse" gradientTransform="matrix(1 0 0 .53672 0 16.873)" r="15.645" fy="36.421" fx="24.837" cy="36.421" cx="24.837" id="d" xlink:href="#b"/><radialGradient xlink:href="#c" id="e" cx="22.292" cy="32.798" fx="22.292" fy="32.798" r="16.956" gradientTransform="matrix(.84302 0 0 1.02017 4.5 1.382)" gradientUnits="userSpaceOnUse"/><linearGradient id="c"><stop offset="0" stop-color="@{teal}"/><stop offset="1" stop-color="@{green}"/></linearGradient><linearGradient id="b"><stop offset="0" stop-color="@{base}" stop-opacity="1"/><stop offset="1" stop-color="@{base}" stop-opacity="0"/></linearGradient><linearGradient id="a"><stop offset="0" stop-color="@{text}" stop-opacity="1"/><stop offset="1" stop-color="@{text}" stop-opacity="0"/></linearGradient></defs><path transform="translate(-8.12 -15.102)scale(1.27119)" d="M40.482 36.421a15.645 8.397 0 1 1-31.29 0 15.645 8.397 0 1 1 31.29 0" style="marker:none" opacity=".29946522" color="@{base}" fill="url(#d)" fill-opacity="1" fill-rule="evenodd" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="10" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/><path d="M8.554 15.517v16.995h12.984v8.545l19.96-16.907L21.419 7.125v8.398z" style="marker:none" opacity="1" color="@{base}" fill="url(#e)" fill-opacity="1" fill-rule="evenodd" stroke="@{green}" stroke-width="1.00000036" stroke-linecap="round" stroke-linejoin="round" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="10" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/><path d="M21.962 8.249v7.806H9.145v9.04c17.75 2 16.634-7.455 31.384-.955z" style="marker:none" opacity=".5080214" color="@{base}" fill="url(#f)" fill-opacity="1" fill-rule="evenodd" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="10" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/><path style="marker:none" d="M9.538 16.562v14.984h12.985v7.395l17.478-14.795-17.494-14.78v7.2z" opacity=".48128339" color="@{base}" fill="none" fill-opacity="1" fill-rule="evenodd" stroke="@{text}" stroke-width="1.00000036" stroke-linecap="butt" stroke-linejoin="miter" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="10" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+        filter: none !important;
+			}
+
+      &[src$="Tango-go-prev.svg"] {
+				@svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="48" width="48" transform="scale(-1 1)"><defs><radialGradient gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.04673 0 0 1.55761 -19.518 3.452)" r="17.171" fy="2.897" fx="19.701" cy="2.897" cx="19.701" id="f" xlink:href="#a"/><radialGradient gradientUnits="userSpaceOnUse" gradientTransform="matrix(1 0 0 .53672 0 16.873)" r="15.645" fy="36.421" fx="24.837" cy="36.421" cx="24.837" id="d" xlink:href="#b"/><radialGradient xlink:href="#c" id="e" cx="22.292" cy="32.798" fx="22.292" fy="32.798" r="16.956" gradientTransform="matrix(.84302 0 0 1.02017 4.5 1.382)" gradientUnits="userSpaceOnUse"/><linearGradient id="c"><stop offset="0" stop-color="@{teal}"/><stop offset="1" stop-color="@{green}"/></linearGradient><linearGradient id="b"><stop offset="0" stop-color="@{base}" stop-opacity="1"/><stop offset="1" stop-color="@{base}" stop-opacity="0"/></linearGradient><linearGradient id="a"><stop offset="0" stop-color="@{text}" stop-opacity="1"/><stop offset="1" stop-color="@{text}" stop-opacity="0"/></linearGradient></defs><path transform="translate(-8.12 -15.102)scale(1.27119)" d="M40.482 36.421a15.645 8.397 0 1 1-31.29 0 15.645 8.397 0 1 1 31.29 0" style="marker:none" opacity=".29946522" color="@{base}" fill="url(#d)" fill-opacity="1" fill-rule="evenodd" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="10" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/><path d="M8.554 15.517v16.995h12.984v8.545l19.96-16.907L21.419 7.125v8.398z" style="marker:none" opacity="1" color="@{base}" fill="url(#e)" fill-opacity="1" fill-rule="evenodd" stroke="@{green}" stroke-width="1.00000036" stroke-linecap="round" stroke-linejoin="round" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="10" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/><path d="M21.962 8.249v7.806H9.145v9.04c17.75 2 16.634-7.455 31.384-.955z" style="marker:none" opacity=".5080214" color="@{base}" fill="url(#f)" fill-opacity="1" fill-rule="evenodd" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="10" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/><path style="marker:none" d="M9.538 16.562v14.984h12.985v7.395l17.478-14.795-17.494-14.78v7.2z" opacity=".48128339" color="@{base}" fill="none" fill-opacity="1" fill-rule="evenodd" stroke="@{text}" stroke-width="1.00000036" stroke-linecap="butt" stroke-linejoin="miter" marker-start="none" marker-mid="none" marker-end="none" stroke-miterlimit="10" stroke-dasharray="none" stroke-dashoffset="0" stroke-opacity="1" visibility="visible" display="inline" overflow="visible"/></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+        filter: none !important;
+			}
+
+      &[src$="View-refresh-red.svg"] {
+				@svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48"><defs><linearGradient id="d"><stop offset="0" stop-color="@{red}"/><stop offset="1" stop-color="@{red}" stop-opacity="0"/></linearGradient><linearGradient id="c"><stop offset="0" stop-color="@{maroon}"/><stop offset="1" stop-color="@{text}" stop-opacity="0"/></linearGradient><linearGradient id="b"><stop offset="0" stop-color="@{maroon}"/><stop offset="1" stop-color="@{red}" stop-opacity="0"/></linearGradient><linearGradient id="a"><stop offset="0" stop-color="@{maroon}"/><stop offset="1" stop-color="@{maroon}" stop-opacity="0"/></linearGradient><linearGradient id="e"><stop offset="0"/><stop offset="1" stop-opacity="0"/></linearGradient><linearGradient xlink:href="#a" id="n" x1="5.965" x2="52.854" y1="26.048" y2="26.048" gradientUnits="userSpaceOnUse"/><linearGradient xlink:href="#a" id="m" x1="5.965" x2="52.854" y1="26.048" y2="26.048" gradientUnits="userSpaceOnUse"/><linearGradient xlink:href="#b" id="j" x1="34.739" x2="38.276" y1="39.375" y2="24.438" gradientUnits="userSpaceOnUse"/><linearGradient xlink:href="#b" id="h" x1="12.077" x2="11.622" y1="12.832" y2="19.556" gradientUnits="userSpaceOnUse"/><linearGradient xlink:href="#c" id="g" x1="12.077" x2="11.622" y1="12.832" y2="19.556" gradientUnits="userSpaceOnUse"/><linearGradient xlink:href="#c" id="i" x1="34.739" x2="38.276" y1="39.375" y2="24.438" gradientUnits="userSpaceOnUse"/><linearGradient xlink:href="#d" id="l" x1="29.994" x2="79.009" y1="23.95" y2="65.776" gradientUnits="userSpaceOnUse"/><linearGradient xlink:href="#d" id="k" x1="24.852" x2="102.35" y1="21.575" y2="88.133" gradientUnits="userSpaceOnUse"/><radialGradient xlink:href="#e" id="f" cx="24.837" cy="36.421" r="15.645" fx="24.837" fy="36.421" gradientTransform="matrix(1 0 0 .53672 0 16.873)" gradientUnits="userSpaceOnUse"/></defs><ellipse cx="24.837" cy="36.421" fill="url(#f)" fill-rule="evenodd" color="@{base}" opacity=".383" overflow="visible" rx="15.645" ry="8.397" style="marker:none" transform="matrix(-1.48974 0 0 -1.00125 61.209 75.282)"/><path fill="url(#g)" stroke="url(#h)" d="M20.153 10.41s-8.938-.625-6.188 9.875H6.278s.5-11.875 13.875-9.875z" color="@{base}" display="block" opacity=".97" overflow="visible" style="marker:none"/><path fill="url(#i)" stroke="url(#j)" d="M28.375 33.438s8.938.624 6.188-9.876h7.775c0 1.503-.588 11.875-13.963 9.875z" color="@{base}" display="block" opacity=".97" overflow="visible" style="marker:none"/><g opacity=".97" stroke="@{maroon}" stroke-width="1.319" color="@{base}"><path fill="url(#k)" d="M44.307 50.23c18.514-14.411 5.358-36.818-21.845-37.732l-.348-9.346-14.49 17.345 15.09 12.722-.252-9.881c18.83.999 32.982 14.072 21.845 26.892z" display="block" overflow="visible" style="marker:none" transform="scale(-.75805 .75805)rotate(-40.194 -13.436 111.421)"/><path fill="url(#l)" d="M44.307 50.23c18.514-14.411 5.358-36.818-21.845-37.732L22.4 3.069 7.794 20.424l14.668 12.582v-9.668c18.83.999 32.982 14.072 21.845 26.892z" display="block" opacity="1" style="marker:none" transform="matrix(.57905 .48923 .48923 -.57905 -7.921 30.537)"/></g><g opacity=".5"><path fill="none" stroke="url(#m)" stroke-width="1.502" d="M51.09 45.944c9.12-15.22-4.458-33.743-31.605-33.995l.028-8.246L6.534 19.297l12.834 10.972.055-9.007c17.528-.224 35.195 10.103 31.667 24.682z" color="@{base}" display="block" opacity="1" overflow="visible" style="marker:none" transform="matrix(.50854 .42964 .42964 -.50854 -3.974 30.54)"/></g><g opacity=".5"><path fill="none" stroke="url(#n)" stroke-width="1.502" d="M51.39 46.506c9.12-15.22-4.34-34.074-31.762-34.436l-.285-8.02L6.34 19.38l13.47 11.384-.182-9.454c18.245.382 34.784 10.926 31.763 25.195z" color="@{base}" display="block" opacity="1" overflow="visible" style="marker:none" transform="scale(-.66574 .66574)rotate(-40.193 -12.407 118.93)"/></g><path fill="#fff" d="m7.063 38.188.062-14.876 12.938-.375-4.39 5.18 3.868 2.373c-3 2.25-4.55 2.422-5.55 4.984l-2.817-2.11zM6.813 16.5C10.406 6.059 23.256 10.355 27 12c4.175.211 5.675-2.835 9-3C21.95-.79 7.188 2.5 6.813 16.5" color="@{base}" opacity=".272" overflow="visible" style="marker:none"/></svg>'
+        );
+        content: url("data:image/svg+xml,@{svg}");
+        filter: none !important;
+      }
+    }
+  }
+}
+
+/// Arch Manpages
+@-moz-document url-prefix("https://man.archlinux.org") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    --bg-color: @base;
+    --color: @text;
+    --code-inline-bg-color: @surface0;
+    --code-block-bg-color: @mantle;
+    --code-block-border-color: @overlay0;
+    --link-color: @blue;
+    --table-border-color: @overlay0;
+    --table-bg-color: @surface0;
+    --table-th-bg-color: @mantle;
+    --table-focus-bg-color: @surface1;
+
+    // For some reason, man.archlinux.org uses tr as table row 1
+    // as opposed to th as table heading class.
+    table:not(
+      .head,
+      .foot,
+      .Nm
+    )
+      > tbody
+      > tr:nth-child(1) {
+      background-color: @mantle !important;
+      > td {
+        background-color: @mantle !important;
+      }
+
+      &:hover {
+        background-color: @mantle !important;
+        > td {
+          background-color: @mantle !important;
+        }
+      }
+    }
+
+    table:is(
+      .head,
+      .foot
+    ) {
+      border-color: @overlay0 !important;
+    }
+
+    .manual-text {
+      dl {
+        dd:nth-child(n), dd:nth-child(n):hover {
+          background-color: inherit !important;
+        }
+      }
+
+      /* MDOC MACROS */
+
+      // SECTIONS
+      section.Sh,
+      // SUBSECTION
+      section.Ss,
+      // NAMED TABLE
+      table.Nm {
+        background-color: unset !important;
+
+        code:not(.Li) {
+          background-color: unset !important;
+        }
+      }
+
+      // NAME DESCRIPTION TD
+      .Nd,
+      // PARAGRAPH
+      .Pp {
+        color: @text;
+      }
+
+      // SECTION HEADING
+      h1.Sh,
+      h2.Ss {
+        color: @accent !important;
+
+        * {
+          color: @accent !important;
+        }
+      }
+
+      // SECTION CROSS-REFERENCE
+      .Sx, .Xr {
+        color: @blue !important;
+      }
+
+      // REFERENCE SECTION - OTHER TEXT
+      .Rs {
+        color: @subtext0 !important;
+      }
+
+      .eqn,
+      .tbl td {
+        background-color: @mantle !important;
+      }
+
+      /* SEMANTICS */
+
+      // COMMAND, KEYWORD
+      code.Nm {
+        color: @mauve !important;
+      }
+
+      // FLAGS
+      .Fl {
+        color: @blue !important;
+      }
+
+      // PARAMETER VALUES
+      .Cm {
+        color: @maroon !important;
+      }
+
+      // ARGUMENT EXPLANATION
+      .Ar {
+        color: @subtext0 !important;
+      }
+
+      // OPTIONAL ARGUMENTS
+      .Op {
+        color: @subtext1 !important;
+      }
+
+      // INTERNAL - BUILTINS
+      .Ic {
+        color: @red !important;
+      }
+
+      // ENV VARS
+      .Ev {
+        color: @rosewater !important;
+      }
+
+      // PATH
+      .Pa {
+        color: @pink !important;
+      }
+
+      /* SEMANTIC MARKUP FOR FUNCTION LIBRARIES */
+
+      // LIBRARY
+      .Lb {
+        color: @yellow !important;
+      }
+
+      // INCLUDE
+      a.In,
+      code.In {
+        color: @pink !important;
+      }
+
+      // FUNCTION DECL
+      .Fd {
+        color: @yellow !important;
+      }
+
+      // FUNCTION TYPE
+      .Ft {
+        color: @yellow !important;
+      }
+
+      // FUNCTION NAME
+      .Fn {
+        color: @mauve !important;
+      }
+
+      // FUNCTION ARGUMENT
+      .Fa {
+        color: @blue !important;
+      }
+
+      // VARIABLE TYPE
+      .Vt {
+        color: @yellow !important;
+      }
+
+      // VARIABLE
+      .Va {
+        color: @blue !important;
+      }
+
+      // ERROR
+      .Er {
+        color: @red !important;
+        text-decoration: wavy underline !important;
+      }
+
+      // DEFINED VALUES - MACROS
+      .Dv {
+        color: @rosewater !important;
+      }
+
+      /* VARIOUS SEMANTIC MARKUP */
+
+      // AUTHOR NAME
+      .An {
+        color: @text !important;
+      }
+
+      // AUTHOR MAILTO
+      .Mt {
+        color: @blue !important;
+      }
+
+      // LINKS
+      .Lk {
+        color: @blue !important;
+      }
+
+      // COMMAND
+      .Cd {
+        color: @mauve !important;
+      }
+
+      // ADDRESS
+      .Ad {
+        color: @subtext0 !important;
+      }
+
+      // MANUAL SECTION
+      .Ms {
+        color: @text !important;
+      }
+
+      // STANDARD
+      .St {
+        color: @peach !important;
+      }
+
+      // LITERALLY WHENEVER UNIX OR UNIX DISTRO NAMES ARE USED!
+      .Ux {
+        color: @accent !important;
+      }
+
+      /* PHYSICAL MARKUP */
+
+      // NORMAL
+      .No,
+      // EMPHASIS
+      .Em {
+        color: @text !important;
+      }
+
+      // SYMBOLIC TEXT
+      .Sy {
+        color: @accent !important;
+      }
+
+      // INLINE CODE
+      .Li {
+        background-color: fade(@overlay2, 10%) !important;
+      }
+    }
+  }
+}
+
+/// Arch Mailing Lists
+@-moz-document url-prefix("https://lists.archlinux.org") {
+  @import "https://raw.githubusercontent.com/catppuccin/userstyles/refs/heads/main/styles/namemc/catppuccin.user.less";
+
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    .table, [class*="table"] {
+      --bs-table-bg: @mantle;
+      --bs-table-striped-color: @text;
+      --bs-table-striped-bg: @surface0;
+      --bs-table-hover-color: @text;
+      --bs-table-hover-bg: fade(@overlay2, 30%);
+      --bs-table-active-color: @text;
+      --bs-table-active-bg: fade(@overlay2, 60%);
+    }
+
+    a:is(
+      .btn,
+      .btn-primary,
+      .accordion-button,
+      .btn-close,
+      .page-link,
+      .form-control,
+      .form-select,
+      .form-check-input,
+      .form-range
+    ):focus {
+      box-shadow: 0 0 0 0.25rem fade(@accent, 60%);
+    }
+
+    * {
+      border-color: @overlay0 !important;
+    }
+
+    header.navbar, nav#navbar-main {
+      background-color: @mantle;
+
+      .navbar-header .navbar-brand {
+        color: @accent !important;
+
+        img {
+          filter: @accent-filter;
+        }
+
+        &:hover {
+          color: darken(@accent, 5%) !important;
+        }
+
+        &:active, &:focus {
+          color: darken(@accent, 10%) !important;
+        }
+      }
+
+      a.nav-link, a.nav-link:link {
+        color: @text !important;
+
+        .fa::before {
+          color: @text !important;
+        }
+
+        &:hover {
+          color: darken(@accent, 5%) !important;
+
+          .fa::before {
+            color: darken(@accent, 5%) !important;
+          }
+        }
+
+        &:active, &:focus, &:focus-within {
+          color: darken(@accent, 10%) !important;
+
+          .fa::before {
+            color: darken(@accent, 10%) !important;
+          }
+        }
+
+        &:visited {
+          color: @lavender !important;
+
+          .fa::before {
+            color: @lavender !important;
+          }
+        }
+      }
+    }
+
+    footer {
+      background-color: @mantle;
+
+      p {
+        color: @subtext0 !important;
+      }
+    }
+
+    ul.pagination li.page-item {
+      .page-link {
+        color: @text !important;
+        background-color: @surface0 !important;
+      }
+
+      &:hover .page-link {
+        color: @text !important;
+        background-color: @surface1 !important;
+      }
+
+      &:is(:active, :focus) .page-link {
+        color: @text !important;
+        background-color: @surface2 !important;
+      }
+
+      &.active .page-link {
+        color: @base !important;
+        background-color: @accent !important;
+      }
+
+      &.disabled .page-link {
+        color: @overlay0 !important;
+        background-color: @mantle !important;
+      }
+    }
+
+    .fa {
+      color: inherit !important;
+    }
+
+    .chart-data .bars rect {
+      fill: @accent;
+    }
+
+    .all-lists table.lists .list-tags {
+      color: @subtext0;
+    }
+
+    .all-lists table.lists tr.list:hover {
+      color: inherit;
+    }
+  }
+}
+
+/// Arch Account Management
+@-moz-document url-prefix("https://accounts.archlinux.org") {
+  :where(:root) {
+    #catppuccin(@lightFlavor);
+  }
+
+  :where(.pf-v5-theme-dark) {
+    #catppuccin(@darkFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    // Define a patternfly library, include it here.
+  }
+}
