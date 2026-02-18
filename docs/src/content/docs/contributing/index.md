@@ -5,40 +5,10 @@ sidebar:
   label: Overview
 ---
 
-If it is your first time contributing to a project on GitHub, please see the popular [first-contributions](https://github.com/firstcontributions/first-contributions) repository. This will give you hands-on experience with the features of GitHub required to make a contribution. As always, feel free to join our [Discord](https://discord.com/servers/catppuccin-907385605422448742) to ask any questions and clarify your understanding, we are more than happy to help!
+## Making changes
 
-## Development environment
-
-This repository uses [Deno](https://deno.com/) extensively for linting, formatting, and automation. It is highly recommended to set up Deno locally to improve your workflow — see ["Installation" - Deno Docs](https://docs.deno.com/runtime/manual/getting_started/installation).
-
-With Deno installed locally, you can lint all userstyles with `deno task lint`, and if any issues are found, `deno task lint:fix` to automatically apply fixes in some cases. For quicker linting, specify the userstyle to lint with `deno task lint my-userstyle` (or equivalently using the relative path/autocomplete, `deno task lint styles/my-userstyle`).
-
-It's helpful to maintainers to run formatting with `deno fmt` before opening a pull request, though not strictly necessary.
-
-> [!IMPORTANT]
-> `deno task lint` is not to be confused with Deno's built-in linter, `deno lint`. `deno lint` only checks our TypeScript files in `scripts/`, whereas `deno task lint` is the custom Deno task for linting userstyles that you should be using.
-
-To edit and/or create userstyles, [set up live reloading](/contributing/tips-and-tricks/hot-reloading/) so that local changes (edits made from your editor of choice) can be automatically reloaded through Stylus.
-
-## Versioning
-
-You may notice that userstyles contain a line in the format of `@version 2000.01.01` in the UserCSS metadata section at the top. **This line should not be edited by hand**. We use an automated versioning system that updates the version value (based on [Calendar Versioning](https://calver.org/)) when a change is made to a userstyle, after merging the pull request.
-
-## Authoring userstyles
-
-### Assessing websites
-
-Some websites are, unfortunately, not ideal for userstyles. Websites with auto-generated classes — think `aeN WR beA nH oy8Mbf`, `cfb2a888`, and so on — lead to unreadable and unmaintainable userstyles that break quickly and are difficult to update/maintain. Such userstyles, if created, will also take longer to review and merge.
-
-On the other hand, if a website uses CSS variables — see below — it is a great candidate for userstyling.
-
-### CSS variables
-
-While writing a userstyle, you may come across [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) (or "custom properties"). We prefer that these variables are used if present, rather than theming individual elements. As the website typically uses these variables itself, it saves a lot of work in theming and maintaining the userstyle.
-
-### Opinionated changes
-
-When writing or updating a userstyle, it is important to keep in mind that different users have different preferences. To avoid lengthy discussion over user interface aesthetics, we have a set of rules for what a userstyle may include; importantly, **changes to font, layout, padding, margin, display, and in general anything besides color tweaks are prohibited.**
+> [!TIP]
+> If this is your first time contributing to a project on GitHub, please see the popular [first-contributions](https://github.com/firstcontributions/first-contributions) repository. This will give you hands-on experience with the features of GitHub required to make a contribution. As always, feel free to join our [Discord](https://discord.com/servers/catppuccin-907385605422448742) to ask any questions and clarify your understanding, we are more than happy to help!
 
 ### Pull requests
 
@@ -58,7 +28,50 @@ graph TD;
     D --> F{Feedback};
     E -->|Changes made| E;
     F -->|Changes made| F;
-    E -->|Approved by userstyles staff| K;
-    F -->|Approved by maintainer or userstyles staff| L[Merged by maintainer];
-    K[Review period] --> M[Merged by userstyles staff];
+    E -->|Approved by userstyles staff| G;
+    F -->|Approved by maintainer or userstyles staff| H[Merged by maintainer];
+    G[Review period] --> I[Merged by userstyles staff];
 ```
+
+## General
+
+### Versioning
+
+All userstyles are versioned in the UserCSS metadata section at the top of each userstyle, by a line in the format of `@version 2000.01.01`. **This line SHOULD NOT be edited by hand**. We use an automated versioning system that updates the version value (based on [Calendar Versioning](https://calver.org/)) when a change is made to a userstyle, after merging the pull request.
+
+### New userstyle considerations
+
+When considering adopting a new userstyle into the collection, we prioritize long-term maintainability. Some websites are, unfortunately, not ideal for userstyles. Websites with auto-generated classnames — think `aeN WR beA nH oy8Mbf`, `cfb2a888`, and so on — lead to unreadable and unmaintainable userstyles that are difficult to keep functional. **We highly recommend not writing userstyles for these types of websites.** If in doubt, reach out to us via an issue or on Discord first.
+
+On the other hand, some websites are ideally suited for userstyles. For example, websites using CSS custom properties (CSS variables) are great candidates since they are often simpler and more straightforward to theme.
+
+#### CSS variables
+
+[CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/--*), or CSS custom properties, can be a great benefit to writing userstyles. We prefer that CSS variables are themed if present, rather than theming individual elements/classes. As the website uses these variables itself (hopefully!), it saves time and effort in theming and maintaining the userstyle.
+
+### Opinionated changes
+
+When writing or updating a userstyle, it is important to keep in mind that different users have different preferences. To avoid lengthy discussion over user interface aesthetics, **changes to font, layout, padding, margin, display, and generally anything besides color tweaks, are prohibited.**
+
+## Development environment
+
+### Editing
+
+To edit and/or create userstyles, [set up live reloading](/contributing/tips-and-tricks/hot-reloading/) so that local changes (edits made from your editor of choice) can be automatically reloaded through Stylus.
+
+### Tasks
+
+This repository uses [Deno](https://deno.com/) for linting, formatting, and automation — see ["Installation" - Deno Docs](https://docs.deno.com/runtime/manual/getting_started/installation) to set it up locally.
+
+#### Linting
+
+Lint all userstyles by running `deno task lint` in the terminal. If any issues are found, run `deno task lint:fix` to automatically apply fixes (*in some cases).
+
+For faster linting, specify the userstyle to check as an argument to the `deno task lint` command. For example, `deno task lint my-userstyle` (or using the relative path from the root directory, `deno task lint styles/my-userstyle`).
+
+> [!WARNING]
+> `deno task lint` is not to be confused with Deno's built-in linter, `deno lint`. `deno task lint` is the custom Deno task for linting userstyles (**use this one**), `deno lint` lints only our internal scripts.
+
+#### Formatting
+
+Format changed files with `deno fmt` before opening a pull request.
