@@ -1,0 +1,43 @@
+---
+const { data } = Astro.props;
+
+const flavors = ['latte', 'frappe', 'macchiato', 'mocha'];
+---
+
+<table>
+  <tr>
+    <th>Function</th>
+    <th colspan="2">Colors</th>
+  </tr>
+  {data.map((row) => (
+    <tr>
+      <td class="function">{row.function}</td>
+      <td class="color-names">{row.colors.map((color) => <span>{color}</span><br>)}</td>
+      <td class="color-tiles">
+        {row.colors.map((color) => (
+          <div class="color-tiles-row">
+            {flavors.map((flavor) =>
+              <img src={`https://github.com/catppuccin/catppuccin/raw/main/assets/palette/circles/${flavor}_${color}.png`}
+                height={15}
+                width={16}
+                alt={`${flavor.charAt(0).toUpperCase() + flavor.slice(1)} ${color.charAt(0).toUpperCase() + color.slice(1)}`}
+              />
+            )}
+          </div>
+        ))}
+      </td>
+    </tr>
+  ))}
+</table>
+
+<style>
+  .color-tiles-row {
+    display: flex;
+    flex-direction: row;
+    gap: 0.25rem;
+
+    img {
+      margin-top: 0;
+    }
+  }
+</style>
