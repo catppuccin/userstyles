@@ -1,0 +1,898 @@
+/* ==UserStyle==
+@name Proxmox VE Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/proxmox-ve
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/proxmox-ve
+@version 2026.02.22
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/proxmox-ve/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3AProxmox VE
+@description Soothing pastel theme for Proxmox VE
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("*pve*") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    :root {
+      --pwt-panel-background: @base;
+      --pwt-text-color: @text;
+      --pwt-gauge-default: @blue;
+      --pwt-gauge-back: @mantle;
+      --pwt-gauge-warn: @yellow;
+      --pwt-gauge-crit: @red;
+      --pwt-chart-primary: #0060a4;
+      --pwt-chart-grid-stroke: #4d4d4d;
+    }
+    .x-legend-container {
+      background-color: @mantle;
+    }
+    .x-legend-horizontal .x-legend-item {
+      background-color: @mantle;
+      color: @text;
+      border-top: solid 1px @crust;
+      border-right: solid 1px @crust;
+      border-bottom: solid 1px @crust;
+    }
+    .x-legend-horizontal .x-legend-item:first-child {
+      border-left: solid 1px @crust;
+    }
+    .x-tool .x-mask {
+      backdrop-filter: none;
+      background-color: @mantle;
+      opacity: 0.6;
+    }
+    .x-grid-icon-custom.running,
+    .x-tree-icon-custom.running,
+    .x-tree-icon-custom,
+    .fa-database::before,
+    .fa-tags::before,
+    .fa-file-o::before,
+    .fa-building::before,
+    .x-action-col-icon::before,
+    .fa-shield::before,
+    .fa-file-text-o::before,
+    .fa-clock-o::before,
+    .x-tab-icon-el-default,
+    .pve-icon-verify-lettering::after,
+    .x-tree-icon-custom.lock-migrate::after,
+    .x-grid-icon-custom.lock-migrate::after,
+    .x-tree-icon-leaf:not(.x-tree-icon-custom::before),
+    .x-tree-icon-parent:not(.x-tree-icon-custom::before),
+    .x-tree-icon-parent-expanded:not(.x-tree-icon-custom::before),
+    .x-grid-filters-filtered-column .x-column-header-text::after {
+      color: @subtext0;
+    }
+    .x-tree-icon-parent:not(.x-tree-icon-custom::before),
+    .x-tree-icon-parent-expanded:not(.x-tree-icon-custom::before) {
+      filter: invert(90%);
+    }
+    .fa-ceph::before,
+    .fa-sdn::before,
+    .fa-network-wired::before,
+    .pve-itype-treelist-item-icon-cdrom,
+    .fa-chevron-right::before,
+    .x-grid-row-console,
+    .x-box-scroller-toolbar-default.x-box-scroller,
+    .x-tree-elbow-img,
+    .pve-itype-icon-qemu,
+    .x-tree-node-computer,
+    .x-grid-tree-node-expanded .x-tree-node-computer,
+    .pbs-icon-tape,
+    .pbs-icon-tape-drive,
+    .x-tree-icon-leaf:not(.x-tree-icon-custom),
+    .x-tree-icon-parent:not(.x-tree-icon-custom),
+    .x-tree-icon-parent-expanded:not(.x-tree-icon-custom) {
+      filter: invert(90%);
+    }
+    .pve-itype-icon-cpu,
+    .pve-itype-icon-cdrom,
+    .pve-itype-icon-memory,
+    .pve-itype-icon-pci,
+    .pve-itype-icon-serial,
+    .pve-itype-icon-die,
+    .pmx-itype-icon-processor,
+    .pmx-itype-icon-memory,
+    .pve-itype-icon-storage,
+    .x-tree-node-harddisk,
+    .x-grid-tree-node-expanded .x-tree-node-harddisk {
+      filter: invert(90%);
+    }
+    .pve-itype-icon-cpu .x-grid-cell-inner,
+    .pve-itype-icon-cdrom .x-grid-cell-inner,
+    .pve-itype-icon-memory .x-grid-cell-inner,
+    .pve-itype-icon-pci .x-grid-cell-inner,
+    .pve-itype-icon-serial .x-grid-cell-inner,
+    .pve-itype-icon-die .x-grid-cell-inner,
+    .pmx-itype-icon-processor .x-grid-cell-inner,
+    .pmx-itype-icon-memory .x-grid-cell-inner,
+    .pve-itype-icon-storage .x-grid-cell-inner,
+    .x-tree-node-harddisk .x-grid-cell-inner,
+    .x-grid-tree-node-expanded .x-tree-node-harddisk .x-grid-cell-inner {
+      color: black;
+    }
+    .x-keyboard-mode .pve-itype-icon-cpu.x-grid-item-focused,
+    .x-keyboard-mode .pve-itype-icon-cdrom.x-grid-item-focused,
+    .x-keyboard-mode .pve-itype-icon-memory.x-grid-item-focused,
+    .x-keyboard-mode .pve-itype-icon-pci.x-grid-item-focused,
+    .x-keyboard-mode .pve-itype-icon-serial.x-grid-item-focused,
+    .x-keyboard-mode .pve-itype-icon-die.x-grid-item-focused,
+    .x-keyboard-mode .pmx-itype-icon-processor.x-grid-item-focused,
+    .x-keyboard-mode .pmx-itype-icon-memory.x-grid-item-focused,
+    .x-keyboard-mode .pve-itype-icon-storage.x-grid-item-focused,
+    .x-keyboard-mode .x-tree-node-harddisk.x-grid-item-focused,
+    .x-keyboard-mode
+      .x-grid-tree-node-expanded
+      .x-tree-node-harddisk.x-grid-item-focused {
+      background-color: #9e9e9e;
+    }
+    .x-keyboard-mode
+      .pve-itype-icon-cpu.x-grid-item-focused
+      .x-grid-cell-inner::before,
+    .x-keyboard-mode
+      .pve-itype-icon-cdrom.x-grid-item-focused
+      .x-grid-cell-inner::before,
+    .x-keyboard-mode
+      .pve-itype-icon-memory.x-grid-item-focused
+      .x-grid-cell-inner::before,
+    .x-keyboard-mode
+      .pve-itype-icon-pci.x-grid-item-focused
+      .x-grid-cell-inner::before,
+    .x-keyboard-mode
+      .pve-itype-icon-serial.x-grid-item-focused
+      .x-grid-cell-inner::before,
+    .x-keyboard-mode
+      .pve-itype-icon-die.x-grid-item-focused
+      .x-grid-cell-inner::before,
+    .x-keyboard-mode
+      .pmx-itype-icon-processor.x-grid-item-focused
+      .x-grid-cell-inner::before,
+    .x-keyboard-mode
+      .pmx-itype-icon-memory.x-grid-item-focused
+      .x-grid-cell-inner::before,
+    .x-keyboard-mode
+      .pve-itype-icon-storage.x-grid-item-focused
+      .x-grid-cell-inner::before,
+    .x-keyboard-mode
+      .x-tree-node-harddisk.x-grid-item-focused
+      .x-grid-cell-inner::before,
+    .x-keyboard-mode
+      .x-grid-tree-node-expanded
+      .x-tree-node-harddisk.x-grid-item-focused
+      .x-grid-cell-inner::before {
+      border-color: #e69962;
+    }
+    .fa.black,
+    .fa.black::after,
+    .fa.black::before,
+    .x-action-col-icon.fa-chevron-right::before {
+      filter: none;
+    }
+    .x-tree-arrows .x-tree-expander {
+      filter: brightness(200%);
+    }
+    .x-tree-arrows .x-tree-expander-over .x-tree-expander {
+      filter: brightness(0);
+    }
+    .x-form-checkbox-default,
+    .x-form-radio-default,
+    .x-column-header-checkbox .x-column-header-checkbox::after,
+    .x-grid-checkcolumn::after,
+    .x-menu-item-checked .x-menu-item-icon-default.x-menu-item-checkbox,
+    .x-menu-item-unchecked .x-menu-item-icon-default.x-menu-item-checkbox {
+      filter: invert(90% hue-rotate(180deg brightness(125%)));
+    }
+    .x-tree-icon-custom,
+    .x-grid-icon-custom {
+      color: @subtext0;
+    }
+    .x-tree-icon-custom::after,
+    .x-grid-icon-custom::after {
+      color: @subtext0;
+      text-shadow: -1px 0 1px @base;
+    }
+    .x-tree-icon-custom.stopped,
+    .x-tree-icon-custom.offline,
+    .x-tree-icon-custom.unknown::after,
+    .x-grid-icon-custom.stopped,
+    .x-grid-icon-custom.offline,
+    .x-grid-icon-custom.unknown::after {
+      color: #8c8c8c;
+    }
+    .x-tree-icon-custom.locked::after,
+    .x-grid-icon-custom.locked::after {
+      color: @subtext0;
+    }
+    .x-tree-icon-custom.lxc::after,
+    .x-tree-icon-custom.qemu::after,
+    .x-grid-icon-custom.lxc::after,
+    .x-grid-icon-custom.qemu::after {
+      background-color: @base;
+      color: @subtext0;
+    }
+    .pmx-tree-icon-custom::after {
+      text-shadow: -1px 0 1px @base;
+    }
+    .pmx-tree-icon-custom.maintenance::before {
+      color: #8c8c8c;
+    }
+    .pmx-tree-icon-custom.maintenance::after {
+      color: @subtext0;
+    }
+    .x-treelist-item-icon.lxc::after,
+    .x-treelist-item-icon.qemu::after {
+      background-color: @base;
+      color: @subtext0;
+    }
+    .x-grid-item .x-grid-icon-custom.lxc::after,
+    .x-grid-item .x-grid-icon-custom.qemu::after {
+      background-color: @base;
+    }
+    .x-grid-item-alt .x-grid-icon-custom.lxc::after,
+    .x-grid-item-alt .x-grid-icon-custom.qemu::after {
+      background-color: @crust;
+    }
+    .x-treelist-item-selected .lxc::after,
+    .x-treelist-item-selected .qemu::after {
+      background-color: #0060a4;
+      text-shadow: -1px 0 1px #0060a4;
+    }
+    .x-grid-item-over .lxc::after,
+    .x-grid-item-over .qemu::after,
+    .x-treelist-item-over .lxc::after,
+    .x-treelist-item-over .qemu::after,
+    .x-grid-item-selected .lxc::after,
+    .x-grid-item-selected .qemu::after,
+    .x-keyboard-mode .x-grid-item-focused .lxc::after,
+    .x-keyboard-mode .x-grid-item-focused .qemu::after {
+      background-color: @surface0 !important;
+      text-shadow: -1px 0 1px @surface0;
+    }
+    .x-action-col-icon:hover::before,
+    .x-action-col-icon:hover::after {
+      text-shadow: -1px 0 1px @base;
+    }
+    .fa.black {
+      color: @subtext0;
+    }
+    .usage-wrapper {
+      border: 1px solid @subtext0;
+    }
+    .usage-negative {
+      background-color: transparent;
+    }
+    .usage {
+      background-color: @subtext0;
+    }
+    .x-btn-default-small {
+      background-color: #0060a4;
+      border-color: #0060a4;
+    }
+    .x-btn-default-small.x-btn-over,
+    .x-keyboard-mode .x-btn-default-small.x-btn-focus {
+      background-color: #0078cf;
+      border-color: #0078cf;
+    }
+    .x-btn-default-small.x-btn.x-btn-disabled {
+      background-color: #0060a4;
+    }
+    .x-btn-default-small.x-btn.x-btn-pressed {
+      background-color: #004a80;
+      border-color: #0060a4;
+    }
+    .x-btn-default-toolbar-small {
+      background-color: @mantle;
+      border-color: @surface0;
+    }
+    .x-btn-default-toolbar-small .x-btn-inner-default-toolbar-small {
+      color: @text;
+    }
+    .x-btn-default-toolbar-small .x-btn-icon-el-default-toolbar-small {
+      color: @text;
+    }
+    .x-btn-default-toolbar-small
+      .x-btn-wrap-default-toolbar-small.x-btn-arrow-right::after,
+    .x-btn-default-toolbar-small
+      .x-btn-wrap-default-toolbar-small.x-btn-split-right::after {
+      filter: brightness(150%);
+    }
+    .x-btn-default-toolbar-small.x-btn-over,
+    .x-keyboard-mode .x-btn-default-toolbar-small.x-btn-focus {
+      background-color: @surface0;
+      border-color: @surface0;
+    }
+    .x-btn-default-toolbar-small.x-btn.x-btn-disabled {
+      background-color: @mantle;
+    }
+    .x-btn-default-toolbar-small.x-btn.x-btn-menu-active,
+    .x-btn-default-toolbar-small.x-btn.x-btn-pressed {
+      background-color: #004a80;
+      border-color: #0060a4;
+    }
+    .x-form-trigger-default {
+      background-color: @mantle;
+    }
+    .x-boundlist {
+      background-color: @mantle;
+      border-color: @mantle;
+    }
+    .x-boundlist-item {
+      background-color: @mantle;
+      border-color: @mantle;
+      color: @text;
+    }
+    .x-boundlist-selected {
+      background-color: #474747;
+    }
+    .x-boundlist-item-over {
+      background-color: @surface0;
+    }
+    .x-form-display-field-default {
+      color: @text;
+    }
+    .x-form-text-default {
+      background-color: @mantle;
+      color: @text;
+    }
+    .x-form-trigger-wrap-default {
+      border-color: @mantle;
+    }
+    .x-form-trigger-wrap-default.x-form-trigger-wrap-focus {
+      border-color: #005da0;
+    }
+    .x-form-item-label-default {
+      color: @text;
+    }
+    .x-form-spinner-default {
+      background-color: @mantle;
+    }
+    .x-form-cb-label-default {
+      color: @subtext0;
+    }
+    .x-fieldset-default {
+      border-color: @mantle;
+    }
+    .x-column-header {
+      border-color: @mantle;
+    }
+    .x-grid-item,
+    .x-column-header-default,
+    .x-grid-cell-row-numberer {
+      color: @text;
+      background-color: @base;
+    }
+    .x-column-header-trigger {
+      border-color: #666;
+    }
+    .x-grid-cell-special {
+      border-color: @mantle;
+    }
+    .x-grid-group-hd {
+      background-color: @base;
+      border-color: @mantle;
+    }
+    .x-grid-group-title {
+      color: @text;
+    }
+    .x-grid-header-ct {
+      border: solid 1px @mantle;
+      background-color: @mantle;
+    }
+    .x-grid-item-alt {
+      background-color: @crust;
+    }
+    .x-grid-with-row-lines .x-grid-item {
+      border-color: @mantle;
+      border-right: 0;
+    }
+    .x-grid-with-row-lines .x-grid-item:last-child {
+      border-color: @mantle;
+    }
+    .x-grid-with-row-lines .x-grid-item:first-child {
+      border-color: @mantle;
+    }
+    .x-grid-with-row-lines .x-grid-item.x-grid-item-over,
+    .x-grid-with-row-lines .x-grid-item.x-grid-item-selected {
+      background-color: @surface0;
+      border-color: @mantle;
+    }
+    .x-grid-with-row-lines .x-grid-item-selected + .x-grid-item,
+    .x-grid-with-row-lines .x-grid-item-over + .x-grid-item {
+      border-color: @mantle;
+    }
+    .x-grid-item-over,
+    .x-grid-item-selected {
+      background-color: @surface0;
+    }
+    .x-column-header-over,
+    .x-column-header-open,
+    .x-column-header-last .x-column-header-over .x-column-header-trigger {
+      background-color: #4d4d4d;
+    }
+    .x-column-header-sort-ASC,
+    .x-column-header-sort-DESC {
+      background-color: @surface2;
+    }
+    .x-grid-row-summary .x-grid-cell,
+    .x-grid-row-summary .x-grid-rowwrap,
+    .x-grid-row-summary .x-grid-cell-rowbody {
+      background-color: @base !important;
+      border-color: @mantle;
+    }
+    .x-grid-with-col-lines .x-grid-cell,
+    .x-grid-with-col-lines .x-grid-item-over .x-grid-cell,
+    .x-grid-with-col-lines .x-grid-item-selected .x-grid-cell {
+      border-color: @mantle;
+    }
+    .x-dd-drag-proxy {
+      background-color: @crust;
+      border-color: @mantle;
+      color: @text;
+    }
+    .x-keyboard-mode .x-grid-item-focused {
+      background-color: @surface0;
+      color: #fff;
+    }
+    .x-keyboard-mode .x-grid-item-focused .x-grid-cell-inner::before {
+      border-color: #0060a4;
+    }
+    .x-keyboard-mode .x-column-header.x-column-header-focus {
+      color: @text;
+    }
+    .x-keyboard-mode
+      .x-column-header.x-column-header-focus
+      .x-column-header-inner::after {
+      border-color: #0060a4;
+    }
+    .x-keyboard-mode .proxmox-invalid-row .x-grid-item-focused {
+      background-color: @red;
+    }
+    .x-grid-empty {
+      background-color: @base;
+      color: @text;
+    }
+    .x-menu-default {
+      border-color: @mantle;
+    }
+    .x-menu-body-default {
+      background-color: @mantle;
+    }
+    .x-menu-header {
+      background-color: #0060a4;
+    }
+    .x-menu-item-default.x-menu-item-separator {
+      background-color: @mantle;
+      border-color: #666;
+    }
+    .x-menu-item-default.x-menu-item-focus,
+    .x-menu-item-default.x-menu-item-active {
+      background-color: @surface0;
+      color: #fff;
+    }
+    .x-menu-item-text-default {
+      color: @text;
+    }
+    .x-menu-item-icon-default {
+      color: @subtext0;
+    }
+    .x-menu-icon-separator-default {
+      background-color: @mantle;
+      border-color: #666;
+    }
+    .x-panel-header-default {
+      background-color: @mantle;
+      border: none;
+    }
+    .x-panel-header-default .x-tool-tool-el {
+      background-color: transparent;
+    }
+    .x-tool-img {
+      filter: brightness(175%);
+    }
+    .x-tool-img.x-tool-expand,
+    .x-tool-img.x-tool-collapse,
+    .x-tool-img.x-tool-refresh {
+      filter: brightness(125%);
+    }
+    .x-tool-img.x-tool-print {
+      filter: invert(100% hue-rotate(180deg brightness(125%)));
+    }
+    .x-tool-over .x-tool-img {
+      filter: brightness(200%);
+    }
+    .x-tool-over .x-tool-img.x-tool-expand,
+    .x-tool-over .x-tool-img.x-tool-collapse,
+    .x-tool-over .x-tool-img.x-tool-refresh {
+      filter: brightness(150%);
+    }
+    .x-tool-over .x-tool-img.x-tool-print {
+      filter: invert(100% hue-rotate(180deg brightness(150%)));
+    }
+    .x-panel-header-title-default {
+      color: #4db5ff;
+    }
+    .x-panel-body-default {
+      background-color: @base;
+      border-color: @mantle;
+      color: @text;
+    }
+    div[id^="pveResourceTree-"][id$="-body"] {
+      border-color: @base;
+    }
+    .x-progress-default {
+      background-color: @mantle;
+    }
+    .x-progress-default .x-progress-bar-default {
+      background-color: #0060a4;
+    }
+    .x-progress-default .x-progress-text {
+      color: @text;
+    }
+    .x-progress.warning .x-progress-bar {
+      background-color: var(--pwt-gauge-warn);
+    }
+    .x-progress.critical .x-progress-bar {
+      background-color: var(--pwt-gauge-crit);
+    }
+    .x-splitter {
+      background-color: @crust;
+    }
+    .x-splitter-horizontal {
+      background-color: @crust;
+    }
+    .x-keyboard-mode .x-splitter-focus::after {
+      border-color: #0060a4;
+    }
+    .x-layout-split-bottom {
+      opacity: 0.7;
+    }
+    .x-tab-bar-default {
+      background-color: @base;
+    }
+    .x-tab-default.x-tab-over {
+      background-color: #004a80;
+      border-color: #004a80;
+    }
+    .x-tab-default.x-tab.x-tab-active {
+      background-color: #0078cf;
+      border-color: #0078cf;
+    }
+    .x-tab-default.x-tab.x-tab-disabled {
+      background-color: @base;
+      border-color: transparent;
+      color: @text;
+    }
+    .x-keyboard-mode .x-tab-default.x-tab-focus,
+    .x-keyboard-mode .x-tab-default.x-tab-focus.x-tab-over,
+    .x-keyboard-mode .x-tab-default.x-tab-focus.x-tab-active {
+      background-color: #0060a4;
+      border-color: #0060a4;
+    }
+    .x-tab-default-top {
+      background-color: @base;
+      border-color: @base;
+    }
+    .x-tab-inner-default {
+      color: @text;
+    }
+    .x-tip-default {
+      background-color: @crust;
+      border-color: @mantle;
+    }
+    .x-tip-body-default {
+      color: @text;
+    }
+    .x-tip-form-invalid {
+      background-color: @mantle;
+      border-color: @mantle;
+    }
+    .x-tip-body-form-invalid {
+      color: @text;
+    }
+    .x-toolbar {
+      background-color: @base;
+    }
+    .x-toolbar-default {
+      background-color: @base;
+      border-color: @mantle;
+    }
+    .x-toolbar-default.x-docked-top {
+      border-width: 1px;
+      border-color: @mantle;
+    }
+    .x-toolbar-default .x-toolbar-separator {
+      border-color: #666;
+    }
+    .x-toolbar-text-default {
+      color: @text;
+    }
+    .x-treelist-item {
+      background-color: @base;
+    }
+    .x-treelist-item-text,
+    .x-treelist-item-icon,
+    .x-treelist-row-over .x-treelist-item-icon,
+    .x-treelist-row-over .x-treelist-item-text {
+      color: @text;
+    }
+    .x-treelist-item-selected > .x-treelist-row {
+      background-color: #0060a4;
+    }
+    .x-treelist-row-over {
+      background-color: @surface0;
+    }
+    .x-treelist-pve-nav {
+      background-color: @base;
+      border-color: #666;
+    }
+    .x-window-default {
+      background-color: @crust;
+      border-color: transparent;
+    }
+    .x-window-header-default {
+      background-color: @base;
+      border-color: transparent;
+    }
+    .x-window-header-default .x-mask {
+      background-color: rgba(38, 38, 38, 0.7);
+    }
+    .x-window-header-title-default {
+      color: #4db5ff;
+    }
+    .x-window-body-default {
+      background-color: @base;
+      border-color: @mantle;
+      color: @text;
+    }
+    .x-window-ghost {
+      background-color: @base;
+    }
+    .x-window-header-default .x-tool-img {
+      background-color: transparent;
+    }
+    .x-message-box .x-window-body {
+      background-color: @mantle;
+    }
+    :root {
+      color-scheme: dark;
+    }
+    .x-body {
+      color: @text;
+      background-color: @crust;
+    }
+    .x-viewport > .x-body {
+      background-color: @crust;
+    }
+    body.x-border-layout-ct,
+    div.x-border-layout-ct {
+      background-color: @crust;
+    }
+    .x-mask {
+      background-color: rgba(38, 38, 38, 0.5);
+    }
+    .x-css-shadow {
+      box-shadow: black 0 -1px 15px 5px !important;
+    }
+    img[id^="proxmoxlogo-"][id$="-img"] {
+      filter: invert(1 hue-rotate(180deg));
+    }
+    img[id^="proxmoxLogoSvg-"][id$="-img"] {
+      filter: invert(1 hue-rotate(180deg));
+    }
+    div[id^="versioninfo-"]
+      + div[id^="panel-"]
+      > div[id^="panel-"][id$="-bodyWrap"]
+      > div,
+    div.eol-notice + div[id^="panel-"] > div[id^="panel-"][id$="-bodyWrap"] > div {
+      background-color: transparent;
+      border-color: transparent;
+    }
+    .x-fieldset-header-default > .x-fieldset-header-text {
+      color: @text;
+    }
+    .proxmox-invalid-row {
+      background-color: @red;
+    }
+    .proxmox-warning-row {
+      background-color: #640;
+    }
+    .proxmox-disabled-row td {
+      color: #999;
+    }
+    .pmx-hint {
+      background-color: #640;
+    }
+    .pmx-hint a {
+      color: #99d5ff;
+    }
+    .pmx-hint a:active {
+      color: #4db5ff;
+    }
+    .pmx-unclickable {
+      pointer-events: none;
+    }
+    .proxmox-inline-button {
+      background-color: @surface0;
+      border-color: @surface2;
+      color: @crust;
+    }
+    .proxmox-inline-button.x-btn-over,
+    .proxmox-inline-button.x-btn.x-btn-pressed.x-btn-default-toolbar-small,
+    .x-keyboard-mode
+      .proxmox-inline-button.x-btn-default-toolbar-small.x-btn-focus {
+      background-color: @surface2;
+      border-color: @surface2;
+    }
+    /* .proxmox-inline-button .x-btn-inner,
+    .proxmox-inline-button .x-btn-icon-el {
+      color: @crust;
+    } */
+    .x-grid-row-loading,
+    .x-treelist-item-loading .x-treelist-item-icon,
+    .x-treelist-nav .x-treelist-item-loading .x-treelist-item-icon,
+    .x-mask-msg-text,
+    .x-grid-tree-loading .x-tree-icon {
+      filter: invert(90%);
+      color: black;
+    }
+    .x-keyboard-mode .x-grid-item-focused.x-grid-row-loading {
+      background-color: #9e9e9e;
+    }
+    .x-keyboard-mode
+      .x-grid-item-focused.x-grid-row-loading
+      .x-grid-cell-inner::before {
+      border-color: #e69962 !important;
+    }
+    .x-mask-msg {
+      background-color: @mantle;
+      border: solid 1px @mantle;
+    }
+    .pmx-md code {
+      background-color: @crust;
+    }
+    .pmx-md pre code {
+      border-color: @mantle;
+    }
+    .pmx-md tbody tr td {
+      border-color: #666;
+    }
+    .pmx-md tbody tr:nth-of-type(2n) {
+      background-color: @crust;
+    }
+    .pmx-md tbody tr:hover td {
+      background-color: #4d4d4d;
+    }
+    .pmx-md a {
+      color: #4db5ff;
+    }
+    .pmx-md a:active {
+      color: #99d5ff;
+    }
+    .proxmox-apt-repos .x-grid-group-hd {
+      background-color: @crust;
+      border-color: @mantle;
+    }
+    .proxmox-apt-repos .x-grid-group-title {
+      color: @text;
+    }
+    :root {
+      --pmg-spam-high-neg: #123954;
+      --pmg-spam-high-pos: #4f1717;
+      --pmg-spam-mid-neg: #1b557e;
+      --pmg-spam-mid-pos: #722;
+      --pmg-spam-low-neg: #2471a8;
+      --pmg-spam-low-pos: #9e2e2e;
+    }
+    .info-blue {
+      color: #4db5ff !important;
+    }
+    .critical {
+      color: #ff4d4d !important;
+    }
+    tr.blocked,
+    .x-keyboard-mode tr.blocked .x-grid-item-focused {
+      background-color: @red;
+    }
+    tr.quarantine,
+    .x-keyboard-mode tr.quarantine .x-grid-item-focused {
+      background-color: #5c2c0a;
+    }
+    tr.bounced,
+    .x-keyboard-mode tr.bounced .x-grid-item-focused {
+      background-color: #640;
+    }
+    .pmg-mail-preview-themed div > iframe {
+      filter: brightness(95% invert(95%));
+    }
+    table.osds tr {
+      border-color: #666;
+    }
+    table.osds td {
+      border-color: #666;
+    }
+    .install-mask {
+      background-color: @base;
+      color: @text;
+    }
+    .x-window.install-mask {
+      box-shadow: black 0 -1px 5px 1px !important;
+    }
+    div.monitor {
+      border-color: #666;
+    }
+    .pve-edit-tag.editable span {
+      background-color: @mantle;
+      color: @text;
+      border-color: #666;
+    }
+    .proxmox-tags-full .proxmox-tag-light,
+    .proxmox-tags-full .proxmox-tag-dark,
+    .proxmox-tags-circle .proxmox-tag-light,
+    .proxmox-tags-circle .proxmox-tag-dark {
+      outline: 1px solid rgba(51, 51, 51, 0.3);
+    }
+    .x-datepicker,
+    .x-datepicker-column-header,
+    .x-monthpicker {
+      background-color: @base;
+      color: @text;
+      border-color: transparent;
+    }
+    .x-datepicker-month .x-btn-over.x-btn-default-small {
+      background-color: @surface0;
+    }
+    .x-monthpicker-months {
+      border-color: @mantle;
+    }
+    .x-datepicker-header {
+      background-color: @crust;
+    }
+    .x-datepicker-cell,
+    .x-monthpicker-item-inner {
+      border-color: transparent;
+    }
+    .x-datepicker-date,
+    .x-monthpicker-item-inner {
+      color: @text;
+    }
+    .x-datepicker-prevday .x-datepicker-date,
+    .x-datepicker-nextday .x-datepicker-date {
+      color: #999;
+    }
+    .x-datepicker-footer,
+    .x-monthpicker-buttons {
+      background-color: @crust;
+    }
+    .x-datepicker-selected div.x-datepicker-date,
+    .x-monthpicker-item a.x-monthpicker-selected,
+    a.x-monthpicker-item-inner:hover,
+    div.x-datepicker-date:hover {
+      background-color: @surface0;
+      color: #fff;
+    }
+    .x-datepicker-disabled .x-datepicker-date {
+      background-color: @crust;
+    }
+    .x-datepicker-disabled div.x-datepicker-date:hover {
+      background-color: @base;
+    }
+
+  }
+}
