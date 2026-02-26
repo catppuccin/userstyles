@@ -19,6 +19,7 @@
 
 @-moz-document
   domain("bitwarden.com"),
+  domain("bitwarden.eu"),
   url-prefix("chrome-extension://nngceckbapebfimnlniiiahkandclblb/")
 {
   :root {
@@ -33,12 +34,12 @@
     #lib.palette();
     #lib.defaults();
     
-    .rgbifyNoComma(@color) {
-      @rgb: red(@color) green(@color) blue(@color);
-    }
-
     .token(@id, @color) {
       --color-@{id}: .rgbifyNoComma(@color) [];
+    }
+    
+    .rgbifyNoComma(@color) {
+      @rgb: red(@color) green(@color) blue(@color);
     }
     
     // Ramp
@@ -54,6 +55,9 @@
     .token(background-alt2, @surface0);
     .token(background-alt3, @mantle);
     .token(background-alt4, @surface0);
+    
+    // Ramp centre is 600, assuming dark theme.
+    // handle light theme ramp later.
     
     .token(primary-100, mix(@accent, @base, @tint));
     .token(primary-300, lighten(@accent, @ramp*-4));
@@ -98,7 +102,7 @@
     .token(marketing-logo, @text);
 
     .token(illustration-outline, lighten(@accent, @ramp*-5));
-    .token(illustration-bg-primary, @accent);
+    .token(illustration-bg-primary, lighten(@accent, @ramp*0));
     .token(illustration-bg-secondary, lighten(@accent, @ramp*-1));
     .token(illustration-bg-tertiary, lighten(@accent, @ramp*4));
     .token(illustration-tertiary, @yellow);
@@ -109,5 +113,118 @@
     --hover-contrast: fade(@base, 15%);
     
     --tw-ring-offset-color: @base;
+    
+    @inverseFlavor: if(@flavor = mocha, latte, mocha);
+    // Standardization is needed for the things I pull in all of my userstyles :>
+    
+    --color-fg-contrast: @text;
+    --color-fg-heading: @text;
+    --color-fg-body: @subtext1;
+    --color-fg-body-subtle: @subtext0;
+    --color-fg-disabled: @overlay1;
+    
+    --color-fg-brand-soft: @accent;
+    --color-fg-brand: @accent;
+    --color-fg-brand-strong: @accent;
+    
+    --color-fg-success: @green;
+    --color-fg-success-strong: @green;
+    
+    --color-fg-danger: @red;
+    --color-fg-danger-strong: @red;
+    
+    --color-fg-warning: @yellow;
+    --color-fg-warning-strong: @yellow;
+    
+    --color-fg-sensitive: @pink;
+    
+    --color-fg-accent-primary-soft: @teal;
+    --color-fg-accent-primary: @teal;
+    --color-fg-accent-primary-strong: @teal;
+    
+    --color-fg-accent-secondary-soft: @rosewater;
+    --color-fg-accent-secondary: @rosewater;
+    --color-fg-accent-secondary-strong: @rosewater;
+    
+    --color-fg-accent-tertiary-soft: @lavender;
+    --color-fg-accent-tertiary: @lavender;
+    --color-fg-accent-tertiary-strong: @lavender;
+
+    --color-bg-contrast: @catppuccin[@@inverseFlavor][@base];
+    --color-bg-contrast-strong: @catppuccin[@@inverseFlavor][@base];
+    --color-bg-primary: @base;
+    --color-bg-secondary: @mantle;
+    --color-bg-tertiary: @crust;
+    --color-bg-quaternary: @surface0;
+    --color-bg-gray: @surface1;
+    --color-bg-disabled: @crust;
+    
+    --color-bg-brand-softer: mix(@accent, @crust, @tint);
+    --color-bg-brand-soft: mix(@accent, @base, @tint);
+    --color-bg-brand-medium: mix(@accent, @mantle, @tint);
+    --color-bg-brand: @accent;
+    --color-bg-brand-strong: @accent;
+    
+    --color-bg-success-soft: mix(@green, @crust, @tint);
+    --color-bg-success-medium: mix(@green, @base, @tint);
+    --color-bg-success: @green;
+    --color-bg-success-strong: @green;
+    
+    --color-bg-danger-soft: mix(@red, @crust, @tint);
+    --color-bg-danger-medium: mix(@red, @base, @tint);
+    --color-bg-danger: @red;
+    --color-bg-danger-strong: @red;
+    
+    --color-bg-warning-soft: mix(@yellow, @crust, @tint);
+    --color-bg-warning-medium: mix(@yellow, @base, @tint);
+    --color-bg-warning: @yellow;
+    --color-bg-warning-strong: @yellow;
+    
+    --color-bg-accent-primary-soft: mix(@teal, @crust, @tint);
+    --color-bg-accent-primary-medium: mix(@teal, @base, @tint);
+    --color-bg-accent-primary: @teal;
+    --color-bg-accent-secondary-soft: mix(@rosewater, @crust, @tint);
+    --color-bg-accent-secondary-medium: mix(@rosewater, @base, @tint);
+    --color-bg-accent-secondary: @rosewater;
+    --color-bg-accent-tertiary-soft: mix(@lavender, @crust, @tint);
+    --color-bg-accent-tertiary-medium: mix(@lavender, @base, @tint);
+    --color-bg-accent-tertiary: @lavender;
+    
+    --color-bg-hover: fade(@text, 5%);
+    --color-bg-overlay: fade(@crust, 85%);
+
+    --color-border-muted: @base;
+    --color-border-light: @mantle;
+    --color-border-base: @surface0;
+    --color-border-strong: @subtext0;
+    --color-border-buffer: @crust;
+    --color-border-brand-soft: mix(@accent, @mantle, 50%);
+    --color-border-brand: @accent;
+    --color-border-brand-strong: @accent;
+    --color-border-success-soft: mix(@green, @mantle, 50%);
+    --color-border-success: @green;
+    --color-border-success-strong: @green;
+    --color-border-danger-soft: mix(@red, @mantle, 50%);
+    --color-border-danger: @red;
+    --color-border-danger-strong: @red;
+    --color-border-warning-soft: mix(@yellow, @mantle, 50%);
+    --color-border-warning: @yellow;
+    --color-border-warning-strong: @yellow;
+    --color-border-accent-primary-soft: mix(@teal, @mantle, 50%);
+    --color-border-accent-secondary-soft: mix(@rosewater, @mantle, 50%);
+    --color-border-accent-secondary: @rosewater;
+    --color-border-accent-tertiary-soft: mix(@lavender, @mantle, 50%);
+    --color-border-accent-tertiary: @lavender;
+    --color-border-focus: @text;
+    
+    --color-sidenav-background: @mantle;
+    --color-sidenav-text: @text;
+    --color-sidenav-active-item: @base;
+    --color-sidenav-item-hover: @base;
+    
+    --color-admin-sidenav-background: @mantle;
+    --color-admin-sidenav-text: @catppuccin[@mocha][@text];
+    --color-admin-sidenav-active-item: @base;
+    --color-admin-sidenav-item-hover: @base;
   }
 }
