@@ -1,0 +1,225 @@
+/* ==UserStyle==
+@name Catbox Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/catbox
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/catbox
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/catbox/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Acatbox
+@description Soothing pastel theme for Catbox
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+/* RegEx used to avoid theming blog. */
+@-moz-document regexp(
+    "^(https?:\/\/)?((litterbox|store)\.)?catbox\.moe(\/.*)?$"
+  ) {
+  :root:has(head > link[href*="resources/style-dark.css"]) {
+    #catppuccin(@darkFlavor);
+  }
+  :root:not(:has(head > link[href*="resources/style-dark.css"])) {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    body {
+      background-image: none; /* This is what Catbox's own dark theme does so I'm assuming it's ok for the light theme too? */
+      background-color: @base;
+      color: @text;
+    }
+
+    .welcome, .welcomesub, .linkbutton, .linkbutton b {
+      color: @accent !important;
+    }
+
+    .dropzone {
+      background-color: @accent;
+      border-color: darken(@accent, 10%);
+    }
+
+    .dz-default {
+      color: @base;
+    }
+
+    .dz-preview {
+      background-color: @mantle;
+      border-color: @surface1;
+    }
+
+    .dz-upload {
+      background-color: @accent;
+
+      &[style*="background-color: rgb(255, 92, 92);"] {
+        background-color: @red !important;
+      }
+    }
+
+    .urlUploadForm {
+      background-color: transparent;
+    }
+
+    input[type="text"], input[type="password"] {
+      background-color: @base;
+      border-color: @surface0;
+    }
+
+    .urlUpSubmit {
+      background-color: @accent;
+      border-color: darken(@accent, 10%);
+      color: @base;
+    }
+
+    .notetiny {
+      background-image: none;
+      background-color: @mantle;
+      border-color: @surface0;
+    }
+
+    .patreonProgressBarBacking {
+      background-color: @crust;
+      border-color: lighten(@accent, 7.5%);
+    }
+
+    .patreonProgressBar {
+      background-color: @accent;
+      color: @base;
+    }
+
+    .patreonSupportButton {
+      background-color: @base;
+      border-color: @surface0;
+    }
+
+    .patreonSupportLink {
+      color: @text;
+    }
+
+    .kofiSupportButton {
+      background-color: @blue;
+      border-color: darken(@blue, 10%);
+    }
+
+    .kofiSupportLink, .storeSupportLink {
+      color: @base;
+    }
+
+    .storeSupportButton {
+      background-color: @yellow;
+      border-color: darken(@yellow, 15%);
+    }
+
+    /* User Home */
+    .home, .hometab {
+      background-color: @mantle;
+      border-color: @surface0;
+    }
+
+    .homebutton {
+      color: @accent;
+    }
+
+    /* User Files */
+    .notesmall {
+      background-image: none;
+      background-color: @mantle;
+      border-color: @surface0;
+    }
+
+    /* User Albums */
+    table {
+      background-color: @mantle;
+      border-color: @surface0;
+    }
+
+    /* FAQ */
+    *[style*="color: red;"] {
+      color: @red !important;
+    }
+
+    /* Legal */
+    .legalRowText {
+      background-color: @mantle;
+      border-color: @surface0;
+      color: @accent;
+
+      &.active {
+        border-color: @accent;
+      }
+    }
+
+    .legalSection {
+      background-color: @mantle;
+    }
+
+    /* Litterbox */
+    div[style*="background-color: #d1f3ff;"] {
+      background-color: @base !important;
+      border-color: @surface0 !important;
+
+      > div {
+        background-color: @accent !important;
+        color: @base;
+      }
+    }
+
+    .timeSelector, .lenSelector {
+      background-color: @mantle !important;
+      border-color: @surface0;
+      border-style: solid;
+
+      &[style*="background-color: rgb(84, 68, 173);"],
+      &[style*="background-color: #5444AD"] {
+        background-color: @accent !important;
+        color: @base;
+      }
+    }
+
+    .dz-button {
+      color: @base;
+    }
+
+    /* Store */
+    /* The store doesn't have a dark theme so it will always use the light theme there. */
+    .col-1-4 {
+      background-image: none;
+      background-color: @mantle;
+      border-color: @surface0;
+    }
+
+    .productContainer button {
+      background-color: @accent;
+      border-color: darken(@accent, 10%);
+      color: @base;
+    }
+
+    select {
+      border-color: @surface2;
+      background-color: @base;
+    }
+
+    /* Manage Account */
+    hr {
+      color: @surface1;
+    }
+
+    .genericform {
+      background-color: @crust;
+    }
+
+    input[type="submit"] {
+      background-color: @accent;
+      border-color: darken(@accent, 10%);
+      color: @base;
+    }
+  }
+}
