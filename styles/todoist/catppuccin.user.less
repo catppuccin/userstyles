@@ -42,7 +42,7 @@
     --product-library-actionable-focus-fill: @surface2;
     --product-library-actionable-focus-tint: @subtext0;
     --product-library-actionable-primary-disabled-fill: @surface1;
-    --product-library-actionable-primary-hover-fill: @surface0;
+    --product-library-actionable-primary-hover-fill: darken(@accent, 5%);
     --product-library-actionable-primary-idle-fill: @accent;
     --product-library-actionable-primary-on-dark-disabled-fill: #4c2827;
     --product-library-actionable-primary-on-dark-hover-fill: @red;
@@ -51,7 +51,7 @@
     --product-library-actionable-primary-on-dark-on-hover-tint: #fff;
     --product-library-actionable-primary-on-dark-on-idle-tint: @base;
     --product-library-actionable-primary-on-disabled-tint: @subtext0;
-    --product-library-actionable-primary-on-hover-tint: #fff;
+    --product-library-actionable-primary-on-hover-tint: @base;
     --product-library-actionable-primary-on-idle-tint: @base;
     --product-library-actionable-quaternary-disabled-tint: @overlay0;
     --product-library-actionable-quaternary-hover-fill: @surface0;
@@ -98,7 +98,7 @@
     --product-library-actionable-tertiary-on-hover-tint: @accent;
     --product-library-background-base-primary: @base;
     --product-library-background-base-secondary: @mantle;
-    --product-library-background-base-tertiary: #f6f4f4;
+    --product-library-background-base-tertiary: @surface0; // source of --reactist-field-readonly-background, which is used for premium-locked inputs
     --product-library-background-grouped-primary: #fdfcfb;
     --product-library-background-grouped-secondary: #faf7f4;
     --product-library-background-grouped-tertiary: #f6f2ee;
@@ -146,7 +146,7 @@
     --product-library-info-positive-secondary-on-idle-tint: @green;
     --product-library-info-promote-primary-idle-fill: @yellow;
     --product-library-info-promote-primary-on-idle-tint: #fff;
-    --product-library-info-promote-quaternary-idle-fill: #fffaf4;
+    --product-library-info-promote-quaternary-idle-fill: @surface0;
     --product-library-info-promote-quaternary-on-idle-tint: #fae8d6;
     --product-library-info-promote-secondary-idle-fill: #ffd093;
     --product-library-info-promote-tertiary-idle-fill: #faead1;
@@ -231,8 +231,8 @@
     --product-library-priorities-p3-secondary-on-selected-tint: #fff;
     --product-library-priorities-p4-primary-disabled-fill: #d6d6d6;
     --product-library-priorities-p4-primary-disabled-tint: #ccc;
-    --product-library-priorities-p4-primary-idle-fill: @overlay1; // task list radio button inner check
-    --product-library-priorities-p4-primary-idle-tint: @overlay0; // task list radio button outer circle
+    --product-library-priorities-p4-primary-idle-fill: @overlay1; // check inside radio button
+    --product-library-priorities-p4-primary-idle-tint: @overlay0; // circle of radio button
     --product-library-priorities-p4-primary-on-disabled-tint: #fff;
     --product-library-priorities-p4-primary-on-idle-tint: #fff;
     --product-library-priorities-p4-secondary-disabled-fill: #f9f7f6;
@@ -270,12 +270,12 @@
     --product-library-selectable-secondary-selected-fill: fade(@accent, 10%);
     --product-library-selectable-secondary-on-selected-fill: @accent;
     --product-library-selectable-secondary-on-selected-tint: @accent;
-    --product-library-selectable-tertiary-selected-fill: #fff;
+    --product-library-selectable-tertiary-selected-fill: @surface0;
     --product-library-selectable-tertiary-selected-tint: #fff;
     --product-library-selectable-tertiary-on-selected-disabled-fill: #999;
     --product-library-selectable-tertiary-on-selected-disabled-tint: #999;
     --product-library-selectable-tertiary-on-selected-enabled-fill: #202020;
-    --product-library-selectable-tertiary-on-selected-enabled-tint: #202020;
+    --product-library-selectable-tertiary-on-selected-enabled-tint: @subtext0;
     --product-library-selectable-tertiary-on-unselected-disabled-fill: #c7c7c7;
     --product-library-selectable-tertiary-on-unselected-disabled-tint: #b2b2b2;
     --product-library-selectable-tertiary-on-unselected-enabled-fill: #aaa;
@@ -413,6 +413,87 @@
     .upcoming_view {
       .upcoming_view__list .section__wrapper--empty .section header h2 a {
         color: @subtext0;
+      }
+    }
+    
+    /* Scheduler/Datepicker Component */
+    .date {
+      color: @text; // selected date
+    }
+    .scheduler_popper {
+      .scheduler-suggestions-item {
+        &:not(.scheduler-suggestions-item--disabled) {
+          &:focus, &:hover {
+            background: @surface1;
+          }
+        }
+        .scheduler-suggestions-item-label {
+          color: @text;
+        }
+        .scheduler-suggestions-item-weekday {
+          color: @subtext1;
+        }
+      }
+      
+      .scheduler-date-picker {
+        .date-picker-header-action:not(--disabled):not([disabled]) {
+          color: @overlay2;
+          
+          &:hover, &:focus {
+            background-color: @surface1;
+          }
+          
+          .outline-circle {
+            border-color: @overlay1;
+          }
+        }
+        
+        .date-picker-monthlistheader-labels {
+          color: @subtext0;
+        }
+        .date-picker-month-header,
+        .date-picker-monthlistheader--bordered {
+          border-color: @surface1;
+        }
+        
+        .date-picker-tasksdue-info {
+          color: @subtext1;
+        }
+
+        .calendar {
+          .calendar__day {
+            color: @text;
+
+            &:hover {
+              color: @text;
+            }
+          }
+          .calendar__spacer__weekday, .calendar__day--greyed {
+            color: @overlay2;
+          }
+        }
+      }
+    }
+    
+    .priority_picker {
+      &.dropdown_select--popup {
+        background: @base;
+        
+        .dropdown_select__option--highlighted {
+          background-color: @surface0;
+        }
+      }
+    }
+    
+    .reminders_picker {
+      background-color: @base;
+      
+      h2 {
+        color: @text;
+      }
+      
+      .adder--highlighted {
+        border-color: @surface1;
       }
     }
   }
