@@ -12,7 +12,7 @@ sidebar:
 
 ### Pull requests
 
-- Create a [topic branch](https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows#_topic_branch) on your fork for your specific PR.
+- Create a [topic branch](https://git-scm.com/book/en/v2/Git-Branching-Branching-Workflows#_topic_branch) on your fork for your specific changes.
 - Catppuccin uses the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standard for creating explicit and meaningful commit messages. This repository requires pull request _titles_ to be in the conventional commit format, however we do not require it for individual commits within a pull request.
 - It's better to have a draft pull request than no pull request at all. Having a draft lets others know that a userstyle is being worked on, and gives the opportunity for people to try it out ahead of time (if they really want it themed!).
 
@@ -21,15 +21,15 @@ sidebar:
 ```mermaid
 graph TD;
     A[New userstyle];
-    B[Other improvements];
+    B[Existing userstyle fixes/improvements];
     A --> C[Review by userstyles staff];
-    B --> D[Review by maintainer];
+    B --> D[Review by userstyle maintainer];
     C --> E{Feedback};
     D --> F{Feedback};
     E -->|Changes made| E;
     F -->|Changes made| F;
     E -->|Approved by userstyles staff| G;
-    F -->|Approved by maintainer or userstyles staff| H[Merged by maintainer];
+    F -->|Approved by userstyle maintainer or userstyles staff| H[Merged by userstyle maintainer];
     G[Review period] --> I[Merged by userstyles staff];
 ```
 
@@ -37,7 +37,7 @@ graph TD;
 
 ### Versioning
 
-All userstyles are versioned in the UserCSS metadata section at the top of each userstyle, by a line in the format of `@version 2000.01.01`. **This line SHOULD NOT be edited by hand**. We use an automated versioning system that updates the version value (based on [Calendar Versioning](https://calver.org/)) when a change is made to a userstyle, after merging the pull request.
+All userstyles are versioned in the UserCSS metadata section at the top of each userstyle, by a line in the format of `@version 2000.01.01`. **This line SHOULD NOT be edited by hand**. After a pull request is merged, an automated updates the version value (based on [Calendar Versioning](https://calver.org/)).
 
 ### New userstyle considerations
 
@@ -65,7 +65,7 @@ This repository uses [Deno](https://deno.com/) for linting, formatting, and auto
 
 #### Linting
 
-Lint all userstyles by running `deno task lint` in the terminal. If any issues are found, run `deno task lint:fix` to automatically apply fixes (*in some cases).
+Lint all userstyles by running `deno task lint` in the terminal. If any issues are found, run `deno task lint:fix` to automatically apply fixes (\*in some cases).
 
 For faster linting, specify the userstyle to check as an argument to the `deno task lint` command. For example, `deno task lint my-userstyle` (or using the relative path from the root directory, `deno task lint styles/my-userstyle`).
 
