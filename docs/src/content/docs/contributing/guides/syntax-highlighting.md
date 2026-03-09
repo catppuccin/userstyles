@@ -32,7 +32,7 @@ After including the CSS variables with the mixin specified above, add the follow
 After including the CSS variables with the mixin specified above, add the following line at the top of the userstyle, beneath the `@-moz-document` line.
 
 ```css
-@import url("https://prismjs.catppuccin.com/variables.css");
+@import url("https://prismjs.catppuccin.com/variables.important.css");
 ```
 
 ## Chroma
