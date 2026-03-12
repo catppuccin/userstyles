@@ -1,0 +1,47 @@
+---
+title: Introduction
+description: Introduction to Catppuccin Userstyles.
+sidebar:
+  order: 1
+---
+
+A curated collection of soothing pastel themes for your favorite websites and web applications.
+
+![Combined preview screenshot of four different websites with userstyles applied. In order of appearance, npm is shown in Latte, Wikipedia is shown in Frappé, Chess.com is shown in Macchiato, and GitHub is shown in Mocha.](../../../assets/preview.webp)
+
+## Getting started
+
+To get started using the catppuccin/userstyles collection, see [Usage](/getting-started/usage/).
+
+To get started contributing to catppuccin/userstyles, see [Contributing](/contributing/) and [Creating Userstyles](/contributing/creating-userstyles/).
+
+## Userstyles
+
+> [!NOTE]
+> Userstyles labeled with the "❤️‍🩹" emoji lack maintainers, and may not work as intended. Contributions are still welcome and encouraged!
+
+import AnchorHeading from '@astrojs/starlight/components/AnchorHeading.astro';
+import { ports } from "../../../lib/ports";
+import { categories, sortedCategories, categoryMap } from "../../../lib/categories";
+
+{sortedCategories.map((cat) => {
+  const category = categories[cat];
+  return (
+    <>
+      <AnchorHeading level="3" id={cat}>{category.emoji}{' '}{category.name}</AnchorHeading>
+      <p>{category.description}</p>
+      <ul>
+        {categoryMap[cat]
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((port) => (
+            <li>
+              <a href={`https://github.com/catppuccin/userstyles/tree/main/styles/${port.slug}`}>
+                {port.currentMaintainers.length > 0 ? '' : '❤️‍🩹 '}
+                {port.name}
+              </a>
+            </li>
+          ))}
+      </ul>
+    </>
+  );
+})}

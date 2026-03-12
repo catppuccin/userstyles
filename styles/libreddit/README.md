@@ -18,7 +18,7 @@
 > [!IMPORTANT]
 > This userstyle also applies to [Redlib](https://github.com/redlib-org/redlib).
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 
 ## ❤️‍🩹 Unmaintained

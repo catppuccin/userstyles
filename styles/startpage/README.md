@@ -15,11 +15,11 @@
 
 ## Usage
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 
-## ❤️‍🩹 Unmaintained
-This userstyle currently lacks maintainers, and may not work correctly. Please feel free to contribute for any issues you find!
+## 💝 Current Maintainer
+- [WalkQuackBack](https://github.com/WalkQuackBack)
 
 ## 💖 Past Maintainer
 - [bartlibert](https://github.com/bartlibert)

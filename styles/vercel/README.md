@@ -18,7 +18,7 @@
 > [!IMPORTANT]
 > This userstyle also applies to [Next.js](https://nextjs.org).
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 
 ## 💝 Current Maintainers

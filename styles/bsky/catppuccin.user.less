@@ -2,7 +2,7 @@
 @name Bluesky Social Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/bsky
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/bsky
-@version 2025.05.17
+@version 2025.10.29
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/bsky/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Absky
 @description Soothing pastel theme for Bluesky Social
@@ -14,6 +14,8 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
 
 @-moz-document domain("bsky.app") {
   html.colorMode--system {
@@ -34,46 +36,8 @@
   }
 
   #catppuccin(@flavor) {
-    @rosewater: @catppuccin[@@flavor][@rosewater];
-    @flamingo: @catppuccin[@@flavor][@flamingo];
-    @pink: @catppuccin[@@flavor][@pink];
-    @mauve: @catppuccin[@@flavor][@mauve];
-    @red: @catppuccin[@@flavor][@red];
-    @maroon: @catppuccin[@@flavor][@maroon];
-    @peach: @catppuccin[@@flavor][@peach];
-    @yellow: @catppuccin[@@flavor][@yellow];
-    @green: @catppuccin[@@flavor][@green];
-    @teal: @catppuccin[@@flavor][@teal];
-    @sky: @catppuccin[@@flavor][@sky];
-    @sapphire: @catppuccin[@@flavor][@sapphire];
-    @blue: @catppuccin[@@flavor][@blue];
-    @lavender: @catppuccin[@@flavor][@lavender];
-    @text: @catppuccin[@@flavor][@text];
-    @subtext1: @catppuccin[@@flavor][@subtext1];
-    @subtext0: @catppuccin[@@flavor][@subtext0];
-    @overlay2: @catppuccin[@@flavor][@overlay2];
-    @overlay1: @catppuccin[@@flavor][@overlay1];
-    @overlay0: @catppuccin[@@flavor][@overlay0];
-    @surface2: @catppuccin[@@flavor][@surface2];
-    @surface1: @catppuccin[@@flavor][@surface1];
-    @surface0: @catppuccin[@@flavor][@surface0];
-    @base: @catppuccin[@@flavor][@base];
-    @mantle: @catppuccin[@@flavor][@mantle];
-    @crust: @catppuccin[@@flavor][@crust];
-    @accent: @catppuccin[@@flavor][@@accentColor];
-
-    color-scheme: if(@flavor = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent, 30%);
-    }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
+    #lib.palette();
+    #lib.defaults();
 
     // fix general site background - this applies to the <html> element
     background-color: @base;
@@ -98,9 +62,9 @@
       color: if(@flavor = latte, @text, @crust) !important;
     }
 
-    /* secondary text */
-    [style*="rgb(169, 183, 197)"],
-    [style*="rgb(140, 158, 178)"],
+    /* secondary text [contrast_700] */
+    [style*="rgb(165, 178, 197)"], // dark
+    [style*="rgb(171, 184, 201)"], // dim
     [style*="rgb(84, 110, 138)"],
     [style*="rgb(66, 87, 108)"] {
       color: @subtext1 !important;
@@ -117,22 +81,22 @@
       }
     }
 
-    /* generic blue inline (e.g. link text, etc) */
-    [style*="color: rgb(16, 131, 254)"], // dark
-    [style*="color: rgb(32, 139, 254)"] // dim
+    /* generic blue inline (e.g. link text, etc) [primary_500] */
+    [style*="color: rgb(0, 106, 255)"], // dark
+    [style*="color: rgb(15, 115, 255)"] // dim
     {
       color: @accent !important;
     }
-    /* generic blue inline underline (links) */
-    [style*="text-decoration-color: rgb(16, 131, 254)"], // dark
-    [style*="text-decoration-color: rgb(32, 139, 254)"] // dim
+    /* generic blue inline underline (links) [primary_500] */
+    [style*="text-decoration-color: rgb(0, 106, 255)"], // dark
+    [style*="text-decoration-color: rgb(15, 115, 255)"] // dim
     {
       text-decoration-color: @accent !important;
     }
 
-    /* generic blue inline bg color (e.g. notification count) */
-    [style*="background-color: rgb(16, 131, 254)"], // dark
-    [style*="background-color: rgb(32, 139, 254)"] // dim
+    /* generic blue inline bg color (e.g. notification count) [primary_500] */
+    [style*="background-color: rgb(0, 106, 255)"], // dark
+    [style*="background-color: rgb(15, 115, 255)"] // dim
     {
       background-color: @accent !important;
 
@@ -153,18 +117,6 @@
     /* sending/pending/failed direct message */
     [style*="background-color: rgb(1, 64, 132)"] {
       background-color: fade(@accent, 30%) !important;
-    }
-
-    /* blue svg inline */
-    [stroke="hsl(211, 99%, 53%)"],
-    [stroke="#0085ff"] {
-      stroke: @accent;
-    }
-
-    [fill="hsl(211, 99%, 53%)"],
-    [fill="hsl(211, 99%, 56%)"],
-    [fill="#0085ff"] {
-      fill: @accent;
     }
 
     /* a lot of blue things (buttons etc) */
@@ -194,8 +146,10 @@
       color: @red !important;
     }
 
-    /* red button text (delete my account) */
-    [style*="color: rgb(251, 162, 178)"] {
+    /* red button text (delete my account) [negative_500] */
+    [style*="color: rgb(233, 22, 70)"], // dark
+    [style*="color: rgb(235, 36, 82)"] // dim
+    {
       color: @red !important;
     }
 
@@ -228,7 +182,8 @@
     /* generic background color */
     [style*="background-color: rgb(255, 255, 255)"],
     [style*="background-color: rgb(0, 0, 0)"],
-    [style*="background-color: rgb(22, 30, 39)"] {
+    [style*="background-color: rgb(21, 29, 40)"] // dim
+    {
       background-color: @base !important;
 
       & when (@flavor = latte) {
@@ -239,16 +194,16 @@
       }
     }
 
-    /* secondary background color */
-    [style*="background-color: rgb(20, 25, 31)"], /* dark? */
-    [style*="background-color: rgb(20, 27, 35)"], /* dark */
-    [style*="background-color: rgb(30, 41, 54)"] /* dim */ {
+    /* secondary background color + sidebar button hover [contrast_25] */
+    [style*="background-color: rgb(17, 24, 34)"], // dark
+    [style*="background-color: rgb(28, 39, 54)"] // dim
+    {
       background-color: @mantle !important;
     }
 
-    /* secondary background color when active (e.g. search bar, hovering some buttons like cancel) */
-    [style*="background-color: rgb(28, 39, 50)"], // dark
-    [style*="background-color: rgb(38, 53, 68)"] // dim
+    /* secondary background color (when active?) (e.g. search bar, hovering some buttons like cancel) */
+    [style*="background-color: rgb(25, 34, 46)"], // dark
+    [style*="background-color: rgb(34, 46, 63)"] // dim
     {
       background-color: @crust !important;
     }
@@ -264,10 +219,10 @@
     }
 
     /* wide site: new post button (w text) */
-    button[style*="background-color: rgb(16, 131, 254)"], // dark
-    button[style*="background-color: rgb(52, 150, 254)"], // dark (hover)
-    button[style*="background-color: rgb(32, 139, 254)"], // dim
-    button[style*="background-color: rgb(76, 162, 254)"] // dim (hover)
+    button[style*="background-color: rgb(0, 106, 255)"], // dark
+    button[style*="background-color: rgb(66, 145, 255)"], // dark (hover)
+    button[style*="background-color: rgb(15, 115, 255)"], // dim
+    button[style*="background-color: rgb(77, 151, 255)"] // dim (hover)
     {
       background-color: @accent !important;
       &:hover {
@@ -288,7 +243,7 @@
     }
 
     /* fix selected tab bottom border issue caused by selector above */
-    .css-175oi2r[style*="border-bottom-color: rgb(16, 131, 254)"] {
+    .css-175oi2r[style*="border-bottom-color: rgb(0, 106, 255)"] {
       border-bottom-color: @accent !important;
     }
 
@@ -383,6 +338,13 @@
       background-color: @red !important;
     }
 
+    /* Discard draft modal border, bunch of other borders around the app [contrast_100] */
+    [style*="border-color: rgb(35, 46, 62)"], // dark
+    [style*="border-color: rgb(44, 58, 78)"] // dim
+    {
+      border-color: @surface2 !important;
+    }
+
     /* the round gradient post button in the bottom right when the page is thinner than usual */
     [data-testid="composeFAB"] > div {
       background: unset !important;
@@ -395,8 +357,10 @@
     }
 
     /* blue text only button (e.g. cancel post button) */
-    div[style*="color: rgb(52, 150, 254)"],
-    div[style*="color: rgb(76, 162, 254)"] {
+    div[style*="color: rgb(66, 145, 255)"], // dark
+    div[style*="color: rgb(77, 151, 255)"], // dim
+    div[style*="color: rgb(0, 89, 214)"] // latte !! this overlaps with dark. might break?
+    {
       color: @accent !important;
     }
 
@@ -406,9 +370,12 @@
       color: @text;
     }
 
-    /* some button background color (when hovering) */
-    [style*="background-color: rgb(0, 44, 91)"],
-    [style*="background-color: rgb(19, 63, 109)"] {
+    /* some button background color (when hovering) [primary_100] */
+    [style*="background-color: rgb(0, 40, 97)"], // dark
+    [style*="background-color: rgb(18, 52, 100)"], // dim
+    [style*="background-color: rgb(204, 225, 255)"], // latte
+    /* add alt text modal */
+    [style*="background-color: rgb(14, 73, 137)"] {
       background-color: fade(@accent, 30%) !important;
     }
 
@@ -421,12 +388,12 @@
 
     /* the white buttons text */
     [style*="color: rgb(0, 0, 0)"] {
-      color: @crust !important;
+      color: if(@flavor = latte, @text, @crust) !important;
     }
 
     /* replace dark fill icons with crust ones */
     path[fill="#000000"] {
-      fill: @crust;
+      fill: if(@flavor = latte, @text, @crust);
     }
 
     /* fixes a contrast issue when the suggested follows button is enabled (very ugly selector) */
@@ -447,14 +414,15 @@
       --placeholderTextColor: @subtext1 !important;
     }
 
-    /* search bar icon */
-    svg[style^="color: rgb(141, 142, 150)"] {
+    /* search bar icon (this doesn't actually apply because path fill. keeping anyways) [contrast_500] */
+    svg[style^="color: rgb(102, 123, 153"], // dark
+    svg[style^="color: rgb(111, 131, 159)"] // dim
+    {
       color: @subtext1 !important;
     }
 
     /* small icons */
-    path[fill="#ffffff"],
-    path[fill="hsl(211, 20%, 95.3%)"] {
+    path[fill="#FFFFFF"] {
       fill: @text;
 
       & when (@flavor = latte) {
@@ -462,14 +430,19 @@
       }
     }
 
-    /* more gray small icons (seems to only be the trash can/delete icon) */
-    path[fill="#8D8E96"] {
-      fill: @subtext1;
+    /* more gray small icons (e.g. search bar icon, icons below posts [contrast_500] */
+    path[fill="#667B99"], // dark
+    path[fill="#6F839F"], // dim
+    [style*="color: rgb(111, 131, 159)"], // dark
+    [style*="color: rgb(111, 131, 159)"] // dim
+    {
+      color: @subtext1 !important;
+      fill: @subtext1 !important;
     }
-
-    /* settings button at the top of the timeline, hashtag button/icon at top of timeline */
-    path[fill="hsl(211, 24%, 70%)"],
-    path[fill="hsl(211, 20%, 62.4%)"] {
+    /* settings button at the top of the timeline, hashtag button/icon at top of timeline [contrast_600] */
+    path[fill="#8798B0"], // dark
+    path[fill="#8D9DB4"] // dim
+    {
       fill: @subtext1;
     }
 
@@ -480,13 +453,6 @@
       > svg > path[fill="#52acfe"] {
         fill: @accent;
       }
-    }
-
-    /* likes, reposts and comment counts/buttons under posts, maybe more */
-    path[fill="hsl(211, 20%, 53%)"],
-    [style*="color: rgb(111, 134, 159)"] {
-      color: @subtext1 !important;
-      fill: @subtext1 !important;
     }
 
     /* heart/like */
@@ -504,11 +470,18 @@
 
     /* repost */
     .r-5ld2xk,
-    [style*="color: rgb(69, 237, 159)"] {
+    [style*="color: rgb(92, 239, 170)"] {
       color: @green !important;
       > path {
         fill: @green !important;
       }
+    }
+
+    /* saved icon on post + trending icon */
+    path[fill="#006AFF"], // dark
+    path[fill="#0F73FF"] // dim
+    {
+      fill: @accent;
     }
 
     /* tiny people icon on post view ("Everybody can reply") */
@@ -557,6 +530,13 @@
       color: @base !important;
     }
 
+    /* miscellaneous lines around the app [contrast_200] */
+    [style*="border-color: rgb(49, 63, 84)"], // dark
+    [style*="border-color: rgb(57, 73, 96)"] // dim
+    {
+      border-color: @surface1 !important;
+    }
+
     /* other button in notifications tab, inner text */
     div[style*="color: rgb(82, 172, 254)"] {
       color: @accent !important;
@@ -591,24 +571,93 @@
     }
 
     /* thread lines */
-    div[style*="background-color: rgb(46, 63, 81)"].r-m5arl1 {
+    div[style*="background-color: rgb(35, 46, 62)"].r-m5arl1 {
       background: @surface1 !important;
     }
 
-    line[stroke="hsl(211, 28%, 24.8%)"][stroke-width="2"] {
+    /* character limit progress circle [primary_500] */
+    path[stroke="#006AFF"], // dark
+    path[stroke="#0F73FF"], // dim
+    path[stroke="#006AFF"] // light
+    {
+      stroke: @accent !important;
+    }
+
+    /* bg circle [contrast_100] */
+    path[stroke="#232E3E"], // dark
+    path[stroke="#2C3A4E"], // dim
+    path[stroke="#DCE2EA"] // light
+    {
       stroke: @surface1 !important;
     }
 
-    circle[fill="hsl(211, 28%, 24.8%)"][r="1.5"] {
-      fill: @surface1 !important;
+    /* load new posts button (border: [contrast_100]; bg: [primary_50]) */
+    button[style*="border-color: rgb(35, 46, 62); background-color: rgb(0, 30, 71)"],
+    // dark
+    button[style*="border-color: rgb(44, 58, 78); background-color: rgb(18, 41, 73)"],
+    // dim
+    button[style*="border-color: rgb(220, 226, 234); background-color: rgb(229, 240, 255)"] // light
+    {
+      background-color: @surface0 !important;
+      border-color: @overlay0 !important;
+    }
+
+    /* any button that's disabled (we should start using broader overrides) */
+    button[disabled] > svg > path {
+      fill: @overlay0;
+    }
+
+    /* sitewide text inputs */
+    /* the divs are styled separately from the input areas */
+    div[style*="border-color: rgb(46, 64, 82)"] {
+      border-color: @surface1 !important;
+    }
+    /* search bar [primary_500] */
+    div[style*="border-color: rgb(0, 106, 255)"], // dark
+    div[style*="border-color: rgb(15, 115, 255)"] // dim
+    {
+      border-color: @accent !important;
+    }
+
+    /* image preview borders across app */
+    [style*="border-color: rgb(74, 97, 121)"] {
+      border-color: @surface2 !important;
+    }
+
+    /* search tab trending buttons */
+    [style*="background-color: rgb(142, 9, 40)"] {
+      background-color: @red !important;
+
+      div {
+        color: @crust !important;
+      }
+
+      svg > path {
+        fill: @crust;
+      }
+    }
+    /* TODO: new which is green but I can't get the right class cause nothing on bsky is a new trending topic atm */
+
+    /* round icon backgrounds (e.g. feeds) */
+    div[style*="background-color: rgb(21, 52, 85)"] {
+      background-color: @surface0 !important;
+    }
+
+    /* pill toggle button styles (e.g. account activity notifications) */
+    /* active, hover */
+    div[style*="border-color: rgb(76, 162, 254);"] {
+      border-color: @accent !important;
+    }
+    div[style*="background-color: rgb(18, 52, 100)"] {
+      background-color: fade(@accent, 40%) !important;
+    }
+    /* inactive, circle in pill */
+    div[style*="background-color: rgb(91, 119, 149)"] {
+      background-color: @surface2 !important;
+    }
+    /* inactive, hover */
+    div[style*="border-color: rgb(120, 142, 165)"] {
+      border-color: @overlay1 !important;
     }
   }
 }
-
-/* deno-fmt-ignore */
-@catppuccin: {
-  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-};

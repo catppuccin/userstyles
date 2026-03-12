@@ -2,7 +2,7 @@
 @name Proton Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/proton
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/proton
-@version 2025.06.04
+@version 2025.12.05
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/proton/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aproton
 @description Soothing pastel theme for Proton
@@ -15,7 +15,11 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@-moz-document regexp("https://(account|mail|drive|calendar).proton.me/.*$") {
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document regexp(
+    "https://(account|mail|drive|calendar|lumo).proton.me/.*$"
+  ) {
   :root {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
@@ -26,46 +30,8 @@
   }
 
   #catppuccin(@flavor) {
-    @rosewater: @catppuccin[@@flavor][@rosewater];
-    @flamingo: @catppuccin[@@flavor][@flamingo];
-    @pink: @catppuccin[@@flavor][@pink];
-    @mauve: @catppuccin[@@flavor][@mauve];
-    @red: @catppuccin[@@flavor][@red];
-    @maroon: @catppuccin[@@flavor][@maroon];
-    @peach: @catppuccin[@@flavor][@peach];
-    @yellow: @catppuccin[@@flavor][@yellow];
-    @green: @catppuccin[@@flavor][@green];
-    @teal: @catppuccin[@@flavor][@teal];
-    @sky: @catppuccin[@@flavor][@sky];
-    @sapphire: @catppuccin[@@flavor][@sapphire];
-    @blue: @catppuccin[@@flavor][@blue];
-    @lavender: @catppuccin[@@flavor][@lavender];
-    @text: @catppuccin[@@flavor][@text];
-    @subtext1: @catppuccin[@@flavor][@subtext1];
-    @subtext0: @catppuccin[@@flavor][@subtext0];
-    @overlay2: @catppuccin[@@flavor][@overlay2];
-    @overlay1: @catppuccin[@@flavor][@overlay1];
-    @overlay0: @catppuccin[@@flavor][@overlay0];
-    @surface2: @catppuccin[@@flavor][@surface2];
-    @surface1: @catppuccin[@@flavor][@surface1];
-    @surface0: @catppuccin[@@flavor][@surface0];
-    @base: @catppuccin[@@flavor][@base];
-    @mantle: @catppuccin[@@flavor][@mantle];
-    @crust: @catppuccin[@@flavor][@crust];
-    @accent: @catppuccin[@@flavor][@@accentColor];
-
-    color-scheme: if(@flavor = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent, 30%);
-    }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
+    #lib.palette();
+    #lib.defaults();
 
     svg.logo {
       @accentH: hue(@accent);
@@ -147,60 +113,61 @@
         );
       }
 
-      --primary-minor-2: #lightenOrDarken(@accent, 60%)[@result];
-      --primary-minor-1: #lightenOrDarken(@accent, 50%)[@result];
+      --primary-minor-2: #lightenOrDarken(@accent, 60%)[];
+      --primary-minor-1: #lightenOrDarken(@accent, 50%)[];
       --primary: @accent;
-      --primary-major-1: #darkenOrLighten(@accent, 4%)[@result];
-      --primary-major-2: #darkenOrLighten(@accent, 8%)[@result];
-      --primary-major-3: #darkenOrLighten(@accent, 12%)[@result];
+      --primary-major-1: #darkenOrLighten(@accent, 4%)[];
+      --primary-major-2: #darkenOrLighten(@accent, 8%)[];
+      --primary-major-3: #darkenOrLighten(@accent, 12%)[];
       --primary-contrast: @mantle;
-      --signal-danger-minor-2: #lightenOrDarken(@maroon, 40%)[@result];
-      --signal-danger-minor-1: #lightenOrDarken(@maroon, 30%)[@result];
+      --signal-danger-minor-2: #lightenOrDarken(@maroon, 40%)[];
+      --signal-danger-minor-1: #lightenOrDarken(@maroon, 30%)[];
       --signal-danger: @maroon;
-      --signal-danger-major-1: #darkenOrLighten(@maroon, 4%)[@result];
-      --signal-danger-major-2: #darkenOrLighten(@maroon, 8%)[@result];
-      --signal-danger-major-3: #darkenOrLighten(@maroon, 12%)[@result];
+      --signal-danger-major-1: #darkenOrLighten(@maroon, 4%)[];
+      --signal-danger-major-2: #darkenOrLighten(@maroon, 8%)[];
+      --signal-danger-major-3: #darkenOrLighten(@maroon, 12%)[];
       --signal-danger-contrast: @mantle;
-      --signal-warning-minor-2: #lightenOrDarken(@peach, 40%)[@result];
-      --signal-warning-minor-1: #lightenOrDarken(@peach, 30%)[@result];
+      --signal-warning-minor-2: #lightenOrDarken(@peach, 40%)[];
+      --signal-warning-minor-1: #lightenOrDarken(@peach, 30%)[];
       --signal-warning: @peach;
-      --signal-warning-major-1: #darkenOrLighten(@peach, 4%)[@result];
-      --signal-warning-major-2: #darkenOrLighten(@peach, 8%)[@result];
-      --signal-warning-major-3: #darkenOrLighten(@peach, 12%)[@result];
+      --signal-warning-major-1: #darkenOrLighten(@peach, 4%)[];
+      --signal-warning-major-2: #darkenOrLighten(@peach, 8%)[];
+      --signal-warning-major-3: #darkenOrLighten(@peach, 12%)[];
       --signal-warning-contrast: @mantle;
-      --signal-success-minor-2: #lightenOrDarken(@green, 40%)[@result];
-      --signal-success-minor-1: #lightenOrDarken(@green, 30%)[@result];
+      --signal-success-minor-2: #lightenOrDarken(@green, 40%)[];
+      --signal-success-minor-1: #lightenOrDarken(@green, 30%)[];
       --signal-success: @green;
-      --signal-success-major-1: #darkenOrLighten(@green, 4%)[@result];
-      --signal-success-major-2: #darkenOrLighten(@green, 8%)[@result];
-      --signal-success-major-3: #darkenOrLighten(@green, 12%)[@result];
+      --signal-success-major-1: #darkenOrLighten(@green, 4%)[];
+      --signal-success-major-2: #darkenOrLighten(@green, 8%)[];
+      --signal-success-major-3: #darkenOrLighten(@green, 12%)[];
       --signal-success-contrast: @mantle;
-      --signal-info-minor-2: #lightenOrDarken(@blue, 40%)[@result];
-      --signal-info-minor-1: #lightenOrDarken(@blue, 30%)[@result];
+      --signal-info-minor-2: #lightenOrDarken(@blue, 40%)[];
+      --signal-info-minor-1: #lightenOrDarken(@blue, 30%)[];
       --signal-info: @blue;
-      --signal-info-major-1: #darkenOrLighten(@blue, 4%)[@result];
-      --signal-info-major-2: #darkenOrLighten(@blue, 8%)[@result];
-      --signal-info-major-3: #darkenOrLighten(@blue, 12%)[@result];
+      --signal-info-major-1: #darkenOrLighten(@blue, 4%)[];
+      --signal-info-major-2: #darkenOrLighten(@blue, 8%)[];
+      --signal-info-major-3: #darkenOrLighten(@blue, 12%)[];
       --signal-info-contrast: @mantle;
-      --interaction-norm-minor-2: #lightenOrDarken(@accent, 40%)[@result];
-      --interaction-norm-minor-1: #lightenOrDarken(@accent, 30%)[@result];
+      --interaction-norm-minor-2: #lightenOrDarken(@accent, 40%)[];
+      --interaction-norm-minor-1: #lightenOrDarken(@accent, 30%)[];
       --interaction-norm: @accent;
-      --interaction-norm-major-1: #darkenOrLighten(@accent, 4%)[@result];
-      --interaction-norm-major-2: #darkenOrLighten(@accent, 8%)[@result];
-      --interaction-norm-major-3: #darkenOrLighten(@accent, 12%)[@result];
+      --interaction-norm-major-1: #darkenOrLighten(@accent, 4%)[];
+      --interaction-norm-major-2: #darkenOrLighten(@accent, 8%)[];
+      --interaction-norm-major-3: #darkenOrLighten(@accent, 12%)[];
       --interaction-norm-contrast: @mantle;
-      --interaction-weak-minor-2: #lightenOrDarken(@surface0, 20%)[@result];
-      --interaction-weak-minor-1: #lightenOrDarken(@surface0, 10%)[@result];
+      --interaction-weak-minor-2: #lightenOrDarken(@surface0, 20%)[];
+      --interaction-weak-minor-1: #lightenOrDarken(@surface0, 10%)[];
       --interaction-weak: @surface0;
-      --interaction-weak-major-1: #darkenOrLighten(@surface0, 4%)[@result];
-      --interaction-weak-major-2: #darkenOrLighten(@surface0, 8%)[@result];
-      --interaction-weak-major-3: #darkenOrLighten(@surface0, 12%)[@result];
+      --interaction-weak-major-1: #darkenOrLighten(@surface0, 4%)[];
+      --interaction-weak-major-2: #darkenOrLighten(@surface0, 8%)[];
+      --interaction-weak-major-3: #darkenOrLighten(@surface0, 12%)[];
       --interaction-weak-contrast: @text;
       --text-norm: @text;
       --text-weak: @subtext0;
       --text-hint: @subtext1;
       --text-disabled: @overlay1;
       --text-invert: @crust;
+      --text-markdown: @text;
       --field-norm: @overlay2;
       --field-hover: @overlay1;
       --field-disabled: @overlay0;
@@ -208,8 +175,12 @@
       --field-highlight: fade(@accent, 70%);
       --focus-outline: @accent;
       --focus-ring: fade(@accent, 40%);
+      --link-norm: @blue;
+      --link-hover: @lavender;
+      --link-active: @sky;
+      --markdown-pre-background: @mantle;
       --border-norm: @overlay0;
-      --border-weak: @overlay1;
+      --border-weak: @surface1;
       --background-norm: @base;
       --background-weak: @mantle;
       --background-strong: @crust;
@@ -269,13 +240,77 @@
         );
       }
     }
+
+    /* Proton Lumo */
+
+    header {
+      a[aria-label="Go to Lumo homepage"] img {
+        filter: @accent-filter;
+      }
+    }
+
+    .whats-new-section {
+      background: @accent;
+    }
+
+    .new-label {
+      background-color: @accent;
+      color: @crust;
+    }
+
+    .lumo-sidebar {
+      background: @mantle;
+      a.lumo-plus-button svg path {
+        fill: @accent;
+      }
+    }
+
+    .lumo-input-container.ghost-mode {
+      background-color: @crust;
+      --ghost-text: @text;
+      --ghost-text-weak: @subtext0;
+      .lumo-input {
+        background-color: @mantle;
+      }
+    }
+
+    div[style*="background: rgb(40, 44, 52);"],
+    div[style*="background: rgb(250, 250, 250);"] {
+      background: @mantle !important;
+
+      span {
+        color: @text !important;
+      }
+
+      span.token[style*="color: rgb(92, 99, 112);"],
+      span.token[style*="color: rgb(160, 161, 167);"] {
+        color: @overlay2 !important;
+      }
+
+      span.token[style*="color: rgb(97, 175, 239);"],
+      span.token[style*="color: rgb(64, 120, 242);"] {
+        color: @blue !important;
+      }
+
+      span.token[style*="color: rgb(152, 195, 121);"],
+      span.token[style*="color: rgb(80, 161, 79);"] {
+        color: @green !important;
+      }
+
+      span.token[style*="color: rgb(209, 154, 102);"],
+      span.token[style*="color: rgb(183, 107, 1);"] {
+        color: @peach !important;
+      }
+
+      span.token[style*="color: rgb(198, 120, 221);"],
+      span.token[style*="color: rgb(166, 38, 164);"] {
+        color: @mauve !important;
+      }
+
+      span.token[style*="color: rgb(224, 108, 117);"],
+      span.token[style*="color: rgb(228, 86, 73);"] {
+        color: @red !important;
+      }
+    }
   }
 }
-
-/* deno-fmt-ignore */
-@catppuccin: {
-  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-};

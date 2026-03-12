@@ -15,7 +15,7 @@
 
 ## Usage
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 > [!NOTE]
 > This theme is designed to be used with the default WebGUI and default theme provided by Syncthing. This does not theme syncthing.net.
