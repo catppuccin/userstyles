@@ -24,12 +24,19 @@ const stylesheets = userstyle
 const { userstyles } = getUserstylesData();
 
 let didLintFail = false;
+const patchesMap = [
+ ["https://userstyles.catppuccin.com/lib/lib.less", path.join(REPO_ROOT, "lib", "lib.less")]
+]
 
 for (const style of stylesheets) {
   const dir = path.basename(path.dirname(style));
   const file = path.relative(REPO_ROOT, style);
 
   let content = await Deno.readTextFile(style);
+  // Apply patches.
+  for (const [search, replace] of patchesMap) {
+    content = content.replace(search, replace);
+  }
 
   // Verify the UserCSS metadata.
   const { globalVars, isLess, fixed } = await verifyMetadata(
@@ -55,11 +62,17 @@ for (const style of stylesheets) {
       );
     },
   );
+  
+  // Reverse patches.
+  for (const [search, replace] of patchesMap) {
+    content = content.replace(replace, search);
+  }
 
   // Lint with Stylelint.
-  await runStylelint(style, content, args.fix, stylelintConfig).catch(() =>
+  const results = await runStylelint(style, content, args.fix, stylelintConfig).catch(() =>
     didLintFail = true
   );
+  Deno.writeTextFileSync(file, typeof results === "string" ? results : content);
 }
 
 if (await checkForMissingFiles() === false) didLintFail = true;
