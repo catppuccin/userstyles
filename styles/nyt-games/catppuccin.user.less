@@ -1,0 +1,582 @@
+/* ==UserStyle==
+@name NYT Games Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/nyt-games
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/nyt-games
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/nyt-games/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Anyt-games
+@description Soothing pastel theme for NYT Games
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document regexp("https?:\\/\\/(www)?\\.nytimes\\.com\\/(crosswords|games|puzzles)(\\/.*)?") {
+    :root {
+        @media (prefers-color-scheme: light) {
+            #catppuccin(@lightFlavor);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            #catppuccin(@darkFlavor);
+        }
+    }
+
+    [data-mode="light"],
+    :root[data-mode],
+    .light {
+        #catppuccin(@lightFlavor);
+    }
+
+    [data-mode="dark"],
+    .dark {
+        #catppuccin(@darkFlavor) !important;
+    }
+
+    #catppuccin(@flavor) {
+        #lib.palette();
+        #lib.defaults();
+
+        background-color: @base;
+        color: @text;
+
+        --bg-page: @base;
+        --bg-moment: @base;
+        --bg-modal: @mantle;
+        --color-background: @base;
+
+        --bg-btn-emphasis: @text;
+
+        --text: @text;
+        --text-subdued: @subtext1;
+        --text-secondary: @subtext1;
+        --text-tertiary: @subtext0;
+        --text-accent: @accent;
+        --text-constant: @crust;
+        --text-alternate: @crust;
+        --text-alternate-constant: @text;
+
+        --games-yellow: @yellow;
+
+        --stroke-primary: @overlay2;
+        --stroke-secondary: @overlay1;
+        --stroke-tertiary: @overlay0;
+        --stroke: @overlay0;
+
+        /* === Header === */
+
+        // Logo
+        svg.pz-nav__logo {
+            path {
+                fill: @accent;
+            }
+
+            rect {
+                display: none;
+            }
+        }
+
+        // Menu Button
+        .pz-nav__hamburger-inner,
+        .pz-nav__hamburger-inner::before,
+        .pz-nav__hamburger-inner::after {
+            background-color: @text;
+        }
+
+        /* ============== */
+
+        /* === Footer === */
+        footer {
+            background-color: @mantle;
+        }
+
+        /* ============== */
+
+        /* ============================= Games ============================= */
+
+        --bg-toolbar-selected: @surface0;
+
+        [class^=ToolbarItem-module_toolbarColors],
+        [class^=ToolbarItem-module_toolbar_item] {
+            background-color: var(--bg-page);
+            color: var(--text);
+
+            &:hover {
+                background-color: var(--bg-toolbar-selected);
+            }
+        }
+
+        /* ====== Connections ====== */
+        --bg-tile-connections: @subtext1;
+        --bg-tile-connections-selected: @surface1;
+        --bg-tile-connections-error: @red;
+
+        --bg-connections-tricky: @mauve;
+        --bg-connections-medium: @blue;
+        --bg-connections-easy: @green;
+        --bg-connections-straightforward: @yellow;
+
+        --text-connections-mistake: @subtext0;
+        /* ========================= */
+
+        /* ====== Strands ====== */
+        --strands-yellow: @yellow;
+        --strands-blue: @sapphire;
+        --bg-strands-hint: @peach;
+        --text-strands-hint: @crust;
+        /* ===================== */
+
+        /* ====== Wordle ====== */
+        --key-bg: @surface1;
+        --key-text-color: @text;
+        --key-evaluated-text-color: @crust;
+        --key-evaluated-text-color-absent: @text;
+        --color-absent: @mantle;
+        --color-present: @peach;
+        --color-correct: @green;
+
+        [class^=Tile-module_tile] {
+            &[data-state=empty] {
+                border-color: var(--stroke)
+            }
+
+            &[data-state=tbd] {
+                background-color: @mantle;
+                border: var(--stroke-secondary);
+                color: var(--text);
+            }
+        }
+        /* ==================== */
+
+        /* ====== Pips ====== */
+        --bg-pips-domino-empty: @surface2;
+        
+        --bg-pips-tag-purple: @mauve;
+        --bg-pips-tag-orange: @peach;
+        --bg-pips-tag-pink: @pink;
+        --bg-pips-tag-blue: @blue;
+        --bg-pips-tag-navy: @sky;
+        --bg-pips-tag-green: @green;
+        
+        --bg-pips-region-transparency: 70%;
+        --bg-pips-region-purple: color-mix(in srgb, @mauve, transparent var(--bg-pips-region-transparency));
+        --bg-pips-region-orange: color-mix(in srgb, @peach, transparent var(--bg-pips-region-transparency));
+        --bg-pips-region-pink:   color-mix(in srgb, @pink,  transparent var(--bg-pips-region-transparency));
+        --bg-pips-region-blue:   color-mix(in srgb, @blue,  transparent var(--bg-pips-region-transparency));
+        --bg-pips-region-navy:   color-mix(in srgb, @sky,   transparent var(--bg-pips-region-transparency));
+        --bg-pips-region-green:  color-mix(in srgb, @green, transparent var(--bg-pips-region-transparency));
+        
+        --bg-pips-board: @crust;
+        --bg-pips-board-spaces: @surface0;
+        
+        --stroke-pips-domino-outline: @overlay1;
+        --stroke-pips-domino-divider: var(--stroke-primary);
+        
+        --stroke-pips-region-purple: @mauve;
+        --stroke-pips-region-orange: @peach;
+        --stroke-pips-region-pink: @pink;
+        --stroke-pips-region-blue: @blue;
+        --stroke-pips-region-navy: @sky;
+        --stroke-pips-region-green: @green;
+        /* ================== */
+
+        /* ====== Spelling Bee ====== */
+        --bg-sb: @yellow;
+        --bg-tile-sb: @surface1;
+        
+        --text-sb-progress: @overlay0;
+        /* ========================== */
+
+        /* ====== Letter Boxed ====== */
+        --bg-lb-temporary: @red;
+        --text-lb-temporary: @mantle;
+        --text-lb-complete-temporary: @pink;
+        --text-lb: @crust;
+        
+        .lb-text-field {
+            color: @crust;
+            
+            .lb-text-field__caret {
+                border-left-color: @base;
+            }
+        }
+        
+        .lb-text-field-underline {
+            background-color: @base;
+        }
+        
+        .lb-par,
+        .lb-list-container,
+        .lb-word-list__word {
+            color: @base;
+        }
+        
+        .lb-button {
+            color: @crust;
+            border-color: @crust;
+            
+            // Use thicker weights in light mode for improved contrast
+            & when (@flavor = latte) {
+                border-width: 2px;
+                font-weight: bold;
+            }
+            
+            &:hover {
+                background-color: color-mix(in srgb, @crust, transparent 90%)
+            }
+        }
+        /* ========================== */
+
+        /* ====== Sudoku ====== */
+        --text-sudoku-error: @red;
+        
+        --bg-toggle-sudoku-deselected: @base;
+        
+        --bg-tile-sudoku-filled: @surface2;
+        --bg-tile-sudoku-unfilled: @surface0;
+        
+        --bg-tile-sudoku-directly-highlighted: @peach;
+        --bg-tile-sudoku-highlighted-indirectly: color-mix(in srgb, @surface0, @yellow 50%);
+        
+        --bg-tile-sudoku-prefilled-highlighted-instance: @yellow;
+        --bg-tile-sudoku-prefilled-directly-highlighted: @peach;
+        --bg-tile-sudoku-prefilled-highlighted-indirectly: color-mix(in srgb, @surface2, @yellow 60%);
+        
+        .su-keyboard__mode {
+            color: @subtext0;
+            
+            &.normalMode, &.candidateMode {
+                color: @base;
+                background-color: @text;
+            }
+        }
+        
+        .su-cell.highlighted, .su-cell.highlightedSameNumber {
+            path {
+                fill: @crust;
+            }
+        }
+        /* ==================== */
+
+        /* ================================================================= */
+
+
+        /* ====== Main Page ===== */
+        /* == Hero section == */
+        .hub-welcome {
+            background: @accent;
+        }
+
+        .hub-stats-card__puzzle-info {
+            background-color: @surface0;
+            box-shadow: 0 7px 0 0 rgba(0, 0, 0, 0.35);
+
+            .hub-stats-card__puzzle-info-content,
+            .hub-stats-card__more-stats {
+                color: @text;
+            }
+
+            .hub-stats-card__title,
+            .hub-stats-card__streak-title,
+            .hub-stats-card__streak-block,
+            .hub-stats-card__streak-info:first-child,
+            .hub-stats-card__more-stats {
+                border-color: var(--stroke-tertiary);
+            }
+
+            .hub-stats-card__streak-type {
+                color: @subtext1;
+            }
+
+            .hub-stats-card__bar {
+                &.today {
+                    background-color: @red;
+
+                    span {
+                        color: var(--text);
+                    }
+                }
+
+                &.avg {
+                    background-color: @blue;
+                }
+
+                &.best {
+                    background-color: @yellow;
+
+                    &::after {
+                        color: @crust;
+                    }
+                }
+            }
+        }
+
+        .hub-welcome,
+        .hub-welcome-midi {
+            .featured {
+                background-color: @surface0;
+                box-shadow: 0 7px 0 0 rgba(0, 0, 0, 0.35);
+
+                hr {
+                    background-color: var(--stroke);
+                }
+
+                .byline {
+                    color: var(--text-secondary);
+                }
+            }
+        }
+
+        .hub-wrap-message {
+            border-bottom-color: rgba(0, 0, 0, 0.35);
+
+            .hub-streak-encouragement {
+                color: @crust;
+
+                &::before {
+                    background-color: @yellow;
+                }
+            }
+        }
+
+        .hub-wordplay-link:hover {
+            background-color: rgba(0, 0, 0, 0.35);
+        }
+
+        .PillGrey-module_pill__fJN18 {
+            background-color: @surface1;
+        }
+
+        /* == Game cards == */
+
+        .hub-game-card {
+            background-color: var(--bg-page);
+            border-color: var(--stroke-tertiary);
+
+            &:hover {
+                box-shadow: 2px 2px 0 0 @surface2;
+
+                .hub-game-card__button {
+                    background-color: @surface0;
+
+                    &:hover {
+                        background-color: @surface1;
+                    }
+                }
+            }
+
+            /* == Game Card Headers == */
+
+            .hub-game-card__name when (@flavor =latte) {
+                color: white;
+            }
+
+            .spelling-bee .hub-game-card__cover {
+                background-color: @yellow;
+            }
+
+            .wordle .hub-game-card__cover {
+                background-color: @overlay2;
+            }
+
+            &.crossplay .hub-game-card__cover {
+                background-color: @lavender;
+            }
+
+            &.pips .hub-game-card__cover {
+                background-color: @pink;
+            }
+
+            &.strands .hub-game-card__cover {
+                background-color: @teal;
+            }
+
+            &.connections .hub-game-card__cover {
+                background-color: @mauve;
+            }
+
+            &.letter-boxed .hub-game-card__cover {
+                background-color: @red;
+            }
+
+            &.tiles .hub-game-card__cover {
+                background-color: @green;
+            }
+
+            &.sudoku .hub-game-card__cover {
+                background-color: @peach;
+            }
+
+            /* == Game Card Details == */
+
+            .hub-game-card__description {
+                color: var(--text-subdued);
+            }
+
+            .hub-game-card__button {
+                color: var(--text);
+                border-color: var(--stroke-tertiary);
+            }
+        }
+
+        /* == Streak & monthly bonus == */
+
+        .printTool {
+            background: var(--bg-page);
+        }
+
+        .island {
+            background-color: var(--bg-page);
+            border-color: var(--stroke-tertiary);
+
+            &:hover {
+                box-shadow: 2px 2px 0 0 @surface2;
+
+                .printTool {
+                    background: var(--bg-page);
+                    border-top-color: var(--stroke-tertiary);
+                }
+            }
+
+            .puzzleInfoContent {
+                color: var(--text);
+
+                .byline {
+                    color: var(--text-secondary);
+                }
+            }
+        }
+
+        .progress__tabGroup {
+            .tab__tabNav {
+                background-color: @surface0;
+                border-color: var(--stroke-secondary);
+            }
+
+            .tab__tab {
+                background-color: @surface0;
+                color: var(--text-subdued);
+
+                &>.active {
+                    background: var(--bg-page);
+                    color: var(--text);
+                    border-color: var(--stroke-secondary);
+                }
+            }
+        }
+
+        .puzzleInfo .puzzleInfoContent {
+            color: var(--text);
+        }
+
+        .progress__playMoreLink {
+            color: var(--text);
+
+            &:hover {
+                background-color: @surface0;
+            }
+        }
+
+        /* == Featured article == */
+
+        .hub-guide-promo-card {
+            border-color: var(--stroke-tertiary);
+
+            &:hover {
+                box-shadow: 2px 2px 0 0 @surface2;
+            }
+
+            .hub-guide-promo-card-content {
+                background-color: var(--bg-page);
+                color: var(--text-secondary);
+
+                .hub-guide-promo-link {
+                    color: @blue;
+                }
+
+                h2 {
+                    color: var(--text);
+                }
+            }
+        }
+
+        /* ====================== */
+
+
+        /* ====== Stats Page ===== */
+        #stats-overview {
+            .container.cf .single-stat {
+                border-left-color: var(--stroke-tertiary);
+            }
+
+            .icon-stats-streak {
+
+                /* We love hardcoded svgs :) */
+                & when (@flavor =latte) {
+                    background-image: url("data:image/svg+xml;charset=US-ASCII,<svg%20xmlns%3D\"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg\"%20width%3D\"18\"%20height%3D\"18\"%20viewBox%3D\"0%200%2018%2018\"><path%20d%3D\"M15%2017.7H3c-1.5%200-2.8-1.2-2.8-2.8V3C.2%201.5%201.4.2%203%20.2h12c1.5%200%202.8%201.2%202.8%202.8v12c0%201.5-1.3%202.7-2.8%202.7zM3%201.7c-.7%200-1.2.6-1.2%201.3v12c0%20.7.6%201.3%201.2%201.3h12c.7%200%201.2-.6%201.2-1.3V3c0-.7-.6-1.2-1.2-1.2H3zM9%2012l-3.4%201.7.7-3.7-2.8-2.6%203.8-.5L9%203.5l1.7%203.4%203.8.5-2.8%202.6.7%203.7\"%20fill%3D\"%23df8e1d\"%2F><%2Fsvg>")
+                }
+
+                & when (@flavor =frappe) {
+                    background-image: url("data:image/svg+xml;charset=US-ASCII,<svg%20xmlns%3D\"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg\"%20width%3D\"18\"%20height%3D\"18\"%20viewBox%3D\"0%200%2018%2018\"><path%20d%3D\"M15%2017.7H3c-1.5%200-2.8-1.2-2.8-2.8V3C.2%201.5%201.4.2%203%20.2h12c1.5%200%202.8%201.2%202.8%202.8v12c0%201.5-1.3%202.7-2.8%202.7zM3%201.7c-.7%200-1.2.6-1.2%201.3v12c0%20.7.6%201.3%201.2%201.3h12c.7%200%201.2-.6%201.2-1.3V3c0-.7-.6-1.2-1.2-1.2H3zM9%2012l-3.4%201.7.7-3.7-2.8-2.6%203.8-.5L9%203.5l1.7%203.4%203.8.5-2.8%202.6.7%203.7\"%20fill%3D\"%23e5c890\"%2F><%2Fsvg>")
+                }
+
+                & when (@flavor =macchiato) {
+                    background-image: url("data:image/svg+xml;charset=US-ASCII,<svg%20xmlns%3D\"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg\"%20width%3D\"18\"%20height%3D\"18\"%20viewBox%3D\"0%200%2018%2018\"><path%20d%3D\"M15%2017.7H3c-1.5%200-2.8-1.2-2.8-2.8V3C.2%201.5%201.4.2%203%20.2h12c1.5%200%202.8%201.2%202.8%202.8v12c0%201.5-1.3%202.7-2.8%202.7zM3%201.7c-.7%200-1.2.6-1.2%201.3v12c0%20.7.6%201.3%201.2%201.3h12c.7%200%201.2-.6%201.2-1.3V3c0-.7-.6-1.2-1.2-1.2H3zM9%2012l-3.4%201.7.7-3.7-2.8-2.6%203.8-.5L9%203.5l1.7%203.4%203.8.5-2.8%202.6.7%203.7\"%20fill%3D\"%23eed49f\"%2F><%2Fsvg>")
+                }
+
+                & when (@flavor =mocha) {
+                    background-image: url("data:image/svg+xml;charset=US-ASCII,<svg%20xmlns%3D\"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg\"%20width%3D\"18\"%20height%3D\"18\"%20viewBox%3D\"0%200%2018%2018\"><path%20d%3D\"M15%2017.7H3c-1.5%200-2.8-1.2-2.8-2.8V3C.2%201.5%201.4.2%203%20.2h12c1.5%200%202.8%201.2%202.8%202.8v12c0%201.5-1.3%202.7-2.8%202.7zM3%201.7c-.7%200-1.2.6-1.2%201.3v12c0%20.7.6%201.3%201.2%201.3h12c.7%200%201.2-.6%201.2-1.3V3c0-.7-.6-1.2-1.2-1.2H3zM9%2012l-3.4%201.7.7-3.7-2.8-2.6%203.8-.5L9%203.5l1.7%203.4%203.8.5-2.8%202.6.7%203.7\"%20fill%3D\"%23f9e2af\"%2F><%2Fsvg>")
+                }
+            }
+        }
+
+        #weekly-stats {
+            .container {
+                border-top-color: var(--stroke-secondary)
+            }
+
+            .single-day {
+                .time-bar {
+                    &.average {
+                        background-color: @blue;
+                    }
+
+                    &.best {
+                        background-color: @yellow;
+
+                        /* Normal text color on yellow has poor contrast in dark themes */
+                        & when not(@flavor =latte) {
+                            color: @crust;
+                        }
+                    }
+
+                    &.today {
+                        background-color: @red;
+                    }
+                }
+
+                &.active {
+                    .best-date {
+                        background-color: @pink;
+                        color: @crust;
+
+                        &::after {
+                            border-top-color: @pink !important; // Marked as important to override in different screen sizes
+                        }
+                    }
+
+                    .time-bar.average {
+                        background-color: @sapphire;
+                    }
+                }
+            }
+        }
+
+        /* ======================== */
+    }
+}
