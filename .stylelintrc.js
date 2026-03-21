@@ -183,5 +183,7 @@ export default {
 
     "no-descending-specificity": null,
     "selector-not-notation": null,
+
+    "import-notation": null,
   },
 };

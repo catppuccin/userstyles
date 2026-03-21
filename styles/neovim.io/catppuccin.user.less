@@ -1,0 +1,114 @@
+/* ==UserStyle==
+@name neovim.io Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/neovim.io
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/neovim.io
+@version 2025.09.19
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/neovim.io/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aneovim.io
+@description Soothing pastel theme for neovim.io
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("neovim.io") {
+  @import url("https://unpkg.com/@catppuccin/highlightjs@1.0.0/css/catppuccin-variables.important.css");
+
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    --fg-color: @text;
+    --inverse-fg-color: @surface0;
+    --bg-color: @base;
+    --accent-bg-color: @mantle;
+    --link-color: @blue;
+    --accent-color: @accent;
+    --border-color: @accent;
+    --code-color: @accent;
+
+    a:not([class]) {
+      text-decoration-color: var(--link-color);
+
+      &:hover,
+      &:focus {
+        color: var(--link-color);
+      }
+    }
+
+    a[aria-label="logo"] svg[aria-label="Neovim"] {
+      path[fill="url(#a)"] {
+        fill: @blue;
+      }
+
+      path[fill="url(#b)"],
+      path[fill="url(#c)"] {
+        fill: @green;
+      }
+
+      g[fill="#444"] path {
+        fill: @blue;
+      }
+    }
+
+    --bs-btn-active-color: @base;
+
+    .btn {
+      color: @base;
+      background: linear-gradient(
+        @accent 0% 95%,
+        darken(@accent, 10%) 95% 100%
+      );
+
+      &:hover,
+      &:focus {
+        box-shadow: 0 0 10px @accent;
+        outline-color: @text;
+      }
+    }
+
+    // docs
+    --tag-color: @accent;
+
+    code,
+    code.hljs,
+    pre,
+    samp {
+      background-color: @mantle !important;
+      color: @text;
+    }
+
+    .generator-stats {
+      color: @subtext0;
+    }
+
+    --docsearch-container-background: fade(@base, 30%);
+    --docsearch-modal-background: @mantle;
+    --docsearch-highlight-color: @accent;
+    --docsearch-logo-color: @accent;
+
+    .DocSearch-Logo {
+      .cls-1,
+      .cls-2 {
+        fill: var(--docsearch-logo-color);
+      }
+    }
+  }
+}
