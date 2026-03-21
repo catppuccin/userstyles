@@ -12,16 +12,12 @@ export async function runStylelint(
   content: string,
   fix: boolean,
   config: stylelint.Config,
-) {
+): Promise<string | undefined> {
   const { results, code } = await stylelint.lint({
     code: content,
     config,
     fix,
   });
-
-  if (code) {
-    Deno.writeTextFileSync(file, code);
-  }
 
   for (const result of results) {
     for (const warning of result.warnings) {
@@ -43,4 +39,6 @@ export async function runStylelint(
 
     if (result.warnings.length > 0) throw new Error("stylelint error");
   }
+  
+  return code;
 }
