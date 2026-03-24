@@ -6,7 +6,7 @@
 </h3>
 
 <p align="center">
-	<a href="./google-messages-catppuccin.user.css"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://github.com/titandrive/userstyles/raw/main/styles/google-messages/catpuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 ## Usage
@@ -15,7 +15,7 @@ See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting
 
 ## 💝 Current Maintainers
 
-- [titandrive](https://github.com/titandrive)
+- [TitanDrive](https://github.com/titandrive)
 
 &nbsp;
 
