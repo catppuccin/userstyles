@@ -25,8 +25,8 @@ const { userstyles } = getUserstylesData();
 
 let didLintFail = false;
 const patchesMap = [
- ["https://userstyles.catppuccin.com/lib/lib.less", path.join(REPO_ROOT, "lib", "lib.less")]
-]
+  ["https://userstyles.catppuccin.com/lib", path.join(REPO_ROOT, "lib")],
+];
 
 for (const style of stylesheets) {
   const dir = path.basename(path.dirname(style));
@@ -62,16 +62,15 @@ for (const style of stylesheets) {
       );
     },
   );
-  
+
   // Reverse patches.
   for (const [search, replace] of patchesMap) {
     content = content.replace(replace, search);
   }
 
   // Lint with Stylelint.
-  const results = await runStylelint(style, content, args.fix, stylelintConfig).catch(() =>
-    didLintFail = true
-  );
+  const results = await runStylelint(style, content, args.fix, stylelintConfig)
+    .catch(() => didLintFail = true);
   Deno.writeTextFileSync(file, typeof results === "string" ? results : content);
 }
 
