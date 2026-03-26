@@ -35,7 +35,7 @@ for (const style of stylesheets) {
   let content = await Deno.readTextFile(style);
   // Apply patches.
   for (const [search, replace] of patchesMap) {
-    content = content.replace(search, replace);
+    content = content.replaceAll(search, replace);
   }
 
   // Verify the UserCSS metadata.
@@ -65,7 +65,7 @@ for (const style of stylesheets) {
 
   // Reverse patches.
   for (const [search, replace] of patchesMap) {
-    content = content.replace(replace, search);
+    content = content.replaceAll(replace, search);
   }
 
   // Lint with Stylelint.
