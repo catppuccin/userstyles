@@ -8,13 +8,13 @@ Deno.test("#lib.rgbify", async (ctx) => {
     ctx,
     await less.render(
       `
-@import "${REPO_ROOT}/lib/lib.less";
+@import "lib/lib.less";
 
 .foo {
-  --bar: #lib.rgbify(@red);
+  --bar: #lib.rgbify(red)[];
 }
 `,
-      { lint: true },
+      { paths: [REPO_ROOT] },
     ),
   );
 });
