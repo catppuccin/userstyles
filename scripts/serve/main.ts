@@ -1,4 +1,5 @@
 import { parseArgs } from "@std/cli";
+import { serveDir } from "@std/http/file-server";
 import { debounce } from "@std/async/debounce";
 
 import * as path from "@std/path";
@@ -12,6 +13,27 @@ const userstyle = args._[0]
     /(?<base>styles\/)?(?<userstyle>[a-z0-9_\-.]+)(?<trailing>\/)?(?<file>catppuccin\.user\.less)?/,
   )?.groups?.userstyle;
 if (!userstyle) throw new Error("Invalid userstyle argument");
+
+const server = Deno.serve({
+  onListen(addr) {
+    console.log(
+      `[serve] libraries served at 'http://${addr.hostname}:${addr.port}'`,
+    );
+  },
+}, (req: Request) => {
+  const pathname = new URL(req.url).pathname;
+
+  if (pathname.startsWith("/lib")) {
+    return serveDir(req, {
+      fsRoot: "lib",
+      urlRoot: "lib",
+    });
+  }
+
+  return new Response("404: Not Found", {
+    status: 404,
+  });
+});
 
 const userstylePath = path.join(
   REPO_ROOT,
@@ -27,13 +49,13 @@ const tempUserstylePath = await Deno.makeTempFile({
 
 updateTempUserstyle();
 
-console.log(`[serve]: dev userstyle at '${tempUserstylePath}'`);
+console.log(`[serve] ${userstyle} userstyle served at '${tempUserstylePath}'`);
 
 const watcher = Deno.watchFs(userstylePath);
 
 const reload = debounce(() => {
   console.log(
-    `watcher: reloaded ${userstyle} userstyle`,
+    `[serve]: reloaded ${userstyle} userstyle`,
   );
   updateTempUserstyle();
 }, 200);
@@ -45,8 +67,8 @@ for await (const event of watcher) {
 async function updateTempUserstyle() {
   let contents = await Deno.readTextFile(userstylePath);
   contents = contents.replaceAll(
-    "https://userstyles.catppuccin.com/lib",
-    "file://" + path.join(REPO_ROOT, "lib"),
-  ); // TODO: Bundle library modules instead of rewriting import paths.
+    "https://userstyles.catppuccin.com",
+    `http://localhost:${server.addr.port}`,
+  );
   await Deno.writeTextFile(tempUserstylePath, contents);
 }
