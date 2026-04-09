@@ -1,7 +1,10 @@
-|             |      |
-| ----------- | ---- |
-| **Website** | TODO |
-| **URL**     | TODO |
+<!-- Fill in the following table, replacing TODO with the appropriate values (e.g. website is "FooBar" and the URL is "https://foobar.com"). -->
+
+**Website**: ___
+
+**URL**: ___
+
+**Description**:
 
 <!--
 Give a short description of the website that you have themed.
