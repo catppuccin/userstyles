@@ -218,8 +218,9 @@
       --yt-spec-icon-disabled: @overlay1;
       --yt-spec-brand-icon-inactive: @overlay2;
 
-      /* Yt video Page */
+      /* Live chat */
       --yt-live-chat-background-color: @base;
+      --yt-live-chat-primary-text-color: @text;
       --yt-live-chat-action-panel-background-color: @base;
       --yt-live-chat-secondary-background-color: @surface1;
       --yt-live-chat-toast-background-color: @surface2;
@@ -299,7 +300,7 @@
       --paper-tooltip-text-color: @text;
 
       /* Links */
-      --yt-endpoint-color: @accent;
+      --yt-endpoint-color: @text;
       --yt-endpoint-visited-color: @accent;
       --yt-endpoint-hover-color: @accent;
 
@@ -365,11 +366,11 @@
         --yt-saturated-text-secondary: @subtext1;
       }
       // Video description text (expanded)
-      .yt-core-attributed-string--link-inherit-color {
+      ytd-text-inline-expander [style="color: rgb(255, 255, 255);"] {
         color: @text !important;
       }
       // Video description links
-      .yt-core-attributed-string--highlight-text-decorator {
+      .ytAttributedStringHighlightTextDecorator {
         background-color: @surface2;
       }
     }
@@ -379,12 +380,6 @@
       svg.ytd-consent-bump-v2-lightbox {
         display: none;
       }
-    }
-
-    #channel-name.ytd-video-meta-block {
-      --yt-endpoint-color: @accent;
-      --yt-endpoint-visited-color: @accent;
-      color: @accent;
     }
 
     .yt-page-navigation-progress {
@@ -520,11 +515,6 @@
 
     [fill="white"] {
       fill: if(@flavor = latte, @base, @text);
-    }
-
-    /* verification badge */
-    [src*="https://www.gstatic.com/images/icons/material/system/1x/check_circle_grey600_36dp.png"] {
-      filter: @text-filter;
     }
 
     yt-icon.ytd-logo [fill="white"] {
@@ -770,9 +760,9 @@
     }
 
     /* Video description */
-
-    .yt-core-attributed-string__link--call-to-action-color {
-      color: @accent;
+    ytd-text-inline-expander [style="color: rgb(62, 166, 255);"]
+      > .ytAttributedStringLinkCallToActionColor {
+      color: @accent; // links
     }
 
     .YtwCourseProgressViewModelHostProgressTitle,
@@ -797,23 +787,26 @@
       color: @subtext0;
     }
 
-    /* Thumbnails */
-
-    #time-status:has([aria-label="LIVE"]),
-    .badge[aria-label="LIVE"],
-    .badge[aria-label="PREMIERE"],
-    .badge-shape-wiz--live.badge-shape-wiz--overlay,
-    .badge-shape-wiz--thumbnail-live {
-      background: @accent;
-      color: @crust;
-    }
-    #thumbnail [style="background-color: rgba(51, 51, 51, 0.8);"],
-    .YtInlinePlayerControlsTopRightControlsCircleButton,
-    .badge-shape-wiz--default.badge-shape-wiz--overlay,
-    .branding-context-container-inner {
-      background-color: @surface0;
+    // "Ask" - AI chat
+    .ytVideoDescriptionYouchatSectionViewModelSectionTitle {
       color: @text;
     }
+    .ytVideoDescriptionYouchatSectionViewModelSubHeaderText {
+      color: @subtext0;
+    }
+
+    // Video Attributes (Music, Games)
+    .videoAttributesSectionViewModelTitle,
+    .ytVideoAttributeViewModelTitle {
+      color: @text;
+    }
+    .ytVideoAttributeViewModelSubtitle,
+    .ytVideoAttributeViewModelSecondarySubtitle {
+      color: @subtext1;
+    }
+
+    /* Thumbnails */
+
     .ytp-sb-unsubscribe {
       background-color: @surface2;
       color: @text;
@@ -822,9 +815,23 @@
       background-color: @accent;
       color: @crust;
     }
-    ytd-thumbnail-overlay-resume-playback-renderer {
-      background-color: @surface1;
+
+    // Watch progress bar
+    .ytThumbnailOverlayProgressBarHostWatchedProgressBar {
+      background-color: @surface2;
     }
+    .ytThumbnailOverlayProgressBarHostWatchedProgressBarSegment {
+      background: @accent;
+    }
+    // Watch progress bar (legacy component)
+    ytd-thumbnail-overlay-resume-playback-renderer {
+      background-color: @surface2;
+
+      #progress.ytd-thumbnail-overlay-resume-playback-renderer {
+        background: @accent;
+      }
+    }
+
     .badge-shape-wiz--thumbnail-default {
       color: @text;
       background: fade(@crust, 80%);
@@ -978,17 +985,6 @@
         }
       }
 
-      /* youtube live ring */
-      .yt-spec-avatar-shape__badge-text {
-        color: @crust;
-      }
-      .yt-spec-avatar-shape--live-ring {
-        border-color: @accent;
-      }
-      .yt-spec-avatar-shape__live-badge {
-        background-color: @accent;
-      }
-
       .ytp-button,
       .ytp-subtitles-button {
         &[aria-pressed]::after {
@@ -1054,17 +1050,6 @@
         color: @white;
       }
 
-      .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--tonal,
-      .YtdDesktopShortsVolumeControlsBackgroundScrim {
-        background-color: fade(@black, 60%);
-        color: @white;
-      }
-
-      .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--filled {
-        background-color: @accent;
-        color: @crust;
-      }
-
       .YtdDesktopShortsVolumeControlsMuteIcon {
         color: @white;
       }
@@ -1078,6 +1063,47 @@
           color: @text;
         }
       }
+    }
+    // Video/thumbnail renderer overlayed buttons
+    .yt-badge-shape--thumbnail-default-redesign,
+    .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--tonal,
+    .YtdDesktopShortsVolumeControlsBackgroundScrim {
+      background: fade(@black, 60%);
+      color: @white;
+    }
+
+    .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--filled {
+      background: @accent;
+      color: @crust;
+    }
+
+    /* Video previews */
+
+    // Title
+    .ytLockupMetadataViewModelTitle {
+      color: @text;
+    }
+    // Details
+    .ytLockupMetadataViewModelMetadata {
+      color: @subtext0;
+    }
+    // Badges (e.g. "CC", "New")
+    .yt-badge-shape--default {
+      color: @subtext0;
+      background: @surface1;
+
+      &.yt-badge-shape--modern {
+        background: none;
+      }
+    }
+    // "Fundraiser"
+    .yt-badge-shape--commerce {
+      color: @green;
+    }
+    // "Live"
+    .yt-badge-shape--live, .yt-badge-shape--thumbnail-live {
+      background: @accent;
+      color: @crust;
     }
 
     /* Shorts titles and views on homepage */
@@ -1112,52 +1138,73 @@
     }
 
     /* Channel pages */
-    .yt-tab-shape-wiz__tab {
-      color: @subtext1;
-    }
-    .yt-tab-shape-wiz__tab--tab-selected {
-      color: @text;
-    }
-    .yt-tab-group-shape-wiz__slider {
-      background-color: @text;
-    }
-    .yt-tab-shape-wiz:hover .yt-tab-shape-wiz__tab-bar {
-      background-color: @subtext1;
-    }
-    .truncated-text-wiz,
-    .page-header-view-model-wiz__page-header-content-metadata {
-      color: @subtext1;
-    }
-    .page-header-view-model-wiz__page-header-title,
-    [style="color: rgb(255, 255, 255);"]:has(svg),
-    .truncated-text-wiz__absolute-button {
-      color: @text;
-    }
-    .yt-contextual-sheet-layout-wiz {
-      background-color: @mantle;
 
-      .yt-list-item-view-model-wiz__container--tappable:hover {
-        background-color: @surface0;
+    /* Avatar (Live) */
+    .yt-spec-avatar-shape--live-ring::after {
+      background: @accent !important;
+    }
+    .yt-spec-avatar-shape__live-badge {
+      background-color: @accent;
+    }
+    .yt-spec-avatar-shape__live-badge-text {
+      color: @crust;
+    }
+
+    // Channel name
+    .ytPageHeaderViewModelHeadlineInfo {
+      .ytPageHeaderViewModelTitle {
+        color: @text;
       }
 
-      .yt-list-item-view-model-wiz__title,
-      .yt-list-item-view-model-wiz__accessory,
-      .radio-shape-wiz__label-container {
+      // Subscribers and video statistics
+      .ytPageHeaderViewModelContentMetadata {
+        color: @subtext0;
+      }
+
+      // Handle and verified checkmark
+      [style$="color: rgb(255, 255, 255);"] {
         color: @text;
       }
     }
-
-    /* channel details */
-    .profile-badge-view-model-wiz__badge-description {
+    // Channel bio
+    .ytTruncatedTextHost {
+      color: @subtext0;
+    }
+    // "...More"
+    .ytTruncatedTextAbsoluteButton {
       color: @text;
     }
 
-    .profile-badge-view-model-wiz__badge-subtitle {
-      color: @subtext0;
+    // Channel tabs
+    .ytTabShapeTab {
+      color: @subtext1;
+    }
+    .ytTabShapeTabSelected {
+      color: @text;
+    }
+    .tabGroupShapeSlider {
+      background-color: @text;
+    }
+    .ytTabShapeHost:hover .ytTabShapeTabBar {
+      background-color: @subtext1;
     }
 
-    .yt-profile-identity-info-view-model-wiz__divider {
-      border-color: @surface0;
+    /* Context sheets */
+    .ytContextualSheetLayoutHost {
+      background-color: @mantle;
+
+      .ytListItemViewModelTappable:hover {
+        background-color: @surface0;
+      }
+
+      .ytPanelHeaderViewModelTitle,
+      .ytListItemViewModelTitle,
+      .ytListItemViewModelAccessory {
+        color: @text;
+      }
+      .ytListItemViewModelSubtitle {
+        color: @subtext1;
+      }
     }
 
     /* Profiles */
@@ -1198,6 +1245,9 @@
       .yt-icon-shape {
         color: @text;
       }
+      .ytTextCarouselItemViewModelHost {
+        color: @subtext1;
+      }
     }
 
     /* AI-generated video summary */
@@ -1236,15 +1286,6 @@
     .ytChipShapeActive {
       background-color: @accent;
       color: @crust;
-    }
-
-    /* Vertical ellipsis menu on main page */
-    .ytListViewModelHost {
-      background-color: @mantle;
-      color: @text;
-      .yt-icon-shape {
-        color: @text;
-      }
     }
   }
 }
