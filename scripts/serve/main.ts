@@ -17,9 +17,7 @@ if (!userstyle) throw new Error("Invalid userstyle argument");
 
 const server = Deno.serve({
   onListen(addr) {
-    console.log(
-      `[serve] libraries served at 'http://${addr.hostname}:${addr.port}'`,
-    );
+    // Disable unnecessary post-startup log.
   },
 }, (req: Request) => {
   const pathname = new URL(req.url).pathname;
