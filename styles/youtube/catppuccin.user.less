@@ -17,7 +17,6 @@
 @var checkbox logo "Enable YouTube logo" 1
 @var checkbox oled "Enable black bars" 0
 @var checkbox sponsorBlock "Enable SponsorBlock segments" 1
-@var checkbox hideColorSampleTint "Hide color-sampled tint" 1
 ==/UserStyle== */
 
 @import "https://userstyles.catppuccin.com/lib/lib.less";
@@ -50,6 +49,28 @@
       &[darker-dark-theme] {
         --efyt-control-bar-background-color: @mantle;
         --dimmer-text: @text;
+
+        /* Newest Variables */
+        --yt-sys-color-baseline--base-background: @base;
+        --yt-sys-color-baseline--menu-background: @mantle;
+        --yt-sys-color-baseline--raised-background: @surface0;
+        --yt-sys-color-baseline--additive-background: @surface0;
+        --yt-sys-color-baseline--wordmark-text: @text;
+        --yt-sys-color-baseline--text-primary: @text;
+        --yt-sys-color-baseline--text-secondary: @subtext0;
+        --yt-sys-color-baseline--call-to-action: @accent;
+        --yt-sys-color-baseline--suggested-action: mix(@accent, @base, 30%);
+        --yt-sys-color-baseline--outline: @surface0;
+        --yt-sys-color-baseline--outline-opaque: @surface1;
+        --yt-sys-color-baseline--outline-inverse-opaque: @overlay0;
+        --yt-sys-color-baseline--overlay-background-medium-light: fade(
+          @black,
+          60%
+        );
+        --yt-sys-color-baseline--overlay-background-heavy: fade(@black, 80%);
+        --yt-sys-color-baseline--overlay-background-solid: @crust;
+        --yt-sys-color-baseline--overlay-text-primary: @text;
+
         --yt-spec-white-1: @text;
         --yt-spec-white-2: @subtext0;
         --yt-spec-white-3: @subtext1;
@@ -99,7 +120,7 @@
         --yt-spec-dark-blue-alpha-30: fade(@sapphire, 70%);
 
         --yt-spec-base-background: @base;
-        --yt-spec-raised-background: @base;
+        --yt-spec-raised-background: @surface0;
         --yt-spec-menu-background: @mantle;
         --yt-spec-inverted-background: @text;
         --yt-spec-additive-background: @surface0;
@@ -366,29 +387,6 @@
     #--variables() !important;
 
     /* Misc */
-
-    & when (@hideColorSampleTint = 1) {
-      // Thumbnail/video preview hover effect
-      .ytSpecTouchFeedbackShapeHoverEffect {
-        background-color: @surface0 !important;
-      }
-      // Video description background (collapsed on hover)
-      ytd-watch-metadata {
-        --yt-saturated-raised-background: @surface1 !important;
-        --yt-saturated-text-primary: @text !important;
-        --yt-saturated-text-secondary: @subtext1 !important;
-      }
-      // Video description text (expanded)
-      ytd-text-inline-expander .ytAttributedStringLinkInheritColor:not(
-          .ytAttributedStringLink
-        ) {
-        color: @text !important;
-      }
-      // Video description Youtube links
-      .ytAttributedStringHighlightTextDecorator {
-        background-color: @surface2 !important;
-      }
-    }
 
     & when (@logo = 0) {
       ytd-topbar-logo-renderer,
@@ -682,9 +680,6 @@
     }
 
     /* Search box */
-    ytd-searchbox[has-focus] #container.ytd-searchbox {
-      border-color: @accent;
-    }
 
     .ytSearchboxComponentInputBox,
     .ytSearchboxComponentInputBoxDark {
@@ -699,9 +694,14 @@
       border-color: @accent;
     }
 
-    .ytSuggestionComponentSuggestionHover:hover,
-    .ytSuggestionComponentSuggestionHoverDark:hover {
+    .ytSuggestionComponentPersonalizedSuggestion {
+      color: @text;
+    }
+    .ytSuggestionComponentHighlighted {
       background: @surface1;
+    }
+    .ytSuggestionComponentLargerRemovedText {
+      color: @overlay1;
     }
 
     .ytSearchboxComponentSuggestionsContainer,
@@ -718,7 +718,7 @@
     .ytSearchboxComponentSearchButton,
     .ytSearchboxComponentSearchButtonDark {
       color: var(--ytd-searchbox-text-color);
-      background: @surface0;
+      background: var(--yt-spec-raised-background);
       border-color: var(--ytd-searchbox-border-color);
     }
 
@@ -727,46 +727,23 @@
       color: var(--ytd-searchbox-text-color);
     }
 
-    .ytSearchboxComponentReportButton,
-    .ytSearchboxComponentReportButtonDark,
-    .ytSuggestionComponentRemoveLink,
-    .ytSuggestionComponentRemoveLinkDark {
-      color: @subtext0;
-    }
+    /* Video description */
 
-    .sbsb_a {
-      background: @surface0;
+    // Video description background (collapsed on hover)
+    ytd-watch-metadata {
+      --yt-saturated-raised-background: @surface1 !important;
+      --yt-saturated-text-primary: @text !important;
+      --yt-saturated-text-secondary: @subtext1 !important;
     }
-    .sbdd_b {
-      border-color: var(--yt-spec-raised-background);
-      background-color: var(--yt-spec-raised-background);
+    // Video description text (expanded)
+    ytd-text-inline-expander .ytAttributedStringLinkInheritColor:not(
+        .ytAttributedStringLink
+      ) {
+      color: @text !important;
     }
-    .sbpqs_a,
-    .gsfs {
-      color: var(--yt-spec-text-primary);
-    }
-    .sbsb_i {
-      color: var(--yt-spec-call-to-action);
-    }
-    .sbsb_d {
-      background-color: var(--yt-spec-additive-background);
-    }
-    .sbdd_c {
-      visibility: hidden;
-    }
-
-    /* "Suggestion removed" */
-    .sbpqs_c {
-      color: @overlay1;
-    }
-
-    .sbpqs_a::before,
-    .sbqs_c::before {
-      @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="1 1 27 27" width="24" focusable="false" style="width:100%;height:100%" pointer-events="none" display="block"><path fill="@{text}" d="m20.87 20.17-5.59-5.59A6.96 6.96 0 0 0 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7a6.995 6.995 0 0 0 11.58 5.29l5.59 5.59zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6"/></svg>'
-      );
-      content: url("data:image/svg+xml,@{svg}");
-      background: none;
+    // Video description YouTube links
+    .ytAttributedStringHighlightTextDecorator {
+      background-color: @surface2 !important;
     }
 
     /* Links */
@@ -802,6 +779,37 @@
     }
     .ytVideoDescriptionYouchatSectionViewModelSubHeaderText {
       color: @subtext0;
+    }
+    .ytwYouChatItemViewModelHost {
+      color: @text;
+    }
+    .ytwYouChatChipsDataChip {
+      color: @text;
+      border-color: @surface2;
+
+      &:hover {
+        background-color: @surface1;
+      }
+    }
+    .chatInputViewModelChatDisclaimer {
+      color: @subtext0;
+    }
+
+    // Timeline/Transcript
+    .ytwTimelineChapterViewModelTitle,
+    .ytShelfHeaderLayoutTitle {
+      color: @text;
+    }
+    .ytwTranscriptSegmentViewModelHost {
+      color: @subtext0;
+    }
+    .ytwTranscriptSegmentViewModelTimestamp {
+      background-color: @surface2;
+      color: @subtext1;
+    }
+    .ytwTranscriptSegmentViewModelTimestampActive {
+      background-color: @overlay0;
+      color: @text;
     }
 
     // Video Attributes (Music, Games)
@@ -866,14 +874,6 @@
       color: @text;
     }
 
-    .ytp-panel-header {
-      border-bottom-color: @surface2;
-    }
-
-    .yt-spec-dialog-layout {
-      background-color: @mantle;
-    }
-
     .ytp-panel-footer-content-link {
       color: @accent;
     }
@@ -885,34 +885,22 @@
       background-image: url("data:image/svg+xml,@{svg}");
     }
 
+    .ytp-menuitem[aria-checked="false"] .ytp-menuitem-toggle-checkbox {
+      &::after {
+        background-color: @overlay1;
+      }
+    }
     .ytp-menuitem[aria-checked="true"] .ytp-menuitem-toggle-checkbox {
-      @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" version="1.1"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="@{text}"/></svg>'
-      );
-      background-image: url("data:image/svg+xml,@{svg}");
-      background-color: @accent;
+      background-color: @surface2;
+
+      &::after {
+        background-color: @text;
+      }
     }
 
     .ytp-menuitem {
       &:not([aria-disabled="true"]):hover {
         background-color: @surface1;
-      }
-
-      svg > path:not([fill="none"]) {
-        fill: @text;
-      }
-
-      &[aria-haspopup="true"] .ytp-menuitem-content {
-        @svg: escape(
-          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 32 32" version="1.1"><path d="m12.59 20.34 4.58-4.59-4.58-4.59L14 9.75l6 6-6 6z" fill="@{text}"/></svg>'
-        );
-        background-image: url("data:image/svg+xml,@{svg}");
-      }
-      &[role="menuitemradio"][aria-checked="true"] .ytp-menuitem-label {
-        @svg: escape(
-          '<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" version="1.1"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="@{text}"/></svg>'
-        );
-        background-image: url("data:image/svg+xml,@{svg}");
       }
     }
 
@@ -1069,13 +1057,13 @@
       }
     }
     // Video/thumbnail renderer overlayed buttons
-    .yt-badge-shape--thumbnail-default-redesign, // Timestamp
+    .ytBadgeShapeThumbnailDefaultRedesign, // Timestamp
     // Play Next
-    .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--tonal,
+    .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--tonal[style="background-color: rgba(0, 0, 0, 0.3);"],
     .ytdVolumeControlsBackgroundScrim, // Shorts Volume Slider
     .ytInlinePlayerControlsTopRightControlsCircleButton // Homepage
     {
-      background: fade(@black, 60%);
+      background: fade(@black, 60%) !important;
       color: @white;
     }
 
@@ -1086,29 +1074,33 @@
 
     /* Video previews */
 
+    // Background (on hover)
+    .ytSpecTouchFeedbackShapeHoverEffect {
+      background-color: @surface0 !important;
+    }
     // Title
     .ytLockupMetadataViewModelTitle {
-      color: @text;
+      color: @text !important;
     }
     // Details
     .ytLockupMetadataViewModelMetadata {
-      color: @subtext0;
+      color: @subtext0 !important;
     }
     // Badges (e.g. "CC", "New")
-    .yt-badge-shape--default {
+    .ytBadgeShapeDefault {
       color: @subtext0;
       background: @surface1;
 
-      &.yt-badge-shape--modern {
+      &.ytBadgeShapeModern {
         background: none;
       }
     }
     // "Fundraiser"
-    .yt-badge-shape--commerce {
+    .ytBadgeShapeCommerce {
       color: @green;
     }
     // "Live"
-    .yt-badge-shape--live, .yt-badge-shape--thumbnail-live {
+    .ytBadgeShapeThumbnailLive {
       background: @accent;
       color: @base;
     }
@@ -1144,18 +1136,18 @@
       color: @crust;
     }
 
-    /* Channel pages */
-
-    /* Avatar (Live) */
-    .yt-spec-avatar-shape--live-ring::after {
+    /* Avatar */
+    .ytSpecAvatarShapeLiveRing::after {
       background: @accent !important;
     }
-    .yt-spec-avatar-shape__live-badge {
+    .ytSpecAvatarShapeLiveBadge {
       background-color: @accent;
     }
-    .yt-spec-avatar-shape__live-badge-text {
+    .ytSpecAvatarShapeLiveBadgeText {
       color: @base;
     }
+
+    /* Channel pages */
 
     // Channel name
     .ytPageHeaderViewModelHost {
@@ -1197,22 +1189,86 @@
       background-color: @subtext1;
     }
 
-    /* Context sheets */
-    .ytContextualSheetLayoutHost {
+    /* Components */
+
+    /* Menus and context sheets */
+    .ytContextualSheetLayoutHost, ytd-menu-popup-renderer {
+      background-color: @mantle;
+    }
+    .ytListItemViewModelTappable:hover {
+      background-color: @surface0;
+    }
+    .ytPanelHeaderViewModelTitle,
+    .ytListItemViewModelTitle,
+    .ytListItemViewModelAccessory {
+      color: @text;
+    }
+    .ytListItemViewModelSubtitle {
+      color: @subtext1;
+    }
+    /* Dialogs */
+    .ytSpecDialogLayoutHost {
       background-color: @mantle;
 
-      .ytListItemViewModelTappable:hover {
-        background-color: @surface0;
-      }
-
-      .ytPanelHeaderViewModelTitle,
-      .ytListItemViewModelTitle,
-      .ytListItemViewModelAccessory {
+      .ytDialogHeaderViewModelText {
         color: @text;
       }
-      .ytListItemViewModelSubtitle {
-        color: @subtext1;
-      }
+    }
+
+    /* Dropdowns */
+    .ytDropdownViewModelTitle {
+      color: @text;
+    }
+    .ytDropdownViewModelLabel {
+      color: @subtext0;
+    }
+    .ytDropdownViewModelSupportError {
+      color: @red;
+    }
+    .ytDropdownViewModelDropdownContainerErrorBorder {
+      border-color: @red;
+    }
+    .ytStandardsTextareaShapeTextareaContainerOutline:focus-within {
+      border-color: @text;
+    }
+
+    /* Toggles/Switches */
+
+    .ytSwitchShapeTrack {
+      background-color: @surface2;
+    }
+    .ytSwitchShapeKnob {
+      background-color: @mantle;
+    }
+    .ytSwitchShapeTrackActive {
+      background-color: @accent;
+    }
+
+    /* Textareas */
+    .ytStandardsTextareaShapeTextarea {
+      color: @text;
+    }
+    .ytStandardsTextareaShapePlaceholder {
+      color: @subtext0;
+    }
+    .ytStandardsTextareaShapeTextarea::placeholder {
+      color: transparent !important; // defaults important overrides this
+    }
+
+    /* Comments */
+    .ytSubThreadConnection,
+    .ytSubThreadContinuation {
+      border-left-color: @surface1;
+    }
+    .ytSubThreadConnection {
+      border-bottom-color: @surface1;
+    }
+    .ytSubThreadHovered > .ytSubThreadThreadline .ytSubThreadConnection,
+    .ytSubThreadHovered > .ytSubThreadThreadline .ytSubThreadContinuation {
+      border-left-color: @overlay0;
+    }
+    .ytSubThreadHovered > .ytSubThreadThreadline .ytSubThreadConnection {
+      border-bottom-color: @overlay0;
     }
 
     /* Profile Card */
@@ -1254,11 +1310,6 @@
       }
     }
 
-    /* Horizontal list arrows */
-    .arrow.yt-horizontal-list-renderer {
-      background: @surface0;
-    }
-
     /* Live chat replay */
     .ytVideoMetadataCarouselViewModelHost,
     .YtVideoMetadataCarouselViewModelHost {
@@ -1273,34 +1324,6 @@
       .ytTextCarouselItemViewModelHost {
         color: @subtext1;
       }
-    }
-
-    /* AI-generated video summary */
-    .video-summary-content-view-model-wiz__paragraph {
-      color: @text;
-    }
-
-    /* Playlist collapsed sidebar */
-    #next-video-title {
-      color: @text;
-    }
-    #publisher-container {
-      .yt-simple-endpoint.style-scope.yt-formatted-string,
-      .index-message-wrapper.style-scope.ytd-playlist-panel-renderer,
-      .index-message-wrapper.style-scope.ytd-playlist-panel-renderer::before {
-        color: @subtext0;
-      }
-    }
-
-    /* Playlist metadata */
-    .metadata-stats.style-scope.ytd-playlist-byline-renderer,
-    .yt-lockup-metadata-view-model-wiz__metadata {
-      color: @subtext0;
-    }
-
-    /* Playlist titles in search results */
-    .yt-core-attributed-string.yt-core-attributed-string--white-space-pre-wrap {
-      color: @text;
     }
 
     /* Category tag pills */
