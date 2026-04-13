@@ -1,6 +1,7 @@
 import { parseArgs } from "@std/cli";
 import { serveDir } from "@std/http/file-server";
 import { debounce } from "@std/async/debounce";
+import { createHash } from "node:crypto";
 
 import * as path from "@std/path";
 
@@ -42,16 +43,58 @@ const userstylePath = path.join(
   "catppuccin.user.less",
 );
 
+const libPath = path.join(
+  REPO_ROOT,
+  "lib",
+);
+
 const tempUserstylePath = await Deno.makeTempFile({
   prefix: "userstyle_",
   suffix: ".user.less",
 });
 
+async function calculateLibChecksum(): Promise<string> {
+  const files = [];
+  for await (const entry of Deno.readDir(libPath)) {
+    if (entry.isFile) {
+      files.push(path.join(libPath, entry.name));
+    }
+  }
+
+  const hash = createHash("sha256");
+  for (const file of files) {
+    const content = await Deno.readTextFile(file);
+    hash.update(content);
+  }
+
+  return hash.digest("hex");
+}
+
+let lastLibChecksum = await calculateLibChecksum();
+
+async function updateTempUserstyle() {
+  let contents = await Deno.readTextFile(userstylePath);
+
+  const importRegex =
+    /(@import\s+"https:\/\/userstyles\.catppuccin\.com\/lib\/[^\s]+\.less")/g;
+  contents = contents.replace(importRegex, (match) => {
+    return match.replace(
+      /(\.less)/,
+      `$1?v=${lastLibChecksum.slice(0, 6)}`,
+    );
+  });
+
+  contents = contents.replaceAll(
+    "https://userstyles.catppuccin.com",
+    `http://localhost:${server.addr.port}`,
+  );
+
+  await Deno.writeTextFile(tempUserstylePath, contents);
+}
+
 updateTempUserstyle();
 
 console.log(`[serve] ${userstyle} userstyle served at '${tempUserstylePath}'`);
-
-const watcher = Deno.watchFs(userstylePath);
 
 const reload = debounce(() => {
   console.log(
@@ -60,15 +103,10 @@ const reload = debounce(() => {
   updateTempUserstyle();
 }, 200);
 
+const watcher = Deno.watchFs([userstylePath, libPath]);
 for await (const event of watcher) {
+  if (event.paths.some((path) => path.startsWith(libPath))) {
+    lastLibChecksum = await calculateLibChecksum();
+  }
   reload();
-}
-
-async function updateTempUserstyle() {
-  let contents = await Deno.readTextFile(userstylePath);
-  contents = contents.replaceAll(
-    "https://userstyles.catppuccin.com",
-    `http://localhost:${server.addr.port}`,
-  );
-  await Deno.writeTextFile(tempUserstylePath, contents);
 }
