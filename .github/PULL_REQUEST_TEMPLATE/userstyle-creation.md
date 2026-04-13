@@ -1,4 +1,4 @@
-<!-- Fill in the following table, replacing TODO with the appropriate values (e.g. website is "FooBar" and the URL is "https://foobar.com"). -->
+<!-- Fill in the details for your userstyle below (e.g. website is "FooBar" and the URL is "https://foobar.com"). -->
 
 **Website**: ___
 
