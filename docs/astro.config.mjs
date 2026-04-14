@@ -4,6 +4,7 @@ import catppuccin from "@catppuccin/starlight";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightImageZoom from "starlight-image-zoom";
 import starlightGitHubAlerts from "starlight-github-alerts";
+import starlightAutoSidebar from "starlight-auto-sidebar";
 import mermaid from "astro-mermaid";
 import { remarkHeadingId } from "remark-custom-heading-id";
 
@@ -73,8 +74,6 @@ export default defineConfig({
               label: "Tips and Tricks",
               autogenerate: { directory: "contributing/tips-and-tricks" },
             },
-            "contributing/standard-library",
-            "contributing/library-modules",
           ],
         },
         {
@@ -87,7 +86,11 @@ export default defineConfig({
         starlightLinksValidator(),
         starlightGitHubAlerts(),
         starlightImageZoom(),
+        starlightAutoSidebar(),
       ],
     }),
   ],
+  redirects: {
+    "/contributing/standard-library/": "/reference/libraries/standard/",
+  },
 });
