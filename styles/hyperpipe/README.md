@@ -15,12 +15,14 @@
 
 ## Usage
 
-See [the userstyle usage instructions](../../docs/USAGE.md).
+See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 
-## 💝 Current Maintainer
+## ❤️‍🩹 Unmaintained
+This userstyle currently lacks maintainers, and may not work correctly. Please feel free to contribute for any issues you find!
+
+## 💖 Past Maintainer
 - [jn-sena](https://github.com/jn-sena)
-
 
 &nbsp;
 

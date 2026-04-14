@@ -2,7 +2,7 @@
 @name Last.fm Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/lastfm
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/lastfm
-@version 2024.12.31
+@version 2026.01.03
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/lastfm/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Alastfm
 @description Soothing pastel theme for Last.fm
@@ -15,1828 +15,881 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
 @-moz-document domain("last.fm") {
-  :root {
-    @media (prefers-color-scheme: light) {
-      #catppuccin(@lightFlavor);
-    }
-    @media (prefers-color-scheme: dark) {
-      #catppuccin(@darkFlavor);
-    }
+  @media (prefers-color-scheme: light) {
+    #catppuccin(@lightFlavor);
+  }
+  @media (prefers-color-scheme: dark) {
+    #catppuccin(@darkFlavor);
   }
 
   #catppuccin(@flavor) {
-    @rosewater: @catppuccin[@@flavor][@rosewater];
-    @flamingo: @catppuccin[@@flavor][@flamingo];
-    @pink: @catppuccin[@@flavor][@pink];
-    @mauve: @catppuccin[@@flavor][@mauve];
-    @red: @catppuccin[@@flavor][@red];
-    @maroon: @catppuccin[@@flavor][@maroon];
-    @peach: @catppuccin[@@flavor][@peach];
-    @yellow: @catppuccin[@@flavor][@yellow];
-    @green: @catppuccin[@@flavor][@green];
-    @teal: @catppuccin[@@flavor][@teal];
-    @sky: @catppuccin[@@flavor][@sky];
-    @sapphire: @catppuccin[@@flavor][@sapphire];
-    @blue: @catppuccin[@@flavor][@blue];
-    @lavender: @catppuccin[@@flavor][@lavender];
-    @text: @catppuccin[@@flavor][@text];
-    @subtext1: @catppuccin[@@flavor][@subtext1];
-    @subtext0: @catppuccin[@@flavor][@subtext0];
-    @overlay2: @catppuccin[@@flavor][@overlay2];
-    @overlay1: @catppuccin[@@flavor][@overlay1];
-    @overlay0: @catppuccin[@@flavor][@overlay0];
-    @surface2: @catppuccin[@@flavor][@surface2];
-    @surface1: @catppuccin[@@flavor][@surface1];
-    @surface0: @catppuccin[@@flavor][@surface0];
-    @base: @catppuccin[@@flavor][@base];
-    @mantle: @catppuccin[@@flavor][@mantle];
-    @crust: @catppuccin[@@flavor][@crust];
-    @accent: @catppuccin[@@flavor][@@accentColor];
+    #lib.palette();
+    #lib.defaults();
 
-    @accent-dim: darken(@accent, 3%);
-
-    color-scheme: if(@flavor = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent, 30%);
-    }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
-
-    & when not(@flavor = latte) {
-      @accent-dim: fade(@accent, 50%);
-      .layout-image {
-        background: @base;
-        .layout-image-image {
-          &[src="https://lastfm.freetls.fastly.net/i/u/300x300/4128a6eb29f94943c9d206c08e625904.jpg"],
-          &[src="https://lastfm.freetls.fastly.net/i/u/237x178/2a96cbd8b46e442fc41c2b86b821562f.jpg"],
-          &[src="https://lastfm.freetls.fastly.net/i/u/300x300/c6f59c1e5e7240a4c0d427abd71f3dbb.jpg"] {
-            mix-blend-mode: screen;
-            filter: invert(1);
-          }
-        }
-      }
-      [src="https://lastfm.freetls.fastly.net/i/u/avatar70s/2a96cbd8b46e442fc41c2b86b821562f.jpg"],
-      [src="https://lastfm.freetls.fastly.net/i/u/64s/4128a6eb29f94943c9d206c08e625904.jpg"],
-      [src="https://lastfm.freetls.fastly.net/i/u/64s/c6f59c1e5e7240a4c0d427abd71f3dbb.jpg"] {
-        mix-blend-mode: screen;
-        filter: invert(1);
-      }
-      .cover-art {
-        background: @base;
-      }
-      .avatar::after,
-      .cover-art::after,
-      .image-list-item::after,
-      .video-thumbnail::after {
-        box-shadow: inset 0 0 0 1px rgb(@subtext0, 7%);
-      }
-    }
-
-    /* ------UNIVERSAL STYLES INCASE SOME GET MISSED------ */
-    body {
+    html, html body {
       color: @text;
-      background: @base;
-    }
-    h1 {
-      color: @accent;
-    }
-    .mimic-link {
-      color: @sapphire;
-    }
-    hr {
-      border-color: @overlay1;
-    }
-    a {
-      color: @accent;
-      &:hover {
-        color: @accent-dim;
-      }
-    }
-
-    // Mixin to dynamically set colors of album, artist and track categories
-
-    .category-colors() {
-      &artist {
-        --category-background: @yellow;
-      }
-      &album {
-        --category-background: @green;
-      }
-      &track {
-        --category-background: @blue;
-      }
-    }
-
-    // Evil image mask hack
-    // Use as follows:
-    // .maskimage(mask-image, background-color, mask-position, mask-size, mask-repeat);
-    // Setting any value to "skip" skips that attribute
-    .mask-image(
-      @mask-image: url(""),
-      @mask-color: skip,
-      @mask-position: skip,
-      @mask-size: skip,
-      @mask-repeat: skip,
-    ) {
-      & when not(@mask-color = skip) {
-        background-image: none !important;
-        background-color: @mask-color;
-      }
-      & when not(@mask-image = skip) {
-        mask-image: @mask-image;
-        -webkit-mask-image: @mask-image;
-      }
-      & when not(@mask-position = skip) {
-        mask-position: @mask-position;
-        -webkit-mask-position: @mask-position;
-      }
-      & when not(@mask-size = skip) {
-        mask-size: @mask-size;
-        -webkit-mask-size: @mask-size;
-      }
-      & when not(@mask-repeat = skip) {
-        mask-repeat: @mask-repeat;
-        -webkit-mask-repeat: @mask-repeat;
-      }
-    }
-    /* -----------------SETTINGS------------------- */
-    .content-form .form-row-help-text,
-    .footnotes {
-      color: @overlay0;
-    }
-    .content-form legend {
-      color: @subtext1;
-    }
-    .change-username-upsell {
-      background: @mantle;
-    }
-    .change-username-faded h2::after {
-      .mask-image(
-        url("/static/images/icons/lock_dark_24@2x.a7652d49d507.png"),
-        @overlay0,
-        skip,
-        24px 24px,
-        no-repeat,
-      );
-    }
-    /* -----------CHECKBOXES, DROPDOWNS AND RADIOS---------- */
-    .lfm-form-radio input[type="radio"]:checked + label::before {
-      border-color: @accent;
-      box-shadow: inset 0 0 0 4px @accent;
-      background-color: @base;
-    }
-    .lfm-form-radio input[type="radio"] + label::before {
-      background-color: @crust;
-      border-color: @surface1;
-    }
-    .content-form select {
-      background-image: none; // Tempfix
-    }
-
-    /* HOME PAGE */
-    .main-content,
-    .container,
-    .content-top-has-nav .content-top,
-    .two-column-layout .content-top {
       background-color: @base;
     }
 
-    .content-top-has-nav .content-top::after,
-    .two-column-layout .content-top::after {
-      border-top-color: @accent-dim;
-    }
+    /* Components */
 
-    .homefeed .content-top .secondary-nav-item-link--active,
-    .home-welcome-header {
-      color: @text;
-    }
-    .secondary-nav-item-link {
-      color: @subtext0;
-    }
-
-    .secondary-nav-item-link:focus,
-    .secondary-nav-item-link:hover,
-    .homefeed .content-top .secondary-nav-item-link--active,
-    .homefeed .content-top .secondary-nav-item-link--active:focus,
-    .homefeed .content-top .secondary-nav-item-link--active:hover {
-      color: @text;
-    }
-
-    .homefeed {
-      .content-top .secondary-nav-item {
-        &--artists,
-        &--albums,
-        &--tracks,
-        &--events {
-          .secondary-nav-item-link:hover::after {
-            background-color: @accent-dim;
-          }
-        }
-      }
-      &--artists,
-      &--albums,
-      &--tracks,
-      &--events {
-        .content-top .secondary-nav-item-link--active::after {
-          background-color: @accent-dim;
-        }
-      }
-    }
-    .recs-feed .recs-feed,
-    .grid-items {
-      &-cover-image-wrap::after {
-        background-image: linear-gradient(
-          180deg,
-          transparent 0,
-          fade(@mantle, 40%) 50%,
-          fade(@mantle, 70%) 50%,
-          fade(@mantle, 70%) 100%
-        );
-      }
-    }
-
-    .recs-feed .context {
-      background: @mantle;
-      color: @text;
-      box-shadow: none;
-      box-shadow: inset 1px 0 darken(@mantle, 3%), inset -1px -1px @crust;
-    }
-    .recs-feed .recs-feed-item {
-      background: transparent;
-      box-shadow: none;
-    }
-
-    .stationlink-list .stationlink {
-      color: @subtext0;
-      &:focus,
-      &:hover {
-        color: @text;
-        &::before {
-          background-color: @subtext0;
-        }
-      }
-      &::after {
-        border-bottom-color: @accent-dim;
-      }
-      &::before {
-        background-color: @accent;
-        -webkit-filter: invert(0%);
-        filter: invert(0%);
-      }
-    }
-
-    .subscribe-cta,
-    .mpu-subscription-upsell,
-    .mpu-subscription-upsell--mpu {
-      display: none;
-    }
-    .join-cta {
-      background-color: transparent;
-    }
-    .join-cta h3 {
+    a, .mimic-link {
       color: @accent;
     }
 
-    .lazy-features-footer {
-      display: none;
-    }
-    /* ERROR */
-    #error {
-      color: @text;
-    }
-
-    /* info banner */
-    .nag-bar--info {
-      background-color: @base !important;
-    }
-
-    /* LIVE */
-    /* MUSIC */
-    .content-top-header {
-      color: @accent;
-    }
-
-    .minimal-navigation-item-link {
-      &,
-      &:focus,
-      &:hover {
-        color: @subtext0;
-      }
-    }
-
-    .minimal-navigation-item-link--active,
-    .music-section-heading,
-    .music-more-artists-item-name a,
-    .music-releases-item-name a {
-      &,
-      &:focus,
-      &:hover {
-        color: @text;
-      }
-    }
-
-    .music-releases-item-artist,
-    .column-tracks-item-name,
-    .column-tracks-item-artist,
-    .music-gallery-artist {
-      color: @text;
-    }
-
-    .music-section-rediscover-subscribe-banner-cta {
-      background-color: @base;
-    }
-
-    /* PROFILE */
-    /* BANNER */
-    .header--overview .header-background {
-      opacity: 0.4;
-    }
-
-    /* SEARCH */
-    .artist-result-heading,
-    .album-result-heading {
-      color: @text;
-    }
-
-    /* RECOMMENDATIONS */
-    .recs-feed-title a {
-      color: if(@flavor = "latte", @crust, @text) !important;
-    }
-    .recs-feed-item,
-    .recs-feed .recs-feed-item {
-      &-- {
-        .category-colors();
-      }
-    }
-    @media (min-width: 768px) {
-      .recs-feed .context::before {
-        border-radius: 50%;
-        content: "";
-        height: 32px;
-        left: auto;
-        position: absolute;
-        right: 15px;
-        top: -16px;
-        width: 32px;
-        background: var(--category-background) !important;
-        z-index: 1;
-      }
-      .recs-feed .recs-feed-item .context::after {
-        .mask-image(
-          url("/static/images/icons/rec_types_16.93a8040cce71.png"),
-          @crust,
-          0 0,
-          32px 160px,
-          no-repeat,
-        );
-        z-index: 2;
-      }
-      .recs-feed .recs-feed-item--album .context::after {
-        -webkit-mask-position: 0 -64px;
-      }
-      .recs-feed .recs-feed-item--artist .context::after {
-        -webkit-mask-position: 0 -32px;
-      }
-    }
-    .recs-feed .context-love-icon::before {
-      .mask-image(
-        url("/static/images/icons/love_12.be2fe9170476.png"),
-        @red,
-        0 0,
-        12px 12px,
-        no-repeat,
-      );
-    }
-    .secondary-nav {
-      box-shadow: inset 0 -1px @accent;
-    }
-    .music-recommended-artists-artist-name,
-    .music-recommended-artists-context,
-    .pagination-page,
-    .pagination-next {
-      color: @text;
-    }
-
-    .music-recommended-albums- {
-      &item-name,
-      &album-artist,
-      &album-context {
-        color: @text;
-      }
-    }
-
-    .recommended-tracks-item-name,
-    .recommended-tracks-item-artist,
-    .big-tags-item-context {
-      color: @text;
-    }
-
-    p {
-      color: @subtext0;
-    }
-
-    /* RECAP PROMOS */
-    .promo-v3 .listening-report-promo {
-      background: @mantle;
-      border-color: fade(@mantle, 50%);
-      &:hover,
-      &:focus {
-        background: @crust;
-        border-color: fade(@crust, 50%);
-      }
-      &-date::after {
-        .mask-image(
-          url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg"),
-          @text,
-          skip,
-          contain,
-        );
-        height: 0;
-        width: 0;
-        padding: 7px;
-        filter: none;
-      }
-    }
-
-    /* CHARTS */
-    .adaptive-skin-wrapper,
-    .row {
-      background-color: @base;
-    }
-
-    .two-column-layout .container {
-      background-size: 0;
-      background-position: 0 0;
-      background-color: @base;
-    }
-
-    ._buffer-reset,
-    .sidebar-heading {
-      color: @accent;
-    }
-
-    .sidebar-group-heading {
-      color: @text;
-    }
-
-    .resource-list--sidebar-item-name {
-      color: @text;
-    }
-    .js-link-block.globalchart-item {
-      background-color: @crust;
-      box-shadow: 0 1px @base, inset 0 -1px @base;
-    }
-    .globalchart a,
-    .globalchart a:focus,
-    .globalchart a:hover {
-      color: @text;
-    }
-
-    .footer-top-row {
-      background-color: @mantle;
-    }
-
-    /* EVENTS */
-    .events-filter,
-    .events-filter-recommended,
-    .dropdown-menu-clickable-button:focus,
-    .dropdown-menu-clickable-button:hover {
-      color: @text;
-    }
-
-    .events-filters {
-      border-bottom-color: @accent;
-    }
-
-    .events-list-item-venue--address,
-    .events-list-item-event--lineup {
-      color: @subtext0;
-    }
-    .events-list-anhv1 a,
-    .events-list-anhv1 a:focus,
-    .events-list-anhv1 a:hover,
-    .events-list-item-event--title,
-    .events-list-item-venue--title {
-      color: @text;
-    }
-
-    /* FEATURES */
-    .features-header .features-teaser-body,
-    .features-teaser-wrap--promoted .features-teaser-body {
-      background: @base;
-    }
-
-    .features-teaser-title a,
-    .features-teaser-title a:focus,
-    .features-teaser-title a:hover {
-      color: @text;
-    }
-
-    /* FEATURES POST */
-    .features-post-header-body {
-      background-color: @base;
-    }
-
-    .features-post-header-title {
-      color: @accent;
-    }
-
-    .features-post-artist {
-      color: @text;
-    }
-
-    .features-post-byline-item.features-post-author {
-      color: @text;
-    }
-
-    /* PROFILE */
-    .header-avatar-add {
-      &,
-      &:not(.cta--inactive):focus,
-      &:not(.cta--inactive):hover {
-        background-color: @accent-dim;
-      }
-    }
-    .dropdown-menu-clickable,
-    #share-library-artist,
-    .dropdown-menu-clickable-item:active,
-    body:not([data-whatinput="touch"]) .dropdown-menu-clickable-item:focus,
-    body:not([data-whatinput="touch"]) .dropdown-menu-clickable-item:hover {
-      background-color: @base;
-    }
-    .header--overview {
-      background-color: @base;
-    }
-    .header-metadata .header-metadata-title,
-    .header-scrobble-since,
-    .header-title-display-name {
-      color: @subtext1;
-    }
-    .chartlist-play-button::before {
+    .btn-primary() {
       background-color: @accent;
-      -webkit-filter: invert(0%);
-      filter: invert(0%);
-    }
-    .chartlist-play-button:focus:focus::before,
-    .chartlist-play-button:focus:hover::before,
-    .chartlist-play-button:hover:focus::before,
-    .chartlist-play-button:hover:hover::before {
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
-      background-color: @subtext0;
-    }
+      color: @crust;
 
-    .text-Color-link,
-    h2,
-    .dropdown-menu-clickable-button.disclose-active {
-      color: @accent;
-    }
-    .dropdown-menu-clickable-button,
-    .dropdown-menu-clickable-item--selected {
-      &,
-      &:focus,
       &:hover {
-        color: @accent;
+        background-color: darken(@accent, 5%) !important;
+        color: @crust !important;
       }
     }
-    .dropdown-menu-clickable-item,
-    .dropdown-menu-clickable-item:active,
-    body:not([data-whatinput="touch"]) .dropdown-menu-clickable-item:focus,
-    body:not([data-whatinput="touch"]) .dropdown-menu-clickable-item:hover {
-      color: @text;
+    .btn-primary {
+      .btn-primary();
     }
     .btn-secondary {
-      background-color: @accent-dim;
-      color: @crust;
-    }
-
-    body:not(.js-focus-visible)
-      body:not([data-whatinput="touch"])
-      .btn-secondary:focus,
-    body:not([data-whatinput="touch"]) .btn-secondary .focus-visible,
-    body:not([data-whatinput="touch"]) .btn-secondary:hover {
-      background-color: @accent;
-      color: @crust;
-    }
-    input[type="password"] {
-      background-color: @crust !important;
-      border-color: @crust !important;
-    }
-
-    @keyframes chartlist-anim {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 51%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-    @keyframes chartlist-anim {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 51%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-    @keyframes chartlist-anim {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 51%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    .chartlist-row--highlight,
-    .chartlist-row--now-scrobbling {
-      /* background-color: #5a1717; */
-      background: linear-gradient(270deg, @base 60%, fade(@accent, 20%));
-      background-size: 200% 200%;
-      -webkit-animation: chartlist-anim 10s ease infinite;
-      -moz-animation: chartlist-anim 10s ease infinite;
-      animation: chartlist-anim 10s ease infinite;
-    }
-
-    .chartlist-name,
-    .chartlist-artist {
-      color: @subtext0;
-    }
-
-    .chartlist-break::after,
-    .chartlist-row::after {
-      border-bottom-color: @surface0;
-    }
-
-    .chartlist-row:hover {
-      background-color: @crust;
-    }
-
-    .chartlist-count-bar-slug {
-      background-color: transparent !important;
-      background-image: linear-gradient(to right, @accent, @accent);
-      color: @crust;
-    }
-    .chartlist-count-bar-value {
-      color: @crust;
-    }
-    a:focus .chartlist-count-bar-slug,
-    a:hover .chartlist-count-bar-slug {
-      background-color: @accent-dim;
-    }
-
-    .chartlist-count-bar-link {
-      &,
-      &:focus,
-      &:hover {
-        color: @text;
-      }
-    }
-
-    .shout-form textarea {
-      background-color: @crust;
-    }
-
-    .chartlist-index {
-      color: @text;
-    }
-
-    .chartlist tr:nth-child(1) td.chartlist-index {
-      color: @accent;
-    }
-
-    /* LISTENING REPORT */
-
-    // Set color for containers
-
-    .report-box-container {
-      background: @mantle;
-      color: @text;
-    }
-
-    // Topmost report box
-
-    .report-box-container--overview {
-      background: @accent;
-      color: @base;
-      // Top border design (////)
-      .report-headline-border {
-        .mask-image(
-          url("/static/images/listening-report/v3/bg-lines.73682e46b8be.svg"),
-        );
-        background: @base;
-      }
-      .report-headline-top {
-        color: @base;
-        border-bottom-color: @base;
-      }
-      // Comparison badge colors
-      .report-headline-meta
-        .badge-container
-        .report-badge.report-badge--comparison {
-        border-color: @base;
-        .report-arrow {
-          background: @base;
-        }
-      }
-      // Topmost report chart styling
-      .report-headline__chart {
-        .highcharts-series-0 .highcharts-point {
-          fill: @base;
-          stroke: fade(@base, 50%);
-        }
-        .highcharts-series-1 .highcharts-point {
-          fill: fade(@base, 50%);
-          stroke: transparent;
-        }
-        .highcharts-axis-labels {
-          stroke: @base;
-        }
-      }
-    }
-    // Middle report containers
-    .user-dashboard-layout--version-3 .main-content,
-    .user-dashboard-layout--version-3 .user-dashboard > .container {
-      // Set background
-      background: @base;
-      .listening-report-row {
-        // Header divider colors follow accent
-        border-bottom-color: @accent;
-      }
-      .top-item-overview {
-        // Style category boxes
-        &-- {
-          .category-colors();
-        }
-        background: var(--category-background);
-        color: @base;
-        // Badge color is base on accent
-        .badge-container {
-          .report-badge {
-            border-color: @base;
-          }
-          .report-badge--comparison .report-arrow {
-            background: @base;
-          }
-        }
-        // Chart styling
-        .highcharts-series-group .highcharts-point {
-          fill: @base;
-        }
-      }
-      // Set color for badges
-      .listening-report-top-item {
-        &-- {
-          .category-colors();
-        }
-        .listening-report-top-item-badge {
-          background: var(--category-background);
-        }
-        color: @text;
-      }
-      .top-new-item-type {
-        &__ {
-          .category-colors();
-        }
-        background: var(--category-background);
-      }
-      // Triangle visualizer comparison subtext
-      .triangle-ratio--details .comparison {
-        color: @subtext0;
-      }
-      // Style badges on mantle background
-      .badge-container .report-badge--comparison {
-        border-color: @text;
-        .report-arrow {
-          background: @text;
-          vertical-align: initial;
-        }
-      }
-      // Style subtext
-      .quick-fact-row {
-        color: @subtext1;
-        &:hover {
-          color: @text;
-        }
-      }
-      .listening-report-highlight-comparison,
-      .quick-fact-comparison-text {
-        color: @subtext0;
-      }
-      // User comparison icons
-      .tag-label {
-        background: linear-gradient(
-          90deg,
-          darken(@accent, 5%),
-          @accent
-        );
-        // Total scrobbles header
-        &--total-scrobbles::before {
-          .mask-image(
-            url("/static/images/icons/icon-scrobble.66a5e6978c62.svg"),
-            @base,
-          );
-        }
-        // Highest discovery header
-        &--discovery::before {
-          .mask-image(
-            url("/static/images/icons/icon-compass.ce30ab3b6240.svg"),
-            @base,
-          );
-        }
-      }
-      .header-metadata-title {
-        color: @text;
-      }
-      .listening-report-brick {
-        &-divider {
-          border-color: @surface0;
-        }
-        &-head {
-          border-bottom-color: @crust;
-        }
-        &-inner:hover {
-          background: mix(@mantle, @base);
-        }
-        &-item-scrobbles {
-          color: @overlay1;
-        }
-        // Highlight self for higher or lower position on chart
-        &-inner--highlight {
-          &.listening-report-highlight--down {
-            background: fade(@red, 10%);
-            &:hover {
-              background: fade(@red, 15%);
-            }
-          }
-          &.listening-report-highlight--up {
-            background: fade(@green, 10%);
-            &:hover {
-              background: fade(@green, 15%);
-            }
-          }
-        }
-      }
-    }
-
-    // footer
-    .user-dashboard-layout--version-3 .footer {
-      background-color: @mantle;
-    }
-
-    // Top tags visualizer: Rainbow colors implemented from Catppuccin Palette
-
-    @gradient-colors:
-      @rosewater,
-      @flamingo,
-      @pink,
-      @mauve,
-      @red,
-      @maroon,
-      @peach,
-      @yellow,
-      @green,
-      @teal,
-      @sky,
-      @sapphire,
-      @blue,
-      @lavender;
-    each(
-      range(0, 11),
-      {
-        .report-box-container--top-tags-over-time
-          .top-tags-over-time-colour-@{value} {
-          fill: extract(@gradient-colors, @value + 1);
-          stroke: extract(@gradient-colors, @value + 1);
-        }
-      }
-    );
-
-    .highcharts-radial-axis-grid .highcharts-grid-line {
-      stroke: @surface0;
-    }
-
-    // universal report arrows
-    .report-arrow {
-      .mask-image(
-        url("/static/images/listening-report/v3/report-arrow-up.b6c5a2eb4c3b.svg"),
-        @base,
-        skip,
-        contain,
-      );
-      background-size: contain;
-      padding: 4px;
-      margin: 2px;
-      height: 0;
-      width: 0;
-      filter: invert(0) !important;
-    }
-
-    .music-decades-chart-container {
-      .highcharts-series-1 .highcharts-point {
-        fill: fade(@accent, 50%);
-      }
-    }
-
-    /* SHOUT BOX */
-
-    .shout {
-      &--active {
-        background-color: fade(@surface1, 70%);
-      }
-
-      &,
-      &-form {
-        border-bottom-color: @surface0;
-      }
-      &-user a {
-        color: @text;
-      }
-      &-timestamp,
-      &-reply {
-        color: @subtext0;
-        &:hover {
-          color: @overlay2;
-        }
-      }
-      &-reply::before {
-        .mask-image(
-          url("/static/images/icons/reply_sprite_16@2x.a145ef7db2f5.png"),
-          @subtext0,
-          skip,
-          16px 32px,
-        );
-      }
-
-      &-form {
-        border-color: none;
-      }
-      &-permalink.shout-permalink {
-        &:focus,
-        &:hover {
-          color: @overlay2;
-        }
-      }
-      .vote-button {
-        color: @overlay1;
-        &::before {
-          .mask-image(
-            url("/static/images/icons/upvote_sprite_16@2x.5e02a31189da.png"),
-            @overlay2,
-            0 0,
-            16px 32px,
-          );
-        }
-        &--voted {
-          color: @green;
-          &::before {
-            .mask-image(skip, @green, 0 -16px, skip);
-          }
-        }
-      }
-    }
-
-    /* LIBRARY */
-    .col-sidebar._buffer-sidebar
-      > figure
-      > div
-      > div
-      > svg
-      > .highcharts-background {
-      fill: @base;
-    }
-
-    .highcharts-point {
-      fill: @accent-dim;
-      &-select {
-        fill: @accent;
-      }
-    }
-
-    .highcharts-axis-labels > text {
-      fill: @text !important;
-    }
-
-    #scrobble-chart-content {
-      .highcharts-background {
-        fill: @base;
-      }
-      .highcharts-point {
-        fill: fade(@accent, 20%);
-      }
-      .highcharts-xaxis .highcharts-axis-line,
-      .highcharts-yaxis-grid .highcharts-grid-line {
-        stroke: @surface2;
-        stroke-width: 1;
-      }
-      .highcharts-axis-title {
-        fill: @subtext0 !important;
-      }
-    }
-
-    /* FOLLOWING */
-    .user-list-name {
-      color: @text;
-    }
-    .user-follow,
-    .user-follow::after {
-      color: @accent;
       background-color: @surface0;
-    }
-
-    /* FOLLOW BUTTON */
-    [data-toggle-button-current-state="unfollowed"]
-      .header-follower-btn::before {
-      background-color: @red;
       color: @text;
-    }
-    [data-toggle-button-current-state="followed"] .header-follower-btn::before {
-      background-color: @green;
-      color: @text;
-    }
-    [data-toggle-button-current-state="followed"]
-      .header-follower-btn:hover::before {
-      background-color: @red;
-      color: @text;
-    }
 
-    .header-follower-btn {
-      color: @accent;
-    }
-
-    /* BOOKMARKS */
-    .music-bookmarks-artists-item-name {
-      color: @text;
-    }
-
-    /* TASTE-O-METER COLORS */
-    .tasteometer-donut-base {
-      fill: @surface1;
-    }
-    .tasteometer-avatar img {
-      border-color: @surface1;
-    }
-    .tasteometer-compat-very_low .tasteometer-compat-colour {
-      color: @subtext0;
-      fill: @subtext0;
-    }
-    .tasteometer-compat-low .tasteometer-compat-colour {
-      color: @mauve;
-      fill: @mauve;
-    }
-    .tasteometer-compat-medium .tasteometer-compat-colour {
-      color: @green;
-      fill: @green;
-    }
-    .tasteometer-compat-very_high .tasteometer-compat-colour {
-      color: @peach;
-      fill: @peach;
-    }
-    .tasteometer-compat-super .tasteometer-compat-colour {
-      color: @red;
-      fill: @red;
-    }
-
-    /* ARTIST */
-    .section-with-separator::after {
-      background-color: @base;
-    }
-    body .header-new-bookmark-button,
-    body .header-new-download-button,
-    body .header-new-love-button,
-    body .header-new-more-button {
-      color: @base;
-      background-color: @accent;
-    }
-    body:not([data-whatinput="touch"]) {
-      .header-new-bookmark-button,
-      .header-new-download-button,
-      .header-new-love-button,
-      .header-new-more-button {
-        .focus-visible,
-        &:hover {
-          color: @base;
-          background-color: @accent;
-        }
+      &:hover {
+        background-color: @surface1 !important;
+        color: @text !important;
       }
     }
-    .wiki-block-inner,
-    .catalogue-metadata-heading,
-    .catalogue-metadata-description,
-    .header-metadata-tnew-title {
-      color: @subtext0;
+    .btn-cancel {
+      color: @subtext1;
     }
 
-    .text-18 {
-      color: @accent;
-    }
-
-    .artist-similar-artists-sidebar-item-name,
-    .artist-top-albums-item-name,
-    .listeners-section-item-name,
-    .catalogue-overview-similar-artists-full-width-item-name,
-    .similar-albums-item-name,
-    .discovery-stat-top-item-name,
-    .source-album-artist,
-    .source-album-name,
-    .track-similar-tracks-item-name,
-    .about-artist-name,
-    .catalogue-overview-similar-artists-item-name {
-      a {
-        &,
-        &:focus,
-        &:hover {
-          color: @text;
-        }
+    .dropdown-menu-clickable {
+      background: @mantle;
+      &::before {
+        filter: @mantle-filter;
       }
-    }
 
-    .events-list-item-event-name.link-block-target > span {
-      color: @text;
-    }
-
-    .events-list-item-venue > span {
-      color: @subtext0;
-    }
-
-    .resource-external-link,
-    .resource-external-link:hover {
-      color: @text;
-    }
-    .js-playlink-station.desktop-playlink.inline-section-control.stationlink {
-      color: @text;
-    }
-    .section-with-settings .section-control::before {
-      border-right-color: @subtext0;
-    }
-
-    .header-metadata .header-metadata-display a {
-      color: @accent;
-    }
-
-    .big-artist-list-title a {
-      color: var(--subtext1);
-    }
-    .big-artist-list-title a:hover {
-      color: @text;
-    }
-
-    /* SIMILAR ARTISTS */
-    .similar-artists-item-name {
-      color: @text;
-    }
-
-    .similar-artists-item-wiki-inner-2 {
-      color: @subtext0;
-    }
-
-    .section-playlink::before {
-      background-color: @accent;
-      -webkit-filter: invert(0%);
-      filter: invert(0%);
-    }
-
-    .section-playlink:hover::before {
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
-      background-color: @subtext0;
-    }
-
-    .section-playlink.js-playlink-station {
-      color: @text;
-    }
-
-    .stationlink::before {
-      background-color: @accent;
-      -webkit-filter: invert(0%);
-      filter: invert(0%);
-    }
-
-    .stationlink:focus::before,
-    .stationlink:hover::before {
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
-      background-color: @subtext0;
-    }
-
-    .video-preview-upload-cta {
-      background-color: @crust;
-      box-shadow: 0 0 0 2px @accent-dim;
-    }
-
-    .video-preview-upload-cta:not(.cta--inactive):focus,
-    .video-preview-upload-cta:not(.cta--inactive):hover {
-      background-color: @base;
-    }
-
-    .highcharts-plot-bands-0 > path {
-      fill: @overlay0;
-    }
-
-    .listener-trend .highcharts-area {
-      fill: fade(@red, 90%);
-    }
-
-    .listener-trend .highcharts-graph {
-      stroke: @red;
-    }
-
-    .Colored-cta {
-      background-color: fade(@surface2, 70%);
-    }
-    .Colored-cta:not(.cta--inactive):focus,
-    .Colored-cta:not(.cta--inactive):hover {
-      background-color: fade(@surface2, 30%);
-    }
-    .similar-items-sidebar-item-name {
-      color: @text;
-    }
-    .resource-list--release-list-item-name {
-      color: @text;
-    }
-    .shout--deleted,
-    .shout--reported {
-      background: @base;
-    }
-    .play-this-track-playlinks {
-      color: @text;
-    }
-
-    /* WIKI */
-    .factbox-item,
-    #factbox-more-members {
-      color: @subtext0;
-    }
-
-    .factbox-item > h4 {
-      color: @accent;
-    }
-
-    .alert-warning {
-      color: @peach;
-      background-color: @crust;
-    }
-
-    .content-form {
-      .form-control,
-      input[type="date"],
-      input[type="email"],
-      input[type="number"],
-      input[type="password"],
-      input[type="text"],
-      input[type="url"],
-      select,
-      textarea {
-        background-color: @crust !important;
-        border-color: @crust !important;
-        color: @subtext0 !important;
-        &:focus {
-          box-shadow: none !important;
-          border-color: @crust !important;
-        }
-        &:hover:not([disabled]) {
-          border-color: @crust !important;
-          color: @text !important;
-        }
-      }
-    }
-    .control-label {
-      color: @accent;
-    }
-    .join-form .form-row-help-text {
-      color: @text;
-      background-color: @surface1;
-    }
-    #stylerules {
-      background-color: @overlay0;
-      color: @subtext0;
-    }
-    .secondary-nav-item-link--active::after,
-    a.secondary-nav-item-link:focus::after,
-    a.secondary-nav-item-link:hover::after {
-      background-color: @accent;
-    }
-
-    /* DOCUMENTATION/API SECTION */
-    #app {
-      .sidebar {
-        background: @mantle;
-        border-color: @mantle;
-      }
-      a.sidebar-link {
+      .dropdown-menu-clickable-item {
         color: @text;
+
         &:hover {
+          background-color: @base !important;
+        }
+
+        &.dropdown-menu-clickable-item--selected {
           color: @accent;
         }
       }
-      .sidebar-heading {
+    }
+    .dropdown-menu-clickable-button {
+      color: @subtext0;
+
+      &:hover, &.disclose-active {
         color: @subtext1;
       }
-      a.sidebar-link.active {
-        color: @accent;
-        border-left-color: @accent;
+
+      .section-with-settings &.section-control::before {
+        border-right-color: @surface2;
       }
-      a {
-        color: @accent;
+
+      &::after {
+        filter: @subtext1-filter;
       }
     }
 
-    /* OBSESSIONS */
-    .obsession-history-play-all::before {
-      background-color: @accent;
-      -webkit-filter: invert(0%);
-      filter: invert(0%);
-      color: @text;
+    .content-form {
+      textarea, input, select {
+        background-color: @mantle !important;
+        color: @text !important;
+        border-color: @surface1 !important;
+
+        &:focus {
+          box-shadow: 0 3px 9px 0 @surface0 !important;
+        }
+      }
+
+      .lfm-form-radio input[type="radio"] {
+        + label::before {
+          background-color: @base;
+          border-color: @overlay1;
+        }
+        &:checked + label::before {
+          box-shadow: inset 0 0 0 4px @accent;
+          border-color: @accent;
+        }
+      }
+
+      .form-row-help-text, .footnotes {
+        color: @subtext0;
+      }
+
+      legend {
+        color: @subtext1;
+      }
     }
 
-    .obsession-history-play-all.js-playlink-station.inline-section-control {
-      color: @text;
+    .search-form {
+      .search-submit::before {
+        filter: @overlay0-filter;
+      }
+
+      &::after {
+        border-right-color: @surface1;
+      }
     }
 
-    .obsession-history-play-all:hover::before {
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
-      background-color: @subtext0;
+    // Alerts
+    .alert-warning {
+      background-color: fade(@peach, 30%);
+      color: @peach;
+
+      &::before {
+        filter: @peach-filter;
+      }
     }
 
-    .obsession-search-result-header {
-      color: @accent;
-    }
-
-    .obsession-candidate-heading {
-      color: @text;
-    }
-
-    .modal-dialog.popup_content,
-    .modal-content {
-      background-color: @mantle;
-      box-shadow: none;
-    }
-
+    // Modals
     .modal-body {
-      background-color: @base;
-      box-shadow: none;
-    }
-
-    .content-form textarea:focus {
-      box-shadow: none;
-    }
-
-    .content-form textarea:hover:not([disabled]) {
-      border-color: @accent;
-    }
-
-    /* MESSAGES */
-    .inbox-notifications .inbox-notifications__item {
-      color: @subtext0;
-    }
-
-    .inbox-notifications .inbox-notifications__item--highlight {
-      background-color: @overlay0;
-    }
-    .inbox-notifications .inbox-notifications__item--hover {
-      box-shadow: none;
-    }
-    .inbox-notifications__item--highlight-hover:hover {
-      background-color: @crust;
-    }
-
-    .inbox-message-subject {
-      color: @accent;
-    }
-
-    .inbox-message-message {
-      color: @text;
-    }
-
-    .inbox-message-view .inbox-message-message blockquote {
-      background: @crust;
-      border-color: @accent;
-    }
-
-    body:not([data-whatinput="touch"])
-      .inbox-notifications
-      .inbox-notifications__item--hover:hover {
-      background-color: @crust;
-    }
-
-    .inbox .inbox-message {
-      background-color: @crust;
-    }
-
-    .inbox .inbox-message--unviewed {
-      background-color: @overlay0;
-    }
-
-    .inbox .inbox-message--unviewed .inbox-message-status::after {
-      background-color: @accent;
-    }
-
-    /* ADS */
-    .lastfm-ad {
-      display: none;
-    }
-    .full-bleed-ad-container,
-    .sidebar-ad-container {
-      background-color: @base;
-    }
-
-    /* RECOMMENDATIONS ON PROFILE */
-    .profile-card-content {
-      background: @surface0 !important;
-    }
-    /* UPGRADE TO PRO */
-    .btn-subscribe,
-    .btn-subscribe:hover,
-    .btn-subscribe:active {
-      background-color: @accent !important;
-    }
-    .listening-report-brick--upsell {
-      display: none;
-    }
-    .your-progress {
-      color: @text;
-    }
-    /* ----Profile Cards Hide------- */
-    .profile-cards-container {
-      display: none !important;
-    }
-    /*    HEADER     */
-    .header--overview,
-    .header--sub-page {
-      color: @text;
-    }
-    /* -----Primary Button------ */
-    .btn-primary,
-    .btn-primary:hover,
-    .btn-primary:active,
-    .no-data-message-button,
-    .no-data-message-button:hover,
-    .no-data-message-button:active,
-    .api-session-connect,
-    .api-session-disconnect:hover,
-    .api-session-disconnect:active,
-    .clipboard-button,
-    body:not(.js-focus-visible)
-      body:not([data-whatinput="touch"])
-      .clipboard-button:focus,
-    body:not([data-whatinput="touch"]) .clipboard-button .focus-visible,
-    body:not([data-whatinput="touch"]) .clipboard-button:hover {
-      background-color: @accent !important;
-      color: @base !important;
-    }
-    .api-session-disconnect {
-      background-color: @accent-dim !important;
-      color: @base !important;
-    }
-    /* -----Shortcut Button------ */
-    .btn-shortcut,
-    .btn-shortcut:hover,
-    .btn-shortcut:active {
-      background-color: @accent-dim !important;
-      color: @text !important;
-    }
-    /* ------HEADER----- */
-    header {
       background: @mantle;
     }
-    /* ------FOOTER----- */
-    .footer .footer-heading {
+
+    // Other
+
+    .section-with-separator::after {
+      background-color: @surface0;
+    }
+
+    .container {
+      background: @base;
+    }
+
+    .content-top-back-link {
+      color: @subtext0;
+
+      a::before {
+        filter: @overlay2-filter;
+      }
+    }
+
+    /* Footer */
+    .footer {
+      background: @mantle;
+      color: @text;
+
+      .footer-heading {
+        color: @subtext0;
+      }
+
+      .footer-language {
+        color: @subtext0;
+        &.footer-language--active {
+          color: @text;
+        }
+      }
+
+      .footer-timezone {
+        color: @subtext0;
+        strong {
+          color: @text;
+        }
+      }
+
+      .footer-legal {
+        color: @subtext1;
+      }
+
+      .container {
+        background: none;
+      }
+    }
+
+    /* Header */
+    .top-bar {
+      background: @mantle;
+
+      svg {
+        filter: @accent-filter;
+      }
+    }
+    .masthead {
+      .masthead-search-toggle {
+        &::before {
+          filter: @text-filter;
+        }
+        &::after {
+          background-color: @text;
+        }
+      }
+      .masthead-nav .masthead-nav-control {
+        color: @text;
+
+        &::after {
+          background-color: @text;
+        }
+      }
+
+      .auth-avatar-notification-count-badge {
+        background: @accent;
+      }
+      .auth-dropdown-menu {
+        background: @mantle !important;
+
+        .auth-dropdown-profile {
+          background-color: @crust;
+
+          .auth-dropdown-profile-info {
+            .username {
+              color: @text;
+            }
+            .scrobble-count {
+              color: @subtext0;
+            }
+          }
+        }
+        .auth-dropdown-menu-links {
+          background: @mantle;
+
+          .auth-dropdown-menu-item .auth-dropdown-menu-link img {
+            filter: @text-filter;
+          }
+        }
+        .auth-dropdown-menu-footer {
+          background: @mantle;
+
+          .auth-upgrade-cta {
+            background: @mantle;
+            box-shadow: inset 0 0 0 1px @overlay0;
+            color: @yellow;
+
+            &:hover {
+              box-shadow: inset 0 0 0 1px @yellow !important;
+              color: @yellow !important;
+            }
+          }
+          .auth-logout-cta {
+            box-shadow: inset 0 0 0 1px @overlay0;
+            background: @mantle;
+            color: @text;
+          }
+        }
+      }
+    }
+
+    .header {
+      &.header--overview, &.header--sub-page {
+        color: @text;
+      }
+      &.header--overview .container, &.header--sub-page .container {
+        background: none;
+      }
+
+      background: @base;
+
+      .header-info {
+        .header-featured-track {
+          .featured-item-heading {
+            color: @subtext1;
+          }
+        }
+
+        .header-title-secondary {
+          .header-scrobble-since, .header-title-display-name {
+            color: @subtext1;
+          }
+        }
+
+        .header-info-secondary {
+          color: @text;
+        }
+      }
+    }
+    .header-metadata .header-metadata-title {
       color: @subtext1;
     }
-    .footer {
-      background-color: @mantle;
-      color: @text;
+    .secondary-nav {
+      .secondary-nav-item-link:hover::after,
+      .secondary-nav-item-link--active::after {
+        background: @accent;
+      }
     }
-    .footer .footer-bottom {
-      border-top-color: none;
+
+    .chartlist {
+      .chartlist-row {
+        &:hover {
+          background-color: @surface0;
+        }
+
+        &.chartlist-row--highlight, &.chartlist-row--now-scrobbling {
+          background-color: fade(@accent, 20%);
+        }
+
+        .chartlist-play {
+          .chartlist-play-button {
+            &::before {
+              background-color: transparent;
+              filter: @text-filter;
+              box-shadow: 0 0 0 1px fade(@mantle, 20%);
+            }
+          }
+        }
+
+        .chartlist-loved {
+          button.chartlist-love-button {
+            &::before {
+              filter: @overlay2-filter;
+            }
+            &:hover::before, &[data-analytics-action="UnloveTrack"]::before {
+              filter: @accent-filter;
+            }
+          }
+        }
+
+        .lazy-buylinks-toggle, .chartlist-more-button {
+          &::before {
+            filter: @overlay2-filter;
+          }
+          &:hover::before {
+            filter: @subtext0-filter;
+          }
+        }
+        .chartlist-more {
+          .chartlist-more-menu {
+            .more-item--track::before,
+            .more-item--artist::before,
+            .more-item--obsession::before {
+              filter: @subtext0-filter;
+            }
+            .more-item--delete::before {
+              filter: @red-filter;
+            }
+          }
+        }
+
+        .chartlist-timestamp {
+          color: @subtext0;
+
+          .chartlist-now-scrobbling::before {
+            filter: @subtext0-filter;
+          }
+        }
+
+        .chartlist-bar {
+          .chartlist-count-bar-slug {
+            background-color: transparent !important;
+            background-image: linear-gradient(
+              to right,
+              fade(@accent, 20%),
+              fade(@accent, 20%)
+            );
+            color: @crust;
+          }
+          .chartlist-count-bar-value {
+            color: @text;
+          }
+        }
+      }
+      .chartlist-break::after, .chartlist-row::after {
+        border-bottom-color: @surface1;
+      }
+
+      .cover-art {
+        img[src="https://lastfm.freetls.fastly.net/i/u/64s/c6f59c1e5e7240a4c0d427abd71f3dbb.jpg"] {
+          mix-blend-mode: screen;
+          filter: invert(1);
+        }
+
+        &::after {
+          box-shadow: inset 0 0 0 1px fade(@subtext0, 7%);
+        }
+      }
     }
-    .footer .footer-bottom .row {
-      background-color: @mantle;
+    #top-tracks {
+      .section-settings-toggle::before,
+      .share-chart .share-button-profile::before {
+        filter: @subtext0-filter;
+      }
     }
-    .footer .footer-language--active,
-    .footer-timezone strong,
-    .footer .footer-language--active strong {
-      color: @text;
+
+    /* Track Page */
+    .catalogue-metadata .lyrics-snippet-more-link a::before,
+    .more-link-fullwidth-right a::before,
+    .more-items::before,
+    .more-link a::before {
+      filter: @accent-filter;
     }
-    .footer .footer-language,
-    .footer-timezone,
-    .footer .footer-legal {
-      color: @overlay0;
+    .more-items {
+      color: @accent;
     }
-    .translation {
-      color: @subtext0;
+    .catalogue-tags {
+      .tag a, .tags-add, .tags-add-cta {
+        color: @accent;
+        box-shadow: inset 0 0 0 1px @accent;
+
+        &:hover {
+          color: darken(@accent, 5%) !important;
+          box-shadow: inset 0 0 0 1px darken(@accent, 5%) !important;
+        }
+      }
+      .tags-add::before {
+        filter: @accent-filter;
+      }
     }
-    /* --------TOP BAR---------- */
-    .top-bar,
-    .player-bar,
-    .player-bar .player-bar-progress,
-    .main-content::before,
-    .masthead-nav {
-      background: @mantle;
-      color: @text !important;
+    .source-album .source-album-stats,
+    .about-artist .about-artist-listeners,
+    .trending-tracks .trending-tracks-item-listeners,
+    .catalogue-overview-similar-artists-item-aux-text {
+      color: @subtext1;
     }
-    .player-bar .player-bar-progress-slug {
-      background: @accent;
+
+    .trending-tracks-section {
+      &, .container {
+        color: @text;
+        background: @surface0;
+      }
     }
-    .masthead-nav-control,
-    .site-auth-control,
-    .site-auth--anon::before,
-    .masthead-nav .navlist-more {
-      color: @text !important;
+
+    .stationlink-list .stationlink::after,
+    .resource-external-link::after,
+    .play-this-track-playlink::after {
+      border-bottom-color: @surface1;
     }
-    .masthead-nav .masthead-nav-control::after {
-      background: @accent;
-    }
-    .auth-dropdown-menu {
-      background-color: @base !important;
-      box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3), 0 0 0 1px @surface1 !important;
-    }
-    .auth-dropdown-menu-item {
-      color: @text !important;
-    }
-    .auth-dropdown-menu-item:hover,
-    .auth-dropdown-menu-item:active {
-      background-color: @surface0 !important;
-      color: @text !important;
-    }
-    .auth-dropdown-menu::before,
-    .js .auth-dropdown-menu::before,
-    .site-auth:focus .auth-dropdown-menu::before,
-    .site-auth:hover .auth-dropdown-menu::before {
-      .mask-image(
-        url("/static/images/dropdown_arrow_dark@2x.7b7cfaa4e8ee.png"),
-        @surface1,
-        skip,
-        36px 18px,
-        no-repeat,
-      );
-    }
-    .masthead-nav .masthead-nav-control,
-    .masthead-nav .navlist-more,
-    .site-auth-control {
-      &:focus,
+
+    .video-preview-upload-cta {
+      background: @surface0;
+      box-shadow: 0 0 0 2px @surface1;
+
       &:hover {
-        background-color: transparent;
-        color: @accent !important;
+        background: @surface1 !important;
+      }
+
+      &::before {
+        filter: @text-filter;
       }
     }
-    .site-auth-control.btn-secondary {
-      color: @base !important;
+
+    /* Shoutbox */
+    #shoutbox {
+      .shout,
+      .shout-form {
+        border-bottom-color: @surface0;
+      }
+
+      .shout-list {
+        .shout-user a {
+          color: @text;
+        }
+        .shout-timestamp {
+          color: @subtext0;
+
+          &:focus,
+          &:hover {
+            color: @text !important;
+          }
+        }
+
+        .shout-action,
+        .shout-reply,
+        .vote-button {
+          color: @subtext1;
+
+          &::before {
+            filter: @subtext1-filter;
+          }
+
+          &:focus,
+          &:hover {
+            color: @text !important;
+
+            &::before {
+              filter: @text-filter;
+            }
+          }
+        }
+
+        .vote-button--voted::before,
+        .vote-button--unvoted:focus::before,
+        .vote-button--unvoted:hover::before {
+          filter: @green-filter !important;
+        }
+
+        .shout-action-more {
+          .shout-more-actions {
+            &::before {
+              filter: @subtext1-filter;
+            }
+
+            &:focus::before,
+            &:hover::before {
+              filter: @text-filter !important;
+            }
+          }
+          .shout-more-actions-menu {
+            .more-item--report::before {
+              filter: @subtext0-filter;
+            }
+          }
+        }
+      }
     }
-    .masthead-search-form {
-      background-color: @mantle;
+
+    /* Settings */
+    .main-content,
+    .content-top-has-nav .content-top,
+    .two-column-layout .content-top {
+      background: @base;
     }
-    .masthead-search-submit {
-      background-color: @accent;
-      color: @base;
+    .two-column-layout .container, .two-column-layout .main-content {
+      background-image: none;
     }
-    body:not(.js-focus-visible)
-      body:not([data-whatinput="touch"])
-      .masthead-search-submit:focus,
-    body:not([data-whatinput="touch"]) .masthead-search-submit .focus-visible,
-    body:not([data-whatinput="touch"]) .masthead-search-submit:hover {
-      background-color: @accent;
-      color: @base;
+    .content-top-has-nav .content-top::after,
+    .two-column-layout .content-top::after {
+      border-top-color: @surface1;
     }
-    .masthead-search-field {
-      color: @text;
+
+    .change-username-upsell {
+      background-color: fade(@yellow, 20%);
     }
-    /* -------PLAYLISTS--------- */
-    .chartlist-timestamp {
+
+    /* Inbox/Notifications */
+    .inbox-notifications {
+      .inbox-notifications__item--hover {
+        box-shadow: inset 0 -1px @surface1;
+
+        &:hover {
+          background-color: @surface0 !important;
+        }
+      }
+      .inbox-notifications__item--highlight-hover {
+        background-color: @surface1;
+      }
+      .inbox-notifications__item-timestamp {
+        color: @subtext0;
+      }
+    }
+    .inbox .inbox-buttons .inbox-compose-button {
+      .btn-primary();
+    }
+
+    /* Home */
+    .secondary-nav-item-link {
+      &--active::after {
+        .homefeed--artists .content-top & {
+          background-color: @yellow;
+        }
+        .homefeed--albums .content-top & {
+          background-color: @green;
+        }
+        .homefeed--tracks .content-top & {
+          background-color: @blue;
+        }
+        .homefeed--events .content-top & {
+          background-color: @mauve;
+        }
+      }
+      &:hover::after {
+        .homefeed .content-top .secondary-nav-item--artists & {
+          background-color: @yellow;
+        }
+        .homefeed .content-top .secondary-nav-item--albums & {
+          background-color: @green;
+        }
+        .homefeed .content-top .secondary-nav-item--tracks & {
+          background-color: @blue;
+        }
+        .homefeed .content-top .secondary-nav-item--events & {
+          background-color: @mauve;
+        }
+      }
+    }
+    .recs-feed {
+      .recs-feed-item {
+        .recs-feed-cover-image-wrap {
+          color: @text;
+        }
+
+        .recs-feed-playlink::before {
+          background-color: @text;
+        }
+
+        &.recs-feed-item--artist .context {
+          &::before {
+            background-color: @yellow;
+          }
+          &::after {
+            mask-position: 0 -32px;
+          }
+        }
+        &.recs-feed-item--track .context {
+          &::before {
+            background-color: @blue;
+          }
+          &::after {
+            mask-position: 0 -96px;
+          }
+        }
+        &.recs-feed-item--album .context {
+          &::before {
+            background-color: @green;
+          }
+          &::after {
+            mask-position: 0 -64px;
+          }
+        }
+        .context {
+          // Hack using .mask-image() to allow us to mask icons with a background.
+          &::before {
+            border-radius: 50%;
+            content: "";
+            height: 32px;
+            left: auto;
+            position: absolute;
+            right: 15px;
+            top: -16px;
+            width: 32px;
+            z-index: 1;
+          }
+          &::after {
+            .mask-image(
+              url("/static/images/icons/rec_types_16@2x.5bf9cfd03a3e.png"),
+              @crust,
+              0 0,
+              32px 160px,
+              no-repeat,
+            );
+            z-index: 2;
+          }
+
+          color: @subtext1;
+          background-color: @surface0;
+          box-shadow: inset 1px 0 @surface1, inset -1px -1px @surface1;
+        }
+      }
+    }
+
+    // Events - Browse Popular Music (no event recommendations)
+    .no-data-message-button {
+      .btn-primary();
+    }
+
+    .stationlinks {
+      .stationlink-list .stationlink::before {
+        background-color: @text;
+      }
+    }
+    .mpu-subscription-upsell {
       color: @subtext0;
     }
-    /* -----GENRES TODAY----- */
-    .genretodaybar,
-    .rolling_no {
-      background: @mantle !important;
-    }
-    /* -----NAV ITEMS----- */
-    .library-controls .secondary-nav .secondary-nav-item-link--active,
-    .date-range-picker-button-inner,
-    .library-controls .secondary-nav .secondary-nav-item-link--active:focus,
-    .library-controls .secondary-nav .secondary-nav-item-link--active:hover,
-    body:not([data-whatinput="touch"]) .catalogue-tags .tag a:hover {
-      color: @accent !important;
-    }
-    /* ------ARTIST TAGS----- */
-    .catalogue-tags .tag a,
-    .catalogue-tags .tags-add,
-    .catalogue-tags .tags-add-cta,
-    body:not([data-whatinput="touch"]) .catalogue-tags .tag a:hover {
-      color: @accent;
-      box-shadow: inset 0 0 0 1px @accent-dim;
-    }
-    /* -----HIDE PLAY BUTTON ON TOP TRACK------ */
-    .image-overlay-playlink-link::before {
-      display: none;
-    }
-    /* ---------CHARTS FIX--------- */
-    .globalchart .globalchart-item:first-child {
-      background-color: fade(@mantle, 20%);
-    }
-    .globalchart-item:first-child .globalchart-rank {
-      color: @accent !important;
-    }
-    .globalchart-item .globalchart-rank {
-      color: @text;
-    }
-    /* -------LOG IN PAGE------- */
-    .auth-container > .auth-container-animation {
-      background-color: transparent;
-    }
-    #join-animation-container {
-      display: none !important;
-    }
-    h1.text-24 {
-      color: @accent;
-    }
-    .checkbox {
-      color: @text;
+    .subscribe-cta {
+      background-color: fade(@yellow, 10%);
     }
 
-    /* ----ICONS---- */
-    .lazy-buylinks-toggle::before {
-      .mask-image(
-        url("/static/images/icons/download_sprite_16.2d7999c89e09.png"),
-        @text,
-      );
+    .subscribe-cta a, .btn-subscribe {
+      background-color: @yellow;
+      color: @crust;
+
+      &:hover {
+        background-color: darken(@yellow, 5%) !important;
+        color: @crust !important;
+      }
     }
 
-    .chartlist-more-button::before {
-      .mask-image(
-        url("/static/images/icons/more_sprite_16.bceb4a93c77a.png"),
-        @text,
-      );
-    }
-
-    .lazy-buylinks-toggle:hover::before,
-    .lazy-buylinks-toggle:focus::before,
-    .chartlist-more-button:hover::before,
-    .chartlist-more-button:focus::before {
-      background-color: @subtext0;
-    }
-
-    .chartlist-love-button,
-    .header-new-love-button {
-      &::before {
-        .mask-image(
-          url("/static/images/icons/love_animation_tracklist_24.3c884b0287d4.png"),
-          @text,
-          -24px 0,
+    /* Profile */
+    .profile-cards-items {
+      .profile-card .profile-card-content {
+        background: linear-gradient(
+          90deg,
+          @surface0 185px 80%,
+          fade(@surface0, 75%) 95%,
+          transparent
         );
-      }
-      &:focus::before,
-      &:hover::before {
-        .mask-image(skip, @red, -24px 0);
-      }
-    }
 
-    [data-toggle-button-current-state="loved"] .chartlist-love-button,
-    [data-toggle-button-current-state="loved"] .header-new-love-button {
-      &::before,
-      &:focus::before,
-      &:hover::before {
-        .mask-image(skip, @red, -552px 0);
-        transition: mask-position 0.7s steps(22) !important;
-        -webkit-transition: -webkit-mask-position 0.7s steps(22) !important;
+        .profile-card-content-title {
+          color: @text;
+        }
+        p {
+          color: @subtext1;
+        }
       }
     }
 
-    .section-settings-toggle::before {
-      .mask-image(
-        url("/static/images/icons/settings_222_16.f63779d3cbad.png"),
-        @text,
-      );
+    /* Reports */
+    .listening-report-promo {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+
+      .listening-report-promo-date::after {
+        filter: @overlay2-filter;
+      }
+
+      .listening-report-promo-title {
+        color: @subtext0;
+      }
     }
 
-    .share-button-profile::before {
-      .mask-image(
-        url("/static/images/icons/share_222_16.9aba752fb1e9.png"),
-        @text,
-      );
-    }
+    /* Library */
+    .library-controls {
+      .secondary-nav-item .secondary-nav-item-link {
+        &::before {
+          filter: @text-filter;
+        }
+        &--active, &:hover {
+          color: @accent;
 
-    .section-settings-toggle:hover::before,
-    .section-settings-toggle:focus::before,
-    .share-button-profile:hover::before,
-    .share-button-profile:focus::before {
-      background-color: @subtext0;
+          &::before {
+            filter: @accent-filter;
+          }
+        }
+      }
     }
+    .library-controls-datepicker {
+      .date-range-picker-button {
+        color: @accent;
 
-    .cta-link::before,
-    .lyrics-snippet-more-link ::before,
-    .trending-tracks-more-link ::before,
-    .more-link-fullwidth-right ::before {
-      .mask-image(
-        url("/static/images/icons/arrow_small_right_005399_12.8f025ef116be.png"),
-        @accent,
-      );
+        &::before, .date-range-picker-button-inner::before {
+          filter: @accent-filter;
+        }
+      }
     }
+    .date-range-picker-content {
+      background-color: @mantle;
 
-    .play-this-track-playlink--itunes::before {
-      .mask-image(
-        url("/static/images/icons/apple_music_color_24.17c0b1b9e185.png"),
-        @text,
-      );
-    }
-
-    .resource-external-link--homepage::before {
-      .mask-image(
-        url("/static/images/icons/external_links_16.3d45e81fa3fc.png"),
-        @text,
-      );
-    }
-
-    .alert-warning::before {
-      .mask-image(
-        url("/static/images/icons/alert/warning_16.93f2fe437139.png"),
-        @peach,
-      );
-    }
-
-    .masthead-search-toggle {
       &::before {
-        .mask-image(
-          url("/static/images/icons/search_16.bde37072495a.png"),
-          @text,
-        );
+        filter: @mantle-filter;
       }
-      &::after {
-        background: @text;
+
+      .date-range-picker-presets a {
+        color: @text;
+
+        &:hover {
+          background-color: @surface0 !important;
+        }
       }
-    }
 
-    .masthead-search-toggle:hover::before,
-    .masthead-search-toggle:focus::before {
-      background-color: @subtext0;
-    }
+      .date-range-picker-form {
+        border-top-color: @surface1;
 
-    .masthead-search-toggle.disclose-active::before {
-      .mask-image(
-        url("/static/images/icons/delete_999_24.78e2a3de3ab8.png"),
-        @text,
-      );
-    }
-
-    .masthead-search-toggle.disclose-active:hover::before,
-    .masthead-search-toggle.disclose-active:focus::before {
-      background-color: @subtext0;
-    }
-
-    .js .date-range-picker-button::before {
-      .mask-image(
-        url("/static/images/icons/date_picker_icon.1d7b21ee3a36.svg"),
-        @accent,
-        0 0,
-        14px 24px,
-        no-repeat,
-      );
-    }
-
-    .page-loading-logo-container {
-      svg path {
-        fill: @red;
-        stroke: @red;
+        .control-label {
+          color: @subtext1;
+        }
       }
     }
+    #scrobble-chart-content {
+      .highcharts-background {
+        fill: @base !important;
+      }
+      .highcharts-axis-title {
+        fill: @subtext1 !important;
+      }
+      .highcharts-axis-labels text {
+        fill: @subtext0 !important;
+      }
 
-    .catalogue-tags .tags-add::before {
-      .mask-image(
-        url("/static/images/icons/add_link_16.637996ed0e2f.png"),
-        @accent,
-      );
-    }
+      .highcharts-yaxis-grid .highcharts-grid-line {
+        stroke: @overlay0 !important;
+      }
+      .highcharts-xaxis .highcharts-axis-line {
+        stroke: @overlay1 !important;
+      }
 
-    .layout-image {
-      background: @crust;
-      .layout-image-image {
-        mix-blend-mode: screen;
+      .highcharts-series-group {
+        .highcharts-point {
+          fill: fade(@accent, 30%);
+        }
+      }
+
+      .highcharts-tooltip {
+        .highcharts-tooltip-box:not(.highcharts-shadow) {
+          fill: @mantle !important;
+          stroke: @surface0 !important;
+        }
+
+        text {
+          fill: @text !important;
+        }
       }
     }
+    .metadata-title {
+      color: @subtext1;
+    }
+    .date-heading {
+      color: @subtext0;
+    }
+
+    // Pagination
+    .pagination {
+      .pagination-page {
+        &[aria-current] {
+          color: @accent;
+          box-shadow: inset 0 -2px @accent;
+        }
+        &:not(.pagination-page--ellipsis):hover {
+          box-shadow: inset 0 -2px @accent;
+        }
+      }
+    }
+
+    /* Followers */
+    .text-light {
+      color: @subtext1;
+    }
+    .user-list-follower-btn {
+      [data-toggle-button-current-state="followed"] & {
+        background-color: @green;
+
+        &:hover {
+          background-color: @red !important;
+        }
+      }
+      [data-toggle-button-current-state="unfollowed"] & {
+        background-color: @accent;
+
+        &:hover {
+          background-color: darken(@accent, 5%) !important;
+        }
+      }
+
+      &::before {
+        filter: @crust-filter;
+      }
+    }
+
+    /* Obsessions */
+    .obsession-candidates-row::before {
+      border-top-color: @surface1;
+    }
+
+    // TODO: https://www.last.fm/music
+    // TODO: https://www.last.fm/user/*/listening-report/week (Reports)
   }
 }
 
-#rgbify(@color) {
-  @rgb: red(@color) green(@color) blue(@color);
+// Usage:
+// .maskimage(mask-image, background-color, mask-position, mask-size, mask-repeat);
+// Setting any value to "skip" skips that attribute.
+// We cannot apply filters to psuedo elements with background-images when the pseudo element also has a background(-color), which is when this must be used.
+.mask-image(
+  @mask-image: url(""),
+  @mask-color: skip,
+  @mask-position: skip,
+  @mask-size: skip,
+  @mask-repeat: skip,
+) {
+  & when not(@mask-color = skip) {
+    background-image: none !important;
+    background-color: @mask-color;
+  }
+  & when not(@mask-image = skip) {
+    mask-image: @mask-image;
+  }
+  & when not(@mask-position = skip) {
+    mask-position: @mask-position;
+  }
+  & when not(@mask-size = skip) {
+    mask-size: @mask-size;
+  }
+  & when not(@mask-repeat = skip) {
+    mask-repeat: @mask-repeat;
+  }
 }
-
-/* deno-fmt-ignore */
-@catppuccin: {
-  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-};

@@ -2,7 +2,7 @@
 @name AniList/AniChart Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/anilist
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/anilist
-@version 2025.01.21
+@version 2025.09.06
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/anilist/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aanilist
 @description Soothing pastel theme for AniList and AniChart
@@ -17,6 +17,8 @@
 @var select contrastColor "Contrast Color" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red*", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
 @-moz-document domain("anilist.co"), domain("anichart.net") {
   body:not(.site-theme-dark) {
     #catppuccin(@lightFlavor);
@@ -26,51 +28,14 @@
   }
 
   #catppuccin(@flavor) {
-    @rosewater: @catppuccin[@@flavor][@rosewater];
-    @flamingo: @catppuccin[@@flavor][@flamingo];
-    @pink: @catppuccin[@@flavor][@pink];
-    @mauve: @catppuccin[@@flavor][@mauve];
-    @red: @catppuccin[@@flavor][@red];
-    @maroon: @catppuccin[@@flavor][@maroon];
-    @peach: @catppuccin[@@flavor][@peach];
-    @yellow: @catppuccin[@@flavor][@yellow];
-    @green: @catppuccin[@@flavor][@green];
-    @teal: @catppuccin[@@flavor][@teal];
-    @sky: @catppuccin[@@flavor][@sky];
-    @sapphire: @catppuccin[@@flavor][@sapphire];
-    @blue: @catppuccin[@@flavor][@blue];
-    @lavender: @catppuccin[@@flavor][@lavender];
-    @text: @catppuccin[@@flavor][@text];
-    @subtext1: @catppuccin[@@flavor][@subtext1];
-    @subtext0: @catppuccin[@@flavor][@subtext0];
-    @overlay2: @catppuccin[@@flavor][@overlay2];
-    @overlay1: @catppuccin[@@flavor][@overlay1];
-    @overlay0: @catppuccin[@@flavor][@overlay0];
-    @surface2: @catppuccin[@@flavor][@surface2];
-    @surface1: @catppuccin[@@flavor][@surface1];
-    @surface0: @catppuccin[@@flavor][@surface0];
-    @base: @catppuccin[@@flavor][@base];
-    @mantle: @catppuccin[@@flavor][@mantle];
-    @crust: @catppuccin[@@flavor][@crust];
-    @accent: @catppuccin[@@flavor][@@accentColor];
+    #lib.palette();
 
     @contrast: @catppuccin[@@flavor][@@contrastColor];
 
-    color-scheme: if(@flavor = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent, 30%);
-    }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
+    #lib.defaults();
 
     & when (@flavor = latte) {
-      --color-blue-dim: #rgbify(desaturate(lighten(@accent, 10%), 10%))[];
+      --color-blue-dim: #lib.rgbify(desaturate(lighten(@accent, 10%), 10%))[];
 
       .nav[data-v-62eacfff],
       .solid[data-v-62eacfff],
@@ -84,117 +49,117 @@
       }
     }
 
-    --color-background: #rgbify(@crust)[];
-    --color-foreground: #rgbify(@base)[];
-    --color-foreground-grey: #rgbify(@surface0)[];
-    --color-foreground-grey-dark: #rgbify(darken(@surface0, 5%))[];
-    --color-foreground-blue: #rgbify(@mantle)[];
-    --color-foreground-blue-dark: #rgbify(@mantle)[];
-    --color-background-blue-dark: #rgbify(@subtext1)[];
-    --color-overlay: #rgbify(@surface0)[];
-    --color-shadow: #rgbify(@mantle)[];
-    --color-shadow-dark: #rgbify(darken(@text, 10%))[];
-    --color-shadow-blue: #rgbify(@blue)[];
-    --color-text: #rgbify(@text)[];
-    --color-text-light: #rgbify(@subtext1)[];
-    --color-text-lighter: #rgbify(@subtext0)[];
-    --color-text-bright: #rgbify(if(@flavor = latte, @crust, @text))[];
-    --color-blue: #rgbify(@accent)[];
+    --color-background: #lib.rgbify(@crust)[];
+    --color-foreground: #lib.rgbify(@base)[];
+    --color-foreground-grey: #lib.rgbify(@surface0)[];
+    --color-foreground-grey-dark: #lib.rgbify(darken(@surface0, 5%))[];
+    --color-foreground-blue: #lib.rgbify(@mantle)[];
+    --color-foreground-blue-dark: #lib.rgbify(@mantle)[];
+    --color-background-blue-dark: #lib.rgbify(@subtext1)[];
+    --color-overlay: #lib.rgbify(@surface0)[];
+    --color-shadow: #lib.rgbify(@mantle)[];
+    --color-shadow-dark: #lib.rgbify(darken(@text, 10%))[];
+    --color-shadow-blue: #lib.rgbify(@blue)[];
+    --color-text: #lib.rgbify(@text)[];
+    --color-text-light: #lib.rgbify(@subtext1)[];
+    --color-text-lighter: #lib.rgbify(@subtext0)[];
+    --color-text-bright: #lib.rgbify(if(@flavor = latte, @crust, @text))[];
+    --color-blue: #lib.rgbify(@accent)[];
     --color-white: 255, 255, 255;
     --color-black: 0, 0, 0;
-    --color-red: #rgbify(@contrast)[];
-    --color-peach: #rgbify(@maroon)[];
-    --color-orange: #rgbify(@peach)[];
-    --color-yellow: #rgbify(@yellow)[];
-    --color-green: #rgbify(@green)[];
-    --color-background-1200: #rgbify(@text)[];
-    --color-background-1100: #rgbify(@text)[];
-    --color-background-1000: #rgbify(@text)[];
-    --color-background-900: #rgbify(@subtext1)[];
-    --color-background-800: #rgbify(@subtext0)[];
-    --color-background-700: #rgbify(@surface1)[];
-    --color-background-600: #rgbify(@surface0)[];
-    --color-background-500: #rgbify(@surface0)[];
-    --color-background-400: #rgbify(@surface0)[];
-    --color-background-300: #rgbify(@base)[];
-    --color-background-200: #rgbify(@mantle)[];
-    --color-background-100: #rgbify(@crust)[];
-    --color-gray-1200: #rgbify(@text)[];
-    --color-gray-1100: #rgbify(@text)[];
-    --color-gray-1000: #rgbify(@text)[];
-    --color-gray-900: #rgbify(@text)[];
-    --color-gray-800: #rgbify(@overlay2)[];
-    --color-gray-700: #rgbify(@overlay1)[];
-    --color-gray-600: #rgbify(@overlay0)[];
-    --color-gray-500: #rgbify(@surface2)[];
-    --color-gray-400: #rgbify(@surface1)[];
-    --color-gray-300: #rgbify(@surface0)[];
-    --color-gray-200: #rgbify(@mantle)[];
-    --color-gray-100: #rgbify(@crust)[];
-    --color-blue-100: #rgbify(@text)[];
-    --color-blue-200: #rgbify(@text)[];
-    --color-blue-300: #rgbify(@text)[];
-    --color-blue-400: #rgbify(@sapphire)[];
-    --color-blue-500: #rgbify(@sapphire)[];
-    --color-blue-600: #rgbify(@blue)[];
-    --color-blue-700: #rgbify(@blue)[];
-    --color-blue-800: #rgbify(@blue)[];
-    --color-blue-900: #rgbify(@blue)[];
-    --color-blue-1000: #rgbify(@blue)[];
-    --color-green-100: #rgbify(@teal)[];
-    --color-green-200: #rgbify(@green)[];
-    --color-green-300: #rgbify(@green)[];
-    --color-green-400: #rgbify(@green)[];
-    --color-green-500: #rgbify(@green)[];
-    --color-green-600: #rgbify(@green)[];
-    --color-green-700: #rgbify(@green)[];
-    --color-green-800: #rgbify(@green)[];
-    --color-red-100: #rgbify(@text)[];
-    --color-red-200: #rgbify(@flamingo)[];
-    --color-red-300: #rgbify(@maroon)[];
-    --color-red-400: #rgbify(@red)[];
-    --color-red-500: #rgbify(@red)[];
-    --color-red-600: #rgbify(@red)[];
-    --color-red-700: #rgbify(@red)[];
+    --color-red: #lib.rgbify(@contrast)[];
+    --color-peach: #lib.rgbify(@maroon)[];
+    --color-orange: #lib.rgbify(@peach)[];
+    --color-yellow: #lib.rgbify(@yellow)[];
+    --color-green: #lib.rgbify(@green)[];
+    --color-background-1200: #lib.rgbify(@text)[];
+    --color-background-1100: #lib.rgbify(@text)[];
+    --color-background-1000: #lib.rgbify(@text)[];
+    --color-background-900: #lib.rgbify(@subtext1)[];
+    --color-background-800: #lib.rgbify(@subtext0)[];
+    --color-background-700: #lib.rgbify(@surface1)[];
+    --color-background-600: #lib.rgbify(@surface0)[];
+    --color-background-500: #lib.rgbify(@surface0)[];
+    --color-background-400: #lib.rgbify(@surface0)[];
+    --color-background-300: #lib.rgbify(@base)[];
+    --color-background-200: #lib.rgbify(@mantle)[];
+    --color-background-100: #lib.rgbify(@crust)[];
+    --color-gray-1200: #lib.rgbify(@text)[];
+    --color-gray-1100: #lib.rgbify(@text)[];
+    --color-gray-1000: #lib.rgbify(@text)[];
+    --color-gray-900: #lib.rgbify(@text)[];
+    --color-gray-800: #lib.rgbify(@overlay2)[];
+    --color-gray-700: #lib.rgbify(@overlay1)[];
+    --color-gray-600: #lib.rgbify(@overlay0)[];
+    --color-gray-500: #lib.rgbify(@surface2)[];
+    --color-gray-400: #lib.rgbify(@surface1)[];
+    --color-gray-300: #lib.rgbify(@surface0)[];
+    --color-gray-200: #lib.rgbify(@mantle)[];
+    --color-gray-100: #lib.rgbify(@crust)[];
+    --color-blue-100: #lib.rgbify(@text)[];
+    --color-blue-200: #lib.rgbify(@text)[];
+    --color-blue-300: #lib.rgbify(@text)[];
+    --color-blue-400: #lib.rgbify(@sapphire)[];
+    --color-blue-500: #lib.rgbify(@sapphire)[];
+    --color-blue-600: #lib.rgbify(@blue)[];
+    --color-blue-700: #lib.rgbify(@blue)[];
+    --color-blue-800: #lib.rgbify(@blue)[];
+    --color-blue-900: #lib.rgbify(@blue)[];
+    --color-blue-1000: #lib.rgbify(@blue)[];
+    --color-green-100: #lib.rgbify(@teal)[];
+    --color-green-200: #lib.rgbify(@green)[];
+    --color-green-300: #lib.rgbify(@green)[];
+    --color-green-400: #lib.rgbify(@green)[];
+    --color-green-500: #lib.rgbify(@green)[];
+    --color-green-600: #lib.rgbify(@green)[];
+    --color-green-700: #lib.rgbify(@green)[];
+    --color-green-800: #lib.rgbify(@green)[];
+    --color-red-100: #lib.rgbify(@text)[];
+    --color-red-200: #lib.rgbify(@flamingo)[];
+    --color-red-300: #lib.rgbify(@maroon)[];
+    --color-red-400: #lib.rgbify(@red)[];
+    --color-red-500: #lib.rgbify(@red)[];
+    --color-red-600: #lib.rgbify(@red)[];
+    --color-red-700: #lib.rgbify(@red)[];
 
     & when not(@flavor = latte) {
-      --color-background: #rgbify(@crust)[];
-      --color-foreground: #rgbify(@base)[];
-      --color-foreground-grey: #rgbify(@surface0)[];
-      --color-foreground-grey-dark: #rgbify(darken(@surface0, 5%))[];
-      --color-foreground-blue: #rgbify(@mantle)[];
-      --color-foreground-blue-dark: #rgbify(@mantle)[];
-      --color-text: #rgbify(@text)[];
-      --color-text-light: #rgbify(@subtext0)[];
-      --color-text-lighter: #rgbify(@subtext1)[];
-      --color-shadow-dark: #rgbify(@crust)[];
-      --color-shadow-blue: #rgbify(@crust)[];
-      --color-background-1200: #rgbify(@text)[];
-      --color-background-1100: #rgbify(@text)[];
-      --color-background-1000: #rgbify(@text)[];
-      --color-background-900: #rgbify(@subtext1)[];
-      --color-background-800: #rgbify(@subtext0)[];
-      --color-background-700: #rgbify(@surface1)[];
-      --color-background-600: #rgbify(@surface0)[];
-      --color-background-500: #rgbify(@surface0)[];
-      --color-background-400: #rgbify(@surface0)[];
-      --color-background-300: #rgbify(@base)[];
-      --color-background-200: #rgbify(@mantle)[];
-      --color-background-100: #rgbify(@crust)[];
-      --color-gray-1200: #rgbify(@text)[];
-      --color-gray-1100: #rgbify(@text)[];
-      --color-gray-1000: #rgbify(@text)[];
-      --color-gray-900: #rgbify(@text)[];
-      --color-gray-800: #rgbify(@overlay2)[];
-      --color-gray-700: #rgbify(@overlay1)[];
-      --color-gray-600: #rgbify(@overlay0)[];
-      --color-gray-500: #rgbify(@surface2)[];
-      --color-gray-400: #rgbify(@surface1)[];
-      --color-gray-300: #rgbify(@surface0)[];
-      --color-gray-200: #rgbify(@mantle)[];
-      --color-gray-100: #rgbify(@crust)[];
+      --color-background: #lib.rgbify(@crust)[];
+      --color-foreground: #lib.rgbify(@base)[];
+      --color-foreground-grey: #lib.rgbify(@surface0)[];
+      --color-foreground-grey-dark: #lib.rgbify(darken(@surface0, 5%))[];
+      --color-foreground-blue: #lib.rgbify(@mantle)[];
+      --color-foreground-blue-dark: #lib.rgbify(@mantle)[];
+      --color-text: #lib.rgbify(@text)[];
+      --color-text-light: #lib.rgbify(@subtext0)[];
+      --color-text-lighter: #lib.rgbify(@subtext1)[];
+      --color-shadow-dark: #lib.rgbify(@crust)[];
+      --color-shadow-blue: #lib.rgbify(@crust)[];
+      --color-background-1200: #lib.rgbify(@text)[];
+      --color-background-1100: #lib.rgbify(@text)[];
+      --color-background-1000: #lib.rgbify(@text)[];
+      --color-background-900: #lib.rgbify(@subtext1)[];
+      --color-background-800: #lib.rgbify(@subtext0)[];
+      --color-background-700: #lib.rgbify(@surface1)[];
+      --color-background-600: #lib.rgbify(@surface0)[];
+      --color-background-500: #lib.rgbify(@surface0)[];
+      --color-background-400: #lib.rgbify(@surface0)[];
+      --color-background-300: #lib.rgbify(@base)[];
+      --color-background-200: #lib.rgbify(@mantle)[];
+      --color-background-100: #lib.rgbify(@crust)[];
+      --color-gray-1200: #lib.rgbify(@text)[];
+      --color-gray-1100: #lib.rgbify(@text)[];
+      --color-gray-1000: #lib.rgbify(@text)[];
+      --color-gray-900: #lib.rgbify(@text)[];
+      --color-gray-800: #lib.rgbify(@overlay2)[];
+      --color-gray-700: #lib.rgbify(@overlay1)[];
+      --color-gray-600: #lib.rgbify(@overlay0)[];
+      --color-gray-500: #lib.rgbify(@surface2)[];
+      --color-gray-400: #lib.rgbify(@surface1)[];
+      --color-gray-300: #lib.rgbify(@surface0)[];
+      --color-gray-200: #lib.rgbify(@mantle)[];
+      --color-gray-100: #lib.rgbify(@crust)[];
 
-      --color-blue-dim: #rgbify(desaturate(darken(@accent, 10%), 10%))[];
+      --color-blue-dim: #lib.rgbify(desaturate(darken(@accent, 10%), 10%))[];
     }
 
     /* DARK THEME NAV BAR */
@@ -211,12 +176,12 @@
 
     /* -----------------PROFILE FIXES----------------- */
     #profileColor(@color) {
-      --color-blue: #rgbify(@color)[];
+      --color-blue: #lib.rgbify(@color)[];
       & when (@flavor = latte) {
-        --color-blue-dim: #rgbify(lighten(@color, 10%))[];
+        --color-blue-dim: #lib.rgbify(lighten(@color, 10%))[];
       }
       & when not(@flavor = latte) {
-        --color-blue-dim: #rgbify(darken(@color, 10%))[];
+        --color-blue-dim: #lib.rgbify(darken(@color, 10%))[];
       }
       .progress .bar {
         background: linear-gradient(270deg, darken(@color, 10%), @color);
@@ -244,10 +209,10 @@
       #profileColor(@overlay1);
     }
     .history-day {
-      --color-foreground-grey-dark: #rgbify(@crust)[];
+      --color-foreground-grey-dark: #lib.rgbify(@crust)[];
     }
     .x-axis {
-      --color-background-300: #rgbify(@surface0)[];
+      --color-background-300: #lib.rgbify(@surface0)[];
     }
     /* Fixes gap between stats */
     @media (max-width: 1540px) {
@@ -307,15 +272,15 @@
       color: @text;
     }
     .tooltip > div {
-      --color-white: #rgbify(@text)[];
+      --color-white: #lib.rgbify(@text)[];
     }
     .dropdown {
-      --color-gray-100: #rgbify(@base)[];
-      --color-background-100: #rgbify(@base)[];
-      --color-background-200: #rgbify(@mantle)[];
+      --color-gray-100: #lib.rgbify(@base)[];
+      --color-background-100: #lib.rgbify(@base)[];
+      --color-background-200: #lib.rgbify(@mantle)[];
     }
     .medialist .notes {
-      --color-overlay: #rgbify(@surface0)[];
+      --color-overlay: #lib.rgbify(@surface0)[];
     }
     .el-input__inner::placeholder,
     .el-input__prefix {
@@ -371,7 +336,7 @@
       }
 
       & when (@flavor = latte) {
-        --color-blue: #rgbify(lighten(@accent, 30%))[];
+        --color-blue: #lib.rgbify(lighten(@accent, 30%))[];
       }
 
       & when not(@flavor = latte) {
@@ -384,17 +349,17 @@
     .search,
     .expand-description,
     .studio {
-      --color-background-200: #rgbify(@crust)[];
+      --color-background-200: #lib.rgbify(@crust)[];
     }
     .search-wrap,
     .filters,
     .extra-filters-wrap,
     .select,
     .options {
-      --color-background-100: #rgbify(@base)[];
+      --color-background-100: #lib.rgbify(@base)[];
     }
     .filter.select-wrap .options {
-      --color-background-100: #rgbify(@mantle)[];
+      --color-background-100: #lib.rgbify(@mantle)[];
     }
 
     /* ------------------MISC EDITS-------------------- */
@@ -402,7 +367,7 @@
       background: fade(@mantle, 50%);
     }
     .filter.clear-all {
-      --color-background-500: #rgbify(@overlay1)[];
+      --color-background-500: #lib.rgbify(@overlay1)[];
     }
     /* --Reset button in notifications----- */
     .reset-btn {
@@ -438,7 +403,7 @@
     }
     /* Accent Text */
     .input .hint {
-      --color-white: #rgbify(@text)[];
+      --color-white: #lib.rgbify(@text)[];
     }
     .el-checkbox__input.is-checked + .el-checkbox__label {
       color: @accent;
@@ -472,7 +437,7 @@
     .open-user-search,
     .save-btn {
       & when not(@flavor = latte) {
-        --color-white: #rgbify(@crust)[];
+        --color-white: #lib.rgbify(@crust)[];
       }
     }
     .submit-btn,
@@ -495,7 +460,7 @@
     .icon,
     .check {
       & when not(@flavor = latte) {
-        --color-blue-300: #rgbify(@crust)[];
+        --color-blue-300: #lib.rgbify(@crust)[];
       }
     }
     /* ------------IMAGE COVER------------ */
@@ -620,7 +585,7 @@
     .actions .favourite.isFavourite .fa-heart,
     .actions .favourite {
       & when not(@flavor = latte) {
-        --color-white: #rgbify(@crust)[];
+        --color-white: #lib.rgbify(@crust)[];
       }
     }
   }
@@ -635,46 +600,8 @@
   }
 
   #catppuccin(@flavor) {
-    @rosewater: @catppuccin[@@flavor][@rosewater];
-    @flamingo: @catppuccin[@@flavor][@flamingo];
-    @pink: @catppuccin[@@flavor][@pink];
-    @mauve: @catppuccin[@@flavor][@mauve];
-    @red: @catppuccin[@@flavor][@red];
-    @maroon: @catppuccin[@@flavor][@maroon];
-    @peach: @catppuccin[@@flavor][@peach];
-    @yellow: @catppuccin[@@flavor][@yellow];
-    @green: @catppuccin[@@flavor][@green];
-    @teal: @catppuccin[@@flavor][@teal];
-    @sky: @catppuccin[@@flavor][@sky];
-    @sapphire: @catppuccin[@@flavor][@sapphire];
-    @blue: @catppuccin[@@flavor][@blue];
-    @lavender: @catppuccin[@@flavor][@lavender];
-    @text: @catppuccin[@@flavor][@text];
-    @subtext1: @catppuccin[@@flavor][@subtext1];
-    @subtext0: @catppuccin[@@flavor][@subtext0];
-    @overlay2: @catppuccin[@@flavor][@overlay2];
-    @overlay1: @catppuccin[@@flavor][@overlay1];
-    @overlay0: @catppuccin[@@flavor][@overlay0];
-    @surface2: @catppuccin[@@flavor][@surface2];
-    @surface1: @catppuccin[@@flavor][@surface1];
-    @surface0: @catppuccin[@@flavor][@surface0];
-    @base: @catppuccin[@@flavor][@base];
-    @mantle: @catppuccin[@@flavor][@mantle];
-    @crust: @catppuccin[@@flavor][@crust];
-    @accent: @catppuccin[@@flavor][@@accentColor];
-
-    color-scheme: if(@flavor = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent, 30%);
-    }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
+    #lib.palette();
+    #lib.defaults();
 
     .login[data-v-0d5bfbcd],
     .login[data-v-0d5bfbcd]:hover {
@@ -700,7 +627,7 @@
 
       .external-link .icon,
       .dropdown-menu:hover {
-        --color-white: #rgbify(@crust)[];
+        --color-white: #lib.rgbify(@crust)[];
       }
 
       [fill="#fff" i] {
@@ -709,7 +636,7 @@
     }
 
     & when (@flavor = latte) {
-      --color-overlay: #rgbify(@text)[];
+      --color-overlay: #lib.rgbify(@text)[];
 
       .external-link {
         background: @subtext0;
@@ -720,20 +647,8 @@
       }
 
       a.title {
-        --color-white: #rgbify(@base)[];
+        --color-white: #lib.rgbify(@base)[];
       }
     }
   }
 }
-
-#rgbify(@color) {
-  @rgb: red(@color), green(@color), blue(@color);
-}
-
-/* deno-fmt-ignore */
-@catppuccin: {
-  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-};

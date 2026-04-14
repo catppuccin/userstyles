@@ -19,12 +19,7 @@ if (!process.env.CI) {
 }
 
 const userstylesData = getUserstylesData();
-const categoriesData = await getCategoriesData();
 
-/**
- * Generate the main README.md, listing all ports as a table of contents
- */
-await generateMainReadme(userstylesData.userstyles, categoriesData);
 /**
  * Generate README.md files for each style
  */
@@ -54,9 +49,11 @@ function maintainersCodeOwners() {
     .join("\n");
 }
 async function userstylesStaffCodeOwners() {
-  const paths = ["/.github/", "/scripts/", "/template/"];
+  const paths = ["/.github/", "/scripts/", "/template/", "/lib/"];
 
   const octokit = getAuthenticatedOctokit();
+  // Set codeowners to include each member of the userstyles-staff team specifically instead of the team as a whole,
+  // to require individual reviews from each member instead of just one on behalf of the team.
   const staffMembers = await getUserstylesTeamMembers(
     octokit,
     "userstyles-staff",

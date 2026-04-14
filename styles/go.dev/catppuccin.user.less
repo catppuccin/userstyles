@@ -2,7 +2,7 @@
 @name go.dev Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/go.dev
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/go.dev
-@version 2024.12.31
+@version 2026.01.06
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/go.dev/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ago.dev
 @description Soothing pastel theme for go.dev
@@ -14,6 +14,8 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
 
 @-moz-document domain("go.dev") {
   :root[data-theme="auto"],
@@ -34,46 +36,8 @@
   }
 
   #catppuccin(@flavor) {
-    @rosewater: @catppuccin[@@flavor][@rosewater];
-    @flamingo: @catppuccin[@@flavor][@flamingo];
-    @pink: @catppuccin[@@flavor][@pink];
-    @mauve: @catppuccin[@@flavor][@mauve];
-    @red: @catppuccin[@@flavor][@red];
-    @maroon: @catppuccin[@@flavor][@maroon];
-    @peach: @catppuccin[@@flavor][@peach];
-    @yellow: @catppuccin[@@flavor][@yellow];
-    @green: @catppuccin[@@flavor][@green];
-    @teal: @catppuccin[@@flavor][@teal];
-    @sky: @catppuccin[@@flavor][@sky];
-    @sapphire: @catppuccin[@@flavor][@sapphire];
-    @blue: @catppuccin[@@flavor][@blue];
-    @lavender: @catppuccin[@@flavor][@lavender];
-    @text: @catppuccin[@@flavor][@text];
-    @subtext1: @catppuccin[@@flavor][@subtext1];
-    @subtext0: @catppuccin[@@flavor][@subtext0];
-    @overlay2: @catppuccin[@@flavor][@overlay2];
-    @overlay1: @catppuccin[@@flavor][@overlay1];
-    @overlay0: @catppuccin[@@flavor][@overlay0];
-    @surface2: @catppuccin[@@flavor][@surface2];
-    @surface1: @catppuccin[@@flavor][@surface1];
-    @surface0: @catppuccin[@@flavor][@surface0];
-    @base: @catppuccin[@@flavor][@base];
-    @mantle: @catppuccin[@@flavor][@mantle];
-    @crust: @catppuccin[@@flavor][@crust];
-    @accent: @catppuccin[@@flavor][@@accentColor];
-
-    color-scheme: if(@flavor = latte, light, dark);
-
-    ::selection {
-      background-color: fade(@accent, 30%);
-    }
-
-    input,
-    textarea {
-      &::placeholder {
-        color: @subtext0 !important;
-      }
-    }
+    #lib.palette();
+    #lib.defaults();
 
     background-color: @base;
 
@@ -86,6 +50,7 @@
     --color-background-card-footer: @crust;
     --color-background-code: @surface0; // Code Snippets
     --color-background-info: @surface1;
+    --color-background-alert: fade(@red, 40%);
     --color-background-inverted: @crust;
     --color-background-logo: @text;
     --color-background-playground-input: @mantle;
@@ -128,14 +93,6 @@
     .Footer,
     .go-Footer {
       background-color: @mantle;
-
-      button[aria-label="Shorcuts Modal"] img.go-Icon {
-        @svg: escape(
-          '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2m-9 3h2v2h-2zm0 3h2v2h-2zM8 8h2v2H8zm0 3h2v2H8zm-1 2H5v-2h2zm0-3H5V8h2zm9 7H8v-2h8zm0-4h-2v-2h2zm0-3h-2V8h2zm3 3h-2v-2h2zm0-3h-2V8h2z"/><path d="M0 0h24v24H0zm0 0h24v24H0z" fill="none"/></svg>'
-        );
-        content: url("data:image/svg+xml,@{svg}");
-        filter: none;
-      }
 
       img.Footer-gopher,
       img.go-Footer-gopher {
@@ -307,24 +264,6 @@
       );
       content: url("data:image/svg+xml,@{svg}");
     }
-    // Theme Selector Icons
-    .Footer img[alt="Dark theme"],
-    .go-Footer img[alt="Dark theme"],
-    .top-bar img.go-Icon--inverted[data-value="dark"] {
-      @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 2c-1.82 0-3.53.5-5 1.35C7.99 5.08 10 8.3 10 12s-2.01 6.92-5 8.65C6.47 21.5 8.18 22 10 22c5.52 0 10-4.48 10-10S15.52 2 10 2"/></svg>'
-      );
-      content: url("data:image/svg+xml,@{svg}");
-      filter: none;
-    }
-    // Right Arrow Icons
-    .go-NavigationDrawer-listItem a[href="#"] img.go-Icon {
-      @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{accent}"><path d="M0 0h24v24H0z" fill="none"/><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>'
-      );
-      content: url("data:image/svg+xml,@{svg}");
-      filter: none;
-    }
 
     .SiteBreadcrumb .BreadcrumbNav-li::after {
       @svg: escape(
@@ -333,25 +272,6 @@
       background-image: url("data:image/svg+xml,@{svg}");
     }
 
-    .Footer img[alt="Light theme"],
-    .go-Footer img[alt="Light theme"],
-    .top-bar img.go-Icon--inverted[data-value="light"] {
-      @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><rect fill="none" height="24" width="24"/><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5M2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1m18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1M11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1m0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1M5.99 4.58a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41zm12.37 12.37a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 0 0 0-1.41zm1.06-10.96a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0zM7.05 18.36a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0z"/></svg>'
-      );
-      content: url("data:image/svg+xml,@{svg}");
-      filter: none;
-    }
-
-    .Footer img[alt="System theme"],
-    .go-Footer img[alt="System theme"],
-    .top-bar img.go-Icon--inverted[data-value="auto"] {
-      @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 15.31 23.31 12 20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20zM12 18V6c3.31 0 6 2.69 6 6s-2.69 6-6 6"/></svg>'
-      );
-      content: url("data:image/svg+xml,@{svg}");
-      filter: none;
-    }
     // Menu Active Selector
     img.TabSection-underline {
       @svg: escape(
@@ -396,33 +316,7 @@
   }
 
   #catppuccin(@flavor) {
-    @rosewater: @catppuccin[@@flavor][@rosewater];
-    @flamingo: @catppuccin[@@flavor][@flamingo];
-    @pink: @catppuccin[@@flavor][@pink];
-    @mauve: @catppuccin[@@flavor][@mauve];
-    @red: @catppuccin[@@flavor][@red];
-    @maroon: @catppuccin[@@flavor][@maroon];
-    @peach: @catppuccin[@@flavor][@peach];
-    @yellow: @catppuccin[@@flavor][@yellow];
-    @green: @catppuccin[@@flavor][@green];
-    @teal: @catppuccin[@@flavor][@teal];
-    @sky: @catppuccin[@@flavor][@sky];
-    @sapphire: @catppuccin[@@flavor][@sapphire];
-    @blue: @catppuccin[@@flavor][@blue];
-    @lavender: @catppuccin[@@flavor][@lavender];
-    @text: @catppuccin[@@flavor][@text];
-    @subtext1: @catppuccin[@@flavor][@subtext1];
-    @subtext0: @catppuccin[@@flavor][@subtext0];
-    @overlay2: @catppuccin[@@flavor][@overlay2];
-    @overlay1: @catppuccin[@@flavor][@overlay1];
-    @overlay0: @catppuccin[@@flavor][@overlay0];
-    @surface2: @catppuccin[@@flavor][@surface2];
-    @surface1: @catppuccin[@@flavor][@surface1];
-    @surface0: @catppuccin[@@flavor][@surface0];
-    @base: @catppuccin[@@flavor][@base];
-    @mantle: @catppuccin[@@flavor][@mantle];
-    @crust: @catppuccin[@@flavor][@crust];
-    @accent: @catppuccin[@@flavor][@@accentColor];
+    #lib.palette();
 
     // Pkg.go Carousel
     .go-Carousel {
@@ -446,14 +340,6 @@
     .go-Chip--alert {
       color: @crust;
     }
-    // Pkg.go Clipboard Icon
-    .go-Clipboard img.go-Icon {
-      @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{accent}"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 21H4V7H2v14c0 1.1.9 2 2 2h14zm3-4V3c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2m-2 0H8V3h11z"/></svg>'
-      );
-      content: url("data:image/svg+xml,@{svg}");
-      filter: none;
-    }
     // Pkg.go Header
     .go-Header {
       .go-Header-submenu {
@@ -461,43 +347,18 @@
       }
 
       // Triangle Icon Accented
-      .go-Header-menuItem:hover img.go-Icon[alt="submenu dropdown icon"],
-      .go-Header-menuItem:focus-within
-        img.go-Icon[alt="submenu dropdown icon"] {
-        @svg: escape(
-          '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{accent}"><path d="M0 0h24v24H0z" fill="none"/><path d="m7 10 5 5 5-5z"/></svg>'
-        );
-        content: url("data:image/svg+xml,@{svg}");
-        filter: none;
+      .go-Header-menuItem:hover a img.go-Icon {
+        filter: @accent-filter !important;
       }
     }
-    // Triangle Icon
-    .go-Header,
-    .go-Main-navMobile {
-      @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="m7 10 5 5 5-5z"/></svg>'
-      );
-
-      img.go-Icon[alt="submenu dropdown icon"] {
-        content: url("data:image/svg+xml,@{svg}");
-        filter: none;
+    // Icons
+    .go-Icon {
+      &:not(.go-Icon--accented) {
+        filter: @text-filter;
       }
-
-      .go-Select {
-        background-image: url("data:image/svg+xml,@{svg}");
+      &.go-Icon--accented {
+        filter: @accent-filter;
       }
-    }
-    // Info Icon
-    .go-Main-banner .go-Message .go-Icon {
-      @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8"/></svg>'
-      );
-      content: url("data:image/svg+xml,@{svg}");
-      filter: none;
-    }
-    // Pkg.go Subheader
-    .go-Main-header {
-      background-color: @mantle;
     }
     // Pkg.go Fixed Header
     .go-Main-header[data-raised="true"] {
@@ -559,30 +420,11 @@
       .JumpDialog-active {
         color: @crust;
       }
-
-      .go-Button[aria-label="Close"] img.go-Icon {
-        @svg: escape(
-          '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>'
-        );
-        content: url("data:image/svg+xml,@{svg}");
-        filter: none;
-      }
     }
     // Pkg.go Package Search Results
     .SearchResults-header {
       input[type="search"]::-webkit-search-cancel-button {
         display: none;
-      }
-    }
-    // Search Icon
-    .SearchResults-header,
-    .go-SearchForm {
-      button[aria-label="Submit search"] img.go-Icon {
-        @svg: escape(
-          '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="m20.49 19-5.73-5.73C15.53 12.2 16 10.91 16 9.5A6.5 6.5 0 1 0 9.5 16c1.41 0 2.7-.47 3.77-1.24L19 20.49zM5 9.5C5 7.01 7.01 5 9.5 5S14 7.01 14 9.5 11.99 14 9.5 14 5 11.99 5 9.5"/></svg>'
-        );
-        content: url("data:image/svg+xml,@{svg}");
-        filter: none;
       }
     }
     // Search Icon in pkg.go - Accented
@@ -593,90 +435,12 @@
       background-image: url("data:image/svg+xml,@{svg}");
     }
 
-    .ShortcutsDialog {
-      .go-Button[aria-label="Close"] img.go-Icon {
-        @svg: escape(
-          '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>'
-        );
-        content: url("data:image/svg+xml,@{svg}");
-        filter: none;
-      }
-    }
-    // Pkg.go Package Page
-    .UnitDetails {
-      #section-documentation img.go-Icon {
-        @svg: escape(
-          '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="m16 6-1.41 1.41L19.17 12l-4.58 4.59L16 18l6-6zM8 18l1.41-1.41L4.83 12l4.58-4.59L8 6l-6 6z"/></svg>'
-        );
-        content: url("data:image/svg+xml,@{svg}");
-        filter: none;
-      }
-
-      .UnitReadme-title img.go-Icon {
-        @svg: escape(
-          '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2M4 18V6h7v12zm16 0h-7V6h7zm-6-9.5h5V10h-5zm0 2.5h5v1.5h-5zm0 2.5h5V15h-5zm-7.25-.81"/></svg>'
-        );
-        content: url("data:image/svg+xml,@{svg}");
-        filter: none;
-      }
-    }
-
-    .UnitDirectories img.go-Icon {
-      @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2m0 12H4V8h16z"/></svg>'
-      );
-      content: url("data:image/svg+xml,@{svg}");
-      filter: none;
-    }
-
-    .UnitFiles img.go-Icon {
-      @svg: escape(
-        '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8zM6 20V4h7v5h5v11z"/></svg>'
-      );
-      content: url("data:image/svg+xml,@{svg}");
-      filter: none;
-    }
     // Pkg.go Package Details Section
     .UnitMeta {
-      .UnitMeta-details {
-        img.go-Icon {
-          // Question Tooltip
-          @svg: escape(
-            '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m1 17h-2v-2h2zm2.07-7.75-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25"/></svg>'
-          );
-          content: url("data:image/svg+xml,@{svg}");
-          filter: none;
-        }
-
-        img.go-Icon[alt="unchecked"] {
-          @svg: escape(
-            '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none" opacity=".87"/><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m3.59-13L12 10.59 8.41 7 7 8.41 10.59 12 7 15.59 8.41 17 12 13.41 15.59 17 17 15.59 13.41 12 17 8.41z"/></svg>'
-          );
-          content: url("data:image/svg+xml,@{svg}");
-          filter: none;
-        }
-
-        img.go-Icon.go-Icon--accented[alt="checked"] {
-          @svg: escape(
-            '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{accent}"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m-2-5.8-2.6-2.6L6 13l4 4 8-8-1.4-1.4z"/></svg>'
-          );
-          content: url("data:image/svg+xml,@{svg}");
-          filter: none;
-        }
-      }
-
       .UnitMeta-links {
-        img.go-Icon {
-          @svg: escape(
-            '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="@{text}"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11z"/></svg>'
-          );
-          content: url("data:image/svg+xml,@{svg}");
-          filter: none;
-        }
-
         img.depsdev-Icon {
           @svg: escape(
-            '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="m13.587 16.204 2.217 2.217c.26.253.26.667.007.927l-.008.008L3.342 31.81a.653.653 0 0 1-.92 0L.19 29.58a.653.653 0 0 1 0-.92l12.462-12.462a.655.655 0 0 1 .928-.008c0 .008.007.015.007.015" fill="@{subtext0}"/><circle cx="17" cy="15" r="13" stroke="@{text}" stroke-width="4"/><circle cx="17" cy="15" r="4" stroke="@{text}" stroke-width="4"/></svg>'
+            '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="m13.587 16.204 2.217 2.217c.26.253.26.667.007.927l-.008.008L3.342 31.81a.653.653 0 0 1-.92 0L.19 29.58a.653.653 0 0 1 0-.92l12.462-12.462a.655.655 0 0 1 .928-.008c0 .008.007.015.007.015" fill="@{teal}"/><circle cx="17" cy="15" r="13" stroke="@{teal}" stroke-width="4"/><circle cx="17" cy="15" r="4" stroke="@{teal}" stroke-width="4"/></svg>'
           );
           content: url("data:image/svg+xml,@{svg}");
         }
@@ -717,33 +481,7 @@
   }
 
   #catppuccin(@flavor) {
-    @rosewater: @catppuccin[@@flavor][@rosewater];
-    @flamingo: @catppuccin[@@flavor][@flamingo];
-    @pink: @catppuccin[@@flavor][@pink];
-    @mauve: @catppuccin[@@flavor][@mauve];
-    @red: @catppuccin[@@flavor][@red];
-    @maroon: @catppuccin[@@flavor][@maroon];
-    @peach: @catppuccin[@@flavor][@peach];
-    @yellow: @catppuccin[@@flavor][@yellow];
-    @green: @catppuccin[@@flavor][@green];
-    @teal: @catppuccin[@@flavor][@teal];
-    @sky: @catppuccin[@@flavor][@sky];
-    @sapphire: @catppuccin[@@flavor][@sapphire];
-    @blue: @catppuccin[@@flavor][@blue];
-    @lavender: @catppuccin[@@flavor][@lavender];
-    @text: @catppuccin[@@flavor][@text];
-    @subtext1: @catppuccin[@@flavor][@subtext1];
-    @subtext0: @catppuccin[@@flavor][@subtext0];
-    @overlay2: @catppuccin[@@flavor][@overlay2];
-    @overlay1: @catppuccin[@@flavor][@overlay1];
-    @overlay0: @catppuccin[@@flavor][@overlay0];
-    @surface2: @catppuccin[@@flavor][@surface2];
-    @surface1: @catppuccin[@@flavor][@surface1];
-    @surface0: @catppuccin[@@flavor][@surface0];
-    @base: @catppuccin[@@flavor][@base];
-    @mantle: @catppuccin[@@flavor][@mantle];
-    @crust: @catppuccin[@@flavor][@crust];
-    @accent: @catppuccin[@@flavor][@@accentColor];
+    #lib.palette();
 
     #editor-container {
       #left-side {
@@ -923,11 +661,3 @@
     }
   }
 }
-
-/* deno-fmt-ignore */
-@catppuccin: {
-  @latte:     { @rosewater: #dc8a78; @flamingo: #dd7878; @pink: #ea76cb; @mauve: #8839ef; @red: #d20f39; @maroon: #e64553; @peach: #fe640b; @yellow: #df8e1d; @green: #40a02b; @teal: #179299; @sky: #04a5e5; @sapphire: #209fb5; @blue: #1e66f5; @lavender: #7287fd; @text: #4c4f69; @subtext1: #5c5f77; @subtext0: #6c6f85; @overlay2: #7c7f93; @overlay1: #8c8fa1; @overlay0: #9ca0b0; @surface2: #acb0be; @surface1: #bcc0cc; @surface0: #ccd0da; @base: #eff1f5; @mantle: #e6e9ef; @crust: #dce0e8; };
-  @frappe:    { @rosewater: #f2d5cf; @flamingo: #eebebe; @pink: #f4b8e4; @mauve: #ca9ee6; @red: #e78284; @maroon: #ea999c; @peach: #ef9f76; @yellow: #e5c890; @green: #a6d189; @teal: #81c8be; @sky: #99d1db; @sapphire: #85c1dc; @blue: #8caaee; @lavender: #babbf1; @text: #c6d0f5; @subtext1: #b5bfe2; @subtext0: #a5adce; @overlay2: #949cbb; @overlay1: #838ba7; @overlay0: #737994; @surface2: #626880; @surface1: #51576d; @surface0: #414559; @base: #303446; @mantle: #292c3c; @crust: #232634; };
-  @macchiato: { @rosewater: #f4dbd6; @flamingo: #f0c6c6; @pink: #f5bde6; @mauve: #c6a0f6; @red: #ed8796; @maroon: #ee99a0; @peach: #f5a97f; @yellow: #eed49f; @green: #a6da95; @teal: #8bd5ca; @sky: #91d7e3; @sapphire: #7dc4e4; @blue: #8aadf4; @lavender: #b7bdf8; @text: #cad3f5; @subtext1: #b8c0e0; @subtext0: #a5adcb; @overlay2: #939ab7; @overlay1: #8087a2; @overlay0: #6e738d; @surface2: #5b6078; @surface1: #494d64; @surface0: #363a4f; @base: #24273a; @mantle: #1e2030; @crust: #181926; };
-  @mocha:     { @rosewater: #f5e0dc; @flamingo: #f2cdcd; @pink: #f5c2e7; @mauve: #cba6f7; @red: #f38ba8; @maroon: #eba0ac; @peach: #fab387; @yellow: #f9e2af; @green: #a6e3a1; @teal: #94e2d5; @sky: #89dceb; @sapphire: #74c7ec; @blue: #89b4fa; @lavender: #b4befe; @text: #cdd6f4; @subtext1: #bac2de; @subtext0: #a6adc8; @overlay2: #9399b2; @overlay1: #7f849c; @overlay0: #6c7086; @surface2: #585b70; @surface1: #45475a; @surface0: #313244; @base: #1e1e2e; @mantle: #181825; @crust: #11111b; };
-};

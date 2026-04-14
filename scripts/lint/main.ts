@@ -1,5 +1,6 @@
 import path from "node:path";
 
+import * as color from "@std/fmt/colors";
 import less from "less";
 import parseArgs from "tiny-parse-argv";
 
@@ -61,4 +62,16 @@ for (const style of stylesheets) {
 }
 
 // Cause the workflow to fail if any issues were found.
-if (log.failed) process.exit(1);
+
+const THIN_SPACE = "\u2009";
+
+if (log.failed) {
+  if (!args.fix) {
+    console.log(
+      `\n  ${
+        color.bold(color.inverse(color.green(`${THIN_SPACE}TIP${THIN_SPACE}`)))
+      } Run ${color.bold("deno task lint:fix")} to fix autofixable issues.`,
+    );
+  }
+  process.exit(1);
+}

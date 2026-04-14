@@ -2,7 +2,6 @@
   nodejs-slim_23,
   pnpm,
   mkShellNoCC,
-  ...
 }:
 mkShellNoCC {
   packages = [
