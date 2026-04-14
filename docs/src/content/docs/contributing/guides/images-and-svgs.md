@@ -2,7 +2,7 @@
 title: Images and SVGs
 description: Guide for theming images and SVGs in userstyles.
 sidebar:
-  order: 2
+  order: 1
 ---
 
 ## Monochrome `<img>` elements

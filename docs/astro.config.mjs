@@ -58,27 +58,7 @@ export default defineConfig({
         {
           label: "Contributing",
           collapsed: true,
-          items: [
-            "contributing",
-            "contributing/creating-userstyles",
-            "contributing/userstylesyml",
-            {
-              label: "How can I theme ...?",
-              autogenerate: { directory: "contributing/guides" },
-            },
-            {
-              label: "Tutorials",
-              autogenerate: { directory: "contributing/tutorials" },
-            },
-            {
-              label: "Tips and Tricks",
-              autogenerate: { directory: "contributing/tips-and-tricks" },
-            },
-          ],
-        },
-        {
-          label: "Reference",
-          autogenerate: { directory: "reference" },
+          autogenerate: { directory: "contributing" },
         },
       ],
       plugins: [
@@ -91,6 +71,9 @@ export default defineConfig({
     }),
   ],
   redirects: {
-    "/contributing/standard-library/": "/reference/libraries/standard/",
+    "/contributing/standard-library/":
+      "/contributing/reference/libraries/standard/",
+    "/reference/browsers/":
+      "/getting-started/faq/#what-version-of-my-browser-am-i-using",
   },
 });

@@ -1,6 +1,8 @@
 ---
 title: Library Modules
 description: Reference for library modules.
+sidebar:
+  label: Overview
 ---
 
 Library modules consist of collections of mixins which target design systems or commonly used libraries.
