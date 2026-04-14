@@ -24,7 +24,7 @@ const stylesheets = userstyle
 const { userstyles } = getUserstylesData();
 
 let didLintFail = false;
-const patchesMap = [
+const patches = [
   ["https://userstyles.catppuccin.com/lib", path.join(REPO_ROOT, "lib")],
 ];
 
@@ -34,7 +34,7 @@ for (const style of stylesheets) {
 
   let content = await Deno.readTextFile(style);
   // Apply patches.
-  for (const [search, replace] of patchesMap) {
+  for (const [search, replace] of patches) {
     content = content.replaceAll(search, replace);
   }
 
@@ -63,8 +63,8 @@ for (const style of stylesheets) {
     },
   );
 
-  // Reverse patches.
-  for (const [search, replace] of patchesMap) {
+  // Reverse apply patches.
+  for (const [search, replace] of patches) {
     content = content.replaceAll(replace, search);
   }
 
