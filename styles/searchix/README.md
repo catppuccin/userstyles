@@ -19,7 +19,7 @@ See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting
 
 
 ## 💝 Current Maintainer
-- [koibtw](https://github.com/koibtw)
+- [adamperkowski](https://github.com/adamperkowski)
 
 
 &nbsp;
