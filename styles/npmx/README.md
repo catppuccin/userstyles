@@ -4,25 +4,25 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-  Catppuccin for <a href="https://app.formative.com/home">Formative</a>
+  Catppuccin for <a href="https://npmx.dev">npmx</a>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
 <p align="center">
-	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Aformative"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/formative?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/formative/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Anpmx"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/npmx?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/npmx/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 ## Usage
 
 See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
+> [!NOTE]
+> npmx-specific accent color appearance options at https://npmx.dev/settings are overriden by this userstyle.
 
-## ❤️‍🩹 Unmaintained
-This userstyle currently lacks maintainers, and may not work correctly. Please feel free to contribute for any issues you find!
+## 💝 Current Maintainer
+- [42willow](https://github.com/42willow)
 
-## 💖 Past Maintainer
-- [r58Playz](https://github.com/r58Playz)
 
 &nbsp;
 
