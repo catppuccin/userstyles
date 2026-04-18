@@ -15,7 +15,7 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 
 @var select playerFlavor "Player: Flavor" ["auto:Auto*", "latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
-@var select playerSetting "Player: Setting" ["none:None", "minimal:Minimal", "medium:Medium*", "full:Full"]
+@var select playerSetting "Player: Setting" ["none:None", "full:Full*"]
 @var select playerBackground "Player: Themed Background" ["never:Never", "notfullscreen:Not Fullscreen*", "always:Always"]
 ==/UserStyle== */
 
@@ -766,12 +766,14 @@
               var(--deg),
               fade(@base, 55%) 5%,
               #0000 20%
-            ),linear-gradient(
+            ),
+              linear-gradient(
               to var(--cr-end-direction),
               fade(@base, 85%) 0%,
               fade(@base, 50%) 30%,
               #0000 55%
-            ),linear-gradient(to bottom, #0000 45%, @base 85%);
+            ),
+              linear-gradient(to bottom, #0000 45%, @base 85%);
           }
 
           @media (min-width: 50em) {
@@ -780,12 +782,14 @@
               var(--deg),
               fade(@base, 55%) 5%,
               #0000 25%
-            ),linear-gradient(
+            ),
+              linear-gradient(
               to var(--cr-end-direction),
               fade(@base, 85%) 0%,
               fade(@base, 50%) 30%,
               #0000 55%
-            ),linear-gradient(to bottom, #0000 50.04%, @base 100%);
+            ),
+              linear-gradient(to bottom, #0000 50.04%, @base 100%);
           }
 
           --fade-gradients:
@@ -793,7 +797,8 @@
             var(--deg),
             fade(@base, 60%) 0%,
             #0000 20%
-          ),linear-gradient(
+          ),
+            linear-gradient(
             to bottom,
             #0000 40%,
             fade(@base, 75%) 65%,
@@ -2578,263 +2583,99 @@
       #catppuccin(@darkFlavor);
     }
   }
-} /* /@-moz-document */
 
-// PLAYER - START
-@-moz-document url("https://static.crunchyroll.com/vilos-v2/web/vilos/player.html") {
+  // PLAYER - START
   #catppuccinPlayer(@flavor) {
-    #vilosRoot {
-      & when (@playerSetting = minimal) {
-        #catppuccinPlayerMinimal(@flavor);
-      }
-
-      & when (@playerSetting = medium) {
-        #catppuccinPlayerMedium(@flavor);
-      }
-
-      & when (@playerSetting = full) {
-        #catppuccinPlayerFull(@flavor);
-      }
-    }
-  }
-
-  #catppuccinPlayerMinimal(@flavor) {
     #lib.palette();
 
-    // PLAYER BACKGROUND - START
-    .playerBackground(@background-color) {
-      &,
-      #velocity-player-package,
-      #velocity-overlay-package div:has(> [data-testid="vilos-loading"]) {
-        background-color: @background-color;
+    .bitmovinplayer-container {
+      // PLAYER BACKGROUND - START
+      .playerBackground(@background-color) {
+        & {
+          background-color: @background-color;
+        }
       }
+
+      & when (not(@playerBackground = never)) {
+        .playerBackground(@crust);
+      }
+
+      & when (@playerBackground = notfullscreen) {
+        // sth like @media (not (display-mode: fullscreen)) does not work in stylus currently
+        @media (display-mode: fullscreen) {
+          .playerBackground(unset);
+        }
+
+        // alternative if the above does not work
+        &.r-1pi2tsx.r-13qz1uu {
+          .playerBackground(unset);
+        }
+      }
+      // PLAYER BACKGROUND - END
     }
 
-    & when (not(@playerBackground = never)) {
-      .playerBackground(@crust);
-    }
+    .katamariDesktop {
+      --kat-color-white: @text;
+      --kat-color-neutral-50: @text;
+      --kat-color-neutral-200: @subtext0;
+      --kat-color-neutral-300: @subtext1;
+      --kat-color-neutral-600: @base;
+      --kat-color-neutral-700: @mantle;
+      --kat-color-neutral-900: @crust;
+      --kat-color-orange-300: lighten(@accent, 20%);
+      --kat-color-orange-500: @accent;
+      --kat-color-orange-600: darken(@accent, 20%);
+      --kat-color-icon-tertiary: @text;
+      --kat-color-icon-tertiary-hover: @text;
+      --kat-background-image-gradient-9001000: linear-gradient(
+        180deg,
+        @base,
+        #0000
+      );
+      --kat-background-image-gradient-90001000: linear-gradient(
+        180deg,
+        #0000,
+        @base
+      );
 
-    & when (@playerBackground = notfullscreen) {
-      // sth like @media (not (display-mode: fullscreen)) does not work in stylus currently
-      @media (display-mode: fullscreen) {
-        .playerBackground(unset);
+      .timeline-slider,
+      .volume-slider {
+        --slider-track-color: fade(@text, 25%);
+        --slider-track-hover-color: fade(@text, 50%);
       }
 
-      // alternative if the above does not work
-      &.r-1pi2tsx.r-13qz1uu {
-        .playerBackground(unset);
-      }
-    }
-    // PLAYER BACKGROUND - END
-
-    #vilosControlsContainer {
-      // TIMELINE PROGRESS + CURRENT POSITION + CURRENT VOLUME
-      [style*="background-color: rgb(255, 94, 0);"] {
-        background-color: @accent !important;
-      }
-    }
-
-    // LOADING CIRCLE
-    path[stroke="rgb(255,94,0)"] {
-      stroke: @accent !important;
-    }
-  }
-
-  #catppuccinPlayerMedium(@flavor) {
-    #catppuccinPlayerMinimal(@flavor);
-
-    // rplaces white icons with @text colored icons
-    .iconTextFilter() {
-      img,
-      [style*='background-image: url("data:image/svg+xml;utf8,'] {
-        filter: @text-filter !important;
-      }
-    }
-
-    #velocity-controls-package {
-      // whole player darkens on hover
-      [style*="background-color: rgba(0, 0, 0, 0.2);"] {
-        background-color: fade(@base, 20%) !important;
-      }
-
-      // SHADOW ON TOP when video starts playing
-      [style*="background-image: linear-gradient(rgb(0, 0, 0), rgba(0, 0, 0, 0));"] {
-        background-image: linear-gradient(@base, fade(@base, 0%)) !important;
-      }
-
-      // CONTENT WARNINGS
-      [style*="height: 48px; width: 90px;"] + div {
-        color: @text;
-      }
-
-      // SKIP BUTTON
-      [data-testid="skipButton"] {
-        * {
-          color: @text !important;
+      [data-testid="rating-badge"] > svg {
+        [fill="#4A4E58"] {
+          fill: @overlay0;
         }
 
-        > div {
-          background-color: @surface0 !important;
+        [fill="#DADADA"] {
+          fill: @text;
         }
-
-        // SKIP ICON
-        .iconTextFilter();
-      }
-    }
-
-    #velocity-settings-menu {
-      background-color: @mantle !important;
-
-      * {
-        color: @text !important;
       }
 
-      // HOVER BACKGROUND
-      [style*="background-color: rgb(35, 37, 43);"] {
-        background-color: @surface0 !important;
-      }
-
-      // TOGGLE ACTIVE BORDER
-      [style*="border-color: rgb(40, 189, 187);"] {
-        border-color: @accent !important;
-        background-color: @crust;
-      }
-
-      // TOGGLE INACTIVE BORDER
-      [style*="border-color: rgb(160, 160, 160);"] {
-        border-color: @overlay2 !important;
-        background-color: @crust;
-      }
-
-      // TOGGLE HOVER BORDER
-      [style*="border-color: rgb(255, 255, 255);"] {
-        border-color: @text !important;
-        background-color: @crust;
-      }
-
-      // TOGGLE ACTIVE DOT
-      [style*="background-color: rgb(40, 189, 187);"] {
-        background-color: @accent !important;
-      }
-
-      // TOGGLE INACTIVE DOT
-      [style*="background-color: rgb(160, 160, 160);"] {
-        background-color: @overlay2 !important;
-      }
-
-      // TOGGLE HOVER DOT
-      [style*="background-color: rgb(255, 255, 255);"] {
-        background-color: @text !important;
-      }
-
-      // RADIO BUTTON ACTIVE
-      [style*="fill: rgb(68, 195, 171);"] {
-        fill: @accent !important;
-      }
-
-      // RADIO BUTTON BACKGROUND
-      [style*="fill: rgb(25, 46, 56);"] {
-        fill: @crust !important;
-      }
-
-      // RADIO BUTTON INACTIVE
-      [style*="fill: rgb(160, 160, 160);"] {
-        fill: @overlay2 !important;
-      }
-
-      // RADIO BUTTON HOVER
-      [style*="fill: rgb(255, 255, 255);"] {
-        fill: @text !important;
-      }
-
-      // CHEVRONS
-      .iconTextFilter();
-
-      [style*="color: rgb(244, 117, 33);"] {
-        color: @accent !important;
-      }
-    }
-  }
-
-  #catppuccinPlayerFull(@flavor) {
-    #catppuccinPlayerMedium(@flavor);
-
-    #velocity-controls-package {
-      #vilosControlsContainer {
-        * {
-          color: @text !important;
-        }
-
-        // TIMELINE CACHED
-        [style*="background-color: rgb(216, 216, 216);"] {
-          background-color: @subtext0 !important;
-        }
-
-        // TIMELINE & VOLUME SLIDER BACKGROUND
-        [style*="background-color: rgb(160, 160, 160);"] {
-          background-color: @overlay1 !important;
-        }
-
-        // THUMBNAIL BACKGROUND
-        [style*="background-color: rgb(35, 37, 43);"] {
-          background-color: @base !important;
-        }
-
-        // VOLUME SLIDER ACTIVE
-        [style*="background-color: rgb(198, 198, 205);"] {
-          background-color: @text !important;
-        }
-
-        // BACKDROP
-        [style*="background-image: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgba(0, 0, 0, 0.738) 19%, rgba(0, 0, 0, 0.54) 34%, rgba(0, 0, 0, 0.38) 47%, rgba(0, 0, 0, 0.28) 56.5%, rgba(0, 0, 0, 0.194) 65%, rgba(0, 0, 0, 0.126) 73%, rgba(0, 0, 0, 0.075) 80.2%, rgba(0, 0, 0, 0.042) 86.1%, rgba(0, 0, 0, 0.02) 91%, rgba(0, 0, 0, 0.008) 95.2%, rgba(0, 0, 0, 0.002) 98.2%, rgba(0, 0, 0, 0) 100%);"] {
-          background-image: linear-gradient(
-            0deg,
-            fade(@base, 100%) 0%,
-            fade(@base, 73.8%) 19%,
-            fade(@base, 54%) 34%,
-            fade(@base, 38%) 47%,
-            fade(@base, 28%) 56.5%,
-            fade(@base, 19.4%) 65%,
-            fade(@base, 12.6%) 73%,
-            fade(@base, 7.5%) 80.2%,
-            fade(@base, 4.2%) 86.1%,
-            fade(@base, 2%) 91%,
-            fade(@base, 0.8%) 95.2%,
-            fade(@base, 0.2%) 98.2%,
-            fade(@base, 0%) 100%
-          ) !important;
-        }
-
-        // ICONS
-        .iconTextFilter();
-
-        // ICON BACKGROUND HOVER
-        [style*="background-color: rgba(0, 0, 0, 0.6);"] {
-          background-color: fade(@base, 60%) !important;
-        }
-
-        // ICON BACKGROUND ACTIVE
-        [style*="background-color: rgb(20, 21, 25);"],
-        div[data-testid="vilos-settings_button"]
-          > div:not(:has([style*="opacity"])) {
-          background-color: @base !important;
+      [data-testid="buffering-indicator"] svg {
+        [stroke="#ff5e00"] {
+          stroke: @accent;
         }
       }
     }
   }
 
-  & when (@playerFlavor = auto) {
-    @media (prefers-color-scheme: light) {
-      #catppuccinPlayer(@lightFlavor);
+  & when (@playerSetting = full) {
+    & when (@playerFlavor = auto) {
+      @media (prefers-color-scheme: light) {
+        #catppuccinPlayer(@lightFlavor);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        #catppuccinPlayer(@darkFlavor);
+      }
     }
 
-    @media (prefers-color-scheme: dark) {
-      #catppuccinPlayer(@darkFlavor);
+    & when not(@playerFlavor = auto) {
+      #catppuccinPlayer(@playerFlavor);
     }
   }
-
-  & when not(@playerFlavor = auto) {
-    #catppuccinPlayer(@playerFlavor);
-  }
-}
-// PLAYER - END
+  // PLAYER - END
+} /* /@-moz-document */
