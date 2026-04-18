@@ -7,7 +7,7 @@ import * as path from "@std/path";
 
 import { REPO_ROOT } from "@/constants.ts";
 
-const args = parseArgs(Deno.args, { boolean: ["fix"] });
+const args = parseArgs(Deno.args, {});
 const userstyle = args._[0]
   ?.toString()
   .match(
