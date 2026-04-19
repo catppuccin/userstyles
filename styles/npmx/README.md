@@ -4,22 +4,24 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
-  Catppuccin for <a href="https://leta.mullvad.net">Mullvad Leta</a>
+  Catppuccin for <a href="https://npmx.dev">npmx</a>
 	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
 <p align="center">
-	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Amullvad-leta"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/mullvad-leta?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
-	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/mullvad-leta/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
+	<a href="https://github.com/catppuccin/userstyles/issues?q=is%3Aissue+is%3Aopen+label%3Anpmx"><img src="https://img.shields.io/github/issues/catppuccin/userstyles/npmx?colorA=363a4f&colorB=f5a97f&style=for-the-badge"></a>
+	<a href="https://raw.githubusercontent.com/catppuccin/userstyles/main/styles/npmx/catppuccin.user.less"><img src="https://img.shields.io/badge/stylus-install-cba6f7?colorA=363a4f&style=for-the-badge"></a>
 </p>
 
 ## Usage
 
 See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
+> [!NOTE]
+> npmx-specific accent color appearance options at https://npmx.dev/settings are overriden by this userstyle.
 
 ## 💝 Current Maintainer
-- [jn-sena](https://github.com/jn-sena)
+- [42willow](https://github.com/42willow)
 
 
 &nbsp;
