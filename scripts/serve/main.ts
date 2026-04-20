@@ -16,7 +16,7 @@ const userstyle = args._[0]
 if (!userstyle) throw new Error("Invalid userstyle argument");
 
 const server = Deno.serve({
-  onListen(addr) {
+  onListen() {
     // Disable unnecessary post-startup log.
   },
 }, (req: Request) => {
