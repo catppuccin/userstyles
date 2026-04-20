@@ -28,4 +28,13 @@ Deno.test("#lib.rgbify", async (ctx) => {
   );
 });
 
-// TODO: Add snapshot tests for library APIs.
+Deno.test("#lib.hslify", async (ctx) => {
+  await assertSnapshot(
+    ctx,
+    await compile(`
+.foo {
+  --bar: #lib.hslify(red)[];
+}
+`),
+  );
+});
