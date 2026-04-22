@@ -71,6 +71,58 @@
     @mantle-filter: @catppuccin-filters[@@flavor][@mantle];
     @crust-filter: @catppuccin-filters[@@flavor][@crust];
     @accent-filter: @catppuccin-filters[@@flavor][@@accentColor];
+
+    // rgbify()
+    & when (@rgbify-default-sep = "comma") {
+      .rgbify(@color, @spaces: false) {
+        @with-spaces: red(@color) green(@color) blue(@color);
+        @with-commas: red(@color), green(@color), blue(@color);
+        @result: if(@spaces = true, @with-spaces, @with-commas);
+      }
+    }
+    & when (@rgbify-default-sep = "space") {
+      .rgbify(@color, @commas: false) {
+        @with-spaces: red(@color) green(@color) blue(@color);
+        @with-commas: red(@color), green(@color), blue(@color);
+        @result: if(@commas = true, @with-commas, @with-spaces);
+      }
+    }
+
+    // hslify()
+    & when (@hslify-default-sep = "comma") {
+      .hslify(@color, @spaces: false) {
+        @result: if(
+          @spaces = true,
+          e(
+            %("%s %s% %s%", hue(@color), saturation(@color), lightness(@color))
+          ),
+          e(
+            %(
+              "%s, %s%, %s%",
+              hue(@color),
+              saturation(@color),
+              lightness(@color)
+            )
+          )
+        );
+      }
+    }
+    & when (@hslify-default-sep = "space") {
+      .hslify(@color, @commas: false) {
+        @result: if(
+          @commas = true,
+          e(
+            %(
+              "%s, %s%, %s%",
+              hue(@color),
+              saturation(@color),
+              lightness(@color)
+            )
+          ),
+          e(%("%s %s% %s%", hue(@color), saturation(@color), lightness(@color)))
+        );
+      }
+    }
   }
 
   .defaults() {
@@ -86,16 +138,6 @@
         color: @subtext0 !important;
       }
     }
-  }
-
-  .rgbify(@color) {
-    @rgb: red(@color), green(@color), blue(@color);
-  }
-
-  .hslify(@color) {
-    @raw: e(
-      %("%s, %s%, %s%", hue(@color), saturation(@color), lightness(@color))
-    );
   }
 
   .css-variables() {
