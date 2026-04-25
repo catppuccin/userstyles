@@ -1,32 +1,33 @@
-import * as path from "@std/path";
+import path from "node:path";
 
-import { REPO_ROOT } from "@/constants.ts";
-import { CalVer } from "@/bump-version/calver.ts";
-import { parseArgs } from "@std/cli";
-import { getUserstylesFiles } from "@/utils.ts";
+import parseArgs from "tiny-parse-argv";
 
-const args = parseArgs(Deno.args, { boolean: ["all"] });
+import { REPO_ROOT } from "../constants.ts";
+import { getUserstylesFiles } from "../utils/data.ts";
+import { readTextFile, writeTextFile } from "../utils/fs.ts";
 
-if (!Deno.env.get("CI") && !args.all) {
+import { CalVer } from "./calver.ts";
+
+const args = parseArgs(process.argv.slice(2), { boolean: ["all"] });
+
+if (!process.env.CI && !args.all) {
   throw new Error(
     "This script should only be used in CI. Userstyle versions are automatically bumped after pull requests are merged.",
   );
 }
 
-let files = [];
+let files: string[] = [];
 
 if (args.all) {
   files = getUserstylesFiles();
 } else {
-  files = args._.filter((val) => typeof val == "string").map((p: string) =>
-    path.join(REPO_ROOT, p)
+  files = args._.filter((val) => typeof val === "string").map((p: string) =>
+    path.join(REPO_ROOT, p),
   );
 }
 
-for (
-  const file of files
-) {
-  const content = await Deno.readTextFile(file);
+for (const file of files) {
+  const content = await readTextFile(file);
 
   const metadataMatches = content.match(
     /^\/\*\s*==UserStyle==[\s\S]*?==\/UserStyle==\s*\*\//,
@@ -46,10 +47,11 @@ for (
   const version = new CalVer(versionMatches[2]);
   version.incrementWith(new Date());
 
-  const newContent = metadata.replace(
-    /@version\s+.*/,
-    `@version${whitespace}${version.toString()}`,
-  ) + post;
+  const newContent =
+    metadata.replace(
+      /@version\s+.*/,
+      `@version${whitespace}${version.toString()}`,
+    ) + post;
 
-  await Deno.writeTextFile(file, newContent);
+  await writeTextFile(file, newContent);
 }
