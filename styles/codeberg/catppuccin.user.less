@@ -24,8 +24,10 @@
   @import (css)
     url("https://catppuccin.github.io/gitea/theme-catppuccin-@{darkFlavor}-@{accentColor}.css")
     (prefers-color-scheme: dark);
-
   // We need CodeMirror lib too!
+}
+
+@-moz-document domain("codeberg.org") {
   [data-theme="codeberg-dark"],
   [data-theme="codeberg-light"],
   [data-theme="codeberg-auto"] {
@@ -143,6 +145,31 @@
           color: @base !important;
         }
 
+        a.item.active,
+        details.dropdown > summary.active,
+        details.dropdown[open] > summary,
+        button.item.active {
+          background-color: @accent !important;
+          color: @base !important;
+        }
+
+        a.item.active:hover,
+        details.dropdown > summary.active:hover,
+        button.item.active:hover {
+          background-color: darken(@accent, 5%) !important;
+          color: @base !important;
+        }
+
+        a.item.active:focus,
+        a.item.active:active,
+        details.dropdown > summary.active:focus,
+        details.dropdown > summary.active:active,
+        button.item.active:focus,
+        button.item.active:active {
+          background-color: darken(@accent, 10%) !important;
+          color: @base !important;
+        }
+
         a.donation-pretty {
           --donation-pretty-gradient-color-1: @accent;
           --donation-pretty-gradient-color-2: darken(@accent, 5%);
@@ -168,10 +195,6 @@
 
       img[src^="/assets/img/svg/forgejo-wordmark"] {
         filter: @text-filter;
-      }
-
-      a.item.active {
-        color: @base !important;
       }
     }
 
@@ -298,4 +321,44 @@
   }
 }
 
-@-moz-document domain("donate.codeberg.org") {}
+@-moz-document domain("donate.codeberg.org") {
+  [data-theme="codeberg-dark"],
+  [data-theme="codeberg-light"],
+  [data-theme="codeberg-auto"] {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+
+    // TODO: import pico lib here once it's written.
+    --pico-background-color: @base;
+    --pico-color: @text;
+    --pico-text-selection-color: fade(@overlay2, 30%);
+    // etc...
+  }
+}
+
+@-moz-document domain("") {
+  [data-theme="codeberg-dark"],
+  [data-theme="codeberg-light"],
+  [data-theme="codeberg-auto"] {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+  }
+}
