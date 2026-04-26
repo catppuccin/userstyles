@@ -18,7 +18,7 @@
 See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting-started/usage/).
 
 > [!NOTE]
-> Switch to a default GitHub light/dark theme via **Settings** > **Appearance** for the best experience!
+> Use the **Light default** or **Dark default** themes and disable *Increase contrast* under GitHub's [Theme preferences](https://github.com/settings/appearance).
 
 ## 💝 Current Maintainer
 - [uncenter](https://github.com/uncenter)
