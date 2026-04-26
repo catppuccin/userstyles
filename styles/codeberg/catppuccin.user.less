@@ -14,25 +14,25 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
-
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
 @-moz-document domain("codeberg.org") {
+  // GITEA
   @import (css)
     url("https://catppuccin.github.io/gitea/theme-catppuccin-@{lightFlavor}-@{accentColor}.css")
     (prefers-color-scheme: light);
   @import (css)
     url("https://catppuccin.github.io/gitea/theme-catppuccin-@{darkFlavor}-@{accentColor}.css")
     (prefers-color-scheme: dark);
-}
 
-@-moz-document domain("codeberg.org") {
+  // We need CodeMirror lib too!
   [data-theme="codeberg-dark"],
   [data-theme="codeberg-light"],
   [data-theme="codeberg-auto"] {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
     }
+
     @media (prefers-color-scheme: dark) {
       #catppuccin(@darkFlavor);
     }
@@ -40,14 +40,28 @@
 
   #catppuccin(@flavor) {
     #lib.palette();
-    // #lib.defaults(); // Not needed, themed in upstream Gitea port.
+    // #lib.defaults(); isn't needed, themed in upstream Gitea port.
 
     --color-body: @base;
     --color-nav-text: @crust;
-    --color-nav-hover-bg: darken(@accent, 5%);
     --color-secondary-nav-bg: @surface0;
     --color-link: @blue;
     --color-footer-text: @text;
+
+    .ui.secondary.menu .dropdown.item:hover,
+    .ui.secondary.menu a.item:hover,
+    .ui.secondary.menu a.active.item:hover {
+      background-color: var(--color-nav-hover-bg);
+    }
+
+    .ui.secondary.menu .dropdown.item:focus,
+    .ui.secondary.menu .dropdown.item:active,
+    .ui.secondary.menu a.item:focus,
+    .ui.secondary.menu a.item:active,
+    .ui.secondary.menu a.active.item:focus,
+    .ui.secondary.menu a.active.item:active {
+      background-color: var(--color-nav-active-bg);
+    }
 
     .ui.basic.red.buttons .button,
     .ui.basic.red.button {
@@ -56,6 +70,33 @@
         background-color: @red;
         border-color: var(--color-light-border);
         color: @crust;
+      }
+    }
+
+    .ui.secondary.pointing.menu .active.item,
+    .ui.secondary.pointing.menu .active.item:hover,
+    .ui.secondary.pointing.menu .active.item:focus,
+    .ui.secondary.pointing.menu .dropdown.item:hover,
+    .ui.secondary.pointing.menu .dropdown.item:focus {
+      color: var(--color-text-dark);
+    }
+
+    .sha.label.isSigned.isVerified {
+      color: @green;
+    }
+
+    .sha.label.isSigned.isVerified .signature {
+      --color-light: fade(@green, 30%);
+    }
+
+    /* HUNK HEADER */
+    .tag-code,
+    .tag-code td {
+      color: @peach !important;
+      background-color: @surface0 !important;
+
+      &.lines-num {
+        background-color: @surface1 !important;
       }
     }
 
@@ -72,27 +113,71 @@
       }
     }
 
+    /* NAVBAR */
     #navbar {
+      background-color: var(--color-nav-bg) !important;
+
+      > .menu,
+      > .menu .menu {
+        a,
+        button,
+        details > summary {
+          color: @text;
+        }
+
+        a.item:hover,
+        details.dropdown > summary:hover,
+        button.item:hover {
+          background-color: @accent;
+          color: @base !important;
+        }
+
+        a.item:focus,
+        a.item:active,
+        details.dropdown > summary:focus,
+        details.dropdown > summary:active,
+        details.dropdown[open] > summary,
+        button.item:focus,
+        button.item:active {
+          background-color: darken(@accent, 5%);
+          color: @base !important;
+        }
+
+        a.donation-pretty {
+          --donation-pretty-gradient-color-1: @accent;
+          --donation-pretty-gradient-color-2: darken(@accent, 5%);
+
+          color: @base !important;
+
+          &:hover {
+            --donation-pretty-gradient-color-1: darken(@accent, 5%);
+            --donation-pretty-gradient-color-2: darken(@accent, 10%);
+          }
+        }
+      }
+
       a#navbar-logo {
         img {
+          #codeberg-logo(@accent);
+        }
+
+        &:hover img {
           #codeberg-logo(@base);
         }
       }
 
-      .menu {
-        > a, button, details > summary {
-          color: @base;
-        }
-
-        .donation-pretty {
-          --color-secondary-alpha-60: fade(darken(@accent, 10%), 60%)
-            !important;
-
-          &:hover {
-            background: darken(@accent, 3%) !important;
-          }
-        }
+      img[src^="/assets/img/svg/forgejo-wordmark"] {
+        filter: @text-filter;
       }
+
+      a.item.active {
+        color: @base !important;
+      }
+    }
+
+    /* Otherwise we've got @blue on @green, which is impossible to see :] */
+    .repository .ui.attached.isSigned.isVerified.bottom a strong {
+      color: @crust;
     }
 
     footer {
@@ -104,6 +189,113 @@
       a:hover {
         color: @blue !important;
       }
+
+      .language.button {
+        &.active {
+          color: @base;
+          background-color: @accent;
+        }
+
+        &:hover {
+          color: @base;
+          background-color: darken(@accent, 5%);
+        }
+
+        &:active,
+        &:focus {
+          color: @base;
+          background-color: darken(@accent, 10%);
+        }
+      }
+    } // HOMEPAGE
+    main {
+      a.button {
+        svg {
+          filter: drop-shadow(-1px -2px 0 @yellow);
+        }
+
+        &:hover svg {
+          filter: drop-shadow(-1px -2px 0 darken(@yellow, 10%));
+        }
+      }
+
+      header {
+        color: @text;
+
+        .header-social-links a {
+          color: @accent;
+
+          &:hover {
+            color: darken(@accent, 5%);
+          }
+        }
+
+        .header-logo img {
+          filter: @text-filter;
+        }
+      }
+
+      section#home-section-about {
+        color: @text;
+
+        .home-section-about-box-container {
+          .home-section-about-box {
+            background-image: linear-gradient(
+              to top,
+              fade(@accent, 30%) 40%,
+              fade(@accent, 40%)
+            );
+          }
+
+          .home-section-about-register-button-container a {
+            color: @base;
+            text-shadow: -1px -2px 0 @yellow;
+            background-color: @yellow;
+
+            &:hover {
+              text-shadow: -1px -2px 0 darken(@yellow, 10%);
+              background-color: darken(@yellow, 5%);
+            }
+          }
+        }
+
+        .home-section-about-container div {
+          color: @accent;
+
+          p.powered-by-forgejo a {
+            color: @accent;
+          }
+        }
+      }
+
+      section#home-section-support {
+        color: @text; // Yellow buttons
+        div a {
+          color: @base;
+          text-shadow: -1px -2px 0 @yellow;
+          background-color: @yellow;
+
+          &:hover {
+            text-shadow: -1px -2px 0 darken(@yellow, 10%);
+            background-color: darken(@yellow, 5%);
+          }
+        } // Your support helps us grow! :hearts:
+        h3 svg.svg.codeberg-icon-hearts {
+          path:nth-child(1) {
+            fill: @peach !important;
+          }
+
+          path:nth-child(2) {
+            fill: @yellow !important;
+          }
+
+          path:nth-child(3) {
+            fill: @sapphire !important;
+          }
+        }
+      }
     }
   }
 }
+
+@-moz-document domain("donate.codeberg.org") {}
