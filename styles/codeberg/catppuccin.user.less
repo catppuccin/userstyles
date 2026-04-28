@@ -18,29 +18,13 @@
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
 @-moz-document domain("codeberg.org") {
-  /* GITEA */
   @import (css)
     url("https://catppuccin.github.io/gitea/theme-catppuccin-@{lightFlavor}-@{accentColor}.css")
     (prefers-color-scheme: light);
   @import (css)
     url("https://catppuccin.github.io/gitea/theme-catppuccin-@{darkFlavor}-@{accentColor}.css")
     (prefers-color-scheme: dark);
-  /* @import url(CM_LIB_URL); */
 }
-
-@-moz-document domain("blog.codeberg.org") {
-  @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
-}
-
-@-moz-document domain("docs.codeberg.org") {
-  @import url("https://prismjs.catppuccin.com/variables.important.css");
-}
-
-/*
- * @-moz-document domain("donate.codeberg.org") {
- *   @import url(PICO_LIB_URL);
- * }
- */
 
 @-moz-document domain("codeberg.org") {
   [data-theme="codeberg-dark"],
@@ -57,10 +41,7 @@
 
   #catppuccin(@flavor) {
     #lib.palette();
-    /*
-     * #lib.defaults();
-     * This isn't needed, themed in upstream Gitea port.
-     */
+    // #lib.defaults(); // Not needed, themed in upstream Gitea port.
 
     --color-body: @base;
     --color-nav-text: @crust;
@@ -98,12 +79,24 @@
       }
     }
 
-    .sha.label.isSigned.isVerified {
-      color: @green;
-    }
+    .sha.label {
+      &.isSigned {
+        &.isVerified {
+          color: @green;
 
-    .sha.label.isSigned.isVerified .signature {
-      --color-light: fade(@green, 30%);
+          .signature {
+            --color-light: fade(@green, 30%);
+          }
+        }
+
+        .isWarning {
+          color: @red;
+
+          .signature {
+            --color-light: fade(@red, 30%);
+          }
+        }
+      }
     }
 
     /* HUNK HEADER */
