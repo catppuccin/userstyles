@@ -69,18 +69,18 @@
     --color-footer-text: @text;
 
     .ui.secondary.menu {
-      :is(.dropdown.item, a.item, a.active.item) {
+      .dropdown.item, a.item, a.active.item {
         &:hover {
           background-color: var(--color-nav-hover-bg);
         }
 
-        &:is(:focus, :active) {
+        &:active, &:focus {
           background-color: var(--color-nav-active-bg);
         }
       }
 
       &.pointing {
-        :is(.active.item, .dropdown.item:is(:hover, :focus)) {
+        .active.item, .dropdown.item:is(:hover, :focus) {
           color: var(--color-text-dark);
         }
       }
@@ -138,60 +138,53 @@
         details > summary,
         button {
           color: @text !important;
+
+          &.item {
+            &:hover {
+              background-color: @accent !important;
+              color: @base !important;
+            }
+
+            &:active, &:focus {
+              background-color: darken(@accent, 5%) !important;
+              color: @base !important;
+            }
+
+            &.active {
+              background-color: @accent !important;
+              color: @base !important;
+
+              &:hover {
+                background-color: darken(@accent, 5%) !important;
+                color: @base !important;
+              }
+
+              &:active, &:focus {
+                background-color: darken(@accent, 10%) !important;
+                color: @base !important;
+              }
+            }
+          }
         }
 
-        a.item:hover,
-        details.dropdown > summary:hover,
-        button.item:hover {
+        details.dropdown[open] > summary {
           background-color: @accent !important;
-          color: @base !important;
-        }
-
-        a.item:focus,
-        a.item:active,
-        details.dropdown > summary:focus,
-        details.dropdown > summary:active,
-        details.dropdown[open] > summary,
-        button.item:focus,
-        button.item:active {
-          background-color: darken(@accent, 5%) !important;
-          color: @base !important;
-        }
-
-        a.item.active,
-        details.dropdown > summary.active,
-        details.dropdown[open] > summary,
-        button.item.active {
-          background-color: @accent !important;
-          color: @base !important;
-        }
-
-        a.item.active:hover,
-        details.dropdown > summary.active:hover,
-        button.item.active:hover {
-          background-color: darken(@accent, 5%) !important;
-          color: @base !important;
-        }
-
-        a.item.active:focus,
-        a.item.active:active,
-        details.dropdown > summary.active:focus,
-        details.dropdown > summary.active:active,
-        button.item.active:focus,
-        button.item.active:active {
-          background-color: darken(@accent, 10%) !important;
           color: @base !important;
         }
 
         a.donation-pretty {
           --donation-pretty-gradient-color-1: @accent;
           --donation-pretty-gradient-color-2: darken(@accent, 5%);
-
           color: @base !important;
 
           &:hover {
             --donation-pretty-gradient-color-1: darken(@accent, 5%);
             --donation-pretty-gradient-color-2: darken(@accent, 10%);
+          }
+
+          &:active, &:focus {
+            --donation-pretty-gradient-color-1: darken(@accent, 10%);
+            --donation-pretty-gradient-color-2: darken(@accent, 15%);
           }
         }
       }
@@ -227,20 +220,21 @@
       }
 
       .language.button {
+        &:not(.active) {
+          &:hover {
+            color: @base;
+            background-color: darken(@accent, 5%);
+          }
+
+          &:active, &:focus {
+            color: @base;
+            background-color: darken(@accent, 10%);
+          }
+        }
+
         &.active {
           color: @base;
           background-color: @accent;
-        }
-
-        &:hover {
-          color: @base;
-          background-color: darken(@accent, 5%);
-        }
-
-        &:active,
-        &:focus {
-          color: @base;
-          background-color: darken(@accent, 10%);
         }
       }
     }
@@ -310,6 +304,7 @@
         color: @text;
 
         /* Yellow buttons */
+
         div a {
           color: @base;
           text-shadow: -1px -2px 0 @yellow;
@@ -322,6 +317,7 @@
         }
 
         /* Your support helps us grow! :hearts: */
+
         h3 svg.svg.codeberg-icon-hearts {
           path:nth-child(1) {
             fill: @peach !important;
