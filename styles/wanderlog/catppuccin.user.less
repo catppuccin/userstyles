@@ -60,8 +60,14 @@
     --gray--900: @text;
     --gray--900-2: @text;
 
-    --accent-darker: darken(@accent, 5%);
-    @accent-darker: darken(@accent, 5%);
+    --accent-darker: mix(@accent, @base, 90%);
+    @accent-darker: mix(@accent, @base, 90%);
+
+    @hover: 8%;
+    @active: -10%;
+
+    --accent-hover: lighten(@accent, @hover);
+    --accent-active: lighten(@accent, @active);
 
     // Mixins
 
@@ -70,44 +76,36 @@
     // Hover Background | Hover Foreground | Hover Stroke
     // Active Background | Active Foreground | Active Stroke
     // Disabled Background | Disabled Foreground | Disabled Stroke
-    .ctp-stateful(@bg; @fg; @st; @hbg; @hfg; @hst; @abg; @afg; @ast; @dbg; @dfg; @dst; @notState;) {
+    .ctp-stateful(@bg: null; @fg: null; @st: null; @hbg: null; @hfg: null; @hst: null; @abg: null; @afg: null; @ast: null; @dbg: null; @dfg: null; @dst: null; @notState: ~"";) {
       background-color: @bg;
       color: @fg;
       border-color: @st;
-      &:hover:not(@notState) {
-        & when (@hbg) {
-          background-color: @hbg; 
+      &:not(@{notState}) {
+        &:hover,
+        // messy!!
+        &.Button__focused {
+          & when not (@hbg = null) {
+            background-color: @hbg;
+          }
+          & when not (@hfg = null) {
+            color: @hfg;
+          }
+          & when not (@hst = null) {
+            border-color: @hst;
+          }
         }
-        & when (@hfg) {
-          color: @hfg;
-        }
-        & when (@hst) {
-          border-color: @hst;
+        &:active {
+          & when not (@abg = null) {
+            background-color: @abg;
+          }
+          & when not (@afg = null) {
+            color: @afg;
+          }
+          & when not (@ast = null) {
+            border-color: @ast;
+          }
         }
       }
-      &:active:not(@notState) {
-        & when (@abg) {
-          background-color: @abg; 
-        }
-        & when (@afg) {
-          color: @afg;
-        }
-        & when (@ast) {
-          border-color: @ast;
-        }
-      } 
-      // When not state (what is the syntax???)
-      & {
-        & when (@abg) {
-          background-color: @abg; 
-        }
-        & when (@afg) {
-          color: @afg;
-        }
-        & when (@ast) {
-          border-color: @ast;
-        }
-      } 
     }
 
     /* General */
@@ -147,8 +145,11 @@
     .text-primary {
       color: @accent !important;
     }
-    a.text-brand:active, a.text-brand:focus, a.text-brand:hover {
-      color: var(--accent-darker);
+    a.text-brand:focus, a.text-brand:hover {
+      color: var(--accent-hover);
+    }
+    a.text-brand:active {
+      color: var(--accent-active);
     }
     .text-white {
       color: @text !important;
@@ -306,21 +307,41 @@
     }
 
     // Buttons
-    .Button__brand, .Button__dark {
+    .Button__brand {
       .ctp-stateful(
-        @bg: @accent,
-        @fg: @base,
-        @st: @accent,
-        @hbg: @accent-darker;
+        @bg: @accent;
+        @fg: @base;
+        @st: @accent;
+        @hbg: var(--accent-hover);
         @hfg: @base;
-        @hst: @accent-darker;
+        @hst: var(--accent-hover);
+        @abg: var(--accent-active);
         @afg: @base;
-        @ast: @accent-darker;
+        @ast: var(--accent-active);
         @dbg: fade(@accent, 40%);
         @dfg: @subtext0;
         @dst: fade(@accent, 40%);
-        // Pseudo code: what is the syntax for this?
-        @notState: '.Button__disabled'
+        @notState: ~'.Button__disabled'
+      );
+      .Button__icon {
+        color: inherit !important;
+      }
+    }
+    .Button__dark {
+      .ctp-stateful(
+        @bg: @text;
+        @fg: @base;
+        @st: @text;
+        @hbg: lighten(@text, @hover);
+        @hfg: @base;
+        @hst: lighten(@text, @hover);
+        @abg: lighten(@text, @active);
+        @afg: @base;
+        @ast: lighten(@text, @active);
+        @dbg: fade(@text, 40%);
+        @dfg: @subtext0;
+        @dst: fade(@text, 40%);
+        @notState: ~'.Button__disabled'
       );
       .Button__icon {
         color: inherit !important;
@@ -329,8 +350,11 @@
     .brand-button {
       color: @base !important;
 
-      &:hover, &:active {
-        background-color: var(--accent-darker);
+      &:hover {
+        background-color: var(--accent-hover);
+      }
+      &:active {
+        background-color: var(--accent-active);
       }
     }
     .btn-primary {
@@ -346,23 +370,21 @@
     .Button__flat-primary,
     .Button__flat-brand {
       .ctp-stateful(
-        @fg: @accent,
+        @fg: @accent;
         @hfg: @accent-darker;
         @afg: @accent-darker;
         @dfg: fade(@accent, 60%);
-        // Pseudo code: what is the syntax for this?
-        @notState: '.Button__disabled'
+        @notState: ~'.Button__disabled'
       );
     }
 
     .Button__flat-secondary, .btn {
       .ctp-stateful(
-        @fg: @text,
+        @fg: @text;
         @hfg: @subtext1;
         @afg: @subtext1;
         @dfg: @overlay1;
-        // Pseudo code: what is the syntax for this?
-        @notState: '.Button__disabled'
+        @notState: ~'.Button__disabled'
       );
       .Button__icon {
         color: inherit !important;
@@ -392,9 +414,9 @@
       }
 
       .ctp-stateful(
-        @bg: transparent,
-        @fg: @text,
-        @st: @accent,
+        @bg: transparent;
+        @fg: @text;
+        @st: @accent;
         @hfg: @text;
         @hst: @accent-darker;
         @afg: @text;
@@ -402,8 +424,7 @@
         @dbg: @surface0;
         @dfg: @subtext0;
         @dst: @accent-darker;
-        // Pseudo code: what is the syntax for this?
-        @notState: '.Button__disabled'
+        @notState: ~'.Button__disabled'
       );
 
       .Button__icon {
@@ -415,13 +436,12 @@
     }
     .Button__default-dark {
       .ctp-stateful(
-        @bg: @accent,
-        @fg: @base,
-        @st: @accent,
+        @bg: @accent;
+        @fg: @base;
+        @st: @accent;
         @hbg: @accent-darker;
         @hst: @accent-darker;
-        // Pseudo code: what is the syntax for this?
-        @notState: '.Button__disabled'
+        @notState: ~'.Button__disabled'
       );
     }
     .Button__flat-white,
