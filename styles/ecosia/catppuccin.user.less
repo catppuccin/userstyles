@@ -34,10 +34,14 @@
     /* Dynamically adjust (leaf) background pictures */
     .above-fold-section,
     .main-footer-visual {
-      img {
-        @degrees: 280deg + hue(@accent);
-        @grayscale: if((@accent =@subtext0), 100%, 0%);
-        filter: saturate(if(@flavor =latte, 0.6, 0.9)) hue-rotate(@degrees) grayscale(@grayscale) brightness(if(@flavor =latte, 1, 0.5));
+      picture {
+        #catppuccin.color-overlay(lighten(@accent, 25%));
+      }
+    }
+    .main-footer-visual__content {
+      isolation: isolate;
+      &::before {
+        z-index: 1;
       }
     }
   }
@@ -203,6 +207,19 @@
       path:last-of-type {
         fill: var(--color-seed-icon-color-bottom) !important;
       }
+    }
+  }
+
+  .color-overlay(@color) {
+    &::before {
+      background: @color;
+      mix-blend-mode: color;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      content: "";
     }
   }
 }
