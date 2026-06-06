@@ -14,7 +14,6 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
-
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
 @-moz-document domain("ecosia.org") {
@@ -35,13 +34,16 @@
     .above-fold-section,
     .main-footer-visual {
       picture {
-        #catppuccin.color-overlay(lighten(@accent, 25%));
+        #catppuccin.color-overlay(@accent);
       }
-    }
-    .main-footer-visual__content {
-      isolation: isolate;
-      &::before {
-        z-index: 1;
+      picture:has(.above-fold-section__background) {
+        border-radius: 20px;
+      }
+      .main-footer-visual__content {
+        isolation: isolate;
+        &::before {
+          z-index: 1;
+        }
       }
     }
   }
@@ -211,8 +213,8 @@
   }
 
   .color-overlay(@color) {
-    &::before {
-      background: @color;
+    &::after {
+      background: hsl(hue(@color), min(saturation(@color), 30%), lightness(@color));
       mix-blend-mode: color;
       position: absolute;
       top: 0;
@@ -220,6 +222,7 @@
       width: 100%;
       height: 100%;
       content: "";
+      border-radius: inherit;
     }
   }
 }
