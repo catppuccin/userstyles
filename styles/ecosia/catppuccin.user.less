@@ -19,24 +19,51 @@
 
 @-moz-document domain("ecosia.org") {
   :root.light {
-    #catppuccin(@lightFlavor);
-    #static();
+    #catppuccin.search(@lightFlavor);
   }
 
   :root.dark {
-    #catppuccin(@darkFlavor);
-    #static();
+    #catppuccin.search(@darkFlavor);
+  }
+}
+
+#catppuccin() {
+  .search(@flavor) {
+    #catppuccin.base(@flavor);
+
+    /* Dynamically adjust (leaf) background pictures */
+    .above-fold-section,
+    .main-footer-visual {
+      img {
+        @degrees: 280deg + hue(@accent);
+        @grayscale: if((@accent =@subtext0), 100%, 0%);
+        filter: saturate(if(@flavor =latte, 0.6, 0.9)) hue-rotate(@degrees) grayscale(@grayscale) brightness(if(@flavor =latte, 1, 0.5));
+      }
+    }
   }
 
-  #catppuccin(@flavor) {
+  .base(@flavor) {
+    #catppuccin._common-vars(@flavor);
+    #catppuccin._static();
+    #catppuccin._alerts(@flavor);
+    #catppuccin._toasts(@flavor);
+    #catppuccin._icons();
+  }
+
+  ._init(@flavor, @exclude-defaults: false) {
     #lib.palette();
-    #lib.defaults();
+    & when (@exclude-defaults =false) {
+      #lib.defaults();
+    }
 
     /* Augemented palette */
-    @accent1: if(@flavor = latte, lighten(@accent, 5%), darken(@accent, 10%));
-    @featured: if(@flavor = latte, lighten(@accent, 25%), darken(@accent, 5%));
-    @featured1: if(@flavor = latte, lighten(@accent, 20%), darken(@accent, 10%));
+    @accent1: if(@flavor =latte, lighten(@accent, 5%), darken(@accent, 10%));
+    @featured: if(@flavor =latte, lighten(@accent, 25%), darken(@accent, 5%));
+    @featured1: if(@flavor =latte, lighten(@accent, 20%), darken(@accent, 10%));
+  }
 
+  ._common-vars(@flavor) {
+    #catppuccin._init(@flavor);
     /* Ecosia variable overrides */
     --color-brand-primary: @accent !important;
     --color-brand-secondary: @crust !important;
@@ -105,65 +132,14 @@
     --color-surface-brand-secondary: darken(@green, 10%) !important;
     --color-green-leaf-icon-color-top: @green !important;
     --color-green-leaf-icon-color-bottom: darken(@green, 10%) !important;
-    --color-seed-icon-color-top: @rosewater !important; /* custom */
-    --color-seed-icon-color-bottom: darken(@rosewater, 10%) !important; /* custom */
-
-    .inline-alert--light,
-    .inline-alert--dark {
-      --alert-text: if(@flavor = latte, @text, @base);
-      --alert-negative-background: if(@flavor = latte, lighten(@red, 25%), darken(@red, 20%));
-      --alert-positive-background: if(@flavor = latte, lighten(@green, 25%), darken(@green, 20%));
-      --alert-warning-background: if(@flavor = latte, lighten(@yellow, 25%), darken(@yellow, 20%));
-      --alert-info-background: if(@flavor = latte, lighten(@blue, 25%), darken(@blue, 20%));
-      --alert-negative-border: @red;
-      --alert-warning-border: @yellow;
-      --alert-info-border: @blue;
-      --alert-positive-border: @green;
-    }
-    /* Toast */
-    .toast[data-v-bf323c03] {
-      /* legibility on latte was too low */
-      --toast-text: @base;
-      --toast-neutral: if(@flavor = latte, darken(@subtext0, 20%), @subtext0);
-      --toast-negative: if(@flavor = latte, darken(@red, 20%), @red);
-      --toast-warning: if(@flavor = latte, darken(@yellow, 20%), @yellow);
-      --toast-positive: if(@flavor = latte, darken(@green, 20%), @green);
-      --toast-informative: if(@flavor = latte, darken(@blue, 20%), @blue);
-    }
-    .sustainability-label__icon {
-      /* already defined above */
-      --color-green-leaf-icon-color-top: inherit;
-      --color-green-leaf-icon-color-bottom: inherit;
-    }
-
-    svg.icon--icon-seed {
-      path:first-of-type {
-        fill: var(--color-seed-icon-color-top) !important;
-      }
-      path:last-of-type {
-        fill: var(--color-seed-icon-color-bottom) !important;
-      }
-    }
-
-    /* Dynamically adjust (leaf) background pictures */
-    .above-fold-section,
-    .main-footer-visual {
-      img {
-        @degrees: 280deg + hue(@accent);
-        @grayscale: if((@accent = @subtext0), 100%, 0%);
-        filter: saturate(if(@flavor = latte, 0.6, 0.9)) hue-rotate(@degrees) grayscale(@grayscale) brightness(if(@flavor = latte, 1, 0.5));
-      }
-    }
+    --color-seed-icon-color-top: @rosewater !important;
+    /* custom */
+    --color-seed-icon-color-bottom: darken(@rosewater, 10%) !important;
+    /* custom */
   }
 
-  #static() {
-    /* Vars don't change color on dark and light - base on latte for now */
-    @flavor: latte;
-    #lib.palette();
-
-    @accent1: if(@flavor = latte, lighten(@accent, 5%), darken(@accent, 10%));
-    @featured: if(@flavor = latte, lighten(@accent, 25%), darken(@accent, 5%));
-    @featured1: if(@flavor = latte, lighten(@accent, 20%), darken(@accent, 10%));
+  ._static() {
+    #catppuccin._init(latte, true);
 
     --color-border-glass-static-default: fade(@base, 75%) !important;
     --color-border-glass-static-hover: fade(@base, 66%) !important;
@@ -180,5 +156,53 @@
     --color-text-static-dark: darken(@text, 50%) !important;
     --color-link-static-light: @base !important;
     --color-link-static-dark: darken(@text, 50%) !important;
+  }
+
+  ._alerts(@flavor) {
+    #catppuccin._init(@flavor);
+
+    .inline-alert--light,
+    .inline-alert--dark {
+      --alert-text: if(@flavor =latte, @text, @base);
+      --alert-negative-background: if(@flavor =latte, lighten(@red, 25%), darken(@red, 20%));
+      --alert-positive-background: if(@flavor =latte, lighten(@green, 25%), darken(@green, 20%));
+      --alert-warning-background: if(@flavor =latte, lighten(@yellow, 25%), darken(@yellow, 20%));
+      --alert-info-background: if(@flavor =latte, lighten(@blue, 25%), darken(@blue, 20%));
+      --alert-negative-border: @red;
+      --alert-warning-border: @yellow;
+      --alert-info-border: @blue;
+      --alert-positive-border: @green;
+    }
+  }
+
+  ._toasts(@flavor) {
+    #catppuccin._init(@flavor);
+
+    .toast[data-v-bf323c03] {
+      /* legibility on latte was too low */
+      --toast-text: @base;
+      --toast-neutral: if(@flavor =latte, darken(@subtext0, 20%), @subtext0);
+      --toast-negative: if(@flavor =latte, darken(@red, 20%), @red);
+      --toast-warning: if(@flavor =latte, darken(@yellow, 20%), @yellow);
+      --toast-positive: if(@flavor =latte, darken(@green, 20%), @green);
+      --toast-informative: if(@flavor =latte, darken(@blue, 20%), @blue);
+    }
+  }
+
+  ._icons() {
+    .sustainability-label__icon {
+      /* already defined above */
+      --color-green-leaf-icon-color-top: inherit;
+      --color-green-leaf-icon-color-bottom: inherit;
+    }
+
+    svg.icon--icon-seed {
+      path:first-of-type {
+        fill: var(--color-seed-icon-color-top) !important;
+      }
+      path:last-of-type {
+        fill: var(--color-seed-icon-color-bottom) !important;
+      }
+    }
   }
 }
