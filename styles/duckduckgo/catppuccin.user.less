@@ -1099,6 +1099,15 @@
       [role="option"][aria-selected="true"] {
       background-color: @surface1 !important;
     }
+    /* Latte is low-contrast; keep the search box defined on the pale page */
+    & when (@flavor = latte) {
+      [data-testid="search-form-input-wrapper"],
+      [data-testid="search-autocomplete-menu"] > div {
+        border-width: 1px !important;
+        border-style: solid !important;
+        border-color: @surface2 !important;
+      }
+    }
 
     .acp--highlight,
     .bg-clr--platinum-light {
@@ -1500,6 +1509,35 @@
     [class*="customize-button_feedbackRadio__"] path {
       color: @subtext0 !important;
       fill: @subtext0 !important;
+    }
+
+    /* Latte is low-contrast, so give the surfaces a hairline border to keep
+       them defined against the pale page */
+    & when (@flavor = latte) {
+      [class*="ai-searchbox_combobox"],
+      [class*="card_card"],
+      [class*="card-button_root"],
+      [class*="feature-card_root"],
+      [class*="downloadsCard"],
+      [class*="chip-select_root"] {
+        border-width: 1px !important;
+        border-style: solid !important;
+        border-color: @surface2 !important;
+      }
+      /* these controls fall back to a muddy black-on-white tint (or no fill at
+         all), which reads as dirty grey on the pale page; give them a clean
+         surface instead */
+      [class*="customize-button_customizeButton"],
+      [class*="link-button_secondary-solid"] {
+        background-color: @surface0 !important;
+        border-color: @surface2 !important;
+      }
+      [class*="customize-button_feedbackRadio__"] {
+        background-color: @surface0 !important;
+      }
+      [class*="customize-button_feedbackRadio__"]:hover {
+        background-color: @surface1 !important;
+      }
     }
   }
 }
