@@ -1129,6 +1129,13 @@
       --yt-saturated-text-primary: @text !important;
       --yt-saturated-text-secondary: @subtext1 !important;
     }
+    // Description box surface. v2_0 fills it from a *hashed* atomic var
+    // (var(--t7f4f2c6d54836ce0) = rgba(255,255,255,.1)) — a translucent white wash
+    // that drifts by state. Force solid @surface0 so it matches the AI-summary card
+    // below; the @surface1 hover above still lifts it on hover.
+    #description.ytd-watch-metadata {
+      background-color: @surface0 !important;
+    }
     // Video description prose + the "...more"/"Show less" toggle. The prose spans
     // (.ytAttributedStringLinkInheritColor) inherit white from an inner attributed-
     // string wrapper rather than the expander host, so target them directly; the
@@ -1138,9 +1145,12 @@
     ytd-text-inline-expander tp-yt-paper-button {
       color: @text !important;
     }
-    // Video description YouTube links
+    // Social-link highlight pills in the description (the rounded background behind
+    // "/ discord", X/TikTok handles, etc.). YouTube sets these inline to
+    // rgba(255,255,255,.1); !important overrides that. @surface1 keeps them a subtle
+    // step above the @surface0 description box.
     .ytAttributedStringHighlightTextDecorator {
-      background-color: @surface2 !important;
+      background-color: @surface1 !important;
     }
 
     // Description info line above the body (views · upload date · "N products").
@@ -1184,6 +1194,13 @@
        (#f1f1f1 primary / #aaa secondary). Icons use fill:currentColor, so theming
        `color` recolors the sparkle/info glyphs too. The expanded summary paragraph
        itself lives in a separate .videoSummaryContentViewModel* view model. */
+    // Card surface — same translucent-white hashed var as the description box, and
+    // it goes fully transparent when expanded; force a solid surface. @surface1 sits
+    // one step lighter than the @surface0 description box so the summary stands out.
+    ytd-expandable-metadata-renderer,
+    ytd-expandable-metadata-renderer[is-watch] {
+      background-color: @surface1 !important;
+    }
     #collapsed-title.ytd-expandable-metadata-renderer,
     #prominent-collapsed-label.ytd-expandable-metadata-renderer,
     #collapsed-label.ytd-expandable-metadata-renderer,
@@ -1201,6 +1218,15 @@
     #timestamp.ytd-expandable-metadata-renderer {
       color: @accent !important;
       background-color: fade(@accent, 20%) !important;
+    }
+    // Hover alignment: the collapsed card header and its expand/collapse chevron
+    // both highlight to @surface2 (one step above the @surface1 card), so hovering
+    // the button matches hovering the card. YT defaults are rgba(255,255,255,.1) for
+    // the header and the global mono-text hover (@surface1) for the button; the
+    // scoped button selector out-specifies that global rule.
+    ytd-expandable-metadata-renderer:not([is-expanded]) #header.ytd-expandable-metadata-renderer:hover,
+    ytd-expandable-metadata-renderer .ytSpecButtonShapeNextMono.ytSpecButtonShapeNextText:hover {
+      background-color: @surface2 !important;
     }
 
     /* Chapter list (ytd-macro-markers-list-item-renderer). v2_0 paints the default
