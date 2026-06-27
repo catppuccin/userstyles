@@ -1654,8 +1654,30 @@
       background-color: @mantle !important;
     }
 
-    /* Raised popups / menus / dropdowns / dialogs */
+    /* Raised popups / menus / dropdowns / dialogs.
+       These surfaces fill from per-build *hashed* atomic vars, not semantic
+       tokens, so token overrides can't reach them — force the stable renderer
+       selectors instead. Two hashed families are involved:
+         • var(--t08a7c6c176cbc5c2) = #282828 — the menu popup surface, shared by
+           the "..." overflow/context menus (ytd-menu-popup-renderer), the
+           masthead ⋮ / account / notifications menus (ytd-multi-page-menu-renderer)
+           and the sticky panel header those menus carry, which is a separate
+           element painting the same var (ytd-simple-menu-header-renderer).
+         • var(--t518e925f61bdcb91) = #212121 — the dialog surface, used by the
+           menu-popup caret tip and the (signed-in only) form / backstage-post
+           creation dialogs. The backstage host wraps an inner dialog renderer
+           that paints the same var, so both are listed.
+       Inner items/sections stay transparent and their hover/divider states are
+       translucent-white overlays that read fine on @mantle, so theming the
+       surface covers the whole popup. YT's rules here aren't !important, so our
+       !important wins despite their higher [dialog][dialog][dialog] specificity. */
     ytd-menu-popup-renderer,
+    ytd-multi-page-menu-renderer,
+    ytd-simple-menu-header-renderer,
+    ytd-menu-popup-tip-renderer,
+    ytd-form-popup-renderer,
+    ytd-backstage-post-dialog-popup-renderer,
+    ytd-backstage-post-dialog-renderer,
     tp-yt-paper-listbox.ytd-menu-popup-renderer,
     tp-yt-iron-dropdown .ytContextualSheetLayoutHost,
     .ytContextualSheetLayoutHost,
