@@ -1648,6 +1648,26 @@
     .ytSpecDialogLayoutHost {
       background-color: @mantle !important;
     }
+
+    /* Theater / fullscreen letterbox bars. Their source depends on the
+       cinematic/ambient state: with it off the player (#movie_player) is itself
+       painted black; with it on the player goes transparent and the backdrop
+       behind it (#full-bleed-container) is black. Theme the whole stack so the
+       bars match the page in either case. Skipped when black bars are enabled.
+       The #page-manager prefix raises specificity past YouTube's own
+       same-specificity !important player rule (which ships in a cross-origin
+       sheet that loads after Stylus, so an equal-specificity rule would lose
+       the source-order tie). */
+    & when (@oled = 0) {
+      #page-manager ytd-watch-flexy[full-bleed-player] {
+        #movie_player,
+        #full-bleed-container,
+        #player-full-bleed-container,
+        #player-container {
+          background-color: @base !important;
+        }
+      }
+    }
   }
 }
 
