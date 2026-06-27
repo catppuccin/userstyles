@@ -495,6 +495,11 @@
         --ytd-searchbox-background: @base;
         --ytd-searchbox-text-color: @text;
 
+        /* 3-dot "more actions" menu trigger icons (ytd-menu-renderer). Their
+           glyph falls back to the #f1f1f1 hashed atomic var via this stable
+           var, so set it to @text to recolor every dropdown trigger at once. */
+        --ytd-menu-renderer-button-color: @text;
+
         /* System icons */
         --yt-spec-icon-inactive: @text;
         --yt-spec-icon-disabled: @overlay1;
@@ -946,6 +951,121 @@
       background-color: fade(@surface1, 70%);
     }
 
+    /* Buttons (color-version v2_0). The redesign renamed the button classes from
+       .yt-spec-button-shape-next--* (kebab, themed above — 0 matches on the main
+       site now, but kept for Studio/legacy surfaces) to .ytSpecButtonShapeNext*
+       (camelCase). This mirrors the kebab block for v2_0 so Share / Save / Join /
+       Subscribe / like / dislike and the rest follow the palette. Icons inherit
+       currentColor, so setting `color` recolors the glyph too. !important because
+       YT's same-specificity rules ship in a sheet that loads after Stylus. */
+    .ytSpecButtonShapeNextMono {
+      &.ytSpecButtonShapeNextTonal {
+        color: @text !important;
+        background-color: @surface0 !important;
+
+        &:hover {
+          background-color: @surface1 !important;
+        }
+      }
+
+      &.ytSpecButtonShapeNextOutline {
+        color: @text !important;
+        border-color: @surface2 !important;
+
+        &:hover {
+          background-color: @surface2 !important;
+        }
+      }
+
+      &.ytSpecButtonShapeNextText {
+        color: @text !important;
+
+        &:hover {
+          background-color: @surface1 !important;
+        }
+      }
+
+      &.ytSpecButtonShapeNextFilled {
+        color: @base !important;
+        background-color: @accent !important;
+
+        &:hover {
+          background-color: darken(@accent, 5%) !important;
+        }
+      }
+    }
+
+    .ytSpecButtonShapeNextDisabled {
+      color: @overlay1 !important;
+    }
+
+    .ytSpecButtonShapeNextOverlay {
+      &.ytSpecButtonShapeNextTonal {
+        color: @text !important;
+        background-color: @surface0 !important;
+
+        &:hover {
+          background-color: @surface1 !important;
+        }
+      }
+
+      &.ytSpecButtonShapeNextText {
+        color: @text !important;
+
+        &:hover {
+          background-color: @surface0 !important;
+        }
+      }
+
+      &.ytSpecButtonShapeNextFilled {
+        color: @base !important;
+        background-color: @accent !important;
+      }
+
+      &.ytSpecButtonShapeNextOutline {
+        color: @text !important;
+        border-color: @surface1 !important;
+
+        &:hover {
+          background-color: @surface0 !important;
+        }
+      }
+    }
+
+    .ytSpecButtonShapeNextCallToAction {
+      &.ytSpecButtonShapeNextOutline {
+        color: @accent !important;
+        border-color: @surface2 !important;
+
+        &:hover {
+          background-color: fade(@accent, 30%) !important;
+          color: @accent !important;
+        }
+      }
+
+      &.ytSpecButtonShapeNextText {
+        color: @accent !important;
+
+        &:hover {
+          background-color: fade(@accent, 30%) !important;
+        }
+      }
+
+      &.ytSpecButtonShapeNextFilled {
+        color: @base !important;
+        background-color: @accent !important;
+
+        &:hover {
+          background-color: lighten(@accent, 5%) !important;
+        }
+      }
+    }
+
+    .ytSpecButtonShapeNextDisabled.ytSpecButtonShapeNextFilled {
+      color: @subtext0 !important;
+      background-color: fade(@surface1, 70%) !important;
+    }
+
     /* Search box */
 
     .ytSearchboxComponentInputBox,
@@ -996,19 +1116,144 @@
 
     /* Video description */
 
-    // Video description background (collapsed on hover)
+    // Watch-page title + metadata text, and the description hover surface.
+    // The v2_0 redesign paints ytd-watch-metadata's color from a per-build
+    // *hashed* atomic var (var(--tffc2fd3a644f6275) = #f1f1f1) on the host, so
+    // the title (and the view-count/date line that inherits from it) never pick
+    // up the semantic-token remap — force @text on the host. Elements that set
+    // their own color (links, secondary text) keep it; only inheriting text
+    // changes. The --yt-saturated-* vars cover the collapsed description surface.
     ytd-watch-metadata {
+      color: @text !important;
       --yt-saturated-raised-background: @surface1 !important;
       --yt-saturated-text-primary: @text !important;
       --yt-saturated-text-secondary: @subtext1 !important;
     }
-    // Video description text (expanded)
-    ytd-text-inline-expander .ytAttributedStringLinkInheritColor:not(.ytAttributedStringLink) {
+    // Video description prose + the "...more"/"Show less" toggle. The prose spans
+    // (.ytAttributedStringLinkInheritColor) inherit white from an inner attributed-
+    // string wrapper rather than the expander host, so target them directly; the
+    // toggle is a paper-button whose label paints from a hashed atomic var. Real
+    // links (.ytAttributedStringLink) keep their own accent color.
+    ytd-text-inline-expander .ytAttributedStringLinkInheritColor:not(.ytAttributedStringLink),
+    ytd-text-inline-expander tp-yt-paper-button {
       color: @text !important;
     }
     // Video description YouTube links
     .ytAttributedStringHighlightTextDecorator {
       background-color: @surface2 !important;
+    }
+
+    // Description info line above the body (views · upload date · "N products").
+    // The ytd-watch-info-text host paints from a hashed atomic var (#f1f1f1); theme
+    // the host so the inheriting view/date/products spans follow @text.
+    ytd-watch-info-text {
+      color: @text !important;
+    }
+
+    // Channel lockup shown inside the expanded description (infocards + structured-
+    // description renderers): channel name → @text, subscriber count → @subtext0.
+    #title.ytd-video-description-infocards-section-renderer,
+    #title.ytd-structured-description-channel-lockup-renderer {
+      color: @text !important;
+    }
+    #subtitle.ytd-video-description-infocards-section-renderer,
+    #subscriber-count.ytd-structured-description-channel-lockup-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* Transcript panel — v2_0 ships two implementations (classic
+       ytd-transcript-body-renderer with .cue rows, and the modern
+       .ytwTranscriptSegmentViewModel* view model); theme both, plus the transcript
+       preview shown in the description. Segment text → @text, timestamps ("sub
+       text") → @subtext0. All paint from hashed atomic vars (#f1f1f1 / #aaa). */
+    .cue.ytd-transcript-body-renderer,
+    .ytwTranscriptSegmentViewModelHost,
+    .ytwTranscriptSegmentViewModelHostActive,
+    #title.ytd-transcript-section-header-renderer,
+    #title.ytd-video-description-transcript-section-renderer {
+      color: @text !important;
+    }
+    .cue-group-start-offset.ytd-transcript-body-renderer,
+    .ytwTranscriptSegmentViewModelTimestamp,
+    #sub-header-text.ytd-video-description-transcript-section-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* AI-generated video summary (ytd-expandable-metadata-renderer; also reused for
+       "Key moments"/chapters). Every text part paints from a hashed atomic var
+       (#f1f1f1 primary / #aaa secondary). Icons use fill:currentColor, so theming
+       `color` recolors the sparkle/info glyphs too. The expanded summary paragraph
+       itself lives in a separate .videoSummaryContentViewModel* view model. */
+    #collapsed-title.ytd-expandable-metadata-renderer,
+    #prominent-collapsed-label.ytd-expandable-metadata-renderer,
+    #collapsed-label.ytd-expandable-metadata-renderer,
+    .videoSummaryContentViewModelHost {
+      color: @text !important;
+    }
+    // Expanded summary attribution + the "Quality and accuracy may vary." disclaimer
+    // link (the link overrides --yt-endpoint-color, so target it directly).
+    #expanded-title.ytd-expandable-metadata-renderer,
+    #expanded-title-subtitle-group.ytd-expandable-metadata-renderer,
+    #expanded-subtitle.ytd-expandable-metadata-renderer a {
+      color: @subtext0 !important;
+    }
+    // The blue "timestamp" chip shown inside some summaries
+    #timestamp.ytd-expandable-metadata-renderer {
+      color: @accent !important;
+      background-color: fade(@accent, 20%) !important;
+    }
+
+    /* Chapter list (ytd-macro-markers-list-item-renderer). v2_0 paints the default
+       (non-hover) chapter title and the "0:00" timestamp from hashed atomic vars,
+       so the --ytd-macro-markers-list-item-* vars set above only reach the hover
+       state — force the stable selectors. Title → @text; timestamp pill → @subtext1
+       text on a @surface1 chip (was blue #3ea6ff on #263850). */
+    h3.ytd-macro-markers-list-item-renderer {
+      color: @text !important;
+    }
+    #time.ytd-macro-markers-list-item-renderer {
+      color: @subtext1 !important;
+      background-color: @surface1 !important;
+    }
+
+    // Engagement-panel header titles (Chapters, Transcript, Products, Description,
+    // Comments, "In this video") — all paint from the #f1f1f1 hashed atomic var.
+    ytd-engagement-panel-title-header-renderer #title-text {
+      color: @text !important;
+    }
+
+    // Section headers shown inline in the description (ytd-rich-list-header-renderer),
+    // e.g. the "Chapters" / "Products" headings: title → @text, subtitle and
+    // annotation → @subtext0.
+    #title.ytd-rich-list-header-renderer {
+      color: @text !important;
+    }
+    #subtitle.ytd-rich-list-header-renderer,
+    #title-annotation.ytd-rich-list-header-renderer {
+      color: @subtext0 !important;
+    }
+
+    // Comments — the author handle and body text paint from the #f1f1f1 hashed
+    // atomic var (var(--tffc2fd3a644f6275)) on stable comment selectors, which the
+    // semantic-token remap can't reach; force @text on both.
+    ytd-comment-view-model #author-text,
+    ytd-comment-view-model #content-text {
+      color: @text !important;
+    }
+
+    // Comment timestamp ("3 hours ago") and the "Add a comment..." placeholder —
+    // secondary text from hashed atomic vars; map to @subtext0. The timestamp link
+    // needs the direct selector: --yt-endpoint-color doesn't reach it (it inherits
+    // the secondary color set on #published-time-text).
+    ytd-comment-view-model #published-time-text a,
+    #simplebox-placeholder {
+      color: @subtext0 !important;
+    }
+
+    // Channel subscriber count under the video — secondary metadata painted from
+    // a hashed atomic var (var(--t4a6da19e16bf221a) = #aaa); theme it @subtext0.
+    #owner-sub-count.ytd-video-owner-renderer {
+      color: @subtext0 !important;
     }
 
     /* Links */
