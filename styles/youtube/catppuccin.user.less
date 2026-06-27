@@ -789,6 +789,20 @@
       }
     }
 
+    /* "More from YouTube" product logos (Premium, Music, Kids) in the guide.
+       Their badge is recolored to @accent by the [fill="#FF0033"] rule above;
+       recolor the white inner glyph to @crust too, so they read like the
+       masthead logo (accent badge + dark glyph) instead of a white glyph on
+       accent. Scoped to guide entries — the nav icons there have no explicit
+       fill, so only these brand logos are affected. */
+    ytd-guide-entry-renderer {
+      [fill="#fff"],
+      [fill="#FFF"],
+      [fill="#FFFFFF"] {
+        fill: @crust;
+      }
+    }
+
     /* Notifications Bell and Indicator */
     .ytSpecIconBadgeShapeStyleOverlay .ytSpecIconBadgeShapeIcon,
     .ytSpecIconBadgeShapeBadge {
@@ -1647,6 +1661,22 @@
     .ytContextualSheetLayoutHost,
     .ytSpecDialogLayoutHost {
       background-color: @mantle !important;
+    }
+
+    /* Sidebar / guide overlay drawer (watch page + narrow viewports).
+       The homepage guide is docked and inherits the page @base, but the
+       slide-in overlay drawer paints its own surface: #contentContainer
+       fills from the stable --app-drawer-content-container-background-color
+       token, while the inner #guide-content is painted by a per-build
+       *hashed* atomic var (var(--t…)) — so force the stable #guide-content
+       selector directly. (#scrim keeps its default translucent-black
+       backdrop.) */
+    #contentContainer.tp-yt-app-drawer {
+      --app-drawer-content-container-background-color: @base;
+    }
+    #guide-content,
+    #guide-content.ytd-app {
+      background: @base !important;
     }
 
     /* Theater / fullscreen letterbox bars. Their source depends on the
