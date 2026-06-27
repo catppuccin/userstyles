@@ -37,7 +37,7 @@
     @black: if(@flavor = latte, @text, @base);
 
     color: @text;
-    background: @base;
+    background: @base !important;
 
     #--variables() {
       &,
@@ -50,26 +50,281 @@
         --efyt-control-bar-background-color: @mantle;
         --dimmer-text: @text;
 
-        /* Newest Variables */
+        /* ============================================================
+           NEW COLOR SYSTEM — color-version="v2_0" (2026 redesign)
+           ------------------------------------------------------------
+           YouTube removed the old --yt-spec-* color tokens and split
+           them into two new systems:
+             1. --yt-sys-color-baseline--*  (semantic colors, 164 of them)
+             2. --yt-deprecated-*           (the old palette scale, renamed)
+           Both are mapped to the Catppuccin palette below. The legacy
+           --yt-spec-* block further down is intentionally KEPT: this
+           stylesheet still references those names via var(), and
+           Studio / older surfaces still ship them.
+           ============================================================ */
+
+        /* --- Semantic tokens: --yt-sys-color-baseline--* --- */
+
+        /* Surfaces & backgrounds */
         --yt-sys-color-baseline--base-background: @base;
-        --yt-sys-color-baseline--menu-background: @mantle;
         --yt-sys-color-baseline--raised-background: @surface0;
+        --yt-sys-color-baseline--menu-background: @mantle;
         --yt-sys-color-baseline--additive-background: @surface0;
-        --yt-sys-color-baseline--wordmark-text: @text;
+        --yt-sys-color-baseline--additive-background-inverse: @surface0;
+        --yt-sys-color-baseline--overlay-additive-background: fade(@surface0, 60%);
+        --yt-sys-color-baseline--inverted-background: @text;
+        --yt-sys-color-baseline--inverted-background-hover: @subtext0;
+        --yt-sys-color-baseline--solid-background: @text;
+        --yt-sys-color-baseline--solid-background-inverse: @base;
+        --yt-sys-color-baseline--overlay-solid-background: @text;
+        --yt-sys-color-baseline--overlay-solid-background-inverse: @base;
+        --yt-sys-color-baseline--static-white-background: @base;
+
+        /* Text & icons */
         --yt-sys-color-baseline--text-primary: @text;
         --yt-sys-color-baseline--text-secondary: @subtext0;
+        --yt-sys-color-baseline--text-disabled: @subtext1;
+        --yt-sys-color-baseline--text-primary-inverse: @base;
+        --yt-sys-color-baseline--text-secondary-inverse: @subtext1;
+        --yt-sys-color-baseline--text-disabled-inverse: @overlay1;
+        --yt-sys-color-baseline--text-error: @red;
+        --yt-sys-color-baseline--text-warning: @peach;
+        --yt-sys-color-baseline--text-complete: @green;
+        --yt-sys-color-baseline--wordmark-text: @text;
+        --yt-sys-color-baseline--icon-active-other: @text;
+        --yt-sys-color-baseline--icon-warning: @peach;
+
+        /* Accent / call-to-action / status */
         --yt-sys-color-baseline--call-to-action: @accent;
+        --yt-sys-color-baseline--call-to-action-hover: lighten(@accent, 5%);
+        --yt-sys-color-baseline--call-to-action-inverse: @accent;
+        --yt-sys-color-baseline--overlay-call-to-action: @accent;
+        --yt-sys-color-baseline--overlay-call-to-action-hover: lighten(@accent, 5%);
         --yt-sys-color-baseline--suggested-action: mix(@accent, @base, 30%);
+        --yt-sys-color-baseline--suggested-action-hover: mix(@accent, @base, 45%);
+        --yt-sys-color-baseline--suggested-action-inverse: mix(@accent, @base, 30%);
+        --yt-sys-color-baseline--brand-red-contrast: @accent;
+        --yt-sys-color-baseline--red-indicator: @accent;
+        --yt-sys-color-baseline--error-indicator: @red;
+        --yt-sys-color-baseline--error-indicator-inverse: @red;
+        --yt-sys-color-baseline--error-background-red: fade(@red, 20%);
+        --yt-sys-color-baseline--background-warning: fade(@peach, 30%);
+        --yt-sys-color-baseline--background-complete: fade(@green, 30%);
+        --yt-sys-color-baseline--themed-green: @green;
+        --yt-sys-color-baseline--themed-green-inverse: @green;
+        --yt-sys-color-baseline--overlay-green: @green;
+
+        /* Outlines / borders */
         --yt-sys-color-baseline--outline: @surface0;
+        --yt-sys-color-baseline--outline-inverse: @surface1;
         --yt-sys-color-baseline--outline-opaque: @surface1;
         --yt-sys-color-baseline--outline-inverse-opaque: @overlay0;
-        --yt-sys-color-baseline--overlay-background-medium-light: fade(
-          @black,
-          60%
-        );
-        --yt-sys-color-baseline--overlay-background-heavy: fade(@black, 80%);
+        --yt-sys-color-baseline--outline-rim: fade(@text, 15%);
+        --yt-sys-color-baseline--outline-rim-inverse: fade(@black, 15%);
+
+        /* Tonal / mono / chip hover states */
+        --yt-sys-color-baseline--tonal-background: @surface0;
+        --yt-sys-color-baseline--tonal-background-inverse: @surface0;
+        --yt-sys-color-baseline--tonal-wash: fade(@text, 5%);
+        --yt-sys-color-baseline--tonal-wash-inverse: fade(@black, 5%);
+        --yt-sys-color-baseline--tonal-rim: fade(@text, 10%);
+        --yt-sys-color-baseline--tonal-rim-inverse: fade(@black, 5%);
+        --yt-sys-color-baseline--solid-wash: fade(@text, 30%);
+        --yt-sys-color-baseline--solid-wash-inverse: fade(@text, 15%);
+        --yt-sys-color-baseline--solid-rim: fade(@text, 20%);
+        --yt-sys-color-baseline--solid-rim-inverse: fade(@text, 20%);
+        --yt-sys-color-baseline--button-chip-background-hover: @surface1;
+        --yt-sys-color-baseline--mono-filled-hover: @subtext0;
+        --yt-sys-color-baseline--mono-filled-hover-inverse: @surface1;
+        --yt-sys-color-baseline--mono-tonal-hover: @surface1;
+        --yt-sys-color-baseline--mono-tonal-hover-inverse: @surface1;
+        --yt-sys-color-baseline--overlay-filled-hover: @subtext0;
+        --yt-sys-color-baseline--touch-response: @text;
+        --yt-sys-color-baseline--touch-response-inverse: @base;
+
+        /* Media overlays & scrims (sit over video / thumbnails) */
         --yt-sys-color-baseline--overlay-background-solid: @crust;
-        --yt-sys-color-baseline--overlay-text-primary: @text;
+        --yt-sys-color-baseline--overlay-background-heavy: fade(@black, 80%);
+        --yt-sys-color-baseline--overlay-background-medium-heavy: fade(@black, 40%);
+        --yt-sys-color-baseline--overlay-background-medium: fade(@black, 60%);
+        --yt-sys-color-baseline--overlay-background-medium-light: fade(@black, 30%);
+        --yt-sys-color-baseline--overlay-background-light: fade(@black, 10%);
+        --yt-sys-color-baseline--overlay-background-extra-light: fade(@black, 3%);
+        --yt-sys-color-baseline--overlay-background-brand: fade(@accent, 90%);
+        --yt-sys-color-baseline--themed-overlay-background: fade(@crust, 80%);
+        --yt-sys-color-baseline--overlay-text-primary: @white;
+        --yt-sys-color-baseline--overlay-text-primary-inverse: @crust;
+        --yt-sys-color-baseline--overlay-text-secondary: fade(@white, 70%);
+        --yt-sys-color-baseline--overlay-text-disabled: fade(@white, 30%);
+        --yt-sys-color-baseline--overlay-touch-response: @white;
+        --yt-sys-color-baseline--overlay-touch-response-inverse: @black;
+        --yt-sys-color-baseline--overlay-button-primary: fade(@white, 30%);
+        --yt-sys-color-baseline--overlay-button-secondary: fade(@white, 10%);
+        --yt-sys-color-baseline--overlay-button-secondary-darker: fade(@white, 20%);
+        --yt-sys-color-baseline--overlay-outline: fade(@white, 30%);
+        --yt-sys-color-baseline--overlay-outline-inverse: fade(@white, 30%);
+        --yt-sys-color-baseline--overlay-outline-rim: fade(@white, 15%);
+        --yt-sys-color-baseline--overlay-outline-rim-inverse: fade(@white, 15%);
+        --yt-sys-color-baseline--overlay-solid-rim: fade(@white, 20%);
+        --yt-sys-color-baseline--overlay-solid-rim-inverse: fade(@white, 20%);
+        --yt-sys-color-baseline--overlay-solid-wash: @white;
+        --yt-sys-color-baseline--overlay-solid-wash-inverse: fade(@white, 20%);
+        --yt-sys-color-baseline--overlay-tonal-background: fade(@white, 30%);
+        --yt-sys-color-baseline--overlay-tonal-background-inverse: fade(@white, 15%);
+        --yt-sys-color-baseline--overlay-tonal-hover: fade(@white, 20%);
+        --yt-sys-color-baseline--overlay-tonal-rim: fade(@white, 15%);
+        --yt-sys-color-baseline--overlay-tonal-rim-inverse: fade(@white, 15%);
+        --yt-sys-color-baseline--overlay-tonal-wash: fade(@white, 15%);
+        --yt-sys-color-baseline--overlay-tonal-wash-inverse: fade(@white, 15%);
+
+        /* Frosted glass (masthead / top bar) */
+        --yt-sys-color-baseline--frosted-glass-desktop: @base;
+        --yt-sys-color-baseline--frosted-glass-mobile: @base;
+
+        /* Scrim gradients & shadow */
+        --yt-sys-color-baseline--scrim-background-gradient-1: fade(@base, 0%);
+        --yt-sys-color-baseline--scrim-background-gradient-2: fade(@base, 30%);
+        --yt-sys-color-baseline--scrim-background-gradient-3: fade(@base, 60%);
+        --yt-sys-color-baseline--scrim-background-gradient-4: fade(@base, 90%);
+        --yt-sys-color-baseline--scrim-background-gradient-5: @base;
+        --yt-sys-color-baseline--shadow-medium: fade(@crust, 75%);
+
+        /* Mobile status / system bars */
+        --yt-sys-color-baseline--status-bar: @base;
+        --yt-sys-color-baseline--system-bar: @base;
+
+        /* Static brand / utility colors */
+        --yt-sys-color-baseline--static-brand-red: @accent;
+        --yt-sys-color-baseline--static-brand-white: @text;
+        --yt-sys-color-baseline--static-brand-black: @base;
+        --yt-sys-color-baseline--static-black: @base;
+        --yt-sys-color-baseline--static-dark-grey: @surface0;
+        --yt-sys-color-baseline--static-grey: @subtext0;
+        --yt-sys-color-baseline--static-ad-yellow: @peach;
+        --yt-sys-color-baseline--static-magenta: @pink;
+        --yt-sys-color-baseline--static-medium-magenta: @maroon;
+        --yt-sys-color-baseline--static-clear-color: transparent;
+        --yt-sys-color-baseline--static-clear-black: transparent;
+
+        /* Palette scale (badges, data-viz, info chips) */
+        --yt-sys-color-baseline--blue-1: @sapphire;
+        --yt-sys-color-baseline--blue-2: @sapphire;
+        --yt-sys-color-baseline--blue-3: @blue;
+        --yt-sys-color-baseline--blue-4: @blue;
+        --yt-sys-color-baseline--blue-5: @sky;
+        --yt-sys-color-baseline--blue-6: @sky;
+        --yt-sys-color-baseline--blue-7: @sky;
+        --yt-sys-color-baseline--green-6: @green;
+        --yt-sys-color-baseline--grey-4: @overlay2;
+        --yt-sys-color-baseline--grey-6: @subtext0;
+        --yt-sys-color-baseline--purple-6: @mauve;
+        --yt-sys-color-baseline--red-3: @accent;
+        --yt-sys-color-baseline--red-4: @red;
+
+        /* GenAI ("Ask") gradient */
+        --yt-sys-color-baseline--genai-1: @teal;
+        --yt-sys-color-baseline--genai-1-additive: fade(@teal, 30%);
+        --yt-sys-color-baseline--genai-2: @mauve;
+        --yt-sys-color-baseline--genai-2-additive: fade(@mauve, 30%);
+        --yt-sys-color-baseline--genai-3: @pink;
+        --yt-sys-color-baseline--genai-3-additive: fade(@pink, 30%);
+        --yt-sys-color-baseline--genai-4: @red;
+        --yt-sys-color-baseline--genai-4-additive: fade(@red, 30%);
+
+        /* Assistive / vibrant feed gradients */
+        --yt-sys-color-baseline--assistive-feed-themed-gradient-1: @teal;
+        --yt-sys-color-baseline--assistive-feed-themed-gradient-2: @mauve;
+        --yt-sys-color-baseline--assistive-feed-themed-gradient-3: @red;
+        --yt-sys-color-baseline--assistive-feed-vibrant-gradient-1: @teal;
+        --yt-sys-color-baseline--assistive-feed-vibrant-gradient-2: @mauve;
+        --yt-sys-color-baseline--assistive-feed-vibrant-gradient-3: @red;
+        --yt-sys-color-baseline--feed-vibrant-gradient1: @teal;
+        --yt-sys-color-baseline--feed-vibrant-gradient2: @mauve;
+        --yt-sys-color-baseline--feed-vibrant-gradient3: @red;
+
+        /* On-screen / emoji keyboard */
+        --yt-sys-color-baseline--keyboard-background: @base;
+        --yt-sys-color-baseline--keyboard-background-action: @accent;
+        --yt-sys-color-baseline--keyboard-background-bar: @mantle;
+        --yt-sys-color-baseline--keyboard-background-emoji: @base;
+        --yt-sys-color-baseline--keyboard-background-key: @surface0;
+        --yt-sys-color-baseline--keyboard-background-key-alt: @surface1;
+        --yt-sys-color-baseline--keyboard-background-switch: @overlay0;
+        --yt-sys-color-baseline--keyboard-divider: @surface1;
+        --yt-sys-color-baseline--keyboard-text-action: @base;
+        --yt-sys-color-baseline--keyboard-text-character: @text;
+        --yt-sys-color-baseline--keyboard-text-chevron: @text;
+        --yt-sys-color-baseline--keyboard-text-icon: @text;
+        --yt-sys-color-baseline--keyboard-text-symbol: @subtext0;
+
+        /* --- Deprecated palette: --yt-deprecated-* (old --yt-spec-* scale, renamed) --- */
+        --yt-deprecated-white-1: @text;
+        --yt-deprecated-white-2: @subtext0;
+        --yt-deprecated-white-3: @subtext1;
+        --yt-deprecated-white-4: darken(@subtext1, 5%);
+        --yt-deprecated-white-1-alpha-10: fade(@text, 90%);
+        --yt-deprecated-white-1-alpha-20: fade(@text, 80%);
+        --yt-deprecated-white-1-alpha-25: fade(@text, 75%);
+        --yt-deprecated-white-1-alpha-30: fade(@text, 70%);
+        --yt-deprecated-white-1-alpha-70: fade(@text, 30%);
+        --yt-deprecated-white-1-alpha-95: fade(@text, 5%);
+        --yt-deprecated-white-1-alpha-98: fade(@text, 2%);
+        --yt-deprecated-white-opacity-lighten-1: fade(@text, 80%);
+        --yt-deprecated-white-opacity-lighten-2: fade(@text, 60%);
+        --yt-deprecated-white-opacity-lighten-4: fade(@text, 20%);
+        --yt-deprecated-black-1: @overlay1;
+        --yt-deprecated-black-2: @overlay0;
+        --yt-deprecated-black-3: @surface2;
+        --yt-deprecated-black-4: @surface1;
+        --yt-deprecated-black-pure: @surface0;
+        --yt-deprecated-black-1-alpha-95: fade(@crust, 5%);
+        --yt-deprecated-black-1-alpha-98: fade(@crust, 2%);
+        --yt-deprecated-black-pure-alpha-5: @subtext0;
+        --yt-deprecated-black-pure-alpha-10: @overlay2;
+        --yt-deprecated-black-pure-alpha-15: fade(@crust, 85%);
+        --yt-deprecated-black-pure-alpha-30: fade(@crust, 70%);
+        --yt-deprecated-black-pure-alpha-60: fade(@crust, 40%);
+        --yt-deprecated-black-pure-alpha-80: fade(@crust, 20%);
+        --yt-deprecated-grey-1: @text;
+        --yt-deprecated-grey-2: @subtext0;
+        --yt-deprecated-grey-3: @subtext1;
+        --yt-deprecated-grey-4: @overlay2;
+        --yt-deprecated-grey-5: @overlay1;
+        --yt-deprecated-brand-youtube-red: @accent;
+        --yt-deprecated-brand-medium-red: @accent;
+        --yt-deprecated-brand-light-red: @accent;
+        --yt-deprecated-brand-medium-red-alpha-90: fade(@accent, 10%);
+        --yt-deprecated-brand-medium-red-alpha-30: fade(@accent, 70%);
+        --yt-deprecated-brand-light-red-alpha-30: fade(@accent, 70%);
+        --yt-deprecated-red-30: @peach;
+        --yt-deprecated-red-70: @red;
+        --yt-deprecated-yellow: @peach;
+        --yt-deprecated-light-green: @green;
+        --yt-deprecated-dark-green: @green;
+        --yt-deprecated-blue: @blue;
+        --yt-deprecated-blue-light: @sapphire;
+        --yt-deprecated-pale-blue: @sky;
+        --yt-deprecated-light-blue: @sky;
+        --yt-deprecated-light-blue-alpha-30: fade(@sky, 70%);
+        --yt-deprecated-dark-blue: @sapphire;
+        --yt-deprecated-dark-blue-alpha-30: fade(@sapphire, 70%);
+        --yt-deprecated-navy-blue: @teal;
+        --yt-deprecated-general-background-a: @base;
+        --yt-deprecated-general-background-b: @base;
+        --yt-deprecated-general-background-c: @crust;
+        --yt-deprecated-paper-tab-ink: fade(@text, 70%);
+        --yt-deprecated-overlay-icon-active-other: @white;
+        --yt-deprecated-dark-surface-100: @mantle;
+        --yt-deprecated-luna-black: @crust;
+        --yt-deprecated-luna-black-opacity-lighten-1: fade(@crust, 80%);
+        --yt-deprecated-luna-black-opacity-lighten-2: fade(@crust, 60%);
+        --yt-deprecated-luna-black-opacity-lighten-3: fade(@crust, 40%);
+        --yt-deprecated-luna-black-opacity-lighten-4: fade(@crust, 20%);
+        --yt-deprecated-opalescence-grey: @overlay1;
+        --yt-deprecated-opalescence-grey-opacity-lighten-3: fade(@overlay1, 40%);
+        --yt-deprecated-opalescence-soft-grey: @surface2;
+        --yt-deprecated-opalescence-soft-grey-opacity-lighten-1: fade(@surface2, 80%);
+        --yt-deprecated-opalescence-soft-grey-opacity-lighten-3: fade(@surface2, 40%);
 
         --yt-spec-white-1: @text;
         --yt-spec-white-2: @subtext0;
@@ -415,8 +670,7 @@
       --yt-active-playlist-panel-background-color: @surface0;
     }
 
-    ytd-playlist-panel-renderer[collapsible][collapsed][use-color-palette]
-      .header.ytd-playlist-panel-renderer {
+    ytd-playlist-panel-renderer[collapsible][collapsed][use-color-palette] .header.ytd-playlist-panel-renderer {
       --iron-icon-fill-color: @text;
       background-color: @base;
     }
@@ -431,8 +685,7 @@
       --yt-spec-frosted-glass-desktop: @base;
     }
 
-    ytd-feed-filter-chip-bar-renderer[expand-instead-of-scroll]
-      #chips-wrapper.ytd-feed-filter-chip-bar-renderer {
+    ytd-feed-filter-chip-bar-renderer[expand-instead-of-scroll] #chips-wrapper.ytd-feed-filter-chip-bar-renderer {
       --iron-icon-fill-color: @text;
       background-color: @base;
     }
@@ -736,10 +989,7 @@
       --yt-saturated-text-secondary: @subtext1 !important;
     }
     // Video description text (expanded)
-    ytd-text-inline-expander
-      .ytAttributedStringLinkInheritColor:not(
-        .ytAttributedStringLink
-      ) {
+    ytd-text-inline-expander .ytAttributedStringLinkInheritColor:not(.ytAttributedStringLink) {
       color: @text !important;
     }
     // Video description YouTube links
@@ -1038,8 +1288,7 @@
           color: @subtext1;
         }
       }
-      ytd-reel-video-renderer[is-watch-while-mode]
-        .ytSpecButtonShapeWithLabelLabel {
+      ytd-reel-video-renderer[is-watch-while-mode] .ytSpecButtonShapeWithLabelLabel {
         color: @white;
       }
 
@@ -1058,11 +1307,14 @@
       }
     }
     // Video/thumbnail renderer overlayed buttons
-    .ytBadgeShapeThumbnailDefaultRedesign, // Timestamp
+    .ytBadgeShapeThumbnailDefaultRedesign,
+    // Timestamp
     // Play Next
     .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--tonal[style="background-color: rgba(0, 0, 0, 0.3);"],
-    .ytdVolumeControlsBackgroundScrim, // Shorts Volume Slider
+    .ytdVolumeControlsBackgroundScrim,
+    // Shorts Volume Slider
     .ytInlinePlayerControlsTopRightControlsCircleButton // Homepage
+
     {
       background: fade(@black, 60%) !important;
       color: @white;
@@ -1193,7 +1445,8 @@
     /* Components */
 
     /* Menus and context sheets */
-    .ytContextualSheetLayoutHost, ytd-menu-popup-renderer {
+    .ytContextualSheetLayoutHost,
+    ytd-menu-popup-renderer {
       background-color: @mantle;
     }
     .ytListItemViewModelTappable:hover {
@@ -1328,13 +1581,72 @@
     }
 
     /* Category tag pills */
-    .ytChipShapeInactive {
+    .ytChipShapeInactive,
+    .ytChipShapeChip:not(.ytChipShapeActive) {
       background-color: @surface0;
       color: @text;
     }
     .ytChipShapeActive {
       background-color: @accent;
       color: @base;
+    }
+
+    /* ============================================================
+       2026 v2_0 STRUCTURAL OVERRIDES (hashed-var workaround)
+       ------------------------------------------------------------
+       YouTube now paints many surfaces from per-build *hashed*
+       custom properties, e.g.  background: var(--t3e41d7b17b187f69),
+       which are set to hardcoded literals (#0f0f0f, #212121, #f1f1f1)
+       per theme instead of deriving from --yt-sys-color-baseline--*.
+       YT also marks the base background !important. The design-token
+       overrides above therefore cannot reach these components, so we
+       force the palette directly on stable class/element selectors
+       with !important. These hashed var names change every YouTube
+       build — DO NOT target them; target the elements instead.
+       (Background surfaces that are transparent — masthead, cards,
+       drawer, chip bar — inherit the page background automatically.)
+       ============================================================ */
+
+    /* Page background — forced at the mixin level via the `background: @base
+       !important;` above (YT marks html[dark] !important). App containers: */
+    ytd-app,
+    ytd-page-manager,
+    #page-manager.ytd-app,
+    #content.ytd-app {
+      background: @base !important;
+    }
+
+    /* Masthead / top bar */
+    #masthead,
+    #masthead-container,
+    ytd-masthead,
+    #background.ytd-masthead,
+    #frosted-glass {
+      background: @base !important;
+    }
+
+    /* Search box + suggestions dropdown */
+    .ytSearchboxComponentInputBox,
+    .ytSearchboxComponentInputBoxDark {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+    }
+    .ytSearchboxComponentSuggestionsContainer,
+    .ytSearchboxComponentSuggestionsContainerDark {
+      background-color: @surface0 !important;
+    }
+    .ytSearchboxComponentSearchButton,
+    .ytSearchboxComponentSearchButtonDark {
+      background-color: @mantle !important;
+    }
+
+    /* Raised popups / menus / dropdowns / dialogs */
+    ytd-menu-popup-renderer,
+    tp-yt-paper-listbox.ytd-menu-popup-renderer,
+    tp-yt-iron-dropdown .ytContextualSheetLayoutHost,
+    .ytContextualSheetLayoutHost,
+    .ytSpecDialogLayoutHost {
+      background-color: @mantle !important;
     }
   }
 }
@@ -1562,12 +1874,10 @@
       }
     }
 
-    .yt-spec-touch-feedback-shape--overlay-touch-response-inverse
-      .yt-spec-touch-feedback-shape__fill {
+    .yt-spec-touch-feedback-shape--overlay-touch-response-inverse .yt-spec-touch-feedback-shape__fill {
       background-color: @accent;
     }
-    .yt-spec-touch-feedback-shape--overlay-touch-response
-      .yt-spec-touch-feedback-shape__fill {
+    .yt-spec-touch-feedback-shape--overlay-touch-response .yt-spec-touch-feedback-shape__fill {
       background-color: @text;
     }
   }
