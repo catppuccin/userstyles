@@ -1871,10 +1871,16 @@
       }
     }
 
-    /* Category tag pills */
+    /* Category tag pills. Inactive chips take a translucent wash (matching
+       default YT's rgba(255,255,255,.1)) rather than a solid fill, so the
+       masthead's frosted glass shows through them once the feed is scrolled —
+       a solid surface reads as flat opaque pills sitting on the frost. The
+       fade(@text,…) wash is flavor-aware (light on dark flavors, dark on Latte).
+       The active chip stays opaque @accent, mirroring default's opaque-white
+       active pill. */
     .ytChipShapeInactive,
     .ytChipShapeChip:not(.ytChipShapeActive) {
-      background-color: @surface0;
+      background-color: fade(@text, 10%);
       color: @text;
     }
     .ytChipShapeActive {
@@ -1960,9 +1966,33 @@
     .ytSearchboxComponentSuggestionsContainerDark {
       background-color: @surface0 !important;
     }
+    /* Search button (the magnifier segment on the right of the box) and the
+       separate "Search with your voice" button next to it. Default YT paints
+       both with a translucent wash (rgba(255,255,255,.08) / .1) so the frosted
+       glass shows through; a solid fill flattens them. The voice button's own
+       default is a hardcoded white wash — re-tint it to the same flavor-aware
+       fade(@text,…) so it matches the search button instead of reading as plain
+       white. The input box itself stays opaque @mantle (default is an opaque
+       dark field too). */
     .ytSearchboxComponentSearchButton,
-    .ytSearchboxComponentSearchButtonDark {
-      background-color: @mantle !important;
+    .ytSearchboxComponentSearchButtonDark,
+    #voice-search-button {
+      background-color: fade(@text, 8%) !important;
+    }
+
+    /* Masthead pill buttons (Create, and any other mono/tonal buttons in the top
+       bar). The global .ytSpecButtonShapeNext* / .yt-spec-button-shape-next-*
+       rules paint these a solid @surface0; inside the masthead that flattens them
+       against the frosted glass, whereas default YT keeps them a translucent wash
+       so the frost shows through. Re-tint just the masthead instances — the
+       #masthead id out-specifies the global !important rule. */
+    #masthead .ytSpecButtonShapeNextMono.ytSpecButtonShapeNextTonal,
+    #masthead .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal {
+      background-color: fade(@text, 10%) !important;
+    }
+    #masthead .ytSpecButtonShapeNextMono.ytSpecButtonShapeNextTonal:hover,
+    #masthead .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal:hover {
+      background-color: fade(@text, 20%) !important;
     }
 
     /* Raised popups / menus / dropdowns / dialogs.
