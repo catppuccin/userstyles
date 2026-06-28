@@ -2145,6 +2145,39 @@
       color: @text !important;
     }
 
+    /* Playlist panel on the watch page (ytd-playlist-panel-renderer — the queue
+       beside the player). Its two surfaces paint from per-build *hashed* atomic
+       vars instead of the semantic tokens: the open list body (.playlist-items =
+       #0f0f0f) and the header band (.header = #212121), so they stayed the default
+       dark over the @base page. Force both → @base so the panel reads as one sheet
+       with the page (matching the collapsed-header rule above). Its text is hashed
+       too: the playlist title (.title), each video title (h4 → #video-title) and
+       the collapse/close icon (#trailing-icon) paint #f1f1f1 → @text; the owner +
+       index-message (#publisher-container link + .index-message, "Sarek · 1 / 21"),
+       each row's channel byline (#byline), and the index number / drag-reorder
+       handle that swap in on hover (#index, #index-container, #reorder) paint #aaa
+       → @subtext0. */
+    #items.ytd-playlist-panel-renderer,
+    .header.ytd-playlist-panel-renderer {
+      background-color: @base !important;
+    }
+    .title.ytd-playlist-panel-renderer,
+    .title.ytd-playlist-panel-renderer a,
+    h4.ytd-playlist-panel-video-renderer,
+    #video-title.ytd-playlist-panel-video-renderer,
+    #trailing-icon.ytd-playlist-panel-renderer {
+      color: @text !important;
+    }
+    #publisher-container.ytd-playlist-panel-renderer,
+    #publisher-container.ytd-playlist-panel-renderer a,
+    .index-message.ytd-playlist-panel-renderer,
+    #byline.ytd-playlist-panel-video-renderer,
+    #index.ytd-playlist-panel-video-renderer,
+    #index-container.ytd-playlist-panel-video-renderer,
+    #reorder.ytd-playlist-panel-video-renderer {
+      color: @subtext0 !important;
+    }
+
     /* Channel page header containers. The outer header/tabs containers of the
        channel page paint their background from a per-build *hashed* atomic var
        (var(--t…) = #0f0f0f) directly, not via the --yt-lightsource-* tokens
@@ -2473,16 +2506,28 @@
 
     /* Legacy context-menu items (ytd-menu-service-item-renderer — the older
        paper-item menu rows still used by some menus, e.g. the post composer's
-       "Schedule post" dropdown). Their label and icon paint the #f1f1f1 hashed
-       atomic var and the row hover is a translucent-white wash, none of which the
-       newer .ytListItemViewModel* remap reaches. Force label + icon → @text and the
-       hover → @surface0 over the @mantle popup. */
+       "Schedule post" dropdown, and the video ⋮ menu in a playlist panel). Their
+       label and icon paint the #f1f1f1 hashed atomic var and the row hover is a
+       translucent-white wash, none of which the newer .ytListItemViewModel* remap
+       reaches. The sibling renderers in the same popup behave identically — the
+       navigation row (ytd-menu-navigation-item-renderer, e.g. "Save to playlist")
+       and the download row (ytd-menu-service-item-download-renderer, "Download"),
+       whose labels carry no .title class — so cover all three. Force label + icon
+       → @text and the hover → @surface0 over the @mantle popup. */
     yt-formatted-string.title.ytd-menu-service-item-renderer,
     .ytIconWrapperHost.ytd-menu-service-item-renderer,
-    yt-icon.ytd-menu-service-item-renderer {
+    yt-icon.ytd-menu-service-item-renderer,
+    yt-formatted-string.ytd-menu-navigation-item-renderer,
+    .ytIconWrapperHost.ytd-menu-navigation-item-renderer,
+    yt-icon.ytd-menu-navigation-item-renderer,
+    yt-formatted-string.ytd-menu-service-item-download-renderer,
+    .ytIconWrapperHost.ytd-menu-service-item-download-renderer,
+    yt-icon.ytd-menu-service-item-download-renderer {
       color: @text !important;
     }
-    tp-yt-paper-item.ytd-menu-service-item-renderer:hover {
+    tp-yt-paper-item.ytd-menu-service-item-renderer:hover,
+    tp-yt-paper-item.ytd-menu-navigation-item-renderer:hover,
+    tp-yt-paper-item.ytd-menu-service-item-download-renderer:hover {
       background-color: @surface0 !important;
     }
 
