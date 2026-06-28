@@ -177,9 +177,12 @@
         --yt-sys-color-baseline--overlay-tonal-wash: fade(@white, 15%);
         --yt-sys-color-baseline--overlay-tonal-wash-inverse: fade(@white, 15%);
 
-        /* Frosted glass (masthead / top bar) */
-        --yt-sys-color-baseline--frosted-glass-desktop: @base;
-        --yt-sys-color-baseline--frosted-glass-mobile: @base;
+        /* Frosted glass (masthead / top bar). YouTube's default for these is a
+           translucent tint (rgba(15,15,15,.8)) that sits over a backdrop blur, so
+           keep the .8 alpha — a solid @base would flatten the glass anywhere these
+           tokens still drive the frost. */
+        --yt-sys-color-baseline--frosted-glass-desktop: fade(@base, 80%);
+        --yt-sys-color-baseline--frosted-glass-mobile: fade(@base, 80%);
 
         /* Scrim gradients & shadow */
         --yt-sys-color-baseline--scrim-background-gradient-1: fade(@base, 0%);
@@ -684,10 +687,13 @@
       --iron-icon-fill-color: @text;
     }
 
+    /* Legacy frosted-glass vars (kept for older builds / sub-sites). Translucent
+       like the default so the backdrop blur survives wherever these still apply;
+       the structural override below handles the current v2_0 hashed-var build. */
     #background.ytd-masthead,
     #frosted-glass {
-      --yt-frosted-glass-desktop: @base;
-      --yt-spec-frosted-glass-desktop: @base;
+      --yt-frosted-glass-desktop: fade(@base, 80%);
+      --yt-spec-frosted-glass-desktop: fade(@base, 80%);
     }
 
     ytd-feed-filter-chip-bar-renderer[expand-instead-of-scroll] #chips-wrapper.ytd-feed-filter-chip-bar-renderer {
@@ -1901,13 +1907,47 @@
       background: @base !important;
     }
 
-    /* Masthead / top bar */
+    /* Masthead / top bar. YouTube paints the whole bar from one full-width layer
+       (#frosted-glass spans both the search/actions row and the chip bar) while
+       the row containers themselves stay transparent. So only the paint layers —
+       #background.ytd-masthead (solid states) and #frosted-glass — take the solid
+       @base; the row containers are forced transparent so that single layer (or
+       the page @base at the top) shows through the *entire* bar, not just the chip
+       row. Forcing the containers opaque would re-cover the search/actions row. */
     #masthead,
     #masthead-container,
-    ytd-masthead,
+    ytd-masthead {
+      background: transparent !important;
+    }
     #background.ytd-masthead,
     #frosted-glass {
       background: @base !important;
+    }
+    /* …and when the masthead enters its frosted state — scrolled home/feed
+       (#frosted-glass gains .with-chipbar) or the watch-page masthead in
+       frosted-glass-mode="without-chipbar" — YouTube layers a backdrop blur and
+       fills it with a translucent tint from a per-build *hashed* atomic var
+       (rgba(15,15,15,.8)). That var does NOT derive from the frosted-glass design
+       token, so the token remap can't reach it, and the opaque @base above would
+       paint over the blur and flatten the glass. Re-tint just these blurred
+       states with a translucent @base (matching YT's .8 alpha) so the frost shows
+       through; the more-specific selectors win over the solid rule above. Theater
+       is excluded — it has no blur and keeps the solid fill. */
+    #frosted-glass.with-chipbar,
+    ytd-masthead[frosted-glass-mode="without-chipbar"]:not([theater]) #background.ytd-masthead {
+      background-color: fade(@base, 80%) !important;
+    }
+    /* The frosted layer is full-width, so it also covers the strip directly above
+       the sidebar: the guide starts below the 56px top row, leaving the masthead's
+       logo / menu-button corner (#start) sitting over the sidebar column within
+       the frosted strip. Keep #start transparent so the frost stays continuous
+       across the whole top row — exactly like default YouTube. Forcing it solid
+       @base drops an opaque block into the frosted glass and cuts the chip-bar
+       blur off at the sidebar edge. The docked guide below is likewise left
+       transparent (see the guide-drawer block further down) so the top of the
+       sidebar reads as one uninterrupted sheet of frosted glass. */
+    #start.ytd-masthead {
+      background: transparent !important;
     }
 
     /* Search box + suggestions dropdown */
@@ -1956,19 +1996,40 @@
       background-color: @mantle !important;
     }
 
-    /* Sidebar / guide overlay drawer (watch page + narrow viewports).
-       The homepage guide is docked and inherits the page @base, but the
-       slide-in overlay drawer paints its own surface: #contentContainer
-       fills from the stable --app-drawer-content-container-background-color
-       token, while the inner #guide-content is painted by a per-build
-       *hashed* atomic var (var(--t…)) — so force the stable #guide-content
-       selector directly. (#scrim keeps its default translucent-black
-       backdrop.) */
-    #contentContainer.tp-yt-app-drawer {
+    /* Engagement-panel card surface (watch-page side panels: the "In this video"
+       chapters/timeline card, Transcript, Comments, Products, Structured
+       description…). When a panel carries match-content-theme, every surface of
+       the card fills from the same per-build *hashed* atomic var
+       (var(--t518e925f61bdcb91) = #212121, the same #212121 the dialogs use), so
+       the semantic-token remap can't reach it: the title row (#header) and the
+       chip-bar row (#subheader) of the title-header-renderer, plus the #content
+       body. Mirror YouTube's own stable selectors and force @surface0 on all
+       three so the whole card reads as one raised surface matching the
+       description box. (Inner chips paint their own hashed vars — the
+       .ytChipShape* rules above already theme them; the active chip → @accent.) */
+    ytd-engagement-panel-section-list-renderer[match-content-theme] #header.ytd-engagement-panel-title-header-renderer,
+    ytd-engagement-panel-section-list-renderer[match-content-theme] #subheader.ytd-engagement-panel-title-header-renderer,
+    ytd-engagement-panel-section-list-renderer[match-content-theme] #content.ytd-engagement-panel-section-list-renderer {
+      background-color: @surface0 !important;
+    }
+
+    /* Sidebar / guide drawer.
+       Only the OVERLAY drawer — watch page + narrow viewports, i.e. when the
+       drawer is opened but NOT [persistent] — needs an opaque surface, so the
+       scrolled-under page content doesn't bleed through it. There #contentContainer
+       fills from the stable --app-drawer-content-container-background-color token,
+       while the inner #guide-content is painted by a per-build *hashed* atomic var
+       (var(--t…)), so force the stable selectors. (#scrim keeps its default
+       translucent-black backdrop.)
+       The DOCKED homepage guide ([persistent]) is deliberately left transparent:
+       it inherits the page @base below the masthead and lets the masthead's
+       frosted glass show through its top strip, so the chip-bar frost stays
+       continuous across the sidebar instead of being cut off by a solid panel. */
+    #contentContainer.tp-yt-app-drawer:not([persistent]) {
       --app-drawer-content-container-background-color: @base;
     }
-    #guide-content,
-    #guide-content.ytd-app {
+    tp-yt-app-drawer#guide:not([persistent]) #guide-content,
+    tp-yt-app-drawer#guide:not([persistent]) #guide-content.ytd-app {
       background: @base !important;
     }
 
