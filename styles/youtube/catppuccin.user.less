@@ -1165,6 +1165,18 @@
     ytd-text-inline-expander tp-yt-paper-button {
       color: @text !important;
     }
+    // The Shorts description body is a plain #plain-snippet-text span that inherits
+    // the expander host color (a #f1f1f1 hashed atomic var) rather than an inner
+    // attributed-string wrapper, so the rule above misses it — set the host color
+    // to @text. In engagement-panel mode (Shorts / side panel) the expander is a
+    // card whose background paints a translucent-white hashed var; make it a
+    // @surface1 raised box.
+    ytd-text-inline-expander {
+      color: @text !important;
+    }
+    ytd-text-inline-expander[engagement-panel] {
+      background: @surface1 !important;
+    }
     // Social-link highlight pills in the description (the rounded background behind
     // "/ discord", X/TikTok handles, etc.). YouTube sets these inline to
     // rgba(255,255,255,.1); !important overrides that. @surface1 keeps them a subtle
@@ -1189,6 +1201,23 @@
     #subtitle.ytd-video-description-infocards-section-renderer,
     #subscriber-count.ytd-structured-description-channel-lockup-renderer {
       color: @subtext0 !important;
+    }
+
+    // Shorts/side-panel video-description header: the video title paints a #f1f1f1
+    // hashed atomic var → @text.
+    #title.ytd-video-description-header-renderer {
+      color: @text !important;
+    }
+    // Stats factoid cards (Likes / Views / date) under that title sample a per-video
+    // accent color through inline --yt-saturated-* custom properties (here a green).
+    // Override those semantic vars so every card uses a consistent, subtle Catppuccin
+    // @green in all flavors: card tint → fade(@green, 15%), value → @text, label →
+    // @green. (Overriding the exposed variables beats theming each inner element.)
+    factoid-renderer {
+      --yt-saturated-raised-background: fade(@green, 15%) !important;
+      --yt-saturated-additive-background: fade(@green, 15%) !important;
+      --yt-saturated-text-primary: @text !important;
+      --yt-saturated-text-secondary: @green !important;
     }
 
     /* Transcript panel — v2_0 ships two implementations (classic
