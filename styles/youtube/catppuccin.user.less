@@ -731,6 +731,21 @@
       --yt-lightsource-secondary-title-color: @subtext0;
     }
 
+    /* Channel / tabbed page header (ytd-tabbed-page-header) reuses the
+       --yt-lightsource-* family: the headline row (#page-header) and the tabs
+       row (#tabs-inner-container) fill from --yt-lightsource-section1-color, the
+       big channel title from --yt-lightsource-primary-title-color and the
+       handle/subscriber/description line from --yt-lightsource-secondary-title-color.
+       The header redefines these locally to per-build hashed vars (= #0f0f0f /
+       #f1f1f1 / #aaa), so remap them to the palette here. (The outer container —
+       #page-header-container / #tabs-container — paints the hashed var directly,
+       not via a token, so it's forced in the structural block below.) */
+    ytd-tabbed-page-header {
+      --yt-lightsource-section1-color: @base;
+      --yt-lightsource-primary-title-color: @text;
+      --yt-lightsource-secondary-title-color: @subtext0;
+    }
+
     yt-live-chat-renderer {
       --yt-button-default-text-color: @text;
       --yt-button-default-background-color: @base;
@@ -2104,6 +2119,56 @@
       background: @base !important;
     }
 
+    /* Channel page header containers. The outer header/tabs containers of the
+       channel page paint their background from a per-build *hashed* atomic var
+       (var(--t…) = #0f0f0f) directly, not via the --yt-lightsource-* tokens
+       remapped above, so the token remap can't reach them and they stayed the
+       default dark behind the banner, headline and tab bar. Force the stable
+       id+component selectors → @base so the whole header region blends into the
+       page. (The inner #page-header / #tabs-inner-container rows and the title
+       text are handled by the --yt-lightsource-* remap.) */
+    #page-header-container.ytd-tabbed-page-header,
+    #tabs-container.ytd-tabbed-page-header {
+      background: @base !important;
+    }
+
+    /* Channel "no content yet" empty state (ytd-channel-owner-empty-state-renderer
+       — the "Create content on any device" placeholder on an empty Home tab). Its
+       title and description paint their color from a per-build *hashed* atomic var
+       (var(--t…) = #f1f1f1), not the semantic text token, so they stayed default
+       near-white instead of @text. Force the stable component classes → @text. */
+    .header-title.ytd-channel-owner-empty-state-renderer,
+    .description-text.ytd-channel-owner-empty-state-renderer {
+      color: @text !important;
+    }
+
+    /* Channel-tab search affordance. The expandable search "tab" at the end of the
+       channel tab bar (ytd-expandable-tab-renderer) sets its text/icon color from a
+       per-build *hashed* atomic var (var(--t…) = #aaa), so its magnifier icon stayed
+       an unthemed gray while the tab labels beside it are themed. Force the stable
+       element → @text; the icon inherits it through currentcolor. */
+    ytd-expandable-tab-renderer {
+      color: @text !important;
+    }
+    /* Its expanded text field (a tp-yt-paper-input) doesn't inherit the above — its
+       text/label/underline are driven by --paper-input-container-* tokens set to
+       hashed vars (#f1f1f1) on a closer ancestor — so target the field elements
+       directly: typed text → @text, the "Search" label → @subtext0, the resting
+       underline → @subtext0 and the focused underline → @accent. (The lines are a
+       1px/2px border-bottom, so border-color reaches them.) */
+    ytd-expandable-tab-renderer input {
+      color: @text !important;
+    }
+    ytd-expandable-tab-renderer label {
+      color: @subtext0 !important;
+    }
+    ytd-expandable-tab-renderer .unfocused-line {
+      border-bottom-color: @subtext0 !important;
+    }
+    ytd-expandable-tab-renderer .focused-line {
+      border-bottom-color: @accent !important;
+    }
+
     /* Masthead / top bar. YouTube paints the whole bar from one full-width layer
        (#frosted-glass spans both the search/actions row and the chip bar) while
        the row containers themselves stay transparent. So only the paint layers —
@@ -2248,7 +2313,12 @@
        @mantle by the group above; theme its rows: item title → @text, secondary
        subtitle → @subtext0, the selected row → @surface0 and any hovered row →
        @surface1 (hover out-specifies selected, so hovering the selected row still
-       gives feedback). */
+       gives feedback). The closed trigger's own label (#icon-label — e.g. the
+       channel Playlists tab "Sort by") paints from a per-build *hashed* atomic var
+       (= #f1f1f1), so theme it → @text too. */
+    #icon-label.yt-dropdown-menu {
+      color: @text !important;
+    }
     .item.yt-dropdown-menu {
       color: @text !important;
     }
@@ -2260,6 +2330,102 @@
     }
     tp-yt-paper-listbox.yt-dropdown-menu tp-yt-paper-item.yt-dropdown-menu:hover {
       background-color: @surface1 !important;
+    }
+
+    /* Notifications bell + popup. The masthead bell renders through the newer
+       yt-icon-badge-shape, whose .ytSpecIconBadgeShapeHost sets the icon color
+       from a per-build *hashed* atomic var (= #f1f1f1) — bypassing the masthead
+       --iron-icon-fill-color remap — so the glyph stayed default near-white. Force
+       the badge's icon → @text (scoped to the bell renderer so any unread-count
+       badge keeps its own colors). The popup that opens (ytd-multi-page-menu-
+       renderer, surface themed @mantle by the group above) likewise paints all its
+       text from hashed vars: the sticky header (Notifications title / Settings /
+       back arrow via ytd-simple-menu-header-renderer) and the section headings
+       (Important / More notifications via h2) = #f1f1f1, each notification's
+       channel+title row (.text) = #f1f1f1, and its timestamp (.metadata) = #aaa.
+       Remap those stable selectors → @text, muted rows → @subtext0, and re-tint the
+       row hover (default a translucent-white wash) to a solid @surface0 lift over
+       the @mantle popup. */
+    ytd-notification-topbar-button-renderer .ytSpecIconBadgeShapeIcon {
+      color: @text !important;
+    }
+    ytd-simple-menu-header-renderer,
+    h2.yt-multi-page-menu-section-renderer,
+    .text.ytd-notification-renderer {
+      color: @text !important;
+    }
+    .metadata.ytd-notification-renderer {
+      color: @subtext0 !important;
+    }
+    ytd-notification-renderer:hover {
+      background-color: @surface0 !important;
+    }
+
+    /* Legacy context-menu items (ytd-menu-service-item-renderer — the older
+       paper-item menu rows still used by some menus, e.g. the post composer's
+       "Schedule post" dropdown). Their label and icon paint the #f1f1f1 hashed
+       atomic var and the row hover is a translucent-white wash, none of which the
+       newer .ytListItemViewModel* remap reaches. Force label + icon → @text and the
+       hover → @surface0 over the @mantle popup. */
+    yt-formatted-string.title.ytd-menu-service-item-renderer,
+    .ytIconWrapperHost.ytd-menu-service-item-renderer,
+    yt-icon.ytd-menu-service-item-renderer {
+      color: @text !important;
+    }
+    tp-yt-paper-item.ytd-menu-service-item-renderer:hover {
+      background-color: @surface0 !important;
+    }
+
+    /* Channel "Posts" (community) tab. Most of its text — and a couple of surfaces —
+       paint from per-build *hashed* atomic vars instead of the semantic tokens:
+         • "Connect with your Community" alert banner: text #f1f1f1 on a hardcoded
+           blue surface → text @text, surface @surface0.
+         • post composer (ytd-backstage-post-dialog-renderer): channel name #f1f1f1
+           → @text; Visibility label/value + "Share a…" placeholder #aaa → @subtext0.
+         • image-attach prompt (ytd-backstage-multi-image-select-renderer): #prompt
+           #f1f1f1 → @text; aspect-ratio / license hints #aaa → @subtext0.
+         • comment-box char counter #aaa → @subtext0.
+         • Published / Scheduled / Archived sub-tabs (tp-yt-paper-tabs of
+           ytd-post-stream-filter-renderer): selected #f1f1f1 → @text, rest #aaa →
+           @subtext1.
+         • empty-state (ytd-post-filter-zero-state-renderer): title #f1f1f1 → @text,
+           subtitle → @subtext0, the glyph #f1f1f1 → @text and its translucent-white
+           circle → @surface0. */
+    .ytAlertBannerViewModelHost {
+      color: @text !important;
+    }
+    .ytAlertBannerViewModelTimeSensitive {
+      background-color: @surface0 !important;
+    }
+    #header-channel-name.ytd-backstage-post-dialog-renderer,
+    #prompt.ytd-backstage-multi-image-select-renderer,
+    #title.ytd-post-filter-zero-state-renderer,
+    #icon.ytd-post-filter-zero-state-renderer {
+      color: @text !important;
+    }
+    #header-visibility-label.ytd-backstage-post-dialog-renderer,
+    #header-default-visibility.ytd-backstage-post-dialog-renderer,
+    #commentbox-placeholder.ytd-backstage-post-dialog-renderer,
+    #aspect-ratio-message.ytd-backstage-multi-image-select-renderer,
+    #license-text.ytd-backstage-multi-image-select-renderer,
+    #char-count.ytd-commentbox,
+    #subtitle.ytd-post-filter-zero-state-renderer {
+      color: @subtext0 !important;
+    }
+    #icon-container.ytd-post-filter-zero-state-renderer {
+      background-color: @surface0 !important;
+    }
+    tp-yt-paper-tab.iron-selected.ytd-post-stream-filter-renderer {
+      color: @text !important;
+    }
+    tp-yt-paper-tabs.ytd-post-stream-filter-renderer {
+      color: @subtext1 !important;
+    }
+    /* …and the sliding active-tab indicator (the paper-tabs selection bar — a 2px
+       border-bottom) stayed the default near-white; match the main channel-tab
+       slider (.tabGroupShapeSlider) → @text. */
+    tp-yt-paper-tabs.ytd-post-stream-filter-renderer .selection-bar {
+      border-bottom-color: @text !important;
     }
 
     /* Engagement-panel card surface (watch-page side panels: the "In this video"
@@ -2277,6 +2443,24 @@
     ytd-engagement-panel-section-list-renderer[match-content-theme] #subheader.ytd-engagement-panel-title-header-renderer,
     ytd-engagement-panel-section-list-renderer[match-content-theme] #content.ytd-engagement-panel-section-list-renderer {
       background-color: @surface0 !important;
+    }
+    /* When such a match-content-theme panel opens as a *dialog* (e.g. the channel
+       "…more" About popup), it is wrapped in a tp-yt-paper-dialog whose own surface
+       fills from the inherited --paper-dialog-background-color (= #212121), which
+       peeks out around the @surface0 content (footer, padding, rounded corners) as
+       an unthemed patch. Remap that token → @surface0 on just this dialog variant
+       so the wrapper matches its content and reads as one seamless card. */
+    tp-yt-paper-dialog:has(ytd-engagement-panel-section-list-renderer[match-content-theme]) {
+      --paper-dialog-background-color: @surface0;
+    }
+    /* About-channel body text (the dialog's content: the "More info" subheading,
+       the table rows — Joined / subscriber count — link labels and row icons). The
+       inner #about-container sets its color from a per-build *hashed* atomic var
+       (var(--t…) = #f1f1f1), which every descendant inherits, so the body stayed
+       default near-white on the @surface0 card. Force the stable container → @text;
+       text and icons inherit it through currentcolor. */
+    #about-container.ytd-about-channel-renderer {
+      color: @text !important;
     }
 
     /* Anchored/floating comments header (narrow viewports — e.g. Shorts with the
