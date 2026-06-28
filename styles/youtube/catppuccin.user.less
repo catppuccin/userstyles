@@ -1995,6 +1995,25 @@
       background-color: fade(@text, 20%) !important;
     }
 
+    /* Guide toggle ("hamburger") icon + the YouTube wordmark next to it.
+       In v2_0 the guide button's yt-icon paints its glyph from a per-build
+       *hashed* atomic var (= #f1f1f1), so the masthead --iron-icon-fill-color
+       remap can't reliably reach it; force the stable selector to @text. The
+       wordmark glyphs are SVG <path>s with no fill attribute — they inherit
+       `fill` from the <svg>, so the global [fill="white"] rule (which needs the
+       attribute present) misses them and they stay default white. Set the svg
+       fill to the flavor-aware @white so the lettering matches the theme; the
+       red play button keeps its own fill="#FF0033" and is recolored to @accent
+       by the icon rules above. */
+    #guide-button yt-icon,
+    #guide-button yt-icon#guide-icon {
+      color: @text !important;
+      fill: @text !important;
+    }
+    ytd-topbar-logo-renderer ytd-logo svg {
+      fill: @white !important;
+    }
+
     /* Raised popups / menus / dropdowns / dialogs.
        These surfaces fill from per-build *hashed* atomic vars, not semantic
        tokens, so token overrides can't reach them — force the stable renderer
@@ -2061,6 +2080,51 @@
     tp-yt-app-drawer#guide:not([persistent]) #guide-content,
     tp-yt-app-drawer#guide:not([persistent]) #guide-content.ytd-app {
       background: @base !important;
+    }
+
+    /* Sidebar / guide contents — text, icons and hover.
+       Every label, icon and hover highlight inside the guide paints from
+       per-build *hashed* atomic vars (text/icons = #f1f1f1, the active/hover
+       highlight = rgba(255,255,255,.1)), none of which derive from the semantic
+       tokens, so the remap above can't reach them. Force the stable selectors:
+         • entry labels (Home, Shorts, Subscriptions, You…), the section header
+           text, channel names and the Show more/less rows  → @text
+         • entry / mini-guide / section icons and the row chevrons             → @text
+         • the active-page row and the hover highlight                         → @surface0
+       Covers both the docked guide and the collapsed mini-guide rail. */
+    ytd-guide-entry-renderer .title.ytd-guide-entry-renderer,
+    ytd-guide-entry-renderer yt-formatted-string,
+    ytd-mini-guide-entry-renderer .title,
+    ytd-mini-guide-entry-renderer span.ytd-mini-guide-entry-renderer,
+    ytd-guide-section-renderer #guide-section-title {
+      color: @text !important;
+    }
+    ytd-guide-entry-renderer yt-icon,
+    ytd-mini-guide-entry-renderer yt-icon {
+      color: @text !important;
+      fill: @text !important;
+    }
+    ytd-guide-entry-renderer[active],
+    ytd-guide-entry-renderer:hover,
+    ytd-mini-guide-entry-renderer:hover {
+      background-color: @surface0 !important;
+    }
+
+    /* Guide footer (About / Press / Terms … link rows and the © Google LLC
+       line) plus the signed-out "Sign in to like videos, comment, and
+       subscribe" prompt. The footer links default to a muted #aaa and the
+       copyright to a dimmer #717171 — keep that hierarchy with @subtext0 /
+       @overlay1. The promo message is #f1f1f1 → @text (its accent "Sign in"
+       button is scoped to ytd-button-renderer, so it is left untouched). */
+    #guide-links-primary.ytd-guide-renderer a,
+    #guide-links-secondary.ytd-guide-renderer a {
+      color: @subtext0 !important;
+    }
+    #footer.ytd-guide-renderer #copyright {
+      color: @overlay1 !important;
+    }
+    ytd-guide-signin-promo-renderer yt-formatted-string.ytd-guide-signin-promo-renderer {
+      color: @text !important;
     }
 
     /* Theater / fullscreen letterbox bars. Their source depends on the
