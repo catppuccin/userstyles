@@ -843,6 +843,21 @@
       }
     }
 
+    /* Shorts shelf header logo (the red Shorts badge beside a "Shorts" shelf
+       title, e.g. on the history/home feeds — yt-icon#icon.ytd-reel-shelf-renderer).
+       Its badge is recolored by the red-fill rule above, but its inner play
+       glyph keeps a hardcoded white fill that the brand-logo rules don't reach —
+       recolor it to @crust so it reads like the masthead logo and the
+       Premium/Music/Kids logos (accent/red badge + dark glyph). */
+    #icon.ytd-reel-shelf-renderer {
+      [fill="#fff"],
+      [fill="#FFF"],
+      [fill="#FFFFFF"],
+      [fill="white"] {
+        fill: @crust;
+      }
+    }
+
     /* Notifications Bell and Indicator */
     .ytSpecIconBadgeShapeStyleOverlay .ytSpecIconBadgeShapeIcon,
     .ytSpecIconBadgeShapeBadge {
@@ -2119,6 +2134,17 @@
       background: @base !important;
     }
 
+    /* Feed section / shelf headings. The date dividers on the history feed
+       ("Today", "Yesterday" — #title.ytd-item-section-header-renderer) and the
+       "Shorts" shelf title (#title.ytd-reel-shelf-renderer) paint their color
+       from a per-build *hashed* atomic var (#f1f1f1) instead of the semantic
+       text token, so they stayed an unthemed off-white — force the stable
+       #title selectors → @text. */
+    #title.ytd-item-section-header-renderer,
+    #title.ytd-reel-shelf-renderer {
+      color: @text !important;
+    }
+
     /* Channel page header containers. The outer header/tabs containers of the
        channel page paint their background from a per-build *hashed* atomic var
        (var(--t…) = #0f0f0f) directly, not via the --yt-lightsource-* tokens
@@ -2167,6 +2193,32 @@
     }
     ytd-expandable-tab-renderer .focused-line {
       border-bottom-color: @accent !important;
+    }
+
+    /* Watch-history page right-rail (ytd-browse-feed-actions-renderer). Two
+       surfaces there stay unthemed. (1) The "Search watch history" filter field
+       is the legacy tp-yt-paper-input (ytd-search-box-renderer) — same shape as
+       the channel-tab field above, driven by --paper-input-container-* tokens set
+       to hashed vars (#f1f1f1 / #aaa) the remap can't reach — so target the field
+       elements directly: typed text → @text, the label → @subtext0, the resting
+       underline → @subtext0 and the focused underline → @accent. (2) The
+       "Comments / Posts / Live chat" activity rows are ytd-compact-link-renderer,
+       whose #label paints its color from a per-build *hashed* atomic var (#aaa),
+       bypassing the semantic tokens — force the stable #label → @text. */
+    ytd-search-box-renderer input {
+      color: @text !important;
+    }
+    ytd-search-box-renderer label {
+      color: @subtext0 !important;
+    }
+    ytd-search-box-renderer .unfocused-line {
+      border-bottom-color: @subtext0 !important;
+    }
+    ytd-search-box-renderer .focused-line {
+      border-bottom-color: @accent !important;
+    }
+    #label.ytd-compact-link-renderer {
+      color: @text !important;
     }
 
     /* Masthead / top bar. YouTube paints the whole bar from one full-width layer
