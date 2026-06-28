@@ -2251,6 +2251,28 @@
       background-color: fade(@text, 20%) !important;
     }
 
+    /* Masthead icon buttons (the notification bell —
+       ytd-notification-topbar-button-renderer; the ⋮ overflow menu —
+       ytd-topbar-menu-button-renderer; and yt-icon-button siblings). On hover YT
+       turns the 40×40 renderer into a circle (border-radius:24px) and fills it
+       from a hardcoded translucent-white wash (var(--tf3fc855af2285f5f) =
+       rgba(255,255,255,.2)) via a non-!important *.ytd-masthead:hover rule, so
+       the token remap can't reach it. Re-tint just that hover → the same
+       flavor-aware fade(@text, 20%) the Create pill above uses. Match YT's own
+       selector (the .ytd-masthead class, i.e. the top-level button that gets the
+       circular radius) — NOT a "#masthead yt-icon-button" descendant, which would
+       also paint the inner square yt-icon-button and show a square behind the
+       circle. Exclude the :last-of-type topbar-menu-button-renderer: that's the
+       account avatar (a 54×34 box, so the circular radius would render an oval),
+       and YT deliberately suppresses its hover wash (#buttons > …:last-of-type
+       :hover { background: transparent }) — a non-!important rule our !important
+       would otherwise override, re-introducing an unwanted oval on the avatar. */
+    yt-icon-button.ytd-masthead:hover,
+    ytd-notification-topbar-button-renderer.ytd-masthead:hover,
+    ytd-topbar-menu-button-renderer.ytd-masthead:not(:last-of-type):hover {
+      background-color: fade(@text, 20%) !important;
+    }
+
     /* Guide toggle ("hamburger") icon + the YouTube wordmark next to it.
        In v2_0 the guide button's yt-icon paints its glyph from a per-build
        *hashed* atomic var (= #f1f1f1), so the masthead --iron-icon-fill-color
@@ -2358,6 +2380,42 @@
       color: @subtext0 !important;
     }
     ytd-notification-renderer:hover {
+      background-color: @surface0 !important;
+    }
+
+    /* Account / settings popup (the masthead avatar menu —
+       ytd-multi-page-menu-renderer; surface themed @mantle by the group above).
+       Like the notifications popup it paints all its text from the #f1f1f1
+       hashed atomic var, bypassing the semantic tokens: the signed-in identity
+       header (name / handle / email via ytd-active-account-header-renderer),
+       every compact-link row's label (Google Account, YouTube Studio, Settings,
+       Sign out, Appearance, Display language, Restricted Mode, Location… — they
+       inherit tp-yt-paper-item's color) and the theme-toggle row
+       (ytd-toggle-theme-compact-link-renderer), plus those rows' leading icons.
+       Each row's trailing subtitle/secondary value (Device theme / English /
+       Off / Germany) reads its own hashed var (#f1f1f1, and #secondary-text even
+       falls back to the light-mode #0f0f0f — near-black on the dark popup). Force
+       the stable renderer selectors → @text, leading icons → @text, and the muted
+       trailing values → @subtext0. The row hover is a translucent-white wash
+       (rgba(255,255,255,.1)) painted on the renderer row — re-tint it to a solid
+       @surface0 lift over the @mantle popup, matching the other popup rows. */
+    #account-name.ytd-active-account-header-renderer,
+    #channel-handle.ytd-active-account-header-renderer,
+    #email.ytd-active-account-header-renderer,
+    tp-yt-paper-item.ytd-compact-link-renderer,
+    ytd-toggle-theme-compact-link-renderer,
+    .ytIconWrapperHost.ytd-compact-link-renderer,
+    yt-icon.ytd-compact-link-renderer,
+    .ytIconWrapperHost.ytd-toggle-theme-compact-link-renderer,
+    yt-icon.ytd-toggle-theme-compact-link-renderer {
+      color: @text !important;
+    }
+    #subtitle.ytd-compact-link-renderer,
+    #secondary-text.ytd-compact-link-renderer {
+      color: @subtext0 !important;
+    }
+    ytd-compact-link-renderer:hover,
+    ytd-toggle-theme-compact-link-renderer:hover {
       background-color: @surface0 !important;
     }
 
