@@ -2178,6 +2178,37 @@
       color: @subtext0 !important;
     }
 
+    /* Watch-page miniplayer (ytd-miniplayer — the floating mini video that docks
+       bottom-right when you scroll or navigate away from a video). Its v2_0 build
+       uses the new ytdMiniplayer* classes and paints the card body plus the info
+       strip between the video and the queue from a per-build *hashed* atomic var
+       (.ytdMiniplayerComponentContent / .ytdMiniplayerInfoBarHost = #212121), with
+       the video title (.ytdMiniplayerInfoBarTitle) at #f1f1f1 and the playlist
+       subtitle + "1 / 21" count (.ytdMiniplayerInfoBarSubtitle) at #aaa — none of
+       which the token remap reaches. Force the surface → @base (the card keeps its
+       drop shadow over the page), the title → @text and the subtitle → @subtext0. */
+    .ytdMiniplayerComponentContent,
+    .ytdMiniplayerInfoBarHost {
+      background-color: @base !important;
+    }
+    .ytdMiniplayerInfoBarTitle {
+      color: @text !important;
+    }
+    .ytdMiniplayerInfoBarSubtitle,
+    .ytdMiniplayerInfoBarSubtitleText {
+      color: @subtext0 !important;
+    }
+
+    /* Watch-page description hashtags / links. The clickable #hashtags (and any
+       other endpoint links) inside the video description paint #aaa via a
+       per-build *hashed* atomic var: they read --yt-endpoint-color, which is unset
+       here, so they fall back to the hashed var instead of the call-to-action token
+       the remap themes. Scope to the description so only its links are affected and
+       force them → @accent (links/highlights), matching themed description URLs. */
+    #description.ytd-watch-metadata a.yt-simple-endpoint {
+      color: @accent !important;
+    }
+
     /* Channel page header containers. The outer header/tabs containers of the
        channel page paint their background from a per-build *hashed* atomic var
        (var(--t…) = #0f0f0f) directly, not via the --yt-lightsource-* tokens
