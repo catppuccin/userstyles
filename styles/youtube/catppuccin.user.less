@@ -1630,6 +1630,15 @@
         color: @white;
       }
 
+      /* In-player metapanel (bottom-left): channel handle + video title. Both
+         flow from --reel-metadata-color, which in extract-overlay mode YT points
+         at a hashed atomic var (#f1f1f1). Retarget the variable to the flavor-
+         aware @white so the overlay title/handle follow the over-media text
+         convention. */
+      ytd-reel-video-renderer {
+        --reel-metadata-color: @white !important;
+      }
+
       .ytdVolumeControlsMuteIcon {
         color: @white;
       }
@@ -1642,6 +1651,27 @@
         .YtdShortsSuggestedActionStaticHostPrimaryText {
           color: @text;
         }
+      }
+    }
+
+    /* Shorts player overlay controls (ytd-shorts-player-controls). v2_0 renamed
+       the overlay-dark tonal button class to camelCase, so the legacy
+       `.yt-spec-button-shape-next--overlay-dark` rule below no longer reached the
+       play button — it kept a hardcoded rgba(0,0,0,0.3) scrim while the volume
+       scrim was themed, leaving them mismatched (play too light / volume too
+       dark by comparison). Match the play button and the CC/3-dot/maximize pill
+       to the volume scrim (fade(@black, 60%)) and keep every glyph @white, in
+       line with the normal-video player controls. The play scrim is targeted via
+       its inline style so the transparent more/fullscreen buttons (which sit on
+       the themed pill) aren't given their own circle. */
+    ytd-shorts-player-controls {
+      .ytSpecButtonShapeNextOverlayDark.ytSpecButtonShapeNextTonal[style*="rgba(0, 0, 0, 0.3)"],
+       > div:has(.button-container) {
+        background: fade(@black, 60%) !important;
+      }
+      .ytSpecButtonShapeNextOverlayDark,
+      .ytmClosedCaptioningButtonButton {
+        color: @white !important;
       }
     }
     // Video/thumbnail renderer overlayed buttons
