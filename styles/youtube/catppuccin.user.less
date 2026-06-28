@@ -1261,6 +1261,13 @@
       color: @subtext1 !important;
       background-color: @surface1 !important;
     }
+    /* The thin connector line running through the chapter timestamp pills
+       (#items::before) paints from the same hashed atomic var as the pill chip,
+       so it stays the dark default and is barely visible. Match it to the pill
+       background (@surface1). */
+    #items.ytd-horizontal-card-list-renderer::before {
+      background-color: @surface1 !important;
+    }
 
     // Engagement-panel header titles (Chapters, Transcript, Products, Description,
     // Comments, "In this video") — all paint from the #f1f1f1 hashed atomic var.
@@ -1293,6 +1300,32 @@
     // the secondary color set on #published-time-text).
     ytd-comment-view-model #published-time-text a,
     #simplebox-placeholder {
+      color: @subtext0 !important;
+    }
+
+    /* Comment engagement bar — the vote (thumbs) count between the like/dislike
+       buttons inherits the muted hashed atomic var (var(--t4a6da19e16bf221a) =
+       #aaa) → @subtext0. When you've liked the comment YT brightens it via the
+       #f1f1f1 var (var(--tffc2fd3a644f6275)) → @text, so preserve that cue. Covers
+       both the new engagement-bar and the legacy action-buttons renderers. */
+    #vote-count-middle.ytd-comment-engagement-bar,
+    #vote-count-left.ytd-comment-engagement-bar,
+    #vote-count-middle.ytd-comment-action-buttons-renderer,
+    #vote-count-left.ytd-comment-action-buttons-renderer {
+      color: @subtext0 !important;
+    }
+    ytd-comment-engagement-bar[is-liked] #vote-count-middle.ytd-comment-engagement-bar,
+    ytd-comment-engagement-bar[is-liked] #vote-count-left.ytd-comment-engagement-bar,
+    ytd-comment-action-buttons-renderer[is-liked] #vote-count-middle.ytd-comment-action-buttons-renderer,
+    ytd-comment-action-buttons-renderer[is-liked] #vote-count-left.ytd-comment-action-buttons-renderer {
+      color: @text !important;
+    }
+
+    // "Translate to English" button under a comment and the comment-filter context
+    // banner ("Top is selected, so you'll see featured comments") both paint from
+    // the same muted hashed atomic var (var(--t4a6da19e16bf221a) = #aaa) → @subtext0.
+    .translate-button.ytd-comment-view-model,
+    .ytCommentFilterContextHost {
       color: @subtext0 !important;
     }
 
@@ -1829,6 +1862,17 @@
     .ytSubThreadHovered > .ytSubThreadThreadline .ytSubThreadConnection {
       border-bottom-color: @overlay0;
     }
+    // The connector below a parent comment's avatar (.continuation) is a separate
+    // threadline from the .ytSubThread* lines above and paints its own hashed
+    // atomic vars: resting var(--td8562cdc203bc683) = #3f3f3f and, on comment
+    // hover, var(--t02c0a2c868c14ce8) = near-white — which left the top segment
+    // glaring white on hover. Match the sub-thread lines: @surface1 → @overlay0.
+    .continuation.ytd-comment-view-model {
+      border-left-color: @surface1;
+    }
+    ytd-comment-view-model[hovered] .continuation.ytd-comment-view-model {
+      border-left-color: @overlay0;
+    }
 
     /* Profile Card */
     // (Click a user's profile picture in the comments to view.)
@@ -2026,6 +2070,13 @@
     }
     ytd-topbar-logo-renderer ytd-logo svg {
       fill: @white !important;
+    }
+    /* The country-code superscript next to the logo (e.g. "DE") paints its color
+       from a hashed atomic var (var(--t4a6da19e16bf221a) = #aaa), so the semantic
+       token remap can't reach it and it stays an unthemed gray. Force the stable
+       selector → @subtext0 (muted secondary text). */
+    #country-code.ytd-topbar-logo-renderer {
+      color: @subtext0 !important;
     }
 
     /* Raised popups / menus / dropdowns / dialogs.
