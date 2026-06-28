@@ -1329,6 +1329,24 @@
       color: @subtext0 !important;
     }
 
+    // More muted secondary comment text painting the #aaa hashed atomic var
+    // (var(--t4a6da19e16bf221a)) → @subtext0: the "Pinned by @…" badge (label +
+    // pin icon), the "Read more"/"Show less" comment expander, and the comment
+    // count next to the "Comments" engagement-panel title (e.g. "153" / "8.9K").
+    #label.ytd-pinned-comment-badge-renderer,
+    yt-icon.ytd-pinned-comment-badge-renderer,
+    .more-button.ytd-comment-view-model,
+    .less-button.ytd-comment-view-model,
+    #contextual-info.ytd-engagement-panel-title-header-renderer {
+      color: @subtext0 !important;
+    }
+
+    // Comments sort-button trigger icon ("Sort comments") — paints the #f1f1f1
+    // hashed atomic var (var(--tffc2fd3a644f6275)); map it to @text.
+    #label-icon.yt-dropdown-menu {
+      color: @text !important;
+    }
+
     // Channel subscriber count under the video — secondary metadata painted from
     // a hashed atomic var (var(--t4a6da19e16bf221a) = #aaa); theme it @subtext0.
     #owner-sub-count.ytd-video-owner-renderer {
@@ -2168,10 +2186,29 @@
     ytd-backstage-post-dialog-popup-renderer,
     ytd-backstage-post-dialog-renderer,
     tp-yt-paper-listbox.ytd-menu-popup-renderer,
+    tp-yt-paper-listbox.yt-dropdown-menu,
     tp-yt-iron-dropdown .ytContextualSheetLayoutHost,
     .ytContextualSheetLayoutHost,
     .ytSpecDialogLayoutHost {
       background-color: @mantle !important;
+    }
+
+    /* Comments sort dropdown (yt-dropdown-menu) — the listbox surface is themed
+       @mantle by the group above; theme its rows: item title → @text, secondary
+       subtitle → @subtext0, the selected row → @surface0 and any hovered row →
+       @surface1 (hover out-specifies selected, so hovering the selected row still
+       gives feedback). */
+    .item.yt-dropdown-menu {
+      color: @text !important;
+    }
+    #subtitle.yt-dropdown-menu {
+      color: @subtext0 !important;
+    }
+    tp-yt-paper-listbox.yt-dropdown-menu .iron-selected.yt-dropdown-menu {
+      background-color: @surface0 !important;
+    }
+    tp-yt-paper-listbox.yt-dropdown-menu tp-yt-paper-item.yt-dropdown-menu:hover {
+      background-color: @surface1 !important;
     }
 
     /* Engagement-panel card surface (watch-page side panels: the "In this video"
@@ -2188,6 +2225,16 @@
     ytd-engagement-panel-section-list-renderer[match-content-theme] #header.ytd-engagement-panel-title-header-renderer,
     ytd-engagement-panel-section-list-renderer[match-content-theme] #subheader.ytd-engagement-panel-title-header-renderer,
     ytd-engagement-panel-section-list-renderer[match-content-theme] #content.ytd-engagement-panel-section-list-renderer {
+      background-color: @surface0 !important;
+    }
+
+    /* Anchored/floating comments header (narrow viewports — e.g. Shorts with the
+       comments floating over the video). The sticky comments header that carries
+       the "Add a comment…" box fills from a hashed atomic var
+       (var(--t3e41d7b17b187f69) = #212121) in [darker-panels] mode, so it stayed
+       darker than the @surface0 panel body above. Force it to @surface0 so the
+       whole floating panel reads as one surface. */
+    ytd-item-section-renderer[static-comments-header] #header.ytd-item-section-renderer {
       background-color: @surface0 !important;
     }
 
