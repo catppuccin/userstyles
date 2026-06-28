@@ -1828,6 +1828,20 @@
     .ytListItemViewModelSubtitle {
       color: @subtext1;
     }
+    // Trailing selection value on a list-item row, e.g. the Captions entry's
+    // current value ("Off" / "English (US) original") in the Shorts ⋮ menu —
+    // paints a muted hashed atomic var (#aaa); map it to @subtext0.
+    .ytListItemViewModelSelectionText {
+      color: @subtext0;
+    }
+    // The Ambient-mode toggle row in that menu is a legacy
+    // ytd-toggle-menu-service-item-renderer whose label + icon paint the #f1f1f1
+    // hashed atomic var (var(--tffc2fd3a644f6275)) instead of the
+    // .ytListItemViewModelTitle the other rows use; map them to @text to match.
+    yt-formatted-string.ytd-toggle-menu-service-item-renderer,
+    yt-icon.ytd-toggle-menu-service-item-renderer {
+      color: @text;
+    }
     /* Dialogs */
     .ytSpecDialogLayoutHost {
       background-color: @mantle;
@@ -1864,6 +1878,26 @@
     }
     .ytSwitchShapeTrackActive {
       background-color: @accent;
+    }
+    /* Legacy paper-toggle switch (tp-yt-paper-toggle-button), e.g. Ambient mode
+       in the Shorts ⋮ menu — a blue #3ea6ff knob on a gray track that the
+       .ytSwitchShape* rules above don't reach. Recolor: track @surface2 / knob
+       @overlay2 when off, both @accent when on (the track keeps YT's 0.5 opacity,
+       so the active track reads as a soft accent beneath the solid accent knob). */
+    tp-yt-paper-toggle-button {
+      .toggle-bar {
+        background-color: @surface2 !important;
+      }
+      .toggle-button {
+        background-color: @overlay2 !important;
+      }
+
+      &[checked] {
+        .toggle-bar,
+        .toggle-button {
+          background-color: @accent !important;
+        }
+      }
     }
 
     /* Textareas */
