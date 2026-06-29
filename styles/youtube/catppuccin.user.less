@@ -829,6 +829,17 @@
       }
     }
 
+    /* Like button's animated thumbs-up (like-button-view-model — a Lottie
+       animation, unlike the static-SVG dislike beside it). Its thumb path carries
+       a baked-in fill="rgb(255,255,255)" that the [fill="white"]/[fill="#fff"]
+       rules above don't match, so it stayed white while the dislike followed
+       @text. Recolor it → @text to match. (@text, not the over-media @white: this
+       sits on the @surface0 button bar, so it must stay dark in latte like the
+       dislike.) */
+    like-button-view-model path[fill="rgb(255,255,255)"] {
+      fill: @text !important;
+    }
+
     /* "More from YouTube" product logos (Premium, Music, Kids) in the guide.
        Their badge is recolored to @accent by the [fill="#FF0033"] rule above;
        recolor the white inner glyph to @crust too, so they read like the
@@ -1760,6 +1771,19 @@
       }
     }
 
+    /* In-player ad overlay info (the bottom-left ad metadata shown on the main
+       video player during an ad — .ytp-ad-player-overlay-layout__ad-info-container):
+       the "Sponsored" badge, the "1 of 3" pod index and the advertiser-link URL.
+       These sit over the video / its scrim and paint a hardcoded #fff, so route
+       them through the flavor-aware @white (the over-media ink) to stay legible in
+       every flavor. (The "My Ad Center" info glyph is fill="#fff", already
+       recolored by the [fill="white"] rule above.) */
+    .ytp-ad-badge__text--clean-player,
+    .ytp-ad-pod-index,
+    .ytp-visit-advertiser-link__text {
+      color: @white !important;
+    }
+
     /* Shorts up/down navigation (Previous/Next video). When comments open
        (watch-while mode) the nav rail gets a solid #0f0f0f bar
        (var(--t3e41d7b17b187f69)) that stood out against the themed page — match
@@ -1821,6 +1845,14 @@
     }
     // "Live"
     .ytBadgeShapeThumbnailLive {
+      background: @accent;
+      color: @base;
+    }
+    // "Live" badge on the carousel/promo hero card (ytd-default-promo-panel-renderer
+    // — the big sliding-preview card). Uses the non-thumbnail .ytBadgeShapeLive
+    // variant, which v2_0 paints raw YT red (rgba(225,0,45,.9)) with white text —
+    // mirror the thumbnail-live badge so it matches the rest.
+    .ytBadgeShapeLive {
       background: @accent;
       color: @base;
     }
@@ -2169,6 +2201,57 @@
     ytd-grid-video-renderer ytd-channel-name a,
     ytd-grid-video-renderer #byline a,
     #metadata-line.ytd-grid-video-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* Rich-grid shelf cards (ytd-rich-grid-media — the video/live cards in the
+       horizontal shelves on the channel "Live" tab, e.g. the "Live Now" and
+       "Recent Live Streams" rows). v2_0 paints the card title (#video-title —
+       hashed #f1f1f1), the channel byline (the ytd-channel-name link) and the
+       metadata line (the "N watching" .inline-metadata-item, hashed #aaa) from
+       per-build hashed atomic vars rather than the semantic tokens, so the
+       titles stayed off-white and the byline / watching count an unthemed gray
+       — force the stable selectors → @text (title) and @subtext0 (byline +
+       metadata). */
+    #video-title.ytd-rich-grid-media {
+      color: @text !important;
+    }
+    ytd-rich-grid-media ytd-channel-name a,
+    ytd-rich-grid-media #byline a,
+    ytd-rich-grid-media #metadata-line {
+      color: @subtext0 !important;
+    }
+
+    /* Multi-creator / collaboration bylines (#attributed-channel-name — the
+       yt-text-view-model that REPLACES the (now hidden) ytd-channel-name when a
+       video lists multiple creators, e.g. "iBlali and VIK"). The channel-name
+       link rules above never reach it, so the names and their inline-colored
+       verified-check icons (style="color: rgb(170,170,170)") stayed an unthemed
+       gray — force the container and the inline-color badge spans → @subtext0. */
+    #attributed-channel-name,
+    #attributed-channel-name .ytAttributedStringLinkInheritColor {
+      color: @subtext0 !important;
+    }
+
+    /* "Top live games" shelf cards (ytd-game-card-renderer / ytd-game-details-
+       renderer — the game tiles on the Gaming page). v2_0 paints the game title
+       (#title — hashed #f1f1f1) and the viewer line (#live-viewers-count, e.g.
+       "74K watching worldwide", plus the #auto-generated label — hashed #aaa)
+       from per-build hashed atomic vars rather than the semantic tokens — force
+       #title → @text and the viewer / auto-generated metadata → @subtext0. */
+    #title.ytd-game-details-renderer {
+      color: @text !important;
+    }
+    #live-viewers-count.ytd-game-details-renderer,
+    #auto-generated.ytd-game-details-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* Shelf subtitle (#subtitle.ytd-shelf-renderer — the line under a shelf
+       header, e.g. "Based on your Subscriptions and History" on the Gaming feed).
+       v2_0 paints it the hashed #aaa, leaving it an unthemed gray — force →
+       @subtext0 (the shelf #title is themed by the rule above). */
+    #subtitle.ytd-shelf-renderer {
       color: @subtext0 !important;
     }
 
@@ -2799,6 +2882,58 @@
       border-bottom-color: @text !important;
     }
 
+    /* Game / topic interactive tabbed-header page (ytd-interactive-tabbed-header-
+       renderer — e.g. a game's "Splatoon 3" destination page reached from the
+       Gaming feed). v2_0 paints the whole header from per-build hashed atomic
+       vars rather than the semantic tokens:
+         • the game title (#title — #f1f1f1) → @text; the "Auto-generated by
+           YouTube" label, the description and the "2022 • Nintendo…" metadata
+           line (#auto-generated / #description / #metadata — #aaa) → @subtext0.
+         • the tab strip's inner bar (#tabs-inner-container — #0f0f0f) read as a
+           dark band over the @base page → @base.
+         • the tab labels: selected (#f1f1f1) → @text, the rest (#aaa) →
+           @subtext1, and they brighten to #f1f1f1 on hover → @text; the sliding
+           active-tab indicator (the 2px selection-bar border-bottom) → @text —
+           the same treatment as the channel "Posts" sub-tabs above. */
+    #title.ytd-interactive-tabbed-header-renderer {
+      color: @text !important;
+    }
+    #auto-generated.ytd-interactive-tabbed-header-renderer,
+    #description.ytd-interactive-tabbed-header-renderer,
+    #metadata.ytd-interactive-tabbed-header-renderer {
+      color: @subtext0 !important;
+    }
+    #tabs-inner-container.ytd-interactive-tabbed-header-renderer {
+      background-color: @base !important;
+    }
+    tp-yt-paper-tab.iron-selected.ytd-interactive-tabbed-header-renderer {
+      color: @text !important;
+    }
+    tp-yt-paper-tabs.ytd-interactive-tabbed-header-renderer {
+      color: @subtext1 !important;
+    }
+    tp-yt-paper-tab.ytd-interactive-tabbed-header-renderer:hover {
+      color: @text !important;
+    }
+    tp-yt-paper-tabs.ytd-interactive-tabbed-header-renderer .selection-bar {
+      border-bottom-color: @text !important;
+    }
+
+    /* Sort/filter dropdown trigger (#label-text.yt-dropdown-menu — e.g. the "My
+       region" selector on the game page's Live tab). v2_0 paints the trigger
+       label the hashed #aaa, leaving it an unthemed gray → @subtext0. */
+    #label-text.yt-dropdown-menu {
+      color: @subtext0 !important;
+    }
+    /* …but the live-chat view selector ("Top chat" / "Live chat" at the top of
+       the live-chat panel) uses the same dropdown trigger painted the hashed
+       #f1f1f1 (primary), so scope it to the chat header → @text and let it win
+       over the @subtext0 rule above. (The chat is its own iframe, but the same
+       @-moz-document CSS injects there.) */
+    yt-live-chat-header-renderer #label-text.yt-dropdown-menu {
+      color: @text !important;
+    }
+
     /* Engagement-panel card surface (watch-page side panels: the "In this video"
        chapters/timeline card, Transcript, Comments, Products, Structured
        description…). When a panel carries match-content-theme, every surface of
@@ -2815,6 +2950,37 @@
     ytd-engagement-panel-section-list-renderer[match-content-theme] #content.ytd-engagement-panel-section-list-renderer {
       background-color: @surface0 !important;
     }
+
+    /* Sponsored "panel ad" in the watch-page engagement column (the ytwPanelAd* /
+       ad-grid-card view-models inside ytd-ads-engagement-panel-content-renderer).
+       v2_0 paints the whole ad from per-build hashed atomic vars: the card surface
+       (the header lockup + the text/grid-cards sub-layout — #212121) and each
+       option card (ad-grid-card-text-view-model — a translucent-white wash). Map
+       the card surface → @base so the ad blends with the page like the rest of
+       the column, and lift the option cards → @surface0 so they read as raised
+       tiles (matching the tonal "Apply now" button, which the global tonal rule
+       already paints @surface0). Text: the headline + "Sponsored" badge and each
+       option headline (#f1f1f1) → @text; the advertiser URL and the option
+       descriptions (#aaa / #f1f1f1) → @subtext0. */
+    .ytwPanelAdHeaderImageLockupViewModelHost,
+    .ytwPanelTextIconTextGridCardsSubLayoutContentViewModelHost {
+      background-color: @base !important;
+    }
+    ad-grid-card-text-view-model {
+      background-color: @surface0 !important;
+    }
+    .ytwAdAvatarLockupViewModelHost,
+    .ytwAdAvatarLockupViewModelHost .ytAttributedStringHost,
+    .ytwPanelAdHeaderImageLockupViewModelHost .ytBadgeShapeText,
+    .ytwAdGridCardTextViewModelHostMetadataHeadline {
+      color: @text !important;
+    }
+    .ytwAdDetailsLineViewModelHost,
+    .ytwAdDetailsLineViewModelHost .ytAttributedStringHost,
+    .ytwAdGridCardTextViewModelHostMetadataDescriptionInlineStringInline {
+      color: @subtext0 !important;
+    }
+
     /* When such a match-content-theme panel opens as a *dialog* (e.g. the channel
        "…more" About popup), it is wrapped in a tp-yt-paper-dialog whose own surface
        fills from the inherited --paper-dialog-background-color (= #212121), which
