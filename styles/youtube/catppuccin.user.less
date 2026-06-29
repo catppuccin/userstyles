@@ -2199,6 +2199,82 @@
       color: @subtext0 !important;
     }
 
+    /* ============================================================
+       Playlist browse page (ytd-browse — Watch later, saved
+       playlists). v2_0 paints the immersive header card, the
+       sort-chip header band, the video rows and the "videos
+       removed" alert from per-build *hashed* atomic vars instead of
+       the semantic tokens, so the token remap can't reach them —
+       force the stable selectors.
+       ============================================================ */
+
+    /* Sort-chip header band. The #header that carries the sort chip
+       ("Date added (newest)") above the list paints from a hashed atomic var
+       (#0f0f0f), so it stayed a black bar over the @base page — force the
+       stable selector → @base. (Scoped to the chip-bar-view-model header, which
+       the history page reuses too.) */
+    ytd-item-section-renderer[use-chip-bar-view-model-header] #header.ytd-item-section-renderer {
+      background: @base !important;
+    }
+
+    /* Immersive header card text over the colored gradient. The playlist title
+       and the owner/channel link inherit a hardcoded #fff (the link via
+       --yt-endpoint-color's hashed-var fallback), and the stats line ("N videos
+       · N views · Updated …") a 70%-white from --yt-playlist-byline-color's
+       fallback — none routed through a palette token. Send them through @white
+       (the flavor-aware light ink for text over media), keeping the stats one
+       step dimmer at fade(@white, 70%) to preserve the default hierarchy. */
+    ytd-playlist-header-renderer .metadata-wrapper,
+    ytd-playlist-header-renderer #owner-text a {
+      color: @white !important;
+    }
+    .metadata-stats.ytd-playlist-byline-renderer {
+      color: fade(@white, 70%) !important;
+    }
+
+    /* Immersive header action buttons — Shuffle and the ⋮ action menu (and any
+       other overlay tonal buttons in the card) sit over that gradient. The
+       global .ytSpecButtonShapeNextOverlay.ytSpecButtonShapeNextTonal rule
+       paints them a solid @surface0, which flattens them against the gradient;
+       default YT keeps them a translucent wash (rgba(255,255,255,.1)) so the
+       gradient frosts through — mirror that with the flavor-aware fade(@white,…),
+       like the masthead pill buttons. The header scope out-specifies the global
+       !important rule. */
+    ytd-playlist-header-renderer .ytSpecButtonShapeNextOverlay.ytSpecButtonShapeNextTonal {
+      background-color: fade(@white, 10%) !important;
+
+      &:hover {
+        background-color: fade(@white, 20%) !important;
+      }
+    }
+
+    /* Playlist video rows (ytd-playlist-video-renderer). v2_0 paints the row
+       index number, the channel byline (--yt-endpoint-color is locally reset to
+       the hashed #aaa) and the metadata line / "•" separator ("94M views · 4
+       years ago") from per-build hashed atomic vars (#aaa) rather than the
+       secondary-text token, so they stayed the unthemed gray — force the stable
+       selectors → @subtext0. (Row video titles already theme to @text via the
+       --yt-deprecated-* remap.) */
+    #index.ytd-playlist-video-renderer,
+    ytd-playlist-video-renderer ytd-channel-name a,
+    ytd-playlist-video-renderer #video-info,
+    ytd-playlist-video-renderer #separator {
+      color: @subtext0 !important;
+    }
+
+    /* Playlist info alert ("One or more videos have been removed …"). The
+       ytd-alert-with-button-renderer banner fills from a hashed atomic var
+       (var(--t7f4f2c6d54836ce0) = rgba(255,255,255,.1)) — the same translucent-
+       white wash the description box uses — with its #text at the #f1f1f1 hashed
+       var. Force the surface → @surface0 (a raised band over the @base page) and
+       the text → @text. */
+    ytd-alert-with-button-renderer {
+      background-color: @surface0 !important;
+    }
+    #text.ytd-alert-with-button-renderer {
+      color: @text !important;
+    }
+
     /* Watch-page description hashtags / links. The clickable #hashtags (and any
        other endpoint links) inside the video description paint #aaa via a
        per-build *hashed* atomic var: they read --yt-endpoint-color, which is unset
