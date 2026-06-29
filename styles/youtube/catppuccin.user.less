@@ -2135,14 +2135,68 @@
     }
 
     /* Feed section / shelf headings. The date dividers on the history feed
-       ("Today", "Yesterday" — #title.ytd-item-section-header-renderer) and the
-       "Shorts" shelf title (#title.ytd-reel-shelf-renderer) paint their color
-       from a per-build *hashed* atomic var (#f1f1f1) instead of the semantic
-       text token, so they stayed an unthemed off-white — force the stable
-       #title selectors → @text. */
+       ("Today", "Yesterday" — #title.ytd-item-section-header-renderer), the
+       "Shorts" shelf title (#title.ytd-reel-shelf-renderer) and the generic
+       shelf-row heading (#title.ytd-shelf-renderer — e.g. "Movie purchases and
+       rentals" on the Movies & TV page, and home-feed shelf titles) paint their
+       color from a per-build *hashed* atomic var (#f1f1f1) instead of the
+       semantic text token, so they stayed an unthemed off-white — force the
+       stable #title selectors → @text. */
     #title.ytd-item-section-header-renderer,
-    #title.ytd-reel-shelf-renderer {
+    #title.ytd-reel-shelf-renderer,
+    #title.ytd-shelf-renderer {
       color: @text !important;
+    }
+
+    /* Movies & TV grid cards (ytd-grid-movie-renderer = the purchases/rentals
+       tab; ytd-grid-video-renderer = the Live tab; ytd-grid-channel-renderer =
+       the channel cards on the Browse tab). v2_0 paints the card title
+       (#video-title / the channel #title — inherited / hashed #f1f1f1), the
+       channel byline and the genre·year or schedule metadata line (hashed #aaa)
+       from per-build hashed atomic vars rather than the semantic tokens, so the
+       titles stayed off-white and the "Animation • 2011" / "55 min left" lines an
+       unthemed gray — force the stable selectors → @text (title) and @subtext0
+       (byline + metadata). */
+    #video-title.ytd-grid-movie-renderer,
+    #video-title.ytd-grid-video-renderer,
+    #title.ytd-grid-channel-renderer {
+      color: @text !important;
+    }
+    .grid-movie-renderer-metadata.ytd-grid-movie-renderer,
+    ytd-grid-video-renderer ytd-channel-name a,
+    ytd-grid-video-renderer #byline a,
+    #metadata-line.ytd-grid-video-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* Metadata badges (yt-metadata-badge-renderer). The age-rating / media badges
+       (.ytBadgeShapeMedia — "FSK 6", quality labels) paint their text from the
+       hashed #aaa, so theme it → @subtext0. The "Upcoming" thumbnail overlay badge
+       (.ytBadgeShapeThumbnailDefault) sits over the thumbnail scrim with hardcoded
+       #fff text → @white (the flavor-aware light ink for text over media). The LIVE
+       badge (themed @accent elsewhere) and the commerce "Pay to watch" badge (its
+       text is the themed @green) are deliberately NOT matched here. */
+    .ytBadgeShapeMedia .ytBadgeShapeText {
+      color: @subtext0 !important;
+    }
+    .ytBadgeShapeThumbnailDefault .ytBadgeShapeText {
+      color: @white !important;
+    }
+
+    /* Movies & TV "Browse" hero card (ytd-default-promo-panel-renderer — the big
+       featured promo at the top). Its title (#hero-title), description
+       (#description) and provider byline (#channel-name, e.g. "YouTube Movies &
+       TV") paint hardcoded #fff / 70%-white over the hero artwork + dark scrim
+       (the #hero image and #scrim gradient), not via a palette token. Route them
+       through @white (the flavor-aware light ink for text over media): the title
+       full, the description and byline one step dimmer at fade(@white, 70%) to
+       keep the default hierarchy. */
+    #hero-title.ytd-default-promo-panel-renderer {
+      color: @white !important;
+    }
+    #description.ytd-default-promo-panel-renderer,
+    #channel-name.ytd-default-promo-panel-renderer {
+      color: fade(@white, 70%) !important;
     }
 
     /* Playlist panel on the watch page (ytd-playlist-panel-renderer — the queue
@@ -2634,6 +2688,13 @@
     ytd-compact-link-renderer:hover,
     ytd-toggle-theme-compact-link-renderer:hover {
       background-color: @surface0 !important;
+    }
+    /* The "View your channel" link in the account-popup header is a real
+       yt-simple-endpoint anchor (unlike the name / handle / email text above), so
+       it reads the global --yt-endpoint-color (@text) and rendered as plain text.
+       Force it → @accent so it reads as the link it is. */
+    ytd-active-account-header-renderer a.yt-simple-endpoint {
+      color: @accent !important;
     }
 
     /* Legacy context-menu items (ytd-menu-service-item-renderer — the older
