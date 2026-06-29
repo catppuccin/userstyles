@@ -2138,13 +2138,16 @@
        ("Today", "Yesterday" — #title.ytd-item-section-header-renderer), the
        "Shorts" shelf title (#title.ytd-reel-shelf-renderer) and the generic
        shelf-row heading (#title.ytd-shelf-renderer — e.g. "Movie purchases and
-       rentals" on the Movies & TV page, and home-feed shelf titles) paint their
-       color from a per-build *hashed* atomic var (#f1f1f1) instead of the
-       semantic text token, so they stayed an unthemed off-white — force the
+       rentals" on the Movies & TV page, and home-feed shelf titles) and the
+       rich-shelf heading (#title.ytd-rich-shelf-renderer — the category rows on
+       topic/channel pages, e.g. "Sommer, Sonne, Gute Laune" on the Music channel)
+       paint their color from a per-build *hashed* atomic var (#f1f1f1) instead of
+       the semantic text token, so they stayed an unthemed off-white — force the
        stable #title selectors → @text. */
     #title.ytd-item-section-header-renderer,
     #title.ytd-reel-shelf-renderer,
-    #title.ytd-shelf-renderer {
+    #title.ytd-shelf-renderer,
+    #title.ytd-rich-shelf-renderer {
       color: @text !important;
     }
 
@@ -2197,6 +2200,26 @@
     #description.ytd-default-promo-panel-renderer,
     #channel-name.ytd-default-promo-panel-renderer {
       color: fade(@white, 70%) !important;
+    }
+
+    /* Topic channel page header (ytd-topic-channel-details-renderer — e.g. the
+       "Music" destination channel). v2_0 paints the channel name (#title) from the
+       hashed #f1f1f1 and the subscriber count (#subtitle) from the hashed #aaa, so
+       they stayed off-white / gray — force #title → @text and #subtitle → @subtext0. */
+    #title.ytd-topic-channel-details-renderer {
+      color: @text !important;
+    }
+    #subtitle.ytd-topic-channel-details-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* Rich-shelf "Show more" expander (ytd-rich-shelf-renderer — the button that
+       reveals the rest of a shelf's items). Its .button-container paints the hashed
+       #0f0f0f (the same var as the chip-bar header), which blends into default YT's
+       #0f0f0f page but reads as a dark rectangle behind the outlined pill button
+       against our @base — map it → @base so only the pill button shows. */
+    .button-container.ytd-rich-shelf-renderer {
+      background-color: @base !important;
     }
 
     /* Playlist panel on the watch page (ytd-playlist-panel-renderer — the queue
