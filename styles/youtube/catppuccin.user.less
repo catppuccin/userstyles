@@ -2352,6 +2352,36 @@
       color: @white !important;
     }
 
+    /* Merch shelf (ytd-merch-shelf-renderer — the "Shop the … store" product
+       strip under a video). The shelf, item renderers and product cards are
+       transparent (they inherit the page @base), so only text/icon/button need
+       theming. v2_0 paints the shelf title (#title), the product title and price
+       (#f1f1f1) and the merchant name + description (#aaa) from per-build hashed
+       atomic vars rather than the semantic tokens, so they stayed off-white / gray.
+       The "open in new" merchant arrow (yt-icon, fill: currentcolor) sets its own
+       hashed #f1f1f1 color, so it ignores the merchant-text colour and needs its
+       own color/fill. Force the shelf title + product title + price → @text; the
+       merchant name, description and arrow icon → @subtext0. The "Shop" button is
+       a hardcoded white pill (#f1f1f1 bg / #0f0f0f text) — recolour it to a filled
+       @accent button (@base ink) like the other primary actions. */
+    #title.ytd-merch-shelf-renderer,
+    .product-item-title.ytd-merch-shelf-item-renderer,
+    .product-item-price.ytd-merch-shelf-item-renderer {
+      color: @text !important;
+    }
+    .product-item-merchant-text.ytd-merch-shelf-item-renderer,
+    .product-item-description.ytd-merch-shelf-item-renderer {
+      color: @subtext0 !important;
+    }
+    .product-item-merchant-icon.ytd-merch-shelf-item-renderer {
+      color: @subtext0 !important;
+      fill: @subtext0 !important;
+    }
+    .product-item-button.ytd-merch-shelf-item-renderer {
+      background-color: @accent !important;
+      color: @base !important;
+    }
+
     /* Movies & TV "Browse" hero card (ytd-default-promo-panel-renderer — the big
        featured promo at the top). Its title (#hero-title), description
        (#description) and provider byline (#channel-name, e.g. "YouTube Movies &
@@ -3095,6 +3125,15 @@
        whole floating panel reads as one surface. */
     ytd-item-section-renderer[static-comments-header] #header.ytd-item-section-renderer {
       background-color: @surface0 !important;
+    }
+
+    /* Comments header count (#count.ytd-comments-header-renderer — the
+       "N Comments" heading). The h2#count inherits @text, but the inner
+       .count-text (the yt-formatted-string that renders the visible count) paints
+       from a hashed atomic var (#f1f1f1), so the count text itself stayed
+       off-white — force .count-text → @text. */
+    .count-text.ytd-comments-header-renderer {
+      color: @text !important;
     }
 
     /* Sidebar / guide drawer.
