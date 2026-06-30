@@ -2209,6 +2209,73 @@
       color: @subtext0 !important;
     }
 
+    /* Show grid cards (ytd-grid-show-renderer — the series tiles in shelves like
+       "Popular shows for you"). v2_0 paints the show title (#video-title — hashed
+       #f1f1f1) and the genre·year byline (the ytd-channel-name line, e.g. "ARD
+       Plus • Family • 1975" — hashed #aaa) from per-build hashed atomic vars
+       rather than the semantic tokens, so the titles stayed off-white and the
+       byline an unthemed gray — force #video-title → @text and the byline →
+       @subtext0. */
+    #video-title.ytd-grid-show-renderer {
+      color: @text !important;
+    }
+    ytd-grid-show-renderer ytd-channel-name,
+    ytd-grid-show-renderer ytd-channel-name #text {
+      color: @subtext0 !important;
+    }
+
+    /* Stacked-thumbnail bottom panel (ytd-thumbnail-overlay-bottom-panel-renderer
+       — the "N seasons" / "N videos" overlay on show & playlist thumbnails). The
+       element rule hardcodes literal #fff text on an rgba(0,0,0,.8) scrim, so it
+       bypasses the themed-overlay tokens and stayed YouTube-default — mirror those
+       tokens directly: background → fade(@crust, 80%) (the themed-overlay-background
+       value) and text/icon → @white (the flavor-aware light ink for text over media). */
+    ytd-thumbnail-overlay-bottom-panel-renderer {
+      background-color: fade(@crust, 80%) !important;
+      color: @white !important;
+    }
+
+    /* Community / backstage posts (ytd-backstage-post-renderer — the items on a
+       channel's "Posts" tab). v2_0 paints the author handle (#author-text) and the
+       post body (#content-text) from the hashed #f1f1f1, and the timestamp
+       (#published-time-text — a link, so its own endpoint-color rule beats the
+       container, like the comment timestamp), the "Read more"/"Show less" expander
+       toggles and the byline from the hashed #aaa — force the author + body → @text
+       and the secondary text → @subtext0. The in-body links/@mentions inherit the
+       body color, so route them through @accent (the link colour). */
+    #author-text.ytd-backstage-post-renderer,
+    #content-text.ytd-backstage-post-renderer {
+      color: @text !important;
+    }
+    #content-text.ytd-backstage-post-renderer a {
+      color: @accent !important;
+    }
+    #published-time-text.ytd-backstage-post-renderer,
+    #published-time-text.ytd-backstage-post-renderer a,
+    .more-button.ytd-backstage-post-renderer,
+    .less-button.ytd-backstage-post-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* Video attachment inside a post (#content-attachment ytd-video-renderer — the
+       embedded video card). Its surface paints from the per-build *hashed* atomic
+       var (var(--t3e41d7b17b187f69) = #0f0f0f) rather than a semantic token, so it
+       stayed YouTube-default dark — force the stable selector → @base (the same
+       #0f0f0f surface family mapped to @base elsewhere). The card's own title
+       (#video-title — hashed #f1f1f1) → @text and its byline, metadata and
+       description preview (#description-text — hashed #aaa) → @subtext0. */
+    #content-attachment.ytd-backstage-post-renderer ytd-video-renderer {
+      background-color: @base !important;
+    }
+    #content-attachment.ytd-backstage-post-renderer #video-title {
+      color: @text !important;
+    }
+    #content-attachment.ytd-backstage-post-renderer ytd-channel-name a,
+    #content-attachment.ytd-backstage-post-renderer .inline-metadata-item,
+    #content-attachment.ytd-backstage-post-renderer #description-text {
+      color: @subtext0 !important;
+    }
+
     /* Rich-grid shelf cards (ytd-rich-grid-media — the video/live cards in the
        horizontal shelves on the channel "Live" tab, e.g. the "Live Now" and
        "Recent Live Streams" rows). v2_0 paints the card title (#video-title —
@@ -2225,6 +2292,15 @@
     ytd-rich-grid-media #byline a,
     ytd-rich-grid-media #metadata-line {
       color: @subtext0 !important;
+    }
+
+    /* "View full course" CTA (#view-more.ytd-rich-grid-media — the link on a course
+       card on the Learning page). v2_0 paints it the hashed #aaa, so the link stayed
+       an unthemed gray — force it (and its inner link-inherit-color <a>) → @accent,
+       the link colour. */
+    #view-more.ytd-rich-grid-media,
+    #view-more.ytd-rich-grid-media a {
+      color: @accent !important;
     }
 
     /* Multi-creator / collaboration bylines (#attributed-channel-name — the
@@ -2253,10 +2329,12 @@
     }
 
     /* Shelf subtitle (#subtitle.ytd-shelf-renderer — the line under a shelf
-       header, e.g. "Based on your Subscriptions and History" on the Gaming feed).
-       v2_0 paints it the hashed #aaa, leaving it an unthemed gray — force →
+       header, e.g. "Based on your Subscriptions and History" on the Gaming feed;
+       #subtitle.ytd-rich-shelf-renderer — the topic description on the Learning
+       page). v2_0 paints it the hashed #aaa, leaving it an unthemed gray — force →
        @subtext0 (the shelf #title is themed by the rule above). */
-    #subtitle.ytd-shelf-renderer {
+    #subtitle.ytd-shelf-renderer,
+    #subtitle.ytd-rich-shelf-renderer {
       color: @subtext0 !important;
     }
 
@@ -2281,11 +2359,15 @@
        (the #hero image and #scrim gradient), not via a palette token. Route them
        through @white (the flavor-aware light ink for text over media): the title
        full, the description and byline one step dimmer at fade(@white, 70%) to
-       keep the default hierarchy. */
+       keep the default hierarchy. On some surfaces (e.g. the Sports carousel) the
+       description's metadata is split into inline-styled child spans
+       (style="color: rgb(170,170,170)") that the parent rule can't reach, so match
+       those spans too. */
     #hero-title.ytd-default-promo-panel-renderer {
       color: @white !important;
     }
     #description.ytd-default-promo-panel-renderer,
+    #description.ytd-default-promo-panel-renderer span,
     #channel-name.ytd-default-promo-panel-renderer {
       color: fade(@white, 70%) !important;
     }
