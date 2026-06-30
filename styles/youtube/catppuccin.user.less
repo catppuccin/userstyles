@@ -2331,10 +2331,21 @@
     /* Shelf subtitle (#subtitle.ytd-shelf-renderer — the line under a shelf
        header, e.g. "Based on your Subscriptions and History" on the Gaming feed;
        #subtitle.ytd-rich-shelf-renderer — the topic description on the Learning
-       page). v2_0 paints it the hashed #aaa, leaving it an unthemed gray — force →
-       @subtext0 (the shelf #title is themed by the rule above). */
+       page; #subtitle.ytd-brand-video-shelf-renderer — the description under a
+       "YouTube featured" brand shelf, e.g. "Listen to podcasts in the
+       background"). v2_0 paints it the hashed #aaa, leaving it an unthemed gray —
+       force → @subtext0 (the shelf #title is themed by the rule above). */
     #subtitle.ytd-shelf-renderer,
-    #subtitle.ytd-rich-shelf-renderer {
+    #subtitle.ytd-rich-shelf-renderer,
+    #subtitle.ytd-brand-video-shelf-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* "YouTube featured" promoted-shelf sublabel badge (.ytBadgeShapePromoted —
+       the badge in a brand video shelf header's sublabel). v2_0 paints its text
+       from a per-build hashed var, leaving it off-palette; force → @subtext0 to
+       match the shelf subtitle above. */
+    .ytBadgeShapePromoted .ytBadgeShapeText {
       color: @subtext0 !important;
     }
 
@@ -3095,6 +3106,22 @@
     .ytwAdDetailsLineViewModelHost,
     .ytwAdDetailsLineViewModelHost .ytAttributedStringHost,
     .ytwAdGridCardTextViewModelHostMetadataDescriptionInlineStringInline {
+      color: @subtext0 !important;
+    }
+
+    /* In-feed / masthead "Sponsored" ad metadata (ytwFeedAdMetadataViewModelHost*
+       — the ad-badge + advertiser line beneath an in-feed or masthead promoted
+       slot; a different view-model from the watch-page panel ad above, so its
+       host class .ytwAdDetailsLineViewModelHostIsClickableAdComponent doesn't
+       match the .ytwAdDetailsLineViewModelHost rule). v2_0 paints the "Sponsored"
+       badge (.ytBadgeShapeAd) the hashed #f1f1f1 and the advertiser name the
+       hashed #aaa; the CTA headline is already a themed link. Mirror the panel-ad
+       hierarchy: Sponsored badge → @text, advertiser line → @subtext0. */
+    .ytBadgeShapeAd .ytBadgeShapeText {
+      color: @text !important;
+    }
+    .ytwAdDetailsLineViewModelHostIsClickableAdComponent,
+    .ytwAdDetailsLineViewModelHostIsClickableAdComponent .ytAttributedStringHost {
       color: @subtext0 !important;
     }
 
