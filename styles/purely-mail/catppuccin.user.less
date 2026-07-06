@@ -259,66 +259,73 @@
       background-color: @base;
     }
 
-    /* Sidebar buttons (e.g. compose, contacts, settings, etc.) */
-    #taskmenu a {
-      color: @text;
+    #taskmenu {
+      /* Sidebar buttons (e.g. compose, contacts, settings, etc.) */
+      a {
+        color: @text;
 
-      &:focus {
+        &:focus {
+          color: @accent;
+          background-color: fade(@accent, 30%);
+        }
+
+        &:hover {
+          color: @base;
+          background-color: @accent;
+        }
+
+        /* Sidebar logout button */
+        &.logout {
+          color: @red !important;
+
+          &:hover {
+            color: @base !important;
+            background-color: @red;
+          }
+        }
+
+        /* Selected sidebar button */
+        &.selected {
+          color: @accent;
+          background-color: fade(@accent, 30%);
+        }
+      }
+
+      &.action-buttons a {
         color: @accent;
-        background-color: fade(@accent, 30%);
       }
-
-      &:hover {
-        color: @base;
-        background-color: @accent;
-      }
-    }
-
-    #taskmenu .action-buttons a {
-      color: @accent;
-    }
-
-    /* Sidebar logout button */
-    #taskmenu a.logout {
-      color: @red !important;
-
-      &:hover {
-        color: @base !important;
-        background-color: @red;
-      }
-    }
-
-    /* Selected sidebar button */
-    #taskmenu a.selected {
-      color: @accent;
-      background-color: fade(@accent, 30%);
-    }
-
-    /* Mail sidebar button text */
-    .listing li a {
-      color: @text;
     }
 
     .listing li {
       border-color: @surface0;
-    }
 
-    .listing li.selected ul {
-      background-color: @base;
-    }
+      /* Mail sidebar button text */
+      a {
+        color: @text;
+      }
 
-    /* Selected mail sidebar button (inbox, drafts, etc.) */
-    .listing li.selected > a {
-      color: @accent;
-      background-color: fade(@accent, 30%);
+      &.selected {
+        color: @accent;
+
+        ul {
+          background-color: @base;
+        }
+
+        /* Selected mail sidebar button (inbox, drafts, etc.) */
+        > a {
+          color: @accent;
+          background-color: mix(@accent, @base, 30%);
+        }
+      }
     }
 
     .listing tbody td {
-      border-color: @surface0;
-    }
-
-    .listing tbody td a {
       color: @text;
+      border-color: @surface0;
+
+      a {
+        color: @text;
+      }
     }
 
     /* Selected email in mail list */
@@ -339,21 +346,21 @@
     /* Mail list */
     .messagelist {
       color: @subtext0;
-    }
 
-    /* Mail list text */
-    .messagelist tr:not(.flagged):not(.deleted) td.subject span.date,
-    .messagelist tr:not(.flagged):not(.deleted) td.subject span.fromto,
-    .messagelist tr:not(.flagged):not(.deleted) td.subject span.size {
-      color: @subtext0;
-    }
+      /* Mail list text */
+      tr:not(.flagged):not(.deleted) td.subject span.date,
+      tr:not(.flagged):not(.deleted) td.subject span.fromto,
+      tr:not(.flagged):not(.deleted) td.subject span.size {
+        color: @subtext0;
+      }
 
-    .messagelist tr:not(.flagged):not(.deleted).selected td.subject a {
-      color: @accent;
-    }
+      tr:not(.flagged):not(.deleted).selected td.subject a {
+        color: @accent;
+      }
 
-    .messagelist tr:not(.flagged):not(.deleted).selected td.subject span.msgicon.status {
-      color: @accent;
+      tr:not(.flagged):not(.deleted).selected td.subject span.msgicon.status {
+        color: @accent;
+      }
     }
 
     /* Unread mail count */
@@ -391,13 +398,19 @@
     .nav-tabs .nav-link {
       color: @text;
       border-bottom-color: @surface0;
-    }
 
-    .nav-tabs .nav-link.active {
-      color: @text;
-      background-color: @base;
-      border-color: @surface0;
-      border-bottom-color: transparent;
+      &.active {
+        color: @text;
+        background-color: @base;
+        border-color: @surface0;
+        border-bottom-color: transparent;
+      }
+
+      &:hover {
+        color: @text;
+        background-color: @mantle;
+        border-color: @surface0;
+      }
     }
 
     .searchbar {
@@ -407,18 +420,24 @@
     .form-control {
       color: @text;
       background-color: @base;
-    }
 
-    .form-control:not(.is-invalid) {
-      border-color: @surface0;
-    }
+      &:not(.is-invalid) {
+        border-color: @surface0;
 
-    .form-control:not(#searchfilter):not(#s_interval):not(#s_scope):not(#fftext) {
-      background-color: @mantle;
-      color: @text;
+        &:focus {
+          color: @text !important;
+          border-color: @accent;
+          box-shadow: 0 0 0 .2rem fade(@accent, 25%);
+        }
+      }
 
-      &:focus {
-        background-color: @surface0;
+      &:not(#searchfilter):not(#s_interval):not(#s_scope):not(#fftext) {
+        background-color: @mantle;
+        color: @text;
+
+        &:focus {
+          background-color: @surface0;
+        }
       }
     }
 
@@ -451,10 +470,11 @@
 
     .file-upload {
       border-color: @surface0;
-    }
-    .file-upload.droptarget::after {
-      @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560"><path fill="@{text}" d="M690 245c0 9.2-3.5 17.9-10.1 24.9l-175 175c-6.6 6.6-15.3 10.1-24.9 10.1-9.2 0-18.4-3.5-24.9-10.1l-175-175c-6.6-7-10.1-15.8-10.1-24.9 0-4.4.9-9.2 2.6-13.6C277.9 218.3 291 210 305 210h87.5V35c0-19.2 15.8-35 35-35h105c19.2 0 35 15.8 35 35v175H655c14 0 27.1 8.3 32.4 21.4 1.7 4.4 2.6 9.2 2.6 13.6m0 245H270V350h-70v140c0 38.5 31.5 70 70 70h420c38.5 0 70-31.5 70-70V350h-70z"/></svg>');
-      content: url("data:image/svg+xml,@{svg}");
+
+      &.droptarget::after {
+        @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560"><path fill="@{text}" d="M690 245c0 9.2-3.5 17.9-10.1 24.9l-175 175c-6.6 6.6-15.3 10.1-24.9 10.1-9.2 0-18.4-3.5-24.9-10.1l-175-175c-6.6-7-10.1-15.8-10.1-24.9 0-4.4.9-9.2 2.6-13.6C277.9 218.3 291 210 305 210h87.5V35c0-19.2 15.8-35 35-35h105c19.2 0 35 15.8 35 35v175H655c14 0 27.1 8.3 32.4 21.4 1.7 4.4 2.6 9.2 2.6 13.6m0 245H270V350h-70v140c0 38.5 31.5 70 70 70h420c38.5 0 70-31.5 70-70V350h-70z"/></svg>');
+        content: url("data:image/svg+xml,@{svg}");
+      }
     }
 
     .btn-primary {
@@ -528,10 +548,10 @@
         color: @text;
         background-color: @surface0;
       }
-    }
 
-    .tox.tox-tinymce {
-      border-color: @surface0;
+      &.tox-tinymce {
+        border-color: @surface0;
+      }
     }
 
     /* Content window (displays content of mail) */
@@ -580,41 +600,46 @@
       background-color: @green !important;
     }
 
-    .ui.alert.boxinformation {
-      color: @blue;
-      background-color: fade(@blue, 30%);
+    .ui.alert {
+      a:not(.btn) {
+        color: @base;
+      }
 
-      i.icon::before {
+      &.boxinformation {
         color: @blue;
-      }
-    }
-    .ui.alert.boxerror {
-      color: @red;
-      background-color: fade(@red, 30%);
+        background-color: fade(@blue, 30%);
 
-      i.icon::before {
+        i.icon::before {
+          color: @blue;
+        }
+      }
+
+      &.boxerror {
         color: @red;
-      }
-    }
-    .ui.alert.boxwarning {
-      color: @yellow;
-      background-color: fade(@yellow, 30%);
+        background-color: fade(@red, 30%);
 
-      i.icon::before {
+        i.icon::before {
+          color: @red;
+        }
+      }
+
+      &.boxwarning {
         color: @yellow;
-      }
-    }
-    .ui.alert.boxconfirmation {
-      color: @green;
-      background-color: fade(@green, 30%);
+        background-color: fade(@yellow, 30%);
 
-      i.icon::before {
+        i.icon::before {
+          color: @yellow;
+        }
+      }
+
+      &.boxconfirmation {
         color: @green;
-      }
-    }
+        background-color: fade(@green, 30%);
 
-    .ui.alert a:not(.btn) {
-      color: @base;
+        i.icon::before {
+          color: @green;
+        }
+      }
     }
 
     /* Valid signature check */
@@ -622,7 +647,7 @@
       filter: @green-filter;
     }
 
-    img.contactphoto {
+    img.contactphoto, #contactpic {
       background-color: @mantle !important;
 
       @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 246c50.5 0 91.4-40.9 91.4-91.4S306.5 63.1 256 63.1s-91.4 40.9-91.4 91.4S205.5 246 256 246m64 22.9h-11.9c-15.9 7.3-33.5 11.4-52.1 11.4s-36.1-4.1-52.1-11.4H192c-53 0-96 43-96 96v29.7c0 18.9 15.4 34.3 34.3 34.3h251.4c18.9 0 34.3-15.4 34.3-34.3v-29.7c0-53-43-96-96-96" fill="@{text}"/></svg>');
