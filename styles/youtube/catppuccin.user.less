@@ -869,6 +869,22 @@
       }
     }
 
+    /* Live-chat welcome-message logo (yt-icon#icon.yt-live-chat-viewer-engagement-
+       message-renderer — the YouTube badge beside the "Welcome to live chat!"
+       engagement message). Its red badge is recolored to @accent by the red-fill
+       rule above, but its inner play glyph keeps a hardcoded white fill inside the
+       new .yt-icon-shape host (ytSpecIconShapeHost), not the old .yt-spec-icon-shape
+       the #fff→@crust rule targets, so the triangle stayed white — recolor it →
+       @crust so it reads like the masthead/Shorts logo (accent badge + dark glyph). */
+    #icon.yt-live-chat-viewer-engagement-message-renderer {
+      [fill="#fff"],
+      [fill="#FFF"],
+      [fill="#FFFFFF"],
+      [fill="white"] {
+        fill: @crust;
+      }
+    }
+
     /* Notifications Bell and Indicator */
     .ytSpecIconBadgeShapeStyleOverlay .ytSpecIconBadgeShapeIcon,
     .ytSpecIconBadgeShapeBadge {
@@ -1414,6 +1430,18 @@
     // Comments sort-button trigger icon ("Sort comments") — paints the #f1f1f1
     // hashed atomic var (var(--tffc2fd3a644f6275)); map it to @text.
     #label-icon.yt-dropdown-menu {
+      color: @text !important;
+    }
+
+    // Members-only comments notice (#pause-composer.ytd-comment-pause-composer-
+    // renderer — the "Only subscribers can comment" card shown when a channel
+    // limits comments to members). v2_0 gives the card a hardcoded translucent-
+    // white background (rgba(255,255,255,.1)) and paints the message the #f1f1f1
+    // hashed atomic var, so it stayed an off-white pill with off-white text —
+    // force the card → @surface0 (matching the description card) and the message
+    // (inherited by the attributed-string span) → @text.
+    #pause-composer.ytd-comment-pause-composer-renderer {
+      background-color: @surface0 !important;
       color: @text !important;
     }
 
@@ -2487,6 +2515,54 @@
       color: @subtext0 !important;
     }
 
+    /* Search results rows (ytd-video-renderer = the video list; ytd-channel-
+       renderer = the channel result). v2_0 paints their text from per-build
+       *hashed* atomic vars rather than the semantic tokens, so the video titles
+       and channel name stayed off-white (#f1f1f1) and every metadata line an
+       unthemed gray (#aaa). Force the video titles (#video-title) and the channel
+       name (#channel-title) → @text; the metadata line (views · date), its inline
+       items and • separators, the channel byline (ytd-channel-name), the
+       description snippet, and the channel row's @handle / subscriber count / dot
+       / description → @subtext0. */
+    #video-title.ytd-video-renderer,
+    ytd-channel-renderer #channel-title {
+      color: @text !important;
+    }
+    ytd-video-renderer #metadata-line,
+    ytd-video-renderer .inline-metadata-item,
+    ytd-video-renderer #separator,
+    ytd-video-renderer ytd-channel-name a,
+    ytd-video-renderer ytd-channel-name #text,
+    ytd-video-renderer .metadata-snippet-text,
+    ytd-video-renderer .metadata-snippet-text-navigation,
+    #subscribers.ytd-channel-renderer,
+    #video-count.ytd-channel-renderer,
+    #dot.ytd-channel-renderer,
+    #description.ytd-channel-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* Artist / universal watch card (ytd-universal-watch-card-renderer — the
+       right-hand card shown for an official artist/channel query, e.g.
+       "blackpink"). Its text is hashed too: force the rich-header channel name
+       (#channel-name), each listed song's title (.title), the "Albums" section
+       header (#title.ytd-title-and-button-list-header-renderer) and the album
+       refinement cards (the div in ytd-search-refinement-card-renderer) → @text;
+       the @handle, each song's "views · time ago" subtitle + duration, and the
+       YT Music promo-banner subtext → @subtext0. */
+    #channel-name.ytd-watch-card-rich-header-renderer,
+    .title.ytd-watch-card-compact-video-renderer,
+    #title.ytd-title-and-button-list-header-renderer,
+    div.ytd-search-refinement-card-renderer {
+      color: @text !important;
+    }
+    yt-formatted-string.ytd-watch-card-rich-header-renderer,
+    .subtitle.ytd-watch-card-compact-video-renderer,
+    .duration.ytd-watch-card-compact-video-renderer,
+    .ytwYtdButtonBannerViewModelSubtext {
+      color: @subtext0 !important;
+    }
+
     /* ============================================================
        Playlist browse page (ytd-browse — Watch later, saved
        playlists). v2_0 paints the immersive header card, the
@@ -3142,6 +3218,32 @@
        text and icons inherit it through currentcolor. */
     #about-container.ytd-about-channel-renderer {
       color: @text !important;
+    }
+
+    /* Search filters dialog (ytd-search-filter-options-dialog-renderer — the modal
+       opened by the "Filters" button on a results page). Its tp-yt-paper-dialog
+       wrapper fills from the inherited --paper-dialog-background-color (= #212121)
+       and the content renderer is shorter than the wrapper, so the default surface
+       peeked out around it — remap that token → @mantle (the popup-surface colour)
+       on just this dialog variant. Its text paints from per-build *hashed* atomic
+       vars the token remap can't reach: force the dialog title, the group headers
+       (#filter-group-name — "Type", "Duration", …) and the close ✕ → @text, and the
+       filter options → @subtext0. The currently-applied option (.selected, e.g.
+       "Relevance") defaults to a brighter #f1f1f1; route it → @accent instead so the
+       active choice clearly stands out from the muted options. */
+    tp-yt-paper-dialog:has(ytd-search-filter-options-dialog-renderer) {
+      --paper-dialog-background-color: @mantle;
+    }
+    #title.ytd-search-filter-options-dialog-renderer,
+    yt-formatted-string.ytd-search-filter-group-renderer,
+    #close-button.ytd-search-filter-options-dialog-renderer {
+      color: @text !important;
+    }
+    yt-formatted-string.ytd-search-filter-renderer {
+      color: @subtext0 !important;
+    }
+    ytd-search-filter-renderer.selected yt-formatted-string {
+      color: @accent !important;
     }
 
     /* Anchored/floating comments header (narrow viewports — e.g. Shorts with the
