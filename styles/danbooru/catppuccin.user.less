@@ -1,0 +1,311 @@
+/* ==UserStyle==
+@name Danbooru Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/danbooru
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/danbooru
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/danbooru/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Adanbooru
+@description Soothing pastel theme for Danbooru
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("donmai.us") {
+  html, body[data-current-user-theme="light"] {
+    #catppuccin(@lightFlavor);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html, body {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  body[data-current-user-theme="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    @tint: 30%;
+    @latte: @catppuccin[@latte];
+
+    .gen-hover(@id, @color, @hoverColor: black) {
+      --@{id}-color: @color;
+      --@{id}-hover-color: if(
+        @hoverColor = black,
+        lighten(@color, 10%),
+        @hoverColor
+      );
+    }
+
+    .gen-hover-bg(@id, @color, @hoverColor: black) {
+      --@{id}-background-color: @color;
+      --@{id}-hover-background-color: if(
+        @hoverColor = black,
+        lighten(@color, 10%),
+        @hoverColor
+      );
+    }
+
+    --body-background-color: @base;
+    --text-color: @text;
+
+    --inverse-text-color: @base;
+    --muted-text-color: @subtext0;
+    --header-color: @text;
+    .gen-hover(link, @blue, @sky);
+    --focus-ring-color: @accent;
+
+    --default-border-color: @overlay0;
+
+    .gen-hover(success, @green);
+    .gen-hover(warning, @yellow);
+    .gen-hover(error, @red);
+
+    --error-background-color: mix(@red, @base, @tint);
+    --success-background-color: mix(@green, @base, @tint);
+    --target-background: mix(@yellow, @base, @tint);
+    --selection-background-color: fade(@accent, 30%);
+    --target-text-background-color: @pink;
+
+    --subnav-menu-background-color: @surface0;
+    --responsive-menu-background-color: @surface0;
+    --card-background-color: @surface0;
+
+    --chip-primary-background-color: mix(@blue, @base, @tint);
+    --chip-secondary-background-color: @base;
+    --chip-red-background-color: mix(@red, @base, @tint);
+    --chip-green-background-color: mix(@green, @base, @tint);
+    --chip-blue-background-color: mix(@blue, @base, @tint);
+    --chip-yellow-background-color: mix(@yellow, @base, @tint);
+    --chip-red-border-color: @red;
+    --chip-green-border-color: @green;
+    --chip-blue-border-color: @blue;
+    --chip-yellow-border-color: @yellow;
+
+    --badge-blue-background-color: @blue;
+
+    --form-input-background: @base;
+    --form-input-border-color: @overlay0;
+    --form-input-placeholder-text-color: @overlay0;
+    --form-input-validation-error-border-color: @red;
+    --form-input-validation-error-text-color: @red;
+
+    --form-button-text-color: @text;
+    --form-button-disabled-text-color: @overlay0;
+    --form-button-background: @surface0;
+    --form-button-border-color: @overlay0;
+    --form-button-hover-background: @surface1;
+    --form-button-hover-box-shadow-color: @base;
+    --form-button-active-background: @surface2;
+
+    --checkbox-selected-color: @accent;
+    --toggle-switch-unselected-color: @overlay1;
+    --toggle-switch-selected-color: @accent;
+    --toggle-switch-indeterminate-color: @sapphire;
+    --toggle-switch-handle-color: @base;
+
+    --dtext-editor-menu-background-color: mix(@blue, @base, @tint);
+
+    --button-text-color: @base;
+    --button-disabled-color: @overlay0;
+
+    .gen-hover-bg(button-primary, @accent);
+
+    .gen-hover-bg(button-danger, @red);
+
+    --button-outline-primary-color: @blue;
+    --button-outline-danger-color: @red;
+
+    --quick-search-form-background: @base;
+
+    --user-upgrade-basic-background-color: mix(@blue, @base, @tint);
+    --user-upgrade-gold-background-color: mix(@yellow, @base, @tint);
+    --user-upgrade-platinum-background-color: mix(@blue, @base, @tint);
+
+    --table-header-border-color: @overlay2;
+    --table-row-border-color: @overlay0;
+    --table-row-hover-background: @surface1;
+    --table-even-row-background: @surface0;
+
+    --preview-pending-color: @blue;
+    --preview-flagged-color: @red;
+    --preview-deleted-color: @text;
+    --preview-has-children-color: @green;
+    --preview-has-parent-color: @yellow;
+    --preview-selected-color: fade(@text, 30%);
+
+    --preview-icon-color: @base;
+    --preview-icon-background: fade(@text, 70%);
+
+    --media-asset-placeholder-background-color: @surface0;
+
+    --modqueue-tag-warning-color: mix(@red, @base, @tint);
+
+    --uploads-dropzone-background: @surface0;
+    --uploads-dropzone-progress-bar-foreground-color: @accent;
+    --uploads-dropzone-progress-bar-background-color: @surface1;
+
+    --forum-vote-up-color: @green;
+    --forum-vote-meh-color: @peach;
+    --forum-vote-down-color: @red;
+
+    --forum-topic-status-new-color: @red;
+    --forum-topic-status-pending-color: @blue;
+    --forum-topic-status-approved-color: @green;
+    --forum-topic-status-rejected-color: @red;
+
+    --moderation-report-text-color: @red;
+    --moderation-report-background-color: mix(@red, @base, @tint);
+
+    --comment-sticky-background-color: mix(@blue, @base, @tint);
+
+    --post-tooltip-background-color: @base;
+    --post-tooltip-border-color: @overlay0;
+    --post-tooltip-header-background-color: mix(@blue, @base, @tint);
+    --post-tooltip-info-color: @subtext0;
+
+    --post-tooltip-scrollbar-background: @overlay2;
+    --post-tooltip-scrollbar-thumb-color: @surface2;
+    --post-tooltip-scrollbar-track-background: @surface0;
+
+    --user-tooltip-positive-feedback-color: @peach;
+    --user-tooltip-negative-feedback-color: @red;
+
+    --autocomplete-selected-background-color: mix(@blue, @base, @tint);
+    --autocomplete-border-color: @overlay0;
+    // This was manually traced
+    @autocomplete-tag-autocorrect-underline: escape(
+      '<svg width="4" height="3" viewBox="0 0 4 3" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 3H1V2h1zM1 2H0V1h1zm2 0H2V1h1zm1-1H3V0h1z" fill="@{red}"/></svg>'
+    );
+    --autocomplete-tag-autocorrect-underline: url("data:image/svg+xml,@{autocomplete-tag-autocorrect-underline}");
+
+    --diff-list-added-color: @green;
+    --diff-list-removed-color: @red;
+    --diff-list-obsolete-added-color: @green;
+    --diff-list-obsolete-removed-color: @red;
+
+    --wiki-page-versions-diff-del-background: mix(@red, @base, @tint);
+    --wiki-page-versions-diff-ins-background: mix(@green, @base, @tint);
+
+    --post-notice-border-color: @overlay0;
+    --post-parent-notice-background: mix(@green, @base, @tint);
+    --post-child-notice-background: mix(@yellow, @base, @tint);
+    --post-pending-notice-background: mix(@blue, @base, @tint);
+    --post-banned-notice-background: mix(@red, @base, @tint);
+    --post-deleted-notice-background: mix(@red, @base, @tint);
+    --post-resized-notice-background: mix(@mauve, @base, @tint);
+    --post-search-notice-background: @surface0;
+
+    --post-artist-commentary-container-background: @surface0;
+    --post-artist-commentary-container-border-color: @overlay0;
+
+    --post-upvote-color: @accent;
+    --post-downvote-color: @red;
+
+    /* Hard coded for contrast */
+    --note-body-background: mix(@latte[@yellow], #fff, 15%);
+    --note-body-text-color: @latte[@text];
+    --note-body-border-color: @latte[@overlay0];
+    --note-box-border-color: @latte[@text];
+    --note-box-shadow: none;
+
+    --unsaved-note-box-border-color: @latte[@red];
+    --movable-note-box-border-color: @latte[@blue];
+    --note-preview-border-color: @latte[@red];
+    --note-preview-background: mix(@latte[@yellow], #fff, 15%);
+    --note-highlight-color: @latte[@blue];
+    --note-tn-color: @latte[@subtext0];
+
+    .gen-hover(series-pool, @pink, @mauve);
+    .gen-hover(collection-pool, @blue, @sapphire);
+
+    --post-mode-menu-active-post-outline-color: @lavender;
+    --post-mode-menu-translation-background: @lavender;
+
+    --tag-count-color: @subtext0;
+    --low-post-count-color: @red;
+
+    --remove-favorite-button: @red;
+
+    --ugoira-background-color: @mantle;
+    .gen-hover(ugoira-controls-icon, @text, @sky);
+    .gen-hover(ugoira-controls-background, @base, @surface1);
+    --ugoira-controls-divider-color: @surface1;
+    --ugoira-slider-playback-color: @sky;
+    --ugoira-slider-loading-color: @overlay1;
+    --ugoira-slider-unloaded-color: @overlay0;
+
+    --keyboard-shortcut-color: @base;
+    --keyboard-shortcut-background-color: @surface2;
+
+    --login-link-color: @red;
+    .gen-hover(divider-border, @overlay0, @overlay1);
+
+    --jquery-ui-widget-content-background: @base;
+    --dialog-titlebar-background-color: @surface0;
+    --dialog-titlebar-color: @text;
+    --dialog-border-color: @surface0;
+
+    --notice-error-background: mix(@red, @base, @tint);
+    --notice-error-border-color: @maroon;
+    --notice-info-background: mix(@yellow, @base, @tint);
+    --notice-info-border-color: @peach;
+
+    --dtext-blockquote-border-color: @overlay2;
+    --dtext-hr-color: @overlay0;
+    --dtext-code-background: @surface0;
+    --dtext-details-background-color: @surface0;
+    --dtext-details-summary-background-color: @surface1;
+    --dtext-details-summary-hover-background-color: @surface2;
+    --dtext-details-summary-text-color: @text;
+    --dtext-spoiler-background-color: @text;
+    --dtext-spoiler-hover-color: @base;
+
+    --paginator-arrow-background-color: @base;
+    --paginator-arrow-color: @accent;
+
+    .gen-hover(asset-paginator-link, @blue, @sky);
+    .gen-hover(asset-paginator-background, @base);
+
+    .gen-hover(artist-tag, @red);
+    .gen-hover(copyright-tag, @mauve);
+    .gen-hover(character-tag, @green);
+    .gen-hover(general-tag, @blue, @sky);
+    .gen-hover(meta-tag, @yellow);
+
+    .gen-hover(user-owner, @red);
+    .gen-hover(user-admin, @red);
+    .gen-hover(user-moderator, @green);
+    .gen-hover(user-builder, @mauve);
+    .gen-hover(user-platinum, @overlay2);
+    .gen-hover(user-gold, @yellow);
+    .gen-hover(user-member, @blue, @sky);
+    .gen-hover(user-restricted, @blue, @sky);
+    .gen-hover(user-banned, @surface2);
+
+    --user-verified-email-color: @green;
+    --user-unverified-email-color: @yellow;
+
+    --news-updates-background: @surface0;
+    --news-updates-border-color: @overlay0;
+
+    .gen-hover(inactive-artist-url, @red);
+    --banned-artist-label-color: @red;
+    --deleted-artist-label-color: @overlay2;
+
+    ::selection {
+      color: @text;
+    }
+  }
+}
