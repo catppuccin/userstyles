@@ -1,4 +1,4 @@
-/* ==UserStyle==
+﻿/* ==UserStyle==
 @name YouTube Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/youtube
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/youtube
@@ -37,7 +37,21 @@
     @black: if(@flavor = latte, @text, @base);
 
     color: @text;
-    background: @base;
+    background: @base !important;
+
+    /* Scrollbars (main page, sidebar/guide, watch-page panels, dropdowns…).
+       YouTube recolors every scrollbar through the standard, inherited
+       `scrollbar-color` property — a #ababab thumb on the root <html> (the main
+       viewport scrollbar) and a #aaa thumb on ytd-app (which all in-app
+       scrollbars inherit) — not the legacy ::-webkit-scrollbar pseudos. So two
+       declarations cover them all with no per-element redundancy: this bare rule
+       themes the root/viewport scrollbar, and the `*` rule overrides the ytd-app
+       subtree (and anything else) that re-declares its own value. Catppuccin
+       overlay thumb on a transparent track, matching YouTube's transparent track. */
+    scrollbar-color: @overlay0 transparent !important;
+    * {
+      scrollbar-color: @overlay0 transparent !important;
+    }
 
     #--variables() {
       &,
@@ -50,26 +64,284 @@
         --efyt-control-bar-background-color: @mantle;
         --dimmer-text: @text;
 
-        /* Newest Variables */
+        /* ============================================================
+           NEW COLOR SYSTEM — color-version="v2_0" (2026 redesign)
+           ------------------------------------------------------------
+           YouTube removed the old --yt-spec-* color tokens and split
+           them into two new systems:
+             1. --yt-sys-color-baseline--*  (semantic colors, 164 of them)
+             2. --yt-deprecated-*           (the old palette scale, renamed)
+           Both are mapped to the Catppuccin palette below. The legacy
+           --yt-spec-* block further down is intentionally KEPT: this
+           stylesheet still references those names via var(), and
+           Studio / older surfaces still ship them.
+           ============================================================ */
+
+        /* --- Semantic tokens: --yt-sys-color-baseline--* --- */
+
+        /* Surfaces & backgrounds */
         --yt-sys-color-baseline--base-background: @base;
-        --yt-sys-color-baseline--menu-background: @mantle;
         --yt-sys-color-baseline--raised-background: @surface0;
+        --yt-sys-color-baseline--menu-background: @mantle;
         --yt-sys-color-baseline--additive-background: @surface0;
-        --yt-sys-color-baseline--wordmark-text: @text;
+        --yt-sys-color-baseline--additive-background-inverse: @surface0;
+        --yt-sys-color-baseline--overlay-additive-background: fade(@surface0, 60%);
+        --yt-sys-color-baseline--inverted-background: @text;
+        --yt-sys-color-baseline--inverted-background-hover: @subtext0;
+        --yt-sys-color-baseline--solid-background: @text;
+        --yt-sys-color-baseline--solid-background-inverse: @base;
+        --yt-sys-color-baseline--overlay-solid-background: @text;
+        --yt-sys-color-baseline--overlay-solid-background-inverse: @base;
+        --yt-sys-color-baseline--static-white-background: @base;
+
+        /* Text & icons */
         --yt-sys-color-baseline--text-primary: @text;
         --yt-sys-color-baseline--text-secondary: @subtext0;
+        --yt-sys-color-baseline--text-disabled: @subtext1;
+        --yt-sys-color-baseline--text-primary-inverse: @base;
+        --yt-sys-color-baseline--text-secondary-inverse: @subtext1;
+        --yt-sys-color-baseline--text-disabled-inverse: @overlay1;
+        --yt-sys-color-baseline--text-error: @red;
+        --yt-sys-color-baseline--text-warning: @peach;
+        --yt-sys-color-baseline--text-complete: @green;
+        --yt-sys-color-baseline--wordmark-text: @text;
+        --yt-sys-color-baseline--icon-active-other: @text;
+        --yt-sys-color-baseline--icon-warning: @peach;
+
+        /* Accent / call-to-action / status */
         --yt-sys-color-baseline--call-to-action: @accent;
+        --yt-sys-color-baseline--call-to-action-hover: lighten(@accent, 5%);
+        --yt-sys-color-baseline--call-to-action-inverse: @accent;
+        --yt-sys-color-baseline--overlay-call-to-action: @accent;
+        --yt-sys-color-baseline--overlay-call-to-action-hover: lighten(@accent, 5%);
         --yt-sys-color-baseline--suggested-action: mix(@accent, @base, 30%);
+        --yt-sys-color-baseline--suggested-action-hover: mix(@accent, @base, 45%);
+        --yt-sys-color-baseline--suggested-action-inverse: mix(@accent, @base, 30%);
+        --yt-sys-color-baseline--brand-red-contrast: @accent;
+        --yt-sys-color-baseline--red-indicator: @accent;
+        --yt-sys-color-baseline--error-indicator: @red;
+        --yt-sys-color-baseline--error-indicator-inverse: @red;
+        --yt-sys-color-baseline--error-background-red: fade(@red, 20%);
+        --yt-sys-color-baseline--background-warning: fade(@peach, 30%);
+        --yt-sys-color-baseline--background-complete: fade(@green, 30%);
+        --yt-sys-color-baseline--themed-green: @green;
+        --yt-sys-color-baseline--themed-green-inverse: @green;
+        --yt-sys-color-baseline--overlay-green: @green;
+
+        /* Outlines / borders */
         --yt-sys-color-baseline--outline: @surface0;
+        --yt-sys-color-baseline--outline-inverse: @surface1;
         --yt-sys-color-baseline--outline-opaque: @surface1;
         --yt-sys-color-baseline--outline-inverse-opaque: @overlay0;
-        --yt-sys-color-baseline--overlay-background-medium-light: fade(
-          @black,
-          60%
-        );
-        --yt-sys-color-baseline--overlay-background-heavy: fade(@black, 80%);
+        --yt-sys-color-baseline--outline-rim: fade(@text, 15%);
+        --yt-sys-color-baseline--outline-rim-inverse: fade(@black, 15%);
+
+        /* Tonal / mono / chip hover states */
+        --yt-sys-color-baseline--tonal-background: @surface0;
+        --yt-sys-color-baseline--tonal-background-inverse: @surface0;
+        --yt-sys-color-baseline--tonal-wash: fade(@text, 5%);
+        --yt-sys-color-baseline--tonal-wash-inverse: fade(@black, 5%);
+        --yt-sys-color-baseline--tonal-rim: fade(@text, 10%);
+        --yt-sys-color-baseline--tonal-rim-inverse: fade(@black, 5%);
+        --yt-sys-color-baseline--solid-wash: fade(@text, 30%);
+        --yt-sys-color-baseline--solid-wash-inverse: fade(@text, 15%);
+        --yt-sys-color-baseline--solid-rim: fade(@text, 20%);
+        --yt-sys-color-baseline--solid-rim-inverse: fade(@text, 20%);
+        --yt-sys-color-baseline--button-chip-background-hover: @surface1;
+        --yt-sys-color-baseline--mono-filled-hover: @subtext0;
+        --yt-sys-color-baseline--mono-filled-hover-inverse: @surface1;
+        --yt-sys-color-baseline--mono-tonal-hover: @surface1;
+        --yt-sys-color-baseline--mono-tonal-hover-inverse: @surface1;
+        --yt-sys-color-baseline--overlay-filled-hover: @subtext0;
+        --yt-sys-color-baseline--touch-response: @text;
+        --yt-sys-color-baseline--touch-response-inverse: @base;
+
+        /* Media overlays & scrims (sit over video / thumbnails) */
         --yt-sys-color-baseline--overlay-background-solid: @crust;
-        --yt-sys-color-baseline--overlay-text-primary: @text;
+        --yt-sys-color-baseline--overlay-background-heavy: fade(@black, 80%);
+        --yt-sys-color-baseline--overlay-background-medium-heavy: fade(@black, 40%);
+        --yt-sys-color-baseline--overlay-background-medium: fade(@black, 60%);
+        --yt-sys-color-baseline--overlay-background-medium-light: fade(@black, 30%);
+        --yt-sys-color-baseline--overlay-background-light: fade(@black, 10%);
+        --yt-sys-color-baseline--overlay-background-extra-light: fade(@black, 3%);
+        --yt-sys-color-baseline--overlay-background-brand: fade(@accent, 90%);
+        --yt-sys-color-baseline--themed-overlay-background: fade(@crust, 80%);
+        --yt-sys-color-baseline--overlay-text-primary: @white;
+        --yt-sys-color-baseline--overlay-text-primary-inverse: @crust;
+        --yt-sys-color-baseline--overlay-text-secondary: fade(@white, 70%);
+        --yt-sys-color-baseline--overlay-text-disabled: fade(@white, 30%);
+        --yt-sys-color-baseline--overlay-touch-response: @white;
+        --yt-sys-color-baseline--overlay-touch-response-inverse: @black;
+        --yt-sys-color-baseline--overlay-button-primary: fade(@white, 30%);
+        --yt-sys-color-baseline--overlay-button-secondary: fade(@white, 10%);
+        --yt-sys-color-baseline--overlay-button-secondary-darker: fade(@white, 20%);
+        --yt-sys-color-baseline--overlay-outline: fade(@white, 30%);
+        --yt-sys-color-baseline--overlay-outline-inverse: fade(@white, 30%);
+        --yt-sys-color-baseline--overlay-outline-rim: fade(@white, 15%);
+        --yt-sys-color-baseline--overlay-outline-rim-inverse: fade(@white, 15%);
+        --yt-sys-color-baseline--overlay-solid-rim: fade(@white, 20%);
+        --yt-sys-color-baseline--overlay-solid-rim-inverse: fade(@white, 20%);
+        --yt-sys-color-baseline--overlay-solid-wash: @white;
+        --yt-sys-color-baseline--overlay-solid-wash-inverse: fade(@white, 20%);
+        --yt-sys-color-baseline--overlay-tonal-background: fade(@white, 30%);
+        --yt-sys-color-baseline--overlay-tonal-background-inverse: fade(@white, 15%);
+        --yt-sys-color-baseline--overlay-tonal-hover: fade(@white, 20%);
+        --yt-sys-color-baseline--overlay-tonal-rim: fade(@white, 15%);
+        --yt-sys-color-baseline--overlay-tonal-rim-inverse: fade(@white, 15%);
+        --yt-sys-color-baseline--overlay-tonal-wash: fade(@white, 15%);
+        --yt-sys-color-baseline--overlay-tonal-wash-inverse: fade(@white, 15%);
+
+        /* Frosted glass (masthead / top bar). YouTube's default for these is a
+           translucent tint (rgba(15,15,15,.8)) that sits over a backdrop blur, so
+           keep the .8 alpha — a solid @base would flatten the glass anywhere these
+           tokens still drive the frost. */
+        --yt-sys-color-baseline--frosted-glass-desktop: fade(@base, 80%);
+        --yt-sys-color-baseline--frosted-glass-mobile: fade(@base, 80%);
+
+        /* Scrim gradients & shadow */
+        --yt-sys-color-baseline--scrim-background-gradient-1: fade(@base, 0%);
+        --yt-sys-color-baseline--scrim-background-gradient-2: fade(@base, 30%);
+        --yt-sys-color-baseline--scrim-background-gradient-3: fade(@base, 60%);
+        --yt-sys-color-baseline--scrim-background-gradient-4: fade(@base, 90%);
+        --yt-sys-color-baseline--scrim-background-gradient-5: @base;
+        --yt-sys-color-baseline--shadow-medium: fade(@crust, 75%);
+
+        /* Mobile status / system bars */
+        --yt-sys-color-baseline--status-bar: @base;
+        --yt-sys-color-baseline--system-bar: @base;
+
+        /* Static brand / utility colors */
+        --yt-sys-color-baseline--static-brand-red: @accent;
+        --yt-sys-color-baseline--static-brand-white: @text;
+        --yt-sys-color-baseline--static-brand-black: @base;
+        --yt-sys-color-baseline--static-black: @base;
+        --yt-sys-color-baseline--static-dark-grey: @surface0;
+        --yt-sys-color-baseline--static-grey: @subtext0;
+        --yt-sys-color-baseline--static-ad-yellow: @peach;
+        --yt-sys-color-baseline--static-magenta: @pink;
+        --yt-sys-color-baseline--static-medium-magenta: @maroon;
+        --yt-sys-color-baseline--static-clear-color: transparent;
+        --yt-sys-color-baseline--static-clear-black: transparent;
+
+        /* Palette scale (badges, data-viz, info chips) */
+        --yt-sys-color-baseline--blue-1: @sapphire;
+        --yt-sys-color-baseline--blue-2: @sapphire;
+        --yt-sys-color-baseline--blue-3: @blue;
+        --yt-sys-color-baseline--blue-4: @blue;
+        --yt-sys-color-baseline--blue-5: @sky;
+        --yt-sys-color-baseline--blue-6: @sky;
+        --yt-sys-color-baseline--blue-7: @sky;
+        --yt-sys-color-baseline--green-6: @green;
+        --yt-sys-color-baseline--grey-4: @overlay2;
+        --yt-sys-color-baseline--grey-6: @subtext0;
+        --yt-sys-color-baseline--purple-6: @mauve;
+        --yt-sys-color-baseline--red-3: @accent;
+        --yt-sys-color-baseline--red-4: @red;
+
+        /* GenAI ("Ask") gradient */
+        --yt-sys-color-baseline--genai-1: @teal;
+        --yt-sys-color-baseline--genai-1-additive: fade(@teal, 30%);
+        --yt-sys-color-baseline--genai-2: @mauve;
+        --yt-sys-color-baseline--genai-2-additive: fade(@mauve, 30%);
+        --yt-sys-color-baseline--genai-3: @pink;
+        --yt-sys-color-baseline--genai-3-additive: fade(@pink, 30%);
+        --yt-sys-color-baseline--genai-4: @red;
+        --yt-sys-color-baseline--genai-4-additive: fade(@red, 30%);
+
+        /* Assistive / vibrant feed gradients */
+        --yt-sys-color-baseline--assistive-feed-themed-gradient-1: @teal;
+        --yt-sys-color-baseline--assistive-feed-themed-gradient-2: @mauve;
+        --yt-sys-color-baseline--assistive-feed-themed-gradient-3: @red;
+        --yt-sys-color-baseline--assistive-feed-vibrant-gradient-1: @teal;
+        --yt-sys-color-baseline--assistive-feed-vibrant-gradient-2: @mauve;
+        --yt-sys-color-baseline--assistive-feed-vibrant-gradient-3: @red;
+        --yt-sys-color-baseline--feed-vibrant-gradient1: @teal;
+        --yt-sys-color-baseline--feed-vibrant-gradient2: @mauve;
+        --yt-sys-color-baseline--feed-vibrant-gradient3: @red;
+
+        /* On-screen / emoji keyboard */
+        --yt-sys-color-baseline--keyboard-background: @base;
+        --yt-sys-color-baseline--keyboard-background-action: @accent;
+        --yt-sys-color-baseline--keyboard-background-bar: @mantle;
+        --yt-sys-color-baseline--keyboard-background-emoji: @base;
+        --yt-sys-color-baseline--keyboard-background-key: @surface0;
+        --yt-sys-color-baseline--keyboard-background-key-alt: @surface1;
+        --yt-sys-color-baseline--keyboard-background-switch: @overlay0;
+        --yt-sys-color-baseline--keyboard-divider: @surface1;
+        --yt-sys-color-baseline--keyboard-text-action: @base;
+        --yt-sys-color-baseline--keyboard-text-character: @text;
+        --yt-sys-color-baseline--keyboard-text-chevron: @text;
+        --yt-sys-color-baseline--keyboard-text-icon: @text;
+        --yt-sys-color-baseline--keyboard-text-symbol: @subtext0;
+
+        /* --- Deprecated palette: --yt-deprecated-* (old --yt-spec-* scale, renamed) --- */
+        --yt-deprecated-white-1: @text;
+        --yt-deprecated-white-2: @subtext0;
+        --yt-deprecated-white-3: @subtext1;
+        --yt-deprecated-white-4: darken(@subtext1, 5%);
+        --yt-deprecated-white-1-alpha-10: fade(@text, 90%);
+        --yt-deprecated-white-1-alpha-20: fade(@text, 80%);
+        --yt-deprecated-white-1-alpha-25: fade(@text, 75%);
+        --yt-deprecated-white-1-alpha-30: fade(@text, 70%);
+        --yt-deprecated-white-1-alpha-70: fade(@text, 30%);
+        --yt-deprecated-white-1-alpha-95: fade(@text, 5%);
+        --yt-deprecated-white-1-alpha-98: fade(@text, 2%);
+        --yt-deprecated-white-opacity-lighten-1: fade(@text, 80%);
+        --yt-deprecated-white-opacity-lighten-2: fade(@text, 60%);
+        --yt-deprecated-white-opacity-lighten-4: fade(@text, 20%);
+        --yt-deprecated-black-1: @overlay1;
+        --yt-deprecated-black-2: @overlay0;
+        --yt-deprecated-black-3: @surface2;
+        --yt-deprecated-black-4: @surface1;
+        --yt-deprecated-black-pure: @surface0;
+        --yt-deprecated-black-1-alpha-95: fade(@crust, 5%);
+        --yt-deprecated-black-1-alpha-98: fade(@crust, 2%);
+        --yt-deprecated-black-pure-alpha-5: @subtext0;
+        --yt-deprecated-black-pure-alpha-10: @overlay2;
+        --yt-deprecated-black-pure-alpha-15: fade(@crust, 85%);
+        --yt-deprecated-black-pure-alpha-30: fade(@crust, 70%);
+        --yt-deprecated-black-pure-alpha-60: fade(@crust, 40%);
+        --yt-deprecated-black-pure-alpha-80: fade(@crust, 20%);
+        --yt-deprecated-grey-1: @text;
+        --yt-deprecated-grey-2: @subtext0;
+        --yt-deprecated-grey-3: @subtext1;
+        --yt-deprecated-grey-4: @overlay2;
+        --yt-deprecated-grey-5: @overlay1;
+        --yt-deprecated-brand-youtube-red: @accent;
+        --yt-deprecated-brand-medium-red: @accent;
+        --yt-deprecated-brand-light-red: @accent;
+        --yt-deprecated-brand-medium-red-alpha-90: fade(@accent, 10%);
+        --yt-deprecated-brand-medium-red-alpha-30: fade(@accent, 70%);
+        --yt-deprecated-brand-light-red-alpha-30: fade(@accent, 70%);
+        --yt-deprecated-red-30: @peach;
+        --yt-deprecated-red-70: @red;
+        --yt-deprecated-yellow: @peach;
+        --yt-deprecated-light-green: @green;
+        --yt-deprecated-dark-green: @green;
+        --yt-deprecated-blue: @blue;
+        --yt-deprecated-blue-light: @sapphire;
+        --yt-deprecated-pale-blue: @sky;
+        --yt-deprecated-light-blue: @sky;
+        --yt-deprecated-light-blue-alpha-30: fade(@sky, 70%);
+        --yt-deprecated-dark-blue: @sapphire;
+        --yt-deprecated-dark-blue-alpha-30: fade(@sapphire, 70%);
+        --yt-deprecated-navy-blue: @teal;
+        --yt-deprecated-general-background-a: @base;
+        --yt-deprecated-general-background-b: @base;
+        --yt-deprecated-general-background-c: @crust;
+        --yt-deprecated-paper-tab-ink: fade(@text, 70%);
+        --yt-deprecated-overlay-icon-active-other: @white;
+        --yt-deprecated-dark-surface-100: @mantle;
+        --yt-deprecated-luna-black: @crust;
+        --yt-deprecated-luna-black-opacity-lighten-1: fade(@crust, 80%);
+        --yt-deprecated-luna-black-opacity-lighten-2: fade(@crust, 60%);
+        --yt-deprecated-luna-black-opacity-lighten-3: fade(@crust, 40%);
+        --yt-deprecated-luna-black-opacity-lighten-4: fade(@crust, 20%);
+        --yt-deprecated-opalescence-grey: @overlay1;
+        --yt-deprecated-opalescence-grey-opacity-lighten-3: fade(@overlay1, 40%);
+        --yt-deprecated-opalescence-soft-grey: @surface2;
+        --yt-deprecated-opalescence-soft-grey-opacity-lighten-1: fade(@surface2, 80%);
+        --yt-deprecated-opalescence-soft-grey-opacity-lighten-3: fade(@surface2, 40%);
 
         --yt-spec-white-1: @text;
         --yt-spec-white-2: @subtext0;
@@ -239,6 +511,11 @@
         --ytd-searchbox-legacy-button-icon-color: @accent;
         --ytd-searchbox-background: @base;
         --ytd-searchbox-text-color: @text;
+
+        /* 3-dot "more actions" menu trigger icons (ytd-menu-renderer). Their
+           glyph falls back to the #f1f1f1 hashed atomic var via this stable
+           var, so set it to @text to recolor every dropdown trigger at once. */
+        --ytd-menu-renderer-button-color: @text;
 
         /* System icons */
         --yt-spec-icon-inactive: @text;
@@ -415,8 +692,7 @@
       --yt-active-playlist-panel-background-color: @surface0;
     }
 
-    ytd-playlist-panel-renderer[collapsible][collapsed][use-color-palette]
-      .header.ytd-playlist-panel-renderer {
+    ytd-playlist-panel-renderer[collapsible][collapsed][use-color-palette] .header.ytd-playlist-panel-renderer {
       --iron-icon-fill-color: @text;
       background-color: @base;
     }
@@ -425,14 +701,16 @@
       --iron-icon-fill-color: @text;
     }
 
+    /* Legacy frosted-glass vars (kept for older builds / sub-sites). Translucent
+       like the default so the backdrop blur survives wherever these still apply;
+       the structural override below handles the current v2_0 hashed-var build. */
     #background.ytd-masthead,
     #frosted-glass {
-      --yt-frosted-glass-desktop: @base;
-      --yt-spec-frosted-glass-desktop: @base;
+      --yt-frosted-glass-desktop: fade(@base, 80%);
+      --yt-spec-frosted-glass-desktop: fade(@base, 80%);
     }
 
-    ytd-feed-filter-chip-bar-renderer[expand-instead-of-scroll]
-      #chips-wrapper.ytd-feed-filter-chip-bar-renderer {
+    ytd-feed-filter-chip-bar-renderer[expand-instead-of-scroll] #chips-wrapper.ytd-feed-filter-chip-bar-renderer {
       --iron-icon-fill-color: @text;
       background-color: @base;
     }
@@ -449,6 +727,21 @@
       --yt-lightsource-section2-color: @surface0;
       --yt-lightsource-section3-color: @surface1;
       --yt-lightsource-section4-color: @surface2;
+      --yt-lightsource-primary-title-color: @text;
+      --yt-lightsource-secondary-title-color: @subtext0;
+    }
+
+    /* Channel / tabbed page header (ytd-tabbed-page-header) reuses the
+       --yt-lightsource-* family: the headline row (#page-header) and the tabs
+       row (#tabs-inner-container) fill from --yt-lightsource-section1-color, the
+       big channel title from --yt-lightsource-primary-title-color and the
+       handle/subscriber/description line from --yt-lightsource-secondary-title-color.
+       The header redefines these locally to per-build hashed vars (= #0f0f0f /
+       #f1f1f1 / #aaa), so remap them to the palette here. (The outer container —
+       #page-header-container / #tabs-container — paints the hashed var directly,
+       not via a token, so it's forced in the structural block below.) */
+    ytd-tabbed-page-header {
+      --yt-lightsource-section1-color: @base;
       --yt-lightsource-primary-title-color: @text;
       --yt-lightsource-secondary-title-color: @subtext0;
     }
@@ -532,6 +825,62 @@
       [fill="#fff"],
       [fill="#FFF"],
       [fill="#FFFFFF"] {
+        fill: @crust;
+      }
+    }
+
+    /* Like button's animated thumbs-up (like-button-view-model — a Lottie
+       animation, unlike the static-SVG dislike beside it). Its thumb path carries
+       a baked-in fill="rgb(255,255,255)" that the [fill="white"]/[fill="#fff"]
+       rules above don't match, so it stayed white while the dislike followed
+       @text. Recolor it → @text to match. (@text, not the over-media @white: this
+       sits on the @surface0 button bar, so it must stay dark in latte like the
+       dislike.) */
+    like-button-view-model path[fill="rgb(255,255,255)"] {
+      fill: @text !important;
+    }
+
+    /* "More from YouTube" product logos (Premium, Music, Kids) in the guide.
+       Their badge is recolored to @accent by the [fill="#FF0033"] rule above;
+       recolor the white inner glyph to @crust too, so they read like the
+       masthead logo (accent badge + dark glyph) instead of a white glyph on
+       accent. Scoped to guide entries — the nav icons there have no explicit
+       fill, so only these brand logos are affected. */
+    ytd-guide-entry-renderer {
+      [fill="#fff"],
+      [fill="#FFF"],
+      [fill="#FFFFFF"] {
+        fill: @crust;
+      }
+    }
+
+    /* Shorts shelf header logo (the red Shorts badge beside a "Shorts" shelf
+       title, e.g. on the history/home feeds — yt-icon#icon.ytd-reel-shelf-renderer).
+       Its badge is recolored by the red-fill rule above, but its inner play
+       glyph keeps a hardcoded white fill that the brand-logo rules don't reach —
+       recolor it to @crust so it reads like the masthead logo and the
+       Premium/Music/Kids logos (accent/red badge + dark glyph). */
+    #icon.ytd-reel-shelf-renderer {
+      [fill="#fff"],
+      [fill="#FFF"],
+      [fill="#FFFFFF"],
+      [fill="white"] {
+        fill: @crust;
+      }
+    }
+
+    /* Live-chat welcome-message logo (yt-icon#icon.yt-live-chat-viewer-engagement-
+       message-renderer — the YouTube badge beside the "Welcome to live chat!"
+       engagement message). Its red badge is recolored to @accent by the red-fill
+       rule above, but its inner play glyph keeps a hardcoded white fill inside the
+       new .yt-icon-shape host (ytSpecIconShapeHost), not the old .yt-spec-icon-shape
+       the #fff→@crust rule targets, so the triangle stayed white — recolor it →
+       @crust so it reads like the masthead/Shorts logo (accent badge + dark glyph). */
+    #icon.yt-live-chat-viewer-engagement-message-renderer {
+      [fill="#fff"],
+      [fill="#FFF"],
+      [fill="#FFFFFF"],
+      [fill="white"] {
         fill: @crust;
       }
     }
@@ -679,6 +1028,121 @@
       background-color: fade(@surface1, 70%);
     }
 
+    /* Buttons (color-version v2_0). The redesign renamed the button classes from
+       .yt-spec-button-shape-next--* (kebab, themed above — 0 matches on the main
+       site now, but kept for Studio/legacy surfaces) to .ytSpecButtonShapeNext*
+       (camelCase). This mirrors the kebab block for v2_0 so Share / Save / Join /
+       Subscribe / like / dislike and the rest follow the palette. Icons inherit
+       currentColor, so setting `color` recolors the glyph too. !important because
+       YT's same-specificity rules ship in a sheet that loads after Stylus. */
+    .ytSpecButtonShapeNextMono {
+      &.ytSpecButtonShapeNextTonal {
+        color: @text !important;
+        background-color: @surface0 !important;
+
+        &:hover {
+          background-color: @surface1 !important;
+        }
+      }
+
+      &.ytSpecButtonShapeNextOutline {
+        color: @text !important;
+        border-color: @surface2 !important;
+
+        &:hover {
+          background-color: @surface2 !important;
+        }
+      }
+
+      &.ytSpecButtonShapeNextText {
+        color: @text !important;
+
+        &:hover {
+          background-color: @surface1 !important;
+        }
+      }
+
+      &.ytSpecButtonShapeNextFilled {
+        color: @base !important;
+        background-color: @accent !important;
+
+        &:hover {
+          background-color: darken(@accent, 5%) !important;
+        }
+      }
+    }
+
+    .ytSpecButtonShapeNextDisabled {
+      color: @overlay1 !important;
+    }
+
+    .ytSpecButtonShapeNextOverlay {
+      &.ytSpecButtonShapeNextTonal {
+        color: @text !important;
+        background-color: @surface0 !important;
+
+        &:hover {
+          background-color: @surface1 !important;
+        }
+      }
+
+      &.ytSpecButtonShapeNextText {
+        color: @text !important;
+
+        &:hover {
+          background-color: @surface0 !important;
+        }
+      }
+
+      &.ytSpecButtonShapeNextFilled {
+        color: @base !important;
+        background-color: @accent !important;
+      }
+
+      &.ytSpecButtonShapeNextOutline {
+        color: @text !important;
+        border-color: @surface1 !important;
+
+        &:hover {
+          background-color: @surface0 !important;
+        }
+      }
+    }
+
+    .ytSpecButtonShapeNextCallToAction {
+      &.ytSpecButtonShapeNextOutline {
+        color: @accent !important;
+        border-color: @surface2 !important;
+
+        &:hover {
+          background-color: fade(@accent, 30%) !important;
+          color: @accent !important;
+        }
+      }
+
+      &.ytSpecButtonShapeNextText {
+        color: @accent !important;
+
+        &:hover {
+          background-color: fade(@accent, 30%) !important;
+        }
+      }
+
+      &.ytSpecButtonShapeNextFilled {
+        color: @base !important;
+        background-color: @accent !important;
+
+        &:hover {
+          background-color: lighten(@accent, 5%) !important;
+        }
+      }
+    }
+
+    .ytSpecButtonShapeNextDisabled.ytSpecButtonShapeNextFilled {
+      color: @subtext0 !important;
+      background-color: fade(@surface1, 70%) !important;
+    }
+
     /* Search box */
 
     .ytSearchboxComponentInputBox,
@@ -729,22 +1193,262 @@
 
     /* Video description */
 
-    // Video description background (collapsed on hover)
+    // Watch-page title + metadata text, and the description hover surface.
+    // The v2_0 redesign paints ytd-watch-metadata's color from a per-build
+    // *hashed* atomic var (var(--tffc2fd3a644f6275) = #f1f1f1) on the host, so
+    // the title (and the view-count/date line that inherits from it) never pick
+    // up the semantic-token remap — force @text on the host. Elements that set
+    // their own color (links, secondary text) keep it; only inheriting text
+    // changes. The --yt-saturated-* vars cover the collapsed description surface.
     ytd-watch-metadata {
+      color: @text !important;
       --yt-saturated-raised-background: @surface1 !important;
       --yt-saturated-text-primary: @text !important;
       --yt-saturated-text-secondary: @subtext1 !important;
     }
-    // Video description text (expanded)
-    ytd-text-inline-expander
-      .ytAttributedStringLinkInheritColor:not(
-        .ytAttributedStringLink
-      ) {
+    // Description box surface. v2_0 fills it from a *hashed* atomic var
+    // (var(--t7f4f2c6d54836ce0) = rgba(255,255,255,.1)) — a translucent white wash
+    // that drifts by state. Force solid @surface0 so it matches the AI-summary card
+    // below; the @surface1 hover above still lifts it on hover.
+    #description.ytd-watch-metadata {
+      background-color: @surface0 !important;
+    }
+    // Video description prose + the "...more"/"Show less" toggle. The prose spans
+    // (.ytAttributedStringLinkInheritColor) inherit white from an inner attributed-
+    // string wrapper rather than the expander host, so target them directly; the
+    // toggle is a paper-button whose label paints from a hashed atomic var. Real
+    // links (.ytAttributedStringLink) keep their own accent color.
+    ytd-text-inline-expander .ytAttributedStringLinkInheritColor:not(.ytAttributedStringLink),
+    ytd-text-inline-expander tp-yt-paper-button {
       color: @text !important;
     }
-    // Video description YouTube links
+    // The Shorts description body is a plain #plain-snippet-text span that inherits
+    // the expander host color (a #f1f1f1 hashed atomic var) rather than an inner
+    // attributed-string wrapper, so the rule above misses it — set the host color
+    // to @text. In engagement-panel mode (Shorts / side panel) the expander is a
+    // card whose background paints a translucent-white hashed var; make it a
+    // @surface1 raised box.
+    ytd-text-inline-expander {
+      color: @text !important;
+    }
+    ytd-text-inline-expander[engagement-panel] {
+      background: @surface1 !important;
+    }
+    // Social-link highlight pills in the description (the rounded background behind
+    // "/ discord", X/TikTok handles, etc.). YouTube sets these inline to
+    // rgba(255,255,255,.1); !important overrides that. @surface1 keeps them a subtle
+    // step above the @surface0 description box.
     .ytAttributedStringHighlightTextDecorator {
+      background-color: @surface1 !important;
+    }
+
+    // Description info line above the body (views · upload date · "N products").
+    // The ytd-watch-info-text host paints from a hashed atomic var (#f1f1f1); theme
+    // the host so the inheriting view/date/products spans follow @text.
+    ytd-watch-info-text {
+      color: @text !important;
+    }
+
+    // Channel lockup shown inside the expanded description (infocards + structured-
+    // description renderers): channel name → @text, subscriber count → @subtext0.
+    #title.ytd-video-description-infocards-section-renderer,
+    #title.ytd-structured-description-channel-lockup-renderer {
+      color: @text !important;
+    }
+    #subtitle.ytd-video-description-infocards-section-renderer,
+    #subscriber-count.ytd-structured-description-channel-lockup-renderer {
+      color: @subtext0 !important;
+    }
+
+    // Shorts/side-panel video-description header: the video title paints a #f1f1f1
+    // hashed atomic var → @text.
+    #title.ytd-video-description-header-renderer {
+      color: @text !important;
+    }
+    // Stats factoid cards (Likes / Views / date) under that title sample a per-video
+    // accent color through inline --yt-saturated-* custom properties (here a green).
+    // Override those semantic vars so every card uses a consistent, subtle Catppuccin
+    // @green in all flavors: card tint → fade(@green, 15%), value → @text, label →
+    // @green. (Overriding the exposed variables beats theming each inner element.)
+    factoid-renderer {
+      --yt-saturated-raised-background: fade(@green, 15%) !important;
+      --yt-saturated-additive-background: fade(@green, 15%) !important;
+      --yt-saturated-text-primary: @text !important;
+      --yt-saturated-text-secondary: @green !important;
+    }
+
+    /* Transcript panel — v2_0 ships two implementations (classic
+       ytd-transcript-body-renderer with .cue rows, and the modern
+       .ytwTranscriptSegmentViewModel* view model); theme both, plus the transcript
+       preview shown in the description. Segment text → @text, timestamps ("sub
+       text") → @subtext0. All paint from hashed atomic vars (#f1f1f1 / #aaa). */
+    .cue.ytd-transcript-body-renderer,
+    .ytwTranscriptSegmentViewModelHost,
+    .ytwTranscriptSegmentViewModelHostActive,
+    #title.ytd-transcript-section-header-renderer,
+    #title.ytd-video-description-transcript-section-renderer {
+      color: @text !important;
+    }
+    .cue-group-start-offset.ytd-transcript-body-renderer,
+    .ytwTranscriptSegmentViewModelTimestamp,
+    #sub-header-text.ytd-video-description-transcript-section-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* AI-generated video summary (ytd-expandable-metadata-renderer; also reused for
+       "Key moments"/chapters). Every text part paints from a hashed atomic var
+       (#f1f1f1 primary / #aaa secondary). Icons use fill:currentColor, so theming
+       `color` recolors the sparkle/info glyphs too. The expanded summary paragraph
+       itself lives in a separate .videoSummaryContentViewModel* view model. */
+    // Card surface — same translucent-white hashed var as the description box, and
+    // it goes fully transparent when expanded; force a solid surface. @surface1 sits
+    // one step lighter than the @surface0 description box so the summary stands out.
+    ytd-expandable-metadata-renderer,
+    ytd-expandable-metadata-renderer[is-watch] {
+      background-color: @surface1 !important;
+    }
+    #collapsed-title.ytd-expandable-metadata-renderer,
+    #prominent-collapsed-label.ytd-expandable-metadata-renderer,
+    #collapsed-label.ytd-expandable-metadata-renderer,
+    .videoSummaryContentViewModelHost {
+      color: @text !important;
+    }
+    // Expanded summary attribution + the "Quality and accuracy may vary." disclaimer
+    // link (the link overrides --yt-endpoint-color, so target it directly).
+    #expanded-title.ytd-expandable-metadata-renderer,
+    #expanded-title-subtitle-group.ytd-expandable-metadata-renderer,
+    #expanded-subtitle.ytd-expandable-metadata-renderer a {
+      color: @subtext0 !important;
+    }
+    // The blue "timestamp" chip shown inside some summaries
+    #timestamp.ytd-expandable-metadata-renderer {
+      color: @accent !important;
+      background-color: fade(@accent, 20%) !important;
+    }
+    // Hover alignment: the collapsed card header and its expand/collapse chevron
+    // both highlight to @surface2 (one step above the @surface1 card), so hovering
+    // the button matches hovering the card. YT defaults are rgba(255,255,255,.1) for
+    // the header and the global mono-text hover (@surface1) for the button; the
+    // scoped button selector out-specifies that global rule.
+    ytd-expandable-metadata-renderer:not([is-expanded]) #header.ytd-expandable-metadata-renderer:hover,
+    ytd-expandable-metadata-renderer .ytSpecButtonShapeNextMono.ytSpecButtonShapeNextText:hover {
       background-color: @surface2 !important;
+    }
+
+    /* Chapter list (ytd-macro-markers-list-item-renderer). v2_0 paints the default
+       (non-hover) chapter title and the "0:00" timestamp from hashed atomic vars,
+       so the --ytd-macro-markers-list-item-* vars set above only reach the hover
+       state — force the stable selectors. Title → @text; timestamp pill → @subtext1
+       text on a @surface1 chip (was blue #3ea6ff on #263850). */
+    h3.ytd-macro-markers-list-item-renderer {
+      color: @text !important;
+    }
+    #time.ytd-macro-markers-list-item-renderer {
+      color: @subtext1 !important;
+      background-color: @surface1 !important;
+    }
+    /* The thin connector line running through the chapter timestamp pills
+       (#items::before) paints from the same hashed atomic var as the pill chip,
+       so it stays the dark default and is barely visible. Match it to the pill
+       background (@surface1). */
+    #items.ytd-horizontal-card-list-renderer::before {
+      background-color: @surface1 !important;
+    }
+
+    // Engagement-panel header titles (Chapters, Transcript, Products, Description,
+    // Comments, "In this video") — all paint from the #f1f1f1 hashed atomic var.
+    ytd-engagement-panel-title-header-renderer #title-text {
+      color: @text !important;
+    }
+
+    // Section headers shown inline in the description (ytd-rich-list-header-renderer),
+    // e.g. the "Chapters" / "Products" headings: title → @text, subtitle and
+    // annotation → @subtext0.
+    #title.ytd-rich-list-header-renderer {
+      color: @text !important;
+    }
+    #subtitle.ytd-rich-list-header-renderer,
+    #title-annotation.ytd-rich-list-header-renderer {
+      color: @subtext0 !important;
+    }
+
+    // Comments — the author handle and body text paint from the #f1f1f1 hashed
+    // atomic var (var(--tffc2fd3a644f6275)) on stable comment selectors, which the
+    // semantic-token remap can't reach; force @text on both.
+    ytd-comment-view-model #author-text,
+    ytd-comment-view-model #content-text {
+      color: @text !important;
+    }
+
+    // Comment timestamp ("3 hours ago") and the "Add a comment..." placeholder —
+    // secondary text from hashed atomic vars; map to @subtext0. The timestamp link
+    // needs the direct selector: --yt-endpoint-color doesn't reach it (it inherits
+    // the secondary color set on #published-time-text).
+    ytd-comment-view-model #published-time-text a,
+    #simplebox-placeholder {
+      color: @subtext0 !important;
+    }
+
+    /* Comment engagement bar — the vote (thumbs) count between the like/dislike
+       buttons inherits the muted hashed atomic var (var(--t4a6da19e16bf221a) =
+       #aaa) → @subtext0. When you've liked the comment YT brightens it via the
+       #f1f1f1 var (var(--tffc2fd3a644f6275)) → @text, so preserve that cue. Covers
+       both the new engagement-bar and the legacy action-buttons renderers. */
+    #vote-count-middle.ytd-comment-engagement-bar,
+    #vote-count-left.ytd-comment-engagement-bar,
+    #vote-count-middle.ytd-comment-action-buttons-renderer,
+    #vote-count-left.ytd-comment-action-buttons-renderer {
+      color: @subtext0 !important;
+    }
+    ytd-comment-engagement-bar[is-liked] #vote-count-middle.ytd-comment-engagement-bar,
+    ytd-comment-engagement-bar[is-liked] #vote-count-left.ytd-comment-engagement-bar,
+    ytd-comment-action-buttons-renderer[is-liked] #vote-count-middle.ytd-comment-action-buttons-renderer,
+    ytd-comment-action-buttons-renderer[is-liked] #vote-count-left.ytd-comment-action-buttons-renderer {
+      color: @text !important;
+    }
+
+    // "Translate to English" button under a comment and the comment-filter context
+    // banner ("Top is selected, so you'll see featured comments") both paint from
+    // the same muted hashed atomic var (var(--t4a6da19e16bf221a) = #aaa) → @subtext0.
+    .translate-button.ytd-comment-view-model,
+    .ytCommentFilterContextHost {
+      color: @subtext0 !important;
+    }
+
+    // More muted secondary comment text painting the #aaa hashed atomic var
+    // (var(--t4a6da19e16bf221a)) → @subtext0: the "Pinned by @…" badge (label +
+    // pin icon), the "Read more"/"Show less" comment expander, and the comment
+    // count next to the "Comments" engagement-panel title (e.g. "153" / "8.9K").
+    #label.ytd-pinned-comment-badge-renderer,
+    yt-icon.ytd-pinned-comment-badge-renderer,
+    .more-button.ytd-comment-view-model,
+    .less-button.ytd-comment-view-model,
+    #contextual-info.ytd-engagement-panel-title-header-renderer {
+      color: @subtext0 !important;
+    }
+
+    // Comments sort-button trigger icon ("Sort comments") — paints the #f1f1f1
+    // hashed atomic var (var(--tffc2fd3a644f6275)); map it to @text.
+    #label-icon.yt-dropdown-menu {
+      color: @text !important;
+    }
+
+    // Members-only comments notice (#pause-composer.ytd-comment-pause-composer-
+    // renderer — the "Only subscribers can comment" card shown when a channel
+    // limits comments to members). v2_0 gives the card a hardcoded translucent-
+    // white background (rgba(255,255,255,.1)) and paints the message the #f1f1f1
+    // hashed atomic var, so it stayed an off-white pill with off-white text —
+    // force the card → @surface0 (matching the description card) and the message
+    // (inherited by the attributed-string span) → @text.
+    #pause-composer.ytd-comment-pause-composer-renderer {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    // Channel subscriber count under the video — secondary metadata painted from
+    // a hashed atomic var (var(--t4a6da19e16bf221a) = #aaa); theme it @subtext0.
+    #owner-sub-count.ytd-video-owner-renderer {
+      color: @subtext0 !important;
     }
 
     /* Links */
@@ -956,6 +1660,14 @@
         fill: @white;
       }
 
+      /* Large "play" button (autoplay off / cued video): its triangle is a
+         classless path[fill="#fff"] that would otherwise wash out as light
+         @white on the accent-tinted button. Use dark @crust like the masthead
+         logo so it reads in both the translucent (idle) and opaque (hover) states. */
+      .ytp-large-play-button [fill="#fff"] {
+        fill: @crust;
+      }
+
       .ytp-volume-slider-handle {
         &,
         &::before {
@@ -1038,9 +1750,17 @@
           color: @subtext1;
         }
       }
-      ytd-reel-video-renderer[is-watch-while-mode]
-        .ytSpecButtonShapeWithLabelLabel {
+      ytd-reel-video-renderer[is-watch-while-mode] .ytSpecButtonShapeWithLabelLabel {
         color: @white;
+      }
+
+      /* In-player metapanel (bottom-left): channel handle + video title. Both
+         flow from --reel-metadata-color, which in extract-overlay mode YT points
+         at a hashed atomic var (#f1f1f1). Retarget the variable to the flavor-
+         aware @white so the overlay title/handle follow the over-media text
+         convention. */
+      ytd-reel-video-renderer {
+        --reel-metadata-color: @white !important;
       }
 
       .ytdVolumeControlsMuteIcon {
@@ -1057,12 +1777,63 @@
         }
       }
     }
+
+    /* Shorts player overlay controls (ytd-shorts-player-controls). v2_0 renamed
+       the overlay-dark tonal button class to camelCase, so the legacy
+       `.yt-spec-button-shape-next--overlay-dark` rule below no longer reached the
+       play button — it kept a hardcoded rgba(0,0,0,0.3) scrim while the volume
+       scrim was themed, leaving them mismatched (play too light / volume too
+       dark by comparison). Match the play button and the CC/3-dot/maximize pill
+       to the volume scrim (fade(@black, 60%)) and keep every glyph @white, in
+       line with the normal-video player controls. The play scrim is targeted via
+       its inline style so the transparent more/fullscreen buttons (which sit on
+       the themed pill) aren't given their own circle. */
+    ytd-shorts-player-controls {
+      .ytSpecButtonShapeNextOverlayDark.ytSpecButtonShapeNextTonal[style*="rgba(0, 0, 0, 0.3)"],
+       > div:has(.button-container) {
+        background: fade(@black, 60%) !important;
+      }
+      .ytSpecButtonShapeNextOverlayDark,
+      .ytmClosedCaptioningButtonButton {
+        color: @white !important;
+      }
+    }
+
+    /* In-player ad overlay info (the bottom-left ad metadata shown on the main
+       video player during an ad — .ytp-ad-player-overlay-layout__ad-info-container):
+       the "Sponsored" badge, the "1 of 3" pod index and the advertiser-link URL.
+       These sit over the video / its scrim and paint a hardcoded #fff, so route
+       them through the flavor-aware @white (the over-media ink) to stay legible in
+       every flavor. (The "My Ad Center" info glyph is fill="#fff", already
+       recolored by the [fill="white"] rule above.) */
+    .ytp-ad-badge__text--clean-player,
+    .ytp-ad-pod-index,
+    .ytp-visit-advertiser-link__text {
+      color: @white !important;
+    }
+
+    /* Shorts up/down navigation (Previous/Next video). When comments open
+       (watch-while mode) the nav rail gets a solid #0f0f0f bar
+       (var(--t3e41d7b17b187f69)) that stood out against the themed page — match
+       it to @base. The nav buttons themselves paint a translucent-white overlay
+       (var(--t7f4f2c6d54836ce0) = rgba(255,255,255,.1)) on the ytd-button-renderer
+       wrapper; give them a @surface0 circle (their icon + :hover @surface1 come
+       from the .ytSpecButtonShapeNextMono.ytSpecButtonShapeNextText rules). */
+    ytd-shorts[is-watch-while-mode] .navigation-container.ytd-shorts {
+      background: @base !important;
+    }
+    .navigation-button.ytd-shorts ytd-button-renderer {
+      background-color: @surface0 !important;
+    }
     // Video/thumbnail renderer overlayed buttons
-    .ytBadgeShapeThumbnailDefaultRedesign, // Timestamp
+    .ytBadgeShapeThumbnailDefaultRedesign,
+    // Timestamp
     // Play Next
     .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--tonal[style="background-color: rgba(0, 0, 0, 0.3);"],
-    .ytdVolumeControlsBackgroundScrim, // Shorts Volume Slider
+    .ytdVolumeControlsBackgroundScrim,
+    // Shorts Volume Slider
     .ytInlinePlayerControlsTopRightControlsCircleButton // Homepage
+
     {
       background: fade(@black, 60%) !important;
       color: @white;
@@ -1090,7 +1861,12 @@
     // Badges (e.g. "CC", "New")
     .ytBadgeShapeDefault {
       color: @subtext0;
-      background: @surface1;
+      // Translucent fill so the badges keep YouTube's see-through look (e.g. the
+      // genre / platform tags — "Video game", "Windows", "PlayStation 5" — on a
+      // game/topic header) instead of reading as an opaque @surface1 block. Stays
+      // color-only: just a faded surface token; YT's frost relies on a blur
+      // (backdrop-filter) we don't add.
+      background: fade(@surface2, 60%);
 
       &.ytBadgeShapeModern {
         background: none;
@@ -1102,6 +1878,14 @@
     }
     // "Live"
     .ytBadgeShapeThumbnailLive {
+      background: @accent;
+      color: @base;
+    }
+    // "Live" badge on the carousel/promo hero card (ytd-default-promo-panel-renderer
+    // — the big sliding-preview card). Uses the non-thumbnail .ytBadgeShapeLive
+    // variant, which v2_0 paints raw YT red (rgba(225,0,45,.9)) with white text —
+    // mirror the thumbnail-live badge so it matches the rest.
+    .ytBadgeShapeLive {
       background: @accent;
       color: @base;
     }
@@ -1193,7 +1977,8 @@
     /* Components */
 
     /* Menus and context sheets */
-    .ytContextualSheetLayoutHost, ytd-menu-popup-renderer {
+    .ytContextualSheetLayoutHost,
+    ytd-menu-popup-renderer {
       background-color: @mantle;
     }
     .ytListItemViewModelTappable:hover {
@@ -1206,6 +1991,20 @@
     }
     .ytListItemViewModelSubtitle {
       color: @subtext1;
+    }
+    // Trailing selection value on a list-item row, e.g. the Captions entry's
+    // current value ("Off" / "English (US) original") in the Shorts ⋮ menu —
+    // paints a muted hashed atomic var (#aaa); map it to @subtext0.
+    .ytListItemViewModelSelectionText {
+      color: @subtext0;
+    }
+    // The Ambient-mode toggle row in that menu is a legacy
+    // ytd-toggle-menu-service-item-renderer whose label + icon paint the #f1f1f1
+    // hashed atomic var (var(--tffc2fd3a644f6275)) instead of the
+    // .ytListItemViewModelTitle the other rows use; map them to @text to match.
+    yt-formatted-string.ytd-toggle-menu-service-item-renderer,
+    yt-icon.ytd-toggle-menu-service-item-renderer {
+      color: @text;
     }
     /* Dialogs */
     .ytSpecDialogLayoutHost {
@@ -1244,6 +2043,26 @@
     .ytSwitchShapeTrackActive {
       background-color: @accent;
     }
+    /* Legacy paper-toggle switch (tp-yt-paper-toggle-button), e.g. Ambient mode
+       in the Shorts ⋮ menu — a blue #3ea6ff knob on a gray track that the
+       .ytSwitchShape* rules above don't reach. Recolor: track @surface2 / knob
+       @overlay2 when off, both @accent when on (the track keeps YT's 0.5 opacity,
+       so the active track reads as a soft accent beneath the solid accent knob). */
+    tp-yt-paper-toggle-button {
+      .toggle-bar {
+        background-color: @surface2 !important;
+      }
+      .toggle-button {
+        background-color: @overlay2 !important;
+      }
+
+      &[checked] {
+        .toggle-bar,
+        .toggle-button {
+          background-color: @accent !important;
+        }
+      }
+    }
 
     /* Textareas */
     .ytStandardsTextareaShapeTextarea {
@@ -1270,6 +2089,17 @@
     }
     .ytSubThreadHovered > .ytSubThreadThreadline .ytSubThreadConnection {
       border-bottom-color: @overlay0;
+    }
+    // The connector below a parent comment's avatar (.continuation) is a separate
+    // threadline from the .ytSubThread* lines above and paints its own hashed
+    // atomic vars: resting var(--td8562cdc203bc683) = #3f3f3f and, on comment
+    // hover, var(--t02c0a2c868c14ce8) = near-white — which left the top segment
+    // glaring white on hover. Match the sub-thread lines: @surface1 → @overlay0.
+    .continuation.ytd-comment-view-model {
+      border-left-color: @surface1;
+    }
+    ytd-comment-view-model[hovered] .continuation.ytd-comment-view-model {
+      border-left-color: @overlay0;
     }
 
     /* Profile Card */
@@ -1327,14 +2157,1197 @@
       }
     }
 
-    /* Category tag pills */
-    .ytChipShapeInactive {
-      background-color: @surface0;
+    /* Category tag pills. Inactive chips take a translucent wash (matching
+       default YT's rgba(255,255,255,.1)) rather than a solid fill, so the
+       masthead's frosted glass shows through them once the feed is scrolled —
+       a solid surface reads as flat opaque pills sitting on the frost. The
+       fade(@text,…) wash is flavor-aware (light on dark flavors, dark on Latte).
+       The active chip stays opaque @accent, mirroring default's opaque-white
+       active pill. */
+    .ytChipShapeInactive,
+    .ytChipShapeChip:not(.ytChipShapeActive) {
+      background-color: fade(@text, 10%);
       color: @text;
     }
     .ytChipShapeActive {
       background-color: @accent;
       color: @base;
+    }
+
+    /* ============================================================
+       2026 v2_0 STRUCTURAL OVERRIDES (hashed-var workaround)
+       ------------------------------------------------------------
+       YouTube now paints many surfaces from per-build *hashed*
+       custom properties, e.g.  background: var(--t3e41d7b17b187f69),
+       which are set to hardcoded literals (#0f0f0f, #212121, #f1f1f1)
+       per theme instead of deriving from --yt-sys-color-baseline--*.
+       YT also marks the base background !important. The design-token
+       overrides above therefore cannot reach these components, so we
+       force the palette directly on stable class/element selectors
+       with !important. These hashed var names change every YouTube
+       build — DO NOT target them; target the elements instead.
+       (Background surfaces that are transparent — masthead, cards,
+       drawer, chip bar — inherit the page background automatically.)
+       ============================================================ */
+
+    /* Page background — forced at the mixin level via the `background: @base
+       !important;` above (YT marks html[dark] !important). App containers: */
+    ytd-app,
+    ytd-page-manager,
+    #page-manager.ytd-app,
+    #content.ytd-app {
+      background: @base !important;
+    }
+
+    /* Feed section / shelf headings. The date dividers on the history feed
+       ("Today", "Yesterday" — #title.ytd-item-section-header-renderer), the
+       "Shorts" shelf title (#title.ytd-reel-shelf-renderer) and the generic
+       shelf-row heading (#title.ytd-shelf-renderer — e.g. "Movie purchases and
+       rentals" on the Movies & TV page, and home-feed shelf titles) and the
+       rich-shelf heading (#title.ytd-rich-shelf-renderer — the category rows on
+       topic/channel pages, e.g. "Sommer, Sonne, Gute Laune" on the Music channel)
+       paint their color from a per-build *hashed* atomic var (#f1f1f1) instead of
+       the semantic text token, so they stayed an unthemed off-white — force the
+       stable #title selectors → @text. */
+    #title.ytd-item-section-header-renderer,
+    #title.ytd-reel-shelf-renderer,
+    #title.ytd-shelf-renderer,
+    #title.ytd-rich-shelf-renderer {
+      color: @text !important;
+    }
+
+    /* Movies & TV grid cards (ytd-grid-movie-renderer = the purchases/rentals
+       tab; ytd-grid-video-renderer = the Live tab; ytd-grid-channel-renderer =
+       the channel cards on the Browse tab). v2_0 paints the card title
+       (#video-title / the channel #title — inherited / hashed #f1f1f1), the
+       channel byline and the genre·year or schedule metadata line (hashed #aaa)
+       from per-build hashed atomic vars rather than the semantic tokens, so the
+       titles stayed off-white and the "Animation • 2011" / "55 min left" lines an
+       unthemed gray — force the stable selectors → @text (title) and @subtext0
+       (byline + metadata). */
+    #video-title.ytd-grid-movie-renderer,
+    #video-title.ytd-grid-video-renderer,
+    #title.ytd-grid-channel-renderer {
+      color: @text !important;
+    }
+    .grid-movie-renderer-metadata.ytd-grid-movie-renderer,
+    ytd-grid-video-renderer ytd-channel-name a,
+    ytd-grid-video-renderer #byline a,
+    #metadata-line.ytd-grid-video-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* Show grid cards (ytd-grid-show-renderer — the series tiles in shelves like
+       "Popular shows for you"). v2_0 paints the show title (#video-title — hashed
+       #f1f1f1) and the genre·year byline (the ytd-channel-name line, e.g. "ARD
+       Plus • Family • 1975" — hashed #aaa) from per-build hashed atomic vars
+       rather than the semantic tokens, so the titles stayed off-white and the
+       byline an unthemed gray — force #video-title → @text and the byline →
+       @subtext0. */
+    #video-title.ytd-grid-show-renderer {
+      color: @text !important;
+    }
+    ytd-grid-show-renderer ytd-channel-name,
+    ytd-grid-show-renderer ytd-channel-name #text {
+      color: @subtext0 !important;
+    }
+
+    /* Stacked-thumbnail bottom panel (ytd-thumbnail-overlay-bottom-panel-renderer
+       — the "N seasons" / "N videos" overlay on show & playlist thumbnails). The
+       element rule hardcodes literal #fff text on an rgba(0,0,0,.8) scrim, so it
+       bypasses the themed-overlay tokens and stayed YouTube-default — mirror those
+       tokens directly: background → fade(@crust, 80%) (the themed-overlay-background
+       value) and text/icon → @white (the flavor-aware light ink for text over media). */
+    ytd-thumbnail-overlay-bottom-panel-renderer {
+      background-color: fade(@crust, 80%) !important;
+      color: @white !important;
+    }
+
+    /* Community / backstage posts (ytd-backstage-post-renderer — the items on a
+       channel's "Posts" tab). v2_0 paints the author handle (#author-text) and the
+       post body (#content-text) from the hashed #f1f1f1, and the timestamp
+       (#published-time-text — a link, so its own endpoint-color rule beats the
+       container, like the comment timestamp), the "Read more"/"Show less" expander
+       toggles and the byline from the hashed #aaa — force the author + body → @text
+       and the secondary text → @subtext0. The in-body links/@mentions inherit the
+       body color, so route them through @accent (the link colour). */
+    #author-text.ytd-backstage-post-renderer,
+    #content-text.ytd-backstage-post-renderer {
+      color: @text !important;
+    }
+    #content-text.ytd-backstage-post-renderer a {
+      color: @accent !important;
+    }
+    #published-time-text.ytd-backstage-post-renderer,
+    #published-time-text.ytd-backstage-post-renderer a,
+    .more-button.ytd-backstage-post-renderer,
+    .less-button.ytd-backstage-post-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* Video attachment inside a post (#content-attachment ytd-video-renderer — the
+       embedded video card). Its surface paints from the per-build *hashed* atomic
+       var (var(--t3e41d7b17b187f69) = #0f0f0f) rather than a semantic token, so it
+       stayed YouTube-default dark — force the stable selector → @base (the same
+       #0f0f0f surface family mapped to @base elsewhere). The card's own title
+       (#video-title — hashed #f1f1f1) → @text and its byline, metadata and
+       description preview (#description-text — hashed #aaa) → @subtext0. */
+    #content-attachment.ytd-backstage-post-renderer ytd-video-renderer {
+      background-color: @base !important;
+    }
+    #content-attachment.ytd-backstage-post-renderer #video-title {
+      color: @text !important;
+    }
+    #content-attachment.ytd-backstage-post-renderer ytd-channel-name a,
+    #content-attachment.ytd-backstage-post-renderer .inline-metadata-item,
+    #content-attachment.ytd-backstage-post-renderer #description-text {
+      color: @subtext0 !important;
+    }
+
+    /* Rich-grid shelf cards (ytd-rich-grid-media — the video/live cards in the
+       horizontal shelves on the channel "Live" tab, e.g. the "Live Now" and
+       "Recent Live Streams" rows). v2_0 paints the card title (#video-title —
+       hashed #f1f1f1), the channel byline (the ytd-channel-name link) and the
+       metadata line (the "N watching" .inline-metadata-item, hashed #aaa) from
+       per-build hashed atomic vars rather than the semantic tokens, so the
+       titles stayed off-white and the byline / watching count an unthemed gray
+       — force the stable selectors → @text (title) and @subtext0 (byline +
+       metadata). */
+    #video-title.ytd-rich-grid-media {
+      color: @text !important;
+    }
+    ytd-rich-grid-media ytd-channel-name a,
+    ytd-rich-grid-media #byline a,
+    ytd-rich-grid-media #metadata-line {
+      color: @subtext0 !important;
+    }
+
+    /* "View full course" CTA (#view-more.ytd-rich-grid-media — the link on a course
+       card on the Learning page). v2_0 paints it the hashed #aaa, so the link stayed
+       an unthemed gray — force it (and its inner link-inherit-color <a>) → @accent,
+       the link colour. */
+    #view-more.ytd-rich-grid-media,
+    #view-more.ytd-rich-grid-media a {
+      color: @accent !important;
+    }
+
+    /* Multi-creator / collaboration bylines (#attributed-channel-name — the
+       yt-text-view-model that REPLACES the (now hidden) ytd-channel-name when a
+       video lists multiple creators, e.g. "iBlali and VIK"). The channel-name
+       link rules above never reach it, so the names and their inline-colored
+       verified-check icons (style="color: rgb(170,170,170)") stayed an unthemed
+       gray — force the container and the inline-color badge spans → @subtext0. */
+    #attributed-channel-name,
+    #attributed-channel-name .ytAttributedStringLinkInheritColor {
+      color: @subtext0 !important;
+    }
+
+    /* "Top live games" shelf cards (ytd-game-card-renderer / ytd-game-details-
+       renderer — the game tiles on the Gaming page). v2_0 paints the game title
+       (#title — hashed #f1f1f1) and the viewer line (#live-viewers-count, e.g.
+       "74K watching worldwide", plus the #auto-generated label — hashed #aaa)
+       from per-build hashed atomic vars rather than the semantic tokens — force
+       #title → @text and the viewer / auto-generated metadata → @subtext0. */
+    #title.ytd-game-details-renderer {
+      color: @text !important;
+    }
+    #live-viewers-count.ytd-game-details-renderer,
+    #auto-generated.ytd-game-details-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* Shelf subtitle (#subtitle.ytd-shelf-renderer — the line under a shelf
+       header, e.g. "Based on your Subscriptions and History" on the Gaming feed;
+       #subtitle.ytd-rich-shelf-renderer — the topic description on the Learning
+       page; #subtitle.ytd-brand-video-shelf-renderer — the description under a
+       "YouTube featured" brand shelf, e.g. "Listen to podcasts in the
+       background"). v2_0 paints it the hashed #aaa, leaving it an unthemed gray —
+       force → @subtext0 (the shelf #title is themed by the rule above). */
+    #subtitle.ytd-shelf-renderer,
+    #subtitle.ytd-rich-shelf-renderer,
+    #subtitle.ytd-brand-video-shelf-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* "YouTube featured" promoted-shelf sublabel badge (.ytBadgeShapePromoted —
+       the badge in a brand video shelf header's sublabel). v2_0 paints its text
+       from a per-build hashed var, leaving it off-palette; force → @subtext0 to
+       match the shelf subtitle above. */
+    .ytBadgeShapePromoted .ytBadgeShapeText {
+      color: @subtext0 !important;
+    }
+
+    /* Metadata badges (yt-metadata-badge-renderer). The age-rating / media badges
+       (.ytBadgeShapeMedia — "FSK 6", quality labels) paint their text from the
+       hashed #aaa, so theme it → @subtext0. The "Upcoming" thumbnail overlay badge
+       (.ytBadgeShapeThumbnailDefault) sits over the thumbnail scrim with hardcoded
+       #fff text → @white (the flavor-aware light ink for text over media). The LIVE
+       badge (themed @accent elsewhere) and the commerce "Pay to watch" badge (its
+       text is the themed @green) are deliberately NOT matched here. */
+    .ytBadgeShapeMedia .ytBadgeShapeText {
+      color: @subtext0 !important;
+    }
+    .ytBadgeShapeThumbnailDefault .ytBadgeShapeText {
+      color: @white !important;
+    }
+
+    /* Merch shelf (ytd-merch-shelf-renderer — the "Shop the … store" product
+       strip under a video). The shelf, item renderers and product cards are
+       transparent (they inherit the page @base), so only text/icon/button need
+       theming. v2_0 paints the shelf title (#title), the product title and price
+       (#f1f1f1) and the merchant name + description (#aaa) from per-build hashed
+       atomic vars rather than the semantic tokens, so they stayed off-white / gray.
+       The "open in new" merchant arrow (yt-icon, fill: currentcolor) sets its own
+       hashed #f1f1f1 color, so it ignores the merchant-text colour and needs its
+       own color/fill. Force the shelf title + product title + price → @text; the
+       merchant name, description and arrow icon → @subtext0. The "Shop" button is
+       a hardcoded white pill (#f1f1f1 bg / #0f0f0f text) — recolour it to a filled
+       @accent button (@base ink) like the other primary actions. */
+    #title.ytd-merch-shelf-renderer,
+    .product-item-title.ytd-merch-shelf-item-renderer,
+    .product-item-price.ytd-merch-shelf-item-renderer {
+      color: @text !important;
+    }
+    .product-item-merchant-text.ytd-merch-shelf-item-renderer,
+    .product-item-description.ytd-merch-shelf-item-renderer {
+      color: @subtext0 !important;
+    }
+    .product-item-merchant-icon.ytd-merch-shelf-item-renderer {
+      color: @subtext0 !important;
+      fill: @subtext0 !important;
+    }
+    .product-item-button.ytd-merch-shelf-item-renderer {
+      background-color: @accent !important;
+      color: @base !important;
+    }
+
+    /* Movies & TV "Browse" hero card (ytd-default-promo-panel-renderer — the big
+       featured promo at the top). Its title (#hero-title), description
+       (#description) and provider byline (#channel-name, e.g. "YouTube Movies &
+       TV") paint hardcoded #fff / 70%-white over the hero artwork + dark scrim
+       (the #hero image and #scrim gradient), not via a palette token. Route them
+       through @white (the flavor-aware light ink for text over media): the title
+       full, the description and byline one step dimmer at fade(@white, 70%) to
+       keep the default hierarchy. On some surfaces (e.g. the Sports carousel) the
+       description's metadata is split into inline-styled child spans
+       (style="color: rgb(170,170,170)") that the parent rule can't reach, so match
+       those spans too. */
+    #hero-title.ytd-default-promo-panel-renderer {
+      color: @white !important;
+    }
+    #description.ytd-default-promo-panel-renderer,
+    #description.ytd-default-promo-panel-renderer span,
+    #channel-name.ytd-default-promo-panel-renderer {
+      color: fade(@white, 70%) !important;
+    }
+
+    /* Topic channel page header (ytd-topic-channel-details-renderer — e.g. the
+       "Music" destination channel). v2_0 paints the channel name (#title) from the
+       hashed #f1f1f1 and the subscriber count (#subtitle) from the hashed #aaa, so
+       they stayed off-white / gray — force #title → @text and #subtitle → @subtext0. */
+    #title.ytd-topic-channel-details-renderer {
+      color: @text !important;
+    }
+    #subtitle.ytd-topic-channel-details-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* Rich-shelf "Show more" expander (ytd-rich-shelf-renderer — the button that
+       reveals the rest of a shelf's items). Its .button-container paints the hashed
+       #0f0f0f (the same var as the chip-bar header), which blends into default YT's
+       #0f0f0f page but reads as a dark rectangle behind the outlined pill button
+       against our @base — map it → @base so only the pill button shows. */
+    .button-container.ytd-rich-shelf-renderer {
+      background-color: @base !important;
+    }
+
+    /* Playlist panel on the watch page (ytd-playlist-panel-renderer — the queue
+       beside the player). Its two surfaces paint from per-build *hashed* atomic
+       vars instead of the semantic tokens: the open list body (.playlist-items =
+       #0f0f0f) and the header band (.header = #212121), so they stayed the default
+       dark over the @base page. Force both → @base so the panel reads as one sheet
+       with the page (matching the collapsed-header rule above). Its text is hashed
+       too: the playlist title (.title), each video title (h4 → #video-title) and
+       the collapse/close icon (#trailing-icon) paint #f1f1f1 → @text; the owner +
+       index-message (#publisher-container link + .index-message, "Sarek · 1 / 21"),
+       each row's channel byline (#byline), and the index number / drag-reorder
+       handle that swap in on hover (#index, #index-container, #reorder) paint #aaa
+       → @subtext0. */
+    #items.ytd-playlist-panel-renderer,
+    .header.ytd-playlist-panel-renderer {
+      background-color: @base !important;
+    }
+    .title.ytd-playlist-panel-renderer,
+    .title.ytd-playlist-panel-renderer a,
+    h4.ytd-playlist-panel-video-renderer,
+    #video-title.ytd-playlist-panel-video-renderer,
+    #trailing-icon.ytd-playlist-panel-renderer {
+      color: @text !important;
+    }
+    #publisher-container.ytd-playlist-panel-renderer,
+    #publisher-container.ytd-playlist-panel-renderer a,
+    .index-message.ytd-playlist-panel-renderer,
+    #byline.ytd-playlist-panel-video-renderer,
+    #index.ytd-playlist-panel-video-renderer,
+    #index-container.ytd-playlist-panel-video-renderer,
+    #reorder.ytd-playlist-panel-video-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* Watch-page miniplayer (ytd-miniplayer — the floating mini video that docks
+       bottom-right when you scroll or navigate away from a video). Its v2_0 build
+       uses the new ytdMiniplayer* classes and paints the card body plus the info
+       strip between the video and the queue from a per-build *hashed* atomic var
+       (.ytdMiniplayerComponentContent / .ytdMiniplayerInfoBarHost = #212121), with
+       the video title (.ytdMiniplayerInfoBarTitle) at #f1f1f1 and the playlist
+       subtitle + "1 / 21" count (.ytdMiniplayerInfoBarSubtitle) at #aaa — none of
+       which the token remap reaches. Force the surface → @base (the card keeps its
+       drop shadow over the page), the title → @text and the subtitle → @subtext0. */
+    .ytdMiniplayerComponentContent,
+    .ytdMiniplayerInfoBarHost {
+      background-color: @base !important;
+    }
+    .ytdMiniplayerInfoBarTitle {
+      color: @text !important;
+    }
+    .ytdMiniplayerInfoBarSubtitle,
+    .ytdMiniplayerInfoBarSubtitleText {
+      color: @subtext0 !important;
+    }
+
+    /* Search results rows (ytd-video-renderer = the video list; ytd-channel-
+       renderer = the channel result). v2_0 paints their text from per-build
+       *hashed* atomic vars rather than the semantic tokens, so the video titles
+       and channel name stayed off-white (#f1f1f1) and every metadata line an
+       unthemed gray (#aaa). Force the video titles (#video-title) and the channel
+       name (#channel-title) → @text; the metadata line (views · date), its inline
+       items and • separators, the channel byline (ytd-channel-name), the
+       description snippet, and the channel row's @handle / subscriber count / dot
+       / description → @subtext0. */
+    #video-title.ytd-video-renderer,
+    ytd-channel-renderer #channel-title {
+      color: @text !important;
+    }
+    ytd-video-renderer #metadata-line,
+    ytd-video-renderer .inline-metadata-item,
+    ytd-video-renderer #separator,
+    ytd-video-renderer ytd-channel-name a,
+    ytd-video-renderer ytd-channel-name #text,
+    ytd-video-renderer .metadata-snippet-text,
+    ytd-video-renderer .metadata-snippet-text-navigation,
+    #subscribers.ytd-channel-renderer,
+    #video-count.ytd-channel-renderer,
+    #dot.ytd-channel-renderer,
+    #description.ytd-channel-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* Artist / universal watch card (ytd-universal-watch-card-renderer — the
+       right-hand card shown for an official artist/channel query, e.g.
+       "blackpink"). Its text is hashed too: force the rich-header channel name
+       (#channel-name), each listed song's title (.title), the "Albums" section
+       header (#title.ytd-title-and-button-list-header-renderer) and the album
+       refinement cards (the div in ytd-search-refinement-card-renderer) → @text;
+       the @handle, each song's "views · time ago" subtitle + duration, and the
+       YT Music promo-banner subtext → @subtext0. */
+    #channel-name.ytd-watch-card-rich-header-renderer,
+    .title.ytd-watch-card-compact-video-renderer,
+    #title.ytd-title-and-button-list-header-renderer,
+    div.ytd-search-refinement-card-renderer {
+      color: @text !important;
+    }
+    yt-formatted-string.ytd-watch-card-rich-header-renderer,
+    .subtitle.ytd-watch-card-compact-video-renderer,
+    .duration.ytd-watch-card-compact-video-renderer,
+    .ytwYtdButtonBannerViewModelSubtext {
+      color: @subtext0 !important;
+    }
+
+    /* ============================================================
+       Playlist browse page (ytd-browse — Watch later, saved
+       playlists). v2_0 paints the immersive header card, the
+       sort-chip header band, the video rows and the "videos
+       removed" alert from per-build *hashed* atomic vars instead of
+       the semantic tokens, so the token remap can't reach them —
+       force the stable selectors.
+       ============================================================ */
+
+    /* Sort-chip header band. The #header that carries the sort chip
+       ("Date added (newest)") above the list paints from a hashed atomic var
+       (#0f0f0f), so it stayed a black bar over the @base page — force the
+       stable selector → @base. (Scoped to the chip-bar-view-model header, which
+       the history page reuses too.) */
+    ytd-item-section-renderer[use-chip-bar-view-model-header] #header.ytd-item-section-renderer {
+      background: @base !important;
+    }
+
+    /* Immersive header card text over the colored gradient. The playlist title
+       and the owner/channel link inherit a hardcoded #fff (the link via
+       --yt-endpoint-color's hashed-var fallback), and the stats line ("N videos
+       · N views · Updated …") a 70%-white from --yt-playlist-byline-color's
+       fallback — none routed through a palette token. Send them through @white
+       (the flavor-aware light ink for text over media), keeping the stats one
+       step dimmer at fade(@white, 70%) to preserve the default hierarchy. */
+    ytd-playlist-header-renderer .metadata-wrapper,
+    ytd-playlist-header-renderer #owner-text a {
+      color: @white !important;
+    }
+    .metadata-stats.ytd-playlist-byline-renderer {
+      color: fade(@white, 70%) !important;
+    }
+
+    /* Immersive header action buttons — Shuffle and the ⋮ action menu (and any
+       other overlay tonal buttons in the card) sit over that gradient. The
+       global .ytSpecButtonShapeNextOverlay.ytSpecButtonShapeNextTonal rule
+       paints them a solid @surface0, which flattens them against the gradient;
+       default YT keeps them a translucent wash (rgba(255,255,255,.1)) so the
+       gradient frosts through — mirror that with the flavor-aware fade(@white,…),
+       like the masthead pill buttons. The header scope out-specifies the global
+       !important rule. */
+    ytd-playlist-header-renderer .ytSpecButtonShapeNextOverlay.ytSpecButtonShapeNextTonal {
+      background-color: fade(@white, 10%) !important;
+
+      &:hover {
+        background-color: fade(@white, 20%) !important;
+      }
+    }
+
+    /* Playlist video rows (ytd-playlist-video-renderer). v2_0 paints the row
+       index number, the channel byline (--yt-endpoint-color is locally reset to
+       the hashed #aaa) and the metadata line / "•" separator ("94M views · 4
+       years ago") from per-build hashed atomic vars (#aaa) rather than the
+       secondary-text token, so they stayed the unthemed gray — force the stable
+       selectors → @subtext0. (Row video titles already theme to @text via the
+       --yt-deprecated-* remap.) */
+    #index.ytd-playlist-video-renderer,
+    ytd-playlist-video-renderer ytd-channel-name a,
+    ytd-playlist-video-renderer #video-info,
+    ytd-playlist-video-renderer #separator {
+      color: @subtext0 !important;
+    }
+
+    /* Playlist info alert ("One or more videos have been removed …"). The
+       ytd-alert-with-button-renderer banner fills from a hashed atomic var
+       (var(--t7f4f2c6d54836ce0) = rgba(255,255,255,.1)) — the same translucent-
+       white wash the description box uses — with its #text at the #f1f1f1 hashed
+       var. Force the surface → @surface0 (a raised band over the @base page) and
+       the text → @text. */
+    ytd-alert-with-button-renderer {
+      background-color: @surface0 !important;
+    }
+    #text.ytd-alert-with-button-renderer {
+      color: @text !important;
+    }
+
+    /* Premium promo "statement banner" (ytd-statement-banner-renderer — the full-
+       width upsell card on the empty Downloads page and other feeds). v2_0 paints
+       its backdrop (#background-content) from a hashed atomic var (#0f0f0f) and
+       all its copy from hashed vars: the title (#dynamic-title) and subtitle
+       (#subtitle-container) = #f1f1f1, the fine-print supplemental line
+       (#supplemental-text-container) = #aaa. Map the backdrop → @base (default YT
+       blends it into the page — it's borderless/full-bleed) and the text → @text
+       / @subtext0. The "Terms apply" link inherits the global --yt-endpoint-color
+       (@text), so force it → @accent to read as a link, matching the "Get YouTube
+       Premium" CTA button. (The showcase artwork is a baked-in raster .webp — pure
+       media, left untouched.) */
+    #background-content.ytd-statement-banner-renderer {
+      background-color: @base !important;
+    }
+    #dynamic-title.ytd-statement-banner-renderer,
+    #subtitle-container.ytd-statement-banner-renderer {
+      color: @text !important;
+    }
+    #supplemental-text-container.ytd-statement-banner-renderer {
+      color: @subtext0 !important;
+    }
+    #supplemental-text.ytd-statement-banner-renderer a {
+      color: @accent !important;
+    }
+
+    /* Watch-page description hashtags / links. The clickable #hashtags (and any
+       other endpoint links) inside the video description paint #aaa via a
+       per-build *hashed* atomic var: they read --yt-endpoint-color, which is unset
+       here, so they fall back to the hashed var instead of the call-to-action token
+       the remap themes. Scope to the description so only its links are affected and
+       force them → @accent (links/highlights), matching themed description URLs. */
+    #description.ytd-watch-metadata a.yt-simple-endpoint {
+      color: @accent !important;
+    }
+
+    /* Channel page header containers. The outer header/tabs containers of the
+       channel page paint their background from a per-build *hashed* atomic var
+       (var(--t…) = #0f0f0f) directly, not via the --yt-lightsource-* tokens
+       remapped above, so the token remap can't reach them and they stayed the
+       default dark behind the banner, headline and tab bar. Force the stable
+       id+component selectors → @base so the whole header region blends into the
+       page. (The inner #page-header / #tabs-inner-container rows and the title
+       text are handled by the --yt-lightsource-* remap.) */
+    #page-header-container.ytd-tabbed-page-header,
+    #tabs-container.ytd-tabbed-page-header {
+      background: @base !important;
+    }
+
+    /* Channel "no content yet" empty state (ytd-channel-owner-empty-state-renderer
+       — the "Create content on any device" placeholder on an empty Home tab). Its
+       title and description paint their color from a per-build *hashed* atomic var
+       (var(--t…) = #f1f1f1), not the semantic text token, so they stayed default
+       near-white instead of @text. Force the stable component classes → @text. */
+    .header-title.ytd-channel-owner-empty-state-renderer,
+    .description-text.ytd-channel-owner-empty-state-renderer {
+      color: @text !important;
+    }
+
+    /* Channel-tab search affordance. The expandable search "tab" at the end of the
+       channel tab bar (ytd-expandable-tab-renderer) sets its text/icon color from a
+       per-build *hashed* atomic var (var(--t…) = #aaa), so its magnifier icon stayed
+       an unthemed gray while the tab labels beside it are themed. Force the stable
+       element → @text; the icon inherits it through currentcolor. */
+    ytd-expandable-tab-renderer {
+      color: @text !important;
+    }
+    /* Its expanded text field (a tp-yt-paper-input) doesn't inherit the above — its
+       text/label/underline are driven by --paper-input-container-* tokens set to
+       hashed vars (#f1f1f1) on a closer ancestor — so target the field elements
+       directly: typed text → @text, the "Search" label → @subtext0, the resting
+       underline → @subtext0 and the focused underline → @accent. (The lines are a
+       1px/2px border-bottom, so border-color reaches them.) */
+    ytd-expandable-tab-renderer input {
+      color: @text !important;
+    }
+    ytd-expandable-tab-renderer label {
+      color: @subtext0 !important;
+    }
+    ytd-expandable-tab-renderer .unfocused-line {
+      border-bottom-color: @subtext0 !important;
+    }
+    ytd-expandable-tab-renderer .focused-line {
+      border-bottom-color: @accent !important;
+    }
+
+    /* Watch-history page right-rail (ytd-browse-feed-actions-renderer). Two
+       surfaces there stay unthemed. (1) The "Search watch history" filter field
+       is the legacy tp-yt-paper-input (ytd-search-box-renderer) — same shape as
+       the channel-tab field above, driven by --paper-input-container-* tokens set
+       to hashed vars (#f1f1f1 / #aaa) the remap can't reach — so target the field
+       elements directly: typed text → @text, the label → @subtext0, the resting
+       underline → @subtext0 and the focused underline → @accent. (2) The
+       "Comments / Posts / Live chat" activity rows are ytd-compact-link-renderer,
+       whose #label paints its color from a per-build *hashed* atomic var (#aaa),
+       bypassing the semantic tokens — force the stable #label → @text. */
+    ytd-search-box-renderer input {
+      color: @text !important;
+    }
+    ytd-search-box-renderer label {
+      color: @subtext0 !important;
+    }
+    ytd-search-box-renderer .unfocused-line {
+      border-bottom-color: @subtext0 !important;
+    }
+    ytd-search-box-renderer .focused-line {
+      border-bottom-color: @accent !important;
+    }
+    #label.ytd-compact-link-renderer {
+      color: @text !important;
+    }
+
+    /* Masthead / top bar. YouTube paints the whole bar from one full-width layer
+       (#frosted-glass spans both the search/actions row and the chip bar) while
+       the row containers themselves stay transparent. So only the paint layers —
+       #background.ytd-masthead (solid states) and #frosted-glass — take the solid
+       @base; the row containers are forced transparent so that single layer (or
+       the page @base at the top) shows through the *entire* bar, not just the chip
+       row. Forcing the containers opaque would re-cover the search/actions row. */
+    #masthead,
+    #masthead-container,
+    ytd-masthead {
+      background: transparent !important;
+    }
+    #background.ytd-masthead,
+    #frosted-glass {
+      background: @base !important;
+    }
+    /* …and when the masthead enters its frosted state — scrolled home/feed
+       (#frosted-glass gains .with-chipbar) or the watch-page masthead in
+       frosted-glass-mode="without-chipbar" — YouTube layers a backdrop blur and
+       fills it with a translucent tint from a per-build *hashed* atomic var
+       (rgba(15,15,15,.8)). That var does NOT derive from the frosted-glass design
+       token, so the token remap can't reach it, and the opaque @base above would
+       paint over the blur and flatten the glass. Re-tint just these blurred
+       states with a translucent @base (matching YT's .8 alpha) so the frost shows
+       through; the more-specific selectors win over the solid rule above. Theater
+       is excluded — it has no blur and keeps the solid fill. */
+    #frosted-glass.with-chipbar,
+    ytd-masthead[frosted-glass-mode="without-chipbar"]:not([theater]) #background.ytd-masthead {
+      background-color: fade(@base, 80%) !important;
+    }
+    /* The frosted layer is full-width, so it also covers the strip directly above
+       the sidebar: the guide starts below the 56px top row, leaving the masthead's
+       logo / menu-button corner (#start) sitting over the sidebar column within
+       the frosted strip. Keep #start transparent so the frost stays continuous
+       across the whole top row — exactly like default YouTube. Forcing it solid
+       @base drops an opaque block into the frosted glass and cuts the chip-bar
+       blur off at the sidebar edge. The docked guide below is likewise left
+       transparent (see the guide-drawer block further down) so the top of the
+       sidebar reads as one uninterrupted sheet of frosted glass. */
+    #start.ytd-masthead {
+      background: transparent !important;
+    }
+
+    /* Search box + suggestions dropdown */
+    .ytSearchboxComponentInputBox,
+    .ytSearchboxComponentInputBoxDark {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+    }
+    .ytSearchboxComponentSuggestionsContainer,
+    .ytSearchboxComponentSuggestionsContainerDark {
+      background-color: @surface0 !important;
+    }
+    /* Search button (the magnifier segment on the right of the box) and the
+       separate "Search with your voice" button next to it. Default YT paints
+       both with a translucent wash (rgba(255,255,255,.08) / .1) so the frosted
+       glass shows through; a solid fill flattens them. The voice button's own
+       default is a hardcoded white wash — re-tint it to the same flavor-aware
+       fade(@text,…) so it matches the search button instead of reading as plain
+       white. The input box itself stays opaque @mantle (default is an opaque
+       dark field too). */
+    .ytSearchboxComponentSearchButton,
+    .ytSearchboxComponentSearchButtonDark,
+    #voice-search-button {
+      background-color: fade(@text, 8%) !important;
+    }
+
+    /* Masthead pill buttons (Create, and any other mono/tonal buttons in the top
+       bar). The global .ytSpecButtonShapeNext* / .yt-spec-button-shape-next-*
+       rules paint these a solid @surface0; inside the masthead that flattens them
+       against the frosted glass, whereas default YT keeps them a translucent wash
+       so the frost shows through. Re-tint just the masthead instances — the
+       #masthead id out-specifies the global !important rule. */
+    #masthead .ytSpecButtonShapeNextMono.ytSpecButtonShapeNextTonal,
+    #masthead .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal {
+      background-color: fade(@text, 10%) !important;
+    }
+    #masthead .ytSpecButtonShapeNextMono.ytSpecButtonShapeNextTonal:hover,
+    #masthead .yt-spec-button-shape-next--mono.yt-spec-button-shape-next--tonal:hover {
+      background-color: fade(@text, 20%) !important;
+    }
+
+    /* Masthead icon buttons (the notification bell —
+       ytd-notification-topbar-button-renderer; the ⋮ overflow menu —
+       ytd-topbar-menu-button-renderer; and yt-icon-button siblings). On hover YT
+       turns the 40×40 renderer into a circle (border-radius:24px) and fills it
+       from a hardcoded translucent-white wash (var(--tf3fc855af2285f5f) =
+       rgba(255,255,255,.2)) via a non-!important *.ytd-masthead:hover rule, so
+       the token remap can't reach it. Re-tint just that hover → the same
+       flavor-aware fade(@text, 20%) the Create pill above uses. Match YT's own
+       selector (the .ytd-masthead class, i.e. the top-level button that gets the
+       circular radius) — NOT a "#masthead yt-icon-button" descendant, which would
+       also paint the inner square yt-icon-button and show a square behind the
+       circle. Exclude the :last-of-type topbar-menu-button-renderer: that's the
+       account avatar (a 54×34 box, so the circular radius would render an oval),
+       and YT deliberately suppresses its hover wash (#buttons > …:last-of-type
+       :hover { background: transparent }) — a non-!important rule our !important
+       would otherwise override, re-introducing an unwanted oval on the avatar. */
+    yt-icon-button.ytd-masthead:hover,
+    ytd-notification-topbar-button-renderer.ytd-masthead:hover,
+    ytd-topbar-menu-button-renderer.ytd-masthead:not(:last-of-type):hover {
+      background-color: fade(@text, 20%) !important;
+    }
+
+    /* Guide toggle ("hamburger") icon + the YouTube wordmark next to it.
+       In v2_0 the guide button's yt-icon paints its glyph from a per-build
+       *hashed* atomic var (= #f1f1f1), so the masthead --iron-icon-fill-color
+       remap can't reliably reach it; force the stable selector to @text. The
+       wordmark glyphs are SVG <path>s with no fill attribute — they inherit
+       `fill` from the <svg>, so the global [fill="white"] rule (which needs the
+       attribute present) misses them and they stay default white. Set the svg
+       fill to the flavor-aware @white so the lettering matches the theme; the
+       red play button keeps its own fill="#FF0033" and is recolored to @accent
+       by the icon rules above. */
+    #guide-button yt-icon,
+    #guide-button yt-icon#guide-icon {
+      color: @text !important;
+      fill: @text !important;
+    }
+    ytd-topbar-logo-renderer ytd-logo svg {
+      fill: @white !important;
+    }
+    /* The country-code superscript next to the logo (e.g. "DE") paints its color
+       from a hashed atomic var (var(--t4a6da19e16bf221a) = #aaa), so the semantic
+       token remap can't reach it and it stays an unthemed gray. Force the stable
+       selector → @subtext0 (muted secondary text). */
+    #country-code.ytd-topbar-logo-renderer {
+      color: @subtext0 !important;
+    }
+
+    /* Raised popups / menus / dropdowns / dialogs.
+       These surfaces fill from per-build *hashed* atomic vars, not semantic
+       tokens, so token overrides can't reach them — force the stable renderer
+       selectors instead. Two hashed families are involved:
+         • var(--t08a7c6c176cbc5c2) = #282828 — the menu popup surface, shared by
+           the "..." overflow/context menus (ytd-menu-popup-renderer), the
+           masthead ⋮ / account / notifications menus (ytd-multi-page-menu-renderer)
+           and the sticky panel header those menus carry, which is a separate
+           element painting the same var (ytd-simple-menu-header-renderer).
+         • var(--t518e925f61bdcb91) = #212121 — the dialog surface, used by the
+           menu-popup caret tip and the (signed-in only) form / backstage-post
+           creation dialogs. The backstage host wraps an inner dialog renderer
+           that paints the same var, so both are listed.
+       Inner items/sections stay transparent and their hover/divider states are
+       translucent-white overlays that read fine on @mantle, so theming the
+       surface covers the whole popup. YT's rules here aren't !important, so our
+       !important wins despite their higher [dialog][dialog][dialog] specificity. */
+    ytd-menu-popup-renderer,
+    ytd-multi-page-menu-renderer,
+    ytd-simple-menu-header-renderer,
+    ytd-menu-popup-tip-renderer,
+    ytd-form-popup-renderer,
+    ytd-backstage-post-dialog-popup-renderer,
+    ytd-backstage-post-dialog-renderer,
+    tp-yt-paper-listbox.ytd-menu-popup-renderer,
+    tp-yt-paper-listbox.yt-dropdown-menu,
+    tp-yt-iron-dropdown .ytContextualSheetLayoutHost,
+    .ytContextualSheetLayoutHost,
+    .ytSpecDialogLayoutHost {
+      background-color: @mantle !important;
+    }
+
+    /* Comments sort dropdown (yt-dropdown-menu) — the listbox surface is themed
+       @mantle by the group above; theme its rows: item title → @text, secondary
+       subtitle → @subtext0, the selected row → @surface0 and any hovered row →
+       @surface1 (hover out-specifies selected, so hovering the selected row still
+       gives feedback). The closed trigger's own label (#icon-label — e.g. the
+       channel Playlists tab "Sort by") paints from a per-build *hashed* atomic var
+       (= #f1f1f1), so theme it → @text too. */
+    #icon-label.yt-dropdown-menu {
+      color: @text !important;
+    }
+    .item.yt-dropdown-menu {
+      color: @text !important;
+    }
+    #subtitle.yt-dropdown-menu {
+      color: @subtext0 !important;
+    }
+    tp-yt-paper-listbox.yt-dropdown-menu .iron-selected.yt-dropdown-menu {
+      background-color: @surface0 !important;
+    }
+    tp-yt-paper-listbox.yt-dropdown-menu tp-yt-paper-item.yt-dropdown-menu:hover {
+      background-color: @surface1 !important;
+    }
+
+    /* Notifications bell + popup. The masthead bell renders through the newer
+       yt-icon-badge-shape, whose .ytSpecIconBadgeShapeHost sets the icon color
+       from a per-build *hashed* atomic var (= #f1f1f1) — bypassing the masthead
+       --iron-icon-fill-color remap — so the glyph stayed default near-white. Force
+       the badge's icon → @text (scoped to the bell renderer so any unread-count
+       badge keeps its own colors). The popup that opens (ytd-multi-page-menu-
+       renderer, surface themed @mantle by the group above) likewise paints all its
+       text from hashed vars: the sticky header (Notifications title / Settings /
+       back arrow via ytd-simple-menu-header-renderer) and the section headings
+       (Important / More notifications via h2) = #f1f1f1, each notification's
+       channel+title row (.text) = #f1f1f1, and its timestamp (.metadata) = #aaa.
+       Remap those stable selectors → @text, muted rows → @subtext0, and re-tint the
+       row hover (default a translucent-white wash) to a solid @surface0 lift over
+       the @mantle popup. */
+    ytd-notification-topbar-button-renderer .ytSpecIconBadgeShapeIcon {
+      color: @text !important;
+    }
+    ytd-simple-menu-header-renderer,
+    h2.yt-multi-page-menu-section-renderer,
+    .text.ytd-notification-renderer {
+      color: @text !important;
+    }
+    .metadata.ytd-notification-renderer {
+      color: @subtext0 !important;
+    }
+    ytd-notification-renderer:hover {
+      background-color: @surface0 !important;
+    }
+
+    /* Account / settings popup (the masthead avatar menu —
+       ytd-multi-page-menu-renderer; surface themed @mantle by the group above).
+       Like the notifications popup it paints all its text from the #f1f1f1
+       hashed atomic var, bypassing the semantic tokens: the signed-in identity
+       header (name / handle / email via ytd-active-account-header-renderer),
+       every compact-link row's label (Google Account, YouTube Studio, Settings,
+       Sign out, Appearance, Display language, Restricted Mode, Location… — they
+       inherit tp-yt-paper-item's color) and the theme-toggle row
+       (ytd-toggle-theme-compact-link-renderer), plus those rows' leading icons.
+       Each row's trailing subtitle/secondary value (Device theme / English /
+       Off / Germany) reads its own hashed var (#f1f1f1, and #secondary-text even
+       falls back to the light-mode #0f0f0f — near-black on the dark popup). Force
+       the stable renderer selectors → @text, leading icons → @text, and the muted
+       trailing values → @subtext0. The row hover is a translucent-white wash
+       (rgba(255,255,255,.1)) painted on the renderer row — re-tint it to a solid
+       @surface0 lift over the @mantle popup, matching the other popup rows. */
+    #account-name.ytd-active-account-header-renderer,
+    #channel-handle.ytd-active-account-header-renderer,
+    #email.ytd-active-account-header-renderer,
+    tp-yt-paper-item.ytd-compact-link-renderer,
+    ytd-toggle-theme-compact-link-renderer,
+    .ytIconWrapperHost.ytd-compact-link-renderer,
+    yt-icon.ytd-compact-link-renderer,
+    .ytIconWrapperHost.ytd-toggle-theme-compact-link-renderer,
+    yt-icon.ytd-toggle-theme-compact-link-renderer {
+      color: @text !important;
+    }
+    #subtitle.ytd-compact-link-renderer,
+    #secondary-text.ytd-compact-link-renderer {
+      color: @subtext0 !important;
+    }
+    ytd-compact-link-renderer:hover,
+    ytd-toggle-theme-compact-link-renderer:hover {
+      background-color: @surface0 !important;
+    }
+    /* The "View your channel" link in the account-popup header is a real
+       yt-simple-endpoint anchor (unlike the name / handle / email text above), so
+       it reads the global --yt-endpoint-color (@text) and rendered as plain text.
+       Force it → @accent so it reads as the link it is. */
+    ytd-active-account-header-renderer a.yt-simple-endpoint {
+      color: @accent !important;
+    }
+
+    /* Legacy context-menu items (ytd-menu-service-item-renderer — the older
+       paper-item menu rows still used by some menus, e.g. the post composer's
+       "Schedule post" dropdown, and the video ⋮ menu in a playlist panel). Their
+       label and icon paint the #f1f1f1 hashed atomic var and the row hover is a
+       translucent-white wash, none of which the newer .ytListItemViewModel* remap
+       reaches. The sibling renderers in the same popup behave identically — the
+       navigation row (ytd-menu-navigation-item-renderer, e.g. "Save to playlist")
+       and the download row (ytd-menu-service-item-download-renderer, "Download"),
+       whose labels carry no .title class — so cover all three. Force label + icon
+       → @text and the hover → @surface0 over the @mantle popup. */
+    yt-formatted-string.title.ytd-menu-service-item-renderer,
+    .ytIconWrapperHost.ytd-menu-service-item-renderer,
+    yt-icon.ytd-menu-service-item-renderer,
+    yt-formatted-string.ytd-menu-navigation-item-renderer,
+    .ytIconWrapperHost.ytd-menu-navigation-item-renderer,
+    yt-icon.ytd-menu-navigation-item-renderer,
+    yt-formatted-string.ytd-menu-service-item-download-renderer,
+    .ytIconWrapperHost.ytd-menu-service-item-download-renderer,
+    yt-icon.ytd-menu-service-item-download-renderer {
+      color: @text !important;
+    }
+    tp-yt-paper-item.ytd-menu-service-item-renderer:hover,
+    tp-yt-paper-item.ytd-menu-navigation-item-renderer:hover,
+    tp-yt-paper-item.ytd-menu-service-item-download-renderer:hover {
+      background-color: @surface0 !important;
+    }
+
+    /* Channel "Posts" (community) tab. Most of its text — and a couple of surfaces —
+       paint from per-build *hashed* atomic vars instead of the semantic tokens:
+         • "Connect with your Community" alert banner: text #f1f1f1 on a hardcoded
+           blue surface → text @text, surface @surface0.
+         • post composer (ytd-backstage-post-dialog-renderer): channel name #f1f1f1
+           → @text; Visibility label/value + "Share a…" placeholder #aaa → @subtext0.
+         • image-attach prompt (ytd-backstage-multi-image-select-renderer): #prompt
+           #f1f1f1 → @text; aspect-ratio / license hints #aaa → @subtext0.
+         • comment-box char counter #aaa → @subtext0.
+         • Published / Scheduled / Archived sub-tabs (tp-yt-paper-tabs of
+           ytd-post-stream-filter-renderer): selected #f1f1f1 → @text, rest #aaa →
+           @subtext1.
+         • empty-state (ytd-post-filter-zero-state-renderer): title #f1f1f1 → @text,
+           subtitle → @subtext0, the glyph #f1f1f1 → @text and its translucent-white
+           circle → @surface0. */
+    .ytAlertBannerViewModelHost {
+      color: @text !important;
+    }
+    .ytAlertBannerViewModelTimeSensitive {
+      background-color: @surface0 !important;
+    }
+    #header-channel-name.ytd-backstage-post-dialog-renderer,
+    #prompt.ytd-backstage-multi-image-select-renderer,
+    #title.ytd-post-filter-zero-state-renderer,
+    #icon.ytd-post-filter-zero-state-renderer {
+      color: @text !important;
+    }
+    #header-visibility-label.ytd-backstage-post-dialog-renderer,
+    #header-default-visibility.ytd-backstage-post-dialog-renderer,
+    #commentbox-placeholder.ytd-backstage-post-dialog-renderer,
+    #aspect-ratio-message.ytd-backstage-multi-image-select-renderer,
+    #license-text.ytd-backstage-multi-image-select-renderer,
+    #char-count.ytd-commentbox,
+    #subtitle.ytd-post-filter-zero-state-renderer {
+      color: @subtext0 !important;
+    }
+    #icon-container.ytd-post-filter-zero-state-renderer {
+      background-color: @surface0 !important;
+    }
+    tp-yt-paper-tab.iron-selected.ytd-post-stream-filter-renderer {
+      color: @text !important;
+    }
+    tp-yt-paper-tabs.ytd-post-stream-filter-renderer {
+      color: @subtext1 !important;
+    }
+    /* …and the sliding active-tab indicator (the paper-tabs selection bar — a 2px
+       border-bottom) stayed the default near-white; match the main channel-tab
+       slider (.tabGroupShapeSlider) → @text. */
+    tp-yt-paper-tabs.ytd-post-stream-filter-renderer .selection-bar {
+      border-bottom-color: @text !important;
+    }
+
+    /* Game / topic interactive tabbed-header page (ytd-interactive-tabbed-header-
+       renderer — e.g. a game's "Splatoon 3" destination page reached from the
+       Gaming feed). v2_0 paints the whole header from per-build hashed atomic
+       vars rather than the semantic tokens:
+         • the game title (#title — #f1f1f1) → @text; the "Auto-generated by
+           YouTube" label, the description and the "2022 • Nintendo…" metadata
+           line (#auto-generated / #description / #metadata — #aaa) → @subtext0.
+         • the tab strip's inner bar (#tabs-inner-container — #0f0f0f) read as a
+           dark band over the @base page → @base.
+         • the tab labels: selected (#f1f1f1) → @text, the rest (#aaa) →
+           @subtext1, and they brighten to #f1f1f1 on hover → @text; the sliding
+           active-tab indicator (the 2px selection-bar border-bottom) → @text —
+           the same treatment as the channel "Posts" sub-tabs above. */
+    #title.ytd-interactive-tabbed-header-renderer {
+      color: @text !important;
+    }
+    #auto-generated.ytd-interactive-tabbed-header-renderer,
+    #description.ytd-interactive-tabbed-header-renderer,
+    #metadata.ytd-interactive-tabbed-header-renderer {
+      color: @subtext0 !important;
+    }
+    #tabs-inner-container.ytd-interactive-tabbed-header-renderer {
+      background-color: @base !important;
+    }
+    tp-yt-paper-tab.iron-selected.ytd-interactive-tabbed-header-renderer {
+      color: @text !important;
+    }
+    tp-yt-paper-tabs.ytd-interactive-tabbed-header-renderer {
+      color: @subtext1 !important;
+    }
+    tp-yt-paper-tab.ytd-interactive-tabbed-header-renderer:hover {
+      color: @text !important;
+    }
+    tp-yt-paper-tabs.ytd-interactive-tabbed-header-renderer .selection-bar {
+      border-bottom-color: @text !important;
+    }
+
+    /* Sort/filter dropdown trigger (#label-text.yt-dropdown-menu — e.g. the "My
+       region" selector on the game page's Live tab). v2_0 paints the trigger
+       label the hashed #aaa, leaving it an unthemed gray → @subtext0. */
+    #label-text.yt-dropdown-menu {
+      color: @subtext0 !important;
+    }
+    /* …but the live-chat view selector ("Top chat" / "Live chat" at the top of
+       the live-chat panel) uses the same dropdown trigger painted the hashed
+       #f1f1f1 (primary), so scope it to the chat header → @text and let it win
+       over the @subtext0 rule above. (The chat is its own iframe, but the same
+       @-moz-document CSS injects there.) */
+    yt-live-chat-header-renderer #label-text.yt-dropdown-menu {
+      color: @text !important;
+    }
+
+    /* Engagement-panel card surface (watch-page side panels: the "In this video"
+       chapters/timeline card, Transcript, Comments, Products, Structured
+       description…). When a panel carries match-content-theme, every surface of
+       the card fills from the same per-build *hashed* atomic var
+       (var(--t518e925f61bdcb91) = #212121, the same #212121 the dialogs use), so
+       the semantic-token remap can't reach it: the title row (#header) and the
+       chip-bar row (#subheader) of the title-header-renderer, plus the #content
+       body. Mirror YouTube's own stable selectors and force @surface0 on all
+       three so the whole card reads as one raised surface matching the
+       description box. (Inner chips paint their own hashed vars — the
+       .ytChipShape* rules above already theme them; the active chip → @accent.) */
+    ytd-engagement-panel-section-list-renderer[match-content-theme] #header.ytd-engagement-panel-title-header-renderer,
+    ytd-engagement-panel-section-list-renderer[match-content-theme] #subheader.ytd-engagement-panel-title-header-renderer,
+    ytd-engagement-panel-section-list-renderer[match-content-theme] #content.ytd-engagement-panel-section-list-renderer {
+      background-color: @surface0 !important;
+    }
+
+    /* Sponsored "panel ad" in the watch-page engagement column (the ytwPanelAd* /
+       ad-grid-card view-models inside ytd-ads-engagement-panel-content-renderer).
+       v2_0 paints the whole ad from per-build hashed atomic vars: the card surface
+       (the header lockup + the text/grid-cards sub-layout — #212121) and each
+       option card (ad-grid-card-text-view-model — a translucent-white wash). Map
+       the card surface → @base so the ad blends with the page like the rest of
+       the column, and lift the option cards → @surface0 so they read as raised
+       tiles (matching the tonal "Apply now" button, which the global tonal rule
+       already paints @surface0). Text: the headline + "Sponsored" badge and each
+       option headline (#f1f1f1) → @text; the advertiser URL and the option
+       descriptions (#aaa / #f1f1f1) → @subtext0. */
+    .ytwPanelAdHeaderImageLockupViewModelHost,
+    .ytwPanelTextIconTextGridCardsSubLayoutContentViewModelHost {
+      background-color: @base !important;
+    }
+    ad-grid-card-text-view-model {
+      background-color: @surface0 !important;
+    }
+    .ytwAdAvatarLockupViewModelHost,
+    .ytwAdAvatarLockupViewModelHost .ytAttributedStringHost,
+    .ytwPanelAdHeaderImageLockupViewModelHost .ytBadgeShapeText,
+    .ytwAdGridCardTextViewModelHostMetadataHeadline {
+      color: @text !important;
+    }
+    .ytwAdDetailsLineViewModelHost,
+    .ytwAdDetailsLineViewModelHost .ytAttributedStringHost,
+    .ytwAdGridCardTextViewModelHostMetadataDescriptionInlineStringInline {
+      color: @subtext0 !important;
+    }
+
+    /* In-feed / masthead "Sponsored" ad metadata (ytwFeedAdMetadataViewModelHost*
+       — the ad-badge + advertiser line beneath an in-feed or masthead promoted
+       slot; a different view-model from the watch-page panel ad above, so its
+       host class .ytwAdDetailsLineViewModelHostIsClickableAdComponent doesn't
+       match the .ytwAdDetailsLineViewModelHost rule). v2_0 paints the "Sponsored"
+       badge (.ytBadgeShapeAd) the hashed #f1f1f1 and the advertiser name the
+       hashed #aaa; the CTA headline is already a themed link. Mirror the panel-ad
+       hierarchy: Sponsored badge → @text, advertiser line → @subtext0. */
+    .ytBadgeShapeAd .ytBadgeShapeText {
+      color: @text !important;
+    }
+    .ytwAdDetailsLineViewModelHostIsClickableAdComponent,
+    .ytwAdDetailsLineViewModelHostIsClickableAdComponent .ytAttributedStringHost {
+      color: @subtext0 !important;
+    }
+
+    /* When such a match-content-theme panel opens as a *dialog* (e.g. the channel
+       "…more" About popup), it is wrapped in a tp-yt-paper-dialog whose own surface
+       fills from the inherited --paper-dialog-background-color (= #212121), which
+       peeks out around the @surface0 content (footer, padding, rounded corners) as
+       an unthemed patch. Remap that token → @surface0 on just this dialog variant
+       so the wrapper matches its content and reads as one seamless card. */
+    tp-yt-paper-dialog:has(ytd-engagement-panel-section-list-renderer[match-content-theme]) {
+      --paper-dialog-background-color: @surface0;
+    }
+    /* About-channel body text (the dialog's content: the "More info" subheading,
+       the table rows — Joined / subscriber count — link labels and row icons). The
+       inner #about-container sets its color from a per-build *hashed* atomic var
+       (var(--t…) = #f1f1f1), which every descendant inherits, so the body stayed
+       default near-white on the @surface0 card. Force the stable container → @text;
+       text and icons inherit it through currentcolor. */
+    #about-container.ytd-about-channel-renderer {
+      color: @text !important;
+    }
+
+    /* Search filters dialog (ytd-search-filter-options-dialog-renderer — the modal
+       opened by the "Filters" button on a results page). Its tp-yt-paper-dialog
+       wrapper fills from the inherited --paper-dialog-background-color (= #212121)
+       and the content renderer is shorter than the wrapper, so the default surface
+       peeked out around it — remap that token → @mantle (the popup-surface colour)
+       on just this dialog variant. Its text paints from per-build *hashed* atomic
+       vars the token remap can't reach: force the dialog title, the group headers
+       (#filter-group-name — "Type", "Duration", …) and the close ✕ → @text, and the
+       filter options → @subtext0. The currently-applied option (.selected, e.g.
+       "Relevance") defaults to a brighter #f1f1f1; route it → @accent instead so the
+       active choice clearly stands out from the muted options. */
+    tp-yt-paper-dialog:has(ytd-search-filter-options-dialog-renderer) {
+      --paper-dialog-background-color: @mantle;
+    }
+    #title.ytd-search-filter-options-dialog-renderer,
+    yt-formatted-string.ytd-search-filter-group-renderer,
+    #close-button.ytd-search-filter-options-dialog-renderer {
+      color: @text !important;
+    }
+    yt-formatted-string.ytd-search-filter-renderer {
+      color: @subtext0 !important;
+    }
+    ytd-search-filter-renderer.selected yt-formatted-string {
+      color: @accent !important;
+    }
+
+    /* Anchored/floating comments header (narrow viewports — e.g. Shorts with the
+       comments floating over the video). The sticky comments header that carries
+       the "Add a comment…" box fills from a hashed atomic var
+       (var(--t3e41d7b17b187f69) = #212121) in [darker-panels] mode, so it stayed
+       darker than the @surface0 panel body above. Force it to @surface0 so the
+       whole floating panel reads as one surface. */
+    ytd-item-section-renderer[static-comments-header] #header.ytd-item-section-renderer {
+      background-color: @surface0 !important;
+    }
+
+    /* Comments header count (#count.ytd-comments-header-renderer — the
+       "N Comments" heading). The h2#count inherits @text, but the inner
+       .count-text (the yt-formatted-string that renders the visible count) paints
+       from a hashed atomic var (#f1f1f1), so the count text itself stayed
+       off-white — force .count-text → @text. */
+    .count-text.ytd-comments-header-renderer {
+      color: @text !important;
+    }
+
+    /* Sidebar / guide drawer.
+       Only the OVERLAY drawer — watch page + narrow viewports, i.e. when the
+       drawer is opened but NOT [persistent] — needs an opaque surface, so the
+       scrolled-under page content doesn't bleed through it. There #contentContainer
+       fills from the stable --app-drawer-content-container-background-color token,
+       while the inner #guide-content is painted by a per-build *hashed* atomic var
+       (var(--t…)), so force the stable selectors. (#scrim keeps its default
+       translucent-black backdrop.)
+       The DOCKED homepage guide ([persistent]) is deliberately left transparent:
+       it inherits the page @base below the masthead and lets the masthead's
+       frosted glass show through its top strip, so the chip-bar frost stays
+       continuous across the sidebar instead of being cut off by a solid panel. */
+    #contentContainer.tp-yt-app-drawer:not([persistent]) {
+      --app-drawer-content-container-background-color: @base;
+    }
+    tp-yt-app-drawer#guide:not([persistent]) #guide-content,
+    tp-yt-app-drawer#guide:not([persistent]) #guide-content.ytd-app {
+      background: @base !important;
+    }
+
+    /* Sidebar / guide contents — text, icons and hover.
+       Every label, icon and hover highlight inside the guide paints from
+       per-build *hashed* atomic vars (text/icons = #f1f1f1, the active/hover
+       highlight = rgba(255,255,255,.1)), none of which derive from the semantic
+       tokens, so the remap above can't reach them. Force the stable selectors:
+         • entry labels (Home, Shorts, Subscriptions, You…), the section header
+           text, channel names and the Show more/less rows  → @text
+         • entry / mini-guide / section icons and the row chevrons             → @text
+         • the active-page row and the hover highlight                         → @surface0
+       Covers both the docked guide and the collapsed mini-guide rail. */
+    ytd-guide-entry-renderer .title.ytd-guide-entry-renderer,
+    ytd-guide-entry-renderer yt-formatted-string,
+    ytd-mini-guide-entry-renderer .title,
+    ytd-mini-guide-entry-renderer span.ytd-mini-guide-entry-renderer,
+    ytd-guide-section-renderer #guide-section-title {
+      color: @text !important;
+    }
+    ytd-guide-entry-renderer yt-icon,
+    ytd-mini-guide-entry-renderer yt-icon {
+      color: @text !important;
+      fill: @text !important;
+    }
+    ytd-guide-entry-renderer[active],
+    ytd-guide-entry-renderer:hover,
+    ytd-mini-guide-entry-renderer:hover {
+      background-color: @surface0 !important;
+    }
+
+    /* Guide footer (About / Press / Terms … link rows and the © Google LLC
+       line) plus the signed-out "Sign in to like videos, comment, and
+       subscribe" prompt. The footer links default to a muted #aaa and the
+       copyright to a dimmer #717171 — keep that hierarchy with @subtext0 /
+       @overlay1. The promo message is #f1f1f1 → @text (its accent "Sign in"
+       button is scoped to ytd-button-renderer, so it is left untouched). */
+    #guide-links-primary.ytd-guide-renderer a,
+    #guide-links-secondary.ytd-guide-renderer a {
+      color: @subtext0 !important;
+    }
+    #footer.ytd-guide-renderer #copyright {
+      color: @overlay1 !important;
+    }
+    ytd-guide-signin-promo-renderer yt-formatted-string.ytd-guide-signin-promo-renderer {
+      color: @text !important;
+    }
+
+    /* Theater / fullscreen letterbox bars. Their source depends on the
+       cinematic/ambient state: with it off the player (#movie_player) is itself
+       painted black; with it on the player goes transparent and the backdrop
+       behind it (#full-bleed-container) is black. Theme the whole stack so the
+       bars match the page in either case. Skipped when black bars are enabled.
+       The #page-manager prefix raises specificity past YouTube's own
+       same-specificity !important player rule (which ships in a cross-origin
+       sheet that loads after Stylus, so an equal-specificity rule would lose
+       the source-order tie). */
+    & when (@oled = 0) {
+      #page-manager ytd-watch-flexy[full-bleed-player] {
+        #movie_player,
+        #full-bleed-container,
+        #player-full-bleed-container,
+        #player-container {
+          background-color: @base !important;
+        }
+      }
     }
   }
 }
@@ -1562,12 +3575,10 @@
       }
     }
 
-    .yt-spec-touch-feedback-shape--overlay-touch-response-inverse
-      .yt-spec-touch-feedback-shape__fill {
+    .yt-spec-touch-feedback-shape--overlay-touch-response-inverse .yt-spec-touch-feedback-shape__fill {
       background-color: @accent;
     }
-    .yt-spec-touch-feedback-shape--overlay-touch-response
-      .yt-spec-touch-feedback-shape__fill {
+    .yt-spec-touch-feedback-shape--overlay-touch-response .yt-spec-touch-feedback-shape__fill {
       background-color: @text;
     }
   }
