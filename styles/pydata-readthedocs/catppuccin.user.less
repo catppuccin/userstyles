@@ -1,0 +1,131 @@
+/* ==UserStyle==
+@name PyData readthedocs Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/pydata-readthedocs
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/pydata-readthedocs
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/pydata-readthedocs/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Apydata-readthedocs
+@description Soothing pastel theme for PyData readthedocs
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("readthedocs.io"), domain("numpy.org"), domain("scipy.org"), domain("pydata.org"),domain("matplotlib.org"),domain("scikit-learn.org"),domain("bokeh.org") {
+  @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css"); //provides the syntax highlighting for pygment code blocks
+
+  //PyData has a native light/dark toggle button via html[data-theme]
+  html[data-theme="light"] {
+    #catppuccin(@lightFlavor);
+  }
+  html[data-theme="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+    scrollbar-color: @overlay0 @mantle;
+
+    @fade_percentage: 15%;
+    @accent_percentage: 8%;
+    /* most variable names here are mostly self-explanatory, i used darken() for hover/pressed and fade() for tinting.
+     The percentages (15% and 8%) were chosen by trial and error, seeing what most closely matched the difference between the base
+     color and the darkened/tinted on the unthemed pydata sites and what looked good to me. */
+
+    --pst-color-primary: @accent; //mostly links
+    --pst-color-primary-bg: fade(@accent, @fade_percentage); 
+    --pst-color-primary-highlight: darken(@accent, @accent_percentage);
+    --pst-color-primary-text: @base; /* guide: On Accent -> Base */
+    --pst-color-primary-highlight-text: @base;
+    --pst-color-secondary: @mauve; //secondary accent, i haven't found a site where this is set and used, however it could potentially be somewhat problematic if the accent is mauve 
+    --pst-color-secondary-bg: fade(@mauve, @fade_percentage);
+    --pst-color-secondary-highlight: darken(@mauve, @accent_percentage);
+    --pst-color-secondary-text: @base;
+    --pst-color-secondary-highlight-text: @base;
+    --pst-color-accent: @lavender; //active borders, focus rings
+    --pst-color-accent-bg: fade(@lavender, @fade_percentage);
+    --pst-color-info: @teal; //info boxes, admonitions
+    --pst-color-info-bg: fade(@teal, @fade_percentage);
+    --pst-color-info-highlight: darken(@teal, @accent_percentage);
+    --pst-color-info-text: @base;
+    --pst-color-info-highlight-text: @base;
+    --pst-color-success: @green; //success boxes, admonitions
+    --pst-color-success-bg: fade(@green, @fade_percentage);
+    --pst-color-success-highlight: darken(@green, @accent_percentage);
+    --pst-color-success-text: @base;
+    --pst-color-success-highlight-text: @base;
+    --pst-color-warning: @yellow; //warning boxes, admonitions
+    --pst-color-warning-bg: fade(@yellow, @fade_percentage);
+    --pst-color-warning-highlight: darken(@yellow, @accent_percentage);
+    --pst-color-warning-text: @base;
+    --pst-color-warning-highlight-text: @base;
+    --pst-color-danger: @red; //error/danger boxes, admonitions
+    --pst-color-danger-bg: fade(@red, @fade_percentage);
+    --pst-color-danger-highlight: darken(@red, @accent_percentage);
+    --pst-color-danger-text: @base;
+    --pst-color-danger-highlight-text: @base;
+    --pst-color-attention: @yellow; //attention boxes, admonitions. peach also works
+    --pst-color-attention-bg: fade(@yellow, @fade_percentage);
+    --pst-color-attention-text: @base;
+    --pst-color-attention-highlight-text: @base;
+    
+    --pst-color-background: @base; //main background color
+    --pst-color-on-background: @mantle; //secondary panes
+    --pst-color-surface: @crust; //background of copy button in code blocks, and background of fields in function declerations in API reference, crust looks better than surface0 for both
+    --pst-color-on-surface: @text;
+    --pst-color-text-base: @text; //main body text
+    --pst-color-text-muted: @subtext0; //sub headlines, subtext
+    --pst-color-border: @surface1; //border color for code blocks
+    --pst-color-border-muted: @surface0; //not used anywhere as far as i saw
+    --pst-color-shadow: fade(@crust, 40%); //shadow the top navbar casts on the body, 40% looked good but arbitrary
+    --pst-color-blockquote-notch: @overlay0; 
+    --pst-color-inline-code: @red; //never actually used as far as i saw
+    --pst-color-link-hover: darken(@accent,@accent_percentage); 
+    --pst-color-link-higher-contrast: @sapphire;
+    --pst-color-target: fade(@accent,@fade_percentage); //background in API reference titles for functions
+    --pst-color-table: @text;
+    --pst-color-table-row-hover-bg: fade(@accent, @fade_percentage); 
+    --pst-color-table-inner-border: @surface0;
+    --pst-color-heading: @text; 
+    --pst-color-link: @accent; 
+    --pst-color-table-heading-bg: @surface0; //surface element
+    --pst-color-table-outer-border: @surface1;
+    --pst-color-table-row-zebra-high-bg: @mantle; 
+    --pst-color-table-row-zebra-low-bg: @base;
+
+    
+    //sphinx-gallery variables, which are sometimes used for dataframe tables, script outputs, download buttons etc. Although very rarely
+    --sg-text-color: @text; 
+    --sg-background-color: @base; 
+    --sg-code-background-color: @red; //code block background for SG only, never actually used
+    --sg-tr-odd-color: @mantle; //zebra step, mirrors pst zebra mapping 
+    --sg-tr-hover-color: fade(@accent, @fade_percentage);
+    --sg-tooltip-foreground: @accent;
+    --sg-tooltip-background: @surface0; 
+    --sg-tooltip-border: @surface1 transparent;
+    --sg-thumb-box-shadow-color: fade(@crust, @fade_percentage);
+    --sg-thumb-hover-border: @accent; 
+    --sg-script-out: @subtext0; 
+    --sg-script-pre: @mantle;
+    --sg-pytb-foreground: @text;
+    --sg-pytb-background: fade(@red, @fade_percentage); 
+    --sg-pytb-border-color: @red;
+
+    //these numbers are purely what looked good to me, i was unable to find any close enough examples to match 
+    --sg-download-a-background-color: fade(@green, @fade_percentage) !important; 
+    --sg-download-a-background-image: linear-gradient(to bottom, fade(@green, 18%), fade(@green, 10%)) !important;
+    --sg-download-a-border-color: 1px solid fade(@green, 40%) !important; 
+    --sg-download-a-color: @text !important;
+    --sg-download-a-hover-background-color: fade(@green, 25%) !important;
+    --sg-download-a-hover-box-shadow-1: fade(@crust, @fade_percentage) !important;
+    --sg-download-a-hover-box-shadow-2: fade(@text, 25%) !important;
+  }
+}
