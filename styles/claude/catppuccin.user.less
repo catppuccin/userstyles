@@ -222,6 +222,85 @@
       --cds-chart-grid: fade(@text, 10%) !important;
 
       --cds-backdrop: fade(@crust, 50%) !important;
+
+      /* Gray primitive ramp (light -> dark). Feeds --cds-neutral-* (mirrored
+         in dark mode), the --cds-alpha-* overlay ramp, and the bg-gray and
+         text-gray utilities, so it must stay light-to-dark in absolute terms
+         whichever flavor is active. */
+      & when (lightness(@base) >= 50%) {
+        --cds-gray-0: @base !important;
+        --cds-gray-10: @base !important;
+        --cds-gray-20: @base !important;
+        --cds-gray-30: @mantle !important;
+        --cds-gray-40: @mantle !important;
+        --cds-gray-50: @crust !important;
+        --cds-gray-60: @crust !important;
+        --cds-gray-70: @crust !important;
+        --cds-gray-80: @surface0 !important;
+        --cds-gray-90: @surface0 !important;
+        --cds-gray-100: @surface0 !important;
+        --cds-gray-150: @surface1 !important;
+        --cds-gray-200: @surface1 !important;
+        --cds-gray-250: @surface2 !important;
+        --cds-gray-300: @surface2 !important;
+        --cds-gray-350: @overlay0 !important;
+        --cds-gray-400: @overlay0 !important;
+        --cds-gray-450: @overlay1 !important;
+        --cds-gray-500: @overlay1 !important;
+        --cds-gray-550: @overlay2 !important;
+        --cds-gray-600: @overlay2 !important;
+        --cds-gray-650: @subtext0 !important;
+        --cds-gray-700: @subtext0 !important;
+        --cds-gray-750: @subtext1 !important;
+        --cds-gray-800: @subtext1 !important;
+        --cds-gray-810: @text !important;
+        --cds-gray-820: @text !important;
+        --cds-gray-830: @text !important;
+        --cds-gray-840: @text !important;
+        --cds-gray-850: @text !important;
+        --cds-gray-860: @text !important;
+        --cds-gray-870: @text !important;
+        --cds-gray-880: @text !important;
+        --cds-gray-890: @text !important;
+        --cds-gray-900: @text !important;
+      }
+      & when (lightness(@base) < 50%) {
+        --cds-gray-0: @text !important;
+        --cds-gray-10: @text !important;
+        --cds-gray-20: @text !important;
+        --cds-gray-30: @text !important;
+        --cds-gray-40: @text !important;
+        --cds-gray-50: @subtext1 !important;
+        --cds-gray-60: @subtext1 !important;
+        --cds-gray-70: @subtext1 !important;
+        --cds-gray-80: @subtext0 !important;
+        --cds-gray-90: @subtext0 !important;
+        --cds-gray-100: @subtext0 !important;
+        --cds-gray-150: @overlay2 !important;
+        --cds-gray-200: @overlay2 !important;
+        --cds-gray-250: @overlay1 !important;
+        --cds-gray-300: @overlay1 !important;
+        --cds-gray-350: @overlay0 !important;
+        --cds-gray-400: @overlay0 !important;
+        --cds-gray-450: @surface2 !important;
+        --cds-gray-500: @surface2 !important;
+        --cds-gray-550: @surface1 !important;
+        --cds-gray-600: @surface1 !important;
+        --cds-gray-650: @surface0 !important;
+        --cds-gray-700: @surface0 !important;
+        --cds-gray-750: @surface0 !important;
+        --cds-gray-800: @base !important;
+        --cds-gray-810: @base !important;
+        --cds-gray-820: @base !important;
+        --cds-gray-830: @base !important;
+        --cds-gray-840: @mantle !important;
+        --cds-gray-850: @mantle !important;
+        --cds-gray-860: @mantle !important;
+        --cds-gray-870: @crust !important;
+        --cds-gray-880: @crust !important;
+        --cds-gray-890: @crust !important;
+        --cds-gray-900: @crust !important;
+      }
     }
 
     /* Epitaxy (Claude Code: file viewer, diff viewer, buttons, HUD) */
@@ -273,22 +352,35 @@
       --surface-primary-elevated: fade(@crust, 95%) !important;
       --surface-prompt-blur: @mantle !important;
       --surface-prompt-focus-hover: @base !important;
+    }
 
-      .dframe-root {
-        --df-bg-page-hsl: #hslify(@mantle)[] !important;
+    /* dframe (sidebar + page frame; appears standalone, not only under
+       .epitaxy-root) */
+    .dframe-root {
+      --df-bg-page-hsl: #hslify(@mantle)[] !important;
+      --df-sidebar-bg: @mantle !important;
+      --df-web-sidebar-bg: @mantle !important;
+      --df-web-sidebar-bg-image: none !important;
+      --df-hover: fade(@text, 5%) !important;
+      --df-selected: fade(@text, 8%) !important;
+      --panel-hairline: fade(@overlay0, 40%) !important;
+
+      /* .dframe-sidebar/.dframe-card re-declare these directly (some as
+         hardcoded literals), shadowing the values above -- override at the
+         same level. */
+      .dframe-sidebar,
+      .dframe-card {
         --df-sidebar-bg: @mantle !important;
+        --df-surface-primary: @mantle !important;
         --df-web-sidebar-bg: @mantle !important;
-        --df-web-sidebar-bg-image: none !important;
-        --panel-hairline: fade(@overlay0, 40%) !important;
+        --df-hover: fade(@text, 5%) !important;
+        --df-selected: fade(@text, 8%) !important;
+      }
 
-        /* .dframe-sidebar/.dframe-card re-declare --df-sidebar-bg/--df-surface-primary
-           directly, shadowing the values above -- override at the same level. */
-        .dframe-sidebar,
-        .dframe-card {
-          --df-sidebar-bg: @mantle !important;
-          --df-surface-primary: @mantle !important;
-          --df-web-sidebar-bg: @mantle !important;
-        }
+      /* Home/Code segmented control track (hardcoded white literal in dark
+         mode). */
+      .df-pills[data-segmented] {
+        background-color: fade(@text, 6%) !important;
       }
     }
 
@@ -355,6 +447,12 @@
       background: @crust !important;
     }
     div.text-white {
+      color: @text !important;
+    }
+    div.bg-always-black\/80 {
+      background: fade(@crust, 80%) !important;
+    }
+    div.bg-always-black\/80.text-always-white {
       color: @text !important;
     }
 
