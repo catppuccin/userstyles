@@ -14,59 +14,120 @@
 @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
-
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
 @-moz-document domain("ecosia.org") {
   :root.light {
-    #catppuccin(@lightFlavor);
+    #catppuccin.search(@lightFlavor);
   }
 
   :root.dark {
-    #catppuccin(@darkFlavor);
+    #catppuccin.search(@darkFlavor);
+  }
+}
+
+#catppuccin() {
+  .search(@flavor) {
+    #catppuccin.base(@flavor);
+
+    /* Dynamically adjust (leaf) background pictures */
+    .above-fold-section,
+    .main-footer-visual {
+      picture {
+        #catppuccin.color-overlay(@accent);
+      }
+      picture:has(.above-fold-section__background) {
+        border-radius: 20px;
+      }
+      .main-footer-visual__content {
+        isolation: isolate;
+        &::before {
+          z-index: 1;
+        }
+      }
+    }
   }
 
-  #catppuccin(@flavor) {
-    #lib.palette();
-    #lib.defaults();
+  .base(@flavor) {
+    #catppuccin._common-vars(@flavor);
+    #catppuccin._static();
+    #catppuccin._alerts(@flavor);
+    #catppuccin._toasts(@flavor);
+    #catppuccin._icons();
+  }
 
+  ._init(@flavor, @exclude-defaults: false) {
+    #lib.palette();
+    & when (@exclude-defaults =false) {
+      #lib.defaults();
+    }
+
+    /* Augemented palette */
+    @accent1: if(@flavor =latte, lighten(@accent, 5%), darken(@accent, 10%));
+    @featured: if(@flavor =latte, lighten(@accent, 25%), darken(@accent, 5%));
+    @featured1: if(@flavor =latte, lighten(@accent, 20%), darken(@accent, 10%));
+  }
+
+  ._common-vars(@flavor) {
+    #catppuccin._init(@flavor);
+    /* Ecosia variable overrides */
     --color-brand-primary: @accent !important;
     --color-brand-secondary: @crust !important;
+    --color-brand-featured: @featured !important;
     --color-error: @red !important;
     --color-success: @green !important;
     --color-disabled: @overlay1 !important;
     --color-button-background-primary: @accent !important;
-    --color-button-background-primary-active: @accent !important;
-    --color-button-background-primary-hover: @accent;
+    --color-button-background-primary-active: @accent1 !important;
+    --color-button-background-primary-hover: @accent1 !important;
+    --color-button-background-featured: @featured !important;
+    --color-button-background-featured-active: @featured1 !important;
+    --color-button-background-featured-hover: @featured1 !important;
     --color-button-background-secondary: @surface0 !important;
     --color-button-background-secondary-active: @surface2 !important;
     --color-button-background-secondary-hover: @surface1 !important;
+    --color-button-background-negative: @red !important;
+    --color-button-background-negative-hover: lighten(@red, 10%) !important;
+    --color-button-background-negative-active: lighten(@red, 10%) !important;
     --color-button-content-primary: @base !important;
     --color-button-content-secondary: @text !important;
     --color-button-content-tertiary: @accent !important;
     --color-button-border: @surface0 !important;
-    --color-button-background-transparent-hover: @surface1;
-    --color-button-background-transparent-active: @surface2;
+    --color-button-inverse-border: @base !important;
+    --color-button-background-transparent-hover: @surface1 !important;
+    --color-button-background-transparent-active: @surface2 !important;
     --color-background-primary: @base !important;
+    --color-background-primary-0: fade(@base, 100%) !important;
+    --color-background-primary-decorative: @mantle !important;
+    --color-background-inverse-primary: @text !important;
     --color-background-secondary: @crust !important;
     --color-background-tertiary: @mantle !important;
-    --color-background-quaternary: @surface0;
+    --color-background-quaternary: @surface0 !important;
+    --color-background-featured: @featured !important;
+    --color-background-brand-primary: darken(@featured, 30%) !important;
+    --color-background-brand-secondary: darken(@featured, 20%) !important;
+    --color-background-brand-secondary-alt: darken(@featured, 15%) !important;
     --color-background-elevation-1: @mantle !important;
+    --color-background-elevation-2: @base !important;
     --color-highlighter: @surface0 !important;
     --color-highlight-primary: @surface0 !important;
+    --color-icon-strong: @text !important;
     --color-overlay-primary: @overlay0 !important;
     --color-overlay-secondary: @overlay1 !important;
     --color-text-primary: @text !important;
+    --color-text-inverse-primary: @base !important;
+    --color-text-brand-secondary: darken(@green, 10%) !important;
     --color-text-secondary: @subtext0 !important;
-    --color-text-tertiary: @text !important;
-    --color-link-primary: @sapphire !important;
-    --color-link-secondary: @sky !important;
-    --color-url: @sapphire !important;
-    --color-link-results-default: @sapphire !important;
-    --color-link-results-visited: @teal !important;
-    --color-decorative-icon: @accent !important;
-    --color-elevation-layer-1: @surface1;
-    --color-elevation-layer-2: @surface2;
+    --color-link-primary: @blue !important;
+    --color-link-secondary: @subtext0 !important;
+    --color-link-inverse: @base !important;
+    --color-url: @subtext0 !important;
+    --color-link-results-default: @blue !important;
+    --color-link-results-visited: @mauve !important;
+    --color-decorative-icon: @subtext0 !important;
+    --color-video-background: #000 !important;
+    --color-elevation-layer-1: @surface1 !important;
+    --color-elevation-layer-2: @surface2 !important;
     --color-decorative-border-1: @surface1 !important;
     --color-focused: @accent !important;
     --color-form-border-default: @surface0 !important;
@@ -74,31 +135,94 @@
     --color-form-border-primary-active: @accent !important;
     --color-tripadvisor-rating: @subtext0 !important;
     --color-tree-counter-tree-tall: @yellow !important;
+    --color-surface-brand-secondary: darken(@green, 10%) !important;
     --color-green-leaf-icon-color-top: @green !important;
-    --color-green-leaf-icon-color-bottom: @green !important;
-    --color-fossil-fuel-icon-color-top: @flamingo !important;
-    --color-fossil-fuel-icon-color-bottom: @maroon !important;
+    --color-green-leaf-icon-color-bottom: darken(@green, 10%) !important;
+    --color-seed-icon-color-top: @rosewater !important;
+    /* custom */
+    --color-seed-icon-color-bottom: darken(@rosewater, 10%) !important;
+    /* custom */
+  }
 
-    /* search page */
-    --color-above-fold-background: @surface0 !important;
-    --color-above-fold-background-addon: @overlay1 !important;
-    --color-above-fold-text: @text !important;
-    --color-section-wrapper-background-gray: @surface1 !important;
-    --color-section-wrapper-background-dark-green: @surface0 !important;
-    --color-section-wrapper-background-light-green: @surface0 !important;
-    --color-section-header-title: @text !important;
-    --color-projects-title: @text !important;
-    --color-projects-description: @surface1;
-    --color-financial-report-total-background: @surface0 !important;
-    --color-financial-report-total-text: @text !important;
-    --color-forest-background-addon: @surface1 !important;
-    --color-forest-background-secondary: @surface0 !important;
-    --color-before-after-text: @text !important;
+  ._static() {
+    #catppuccin._init(latte, true);
 
-    /* override color digit on homepage */
-    .count__digit,
-    .counter__description {
-      color: @text !important;
+    --color-border-glass-static-default: fade(@base, 75%) !important;
+    --color-border-glass-static-hover: fade(@base, 66%) !important;
+    --color-border-glass-static-active: fade(@base, 50%) !important;
+    --color-button-background-featured-static: @featured !important;
+    --color-button-content-primary-static: @base !important;
+    --color-button-content-secondary-static: @text !important;
+    --color-button-background-glass-static: fade(darken(@text, 50%), 66%) !important;
+    --color-button-background-glass-static-hover: fade(darken(@text, 50%), 50%) !important;
+    --color-button-background-glass-static-active: fade(darken(@text, 50%), 33%) !important;
+    --color-background-featured-static: @featured1 !important;
+    --color-background-glass-static: fade(@text, 66%) !important;
+    --color-text-static-light: @base !important;
+    --color-text-static-dark: darken(@text, 50%) !important;
+    --color-link-static-light: @base !important;
+    --color-link-static-dark: darken(@text, 50%) !important;
+  }
+
+  ._alerts(@flavor) {
+    #catppuccin._init(@flavor);
+
+    .inline-alert--light,
+    .inline-alert--dark {
+      --alert-text: if(@flavor =latte, @text, @base);
+      --alert-negative-background: if(@flavor =latte, lighten(@red, 25%), darken(@red, 20%));
+      --alert-positive-background: if(@flavor =latte, lighten(@green, 25%), darken(@green, 20%));
+      --alert-warning-background: if(@flavor =latte, lighten(@yellow, 25%), darken(@yellow, 20%));
+      --alert-info-background: if(@flavor =latte, lighten(@blue, 25%), darken(@blue, 20%));
+      --alert-negative-border: @red;
+      --alert-warning-border: @yellow;
+      --alert-info-border: @blue;
+      --alert-positive-border: @green;
+    }
+  }
+
+  ._toasts(@flavor) {
+    #catppuccin._init(@flavor);
+
+    .toast[data-v-bf323c03] {
+      /* legibility on latte was too low */
+      --toast-text: @base;
+      --toast-neutral: if(@flavor =latte, darken(@subtext0, 20%), @subtext0);
+      --toast-negative: if(@flavor =latte, darken(@red, 20%), @red);
+      --toast-warning: if(@flavor =latte, darken(@yellow, 20%), @yellow);
+      --toast-positive: if(@flavor =latte, darken(@green, 20%), @green);
+      --toast-informative: if(@flavor =latte, darken(@blue, 20%), @blue);
+    }
+  }
+
+  ._icons() {
+    .sustainability-label__icon {
+      /* already defined above */
+      --color-green-leaf-icon-color-top: inherit;
+      --color-green-leaf-icon-color-bottom: inherit;
+    }
+
+    svg.icon--icon-seed {
+      path:first-of-type {
+        fill: var(--color-seed-icon-color-top) !important;
+      }
+      path:last-of-type {
+        fill: var(--color-seed-icon-color-bottom) !important;
+      }
+    }
+  }
+
+  .color-overlay(@color) {
+    &::after {
+      background: hsl(hue(@color), min(saturation(@color), 30%), lightness(@color));
+      mix-blend-mode: color;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      content: "";
+      border-radius: inherit;
     }
   }
 }
