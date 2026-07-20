@@ -7,8 +7,8 @@ sidebar:
 
 ## Obtaining RGB values
 
-See [`#lib.rgbify()`](/contributing/reference/libraries/standard/v/1#librgbify).
+See [`#lib.rgbify()`](/contributing/reference/libraries/standard/v/v1#librgbify).
 
 ## Obtaining HSL values
 
-See [`#lib.hslify()`](/contributing/reference/libraries/standard/v/1#libhslify).
+See [`#lib.hslify()`](/contributing/reference/libraries/standard/v/v1#libhslify).
