@@ -6,11 +6,15 @@ import * as path from "@std/path";
 import { sprintf } from "@std/fmt/printf";
 
 // @ts-types="@/types/usercss-meta.d.ts";
-import usercssMeta from "usercss-meta";
+import usercss from "usercss-meta";
 import { log } from "@/logger.ts";
 import { formatListOfItems } from "@/utils.ts";
 
-export async function verifyMetadata(
+const template = (await Deno.readTextFile(
+  path.join(REPO_ROOT, "template/catppuccin.user.less"),
+)).split("\n");
+
+export function validateUserCSSMetadata(
   file: string,
   content: string,
   userstyle: string,
@@ -22,13 +26,14 @@ export async function verifyMetadata(
 
   const assertions = generateAssertions(userstyle, userstyles);
 
-  const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {
+  const { metadata, errors } = usercss.parse(content, {
     allowErrors: true,
+    mandatoryKeys: [],
   });
   const lines = content.split("\n");
 
   // Pretty print / annotate the parsing errors.
-  for (const error of parsingErrors) {
+  for (const error of errors) {
     let startLine;
     if (error.index !== undefined && !Number.isNaN(error.index)) {
       startLine = 0;
@@ -38,9 +43,6 @@ export async function verifyMetadata(
         if (error.index < 0) break;
       }
     }
-
-    // Skip "missing mandatory metadata property" ParseError, assertions checks below will cover.
-    if (error.code === "missingMandatory") continue;
 
     log.error(error.message, {
       file,
@@ -84,11 +86,6 @@ export async function verifyMetadata(
       }
     }
   }
-
-  const template = (await Deno.readTextFile(
-    path.join(REPO_ROOT, "template/catppuccin.user.less"),
-  ))
-    .split("\n");
 
   for (const variable of ["darkFlavor", "lightFlavor", "accentColor"]) {
     const declaration = `@var select ${variable}`;
@@ -137,13 +134,13 @@ export async function verifyMetadata(
   // `@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]`
   // gets parsed as
   // `lightFlavor: "latte"`.
-  const globalVars = Object.entries(metadata.vars)
+  const vars = Object.entries(metadata.vars)
     .reduce((acc, [k, v]) => {
       return { ...acc, [k]: v.default };
     }, {});
 
   return {
-    globalVars,
+    vars,
     isLess: metadata.preprocessor === assertions.preprocessor,
     fixed: content,
   };

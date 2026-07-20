@@ -5,13 +5,14 @@ import stylelint from "stylelint";
 import "stylelint-config-standard";
 import "stylelint-config-recommended";
 
+import config from "../../.stylelintrc.js";
+
 import { log } from "@/logger.ts";
 
-export async function runStylelint(
+export default async function (
   file: string,
   content: string,
   fix: boolean,
-  config: stylelint.Config,
 ): Promise<string | undefined> {
   const { results, code } = await stylelint.lint({
     code: content,

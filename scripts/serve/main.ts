@@ -6,13 +6,10 @@ import { createHash } from "node:crypto";
 import * as path from "@std/path";
 
 import { REPO_ROOT } from "@/constants.ts";
+import { getUserstylePath, parseUserstyleArg } from "@/utils.ts";
 
 const args = parseArgs(Deno.args, {});
-const userstyle = args._[0]
-  ?.toString()
-  .match(
-    /(?<base>styles\/)?(?<userstyle>[a-z0-9_\-.]+)(?<trailing>\/)?(?<file>catppuccin\.user\.less)?/,
-  )?.groups?.userstyle;
+const userstyle = parseUserstyleArg(args._[0]);
 if (!userstyle) throw new Error("Invalid userstyle argument");
 
 const server = Deno.serve({
@@ -34,12 +31,7 @@ const server = Deno.serve({
   });
 });
 
-const userstylePath = path.join(
-  REPO_ROOT,
-  "styles",
-  userstyle,
-  "catppuccin.user.less",
-);
+const userstylePath = getUserstylePath(userstyle);
 
 const libPath = path.join(
   REPO_ROOT,

@@ -3,6 +3,7 @@ import * as path from "@std/path";
 import less from "less";
 
 import { REPO_ROOT } from "@/constants.ts";
+import { log } from "@/logger.ts";
 
 const LIB_URL_PREFIX = "https://userstyles.catppuccin.com/lib";
 const LIB_DIRECTORY = path.join(REPO_ROOT, "lib");
@@ -46,6 +47,21 @@ interface LessEnvironment {
 }
 
 (less as unknown as { environment: LessEnvironment }).environment
-  .addFileManager(
-    new InterceptingFileManager(),
-  );
+  .addFileManager(new InterceptingFileManager());
+
+export default async function compile(
+  file: string,
+  content: string,
+  globalVars: Record<string, string>,
+): Promise<void> {
+  try {
+    await less.render(content, { lint: true, globalVars });
+  } catch (error) {
+    const err = error as Less.RenderError;
+    log.error(
+      err.message,
+      { file, startLine: err.line, endLine: err.line, content },
+    );
+    throw error;
+  }
+}

@@ -150,6 +150,22 @@ type Userstyles = SetRequired<
   "userstyles" | "collaborators"
 >;
 
+/**
+ * Extracts a userstyle name from a user-provided argument; 'styles/twitter', 'twitter/', and 'twitter/catppuccin.user.less' all resolve to `twitter`.
+ */
+export function parseUserstyleArg(value: unknown): string | undefined {
+  return value?.toString().match(
+    /(?<base>styles\/)?(?<userstyle>[a-z0-9_\-.]+)(?<trailing>\/)?(?<file>catppuccin\.user\.less)?/,
+  )?.groups?.userstyle;
+}
+
+/**
+ * Resolves a userstyle name, e.g. `twitter`, to the absolute path of its stylesheet.
+ */
+export function getUserstylePath(userstyle: string): string {
+  return path.join(REPO_ROOT, "styles", userstyle, "catppuccin.user.less");
+}
+
 export function getUserstylesFiles(): string[] {
   const files: string[] = [];
   for (const dir of Deno.readDirSync(path.join(REPO_ROOT, "styles"))) {
