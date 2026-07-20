@@ -1,0 +1,83 @@
+/* ==UserStyle==
+@name GTFOBins Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/gtfobins
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/gtfobins
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/gtfobins/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Agtfobins
+@description Soothing pastel theme for GTFOBins
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("gtfobins.org") {
+  :root[data-theme="light"] {
+    #catppuccin(@lightFlavor);
+  }
+
+  :root[data-theme="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    --foreground: @text;
+    --background: @base;
+    --faint: @overlay1;
+    --lighter: @surface0;
+    --marked: fade(@accent, 20%);
+    --hover: if(@flavor = latte, darken(@accent, 10%), lighten(@accent, 10%));
+
+    a:link,
+    a:visited,
+    fieldset legend,
+    .accent,
+    .tag-list li a:link,
+    .tag-list li a:visited,
+    .contexts input[type="radio"]:checked + label {
+      color: @accent;
+    }
+
+    .tag-list li a,
+    #search-toolbox fieldset {
+      border-color: @accent;
+    }
+
+    h2:target,
+    h3:target,
+    h4:target,
+    h5:target,
+    h6:target {
+      border-left-color: @accent;
+    }
+
+    code,
+    pre button,
+    .tag-list li.match a {
+      color: @text;
+    }
+
+    a:hover,
+    .tag-list li a:hover,
+    pre button:hover {
+      color: var(--hover);
+    }
+
+    .tag-list li a:hover {
+      border-color: var(--hover);
+    }
+
+    ::selection {
+      color: @text;
+    }
+  }
+}
