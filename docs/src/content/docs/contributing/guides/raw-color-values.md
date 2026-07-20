@@ -2,7 +2,7 @@
 title: Raw color values
 description: Guide for obtaining raw color values of palette colors in RGB or HSL formats.
 sidebar:
-  order: 3
+  order: 4
 ---
 
 ## Obtaining RGB values

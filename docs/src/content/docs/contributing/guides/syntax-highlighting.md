@@ -2,7 +2,7 @@
 title: Syntax Highlighting
 description: Guide for theming syntax highlighting in userstyles.
 sidebar:
-  order: 2
+  order: 3
 ---
 
 If a website uses [highlight.js](https://highlightjs.org/), [Pygments](https://pygments.org/), [Prism.js](https://prismjs.com/), or [Chroma](https://github.com/alecthomas/chroma) for syntax highlighting, follow the steps for the syntax higlighter in use below. First though, you'll need to add the following line near the top of the `#catppuccin` mixin, under `#lib.palette();`/`#lib.defaults();`, to include the necessary CSS variables:
