@@ -1,0 +1,638 @@
+/* ==UserStyle==
+@name Hardcover Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/hardcover
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/hardcover
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/hardcover/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ahardcover
+@description Soothing pastel theme for Hardcover
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document url-prefix("https://hardcover.app"),
+  url-prefix("https://staging.hardcover.app") {
+  :root.dark {
+    #catppuccin(@darkFlavor);
+  }
+  :root {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    &, body {
+      background-color: @base !important;
+      color: @text;
+    }
+    select, input {
+      --tw-ring-color: @accent !important;
+    }
+
+    // Mixins for Common Patterns
+    .coloredElement(@bgColor, @textColor: @base) {
+      background-color: @bgColor !important;
+      color: @textColor !important;
+      fill: @textColor !important;
+      path[stroke="#fff"] {
+        stroke: @textColor !important;
+      }
+      --tw-ring-color: @bgColor;
+
+      [class*="text-"], [class*="fill-"], &[class*="text-"], &[class*="fill-"] {
+        color: @textColor !important;
+        fill: @textColor !important;
+      }
+    }
+
+    .tailwindColorUtilities(@colorName, @colorValue) {
+      // Spaces used with ^= here to prevent matching classes with dark: prefix
+      // and match all classes starting with the specified color
+
+      // Border classes
+      [class*=" border-@{colorName}"], [class^="border-@{colorName}"] {
+        border-color: @colorValue;
+      }
+      // Text classes
+      [class*=" text-@{colorName}"], [class^="text-@{colorName}"] {
+        color: @colorValue;
+      }
+      // Fill
+      [class*=" fill-@{colorName}"], [class^="fill-@{colorName}"] {
+        fill: @colorValue;
+      }
+      // Background classes
+      [class*=" bg-@{colorName}"], [class^="bg-@{colorName}"] {
+        .coloredElement(@colorValue);
+      }
+
+      // Hover states
+      [class*=" hover\:text-@{colorName}"]:hover,
+      [class^="hover\:text-@{colorName}"]:hover,
+      .group:hover [class*=" group-hover\:text-@{colorName}"],
+      .group:hover [class^="group-hover\:text-@{colorName}"] {
+        color: lighten(@colorValue, 5%) !important;
+      }
+      [class*=" hover\:border-@{colorName}"]:hover,
+      [class^="hover\:border-@{colorName}"]:hover,
+      .group:hover [class*=" group-hover\:border-@{colorName}"],
+      .group:hover [class^="group-hover\:border-@{colorName}"] {
+        border-color: @colorValue !important;
+      }
+      [class*=" hover\:fill-@{colorName}"]:hover,
+      [class^="hover\:fill-@{colorName}"]:hover,
+      .group:hover [class*=" group-hover\:fill-@{colorName}"],
+      .group:hover [class^="group-hover\:fill-@{colorName}"] {
+        fill: lighten(@colorValue, 5%) !important;
+      }
+      [class*=" hover\:bg-@{colorName}"]:hover,
+      [class^="hover\:bg-@{colorName}"]:hover,
+      .group:hover [class*=" group-hover\:bg-@{colorName}"],
+      .group:hover [class^="group-hover\:bg-@{colorName}"] {
+        .coloredElement(@colorValue);
+      }
+
+      // Focus states
+      [class*=" focus\:text-@{colorName}"]:focus,
+      [class^="focus\:text-@{colorName}"]:focus,
+      .group:focus [class*=" group-focus\:text-@{colorName}"],
+      .group:focus [class^="group-focus\:text-@{colorName}"] {
+        color: lighten(@colorValue, 5%) !important;
+      }
+      [class*=" focus\:border-@{colorName}"]:focus,
+      [class^="focus\:border-@{colorName}"]:focus,
+      .group:focus [class*=" group-focus\:border-@{colorName}"],
+      .group:focus [class^="group-focus\:border-@{colorName}"] {
+        border-color: @colorValue !important;
+      }
+      [class*=" focus\:fill-@{colorName}"]:focus,
+      [class^="focus\:fill-@{colorName}"]:focus,
+      .group:focus [class*=" group-focus\:fill-@{colorName}"],
+      .group:focus [class^="group-focus\:fill-@{colorName}"] {
+        fill: lighten(@colorValue, 5%) !important;
+      }
+      [class*=" focus\:bg-@{colorName}"]:focus,
+      [class^="focus\:bg-@{colorName}"]:focus,
+      .group:focus [class*=" group-focus\:bg-@{colorName}"],
+      .group:focus [class^="group-focus\:bg-@{colorName}"] {
+        .coloredElement(@colorValue);
+      }
+    }
+
+    body {
+      --background: @base;
+      --foreground: @text;
+      --card: @mantle;
+      --card-foreground: @text;
+      --popover: @crust;
+      --popover-foreground: @text;
+      --secondary: @surface0;
+      --secondary-foreground: @text;
+      --tertiary: @surface0;
+      --tertiary-foreground: @text;
+      --muted: @surface0;
+      --muted-foreground: @subtext0;
+      --primary: @accent;
+      --primary-foreground: @base;
+      --accent: @yellow; // Only used as ratings color
+      --accent-foreground: @base;
+      --success: @green;
+      --success-foreground: @base;
+      --destructive: @red;
+      --destructive-foreground: @base;
+      --info: @blue;
+      --info-foreground: @base;
+      --border: @surface0;
+      --input: @mantle;
+      --ring: @accent;
+    }
+
+    // Color
+    .text-black,
+    .text-white,
+    .text-gray-50,
+    .hover\:text-gray-500:hover,
+    .hover\:text-gray-600:hover,
+    .text-gray-800,
+    .text-gray-900,
+    .hover\:text-gray-900:hover,
+    .group:hover .group-hover\:text-gray-900,
+    .text-indigo-200,
+    .text-stone-800 {
+      color: @text !important;
+    }
+    .text-gray-400,
+    .text-gray-500,
+    .text-gray-600,
+    .text-gray-700,
+    .group:hover .group-hover\:text-gray-600,
+    .text-secondary {
+      color: @subtext0 !important;
+    }
+
+    // Fill
+    .fill-gray-900,
+    .group:hover .group-hover\:fill-gray-900,
+    .hover\:fill-gray-600:hover {
+      fill: @text !important;
+    }
+
+    .fill-gray-700 {
+      fill: @surface2;
+    }
+
+    // Background Color
+    .dark\:bg-gray-700,
+    .bg-gray-100\/40,
+    .bg-smoke-400,
+    .bg-gray-900\/30 {
+      background-color: @crust !important;
+    }
+    .dark\:bg-gray-800,
+    .bg-gray-800,
+    .dark\:bg-gray-900,
+    .bg-gray-200,
+    .focus\:bg-gray-50:focus,
+    .group-hover\:bg-gray-100:hover,
+    .group:hover .group-hover\:bg-gray-100,
+    .hover\:bg-gray-100:hover,
+    .hover\:bg-gray-50:hover,
+    .hover\:bg-grey-100:hover,
+    .hover\:bg-stone-300:hover,
+    .hover\:bg-gray-300:hover {
+      background-color: @mantle !important;
+    }
+    .md\:bg-white\/70,
+    .bg-white,
+    .dark\:bg-gray-600 {
+      background-color: @base !important;
+    }
+    .bg-slate-100,
+    .bg-stone-300,
+    .bg-white\/80,
+    .bg-gray-50,
+    .bg-gray-100,
+    .bg-gray-100\/30,
+    .bg-gray-300\/30,
+    .hover\:bg-gray-200:hover {
+      background-color: @surface0 !important;
+    }
+    .bg-gray-300,
+    .bg-gray-400,
+    .bg-gray-600,
+    .hover\:bg-white:hover {
+      background-color: @surface1 !important;
+    }
+
+    // Border Colors
+    .hover\:bg-gray-100:hover {
+      border-color: @mantle;
+    }
+    .border-gray-100,
+    .border-gray-200,
+    .border-gray-300,
+    .border-gray-400,
+    .dark\:border-gray-700 {
+      border-color: @surface0;
+    }
+
+    // Colors
+    .tailwindColorUtilities(~"green", @green);
+    .tailwindColorUtilities(~"red", @red);
+    .tailwindColorUtilities(~"yellow", @yellow);
+    .tailwindColorUtilities(~"amber", @yellow);
+    .tailwindColorUtilities(~"blue", @blue);
+    .tailwindColorUtilities(~"orange", @peach);
+
+    .tailwindColorUtilities(~"indigo", @accent);
+    .tailwindColorUtilities(~"accent", @accent);
+
+    // To make child elements contrast against parent
+    .bg-primary {
+      .coloredElement(@accent);
+    }
+    .bg-accent {
+      .coloredElement(@accent);
+    }
+    .bg-destructive {
+      .coloredElement(@red);
+    }
+    .bg-info {
+      .coloredElement(@blue);
+    }
+    .bg-success {
+      .coloredElement(@green);
+    }
+
+    // Specific overrides for edge cases
+    .text-yellow-900 {
+      color: @base;
+    }
+    .border-orange-800 {
+      border-color: @peach;
+    }
+    .hover\:bg-gray-700:hover {
+      .coloredElement(@accent);
+    }
+    .hover\:bg-indigo-700:hover {
+      .coloredElement(lighten(@accent, 5%));
+    }
+    .bg-indigo-500, .hover\:bg-yellow-500:hover {
+      .coloredElement(lighten(@accent, 10%));
+    }
+    .dark\:fill-gray-300 {
+      fill: @text;
+    }
+    .dark\:text-gray-300 {
+      color: @text;
+    }
+    .bg-white.text-black {
+      color: @text !important;
+    }
+    .bg-black\/30.backdrop-brightness-50 {
+      backdrop-filter: none;
+      background-color: @crust;
+    }
+
+    // Rings
+    .focus\:ring-indigo-500,
+    .hover\:ring-white:hover,
+    .ring-accent,
+    .focus\:ring-primary,
+    .focus\:ring-ring:focus {
+      --tw-ring-color: @accent;
+    }
+    .ring-secondary, .focus\:ring-gray-200 {
+      --tw-ring-color: @mantle;
+    }
+    .ring-card {
+      --tw-ring-color: @crust;
+    }
+    .ring-gray-200 {
+      --tw-ring-color: @surface0;
+    }
+
+    // Divides
+    .divide-secondary > :not(:last-child),
+    .divide-gray-200 > :not(:last-child),
+    .divide-gray-100 > :not(:last-child) {
+      border-color: @surface0 !important;
+    }
+
+    // Text Decorations
+    .decoration-gray-300 {
+      text-decoration-color: @overlay0;
+    }
+    .decoration-accent\/50 {
+      text-decoration-color: @accent;
+    }
+
+    // Gradients
+    .to-white.bg-gradient-to-b {
+      background-image: linear-gradient(
+        to bottom,
+        @crust 28%,
+        transparent 50%,
+        @base 100%
+      );
+    }
+
+    .via-70\%.to-white.bg-gradient-to-b {
+      background-image: linear-gradient(to bottom, transparent 50%, @base 100%);
+      background-color: transparent;
+    }
+    .bg-gradient-to-b.from-transparent.to-gray-100 {
+      background-image: linear-gradient(
+        to bottom,
+        transparent 50%,
+        @crust 100%
+      );
+      background-color: transparent;
+    }
+    .to-white.from-transparent {
+      background-image: linear-gradient(to bottom, transparent 50%, @base 100%);
+      background-color: transparent;
+    }
+    .to-background {
+      --tw-gradient-to: @base var(--tw-gradient-to-position) !important;
+    }
+    .from-indigo-700.to-indigo-900 {
+      background-image: none;
+      background-color: @accent;
+      p, div, .text-indigo-400, .fill-indigo-400 {
+        color: @base !important;
+        fill: @base !important;
+      }
+      // Special case for animated spin
+      svg.animate-reversespin {
+        fill: initial;
+      }
+    }
+    .to-gray-200 {
+      --tw-gradient-to: @surface0;
+    }
+    .fill-white {
+      // Used as contrast against accent and as popup connector
+      fill: @base;
+    }
+    .dark\:text-white {
+      color: @text;
+    }
+    .stroke-gray-200 {
+      stroke: @surface0;
+    }
+    .text-accent[fill="currentColor"] {
+      // For rating stars, in original website yellow is accent in some places and is also used as star color
+      fill: @yellow;
+    }
+    .dark\:bg-gray-900 > div > svg {
+      // Homepage feature box icons
+      fill: @text;
+    }
+
+    // === SVG Elements ===
+
+    // Hardcover Icon
+    [fill="#4F46E5"],
+    [fill="#4338CA"] {
+      fill: @accent;
+    }
+    [fill="#6366F1"] {
+      fill: lighten(@accent, 5%);
+    }
+
+    [fill="#EEF2FF"],
+    [fill="#312E81"] {
+      fill: @crust;
+    }
+
+    // Icon at bottom of page
+    [fill="#A5B4FC"],
+    [fill="#F9FAFB"],
+    [fill="white"] {
+      fill: @text;
+    }
+    [fill="#C7D2FE"] {
+      fill: @subtext1;
+    }
+    [stroke="#6366F1"] {
+      stroke: darken(@accent, 5%);
+    }
+
+    // Subscribe Spaceship Icon
+    [fill="url(#paint0_linear_4558_14242)"] {
+      fill: @accent;
+    }
+    [fill="url(#paint1_linear_4558_14242)"] {
+      fill: darken(@accent, 10%);
+    }
+    [fill="#0F0E26"],
+    [fill="#78350F"] {
+      fill: @crust;
+    }
+    [fill="#FBBF24"],
+    [fill="url(#paint2_linear_4558_14242)"],
+    [fill="url(#paint3_linear_4558_14242)"],
+    [fill="url(#paint4_linear_4558_14242)"],
+    [fill="url(#paint5_linear_4558_14242)"] {
+      fill: @yellow;
+    }
+
+    // Loading
+    [fill="#818CF8"] {
+      fill: lighten(@accent, 10%);
+    }
+
+    // Ratings
+    [fill="#facc15"] {
+      fill: @yellow;
+    }
+
+    [fill="#6b7280"] {
+      fill: @surface1;
+    }
+
+    // Pop Up
+    [fill="#111827"][stroke="#374151"],
+    [fill="#111827"] {
+      fill: @mantle;
+      stroke: @mantle;
+    }
+    [fill="#FFFFFF"] {
+      fill: @mantle;
+    }
+    [stroke="#E5E7EB"] {
+      stroke: @mantle;
+    }
+
+    // 404
+    [fill="#d30001"] {
+      fill: @accent;
+    }
+
+    // Dashboard
+    [fill="#4B5563"] {
+      fill: @surface0;
+    }
+    [fill="#9CA3AF"],
+    [fill="#374151"] {
+      fill: @surface1;
+    }
+    [fill="#6B7280"] {
+      fill: @surface2;
+    }
+
+    [stroke="#6B7280"],
+    [stroke="#374151"],
+    [stroke="#4B5563"] {
+      stroke: @surface2;
+    }
+
+    [fill="#F3F4F6"],
+    [fill="#FFFBEB"],
+    [fill="#fff"] {
+      fill: @text;
+    }
+
+    [fill="#1F2937"] {
+      fill: @base;
+    }
+
+    // Misc Icons
+    [fill="#3730A3"] {
+      fill: darken(@accent, 5%);
+    }
+    [fill="url(#paint1_linear_15306_236)"] {
+      fill: @mantle;
+    }
+
+    // Sections of text that for some reason dont use tailwind
+    .prose {
+      color: @text;
+      strong {
+        color: @text;
+      }
+      :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+        color: @accent;
+        text-decoration-color: fade(@accent, 30%);
+      }
+      hr {
+        border-color: @text;
+      }
+    }
+
+    // Charts
+
+    --chart-colorful-1: @sky;
+    --chart-colorful-2: @blue;
+    --chart-colorful-3: @red;
+    --chart-colorful-4: @yellow;
+    --chart-colorful-5: @green;
+    --chart-colorful-6: @mauve;
+    --chart-colorful-7: @red;
+    --chart-colorful-8: @peach;
+    --chart-colorful-9: @teal;
+
+    --chart-mono-10: @text;
+    --chart-mono-9: @text;
+    --chart-mono-8: @text;
+    --chart-mono-7: @text;
+
+    --chart-mono-6: @subtext0;
+    --chart-mono-5: @subtext0;
+    --chart-mono-4: @subtext0;
+
+    --chart-mono-3: @subtext1;
+    --chart-mono-2: @subtext1;
+    --chart-mono-1: @subtext1;
+
+    // Tooltips
+    #tooltip.react-tooltip {
+      background-color: @accent !important;
+      border-color: @accent !important;
+      color: @base !important;
+
+      // Target all text elements in tooltip
+      span, a, h1, h2, div {
+        color: @base !important;
+      }
+    }
+
+    // Transparency
+    .md\:bg-transparent {
+      background: fade(@base, 50%) !important;
+    }
+
+    // Shadows
+    .shadow-button {
+      box-shadow: none;
+    }
+
+    // Inputs
+    input.bg-background, textarea.bg-background {
+      background-color: @crust;
+    }
+    // Radio
+    .form-radio, [type="radio"] {
+      background-color: @crust;
+      --tw-ring-offset-color: @accent;
+      &:checked {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" fill="@{base}" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+        background-color: @accent;
+      }
+    }
+    // Checkboxes
+    .form-checkbox, [type="checkbox"] {
+      background-color: @crust;
+      --tw-ring-offset-color: @accent;
+      &:checked {
+        @svg: escape(
+          '<svg xmlns="http://www.w3.org/2000/svg" fill="@{base}" viewBox="0 0 16 16"><path d="M12.207 4.793a1 1 0 0 1 0 1.414l-5 5a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L6.5 9.086l4.293-4.293a1 1 0 0 1 1.414 0"/></svg>'
+        );
+        background-image: url("data:image/svg+xml,@{svg}");
+        background-color: @accent;
+      }
+    }
+
+    // Gradient on Main page
+    main > .from-transparent.to-gray-100 {
+      --tw-gradient-to: @crust !important;
+      --tw-gradient-from: @mantle !important;
+    }
+    // Settings Page
+    a[href^="/account"] {
+      border-color: @overlay0;
+    }
+    // Search Background
+    .bg-\[rgba\(255\,255\,255\,0\.7\)\] {
+      background-color: fade(@base, 70%);
+    }
+
+    // Misc
+    :where([data-close-button]) {
+      background-color: @red !important;
+      color: @base !important;
+      border-color: @red;
+    }
+    div[id*="headlessui-menu-item-"] {
+      border-color: @surface0;
+    }
+    @property --tw-ring-offset-color {
+      syntax: "*";
+      initial-value: @surface0;
+      inherits: false;
+    }
+  }
+}
