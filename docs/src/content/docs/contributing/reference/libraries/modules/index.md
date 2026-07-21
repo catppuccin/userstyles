@@ -25,4 +25,4 @@ Identify what your library module will achieve. Are you targeting a design syste
 
 If a design system or framework, is it specific to one userstyle or reusable across multiple? What are the popularity metrics of it? Is the increased maintenance workload worth the benefit it provides in DRY (Don't Repeat Yourself)?
 
-If it is a web library, you should check if there is an [existing port](http://catppuccin.com/ports) for it. You may be able to use the methods outlined in [Syntax Highlighting](/contributing/guides/syntax-highlighting/) to import the theme for the library in question. However, if there is no CSS support it may be necessary to upstream the changes needed for it to work.
+If the target is a web library, check if there is an [existing port](http://catppuccin.com/ports) for it. The methods outlined in [Syntax Highlighting](/contributing/guides/syntax-highlighting/) may be used to import the theme for the library in question. Some ports may need changes upstreamed to work for userstyles purposes; in these cases, please coordinate with userstyles staff to determine the most suitable approach.
