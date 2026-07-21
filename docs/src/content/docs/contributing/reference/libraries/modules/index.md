@@ -11,7 +11,7 @@ They follow a standard structure and should be built to be modular and reusable 
 
 ## Structure
 
-The [standard library](https://github.com/catppuccin/userstyles/blob/main/lib/std/v1.less) is a good reference as to how libraries can be structured.
+The [standard library](/contributing/reference/libraries/standard/) is a good reference as to how libraries can be structured.
 
 All libraries are in lib/ with subdirectories per library name, and versioned files (e.g., `v1.less`, `v2.less`, etc).
 
