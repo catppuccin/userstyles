@@ -4,6 +4,7 @@ import catppuccin from "@catppuccin/starlight";
 import starlightLinksValidator from "starlight-links-validator";
 import starlightImageZoom from "starlight-image-zoom";
 import starlightGitHubAlerts from "starlight-github-alerts";
+import starlightAutoSidebar from "starlight-auto-sidebar";
 import mermaid from "astro-mermaid";
 import { remarkHeadingId } from "remark-custom-heading-id";
 
@@ -57,29 +58,7 @@ export default defineConfig({
         {
           label: "Contributing",
           collapsed: true,
-          items: [
-            "contributing",
-            "contributing/creating-userstyles",
-            "contributing/userstylesyml",
-            {
-              label: "How can I theme ...?",
-              autogenerate: { directory: "contributing/guides" },
-            },
-            {
-              label: "Tutorials",
-              autogenerate: { directory: "contributing/tutorials" },
-            },
-            {
-              label: "Tips and Tricks",
-              autogenerate: { directory: "contributing/tips-and-tricks" },
-            },
-            "contributing/standard-library",
-            "contributing/library-modules",
-          ],
-        },
-        {
-          label: "Reference",
-          autogenerate: { directory: "reference" },
+          autogenerate: { directory: "contributing" },
         },
       ],
       plugins: [
@@ -87,7 +66,14 @@ export default defineConfig({
         starlightLinksValidator(),
         starlightGitHubAlerts(),
         starlightImageZoom(),
+        starlightAutoSidebar(),
       ],
     }),
   ],
+  redirects: {
+    "/contributing/standard-library/":
+      "/contributing/reference/libraries/standard/",
+    "/reference/browsers/":
+      "/getting-started/faq/#what-version-of-my-browser-am-i-using",
+  },
 });
