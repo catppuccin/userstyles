@@ -1,0 +1,319 @@
+/* ==UserStyle==
+@name Carbon Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/carbon
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/carbon
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/carbon/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Acarbon
+@description Soothing pastel theme for Carbon
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("carbon.now.sh") {
+  /* Tripled for specificity, so overrides win without needing !important. */
+  :root:root:root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    scrollbar-color: @surface2 @mantle;
+
+    html,
+    body,
+    #__next,
+    main {
+      background-color: @base;
+      color: @text;
+    }
+
+    a,
+    a:visited {
+      color: @blue;
+
+      &:hover {
+        color: @sky;
+      }
+    }
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+      color: @text;
+    }
+
+    /* Page chrome and large header. */
+    header,
+    nav,
+    aside,
+    footer,
+    section,
+    main > div:first-child,
+    main > section:first-child,
+    [role="banner"],
+    [role="navigation"],
+    [class*="Header"],
+    [class*="header"],
+    [class*="Hero"],
+    [class*="hero"],
+    [class*="Logo"],
+    [class*="logo"],
+    [class*="Title"],
+    [class*="title"] {
+      background-color: transparent;
+      color: @text;
+    }
+
+    h1,
+    h1 * {
+      background-color: transparent;
+      color: @text;
+    }
+
+    h2,
+    h2 *,
+    p,
+    span,
+    label,
+    small,
+    strong,
+    em {
+      color: @text;
+    }
+
+    /* Shared surfaces. */
+    [role="toolbar"],
+    [role="dialog"],
+    [role="menu"],
+    [role="listbox"],
+    [class*="Toolbar"],
+    [class*="toolbar"],
+    [class*="Panel"],
+    [class*="panel"],
+    [class*="Popover"],
+    [class*="popover"],
+    [class*="Modal"],
+    [class*="modal"],
+    [class*="Dialog"],
+    [class*="dialog"],
+    [class*="Settings"],
+    [class*="settings"],
+    [class*="Dropdown"],
+    [class*="dropdown"],
+    [class*="Menu"],
+    [class*="menu"] {
+      background-color: @mantle;
+      color: @text;
+      border-color: @surface0;
+    }
+
+    /* Controls. */
+    button,
+    input,
+    select,
+    textarea,
+    [role="button"],
+    [class*="Button"],
+    [class*="button"],
+    [class*="Select"],
+    [class*="select"],
+    [class*="Input"],
+    [class*="input"],
+    [class*="Control"],
+    [class*="control"] {
+      background-color: @surface0;
+      color: @text;
+      border-color: @surface1;
+    }
+
+    button:hover,
+    [role="button"]:hover,
+    [class*="Button"]:hover,
+    [class*="button"]:hover {
+      background-color: @surface1;
+      color: @accent;
+      border-color: @accent;
+    }
+
+    button:active,
+    [role="button"]:active,
+    [class*="Button"]:active,
+    [class*="button"]:active {
+      background-color: @surface2;
+      color: @accent;
+      border-color: @accent;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    [role="button"]:focus-visible {
+      outline-color: @accent;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: @subtext0;
+    }
+
+    /* Icon buttons should use subtle Catppuccin surfaces. */
+    button:has(svg),
+    [role="button"]:has(svg),
+    [class*="Button"]:has(svg),
+    [class*="button"]:has(svg) {
+      background-color: @surface0;
+      color: @text;
+      border-color: @surface1;
+    }
+
+    button:has(svg):hover,
+    [role="button"]:has(svg):hover,
+    [class*="Button"]:has(svg):hover,
+    [class*="button"]:has(svg):hover {
+      background-color: @surface1;
+      color: @lavender;
+      border-color: @lavender;
+    }
+
+    svg,
+    svg path,
+    svg circle,
+    svg rect,
+    svg line,
+    svg polyline,
+    svg polygon {
+      color: currentcolor;
+      stroke: currentcolor;
+    }
+
+    /* Menu items. */
+    [role="option"],
+    [role="menuitem"],
+    [class*="Option"],
+    [class*="option"],
+    [class*="MenuItem"],
+    [class*="menuItem"],
+    [class*="DropdownItem"],
+    [class*="dropdownItem"] {
+      background-color: @mantle;
+      color: @text;
+      border-color: @surface0;
+    }
+
+    [role="option"]:hover,
+    [role="menuitem"]:hover,
+    [class*="Option"]:hover,
+    [class*="option"]:hover,
+    [class*="MenuItem"]:hover,
+    [class*="menuItem"]:hover,
+    [class*="DropdownItem"]:hover,
+    [class*="dropdownItem"]:hover {
+      background-color: @surface0;
+      color: @accent;
+    }
+
+    /* Carbon action accents. Tweet uses blue, Export uses the configured accent. */
+    [class*="Tweet"],
+    [class*="tweet"],
+    button[aria-label*="Tweet"],
+    button[title*="Tweet"] {
+      background-color: fade(@blue, 18%);
+      color: @blue;
+      border-color: @blue;
+    }
+
+    [class*="Tweet"]:hover,
+    [class*="tweet"]:hover,
+    button[aria-label*="Tweet"]:hover,
+    button[title*="Tweet"]:hover {
+      background-color: fade(@blue, 30%);
+      color: @blue;
+      border-color: @blue;
+    }
+
+    [class*="Export"],
+    [class*="export"],
+    button[aria-label*="Export"],
+    button[title*="Export"] {
+      background-color: fade(@accent, 18%);
+      color: @accent;
+      border-color: @accent;
+    }
+
+    [class*="Export"]:hover,
+    [class*="export"]:hover,
+    button[aria-label*="Export"]:hover,
+    button[title*="Export"]:hover {
+      background-color: fade(@accent, 30%);
+      color: @accent;
+      border-color: @accent;
+    }
+
+    /* Color picker and swatches. */
+    input[type="color"],
+    [class*="Color"],
+    [class*="color"],
+    [class*="Swatch"],
+    [class*="swatch"],
+    [class*="Picker"],
+    [class*="picker"] {
+      background-color: @surface0;
+      color: @text;
+      border-color: @surface1;
+    }
+
+    /* Preview/export area. */
+    [class*="Preview"],
+    [class*="preview"],
+    [class*="Editor"],
+    [class*="editor"],
+    [class*="Container"],
+    [class*="container"],
+    [class*="Card"],
+    [class*="card"],
+    [class*="Window"],
+    [class*="window"] {
+      color: @text;
+      border-color: @surface0;
+    }
+
+    [class*="Card"],
+    [class*="card"],
+    [class*="Window"],
+    [class*="window"] {
+      background-color: @mantle;
+    }
+
+    ::-webkit-scrollbar {
+      background-color: @mantle;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: @mantle;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: @surface1;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: @surface2;
+    }
+  }
+}
