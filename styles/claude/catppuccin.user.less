@@ -17,7 +17,7 @@
 
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
-@-moz-document domain("claude.ai") {
+@-moz-document domain("claude.ai"), domain("a.claude.ai") {
   :root[data-color-version="v2"] {
     &[data-mode="dark"] {
       #catppuccin(@darkFlavor);
@@ -87,6 +87,269 @@
     --warning-200: #hslify(lighten(@yellow, 5%))[];
     --warning-900: #hslify(lighten(@yellow, 15%))[];
 
+    /* Claude Design System (dropdowns, tooltips, dialogs, popovers, banners) */
+    .cds-root {
+      --cds-surface-0: @crust !important;
+      --cds-surface-1: @mantle !important;
+      --cds-surface-2: @base !important;
+      --cds-surface-3: @surface0 !important;
+      --cds-surface-panel: @base !important;
+      --cds-surface-popover: @surface0 !important;
+
+      --cds-text-primary: @text !important;
+      --cds-text-secondary: @subtext1 !important;
+      --cds-text-muted: @subtext0 !important;
+      --cds-text-disabled: fade(@text, 35%) !important;
+      --cds-text-accent: @accent !important;
+      --cds-text-danger: @red !important;
+      --cds-text-success: @green !important;
+      --cds-text-warning: @yellow !important;
+      --cds-text-pro: @accent !important;
+      --cds-text-git-added: @green !important;
+      --cds-text-git-removed: @red !important;
+      --cds-text-git-modified: @yellow !important;
+      --cds-text-git-merged: @mauve !important;
+      --cds-text-git-closed: @red !important;
+      --cds-text-git-conflicting: @peach !important;
+      --cds-text-git-draft: @overlay1 !important;
+
+      --cds-fill-git-added: @green !important;
+      --cds-fill-git-added-hover: lighten(@green, 10%) !important;
+      --cds-fill-git-removed: @red !important;
+      --cds-fill-git-removed-hover: lighten(@red, 10%) !important;
+      --cds-fill-git-modified: @yellow !important;
+      --cds-fill-git-modified-hover: lighten(@yellow, 10%) !important;
+      --cds-fill-git-merged: @mauve !important;
+      --cds-fill-git-merged-hover: lighten(@mauve, 10%) !important;
+      --cds-fill-git-closed: @red !important;
+      --cds-fill-git-closed-hover: lighten(@red, 10%) !important;
+      --cds-fill-git-conflicting: @peach !important;
+      --cds-fill-git-conflicting-hover: lighten(@peach, 10%) !important;
+      --cds-fill-git-draft: @overlay1 !important;
+      --cds-fill-git-draft-hover: lighten(@overlay1, 10%) !important;
+
+      /* Brand orange (also recolored on the logo selector below). */
+      --cds-clay: @accent !important;
+      --cds-clay-emphasized: darken(@accent, 8%) !important;
+
+      --cds-bg-accent: fade(@accent, 15%) !important;
+      --cds-bg-danger: fade(@red, 15%) !important;
+      --cds-bg-success: fade(@green, 15%) !important;
+      --cds-bg-warning: fade(@yellow, 15%) !important;
+      --cds-bg-pro: fade(@accent, 15%) !important;
+      --cds-bg-neutral: fade(@text, 5%) !important;
+      --cds-bg-neutral-hover: fade(@text, 10%) !important;
+      --cds-bg-neutral-chip: fade(@text, 5%) !important;
+      --cds-bg-neutral-chip-hover: fade(@text, 10%) !important;
+
+      --cds-border: fade(@text, 10%) !important;
+      --cds-border-strong: fade(@text, 20%) !important;
+      --cds-border-stronger: fade(@text, 40%) !important;
+      --cds-border-accent: fade(@accent, 30%) !important;
+      --cds-border-danger: fade(@red, 30%) !important;
+      --cds-border-success: fade(@green, 30%) !important;
+      --cds-border-warning: fade(@yellow, 30%) !important;
+      --cds-border-pro: fade(@accent, 30%) !important;
+
+      --cds-fill-accent: @accent !important;
+      --cds-fill-accent-hover: lighten(@accent, 5%) !important;
+      --cds-fill-danger: @red !important;
+      --cds-fill-danger-hover: lighten(@red, 5%) !important;
+      --cds-fill-success: @green !important;
+      --cds-fill-success-hover: lighten(@green, 5%) !important;
+      --cds-fill-warning: @yellow !important;
+      --cds-fill-warning-hover: lighten(@yellow, 5%) !important;
+      --cds-fill-pro: @accent !important;
+      --cds-fill-pro-hover: lighten(@accent, 5%) !important;
+      --cds-fill-primary: @text !important;
+      --cds-fill-primary-hover: @subtext1 !important;
+      --cds-fill-secondary: fade(@text, 10%) !important;
+      --cds-fill-secondary-hover: fade(@text, 15%) !important;
+      --cds-fill-ghost-hover: fade(@text, 5%) !important;
+      --cds-fill-disabled: fade(@text, 5%) !important;
+      --cds-fill-control: fade(@text, 10%) !important;
+      --cds-fill-control-hover: fade(@text, 20%) !important;
+      --cds-fill-field: fade(@text, 10%) !important;
+
+      --cds-on-primary: @base !important;
+      --cds-on-accent: @base !important;
+      --cds-on-danger: @base !important;
+      --cds-on-success: @base !important;
+      --cds-on-warning: @base !important;
+      --cds-on-pro: @base !important;
+      --cds-on-brand: @base !important;
+
+      --cds-tooltip-bg: @surface0 !important;
+      --cds-tooltip-fg: @text !important;
+
+      --cds-focus-shadow: inset 0 0 0 1px @base, 0 0 0 1px @accent, 0 0 6px 1px fade(@accent, 60%) !important;
+
+      --cds-segmented-control-track: fade(@text, 5%) !important;
+      --cds-segmented-control-thumb: @surface0 !important;
+
+      --cds-backdrop: fade(@crust, 50%) !important;
+
+      /* Gray primitive ramp (light -> dark). Feeds --cds-neutral-* (mirrored
+         in dark mode), the --cds-alpha-* overlay ramp, and the bg-gray and
+         text-gray utilities, so it must stay light-to-dark in absolute terms
+         whichever flavor is active. */
+      & when (lightness(@base) >= 50%) {
+        --cds-gray-0: @base !important;
+        --cds-gray-10: @base !important;
+        --cds-gray-20: @base !important;
+        --cds-gray-30: @mantle !important;
+        --cds-gray-40: @mantle !important;
+        --cds-gray-50: @crust !important;
+        --cds-gray-60: @crust !important;
+        --cds-gray-70: @crust !important;
+        --cds-gray-80: @surface0 !important;
+        --cds-gray-90: @surface0 !important;
+        --cds-gray-100: @surface0 !important;
+        --cds-gray-150: @surface1 !important;
+        --cds-gray-200: @surface1 !important;
+        --cds-gray-250: @surface2 !important;
+        --cds-gray-300: @surface2 !important;
+        --cds-gray-350: @overlay0 !important;
+        --cds-gray-400: @overlay0 !important;
+        --cds-gray-450: @overlay1 !important;
+        --cds-gray-500: @overlay1 !important;
+        --cds-gray-550: @overlay2 !important;
+        --cds-gray-600: @overlay2 !important;
+        --cds-gray-650: @subtext0 !important;
+        --cds-gray-700: @subtext0 !important;
+        --cds-gray-750: @subtext1 !important;
+        --cds-gray-800: @subtext1 !important;
+        --cds-gray-810: @text !important;
+        --cds-gray-820: @text !important;
+        --cds-gray-830: @text !important;
+        --cds-gray-840: @text !important;
+        --cds-gray-850: @text !important;
+        --cds-gray-860: @text !important;
+        --cds-gray-870: @text !important;
+        --cds-gray-880: @text !important;
+        --cds-gray-890: @text !important;
+        --cds-gray-900: @text !important;
+      }
+      & when (lightness(@base) < 50%) {
+        --cds-gray-0: @text !important;
+        --cds-gray-10: @text !important;
+        --cds-gray-20: @text !important;
+        --cds-gray-30: @text !important;
+        --cds-gray-40: @text !important;
+        --cds-gray-50: @subtext1 !important;
+        --cds-gray-60: @subtext1 !important;
+        --cds-gray-70: @subtext1 !important;
+        --cds-gray-80: @subtext0 !important;
+        --cds-gray-90: @subtext0 !important;
+        --cds-gray-100: @subtext0 !important;
+        --cds-gray-150: @overlay2 !important;
+        --cds-gray-200: @overlay2 !important;
+        --cds-gray-250: @overlay1 !important;
+        --cds-gray-300: @overlay1 !important;
+        --cds-gray-350: @overlay0 !important;
+        --cds-gray-400: @overlay0 !important;
+        --cds-gray-450: @surface2 !important;
+        --cds-gray-500: @surface2 !important;
+        --cds-gray-550: @surface1 !important;
+        --cds-gray-600: @surface1 !important;
+        --cds-gray-650: @surface0 !important;
+        --cds-gray-700: @surface0 !important;
+        --cds-gray-750: @surface0 !important;
+        --cds-gray-800: @base !important;
+        --cds-gray-810: @base !important;
+        --cds-gray-820: @base !important;
+        --cds-gray-830: @base !important;
+        --cds-gray-840: @mantle !important;
+        --cds-gray-850: @mantle !important;
+        --cds-gray-860: @mantle !important;
+        --cds-gray-870: @crust !important;
+        --cds-gray-880: @crust !important;
+        --cds-gray-890: @crust !important;
+        --cds-gray-900: @crust !important;
+      }
+    }
+
+    /* Epitaxy (Claude Code: file viewer, diff viewer, buttons, HUD) */
+    .epitaxy-root {
+      /* Surface ramp (z0 darkest/main -> z6 lightest) drives nearly everything else:
+         panels, popovers, HUD, sliders, switches, tooltips, button depth colors. */
+      --z0: @crust !important;
+      --z1: @mantle !important;
+      --z2: @base !important;
+      --z3: @surface0 !important;
+      --z4: @surface1 !important;
+      --z5: @surface2 !important;
+      --z6: @overlay0 !important;
+
+      /* Foreground opacity ladder over the surface ramp. */
+      --t0: fade(@text, 0%) !important;
+      --t1: fade(@text, 4%) !important;
+      --t2: fade(@text, 8%) !important;
+      --t3: fade(@text, 12%) !important;
+      --t4: fade(@text, 16%) !important;
+      --t5: fade(@text, 25%) !important;
+      --t6: fade(@text, 48%) !important;
+      --t7: fade(@text, 70%) !important;
+      --t8: fade(@text, 80%) !important;
+      --t9: @text !important;
+
+      --accent: @accent !important;
+      --accent-hover: lighten(@accent, 5%) !important;
+      --accent-20-brightness: mix(@accent, @crust, 20%) !important;
+
+      /* Consumed both as a plain color (inline `fill: var(--accent-brand)` on
+         the sparkle logo glyph) and via hsl(from ...)/relative-color syntax
+         (.ra-action-brand), so it needs a real color, not a bare H S% L%
+         triple. Shadows the :root-level --accent-brand above for anything
+         under .epitaxy-root. */
+      --accent-brand: @accent !important;
+
+      /* Destructive-action red, feeds --fill-destructive-default/-hover. */
+      --core-red: @red !important;
+      --core-red-hover: lighten(@red, 5%) !important;
+
+      --extended-green: @green !important;
+      --extended-pink: @pink !important;
+      --extended-purple: @mauve !important;
+      --extended-yellow: @yellow !important;
+      --extended-orange: @peach !important;
+
+      /* Dark-mode-only literals that bypass the z-scale entirely upstream. */
+      --surface-primary-elevated: fade(@crust, 95%) !important;
+      --surface-prompt-blur: @mantle !important;
+      --surface-prompt-focus-hover: @base !important;
+    }
+
+    /* dframe (sidebar + page frame; appears standalone, not only under
+       .epitaxy-root) */
+    .dframe-root {
+      --df-bg-page-hsl: #hslify(@mantle)[] !important;
+      --df-sidebar-bg: @mantle !important;
+      --df-web-sidebar-bg: @mantle !important;
+      --df-web-sidebar-bg-image: none !important;
+      --df-hover: fade(@text, 5%) !important;
+      --df-selected: fade(@text, 8%) !important;
+      --panel-hairline: fade(@overlay0, 40%) !important;
+
+      /* .dframe-sidebar/.dframe-card re-declare these directly (some as
+         hardcoded literals), shadowing the values above -- override at the
+         same level. */
+      .dframe-sidebar,
+      .dframe-card {
+        --df-sidebar-bg: @mantle !important;
+        --df-surface-primary: @mantle !important;
+        --df-web-sidebar-bg: @mantle !important;
+        --df-hover: fade(@text, 5%) !important;
+        --df-selected: fade(@text, 8%) !important;
+      }
+
+      /* Home/Code segmented control track (hardcoded white literal in dark
+         mode). */
+      .df-pills[data-segmented] {
+        background-color: fade(@text, 6%) !important;
+      }
+    }
+
     /* Side bar */
     nav.\!bg-bg-200 {
       background: @mantle !important;
@@ -133,7 +396,13 @@
         }
       }
     }
-
+    /* Warning */
+    div.bg-warning-900 {
+      div,
+      button {
+        color: @base !important;
+      }
+    }
     /* Inline code */
     code.text-danger-000 {
       color: @accent !important;
@@ -144,6 +413,12 @@
       background: @crust !important;
     }
     div.text-white {
+      color: @text !important;
+    }
+    div.bg-always-black\/80 {
+      background: fade(@crust, 80%) !important;
+    }
+    div.bg-always-black\/80.text-always-white {
       color: @text !important;
     }
 
