@@ -75,6 +75,7 @@ export default defineConfig({
             },
             "contributing/standard-library",
             "contributing/library-modules",
+            "contributing/style-guide",
           ],
         },
         {
