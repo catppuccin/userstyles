@@ -131,56 +131,202 @@
     #lib.palette();
     #lib.defaults();
 
-    --bg-color: #212529;
-    --bg-color-2: #2b3035;
-    --bg-color-3: #343a40;
-    --active-bg-color: #30353b;
-    --passive-bg-color: #41464b;
-    --transparent-bg-color: #111c;
-    --transparent-button-color: #3338;
-    --border-color: #41464b;
-    --transparent-border-color: #41464b94;
-    --border-color-2: #32363b;
-    --outset-color: #54595d;
-    --shadow-color: #3b4045;
-    --text-color: #dee2e6;
-    --link-color: #7b92db;
-    --link-focus-color: #7e9cff;
-    --muted-text-color: #6e7276;
-    --transparent-text-color: #eee3;
-    --transparent-text-emphasis-color: #fff7;
-    --widget-color: #e9ecef;
-    --widget-bg-color: #31373c;
-    --nested-bg-color: #2d2e33;
-    --nested-highlight-color: #33363b;
-    --nested-border-color: #3e434e;
-    --selected-bg-color: #3b3c49;
-    --dark-tooltip-text-color: #ccc;
-    --dark-tooltip-bg-color: #000;
-    --valid-bg-color: #030;
-    --valid-label-color: #050;
-    --valid-highlight-color: #060;
-    --valid-border-color: #080;
-    --valid-text-color: #3e3;
-    --valid-highlight-text-color: #6e6;
-    --valid-icon-color: #4e4;
-    --suggestion-bg-color: #023;
-    --suggestion-label-color: #047;
-    --suggestion-highlight-color: #036;
-    --suggestion-border-color: #06d;
-    --suggestion-text-color: #38e;
-    --suggestion-highlight-text-color: #6ae;
-    --warning-bg-color: #332701;
-    --warning-label-color: #554102;
-    --warning-highlight-color: #5f4100;
-    --warning-border-color: #7e3b00;
-    --warning-text-color: #e98c38;
-    --warning-highlight-text-color: #f0ac71;
-    --error-bg-color: #300;
-    --error-label-color: #500;
-    --error-highlight-color: #600;
-    --error-border-color: #800;
-    --error-text-color: #e33;
-    --error-highlight-text-color: #e66;
+    --bg-color: @mantle;
+    --bg-color-2: @base;
+    --bg-color-3: @surface0;
+    --active-bg-color: @surface0;
+    --passive-bg-color: mix(@surface0, @base, 25%);
+    --passive-text-color: @subtext0;
+    --transparent-bg-color: fade(@crust, 80%);
+    --transparent-button-color: fade(@mantle, 53%);
+    --border-color: @surface1;
+    --transparent-border-color: fade(@surface1, 58%);
+    --border-color-2: @surface0;
+    --outset-color: @surface0;
+    --shadow-color: @surface1;
+    --text-color: @text;
+    --link-color: @blue;
+    --link-focus-color: darken(@blue, 5%);
+    --muted-text-color: @surface0;
+    --transparent-text-color: fade(@subtext0, 20%);
+    --transparent-text-emphasis-color: fade(@text, 47%);
+    --widget-color: @text;
+    --widget-bg-color: fade(@mantle, @red, 99%);
+    --nested-bg-color: @crust;
+    --nested-highlight-color: @mantle;
+    --nested-border-color: @surface0;
+    --selected-bg-color: mix(@surface0, @accent, 95%);
+    --dark-tooltip-text-color: @subtext0;
+    --dark-tooltip-bg-color: @crust;
+    --valid-bg-color: fade(@green, 30%);
+    --valid-label-color: fade(@green, 25%);
+    --valid-highlight-color: fade(@green, 35%);
+    --valid-border-color: @green;
+    --valid-text-color: @green;
+    --valid-highlight-text-color: @green;
+    --valid-icon-color: @green;
+    --suggestion-bg-color: fade(@blue, 30%);
+    --suggestion-label-color: fade(@blue, 25%);
+    --suggestion-highlight-color: fade(@blue, 35%);
+    --suggestion-border-color: @blue;
+    --suggestion-text-color: @blue;
+    --suggestion-highlight-text-color: @blue;
+    --suggestion-icon-color: @blue;
+    --warning-bg-color: fade(@peach, 30%);
+    --warning-label-color: fade(@peach, 25%);
+    --warning-highlight-color: fade(@peach, 35%);
+    --warning-border-color: @peach;
+    --warning-text-color: @peach;
+    --warning-highlight-text-color: @peach;
+    --warning-icon-color: @peach;
+    --error-bg-color: fade(@red, 30%);
+    --error-label-color: fade(@red, 25%);
+    --error-highlight-color: fade(@red, 35%);
+    --error-border-color: @red;
+    --error-text-color: @red;
+    --error-highlight-text-color: @red;
+    --error-icon-color: @red;
+
+    .add-row button {
+      background-color: @crust;
+
+      &:hover {
+        background-color: @surface0;
+      }
+    }
+
+    .bar-button {
+      .active svg.icon {
+        color: @base !important;
+      }
+    }
+
+    button {
+      &.raw-tag-option {
+        &:hover {
+          color: @base;
+        }
+
+        &:not(.selected, :hover) {
+          color: @subtext0;
+        }
+      }
+
+      &.action .localized-text,
+      &.active .localized-text,
+      &.next .localized-text,
+      &.finished,
+      :not(.change-type) &:hover {
+        color: @base;
+      }
+
+      &.disabled .localized-text {
+        color: @subtext0 !important;
+      }
+
+      &.save {
+        color: @base;
+
+        &[style^="--accent-color: rgba(255, 1"] {
+          --accent-color: @red !important;
+        }
+
+        &[style^="--accent-color: rgba(255, 17"] {
+          --accent-color: mix(@red, @yellow, 75%) !important;
+        }
+
+        &[style^="--accent-color: rgba(255, 15"] {
+          --accent-color: mix(@red, @yellow, 50%) !important;
+        }
+
+        &[style^="--accent-color: rgba(255, 12"] {
+          --accent-color: mix(@red, @yellow, 25%) !important;
+        }
+
+        &[style^="--accent-color: rgba(255, 2"] {
+          --accent-color: @yellow !important;
+        }
+
+        &[style^="--accent-color: rgba(0"] {
+          --accent-color: @green !important;
+        }
+      }
+    }
+
+    .curtain-darkness {
+      fill: @base;
+    }
+
+    .fillD {
+      color: @text;
+      background-color: fade(@crust, 50%);
+    }
+
+    .form-field-comment:not(.present) {
+      .field-label {
+        background-color: @surface0;
+      }
+
+      .field-label, textarea {
+        border-color: @surface2;
+      }
+    }
+
+    :not(.disabled) .icon.operation use {
+      color: @accent;
+    }
+
+    .icon {
+      &.created {
+        color: @green;
+      }
+      &.modified {
+        color: @overlay0;
+      }
+      &.deleted {
+        color: @red;
+      }
+    }
+
+    .intro-nav-wrap {
+      .intro-nav-wrap-logo {
+        color: @text;
+      }
+
+      button.chapter.finished {
+        background-color: @green;
+      }
+    }
+
+    .issues-info a.chip.warnings-count {
+      background-color: @peach;
+    }
+
+    .joined > * {
+      border-right-color: fade(@crust, 50%);
+    }
+
+    li.issue-fix-item button:not(.actionable) .fix-icon {
+      color: @overlay2;
+      fill: @overlay2;
+    }
+
+    .map-control {
+      > button {
+        background-color: fade(@crust, 50%);
+      }
+
+      svg.icon.light {
+        color: @text;
+      }
+    }
+
+    .map-footer-list a.chip {
+      color: @base;
+    }
+
+    .restriction-help .qualifier {
+      color: @overlay0
+    }
   }
 }
