@@ -2,7 +2,7 @@
 @name DeepL Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/deepl
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/deepl
-@version 2025.09.06
+@version 2026.08.03
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/deepl/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Adeepl
 @description Soothing pastel theme for DeepL
@@ -17,7 +17,7 @@
 
 @import "https://userstyles.catppuccin.com/lib/lib.less";
 
-@-moz-document regexp("https:\\/\\/www.deepl.com\\/?(.*\\/)translator.*$") {
+@-moz-document domain("www.deepl.com"), domain("deepl.com") {
   :root {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
@@ -31,243 +31,465 @@
     #lib.palette();
     #lib.defaults();
 
-    /* header */
-    .BasePageHeader-module--container--d81cb {
-      background-color: @mantle !important;
-    }
+    /* DeepL redesign uses design tokens + light-dark() utilities.
+       Hashed CSS-module selectors from the old theme no longer match,
+       so remap the token palette and stable utility classes instead. */
 
-    /* background */
+    --color-white: @base;
+    --color-white-hex: @base;
+    --color-black: @crust;
+    --color-black-hex: @crust;
+    --color-brand: @accent;
+    --color-brand-hex: @accent;
+
+    --color-gray-50: @mantle;
+    --color-gray-50-hex: @mantle;
+    --color-gray-100: @surface0;
+    --color-gray-100-hex: @surface0;
+    --color-gray-200: @surface1;
+    --color-gray-200-hex: @surface1;
+    --color-gray-300: @surface2;
+    --color-gray-300-hex: @surface2;
+    --color-gray-400: @overlay0;
+    --color-gray-400-hex: @overlay0;
+    --color-gray-500: @overlay1;
+    --color-gray-500-hex: @overlay1;
+    --color-gray-600: @overlay2;
+    --color-gray-600-hex: @overlay2;
+    --color-gray-700: @subtext0;
+    --color-gray-700-hex: @subtext0;
+    --color-gray-800: @subtext1;
+    --color-gray-800-hex: @subtext1;
+    --color-gray-900: @text;
+    --color-gray-900-hex: @text;
+
+    --color-blue-50: fade(@blue, 15%);
+    --color-blue-50-hex: fade(@blue, 15%);
+    --color-blue-100: fade(@blue, 25%);
+    --color-blue-100-hex: fade(@blue, 25%);
+    --color-blue-200: fade(@blue, 40%);
+    --color-blue-200-hex: fade(@blue, 40%);
+    --color-blue-300: @sapphire;
+    --color-blue-300-hex: @sapphire;
+    --color-blue-400: @blue;
+    --color-blue-400-hex: @blue;
+    --color-blue-500: @accent;
+    --color-blue-500-hex: @accent;
+    --color-blue-600: @blue;
+    --color-blue-600-hex: @blue;
+    --color-blue-700: darken(@blue, 10%);
+    --color-blue-700-hex: darken(@blue, 10%);
+    --color-blue-800: @lavender;
+    --color-blue-800-hex: @lavender;
+    --color-blue-900: @mauve;
+    --color-blue-900-hex: @mauve;
+
+    --color-green-50: fade(@green, 15%);
+    --color-green-100: fade(@green, 25%);
+    --color-green-200: @teal;
+    --color-green-300: @green;
+    --color-green-400: @green;
+    --color-green-500: @green;
+    --color-green-600: darken(@green, 8%);
+    --color-green-700: darken(@green, 12%);
+
+    --color-red-50: fade(@red, 15%);
+    --color-red-100: fade(@red, 25%);
+    --color-red-200: @maroon;
+    --color-red-300: @red;
+    --color-red-400: @red;
+    --color-red-500: @red;
+    --color-red-600: darken(@red, 8%);
+    --color-red-700: darken(@red, 12%);
+
+    --color-yellow-100: fade(@yellow, 25%);
+    --color-yellow-200: @yellow;
+    --color-yellow-400: @peach;
+    --color-yellow-500: @yellow;
+
+    --color-purple-50: fade(@mauve, 15%);
+    --color-purple-100: fade(@mauve, 25%);
+    --color-purple-200: @lavender;
+    --color-purple-300: @mauve;
+    --color-purple-400: @mauve;
+    --color-purple-500: @mauve;
+
+    --dui-color-white: @base;
+    --dui-color-black: @crust;
+    --dui-color-brand: @accent;
+    --dui-color-gray-0: @crust;
+    --dui-color-gray-50: @mantle;
+    --dui-color-gray-100: @surface0;
+    --dui-color-gray-200: @surface1;
+    --dui-color-gray-300: @surface2;
+    --dui-color-gray-400: @overlay0;
+    --dui-color-gray-500: @overlay1;
+    --dui-color-gray-600: @overlay2;
+    --dui-color-gray-700: @subtext0;
+    --dui-color-gray-800: @subtext1;
+    --dui-color-gray-900: @text;
+
+    --dui-color-background-app: @base;
+    --dui-color-background-surface: @base;
+    --dui-color-background-surface-invert: @text;
+    --dui-color-background-surface-canvas: @base;
+    --dui-color-background-surface-canvas-secondary: @mantle;
+    --dui-color-background-surface-neutral: @surface1;
+    --dui-color-background-surface-neutral-hover: @surface2;
+    --dui-color-background-surface-neutral-pressed: @overlay0;
+    --dui-color-background-surface-neutral-muted: @surface0;
+    --dui-color-background-surface-neutral-muted-hover: @surface1;
+    --dui-color-background-surface-neutral-muted-pressed: @surface2;
+    --dui-color-background-surface-info: @blue;
+    --dui-color-background-surface-info-muted: fade(@blue, 20%);
+    --dui-color-background-surface-success: @green;
+    --dui-color-background-surface-success-muted: fade(@green, 20%);
+    --dui-color-background-surface-warning: @yellow;
+    --dui-color-background-surface-warning-muted: fade(@yellow, 20%);
+    --dui-color-background-surface-danger: @red;
+    --dui-color-background-surface-danger-muted: fade(@red, 20%);
+    --dui-color-background-surface-primary: @accent;
+    --dui-color-background-surface-primary-muted: fade(@accent, 20%);
+    --dui-color-background-overlay: fade(@crust, 70%);
+
+    --dui-color-background-action: @base;
+    --dui-color-background-action-basic: @base;
+    --dui-color-background-action-basic-hover: @surface0;
+    --dui-color-background-action-basic-pressed: @surface1;
+    --dui-color-background-action-active: fade(@accent, 20%);
+    --dui-color-background-action-primary: @accent;
+    --dui-color-background-action-primary-hover: darken(@accent, 5%);
+    --dui-color-background-action-primary-pressed: darken(@accent, 10%);
+    --dui-color-background-action-brand: @accent;
+    --dui-color-background-action-danger: @red;
+    --dui-color-background-action-danger-hover: darken(@red, 5%);
+    --dui-color-background-action-danger-pressed: darken(@red, 10%);
+    --dui-color-background-action-disabled: fade(@overlay0, 30%);
+    --dui-color-background-action-ghost: transparent;
+    --dui-color-background-action-ghost-hover: fade(@surface0, 60%);
+    --dui-color-background-action-ghost-pressed: fade(@surface1, 80%);
+
+    --dui-color-text-default: @text;
+    --dui-color-text-default-invert: @base;
+    --dui-color-text-muted: @subtext0;
+    --dui-color-text-brand: @accent;
+    --dui-color-text-black: @text;
+    --dui-color-text-white: @base;
+    --dui-color-text-link: @accent;
+    --dui-color-text-link-hover: lighten(@accent, 5%);
+    --dui-color-text-link-pressed: darken(@accent, 5%);
+    --dui-color-text-link-disabled: @overlay0;
+    --dui-color-text-action: @text;
+    --dui-color-text-action-basic: @text;
+    --dui-color-text-action-ghost: @text;
+    --dui-color-text-action-invert: @base;
+    --dui-color-text-action-primary: @crust;
+    --dui-color-text-action-active: @accent;
+    --dui-color-text-action-danger: @red;
+    --dui-color-text-action-disabled: @overlay0;
+    --dui-color-text-info: @blue;
+    --dui-color-text-info-muted: @sapphire;
+    --dui-color-text-success: @green;
+    --dui-color-text-success-muted: @teal;
+    --dui-color-text-warning: @yellow;
+    --dui-color-text-warning-muted: @peach;
+    --dui-color-text-danger: @red;
+    --dui-color-text-danger-muted: @maroon;
+
+    --dui-color-border-default: @surface1;
+    --dui-color-border-default-invert: @text;
+    --dui-color-border-focus: @accent;
+    --dui-color-border-action-active: @accent;
+    --dui-color-border-action-basic-default: @surface1;
+    --dui-color-border-action-basic-hover: @surface2;
+    --dui-color-border-action-basic-pressed: @overlay0;
+    --dui-color-border-action-basic-active: fade(@accent, 40%);
+    --dui-color-border-action-secondary-default: @surface2;
+    --dui-color-border-action-secondary-hover: @overlay0;
+    --dui-color-border-action-danger: @red;
+    --dui-color-border-action-success: @green;
+    --dui-color-border-action-disabled: fade(@overlay0, 40%);
+    --dui-color-border-surface-info: @blue;
+    --dui-color-border-surface-success: @green;
+    --dui-color-border-surface-warning: @yellow;
+    --dui-color-border-surface-danger: @red;
+
+    --color-background-app: @base;
+    --color-background-surface: @base;
+    --color-background-surface-canvas: @base;
+    --color-background-surface-canvas-secondary: @mantle;
+    --color-background-surface-neutral: @surface1;
+    --color-background-surface-neutral-muted: @surface0;
+    --color-background-surface-primary: @accent;
+    --color-background-action-primary: @accent;
+    --color-background-action-danger: @red;
+    --color-text-default: @text;
+    --color-text-default-invert: @base;
+    --color-text-muted: @subtext0;
+    --color-text-action-primary: @crust;
+    --color-text-danger: @red;
+    --color-border-default: @surface1;
+    --color-border-focus: @accent;
+
+    --background: @base;
+    --foreground: @text;
+    --card: @base;
+    --card-foreground: @text;
+    --popover: @mantle;
+    --popover-foreground: @text;
+    --primary: @accent;
+    --primary-foreground: @crust;
+    --secondary: @surface0;
+    --secondary-foreground: @text;
+    --muted: @surface0;
+    --muted-foreground: @subtext0;
+    --accent: @surface0;
+    --accent-foreground: @text;
+    --destructive: @red;
+    --destructive-foreground: @crust;
+    --border: @surface1;
+    --input: @surface1;
+    --ring: @accent;
+    --button-background: @surface0;
+    --button-border-color: @surface1;
+    --button-color: @text;
+
+    html,
     body {
       background-color: @base !important;
       color: @text !important;
     }
 
-    .bg-neutral-next-50,
+    /* Surfaces that ignore token remaps (compiled light-dark utilities) */
+    .bg-surface,
+    .bg-surface-canvas,
+    .bg-action-basic,
     .bg-white,
-    .contextual-menu-dragging-area,
-    input {
+    .bg-gray-50 {
       background-color: @base !important;
     }
 
-    .pageFooterV2-module--footerOuterContainer--0b055 {
+    .bg-surface-canvas-secondary,
+    .bg-action-basic-pressed,
+    .bg-gray-100,
+    .bg-gray-200,
+    .bg-redesign-quartz-gray-100,
+    .bg-redesign-quartz-gray-200,
+    .bg-redesign-quartz-gray-300,
+    .dark\:bg-surface-canvas-secondary {
       background-color: @mantle !important;
     }
 
-    .scrollablePopiverListRoot-module--root--588fe {
-      background-color: @base !important;
+    .bg-surface-neutral-muted,
+    .bg-action-active,
+    .bg-redesign-sapphire-blue-100,
+    .bg-redesign-sapphire-blue-200,
+    .bg-\[\#EDF8FC\],
+    .bg-\[\#E1F0F5\],
+    .bg-\[\#fafafa\] {
+      background-color: @surface0 !important;
     }
 
-    /* text color */
-    h1,
-    h2,
-    h3,
-    h4,
-    p,
-    a,
-    button,
-    span,
-    input,
-    ul,
-    li,
-    .mb-3,
-    .mb-4,
-    .GlossaryModalWithIllustration-module--content--2bf03,
-    .lmt__glossary_editor_glossaryName {
+    .bg-brand,
+    .bg-action-primary,
+    .bg-blue-500,
+    .bg-redesign-sapphire-blue-300,
+    .bg-redesign-sapphire-blue-400 {
+      background-color: @accent !important;
+      color: @crust !important;
+    }
+
+    .bg-surface-success,
+    .bg-green-100,
+    .bg-redesign-jade-green-300,
+    .bg-redesign-jade-green-400 {
+      background-color: fade(@green, 25%) !important;
+    }
+
+    .bg-redesign-amethyst-purple-200,
+    .bg-redesign-amethyst-purple-300 {
+      background-color: fade(@mauve, 25%) !important;
+    }
+
+    .bg-redesign-amber-yellow-300 {
+      background-color: fade(@yellow, 25%) !important;
+    }
+
+    .bg-redesign-slate-gray-300,
+    .bg-redesign-slate-gray-400,
+    .bg-redesign-slate-gray-500 {
+      background-color: @surface1 !important;
+    }
+
+    .text-default,
+    .text-black,
+    .text-gray-900,
+    .text-gray-800,
+    .text-gray-700,
+    .text-slate-900,
+    .text-brand,
+    .text-redesign-slate-gray-400,
+    .text-redesign-slate-gray-500,
+    .text-\[var\(--color-gray-800-hex\)\],
+    [class*="text-redesign-slate"] {
       color: @text !important;
     }
 
-    .text-neutral-next-600 {
+    .text-muted,
+    .text-gray-600,
+    .text-gray-500,
+    .text-gray-400,
+    .text-redesign-quartz-gray-400 {
       color: @subtext0 !important;
     }
 
-    /* privacy notice */
-    .cookieBanner-module--container--9baef {
-      background-color: @surface0 !important;
-      color: @text !important;
+    .text-white,
+    .text-redesign-quartz-gray-100,
+    .text-action-primary {
+      color: @crust !important;
     }
 
-    .button-module--button--4f58d.button-module--color_primaryAlt3--cd3cf {
-      border-color: @text !important;
+    .text-blue,
+    .text-blue-500,
+    .text-redesign-sapphire-blue-300,
+    .text-anchor {
+      color: @accent !important;
     }
 
-    /* side menu */
-    .classicSidemenu-module--menuContainer--35157 {
-      background-color: @base !important;
+    .text-green-700 {
+      color: @green !important;
     }
 
-    /* borders */
-    .border-black {
-      border-color: @surface2 !important;
-    }
-
-    .border-neutral-next-100,
-    .StartFreeTrialButton-module--startFreeTrialButton--bd671 {
-      border-color: @surface0 !important;
-    }
-
+    .border-default,
+    .border-b-default,
+    .border-t-default,
+    .border-action-basic-default,
+    .border-action-basic-pressed,
+    .border-action-secondary-default,
+    .border-gray-50,
+    .border-gray-100,
+    .border-gray-200,
+    .border-gray-300,
+    .border-gray-800,
+    .border-gray-900,
+    .border-brand,
+    .border-redesign-quartz-gray-100,
+    .border-redesign-quartz-gray-300,
+    .border-redesign-quartz-gray-400,
+    .border-redesign-quartz-gray-500,
+    .border-redesign-slate-gray-300,
+    .border-redesign-slate-gray-500,
+    .divide-brand > :not([hidden]) ~ :not([hidden]),
     .divide-y > :not([hidden]) ~ :not([hidden]) {
-      border-color: @base;
+      border-color: @surface1 !important;
     }
 
-    .TranslatorTab-module--active--0b6ea
-      .TranslatorTab-module--innerLower--8a080 {
-      background-color: @accent !important;
-    }
-
+    .border-action-active,
+    .border-blue-400,
+    .border-blue-500,
+    .border-redesign-sapphire-blue-400,
     .ring-neutral-next-900 {
-      --tw-ring-color: @surface2;
+      border-color: @accent !important;
+      --tw-ring-color: @accent;
     }
 
-    .border-neutral-next-900 {
-      border-color: @surface2 !important;
+    input,
+    textarea,
+    [contenteditable="true"] {
+      background-color: transparent !important;
+      color: @text !important;
+      caret-color: @accent !important;
     }
 
-    input {
-      border-color: @surface0 !important;
+    input,
+    textarea {
+      border-color: @surface1 !important;
     }
 
-    /* hover */
-    button:hover,
-    .bg-blue-next-500:hover {
-      background-color: @surface1 !important;
-    }
-
-    a:hover {
-      background-color: @mantle !important;
-    }
-
-    .FlyoutMenuButton-module--flyoutMenuButton--97ae6:hover {
-      background-color: @mantle !important;
-    }
-
-    [class*="SourceTranslatorArea-module--focusBorder--"]:has(
-      div[contenteditable="true"]:focus
-    ) {
-      border-color: @accent;
-    }
-
-    [class*="PageHeaderLink-module--pageHeaderLink--"]:not(
-      [class*="PageHeaderLink-module--nohover--"]
-    ):hover {
-      color: @accent;
-      border-color: @accent;
-    }
-
-    .hover\:bg-\[\#B4DAE8\]:hover {
-      background-color: @surface2 !important;
-    }
-
-    /* highlight */
-    .bg-\[\#E1F0F5\] {
-      background-color: @surface1 !important;
-    }
-
-    /* buttons */
-    .TranslatorTab-module--cardButton--4b203,
-    .bg-\[\#EDF8FC\] {
-      background-color: @surface0 !important;
-      border-color: @surface0 !important;
-    }
-
-    .StartFreeTrialButton-module--startFreeTrialButton--bd671,
-    .bg-blue-next-50 {
-      background-color: @surface0 !important;
-    }
-
-    .bg-blue-next-500 {
-      background-color: @surface0;
-      border-color: @surface0;
-    }
-
-    .LanguageSelector-module--wrapper--f9f17 {
-      --button-background: @surface0 !important;
-      --button-border-color: @surface0 !important;
-      color: @base !important;
-    }
-
-    .CareerBanner-module--container--2ac20 {
-      background-color: @surface0 !important;
-    }
-
-    /* glossary button */
-    .lmt__glossaryButton,
-    .lmt__glossaryButton__desktop:hover,
-    .ModalDialogContent-module--content--5751e {
-      background-color: @surface0 !important;
-    }
-
-    .lmt__glossary_acceptButton,
+    /* Header / chrome that still ships hashed modules or legacy wrappers */
+    header,
+    [class*="BasePageHeader"],
+    [class*="pageFooter"],
+    [class*="classicSidemenu"],
+    [class*="cookieBanner"],
+    [class*="ProductUpdatesContainer"],
+    [class*="ProductUpdateFooter"],
+    [class*="LanguageSelector-module--flyout"],
+    [class*="ModalDialogContent"],
+    [class*="Select-module--flyout"],
+    [class*="Select-module--wrapper"],
+    [class*="scrollablePopiver"],
     .lmt__glossary_editor,
     .lmt__glossary_editor_subBar_top,
     .lmt__glossary_editor_subBar_bottom,
     .lmt__glossary_editor_mainBar,
-    .Select-module--wrapper--53ec7 .Select-module--flyout--c91f3,
-    .lmt_firstEntry-content,
-    .lmt__glossary_newEntry_langButton,
-    .Select-module--wrapper--53ec7,
-    .Select-module--button--f032e {
-      background-color: @surface0 !important;
-      border-color: @surface0 !important;
-    }
-
+    .lmt__glossaryButton,
+    .lmt__glossary_acceptButton,
     .desktop-glossary-overwrites .lmt__language_select__menu {
+      background-color: @mantle !important;
+      color: @text !important;
+      border-color: @surface1 !important;
+    }
+
+    [class*="TranslatorTab"][class*="active"] [class*="innerLower"],
+    [class*="TranslatorTab-module--active"] {
+      border-color: @accent !important;
+    }
+
+    [class*="TranslatorTab-module--cardButton"],
+    [class*="StartFreeTrialButton"],
+    [class*="CareerBanner"] {
       background-color: @surface0 !important;
+      border-color: @surface1 !important;
       color: @text !important;
     }
 
-    .lmt__glossary_newEntry_langDropdown.lmt__language_select__menu
-      button
-      .langName {
-      color: @text !important;
+    button:hover,
+    a:hover,
+    [class*="FlyoutMenuButton"]:hover,
+    [class*="PageHeaderLink"]:hover {
+      background-color: @surface0 !important;
     }
 
-    /* pro banner */
-    .ProBanner2021-module--wrapper--c7e3d,
-    .p-8 {
-      background: @base !important;
+    [class*="PageHeaderLink"]:hover {
+      color: @accent !important;
+      border-color: @accent !important;
     }
 
-    /* some button colors */
-    .badge-module--badge--c9ebe.badge-module--proDark--a4d4e {
-      background-color: @green;
-      color: @base !important;
+    [class*="SourceTranslatorArea"][class*="focusBorder"]:has(
+        [contenteditable="true"]:focus
+      ),
+    [class*="focusBorder"]:focus-within {
+      border-color: @accent !important;
     }
 
-    .button-module--button--a854e.button-module--color_secondary--f171e {
-      background-color: @peach;
+    [class*="badge"][class*="pro"],
+    [class*="proDark"] {
+      background-color: @green !important;
+      color: @crust !important;
+    }
+
+    [class*="button"][class*="color_primary"],
+    [class*="button"][class*="primary"]:not([class*="Alt"]) {
+      background-color: @accent !important;
+      border-color: @accent !important;
+      color: @crust !important;
+    }
+
+    [class*="button"][class*="color_secondary"] {
+      background-color: @peach !important;
       border-color: @peach !important;
-      color: @base !important;
+      color: @crust !important;
     }
 
-    .button-module--button--a854e.button-module--variant_outline--b937c {
+    [class*="button"][class*="variant_outline"] {
       background-color: @surface0 !important;
-      border-color: @surface0 !important;
-    }
-
-    .button-module--button--a854e.button-module--color_primary--bfa59 {
-      background-color: @blue !important;
-      border-color: @blue !important;
-      color: @base !important;
-    }
-
-    /* dropdowns */
-    .ProductUpdatesContainer-module--updateContainer--16394,
-    .ProductUpdateFooter-module--updateFooter--b46f0,
-    .LanguageSelector-module--flyout--6bfe6 {
-      background-color: @base !important;
-      border-color: @surface0 !important;
-    }
-
-    /* allow mic/get extension prompt */
-    .bg-neutral-next-900,
-    .bg-blue-next-800 {
-      background-color: @surface0 !important;
+      border-color: @surface1 !important;
       color: @text !important;
     }
 
-    /* icons, svgs and images */
     svg {
-      color: @text !important;
+      color: inherit;
     }
 
     .lmt__glossary_ad_checkmark,
@@ -275,21 +497,21 @@
       border-color: @text !important;
     }
 
-    path,
-    .DeeplLogoText-module--logoText--34a4f,
-    .ProBanner2021-module--lockitem--febe3,
-    .FlyoutMenuButton-module--flyoutMenuButton--97ae6::after,
+    [class*="DeeplLogoText"],
+    [class*="ProBanner"][class*="lockitem"],
+    [class*="ProBanner"][class*="checkitem"],
+    [class*="FlyoutMenuButton"]::after,
     #top-navi-sidemenu-opener,
-    .pageFooterV2-module--socialMediaLinks--71305,
-    .ProBanner2021-module--checkitem--2d8e7,
+    [class*="pageFooter"][class*="socialMedia"],
     [src*="https://static.deepl.com/img/app_desktop.svg"] {
       filter: @text-filter;
     }
 
-    .Logo-module--logoImg--1ee7e,
-    .LogoLink-module--logoText--33735,
-    .deeplLogo-module--logo--ffd7a {
-      filter: @blue-filter;
+    [class*="Logo-module--logo"],
+    [class*="LogoLink-module--logo"],
+    [class*="deeplLogo-module--logo"],
+    [class*="Logo"][class*="logoImg"] {
+      filter: @accent-filter;
     }
   }
 }
