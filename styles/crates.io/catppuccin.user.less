@@ -20,7 +20,6 @@
   :root[data-color-scheme="dark"] {
     #catppuccin(@darkFlavor);
   }
-
   :root[data-color-scheme="light"] {
     #catppuccin(@lightFlavor);
   }
@@ -44,7 +43,7 @@
       --header-bg-color: @base;
 
       --yellow500: @accent;
-      --yellow700: darken(@accent; 5%);
+      --yellow700: darken(@accent, 5%);
 
       .button {
         --text-color: @base;
@@ -57,7 +56,6 @@
         --bg-color-top-dark: darken(@accent, 5%);
         --bg-color-bottom-dark: darken(@accent, 5%);
       }
-
       .button--red {
         --bg-color-top: @maroon;
         --bg-color-bottom: @maroon;
@@ -66,9 +64,34 @@
         --bg-color-top-dark: @red;
         --bg-color-bottom-dark: @red;
       }
-
+      :focus-visible {
+        outline-color: @accent;
+        outline-style: solid;
+      }
       input[type="checkbox"] {
         accent-color: @accent;
+      }
+      input[type="text"] {
+        background-color: @base;
+        color: @text;
+        &[aria-invalid="true"] {
+          border-color: @red;
+        }
+      }
+      select {
+        background-color: @base;
+        color: @text;
+      }
+    }
+
+    .tooltip {
+      background-color: @mantle;
+      color: @text;
+      .rt-latest {
+        color: @green;
+      }
+      .new {
+        color: @peach;
       }
     }
 
@@ -76,7 +99,6 @@
       .login-button {
         color: @text;
       }
-
       .color-scheme-menu .icon {
         background-color: if((@flavor = latte), @base, @text);
       }
@@ -91,7 +113,6 @@
     .dropdown ul {
       background-color: @base;
       border-color: @surface1;
-
       li {
         a:hover,
         button:hover,
@@ -99,7 +120,6 @@
           background-color: @surface0;
           color: @text !important;
         }
-
         .icon {
           background-color: @text;
         }
@@ -148,19 +168,16 @@
           background-color: @text;
         }
       }
-
-      .list .row {
-        .link,
-        .range-lg {
-          color: @subtext1;
-        }
-
+      [role="list"] .row, .list .row {
         background-color: @base;
-
         &:hover {
           background-color: @surface0;
         }
 
+        .link,
+        .range-lg {
+          color: @subtext1;
+        }
         .top {
           a,
           .range,
@@ -168,37 +185,43 @@
             color: @subtext1;
           }
         }
-
         .description {
           color: @subtext0;
+        }
+        .name-and-metadata {
+          .optional-label, .features-label {
+            color: @subtext0;
+          }
         }
 
         .release-track {
           background-color: @text;
           color: @base;
         }
-
         .num-link {
           color: @subtext1;
         }
 
         &.latest {
+          &:hover {
+            background-color: fade(@green, 10%);
+          }
           .release-track {
             background-color: @green;
             border-color: @green;
           }
-
           .num-link {
             color: @green;
           }
         }
-
         &.prerelease {
+          &:hover {
+            background-color: fade(@peach, 10%);
+          }
           .release-track {
             background-color: @peach;
             border-color: @peach;
           }
-
           .num-link {
             color: @peach;
           }
@@ -206,7 +229,28 @@
 
         .metadata {
           color: @subtext1;
+          time[role="listitem"].new {
+            color: @peach;
+          }
+          .publisher a:hover {
+            color: @text;
+          }
         }
+      }
+
+      .viewer file-tree-container {
+        --trees-search-bg: @mantle;
+        --trees-search-fg: @text;
+        --trees-border-color: @mantle;
+        --trees-bg: @base;
+        --trees-fg: @subtext0;
+        --trees-selected-fg: @text;
+        --trees-fg-muted: @subtext0;
+        --trees-accent: @accent;
+      }
+
+      .no-results {
+        background-color: @base;
       }
     }
 
@@ -227,7 +271,6 @@
       button.submit-button .icon {
         background-color: @base;
       }
-
       .input-lg {
         background-color: @mantle;
       }
@@ -245,7 +288,6 @@
       .icon {
         background-color: @subtext0;
       }
-
       .label {
         color: @subtext0;
       }
@@ -284,7 +326,6 @@
             background-color: @base;
             color: @subtext1;
           }
-
           .icon {
             background-color: @accent;
           }
@@ -295,7 +336,6 @@
         .icon {
           background-color: @accent;
         }
-
         .feed-row {
           background-color: @base;
           border-color: @mantle;
@@ -311,6 +351,31 @@
     .empty-state {
       background-color: @base;
       border-color: @surface1;
+    }
+
+    .list .link.active:hover {
+      background-color: fade(@base, 60%);
+    }
+
+    .form-group {
+      .form-group-error {
+        color: @red;
+      }
+      .scopes-list {
+        &.invalid {
+          border-color: @red;
+        }
+        li {
+          background-color: @base;
+          color: @text;
+        }
+      }
+      .crates-unrestricted, .crates-pattern-button {
+        background-color: @base;
+      }
+      .icon {
+        color: @subtext0;
+      }
     }
   }
 }
