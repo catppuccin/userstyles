@@ -20,6 +20,7 @@
   :root[data-color-scheme="dark"] {
     #catppuccin(@darkFlavor);
   }
+
   :root[data-color-scheme="light"] {
     #catppuccin(@lightFlavor);
   }
@@ -28,6 +29,11 @@
     #lib.palette();
     #lib.defaults();
     #lib.css-variables();
+
+    :focus-visible {
+      outline-color: @accent;
+      outline-style: solid;
+    }
 
     @layer global {
       --main-bg: @mantle;
@@ -40,7 +46,9 @@
 
       --gray-border: @surface2;
 
-      --header-bg-color: @base;
+      --header-bg-color: if(@flavor =latte,
+          @text,
+          @base );
 
       --yellow500: @accent;
       --yellow700: darken(@accent, 5%);
@@ -56,6 +64,7 @@
         --bg-color-top-dark: darken(@accent, 5%);
         --bg-color-bottom-dark: darken(@accent, 5%);
       }
+
       .button--red {
         --bg-color-top: @maroon;
         --bg-color-bottom: @maroon;
@@ -64,20 +73,20 @@
         --bg-color-top-dark: @red;
         --bg-color-bottom-dark: @red;
       }
-      :focus-visible {
-        outline-color: @accent;
-        outline-style: solid;
-      }
+
       input[type="checkbox"] {
         accent-color: @accent;
       }
+
       input[type="text"] {
         background-color: @base;
         color: @text;
+
         &[aria-invalid="true"] {
           border-color: @red;
         }
       }
+
       select {
         background-color: @base;
         color: @text;
@@ -87,11 +96,32 @@
     .tooltip {
       background-color: @mantle;
       color: @text;
+
       .rt-latest {
         color: @green;
       }
+
       .new {
         color: @peach;
+      }
+    }
+
+    .dropdown ul {
+      background-color: @base;
+      border-color: @surface1;
+
+      li {
+
+        a:hover,
+        button:hover,
+        button.selected {
+          background-color: @surface0;
+          color: @text !important;
+        }
+
+        .icon {
+          background-color: @text;
+        }
       }
     }
 
@@ -99,30 +129,15 @@
       .login-button {
         color: @text;
       }
+
       .color-scheme-menu .icon {
-        background-color: if((@flavor = latte), @base, @text);
+        background-color: if((@flavor =latte), @base, @text);
       }
     }
 
     footer {
       ul li a {
         color: @text;
-      }
-    }
-
-    .dropdown ul {
-      background-color: @base;
-      border-color: @surface1;
-      li {
-        a:hover,
-        button:hover,
-        button.selected {
-          background-color: @surface0;
-          color: @text !important;
-        }
-        .icon {
-          background-color: @text;
-        }
       }
     }
 
@@ -134,28 +149,22 @@
     }
 
     .crate-row {
-      --shadow: 0 2px 3px if((@flavor = latte), @surface2, @surface0);
+      --shadow: none;
       background-color: @base;
     }
 
     /* Crates */
     .main {
+
+      // Crates - README
       .header,
       .docs {
-        --shadow: 0 2px 3px if((@flavor = latte), @surface2, @surface0);
+        --shadow: 0 2px 3px if((@flavor =latte), @surface2, @surface0);
         background-color: @base;
       }
 
-      .viewer {
-        .code {
-          diffs-container {
-            --diffs-light-bg: @surface0;
-            --diffs-dark-bg: @surface0;
-          }
-        }
-      }
-
       .wrapper {
+
         p code,
         li code {
           background-color: @surface0 !important;
@@ -168,72 +177,13 @@
           background-color: @text;
         }
       }
-      [role="list"] .row, .list .row {
-        background-color: @base;
-        &:hover {
-          background-color: @surface0;
-        }
 
-        .link,
-        .range-lg {
-          color: @subtext1;
-        }
-        .top {
-          a,
-          .range,
-          .downloads {
-            color: @subtext1;
-          }
-        }
-        .description {
-          color: @subtext0;
-        }
-        .name-and-metadata {
-          .optional-label, .features-label {
-            color: @subtext0;
-          }
-        }
-
-        .release-track {
-          background-color: @text;
-          color: @base;
-        }
-        .num-link {
-          color: @subtext1;
-        }
-
-        &.latest {
-          &:hover {
-            background-color: fade(@green, 10%);
-          }
-          .release-track {
-            background-color: @green;
-            border-color: @green;
-          }
-          .num-link {
-            color: @green;
-          }
-        }
-        &.prerelease {
-          &:hover {
-            background-color: fade(@peach, 10%);
-          }
-          .release-track {
-            background-color: @peach;
-            border-color: @peach;
-          }
-          .num-link {
-            color: @peach;
-          }
-        }
-
-        .metadata {
-          color: @subtext1;
-          time[role="listitem"].new {
-            color: @peach;
-          }
-          .publisher a:hover {
-            color: @text;
+      // Crates - Code
+      .viewer {
+        .code {
+          diffs-container {
+            --diffs-light-bg: @surface0;
+            --diffs-dark-bg: @surface0;
           }
         }
       }
@@ -247,6 +197,106 @@
         --trees-selected-fg: @text;
         --trees-fg-muted: @subtext0;
         --trees-accent: @accent;
+      }
+
+      // Crates - Versions, Dependencies, Dependents
+      [role="list"] .row,
+      .list .row {
+        background-color: @base;
+
+        &:hover {
+          background-color: @surface0;
+        }
+
+        .description {
+          color: @subtext0;
+        }
+
+        // Versions
+        .release-track {
+          background-color: @text;
+          color: @base;
+        }
+
+        .num-link {
+          color: @subtext1;
+        }
+
+        &.latest {
+          &:hover {
+            background-color: fade(@green, 10%);
+          }
+
+          .release-track {
+            background-color: @green;
+            border-color: @green;
+          }
+
+          .num-link {
+            color: @green;
+          }
+        }
+
+        &.prerelease {
+          &:hover {
+            background-color: fade(@peach, 10%);
+          }
+
+          .release-track {
+            background-color: @peach;
+            border-color: @peach;
+          }
+
+          .num-link {
+            color: @peach;
+          }
+        }
+
+        .metadata {
+          color: @subtext1;
+
+          time[role="listitem"].new {
+            color: @peach;
+          }
+
+          .publisher a:hover {
+            color: @text;
+          }
+        }
+
+        // Dependencies
+        .link,
+        .range-lg {
+          color: @subtext1;
+        }
+
+        .name-and-metadata {
+
+          .optional-label,
+          .features-label {
+            color: @subtext0;
+          }
+        }
+
+        // Dependents
+        .top {
+
+          a,
+          .range,
+          .downloads {
+            color: @subtext1;
+          }
+        }
+      }
+
+      // Crate - Security
+      .advisories .row {
+        background-color: @base;
+
+        .affected-versions {
+          border-color: @peach;
+          background-color: @mantle;
+        }
       }
 
       .no-results {
@@ -271,12 +321,13 @@
       button.submit-button .icon {
         background-color: @base;
       }
+
       .input-lg {
         background-color: @mantle;
       }
 
-      & when (@flavor = latte) {
-        background-color: @text;
+      .hero-title {
+        color: @text;
       }
     }
 
@@ -288,13 +339,14 @@
       .icon {
         background-color: @subtext0;
       }
+
       .label {
         color: @subtext0;
       }
     }
 
     .box {
-      --shadow: 0 2px 3px if((@flavor = latte), @surface2, @surface0);
+      --shadow: 0 2px 3px if((@flavor =latte), @surface2, @surface0);
       background-color: @surface0;
       color: @text;
 
@@ -320,12 +372,14 @@
 
     .my-info {
       .my-crate-lists {
+
         .section-header,
         .list {
           .link {
             background-color: @base;
             color: @subtext1;
           }
+
           .icon {
             background-color: @accent;
           }
@@ -336,6 +390,7 @@
         .icon {
           background-color: @accent;
         }
+
         .feed-row {
           background-color: @base;
           border-color: @mantle;
@@ -361,21 +416,31 @@
       .form-group-error {
         color: @red;
       }
+
       .scopes-list {
         &.invalid {
           border-color: @red;
         }
+
         li {
           background-color: @base;
           color: @text;
         }
       }
-      .crates-unrestricted, .crates-pattern-button {
+
+      .crates-unrestricted,
+      .crates-pattern-button {
         background-color: @base;
       }
+
       .icon {
         color: @subtext0;
       }
+    }
+
+    /* Owner Invites */
+    .list:has(p) {
+      background-color: @base;
     }
   }
 }
