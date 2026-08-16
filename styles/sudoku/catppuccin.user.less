@@ -1,0 +1,841 @@
+/* ==UserStyle==
+  @name Sudoku.com Catppuccin
+  @namespace github.com/catppuccin/userstyles/styles/sudoku
+  @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/sudoku
+  @version 2000.01.01
+  @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/sudoku/catppuccin.user.less
+  @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Asudoku
+  @description Soothing pastel theme for Sudoku.com
+  @author Catppuccin
+  @license MIT
+  @preprocessor less
+  @var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+  @var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+  @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+  ==/UserStyle== */
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("sudoku.com") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    background-color: @base;
+
+    /* navbar */
+    .header {
+      background-color: @mantle;
+    }
+
+    #burger-icon > div,
+    #burger-icon::before,
+    #burger-icon::after {
+      background-color: @text;
+    }
+
+    /* dropdown from burger */
+    #main-navigation {
+      &,
+      &::after {
+        background-color: @base;
+      }
+
+      a {
+        color: @text;
+
+        &:hover,
+        &.active {
+          background-color: @crust;
+        }
+      }
+    }
+
+    .header_logo path {
+      fill: @accent;
+
+      &.sudoku-text {
+        fill: @text;
+      }
+    }
+
+    .header_menu > a {
+      span {
+        color: @text !important;
+      }
+
+      &:not(.active):hover {
+        background-color: @surface0 !important;
+      }
+
+      &.active span {
+        color: @accent;
+
+        &::after {
+          background-color: @accent !important;
+        }
+      }
+    }
+
+    /* banner stuff */
+    #cookies-banner {
+      background-color: @crust;
+    }
+
+    .icon-close {
+      filter: @text-filter;
+    }
+
+    .banner-container p {
+      color: @text;
+
+      a,
+      span {
+        color: @accent;
+      }
+    }
+
+    .app-teaser-wrapper {
+      background-color: @mantle;
+
+      .app-info-heading {
+        color: @text;
+      }
+
+      .app-info-author {
+        color: @subtext0;
+      }
+
+      .app-teaser-info {
+        background-color: @crust !important;
+      }
+
+      .app-info-rating {
+        .icon-star {
+          filter: @accent-filter;
+        }
+
+        .icon-star-half {
+          @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" role="img" width="12" height="12" x="45" y="110" viewBox="0 0 12 12"><g fill="none" fill-rule="evenodd"><path fill="@{surface2}" d="M3.69 7.33-.03 4.77l4.5.06L5.97 0 7.6 4.87l4.42.05-3.55 2.36 1.59 4.42-.24-.16.07.23.02.04-3.93-2.8L2.23 12l1.46-4.67z"/><path fill="@{accent}" d="m2.21 12 1.46-4.67-3.74-2.56 4.51.05L5.96 0v9.02z"/></g></svg>');
+          background: url("data:image/svg+xml,@{svg}"); /* not background-image since I have to override offsets. */
+        }
+      }
+
+      .app-teaser-qr::after {
+        background-color: @surface2 !important;
+        opacity: 1 !important;
+      }
+    }
+
+    .game-info-wrapper {
+      .solo-difficulty_title {
+        color: @text;
+      }
+
+      .solo-difficulty_value {
+        color: @subtext1;
+      }
+
+      .ref-start-game_title {
+        color: @text;
+      }
+
+      .start-new-game-button {
+        color: @text;
+
+        &.active {
+          color: @accent;
+        }
+
+        &:hover {
+          background-color: @surface0 !important;
+        }
+      }
+    }
+
+    .game-controls-wrapper {
+      /* info */
+      .score-value {
+        color: @text;
+      }
+
+      .game_statistics_label {
+        color: @text;
+      }
+
+      .timer-pause {
+        background-color: @surface0;
+
+        .icon-pause::before,
+        .icon-pause::after {
+          background-color: @text;
+        }
+
+        .icon-play {
+          filter: @text-filter;
+        }
+
+        &:hover {
+          background-color: @surface1;
+        }
+      }
+
+      .game_statistics_goal_value {
+        filter: @text-filter;
+      }
+
+      .mistakes-counter span {
+        color: @text;
+      }
+
+      .timer {
+        color: @text;
+      }
+
+      /* control buttons */
+      .game-controls-item {
+        background-color: @surface0;
+        border-color: @surface1;
+
+        &:hover {
+          background-color: @surface1;
+          border-color: @surface2;
+        }
+
+        path {
+          fill: @accent;
+        }
+      }
+
+      .game-controls-label {
+        color: @accent;
+      }
+
+      .game-controls-pencil::after,
+      .game-controls-hint-label {
+        background-color: @crust;
+        color: @text;
+      }
+
+      .game-controls-hint-label.active {
+        background-color: @accent;
+        color: @base;
+      }
+
+      /* number buttons */
+      .numpad-item {
+        background-color: @surface0;
+        color: @accent;
+
+        &:hover {
+          background-color: @surface1;
+        }
+      }
+
+      .button {
+        background-color: @accent;
+        color: @base;
+
+        &::after {
+          filter: @base-filter;
+        }
+
+        &:disabled {
+          background-color: @surface0;
+          color: @text;
+
+          &::after {
+            filter: @text-filter;
+          }
+        }
+      }
+    }
+
+    /* new game popup */
+    .new-game-menu {
+      &,
+      .tooltip-arrow::after {
+        background-color: @mantle;
+      }
+
+      .new-game-menu-close {
+        opacity: 1;
+      }
+
+      .new-game-menu-header {
+        color: @text;
+      }
+
+      .new-game-menu-subheader {
+        color: @subtext0;
+      }
+
+      .new-game-menu-mode-button,
+      .new-game-menu-button {
+        background-color: @surface0;
+        border-color: @surface1;
+        color: @text;
+
+        &:hover {
+          background-color: @surface1;
+          &:not(.new-game-menu-button) {
+            border-color: @surface2;
+          }
+        }
+
+        .new-game-menu-icon {
+          filter: @text-filter;
+        }
+
+        &.active {
+          color: @accent;
+
+          .new-game-menu-icon {
+            filter: @accent-filter;
+          }
+        }
+      }
+    }
+
+    .pencil-mode .game-controls-pencil {
+      background-color: @mantle !important;
+      border-color: @accent !important;
+
+      &::after {
+        background-color: @accent !important;
+        color: @base;
+      }
+    }
+
+    /* colored buttons on the right */
+    body {
+      .storybook,
+      .storybook-default,
+      .postcards,
+      .postcard-default,
+      .tournament,
+      .dc {
+        .info {
+          background-color: @base !important;
+
+          &,
+          span {
+            color: @text !important;
+          }
+        }
+
+        &.active::after {
+          background-color: @accent;
+        }
+      }
+
+      .storybook,
+      .storybook-default {
+        background-image: linear-gradient(180deg,@peach,@maroon) !important;
+
+        &,
+        .storybook_header-title {
+          color: @base !important;
+        }
+      }
+
+      .postcards:not(.sudoku-wrapper),
+      .postcard-default {
+        background-image: linear-gradient(180deg,@teal,@blue) !important;
+
+        &,
+        .postcards_header-title {
+          color: @base !important;
+        }
+
+        /* I had to move the border from the span sub element to the parent due to weird additive blending */
+        .postcards_header-icon {
+          background-color: @blue;
+          border: 2px solid hsla(0,0%,100%,.5);
+
+          span {
+            border: none;
+            color: @base !important;
+          }
+        }
+      }
+
+      .tournament:not(:has(.tournament_body)) {
+        background-image: linear-gradient(180deg,@yellow,@peach);
+
+        > span:last-child {
+          color: @base !important;
+        }
+      }
+
+      .dc:not([class*="awards-styles_awards_content"]) {
+        background-image: linear-gradient(180deg,@sapphire,@blue) !important;
+
+        > span:last-child {
+          color: @base !important;
+        }
+      }
+    }
+
+    .pause-overlay {
+      path {
+        fill: @base;
+      }
+
+      circle {
+        fill: @accent;
+      }
+    }
+
+    .game_settings_body {
+      background-color: @base;
+
+      .game_settings_header_title {
+        color: @text;
+      }
+
+      .game_settings_header_button::before {
+        filter: @text-filter;
+      }
+
+      .game_settings_content_item {
+        background-color: @mantle;
+
+        .game_settings_content_item_title,
+        .game_settings_content_item_value {
+          color: @text;
+        }
+
+        .game_settings_toggle {
+          background-color: @surface0;
+
+          &::before {
+            background-color: @surface2;
+          }
+        }
+
+        &.active-toggle .game_settings_toggle::before {
+          background-color: @accent;
+        }
+      }
+    }
+
+    .post *,
+    .entry-title,
+    .solver_article *,
+    .rules_content-article * {
+      color: @text !important;
+    }
+
+    .entry-content ul,
+    .solver_article ul {
+      background-color: @mantle;
+    }
+
+    .game-over_body {
+      background-color: @base;
+
+      .game-over_title,
+      .game-over_desc {
+        color: @text;
+      }
+
+      .game-over_close {
+        color: @accent;
+      }
+
+      .game-over_btn {
+        background-color: @accent;
+        color: @base;
+      }
+    }
+
+    .ref-footer {
+      background-color: @mantle;
+
+      .logo-easybrain {
+        path {
+          fill: @text;
+        }
+
+        g[fill="none"] > path {
+          fill: @accent;
+        }
+      }
+
+      .copyright {
+        color: @subtext0;
+      }
+
+      .links_item a {
+        color: @text;
+
+        &::after {
+          background-color: @accent;
+        }
+      }
+
+      .lang-menu_label {
+        &:hover {
+          background-color: @surface0;
+        }
+
+        .arrow {
+          filter: @text-filter;
+        }
+      }
+
+      .lang-menu_dropdown {
+        background-color: @crust;
+
+        .lang-menu-item a {
+          &:hover {
+            background-color: @base;
+          }
+
+          span {
+            color: @text;
+          }
+        }
+      }
+    }
+
+    .ref-footer_bottom {
+      border-color: @surface2;
+
+      .hover-link {
+        color: @text;
+
+        &::after {
+          background-color: @accent;
+        }
+      }
+    }
+
+    /* printable sudoku page */
+    .printable {
+      background-color: @mantle;
+
+      .printable_body_title,
+      .printable_body_desc {
+        color: @text;
+      }
+
+      .button {
+        background-color: @accent;
+        color: @base;
+      }
+
+      .paper-switch_label {
+        background-color: @surface0;
+
+        .paper-switch_value {
+          color: @text;
+        }
+
+        .arrow {
+          filter: @text-filter;
+        }
+
+        &:hover {
+          background-color: @surface1;
+        }
+      }
+
+      .menu-visible .paper-switch_label {
+        background-color: @surface0;
+      }
+
+      .paper-switch_dropdown {
+        background-color: @base;
+
+        li {
+          color: @text;
+
+          &:hover {
+            background-color: @mantle;
+          }
+        }
+      }
+    }
+
+    /* solver page */
+    .solver_notification_body {
+      background-color: @base;
+
+      .solver_notification_title,
+      .solver_notification_desc {
+        color: @text;
+      }
+
+      .button {
+        background-color: @accent;
+        color: @base;
+      }
+    }
+
+    /* tips page */
+    .list-title {
+      color: @text !important;
+    }
+
+    .page-numbers {
+      color: @subtext1;
+
+      &.current {
+        background-color: @accent;
+        color: @base;
+      }
+
+      &.next-page::after {
+        filter: @subtext1-filter;
+      }
+    }
+
+    /* rules page */
+    .rules_header_title {
+      color: @text;
+    }
+
+    .rules_item_title,
+    .rules_item_desc {
+      color: @text;
+    }
+
+    .more-link {
+      color: @accent;
+    }
+
+    .post-navigation {
+      border-color: @surface2;
+    }
+
+    .post-navigation-item a {
+      color: @accent;
+
+      .icon {
+        filter: @accent-filter;
+      }
+    }
+
+    /* awards page (fsr the only page to use semi-generated styles???) */
+    [class*="awards_header_title"] {
+      color: @text;
+    }
+
+    [class*="awards_dc_item_image"] {
+      opacity: 1;
+      filter: @text-filter;
+    }
+
+    [class*="awards_dc_item_title"] {
+      color: @text;
+    }
+
+    [class*="awards_dc_item_status"] {
+      color: @subtext1;
+    }
+
+    [class*="awards_dc_item_progress_bar"] {
+      background-color: @surface0;
+
+      > div {
+        background-color: @accent;
+      }
+    }
+
+    [class*="awards_header_tabs"] {
+      background-color: @surface2;
+
+      > button {
+        color: @text;
+        background-color: @base;
+
+        &[class*="awards_header_active_tab"] {
+          background-color: @accent;
+          color: @base;
+        }
+      }
+    }
+
+    [class*="awards_empty_title"] {
+      color: @text;
+    }
+
+    [class*="awards_empty_desc"] {
+      color: @subtext1;
+    }
+
+    [class*="awards_empty_image"] > path {
+      fill: @text;
+    }
+
+    /* tournaments page */
+    .tournament_hiw_body {
+      background-color: @base;
+
+      .tournament_hiw_title,
+      .tournament_hiw_item_text {
+        color: @text;
+      }
+
+      .button {
+        color: @base;
+        background-color: @accent;
+      }
+
+      .tournament_hiw_dots li {
+        background-color: @overlay1;
+
+        &.active {
+          background-color: @accent;
+        }
+      }
+    }
+
+    .tournament_leaderboard_content {
+      background-color: @mantle;
+
+      .tournament_leaderboard_content_title {
+        color: @text;
+      }
+
+      .tournament_leaderboard_content_title::before,
+      &::after {
+        background-image: none;
+      }
+
+      .tournament_hiw_open path {
+        fill: @accent;
+      }
+
+      .leaderboard-item {
+        background-color: @crust;
+
+        &.me {
+          background-color: @base;
+        }
+
+        .leaderboard-item_score_name,
+        .leaderboard-item_score_val,
+        .leaderboard-item_index {
+          color: @text;
+        }
+
+        &::before {
+          background-color: @surface2;
+        }
+      }
+    }
+
+    .tournament_leaderboard_info {
+      background-image: radial-gradient(circle at 50% 50%,@peach,@maroon 71%);
+
+      .tournament_leaderboard_info_title {
+        color: @base;
+      }
+
+      .tournament_leaderboard_info_time {
+        img {
+          @svg: escape('<svg width="24" height="25" viewBox="0 0 24 25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> <defs> <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="kenbou5mod"> <stop stop-color="#FFED38" offset="0%"/> <stop stop-color="#FFAC00" offset="100%"/> </linearGradient> <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="n27qv91hac"> <stop stop-color="gold" offset="0%"/> <stop stop-color="gold" offset="100%"/> </linearGradient> <linearGradient x1="50%" y1="1.254%" x2="50%" y2="100%" id="hx4k9dtoye"> <stop stop-color="#FFFBDF" offset="0%"/> <stop stop-color="#FFF2C8" offset="100%"/> </linearGradient> <filter x="-17.5%" y="-12.5%" width="135%" height="135%" filterUnits="objectBoundingBox" id="4v7v9zclxa"> <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/> <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"/> <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/> <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" in="shadowBlurOuter1"/> </filter> <circle id="3jg0ltwkkb" cx="10" cy="10" r="10"/> </defs> <g fill="none" fill-rule="evenodd"> <g transform="translate(2 2)"> <use fill="#000" filter="url(#4v7v9zclxa)" xlink:href="#3jg0ltwkkb"/> <circle fill="@{yellow}" cx="10" cy="10" r="9.628"/> </g> <path d="M7.88 0a7.88 7.88 0 1 1 0 15.762A7.88 7.88 0 0 1 7.88 0z" transform="translate(4.234 4.234)" fill="@{base}" /> <path d="M12.115 6.86c.362 0 .656.295.656.657v4.268l2.358 1.757a.657.657 0 0 1 .19.828l-.056.09a.657.657 0 0 1-.919.135l-2.622-1.954a.669.669 0 0 1-.201-.246.65.65 0 0 1-.063-.286V7.517c0-.362.294-.656.657-.656z" fill="@{text}" fill-rule="nonzero"/> </g> </svg>');
+          content: url("data:image/svg+xml,@{svg}");
+        }
+        span {
+          color: @base;
+        }
+      }
+    }
+
+    /* daily challenges */
+    .calendar-body {
+      background-color: @mantle;
+
+      .calendar-nav {
+        background-color: @surface0;
+
+        img {
+          filter: @text-filter;
+        }
+
+        &:hover {
+          background-color: @surface1;
+        }
+      }
+
+      .calendar-date {
+        color: @text;
+      }
+
+      .calendar-progress {
+        color: @text;
+
+        &::before {
+          @svg: escape('<svg width="34" height="34" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M17 0C7.626 0 0 7.626 0 17c0 9.374 7.626 17 17 17 9.374 0 17-7.626 17-17 0-9.374-7.626-17-17-17" fill="@{yellow}"/><path d="m10.986 25 1.538-6.751L7 13.534l7.202-.343L17 7l2.798 6.191 7.202.343-5.524 4.715L23.014 25 17 21.478 10.986 25z" fill="@{peach}"/></g></svg>');
+          background-image: url("data:image/svg+xml,@{svg}");
+        }
+      }
+
+      .button {
+        background-color: @accent;
+        color: @base;
+      }
+
+      .day {
+        color: @subtext1;
+
+        &[disabled] {
+          color: @overlay1;
+        }
+
+        &.selected {
+          background-color: @accent;
+          border-color: @accent;
+          color: @base;
+        }
+      }
+    }
+
+    .calendar-cup-title {
+      color: @text;
+    }
+
+    .checkbox {
+      .checkbox_text {
+        color: @text;
+      }
+
+      .checkbox-icon {
+        background: @surface0;
+      }
+
+      input:checked + .checkbox-icon::after {
+        @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" role="img" width="25" height="25" x="75" y="29" viewBox="0 0 25 25"><g fill="none"><rect width="24" height="24" x=".5" y=".5" fill="@{accent}" rx="4"/><path fill="@{base}" d="M10.88 14.99 17.87 8l1.2 1.2-8.21 8.21-1.2-1.2.01-.02L6.48 13l1.2-1.2 3.2 3.2z"/></g></svg>');
+        background: url("data:image/svg+xml,@{svg}"); /* not background-image since I have to override offsets. */
+      }
+    }
+
+    .info {
+      background-color: @mantle;
+
+      svg > use {
+        fill: @accent;
+      }
+
+      span {
+        color: @text;
+
+        a {
+          color: @accent;
+        }
+      }
+    }
+  }
+}
