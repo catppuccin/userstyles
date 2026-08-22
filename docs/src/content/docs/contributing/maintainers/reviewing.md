@@ -7,7 +7,7 @@ sidebar:
 
 A key tenant of the userstyles philosophy is starting with a complete version. Generally, we avoid merging new userstyles that do not fully theme the target application. Note that fully theming a set of (core) pages of the application, while _fully_ not theming other pages of the application, is acceptable. The reasoning for this strict policy is that userstyles maintainers come and go and it is difficult to depend on continued maintenance down the road. If a userstyle isn't initially complete, it is unlikely that more of it will be completed later.
 
-## Tips for user interface inspection
+## Inspecting the user interface
 
 - Inspect login/signup pages. A small part of websites, but nice to theme nonetheless.
 - Be careful around hover and active states of buttons and button-like components.
