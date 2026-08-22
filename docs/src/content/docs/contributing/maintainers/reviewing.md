@@ -15,7 +15,7 @@ A key tenant of the userstyles philosophy is starting with a complete version. G
 - Settings and profile pages are often missed details.
 - Small details with input elements to note are borders, hover/active/focus borders, placeholder text and icons (the former should be themed by the standard library's defaults, but not always).
 
-## Tips for userstyle source code review
+## Reviewing source code
 
 Even if a userstyle is well-themed, it's also important to check that it is written well and maintainable. For example, if a website makes use of CSS variables but the userstyle is lengthy and themed using classes instead, it's often worth switching over for consistency, simplicity, and maintainability.
 
