@@ -23,6 +23,6 @@ Even if a userstyle is well-themed, it's also important to check that it is writ
 - Importantly, ensure palette colors are used aptly and appropriately.
 - Avoid overcorrections of palette colors, such as `darken` or `lighten` operations in large amounts (`darken` by 30% produces a color that is relatively distinct from the pastel palette).
 
-## Tips for good review comments
+## Writing feedback and review comments
 
 When leaving a comment pointing out issues discovered in a review, it is important to make suggestions digestible and actionable. Provide links to relevant pages, descriptions of steps to access a certain component, and screenshots.
