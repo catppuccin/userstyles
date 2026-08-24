@@ -132,6 +132,17 @@
       box-shadow: 0 0 0 2px @accent inset;
     }
 
+    /* The dropdown trigger and its nested search input (both matched by
+       this, since the input's own class is "...dropdown-display-text")
+       otherwise pick up a visible border-color from the hover/active/
+       icon-button rules below — mismatched between the two, since only
+       one of them has a real border-width. Keep the box-shadow ring
+       above as the only "active" indicator and never let this pair
+       show a border. */
+    [class*="dropdown-display" i]:not(:disabled) {
+      border-color: transparent;
+    }
+
     /* Controls. `:not(:disabled)` is a no-op functionally (nothing here
        is disabled), but it bumps these plain element selectors up to
        attribute-selector specificity so they reliably win over the
@@ -198,20 +209,24 @@
       color: @subtext0;
     }
 
-    /* Icon buttons should use subtle Catppuccin surfaces. */
-    button:has(svg),
-    [role="button"]:has(svg),
-    [class*="Button"]:has(svg),
-    [class*="button"]:has(svg) {
+    /* Icon buttons should use subtle Catppuccin surfaces. Excludes
+       dropdown triggers (e.g. Carbon's language picker) — those also
+       contain a small caret svg so they'd otherwise match here too,
+       hovering to lavender while the input nested inside them hovers
+       to the regular accent color instead. */
+    button:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]),
+    [role="button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]),
+    [class*="Button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]),
+    [class*="button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]) {
       background-color: @surface0;
       color: @text;
       border-color: @surface1;
     }
 
-    button:has(svg):hover,
-    [role="button"]:has(svg):hover,
-    [class*="Button"]:has(svg):hover,
-    [class*="button"]:has(svg):hover {
+    button:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]):hover,
+    [role="button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]):hover,
+    [class*="Button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]):hover,
+    [class*="button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]):hover {
       background-color: @surface1;
       color: @lavender;
       border-color: @lavender;
