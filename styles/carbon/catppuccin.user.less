@@ -128,19 +128,23 @@
     /* Carbon's dropdown trigger is a wrapper (...dropdown-display) with a
        search <input> (...dropdown-display-text) layered inside it, plus
        its own white inset box-shadow ring (1px closed, 2px open). Left
-       alone, the ring reads as a lighter inner box, and because the
-       wrapper and input each get their own background/border from the
-       broad Controls/Shared/icon-button rules — and :hover only lands on
-       the element actually under the cursor — the two could render as a
-       two-tone seam. Flatten the whole control into one surface: drop
-       the ring, make the inner input's background transparent so it
-       always reveals the wrapper, and pin the border transparent. The
-       doubled [class] plus :hover/:active variants raise specificity
-       above Carbon's `.dropdown-display.is-open` ring and our own later,
-       equal-specificity hover/active rules, so these always win. */
+       alone, the ring reads as a lighter inner box; the wrapper and
+       input each pick up their own background from the broad Controls
+       rule (surface0) while the trigger's own popup list is mantle, so
+       the open dropdown looked two-tone (lighter bar over a darker
+       list); and since :hover only lands on the element under the
+       cursor, the wrapper and input could also diverge on hover.
+       Flatten the whole dropdown into one surface that matches its
+       list: mantle background on the wrapper in every state, transparent
+       background on the inner input so it always reveals the wrapper,
+       no ring, and a transparent border. The doubled [class] plus the
+       :hover/:active variants raise specificity above Carbon's
+       `.dropdown-display.is-open` ring and our own later,
+       equal-specificity Controls/hover/active rules, so these win. */
     [class*="dropdown-display" i][class]:not(:disabled),
     [class*="dropdown-display" i][class]:not(:disabled):hover,
     [class*="dropdown-display" i][class]:not(:disabled):active {
+      background-color: @mantle;
       box-shadow: none;
       border-color: transparent;
     }
