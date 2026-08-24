@@ -132,15 +132,23 @@
       box-shadow: 0 0 0 2px @accent inset;
     }
 
-    /* The dropdown trigger and its nested search input (both matched by
-       this, since the input's own class is "...dropdown-display-text")
-       otherwise pick up a visible border-color from the hover/active/
-       icon-button rules below — mismatched between the two, since only
-       one of them has a real border-width. Keep the box-shadow ring
-       above as the only "active" indicator and never let this pair show
-       a border. The doubled [class] and the :hover/:active variants
-       raise specificity above those hover/active rules (which are equal
-       specificity and come later in source), so this always wins. */
+    /* Carbon's dropdown trigger is a wrapper (...dropdown-display) with
+       a search <input> (...dropdown-display-text) layered inside it.
+       Both otherwise get their own background/border from the broad
+       Controls/Shared/icon-button rules, and since :hover only lands on
+       the element actually under the cursor, the two could end up in
+       different states and show a two-tone seam. Make the inner input
+       fully transparent so it always reveals the wrapper's background,
+       and pin the wrapper's border transparent so the accent box-shadow
+       ring above is its only outline. The doubled [class] plus the
+       :hover/:active variants raise specificity above the later,
+       equal-specificity hover/active rules so these always win. */
+    [class*="dropdown-display-text" i][class]:not(:disabled),
+    [class*="dropdown-display-text" i][class]:not(:disabled):hover,
+    [class*="dropdown-display-text" i][class]:not(:disabled):active {
+      background-color: transparent;
+    }
+
     [class*="dropdown-display" i][class]:not(:disabled),
     [class*="dropdown-display" i][class]:not(:disabled):hover,
     [class*="dropdown-display" i][class]:not(:disabled):active {
