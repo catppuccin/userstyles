@@ -137,9 +137,13 @@
        otherwise pick up a visible border-color from the hover/active/
        icon-button rules below — mismatched between the two, since only
        one of them has a real border-width. Keep the box-shadow ring
-       above as the only "active" indicator and never let this pair
-       show a border. */
-    [class*="dropdown-display" i]:not(:disabled) {
+       above as the only "active" indicator and never let this pair show
+       a border. The doubled [class] and the :hover/:active variants
+       raise specificity above those hover/active rules (which are equal
+       specificity and come later in source), so this always wins. */
+    [class*="dropdown-display" i][class]:not(:disabled),
+    [class*="dropdown-display" i][class]:not(:disabled):hover,
+    [class*="dropdown-display" i][class]:not(:disabled):active {
       border-color: transparent;
     }
 
