@@ -125,34 +125,30 @@
       border-color: @surface0;
     }
 
-    /* Carbon draws a white inset ring around an open dropdown's trigger
-       to show it's active; recolor it to match the theme instead of
-       leaving Carbon's default white. */
-    [aria-expanded="true"] [class*="dropdown-display" i] {
-      box-shadow: 0 0 0 2px @accent inset;
+    /* Carbon's dropdown trigger is a wrapper (...dropdown-display) with a
+       search <input> (...dropdown-display-text) layered inside it, plus
+       its own white inset box-shadow ring (1px closed, 2px open). Left
+       alone, the ring reads as a lighter inner box, and because the
+       wrapper and input each get their own background/border from the
+       broad Controls/Shared/icon-button rules — and :hover only lands on
+       the element actually under the cursor — the two could render as a
+       two-tone seam. Flatten the whole control into one surface: drop
+       the ring, make the inner input's background transparent so it
+       always reveals the wrapper, and pin the border transparent. The
+       doubled [class] plus :hover/:active variants raise specificity
+       above Carbon's `.dropdown-display.is-open` ring and our own later,
+       equal-specificity hover/active rules, so these always win. */
+    [class*="dropdown-display" i][class]:not(:disabled),
+    [class*="dropdown-display" i][class]:not(:disabled):hover,
+    [class*="dropdown-display" i][class]:not(:disabled):active {
+      box-shadow: none;
+      border-color: transparent;
     }
 
-    /* Carbon's dropdown trigger is a wrapper (...dropdown-display) with
-       a search <input> (...dropdown-display-text) layered inside it.
-       Both otherwise get their own background/border from the broad
-       Controls/Shared/icon-button rules, and since :hover only lands on
-       the element actually under the cursor, the two could end up in
-       different states and show a two-tone seam. Make the inner input
-       fully transparent so it always reveals the wrapper's background,
-       and pin the wrapper's border transparent so the accent box-shadow
-       ring above is its only outline. The doubled [class] plus the
-       :hover/:active variants raise specificity above the later,
-       equal-specificity hover/active rules so these always win. */
     [class*="dropdown-display-text" i][class]:not(:disabled),
     [class*="dropdown-display-text" i][class]:not(:disabled):hover,
     [class*="dropdown-display-text" i][class]:not(:disabled):active {
       background-color: transparent;
-    }
-
-    [class*="dropdown-display" i][class]:not(:disabled),
-    [class*="dropdown-display" i][class]:not(:disabled):hover,
-    [class*="dropdown-display" i][class]:not(:disabled):active {
-      border-color: transparent;
     }
 
     /* Controls. `:not(:disabled)` is a no-op functionally (nothing here
