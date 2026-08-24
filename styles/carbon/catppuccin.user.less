@@ -132,11 +132,17 @@
       box-shadow: 0 0 0 2px @accent inset;
     }
 
-    /* Controls. */
-    button,
-    input,
-    select,
-    textarea,
+    /* Controls. `:not(:disabled)` is a no-op functionally (nothing here
+       is disabled), but it bumps these plain element selectors up to
+       attribute-selector specificity so they reliably win over the
+       "Shared surfaces" [class*="dropdown"] rule for inputs nested
+       inside a dropdown trigger (e.g. Carbon's searchable language
+       picker) — otherwise the two rules tie and the wrapper and its
+       inner <input> end up with mismatched backgrounds. */
+    button:not(:disabled),
+    input:not(:disabled),
+    select:not(:disabled),
+    textarea:not(:disabled),
     [role="button"],
     [class*="Button"],
     [class*="button"],
