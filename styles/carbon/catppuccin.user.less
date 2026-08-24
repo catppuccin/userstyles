@@ -119,7 +119,9 @@
     [class*="Dropdown"],
     [class*="dropdown"],
     [class*="Menu"],
-    [class*="menu"] {
+    [class*="menu"],
+    [class*="Popout"],
+    [class*="popout"] {
       background-color: @mantle;
       color: @text;
       border-color: @surface0;
@@ -309,8 +311,14 @@
       border-color: @blue;
     }
 
-    [class*="Export"],
-    [class*="export"],
+    /* Export uses the configured accent. `:not([class*="row"])` keeps
+       this off the export popout's `export-row` containers — those hold
+       the File name / Size / Open / Download controls and should read as
+       part of the popout surface, not as accent-tinted bars — while the
+       toolbar's `export-container`/`export-menu-container` still get the
+       accent highlight. */
+    [class*="Export"]:not([class*="row" i]),
+    [class*="export"]:not([class*="row" i]),
     button[aria-label*="Export"],
     button[title*="Export"] {
       background-color: fade(@accent, 18%);
@@ -318,8 +326,8 @@
       border-color: @accent;
     }
 
-    [class*="Export"]:hover,
-    [class*="export"]:hover,
+    [class*="Export"]:not([class*="row" i]):hover,
+    [class*="export"]:not([class*="row" i]):hover,
     button[aria-label*="Export"]:hover,
     button[title*="Export"]:hover {
       background-color: fade(@accent, 30%);
