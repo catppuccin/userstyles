@@ -194,7 +194,12 @@
     /* input/select/textarea included here (not just button) so a
        dropdown trigger's wrapper and its nested search <input> (e.g.
        Carbon's language picker) stay in sync on hover/active instead
-       of only the wrapper changing shade. */
+       of only the wrapper changing shade.
+       `background-color` is !important because Carbon hard-codes a
+       near-black `background-color: #1f1f1f !important` on the hover of
+       several action buttons (Tweet, Export, copy, …); without it those
+       buttons flip to black on hover, which is jarring in the light
+       flavors. Overriding an upstream !important is the sanctioned use. */
     button:hover,
     input:hover,
     select:hover,
@@ -202,7 +207,7 @@
     [role="button"]:hover,
     [class*="Button"]:hover,
     [class*="button"]:hover {
-      background-color: @surface1;
+      background-color: @surface1 !important;
       color: @accent;
       border-color: @accent;
     }
@@ -214,7 +219,7 @@
     [role="button"]:active,
     [class*="Button"]:active,
     [class*="button"]:active {
-      background-color: @surface2;
+      background-color: @surface2 !important;
       color: @accent;
       border-color: @accent;
     }
@@ -246,11 +251,14 @@
       border-color: @surface1;
     }
 
+    /* !important on the background for the same reason as the control
+       hover above: Carbon forces a near-black hover background on these
+       icon buttons with !important. */
     button:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]):hover,
     [role="button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]):hover,
     [class*="Button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]):hover,
     [class*="button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]):hover {
-      background-color: @surface1;
+      background-color: @surface1 !important;
       color: @lavender;
       border-color: @lavender;
     }
