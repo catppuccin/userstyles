@@ -144,9 +144,13 @@
        the :hover/:active variants raise specificity above Carbon's
        `.dropdown-display.is-open` ring and our own later,
        equal-specificity Controls/hover/active rules, so these win. */
-    [class*="dropdown-display" i][class]:not(:disabled),
-    [class*="dropdown-display" i][class]:not(:disabled):hover,
-    [class*="dropdown-display" i][class]:not(:disabled):active {
+    /* `:not([class*="-text"])` so this hits only the outer wrapper, not
+       the inner ...dropdown-display-text <input> (whose class also
+       contains "dropdown-display") — otherwise both get the ring and it
+       reads as a doubled inner/outer border. */
+    [class*="dropdown-display" i][class]:not([class*="-text" i]):not(:disabled),
+    [class*="dropdown-display" i][class]:not([class*="-text" i]):not(:disabled):hover,
+    [class*="dropdown-display" i][class]:not([class*="-text" i]):not(:disabled):active {
       background-color: @mantle;
       box-shadow: 0 0 0 1px @surface1 inset;
       border-color: transparent;
@@ -165,6 +169,7 @@
     [class*="dropdown" i][class*="-text" i][class]:not(:disabled):hover,
     [class*="dropdown" i][class*="-text" i][class]:not(:disabled):active {
       background-color: transparent;
+      box-shadow: none;
     }
 
     /* Controls. `:not(:disabled)` is a no-op functionally (nothing here
