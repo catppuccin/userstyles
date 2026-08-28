@@ -17,7 +17,7 @@ A key tenant of the userstyles philosophy is starting with a complete version. G
 
 ## Reviewing source code
 
-Even if a userstyle is well-themed, it's also important to check that it is written well and maintainable. For example, if a website makes use of CSS variables but the userstyle is lengthy and themed using classes instead, it's often worth switching over for consistency, simplicity, and maintainability.
+Even if a userstyle is well-_themed_, it's also important that it is maintainable and _written_ well. For example, if a userstyle themes a website by targeting individual element selectors, but the website primarily makes use of a set of CSS variables under the hood, it's generally worth switching to the latter.
 
 - Organization is key. Some strategies include organization by page or component type (e.g. buttons and inputs in one section, cards and surfaces in another, etc.). Consistent comment annotations is best.
 - Importantly, ensure palette colors are used aptly and appropriately.
