@@ -1,0 +1,319 @@
+/* ==UserStyle==
+@name         LTT Labs — Catppuccin
+@namespace    github.com/catppuccin/userstyles/styles/lttlabs.com
+@homepageURL  https://github.com/catppuccin/userstyles/tree/main/styles/lttlabs.com
+@version      2000.01.01
+@updateURL    https://github.com/catppuccin/userstyles/raw/main/styles/lttlabs.com/catppuccin.user.less
+@supportURL   https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Alttlabs.com
+@description  Soothing pastel theme for lttlabs.com with improved surfaces/contrast + remapped accents.
+@author       Catppuccin
+@license      MIT
+@preprocessor less
+
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor  "Dark Flavor"  ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "sky:Sky", "sapphire:Sapphire", "blue:Blue", "lavender:Lavender", "text:Text", "subtext1:Subtext 1", "subtext0:Subtext 0", "overlay2:Overlay 2", "overlay1:Overlay 1", "overlay0:Overlay 0", "surface2:Surface 2", "surface1:Surface 1", "surface0:Surface 0"]
+==/UserStyle== */
+
+@-moz-document domain("lttlabs.com") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    /* extra accents for gradients */
+    @accent2: @pink;
+    @accent3: @blue;
+
+    /***************
+     * Site variable remaps
+     ***************/
+    body.theme-dark {
+      color-scheme: dark;
+
+      --custom-content-bg: @base;
+      --custom-nav-bg: @crust;
+      --custom-border: fade(@surface1, 85%);
+
+      --custom-text: @text;
+      --custom-text-muted: @subtext0;
+      --custom-white: @text;
+
+      /* these expect RGB triplets */
+      --custom-category: red(@mauve) green(@mauve) blue(@mauve);
+      --gradient-base: red(@mauve) green(@mauve) blue(@mauve);
+      --gradient-mid: red(@pink) green(@pink) blue(@pink);
+      --gradient-to: red(@lavender) green(@lavender) blue(@lavender);
+    }
+
+    /***************
+     * Global background + text
+     ***************/
+    html,
+    body.theme-dark {
+      background:
+        radial-gradient(
+          1200px 800px at 20% -10%,
+          color-mix(in srgb, @mauve 18%, transparent),
+          transparent 60%
+        ),
+        radial-gradient(
+        900px 600px at 90% 10%,
+        color-mix(in srgb, @blue 16%, transparent),
+        transparent 55%
+      ),
+        @base !important;
+      color: @text !important;
+    }
+
+    /***************
+     * Utility color fixes
+     ***************/
+    body.theme-dark .bg-black,
+    body.theme-dark .theme-dark\:bg-black {
+      background-color: @crust !important;
+    }
+
+    body.theme-dark .bg-neutral-900 {
+      background-color: @crust !important;
+    }
+    body.theme-dark .bg-neutral-800 {
+      background-color: @mantle !important;
+    }
+    body.theme-dark .bg-neutral-700 {
+      background-color: @surface0 !important;
+    }
+
+    body.theme-dark .text-white,
+    body.theme-dark .text-custom-text {
+      color: @text !important;
+    }
+
+    body.theme-dark .text-custom-text-muted {
+      color: @subtext0 !important;
+    }
+
+    body.theme-dark .border-black,
+    body.theme-dark .border-custom-border {
+      border-color: @surface1 !important;
+    }
+
+    /***************
+     * Links
+     ***************/
+    body.theme-dark a {
+      color: @lavender;
+    }
+    body.theme-dark a:hover {
+      color: @pink;
+    }
+
+    body.theme-dark a:focus-visible,
+    body.theme-dark button:focus-visible,
+    body.theme-dark input:focus-visible,
+    body.theme-dark select:focus-visible,
+    body.theme-dark textarea:focus-visible {
+      outline: 2px solid @accent !important;
+      outline-offset: 2px !important;
+    }
+
+    /***************
+     * “Labs gradient” treatments
+     ***************/
+    body.theme-dark .text-labs-gradient,
+    body.theme-dark .group-hover\:text-labs-gradient {
+      color: @accent !important;
+    }
+    body.theme-dark .after\:bg-labs-gradient::after {
+      background: linear-gradient(90deg, @accent, @accent2, @accent3)
+        !important;
+    }
+
+    /***************
+     * Beta banner + blue callouts
+     ***************/
+    body.theme-dark .bg-blue-600,
+    body.theme-dark .bg-blue-500 {
+      background: linear-gradient(
+        90deg,
+        color-mix(in srgb, @mauve 90%, @crust),
+        color-mix(in srgb, @blue 85%, @crust)
+      ) !important;
+      color: @crust !important;
+    }
+    body.theme-dark .bg-blue-600 a,
+    body.theme-dark .bg-blue-500 a {
+      color: @crust !important;
+      border-color: color-mix(in srgb, @crust 70%, transparent) !important;
+    }
+
+    /***************
+     * Cards / panels
+     ***************/
+    body.theme-dark .md\:shadow-lg,
+    body.theme-dark .shadow-lg,
+    body.theme-dark .shadow-2xl {
+      box-shadow: 0 10px 30px rgba(17, 17, 27, 0.55) !important;
+    }
+
+    body.theme-dark .theme-dark\:bg-neutral-800,
+    body.theme-dark .theme-dark\:border-transparent {
+      background-color: @mantle !important;
+    }
+
+    body.theme-dark .group\/articlecard,
+    body.theme-dark [class*="articlecard"],
+    body.theme-dark [class*="product"] .theme-dark\:bg-neutral-800,
+    body.theme-dark [class*="card"] {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+    }
+
+    /***************
+     * Inputs
+     ***************/
+    body.theme-dark input,
+    body.theme-dark textarea,
+    body.theme-dark select {
+      background-color: @mantle !important;
+      color: @text !important;
+      border-color: @surface1 !important;
+      outline: none !important;
+    }
+    body.theme-dark input::placeholder,
+    body.theme-dark textarea::placeholder {
+      color: @overlay0 !important;
+    }
+    body.theme-dark input:focus,
+    body.theme-dark textarea:focus,
+    body.theme-dark select:focus {
+      border-color: @accent !important;
+      box-shadow: 0 0 0 3px color-mix(in srgb, @accent 30%, transparent)
+        !important;
+    }
+
+    /***************
+     * Buttons
+     ***************/
+    body.theme-dark button,
+    body.theme-dark a[role="button"] {
+      border-color: @surface1 !important;
+    }
+
+    body.theme-dark button.bg-black,
+    body.theme-dark a.bg-black,
+    body.theme-dark button[class*="bg-"][class*="text-white"],
+    body.theme-dark a[class*="bg-"][class*="text-white"] {
+      background: linear-gradient(
+        90deg,
+        color-mix(in srgb, @accent 85%, @crust),
+        color-mix(in srgb, @accent3 70%, @crust)
+      ) !important;
+      color: @crust !important;
+      border: 1px solid color-mix(in srgb, @accent 55%, @surface1) !important;
+    }
+    body.theme-dark button.bg-black:hover,
+    body.theme-dark a.bg-black:hover {
+      filter: brightness(1.06);
+    }
+
+    /***************
+     * Category chips under the search box
+     ***************/
+    body.theme-dark [data-testid="search-section"] a,
+    body.theme-dark [data-testid="search-section"] button {
+      border-radius: 10px !important;
+    }
+
+    body.theme-dark [data-testid="search-section"] [class*="flex-wrap"] > * {
+      background-color: @surface0 !important;
+      color: @text !important;
+      border: 1px solid @surface1 !important;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body.theme-dark
+      [data-testid="search-section"]
+      [class*="flex-wrap"]
+      > *::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 6px;
+      background: @accent;
+    }
+
+    body.theme-dark
+      [data-testid="search-section"]
+      [class*="flex-wrap"]
+      > *:nth-child(1)::before {
+      background: @peach;
+    } /* Keyboards */
+    body.theme-dark
+      [data-testid="search-section"]
+      [class*="flex-wrap"]
+      > *:nth-child(2)::before {
+      background: @mauve;
+    } /* GPUs */
+    body.theme-dark
+      [data-testid="search-section"]
+      [class*="flex-wrap"]
+      > *:nth-child(3)::before {
+      background: @yellow;
+    } /* PSUs */
+    body.theme-dark
+      [data-testid="search-section"]
+      [class*="flex-wrap"]
+      > *:nth-child(4)::before {
+      background: @teal;
+    } /* Mice */
+
+    /***************
+     * Scrollbars
+     ***************/
+    body.theme-dark * {
+      scrollbar-color: @surface2 @crust;
+    }
+    body.theme-dark ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+    body.theme-dark ::-webkit-scrollbar-track {
+      background: @crust;
+    }
+    body.theme-dark ::-webkit-scrollbar-thumb {
+      background: @surface2;
+      border: 3px solid @crust;
+      border-radius: 12px;
+    }
+    body.theme-dark ::-webkit-scrollbar-thumb:hover {
+      background: @overlay0;
+    }
+
+    /***************
+     * Tables
+     ***************/
+    body.theme-dark table {
+      background: @mantle !important;
+      border-color: @surface1 !important;
+    }
+    body.theme-dark th {
+      background: @crust !important;
+      color: @text !important;
+      border-color: @surface1 !important;
+    }
+    body.theme-dark td {
+      border-color: @surface1 !important;
+      color: @subtext1 !important;
+    }
+  }
+}
