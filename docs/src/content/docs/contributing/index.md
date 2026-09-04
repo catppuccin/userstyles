@@ -3,6 +3,7 @@ title: Contributing
 description: Contribution guidelines for the Catppuccin Userstyles project.
 sidebar:
   label: Overview
+  order: 1
 ---
 
 If it is your first time contributing to a project on GitHub, please see the popular [first-contributions](https://github.com/firstcontributions/first-contributions) repository. This will give you hands-on experience with the features of GitHub required to make a contribution. As always, feel free to join our [Discord](https://discord.com/servers/catppuccin-907385605422448742) to ask any questions and clarify your understanding, we are more than happy to help!
