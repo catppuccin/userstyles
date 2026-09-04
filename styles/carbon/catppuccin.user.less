@@ -1,0 +1,486 @@
+/* ==UserStyle==
+@name Carbon Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/carbon
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/carbon
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/carbon/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Acarbon
+@description Soothing pastel theme for Carbon
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/std/v1.less";
+
+@-moz-document domain("carbon.now.sh") {
+  /* Tripled for specificity, so overrides win without needing !important. */
+  :root:root:root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    scrollbar-color: @surface2 @mantle;
+
+    /* `html&` (not `html`) because the tripled :root ancestor is applied
+       as a descendant combinator; html has no ancestor element, so a
+       plain `html` selector here would never match anything. */
+    html&,
+    body,
+    #__next,
+    main {
+      background-color: @base;
+      color: @text;
+    }
+
+    a,
+    a:visited {
+      color: @blue;
+
+      &:hover {
+        color: @sky;
+      }
+    }
+
+    ::selection {
+      background-color: fade(@accent, 30%);
+      color: @text;
+    }
+
+    /* Page chrome and large header. */
+    header,
+    nav,
+    aside,
+    footer,
+    section,
+    main > div:first-child,
+    main > section:first-child,
+    [role="banner"],
+    [role="navigation"],
+    [class*="Header"],
+    [class*="header"],
+    [class*="Hero"],
+    [class*="hero"],
+    [class*="Logo"],
+    [class*="logo"],
+    [class*="Title"],
+    [class*="title"] {
+      background-color: transparent;
+      color: @text;
+    }
+
+    h1,
+    h1 * {
+      background-color: transparent;
+      color: @text;
+    }
+
+    h2,
+    h2 *,
+    p,
+    span,
+    label,
+    small,
+    strong,
+    em {
+      color: @text;
+    }
+
+    /* Shared surfaces. */
+    [role="toolbar"],
+    [role="dialog"],
+    [role="menu"],
+    [role="listbox"],
+    [class*="Toolbar"],
+    [class*="toolbar"],
+    [class*="Panel"],
+    [class*="panel"],
+    [class*="Popover"],
+    [class*="popover"],
+    [class*="Modal"],
+    [class*="modal"],
+    [class*="Dialog"],
+    [class*="dialog"],
+    [class*="Settings"],
+    [class*="settings"],
+    [class*="Dropdown"],
+    [class*="dropdown"],
+    [class*="Menu"],
+    [class*="menu"],
+    [class*="Popout"],
+    [class*="popout"] {
+      background-color: @mantle;
+      color: @text;
+      border-color: @surface0;
+    }
+
+    /* Carbon's dropdown trigger is a wrapper (...dropdown-display) with a
+       search <input> (...dropdown-display-text) layered inside it, plus
+       its own white inset box-shadow ring (1px closed, 2px open). Left
+       alone, the wrapper and input each pick up their own background
+       from the broad Controls rule (surface0) while the trigger's own
+       popup list is mantle, so the open dropdown looked two-tone
+       (lighter bar over a darker list); and since :hover only lands on
+       the element under the cursor, the wrapper and input could also
+       diverge on hover. Flatten the whole dropdown into one surface that
+       matches its list: mantle background on the wrapper in every state,
+       transparent background on the inner input so it always reveals the
+       wrapper. Carbon's ring is its border, so recolor it (rather than
+       remove it) to a themed surface1 so the trigger keeps a subtle,
+       themed outline instead of a white one. The doubled [class] plus
+       the :hover/:active variants raise specificity above Carbon's
+       `.dropdown-display.is-open` ring and our own later,
+       equal-specificity Controls/hover/active rules, so these win. */
+    /* `:not([class*="-text"])` so this hits only the outer wrapper, not
+       the inner ...dropdown-display-text <input> (whose class also
+       contains "dropdown-display") — otherwise both get the ring and it
+       reads as a doubled inner/outer border. */
+    [class*="dropdown-display" i][class]:not([class*="-text" i]):not(:disabled),
+    [class*="dropdown-display" i][class]:not([class*="-text" i]):not(:disabled):hover,
+    [class*="dropdown-display" i][class]:not([class*="-text" i]):not(:disabled):active {
+      background-color: @mantle;
+      box-shadow: 0 0 0 1px @surface1 inset;
+      border-color: transparent;
+    }
+
+    /* Every dropdown text element — the trigger's search input
+       (...dropdown-display-text) and each list row's label
+       (...dropdown-list-item-text) — is a child that carries its own
+       background. On hover the parent (li[role="option"] / the wrapper)
+       changes shade but the inner text element does not, leaving a
+       two-tone seam. Make all of them transparent so they always reveal
+       their parent's background in every state. The combined
+       [class*="dropdown"][class*="-text"] matches only these text
+       children, never the wrappers/rows themselves. */
+    [class*="dropdown" i][class*="-text" i][class]:not(:disabled),
+    [class*="dropdown" i][class*="-text" i][class]:not(:disabled):hover,
+    [class*="dropdown" i][class*="-text" i][class]:not(:disabled):active {
+      background-color: transparent;
+      box-shadow: none;
+    }
+
+    /* Controls. `:not(:disabled)` is a no-op functionally (nothing here
+       is disabled), but it bumps these plain element selectors up to
+       attribute-selector specificity so they reliably win over the
+       "Shared surfaces" [class*="dropdown"] rule for inputs nested
+       inside a dropdown trigger (e.g. Carbon's searchable language
+       picker) — otherwise the two rules tie and the wrapper and its
+       inner <input> end up with mismatched backgrounds. */
+    button:not(:disabled),
+    input:not(:disabled),
+    select:not(:disabled),
+    textarea:not(:disabled),
+    [role="button"],
+    [class*="Button"],
+    [class*="button"],
+    [class*="Select"],
+    [class*="select"],
+    [class*="Input"],
+    [class*="input"],
+    [class*="Control"],
+    [class*="control"] {
+      background-color: @surface0;
+      color: @text;
+      border-color: @surface1;
+    }
+
+    /* input/select/textarea included here (not just button) so a
+       dropdown trigger's wrapper and its nested search <input> (e.g.
+       Carbon's language picker) stay in sync on hover/active instead
+       of only the wrapper changing shade.
+       `background-color` is !important because Carbon hard-codes a
+       near-black `background-color: #1f1f1f !important` on the hover of
+       several action buttons (Tweet, Export, copy, …); without it those
+       buttons flip to black on hover, which is jarring in the light
+       flavors. Overriding an upstream !important is the sanctioned use. */
+    button:hover,
+    input:hover,
+    select:hover,
+    textarea:hover,
+    [role="button"]:hover,
+    [class*="Button"]:hover,
+    [class*="button"]:hover {
+      background-color: @surface1 !important;
+      color: @accent;
+      border-color: @accent;
+    }
+
+    button:active,
+    input:active,
+    select:active,
+    textarea:active,
+    [role="button"]:active,
+    [class*="Button"]:active,
+    [class*="button"]:active {
+      background-color: @surface2 !important;
+      color: @accent;
+      border-color: @accent;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    [role="button"]:focus-visible {
+      outline-color: @accent;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: @subtext0;
+    }
+
+    /* Icon buttons should use subtle Catppuccin surfaces. Excludes
+       dropdown triggers (e.g. Carbon's language picker) — those also
+       contain a small caret svg so they'd otherwise match here too,
+       hovering to lavender while the input nested inside them hovers
+       to the regular accent color instead. */
+    button:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]),
+    [role="button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]),
+    [class*="Button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]),
+    [class*="button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]) {
+      background-color: @surface0;
+      color: @text;
+      border-color: @surface1;
+      /* Carbon outlines these icon buttons (settings, copy, the github
+         sign-in button, …) with a white inset box-shadow ring; recolor
+         it to a themed surface1 so the outline isn't an unthemed white. */
+      box-shadow: 0 0 0 1px @surface1 inset;
+    }
+
+    /* !important on the background for the same reason as the control
+       hover above: Carbon forces a near-black hover background on these
+       icon buttons with !important. */
+    button:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]):hover,
+    [role="button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]):hover,
+    [class*="Button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]):hover,
+    [class*="button"]:has(svg):not([class*="Dropdown"]):not([class*="dropdown"]):hover {
+      background-color: @surface1 !important;
+      color: @lavender;
+      border-color: @lavender;
+    }
+
+    /* The GitHub sign-in button (top right) renders its icon as a CSS
+       background rather than an <svg>, so it misses the icon-button rule
+       above and keeps Carbon's white inset ring. Give it the same themed
+       surface and ring. */
+    [class*="profile-button" i] {
+      background-color: @surface0;
+      color: @text;
+      box-shadow: 0 0 0 1px @surface1 inset;
+    }
+
+    /* The background-colour picker's swatch button also carries Carbon's
+       white inset ring but no svg, so it too misses the icon-button
+       rule. Recolor only its ring — its background stays as the picked
+       colour preview. */
+    [class*="bg-select-display" i] {
+      box-shadow: 0 0 0 1px @surface1 inset !important;
+    }
+
+    /* Each dropdown's leading icon cell (dropdown-icon — the palette /
+       globe box) is a separate element with its own white inset ring,
+       so it needs recoloring alongside the dropdown-display next to it;
+       otherwise the control shows a themed border on one half and a
+       white one on the icon half. */
+    [class*="dropdown-icon" i] {
+      box-shadow: 0 0 0 1px @surface1 inset !important;
+    }
+
+    svg,
+    svg path,
+    svg circle,
+    svg rect,
+    svg line,
+    svg polyline,
+    svg polygon {
+      color: currentcolor;
+      stroke: currentcolor;
+    }
+
+    /* Menu items. */
+    [role="option"],
+    [role="menuitem"],
+    [class*="Option"],
+    [class*="option"],
+    [class*="MenuItem"],
+    [class*="menuItem"],
+    [class*="DropdownItem"],
+    [class*="dropdownItem"] {
+      background-color: @mantle;
+      color: @text;
+      border-color: @surface0;
+    }
+
+    [role="option"]:hover,
+    [role="menuitem"]:hover,
+    [class*="Option"]:hover,
+    [class*="option"]:hover,
+    [class*="MenuItem"]:hover,
+    [class*="menuItem"]:hover,
+    [class*="DropdownItem"]:hover,
+    [class*="dropdownItem"]:hover {
+      background-color: @surface0;
+      color: @accent;
+    }
+
+    /* Carbon action accents. Tweet uses blue, Export uses the configured accent. */
+    [class*="Tweet"],
+    [class*="tweet"],
+    button[aria-label*="Tweet"],
+    button[title*="Tweet"] {
+      background-color: fade(@blue, 18%);
+      color: @blue;
+      border-color: @blue;
+    }
+
+    [class*="Tweet"]:hover,
+    [class*="tweet"]:hover,
+    button[aria-label*="Tweet"]:hover,
+    button[title*="Tweet"]:hover {
+      background-color: fade(@blue, 30%);
+      color: @blue;
+      border-color: @blue;
+    }
+
+    /* Export uses the configured accent. `:not([class*="row"])` keeps
+       this off the export popout's `export-row` containers — those hold
+       the File name / Size / Open / Download controls and should read as
+       part of the popout surface, not as accent-tinted bars — while the
+       toolbar's `export-container`/`export-menu-container` still get the
+       accent highlight. */
+    [class*="Export"]:not([class*="row" i]),
+    [class*="export"]:not([class*="row" i]),
+    button[aria-label*="Export"],
+    button[title*="Export"] {
+      background-color: fade(@accent, 18%);
+      color: @accent;
+      border-color: @accent;
+    }
+
+    [class*="Export"]:not([class*="row" i]):hover,
+    [class*="export"]:not([class*="row" i]):hover,
+    button[aria-label*="Export"]:hover,
+    button[title*="Export"]:hover {
+      background-color: fade(@accent, 30%);
+      color: @accent;
+      border-color: @accent;
+    }
+
+    /* Tweet and Export are split buttons (text half + dropdown-arrow
+       half). Carbon outlines both halves with a matching inset ring
+       (blue for Tweet, accent-ish for Export), but the arrow half has an
+       svg so it gets recolored to surface1 by the icon-button rule while
+       the text half keeps Carbon's colour — leaving each split button
+       with a two-tone, broken-looking outline. Recolor both halves of
+       each container to one themed ring (Tweet blue, Export accent).
+       !important overrides the icon-button rule's higher specificity. */
+    [class*="share-menu-container" i] button:not(:disabled) {
+      box-shadow: 0 0 0 1px @blue inset !important;
+    }
+
+    [class*="export-menu-container" i] button:not(:disabled) {
+      box-shadow: 0 0 0 1px @accent inset !important;
+    }
+
+    /* The export popout's controls (filename field, the 1x/2x/4x size
+       buttons, Open, Download PNG/SVG) otherwise take the Controls
+       surface0 and read as lighter boxes floating on the mantle popout.
+       Give them the mantle surface so they blend into the panel — the
+       input keeps its surface1 border for affordance, and the buttons
+       get a surface0 hover for feedback. The descendant
+       [class*="popout"] context outranks the bare Controls rules. */
+    [class*="Popout"] input:not(:disabled),
+    [class*="popout"] input:not(:disabled),
+    [class*="Popout"] button:not(:disabled),
+    [class*="popout"] button:not(:disabled) {
+      background-color: @mantle;
+    }
+
+    [class*="Popout"] button:not(:disabled):hover,
+    [class*="popout"] button:not(:disabled):hover {
+      background-color: @surface0;
+      color: @accent;
+    }
+
+    /* The code card's title bar is the user's artwork, not our chrome:
+       its backdrop is the chosen export background. But `window-controls`
+       matches the Controls rule via [class*="control"], and the title
+       field (aria-label "Image title") matches the `input` rule, so both
+       otherwise paint surface0 boxes over the card. Make them transparent
+       to reveal the card behind them. */
+    /* !important so the title field stays transparent even on hover:
+       the control hover rule above sets `background-color: @surface1
+       !important`, which would otherwise repaint this field as a grey
+       box in the card's title bar. */
+    [class*="window-control" i],
+    input[aria-label="Image title" i]:not(:disabled),
+    input[aria-label="Image title" i]:not(:disabled):hover,
+    input[aria-label="Image title" i]:not(:disabled):focus {
+      background-color: transparent !important;
+      border-color: transparent !important;
+    }
+
+    /* Color picker and swatches. */
+    input[type="color"],
+    [class*="Color"],
+    [class*="color"],
+    [class*="Swatch"],
+    [class*="swatch"],
+    [class*="Picker"],
+    [class*="picker"] {
+      background-color: @surface0;
+      color: @text;
+      border-color: @surface1;
+    }
+
+    /* Preview/export area. Carbon wraps the toolbar and code card in an
+       opaque "editor" div that otherwise keeps its own near-black
+       background, so it needs a background-color like the rest.
+       `Window`/`window` are deliberately excluded: the only matches are
+       the code card's own `window-controls` title bar and
+       `window-theme` code container, which are the user's artwork and
+       must keep the chosen export background, not our mantle. */
+    [class*="Preview"],
+    [class*="preview"],
+    [class*="Editor"],
+    [class*="editor"],
+    [class*="Container"],
+    [class*="container"],
+    [class*="Card"],
+    [class*="card"] {
+      background-color: @mantle;
+      color: @text;
+      border-color: @surface0;
+    }
+
+    ::-webkit-scrollbar {
+      background-color: @mantle;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: @mantle;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: @surface1;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: @surface2;
+    }
+  }
+}
