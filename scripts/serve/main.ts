@@ -1,5 +1,6 @@
 import { debounce } from "@std/async/debounce";
 import { parseArgs } from "@std/cli/parse-args";
+import { walk } from "@std/fs/walk";
 import { serveDir } from "@std/http/file-server";
 import * as path from "@std/path";
 import { createHash } from "node:crypto";
@@ -91,8 +92,10 @@ export function parseServeArgs(args: string[]): ServeCliOptions {
 
 export async function calculateLibChecksum(libPath: string): Promise<string> {
   const files: string[] = [];
-  for await (const entry of Deno.readDir(libPath)) {
-    if (entry.isFile) files.push(entry.name);
+  for await (
+    const entry of walk(libPath, { includeDirs: false, followSymlinks: false })
+  ) {
+    if (entry.isFile) files.push(path.relative(libPath, entry.path));
   }
   files.sort();
 
@@ -125,12 +128,13 @@ interface RequestHandlerOptions {
   getUserstyleContents: () => string;
   libPath: string;
   userstyleRoute: string;
+  rewriteLibraryContents: (contents: string) => string;
 }
 
 export function createRequestHandler(
   options: RequestHandlerOptions,
 ): (request: Request) => Response | Promise<Response> {
-  return (request) => {
+  return async (request) => {
     const pathname = new URL(request.url).pathname;
 
     if (pathname === options.userstyleRoute) {
@@ -146,11 +150,41 @@ export function createRequestHandler(
     }
 
     if (pathname === "/lib" || pathname.startsWith("/lib/")) {
-      return serveDir(request, {
-        fsRoot: options.libPath,
-        quiet: true,
-        urlRoot: "lib",
-      });
+      // A library can import another hosted library (e.g. the lib.less shim).
+      // Bypass conditional caching because its rewritten imports may change even
+      // when this particular file has not changed.
+      const headers = new Headers(request.headers);
+      headers.delete("if-none-match");
+      headers.delete("if-modified-since");
+      headers.delete("range");
+      headers.delete("if-range");
+      const response = await serveDir(
+        pathname.endsWith(".less")
+          ? new Request(request, {
+            headers,
+            method: request.method === "HEAD" ? "GET" : request.method,
+          })
+          : request,
+        {
+          fsRoot: options.libPath,
+          quiet: true,
+          urlRoot: "lib",
+        },
+      );
+      if (!response.ok || !pathname.endsWith(".less")) return response;
+
+      const responseHeaders = new Headers(response.headers);
+      responseHeaders.set("cache-control", "no-store");
+      responseHeaders.delete("content-length");
+      responseHeaders.delete("etag");
+      responseHeaders.delete("last-modified");
+      const contents = await response.text();
+      return new Response(
+        request.method === "HEAD"
+          ? null
+          : options.rewriteLibraryContents(contents),
+        { status: response.status, headers: responseHeaders },
+      );
     }
 
     return new Response("404: Not Found", { status: 404 });
@@ -188,12 +222,14 @@ export async function main(
   const serverOrigin = `http://${HOSTNAME}:${options.port}`;
   const userstyleRoute = `/styles/${options.userstyle}/${USERSTYLE_FILENAME}`;
   let servedUserstyle = "";
+  let libChecksum = "";
 
   const rebuildUserstyle = async () => {
     const [contents, checksum] = await Promise.all([
       Deno.readTextFile(userstylePath),
       calculateLibChecksum(libPath),
     ]);
+    libChecksum = checksum;
     servedUserstyle = rewriteLibraryImports(contents, serverOrigin, checksum);
   };
   await rebuildUserstyle();
@@ -210,6 +246,8 @@ export async function main(
       getUserstyleContents: () => servedUserstyle,
       libPath,
       userstyleRoute,
+      rewriteLibraryContents: (contents) =>
+        rewriteLibraryImports(contents, serverOrigin, libChecksum),
     }),
   );
 
