@@ -1,0 +1,3370 @@
+/* ==UserStyle==
+@name Old Reddit Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/old.reddit.com
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/old.reddit.com
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/old.reddit.com/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aold.reddit.com
+@description Soothing pastel theme for Old Reddit
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var checkbox flairColors "Theme subreddit flair colours" 0
+@var select threadColors "Comment threads" ["off:Off*", "rainbow:Rainbow", "warm:Warm", "cool:Cool", "shade:Accent shades", "neutral:Neutral", "custom:Custom"]
+@var select threadStrength "Comment threads — strength" ["100:Full", "70:Muted*", "45:Faint"]
+@var select threadColor1 "Comment threads — custom 1" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red*", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select threadColor2 "Comment threads — custom 2" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach*", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select threadColor3 "Comment threads — custom 3" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow*", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select threadColor4 "Comment threads — custom 4" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green*", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select threadColor5 "Comment threads — custom 5" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue*", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+@var select threadColor6 "Comment threads — custom 6" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/std/v1.less";
+
+@-moz-document domain("reddit.com") {
+  // `body > #header` exists only on old reddit, on either domain.
+  // RES night mode is the only light/dark state, so it decides the flavor.
+  body:has(> #header) {
+    #catppuccin(@lightFlavor);
+  }
+
+  // No RES (bare `res` class), so the system preference is all there is.
+  @media (prefers-color-scheme: dark) {
+    body:not(.res):has(> #header) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  // RES classes body too; last and one class more specific, so it wins.
+  body.res-nightmode:has(> #header) {
+    #catppuccin(@darkFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    background-color: @base !important;
+    color: @text !important;
+
+    // Floors
+
+    // Link floor in `:where()`; author and vote weight have no `!important`.
+    a:where(:not(.author, .voteWeight)) {
+      color: @accent-text !important;
+    }
+
+    // RES night mode fills `.content`.
+    .content {
+      background-color: transparent !important;
+      color: @text !important;
+    }
+    #sr-header-area {
+      background-color: @crust !important;
+      color: @subtext1 !important;
+      border-bottom-color: @surface0 !important;
+
+      .sr-list .separator,
+      .dropdown.srdrop .selected {
+        color: @muted !important;
+      }
+
+      a {
+        color: @subtext1 !important;
+      }
+
+      .selected a {
+        color: @accent-text !important;
+      }
+    }
+
+    .dropdown.lightdrop .selected {
+      color: @text !important;
+    }
+
+    .drop-choices {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+
+      a.choice {
+        color: @text !important;
+
+        &:hover {
+          background-color: @surface0 !important;
+        }
+      }
+    }
+
+    // Header
+    #header {
+      background-color: @mantle !important;
+      border-bottom-color: @accent !important;
+    }
+
+    // Wordmark sprite filtered to @text; a quarantined header is full-colour art.
+    #header-img.default-header {
+      filter: @text-filter !important;
+    }
+
+    &.quarantine #header-img.default-header,
+    .quarantine #header-img.default-header {
+      filter: none !important;
+    }
+
+    #header-bottom-left .pagename,
+    #header-bottom-left .pagename a,
+    #header-bottom-right .user a {
+      color: @text !important;
+    }
+
+    #header-bottom-right {
+      background-color: @surface0 !important;
+      color: @text !important;
+
+      a,
+      .user {
+        color: @text !important;
+      }
+
+      .separator {
+        color: @subtext0 !important;
+      }
+    }
+
+    .tabmenu li a {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .tabmenu li.selected a {
+      background-color: @base !important;
+      color: @accent-text !important;
+      border-color: @accent !important;
+    }
+
+    // The overflow tab: outlined when open, filled when showing a title.
+    .dropdown.tabdrop .selected {
+      background-color: @base !important;
+      border-color: @accent !important;
+      color: @accent-text !important;
+    }
+
+    .dropdown.tabdrop .selected.title {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    // Sidebar
+    .side {
+      background-color: transparent !important;
+      color: @text !important;
+
+      .spacer > .titlebox,
+      .sidecontentbox .content {
+        background-color: @mantle !important;
+        border-color: @surface0 !important;
+      }
+
+      .titlebox .redditname {
+        background-color: transparent !important;
+      }
+
+      .titlebox h1.redditname a {
+        color: @text !important;
+      }
+
+      .titlebox .bottom {
+        border-color: @surface0 !important;
+        color: @muted !important;
+      }
+
+      // Carry a white of reddit's own inside the themed titlebox.
+      .titlebox form.toggle,
+      .titlebox form.flairtoggle,
+      .leavemoderator,
+      .leavecontributor-button {
+        background-color: transparent !important;
+        color: @muted !important;
+      }
+
+      // RES night mode fills sidebar lists.
+      .md ol,
+      .md ul {
+        background-color: transparent !important;
+      }
+
+      // RES night mode colours every descendant; `:where(*)` adds nothing.
+      :where(*:not(.voteWeight)) {
+        color: inherit !important;
+      }
+
+      a:where(:not(.voteWeight)) {
+        color: @accent-text !important;
+      }
+
+      .sidecontentbox .title h1 {
+        color: @subtext1 !important;
+      }
+
+      .side-message {
+        background-color: @surface0 !important;
+        border-color: @yellow !important;
+        color: @text !important;
+      }
+
+      .recommend-box {
+        .rec-item {
+          background-color: @surface0 !important;
+          border-color: @surface1 !important;
+        }
+
+        // Sprite plus on a plate; cleared so the floor adds no plate.
+        .rec-item button.add {
+          background-color: transparent !important;
+
+          &::after {
+            filter: @text-filter !important;
+          }
+        }
+
+        .endoflist {
+          background-color: @mantle !important;
+        }
+      }
+    }
+
+    // The left rail on /r/all and the front page.
+    .listing-chooser {
+      background-color: @mantle !important;
+      color: @text !important;
+
+      .grippy,
+      .grippy::after {
+        background-color: @surface0 !important;
+        border-color: @surface0 !important;
+      }
+
+      // Single-colour tile; cleared so RES's hover fill is not filtered too.
+      .grippy::before {
+        background-color: transparent !important;
+        filter: @accent-filter !important;
+      }
+
+      li {
+        background-color: @mantle !important;
+        border-color: @surface0 !important;
+        color: @text !important;
+      }
+
+      li.selected {
+        background-color: @base !important;
+      }
+
+      li a {
+        color: @accent-text !important;
+      }
+
+      .description {
+        color: @muted !important;
+      }
+
+      .intro {
+        background-color: @surface0 !important;
+        border-color: @surface1 !important;
+        color: @text !important;
+      }
+
+      h3 {
+        color: @muted !important;
+      }
+    }
+
+    // Section headings such as "discover more music subreddits".
+    .flat-vert.title {
+      color: @subtext1 !important;
+    }
+
+    // `.side a` outranks a bare class, so the sidebar copy is named.
+    .c-btn-primary,
+    .side .c-btn-primary {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    // "this post was submitted on ..."
+    .linkinfo {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .fancy-toggle-button .add,
+    .fancy-toggle-button .remove,
+    .fancy-toggle-button .active {
+      background-color: @surface0 !important;
+      background-image: none !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .sidebox,
+    .sidebox .spacer {
+      background-color: @mantle !important;
+    }
+
+    .sidebox .subtitle {
+      color: @muted !important;
+    }
+
+    .subreddit-info {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+
+      .label {
+        color: @muted !important;
+      }
+    }
+
+    .markhelp,
+    .markhelp table tr,
+    .markhelp .spaces {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .morelink {
+      background-color: @surface0 !important;
+      background-image: none !important;
+      border-color: @surface1 !important;
+
+      a {
+        color: @text !important;
+      }
+
+      &:hover {
+        background-color: @hover-bg !important;
+      }
+
+      .nub {
+        background-color: transparent !important;
+        filter: @surface0-filter !important;
+      }
+    }
+
+    // The bare toggle for unblock and unfriend, which carries a literal black.
+    form.toggle .option {
+      color: @text !important;
+    }
+
+    .fancy-toggle-button .option {
+      color: @text !important;
+
+      &.active {
+        background-color: @surface0 !important;
+        border-color: @surface1 !important;
+      }
+
+      &.remove {
+        background-color: @alert !important;
+        color: @crust !important;
+        border-color: @alert !important;
+      }
+
+      &.add {
+        background-color: @join !important;
+        color: @crust !important;
+        border-color: @join !important;
+      }
+    }
+
+    // Colour locals
+
+    // One step below @dim; Latte steps towards @text instead.
+    @inactive: if(@flavor = latte, mix(@text, @subtext1, 50%), @overlay1);
+    @inactive-filter: if(@flavor = latte, @subtext1-filter, @overlay1-filter);
+
+    // Inline code and pre blocks; @peach cannot reach 4.5:1 on Latte's @mantle.
+    @code-fg: if(@flavor = latte, darken(@red, 4%), @peach);
+
+    // Scores and secondary labels; @subtext0 falls short on Latte.
+    @muted: if(@flavor = latte, @subtext1, @subtext0);
+
+    // Latte lightens: @surface1 falls short there.
+    @hover-bg: if(@flavor = latte, @crust, @surface1);
+
+    // Tagline text and the domain: the dimmest step that passes on each flavor.
+    @dim: if(@flavor = latte, @subtext1, @overlay2);
+    @dim-filter: if(@flavor = latte, @subtext1-filter, @overlay2-filter);
+
+    // The submitter, and the spoiler stamp and new-comment count.
+    @op: if(@flavor = latte, darken(@blue, 5%), @blue);
+    @stamp: if(@flavor = latte, darken(@peach, 18%), @peach);
+
+    // Darkened on Latte to pass on @surface0, where the dropdowns put it.
+    @link: if(@flavor = latte, darken(@blue, 12%), @blue);
+
+    // Glyphs need 3:1; 22% is the least that clears it for every accent.
+    @accent-icon: if(@flavor = latte, darken(@accent, 22%), @accent);
+    @join: if(@flavor = latte, darken(@green, 12%), @green);
+    @alert: if(@flavor = latte, darken(@red, 4%), @red);
+    @sticky: if(@flavor = latte, darken(@green, 10%), @green);
+
+    // A pinned or highlighted marker, kept apart from the stickied green.
+    @pin: if(@flavor = latte, darken(@teal, 8%), @teal);
+
+    // Accent text: @base or @mantle only, since Frappé fails on @surface0.
+    @accent-text: if(@flavor = latte, darken(@accent, 35%), @accent);
+
+    // Filled chip carrying @base text; 24% is the least that holds it.
+    @accent-fill: if(@flavor = latte, darken(@accent, 24%), @accent);
+
+    // Visited title: hue on Latte/Frappé, a lightness step elsewhere.
+    @read: if(
+      @flavor = latte,
+      darken(@mauve, 2%),
+      if(@flavor = frappe, @mauve, @overlay1)
+    );
+    @title: if(@flavor = latte, @link, if(@flavor = frappe, @link, @text));
+    @band: if(
+      @flavor = latte,
+      mix(@crust, @base, 50%),
+      mix(@mantle, @base, 60%)
+    );
+
+    // Thread rails; every select is guarded because Stylus keeps stale values.
+    @thread-known: if(
+      @threadColors = rainbow,
+      1,
+      if(
+        @threadColors = warm,
+        1,
+        if(
+          @threadColors = cool,
+          1,
+          if(
+            @threadColors = neutral,
+            1,
+            if(@threadColors = shade, 1, if(@threadColors = custom, 1, 0))
+          )
+        )
+      )
+    );
+    @thread-tint: if(
+      @thread-known = 1,
+      if(
+        (isnumber(@threadStrength)) and (@threadStrength <= 100),
+        unit(@threadStrength, %),
+        0%
+      ),
+      0%
+    );
+    #thread-key(@choice) {
+      @key: if(
+        @choice = rosewater,
+        rosewater,
+        if(
+          @choice = flamingo,
+          flamingo,
+          if(
+            @choice = pink,
+            pink,
+            if(
+              @choice = mauve,
+              mauve,
+              if(
+                @choice = red,
+                red,
+                if(
+                  @choice = maroon,
+                  maroon,
+                  if(
+                    @choice = peach,
+                    peach,
+                    if(
+                      @choice = yellow,
+                      yellow,
+                      if(
+                        @choice = green,
+                        green,
+                        if(
+                          @choice = teal,
+                          teal,
+                          if(
+                            @choice = blue,
+                            blue,
+                            if(
+                              @choice = sapphire,
+                              sapphire,
+                              if(
+                                @choice = sky,
+                                sky,
+                                if(
+                                  @choice = lavender,
+                                  lavender,
+                                  if(@choice = subtext0, subtext0, surface1)
+                                )
+                              )
+                            )
+                          )
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+    @thread-custom1: {
+      #thread-key(@threadColor1);
+    };
+    @thread-custom2: {
+      #thread-key(@threadColor2);
+    };
+    @thread-custom3: {
+      #thread-key(@threadColor3);
+    };
+    @thread-custom4: {
+      #thread-key(@threadColor4);
+    };
+    @thread-custom5: {
+      #thread-key(@threadColor5);
+    };
+    @thread-custom6: {
+      #thread-key(@threadColor6);
+    };
+    // Neutral starts above @surface1, the off colour.
+    @thread-name1: if(
+      @threadColors = custom,
+      @thread-custom1[@key],
+      if(
+        @threadColors = shade,
+        @accentColor,
+        if(
+          @threadColors = warm,
+          maroon,
+          if(
+            @threadColors = cool,
+            teal,
+            if(@threadColors = neutral, surface2, red)
+          )
+        )
+      )
+    );
+    @thread-name2: if(
+      @threadColors = custom,
+      @thread-custom2[@key],
+      if(
+        @threadColors = shade,
+        @accentColor,
+        if(
+          @threadColors = warm,
+          red,
+          if(
+            @threadColors = cool,
+            sky,
+            if(@threadColors = neutral, overlay0, peach)
+          )
+        )
+      )
+    );
+    @thread-name3: if(
+      @threadColors = custom,
+      @thread-custom3[@key],
+      if(
+        @threadColors = shade,
+        @accentColor,
+        if(
+          @threadColors = warm,
+          peach,
+          if(
+            @threadColors = cool,
+            sapphire,
+            if(@threadColors = neutral, overlay1, yellow)
+          )
+        )
+      )
+    );
+    @thread-name4: if(
+      @threadColors = custom,
+      @thread-custom4[@key],
+      if(
+        @threadColors = shade,
+        @accentColor,
+        if(
+          @threadColors = warm,
+          yellow,
+          if(
+            @threadColors = cool,
+            blue,
+            if(@threadColors = neutral, overlay2, green)
+          )
+        )
+      )
+    );
+    @thread-name5: if(
+      @threadColors = custom,
+      @thread-custom5[@key],
+      if(
+        @threadColors = shade,
+        @accentColor,
+        if(
+          @threadColors = warm,
+          flamingo,
+          if(
+            @threadColors = cool,
+            lavender,
+            if(@threadColors = neutral, subtext0, blue)
+          )
+        )
+      )
+    );
+    @thread-name6: if(
+      @threadColors = custom,
+      @thread-custom6[@key],
+      if(
+        @threadColors = shade,
+        @accentColor,
+        if(
+          @threadColors = warm,
+          rosewater,
+          if(
+            @threadColors = cool,
+            mauve,
+            if(@threadColors = neutral, subtext1, mauve)
+          )
+        )
+      )
+    );
+    @thread1: mix(
+      @catppuccin[@@flavor][@@thread-name1],
+      @surface1,
+      if(@threadColors = shade, (@thread-tint * 0.375), @thread-tint)
+    );
+    @thread2: mix(
+      @catppuccin[@@flavor][@@thread-name2],
+      @surface1,
+      if(@threadColors = shade, (@thread-tint * 0.5), @thread-tint)
+    );
+    @thread3: mix(
+      @catppuccin[@@flavor][@@thread-name3],
+      @surface1,
+      if(@threadColors = shade, (@thread-tint * 0.625), @thread-tint)
+    );
+    @thread4: mix(
+      @catppuccin[@@flavor][@@thread-name4],
+      @surface1,
+      if(@threadColors = shade, (@thread-tint * 0.75), @thread-tint)
+    );
+    @thread5: mix(
+      @catppuccin[@@flavor][@@thread-name5],
+      @surface1,
+      if(@threadColors = shade, (@thread-tint * 0.875), @thread-tint)
+    );
+    @thread6: mix(
+      @catppuccin[@@flavor][@@thread-name6],
+      @surface1,
+      if(@threadColors = shade, (@thread-tint * 1), @thread-tint)
+    );
+
+    // Listing
+    .link,
+    .thing {
+      background-color: transparent !important;
+    }
+
+    .last-clicked {
+      border-color: @surface1 !important;
+    }
+
+    .rank {
+      color: @inactive !important;
+    }
+
+    .link.stickied a.title,
+    .thing.stickied a.title {
+      color: @sticky !important;
+    }
+
+    // Pinned, which reddit keeps apart from stickied.
+    .thing.sticky-pinned.link a.title,
+    .tagline .pinned-tagline,
+    .search-result-meta .pinned-tagline {
+      color: @pin !important;
+    }
+
+    // The compact listing's URL follows the title's read state.
+    .thing .source-url {
+      color: @title !important;
+    }
+
+    .thing.visited .source-url {
+      color: @read !important;
+    }
+
+    .thing .title-styled-as-text {
+      color: @text !important;
+    }
+
+    .thing .title,
+    a.title {
+      color: @title !important;
+
+      &:visited {
+        color: @read !important;
+      }
+    }
+
+    .thing.visited a.title,
+    .thing.visited .title {
+      color: @read !important;
+    }
+
+    .tagline,
+    .domain {
+      color: @dim !important;
+    }
+
+    // Author keeps the title colour; vote weight is RES's inline colour.
+    .tagline a:not(.author, .voteWeight),
+    .domain a {
+      color: @dim !important;
+    }
+
+    // A prose subreddit link has no class; a comments link is a post link.
+    .tagline .subreddit,
+    .thing .subreddit,
+    a.subreddit,
+    .md a[href^="/r/"]:not([href*="/comments/"]),
+    .md a[href^="https://old.reddit.com/r/"]:not([href*="/comments/"]),
+    .md a[href^="https://www.reddit.com/r/"]:not([href*="/comments/"]) {
+      color: @accent-text !important;
+    }
+
+    // No `!important`: RES's userHighlight must keep its background.
+    a.author {
+      color: @text;
+    }
+
+    // RES paints these with `!important`; one class more here.
+    .author-pill(@fill) {
+      &,
+      &:hover {
+        background-color: if(@flavor = latte, darken(@fill, 18%), @fill)
+          !important;
+        color: @base !important;
+      }
+    }
+
+    .thing .tagline .author,
+    .thing .crosspost-preview-tagline .author {
+      &.submitter {
+        .author-pill(@blue);
+      }
+
+      &.moderator {
+        .author-pill(@green);
+      }
+
+      &.admin {
+        .author-pill(@red);
+      }
+
+      &.friend {
+        .author-pill(@peach);
+      }
+    }
+
+    .stickied-tagline {
+      color: @sticky !important;
+    }
+
+    // Account states; spam is milder and takes the warmer colour.
+    .author.user-banned,
+    .author.user-in-timeout-perma,
+    .author.user-in-timeout-temp {
+      color: @alert !important;
+    }
+
+    .author.user-spam {
+      color: @stamp !important;
+    }
+
+    // A former employee's mark, beside a username in a tagline.
+    .tagline .alum,
+    .search-result-meta .alum {
+      color: @alert !important;
+    }
+
+    // The line saying who distinguished a comment.
+    .user-distinction {
+      color: @muted !important;
+
+      .admin {
+        color: @alert !important;
+      }
+
+      .beta {
+        color: @stamp !important;
+      }
+    }
+
+    // The subreddit's name, in the pill's colours.
+    .tagline .subreddit .admin-distinguish,
+    .search-result-meta .subreddit .admin-distinguish {
+      color: @alert !important;
+    }
+
+    .tagline .subreddit .moderator-distinguish,
+    .search-result-meta .subreddit .moderator-distinguish {
+      color: @green !important;
+    }
+
+    // Subreddit flair colours mean something, so this is a switch.
+    .flair-themed() {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: if(@flavor = latte, @text, @subtext1) !important;
+    }
+
+    & when (@flairColors = 1) {
+      .linkflairlabel,
+      .flair,
+      .flairrichtext {
+        .flair-themed();
+      }
+    }
+
+    // Switch off: uncoloured flair (no/empty/default `style`) still themed.
+    & when not(@flairColors = 1) {
+      .linkflairlabel:not([style]),
+      .flair:not([style]),
+      .flairrichtext:not([style]),
+      .linkflairlabel[style=""],
+      .flair[style=""],
+      .flairrichtext[style=""],
+      .linkflairlabel[style*="transparent"],
+      .flair[style*="transparent"],
+      .flairrichtext[style*="transparent"],
+      .linkflairlabel[style*="#ffffff"],
+      .flair[style*="#ffffff"],
+      .flairrichtext[style*="#ffffff"],
+      .linkflairlabel[style*="#edeff1"],
+      .flair[style*="#edeff1"],
+      .flairrichtext[style*="#edeff1"] {
+        .flair-themed();
+      }
+
+      // RES night mode's `!important` beats the inline fill; the border remains.
+      &.res-nightmode
+        .flairrichtext[style*="color"]:not([style*="transparent"]):not(
+          [style*="#ffffff"]
+        ):not([style*="#edeff1"]) {
+        background-color: transparent !important;
+        color: @text !important;
+      }
+    }
+
+    // [A] and [M] beside a distinguished author, in the pill's colours.
+    .userattrs {
+      .admin {
+        color: @alert !important;
+      }
+
+      .moderator {
+        color: @green !important;
+      }
+
+      .friend {
+        color: @peach !important;
+      }
+
+      .submitter {
+        color: @op !important;
+      }
+    }
+
+    .RESUserTag,
+    .RESUserTag a {
+      border-color: @surface1 !important;
+      color: @accent-text !important;
+    }
+
+    .flat-list.buttons li a {
+      color: @inactive !important;
+
+      &:hover {
+        color: @text !important;
+      }
+    }
+
+    .post-source-button,
+    .flat-list.buttons li a.post-source-button {
+      color: @link !important;
+    }
+
+    .post-sharing {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+
+      .post-sharing-label {
+        color: @muted !important;
+      }
+    }
+
+    .score.unvoted,
+    .link.compressed .score {
+      color: @muted !important;
+    }
+
+    .score.likes,
+    .linkinfo .upvotes {
+      color: @alert !important;
+    }
+
+    .score.dislikes,
+    .linkinfo .downvotes {
+      color: @link !important;
+    }
+
+    .arrow.up,
+    .arrow.down {
+      filter: @inactive-filter !important;
+    }
+
+    .arrow.upmod {
+      filter: @red-filter !important;
+    }
+
+    .arrow.downmod {
+      filter: @blue-filter !important;
+    }
+
+    .thumbnail {
+      background-color: transparent !important;
+    }
+
+    // Disc-and-glyph placeholders, redrawn; size reset undoes the 2x sheet.
+    .thumbnail-art(@glyph) {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="70" height="50" viewBox="0 0 70 50"><circle cx="35" cy="25" r="24" fill="@{surface0}"/>@{glyph}</svg>'
+      );
+
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+      background-position: 0 0 !important;
+      background-size: auto !important;
+      filter: none !important;
+    }
+
+    .thumbnail.default:not(:has(img)):where(
+      :not(.crosspost-comments-preview-header *)
+    ) {
+      .thumbnail-art(
+        ~'<g fill="none" stroke="@{overlay1}" stroke-width="3"><rect x="23" y="12" width="12" height="21" rx="6"/><rect x="35" y="17" width="12" height="21" rx="6"/></g>',
+      );
+    }
+
+    .thumbnail.self:not(:has(img)):where(
+      :not(.crosspost-comments-preview-header *)
+    ) {
+      .thumbnail-art(
+        ~'<rect x="22" y="11" width="26" height="28" rx="2" fill="@{overlay1}"/><path fill="@{surface0}" d="M26,17h18v2H26z M26,22h18v2H26z M26,27h18v2H26z M26,32h10v2H26z"/>',
+      );
+    }
+
+    .thumbnail.image:not(:has(img)):where(
+      :not(.crosspost-comments-preview-header *)
+    ) {
+      .thumbnail-art(
+        ~'<rect x="20" y="13" width="30" height="24" rx="2" fill="@{overlay1}"/><path fill="@{surface0}" d="M24,33l8,-11 5,6 4,-4 7,9z"/>',
+      );
+    }
+
+    .thumbnail.nsfw:not(:has(img)):where(
+      :not(.crosspost-comments-preview-header *)
+    ) {
+      .thumbnail-art(
+        ~'<g fill="none" stroke="@{overlay1}" stroke-width="3"><circle cx="35" cy="25" r="11"/><path d="M27,17 43,33"/></g>',
+      );
+    }
+
+    .thumbnail.spoiler:not(:has(img)):where(
+      :not(.crosspost-comments-preview-header *)
+    ) {
+      .thumbnail-art(
+        ~'<path fill="@{overlay1}" d="M32,10h6v19h-6z M32,33h6v6h-6z"/>',
+      );
+    }
+
+    .thumbnail.account:not(:has(img)):where(
+      :not(.crosspost-comments-preview-header *)
+    ) {
+      .thumbnail-art(
+        ~'<g fill="@{overlay1}"><circle cx="35" cy="19" r="7"/><path d="M22,40a13,11 0 0 1 26,0z"/></g>',
+      );
+    }
+
+    .md,
+    .panestack-title {
+      border-color: @surface0 !important;
+    }
+
+    // Expanded self-text sits in the listing column.
+    .expando {
+      background-color: transparent !important;
+      border-color: @surface0 !important;
+    }
+
+    // Plate-and-glyph buttons, rebuilt; neutral plate until the type lands.
+    .expando-button {
+      background-color: transparent !important;
+      border-color: @surface0 !important;
+      background-size: auto !important;
+      filter: none !important;
+    }
+
+    .expando-button.collapsed {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"><rect width="23" height="23" rx="2.5" ry="2.5" fill="@{surface0}"/><path fill="@{text}" d="M10 5h3v13h-3zm-5 5h13v3H5z"/></svg>'
+      );
+
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+      background-position: 0 0 !important;
+    }
+
+    // A mixin: `catppuccin/optimized-svgs` reads `@svg` inside a rule.
+    .collapse-art() {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"><circle cx="11.5" cy="11.5" r="11.5" fill="@{surface0}"/><g stroke="@{text}" stroke-width="3.25" stroke-linecap="round"><line x1="7.5" y1="7.5" x2="15.5" y2="15.5"/><line x1="15.5" y1="7.5" x2="7.5" y2="15.5"/></g></svg>'
+      );
+
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    .expando-button.expanded,
+    .expando-button.expanded.selftext,
+    .expando-button.expanded.video,
+    .expando-button.expanded.image,
+    .expando-button.expanded.video-muted,
+    .expando-button.expanded.expando-button-requires-permission {
+      .collapse-art();
+      background-position: 0 0 !important;
+    }
+
+    .expando-button.collapsed.image {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"><rect width="23" height="23" rx="2.5" ry="2.5" fill="@{surface0}"/><path fill="@{text}" fill-rule="evenodd" d="m4 5 1-.5h2L8 5h1l1-1h3l2 2h2v8H4zm1 1h2v1H5zm3 3.5a3.5 3.5 0 1 0 7 0 3.5 3.5 0 1 0-7 0m1 0a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0"/><g stroke="@{text}" stroke-width="1.5" stroke-linecap="round"><line x1="18.75" y1="16.5" x2="18.75" y2="21"/><line x1="16.5" y1="18.75" x2="21" y2="18.75"/></g></svg>'
+      );
+
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    .expando-button.collapsed.image.gallery {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"><rect width="23" height="23" rx="2.5" ry="2.5" fill="@{surface0}"/><path fill="@{text}" fill-rule="evenodd" d="M4 3h10v10H4zm1 1h8v3.5l-3 1.75-5 .25zm.75 2a1.25 1.25 0 1 0 2.5 0 1.25 1.25 0 1 0-2.5 0"/><path fill="none" stroke="@{text}" stroke-dasharray="1.25 .5" d="M15.5 5v9.5H6"/><g stroke="@{text}" stroke-width="1.5" stroke-linecap="round"><line x1="18.75" y1="16.5" x2="18.75" y2="21"/><line x1="16.5" y1="18.75" x2="21" y2="18.75"/></g></svg>'
+      );
+
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    .expando-button.collapsed.video-muted {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"><rect width="23" height="23" rx="2.5" ry="2.5" fill="@{surface0}"/><path fill="@{text}" fill-rule="evenodd" d="M4 4h11v11H4zm3 3 5 2.5L7 12z"/><g stroke="@{text}" stroke-width="1.5" stroke-linecap="round"><line x1="18.75" y1="16.5" x2="18.75" y2="21"/><line x1="16.5" y1="18.75" x2="21" y2="18.75"/></g></svg>'
+      );
+
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    .expando-button.collapsed.expando-button-requires-permission {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"><rect width="23" height="23" rx="2.5" ry="2.5" fill="@{surface0}"/><path fill="none" stroke="@{text}" stroke-width="2" d="M6 10h8v5H6zm1 0V8c0-4 6-4 6 0v2"/><g stroke="@{text}" stroke-width="1.5" stroke-linecap="round"><line x1="18.75" y1="16.5" x2="18.75" y2="21"/><line x1="16.5" y1="18.75" x2="21" y2="18.75"/></g></svg>'
+      );
+
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    // Sprite tiles, so the offset is reset with the replacement.
+    .expando-button.collapsed.selftext {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"><rect width="23" height="23" rx="2.5" ry="2.5" fill="@{surface0}"/><path fill="@{text}" d="M4 5h15v2H4zm0 4h15v2H4zm0 4h15v2H4zm0 4h9v2H4z"/></svg>'
+      );
+
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+      background-position: 0 0 !important;
+    }
+
+    // A crosspost; without this it keeps the neutral plate above.
+    .expando-button.collapsed.crosspost {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"><rect width="23" height="23" rx="2.5" ry="2.5" fill="@{surface0}"/><path fill="none" stroke="@{text}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3.5 11.5H7L11 7h3.5M7 11.5l4 4.5h3.5"/><path fill="@{text}" d="m14.5 3.5 5 3.5-5 3.5zm0 9 5 3.5-5 3.5z"/></svg>'
+      );
+
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+      background-position: 0 0 !important;
+    }
+
+    .expando-button.collapsed.video {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23"><rect width="23" height="23" rx="2.5" ry="2.5" fill="@{surface0}"/><path fill="@{text}" d="m8 5 10 6.5L8 18z"/></svg>'
+      );
+
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+      background-position: 0 0 !important;
+    }
+
+    // Video chrome sits on the frame; only the brand blue is themed.
+    .reddit-video-player-root {
+      .seek-bar-progress,
+      .volume-slider-progress {
+        background-color: @accent !important;
+      }
+
+      .buffering-indicator .circle {
+        border-color: @accent !important;
+      }
+
+      .settings-container .hd {
+        color: @accent !important;
+      }
+    }
+
+    .nsfw-stamp {
+      color: @red !important;
+    }
+
+    .archived-stamp {
+      color: @muted !important;
+    }
+
+    .quarantine-stamp,
+    .btn-quarantine {
+      background-color: if(@flavor = latte, darken(@yellow, 18%), @yellow)
+        !important;
+      border-color: if(@flavor = latte, darken(@yellow, 18%), @yellow)
+        !important;
+      color: @base !important;
+    }
+
+    // Holds `.md` prose, so a tinted box.
+    .quarantine-notice {
+      background-color: fade(@yellow, 15%) !important;
+      border-color: if(@flavor = latte, darken(@yellow, 18%), @yellow)
+        !important;
+    }
+
+    .moderator-stamp {
+      background-color: if(@flavor = latte, darken(@green, 18%), @green)
+        !important;
+      border-color: if(@flavor = latte, darken(@green, 18%), @green) !important;
+      color: @base !important;
+    }
+
+    .entry .buttons li.reported-stamp {
+      background-color: if(@flavor = latte, darken(@yellow, 18%), @yellow)
+        !important;
+      border-color: if(@flavor = latte, darken(@yellow, 18%), @yellow)
+        !important;
+      color: @base !important;
+    }
+
+    // The note and reason on a removed post.
+    .link-note {
+      background-color: transparent !important;
+      color: @alert !important;
+    }
+
+    .link-to-reason {
+      color: @link !important;
+    }
+
+    // Interstitial panel; the scrim keeps reddit's translucent black.
+    .expando-gate.expando-gate--interstitial {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .expando-gate .expando-gate__show-once {
+      border-color: @text !important;
+      color: @text !important;
+    }
+
+    // The hash reddit shows over a thumbnail in a mod view.
+    .thumbnail-hash {
+      border-color: @surface1 !important;
+      color: @muted !important;
+
+      &:hover {
+        border-color: @text !important;
+        color: @text !important;
+      }
+    }
+
+    .spoiler-stamp,
+    .newComments {
+      color: @stamp !important;
+    }
+
+    .usertext-body {
+      background-color: transparent !important;
+      color: @text !important;
+    }
+
+    // Comments
+    .menuarea {
+      border-color: @surface0 !important;
+    }
+
+    .commentarea .menuarea {
+      background-color: transparent !important;
+      border-bottom-color: @surface0 !important;
+      color: @muted !important;
+    }
+
+    .comment {
+      border-color: @surface1 !important;
+
+      .child,
+      .showreplies {
+        border-left-color: @surface1 !important;
+      }
+
+      &.collapsed .tagline {
+        color: @inactive !important;
+      }
+
+      .expand {
+        color: @inactive !important;
+      }
+    }
+
+    &.res-commentBoxes.res-commentHoverBorder .comment:hover {
+      border-color: @accent !important;
+    }
+
+    &.res-commentQuickCollapse-hideCollapseButton .comment .tagline .expand {
+      color: transparent !important;
+    }
+
+    // Banding: rail colour repeats every sixth level, capped at twelve.
+    .comment-level-1(@depth; @sel) when (@depth < 12) {
+      @{sel} {
+        background-color: @band !important;
+        border-left-color: @thread1 !important;
+      }
+
+      &.res-commentBoxes.res-commentHoverBorder @{sel}:hover {
+        border-left-color: @accent !important;
+      }
+
+      .comment-level-2(@depth + 1; ~"@{sel} > .child > .listing > .comment");
+    }
+
+    .comment-level-2(@depth; @sel) when (@depth < 12) {
+      @{sel} {
+        background-color: @base !important;
+        border-left-color: @thread2 !important;
+      }
+
+      &.res-commentBoxes.res-commentHoverBorder @{sel}:hover {
+        border-left-color: @accent !important;
+      }
+
+      .comment-level-3(@depth + 1; ~"@{sel} > .child > .listing > .comment");
+    }
+
+    .comment-level-3(@depth; @sel) when (@depth < 12) {
+      @{sel} {
+        background-color: @band !important;
+        border-left-color: @thread3 !important;
+      }
+
+      &.res-commentBoxes.res-commentHoverBorder @{sel}:hover {
+        border-left-color: @accent !important;
+      }
+
+      .comment-level-4(@depth + 1; ~"@{sel} > .child > .listing > .comment");
+    }
+
+    .comment-level-4(@depth; @sel) when (@depth < 12) {
+      @{sel} {
+        background-color: @base !important;
+        border-left-color: @thread4 !important;
+      }
+
+      &.res-commentBoxes.res-commentHoverBorder @{sel}:hover {
+        border-left-color: @accent !important;
+      }
+
+      .comment-level-5(@depth + 1; ~"@{sel} > .child > .listing > .comment");
+    }
+
+    .comment-level-5(@depth; @sel) when (@depth < 12) {
+      @{sel} {
+        background-color: @band !important;
+        border-left-color: @thread5 !important;
+      }
+
+      &.res-commentBoxes.res-commentHoverBorder @{sel}:hover {
+        border-left-color: @accent !important;
+      }
+
+      .comment-level-6(@depth + 1; ~"@{sel} > .child > .listing > .comment");
+    }
+
+    .comment-level-6(@depth; @sel) when (@depth < 12) {
+      @{sel} {
+        background-color: @base !important;
+        border-left-color: @thread6 !important;
+      }
+
+      &.res-commentBoxes.res-commentHoverBorder @{sel}:hover {
+        border-left-color: @accent !important;
+      }
+
+      .comment-level-1(@depth + 1; ~"@{sel} > .child > .listing > .comment");
+    }
+
+    .comment-level-1(0; ~".nestedlisting > .comment");
+
+    .comment.spam,
+    .comment.deleted {
+      background-color: fade(@red, 10%) !important;
+    }
+
+    .usertext-edit textarea,
+    .usertext-edit .markdownEditor-wrapper {
+      background-color: @mantle !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    // The ring is clipped by the scrolling form, so the border marks focus.
+    .usertext-edit textarea:focus {
+      border-color: @accent !important;
+
+      outline-color: transparent !important;
+    }
+
+    .markdownEditor > .edit-btn {
+      background-color: transparent !important;
+      border-color: @accent !important;
+      filter: @accent-filter !important;
+
+      &:hover {
+        filter: @text-filter !important;
+      }
+    }
+
+    .RESCharCounter {
+      color: @muted !important;
+    }
+
+    .RESMacroDropdownTitle {
+      color: @muted !important;
+    }
+
+    .RESMacroDropdown {
+      background-color: @mantle !important;
+      border-color: @surface1 !important;
+    }
+
+    // The open label fills to match the panel below it.
+    .RESMacroWrappingSpan .openMacro {
+      background-color: @mantle !important;
+      color: @text !important;
+    }
+
+    .RESMacroDropdownList li a {
+      border-color: @surface0 !important;
+      color: @text !important;
+
+      &:hover {
+        background-color: @surface0 !important;
+      }
+    }
+
+    .dropdown .selected,
+    .RESMacroDropdownTitle {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="21" height="16" viewBox="0 0 21 16"><path fill="@{dim}" d="M5 5h11l-5.5 7z"/></svg>'
+      );
+
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+    }
+
+    .morecomments a {
+      color: @accent-text !important;
+    }
+
+    .reddit-comment-link {
+      color: @muted !important;
+    }
+
+    // The byline in the recently-viewed gadget.
+    .gadget small {
+      color: @dim !important;
+    }
+
+    .comment-visits-box {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @muted !important;
+    }
+
+    .new-comment .usertext-body {
+      border-left-color: @yellow !important;
+    }
+
+    // Markdown prose
+
+    // Reddit fills the inner .md, so .usertext-body alone does not reach it.
+    .md {
+      background-color: transparent !important;
+      color: @text !important;
+
+      p,
+      li {
+        color: inherit !important;
+      }
+
+      // Vote weight excluded in `:where()` to keep the specificity.
+      a:where(:not(.voteWeight)) {
+        color: @link !important;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        color: @text !important;
+      }
+
+      blockquote,
+      del {
+        color: @subtext1 !important;
+      }
+
+      blockquote {
+        border-left-color: @surface2 !important;
+      }
+
+      code,
+      pre {
+        background-color: @mantle !important;
+        border-color: @surface0 !important;
+        color: @code-fg !important;
+      }
+
+      pre code {
+        background-color: transparent !important;
+        border-color: transparent !important;
+        color: @text !important;
+      }
+
+      hr {
+        background-color: @surface0 !important;
+        border-color: @surface0 !important;
+      }
+
+      table,
+      th,
+      td {
+        border-color: @surface1 !important;
+      }
+
+      th {
+        background-color: @surface0 !important;
+        color: @text !important;
+      }
+    }
+
+    // A heading in the aside on reddit's policy pages, outside `.md`.
+    .sidebar h1 {
+      color: @text !important;
+    }
+
+    .md-spoiler-text {
+      background-color: @surface0 !important;
+      color: transparent !important;
+
+      &:hover,
+      &.revealed {
+        color: @text !important;
+      }
+    }
+
+    &.res-spoilerTags
+      .md
+      a:is([href="/s"], [href="/spoiler"], [href="#s"], [href="#spoiler"]) {
+      background-color: @surface0 !important;
+      color: transparent !important;
+      outline-color: @surface1 !important;
+
+      &:hover,
+      &:active {
+        color: @text !important;
+      }
+    }
+
+    // Infobars and page furniture
+    .infobar {
+      background-color: @surface0 !important;
+      border-color: @yellow !important;
+      color: @text !important;
+
+      a {
+        color: if(
+          @flavor = latte,
+          darken(@blue, 25%),
+          if(@flavor = frappe, lighten(@blue, 6%), @blue)
+        ) !important;
+      }
+    }
+
+    .infobar.welcome {
+      background-color: @mantle !important;
+      border-color: @accent !important;
+      color: @text !important;
+    }
+
+    .infobar.welcome h1,
+    .infobar.welcome h2 {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .infobar.welcome h1 {
+      border-bottom-color: @accent !important;
+    }
+
+    .infobar.welcome h2 {
+      border-bottom-color: @red !important;
+    }
+
+    .infobar.welcome a {
+      background-color: @accent-fill !important;
+      border-bottom-color: @accent-fill !important;
+      color: @base !important;
+    }
+
+    .archived-infobar {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .timeout-infobar,
+    .deprecation-infobar {
+      background-color: @surface0 !important;
+      border-color: @red !important;
+      color: @text !important;
+    }
+
+    .archived-infobar.with-icon::before {
+      background-color: transparent !important;
+      filter: @text-filter !important;
+    }
+
+    .timeout-infobar.with-icon::before {
+      background-color: transparent !important;
+      filter: @red-filter !important;
+    }
+
+    // The banner above a locked or quarantined post.
+    .reddit-infobar {
+      background-color: @surface0 !important;
+      border-color: @blue !important;
+      color: @text !important;
+    }
+
+    .reddit-infobar.with-icon::before {
+      background-color: transparent !important;
+      filter: @red-filter !important;
+    }
+
+    .locked-tagline::before {
+      background-color: transparent !important;
+      filter: @red-filter !important;
+    }
+
+    // Sponsored posts and their box; RES night mode clears reddit's fill.
+    .organic-listing,
+    .link.promotedlink,
+    .link.promotedlink.external,
+    .profile-page .link.promotedlink.saved {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+    }
+
+    // Interest strip; the snoo behind it is full-colour art.
+    .sr-interest-bar {
+      background-color: @surface0 !important;
+      border-color: @accent !important;
+      color: @text !important;
+
+      // The bubble's tail is a border triangle and has to carry the fill.
+      .bubble {
+        background-color: @base !important;
+
+        &::after {
+          border-right-color: @base !important;
+        }
+      }
+    }
+
+    // The original-content badge, which ships white on reddit's own blue.
+    .oc-tag {
+      background-color: @op !important;
+      color: @base !important;
+    }
+
+    .pinnable-content.pinned {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+    }
+
+    .dismiss-pinnable {
+      background-color: transparent !important;
+      color: @dim !important;
+      filter: @dim-filter !important;
+    }
+
+    .nextprev {
+      color: @muted !important;
+    }
+
+    .nextprev .separator {
+      border-color: @surface0 !important;
+    }
+
+    .add-sr .add {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><path fill="@{text}" d="M6 2h3v11H6zM2 6h11v3H2z"/></svg>'
+      );
+
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+      background-position: 0 0 !important;
+      filter: none !important;
+    }
+
+    .remove-sr {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9"><path stroke="@{text}" stroke-width="2" d="m1 1 7 7m0-7L1 8"/></svg>'
+      );
+
+      background-color: transparent !important;
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+      background-position: 0 0 !important;
+      border-color: transparent !important;
+      filter: none !important;
+    }
+
+    // The rule NeverEndingReddit draws between appended pages.
+    .NERPageMarker {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @muted !important;
+    }
+
+    .nextprev a {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .footer,
+    .footer .col {
+      border-color: @surface0 !important;
+
+      .title {
+        color: @muted !important;
+      }
+
+      a {
+        color: @subtext1 !important;
+      }
+    }
+
+    // Reddit's own greys on surfaces this style owns.
+    .gray,
+    .footer,
+    .bottommenu,
+    .bottommenu a,
+    .bottommenu .icon,
+    .separator {
+      color: @muted !important;
+    }
+
+    .bottommenu .updated {
+      color: @sticky !important;
+    }
+
+    .newpagelink {
+      background-color: fade(@yellow, 20%) !important;
+    }
+
+    .save-category {
+      background-color: @surface0 !important;
+    }
+
+    .interstitial-subreddit-description {
+      background-color: @mantle !important;
+    }
+
+    .usertext.grayed .usertext-body,
+    .commentbody.grayed {
+      background-color: @mantle !important;
+      color: @muted !important;
+    }
+
+    // The comment a permalink points at, which RES night mode fills blue.
+    .commentbody.border {
+      background-color: fade(@accent, 15%) !important;
+    }
+
+    // The box reddit draws around the comment a "jump to" landed on.
+    .user-jumped-to {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+    }
+
+    .debuginfo {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @inactive !important;
+    }
+
+    // Dialogs
+
+    // Dialog wrappers; the report dialog is a cross-origin iframe.
+    .modal-backdrop {
+      background-color: @crust !important;
+    }
+
+    // RES's editor for wiki pages and stylesheets, over the same scrim.
+    #BigEditor {
+      background-color: fade(@crust, 75%) !important;
+    }
+
+    .modal-content,
+    .modal-body {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .modal-header {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .modal-header-title {
+      color: @text !important;
+    }
+
+    .modal-header-close .c-close,
+    .post-sharing .c-close {
+      background-color: transparent !important;
+      filter: @dim-filter !important;
+    }
+
+    .crossposting-modal {
+      .crosspost-header-title {
+        color: @accent-text !important;
+      }
+
+      .crosspost-description {
+        background-color: @surface0 !important;
+        border-color: @yellow !important;
+        color: @text !important;
+      }
+
+      .crosspost-thing-preview {
+        background-color: @surface0 !important;
+        border-color: @surface1 !important;
+        color: @text !important;
+      }
+
+      .crosspost-thing-preview-text,
+      .crosspost-label,
+      .crosspost-subreddit-rules li {
+        color: @text !important;
+      }
+
+      .crosspost-thing-preview-tagline {
+        color: @dim !important;
+      }
+
+      // The title fade has to end on the card's own fill.
+      .crosspost-thing-preview-text::after {
+        background-image: linear-gradient(
+          to bottom,
+          fade(@surface0, 0%) 0%,
+          fade(@surface0, 70%) 100%
+        ) !important;
+      }
+
+      // A div, not an input, so the field floor misses it.
+      .crosspost-field {
+        background-color: @mantle !important;
+        border-color: @surface1 !important;
+        color: @text !important;
+      }
+
+      .required,
+      .crosspost-warning {
+        color: @dim !important;
+      }
+    }
+
+    // Profile
+    .user-subreddit .title {
+      color: @text !important;
+    }
+
+    .user-subreddit .path {
+      color: @link !important;
+    }
+
+    .trophy-area .content {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+    }
+
+    .trophy-info .trophy-name {
+      color: @text !important;
+    }
+
+    .trophy-info .trophy-description {
+      color: @muted !important;
+    }
+
+    .titlebox .karma {
+      color: @accent-text !important;
+    }
+
+    #per-sr-karma th.subreddit-karma-quarantined {
+      background-color: if(@flavor = latte, darken(@yellow, 18%), @yellow)
+        !important;
+      color: @base !important;
+    }
+
+    // Inbox
+    .message {
+      background-color: transparent !important;
+
+      .subject {
+        color: @text !important;
+      }
+
+      .head {
+        color: @muted !important;
+      }
+
+      &.message-parent {
+        background-color: @mantle !important;
+        border-color: @surface0 !important;
+      }
+
+      &.new,
+      &.recipient {
+        background-color: fade(@accent, 8%) !important;
+      }
+
+      // Reddit and RES night mode both fill an unread entry.
+      &.new > .entry {
+        background-color: transparent !important;
+        border-color: @surface0 !important;
+      }
+
+      &.recipient > .entry,
+      &.recipient > .entry .head {
+        color: @text !important;
+      }
+    }
+
+    .was-comment .subject {
+      color: @subtext1 !important;
+    }
+
+    // A message body, and the rail beside a reply.
+    .message.message-parent > .entry,
+    .message.message-reply > .entry {
+      color: @text !important;
+    }
+
+    .message.message-parent:not(.threaded) .entry,
+    .message.message-reply:not(.threaded) .entry {
+      border-left-color: @surface0 !important;
+    }
+
+    // Correspondent pill; reddit names it, so `.subject` misses it.
+    .message .subject .correspondent {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    // The row beside the inbox's pagination: outlined links, fill on hover.
+    .next-suggestions {
+      color: @muted !important;
+    }
+
+    .next-suggestions a {
+      border-color: @surface1 !important;
+    }
+
+    .next-suggestions a:hover {
+      background-color: @surface0 !important;
+    }
+
+    .next-suggestions .separator {
+      border-color: @surface0 !important;
+    }
+
+    // An inline SVG whose fill is an attribute, so only `fill` reaches it.
+    .private-message-deprecation-banner .warning-icon path {
+      fill: @yellow !important;
+    }
+
+    // Forms
+
+    // Field floor; some fields have no `type` (/prefs/apps).
+    input:where(:not([type])),
+    input:where([type="text"]),
+    input:where([type="url"]),
+    input:where([type="password"]),
+    input:where([type="number"]),
+    input:where([type="search"]),
+    textarea,
+    select {
+      background-color: @mantle !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+
+      &::placeholder {
+        color: @muted !important;
+      }
+
+      outline-color: @accent-icon !important; // 3:1, a graphical object
+    }
+
+    // Control floor; video controls excluded, in `:where()`.
+    button:where(:not(.reddit-video-player-root *)),
+    input:where([type="submit"]),
+    input:where([type="button"]) {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+
+      &:hover {
+        background-color: @hover-bg !important;
+      }
+    }
+
+    button:where(:not(.reddit-video-player-root *)):disabled,
+    input:where([type="submit"]):disabled,
+    input:where([type="button"]):disabled,
+    .c-btn.disabled,
+    .c-btn[disabled],
+    .fancybutton.disabled,
+    .basic-button:disabled,
+    .basic-button.disabled {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @inactive !important;
+    }
+
+    input:where(:not([type])):disabled,
+    input:where([type="text"]):disabled,
+    input:where([type="url"]):disabled,
+    input:where([type="password"]):disabled,
+    input:where([type="number"]):disabled,
+    input:where([type="search"]):disabled,
+    textarea:disabled,
+    select:disabled,
+    .crosspost-field:disabled {
+      background-color: @surface0 !important;
+      color: @inactive !important;
+    }
+
+    // Disabled labels, and permission rows carrying the state on the label.
+    label.disabled {
+      color: @inactive !important;
+    }
+
+    .permission-selector label.disabled {
+      background-color: @surface0 !important;
+    }
+
+    // The submit button while the form cannot be sent.
+    .disabled .morelink {
+      border-color: @surface1 !important;
+
+      a {
+        color: @inactive !important;
+      }
+    }
+
+    .fancybutton {
+      background-color: @surface0 !important;
+      background-image: none !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+
+      &:hover {
+        background-color: @hover-bg !important;
+      }
+    }
+
+    .oauth2-authorize .fancybutton.allow {
+      background-color: @accent-fill !important;
+      border-color: @accent-fill !important;
+      color: @base !important;
+    }
+
+    .pretty-button {
+      background-color: @surface0 !important;
+      background-image: none !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+
+      &.positive {
+        background-color: fade(@green, 20%) !important;
+      }
+
+      &.negative {
+        background-color: fade(@red, 20%) !important;
+      }
+
+      &.neutral.pressed {
+        background-color: @surface2 !important;
+        border-color: @surface2 !important;
+      }
+
+      &.positive.pressed {
+        background-color: @join !important;
+        border-color: @join !important;
+        color: @crust !important;
+      }
+
+      &.negative.pressed {
+        background-color: @alert !important;
+        border-color: @alert !important;
+        color: @crust !important;
+      }
+    }
+
+    .formtabs-content {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+    }
+
+    .tabmenu.formtab li a {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .tabmenu.formtab li.selected a {
+      background-color: @mantle !important;
+      color: @accent-text !important;
+      border-color: @surface0 !important;
+    }
+
+    .roundfield {
+      background-color: @base !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+
+      .RESCharCounter {
+        color: @muted !important;
+      }
+
+      .title {
+        color: @subtext1 !important;
+      }
+
+      .gray,
+      .little {
+        color: @muted !important;
+      }
+    }
+
+    .error {
+      color: @red !important;
+    }
+
+    // Reddit's other literal reds, all states; `.green` is the mod green.
+    .confirm-button .confirmation,
+    .question,
+    .wrong,
+    .red,
+    .errors h2,
+    #validation-errors li,
+    #validation-errors a {
+      color: @red !important;
+    }
+
+    #validation-errors pre {
+      color: @text !important;
+    }
+
+    .green {
+      color: @green !important;
+    }
+
+    #new-link-image-input {
+      background-color: @mantle !important;
+      border-color: @surface1 !important;
+
+      .file-drop-label {
+        color: @muted !important;
+      }
+    }
+
+    .title.required-roundfield::before {
+      color: @red !important;
+    }
+
+    // Field headings; RES night mode lays a dark strip behind each.
+    .create-reddit .title {
+      background-color: transparent !important;
+      color: @subtext1 !important;
+    }
+
+    .new-stamp {
+      color: @stamp !important;
+    }
+
+    // The media uploader.
+    #new-link-preview,
+    #image-name,
+    #sr-drop-down {
+      background-color: @mantle !important;
+    }
+
+    .sr-row.sr-selected {
+      background-color: @surface0 !important;
+    }
+
+    .sr-name-row.sr-selected {
+      background-color: @accent-fill !important;
+      color: @base !important;
+    }
+
+    // The multireddit form's subreddit field.
+    #sr-autocomplete-area.multiple-subreddit {
+      background-color: @mantle !important;
+
+      .sr-span {
+        background-color: @surface0 !important;
+      }
+    }
+
+    // The title-fetch status beside the URL field.
+    #url-field .title-status {
+      color: @alert !important;
+    }
+
+    // The compose form's recipient hint.
+    .pm_to_admins_prompt,
+    .pm_to_admins_promo__desc {
+      color: @muted !important;
+    }
+
+    .pm_to_admins_promo {
+      border-color: @accent !important;
+    }
+
+    #new-link-media-progress {
+      border-color: @surface0 !important;
+
+      .media-uploading-label {
+        color: @muted !important;
+      }
+    }
+
+    #media-progress-bar-container {
+      background-color: @surface0 !important;
+    }
+
+    #media-progress-bar {
+      background-color: @accent-fill !important;
+      color: @base !important;
+    }
+
+    .video-preview.reddit-video-player-root {
+      background-color: @crust !important;
+      border-color: @surface1 !important;
+    }
+
+    .clear-input-button,
+    .video-cancel-button,
+    .media-file-cancel-upload-btn {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .thumbnail-navigator {
+      border-color: @accent !important;
+    }
+
+    .flairselector {
+      h2 {
+        background-color: @surface0 !important;
+        color: @text !important;
+      }
+
+      li.selected {
+        border-color: @accent !important;
+      }
+    }
+
+    .submit_text h1 {
+      color: @subtext1 !important;
+    }
+
+    .gold-accent {
+      background-color: fade(@yellow, 15%) !important;
+      border-color: @yellow !important;
+      color: @text !important;
+    }
+
+    // RES night mode colours every descendant; links keep the anchor floor.
+    .gold-accent :where(*:not(a, button, input)) {
+      color: @text !important;
+    }
+
+    .action-form {
+      background-color: @surface0 !important;
+      border-color: @yellow !important;
+      color: @text !important;
+    }
+
+    // Expando submit strip; its tick is full-colour art.
+    .form-bar {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+    }
+
+    // Field rows on the subreddit forms; the nested panel takes the step below.
+    .linefield {
+      background-color: @surface0 !important;
+      color: @text !important;
+
+      &.mobile {
+        background-color: @mantle !important;
+        border-color: @surface0 !important;
+      }
+    }
+
+    .infotext,
+    .content.submit .info-notice {
+      background-color: @surface0 !important;
+      border-color: @accent !important;
+      color: @text !important;
+    }
+
+    .user-form label {
+      color: @muted !important;
+    }
+
+    .info-text {
+      color: @dim !important;
+    }
+
+    // Search
+    #search input {
+      background-color: @mantle !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    #search input[type="submit"] {
+      background-color: transparent !important;
+      filter: @dim-filter !important;
+    }
+
+    .search-result-body {
+      color: @muted !important;
+    }
+
+    mark {
+      background-color: transparent !important;
+      color: inherit !important;
+    }
+
+    // RES night mode's `background` brings back a magnifier reddit dropped.
+    .searchpane,
+    .raisedbox {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+    }
+
+    .searchpane {
+      background-image: none !important;
+      color: @text !important;
+
+      h4 {
+        color: @muted !important;
+      }
+    }
+
+    .search-expando-button {
+      color: @accent-text !important;
+    }
+
+    .duration-overlay {
+      background-color: fade(@crust, 80%) !important;
+      color: @text !important;
+    }
+
+    .res-search-tabs li a {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .res-search-tabs li.res-search-tab-active,
+    .res-search-tabs li.res-search-tab-active a {
+      background-color: @base !important;
+      border-color: @accent !important;
+      color: @accent-text !important;
+    }
+
+    .res-search-subreddits {
+      background-color: @mantle !important;
+    }
+
+    .res-search-options {
+      background-color: @mantle !important;
+
+      dd {
+        color: @muted !important;
+      }
+    }
+
+    .search-icon,
+    .search-result-icon-score {
+      filter: @dim-filter !important;
+    }
+
+    .search-result-icon-external,
+    .search-result-icon-filter {
+      filter: @accent-filter !important;
+    }
+
+    // Reddit's status line after a preference is saved.
+    .info-icon::before {
+      filter: @blue-filter !important;
+    }
+
+    #searchexpando,
+    #moresearchinfo {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .search-result-meta {
+      color: @muted !important;
+    }
+
+    .search-result-header,
+    .search-result-group-header {
+      color: @subtext1 !important;
+      border-bottom-color: @surface0 !important;
+    }
+
+    .searchfacets {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+
+      > h4.title {
+        color: @muted !important;
+      }
+    }
+
+    .facet.count {
+      color: @muted !important;
+    }
+
+    // Search's failure notice; the link inside is part of the message.
+    .searchfail {
+      color: @alert !important;
+
+      a {
+        color: @alert !important;
+      }
+    }
+
+    #searchmenu .searchlabel {
+      background-color: @mantle !important;
+      color: @accent-text !important;
+    }
+
+    // Preferences
+    .pretty-form,
+    .preftable {
+      color: @text !important;
+    }
+
+    .preftable td,
+    .preftable th {
+      border-top-color: @surface0 !important;
+    }
+
+    .prefright,
+    .preftable .details {
+      color: @muted !important;
+    }
+
+    .preftable .container.reddit-themes .theme.selected {
+      background-color: @surface0 !important;
+    }
+
+    // Reddit greys these headings and darkens the emphasised word inside them.
+    .fancy-settings h1,
+    .fancy-settings h2 {
+      color: @subtext1 !important;
+    }
+
+    .fancy-settings h1 strong {
+      color: @text !important;
+    }
+
+    // /prefs/apps: the app cards and the permission popup.
+    .authorized-app,
+    .developed-app {
+      border-color: @surface0 !important;
+    }
+
+    .app-details h2 {
+      color: @accent-text !important;
+    }
+
+    .app-scope {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    // Wiki
+
+    // `.wiki-page` is on body itself, so it cannot be nested under.
+    .wiki-page-content,
+    .wiki-page-content .pagelisting {
+      background-color: transparent !important;
+      color: @text !important;
+    }
+
+    .wikititle {
+      color: @muted !important;
+    }
+
+    .wiki-page-content .wiki > .toc > ul,
+    .wiki-page-content .toc ul {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+    }
+
+    .wiki-page-content > hr {
+      background-color: @surface0 !important;
+      border-color: @surface0 !important;
+      color: @surface0 !important;
+    }
+
+    .icon-menu a {
+      background-color: transparent !important;
+    }
+
+    .pageactions {
+      border-color: @surface0 !important;
+    }
+
+    .pageactions .wikiaction-current {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .collapse-button {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .generic-table {
+      color: @text !important;
+    }
+
+    .diff .diff_add {
+      background-color: fade(@green, 20%) !important;
+      color: @text !important;
+    }
+
+    .diff .diff_sub {
+      background-color: fade(@red, 20%) !important;
+      color: @text !important;
+    }
+
+    .diff .diff_chg {
+      background-color: fade(@yellow, 20%) !important;
+      color: @text !important;
+    }
+
+    .diff .diff_header,
+    .diff .diff_next {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    // About, moderation and traffic pages
+    .subreddit-rule-item {
+      color: @text !important;
+
+      &:hover {
+        background-color: @hover-bg !important;
+      }
+    }
+
+    .subreddit-rule-kind,
+    .subreddit-rule-label,
+    .subreddit-rule-description {
+      color: @muted !important;
+    }
+
+    .usertable td {
+      border-top-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .usertable .user,
+    .usertable .user .userkarma {
+      color: @muted !important;
+    }
+
+    .subreddit-rule-violation-reason {
+      color: @muted !important;
+    }
+
+    .usertable tr:hover {
+      background-color: @mantle !important;
+    }
+
+    .usertable tr.banned-user,
+    .usertable tr.banned-user a,
+    .usertable tr.banned-user .user,
+    a.banned-user {
+      color: @red !important;
+    }
+
+    // The note under the message on the over-18 and quarantine gate pages.
+    .interstitial-message .note {
+      color: @dim !important;
+    }
+
+    .errorpage-message.sr-description {
+      border-color: @surface0 !important;
+    }
+
+    .errorpage-message.sr-description h2 {
+      color: @text !important;
+    }
+
+    // The traffic-page notice that turns red when the wait is long.
+    #timeseries-unprocessed.slow {
+      color: @alert !important;
+    }
+
+    .traffic-table tr {
+      color: @text !important;
+    }
+
+    .traffic-table tbody tr:nth-child(even) {
+      background-color: @band !important;
+    }
+
+    .traffic-table tfoot tr {
+      border-top-color: @surface0 !important;
+    }
+
+    div.timeseries {
+      border-color: @surface0 !important;
+    }
+
+    // flot's axis and legend labels inherit, so the wrappers are named.
+    .flot-text,
+    .legend table {
+      color: @muted !important;
+    }
+
+    // Legend key frame; the swatch keeps flot's plotted colour.
+    .legendColorBox > div {
+      border-color: @surface1 !important;
+    }
+
+    #graph-tooltip {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .modactionlisting .description {
+      color: @text !important;
+    }
+
+    // Night mode fills and borders every cell, so the selector is mirrored.
+    .modactionlisting table * {
+      background-color: transparent !important;
+      border-color: @surface0 !important;
+    }
+
+    // The time beside each action, a byline one step under the description.
+    .modactionlisting .timestamp,
+    .modactionlisting .timestamp time {
+      color: @dim !important;
+    }
+
+    // Reddit Enhancement Suite
+    #mail.havemail,
+    #NREMail.havemail {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="10" viewBox="0 0 15 10"><g fill="none" stroke="@{red}"><rect x=".5" y=".5" width="14" height="9"/><path d="m.5.5 7 5.5 7-5.5"/></g></svg>'
+      );
+
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+      background-position: 0 0 !important;
+    }
+
+    #mail.nohavemail,
+    #NREMail.nohavemail {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="10" viewBox="0 0 15 10"><g fill="none" stroke="@{dim}"><rect x=".5" y=".5" width="14" height="9"/><path d="m.5.5 7 5.5 7-5.5"/></g></svg>'
+      );
+
+      background-image: url("data:image/svg+xml,@{svg}") !important;
+      background-position: 0 0 !important;
+    }
+
+    // The comment navigator's fly-out.
+    .res-commentNavToggle-type {
+      color: @text !important;
+
+      &:hover {
+        background-color: @hover-bg !important;
+      }
+    }
+
+    #notifications,
+    #chat,
+    #modmail,
+    #new_modmail,
+    #RESAccountSwitcherIcon {
+      filter: @dim-filter !important;
+    }
+
+    // A lit tile is the whole signal, so each state keeps its meaning.
+    #notifications.active,
+    #chat.active {
+      filter: @accent-filter !important;
+    }
+
+    #modmail.havemail {
+      filter: @peach-filter !important;
+    }
+
+    #new_modmail.havemail {
+      filter: @green-filter !important;
+    }
+
+    #header-bottom-right .message-count,
+    .message-count,
+    #NREMailCount {
+      background-color: @red !important;
+      color: @base !important;
+    }
+
+    // The RES settings console is a cross-origin iframe and cannot be reached.
+    .RESDropdownList {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .RESDropdownList li {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    // The row's anchor fills it and carries a background of its own.
+    .RESDropdownList li a {
+      background-color: transparent !important;
+    }
+
+    .RESDropdownList li:hover,
+    .RESDropdownList li a:hover {
+      background-color: @hover-bg !important;
+      color: @text !important;
+    }
+
+    // RES's switches: blue when on, red when the setting is inverted.
+    .toggleButton .toggleThumb {
+      background-color: @surface2 !important;
+      border-color: @surface2 !important;
+    }
+
+    .toggleButton.enabled .toggleThumb {
+      background-color: @op !important;
+      border-color: @op !important;
+    }
+
+    .toggleButton.enabled.reverseToggleButton .toggleThumb {
+      background-color: @red !important;
+      border-color: @red !important;
+    }
+
+    .toggleButton .toggleThumb::before {
+      background-color: @base !important;
+    }
+
+    .RES-keyNav-activeElement,
+    .RES-keyNav-activeElement .md-container,
+    .entry.res-selected {
+      background-color: @crust !important;
+    }
+
+    .entry.res-selected .md-container,
+    .entry.res-selected .md-container > .md,
+    .entry.res-selected .md-container > .md p {
+      color: inherit !important;
+    }
+
+    // RES's inline vote colour, so no `!important` (see `a.author`).
+    a.voteWeight {
+      color: @link;
+    }
+
+    #REScommentSubToggle {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .res-fancy-toggle-button,
+    .RESshortcutside,
+    .RESDashboardToggle {
+      background-image: none !important;
+      background-color: fade(@accent, 20%) !important;
+      border-color: @accent !important;
+      color: @text !important;
+    }
+
+    // Reddit's hover bubbles: author card, multireddit and subreddit cards.
+    .author-tooltip,
+    .hover-bubble,
+    .hover-bubble .title,
+    .hovercard {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    // The author card's sections carry their own fills.
+    .author-tooltip {
+      .author-tooltip__head,
+      .author-tooltip__credentials-list,
+      .author-tooltip__credential,
+      .author-tooltip__link-list,
+      .author-tooltip__follow-container {
+        background-color: transparent !important;
+        border-color: @surface0 !important;
+      }
+
+      .author-tooltip__title,
+      strong {
+        color: @text !important;
+      }
+
+      .author-tooltip__profile-link {
+        color: @accent-text !important;
+      }
+
+      .author-tooltip__beta {
+        background-color: @accent-fill !important;
+        color: @base !important;
+      }
+
+      .author-tooltip__karma-details,
+      .author-tooltip__description,
+      span {
+        color: @muted !important;
+      }
+
+      .author-tooltip__follow-button {
+        background-color: @surface0 !important;
+        border-color: @surface1 !important;
+        color: @text !important;
+      }
+
+      .author-tooltip__icon {
+        filter: @dim-filter !important;
+      }
+    }
+
+    // Pointer: ::before outline, ::after fill, on the anchored side.
+    .hover-bubble {
+      &.anchor-top::before,
+      &.anchor-top-left::before,
+      &.anchor-top-right::before,
+      &.anchor-top-centered::before {
+        border-bottom-color: @surface0 !important;
+      }
+
+      &.anchor-top::after,
+      &.anchor-top-left::after,
+      &.anchor-top-right::after,
+      &.anchor-top-centered::after {
+        border-bottom-color: @mantle !important;
+      }
+
+      &.anchor-bottom-left::before,
+      &.anchor-bottom-right::before,
+      &.anchor-bottom-centered::before {
+        border-top-color: @surface0 !important;
+      }
+
+      &.anchor-bottom-left::after,
+      &.anchor-bottom-right::after,
+      &.anchor-bottom-centered::after {
+        border-top-color: @mantle !important;
+      }
+
+      &.anchor-left::before {
+        border-right-color: @surface0 !important;
+      }
+
+      &.anchor-left::after {
+        border-right-color: @mantle !important;
+      }
+
+      &.anchor-right::before {
+        border-left-color: @surface0 !important;
+      }
+
+      &.anchor-right::after {
+        border-left-color: @mantle !important;
+      }
+    }
+
+    // Tooltip; the arrow follows the fill, the error variant keeps its red.
+    .c-tooltip {
+      .tooltip-inner {
+        background-color: @surface0 !important;
+        border-color: @surface1 !important;
+        color: @text !important;
+      }
+
+      &.top .tooltip-arrow,
+      &.top-right .tooltip-arrow {
+        border-top-color: @surface0 !important;
+      }
+
+      &.right .tooltip-arrow {
+        border-right-color: @surface0 !important;
+      }
+
+      &.left .tooltip-arrow {
+        border-left-color: @surface0 !important;
+      }
+
+      &.bottom .tooltip-arrow {
+        border-bottom-color: @surface0 !important;
+      }
+    }
+
+    // The share panel's tooltips point down and carry the side on the arrow.
+    .post-sharing .c-tooltip .tooltip-arrow {
+      border-top-color: @surface0 !important;
+    }
+
+    .c-has-error .c-tooltip {
+      &.top .tooltip-arrow,
+      &.top-right .tooltip-arrow {
+        border-top-color: @red !important;
+      }
+
+      &.right .tooltip-arrow {
+        border-right-color: @red !important;
+      }
+
+      &.left .tooltip-arrow {
+        border-left-color: @red !important;
+      }
+    }
+
+    // RES's own filled buttons; the label inverts to @base.
+    .blueButton {
+      background-color: @op !important;
+      border-color: @op !important;
+      color: @base !important;
+    }
+
+    .redButton {
+      background-color: @red !important;
+      border-color: @red !important;
+      color: @base !important;
+    }
+
+    .RESButton {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+
+      &:hover {
+        background-color: @hover-bg !important;
+      }
+    }
+
+    // User tag dialog; the colour picker's swatches are the tag colours.
+    .RESHover,
+    .RESDialog,
+    .RESDialogSmall,
+    .RESDialogContents,
+    .RESHoverTitle {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    // An icon-font glyph, so it takes the 3:1 form of the accent.
+    .res-icon {
+      color: @accent-icon !important;
+    }
+
+    // The dialog's close glyph is drawn entirely in a pseudo-element.
+    .RESCloseButton::after {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .RESCloseButton:hover::after {
+      background-color: @red !important;
+      color: @crust !important;
+    }
+
+    .RESDialogSmall > h3 {
+      background-color: @surface0 !important;
+      border-bottom-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    #userTaggerToolTip input[type="submit"] {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    #userTaggerIgnoreContainer .toggleThumb,
+    #userTaggerIgnoreContainer .toggleThumb::before {
+      background-color: @surface2 !important;
+      border-color: @surface2 !important;
+    }
+
+    #srList input {
+      background-color: @mantle !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .RESNotification a.RESNotificationButtonBlue,
+    .RESNotificationButtonBlue {
+      background-color: @accent-text !important;
+      color: @base !important;
+    }
+
+    // The floating corner controls and the comment navigator's choices.
+    .res-wheel-browse-gallery {
+      background-color: fade(@red, 24%) !important;
+    }
+
+    .res-floater-list,
+    .res-floater-list .res-wheel-browse,
+    .res-commentNavToggle-choices {
+      background-color: @mantle !important;
+      color: @text !important;
+    }
+
+    // RES's first-run guider and the screen it dims the page with.
+    .guider,
+    .guiders_content,
+    .guiders_description,
+    .guiders_description * {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .guiders_title,
+    .settingsPointer {
+      color: @accent-text !important;
+    }
+
+    #guiders_overlay {
+      background-color: @crust !important;
+    }
+
+    .guiders_button {
+      background-image: none !important;
+      background-color: @accent-text !important;
+      border-color: @accent-text !important;
+      color: @base !important;
+    }
+
+    // Icon-font glyphs in a pseudo-element take a colour, not a filter.
+    #RESSettingsButton::after,
+    .gearIcon::after,
+    .RESUserTagImage::after {
+      color: @accent-icon !important;
+    }
+
+    #NREPause::after {
+      color: @dim !important;
+    }
+
+    .subreddit-subscribe::before {
+      filter: @dim-filter !important;
+    }
+
+    // Followed: reddit swaps in a green tick.
+    .subreddit-subscribe[disabled]::before {
+      filter: @green-filter !important;
+    }
+
+    // Reddit marks a followed subreddit's name green beside the tick.
+    .tagline .subreddit-subscribe[disabled] ~ .subreddit,
+    .tagline .subreddit-subscribe:hover ~ .subreddit {
+      color: @sticky !important;
+    }
+
+    // The shortcut bar in the header strip.
+    #RESShortcutsEditContainer,
+    #RESShortcutsSort,
+    #RESShortcutsRight,
+    #RESShortcutsLeft,
+    #RESShortcutsAdd {
+      background-color: @crust !important;
+      color: @subtext1 !important;
+    }
+
+    #sr-header-area a.RESShortcutsCurrentSub {
+      color: @accent-text !important;
+    }
+
+    #RESShortcutsAddFormContainer,
+    #srList {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    #srList tbody tr {
+      border-bottom-color: @surface0 !important;
+
+      &:hover {
+        background-color: @surface0 !important;
+      }
+    }
+
+    #progressIndicator,
+    #progressIndicator h2,
+    #jumpToContent {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .crosspost-badge {
+      filter: @dim-filter !important;
+    }
+
+    // Crosspost preview; its divider is a filled `hr`.
+    .crosspost-preview {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+    }
+
+    .crosspost-preview .self-divider {
+      background-color: @surface0 !important;
+      border-color: @surface0 !important;
+    }
+
+    .crosspost-preview-tagline .dot,
+    .crosspost-preview-tagline .comments,
+    .crosspost-preview-comment-parent,
+    .crosspost-preview-comment-parent a,
+    .crosspost-preview-comment-parent .md {
+      color: @dim !important;
+    }
+
+    // A crossposted video fills behind the player.
+    .crosspost-preview.video .crosspost-preview-content {
+      background-color: @mantle !important;
+    }
+
+    .res-media-controls {
+      background-color: fade(@crust, 70%) !important;
+
+      button {
+        background-color: transparent !important;
+        filter: none !important;
+      }
+
+      button::after {
+        color: @text !important;
+      }
+
+      button:hover::after {
+        color: @accent-icon !important;
+      }
+    }
+
+    // The gallery step arrows, icon-font glyphs.
+    .res-step::after {
+      color: @accent-icon !important;
+    }
+
+    .res-step:hover::after {
+      color: @text !important;
+    }
+
+    .res-media-controls-clippy {
+      color: @text !important;
+
+      &::after {
+        color: @text !important;
+      }
+    }
+
+    // Never Ending Reddit's spinner is a rotated half-circle border.
+    .RESLoadingSpinner {
+      border-color: @accent !important;
+      color: @accent !important;
+    }
+
+    #RESNotifications {
+      color: @text !important;
+    }
+
+    .RESNotification {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+    }
+
+    .RESNotificationHeader {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .RESNotificationContent {
+      border-color: @surface0 !important;
+      color: @text !important;
+
+      h2 {
+        color: @text !important;
+      }
+    }
+
+    .RESNotificationFooter {
+      color: @muted !important;
+    }
+
+    .RESNotification a {
+      color: @accent-text !important;
+    }
+
+    .res-filterline {
+      background-color: @mantle !important;
+      color: @muted !important;
+    }
+
+    .res-filterline-filter {
+      border-bottom-color: @surface1 !important;
+    }
+
+    // The bottom rule marks an active filter.
+    .res-filterline-filter-hiding,
+    .res-filterline-filter-hiding:hover {
+      border-bottom-color: @accent !important;
+      color: @text !important;
+    }
+
+    .res-filterline-dropdown {
+      background-color: @mantle !important;
+
+      details summary,
+      .res-filterline-dropdown-toggles label {
+        color: @text !important;
+      }
+    }
+
+    .res-filterline-dropdown-action {
+      border-bottom-color: @surface0 !important;
+      color: @text !important;
+
+      &:hover {
+        background-color: @surface0 !important;
+      }
+    }
+
+    // Condition builder, in the filter card and comment navigator.
+    .builderItem {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+    }
+
+    // RES autocomplete; only the keyboard cursor's row needs naming.
+    #autocomplete_dropdown .selectedItem {
+      background-color: @surface0 !important;
+    }
+
+    // The dashboard table draws this as a bare glyph.
+    .RESSubscriptionButton {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    #newCommentsTable .RESSubscriptionButton {
+      background-color: transparent !important;
+    }
+
+    #editShortcutDialog {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    #editShortcutDialog .RESDescription {
+      color: @dim !important;
+    }
+
+    #editShortcutDialog #sortButton {
+      color: @text !important;
+      border-color: @surface1 !important;
+    }
+
+    // /r/dashboard widgets: box, raised header, loader plate.
+    .RESDashboardComponent {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+    }
+
+    .RESDashboardComponentHeader {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .RESDashboardComponentLoader {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+    }
+
+    // Divs, not anchors, so the link floor misses them.
+    .addNewWidget,
+    .editWidget,
+    .backToWidgetTypes {
+      color: @accent-text !important;
+    }
+
+    // Confirm is a submit input the floor hovers; cancel is `type="cancel"`.
+    .addButton,
+    .addButton:hover,
+    .updateButton,
+    .updateButton:hover {
+      background-color: @join !important;
+      border-color: @join !important;
+      color: @crust !important;
+    }
+
+    .cancelButton {
+      background-color: @alert !important;
+      border-color: @alert !important;
+      color: @crust !important;
+    }
+
+    .RESDashboardComponentHeader ul li {
+      background-color: @base !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+
+      &.active,
+      &:hover {
+        background-color: @accent-fill !important;
+        border-color: @accent-fill !important;
+        color: @base !important;
+      }
+    }
+
+    // An icon-font label declares its own colour, so it inverts with the chip.
+    .RESDashboardComponentHeader ul li.active .res-icon,
+    .RESDashboardComponentHeader ul li:hover .res-icon {
+      color: @base !important;
+    }
+
+    ul.widgetStateButtons li.disabled,
+    ul.widgetStateButtons li.disabled:hover {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @inactive !important;
+    }
+
+    ul.widgetStateButtons li.updateTime,
+    ul.widgetStateButtons li.updateTime:hover {
+      background-color: transparent !important;
+      border-color: transparent !important;
+      color: @text !important;
+    }
+
+    // The label RES shows on the scrim while a widget reloads.
+    .dashboardLoader,
+    .dashboardLoader span {
+      color: @text !important;
+    }
+
+    #RESDashboardAddComponent,
+    #RESDashboardEditComponent {
+      background-color: @surface0 !important;
+      border-color: @accent !important;
+      color: @text !important;
+    }
+
+    // The read-next card declares its own colour.
+    .read-next {
+      background-color: @mantle !important;
+      border-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .read-next .read-next-header {
+      background-color: @surface0 !important;
+      border-bottom-color: @surface1 !important;
+      color: @text !important;
+    }
+  }
+}
