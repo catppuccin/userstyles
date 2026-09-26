@@ -23,13 +23,13 @@
 @import "https://userstyles.catppuccin.com/lib/std/v1.less";
 
 @-moz-document domain("lichess.org") {
-  :root:has(body[data-theme="light"]) {
+  :root:has(body[data-theme~="light"]) {
     #catppuccin(@lightFlavor);
   }
-  :root:has(body[data-theme="dark"]) {
+  :root:has(body[data-theme~="dark"]) {
     #catppuccin(@darkFlavor);
   }
-  :root:has(body[data-theme="system"]) {
+  :root:has(body[data-theme~="system"]) {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
     }
@@ -45,7 +45,109 @@
     @lastMove: @catppuccin[@@flavor][@@lastMoveColor];
     @check: @catppuccin[@@flavor][@@checkColor];
 
-    &,
+    /* Lichess, ui/lib/css/theme/_theme.default.scss — ordered dark → light:
+       bg-page < bg < bg-mid < bg-zebra < bg-low < bg-zebra2.
+       Catppuccin: base < surface0 < surface1 < surface2. */
+    --c-bg-page: @base;
+    --c-body-gradient: @base;
+    --c-bg: @mantle;
+    --c-bg-box: @mantle;
+    --c-bg-high: @mantle;
+    --c-bg-opaque: @mantle;
+    --c-page-input: @mantle;
+    --c-bg-input: @mantle;
+    --c-bg-mid: @surface0;
+    --c-bg-variation: @surface0;
+    --c-bg-zebra: @surface0;
+    --c-bg-low: @surface1;
+    --c-bg-popup: @surface0;
+    --c-bg-header-dropdown: @surface0;
+    --c-bg-zebra2: @surface1;
+    --c-pool-button: fade(@surface0, 66%);
+    --c-metal-top: @surface1;
+    --c-metal-bottom: @surface0;
+    --c-metal-top-hover: @surface2;
+    --c-metal-bottom-hover: @surface1;
+    --c-page-mask: fade(@crust, 60%);
+
+    --c-font: @text;
+    --c-font-clear: @text;
+    --c-font-clearer: @rosewater;
+    --c-font-dim: @subtext0;
+    --c-font-dimmer: @overlay1;
+    --c-font-page: @subtext1;
+    --c-font-shadow: transparent;
+    --c-header-dropdown: @text;
+    --c-shade: @overlay0;
+    --c-dark: @surface1;
+    --c-dimmer: @crust;
+    --c-clearer: @text;
+    --c-over: @crust;
+    --c-paper: @rosewater;
+
+    --c-border: @surface1;
+    --c-border-page: @surface0;
+    --c-border-light: @overlay0;
+
+    --c-primary: @accent;
+    --c-primary-dim: darken(@accent, 8%);
+    --c-primary-clear: lighten(@accent, 8%);
+    --c-link: @blue;
+    --c-link-dim: darken(@blue, 8%);
+    --c-link-clear: lighten(@blue, 8%);
+    --c-link-hover: @sapphire;
+    --c-secondary: @green;
+    --c-secondary-dim: darken(@green, 10%);
+    --c-secondary-dimmer: darken(@green, 20%);
+    --c-accent: @peach;
+    --c-accent-dim: darken(@peach, 10%);
+    --c-accent-clear: lighten(@peach, 8%);
+    --c-accent-faint: fade(@peach, 40%);
+    --c-accent-glass: fade(@peach, 20%);
+    --c-accent-cloud: fade(@peach, 50%);
+    --c-brag: @yellow;
+    --c-brag-hover: lighten(@yellow, 8%);
+    --c-contours: @yellow;
+    --c-fancy: @pink;
+    --c-clas: @mauve;
+    --c-future: @lavender;
+    --c-dasher: @green;
+    --c-dasher-light: fade(@green, 40%);
+    --c-bot: @pink;
+    --c-good: @green;
+    --c-warn: @yellow;
+    --c-bad: @red;
+    --c-error: @red;
+    --c-live: @red;
+    --c-racer-boost: fade(@yellow, 70%);
+    --c-marathon: @teal;
+    --c-tutor-bg: fade(@green, 20%);
+    --c-chat-host-bg: fade(@green, 25%);
+    --c-chat-mention-bg: fade(@yellow, 25%);
+
+    --c-inaccuracy: @sky;
+    --c-mistake: @yellow;
+    --c-blunder: @red;
+    --c-good-move: @green;
+    --c-brilliant: @teal;
+    --c-interesting: @pink;
+    --c-mv-branch-white: @text;
+    --c-mv-branch-black: @crust;
+
+    --c-patron-1: @green;
+    --c-patron-2: @teal;
+    --c-patron-3: @sky;
+    --c-patron-4: @sapphire;
+    --c-patron-5: @blue;
+    --c-patron-6: @lavender;
+    --c-patron-7: @mauve;
+    --c-patron-8: @pink;
+    --c-patron-9: @red;
+    --c-patron-10: @peach;
+
+    /* Only body: a background on <html> stops body's background from propagating
+       to the canvas, so it is painted as a normal block and covers descendants
+       with a negative z-index - Lichess' .rclock .time (#1882). */
     body {
       background: @base linear-gradient(to bottom, @crust, @base 116px)
         no-repeat;
