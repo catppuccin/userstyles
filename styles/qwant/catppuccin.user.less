@@ -1,0 +1,229 @@
+/* ==UserStyle==
+@name Qwant Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/qwant
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/qwant
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/qwant/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aqwant
+@description Soothing pastel theme for Qwant
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/std/v1.less";
+
+@-moz-document domain("qwant.com") {
+  body {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor, light);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor, dark);
+    }
+  }
+  body[data-theme="light"] {
+    #catppuccin(@lightFlavor, light);
+  }
+  body[data-theme="dark"] {
+    #catppuccin(@darkFlavor, dark);
+  }
+
+  #catppuccin(@flavor, @mode) {
+    #lib.palette();
+    #lib.defaults();
+
+    /* The home page's gradient takes the page background from the grey
+       palette directly: its darkest step in dark mode, its lightest in
+       light mode. */
+    & when (@mode = dark) {
+      --palette-default-grey-1100: @base !important;
+    }
+    & when (@mode = light) {
+      --palette-default-grey-000: @base !important;
+    }
+
+    /* Qwant colors everything through these tokens. The footer and the
+       results area carry `data-theme` themselves, which sets every token
+       again there. */
+    &,
+    [data-theme] {
+      /* Variables from before the tokens (the results area) */
+      --background-color: @base !important;
+      --separator: @surface1 !important;
+      --card-border-color: @surface1 !important;
+      --rsbs-bg: @surface0 !important;
+      --rsbs-handle-bg: @overlay0 !important;
+
+      /* Surfaces */
+      --color-elevation-inner: @mantle !important;
+      --color-elevation-surface: @base !important;
+      --color-elevation-surface-elevation: @surface0 !important;
+      --color-elevation-surface-overlay: @surface0 !important;
+      --color-elevation-surface-raised: @surface0 !important;
+      --color-elevation-surface-secondary: @mantle !important;
+      --color-elevation-surface-secondary-elevation: @base !important;
+      --color-elevation-surface-secondary-overlay: @surface0 !important;
+      --color-elevation-surface-secondary-raised: @surface0 !important;
+
+      /* Backgrounds */
+      --color-background-accent-cyan-secondary: fade(@sky, 20%) !important;
+      --color-background-accent-cyan-secondary-hovered: fade(@sky, 28%) !important;
+      --color-background-accent-indigo-primary: @lavender !important;
+      --color-background-accent-indigo-primary-hovered: mix(@lavender, @base, 88%) !important;
+      --color-background-accent-indigo-primary-pressed: mix(@lavender, @base, 76%) !important;
+      --color-background-accent-indigo-secondary: fade(@lavender, 20%) !important;
+      --color-background-accent-indigo-secondary-hovered: fade(@lavender, 28%) !important;
+      --color-background-accent-indigo-secondary-pressed: fade(@lavender, 36%) !important;
+      --color-background-accent-orange-secondary: fade(@peach, 20%) !important;
+      --color-background-accent-orange-secondary-hovered: fade(@peach, 28%) !important;
+      --color-background-accent-pink-secondary: fade(@pink, 20%) !important;
+      --color-background-accent-pink-secondary-hovered: fade(@pink, 28%) !important;
+      --color-background-accent-purple-primary: @mauve !important;
+      --color-background-accent-purple-primary-hovered: mix(@mauve, @base, 88%) !important;
+      --color-background-accent-purple-primary-pressed: mix(@mauve, @base, 76%) !important;
+      --color-background-accent-purple-secondary: fade(@mauve, 20%) !important;
+      --color-background-accent-purple-secondary-hovered: fade(@mauve, 28%) !important;
+      --color-background-accent-purple-secondary-pressed: fade(@mauve, 36%) !important;
+      --color-background-blanket: fade(@crust, 60%) !important;
+      --color-background-blanket-inverse: fade(@crust, 60%) !important;
+      --color-background-brand-primary: @accent !important;
+      --color-background-brand-primary-hovered: mix(@accent, @base, 88%) !important;
+      --color-background-brand-primary-pressed: mix(@accent, @base, 76%) !important;
+      --color-background-brand-secondary: @surface0 !important;
+      --color-background-brand-secondary-hovered: @surface1 !important;
+      --color-background-brand-secondary-pressed: @surface2 !important;
+      --color-background-checked: @accent !important;
+      --color-background-checked-hovered: mix(@accent, @base, 88%) !important;
+      --color-background-checked-pressed: mix(@accent, @base, 76%) !important;
+      --color-background-danger-primary: @red !important;
+      --color-background-danger-primary-hovered: mix(@red, @base, 88%) !important;
+      --color-background-danger-primary-pressed: mix(@red, @base, 76%) !important;
+      --color-background-danger-secondary: fade(@red, 20%) !important;
+      --color-background-danger-secondary-hovered: fade(@red, 28%) !important;
+      --color-background-danger-secondary-pressed: fade(@red, 36%) !important;
+      --color-background-disabled: @surface0 !important;
+      --color-background-information-primary: @blue !important;
+      --color-background-information-primary-hovered: mix(@blue, @base, 88%) !important;
+      --color-background-information-primary-pressed: mix(@blue, @base, 76%) !important;
+      --color-background-information-secondary: fade(@blue, 20%) !important;
+      --color-background-information-secondary-hovered: fade(@blue, 28%) !important;
+      --color-background-information-secondary-pressed: fade(@blue, 36%) !important;
+      --color-background-input: @surface0 !important;
+      --color-background-input-focused: transparent !important;
+      --color-background-input-hovered: @surface1 !important;
+      --color-background-input-pressed: @surface1 !important;
+      --color-background-input-secondary: @surface0 !important;
+      --color-background-input-secondary-hovered: @surface1 !important;
+      --color-background-input-secondary-pressed: @surface1 !important;
+      --color-background-input-tertiary: transparent !important;
+      --color-background-input-tertiary-hovered: @surface0 !important;
+      --color-background-input-tertiary-pressed: @surface1 !important;
+      --color-background-neutral-primary: @text !important;
+      --color-background-neutral-primary-hovered: mix(@text, @base, 88%) !important;
+      --color-background-neutral-primary-pressed: mix(@text, @base, 76%) !important;
+      --color-background-neutral-secondary: @surface0 !important;
+      --color-background-neutral-secondary-hovered: @surface1 !important;
+      --color-background-neutral-secondary-pressed: @surface2 !important;
+      --color-background-neutral-tertiary: transparent !important;
+      --color-background-neutral-tertiary-hovered: @surface0 !important;
+      --color-background-neutral-tertiary-pressed: @surface1 !important;
+      --color-background-selected-primary: @accent !important;
+      --color-background-selected-primary-hovered: mix(@accent, @base, 88%) !important;
+      --color-background-selected-primary-pressed: mix(@accent, @base, 76%) !important;
+      --color-background-selected-secondary: fade(@accent, 20%) !important;
+      --color-background-selected-secondary-hovered: fade(@accent, 28%) !important;
+      --color-background-selected-secondary-pressed: fade(@accent, 36%) !important;
+      --color-background-success-primary: @green !important;
+      --color-background-success-primary-hovered: mix(@green, @base, 88%) !important;
+      --color-background-success-primary-pressed: mix(@green, @base, 76%) !important;
+      --color-background-success-secondary: fade(@green, 20%) !important;
+      --color-background-success-secondary-hovered: fade(@green, 28%) !important;
+      --color-background-success-secondary-pressed: fade(@green, 36%) !important;
+      --color-background-warning-primary: @yellow !important;
+      --color-background-warning-primary-hovered: mix(@yellow, @base, 88%) !important;
+      --color-background-warning-primary-pressed: mix(@yellow, @base, 76%) !important;
+      --color-background-warning-secondary: fade(@yellow, 20%) !important;
+      --color-background-warning-secondary-hovered: fade(@yellow, 28%) !important;
+      --color-background-warning-secondary-pressed: fade(@yellow, 36%) !important;
+
+      /* Borders */
+      --color-border-accent-indigo: @lavender !important;
+      --color-border-accent-purple: @mauve !important;
+      --color-border-brand: @accent !important;
+      --color-border-button-outline: @surface2 !important;
+      --color-border-button-primary: @surface1 !important;
+      --color-border-danger: @red !important;
+      --color-border-disabled: @surface1 !important;
+      --color-border-focused: @accent !important;
+      --color-border-information: @blue !important;
+      --color-border-input: @surface2 !important;
+      --color-border-primary: @subtext0 !important;
+      --color-border-primary-inverse: @base !important;
+      --color-border-secondary: @surface1 !important;
+      --color-border-secondary-inverse: @surface1 !important;
+      --color-border-selected: @accent !important;
+      --color-border-success: @green !important;
+      --color-border-warning: @peach !important;
+
+      /* Icons */
+      --color-icon-accent-cyan: @sky !important;
+      --color-icon-accent-indigo: @lavender !important;
+      --color-icon-accent-orange: @peach !important;
+      --color-icon-accent-pink: @pink !important;
+      --color-icon-accent-purple: @mauve !important;
+      --color-icon-brand-primary: @text !important;
+      --color-icon-brand-secondary: @subtext0 !important;
+      --color-icon-danger: @red !important;
+      --color-icon-danger-inverse: @red !important;
+      --color-icon-disabled: @overlay0 !important;
+      --color-icon-information: @blue !important;
+      --color-icon-inverse: @base !important;
+      --color-icon-primary: @text !important;
+      --color-icon-rating: @yellow !important;
+      --color-icon-secondary: @subtext0 !important;
+      --color-icon-selected: @accent !important;
+      --color-icon-success: @green !important;
+      --color-icon-success-inverse: @green !important;
+      --color-icon-warning: @peach !important;
+
+      /* Identity */
+      --color-identity-primary: @text !important;
+      --color-identity-secondary: @text !important;
+
+      /* Links */
+      --color-link-primary: @blue !important;
+      --color-link-primary-inverse: @blue !important;
+      --color-link-secondary: @text !important;
+      --color-link-secondary-hovered: @subtext1 !important;
+      --color-link-secondary-inverse: @base !important;
+      --color-link-secondary-inverse-hovered: @mantle !important;
+      --color-link-tertiary: @subtext0 !important;
+      --color-link-tertiary-inverse: @overlay1 !important;
+      --color-link-visited: @mauve !important;
+      --color-link-visited-inverse: @mauve !important;
+
+      /* Text */
+      --color-text-accent-indigo: @lavender !important;
+      --color-text-accent-purple: @mauve !important;
+      --color-text-brand: @text !important;
+      --color-text-danger: @red !important;
+      --color-text-danger-inverse: @red !important;
+      --color-text-disabled: @overlay0 !important;
+      --color-text-information: @blue !important;
+      --color-text-primary: @text !important;
+      --color-text-primary-inverse: @base !important;
+      --color-text-secondary: @subtext1 !important;
+      --color-text-secondary-inverse: @surface2 !important;
+      --color-text-selected: @accent !important;
+      --color-text-success: @green !important;
+      --color-text-success-inverse: @green !important;
+      --color-text-tertiary: @subtext0 !important;
+      --color-text-warning: @yellow !important;
+    }
+  }
+}
