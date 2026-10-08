@@ -1,0 +1,304 @@
+/* ==UserStyle==
+@name Carbon Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/carbon
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/carbon
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/carbon/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Acarbon
+@description Soothing pastel theme for Carbon
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/std/v1.less";
+
+@-moz-document domain("carbon.now.sh") {
+  // Carbon combines generated styled-jsx classes with component selectors.
+  :root:root:root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    scrollbar-color: @surface2 @mantle;
+
+    &,
+    body {
+      background-color: @base;
+      color: @text;
+    }
+
+    header h2 {
+      color: @text;
+    }
+
+    a {
+      color: @accent;
+
+      &:hover {
+        color: @text;
+      }
+    }
+
+    .header-content svg[aria-label="Carbon Logo"] g {
+      fill: @accent;
+    }
+
+    /* Only theme the UI shell; the code card and color previews belong
+       to the selected Carbon theme/background. */
+    .editor,
+    .popout,
+    .dropdown-list {
+      background-color: @mantle;
+      color: @text;
+      border-color: @surface1;
+    }
+
+    .window-pointer {
+      border-bottom-color: @surface1;
+    }
+
+    /* These are actual controls, not containers such as .setting-buttons.
+       Preset thumbnails and the background swatch must retain their colors. */
+    button:where(:not(.bg-select-display, .preset-container > button)),
+    .settings-content a {
+      background-color: @surface0;
+      color: @text;
+      border-color: @surface1;
+      box-shadow: none;
+
+      &:hover,
+      &:focus-visible {
+        // Carbon's Button component sets an !important hover/focus background.
+        background-color: @surface1 !important;
+        color: @text;
+      }
+    }
+
+    .toolbar button:not(.popout button, .bg-select-display),
+    .profile-button {
+      box-shadow: inset 0 0 0 1px @surface1;
+
+      &:focus-visible {
+        box-shadow: inset 0 0 0 2px @accent;
+      }
+    }
+
+    .bg-select-display {
+      border-color: @surface1;
+      box-shadow: inset 0 0 0 1px @surface1;
+    }
+
+    .dropdown-display,
+    .dropdown-icon {
+      background-color: @surface0;
+      color: @text;
+      box-shadow: inset 0 0 0 1px @surface1;
+    }
+
+    .dropdown-display {
+      &:hover,
+      &:focus-within {
+        background-color: @surface1;
+      }
+
+      &.is-open {
+        box-shadow: inset 0 0 0 2px @accent;
+      }
+    }
+
+    .dropdown-display-text,
+    .dropdown-list-item-text,
+    .dropdown-arrow {
+      background-color: transparent;
+      color: @text;
+    }
+
+    .dropdown-display-text::placeholder {
+      color: @text;
+      opacity: 1;
+    }
+
+    .list-select-container .display {
+      background-color: @surface0;
+      color: @text;
+
+      &:hover,
+      &:focus-visible {
+        background-color: @surface1;
+      }
+    }
+
+    .list-select-container .list-item,
+    .dropdown-list-item {
+      background-color: @mantle;
+      color: @text;
+      border-color: @surface1;
+
+      &:hover,
+      &[aria-selected="true"] {
+        background-color: @surface0;
+      }
+    }
+
+    /* Recolor UI icons without changing syntax colors, window controls,
+       preset thumbnails, or the theme editor's color samples. */
+    .toolbar button:not(.preset-container > button) svg [fill]:not([fill="none"]),
+    .dropdown-icon svg [fill]:not([fill="none"]) {
+      fill: currentcolor;
+    }
+
+    .toolbar button svg [stroke]:not([stroke="none"]),
+    .dropdown-arrow svg [stroke],
+    .dropdown-icon svg [stroke] {
+      stroke: currentcolor;
+    }
+
+    .toolbar .share-menu-container > .flex > button {
+      color: @blue;
+      box-shadow: inset 0 0 0 1px @blue;
+    }
+
+    .toolbar .export-menu-container > .flex > button {
+      color: @accent;
+      box-shadow: inset 0 0 0 1px @accent;
+    }
+
+    .export-row,
+    .export-row .filename,
+    .export-row .flex,
+    .save-container {
+      color: @text;
+      border-color: @surface1;
+    }
+
+    .popout input:not([type="range"], [type="checkbox"]),
+    .theme-settings input {
+      background-color: transparent;
+      color: @text;
+      border-color: @surface1;
+
+      &::placeholder {
+        color: @subtext0;
+      }
+    }
+
+    .settings-menu {
+      background-color: @surface0;
+    }
+
+    .settings-content,
+    .settings-content > div,
+    .settings-content .row > div,
+    .settings-presets,
+    .settings-presets-header,
+    .menu-button,
+    .picker-tabs,
+    .picker-tabs button,
+    .theme-settings .field,
+    .theme-settings .theme-select,
+    .color-picker-container {
+      border-color: @surface1;
+    }
+
+    .settings-presets-header {
+      color: @text;
+    }
+
+    .settings-content [role="radio"][aria-checked="true"] svg {
+      border-color: @accent;
+    }
+
+    .settings-presets-content {
+      background-color: @mantle;
+    }
+
+    .settings-presets-applied {
+      background-color: @surface0;
+      color: @text;
+
+      button {
+        background-color: transparent;
+        color: @accent;
+      }
+    }
+
+    .settings-presets-divider,
+    .checkmark-disabled {
+      background-color: @surface2;
+    }
+
+    .slider {
+      background-color: @surface1;
+      color: @text;
+    }
+
+    .slider-bg {
+      background-color: @surface0;
+    }
+
+    .toggle > svg path,
+    .dropdown-list-item > svg path,
+    .list-item > svg path {
+      fill: @accent;
+    }
+
+    .toggle input:focus-visible + svg,
+    .toggle input:focus-visible + .checkmark-disabled,
+    .settings-content .settings-row:focus-within {
+      outline-color: @accent;
+    }
+
+    .settings-content button[style],
+    .settings-content a[style] {
+      // Misc settings buttons have inline border colors.
+      border-color: @surface1 !important;
+    }
+
+    .sketch-picker {
+      // react-color supplies the picker surface as an inline style.
+      background-color: @mantle !important;
+    }
+
+    .sketch-picker input,
+    .sketch-picker label {
+      // Carbon's ColorPicker component uses !important text colors.
+      color: @text !important;
+    }
+
+    .sketch-picker input {
+      background-color: @surface0;
+    }
+
+    .color-picker-header {
+      background-color: @mantle;
+      color: @text;
+    }
+
+    ::-webkit-scrollbar,
+    ::-webkit-scrollbar-track {
+      background-color: @mantle;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: @surface1;
+
+      &:hover {
+        background-color: @surface2;
+      }
+    }
+  }
+}
