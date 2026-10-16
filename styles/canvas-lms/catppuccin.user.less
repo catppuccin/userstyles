@@ -2,7 +2,7 @@
 @name Canvas LMS Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/canvas-lms
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/canvas-lms
-@version 2026.04.09
+@version 2026.10.11
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/canvas-lms/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Acanvas-lms
 @description Soothing pastel theme for Canvas LMS
@@ -15,7 +15,7 @@
 @var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
 ==/UserStyle== */
 
-@import "https://userstyles.catppuccin.com/lib/lib.less";
+@import "https://userstyles.catppuccin.com/lib/std/v1.less";
 
 @-moz-document domain("instructure.com"), domain("instructuremedia.com") {
   :root {
@@ -380,14 +380,18 @@
 
     /* filled-in buttons - this auto-generated class covers a lot of them */
     @hover-button: @surface1;
-    .neutral-button() {
+    .neutral-button(@bg: @surface0, @border-color: @surface1) {
       color: @text;
-      background-color: @surface0;
-      border-color: @surface1;
-      &:hover {
-        background-color: @hover-button;
+      background-color: @bg;
+      border-color: @border-color;
+      &:focus {
+        outline-color: @accent !important;
+      }
+      @hover: if(@bg = @surface0, @hover-button, lighten(@bg, 10%));
+      &:hover:not(:disabled) {
+        background-color: @hover;
         > [class$="baseButton__content"] {
-          background-color: @hover-button;
+          background-color: @hover;
         }
         color: @text;
       }
@@ -396,8 +400,8 @@
       }
       > [class$="baseButton__content"] {
         color: @text;
-        background-color: @surface0;
-        border-color: @surface1;
+        background-color: @bg;
+        border-color: @border-color;
         transition-property: background, transform, filter;
       }
       [class$="text"] {
@@ -425,6 +429,31 @@
           background-color: @hover-accent-button;
         }
         color: @mantle;
+      }
+    }
+
+    @hover-accent-button-hollow: fadeout(@accent, 80%);
+    /* this represents buttons which do not have a solid background and are accent-colored. */
+    .accent-button-hollow() {
+      color: @accent;
+      border-color: @accent;
+      &:hover {
+        background-color: @hover-accent-button-hollow;
+        > [class$="baseButton__content"] {
+          background-color: @hover-accent-button-hollow;
+        }
+        color: @accent;
+      }
+      path[fill="#000000"] {
+        fill: @accent;
+      }
+      > [class$="baseButton__content"] {
+        color: @accent;
+        border-color: @accent;
+        transition-property: background, transform, filter;
+      }
+      [class$="text"] {
+        color: @accent;
       }
     }
 
@@ -484,7 +513,8 @@
       &:active {
         background-color: darken(@hover-button, 3%);
       }
-      &.active, &.Button--active {
+      &.active,
+      &.Button--active {
         background-color: @subtext0;
         border-color: lighten(@surface1, 10%);
         color: @mantle;
@@ -493,10 +523,15 @@
 
     .btn-link,
     .Button--link {
-      &.active, &.Button--active, &.ui-button.ui-state-active, &:active {
+      &.active,
+      &.Button--active,
+      &.ui-button.ui-state-active,
+      &:active {
         background: @surface0;
       }
-      &.disabled, &.ui-button.ui-state-disabled, &[disabled] {
+      &.disabled,
+      &.ui-button.ui-state-disabled,
+      &[disabled] {
         background: transparent;
       }
     }
@@ -566,8 +601,8 @@
     }
     /* end of copy-pasted styles */
 
-    span[role="button"]::before, /* drag handle */
-    :is(button, a)[class$="baseButton"]::before {
+    span[role="button"]::before,
+    /* drag handle */ :is(button, a)[class$="baseButton"]::before {
       border-color: @accent;
     }
 
@@ -588,7 +623,8 @@
       box-shadow: inset 0 0 0 2px @text;
     }
 
-    .btn-primary:focus, .Button--primary:focus {
+    .btn-primary:focus,
+    .Button--primary:focus {
       box-shadow: inset 0 0 0 2px @crust;
     }
 
@@ -787,6 +823,227 @@
     }
 
     /* DASHBOARD */
+
+    /* customizable one: https://community.instructure.com/en/discussion/665850/empowering-learners-introducing-the-new-customizable-dashboard */
+    button[data-testid="switch-to-old-dashboard-button"],
+    button[data-testid="switch-to-new-dashboard-button"] {
+      .neutral-button();
+    }
+    .responsive_student_grades_page {
+      /* color picker */
+      div[role="dialog"] > div {
+        background-color: @surface1;
+        border-color: @surface2;
+        h4,
+        label span {
+          color: @text;
+        }
+        button[data-testid="color-picker-cancel"] {
+          .neutral-button();
+        }
+        button[data-testid="color-picker-apply"] {
+          .accent-button();
+        }
+      }
+
+      span[data-cid="Modal"] {
+        label span[class$="formFieldLayout__label"] {
+          color: @text;
+        }
+        fieldset[data-cid="DateTimeInput"] {
+          span[class$="formFieldMessage"] {
+            color: @green;
+          }
+        }
+        span[data-testid="add-widget-modal"] {
+          [data-testid^="widget"] {
+            background-color: @surface0;
+            border-color: @surface1;
+
+            span {
+              color: @text;
+            }
+            div:has(> button) {
+              border-color: @surface1;
+            }
+            button {
+              .neutral-button(@surface1, @surface2);
+            }
+          }
+        }
+      }
+      span[data-testid="loading-overlay"] > span {
+        background-color: fade(@base, 40%);
+      }
+    }
+    #content > div > div[data-widget-dashboard-dark-root] > div {
+      background-color: @base;
+
+      button[data-testid^="add-widget-placeholder"],
+      button[data-testid="customize-dashboard-button"] {
+        .accent-button-hollow();
+      }
+
+      button[data-testid="cancel-customize-button"] {
+        .neutral-button();
+      }
+
+      button[data-testid="save-customize-button"] {
+        .accent-button();
+      }
+
+      svg {
+        color: @text;
+      }
+
+      #dashboard section {
+        background-color: @surface0;
+
+        [data-cid*="BaseButton"]:not([data-testid*="hide"]):not(
+          [data-testid^="color-picker"]
+        ) {
+          .neutral-button();
+          &[aria-current="page"] {
+            color: black;
+            .accent-button();
+          }
+        }
+
+        span[title] {
+          color: @text;
+        }
+
+        [style="all: unset;"] {
+          color: @text !important;
+        }
+
+        &[data-testid="widget-course-work-combined-widget"] {
+          [data-testid^="statistics-card"] {
+            background-color: @surface1;
+          }
+          [data-testid="statistics-card-Due"] span {
+            color: @blue !important;
+          }
+          [data-testid="statistics-card-Missing"] span {
+            color: @red !important;
+          }
+          [data-testid="statistics-card-Submitted"] span {
+            color: @green !important;
+          }
+          /* individual assignment cards */
+          li > [data-testid^="listed-course-work-item"] > div {
+            background-color: @surface1;
+            div:has(> span > svg) {
+              background-color: fade(@blue, 40%);
+            }
+            a > span {
+              color: @blue !important;
+            }
+
+            span[data-testid^="due_soon-status-pill"] {
+              background-color: fade(@blue, 40%);
+              > span {
+                background-color: transparent;
+              }
+            }
+            span[data-testid^="submitted-status-pill"] {
+              background-color: fade(@green, 40%);
+              > span {
+                background-color: transparent;
+              }
+            }
+            /* not sure if this is the right id because i don't have missing work... */
+            span[data-testid^="missing-status-pill"] {
+              background-color: fade(@red, 40%);
+              > span {
+                background-color: transparent;
+              }
+            }
+          }
+        }
+
+        &[data-testid^="widget-todo_list"] {
+          div:has(> span[data-cid="Select SimpleSelect"]) {
+            border-color: @surface2;
+          }
+          li > div {
+            background-color: @surface1;
+            border-color: @surface2;
+          }
+        }
+
+        &[data-testid^="widget-inbox-widget"] {
+          label span[class$="formFieldLayout__label"] {
+            color: @text;
+          }
+          li > div {
+            border-color: @surface1;
+          }
+        }
+
+        &[data-testid^="widget-progress_overview"] {
+          color: @text;
+          > span > div > div {
+            &:first-child {
+              /* legend for child below */
+              li {
+                color: @text;
+              }
+            }
+            &:last-child {
+              /* contains course progress */
+              [color="primary-inverse"] {
+                color: @crust;
+              }
+              > div {
+                /* data-testid="course-progress-item-xxxxxx" */
+                ul li {
+                  color: @text;
+                  [class$="delimiter"] {
+                    color: @surface2;
+                  }
+                }
+                div[data-testid^="progress-segment-submitted"] {
+                  background-color: @peach;
+                }
+                div[data-testid^="progress-segment-remaining"] {
+                  background-color: @subtext1;
+                }
+                div[data-testid^="progress-segment-no-assignments"] {
+                  background-color: @subtext1;
+                }
+              }
+            }
+          }
+        }
+
+        &[data-testid="widget-people-widget"] {
+          ul[data-cid="List"] span {
+            color: @text;
+          }
+        }
+
+        &[data-testid="widget-course-grades-widget"] {
+          span[data-testid$="name"] {
+            color: @text;
+          }
+          div[data-testid^="course-grade"] {
+            background-color: @surface1;
+          }
+        }
+
+        &[data-testid="widget-announcements-widget"] {
+          [data-testid^="announcement-item"] {
+            border-color: @surface1;
+          }
+        }
+
+        [color="primary-inverse"] {
+          color: @text;
+        }
+      }
+    }
+
     .StickyButton-styles__root {
       background-color: @accent;
       span {
@@ -1947,7 +2204,7 @@
     }
 
     /* author profile picture placeholder */
-    [data-testid="author_avatar"] {
+    [data-testid*="avatar"]:has(img) {
       background-color: @surface0;
       border-color: @overlay2;
       span {

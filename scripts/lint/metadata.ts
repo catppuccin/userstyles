@@ -85,8 +85,6 @@ export async function verifyMetadata(
     }
   }
 
-  Deno.writeTextFileSync(file, content);
-
   const template = (await Deno.readTextFile(
     path.join(REPO_ROOT, "template/catppuccin.user.less"),
   ))

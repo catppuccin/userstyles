@@ -12,6 +12,7 @@ import { verifyMetadata } from "@/lint/metadata.ts";
 import { runStylelint } from "@/lint/stylelint.ts";
 import { getUserstylesData, getUserstylesFiles } from "@/utils.ts";
 import stylelintConfig from "../../.stylelintrc.js";
+import "@/lint/library.ts";
 
 const args = parseArgs(Deno.args, { boolean: ["fix"] });
 const userstyle = args._[0]?.toString().match(
@@ -57,9 +58,9 @@ for (const style of stylesheets) {
   );
 
   // Lint with Stylelint.
-  await runStylelint(style, content, args.fix, stylelintConfig).catch(() =>
-    didLintFail = true
-  );
+  const results = await runStylelint(style, content, args.fix, stylelintConfig)
+    .catch(() => didLintFail = true);
+  Deno.writeTextFileSync(file, typeof results === "string" ? results : content);
 }
 
 if (await checkForMissingFiles() === false) didLintFail = true;
