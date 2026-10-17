@@ -1,0 +1,819 @@
+/* ==UserStyle==
+@name YNAB Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/ynab
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/ynab
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/ynab/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aynab
+@description Soothing pastel theme for YNAB
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/std/v1.less";
+
+@-moz-document domain("app.ynab.com") {
+  /* YNAB's appearance setting toggles `theme-dark` on <body>, so we hook the
+     flavors off that class rather than prefers-color-scheme. This keeps the
+     userstyle in sync with the in-app switcher; YNAB's own "System" option
+     resolves to one of these two classes before we ever see it. */
+  body.theme-dark {
+    #catppuccin(@darkFlavor);
+  }
+  body:not(.theme-dark) {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    /* --------------------------------------------------------------------
+       YNAB ships a two-layer design-token system:
+
+         * primitives -- `--brand*`, `--utility*`, `--alpha*`: defined once on
+                         `:root`, identical in both themes (242 tokens)
+         * semantic   -- `--background*`, `--label*`, `--action*` and friends:
+                         defined on `:root`, re-defined on `body.theme-dark`
+                         (304 tokens)
+
+       Component CSS consumes the semantic layer almost exclusively (2117
+       var() references, against 15 to primitives), so remapping the semantic
+       tokens themes nearly the entire app. Declaring them on `body` means they
+       inherit into every descendant and outrank YNAB's `:root` definitions.
+
+       On "label-on-accent" tokens (e.g. --categoryBalancePositiveLabel) we use
+       @base rather than a fixed light or dark value: Latte's accents are deep
+       and its @base is light, Mocha's accents are pastel and its @base is dark,
+       so @base stays the readable choice in every flavor without guards.
+       -------------------------------------------------------------------- */
+
+    /* Surfaces ----------------------------------------------------------- */
+    --backgroundPrimary: @base;
+    --backgroundGroupedPrimary: @base;
+    --backgroundTableRow: @base;
+    --backgroundSecondary: @mantle;
+    --backgroundGroupedSecondary: @mantle;
+    --backgroundTableHeader: @mantle;
+    /* An accent-filled bar with light text in YNAB (#545bfe), not a neutral
+       surface -- it pairs with --labelDarkBackgroundPrimary. */
+    --backgroundNavigationBar: @accent;
+    --backgroundTertiary: @surface0;
+    --backgroundGroupedTertiary: @surface0;
+    --backgroundPrimaryElevated: @surface0;
+    --backgroundTableRowSelected: @surface0;
+    --backgroundSecondaryElevated: @surface1;
+    --backgroundTertiaryElevated: @surface1;
+    --backgroundDarkPrimary: @surface0;
+    --backgroundDarkSecondary: @surface1;
+    --backgroundDarkTertiary: @surface2;
+    --backgroundVideoControls: @crust;
+    --headerBackground: @mantle;
+    --settingsHeaderBackground: @mantle;
+    --modalBackgroundAccent: @surface0;
+    --accountwidgetMxWidgetBackground: @base;
+
+    /* Text --------------------------------------------------------------- */
+    --labelPrimary: @text;
+    --labelHeading: @text;
+    --labelSecondary: @subtext1;
+    /* Despite the name, this is YNAB's "label on a saturated fill" colour --
+       it is #fff in both of their themes, and ~40 rules use it as the text on
+       primary/destructive buttons and accent-coloured bars. It therefore has to
+       be @base (dark on Mocha's pastel accents, light on Latte's deep ones),
+       not @text, which would land light-on-light and dark-on-dark. The handful
+       of consumers that put it on a neutral surface instead are corrected by
+       selector below (see `.ynab-button.contrast`). */
+    --labelDarkBackgroundPrimary: @base;
+    --labelDarkBackgroundSecondary: @subtext1;
+    --labelTertiary: @subtext0;
+    --labelQuaternary: @overlay1;
+    --labelAction: @accent;
+    --labelActionActive: @accent;
+    --labelActionDisabled: @overlay0;
+    --labelPositive: @green;
+    --labelPositiveActive: @green;
+    --labelNegative: @red;
+    --labelNegativeActive: @red;
+    --labelNegativeDisabled: @overlay0;
+    --labelWarning: @yellow;
+
+    /* Actions and links -------------------------------------------------- */
+    --actionPrimary: @accent;
+    --actionPrimaryActive: @accent;
+    --actionPrimaryDisabled: @overlay0;
+    --actionSecondary: @surface1;
+    --actionSecondaryActive: @surface2;
+    --actionSecondaryBorder: @surface2;
+    --actionSecondaryDisabled: @surface0;
+    --actionTertiary: @accent;
+    --actionTertiaryActive: @accent;
+    /* Floating action bars are likewise accent-filled with light text. */
+    --actionbarBackground: @accent;
+    --actionbarButtonBackground: @accent;
+
+    /* Buttons ------------------------------------------------------------ */
+    --buttonPrimaryBackground: @accent;
+    --buttonPrimaryBackgroundActive: @accent;
+    --buttonPrimaryBackgroundDisabled: @surface0;
+    --buttonSecondaryBackground: fade(@accent, 20%);
+    --buttonSecondaryBackgroundActive: fade(@accent, 30%);
+    --buttonSecondaryLabel: @text;
+    --buttonTertiaryBackground: fade(@surface1, 60%);
+    --buttonTertiaryBackgroundActive: fade(@surface1, 80%);
+    --buttonEmphasizedBackground: @green;
+    --buttonEmphasizedBackgroundActive: @green;
+    --buttonEmphasizedBackgroundDisabled: @surface0;
+    --buttonDestructiveBackground: @red;
+    --buttonDestructiveBackgroundActive: @maroon;
+    --buttonDestructiveLabel: @base;
+    --registerSecondaryButtonLabel: @text;
+    --registerSecondaryButtonLabelActive: @subtext1;
+
+    /* Sidebar ------------------------------------------------------------ */
+    /* YNAB keeps a dark navy sidebar even in its light theme. We follow the
+       active flavor instead, so Latte gets a genuinely light sidebar. */
+    --sidebarBackground: @crust;
+    --sidebarLabelPrimary: @text;
+    --sidebarLabelSecondary: @subtext1;
+    --sidebarIconFillDefault: @subtext1;
+    --sidebarButtonBackgroundActive: @surface0;
+    --sidebarButtonBackgroundSelected: @surface1;
+    --sidebarButtonSecondaryBackground: @surface1;
+    --sidebarButtonSecondaryBackgroundActive: @surface2;
+    --sidebarButtonSecondaryBackgroundPressed: @surface2;
+    --sidebarButtonTertiaryBackground: fade(@surface2, 40%);
+    --sidebarButtonTertiaryBackgroundActive: fade(@surface2, 60%);
+    --sidebarButtonTertiaryBackgroundPressed: fade(@surface2, 70%);
+    --sidebarAccountNegativeBalanceBackground: fade(@red, 20%);
+
+    /* Inputs and controls ------------------------------------------------ */
+    --inputBackground: @surface0;
+    --inputBackgroundDisabled: @surface1;
+    --inputBorder: @surface2;
+    --inputBorderActive: @accent;
+    --checkboxBackground: transparent;
+    --checkboxBackgroundDisabled: @surface1;
+    --checkboxBackgroundSelected: @accent;
+    --checkboxBorder: @overlay0;
+    --checkboxBorderSelected: @accent;
+    --checkboxForegroundSelected: @base;
+    --filterBackground: @surface0;
+    --filterBackgroundActive: fade(@accent, 30%);
+    --filterLabel: @text;
+    --filterLabelDisabled: @overlay0;
+
+    /* Separators, fills, icons ------------------------------------------- */
+    --separatorStandard: @surface0;
+    --separatorStrong: @surface2;
+    --separatorSubdued: @mantle;
+    --fillPrimary: fade(@overlay0, 20%);
+    --fillSecondary: fade(@overlay0, 32%);
+    --fillTertiary: fade(@overlay0, 24%);
+    --fillQuarternary: fade(@overlay0, 18%);
+    --fillHover: fade(@overlay0, 12%);
+    --iconFillPrimary: @subtext0;
+    --iconFillSecondary: @overlay1;
+    --iconFillTertiary: @overlay0;
+    --iconTwotoneDark: @overlay1;
+    --iconTwotoneLight: @subtext0;
+
+    /* Status ------------------------------------------------------------- */
+    --statusPositive: @green;
+    --statusNegative: @red;
+    --statusWarning: @yellow;
+
+    /* Budget progress bars ----------------------------------------------- */
+    --budgetBarBackground: @surface1;
+    --budgetBarBackgroundOnNonWhite: @surface0;
+    --budgetBarBorder: @surface1;
+    --budgetBarEmpty: @surface0;
+    --budgetBarFunded: @green;
+    --budgetBarFundedSpending: @teal;
+    --budgetBarFundedSpendingStripe: @surface1;
+    --budgetBarOverspending: @red;
+    --budgetBarOverspendingStripe: @maroon;
+    --budgetBarPreviouslyAssigned: @surface2;
+    --budgetBarUnderfunded: @yellow;
+    --budgetBarUnderfundedSpending: @peach;
+    --budgetBarUnderfundedSpendingStripe: @surface1;
+    --budgetBarV2Background: @surface1;
+    --budgetBarV2BackgroundOnNonWhite: @surface0;
+    --budgetBarV2Border: @surface1;
+    --budgetBarV2Empty: @surface0;
+    --budgetBarV2Funded: @green;
+    --budgetBarV2FundedSpending: @teal;
+    --budgetBarV2Overspending: @red;
+    --budgetBarV2PreviouslyAssigned: @surface2;
+    --budgetBarV2Underfunded: @yellow;
+    --budgetBarV2UnderfundedSpending: @peach;
+
+    /* Category balance pills --------------------------------------------- */
+    --categoryBalancePositiveBackground: @green;
+    --categoryBalancePositiveBackgroundActive: @teal;
+    --categoryBalancePositiveLabel: @base;
+    --categoryBalanceNegativeBackground: @red;
+    --categoryBalanceNegativeBackgroundActive: @maroon;
+    --categoryBalanceNegativeLabel: @base;
+    --categoryBalanceWarningBackground: @yellow;
+    --categoryBalanceWarningBackgroundActive: @peach;
+    --categoryBalanceWarningLabel: @base;
+    /* Also backs the prominent "To Be Budgeted" pill, so it stays on the
+       lighter surface step to keep its label legible in Latte. */
+    --categoryBalanceZeroBackground: @surface0;
+    --categoryBalanceZeroLabel: @subtext1;
+    --categoryBalanceAlternateBorder: @surface2;
+    --categoryBalanceAlternateNegativeBackground: @red;
+    --categoryBalanceAlternateNegativeBackgroundActive: @maroon;
+    --categoryBalanceAlternateNegativeLabel: @base;
+    --categoryBalanceAlternateWarningBackground: @yellow;
+    --categoryBalanceAlternateWarningBackgroundActive: @peach;
+
+    /* Callouts ----------------------------------------------------------- */
+    --calloutPrimaryAccent: @accent;
+    --calloutPrimaryLabel: @text;
+    --calloutPrimaryButtonBackground: @accent;
+    --calloutPrimaryButtonBackgroundActive: @accent;
+    --calloutPrimaryButtonForeground: @base;
+    --calloutPrimaryProminentBackground: fade(@accent, 30%);
+    --calloutPrimaryProminentBackgroundEmphasis: @accent;
+    --calloutPrimarySubtleBackground: fade(@accent, 15%);
+    --calloutPrimarySubtleBackgroundEmphasis: fade(@accent, 25%);
+    --calloutSecondaryAccent: @overlay1;
+    --calloutSecondaryLabel: @text;
+    --calloutSecondaryButtonBackground: @surface2;
+    --calloutSecondaryButtonBackgroundActive: @overlay0;
+    --calloutSecondaryButtonForeground: @text;
+    --calloutSecondaryProminentBackground: @surface1;
+    --calloutSecondaryProminentBackgroundEmphasis: @surface2;
+    --calloutSecondarySubtleBackground: @surface0;
+    --calloutSecondarySubtleBackgroundEmphasis: @surface1;
+    --calloutPositiveAccent: @green;
+    --calloutPositiveLabel: @text;
+    --calloutPositiveButtonBackground: @green;
+    --calloutPositiveButtonBackgroundActive: @teal;
+    --calloutPositiveButtonForeground: @base;
+    --calloutPositiveProminentBackground: fade(@green, 30%);
+    --calloutPositiveProminentBackgroundEmphasis: @green;
+    --calloutPositiveSubtleBackground: fade(@green, 15%);
+    --calloutPositiveSubtleBackgroundEmphasis: fade(@green, 25%);
+    --calloutHighlightAccent: @teal;
+    --calloutHighlightLabel: @text;
+    --calloutHighlightButtonBackground: @teal;
+    --calloutHighlightButtonBackgroundActive: @sky;
+    --calloutHighlightButtonForeground: @base;
+    --calloutHighlightProminentBackground: fade(@teal, 30%);
+    --calloutHighlightProminentBackgroundEmphasis: @teal;
+    --calloutHighlightSubtleBackground: fade(@teal, 15%);
+    --calloutHighlightSubtleBackgroundEmphasis: fade(@teal, 25%);
+    --calloutNegativeAccent: @red;
+    --calloutNegativeLabel: @text;
+    --calloutNegativeButtonBackground: @red;
+    --calloutNegativeButtonBackgroundActive: @maroon;
+    --calloutNegativeButtonForeground: @base;
+    --calloutNegativeProminentBackground: fade(@red, 30%);
+    --calloutNegativeProminentBackgroundEmphasis: @red;
+    --calloutNegativeSubtleBackground: fade(@red, 15%);
+    --calloutNegativeSubtleBackgroundEmphasis: fade(@red, 25%);
+    --calloutWarningAccent: @yellow;
+    --calloutWarningButtonBackground: @yellow;
+    --calloutWarningButtonBackgroundActive: @peach;
+    --calloutWarningButtonForeground: @base;
+    --calloutWarningProminentBackground: @yellow;
+    --calloutWarningProminentBackgroundEmphasis: @peach;
+    --calloutWarningProminentBackgroundLabel: @base;
+    --calloutWarningSubtleBackground: fade(@yellow, 15%);
+    --calloutWarningSubtleBackgroundEmphasis: fade(@yellow, 25%);
+    --calloutWarningSubtleBackgroundLabel: @text;
+
+    /* Selectable list rows (filters, dropdowns) -------------------------- */
+    --viewsNeutralBackground: @surface0;
+    --viewsNeutralBackgroundHover: @surface1;
+    --viewsNeutralBackgroundSelected: fade(@accent, 20%);
+    --viewsNeutralBackgroundSelectedHover: fade(@accent, 30%);
+    --viewsNeutralSelectedAccent: @accent;
+    --viewsErrorBackground: @red;
+    --viewsErrorBackgroundHover: @maroon;
+    --viewsErrorBackgroundSelected: fade(@red, 20%);
+    --viewsErrorBackgroundSelectedHover: fade(@red, 30%);
+    --viewsErrorLabel: @base;
+    --viewsErrorLabelSelected: @red;
+    --viewsErrorSelectedAccent: @red;
+    --viewsWarningBackground: @yellow;
+    --viewsWarningBackgroundHover: @peach;
+    --viewsWarningBackgroundSelected: fade(@yellow, 20%);
+    --viewsWarningBackgroundSelectedHover: fade(@yellow, 30%);
+    --viewsWarningLabel: @base;
+    --viewsWarningLabelSelected: @yellow;
+    --viewsWarningSelectedAccent: @yellow;
+
+    /* Flags -- YNAB names these by colour, so map them literally --------- */
+    --flagRed: @red;
+    --flagOrange: @peach;
+    --flagYellow: @yellow;
+    --flagGreen: @green;
+    --flagBlue: @blue;
+    --flagPurple: @mauve;
+
+    /* Avatars ------------------------------------------------------------ */
+    --avatarOne: @blue;
+    --avatarTwo: @green;
+    --avatarThree: @teal;
+    --avatarFour: @lavender;
+    --avatarFive: @yellow;
+    --avatarSix: @peach;
+    --avatarBorder: @surface2;
+    --avatarManagerLabel: @base;
+    --avatarMemberLabel: @base;
+    --avatarPending: @surface1;
+    --avatarPendingLabel: @subtext0;
+
+    /* Reports -- a categorical ramp ordered for maximum hue separation, so
+       adjacent series in a chart or legend stay tellable apart. ----------- */
+    --reportsOne: @blue;
+    --reportsTwo: @peach;
+    --reportsThree: @green;
+    --reportsFour: @mauve;
+    --reportsFive: @red;
+    --reportsSix: @teal;
+    --reportsSeven: @yellow;
+    --reportsEight: @pink;
+    --reportsNine: @sapphire;
+    --reportsTen: @maroon;
+    --reportsEleven: @lavender;
+    --reportsSpendingBreakdownTop1: @blue;
+    --reportsSpendingBreakdownTop2: @peach;
+    --reportsSpendingBreakdownTop3: @green;
+    --reportsSpendingBreakdownTop4: @mauve;
+    --reportsSpendingBreakdownTop5: @red;
+    --reportsSpendingBreakdownTop6: @teal;
+    --reportsSpendingBreakdownTop7: @yellow;
+    --reportsSpendingBreakdownTop8: @pink;
+    --reportsSpendingBreakdownTop9: @sapphire;
+    --reportsSpendingBreakdownTop10: @maroon;
+    --reportsSpendingBreakdownTopOther: @overlay0;
+    --reportsNetworthAssetsBackground: @green;
+    --reportsNetworthDebtsBackground: @red;
+    --reportsChartTrendLine: @accent;
+    --reportsChartTrendPoint: @accent;
+    --reportsChartTrendPointShadow: fade(@accent, 30%);
+    --reportsChartTrendAOMSelected: @green;
+
+    /* Debt and loan charts ----------------------------------------------- */
+    --debtChartsOne: @blue;
+    --debtChartsTwo: @sapphire;
+    --debtChartsThree: @mauve;
+    --debtChartsFour: @green;
+    --debtChartsFive: @teal;
+    --debtChartsSix: @yellow;
+    --debtChartsSeven: @peach;
+    --loanChartsPrimary: @accent;
+    --loanChartsSecondary: @surface1;
+    --loanChartsTertiary: @surface2;
+    --loanChartsPositive: @green;
+    --loanChartsWarning: @yellow;
+
+    /* Overlays, loading, misc chrome ------------------------------------- */
+    /* A modal backdrop has to darken whatever sits behind it -- YNAB uses a
+       black scrim in both of its themes. Latte's darkest surface is still a
+       light grey, so veiling with @crust there would leave the page undimmed;
+       @text is the only palette entry dark enough to read as a scrim. */
+    --scrimInvisible: transparent;
+    & when (@flavor = latte) {
+      --scrimDefault: fade(@text, 40%);
+      --scrimStrong: fade(@text, 70%);
+    }
+    & when not(@flavor = latte) {
+      --scrimDefault: fade(@crust, 60%);
+      --scrimStrong: fade(@crust, 85%);
+    }
+    --loadingBackground: @surface0;
+    --loadingActionActive: @surface2;
+    --loadingShimmerBackground: @surface2;
+    --loadingShimmerBackgroundFaded: fade(@surface2, 40%);
+    --pillBackground: fade(@accent, 20%);
+    --pillLabel: @accent;
+    --movesStandardBackground: @surface1;
+    --movesSelectedBackground: @accent;
+    --swoopBottom: @green;
+
+    /* Illustration backdrops -------------------------------------------- */
+    --illustrationBackgroundNeutral: @crust;
+    --illustrationBackgroundBlurple: @accent;
+    --illustrationBackgroundBlurple200: fade(@accent, 25%);
+    --illustrationBackgroundBlurple300: fade(@accent, 45%);
+    --illustrationBackgroundBlurple400: fade(@accent, 70%);
+    --illustrationBackgroundBlurple500: @accent;
+    --illustrationBackgroundButtermilk: @surface0;
+    --illustrationBackgroundDandelion: @yellow;
+    --illustrationBackgroundFirefly300: fade(@green, 45%);
+    --illustrationBackgroundFirefly400: fade(@green, 70%);
+    --illustrationBackgroundMeadow300: fade(@teal, 45%);
+    --illustrationBackgroundMeadow400: fade(@teal, 70%);
+    --illustrationBackgroundMeadow800: @teal;
+    --illustrationBackgroundSlime: @green;
+
+    /* The handful of primitive tokens components still reference directly.
+       The brand ramps run light (200) to dark (900); mapping them onto the
+       surface ladder keeps that direction correct in every flavor. */
+    --brandBlurple200: @surface0;
+    --brandBlurple500: @accent;
+    /* 800 and 900 are only ever used as *text* on a 200 background, so they
+       need text-level contrast rather than a place on the surface ladder. */
+    --brandBlurple800: @subtext1;
+    --brandBlurple900: @text;
+    --brandDandelion200: @surface0;
+    --brandDandelion900: @yellow;
+    --brandNeutral200: @surface0;
+    --brandNeutral500: @overlay0;
+    --brandSPMeadow400: @teal;
+    --utilityBlackTransparent: transparent;
+
+    /* Latte's accents sit at middling luminance and the flavor has no near-
+       black, so no palette entry reaches 4.5:1 on a @yellow or @peach fill --
+       an inherent limit of the palette, not something a different token can
+       solve. @text measures better than @base on those hues specifically
+       (3.05:1 vs 2.31:1 on yellow), so prefer it there. On tinted (faded)
+       backgrounds @text wins outright, since the tint stays near the page. */
+    & when (@flavor = latte) {
+      --calloutWarningButtonForeground: @text;
+      --calloutWarningProminentBackgroundLabel: @text;
+      --categoryBalanceWarningLabel: @text;
+      --viewsWarningLabel: @text;
+      --viewsWarningLabelSelected: @text;
+      --viewsErrorLabelSelected: @text;
+    }
+
+    /* --------------------------------------------------------------------
+       Contrast corrections.
+
+       A few tokens are reused across surfaces that are all dark in YNAB's own
+       palette but diverge once mapped onto a Catppuccin flavor. Where a token
+       has to favour its majority use, the minority consumers are corrected by
+       selector here.
+       -------------------------------------------------------------------- */
+
+    /* The one family that puts --labelDarkBackgroundPrimary on a neutral
+       surface rather than a saturated fill, so it needs @text. */
+    .ynab-button.contrast:not([disabled]),
+    .ynab-button.contrast:not([disabled]):hover,
+    .ynab-button.contrast:not([disabled]):active {
+      color: @text;
+    }
+
+    /* Ghost buttons fill with @red on hover, so the label can't also be red. */
+    .ghost-button.destructive:hover:not([disabled]) {
+      color: @base;
+    }
+
+    /* Sits on an --actionPrimary fill, but asks for the *active* accent as its
+       text colour -- identical to its own background once both map to @accent. */
+    .account-widget .account-widget-connections .account-widget-already-connected .already-connected-row-wrapper .already-connected-row.needs-attention-info {
+      color: @base;
+    }
+
+    /* Close affordance layered over a scrim rather than a fill. */
+    .modal-future-months-video-modal .modal .modal-content .close-icon {
+      color: @text;
+    }
+
+    /* Text sitting on a strong scrim wants whichever of @text/@base is the
+       lighter of the two in this flavor, since the veil is dark either way. */
+    .users-budgets .are-you-sure,
+    .file-incoming h3,
+    .file-incoming-inner {
+      & when (@flavor = latte) {
+        color: @base;
+      }
+      & when not(@flavor = latte) {
+        color: @text;
+      }
+    }
+
+    /* Disabled primary buttons fill with a neutral surface, so they need muted
+       body text rather than the on-accent label. */
+    .button-primary.button-disabled {
+      color: @subtext0;
+    }
+
+    /* A badge on a faded-accent background; the accent itself is too close to
+       its own tint to read. */
+    .ynab-badge {
+      color: @text;
+    }
+
+    /* --------------------------------------------------------------------
+       Everything below is the literal-colour tail: rules where YNAB hardcodes
+       a hex instead of reading a token, so no amount of token remapping
+       reaches them. Grouped by the component that owns them.
+       -------------------------------------------------------------------- */
+
+    /* Search highlight */
+    mark {
+      background-color: @yellow;
+      color: @base;
+    }
+
+    /* billboard.js -- the charting library behind every Reports view. Its
+       stylesheet predates YNAB's tokens and hardcodes greys throughout. */
+    .bb line,
+    .bb path {
+      stroke: @surface2;
+    }
+    .bb .bb-button,
+    .bb text {
+      fill: @subtext1;
+    }
+    .bb-axis-y text,
+    .bb-axis-y2 text {
+      fill: @subtext0;
+    }
+    .bb-grid line {
+      stroke: @surface0;
+    }
+    .bb-xgrid-focus line,
+    .bb-ygrid-focus line {
+      stroke: @overlay0;
+    }
+    .bb-text.bb-empty {
+      fill: @subtext0;
+    }
+    .bb-event-rects .bb-event-rect._active_ {
+      fill: fade(@accent, 10%);
+    }
+    .tick._active_ text {
+      fill: @accent !important;
+    }
+    .bb-selected-circle {
+      fill: @text;
+    }
+    .bb-region {
+      fill: @sapphire;
+    }
+    .bb-region.selected rect {
+      fill: @green;
+    }
+    .bb-legend-background {
+      fill: @mantle;
+      stroke: @surface1;
+    }
+    .bb-button .bb-zoom-reset {
+      background-color: @surface0;
+    }
+    .bb-chart-arcs .bb-chart-arcs-background,
+    .bb-chart-arcs path.empty {
+      fill: @surface1;
+    }
+    .bb-chart-arcs .bb-chart-arcs-gauge-unit,
+    .bb-chart-arcs .bb-chart-arcs-title,
+    .bb-chart-arc .bb-gauge-value {
+      fill: @text;
+    }
+    .bb-chart-arcs .bb-chart-arcs-gauge-max,
+    .bb-chart-arcs .bb-chart-arcs-gauge-min {
+      fill: @subtext0;
+    }
+    .bb-chart-arcs .bb-levels circle,
+    .bb-chart-radars .bb-levels polygon,
+    .bb-chart-radars .bb-axis line {
+      stroke: @overlay0;
+    }
+    .bb-chart-arcs .bb-levels text,
+    .bb-chart-radars .bb-levels text {
+      fill: @subtext0;
+    }
+    /* Arc separators read as hairlines against the page, not white gaps. */
+    .bb-chart-arc path,
+    .bb-chart-arc rect {
+      stroke: @base;
+    }
+    .bb-chart-arc text {
+      fill: @base;
+    }
+
+    /* Chart tooltips */
+    .bb-tooltip {
+      background-color: @mantle;
+    }
+    .bb-tooltip .bb-tooltip-title {
+      color: @subtext0;
+    }
+    .bb-tooltip .bb-tooltip-detail .bb-tooltip-name,
+    .bb-tooltip .bb-tooltip-detail .bb-tooltip-value {
+      color: @text;
+    }
+
+    /* Net-worth area fill (hardcoded pale yellow in Reports and Reflect) */
+    .reports-net-worth .bb-areas path,
+    .reflect-net-worth .bb-areas path {
+      fill: fade(@yellow, 20%);
+    }
+    .chart-image-exporter-chart-area .chart .bb-circles-Net-Worth circle {
+      stroke: @base;
+    }
+
+    /* Transaction flag pills -- hardcoded iOS system colours at 30% / 40% */
+    .ynab-flag-pill-red {
+      background-color: fade(@red, 30%);
+    }
+    .ynab-flag-pill-red:hover {
+      background-color: fade(@red, 40%);
+    }
+    .ynab-flag-pill-orange {
+      background-color: fade(@peach, 30%);
+    }
+    .ynab-flag-pill-orange:hover {
+      background-color: fade(@peach, 40%);
+    }
+    .ynab-flag-pill-yellow {
+      background-color: fade(@yellow, 30%);
+    }
+    .ynab-flag-pill-yellow:hover {
+      background-color: fade(@yellow, 40%);
+    }
+    .ynab-flag-pill-green {
+      background-color: fade(@green, 30%);
+    }
+    .ynab-flag-pill-green:hover {
+      background-color: fade(@green, 40%);
+    }
+    .ynab-flag-pill-blue {
+      background-color: fade(@blue, 30%);
+    }
+    .ynab-flag-pill-blue:hover {
+      background-color: fade(@blue, 40%);
+    }
+    .ynab-flag-pill-purple {
+      background-color: fade(@mauve, 30%);
+    }
+    .ynab-flag-pill-purple:hover {
+      background-color: fade(@mauve, 40%);
+    }
+
+    /* Transfer-jump affordance in the register */
+    .ynab-grid-jump-to-transfer-transaction:hover {
+      background-color: fade(@accent, 10%);
+    }
+    .ynab-grid-body-row.is-checked .ynab-grid-jump-to-transfer-transaction:hover {
+      background-color: fade(@accent, 20%);
+    }
+
+    /* Family member avatars (hardcoded alongside the --avatar* tokens) */
+    .family-member-avatar.avatar-one {
+      background-color: @blue;
+    }
+    .family-member-avatar.avatar-two {
+      background-color: @green;
+    }
+    .family-member-avatar.avatar-three {
+      background-color: @teal;
+    }
+    .family-member-avatar.avatar-four {
+      background-color: @lavender;
+    }
+    .family-member-avatar.avatar-five {
+      background-color: @yellow;
+    }
+    .family-member-avatar.avatar-six {
+      background-color: @peach;
+    }
+    .family-member-avatar.avatar-inactive {
+      background-color: @surface1;
+    }
+    .avatar-text-manager,
+    .avatar-text-member {
+      color: @base;
+    }
+    .avatar-text-inactive {
+      color: @subtext0;
+    }
+
+    /* Panels that hardcode a white background */
+    .insight-item,
+    .category-fields,
+    .account-widget-api-popular-list .grid-item.fallback,
+    .so-table,
+    .so-cause-table {
+      background-color: @base;
+    }
+    .select-budget button,
+    .so-toggle-btn,
+    .so-sub-cause {
+      background-color: @surface0;
+    }
+    /* Dimming overlays, same constraint as the scrim tokens above. */
+    .users-budgets .hover-state {
+      & when (@flavor = latte) {
+        background-color: fade(@text, 50%);
+      }
+      & when not(@flavor = latte) {
+        background-color: fade(@crust, 66%);
+      }
+    }
+
+    /* Gradients */
+    .cost-to-be-me-summary .progress.has-deficit {
+      background: linear-gradient(90deg, @red 0, @maroon 100%);
+    }
+    .share-ynab-hub .share-ynab-hub__hero {
+      background: linear-gradient(190deg, @accent 0, @crust 100%);
+    }
+    .ynab-spend-accounts-header .ynab-accounts-header__card-visualization-container .ynab-accounts-header__card-visualization {
+      background: linear-gradient(120deg, @accent 45.51%, @teal 85.08%);
+    }
+
+    /* Loan progress indicators */
+    .loan-progress-container .loan-progress-chart-and-message.error-over-chart .loan-progress-error-over-chart-heading svg,
+    .loan-progress-container .minimized-loan-progress.progress-error-over-chart svg {
+      fill: @peach;
+    }
+    .loan-progress-container .minimized-loan-progress.progress-paid-off .progress-bar .percent {
+      fill: @green;
+    }
+    .loan-account .loan-account-activity-monthly-item .activity-progress-and-description .activity-progress-icon .icon-count-number-text,
+    .loan-account .loan-account-activity-monthly-item .activity-progress-and-description .activity-progress-icon .icon-circle-progress.complete .inner {
+      fill: @base;
+    }
+
+    /* Toasts and floating action bars: their pressed states hardcode a
+       white overlay, which reads as a flash on a dark surface. */
+    .default-category-notification .default-category-notification__bar button:active,
+    .register-action-bar-container .register-action-bar-inner button:active {
+      background-color: fade(@text, 15%);
+    }
+    .modal-future-months-video-modal .modal .modal-footer .modal-actions .ynab-new-icon,
+    .chat-widget,
+    .chat-widget .ynab-button.secondary.badged {
+      color: @text;
+    }
+    .chat-widget .loading-wheel {
+      background-color: @overlay0;
+    }
+    .ftue-onboarding-not-started,
+    .ftue-onboarding-extended {
+      background-color: fade(@base, 75%);
+    }
+    .modal-fresh .modal-fresh-body.scrollable::-webkit-scrollbar-thumb {
+      background-color: @surface2;
+      box-shadow: inset 0 0 0.063rem @surface2;
+    }
+    .ynab-new-theme-switcher .ynab-new-theme-switcher-dark .svg {
+      background-color: @crust;
+    }
+    .account-widget .account-widget-loading-spinner.loading-spinner {
+      color: @text;
+    }
+    .account-widget .account-widget-confirmation-overlay {
+      & when (@flavor = latte) {
+        background-color: fade(@text, 30%);
+      }
+      & when not(@flavor = latte) {
+        background-color: fade(@crust, 40%);
+      }
+    }
+    .account-widget-item-list .account-widget-provider {
+      color: @subtext0;
+    }
+    .modal-account-calendar.modal-overlay {
+      background-color: fade(@crust, 1%);
+    }
+
+    /* Overspending diagnostic table */
+    .so-root {
+      background-color: @mantle;
+    }
+    .so-table th {
+      background-color: @accent;
+      color: @base;
+    }
+    .so-empty,
+    .so-collapsed-row {
+      color: @subtext0;
+    }
+    .so-warn {
+      color: @peach;
+    }
+    .so-negative {
+      color: @red;
+    }
+    .so-positive {
+      color: @green;
+    }
+    .so-zero,
+    .so-assigned.so-zero,
+    .so-difference.so-zero {
+      color: @overlay0;
+    }
+    .so-copyable-cause:hover {
+      background-color: fade(@accent, 15%);
+    }
+    .pretend {
+      color: @pink !important;
+    }
+  }
+}
