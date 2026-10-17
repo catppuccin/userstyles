@@ -1,0 +1,935 @@
+/* ==UserStyle==
+@name Figma Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/figma
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/figma
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/figma/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Afigma
+@description Soothing pastel theme for Figma
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+
+@var checkbox accentAffectsBrand "Accent affects brand" 0
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document url-prefix("https://www.figma.com/files"), url-prefix("https://www.figma.com/design"), url-prefix("https://www.figma.com/board"), url-prefix("https://www.figma.com/slides"), url-prefix("https://www.figma.com/buzz"), url-prefix("https://www.figma.com/site"), url-prefix("https://www.figma.com/make") {
+  [data-preferred-theme="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+  [data-preferred-theme="light"] {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    
+    @hover: 10%;
+    @active: 10%;
+    @tint: 30%;
+    
+    .base(@accent);
+    
+    .editor-theme("design", @blue);
+    .editor-theme("whiteboard", @mauve);
+    .editor-theme("piper", @peach);
+    .editor-theme("cooper", @pink);
+    .editor-theme("seascape", @lavender);
+    .editor-theme("sulli", @sapphire);
+    .editor-theme("bake-filebrowser", @text);
+    .editor-theme("dev-handoff", @teal);
+        
+    .editor-theme(@id, @color) {
+      @brand: if(@accentAffectsBrand = 0, @color, @accent);
+      &[data-editor-theme=@{id}],
+      :where(& [data-editor-theme=@{id}]) {
+        scrollbar-color: @overlay0 @base;
+        .base(@brand);
+      }
+    }
+    
+    .base(@brand) {
+      --color-bg: @base;
+      --color-bg-hover: lighten(@base, @hover);
+      --color-bg-active: darken(@base, @active);
+
+      --color-bg-assistive: @pink;
+      --color-bg-assistive-hover: lighten(@pink, @hover);
+      --color-bg-assistive-pressed: darken(@pink, @active);
+      --color-bg-assistive-secondary: darken(@pink, @active);
+      --color-bg-assistive-tertiary: mix(@pink, @base, @tint);
+
+      --color-bg-brand: @brand;
+      --color-bg-brand-hover: lighten(@brand, @hover);
+      --color-bg-brand-pressed: darken(@brand, @active);
+      --color-bg-brand-secondary: darken(@brand, @active);
+      --color-bg-brand-tertiary: mix(@brand, @base, @tint);
+      --color-bg-brand-tertiary-hover: lighten(mix(@brand, @base, @tint), @hover);
+      --color-bg-brand-tertiary-pressed: darken(mix(@brand, @base, @tint), @active);
+
+      --color-bg-component: @mauve;
+      --color-bg-component-hover: lighten(@mauve, @hover);
+      --color-bg-component-pressed: darken(@mauve, @active);
+      --color-bg-component-secondary: darken(@mauve, @active);
+      --color-bg-component-tertiary: mix(@mauve, @base, @tint);
+      --color-bg-component-tertiary-hover: lighten(mix(@mauve, @base, @tint), @hover);
+      --color-bg-component-tertiary-pressed: darken(mix(@mauve, @base, @tint), @active);
+
+      --color-bg-danger: @red;
+      --color-bg-danger-hover: lighten(@red, @hover);
+      --color-bg-danger-pressed: darken(@red, @active);
+      --color-bg-danger-secondary: darken(@red, @active);
+      --color-bg-danger-tertiary: mix(@red, @base, @tint);
+      --color-bg-danger-tertiary-hover: lighten(mix(@red, @base, @tint), @hover);
+      --color-bg-danger-tertiary-pressed: darken(mix(@red, @base, @tint), @active);
+
+      --color-bg-design: @blue;
+      --color-bg-design-hover: lighten(@blue, @hover);
+      --color-bg-design-pressed: darken(@blue, @active);
+      --color-bg-design-secondary: darken(@blue, @active);
+      --color-bg-design-tertiary: mix(@blue, @base, @tint);
+
+      --color-bg-desktopBackgrounded: @surface0;
+      --color-bg-desktopBackgrounded-disabled: @surface1;
+      --color-bg-desktopBackgrounded-hover: lighten(@surface0, @hover);
+      --color-bg-desktopBackgrounded-pressed: darken(@surface0, @active);
+      --color-bg-desktopBackgrounded-secondary: @surface0;
+      --color-bg-desktopBackgrounded-tertiary: @base;
+
+      --color-bg-desktopForeground: @mantle;
+      --color-bg-desktopForeground-disabled: @surface1;
+      --color-bg-desktopForeground-hover: lighten(@mantle, @hover);
+      --color-bg-desktopForeground-pressed: darken(@mantle, @active);
+      --color-bg-desktopForeground-secondary: @surface0;
+      --color-bg-desktopForeground-tertiary: @base;
+
+      --color-bg-desktopFullscreen: @crust;
+      --color-bg-desktopFullscreen-disabled: @surface1;
+      --color-bg-desktopFullscreen-hover: lighten(@crust, @hover);
+      --color-bg-desktopFullscreen-pressed: darken(@crust, @active);
+      --color-bg-desktopFullscreen-secondary: @mantle;
+      --color-bg-desktopFullscreen-tertiary: @base;
+
+      --color-bg-disabled: @surface1;
+      --color-bg-disabled-secondary: @surface0;
+
+      --color-bg-elevated: @mantle;
+      --color-bg-elevated-hover: lighten(@mantle, @hover);
+
+      --color-bg-figjam: @mauve;
+      --color-bg-figjam-hover: lighten(@mauve, @hover);
+      --color-bg-figjam-pressed: darken(@mauve, @active);
+      --color-bg-figjam-secondary: darken(@mauve, @active);
+      --color-bg-figjam-tertiary: mix(@mauve, @base, @tint);
+
+      --color-bg-fs: var(--color-bg);
+      --color-bg-fs-assistive: var(--color-bg-assistive);
+      --color-bg-fs-assistive-secondary: var(--color-bg-assistive-secondary);
+      --color-bg-fs-assistive-tertiary: var(--color-bg-assistive-tertiary);
+      --color-bg-fs-component: var(--color-bg-component);
+      --color-bg-fs-component-secondary: var(--color-bg-component-secondary);
+      --color-bg-fs-component-tertiary: var(--color-bg-component-tertiary);
+      --color-bg-fs-design: var(--color-bg-design);
+      --color-bg-fs-design-secondary: var(--color-bg-design-secondary);
+      --color-bg-fs-design-tertiary: var(--color-bg-design-tertiary);
+      --color-bg-fs-measure: var(--color-bg-measure);
+      --color-bg-fs-measure-hover: var(--color-bg-measure-hover);
+      --color-bg-fs-measure-secondary: var(--color-bg-measure-secondary);
+      --color-bg-fs-measure-tertiary: var(--color-bg-measure-tertiary);
+      --color-bg-fs-selected: var(--color-bg-selected);
+      --color-bg-fs-selected-secondary: var(--color-bg-selected-secondary);
+      --color-bg-fs-template: var(--color-bg-template);
+      --color-bg-fs-template-secondary: var(--color-bg-template-secondary);
+      --color-bg-fs-template-tertiary: var(--color-bg-fs-template-tertiary);
+      --color-bg-fs-tertiary: var(--color-bg-tertiary);
+
+      --color-bg-handoff: @green;
+      --color-bg-handoff-hover: lighten(@green, @hover);
+      --color-bg-handoff-pressed: darken(@green, @active);
+      --color-bg-handoff-secondary: darken(@green, @active);
+      --color-bg-handoff-tertiary: mix(@green, @base, @tint);
+
+      --color-bg-hover: @surface0;
+      --color-bg-info: mix(@blue, @base, @tint);
+      --color-bg-inverse: @text;
+      --color-bg-inverse-hover: darken(@text, @active);
+      --color-bg-inverse-pressed: darken(@text, @active);
+
+      --color-bg-measure: @red;
+      --color-bg-measure-hover: lighten(@red, @hover);
+      --color-bg-measure-pressed: darken(@red, @active);
+      --color-bg-measure-secondary: darken(@red, @active);
+      --color-bg-measure-tertiary: mix(@red, @base, @tint);
+
+      --color-bg-menu: @mantle;
+      --color-bg-menu-disabled: @surface1;
+      --color-bg-menu-hover: @base;
+      --color-bg-menu-pressed: @base;
+      --color-bg-menu-secondary: @surface0;
+      --color-bg-menu-selected: @brand;
+      --color-bg-menu-selected-hover: lighten(@brand, @hover);
+      --color-bg-menu-selected-pressed: darken(@brand, @active);
+      --color-bg-menu-selected-secondary: mix(@brand, @base, @tint);
+      --color-bg-menu-selected-tertiary: mix(@brand, @base, @tint);
+      --color-bg-menu-tertiary: @surface1;
+
+      --color-bg-onselected: mix(@blue, @base, @tint);
+      --color-bg-onselected-hover: lighten(mix(@blue, @base, @tint), @hover);
+      --color-bg-onselected-pressed: darken(mix(@blue, @base, @tint), @active);
+
+      --color-bg-pressed: @surface1;
+
+      --color-bg-secondary: @surface0;
+      --color-bg-secondary-hover: lighten(@surface0, @hover);
+      --color-bg-secondary-pressed: darken(@surface0, @active);
+
+      --color-bg-selected: mix(@brand, @base, @tint);
+      --color-bg-selected-hover: lighten(mix(@brand, @base, @tint), @hover);
+      --color-bg-selected-pressed: darken(mix(@brand, @base, @tint), @active);
+      --color-bg-selected-secondary: mix(@brand, @base, @tint);
+      --color-bg-selected-strong: @brand;
+      --color-bg-selected-tertiary: mix(@brand, @base, @tint);
+
+      --color-bg-strong-hover: lighten(@brand, @hover);
+      --color-bg-strong-pressed: darken(@brand, @active);
+
+      --color-bg-success: @green;
+      --color-bg-success-hover: lighten(@green, @hover);
+      --color-bg-success-pressed: darken(@green, @active);
+      --color-bg-success-secondary: darken(@green, @active);
+      --color-bg-success-tertiary: mix(@green, @base, @tint);
+      --color-bg-success-tertiary-hover: lighten(mix(@green, @base, @tint), @hover);
+      --color-bg-success-tertiary-pressed: darken(mix(@green, @base, @tint), @active);
+
+      --color-bg-template: @pink;
+      --color-bg-template-secondary: darken(@pink, @active);
+      --color-bg-template-tertiary: mix(@pink, @base, @tint);
+
+      --color-bg-tertiary: @surface1;
+
+      --color-bg-toolbar: @base;
+      --color-bg-toolbar-disabled: @surface1;
+      --color-bg-toolbar-hover: @mantle;
+      --color-bg-toolbar-pressed: @mantle;
+      --color-bg-toolbar-secondary: @surface0;
+      --color-bg-toolbar-selected: @brand;
+      --color-bg-toolbar-selected-hover: lighten(@brand, @hover);
+      --color-bg-toolbar-selected-pressed: darken(@brand, @active);
+      --color-bg-toolbar-selected-secondary: darken(@brand, @active);
+      --color-bg-toolbar-selected-tertiary: @brand;
+      --color-bg-toolbar-tertiary: @surface1;
+
+      --color-bg-tooltip: @mantle;
+      --color-bg-tooltip-disabled: @surface1;
+      --color-bg-tooltip-hover: lighten(@mantle, @hover);
+      --color-bg-tooltip-pressed: darken(@mantle, @active);
+      --color-bg-tooltip-secondary: @surface0;
+      --color-bg-tooltip-selected: @brand;
+      --color-bg-tooltip-selected-hover: lighten(@brand, @hover);
+      --color-bg-tooltip-selected-pressed: darken(@brand, @active);
+      --color-bg-tooltip-selected-secondary: mix(@brand, @base, @tint);
+      --color-bg-tooltip-selected-tertiary: mix(@brand, @base, @tint);
+      --color-bg-tooltip-tertiary: @surface1;
+
+      --color-bg-transparent: #ffffff00;
+      --color-bg-transparent-hover: #ffffff1a;
+      --color-bg-transparent-pressed: #ffffff33;
+      --color-bg-transparent-secondary: #ffffff33;
+
+      --color-bg-warning: @yellow;
+      --color-bg-warning-hover: lighten(@yellow, @hover);
+      --color-bg-warning-pressed: darken(@yellow, @active);
+      --color-bg-warning-secondary: darken(@yellow, @active);
+      --color-bg-warning-tertiary: mix(@yellow, @base, @tint);
+      --color-bg-warning-tertiary-hover: lighten(mix(@yellow, @base, @tint), @hover);
+      --color-bg-warning-tertiary-pressed: darken(mix(@yellow, @base, @tint), @active);
+
+      --color-bghoverondarkcanvas: @surface0;
+      --color-bghoveronlightcanvas: @surface2;
+      --color-bghovertransparent: #ffffff1a;
+      --color-bginspectpadding: @brand;
+      --color-bginspectpaddingtertiary: mix(@brand, @base, @tint);
+      --color-bginspectspacing: @pink;
+      --color-bgsecondaryoncanvas: @crust;
+      --color-bgswitchoff: @surface1;
+      --color-bgtoolbarmodeswitcher: @surface1;
+      --color-bgtoolbarmodeswitcher-hover: @surface2;
+      --color-bgtransparent-secondary-hover: #ffffff1a;
+      --color-bgtransparent-secondary-pressed: #ffffff26;
+      --color-bgtransparentsecondary: #ffffff26;
+      --color-bgvoting: @yellow;
+      --color-bgvotingsecondary: mix(@yellow, @base, @tint);
+      --color-bgvotingtertiary: mix(@yellow, @base, @tint);
+      --color-bgvotingwheeldial: mix(@yellow, @base, @tint);
+      --color-bgvotingwheelhover: lighten(mix(@yellow, @base, @tint), @hover);
+
+      --color-border: @surface1;
+      --color-border-assistive: darken(@pink, @active);
+      --color-border-assistive-strong: @pink;
+      --color-border-brand: mix(@brand, @base, @tint);
+      --color-border-brand-strong: @brand;
+      --color-border-component: mix(@mauve, @base, @tint);
+      --color-border-component-hover: @mauve;
+      --color-border-component-selected: lighten(@mauve, @hover);
+      --color-border-component-strong: lighten(@mauve, @hover);
+      --color-border-danger: darken(@red, @active);
+      --color-border-danger-strong: @red;
+      --color-border-design: darken(@blue, @active);
+      --color-border-design-strong: @blue;
+      --color-border-desktopBackgrounded: @surface1;
+      --color-border-desktopBackgrounded-disabled: @surface0;
+      --color-border-desktopBackgrounded-strong: @overlay0;
+      --color-border-desktopForeground: @surface0;
+      --color-border-desktopForeground-disabled: @surface0;
+      --color-border-desktopForeground-strong: @text;
+      --color-border-desktopFullscreen: @mantle;
+      --color-border-desktopFullscreen-disabled: @mantle;
+      --color-border-desktopFullscreen-strong: @text;
+      --color-border-disabled: @surface1;
+      --color-border-disabled-strong: @overlay0;
+      --color-border-figjam: darken(@mauve, @active);
+      --color-border-figjam-strong: @mauve;
+
+      --color-border-fs: var(--color-border);
+      --color-border-fs-assistive: var(--color-border-assistive);
+      --color-border-fs-assistive-strong: @pink;
+      --color-border-fs-component: lighten(@mauve, @hover);
+      --color-border-fs-component-strong: var(--color-bg-fs-component);
+      --color-border-fs-design: lighten(@blue, @hover);
+      --color-border-fs-design-strong: var(--color-bg-fs-design);
+      --color-border-fs-measure: var(--color-border-measure);
+      --color-border-fs-measure-strong: var(--color-bg-fs-measure);
+      --color-border-fs-onassistive: var(--color-border-onassistive);
+      --color-border-fs-onassistive-strong: var(--color-border-onassistive-strong);
+      --color-border-fs-oncomponent: var(--color-border-oncomponent);
+      --color-border-fs-oncomponent-strong: var(--color-border-oncomponent-strong);
+      --color-border-fs-ondesign: var(--color-border-ondesign);
+      --color-border-fs-ondesign-strong: var(--color-border-ondesign-strong);
+      --color-border-fs-onmeasure: var(--color-border-onmeasure);
+      --color-border-fs-onmeasure-strong: var(--color-border-onmeasure-strong);
+      --color-border-fs-onselected: var(--color-border-onselected);
+      --color-border-fs-onselected-strong: var(--color-border-onselected-strong);
+      --color-border-fs-ontemplate: var(--color-border-ontemplate);
+      --color-border-fs-ontemplate-strong: var(--color-border-ontemplate-strong);
+      --color-border-fs-selected: var(--color-border-selected);
+      --color-border-fs-selected-strong: var(--color-border-selected-strong);
+      --color-border-fs-strong: var(--color-border-strong);
+      --color-border-fs-template: lighten(@pink, @hover);
+      --color-border-fs-template-strong: var(--color-bg-fs-template);
+
+      --color-border-handoff: darken(@green, @active);
+      --color-border-handoff-strong: @green;
+      --color-border-measure: darken(@red, @active);
+      --color-border-measure-strong: @red;
+
+      --color-border-menu: @surface0;
+      --color-border-menu-disabled: @surface0;
+      --color-border-menu-disabled-strong: @surface0;
+      --color-border-menu-onselected: lighten(@brand, @hover);
+      --color-border-menu-onselected-strong: @base;
+      --color-border-menu-selected: @brand;
+      --color-border-menu-selected-strong: lighten(@brand, @hover);
+      --color-border-menu-strong: @text;
+
+      --color-border-onassistive: @base;
+      --color-border-onassistive-strong: @base;
+      --color-border-onbrand: @base;
+      --color-border-onbrand-strong: @base;
+      --color-border-oncomponent: @base;
+      --color-border-oncomponent-strong: @base;
+      --color-border-ondanger: @base;
+      --color-border-ondanger-strong: @base;
+      --color-border-ondesign: @base;
+      --color-border-ondesign-strong: @base;
+      --color-border-onfigjam: @base;
+      --color-border-onfigjam-strong: @base;
+      --color-border-onmeasure: @base;
+      --color-border-onmeasure-strong: @base;
+      --color-border-onselected: mix(@blue, @base, @tint);
+      --color-border-onselected-strong: @text;
+      --color-border-onsuccess: @base;
+      --color-border-onsuccess-strong: @base;
+      --color-border-ontemplate: @base;
+      --color-border-ontemplate-strong: @base;
+      --color-border-onwarning: @base;
+      --color-border-onwarning-strong: @base;
+
+      --color-border-selected: @blue;
+      --color-border-selected-strong: lighten(@blue, @hover);
+      --color-border-strong: @text;
+      --color-border-success: darken(@green, @active);
+      --color-border-success-strong: @green;
+      --color-border-template-strong: lighten(@pink, @hover);
+
+      --color-border-toolbar: @surface1;
+      --color-border-toolbar-disabled: @overlay0;
+      --color-border-toolbar-onselected: @base;
+      --color-border-toolbar-selected: @brand;
+      --color-border-toolbar-selected-strong: lighten(@brand, @hover);
+      --color-border-toolbar-strong: @text;
+
+      --color-border-tooltip: @surface0;
+      --color-border-tooltip-disabled: @surface0;
+      --color-border-tooltip-disabled-strong: @surface0;
+      --color-border-tooltip-onselected: @base;
+      --color-border-tooltip-onselected-strong: @base;
+      --color-border-tooltip-selected: @brand;
+      --color-border-tooltip-selected-strong: lighten(@brand, @hover);
+      --color-border-tooltip-strong: @text;
+
+      --color-border-warning: mix(@yellow, @base, @tint);
+      --color-border-warning-strong: @yellow;
+
+      --color-borderinspectpadding: @brand;
+      --color-borderinspectspacing: @pink;
+      --color-borderplacecrosshair: @text;
+      --color-borderselectedec: #ffffff00;
+      --color-bordertranslucent: #ffffff1a;
+      --color-bordertranslucentstrong: #ffffff33;
+
+      --color-code: @text;
+      --color-codeaccent: @peach;
+      --color-codeattribute: @text;
+      --color-codeclassname: @blue;
+      --color-codecomment: @overlay1;
+      --color-codeproperty: @text;
+      --color-codestring: @green;
+      --color-codestylename: @blue;
+      --color-codetag: @mauve;
+      --color-codevalue: @pink;
+      --color-codevariable: @flamingo;
+
+      --color-conditionalborder: @surface1;
+      --color-controliconoutline: #0000001a;
+      --color-controlknoboffoutline: #00000033;
+      --color-fillplacecrosshair: @crust;
+      --color-fsAutoFillHighlight: #0d99ff33;
+      --color-fsBgHeaderOnDarkCanvas: #ffffff0d;
+      --color-fsBgHeaderOnLightCanvas: #ffffff66;
+      --color-fsBgInputOnLightCanvas: @text;
+      --color-fsBorderDesignShadowStrong: darken(@blue, @active);
+      --color-fsBorderHeaderOnDarkCanvas: #ffffff1a;
+      --color-fsBorderHeaderOnLightCanvas: #0000001a;
+      --color-fsBorderPlaceholder: @surface0;
+      --color-fsBorderSelectedImmutableNode: @mauve;
+      --color-fsBorderSelectedImmutableNodeSecondary: @mauve;
+      --color-fsCanvasDefaultFill: @mantle;
+      --color-fsCodeNodeBorder: @green;
+      --color-fsCodeNodeBorderSecondary: var(--color-fsCodeNodeBorder);
+      --color-fsCodeNodeTextErrorOnDarkCanvas: @base;
+      --color-fsCodeNodeTextErrorOnLightCanvas: @base;
+      --color-fsCodeNodeTextOnDarkCanvas: var(--color-fsCodeNodeBorder);
+      --color-fsCodeNodeTextOnLightCanvas: var(--color-fsCodeNodeBorder);
+      --color-fsDevHandoffAutolayoutPadding: @blue;
+      --color-fsDevHandoffAutolayoutSpacing: @pink;
+      --color-fsFrameDefaultFill: @text;
+      --color-fsGridCellOutline: #80caff99;
+      --color-fsGridCellSelection: #80caff4d;
+      --color-fsGridComponentCellOutline: #d9b8ff99;
+      --color-fsGridComponentCellSelection: #d9b8ff4d;
+      --color-fsIconOnDarkCanvas: @subtext0;
+      --color-fsIconOnDarkCanvasSecondary: @overlay0;
+      --color-fsIconOnLightCanvas: @surface0;
+      --color-fsIconOnLightCanvasSecondary: @surface2;
+      --color-fsNodeHandle: darken(@blue, @active);
+      --color-fsNodeLabelNoBG: @surface2;
+      --color-fsNodeSymbolSelectedSecondary: @mauve;
+      --color-fsNoodleCenterLine: #ffffff00;
+      --color-fsShapeDefaultFill: @surface2;
+      --color-fsSitesResponsiveSetTextOnDarkCanvas: @subtext0;
+      --color-fsSitesResponsiveSetTextOnLightCanvas: @surface2;
+      --color-fsSnappingOverlay: @red;
+      --color-fsStickyAuthorTextOnDark: @subtext1;
+      --color-fsStickyAuthorTextOnLight: @surface2;
+      --color-fsTextComponentOnDarkCanvas: @mauve;
+      --color-fsTextComponentOnLightCanvas: darken(@mauve, @active);
+      --color-fsTextOnDarkCanvas: var(--color-textondarkcanvas);
+      --color-fsTextOnDarkCanvasSecondary: var(--color-textondarkcanvassecondary);
+      --color-fsTextOnLightCanvas: var(--color-textonlightcanvas);
+      --color-fsTextOnLightCanvasSecondary: var(--color-textonlightcanvassecondary);
+      --color-fsTextSelectedOnDarkCanvas: @blue;
+      --color-fsTextSelectedOnLightCanvas: darken(@blue, @active);
+      --color-fsVectorInactive: @surface2;
+      --color-fsWidgetFrameTextOnDarkCanvas: @mauve;
+      --color-fsWidgetFrameTextOnLightCanvas: darken(@mauve, @active);
+      --color-fsWidgetFrameTextSelectedOnDarkCanvas: @mauve;
+      --color-fsWidgetFrameTextSelectedOnLightCanvas: darken(@mauve, @active);
+
+      --color-gauge: @surface2;
+      --color-gauge-brand: @brand;
+      --color-gauge-brand-secondary: mix(@brand, @base, @tint);
+      --color-gauge-danger: @red;
+      --color-gauge-danger-secondary: mix(@red, @base, @tint);
+      --color-gauge-secondary: @surface1;
+      --color-gauge-strong: @text;
+      --color-gauge-success: @green;
+      --color-gauge-success-secondary: mix(@green, @base, @tint);
+      --color-gauge-warning: @yellow;
+      --color-gauge-warning-secondary: mix(@yellow, @base, @tint);
+
+      --color-icon: @text;
+      --color-icon-assistive: @pink;
+      --color-icon-assistive-pressed: darken(@pink, @active);
+      --color-icon-assistive-secondary: var(--color-icon-assistive);
+      --color-icon-assistive-tertiary: var(--color-icon-assistive);
+
+      --color-icon-brand: @brand;
+      --color-icon-brand-pressed: darken(@brand, @active);
+      --color-icon-brand-secondary: mix(@brand, @base, @tint);
+      --color-icon-brand-tertiary: mix(@brand, @base, @tint);
+
+      --color-icon-component: @mauve;
+      --color-icon-component-pressed: darken(@mauve, @active);
+      --color-icon-component-secondary: mix(@mauve, @base, @tint);
+      --color-icon-component-tertiary: mix(@mauve, @base, @tint);
+
+      --color-icon-danger: @red;
+      --color-icon-danger-hover: lighten(@red, @hover);
+      --color-icon-danger-pressed: darken(@red, @active);
+      --color-icon-danger-secondary: var(--color-icon-danger);
+      --color-icon-danger-secondary-hover: var(--color-icon-danger);
+      --color-icon-danger-tertiary: var(--color-icon-danger);
+
+      --color-icon-design: @blue;
+      --color-icon-design-pressed: darken(@blue, @active);
+      --color-icon-design-secondary: var(--color-icon-design);
+      --color-icon-design-tertiary: var(--color-icon-design);
+
+      --color-icon-desktopBackgrounded: @subtext0;
+      --color-icon-desktopBackgrounded-danger: @red;
+      --color-icon-desktopBackgrounded-disabled: @overlay0;
+      --color-icon-desktopBackgrounded-hover: @subtext0;
+      --color-icon-desktopBackgrounded-ondisabled: @surface0;
+      --color-icon-desktopBackgrounded-secondary: @subtext0;
+      --color-icon-desktopBackgrounded-secondary-hover: @subtext0;
+      --color-icon-desktopBackgrounded-tertiary: @overlay0;
+      --color-icon-desktopBackgrounded-tertiary-hover: @overlay0;
+      --color-icon-desktopBackgrounded-warning: @yellow;
+
+      --color-icon-desktopForeground: @text;
+      --color-icon-desktopForeground-danger: @red;
+      --color-icon-desktopForeground-disabled: @overlay0;
+      --color-icon-desktopForeground-hover: @text;
+      --color-icon-desktopForeground-ondisabled: @mantle;
+      --color-icon-desktopForeground-secondary: @subtext0;
+      --color-icon-desktopForeground-secondary-hover: @text;
+      --color-icon-desktopForeground-tertiary: @overlay0;
+      --color-icon-desktopForeground-tertiary-hover: @text;
+      --color-icon-desktopForeground-warning: @yellow;
+
+      --color-icon-desktopFullscreen: @text;
+      --color-icon-desktopFullscreen-danger: @red;
+      --color-icon-desktopFullscreen-disabled: @overlay0;
+      --color-icon-desktopFullscreen-hover: @text;
+      --color-icon-desktopFullscreen-ondisabled: @crust;
+      --color-icon-desktopFullscreen-secondary: @subtext0;
+      --color-icon-desktopFullscreen-secondary-hover: @text;
+      --color-icon-desktopFullscreen-tertiary: @overlay0;
+      --color-icon-desktopFullscreen-tertiary-hover: @text;
+      --color-icon-desktopFullscreen-warning: @yellow;
+
+      --color-icon-disabled: @overlay0;
+
+      --color-icon-figjam: @mauve;
+      --color-icon-figjam-pressed: darken(@mauve, @active);
+      --color-icon-figjam-secondary: mix(@mauve, @base, @tint);
+      --color-icon-figjam-tertiary: mix(@mauve, @base, @tint);
+
+      --color-icon-fs: var(--color-icon);
+      --color-icon-fs-assistive: var(--color-icon-assistive);
+      --color-icon-fs-component: var(--color-icon-component);
+      --color-icon-fs-design: var(--color-icon-design);
+      --color-icon-fs-measure: var(--color-icon-measure);
+      --color-icon-fs-onassistive: var(--color-icon-onassistive);
+      --color-icon-fs-oncomponent: var(--color-icon-oncomponent);
+      --color-icon-fs-ondesign: var(--color-icon-ondesign);
+      --color-icon-fs-onmeasure: var(--color-icon-onmeasure);
+      --color-icon-fs-onselected: var(--color-icon-onselected);
+      --color-icon-fs-ontemplate: var(--color-icon-ontemplate);
+      --color-icon-fs-secondary: var(--color-icon-secondary);
+      --color-icon-fs-selected: var(--color-icon-selected);
+      --color-icon-fs-template: var(--color-icon-template);
+      --color-icon-fs-tertiary: var(--color-icon-tertiary);
+
+      --color-icon-handoff: @green;
+      --color-icon-handoff-pressed: darken(@green, @active);
+      --color-icon-handoff-secondary: var(--color-icon-handoff);
+      --color-icon-handoff-tertiary: var(--color-icon-handoff);
+
+      --color-icon-hover: @text;
+
+      --color-icon-measure: @red;
+      --color-icon-measure-hover: lighten(@red, @hover);
+      --color-icon-measure-pressed: darken(@red, @active);
+      --color-icon-measure-secondary: var(--color-icon-measure);
+      --color-icon-measure-secondary-hover: var(--color-icon-measure);
+      --color-icon-measure-tertiary: var(--color-icon-measure);
+
+      --color-icon-menu: @text;
+      --color-icon-menu-danger: @red;
+      --color-icon-menu-disabled: @overlay0;
+      --color-icon-menu-hover: @text;
+      --color-icon-menu-ondisabled: @mantle;
+      --color-icon-menu-onselected: @text;
+      --color-icon-menu-pressed: @brand;
+      --color-icon-menu-secondary: @subtext0;
+      --color-icon-menu-secondary-hover: @text;
+      --color-icon-menu-selected: @brand;
+      --color-icon-menu-selected-secondary: @brand;
+      --color-icon-menu-selected-tertiary: @brand;
+      --color-icon-menu-tertiary: @overlay0;
+      --color-icon-menu-tertiary-hover: @text;
+      --color-icon-menu-warning: @yellow;
+
+      --color-icon-onassistive: @base;
+      --color-icon-onassistive-secondary: @base;
+      --color-icon-onassistive-tertiary: @base;
+      --color-icon-onbrand: @base;
+      --color-icon-onbrand-secondary: @base;
+      --color-icon-onbrand-tertiary: @base;
+      --color-icon-oncomponent: @base;
+      --color-icon-oncomponent-secondary: @base;
+      --color-icon-oncomponent-tertiary: @base;
+      --color-icon-ondanger: @base;
+      --color-icon-ondanger-secondary: @base;
+      --color-icon-ondanger-tertiary: @base;
+      --color-icon-ondesign: @base;
+      --color-icon-ondesign-secondary: @base;
+      --color-icon-ondesign-tertiary: @base;
+      --color-icon-ondisabled: @base;
+      --color-icon-onfigjam: @base;
+      --color-icon-onfigjam-secondary: @base;
+      --color-icon-onfigjam-tertiary: @base;
+      --color-icon-oninverse: @crust;
+      --color-icon-onmeasure: @base;
+      --color-icon-onmeasure-secondary: @base;
+      --color-icon-onmeasure-tertiary: @base;
+      --color-icon-onselected: @base;
+      --color-icon-onselected-secondary: @base;
+      --color-icon-onselected-strong: @base;
+      --color-icon-onselected-tertiary: @base;
+      --color-icon-onsuccess: @base;
+      --color-icon-onsuccess-secondary: @base;
+      --color-icon-onsuccess-tertiary: @base;
+      --color-icon-ontemplate: @base;
+      --color-icon-onwarning: @base;
+      --color-icon-onwarning-secondary: @base;
+      --color-icon-onwarning-tertiary: @base;
+
+      --color-icon-pressed: darken(@blue, @active);
+      --color-icon-secondary: @subtext0;
+      --color-icon-secondary-hover: @text;
+      --color-icon-selected: @blue;
+      --color-icon-selected-secondary: var(--color-icon-selected);
+      --color-icon-selected-tertiary: var(--color-icon-selected);
+
+      --color-icon-success: @green;
+      --color-icon-success-pressed: darken(@green, @active);
+      --color-icon-success-secondary: var(--color-icon-success);
+      --color-icon-success-tertiary: var(--color-icon-success);
+
+      --color-icon-template: @pink;
+      --color-icon-template-secondary: mix(@pink, @base, @tint);
+      --color-icon-tertiary: @overlay0;
+      --color-icon-tertiary-hover: @text;
+
+      --color-icon-toolbar: @text;
+      --color-icon-toolbar-danger: @red;
+      --color-icon-toolbar-disabled: @overlay0;
+      --color-icon-toolbar-hover: @text;
+      --color-icon-toolbar-ondisabled: @base;
+      --color-icon-toolbar-onselected: @text;
+      --color-icon-toolbar-pressed: @brand;
+      --color-icon-toolbar-secondary: @subtext0;
+      --color-icon-toolbar-secondary-hover: @text;
+      --color-icon-toolbar-selected: @brand;
+      --color-icon-toolbar-selected-secondary: var(--color-icon-toolbar-selected);
+      --color-icon-toolbar-selected-tertiary: var(--color-icon-toolbar-selected);
+      --color-icon-toolbar-tertiary: @overlay0;
+      --color-icon-toolbar-tertiary-hover: @text;
+      --color-icon-toolbar-warning: @yellow;
+
+      --color-icon-tooltip: @text;
+      --color-icon-tooltip-danger: @red;
+      --color-icon-tooltip-disabled: @overlay0;
+      --color-icon-tooltip-hover: @text;
+      --color-icon-tooltip-ondisabled: @mantle;
+      --color-icon-tooltip-onselected: @text;
+      --color-icon-tooltip-pressed: @brand;
+      --color-icon-tooltip-secondary: @subtext0;
+      --color-icon-tooltip-secondary-hover: @text;
+      --color-icon-tooltip-selected: @brand;
+      --color-icon-tooltip-selected-secondary: var(--color-icon-tooltip-selected);
+      --color-icon-tooltip-selected-tertiary: var(--color-icon-tooltip-selected);
+      --color-icon-tooltip-tertiary: @overlay0;
+      --color-icon-tooltip-tertiary-hover: @text;
+      --color-icon-tooltip-warning: @yellow;
+
+      --color-icon-warning: @yellow;
+      --color-icon-warning-pressed: @yellow;
+      --color-icon-warning-secondary: var(--color-icon-warning);
+      --color-icon-warning-tertiary: var(--color-icon-warning);
+
+      --color-icondesignfilesecondary: @blue;
+      --color-iconfavorite: @yellow;
+      --color-iconfigjamfilesecondary: @mauve;
+      --color-iconondarkcanvas: @subtext1;
+      --color-icononlightcanvas: @surface2;
+      --color-icononvoting: @surface2;
+      --color-iconprototypefile: @overlay0;
+      --color-iconprototypefilesecondary: @text;
+      --color-iconpublishedfile: @overlay0;
+      --color-iconpublishedfilesecondary: @overlay1;
+
+      --color-loading: #ffffff1a;
+      --color-loadingmenu: #ffffff1a;
+      --color-loadingsecondary: #ffffff0d;
+      --color-loadingsecondarymenu: #ffffff0d;
+      --color-modalbackdrop: #00000080;
+
+      --color-multiplayerblue: @blue;
+      --color-multiplayerbluehover: lighten(@blue, @hover);
+      --color-multiplayerbluesecondary: darken(@blue, @active);
+      --color-multiplayergreen: @green;
+      --color-multiplayergreenhover: lighten(@green, @hover);
+      --color-multiplayergreensecondary: darken(@green, @active);
+      --color-multiplayergrey: @overlay0;
+      --color-multiplayergreyhover: lighten(@overlay0, @hover);
+      --color-multiplayergreysecondary: darken(@overlay0, @active);
+      --color-multiplayerpink: @pink;
+      --color-multiplayerpinkhover: lighten(@pink, @hover);
+      --color-multiplayerpinksecondary: darken(@pink, @active);
+      --color-multiplayerpurple: @mauve;
+      --color-multiplayerpurplehover: lighten(@mauve, @hover);
+      --color-multiplayerpurplesecondary: darken(@mauve, @active);
+      --color-multiplayerred: @red;
+      --color-multiplayerredhover: lighten(@red, @hover);
+      --color-multiplayerredsecondary: darken(@red, @active);
+      --color-multiplayeryellow: @yellow;
+      --color-multiplayeryellowhover: lighten(@yellow, @hover);
+      --color-multiplayeryellowsecondary: darken(@yellow, @active);
+
+      --color-nodehandle: @blue;
+      --color-prototypeloadingbackdrop: @crust;
+      --color-scrollbar: #b3b3b380;
+      --color-shadow: #00000099;
+      --color-tablenodehoveredprimary: @brand;
+      --color-tablenodehoveredsecondary: mix(@brand, @base, @tint);
+      --color-tablenodeselected: var(--color-tablenodehoveredprimary);
+      --color-template-slot: darken(@pink, @active);
+
+      --color-text: @text;
+      --color-text-assistive: @pink;
+      --color-text-assistive-pressed: darken(@pink, @active);
+      --color-text-assistive-secondary: var(--color-text-assistive);
+      --color-text-assistive-tertiary: var(--color-text-assistive);
+
+      --color-text-brand: @brand;
+      --color-text-brand-secondary: var(--color-text-brand);
+      --color-text-brand-tertiary: var(--color-text-brand);
+
+      --color-text-component: @mauve;
+      --color-text-component-pressed: darken(@mauve, @active);
+      --color-text-component-secondary: mix(@mauve, @base, @tint);
+      --color-text-component-tertiary: mix(@mauve, @base, @tint);
+
+      --color-text-danger: @red;
+      --color-text-danger-secondary: var(--color-text-danger);
+      --color-text-danger-tertiary: var(--color-text-danger);
+
+      --color-text-design: @blue;
+      --color-text-design-pressed: darken(@blue, @active);
+      --color-text-design-secondary: var(--color-text-design);
+      --color-text-design-tertiary: var(--color-text-design);
+
+      --color-text-desktopBackgrounded: @subtext0;
+      --color-text-desktopBackgrounded-danger: @red;
+      --color-text-desktopBackgrounded-disabled: @overlay0;
+      --color-text-desktopBackgrounded-hover: @subtext0;
+      --color-text-desktopBackgrounded-ondisabled: @surface0;
+      --color-text-desktopBackgrounded-secondary: @subtext0;
+      --color-text-desktopBackgrounded-secondary-hover: @subtext0;
+      --color-text-desktopBackgrounded-tertiary: @overlay0;
+      --color-text-desktopBackgrounded-tertiary-hover: @overlay0;
+      --color-text-desktopBackgrounded-warning: @yellow;
+
+      --color-text-desktopForeground: @text;
+      --color-text-desktopForeground-danger: @red;
+      --color-text-desktopForeground-disabled: @overlay0;
+      --color-text-desktopForeground-hover: @text;
+      --color-text-desktopForeground-ondisabled: @mantle;
+      --color-text-desktopForeground-secondary: @subtext0;
+      --color-text-desktopForeground-secondary-hover: @text;
+      --color-text-desktopForeground-tertiary: @overlay0;
+      --color-text-desktopForeground-tertiary-hover: @text;
+      --color-text-desktopForeground-warning: @yellow;
+
+      --color-text-desktopFullscreen: @text;
+      --color-text-desktopFullscreen-danger: @red;
+      --color-text-desktopFullscreen-disabled: @overlay0;
+      --color-text-desktopFullscreen-hover: @text;
+      --color-text-desktopFullscreen-ondisabled: @crust;
+      --color-text-desktopFullscreen-secondary: @subtext0;
+      --color-text-desktopFullscreen-secondary-hover: @text;
+      --color-text-desktopFullscreen-tertiary: @overlay0;
+      --color-text-desktopFullscreen-tertiary-hover: @text;
+      --color-text-desktopFullscreen-warning: @yellow;
+
+      --color-text-disabled: @overlay0;
+
+      --color-text-figjam: lighten(@mauve, @hover);
+      --color-text-figjam-pressed: darken(@mauve, @active);
+      --color-text-figjam-secondary: mix(@mauve, @base, @tint);
+      --color-text-figjam-tertiary: mix(@mauve, @base, @tint);
+
+      --color-text-fs: var(--color-text);
+      --color-text-fs-assistive: var(--color-text-assistive);
+      --color-text-fs-component: var(--color-text-component);
+      --color-text-fs-design: var(--color-text-design);
+      --color-text-fs-measure: var(--color-text-measure);
+      --color-text-fs-onassistive: var(--color-text-onassistive);
+      --color-text-fs-oncomponent: var(--color-text-oncomponent);
+      --color-text-fs-ondesign: var(--color-text-ondesign);
+      --color-text-fs-onmeasure: var(--color-text-onmeasure);
+      --color-text-fs-onselected: var(--color-text-onselected);
+      --color-text-fs-ontemplate: var(--color-text-ontemplate);
+      --color-text-fs-secondary: var(--color-text-secondary);
+      --color-text-fs-selected: var(--color-text-selected);
+      --color-text-fs-template: var(--color-text-template);
+      --color-text-fs-tertiary: var(--color-text-tertiary);
+
+      --color-text-handoff: @green;
+      --color-text-handoff-secondary: var(--color-text-handoff);
+      --color-text-handoff-tertiary: var(--color-text-handoff);
+
+      --color-text-hover: @text;
+
+      --color-text-measure: @red;
+      --color-text-measure-secondary: var(--color-text-measure);
+      --color-text-measure-tertiary: var(--color-text-measure);
+
+      --color-text-menu: @text;
+      --color-text-menu-danger: @red;
+      --color-text-menu-disabled: @overlay0;
+      --color-text-menu-hover: @text;
+      --color-text-menu-ondisabled: @mantle;
+      --color-text-menu-onselected: @text;
+      --color-text-menu-secondary: @subtext0;
+      --color-text-menu-secondary-hover: @text;
+      --color-text-menu-selected: @brand;
+      --color-text-menu-selected-secondary: var(--color-text-menu-selected);
+      --color-text-menu-selected-tertiary: var(--color-text-menu-selected);
+      --color-text-menu-tertiary: @overlay0;
+      --color-text-menu-tertiary-hover: @text;
+      --color-text-menu-warning: @yellow;
+
+      --color-text-onassistive: @base;
+      --color-text-onassistive-secondary: @base;
+      --color-text-onassistive-tertiary: @base;
+      --color-text-onbrand: @base;
+      --color-text-onbrand-secondary: @base;
+      --color-text-onbrand-tertiary: @base;
+      --color-text-oncomponent: @base;
+      --color-text-oncomponent-secondary: @base;
+      --color-text-oncomponent-tertiary: @base;
+      --color-text-ondanger: @base;
+      --color-text-ondanger-secondary: @base;
+      --color-text-ondanger-tertiary: @base;
+      --color-text-ondesign: @base;
+      --color-text-ondesign-secondary: @base;
+      --color-text-ondesign-tertiary: @base;
+      --color-text-ondisabled: @base;
+      --color-text-onfigjam: @base;
+      --color-text-onfigjam-secondary: @base;
+      --color-text-onfigjam-tertiary: @base;
+      --color-text-oninverse: @crust;
+      --color-text-oninverse-secondary: @crust;
+      --color-text-onmeasure: @base;
+      --color-text-onmeasure-secondary: @base;
+      --color-text-onmeasure-tertiary: @base;
+      --color-text-onselected-secondary: @subtext0;
+      --color-text-onselected-strong: @base;
+      --color-text-onselected-tertiary: @overlay0;
+      --color-text-onsuccess: @base;
+      --color-text-onsuccess-secondary: @base;
+      --color-text-onsuccess-tertiary: @base;
+      --color-text-ontemplate: @base;
+      --color-text-onwarning: @base;
+      --color-text-onwarning-secondary: @base;
+      --color-text-onwarning-tertiary: @base;
+
+      --color-text-secondary: @subtext0;
+      --color-text-secondary-hover: @text;
+      --color-text-selected: @blue;
+      --color-text-selected-secondary: var(--color-text-selected);
+      --color-text-selected-tertiary: var(--color-text-selected);
+
+      --color-text-success: @green;
+      --color-text-success-secondary: var(--color-text-success);
+      --color-text-success-tertiary: var(--color-text-success);
+
+      --color-text-template: @pink;
+      --color-text-template-secondary: mix(@pink, @base, @tint);
+
+      --color-text-tertiary: @overlay0;
+      --color-text-tertiary-hover: @text;
+
+      --color-text-toolbar: @text;
+      --color-text-toolbar-danger: @red;
+      --color-text-toolbar-disabled: @overlay0;
+      --color-text-toolbar-hover: @text;
+      --color-text-toolbar-ondisabled: @base;
+      --color-text-toolbar-onselected: @text;
+      --color-text-toolbar-secondary: @subtext0;
+      --color-text-toolbar-secondary-hover: @text;
+      --color-text-toolbar-selected: @brand;
+      --color-text-toolbar-selected-secondary: var(--color-text-toolbar-selected);
+      --color-text-toolbar-selected-tertiary: var(--color-text-toolbar-selected);
+      --color-text-toolbar-tertiary: @overlay0;
+      --color-text-toolbar-tertiary-hover: @text;
+      --color-text-toolbar-warning: @yellow;
+
+      --color-text-tooltip: @text;
+      --color-text-tooltip-danger: @red;
+      --color-text-tooltip-disabled: @overlay0;
+      --color-text-tooltip-hover: @text;
+      --color-text-tooltip-ondisabled: @mantle;
+      --color-text-tooltip-onselected: @text;
+      --color-text-tooltip-secondary: @subtext0;
+      --color-text-tooltip-secondary-hover: @text;
+      --color-text-tooltip-selected: @brand;
+      --color-text-tooltip-selected-secondary: var(--color-text-tooltip-selected);
+      --color-text-tooltip-selected-tertiary: var(--color-text-tooltip-selected);
+      --color-text-tooltip-tertiary: @overlay0;
+      --color-text-tooltip-tertiary-hover: @text;
+      --color-text-tooltip-warning: @yellow;
+
+      --color-text-warning: @yellow;
+      --color-text-warning-secondary: var(--color-text-warning);
+      --color-text-warning-tertiary: var(--color-text-warning);
+
+      --color-texthighlight: #0d99ff66;
+      --color-textondarkcanvas: @subtext1;
+      --color-textondarkcanvassecondary: @overlay0;
+      --color-textoninspectpadding: @base;
+      --color-textoninspectspacing: @base;
+      --color-textonlightcanvas: @surface2;
+      --color-textonlightcanvassecondary: @surface1;
+      --color-textonmultiplayerblue: @base;
+      --color-textonmultiplayergreen: @base;
+      --color-textonmultiplayergrey: @base;
+      --color-textonmultiplayerpink: @base;
+      --color-textonmultiplayerpurple: @base;
+      --color-textonmultiplayerred: @base;
+      --color-textonmultiplayeryellow: @base;
+      --color-textonvoting: @surface2;
+    }
+  }
+}
