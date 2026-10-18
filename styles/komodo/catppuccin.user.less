@@ -1,0 +1,172 @@
+/* ==UserStyle==
+@name Komodo Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/komodo
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/komodo
+@version 2025.10.30
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/komodo/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Akomodo
+@description Soothing pastel theme for Komodo
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("komo.do") {
+
+  html.dark {
+    #catppuccin(@darkFlavor);
+  }
+  html.light {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    --background: .hslifyNoCommas(@base) [];
+    --foreground: .hslifyNoCommas(@text) [];
+    --card: .hslifyNoCommas(@base) [];
+    --card-foreground: .hslifyNoCommas(@text) [];
+    --popover: .hslifyNoCommas(@base) [];
+    --popover-foreground: .hslifyNoCommas(@text) [];
+    --primary: .hslifyNoCommas(@text) [];
+    --primary-foreground: .hslifyNoCommas(@base) [];
+    --secondary: .hslifyNoCommas(@surface0) [];
+    --secondary-foreground: .hslifyNoCommas(@text) [];
+    --muted: .hslifyNoCommas(@mantle) [];
+    --muted-foreground: .hslifyNoCommas(@subtext0) [];
+    --accent: .hslifyNoCommas(@surface0) [];
+    --accent-foreground: .hslifyNoCommas(@text) [];
+    --destructive: .hslifyNoCommas(@red) [];
+    --destructive-foreground: .hslifyNoCommas(@base) [];
+    --border: .hslifyNoCommas(@surface0) [];
+    --input: .hslifyNoCommas(@surface1) [];
+    --ring: .hslifyNoCommas(@overlay0) [];
+    --chart-1: .hslifyNoCommas(@red) [];
+    --chart-2: .hslifyNoCommas(@green) [];
+    --chart-3: .hslifyNoCommas(@yellow) [];
+    --chart-4: .hslifyNoCommas(@blue) [];
+    --chart-5: .hslifyNoCommas(@pink) [];
+
+    .bg-accent\/50,
+    .bg-accent\/75,
+    .hover\:bg-accent:hover {
+        background-color: @surface0;
+    }
+
+    /* Status indicator */
+    .fill-green-500 {
+      fill: @green;
+    }
+    /* Warning indicator */
+    .bg-red-500 {
+      background: @red;
+      &.text-white {
+        color: @base !important;
+      }
+    }
+    /* Notification indicator */
+    .fill-blue-500.stroke-blue-500 {
+      fill: @accent;
+      stroke: @accent;
+    }
+    
+    #--svg-color(@source, @target) {
+      @rgb: #lib.rgbify(@source) [];
+      [style*="stroke: rgb(@{rgb});"] {
+        stroke: @target !important;
+      }
+      [style*="fill: rgb(@{rgb});"] {
+        fill: @target !important;
+      }
+      [style*="stroke: @{source});"] {
+        stroke: @target !important;
+      }
+      [style*="fill: @{source});"] {
+        fill: @target !important;
+      }
+    }
+
+    #--tailwind-color(@color, @name, @hex, @source) {
+      @rgbncomma: #lib.rgbify(@source) [];
+      
+      path[stroke="#@{hex}"] {
+        stroke: @color;
+      }
+      svg.stroke-@{name}-400,
+      svg.stroke-@{name}-500,
+      svg.stroke-@{name}-600,
+      svg.stroke-@{name}-700 {
+        stroke: @color;
+      }
+      .text-@{name}-400,
+      .text-@{name}-500,
+      .text-@{name}-600,
+      .text-@{name}-700 {
+        color: @color;
+      }
+      .text-@{name}-700\/60 {
+        color: fade(@color, 60%) !important;
+      }
+      .bg-@{name}-500 {
+        background-color: hsl(.hslifyNoCommas(@color) [] / var(--tw-bg-opacity, 1));
+      }
+      .bg-@{name}-600 {
+        background-color: hsl(.hslifyNoCommas(@color) [] / var(--tw-bg-opacity, 1));
+        color: hsl(e(
+          %("%s %s% %s%", hue(@color), saturation(@color), lightness(@text))
+        ));
+      }
+      #--svg-color(@source, @color);
+      
+      // Not great....
+      [style="background: rgba(@{rgbncomma}, 0.082);"] {
+        background: fade(@color, 8.2%) !important; 
+      }
+      [style="background: rgba(@{rgbncomma}, 0.145);"] {
+        background: fade(@color, 14.5%) !important; 
+      }
+    }
+    
+    [style="background: rgba(239, 0, 68, 0.145);"] {
+      background: fade(@red, 14.5%) !important;
+    }
+    
+    #--tailwind-color(@red, red, "EF0044", rgb(239, 68, 68));
+    #--tailwind-color(@peach, orange, "F97316", rgb(249, 115, 22));
+    #--tailwind-color(@yellow, amber, "F59E0B", rgb(245, 158, 11));
+    #--tailwind-color(@yellow, yellow, "EAB308", rgb(234, 179, 8));
+    #--tailwind-color(@green, lime, "84CC16", rgb(132, 204, 22));
+    #--tailwind-color(@green, green, "22C55E", rgb(34, 197, 94));
+    #--tailwind-color(@teal, emerald, "10B981", rgb(16, 185, 129));
+    #--tailwind-color(@teal, teal, "14B8A6", rgb(20, 184, 166));
+    #--tailwind-color(@sky, cyan, "06B6D4", rgb(6, 182, 212));
+    #--tailwind-color(@sky, sky, "0EA5E9", rgb(14, 165, 233));
+    #--tailwind-color(@blue, blue, "3B82F6", rgb(59, 130, 246));
+    #--tailwind-color(@lavender, indigo, "6366F1", rgb(99, 102, 241));
+    #--tailwind-color(@mauve, violet, "8B5CF6", rgb(139, 92, 246));
+    #--tailwind-color(@mauve, purple, "A855F7", rgb(168, 85, 247));
+    #--tailwind-color(@pink, fuchsia, "D946EF", rgb(217, 70, 239));
+    #--tailwind-color(@pink, pink, "EC4899", rgb(236, 72, 153));
+    #--tailwind-color(@rosewater, rose, "F43F5E", rgb(244, 63, 94));
+    
+    [src="/komodo-512x512.png"] {
+      @svg: escape('<svg xmlns="http://www.w3.org/2000/svg" width="620" height="620"><svg version="1.1" id="SvgjsSvg1001" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" viewBox="0 0 620 620" xml:space="preserve"><style>.st0{fill:@{green}}</style><path class="st0" d="M307.63 394.44c5.57 7.75 5.57 7.75 4.7 13.66-3.7-2.66-7.69-4.33-9.89-7.32-8.38-11.38-13.42-24.1-16.02-38.21-1.86-10.12-6.66-19.68-9.87-29.57-1.15-3.55-1.76-7.34-2.14-11.07-.35-3.46-.08-6.98-.08-10.97-6.55 4.58-12.18.3-17.66-1.5-8.19-2.68-14.96-7.77-20.75-14.54-4.23-4.96-9.78-8.95-15.23-12.66-5.89-4.01-9.44-8.41-8.65-16.14.65-6.35-3.37-11.84-8.98-13.83.96 4.97 1.89 9.59 2.74 14.23 2.2 12.01-.24 23.47-4.1 34.79-5.51 16.17-11.08 32.32-16.22 48.61-1.61 5.11-1.92 10.62-2.74 15.97-.11.73.03 1.89.51 2.27 6.17 4.92 6.36 12.68 9.12 19.19.71 1.66.47 3.72.77 6.71-4.71-2.96-8.15-6.47-12.84-3.51-1.28.8-2.52 1.81-3.45 2.98-3.13 3.93-6.12 7.97-10.19 13.31 2.63-9.16-7.25-8.57-8.54-14.6-5.46 2.89-13.69.42-15.67 9.63l-1.44-.69c0-2.66-.27-5.35.06-7.96.48-3.71-.66-5.9-4.47-6.66-1.62-.32-3.15-1.12-4.98-1.8-2.15 1.79-4.49 3.73-6.82 5.67-.45-.22-.91-.44-1.36-.67 1.02-2.74 1.27-6.47 3.23-8.02 3.8-2.99 5.2-7.05 7.21-10.95.92-1.78 1.83-3.8 3.32-5.02 11.54-9.47 13.99-23.15 15.49-36.47 1.95-17.26 2.33-34.66 5.83-51.81 3.15-15.44 4.7-31.22 8-46.63 2.42-11.28 7.09-21.89 18.88-26.87 10.32-4.36 20.01-3.77 29.75 2.76 6.34 4.25 13.85 6.85 20.99 9.8 15 6.2 30.56 10.71 46.6 13.06 6.73.98 13.73.16 20.61-.41-5.49-2.75-10.94-3.03-16.96-2.49-5.47.49-11.22-1.87-16.81-3.13-1.28-.29-2.41-1.19-3.61-1.81 3.87-6.03 3.87-6.03 18.36-14.84-3.43.79-7.03 1.15-10.25 2.45-5.45 2.2-10.52 5.42-16.05 7.34-2.61.91-6.18.5-8.85-.52-8.86-3.39-17.54-7.28-26.23-11.11-1.28-.56-2.26-1.82-3.98-3.27 7.34-2.91 14.04-5.31 20.53-8.2 10.58-4.71 21.47-4.4 32.57-2.91 3.28.44 6.68.18 10.02.06 3.72-.13 6.88-1.29 9.67-4.16 12.07-12.39 26.6-20.91 43.32-25.13 10.51-2.65 21.29-4.34 32.03-5.96 14.04-2.11 24.04-9.06 29.22-22.51 2.91-7.57-.02-14.14-4.08-20.02-8.14-11.81-18.95-20.31-32.93-24.48-7.91-2.36-15.6-5.65-23.63-7.38-7.83-1.69-15.96-2.34-23.99-2.74-12.35-.61-24.86-1.87-37.05-.55-12.66 1.37-25.09 5.21-37.48 8.46-14.83 3.9-28.44 10.75-41.74 18.26-30.51 17.24-56.31 39.68-76.76 68.3-12.79 17.9-22.95 37.16-30.3 57.76-8.44 23.68-12.83 48.26-13.26 73.47-.3 17.91 1.43 35.57 5 53.17 6.3 31.07 18.58 59.44 36.54 85.44 19.44 28.14 43.92 50.81 73.31 68.38 17.62 10.54 36.25 18.69 55.87 24.16 18.52 5.17 37.49 8.84 56.95 8.09 14.37-.55 28.88-.21 43.06-2.21 13.4-1.89 26.65-5.63 39.57-9.8 17.67-5.7 34.26-13.95 49.97-24 28.89-18.48 52.57-42.09 71.33-70.78 11.57-17.69 23.48-35.22 31.07-55.05 5.56-14.54 10.26-29.44 14.57-44.4 7.49-26.01 8.54-52.8 7.43-79.62-.48-11.49-2.29-22.98-4.27-34.34-3.64-20.88-9.67-41.2-18.7-60.33-7.56-16.02-16.78-31.26-24.94-46.25-.1-.06 1.1.27 1.83 1.04 21.3 22.68 38.62 48.07 51.33 76.48 6.79 15.18 12.01 30.92 16.23 47.09 5.84 22.36 8.35 45.09 8.48 68 .09 16.72-1.53 33.43-4.55 50.03-3.76 20.7-9.61 40.71-17.82 59.97-10.69 25.1-24.87 48.16-42.43 69.14-22.28 26.63-48.46 48.51-78.68 65.56-17.38 9.8-35.63 17.73-54.7 23.42-24.69 7.37-49.96 12.09-75.86 11.85-14.42-.13-28.88-.63-43.22-2.02-10.3-1-20.59-3.18-30.61-5.84-20.32-5.39-39.96-12.64-58.81-22.19-28.68-14.52-54.02-33.4-76.09-56.65-21.45-22.6-39.34-47.77-51.51-76.58-6.29-14.88-12.46-29.96-16.75-45.49-4.73-17.1-7.98-34.7-8.58-52.8-.39-11.96-.39-23.76-.39-36.02.61-5.32 1.03-10.23 1.86-15.07 2.16-12.7 3.54-25.64 7-37.99 4.19-14.98 9.26-29.88 15.67-44.04 6.29-13.89 14.27-27.09 22.34-40.07 12.99-20.91 29.94-38.56 48.04-55.07 22.73-20.75 48.66-36.73 76.96-48.45 14.33-5.93 29.52-9.94 44.54-13.99 28.89-7.79 58.37-9.04 88.1-6.63 20.43 1.65 39.2 8.43 57.63 17.06 12.04 5.64 22.89 12.63 32.33 21.85 9.51 9.28 16.04 20.56 21.04 32.74 2.82 6.87 5.78 13.75 7.89 20.85 6.13 20.67-1.19 37.96-16.21 51.46-14.19 12.75-31.47 14.93-49.9 9.24-12.25-3.78-24.96-6.43-37.83-4.86-7.11.87-13.82 4.12-18.2 10.34 8.01-1.49 16.02-3.84 24.12-4.22 7.27-.34 14.69 1.2 21.96 2.42 11.27 1.88 22.04 6.31 33.89 5.43 4.1-.3 8.56 1.53 12.54 3.15 3.65 1.49 6.87 4 11.53 6.82-9.57 4.89-17.99 9.88-26.96 13.57-8.76 3.61-18.01 6.13-27.18 8.66-4.07 1.12-8.53 1.77-12.67 1.32-2.43-.26-4.85-2.85-6.79-4.86-3.15-3.28-6.56-5.82-11.89-7.13l10.43 12.11c-7.47-.23-13.63-4.11-19.54 1.5 11.31.75 22.61 2.02 33.92 2.04 5.47.01 11.02-2.09 16.41-3.68 7.28-2.15 14.53-4.48 21.62-7.19 8.45-3.23 16.57-7.33 25.08-10.36 9.33-3.33 18.73.18 25.48 7.8 6.43 7.27 9.35 15.39 9.19 25.13-.26 16.18-1.36 32.21-3.57 48.29-1.54 11.19-1.35 22.88-.04 34.13 1.15 9.97 5.61 18.92 14.41 25.5 3.78 2.83 5.51 8.4 8.17 12.73.37.6.62 1.5 1.15 1.73 4.78 2.02 5.57 6.32 6.55 12.36-3.18-1.7-5.52-2.92-7.84-4.18-3.14-1.71-6.37-4.55-9.22.28-.6 1.02-.78 2.44-.74 3.66.08 2.3.46 4.58.79 7.51-1.4-.53-2.53-.62-2.68-1.05-2.32-6.89-9-6.85-14.25-8.98-2.12-.86-5.84 3.07-6.24 6.12-.31 2.39-.87 4.75-1.32 7.13-.49.03-.98.07-1.48.1-.96-2.41-2.38-4.74-2.8-7.23-1.63-9.73-9.97-13.24-17.89-7.36-.82.61-1.83.95-3.31 1.08 3.36-6.76-.19-15.12 6.86-21.2 4.73-4.07 3.88-11.19 2.92-16.91-1.98-11.79-4.89-23.42-7.45-35.1-1.34-6.13-3.93-12.26-3.83-18.35.11-6.24 2.8-12.44 4.42-18.64.86-3.26 1.86-6.49 2.99-10.44-6.07 1.46-7.4 6.08-9.37 9.87-1.27 2.44-1.14 5.7-2.65 7.91-2.52 3.71-5.31 7.69-8.94 10.13-10.16 6.85-20.77 13.03-31.3 19.32-1.7 1.01-3.87 1.26-5.86 1.73-6.68 1.56-9.99.38-14.08-5.3-.22 1.02-.57 1.67-.46 2.25 2.63 14.15-1.01 27.44-5 40.84-2.8 9.43-4.39 19.23-6.53 28.86-2.1 9.45-2.99 19.43-8.67 27.58-4.64 6.65-10.13 12.89-19.4 11.97-2.56 12.78-1.66 25.03 3.53 36.92-.61.23-1.22.46-1.84.69-2.28-4.45-4.56-8.9-6.91-13.47-2.41 4.12-4.83 8.26-8 13.69-.77-2.35-1.5-3.37-1.25-4.04 1.19-3.3 2.48-6.58 4.03-9.72 3.43-6.92 3.06-14.47 1.71-21.39-.82-4.23-.45-7.06 1.52-9.93 2.49-.45 4.79-.87 7.08-1.29-.12-.37-.25-.75-.37-1.12-5.36-1.31-10.73-2.61-16.59-4.38-1.19-.56-1.9-.66-2.6-.76.65.49 1.24.98 1.84 1.48"/><path class="st0" d="M200.06 345.86c-3.03.51-5.66.93-9.07 1.47 2.27-5.88 4.67-11.26 6.43-16.83 4.48-14.19 8.63-28.48 13.03-42.7.48-1.54 1.71-2.85 2.6-4.26 1.16.91 2.45 1.7 3.47 2.74 5.32 5.47 1.97 11.37.19 16.78-1.38 4.18-4.21 7.9-6.56 11.72-4.97 8.07-6.3 16.91-5.57 26.13.26 3.32-1.06 4.68-4.52 4.95m219.63-60.03c1.49-.93 2.68-1.63 4.47-2.69.66 3.08 1.28 5.92 1.86 8.76 2.54 12.5 5.4 24.94 7.37 37.53.51 3.24 4.06 8.23-2.08 10.5-.96.35-2.54.4-3.19-.16-.68-.58-.96-2.14-.77-3.14 2.59-13.57-1.26-26.05-5.98-38.52-1.42-3.73-1.37-8.02-1.68-12.28"/></svg></svg>');
+      content: url("data:image/svg+xml,@{svg}");
+      filter: drop-shadow()
+    }
+  }
+  
+  .hslifyNoCommas(@color) {
+    @raw: e(
+      %("%s %s% %s%", hue(@color), saturation(@color), lightness(@color))
+    );
+  }
+}
