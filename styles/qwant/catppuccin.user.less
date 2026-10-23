@@ -1,0 +1,200 @@
+/* ==UserStyle==
+@name Qwant Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/qwant
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/qwant
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/qwant/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aqwant
+@description Soothing pastel theme for Qwant
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/std/v1.less";
+
+@-moz-document domain("qwant.com") {
+  /* :root adds specificity over site selectors */
+  :root body[data-theme="light"] {
+    #catppuccin(@lightFlavor);
+  }
+  :root body[data-theme="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+
+  @hovered-mix: 88%;
+  @pressed-mix: 76%;
+  @translucent: 20%;
+  @translucent-hovered: 28%;
+  @translucent-pressed: 36%;
+
+  /* Solid background with hovered and pressed states */
+  .solid(@token, @color) {
+    --color-background-@{token}: @color;
+    --color-background-@{token}-hovered: mix(@color, @base, @hovered-mix);
+    --color-background-@{token}-pressed: mix(@color, @base, @pressed-mix);
+  }
+
+  /* Translucent background with hovered and pressed states */
+  .translucent(@token, @color) {
+    --color-background-@{token}: fade(@color, @translucent);
+    --color-background-@{token}-hovered: fade(@color, @translucent-hovered);
+    --color-background-@{token}-pressed: fade(@color, @translucent-pressed);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    /* Home page gradient uses lightest and darkest swatch depending on theme */
+    & when not (@flavor = latte) {
+      --palette-default-grey-1100: @base;
+    }
+    & when (@flavor = latte) {
+      --palette-default-grey-000: @base;
+    }
+
+    &,
+    [data-theme] {
+      /* Legacy as of October 2026 variables still used by the results page */
+      --background-color: @base;
+      --separator: @surface1;
+      --card-border-color: @surface1;
+      --rsbs-bg: @surface0;
+      --rsbs-handle-bg: @overlay0;
+
+      /* Surfaces */
+      --color-elevation-inner: @mantle;
+      --color-elevation-surface: @base;
+      --color-elevation-surface-elevation: @surface0;
+      --color-elevation-surface-overlay: @surface0;
+      --color-elevation-surface-raised: @surface0;
+      --color-elevation-surface-secondary: @mantle;
+      --color-elevation-surface-secondary-elevation: @base;
+      --color-elevation-surface-secondary-overlay: @surface0;
+      --color-elevation-surface-secondary-raised: @surface0;
+
+      /* Backgrounds */
+      .solid(accent-indigo-primary, @lavender);
+      .translucent(accent-indigo-secondary, @lavender);
+      .solid(accent-purple-primary, @mauve);
+      .translucent(accent-purple-secondary, @mauve);
+      .solid(brand-primary, @accent);
+      .solid(checked, @accent);
+      .solid(danger-primary, @red);
+      .translucent(danger-secondary, @red);
+      .solid(information-primary, @blue);
+      .translucent(information-secondary, @blue);
+      .solid(neutral-primary, @text);
+      .solid(selected-primary, @accent);
+      .translucent(selected-secondary, @accent);
+      .solid(success-primary, @green);
+      .translucent(success-secondary, @green);
+      .solid(warning-primary, @yellow);
+      .translucent(warning-secondary, @yellow);
+      .translucent(accent-cyan-secondary, @sky);
+      .translucent(accent-orange-secondary, @peach);
+      .translucent(accent-pink-secondary, @pink);
+      --color-background-blanket: fade(@crust, 60%);
+      --color-background-blanket-inverse: fade(@crust, 60%);
+      --color-background-brand-secondary: @surface0;
+      --color-background-brand-secondary-hovered: @surface1;
+      --color-background-brand-secondary-pressed: @surface2;
+      --color-background-disabled: @surface0;
+      --color-background-input: @surface0;
+      --color-background-input-focused: transparent;
+      --color-background-input-hovered: @surface1;
+      --color-background-input-pressed: @surface1;
+      --color-background-input-secondary: @surface0;
+      --color-background-input-secondary-hovered: @surface1;
+      --color-background-input-secondary-pressed: @surface1;
+      --color-background-input-tertiary: transparent;
+      --color-background-input-tertiary-hovered: @surface0;
+      --color-background-input-tertiary-pressed: @surface1;
+      --color-background-neutral-secondary: @surface0;
+      --color-background-neutral-secondary-hovered: @surface1;
+      --color-background-neutral-secondary-pressed: @surface2;
+      --color-background-neutral-tertiary: transparent;
+      --color-background-neutral-tertiary-hovered: @surface0;
+      --color-background-neutral-tertiary-pressed: @surface1;
+
+      /* Borders */
+      --color-border-accent-indigo: @lavender;
+      --color-border-accent-purple: @mauve;
+      --color-border-brand: @accent;
+      --color-border-button-outline: @surface2;
+      --color-border-button-primary: @surface1;
+      --color-border-danger: @red;
+      --color-border-disabled: @surface1;
+      --color-border-focused: @accent;
+      --color-border-information: @blue;
+      --color-border-input: @surface2;
+      --color-border-primary: @subtext0;
+      --color-border-primary-inverse: @base;
+      --color-border-secondary: @surface1;
+      --color-border-secondary-inverse: @surface1;
+      --color-border-selected: @accent;
+      --color-border-success: @green;
+      --color-border-warning: @peach;
+
+      /* Icons */
+      --color-icon-accent-cyan: @sky;
+      --color-icon-accent-indigo: @lavender;
+      --color-icon-accent-orange: @peach;
+      --color-icon-accent-pink: @pink;
+      --color-icon-accent-purple: @mauve;
+      --color-icon-brand-primary: @text;
+      --color-icon-brand-secondary: @subtext0;
+      --color-icon-danger: @red;
+      --color-icon-danger-inverse: @red;
+      --color-icon-disabled: @overlay0;
+      --color-icon-information: @blue;
+      --color-icon-inverse: @base;
+      --color-icon-primary: @text;
+      --color-icon-rating: @yellow;
+      --color-icon-secondary: @subtext0;
+      --color-icon-selected: @accent;
+      --color-icon-success: @green;
+      --color-icon-success-inverse: @green;
+      --color-icon-warning: @peach;
+
+      /* Identity */
+      --color-identity-primary: @text;
+      --color-identity-secondary: @text;
+
+      /* Links */
+      --color-link-primary: @blue;
+      --color-link-primary-inverse: @blue;
+      --color-link-secondary: @text;
+      --color-link-secondary-hovered: @subtext1;
+      --color-link-secondary-inverse: @base;
+      --color-link-secondary-inverse-hovered: @mantle;
+      --color-link-tertiary: @subtext0;
+      --color-link-tertiary-inverse: @overlay1;
+      --color-link-visited: @mauve;
+      --color-link-visited-inverse: @mauve;
+
+      /* Text */
+      --color-text-accent-indigo: @lavender;
+      --color-text-accent-purple: @mauve;
+      --color-text-brand: @text;
+      --color-text-danger: @red;
+      --color-text-danger-inverse: @red;
+      --color-text-disabled: @overlay0;
+      --color-text-information: @blue;
+      --color-text-primary: @text;
+      --color-text-primary-inverse: @base;
+      --color-text-secondary: @subtext1;
+      --color-text-secondary-inverse: @surface2;
+      --color-text-selected: @accent;
+      --color-text-success: @green;
+      --color-text-success-inverse: @green;
+      --color-text-tertiary: @subtext0;
+      --color-text-warning: @yellow;
+    }
+  }
+}
