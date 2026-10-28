@@ -1,0 +1,295 @@
+/* ==UserStyle==
+@name Jira Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/jira
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/jira
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/jira/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Ajira
+@description Soothing pastel theme for Jira
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/std/v1.less";
+
+@-moz-document /* Match Jira on Atlassian Cloud sites, but not Confluence (/wiki). */
+regexp("https:\/\/[^/]+\.atlassian\.net\/(?!wiki($|\/)).*") {
+  /* Jira uses the Atlassian Design System, which sets `data-color-mode` on the root element
+     and on "subtree" containers (e.g. popups) that redeclare the theme tokens.
+     `:root` is doubled to outrank the token selectors used on legacy pages. */
+  :root:root[data-color-mode="dark"][data-theme],
+  :root [data-subtree-theme][data-color-mode="dark"][data-theme] {
+    #catppuccin(@darkFlavor);
+  }
+  :root:root[data-color-mode="light"][data-theme],
+  :root [data-subtree-theme][data-color-mode="light"][data-theme] {
+    #catppuccin(@lightFlavor);
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    accent-color: @accent;
+
+    /* Atlassian Design System accent colors, mapped to the closest Catppuccin color. */
+    @accents: {
+      lime: @green;
+      red: @red;
+      orange: @peach;
+      yellow: @yellow;
+      green: @green;
+      teal: @teal;
+      blue: @blue;
+      purple: @mauve;
+      magenta: @pink;
+      gray: @overlay1;
+    };
+
+    /* Atlassian Design System semantic colors. */
+    @semantics: {
+      danger: @red;
+      warning: @yellow;
+      success: @green;
+      discovery: @mauve;
+      information: @blue;
+    };
+
+    each(@accents, {
+      --ds-background-accent-@{key}-subtlest: fade(@value, 10%);
+      --ds-background-accent-@{key}-subtlest-hovered: fade(@value, 20%);
+      --ds-background-accent-@{key}-subtlest-pressed: fade(@value, 30%);
+      --ds-background-accent-@{key}-subtler: fade(@value, 20%);
+      --ds-background-accent-@{key}-subtler-hovered: fade(@value, 30%);
+      --ds-background-accent-@{key}-subtler-pressed: fade(@value, 40%);
+      --ds-background-accent-@{key}-subtle: fade(@value, 60%);
+      --ds-background-accent-@{key}-subtle-hovered: fade(@value, 50%);
+      --ds-background-accent-@{key}-subtle-pressed: fade(@value, 40%);
+      --ds-background-accent-@{key}-bolder: @value;
+      --ds-background-accent-@{key}-bolder-hovered: mix(@value, @base, 85%);
+      --ds-background-accent-@{key}-bolder-pressed: mix(@value, @base, 70%);
+      --ds-border-accent-@{key}: @value;
+      --ds-border-accent-@{key}-subtle: fade(@value, 50%);
+      --ds-text-accent-@{key}: @value;
+      --ds-text-accent-@{key}-bolder: @value;
+      --ds-icon-accent-@{key}: @value;
+      --ds-chart-@{key}-bold: @value;
+      --ds-chart-@{key}-bold-hovered: mix(@value, @base, 85%);
+      --ds-chart-@{key}-bolder: mix(@value, @base, 85%);
+      --ds-chart-@{key}-bolder-hovered: mix(@value, @base, 70%);
+      --ds-chart-@{key}-boldest: mix(@value, @base, 70%);
+      --ds-chart-@{key}-boldest-hovered: mix(@value, @base, 55%);
+    });
+
+    each(@semantics, {
+      --ds-background-@{key}: fade(@value, 15%);
+      --ds-background-@{key}-hovered: fade(@value, 25%);
+      --ds-background-@{key}-pressed: fade(@value, 35%);
+      --ds-background-@{key}-subtler: fade(@value, 25%);
+      --ds-background-@{key}-subtler-hovered: fade(@value, 35%);
+      --ds-background-@{key}-subtler-pressed: fade(@value, 45%);
+      --ds-background-@{key}-subtle: fade(@value, 50%);
+      --ds-background-@{key}-bold: @value;
+      --ds-background-@{key}-bold-hovered: mix(@value, @base, 85%);
+      --ds-background-@{key}-bold-pressed: mix(@value, @base, 70%);
+      --ds-border-@{key}: @value;
+      --ds-border-@{key}-subtle: fade(@value, 50%);
+      --ds-text-@{key}: @value;
+      --ds-text-@{key}-bolder: @value;
+      --ds-icon-@{key}: @value;
+      --ds-chart-@{key}: @value;
+      --ds-chart-@{key}-hovered: mix(@value, @base, 85%);
+      --ds-chart-@{key}-bold: mix(@value, @base, 70%);
+      --ds-chart-@{key}-bold-hovered: mix(@value, @base, 55%);
+    });
+
+    --ds-text-warning-inverse: @base;
+    --ds-icon-warning-inverse: @base;
+
+    /* Text */
+    --ds-text: @text;
+    --ds-text-subtle: @subtext1;
+    --ds-text-subtlest: @subtext0;
+    --ds-text-disabled: @overlay0;
+    --ds-text-inverse: @base;
+    --ds-text-selected: @accent;
+    --ds-text-brand: @accent;
+
+    /* Icons */
+    --ds-icon: @text;
+    --ds-icon-subtle: @subtext1;
+    --ds-icon-subtlest: @subtext0;
+    --ds-icon-disabled: @overlay0;
+    --ds-icon-inverse: @base;
+    --ds-icon-selected: @accent;
+    --ds-icon-brand: @accent;
+
+    /* Links */
+    --ds-link: @accent;
+    --ds-link-pressed: mix(@accent, @base, 80%);
+    --ds-link-visited: @mauve;
+    --ds-link-visited-pressed: mix(@mauve, @base, 80%);
+
+    /* Borders */
+    --ds-border: @surface0;
+    --ds-border-bold: @overlay0;
+    --ds-border-disabled: @surface0;
+    --ds-border-focused: @accent;
+    --ds-border-input: @surface2;
+    --ds-border-input-search: @surface1;
+    --ds-border-inverse: @base;
+    --ds-border-selected: @accent;
+    --ds-border-brand: @accent;
+    --ds-border-code: @surface0;
+
+    /* Surfaces */
+    --ds-surface: @base;
+    --ds-surface-hovered: @surface0;
+    --ds-surface-pressed: @surface1;
+    --ds-surface-sunken: @mantle;
+    --ds-surface-container: fade(@surface0, 50%);
+    --ds-surface-container-hovered: @surface0;
+    --ds-surface-container-pressed: @surface1;
+    --ds-surface-raised: @mantle;
+    --ds-surface-raised-hovered: @surface0;
+    --ds-surface-raised-pressed: @surface1;
+    --ds-surface-overlay: @mantle;
+    --ds-surface-overlay-hovered: @surface0;
+    --ds-surface-overlay-pressed: @surface1;
+    --ds-elevation-surface-current: @base;
+
+    /* Backgrounds */
+    --ds-background-disabled: fade(@surface0, 50%);
+    --ds-background-input: @mantle;
+    --ds-background-input-hovered: @surface0;
+    --ds-background-input-pressed: @mantle;
+    --ds-background-inverse-subtle: fade(@text, 16%);
+    --ds-background-inverse-subtle-hovered: fade(@text, 24%);
+    --ds-background-inverse-subtle-pressed: fade(@text, 32%);
+    --ds-background-neutral: @surface0;
+    --ds-background-neutral-hovered: @surface1;
+    --ds-background-neutral-pressed: @surface2;
+    --ds-background-neutral-subtle: transparent;
+    --ds-background-neutral-subtle-hovered: @surface0;
+    --ds-background-neutral-subtle-pressed: @surface1;
+    --ds-background-neutral-bold: @text;
+    --ds-background-neutral-bold-hovered: @subtext1;
+    --ds-background-neutral-bold-pressed: @subtext0;
+    --ds-background-selected: fade(@accent, 15%);
+    --ds-background-selected-hovered: fade(@accent, 25%);
+    --ds-background-selected-pressed: fade(@accent, 35%);
+    --ds-background-selected-bold: @accent;
+    --ds-background-selected-bold-hovered: mix(@accent, @base, 85%);
+    --ds-background-selected-bold-pressed: mix(@accent, @base, 70%);
+    --ds-background-brand-subtlest: fade(@accent, 15%);
+    --ds-background-brand-subtlest-hovered: fade(@accent, 25%);
+    --ds-background-brand-subtlest-pressed: fade(@accent, 35%);
+    --ds-background-brand-bold: @accent;
+    --ds-background-brand-bold-hovered: mix(@accent, @base, 85%);
+    --ds-background-brand-bold-pressed: mix(@accent, @base, 70%);
+    --ds-background-brand-boldest: @crust;
+    --ds-background-brand-boldest-hovered: @mantle;
+    --ds-background-brand-boldest-pressed: @surface0;
+
+    /* Code */
+    --ds-background-code-default: @base;
+    --ds-background-code-gutter: @mantle;
+    --ds-background-code-highlight: @surface0;
+    --ds-background-code-added-line: fade(@green, 15%);
+    --ds-background-code-added-highlight: fade(@green, 30%);
+    --ds-background-code-removed-line: fade(@red, 15%);
+    --ds-background-code-removed-highlight: fade(@red, 30%);
+    --ds-text-code-default: @text;
+    --ds-text-code-gutter: @overlay1;
+    --ds-text-code-comments: @overlay2;
+    --ds-text-code-keywords: @mauve;
+    --ds-text-code-strings: @green;
+    --ds-text-code-numbers: @peach;
+    --ds-text-code-functions: @blue;
+    --ds-text-code-operators: @sky;
+    --ds-text-code-tags: @blue;
+    --ds-text-code-accent-1: @pink;
+    --ds-text-code-accent-2: @yellow;
+
+    /* Jira-specific variables */
+    --project-color-background-accent-selected: @accent;
+
+    /* Sites with a custom color scheme set these as inline styles on the top navigation bar. */
+    #jira-page-layout-top-nav {
+      background-color: @base !important;
+      color: @text !important;
+      --ds-top-bar-button-background: transparent !important;
+      --ds-top-bar-button-background-hovered: @surface0 !important;
+      --ds-top-bar-button-background-pressed: @surface1 !important;
+      --ds-top-bar-button-border: @surface1 !important;
+      --ds-top-bar-button-selected-background: @surface0 !important;
+      --ds-top-bar-button-selected-background-hovered: @surface1 !important;
+      --ds-top-bar-button-selected-background-pressed: @surface2 !important;
+      --ds-top-bar-button-selected-text: @text !important;
+      --ds-top-bar-button-selected-border: @accent !important;
+      --ds-top-bar-button-disabled-text: @overlay0 !important;
+      --ds-top-bar-button-disabled-background: fade(@surface0, 50%) !important;
+      --ds-top-bar-logo-icon: @text !important;
+      --ds-top-bar-logo-text: @text !important;
+      --ds-top-bar-search-border: @surface1 !important;
+      --ds-top-bar-search-border-focused: @accent !important;
+      --ds-top-bar-button-primary-background: @accent !important;
+      --ds-top-bar-button-primary-background-hovered: mix(
+        @accent,
+        @base,
+        85%
+      ) !important;
+      --ds-top-bar-button-primary-background-pressed: mix(
+        @accent,
+        @base,
+        70%
+      ) !important;
+      --ds-top-bar-button-primary-text: @base !important;
+    }
+
+    /* Interactions & misc */
+    --ds-interaction-hovered: fade(@text, 8%);
+    --ds-interaction-pressed: fade(@text, 16%);
+    --ds-skeleton: @surface0;
+    --ds-skeleton-subtle: fade(@surface0, 50%);
+    --ds-blanket: fade(@crust, 60%);
+    --ds-blanket-selected: fade(@accent, 8%);
+    --ds-blanket-danger: fade(@red, 8%);
+
+    /* Charts */
+    --ds-chart-categorical-1: @blue;
+    --ds-chart-categorical-1-hovered: mix(@blue, @base, 85%);
+    --ds-chart-categorical-2: @green;
+    --ds-chart-categorical-2-hovered: mix(@green, @base, 85%);
+    --ds-chart-categorical-3: @mauve;
+    --ds-chart-categorical-3-hovered: mix(@mauve, @base, 85%);
+    --ds-chart-categorical-4: @peach;
+    --ds-chart-categorical-4-hovered: mix(@peach, @base, 85%);
+    --ds-chart-categorical-5: @sapphire;
+    --ds-chart-categorical-5-hovered: mix(@sapphire, @base, 85%);
+    --ds-chart-categorical-6: @pink;
+    --ds-chart-categorical-6-hovered: mix(@pink, @base, 85%);
+    --ds-chart-categorical-7: @teal;
+    --ds-chart-categorical-7-hovered: mix(@teal, @base, 85%);
+    --ds-chart-categorical-8: @maroon;
+    --ds-chart-categorical-8-hovered: mix(@maroon, @base, 85%);
+    --ds-chart-neutral: @overlay1;
+    --ds-chart-neutral-hovered: @overlay0;
+    --ds-chart-brand: @accent;
+    --ds-chart-brand-hovered: mix(@accent, @base, 85%);
+
+    /* Shadows */
+    --ds-shadow-raised: 0 1px 1px fade(@crust, 25%), 0 0 1px fade(@crust, 31%);
+    --ds-shadow-overlay:
+      0 8px 12px fade(@crust, 30%), 0 0 1px fade(@crust, 40%);
+    --ds-shadow-overflow:
+      0 0 8px fade(@crust, 16%), 0 0 1px fade(@crust, 12%);
+    --ds-shadow-overflow-perimeter: fade(@crust, 12%);
+    --ds-shadow-overflow-spread: fade(@crust, 16%);
+  }
+}
