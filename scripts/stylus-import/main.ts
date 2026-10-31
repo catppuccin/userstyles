@@ -1,7 +1,16 @@
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+
 import usercssMeta from "usercss-meta";
-import { ensureDir } from "@std/fs";
-import { calcStyleDigest } from "https://github.com/openstyles/stylus/raw/8fe35a4b90d85fb911bd7aa1deab4e4733c31150/src/js/sections-util.js";
-import { getUserstylesFiles } from "@/utils.ts";
+import { getUserstylesFiles } from "#/utils.ts";
+
+// Stylus isn't published as a package, so import the module straight from GitHub.
+const { calcStyleDigest } = await import(
+  "data:text/javascript," + encodeURIComponent(
+    await fetch(
+      "https://raw.githubusercontent.com/openstyles/stylus/8fe35a4b90d85fb911bd7aa1deab4e4733c31150/src/js/sections-util.js",
+    ).then((res) => res.text()),
+  )
+);
 
 // Recommended settings.
 const settings = {
@@ -16,7 +25,7 @@ const settings = {
 const data: Record<string, unknown>[] = [settings];
 
 for (const file of getUserstylesFiles()) {
-  const content = await Deno.readTextFile(file);
+  const content = await readFile(file, "utf8");
   const { metadata } = usercssMeta.parse(content);
 
   const userstyle = {
@@ -35,5 +44,5 @@ for (const file of getUserstylesFiles()) {
   data.push(userstyle);
 }
 
-await ensureDir("dist");
-await Deno.writeTextFile("dist/import.json", JSON.stringify(data));
+await mkdir("dist", { recursive: true });
+await writeFile("dist/import.json", JSON.stringify(data));

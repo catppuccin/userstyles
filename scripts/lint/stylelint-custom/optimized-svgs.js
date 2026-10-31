@@ -10,6 +10,8 @@ const {
 const ruleName = "catppuccin/optimized-svgs";
 
 const meta = {
+  url:
+    "https://github.com/catppuccin/userstyles/blob/main/scripts/lint/stylelint-custom/optimized-svgs.js",
   fixable: true,
 };
 
@@ -17,7 +19,7 @@ const messages = ruleMessages(ruleName, {
   rejected: () => `Unoptimized SVG detected`,
 });
 
-/** @type {import('npm:stylelint').Rule} */
+/** @type {import('stylelint').Rule} */
 const ruleFunction = (primary, _secondary, context) => {
   return (root, result) => {
     const validOptions = validateOptions(result, ruleName, {

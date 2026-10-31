@@ -1,8 +1,7 @@
-import { assertSnapshot } from "@std/testing/snapshot";
+import { test } from "node:test";
 
 import { REPO_ROOT } from "../constants.ts";
 
-// @ts-types="npm:@types/less";
 import less from "less";
 
 async function compile(source: string) {
@@ -17,24 +16,26 @@ ${source}
   return result.css;
 }
 
-Deno.test("#lib.rgbify", async (ctx) => {
-  await assertSnapshot(
-    ctx,
+const serializers = [(value: unknown) => String(value)];
+
+test("#lib.rgbify", async (t) => {
+  t.assert.snapshot(
     await compile(`
 .foo {
   --bar: #lib.rgbify(red)[];
 }
 `),
+    { serializers },
   );
 });
 
-Deno.test("#lib.hslify", async (ctx) => {
-  await assertSnapshot(
-    ctx,
+test("#lib.hslify", async (t) => {
+  t.assert.snapshot(
     await compile(`
 .foo {
   --bar: #lib.hslify(red)[];
 }
 `),
+    { serializers },
   );
 });

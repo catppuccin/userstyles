@@ -5,7 +5,7 @@ import stylelint from "stylelint";
 import "stylelint-config-standard";
 import "stylelint-config-recommended";
 
-import { log } from "@/logger.ts";
+import { log } from "#/logger.ts";
 
 export async function runStylelint(
   file: string,
