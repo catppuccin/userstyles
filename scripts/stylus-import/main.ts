@@ -3,14 +3,27 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import usercssMeta from "usercss-meta";
 import { getUserstylesFiles } from "#/utils.ts";
 
-// Stylus isn't published as a package, so import the module straight from GitHub.
-const { calcStyleDigest } = await import(
-  "data:text/javascript," + encodeURIComponent(
-    await fetch(
-      "https://raw.githubusercontent.com/openstyles/stylus/8fe35a4b90d85fb911bd7aa1deab4e4733c31150/src/js/sections-util.js",
-    ).then((res) => res.text()),
-  )
-);
+// NOTE: Vendored from Stylus (GPL-3.0), as of openstyles/stylus@1c6e3e630208fa32dca1855b780b7c7ad9e03681.
+// This should be checked regularly and updated when it changes upstream, so the digests match what Stylus computes.
+// https://github.com/openstyles/stylus/blob/master/src/js/style-util.js
+async function calcStyleDigest(style: Record<string, any>) {
+  const src = style.usercssData
+    ? style.sourceCode
+    // retain known properties in an arbitrarily predefined order
+    : JSON.stringify((style.sections || []).map((section: any) => ({
+      code: section.code || "",
+      urls: section.urls || [],
+      urlPrefixes: section.urlPrefixes || [],
+      domains: section.domains || [],
+      regexps: section.regexps || [],
+    })));
+  const srcBytes = new TextEncoder().encode(src);
+  const res = await crypto.subtle.digest("SHA-1", srcBytes);
+  return Array.from(
+    new Uint8Array(res),
+    (b) => (0x100 + b).toString(16).slice(1),
+  ).join("");
+}
 
 // Recommended settings.
 const settings = {
