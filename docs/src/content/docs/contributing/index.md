@@ -10,14 +10,14 @@ If it is your first time contributing to a project on GitHub, please see the pop
 
 ## Development environment
 
-This repository uses [Deno](https://deno.com/) extensively for linting, formatting, and automation. It is highly recommended to set up Deno locally to improve your workflow — see ["Installation" - Deno Docs](https://docs.deno.com/runtime/manual/getting_started/installation).
+This repository uses [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/) extensively for linting, formatting, and automation. It is highly recommended to set up Node.js (v24.14 or later) and pnpm locally to improve your workflow — see ["Download Node.js" - Node.js](https://nodejs.org/en/download) and ["Installation" - pnpm Docs](https://pnpm.io/installation). Then, run `pnpm install` to install the dependencies.
 
-With Deno installed locally, you can lint all userstyles with `deno task lint`, and if any issues are found, `deno task lint:fix` to automatically apply fixes in some cases. For quicker linting, specify the userstyle to lint with `deno task lint my-userstyle` (or equivalently using the relative path/autocomplete, `deno task lint styles/my-userstyle`).
+With Node.js and pnpm installed locally, you can lint all userstyles with `pnpm lint`, and if any issues are found, `pnpm lint:fix` to automatically apply fixes in some cases. For quicker linting, specify the userstyle to lint with `pnpm lint my-userstyle` (or equivalently using the relative path/autocomplete, `pnpm lint styles/my-userstyle`).
 
-It's helpful to maintainers to run formatting with `deno fmt` before opening a pull request, though not strictly necessary.
+It's helpful to maintainers to run formatting with `pnpm fmt` before opening a pull request, though not strictly necessary.
 
 > [!IMPORTANT]
-> `deno task lint` is not to be confused with Deno's built-in linter, `deno lint`. `deno lint` only checks our TypeScript files in `scripts/`, whereas `deno task lint` is the custom Deno task for linting userstyles that you should be using.
+> `pnpm lint` is not to be confused with `pnpm check`. `pnpm check` only checks our TypeScript files in `scripts/`, whereas `pnpm lint` is the custom script for linting userstyles that you should be using.
 
 To edit and/or create userstyles, [set up live reloading](/contributing/tips-and-tricks/hot-reloading/) so that local changes (edits made from your editor of choice) can be automatically reloaded through Stylus.
 
