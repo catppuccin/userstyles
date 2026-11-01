@@ -1,9 +1,6 @@
-import { sprintf } from "@std/fmt/printf";
-import * as color from "@std/fmt/colors";
-import core from "@actions/core";
+import { styleText } from "node:util";
 
-// `@std/fmt/colors` only reads `NO_COLOR` via `Deno.noColor`.
-color.setColorEnabled(!process.env.NO_COLOR);
+import core from "@actions/core";
 
 export type LoggerProps = core.AnnotationProperties & {
   file: string;
@@ -20,19 +17,17 @@ function prettyPrint(
   const lines = (props.content ?? "").split("\n");
 
   const error = [
-    color[severity === "error" ? "red" : "yellow"](severity),
+    styleText(severity === "error" ? "red" : "yellow", severity),
     message,
   ].join(" ");
 
   const pad = startLine ? (startLine + 1).toString().length : 0;
 
-  const logs = [color.underline(
-    sprintf(
-      "%s%s%s",
-      file,
-      startLine ? ":" + startLine : "",
-      startColumn ? ":" + startColumn : "",
-    ),
+  const logs = [styleText(
+    "underline",
+    `${file}${startLine ? ":" + startLine : ""}${
+      startColumn ? ":" + startColumn : ""
+    }`,
   )];
 
   if (startLine) {
@@ -41,39 +36,24 @@ function prettyPrint(
       const endCol = (props.endColumn ?? Infinity) - 1;
 
       if (i >= startCol && i <= endCol) {
-        return color[severity === "error" ? "red" : "yellow"](char);
+        return styleText(severity === "error" ? "red" : "yellow", char);
       } else {
         return char;
       }
     }).join("");
 
     logs.push(...[
-      sprintf(
-        "%s│ %s",
-        color.dim(String(startLine - 1).padStart(pad, " ")),
-        color.dim(lines[startLine - 2]),
-      ),
-      sprintf(
-        "%s│ %s",
-        color.bold(String(startLine).padStart(pad, " ")),
-        line,
-      ),
-      sprintf(
-        "%s│ %s",
-        color.dim(String(startLine + 1).padStart(pad, " ")),
-        color.dim(lines[startLine]),
-      ),
+      `${styleText("dim", String(startLine - 1).padStart(pad, " "))}│ ${
+        styleText("dim", lines[startLine - 2] ?? "")
+      }`,
+      `${styleText("bold", String(startLine).padStart(pad, " "))}│ ${line}`,
+      `${styleText("dim", String(startLine + 1).padStart(pad, " "))}│ ${
+        styleText("dim", lines[startLine] ?? "")
+      }`,
     ]);
   }
 
-  logs.push(
-    sprintf(
-      "%*s╰─► %s",
-      pad,
-      "",
-      error,
-    ),
-  );
+  logs.push(`${" ".repeat(pad)}╰─► ${error}`);
 
   console.log("\n" + logs.join("\n"));
 }

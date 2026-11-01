@@ -2,10 +2,9 @@ import { REPO_ROOT } from "#/constants.ts";
 
 import { writeFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { parseArgs, styleText } from "node:util";
 
-import { parseArgs } from "@std/cli";
-import * as path from "@std/path";
-import * as color from "@std/fmt/colors";
 import less from "less";
 
 import { checkForMissingFiles } from "#/lint/file-checker.ts";
@@ -16,8 +15,11 @@ import { getUserstylesData, getUserstylesFiles } from "#/utils.ts";
 import stylelintConfig from "../../.stylelintrc.js";
 import "#/lint/library.ts";
 
-const args = parseArgs(process.argv.slice(2), { boolean: ["fix"] });
-const userstyle = args._[0]?.toString().match(
+const { values: args, positionals } = parseArgs({
+  options: { fix: { type: "boolean", default: false } },
+  allowPositionals: true,
+});
+const userstyle = positionals[0]?.match(
   /(?<base>styles\/)?(?<userstyle>[a-z0-9_\-.]+)(?<trailing>\/)?(?<file>catppuccin\.user\.less)?/,
 )?.groups?.userstyle;
 const stylesheets = userstyle
@@ -75,8 +77,11 @@ if (didLintFail || log.failed) {
   if (!args.fix) {
     console.log(
       `\n  ${
-        color.bold(color.inverse(color.green(`${THIN_SPACE}TIP${THIN_SPACE}`)))
-      } Run ${color.bold("pnpm lint:fix")} to fix autofixable issues.`,
+        styleText(
+          ["bold", "inverse", "green"],
+          `${THIN_SPACE}TIP${THIN_SPACE}`,
+        )
+      } Run ${styleText("bold", "pnpm lint:fix")} to fix autofixable issues.`,
     );
   }
   process.exit(1);

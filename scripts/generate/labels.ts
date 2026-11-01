@@ -4,8 +4,8 @@ import { REPO_ROOT } from "#/constants.ts";
 import { readFileSync } from "node:fs";
 import { writeFile } from "node:fs/promises";
 
-import * as path from "@std/path";
-import * as yaml from "@std/yaml";
+import path from "node:path";
+import * as yaml from "yaml";
 
 import { type ColorName, flavors } from "@catppuccin/palette";
 import { writeWithPreamble } from "#/generate/utils.ts";

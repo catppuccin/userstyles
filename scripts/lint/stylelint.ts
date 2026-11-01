@@ -1,4 +1,4 @@
-import * as color from "@std/fmt/colors";
+import { styleText } from "node:util";
 
 import "postcss-less";
 import stylelint from "stylelint";
@@ -24,7 +24,7 @@ export async function runStylelint(
       // Some cleanup for fancier logging - dims the rule name.
       const message = warning.text?.replace(
         new RegExp(`\\(?${warning.rule}\\)?`),
-        color.dim(`(${warning.rule})`),
+        styleText("dim", `(${warning.rule})`),
       ) ?? "unspecified stylelint error";
 
       log.log(message, {

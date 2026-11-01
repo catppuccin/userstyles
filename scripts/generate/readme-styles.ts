@@ -4,7 +4,7 @@ import { REPO_ROOT } from "#/constants.ts";
 import { readFileSync } from "node:fs";
 import { writeFile } from "node:fs/promises";
 
-import * as path from "@std/path";
+import path from "node:path";
 import Handlebars from "handlebars";
 import { formatListOfItems } from "#/utils.ts";
 

@@ -2,7 +2,7 @@ import { REPO_ROOT, USERSTYLES_SCHEMA } from "#/constants.ts";
 
 import { writeFileSync } from "node:fs";
 
-import * as path from "@std/path";
+import path from "node:path";
 import { compile, type JSONSchema } from "json-schema-to-typescript";
 
 const TYPES_ROOT = path.join(REPO_ROOT, "scripts/types");

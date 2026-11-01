@@ -1,7 +1,8 @@
 // @ts-check
 
+import assert from "node:assert/strict";
+
 import stylelint from "stylelint";
-import { assert } from "@std/assert";
 
 const {
   createPlugin,

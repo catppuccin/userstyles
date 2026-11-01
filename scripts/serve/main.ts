@@ -1,21 +1,18 @@
-import { parseArgs } from "@std/cli";
-import { debounce } from "@std/async/debounce";
 import { createHash } from "node:crypto";
 import { watch } from "node:fs";
 import { mkdtemp, readdir, readFile, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { tmpdir } from "node:os";
-
-import * as path from "@std/path";
+import path from "node:path";
+import { parseArgs } from "node:util";
 
 import { REPO_ROOT } from "#/constants.ts";
 
 const PORT = 8000;
 
-const args = parseArgs(process.argv.slice(2), {});
-const userstyle = args._[0]
-  ?.toString()
-  .match(
+const { positionals } = parseArgs({ allowPositionals: true });
+const userstyle = positionals[0]
+  ?.match(
     /(?<base>styles\/)?(?<userstyle>[a-z0-9_\-.]+)(?<trailing>\/)?(?<file>catppuccin\.user\.less)?/,
   )?.groups?.userstyle;
 if (!userstyle) throw new Error("Invalid userstyle argument");
@@ -96,12 +93,16 @@ updateTempUserstyle();
 
 console.log(`[serve] ${userstyle} userstyle served at '${tempUserstylePath}'`);
 
-const reload = debounce(() => {
-  console.log(
-    `[serve]: reloaded ${userstyle} userstyle`,
-  );
-  updateTempUserstyle();
-}, 200);
+let reloadTimeout: ReturnType<typeof setTimeout> | undefined;
+function reload() {
+  clearTimeout(reloadTimeout);
+  reloadTimeout = setTimeout(() => {
+    console.log(
+      `[serve]: reloaded ${userstyle} userstyle`,
+    );
+    updateTempUserstyle();
+  }, 200);
+}
 
 for (const watchPath of [userstylePath, libPath]) {
   watch(watchPath, { recursive: true }, async () => {

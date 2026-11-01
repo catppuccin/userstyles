@@ -3,9 +3,8 @@ import { REPO_ROOT } from "#/constants.ts";
 
 import { readFile } from "node:fs/promises";
 
-import * as color from "@std/fmt/colors";
-import * as path from "@std/path";
-import { sprintf } from "@std/fmt/printf";
+import path from "node:path";
+import { styleText } from "node:util";
 
 import usercssMeta from "usercss-meta";
 import { log } from "#/logger.ts";
@@ -60,16 +59,14 @@ export async function verifyMetadata(
         .findIndex((line) => line.includes(`${atKey} `)) + 1;
 
       const message = current === undefined
-        ? sprintf(
-          "UserCSS metadata property `%s` is undefined",
-          color.bold(atKey),
-        )
-        : sprintf(
-          'UserCSS metadata property `%s` should be "%s" but is "%s"',
-          color.bold(atKey),
-          color.green(expected),
-          color.red(String(current)),
-        );
+        ? `UserCSS metadata property \`${
+          styleText("bold", atKey)
+        }\` is undefined`
+        : `UserCSS metadata property \`${
+          styleText("bold", atKey)
+        }\` should be "${styleText("green", expected)}" but is "${
+          styleText("red", String(current))
+        }"`;
 
       log.error(message, {
         file,
@@ -106,10 +103,7 @@ export async function verifyMetadata(
         1;
 
       log.error(
-        sprintf(
-          "Metadata variable `%s` should exist",
-          color.bold(variable),
-        ),
+        `Metadata variable \`${styleText("bold", variable)}\` should exist`,
         {
           file,
           startLine: line !== 0 ? line : undefined,
@@ -117,11 +111,9 @@ export async function verifyMetadata(
         },
       );
     } else if (expected.trim() !== lines[current - 1].trim()) {
-      const message = sprintf(
-        "Options for metadata variable `%s` should be `%s`",
-        color.bold(variable),
-        (/\[[^\]]+\]/.exec(expected) as RegExpExecArray)[0],
-      );
+      const message = `Options for metadata variable \`${
+        styleText("bold", variable)
+      }\` should be \`${(/\[[^\]]+\]/.exec(expected) as RegExpExecArray)[0]}\``;
 
       log.error(message, {
         file,
@@ -157,7 +149,9 @@ function generateAssertions(userstyle: string, userstyles: Userstyles) {
 
   if (!userstyleData) {
     log.error(
-      `Metadata section for \`${color.bold(userstyle)}\` userstyle is missing`,
+      `Metadata section for \`${
+        styleText("bold", userstyle)
+      }\` userstyle is missing`,
       {
         file: "scripts/userstyles.yml",
       },

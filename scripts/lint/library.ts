@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 
-import * as path from "@std/path";
+import path from "node:path";
 import less from "less";
 
 import { REPO_ROOT } from "#/constants.ts";

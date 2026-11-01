@@ -1,6 +1,7 @@
 import type { Userstyle } from "#/types/userstyles.d.ts";
 
-import * as assert from "@std/assert";
+import assert from "node:assert/strict";
+import { isDeepStrictEqual } from "node:util";
 
 import {
   addUserstylesTeamMember,
@@ -19,16 +20,16 @@ const maintainers = [
       style: Userstyle,
     ) =>
       style["current-maintainers"].map((name) => {
-        assert.assertExists(name);
+        assert(name != null);
         return name.toLowerCase();
       })
     ),
   ),
 ];
 
-assert.assertExists(maintainers);
-assert.assert(Array.isArray(maintainers));
-assert.assertGreater(maintainers.length, 0);
+assert(maintainers != null);
+assert(Array.isArray(maintainers));
+assert(maintainers.length > 0);
 
 const octokit = getAuthenticatedOctokit();
 const team = "userstyles-maintainers";
@@ -37,7 +38,7 @@ const maintainersTeamMembers = await getUserstylesTeamMembers(
   team,
 );
 
-if (assert.equal(maintainers, maintainersTeamMembers)) {
+if (isDeepStrictEqual(maintainers, maintainersTeamMembers)) {
   console.log("Maintainers are in sync.");
   process.exit(0);
 }

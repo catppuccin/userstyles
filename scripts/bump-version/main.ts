@@ -1,13 +1,15 @@
 import { readFile, writeFile } from "node:fs/promises";
-
-import * as path from "@std/path";
+import path from "node:path";
+import { parseArgs } from "node:util";
 
 import { REPO_ROOT } from "#/constants.ts";
 import { CalVer } from "#/bump-version/calver.ts";
-import { parseArgs } from "@std/cli";
 import { getUserstylesFiles } from "#/utils.ts";
 
-const args = parseArgs(process.argv.slice(2), { boolean: ["all"] });
+const { values: args, positionals } = parseArgs({
+  options: { all: { type: "boolean", default: false } },
+  allowPositionals: true,
+});
 
 if (!process.env.CI && !args.all) {
   throw new Error(
@@ -20,9 +22,7 @@ let files = [];
 if (args.all) {
   files = getUserstylesFiles();
 } else {
-  files = args._.filter((val) => typeof val == "string").map((p: string) =>
-    path.join(REPO_ROOT, p)
-  );
+  files = positionals.map((p) => path.join(REPO_ROOT, p));
 }
 
 for (

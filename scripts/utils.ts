@@ -8,12 +8,11 @@ import {
 
 import { readdirSync, readFileSync } from "node:fs";
 
-import * as yaml from "@std/yaml";
-import * as path from "@std/path";
+import * as yaml from "yaml";
+import path from "node:path";
 
 import Ajv, { type Schema } from "ajv";
 import { log } from "#/logger.ts";
-import { sprintf } from "@std/fmt/printf";
 import { Octokit } from "@octokit/rest";
 
 /**
@@ -35,14 +34,11 @@ export function validateYaml<T>(
     log.error(
       validate
         .errors!.map((err) =>
-          sprintf(
-            "%s %s%s",
-            err.instancePath.slice(1).replaceAll("/", "."),
-            err.message,
+          `${err.instancePath.slice(1).replaceAll("/", ".")} ${err.message}${
             err.params.allowedValues
               ? ` (${JSON.stringify(err.params.allowedValues, undefined)})`
-              : "",
-          )
+              : ""
+          }`
         )
         .join(" and "),
       {
@@ -84,7 +80,7 @@ export function getUserstylesData(): Userstyles {
 
     return data as Userstyles;
   } catch (err) {
-    if (err instanceof Error && err.name === "SyntaxError") {
+    if (err instanceof yaml.YAMLParseError) {
       const groups =
         /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
           .exec(
