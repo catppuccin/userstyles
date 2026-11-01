@@ -1,4 +1,4 @@
-import type { CategoriesSchema, UserstylesSchema } from "#/types/mod.ts";
+import type { UserstylesSchema } from "#/types/mod.ts";
 import type { SetRequired } from "type-fest";
 import {
   CATEGORIES_SCHEMA,
@@ -97,26 +97,6 @@ export function getUserstylesData(): Userstyles {
 
     process.exit(1);
   }
-}
-
-/**
- * Utility function that calls {@link validateYaml} on the ports.yml file.
- * Fails when data.userstyles is undefined.
- */
-export async function getCategoriesData(): Promise<
-  CategoriesSchema.CategoryDefinitions
-> {
-  const content = await fetch(
-    "https://raw.githubusercontent.com/catppuccin/catppuccin/d4f82739e687cfd19d168be355367fdbbcc8e029/resources/categories.yml",
-  ).then((res) => res.text());
-
-  const data = validateYaml<CategoriesSchema.CategoryDefinitions>(
-    content,
-    CATEGORIES_SCHEMA,
-    "categories.yml",
-  );
-
-  return data;
 }
 
 type Userstyles = SetRequired<

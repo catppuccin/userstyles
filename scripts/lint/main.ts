@@ -1,13 +1,12 @@
 import { REPO_ROOT, STYLES_ROOT } from "#/constants.ts";
 
-import { writeFileSync } from "node:fs";
+import { existsSync, writeFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { parseArgs, styleText } from "node:util";
 
 import less from "less";
 
-import { checkForMissingFiles } from "#/lint/file-checker.ts";
 import { log } from "#/utils/logger.ts";
 import { verifyMetadata } from "#/lint/metadata.ts";
 import { runStylelint } from "#/lint/stylelint.ts";
@@ -35,6 +34,11 @@ let didLintFail = false;
 for (const style of stylesheets) {
   const dir = path.basename(path.dirname(style));
   const file = path.relative(REPO_ROOT, style);
+
+  if (!existsSync(style)) {
+    log.error("File does not exist", { file });
+    continue;
+  }
 
   let content = await readFile(style, "utf8");
 
@@ -64,12 +68,15 @@ for (const style of stylesheets) {
   );
 
   // Lint with Stylelint.
-  const results = await runStylelint(style, content, args.fix, stylelintConfig)
-    .catch(() => didLintFail = true);
-  writeFileSync(file, typeof results === "string" ? results : content);
+  const { code, hasWarnings } = await runStylelint(
+    style,
+    content,
+    args.fix,
+    stylelintConfig,
+  );
+  if (hasWarnings) didLintFail = true;
+  writeFileSync(file, code ?? content);
 }
-
-if (await checkForMissingFiles() === false) didLintFail = true;
 
 // Cause the workflow to fail if any issues were found.
 
@@ -86,5 +93,5 @@ if (didLintFail || log.failed) {
       } Run ${styleText("bold", "pnpm lint:fix")} to fix autofixable issues.`,
     );
   }
-  process.exit(1);
+  process.exitCode = 1;
 }

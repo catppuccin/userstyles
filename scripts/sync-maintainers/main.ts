@@ -38,7 +38,9 @@ const maintainersTeamMembers = await getUserstylesTeamMembers(
   team,
 );
 
-if (isDeepStrictEqual(maintainers, maintainersTeamMembers)) {
+if (
+  isDeepStrictEqual(maintainers.toSorted(), maintainersTeamMembers.toSorted())
+) {
   console.log("Maintainers are in sync.");
   process.exit(0);
 }

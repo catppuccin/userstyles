@@ -12,7 +12,9 @@ export async function runStylelint(
   content: string,
   fix: boolean,
   config: stylelint.Config,
-): Promise<string | undefined> {
+): Promise<{ code: string | undefined; hasWarnings: boolean }> {
+  let hasWarnings = false;
+
   const { results, code } = await stylelint.lint({
     code: content,
     config,
@@ -37,8 +39,8 @@ export async function runStylelint(
       }, warning.severity);
     }
 
-    if (result.warnings.length > 0) throw new Error("stylelint error");
+    if (result.warnings.length > 0) hasWarnings = true;
   }
 
-  return code;
+  return { code, hasWarnings };
 }
