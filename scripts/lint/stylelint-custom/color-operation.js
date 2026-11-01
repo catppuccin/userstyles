@@ -58,7 +58,7 @@ const messages = ruleMessages(ruleName, {
 });
 
 /** @type {import('stylelint').Rule} */
-const ruleFunction = (primary, _secondary, context) => {
+const ruleFunction = (primary) => {
   return (root, result) => {
     const validOptions = validateOptions(result, ruleName, {
       actual: primary,
@@ -85,48 +85,45 @@ const ruleFunction = (primary, _secondary, context) => {
           node.nodes[0].value.startsWith("@") &&
           NUMERICAL_VALUE_REGEX.test(node.nodes[2].value)
         ) {
-          if (context.fix) {
-            node.value = "fade";
-            node.nodes[2].value = normalizeColorOperationAmount(
-              node.nodes[2].value,
-            ) + "%";
-          } else {
-            report({
-              result,
-              ruleName,
-              message: messages.rgba_used_with_variable(),
-              node: decl,
-              index: startIndex,
-              endIndex: endIndex,
-            });
-          }
+          report({
+            result,
+            ruleName,
+            message: messages.rgba_used_with_variable(),
+            node: decl,
+            index: startIndex,
+            endIndex: endIndex,
+            fix: () => {
+              node.value = "fade";
+              node.nodes[2].value = normalizeColorOperationAmount(
+                node.nodes[2].value,
+              ) + "%";
+            },
+          });
         }
 
         // Use `fade` instead of `fadeout`.
         if (
           node.value === "fadeout"
         ) {
-          if (
-            context.fix &&
+          report({
+            result,
+            ruleName,
+            message: messages.fadeout_used(),
+            node: decl,
+            index: startIndex,
+            endIndex: endIndex,
             // Only autofixable if it follows the pattern of `fadeout(@<color>, <num>%)`. Otherwise, it's ambiguous.
-            node.nodes.length === 3 &&
-            VALID_COLOR_VARIABLES.includes(node.nodes[0].value)
-          ) {
-            node.value = "fade";
-            const value = node.nodes[2].value.replace("%", "");
-            // Invert the value to get the fade amount. E.g. `fadeout(@color, 30%)` becomes `fade(@color, 70%)`.
-            node.nodes[2].value = (100 - normalizeColorOperationAmount(value)) +
-              "%";
-          } else {
-            report({
-              result,
-              ruleName,
-              message: messages.fadeout_used(),
-              node: decl,
-              index: startIndex,
-              endIndex: endIndex,
-            });
-          }
+            fix: node.nodes.length === 3 &&
+                VALID_COLOR_VARIABLES.includes(node.nodes[0].value)
+              ? () => {
+                node.value = "fade";
+                const value = node.nodes[2].value.replace("%", "");
+                // Invert the value to get the fade amount. E.g. `fadeout(@color, 30%)` becomes `fade(@color, 70%)`.
+                node.nodes[2].value =
+                  (100 - normalizeColorOperationAmount(value)) + "%";
+              }
+              : undefined,
+          });
         }
 
         // Use `fade` instead of `fadein`. Not autofixable because a) on palette variables, it has no effect (increasing opaqueness on a fully opaque color) and b) it's ambiguous otherwise.
@@ -154,21 +151,20 @@ const ruleFunction = (primary, _secondary, context) => {
           const value = node.nodes[amountArgIndex].value;
           if (!NUMERICAL_VALUE_REGEX.test(value)) return;
 
-          if (context.fix) {
-            node.nodes[amountArgIndex].value = normalizeColorOperationAmount(
-              value,
-            ) + "%";
-          } else {
-            report({
-              result,
-              ruleName,
-              message: messages.amount_not_percentage(),
-              node: decl,
-              index: startIndex + node.nodes[amountArgIndex].sourceIndex,
-              endIndex: startIndex + node.nodes[amountArgIndex].sourceEndIndex -
-                1,
-            });
-          }
+          report({
+            result,
+            ruleName,
+            message: messages.amount_not_percentage(),
+            node: decl,
+            index: startIndex + node.nodes[amountArgIndex].sourceIndex,
+            endIndex: startIndex + node.nodes[amountArgIndex].sourceEndIndex -
+              1,
+            fix: () => {
+              node.nodes[amountArgIndex].value = normalizeColorOperationAmount(
+                value,
+              ) + "%";
+            },
+          });
         }
       });
       decl.value = parsed.toString();

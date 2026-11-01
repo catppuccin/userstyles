@@ -20,7 +20,7 @@ const messages = ruleMessages(ruleName, {
 });
 
 /** @type {import('stylelint').Rule} */
-const ruleFunction = (primary, _secondary, context) => {
+const ruleFunction = (primary) => {
   return (root, result) => {
     const validOptions = validateOptions(result, ruleName, {
       actual: primary,
@@ -61,18 +61,17 @@ const ruleFunction = (primary, _secondary, context) => {
                 }).data;
 
                 if (optimized !== svg) {
-                  if (context.fix) {
-                    parsed.nodes[0].nodes[0].quote = "'";
-                    parsed.nodes[0].nodes[0].value = optimized;
-                    subnode.value = parsed.toString();
-                  } else {
-                    report({
-                      result,
-                      ruleName,
-                      message: messages.rejected(),
-                      node: subnode,
-                    });
-                  }
+                  report({
+                    result,
+                    ruleName,
+                    message: messages.rejected(),
+                    node: subnode,
+                    fix: () => {
+                      parsed.nodes[0].nodes[0].quote = "'";
+                      parsed.nodes[0].nodes[0].value = optimized;
+                      subnode.value = parsed.toString();
+                    },
+                  });
                 }
               }
             }

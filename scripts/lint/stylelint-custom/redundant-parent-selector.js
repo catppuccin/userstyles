@@ -22,7 +22,7 @@ const messages = ruleMessages(ruleName, {
 });
 
 /** @type {import('stylelint').Rule} */
-const ruleFunction = (primary, _secondary, context) => {
+const ruleFunction = (primary) => {
   return (root, result) => {
     const validOptions = validateOptions(result, ruleName, {
       actual: primary,
@@ -33,40 +33,39 @@ const ruleFunction = (primary, _secondary, context) => {
 
     root.walkRules((rule) => {
       if (rule.selectors.length === 1 && rule.selector === "&") {
-        if (context.fix) {
-          // Moves the rule's properties to the parent rule *in place* of the parent selector.
-          // & {
-          //   color: red;
-          // }
-          // becomes
-          // color: red;
+        report({
+          result,
+          ruleName,
+          message: messages.rejected(),
+          node: rule,
+          fix: () => {
+            // Moves the rule's properties to the parent rule *in place* of the parent selector.
+            // & {
+            //   color: red;
+            // }
+            // becomes
+            // color: red;
 
-          const parent = rule.parent;
+            const parent = rule.parent;
 
-          if (parent) {
-            let idx = parent.index(rule);
-            assert(idx !== -1);
+            if (parent) {
+              let idx = parent.index(rule);
+              assert(idx !== -1);
 
-            rule.each((node) => {
-              if (node.type === "decl") {
-                parent.insertAfter(
-                  parent.nodes[idx],
-                  node.clone(),
-                );
-                idx++;
-              }
-            });
+              rule.each((node) => {
+                if (node.type === "decl") {
+                  parent.insertAfter(
+                    parent.nodes[idx],
+                    node.clone(),
+                  );
+                  idx++;
+                }
+              });
 
-            rule.remove();
-          }
-        } else {
-          report({
-            result,
-            ruleName,
-            message: messages.rejected(),
-            node: rule,
-          });
-        }
+              rule.remove();
+            }
+          },
+        });
       }
 
       rule.selector = rule.selector.replace(
@@ -76,19 +75,21 @@ const ruleFunction = (primary, _secondary, context) => {
           const matchIndex = offset + prefix.length;
           const matchEndIndex = matchIndex + 1; // `&` is one character long.
 
-          if (context.fix) {
-            return prefix; // Remove '& ' but keep the "prefix" (start or comma and whitespace).
-          } else {
-            report({
-              result,
-              ruleName,
-              message: messages.rejected(),
-              node: rule,
-              index: matchIndex,
-              endIndex: matchEndIndex,
-            });
-          }
-          return match;
+          // `report` calls `fix` synchronously when fixing is enabled.
+          let fixed = false;
+          report({
+            result,
+            ruleName,
+            message: messages.rejected(),
+            node: rule,
+            index: matchIndex,
+            endIndex: matchEndIndex,
+            fix: () => {
+              fixed = true;
+            },
+          });
+          // Remove '& ' but keep the "prefix" (start or comma and whitespace).
+          return fixed ? prefix : match;
         },
       );
     });
