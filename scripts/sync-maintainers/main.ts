@@ -3,13 +3,13 @@ import type { Userstyle } from "#/types/userstyles.d.ts";
 import assert from "node:assert/strict";
 import { isDeepStrictEqual } from "node:util";
 
+import { getUserstylesData } from "#/utils/data.ts";
 import {
   addUserstylesTeamMember,
   getAuthenticatedOctokit,
-  getUserstylesData,
   getUserstylesTeamMembers,
   removeUserstylesTeamMember,
-} from "#/utils.ts";
+} from "#/utils/github.ts";
 
 const { userstyles } = getUserstylesData();
 

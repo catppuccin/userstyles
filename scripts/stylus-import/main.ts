@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 import usercssMeta from "usercss-meta";
-import { getUserstylesFiles } from "#/utils.ts";
+import { getUserstylesFiles } from "#/utils/data.ts";
 
 // NOTE: Vendored from Stylus (GPL-3.0), as of openstyles/stylus@1c6e3e630208fa32dca1855b780b7c7ad9e03681.
 // This should be checked regularly and updated when it changes upstream, so the digests match what Stylus computes.

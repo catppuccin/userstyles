@@ -1,22 +1,15 @@
 import type { UserstylesSchema } from "#/types/mod.ts";
-import { REPO_ROOT } from "#/constants.ts";
+import { REPO_ROOT, STYLES_ROOT } from "#/constants.ts";
 
 import { readFileSync } from "node:fs";
 import { writeFile } from "node:fs/promises";
 
 import path from "node:path";
 import Handlebars from "handlebars";
-import { formatListOfItems } from "#/utils.ts";
+import { formatListOfItems, pluralize } from "#/utils/format.ts";
 
 // we can have some nice things :)
-Handlebars.registerHelper(
-  "pluralize",
-  (c: number | unknown[], str: string): string => {
-    if (typeof c === "undefined") return str;
-    const num = Array.isArray(c) ? c.length : c;
-    return num === 1 ? str : `${str}s`;
-  },
-);
+Handlebars.registerHelper("pluralize", pluralize);
 
 const heading = (
   name: UserstylesSchema.Name,
@@ -84,7 +77,7 @@ export function generateStyleReadmes(userstyles: UserstylesSchema.Userstyles) {
         },
       });
       writeFile(
-        path.join(REPO_ROOT, "styles", slug.toString(), "README.md"),
+        path.join(STYLES_ROOT, slug.toString(), "README.md"),
         readmeContent,
       ).catch((e) => console.error(e));
     },

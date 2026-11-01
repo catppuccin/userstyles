@@ -1,4 +1,4 @@
-import { REPO_ROOT } from "#/constants.ts";
+import { REPO_ROOT, STYLES_ROOT } from "#/constants.ts";
 
 import { existsSync } from "node:fs";
 import { readdir } from "node:fs/promises";
@@ -6,19 +6,17 @@ import { readdir } from "node:fs/promises";
 import path from "node:path";
 import core from "@actions/core";
 
-import { log } from "#/logger.ts";
+import { log } from "#/utils/logger.ts";
 
 const requiredFiles = [
   "catppuccin.user.less",
 ];
 
 export async function checkForMissingFiles() {
-  const stylesRoot = path.join(REPO_ROOT, "styles");
-
   const missingFiles: string[] = [];
-  for (const entry of await readdir(stylesRoot, { withFileTypes: true })) {
+  for (const entry of await readdir(STYLES_ROOT, { withFileTypes: true })) {
     if (!entry.isDirectory()) continue;
-    const styleRoot = path.join(stylesRoot, entry.name);
+    const styleRoot = path.join(STYLES_ROOT, entry.name);
 
     await Promise.all(requiredFiles.map(async (f) => {
       const fp = path.join(styleRoot, f);

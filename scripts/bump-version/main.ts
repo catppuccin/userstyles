@@ -4,7 +4,7 @@ import { parseArgs } from "node:util";
 
 import { REPO_ROOT } from "#/constants.ts";
 import { CalVer } from "#/bump-version/calver.ts";
-import { getUserstylesFiles } from "#/utils.ts";
+import { getUserstylesFiles } from "#/utils/data.ts";
 
 const { values: args, positionals } = parseArgs({
   options: { all: { type: "boolean", default: false } },

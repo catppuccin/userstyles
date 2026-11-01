@@ -6,15 +6,13 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { parseArgs } from "node:util";
 
-import { REPO_ROOT } from "#/constants.ts";
+import { REPO_ROOT, STYLES_ROOT } from "#/constants.ts";
+import { parseUserstyleArgument } from "#/utils/data.ts";
 
 const PORT = 8000;
 
 const { positionals } = parseArgs({ allowPositionals: true });
-const userstyle = positionals[0]
-  ?.match(
-    /(?<base>styles\/)?(?<userstyle>[a-z0-9_\-.]+)(?<trailing>\/)?(?<file>catppuccin\.user\.less)?/,
-  )?.groups?.userstyle;
+const userstyle = parseUserstyleArgument(positionals[0]);
 if (!userstyle) throw new Error("Invalid userstyle argument");
 
 createServer(async (req, res) => {
@@ -32,12 +30,7 @@ createServer(async (req, res) => {
   res.end("404: Not Found");
 }).listen(PORT);
 
-const userstylePath = path.join(
-  REPO_ROOT,
-  "styles",
-  userstyle,
-  "catppuccin.user.less",
-);
+const userstylePath = path.join(STYLES_ROOT, userstyle, "catppuccin.user.less");
 
 const libPath = path.join(
   REPO_ROOT,

@@ -7,8 +7,8 @@ import path from "node:path";
 import { styleText } from "node:util";
 
 import usercssMeta from "usercss-meta";
-import { log } from "#/logger.ts";
-import { formatListOfItems } from "#/utils.ts";
+import { log } from "#/utils/logger.ts";
+import { formatListOfItems } from "#/utils/format.ts";
 
 export async function verifyMetadata(
   file: string,

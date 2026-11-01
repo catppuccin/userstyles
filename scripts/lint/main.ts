@@ -1,4 +1,4 @@
-import { REPO_ROOT } from "#/constants.ts";
+import { REPO_ROOT, STYLES_ROOT } from "#/constants.ts";
 
 import { writeFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
@@ -8,10 +8,14 @@ import { parseArgs, styleText } from "node:util";
 import less from "less";
 
 import { checkForMissingFiles } from "#/lint/file-checker.ts";
-import { log } from "#/logger.ts";
+import { log } from "#/utils/logger.ts";
 import { verifyMetadata } from "#/lint/metadata.ts";
 import { runStylelint } from "#/lint/stylelint.ts";
-import { getUserstylesData, getUserstylesFiles } from "#/utils.ts";
+import {
+  getUserstylesData,
+  getUserstylesFiles,
+  parseUserstyleArgument,
+} from "#/utils/data.ts";
 import stylelintConfig from "../../.stylelintrc.js";
 import "#/lint/library.ts";
 
@@ -19,11 +23,9 @@ const { values: args, positionals } = parseArgs({
   options: { fix: { type: "boolean", default: false } },
   allowPositionals: true,
 });
-const userstyle = positionals[0]?.match(
-  /(?<base>styles\/)?(?<userstyle>[a-z0-9_\-.]+)(?<trailing>\/)?(?<file>catppuccin\.user\.less)?/,
-)?.groups?.userstyle;
+const userstyle = parseUserstyleArgument(positionals[0]);
 const stylesheets = userstyle
-  ? [path.join(REPO_ROOT, "styles", userstyle, "catppuccin.user.less")]
+  ? [path.join(STYLES_ROOT, userstyle, "catppuccin.user.less")]
   : getUserstylesFiles();
 
 const { userstyles } = getUserstylesData();

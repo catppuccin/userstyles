@@ -4,11 +4,11 @@ import { REPO_ROOT } from "#/constants.ts";
 import { syncIssueLabels } from "#/generate/labels.ts";
 import { generateStyleReadmes } from "#/generate/readme-styles.ts";
 import { writeWithPreamble } from "#/generate/utils.ts";
+import { getUserstylesData } from "#/utils/data.ts";
 import {
   getAuthenticatedOctokit,
-  getUserstylesData,
   getUserstylesTeamMembers,
-} from "#/utils.ts";
+} from "#/utils/github.ts";
 
 if (!process.env.CI) {
   throw new Error(

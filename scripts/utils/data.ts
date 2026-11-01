@@ -3,6 +3,7 @@ import type { SetRequired } from "type-fest";
 import {
   CATEGORIES_SCHEMA,
   REPO_ROOT,
+  STYLES_ROOT,
   USERSTYLES_SCHEMA,
 } from "#/constants.ts";
 
@@ -12,8 +13,7 @@ import * as yaml from "yaml";
 import path from "node:path";
 
 import Ajv, { type Schema } from "ajv";
-import { log } from "#/logger.ts";
-import { Octokit } from "@octokit/rest";
+import { log } from "#/utils/logger.ts";
 
 /**
  * @param content A string of YAML content
@@ -119,31 +119,6 @@ export async function getCategoriesData(): Promise<
   return data;
 }
 
-/**
- * Utility function that formats a list of items into the "x, y, ..., and z" format.
- * @example
- * formatListOfItems(['x']); // 'x'
- * @example
- * formatListOfItems(['x', 'y']); // 'x and y'
- * @example
- * formatListOfItems(['x', 'y', 'z']); // 'x, y, and z'
- */
-export function formatListOfItems(items: unknown[]): string {
-  // If there are no items, return an empty string.
-  if (items.length === 0) return "";
-  // If there are two items, connect them with an "and".
-  if (items.length === 2) return items.join(" and ");
-  // Otherwise, there is either just one item or more than two items.
-  return items.reduce((prev, curr, idx, arr) => {
-    // If this is the first item of the items we are looping through, set our initial string to it.
-    if (idx === 0) return curr;
-    // If this is the last one, add a comma (Oxford commas are amazing) followed by "and" and the item to the string.
-    if (curr === arr.at(-1)) return prev + `, and ${curr}`;
-    // Otherwise, it is some item in the middle of the list and we can just add it as a comma followed by the item to the string.
-    return prev + `, ${curr}`;
-  }) as string;
-}
-
 type Userstyles = SetRequired<
   UserstylesSchema.UserstylesSchema,
   "userstyles" | "collaborators"
@@ -151,57 +126,19 @@ type Userstyles = SetRequired<
 
 export function getUserstylesFiles(): string[] {
   const files: string[] = [];
-  for (
-    const dir of readdirSync(path.join(REPO_ROOT, "styles"), {
-      withFileTypes: true,
-    })
-  ) {
+  for (const dir of readdirSync(STYLES_ROOT, { withFileTypes: true })) {
     if (!dir.isDirectory()) continue;
-    files.push(
-      path.join(REPO_ROOT, "styles", dir.name, "catppuccin.user.less"),
-    );
+    files.push(path.join(STYLES_ROOT, dir.name, "catppuccin.user.less"));
   }
   return files;
 }
 
-export function getAuthenticatedOctokit() {
-  return new Octokit({ auth: process.env.GITHUB_TOKEN });
-}
-
-export type UserstylesTeam = "userstyles-staff" | "userstyles-maintainers";
-
-export async function getUserstylesTeamMembers(
-  octokit: Octokit,
-  team: UserstylesTeam,
-): Promise<string[]> {
-  const members = await octokit.teams.listMembersInOrg({
-    org: "catppuccin",
-    team_slug: team,
-    per_page: 100,
-  });
-  return members.data.map(({ login }) => login.toLowerCase());
-}
-
-export async function addUserstylesTeamMember(
-  octokit: Octokit,
-  team: UserstylesTeam,
-  username: string,
-) {
-  await octokit.teams.addOrUpdateMembershipForUserInOrg({
-    org: "catppuccin",
-    team_slug: team,
-    username,
-  });
-}
-
-export async function removeUserstylesTeamMember(
-  octokit: Octokit,
-  team: UserstylesTeam,
-  username: string,
-) {
-  await octokit.teams.removeMembershipForUserInOrg({
-    org: "catppuccin",
-    team_slug: team,
-    username,
-  });
+/**
+ * Extracts the userstyle slug from a CLI argument, which can be the slug itself or a path to the userstyle
+ * (e.g. `github`, `styles/github`, `styles/github/catppuccin.user.less`).
+ */
+export function parseUserstyleArgument(arg?: string): string | undefined {
+  return arg?.match(
+    /(?<base>styles\/)?(?<userstyle>[a-z0-9_\-.]+)(?<trailing>\/)?(?<file>catppuccin\.user\.less)?/,
+  )?.groups?.userstyle;
 }
