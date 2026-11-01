@@ -1,0 +1,714 @@
+/* ==UserStyle==
+@name Pi-hole Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/pi-hole
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/pi-hole
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/pi-hole/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Api-hole
+@description Soothing pastel theme for Pi-hole
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/std/v1.less";
+
+/* Only auto-applies to Pi-hole's default "pi.hole" hostname. If your instance uses a
+   different hostname or IP, add it via Stylus's "Custom included sites" style setting. */
+@-moz-document regexp("^https?://pi\\.hole(:[0-9]+)?/admin(/.*)?$") {
+  :root:has(body[data-apiurl]) {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    /* Pi-hole's own colour variables */
+    --datatable-bgcolor: @surface0;
+    --overlay-bgcolor: fade(@surface0, 70%);
+    --allowed-color: @green;
+    --blocked-color: @red;
+    --cached-color: @blue;
+    --other-color: @overlay1;
+
+    background-color: @base;
+
+    body {
+      background-color: @base;
+      color: @text;
+    }
+    a {
+      color: @accent;
+    }
+    a:hover,
+    a:focus {
+      color: @sapphire;
+    }
+    h4 {
+      color: @accent;
+    }
+    .callout h4 {
+      color: inherit;
+    }
+    .content-header > .breadcrumb > li > a {
+      color: @subtext0;
+    }
+    .content-wrapper,
+    .right-side {
+      background-color: @base;
+    }
+
+    /* Header */
+    .main-header .navbar {
+      background-color: @mantle;
+    }
+    .main-header .navbar .nav > li > a,
+    .main-header .navbar .nav > li > .navbar-text,
+    .main-header .navbar .sidebar-toggle {
+      color: @text;
+    }
+    .main-header .navbar .nav > li > a:hover,
+    .main-header .navbar .nav > li > a:active,
+    .main-header .navbar .nav > li > a:focus,
+    .main-header .navbar .nav .open > a,
+    .main-header .navbar .nav .open > a:hover,
+    .main-header .navbar .nav .open > a:focus,
+    .main-header .navbar .nav > .active > a,
+    .main-header .navbar .sidebar-toggle:hover {
+      background-color: @surface0;
+      color: @text;
+    }
+    @media (max-width: 767px) {
+      .main-header .navbar .dropdown-menu li.divider {
+        background-color: @surface0;
+      }
+      .main-header .navbar .dropdown-menu li a:hover {
+        background-color: @surface0;
+      }
+    }
+    .main-header .logo,
+    .layout-top-nav .main-header > .logo {
+      background-color: @crust;
+      color: @text;
+    }
+    .main-header .logo:hover,
+    .layout-top-nav .main-header > .logo:hover {
+      background-color: @surface0;
+    }
+    .main-header li.user-header {
+      background-color: @accent;
+    }
+    .content-header {
+      background-color: transparent;
+    }
+    .navbar-nav > .user-menu > .dropdown-menu > .user-body {
+      background: @mantle;
+      border-color: @surface1;
+    }
+    .navbar-nav > .user-menu > .dropdown-menu > .user-footer {
+      background-color: @mantle;
+    }
+    .navbar-nav > .user-menu > .dropdown-menu > .user-footer a {
+      color: @text !important;
+    }
+    .navbar-nav > .user-menu > .dropdown-menu > .user-footer a:hover {
+      color: @accent !important;
+    }
+    .navbar-nav > .user-menu > .dropdown-menu > .user-body a {
+      color: @text !important;
+    }
+    .user-menu hr {
+      border-color: @surface1;
+    }
+
+    /* Sidebar */
+    .wrapper,
+    .main-sidebar,
+    .left-side {
+      background-color: @mantle;
+    }
+    .user-panel > .info,
+    .user-panel > .info > a {
+      color: @text;
+    }
+    .sidebar-menu > li.header {
+      color: @subtext0;
+      background-color: @crust;
+    }
+    .sidebar-menu > li > a {
+      border-left-color: transparent;
+    }
+    .sidebar-menu > li:hover > a,
+    .sidebar-menu > li > a:focus,
+    .sidebar-menu > li.active > a {
+      color: @accent;
+      background-color: @surface0;
+      border-left-color: @accent;
+    }
+    .sidebar-menu > li > .treeview-menu {
+      background-color: @base;
+    }
+    .sidebar a {
+      color: @subtext1;
+    }
+    .treeview-menu > li > a {
+      color: @subtext0;
+    }
+    .treeview-menu > li.active > a,
+    .treeview-menu > li > a:hover,
+    .treeview-menu > li > a:focus {
+      color: @accent;
+    }
+    /* "Donate" sidebar button */
+    .sidebar-menu > li.menu-donate:hover > a,
+    .sidebar-menu > li.menu-donate > a:focus {
+      background-color: @surface1;
+      border-left-color: @mauve;
+    }
+    .sidebar-form {
+      border-color: @surface0;
+    }
+    .sidebar-form input[type="text"],
+    .sidebar-form .btn {
+      box-shadow: none;
+      background-color: @surface0;
+      border-color: transparent;
+    }
+    .sidebar-form input[type="text"] {
+      color: @text;
+    }
+    .sidebar-form input[type="text"]:focus,
+    .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+      background-color: @base;
+      color: @text;
+    }
+    .sidebar-form .btn {
+      color: @subtext0;
+    }
+
+    /* Boxes, panels, lists */
+    .box,
+    .box-footer,
+    .info-box,
+    .box-comment,
+    .comment-text,
+    .comment-text .username,
+    .list-group,
+    .list-group .list-group-item,
+    .modal-content,
+    .main-footer,
+    .nav-tabs-custom,
+    .timeline li .timeline-item {
+      color: @text;
+      background-color: @mantle;
+      border-color: @surface0;
+    }
+    .box-solid,
+    .box {
+      border-color: @surface0;
+    }
+    .box-solid > .box-header,
+    .box > .box-header {
+      color: @text;
+    }
+    .box-header.with-border,
+    .box-footer,
+    .box-comments .box-comment,
+    .modal-header,
+    .modal-footer,
+    .timeline li .timeline-header {
+      border-color: @surface0;
+    }
+    .box.box-info {
+      border-top-color: @sapphire;
+    }
+    .box.box-primary {
+      border-top-color: @accent;
+    }
+    .box.box-success {
+      border-top-color: @green;
+    }
+    .box.box-warning {
+      border-top-color: @peach;
+    }
+    .box.box-danger {
+      border-top-color: @red;
+    }
+    .box.box-solid.box-info {
+      border-color: @sapphire;
+    }
+    .box.box-solid.box-info > .box-header {
+      color: @base;
+      background-color: @sapphire !important;
+      border-color: @sapphire;
+    }
+    .box .overlay,
+    .overlay-wrapper .overlay {
+      background-color: fade(@base, 75%);
+    }
+    .box .overlay > .fa,
+    .overlay-wrapper .overlay > .fa {
+      color: @text !important;
+    }
+    .panel,
+    .panel-body,
+    .panel-default > .panel-heading {
+      background-color: @mantle;
+      border-color: @surface0;
+      color: @text;
+    }
+    .page-header {
+      border-color: @surface0;
+    }
+    .nav-stacked > li > a {
+      color: @text;
+    }
+    .nav-stacked > li > a:hover {
+      color: @accent;
+      background-color: @surface0;
+    }
+    .close {
+      color: @text;
+      text-shadow: none;
+    }
+    .close:focus,
+    .close:hover {
+      color: @red;
+    }
+
+    /* Tabs */
+    .nav-tabs-custom > .nav-tabs {
+      background: @crust;
+      border-bottom-color: @surface0;
+    }
+    .nav-tabs-custom > .nav-tabs > li.active > a,
+    .nav-tabs-custom > .nav-tabs > li.active:hover > a {
+      background-color: @mantle;
+      border-left-color: @surface0;
+      border-right-color: @surface0;
+      color: @text;
+    }
+    .nav-tabs-custom > .nav-tabs > li:not(.active):hover {
+      background: @surface0;
+      border-top-color: @surface1;
+    }
+    .nav-tabs-custom > .nav-tabs > li > a,
+    .nav-tabs-custom > .nav-tabs > li > a:hover {
+      color: @subtext0;
+    }
+    .nav-tabs-custom > .nav-tabs > li > a:focus {
+      color: @accent;
+    }
+    .main-footer .tab-content,
+    .nav-tabs-custom .tab-content {
+      background-color: @mantle;
+    }
+
+    /* Tables */
+    .table > thead > tr > th,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > th,
+    .table > thead > tr > td,
+    .table > tbody > tr > td,
+    .table > thead > tr.odd,
+    .table > tbody > tr.odd,
+    .table > tfoot > tr.odd,
+    .table-striped > tbody > tr:nth-of-type(2n + 1) {
+      background-color: @base;
+    }
+    .table > thead > tr.odd:hover,
+    .table > tbody > tr.odd:hover,
+    .table > tfoot > tr.odd:hover,
+    .table > thead > tr.even:hover,
+    .table > tbody > tr.even:hover,
+    .table > tfoot > tr.even:hover {
+      background-color: @surface0;
+    }
+    .table-bordered,
+    .table-bordered > thead > tr > th,
+    .table-bordered > tbody > tr > th,
+    .table-bordered > tfoot > tr > th,
+    .table-bordered > thead > tr > td,
+    .table-bordered > tbody > tr > td,
+    .table-bordered > tfoot > tr > td {
+      border-color: @surface0;
+    }
+    td.highlight {
+      background-color: fade(@yellow, 30%);
+    }
+    .datatable-bt,
+    .datatable-bt:active,
+    .datatable-bt:active:focus,
+    .datatable-bt:focus {
+      background: @base;
+      border-color: @surface1;
+      color: @text;
+    }
+    .datatable-bt:hover,
+    .datatable-bt:active:hover {
+      background: @accent;
+      border-color: @accent;
+      color: @base;
+    }
+    .dataTables_paginate .pagination li > a,
+    .pagination > li > a,
+    .pagination > li > span {
+      background-color: @base;
+      border-color: @surface0;
+      color: @text;
+    }
+    .pagination > .disabled > a,
+    .pagination > .disabled > a:focus,
+    .pagination > .disabled > a:hover,
+    .pagination > .disabled > span,
+    .pagination > .disabled > span:focus,
+    .pagination > .disabled > span:hover {
+      color: @overlay1;
+      background-color: @base;
+      border-color: @surface0;
+    }
+    .pagination > li > a:focus,
+    .pagination > li > a:hover,
+    .pagination > li > span:focus,
+    .pagination > li > span:hover {
+      color: @text;
+      background-color: @surface0;
+      border-color: @surface0;
+    }
+    .pagination > .active > a,
+    .pagination > .active > a:hover,
+    .pagination > .active > a:focus {
+      background-color: @accent;
+      border-color: @accent;
+      color: @base;
+    }
+
+    /* Forms */
+    input,
+    select,
+    select.form-control,
+    .form-group .input-group-addon,
+    .input-group .input-group-addon,
+    .form-group input,
+    .input-group input,
+    .form-group textarea,
+    .input-group textarea,
+    .daterangepicker select.hourselect,
+    .daterangepicker select.minuteselect,
+    .daterangepicker select.secondselect,
+    .daterangepicker select.ampmselect,
+    .form-control,
+    .dataTables_wrapper input[type="search"],
+    div.dataTables_wrapper div.dataTables_length select {
+      background-color: @base;
+      color: @text;
+      border-color: @surface1;
+    }
+    .form-control[disabled],
+    .form-control[readonly],
+    fieldset[disabled] .form-control {
+      background-color: @surface0;
+    }
+    .form-control:focus {
+      border-color: @accent;
+    }
+    .input-group .input-group-addon {
+      background-color: @surface0;
+    }
+    .btn-default {
+      box-shadow: none;
+      background-color: @base;
+      color: @text;
+      border-color: @surface1;
+    }
+    .btn-default:hover,
+    .btn-default:focus {
+      background-color: @surface0;
+      color: @text;
+    }
+    .btn-primary,
+    .btn-success,
+    .btn-danger,
+    .btn-warning,
+    .btn-info,
+    .label-primary,
+    .label-success,
+    .label-danger,
+    .label-warning,
+    .label-info {
+      color: @base;
+      border-color: transparent;
+    }
+    .btn-primary,
+    .label-primary {
+      background-color: @accent;
+    }
+    .btn-success,
+    .label-success {
+      background-color: @green;
+    }
+    .btn-danger,
+    .label-danger {
+      background-color: @red;
+    }
+    .btn-warning,
+    .label-warning {
+      background-color: @yellow;
+    }
+    .btn-info,
+    .label-info {
+      background-color: @sapphire;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-success:hover,
+    .btn-success:focus,
+    .btn-danger:hover,
+    .btn-danger:focus,
+    .btn-warning:hover,
+    .btn-warning:focus,
+    .btn-info:hover,
+    .btn-info:focus {
+      color: @base;
+      filter: brightness(0.9);
+    }
+    .callout,
+    .alert {
+      color: @base !important;
+    }
+
+    /*** Overwrite chrome's input field auto-filling ***/
+    input:-webkit-autofill,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    select:-webkit-autofill {
+      -webkit-text-fill-color: @text !important;
+      -webkit-box-shadow: 0 0 0 1000px @base inset;
+    }
+
+    /* Dropdowns */
+    .dropdown-menu,
+    .navbar-custom-menu > .navbar-nav > li > .dropdown-menu {
+      background-color: @mantle;
+      color: @text;
+      border-color: @surface1;
+      box-shadow: none;
+    }
+    .dropdown-menu > li > a {
+      color: @text;
+    }
+    .dropdown-menu > li > a:hover,
+    .dropdown-menu > li > a:focus {
+      background-color: @surface0;
+      color: @text;
+    }
+    .select2 .select2-selection,
+    .select2-dropdown {
+      background-color: @base;
+      color: @text;
+      border-color: @surface1;
+    }
+    .select2 .select2-selection .select2-selection__rendered {
+      color: @text;
+    }
+    .select2-dropdown .select2-search__field {
+      background-color: @base;
+      color: @text;
+      border-color: @surface1;
+    }
+    .select2-container--default .select2-results__option--highlighted[aria-selected],
+    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+      background-color: @accent;
+      color: @base;
+    }
+    .bootstrap-select > .dropdown-toggle,
+    .open > .dropdown-toggle.btn-default,
+    .open > .dropdown-toggle.btn-default:active {
+      background-color: @base;
+      color: @text;
+      border-color: @surface1;
+    }
+    .daterangepicker,
+    .daterangepicker .calendar-table {
+      background-color: @mantle;
+      border-color: @surface1;
+    }
+    .daterangepicker .ranges li:hover,
+    .daterangepicker td.available:hover,
+    .daterangepicker th.available:hover {
+      background-color: @surface0;
+    }
+    .daterangepicker .ranges li.active,
+    .daterangepicker td.active,
+    .daterangepicker td.active:hover {
+      background-color: @accent;
+      color: @base;
+    }
+    .daterangepicker td.off,
+    .daterangepicker td.off.in-range,
+    .daterangepicker td.off.start-date,
+    .daterangepicker td.off.end-date {
+      background-color: @crust;
+      color: @overlay1;
+    }
+    .daterangepicker td.in-range {
+      background-color: @surface0;
+      color: @text;
+    }
+
+    /* Charts and bars */
+    .graphs-grid {
+      background-color: fade(@text, 15%);
+    }
+    .graphs-ticks {
+      color: @subtext0;
+    }
+    .progress {
+      background-color: @surface0;
+    }
+    .bg-green {
+      background-color: @green !important;
+      color: @base !important;
+    }
+    .bg-aqua {
+      background-color: @sapphire !important;
+      color: @base !important;
+    }
+    .bg-yellow {
+      background-color: @yellow !important;
+      color: @base !important;
+    }
+    .bg-red {
+      background-color: @red !important;
+      color: @base !important;
+    }
+    .not-used {
+      background-color: @surface0;
+    }
+    .not-used:hover {
+      background-color: @surface1;
+    }
+    .used {
+      background-color: @base;
+    }
+    .used:hover {
+      background-color: @surface0;
+    }
+
+    /* Used in the Query Log table */
+    .text-black {
+      color: @text !important;
+    }
+    .text-green-light {
+      color: @teal !important;
+    }
+    .text-green {
+      color: @green !important;
+    }
+    .text-orange {
+      color: @peach !important;
+    }
+    .text-red {
+      color: @red !important;
+    }
+    .text-vivid-blue {
+      color: @blue !important;
+    }
+
+    /* Used in debug log page */
+    .log-red {
+      color: @red;
+    }
+    .log-green {
+      color: @green;
+    }
+    .log-yellow {
+      color: @yellow;
+    }
+    .log-blue {
+      color: @blue;
+    }
+    .log-purple {
+      color: @mauve;
+    }
+    .log-cyan {
+      color: @teal;
+    }
+    .log-gray {
+      color: @overlay1;
+    }
+    #output {
+      border-color: @surface1;
+      background: @mantle;
+    }
+
+    .network-never {
+      background-color: mix(@red, @base, 25%);
+    }
+    .network-recent {
+      background-color: mix(@green, @base, 25%);
+    }
+    .network-old {
+      background-color: mix(@yellow, @base, 25%);
+    }
+    .network-older {
+      background-color: mix(@peach, @base, 25%);
+    }
+    .network-gradient {
+      background-image: linear-gradient(
+        to right,
+        mix(@green, @base, 25%) 0%,
+        mix(@yellow, @base, 25%) 100%
+      );
+    }
+
+    kbd {
+      color: @base;
+      background-color: @subtext1;
+      box-shadow:
+        inset 1px 1px 2px 0 rgba(255, 255, 255, 0.2),
+        inset -1px -1px 2px 0 rgba(0, 0, 0, 0.3);
+    }
+    code,
+    pre {
+      color: @text;
+      background-color: @surface0;
+    }
+
+    /* Login */
+    .layout-boxed,
+    .login-page {
+      background-image: none;
+      background-color: @crust;
+    }
+    .login-box {
+      background: @mantle;
+    }
+    #loginform,
+    #loginform input {
+      color: @text;
+    }
+    .login-options input,
+    .login-options [class*="icheck-"] > input:first-child + input[type="hidden"] + label::before,
+    .login-options [class*="icheck-"] > input:first-child + label::before {
+      background: none;
+      border-color: @overlay1;
+    }
+
+    & when not (@flavor = latte) {
+      input[type="password"]::-webkit-caps-lock-indicator {
+        filter: invert(100%);
+      }
+    }
+  }
+}
