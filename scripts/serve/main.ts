@@ -13,7 +13,7 @@ const PORT = 8000;
 
 const { positionals } = parseArgs({ allowPositionals: true });
 const userstyle = parseUserstyleArgument(positionals[0]);
-if (!userstyle) throw new Error("Invalid userstyle argument");
+if (!userstyle) throw new Error("Invalid userstyle argument.");
 
 createServer(async (req, res) => {
   const pathname = new URL(req.url!, `http://localhost:${PORT}`).pathname;

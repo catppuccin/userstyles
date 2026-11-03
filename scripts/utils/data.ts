@@ -13,90 +13,94 @@ import * as yaml from "yaml";
 import path from "node:path";
 
 import Ajv, { type Schema } from "ajv";
-import { log } from "#/utils/logger.ts";
+import { type Diagnostic, report } from "#/utils/diagnostics.ts";
+
+export const USERSTYLES_FILE = "scripts/userstyles.yml";
 
 /**
- * @param content A string of YAML content
- * @param schema  A JSON schema
- * @returns A promise that resolves to the parsed YAML content, verified against the schema. Rejects if the content is invalid.
+ * @param data Parsed data
+ * @param schema A JSON schema
+ * @returns A message describing the validation errors, or `undefined` if the data is valid.
  */
-export function validateYaml<T>(
-  content: string,
+function validateSchema(
+  data: unknown,
   schema: Schema,
-  file: string,
   options?: Ajv.Options,
-): T {
+): string | undefined {
   const ajv = new Ajv.default(options);
-  const validate = ajv.compile<T>(schema);
-  const data = yaml.parse(content);
+  const validate = ajv.compile(schema);
 
-  if (!validate(data)) {
-    log.error(
-      validate
-        .errors!.map((err) =>
-          `${err.instancePath.slice(1).replaceAll("/", ".")} ${err.message}${
-            err.params.allowedValues
-              ? ` (${JSON.stringify(err.params.allowedValues, undefined)})`
-              : ""
-          }`
-        )
-        .join(" and "),
-      {
-        file,
-      },
-    );
-    process.exit(1);
-  }
+  if (validate(data)) return;
 
-  return data as T;
+  return validate
+    .errors!.map((err) =>
+      `${err.instancePath.slice(1).replaceAll("/", ".")} ${err.message}${
+        err.params.allowedValues
+          ? ` (${JSON.stringify(err.params.allowedValues, undefined)})`
+          : ""
+      }`
+    )
+    .join(" and ");
 }
 
 /**
- * Utility function that calls {@link validateYaml} on the userstyles.yml file.
- * Fails when data.userstyles is undefined.
+ * Parses and validates the userstyles.yml file. Returns diagnostics instead of the data if it is invalid.
+ * Requires the `userstyles` and `collaborators` fields.
+ */
+export function loadUserstylesData():
+  | { data: Userstyles; diagnostics: [] }
+  | { data: undefined; diagnostics: Diagnostic[] } {
+  const content = readFileSync(path.join(REPO_ROOT, USERSTYLES_FILE), "utf8");
+  const error = (message: string, startLine?: number) => ({
+    data: undefined,
+    diagnostics: [{
+      file: USERSTYLES_FILE,
+      severity: "error" as const,
+      message,
+      span: startLine !== undefined
+        ? { line: { start: startLine } }
+        : undefined,
+      content,
+    }],
+  });
+
+  let data;
+  try {
+    data = yaml.parse(content);
+  } catch (err) {
+    if (!(err instanceof yaml.YAMLParseError)) throw err;
+    const groups =
+      /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
+        .exec(
+          err.message,
+        )?.groups;
+    return error(groups!.message, Number(groups!.line));
+  }
+
+  const errors = validateSchema(data, USERSTYLES_SCHEMA, {
+    schemas: [CATEGORIES_SCHEMA],
+  });
+  if (errors) return error(errors);
+
+  for (const field of ["userstyles", "collaborators"] as const) {
+    if (data[field] === undefined) {
+      return error(`Missing required field \`${field}\`.`);
+    }
+  }
+
+  return { data, diagnostics: [] };
+}
+
+/**
+ * Like {@link loadUserstylesData}, but reports the diagnostics and exits if the data is invalid.
  */
 export function getUserstylesData(): Userstyles {
-  const content = readFileSync(
-    path.join(REPO_ROOT, "scripts/userstyles.yml"),
-    "utf8",
-  );
-
-  try {
-    const data = validateYaml<UserstylesSchema.UserstylesSchema>(
-      content,
-      USERSTYLES_SCHEMA,
-      "scripts/userstyles.yml",
-      { schemas: [CATEGORIES_SCHEMA] },
-    );
-
-    for (const field of ["userstyles", "collaborators"] as const) {
-      if (data[field] === undefined) {
-        log.error(`Missing required field \`${field}\``, {
-          file: "scripts/userstyles.yml",
-        });
-        process.exit(1);
-      }
-    }
-
-    return data as Userstyles;
-  } catch (err) {
-    if (err instanceof yaml.YAMLParseError) {
-      const groups =
-        /(?<message>.*) at line (?<line>\d+), column (?<column>\d+):[\S\s]*/
-          .exec(
-            err.message,
-          )?.groups;
-      log.error(groups!.message, {
-        file: "scripts/userstyles.yml",
-        startLine: Number(groups!.line),
-        content: content,
-      });
-    } else {
-      throw err;
-    }
-
+  const { data, diagnostics } = loadUserstylesData();
+  if (!data) {
+    report(diagnostics);
     process.exit(1);
   }
+  return data;
 }
 
 type Userstyles = SetRequired<

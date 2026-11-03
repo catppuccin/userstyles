@@ -66,10 +66,13 @@ const ruleFunction = (primary) => {
                     ruleName,
                     message: messages.rejected(),
                     node: subnode,
-                    fix: () => {
-                      parsed.nodes[0].nodes[0].quote = "'";
-                      parsed.nodes[0].nodes[0].value = optimized;
-                      subnode.value = parsed.toString();
+                    fix: {
+                      node: subnode,
+                      apply: () => {
+                        parsed.nodes[0].nodes[0].quote = "'";
+                        parsed.nodes[0].nodes[0].value = optimized;
+                        subnode.value = parsed.toString();
+                      },
                     },
                   });
                 }

@@ -1,46 +1,52 @@
-import { styleText } from "node:util";
-
 import "postcss-less";
 import stylelint from "stylelint";
 import "stylelint-config-standard";
 import "stylelint-config-recommended";
 
-import { log } from "#/utils/logger.ts";
+import type { Diagnostic } from "#/utils/diagnostics.ts";
+import { style } from "#/utils/style.ts";
 
-export async function runStylelint(
+/**
+ * Lint a userstyle with Stylelint. When `fix` is set, the returned content has all (autofixable) problems fixed.
+ */
+export async function checkStylelint(
   file: string,
   content: string,
   fix: boolean,
   config: stylelint.Config,
-): Promise<{ code: string | undefined; hasWarnings: boolean }> {
-  let hasWarnings = false;
+): Promise<{ diagnostics: Diagnostic[]; content: string }> {
+  const diagnostics: Diagnostic[] = [];
 
   const { results, code } = await stylelint.lint({
     code: content,
     config,
     fix,
+    // Marks fixable problems with edit info (`warning.fix`) when not fixing.
+    computeEditInfo: !fix,
   });
 
   for (const result of results) {
     for (const warning of result.warnings) {
-      // Some cleanup for fancier logging - dims the rule name.
-      const message = warning.text?.replace(
+      const message = (warning.text?.replace(
         new RegExp(`\\(?${warning.rule}\\)?`),
-        styleText("dim", `(${warning.rule})`),
-      ) ?? "unspecified stylelint error";
+        style.dim(`(${warning.rule})`), // dim the rule name for fancy logging
+      ) ?? "Unspecified stylelint error") + ".";
 
-      log.log(message, {
+      diagnostics.push({
         file,
-        startLine: warning.line,
-        endLine: warning.endLine,
-        startColumn: warning.column,
-        endColumn: warning.endColumn,
+        message,
+        severity: warning.severity,
+        span: {
+          line: { start: warning.line, end: warning.endLine },
+          column: { start: warning.column, end: warning.endColumn },
+        },
         content,
-      }, warning.severity);
+        // When fixing, every remaining problem is one that couldn't be fixed.
+        fixable: warning.fix !== undefined,
+      });
     }
-
-    if (result.warnings.length > 0) hasWarnings = true;
   }
 
-  return { code, hasWarnings };
+  // Computing edit info applies fixes to stylelint's copy of the code, so only use its output when fixing.
+  return { diagnostics, content: fix ? code ?? content : content };
 }

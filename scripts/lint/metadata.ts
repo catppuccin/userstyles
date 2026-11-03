@@ -1,30 +1,53 @@
-import type { Userstyles } from "#/types/userstyles.d.ts";
+import type { Userstyle, Userstyles } from "#/types/userstyles.d.ts";
 import { REPO_ROOT } from "#/constants.ts";
 
 import { readFile } from "node:fs/promises";
 
 import path from "node:path";
-import { styleText } from "node:util";
 
 import usercssMeta from "usercss-meta";
-import { log } from "#/utils/logger.ts";
+import type { Diagnostic } from "#/utils/diagnostics.ts";
 import { formatListOfItems } from "#/utils/format.ts";
+import { style } from "#/utils/style.ts";
+import { USERSTYLES_FILE } from "../utils/data.ts";
 
-export async function verifyMetadata(
+/**
+ * Check the UserCSS metadata of a userstyle against its definition in `userstyles.yml` and the template metadata section.
+ * `content` must use `\n` line endings, as `usercss-meta` prohibits any '\r' characters.
+ */
+export async function checkMetadata(
   file: string,
   content: string,
   userstyle: string,
   userstyles: Userstyles,
   fix: boolean,
-) {
-  // `usercss-meta` prohibits any '\r' characters, which seem to be present on Windows.
-  content = content.replaceAll("\r\n", "\n");
+): Promise<{
+  diagnostics: Diagnostic[];
+  content: string;
+  globalVars: Record<string, string>;
+  isLess: boolean;
+}> {
+  const diagnostics: Diagnostic[] = [];
 
-  const assertions = generateAssertions(userstyle, userstyles);
+  const metadata = userstyles[userstyle];
+  if (!metadata) {
+    diagnostics.push({
+      file: USERSTYLES_FILE,
+      severity: "error",
+      message: `Metadata section for \`${
+        style.bold(userstyle)
+      }\` userstyle is missing.`,
+    });
+    return { diagnostics, content, globalVars: {}, isLess: false };
+  }
+  const assertions = generateUserCSSAssertions(userstyle, metadata);
 
-  const { metadata, errors: parsingErrors } = usercssMeta.parse(content, {
-    allowErrors: true,
-  });
+  const { metadata: userCss, errors: parsingErrors } = usercssMeta.parse(
+    content,
+    {
+      allowErrors: true,
+    },
+  );
   const lines = content.split("\n");
 
   // Pretty print / annotate the parsing errors.
@@ -42,15 +65,19 @@ export async function verifyMetadata(
     // Skip "missing mandatory metadata property" ParseError, assertions checks below will cover.
     if (error.code === "missingMandatory") continue;
 
-    log.error(error.message, {
+    diagnostics.push({
+      severity: "error",
+      message: error.message,
       file,
-      startLine,
+      span: startLine !== undefined
+        ? { line: { start: startLine } }
+        : undefined,
       content,
     });
   }
 
   for (const [key, expected] of Object.entries(assertions)) {
-    const current = metadata[key];
+    const current = userCss[key];
 
     const atKey = "@" + key;
 
@@ -59,22 +86,25 @@ export async function verifyMetadata(
         .findIndex((line) => line.includes(`${atKey} `)) + 1;
 
       const message = current === undefined
-        ? `UserCSS metadata property \`${
-          styleText("bold", atKey)
-        }\` is undefined`
-        : `UserCSS metadata property \`${
-          styleText("bold", atKey)
-        }\` should be "${styleText("green", expected)}" but is "${
-          styleText("red", String(current))
-        }"`;
+        ? `UserCSS metadata property \`${style.bold(atKey)}\` is undefined.`
+        : `UserCSS metadata property \`${style.bold(atKey)}\` should be "${
+          style.green(expected)
+        }" but is "${style.red(String(current))}".`;
 
-      log.error(message, {
+      // Only fixable if the current value is on the same line as the property.
+      const fixable = current !== undefined &&
+        content.includes(`${atKey} ${current}`);
+
+      diagnostics.push({
+        severity: "error",
+        message,
         file,
-        startLine: line !== 0 ? line : undefined,
+        span: line !== 0 ? { line: { start: line } } : undefined,
         content,
+        fixable,
       });
 
-      if (fix) {
+      if (fix && fixable) {
         content = content.replace(
           `${atKey} ${current}`,
           `${atKey} ${expected}`,
@@ -102,23 +132,27 @@ export async function verifyMetadata(
         .findLastIndex((line: string) => line.includes("==/UserStyle== */")) +
         1;
 
-      log.error(
-        `Metadata variable \`${styleText("bold", variable)}\` should exist`,
-        {
-          file,
-          startLine: line !== 0 ? line : undefined,
-          content,
-        },
-      );
+      diagnostics.push({
+        severity: "error",
+        message: `Metadata variable \`${style.bold(variable)}\` should exist.`,
+        file,
+        span: line !== 0 ? { line: { start: line } } : undefined,
+        content,
+      });
     } else if (expected.trim() !== lines[current - 1].trim()) {
       const message = `Options for metadata variable \`${
-        styleText("bold", variable)
-      }\` should be \`${(/\[[^\]]+\]/.exec(expected) as RegExpExecArray)[0]}\``;
+        style.bold(variable)
+      }\` should be \`${
+        (/\[[^\]]+\]/.exec(expected) as RegExpExecArray)[0]
+      }\`.`;
 
-      log.error(message, {
+      diagnostics.push({
+        severity: "error",
+        message,
         file,
-        startLine: current,
+        span: { line: { start: current } },
         content,
+        fixable: true,
       });
 
       if (fix) {
@@ -131,47 +165,35 @@ export async function verifyMetadata(
   // `@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]`
   // gets parsed as
   // `lightFlavor: "latte"`.
-  const globalVars = Object.entries(metadata.vars)
+  const globalVars: Record<string, string> = Object.entries(userCss.vars)
     .reduce((acc, [k, v]) => {
       return { ...acc, [k]: v.default };
     }, {});
 
   return {
+    diagnostics,
+    content,
     globalVars,
-    isLess: metadata.preprocessor === assertions.preprocessor,
-    fixed: content,
+    isLess: userCss.preprocessor === assertions.preprocessor,
   };
 }
 
-function generateAssertions(userstyle: string, userstyles: Userstyles) {
+function generateUserCSSAssertions(userstyle: string, metadata: Userstyle) {
   const prefix = "https://github.com/catppuccin/userstyles";
-  const userstyleData = userstyles[userstyle];
-
-  if (!userstyleData) {
-    log.error(
-      `Metadata section for \`${
-        styleText("bold", userstyle)
-      }\` userstyle is missing`,
-      {
-        file: "scripts/userstyles.yml",
-      },
-    );
-    process.exit(1);
-  }
 
   return {
     name: `${
       [
-        userstyleData.name,
-        ...Object.values(userstyleData.supports ?? {}).map(({ name }) => name),
+        metadata.name,
+        ...Object.values(metadata.supports ?? {}).map(({ name }) => name),
       ].join("/")
     } Catppuccin`,
     namespace: `github.com/catppuccin/userstyles/styles/${userstyle}`,
     homepageURL: `${prefix}/tree/main/styles/${userstyle}`,
     description: `Soothing pastel theme for ${
       formatListOfItems([
-        userstyleData.name,
-        ...Object.values(userstyleData.supports ?? {}).map(({ name }) => name),
+        metadata.name,
+        ...Object.values(metadata.supports ?? {}).map(({ name }) => name),
       ])
     }`,
     author: "Catppuccin",

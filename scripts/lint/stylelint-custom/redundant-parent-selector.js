@@ -38,32 +38,35 @@ const ruleFunction = (primary) => {
           ruleName,
           message: messages.rejected(),
           node: rule,
-          fix: () => {
-            // Moves the rule's properties to the parent rule *in place* of the parent selector.
-            // & {
-            //   color: red;
-            // }
-            // becomes
-            // color: red;
+          fix: {
+            node: rule,
+            apply: () => {
+              // Moves the rule's properties to the parent rule *in place* of the parent selector.
+              // & {
+              //   color: red;
+              // }
+              // becomes
+              // color: red;
 
-            const parent = rule.parent;
+              const parent = rule.parent;
 
-            if (parent) {
-              let idx = parent.index(rule);
-              assert(idx !== -1);
+              if (parent) {
+                let idx = parent.index(rule);
+                assert(idx !== -1);
 
-              rule.each((node) => {
-                if (node.type === "decl") {
-                  parent.insertAfter(
-                    parent.nodes[idx],
-                    node.clone(),
-                  );
-                  idx++;
-                }
-              });
+                rule.each((node) => {
+                  if (node.type === "decl") {
+                    parent.insertAfter(
+                      parent.nodes[idx],
+                      node.clone(),
+                    );
+                    idx++;
+                  }
+                });
 
-              rule.remove();
-            }
+                rule.remove();
+              }
+            },
           },
         });
       }
@@ -75,7 +78,7 @@ const ruleFunction = (primary) => {
           const matchIndex = offset + prefix.length;
           const matchEndIndex = matchIndex + 1; // `&` is one character long.
 
-          // `report` calls `fix` synchronously when fixing is enabled.
+          // `report` calls `fix.apply` synchronously when fixing (or computing edit info).
           let fixed = false;
           report({
             result,
@@ -84,8 +87,11 @@ const ruleFunction = (primary) => {
             node: rule,
             index: matchIndex,
             endIndex: matchEndIndex,
-            fix: () => {
-              fixed = true;
+            fix: {
+              node: rule,
+              apply: () => {
+                fixed = true;
+              },
             },
           });
           // Remove '& ' but keep the "prefix" (start or comma and whitespace).

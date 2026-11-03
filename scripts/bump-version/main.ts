@@ -34,14 +34,14 @@ for (
     /^\/\*\s*==UserStyle==[\s\S]*?==\/UserStyle==\s*\*\//,
   );
   if (!metadataMatches) {
-    throw new Error(`No metadata found in ${file}`);
+    throw new Error(`No metadata found in ${file}.`);
   }
   const metadata = metadataMatches[0];
   const post = content.slice(metadata.length);
 
   const versionMatches = metadata.match(/@version(\s+)(.*)/);
   if (!versionMatches) {
-    throw new Error(`No version found in ${file}`);
+    throw new Error(`No version found in ${file}.`);
   }
   const whitespace = versionMatches[1];
 

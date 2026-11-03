@@ -52,7 +52,7 @@ export default {
     "property-disallowed-list": [
       [
         // Disallow setting custom fonts.
-        "/font.*/",
+        "/^(?!--).*font/", // Not custom properties, e.g. `--*-font-color`.
 
         // Ideally we could disallow these, but CSS continues to be gross.
         // "/animation.*/",

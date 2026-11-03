@@ -32,7 +32,7 @@ class InterceptingFileManager extends less.FileManager {
       cached = readFile(localPath, "utf8").catch(() => {
         throw {
           type: "File",
-          message: `${filename} failed: not found at ${localPath}`,
+          message: `Could not load ${filename}: not found at ${localPath}.`,
         };
       });
       this.#cache.set(localPath, cached);
