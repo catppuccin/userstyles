@@ -19,7 +19,7 @@ See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting
 
 
 ## 💝 Current Maintainer
-- [incognitotgt](https://github.com/incognitotgt)
+- [0mhx](https://github.com/0mhx)
 
 
 &nbsp;
