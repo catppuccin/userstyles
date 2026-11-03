@@ -19,7 +19,7 @@ See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting
 
 
 ## 💝 Current Maintainer
-- [Tnixc](https://github.com/Tnixc)
+- [enocla](https://github.com/enocla)
 
 
 &nbsp;
