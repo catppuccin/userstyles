@@ -22,7 +22,7 @@ See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting
 - [uncenter](https://github.com/uncenter)
 
 ## 💖 Past Maintainer
-- [rubyowo](https://github.com/rubyowo)
+- [rei284](https://github.com/rei284)
 
 &nbsp;
 
