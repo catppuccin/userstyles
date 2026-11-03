@@ -19,7 +19,7 @@ See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting
 
 
 ## 💝 Current Maintainer
-- [RoootTheFox](https://github.com/RoootTheFox)
+- [marlenemeows](https://github.com/marlenemeows)
 
 
 &nbsp;
