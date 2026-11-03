@@ -1,0 +1,43 @@
+diff --git a/lib/utils/isDescriptorDeclaration.cjs b/lib/utils/isDescriptorDeclaration.cjs
+index e0345e1bf8e1eafe4da61ca3f392ebcde42c62e2..0dc4052b0a51a3a564a8af3a4364842e81e560eb 100644
+--- a/lib/utils/isDescriptorDeclaration.cjs
++++ b/lib/utils/isDescriptorDeclaration.cjs
+@@ -15,7 +15,12 @@ const atKeywords = require('../reference/atKeywords.cjs');
+  * @returns {boolean}
+  */
+ function isDescriptorDeclaration(decl) {
+-	return Boolean(findNodeUpToRoot(decl, isAtRuleSupportingDescriptors));
++	const parentRule = findNodeUpToRoot(
++		decl,
++		(node) => typeGuards.isRule(node) || isAtRuleSupportingDescriptors(node),
++	);
++
++	return Boolean(parentRule && typeGuards.isAtRule(parentRule));
+ }
+ 
+ /**
+diff --git a/lib/utils/isDescriptorDeclaration.mjs b/lib/utils/isDescriptorDeclaration.mjs
+index ea7dd89efe6650cf3604d0f2917c8f940dcd391a..df0a1c718470796925342abcad7edbcc81f3b23b 100644
+--- a/lib/utils/isDescriptorDeclaration.mjs
++++ b/lib/utils/isDescriptorDeclaration.mjs
+@@ -1,5 +1,5 @@
++import { isAtRule, isRule } from './typeGuards.mjs';
+ import findNodeUpToRoot from './findNodeUpToRoot.mjs';
+-import { isAtRule } from './typeGuards.mjs';
+ import { nestingSupportedAtKeywords } from '../reference/atKeywords.mjs';
+ 
+ /** @import { Declaration, Node } from 'postcss' */
+@@ -11,7 +11,12 @@ import { nestingSupportedAtKeywords } from '../reference/atKeywords.mjs';
+  * @returns {boolean}
+  */
+ export default function isDescriptorDeclaration(decl) {
+-	return Boolean(findNodeUpToRoot(decl, isAtRuleSupportingDescriptors));
++	const parentRule = findNodeUpToRoot(
++		decl,
++		(node) => isRule(node) || isAtRuleSupportingDescriptors(node),
++	);
++
++	return Boolean(parentRule && isAtRule(parentRule));
+ }
+ 
+ /**

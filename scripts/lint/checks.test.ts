@@ -74,6 +74,22 @@ describe("checkStylelint", () => {
       [['Unexpected unknown property "colr" (property-no-unknown).', 3]],
     );
   });
+
+  // https://github.com/stylelint/stylelint/issues/9629
+  test("reports unknown properties within `@-moz-document`", async () => {
+    const result = await checkStylelint(
+      file,
+      '@-moz-document domain("example.com") {\n  .a {\n    colr: red;\n  }\n}\n',
+      false,
+      stylelintConfig,
+    );
+    assert.deepEqual(
+      result.diagnostics.map((
+        { message, span },
+      ) => [stripVTControlCharacters(message), span?.line.start]),
+      [['Unexpected unknown property "colr" (property-no-unknown).', 3]],
+    );
+  });
 });
 
 describe("checkLess", () => {
