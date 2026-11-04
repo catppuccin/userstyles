@@ -264,13 +264,25 @@
     --ds-chart-brand: @accent;
     --ds-chart-brand-hovered: mix(@accent, @base, @mix-hovered);
 
-    /* Shadows */
-    --ds-shadow-raised: 0 1px 1px fade(@crust, 25%), 0 0 1px fade(@crust, 31%);
-    --ds-shadow-overlay:
-      0 8px 12px fade(@crust, 30%), 0 0 1px fade(@crust, 40%);
-    --ds-shadow-overflow:
-      0 0 8px fade(@crust, 16%), 0 0 1px fade(@crust, 12%);
-    --ds-shadow-overflow-perimeter: fade(@crust, 12%);
-    --ds-shadow-overflow-spread: fade(@crust, 16%);
+    /* Shadows (mirroring the opacities Atlassian uses in each mode) */
+    & when (@flavor = latte) {
+      --ds-shadow-raised: 0 1px 1px fade(@text, 25%), 0 0 1px fade(@text, 31%);
+      --ds-shadow-overlay:
+        0 8px 12px fade(@text, 15%), 0 0 1px fade(@text, 31%);
+      --ds-shadow-overflow:
+        0 0 8px fade(@text, 16%), 0 0 1px fade(@text, 12%);
+      --ds-shadow-overflow-perimeter: fade(@text, 12%);
+      --ds-shadow-overflow-spread: fade(@text, 16%);
+    }
+    & when not (@flavor = latte) {
+      --ds-shadow-raised: 0 1px 1px fade(@crust, 50%), 0 0 1px fade(@crust, 50%);
+      --ds-shadow-overlay:
+        0 0 0 1px fade(@overlay2, 12%), 0 8px 12px fade(@crust, 36%),
+        0 0 1px 1px fade(@crust, 50%);
+      --ds-shadow-overflow:
+        0 0 12px fade(@crust, 56%), 0 0 1px fade(@crust, 50%);
+      --ds-shadow-overflow-perimeter: fade(@crust, 50%);
+      --ds-shadow-overflow-spread: fade(@crust, 56%);
+    }
   }
 }
