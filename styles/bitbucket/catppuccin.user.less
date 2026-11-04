@@ -264,6 +264,91 @@
     --ds-chart-brand: @accent;
     --ds-chart-brand-hovered: mix(@accent, @base, @mix-hovered);
 
+    /* Monaco editor (source file viewer), which also redeclares these on its own containers */
+    &,
+    .monaco-editor,
+    .monaco-diff-editor,
+    .monaco-component {
+      --vscode-editor-background: @base;
+      --vscode-editor-foreground: @text;
+      --vscode-editorGutter-background: @base;
+      --vscode-editorLineNumber-foreground: @overlay1;
+      --vscode-editorLineNumber-activeForeground: @lavender;
+      --vscode-editorCursor-foreground: @rosewater;
+      --vscode-editor-selectionBackground: fade(@overlay2, 25%);
+      --vscode-editor-inactiveSelectionBackground: fade(@overlay2, 15%);
+      --vscode-editor-selectionHighlightBackground: fade(@overlay2, 15%);
+      --vscode-editor-lineHighlightBorder: @surface0;
+      --vscode-editor-rangeHighlightBackground: fade(@overlay2, 10%);
+      --vscode-editor-findMatchBackground: fade(@peach, 30%);
+      --vscode-editor-findMatchHighlightBackground: fade(@sky, 20%);
+      --vscode-editorBracketMatch-background: fade(@overlay2, 10%);
+      --vscode-editorBracketMatch-border: @overlay2;
+      --vscode-editorBracketHighlight-foreground1: @red;
+      --vscode-editorBracketHighlight-foreground2: @peach;
+      --vscode-editorBracketHighlight-foreground3: @yellow;
+      --vscode-editorBracketHighlight-foreground4: @green;
+      --vscode-editorBracketHighlight-foreground5: @sapphire;
+      --vscode-editorBracketHighlight-foreground6: @mauve;
+      --vscode-editorIndentGuide-background1: @surface1;
+      --vscode-editorIndentGuide-activeBackground1: @overlay2;
+      --vscode-editorWhitespace-foreground: fade(@overlay2, 40%);
+      --vscode-editorRuler-foreground: @surface1;
+      --vscode-editorCodeLens-foreground: @overlay1;
+      --vscode-editorLink-activeForeground: @accent;
+      --vscode-editorOverviewRuler-border: transparent;
+      --vscode-editorWidget-background: @mantle;
+      --vscode-editorWidget-border: @surface1;
+      --vscode-editorHoverWidget-background: @mantle;
+      --vscode-editorHoverWidget-border: @surface2;
+      --vscode-editorStickyScroll-background: @base;
+      --vscode-editorStickyScrollHover-background: @surface0;
+      --vscode-editorStickyScroll-shadow: @crust;
+      --vscode-focusBorder: @accent;
+      --vscode-scrollbar-shadow: @crust;
+      --vscode-scrollbarSlider-background: fade(@surface1, 50%);
+      --vscode-scrollbarSlider-hoverBackground: fade(@overlay0, 50%);
+      --vscode-scrollbarSlider-activeBackground: fade(@surface2, 50%);
+      --vscode-widget-shadow: fade(@crust, 50%);
+    }
+
+    .monaco-editor {
+      .current-line-exact,
+      .current-line-exact-margin {
+        border-color: @surface0;
+      }
+    }
+
+    /* Monaco names token colors by their position in the active theme's color map (`.mtkN`),
+       so map Bitbucket's `bitbucket-light` (vs) and `bitbucket-dark` (vs-dark) themes separately. */
+    @monaco-light: 1 text, 3 peach, 5 blue, 6 green, 7 green, 8 green, 9 peach,
+      10 peach, 12 overlay2, 13 peach, 14 mauve, 16 text, 17 red, 18 blue,
+      19 mauve, 20 pink, 21 pink, 22 peach, 23 sky, 27 blue, 28 yellow,
+      29 yellow, 31 text;
+    @monaco-dark: 1 text, 3 peach, 4 blue, 5 blue, 6 green, 7 green, 9 peach,
+      11 overlay2, 12 peach, 13 mauve, 14 overlay2, 15 overlay2, 16 text,
+      17 red, 18 mauve, 19 yellow, 20 pink, 21 peach, 22 sky, 25 pink, 27 blue,
+      28 yellow, 29 yellow, 31 text;
+
+    .monaco-editor.vs {
+      each(@monaco-light, {
+        @token: extract(@value, 1);
+        @color: extract(@value, 2);
+        .mtk@{token} {
+          color: @@color;
+        }
+      });
+    }
+    .monaco-editor.vs-dark {
+      each(@monaco-dark, {
+        @token: extract(@value, 1);
+        @color: extract(@value, 2);
+        .mtk@{token} {
+          color: @@color;
+        }
+      });
+    }
+
     /* Shadows (mirroring the opacities Atlassian uses in each mode) */
     & when (@flavor = latte) {
       --ds-shadow-raised: 0 1px 1px fade(@text, 25%), 0 0 1px fade(@text, 31%);
