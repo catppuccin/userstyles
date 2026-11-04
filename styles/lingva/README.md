@@ -19,7 +19,7 @@ See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting
 
 
 ## 💝 Current Maintainer
-- [rubyowo](https://github.com/rubyowo)
+- [rei284](https://github.com/rei284)
 
 
 &nbsp;

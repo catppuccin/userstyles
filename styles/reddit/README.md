@@ -23,7 +23,7 @@ This userstyle currently lacks maintainers, and may not work correctly. Please f
 
 ## 💖 Past Maintainers
 - [jayylmao](https://github.com/jayylmao)
-- [rubyowo](https://github.com/rubyowo)
+- [rei284](https://github.com/rei284)
 
 &nbsp;
 

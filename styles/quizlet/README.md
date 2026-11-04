@@ -19,7 +19,7 @@ See [the userstyle usage instructions](https://userstyles.catppuccin.com/getting
 
 
 ## 💝 Current Maintainer
-- [spaghettiosareyummy](https://github.com/spaghettiosareyummy)
+- [brandonbowdoin](https://github.com/brandonbowdoin)
 
 
 &nbsp;
