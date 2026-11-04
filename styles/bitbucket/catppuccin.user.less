@@ -18,9 +18,7 @@
 @import "https://userstyles.catppuccin.com/lib/std/v1.less";
 
 @-moz-document domain("bitbucket.org") {
-  /* Bitbucket uses the Atlassian Design System, which sets `data-color-mode` on the root element
-     and on "subtree" containers (e.g. Pipelines logs and popups) that redeclare the theme tokens.
-     `:root` is doubled to outrank the token selectors used on legacy pages (e.g. account settings). */
+  /* Theme the root and "subtree" containers (e.g. Pipelines logs); `:root:root` outranks legacy pages. */
   :root:root[data-color-mode="dark"][data-theme],
   :root [data-subtree-theme][data-color-mode="dark"][data-theme] {
     #catppuccin(@darkFlavor);
@@ -29,7 +27,7 @@
   :root [data-subtree-theme][data-color-mode="light"][data-theme] {
     #catppuccin(@lightFlavor);
   }
-  
+
   @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
 
   #catppuccin(@flavor) {
@@ -39,7 +37,16 @@
 
     accent-color: @accent;
 
-    /* Atlassian Design System accent colors, mapped to the closest Catppuccin color. */
+    @fade-subtlest: 10%;
+    @fade-subtler: 20%;
+    @fade-subtle: 60%;
+    @fade-semantic: 15%;
+    @fade-border: 50%;
+    @fade-step: 10%;
+    @mix-hovered: 85%;
+    @mix-pressed: 70%;
+    @mix-boldest: 55%;
+
     @accents: {
       lime: @green;
       red: @red;
@@ -53,7 +60,6 @@
       gray: @overlay1;
     };
 
-    /* Atlassian Design System semantic colors. */
     @semantics: {
       danger: @red;
       warning: @yellow;
@@ -63,51 +69,51 @@
     };
 
     each(@accents, {
-      --ds-background-accent-@{key}-subtlest: fade(@value, 10%);
-      --ds-background-accent-@{key}-subtlest-hovered: fade(@value, 20%);
-      --ds-background-accent-@{key}-subtlest-pressed: fade(@value, 30%);
-      --ds-background-accent-@{key}-subtler: fade(@value, 20%);
-      --ds-background-accent-@{key}-subtler-hovered: fade(@value, 30%);
-      --ds-background-accent-@{key}-subtler-pressed: fade(@value, 40%);
-      --ds-background-accent-@{key}-subtle: fade(@value, 60%);
-      --ds-background-accent-@{key}-subtle-hovered: fade(@value, 50%);
-      --ds-background-accent-@{key}-subtle-pressed: fade(@value, 40%);
+      --ds-background-accent-@{key}-subtlest: fade(@value, @fade-subtlest);
+      --ds-background-accent-@{key}-subtlest-hovered: fade(@value, @fade-subtlest + @fade-step);
+      --ds-background-accent-@{key}-subtlest-pressed: fade(@value, @fade-subtlest + @fade-step * 2);
+      --ds-background-accent-@{key}-subtler: fade(@value, @fade-subtler);
+      --ds-background-accent-@{key}-subtler-hovered: fade(@value, @fade-subtler + @fade-step);
+      --ds-background-accent-@{key}-subtler-pressed: fade(@value, @fade-subtler + @fade-step * 2);
+      --ds-background-accent-@{key}-subtle: fade(@value, @fade-subtle);
+      --ds-background-accent-@{key}-subtle-hovered: fade(@value, @fade-subtle - @fade-step);
+      --ds-background-accent-@{key}-subtle-pressed: fade(@value, @fade-subtle - @fade-step * 2);
       --ds-background-accent-@{key}-bolder: @value;
-      --ds-background-accent-@{key}-bolder-hovered: mix(@value, @base, 85%);
-      --ds-background-accent-@{key}-bolder-pressed: mix(@value, @base, 70%);
+      --ds-background-accent-@{key}-bolder-hovered: mix(@value, @base, @mix-hovered);
+      --ds-background-accent-@{key}-bolder-pressed: mix(@value, @base, @mix-pressed);
       --ds-border-accent-@{key}: @value;
-      --ds-border-accent-@{key}-subtle: fade(@value, 50%);
+      --ds-border-accent-@{key}-subtle: fade(@value, @fade-border);
       --ds-text-accent-@{key}: @value;
       --ds-text-accent-@{key}-bolder: @value;
       --ds-icon-accent-@{key}: @value;
       --ds-chart-@{key}-bold: @value;
-      --ds-chart-@{key}-bold-hovered: mix(@value, @base, 85%);
-      --ds-chart-@{key}-bolder: mix(@value, @base, 85%);
-      --ds-chart-@{key}-bolder-hovered: mix(@value, @base, 70%);
-      --ds-chart-@{key}-boldest: mix(@value, @base, 70%);
-      --ds-chart-@{key}-boldest-hovered: mix(@value, @base, 55%);
+      --ds-chart-@{key}-bold-hovered: mix(@value, @base, @mix-hovered);
+      --ds-chart-@{key}-bolder: mix(@value, @base, @mix-hovered);
+      --ds-chart-@{key}-bolder-hovered: mix(@value, @base, @mix-pressed);
+      --ds-chart-@{key}-boldest: mix(@value, @base, @mix-pressed);
+      --ds-chart-@{key}-boldest-hovered: mix(@value, @base, @mix-boldest);
     });
 
     each(@semantics, {
-      --ds-background-@{key}: fade(@value, 15%);
-      --ds-background-@{key}-hovered: fade(@value, 25%);
-      --ds-background-@{key}-pressed: fade(@value, 35%);
-      --ds-background-@{key}-subtler: fade(@value, 25%);
-      --ds-background-@{key}-subtler-hovered: fade(@value, 35%);
-      --ds-background-@{key}-subtler-pressed: fade(@value, 45%);
-      --ds-background-@{key}-subtle: fade(@value, 50%);
+      --ds-background-@{key}: fade(@value, @fade-semantic);
+      --ds-background-@{key}-hovered: fade(@value, @fade-semantic + @fade-step);
+      --ds-background-@{key}-pressed: fade(@value, @fade-semantic + @fade-step * 2);
+      --ds-background-@{key}-subtler: fade(@value, @fade-semantic + @fade-step);
+      --ds-background-@{key}-subtler-hovered: fade(@value, @fade-semantic + @fade-step * 2);
+      --ds-background-@{key}-subtler-pressed: fade(@value, @fade-semantic + @fade-step * 3);
+      --ds-background-@{key}-subtle: fade(@value, @fade-border);
       --ds-background-@{key}-bold: @value;
-      --ds-background-@{key}-bold-hovered: mix(@value, @base, 85%);
-      --ds-background-@{key}-bold-pressed: mix(@value, @base, 70%);
+      --ds-background-@{key}-bold-hovered: mix(@value, @base, @mix-hovered);
+      --ds-background-@{key}-bold-pressed: mix(@value, @base, @mix-pressed);
       --ds-border-@{key}: @value;
-      --ds-border-@{key}-subtle: fade(@value, 50%);
+      --ds-border-@{key}-subtle: fade(@value, @fade-border);
       --ds-text-@{key}: @value;
       --ds-text-@{key}-bolder: @value;
       --ds-icon-@{key}: @value;
       --ds-chart-@{key}: @value;
-      --ds-chart-@{key}-hovered: mix(@value, @base, 85%);
-      --ds-chart-@{key}-bold: mix(@value, @base, 70%);
-      --ds-chart-@{key}-bold-hovered: mix(@value, @base, 55%);
+      --ds-chart-@{key}-hovered: mix(@value, @base, @mix-hovered);
+      --ds-chart-@{key}-bold: mix(@value, @base, @mix-pressed);
+      --ds-chart-@{key}-bold-hovered: mix(@value, @base, @mix-boldest);
     });
 
     --ds-text-warning-inverse: @base;
@@ -182,18 +188,18 @@
     --ds-background-neutral-bold: @text;
     --ds-background-neutral-bold-hovered: @subtext1;
     --ds-background-neutral-bold-pressed: @subtext0;
-    --ds-background-selected: fade(@accent, 15%);
-    --ds-background-selected-hovered: fade(@accent, 25%);
-    --ds-background-selected-pressed: fade(@accent, 35%);
+    --ds-background-selected: fade(@accent, @fade-semantic);
+    --ds-background-selected-hovered: fade(@accent, @fade-semantic + @fade-step);
+    --ds-background-selected-pressed: fade(@accent, @fade-semantic + @fade-step * 2);
     --ds-background-selected-bold: @accent;
-    --ds-background-selected-bold-hovered: mix(@accent, @base, 85%);
-    --ds-background-selected-bold-pressed: mix(@accent, @base, 70%);
-    --ds-background-brand-subtlest: fade(@accent, 15%);
-    --ds-background-brand-subtlest-hovered: fade(@accent, 25%);
-    --ds-background-brand-subtlest-pressed: fade(@accent, 35%);
+    --ds-background-selected-bold-hovered: mix(@accent, @base, @mix-hovered);
+    --ds-background-selected-bold-pressed: mix(@accent, @base, @mix-pressed);
+    --ds-background-brand-subtlest: fade(@accent, @fade-semantic);
+    --ds-background-brand-subtlest-hovered: fade(@accent, @fade-semantic + @fade-step);
+    --ds-background-brand-subtlest-pressed: fade(@accent, @fade-semantic + @fade-step * 2);
     --ds-background-brand-bold: @accent;
-    --ds-background-brand-bold-hovered: mix(@accent, @base, 85%);
-    --ds-background-brand-bold-pressed: mix(@accent, @base, 70%);
+    --ds-background-brand-bold-hovered: mix(@accent, @base, @mix-hovered);
+    --ds-background-brand-bold-pressed: mix(@accent, @base, @mix-pressed);
     --ds-background-brand-boldest: @crust;
     --ds-background-brand-boldest-hovered: @mantle;
     --ds-background-brand-boldest-pressed: @surface0;
@@ -238,25 +244,25 @@
 
     /* Charts */
     --ds-chart-categorical-1: @blue;
-    --ds-chart-categorical-1-hovered: mix(@blue, @base, 85%);
+    --ds-chart-categorical-1-hovered: mix(@blue, @base, @mix-hovered);
     --ds-chart-categorical-2: @green;
-    --ds-chart-categorical-2-hovered: mix(@green, @base, 85%);
+    --ds-chart-categorical-2-hovered: mix(@green, @base, @mix-hovered);
     --ds-chart-categorical-3: @mauve;
-    --ds-chart-categorical-3-hovered: mix(@mauve, @base, 85%);
+    --ds-chart-categorical-3-hovered: mix(@mauve, @base, @mix-hovered);
     --ds-chart-categorical-4: @peach;
-    --ds-chart-categorical-4-hovered: mix(@peach, @base, 85%);
+    --ds-chart-categorical-4-hovered: mix(@peach, @base, @mix-hovered);
     --ds-chart-categorical-5: @sapphire;
-    --ds-chart-categorical-5-hovered: mix(@sapphire, @base, 85%);
+    --ds-chart-categorical-5-hovered: mix(@sapphire, @base, @mix-hovered);
     --ds-chart-categorical-6: @pink;
-    --ds-chart-categorical-6-hovered: mix(@pink, @base, 85%);
+    --ds-chart-categorical-6-hovered: mix(@pink, @base, @mix-hovered);
     --ds-chart-categorical-7: @teal;
-    --ds-chart-categorical-7-hovered: mix(@teal, @base, 85%);
+    --ds-chart-categorical-7-hovered: mix(@teal, @base, @mix-hovered);
     --ds-chart-categorical-8: @maroon;
-    --ds-chart-categorical-8-hovered: mix(@maroon, @base, 85%);
+    --ds-chart-categorical-8-hovered: mix(@maroon, @base, @mix-hovered);
     --ds-chart-neutral: @overlay1;
     --ds-chart-neutral-hovered: @overlay0;
     --ds-chart-brand: @accent;
-    --ds-chart-brand-hovered: mix(@accent, @base, 85%);
+    --ds-chart-brand-hovered: mix(@accent, @base, @mix-hovered);
 
     /* Shadows */
     --ds-shadow-raised: 0 1px 1px fade(@crust, 25%), 0 0 1px fade(@crust, 31%);
