@@ -1,21 +1,53 @@
 /* ==UserStyle==
 @name           Messenger Catppuccin
-@namespace      ://github.com
+@namespace      https://github.com
 @homepageURL    https://github.com
-@version        2000.01.01
+@version        1.0.0
 @updateURL      https://github.com
-@supportURL     https://github.com
+@supportURL     https://github.com/issues
 @description    Soothing pastel theme for Facebook Messenger.
-@author         ElijahAmogsus
+@author         Catppuccin
 @license        MIT
+@preprocessor   less
+
+@var select flavor "Flavor" [
+    "latte:Latte",
+    "frappe:Frappé",
+    "macchiato:Macchiato",
+    "mocha:Mocha*"
+]
+@var select accentColor "Accent" [
+    "rosewater:Rosewater",
+    "flamingo:Flamingo",
+    "pink:Pink",
+    "mauve:Mauve",
+    "red:Red",
+    "maroon:Maroon",
+    "peach:Peach",
+    "yellow:Yellow",
+    "green:Green",
+    "teal:Teal",
+    "sky:Sky",
+    "sapphire:Sapphire",
+    "blue:Blue*",
+    "lavender:Lavender"
+]
 ==/UserStyle== */
 
 @-moz-document domain("messenger.com"), domain("facebook.com") {
-    #catppuccin(@flavor) {
-        @import "@catppuccin/palette/less/palette.less";
-        #lib.palette(@flavor);
+    /* Import the global Catppuccin standard layout library */
+    @import "https://catppuccin.com";
 
-        :root, .__fb-dark-mode {
+    /* Initialize the userstyle mixin matching the variable definition below */
+    #catppuccin(@flavor, @accentColor);
+
+    #catppuccin(@flavor, @accentColor) {
+        /* Unpack core palette variables and apply browser theme defaults */
+        #lib.palette();
+        #lib.defaults();
+
+        :root, 
+        .__fb-dark-mode {
             --web-wash: @base !important;
             --surface-background: @base !important;
             --hosted-view-selected-state: @surface0 !important;
@@ -27,7 +59,7 @@
             --disabled-text: @surface2 !important;
 
             --messenger-card-background: @surface0 !important;
-            --accent: @blue !important;
+            --accent: @accent !important; 
             --primary-deemphasized-button-background: @surface0 !important;
             --divider: @surface1 !important;
             --border-accent: transparent !important;
