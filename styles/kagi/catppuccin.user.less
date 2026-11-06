@@ -1,0 +1,201 @@
+/* ==UserStyle==
+@name Kagi Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/kagi
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/kagi
+@version 2026.10.26
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/kagi/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Akagi
+@description Soothing pastel theme for Kagi
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/std/v1.less";
+
+/* Match Kagi Search without affecting independently styled Kagi services. */
+@-moz-document regexp("https://kagi\\.com/.*") {
+  :root {
+    #catppuccin(@lightFlavor);
+  }
+  :root.theme_dark,
+  :root.theme_moon_dark {
+    #catppuccin(@darkFlavor);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root.theme_dark_conditional,
+    :root.theme_moon_dark_conditional {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    // Raised surfaces distinguish controls and cards from the page background.
+    --color-scheme: if(@flavor = latte, light, dark);
+    --app-bg: @base;
+    --app-frame-bg: @mantle;
+    --landing-bg: @base;
+    --app-text: @text;
+    --app-logo: @text;
+    --primary: @text;
+    --secondary: @base;
+    --primary-25: @mantle;
+    --primary-50: @surface0;
+    --primary-70: @surface0;
+    --primary-100: @surface1;
+    --primary-200: @surface2;
+    --primary-300: @overlay0;
+    --primary-400: @overlay1;
+    --primary-600: @subtext0;
+    --primary-700: @subtext1;
+    --primary-800: @text;
+    --primary-850: @text;
+    --primary-900: @text;
+    --primary-950: @text;
+    --default-border-color: @surface1;
+
+    // The public homepage uses a separate set of theme variables.
+    --bg-app: @base;
+    --bg-input: @surface0;
+    --bg-modal: @surface0;
+    --bg-tooltip: @surface1;
+    --dark-bg: @crust;
+    --overlay: fade(@crust, 60%);
+    --accent-purple: @accent;
+    --accent-purple-variant: @lavender;
+    --accent-on-accent: @base;
+    --accent-yellow: @accent;
+    --accent-on-yellow: @base;
+    --accent-warning: @peach;
+    --active-bg: fade(@accent, 20%);
+    --assistant-hover: @surface0;
+
+    --white: @text;
+    --yellow: @yellow;
+    --warning: @peach;
+    --info: @sky;
+    --danger: @red;
+    --success: @green;
+    --calm: @surface0;
+    --blue: @blue;
+    --blue-300: @blue;
+    --blue-600: @blue;
+    --purple-300: @accent;
+    --purple-400: @accent;
+    --purple-500: @accent;
+    --purple-600: @accent;
+    --purple-800: @accent;
+    --purple-900: @accent;
+    --red-300: @red;
+    --red-600: @red;
+    --red-800: @maroon;
+    --orange-500: @peach;
+    --lime-500: @green;
+    --teal-500: @teal;
+    --cyan-50: fade(@sky, 10%);
+    --cyan-500: @sky;
+    --violet-500: @mauve;
+    --fuchsia-500: @pink;
+    --accent-info: @blue;
+    --accent-success: @green;
+    --accent-alert: @red;
+    --color-danger: @red;
+
+    --link: @blue;
+    --inverted-link: @base;
+    --primary-hover: @blue;
+    --primary-hover-hover: @sapphire;
+    --primary-visited: @lavender;
+    --hover-bg: fade(@overlay0, 15%);
+    --hover-group-bg: fade(@overlay0, 20%);
+    --kagi-highlight: @accent;
+    --focus-outline: 3px solid @accent;
+
+    --modal-bg: @surface0;
+    --modal-bg-secondary: @surface1;
+    --input-bg: @surface0;
+    --color-search-input: @surface0;
+    --color-search-input-border: @surface2;
+    --btn-primary-bg: @accent;
+    --btn-primary-color: @base;
+    --checkbox-bg: @accent;
+    --checkbox-check: @base;
+    --quick-search-bg: @accent;
+    --quick-search-icon: @base;
+    --k-tooltip-bg: @surface1;
+    --k-tooltip-text: @text;
+    --bottom-bar-bg: @mantle;
+    --not-found-bubble-bg: @surface0;
+    --doggo-color-1: @text;
+    --inner-shadow: fade(@crust, 10%);
+    --box-shadow: fade(@crust, 30%);
+    --box-shadow-15: fade(@crust, 40%);
+    --backdrop-bg: fade(@crust, 60%);
+
+    --search-result-title: @blue;
+    --search-result-title-hover: @sapphire;
+    --search-result-content-text: @subtext1;
+    --search-result-url-link: @subtext0;
+    --result-item-title-border: transparent;
+    --result-item-title-border_hover: @blue;
+    --result-item-title-visited-border: @lavender;
+    --result-item-highlight: @accent;
+    --search-result-date-bg: @surface0;
+    --search-result-date-new-bg: fade(@green, 15%);
+    --search-result-date-new: @green;
+    --ranked-box-shadow: fade(@crust, 30%);
+    --ranked-box-connection-insecure: @red;
+    --ranked-box-tracker-desc-danger: @peach;
+    --ranked-box-tracker-desc-clear: @green;
+    --domain-rank-icon-color-ban: @red;
+    --domain-rank-icon-color-lower: @peach;
+    --domain-rank-icon-color-normal: @overlay1;
+    --domain-rank-icon-color-higher: @green;
+    --domain-rank-icon-color-boosted: @accent;
+    --domain-rank-icon-color-trackers: @peach;
+    --domain-rank-icon-color-trackers-hover: @red;
+    --domain-rank-icon-color-scam: @peach;
+    --domain-rank-icon-color-scam-hover: @red;
+
+    --inline-header-title: @text;
+    --inline-widget-bg: @surface0;
+    --inline-widget-hover-bg: @surface1;
+    --inline-header-border: @surface1;
+    --inline-domain-tag-bg: @surface1;
+    --video-item-bg: @surface0;
+    --widget-progress_bar: @accent;
+    --translate-fc_icon: @subtext0;
+    --rating-star_background: @surface1;
+    --team-badge-bg: fade(@accent, 20%);
+    --team-badge-text: @accent;
+    --m_sri_gap_color: @base;
+    --image_brightness: 100%;
+    --nav_n_se_line: @accent;
+    --nav_n_im_line: @blue;
+    --nav_n_vi_line: @red;
+    --nav_n_ne_line: @mauve;
+    --nav_n_po_line: @sky;
+    --nav_n_ma_line: @green;
+    --code-bg: @mantle;
+    --code-border: @surface1;
+    --code-k: @mauve;
+    --code-s: @green;
+    --code-cm-c1: @overlay1;
+    --code-n: @blue;
+    --code-p: @text;
+    --gradient-base: @base;
+    --gradient-overlay: linear-gradient(@base, @base);
+    --gradient-strong: linear-gradient(@mantle, @mantle);
+
+    accent-color: @accent;
+    color: @text;
+    background-color: @base;
+  }
+}
