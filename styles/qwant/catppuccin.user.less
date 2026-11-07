@@ -32,18 +32,25 @@
   @translucent-hovered: 28%;
   @translucent-pressed: 36%;
 
-  /* Solid background with hovered and pressed states */
-  .solid(@token, @color) {
-    --color-background-@{token}: @color;
-    --color-background-@{token}-hovered: mix(@color, @base, @hovered-mix);
-    --color-background-@{token}-pressed: mix(@color, @base, @pressed-mix);
+  /* Solid fill with hovered and pressed states */
+  .fill(@token, @color) {
+    --color-fill-@{token}: @color;
+    --color-fill-@{token}-hovered: mix(@color, @base, @hovered-mix);
+    --color-fill-@{token}-pressed: mix(@color, @base, @pressed-mix);
   }
 
-  /* Translucent background with hovered and pressed states */
-  .translucent(@token, @color) {
-    --color-background-@{token}: fade(@color, @translucent);
-    --color-background-@{token}-hovered: fade(@color, @translucent-hovered);
-    --color-background-@{token}-pressed: fade(@color, @translucent-pressed);
+  /* Translucent fill with hovered and pressed states */
+  .fill-subtle(@token, @color) {
+    --color-fill-@{token}-subtle: fade(@color, @translucent);
+    --color-fill-@{token}-subtle-hovered: fade(@color, @translucent-hovered);
+    --color-fill-@{token}-subtle-pressed: fade(@color, @translucent-pressed);
+  }
+
+  /* Neutral fill from three surfaces */
+  .fill-neutral(@token, @color, @hovered, @pressed) {
+    --color-fill-@{token}: @color;
+    --color-fill-@{token}-hovered: @hovered;
+    --color-fill-@{token}-pressed: @pressed;
   }
 
   #catppuccin(@flavor) {
@@ -64,137 +71,146 @@
       --background-color: @base;
       --separator: @surface1;
       --card-border-color: @surface1;
-      --rsbs-bg: @surface0;
-      --rsbs-handle-bg: @overlay0;
 
       /* Surfaces */
-      --color-elevation-inner: @mantle;
-      --color-elevation-surface: @base;
-      --color-elevation-surface-elevation: @surface0;
-      --color-elevation-surface-overlay: @surface0;
-      --color-elevation-surface-raised: @surface0;
-      --color-elevation-surface-secondary: @mantle;
-      --color-elevation-surface-secondary-elevation: @base;
-      --color-elevation-surface-secondary-overlay: @surface0;
-      --color-elevation-surface-secondary-raised: @surface0;
+      --color-surface-base: @base;
+      --color-surface-base-inverse: @text;
+      --color-surface-base-inverse-hovered: mix(@text, @base, @hovered-mix);
+      --color-surface-base-inverse-pressed: mix(@text, @base, @pressed-mix);
+      --color-surface-brand-accent: fade(@accent, @translucent-pressed);
+      --color-surface-brand-accent-subtle: fade(@accent, @translucent);
+      --color-surface-brand-accent-subtle-hovered: fade(@accent, @translucent-pressed);
+      --color-surface-brand-main: @crust;
+      --color-surface-brand-main-subtle: @surface0;
+      --color-surface-floating: @surface0;
+      --color-surface-inner: @mantle;
+      --color-surface-muted: @mantle;
+      --color-surface-overlay: @surface0;
+      --color-surface-raised: @surface0;
+      --color-blanket-base: fade(@crust, 60%);
+      --color-blanket-base-inverse: fade(@crust, 60%);
 
-      /* Backgrounds */
-      .solid(accent-indigo-primary, @lavender);
-      .translucent(accent-indigo-secondary, @lavender);
-      .solid(accent-purple-primary, @mauve);
-      .translucent(accent-purple-secondary, @mauve);
-      .solid(brand-primary, @accent);
-      .solid(checked, @accent);
-      .solid(danger-primary, @red);
-      .translucent(danger-secondary, @red);
-      .solid(information-primary, @blue);
-      .translucent(information-secondary, @blue);
-      .solid(neutral-primary, @text);
-      .solid(selected-primary, @accent);
-      .translucent(selected-secondary, @accent);
-      .solid(success-primary, @green);
-      .translucent(success-secondary, @green);
-      .solid(warning-primary, @yellow);
-      .translucent(warning-secondary, @yellow);
-      .translucent(accent-cyan-secondary, @sky);
-      .translucent(accent-orange-secondary, @peach);
-      .translucent(accent-pink-secondary, @pink);
-      --color-background-blanket: fade(@crust, 60%);
-      --color-background-blanket-inverse: fade(@crust, 60%);
-      --color-background-brand-secondary: @surface0;
-      --color-background-brand-secondary-hovered: @surface1;
-      --color-background-brand-secondary-pressed: @surface2;
-      --color-background-disabled: @surface0;
-      --color-background-input: @surface0;
-      --color-background-input-focused: transparent;
-      --color-background-input-hovered: @surface1;
-      --color-background-input-pressed: @surface1;
-      --color-background-input-secondary: @surface0;
-      --color-background-input-secondary-hovered: @surface1;
-      --color-background-input-secondary-pressed: @surface1;
-      --color-background-input-tertiary: transparent;
-      --color-background-input-tertiary-hovered: @surface0;
-      --color-background-input-tertiary-pressed: @surface1;
-      --color-background-neutral-secondary: @surface0;
-      --color-background-neutral-secondary-hovered: @surface1;
-      --color-background-neutral-secondary-pressed: @surface2;
-      --color-background-neutral-tertiary: transparent;
-      --color-background-neutral-tertiary-hovered: @surface0;
-      --color-background-neutral-tertiary-pressed: @surface1;
+      /* Fills */
+      .fill(brand-accent, @accent);
+      .fill-subtle(brand-accent, @accent);
+      .fill(brand-main, @text);
+      .fill(checked, @accent);
+      .fill(danger, @red);
+      .fill-subtle(danger, @red);
+      .fill(decorative-indigo, @lavender);
+      .fill-subtle(decorative-indigo, @lavender);
+      .fill(decorative-purple, @mauve);
+      .fill-subtle(decorative-purple, @mauve);
+      .fill-subtle(decorative-cyan, @sky);
+      .fill-subtle(decorative-orange, @peach);
+      .fill-subtle(decorative-pink, @pink);
+      .fill(information, @blue);
+      .fill-subtle(information, @blue);
+      .fill(selected, @accent);
+      .fill-subtle(selected, @accent);
+      .fill(success, @green);
+      .fill-subtle(success, @green);
+      .fill(warning, @yellow);
+      .fill-subtle(warning, @yellow);
+      .fill-neutral(brand-main-subtle, @surface0, @surface1, @surface2);
+      .fill-neutral(input, @surface0, @surface1, @surface1);
+      .fill-neutral(neutral-secondary, @surface0, @surface1, @surface2);
+      .fill-neutral(neutral-tertiary, transparent, @surface0, @surface1);
+      --color-fill-disabled: @surface0;
 
       /* Borders */
-      --color-border-accent-indigo: @lavender;
-      --color-border-accent-purple: @mauve;
-      --color-border-brand: @accent;
-      --color-border-button-outline: @surface2;
-      --color-border-button-primary: @surface1;
+      --color-border-brand-accent: @accent;
+      --color-border-brand-accent-subtle: fade(@accent, @translucent-hovered);
+      --color-border-brand-main: @text;
+      --color-border-brand-main-subtle: @surface1;
       --color-border-danger: @red;
+      --color-border-decorative-indigo: @lavender;
+      --color-border-decorative-purple: @mauve;
       --color-border-disabled: @surface1;
-      --color-border-focused: @accent;
+      --color-border-focus: @accent;
       --color-border-information: @blue;
-      --color-border-input: @surface2;
+      --color-border-inner-on-primary-action: @surface1;
       --color-border-primary: @subtext0;
-      --color-border-primary-inverse: @base;
+      --color-border-primary-on-inverse: @base;
       --color-border-secondary: @surface1;
-      --color-border-secondary-inverse: @surface1;
+      --color-border-secondary-on-inverse: @surface1;
       --color-border-selected: @accent;
       --color-border-success: @green;
       --color-border-warning: @peach;
 
+      /* Brand */
+      --color-brand-accent: @accent;
+      --color-brand-main: @text;
+
       /* Icons */
-      --color-icon-accent-cyan: @sky;
-      --color-icon-accent-indigo: @lavender;
-      --color-icon-accent-orange: @peach;
-      --color-icon-accent-pink: @pink;
-      --color-icon-accent-purple: @mauve;
-      --color-icon-brand-primary: @text;
-      --color-icon-brand-secondary: @subtext0;
+      --color-icon-brand-accent: @accent;
+      --color-icon-brand-main: @text;
       --color-icon-danger: @red;
-      --color-icon-danger-inverse: @red;
+      --color-icon-danger-on-inverse: @red;
+      --color-icon-decorative-cyan: @sky;
+      --color-icon-decorative-indigo: @lavender;
+      --color-icon-decorative-orange: @peach;
+      --color-icon-decorative-pink: @pink;
+      --color-icon-decorative-purple: @mauve;
       --color-icon-disabled: @overlay0;
+      --color-icon-disabled-on-inverse: @overlay0;
       --color-icon-information: @blue;
-      --color-icon-inverse: @base;
+      --color-icon-information-on-inverse: @blue;
       --color-icon-primary: @text;
+      --color-icon-primary-on-brand: @base;
+      --color-icon-primary-on-inverse: @base;
       --color-icon-rating: @yellow;
       --color-icon-secondary: @subtext0;
+      --color-icon-secondary-on-brand: @surface2;
+      --color-icon-secondary-on-inverse: @surface2;
       --color-icon-selected: @accent;
+      --color-icon-selected-on-inverse: @accent;
       --color-icon-success: @green;
-      --color-icon-success-inverse: @green;
+      --color-icon-success-on-inverse: @green;
+      --color-icon-tertiary: @overlay1;
+      --color-icon-tertiary-on-brand: @overlay0;
+      --color-icon-tertiary-on-inverse: @overlay0;
       --color-icon-warning: @peach;
-
-      /* Identity */
-      --color-identity-primary: @text;
-      --color-identity-secondary: @text;
+      --color-icon-warning-on-inverse: @peach;
 
       /* Links */
       --color-link-primary: @blue;
-      --color-link-primary-inverse: @blue;
-      --color-link-secondary: @text;
-      --color-link-secondary-hovered: @subtext1;
-      --color-link-secondary-inverse: @base;
-      --color-link-secondary-inverse-hovered: @mantle;
-      --color-link-tertiary: @subtext0;
-      --color-link-tertiary-inverse: @overlay1;
-      --color-link-visited: @mauve;
-      --color-link-visited-inverse: @mauve;
+      --color-link-primary-hovered: @sapphire;
+      --color-link-primary-on-inverse: @base;
+      --color-link-primary-on-inverse-hovered: @mantle;
+      --color-link-result-primary: @blue;
+      --color-link-result-primary-on-inverse: @blue;
+      --color-link-result-secondary: @text;
+      --color-link-result-secondary-on-inverse: @base;
+      --color-link-result-visited: @mauve;
+      --color-link-result-visited-on-inverse: @mauve;
 
       /* Text */
-      --color-text-accent-indigo: @lavender;
-      --color-text-accent-purple: @mauve;
-      --color-text-brand: @text;
+      --color-text-brand-accent: @accent;
+      --color-text-brand-main: @text;
       --color-text-danger: @red;
-      --color-text-danger-inverse: @red;
+      --color-text-danger-subtle: @red;
+      --color-text-decorative-indigo: @lavender;
+      --color-text-decorative-purple: @mauve;
       --color-text-disabled: @overlay0;
+      --color-text-disabled-on-inverse: @overlay0;
       --color-text-information: @blue;
+      --color-text-information-subtle: @blue;
       --color-text-primary: @text;
-      --color-text-primary-inverse: @base;
+      --color-text-primary-on-brand: @base;
+      --color-text-primary-on-inverse: @base;
       --color-text-secondary: @subtext1;
-      --color-text-secondary-inverse: @surface2;
+      --color-text-secondary-on-brand: @surface2;
+      --color-text-secondary-on-inverse: @surface2;
       --color-text-selected: @accent;
+      --color-text-selected-on-inverse: @accent;
       --color-text-success: @green;
-      --color-text-success-inverse: @green;
+      --color-text-success-subtle: @green;
       --color-text-tertiary: @subtext0;
+      --color-text-tertiary-on-brand: @overlay0;
+      --color-text-tertiary-on-inverse: @overlay0;
       --color-text-warning: @yellow;
+      --color-text-warning-subtle: @peach;
     }
   }
 }
