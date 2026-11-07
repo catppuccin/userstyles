@@ -1,9 +1,11 @@
 {
-  deno,
+  nodejs,
+  pnpm,
   mkShellNoCC,
 }:
 mkShellNoCC {
   packages = [
-    deno
+    nodejs
+    pnpm
   ];
 }

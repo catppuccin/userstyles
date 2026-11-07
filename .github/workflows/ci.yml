@@ -20,15 +20,21 @@ jobs:
           token: ${{ secrets.USERSTYLES_TOKEN }}
           fetch-depth: 2
 
-      - name: Setup Deno
-        uses: denoland/setup-deno@v2
+      - name: Setup pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          deno-version: v2.3.5
-          cache: true
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Bump changed userstyles
         run: |
-          git diff --name-only HEAD^1 HEAD | grep '^styles/.*catppuccin\.user\.less$' | xargs deno task ci:bump
+          git diff --name-only HEAD^1 HEAD | grep '^styles/.*catppuccin\.user\.less$' | xargs pnpm run ci:bump
 
       - name: Commit changes
         uses: EndBug/add-and-commit@a94899bca583c204427a224a7af87c02f9b325d5 # v9
@@ -38,7 +44,7 @@ jobs:
           push: false
 
       - name: Update generated files
-        run: deno task ci:generate
+        run: pnpm run ci:generate
         env:
           GITHUB_TOKEN: ${{ secrets.USERSTYLES_TOKEN }}
 
@@ -50,12 +56,12 @@ jobs:
           push: false
 
       - name: Format files
-        run: deno fmt
+        run: pnpm run fmt
 
       - name: Commit changes
         uses: EndBug/add-and-commit@a94899bca583c204427a224a7af87c02f9b325d5 # v9
         with:
-          message: "style: deno fmt"
+          message: "style: dprint fmt"
           default_author: github_actions
           push: false
 

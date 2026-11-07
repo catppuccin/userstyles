@@ -1,13 +1,18 @@
 import { parseArgs } from "@std/cli";
-import { serveDir } from "@std/http/file-server";
 import { debounce } from "@std/async/debounce";
 import { createHash } from "node:crypto";
+import { watch } from "node:fs";
+import { mkdtemp, readdir, readFile, writeFile } from "node:fs/promises";
+import { createServer } from "node:http";
+import { tmpdir } from "node:os";
 
 import * as path from "@std/path";
 
-import { REPO_ROOT } from "@/constants.ts";
+import { REPO_ROOT } from "#/constants.ts";
 
-const args = parseArgs(Deno.args, {});
+const PORT = 8000;
+
+const args = parseArgs(process.argv.slice(2), {});
 const userstyle = args._[0]
   ?.toString()
   .match(
@@ -15,24 +20,20 @@ const userstyle = args._[0]
   )?.groups?.userstyle;
 if (!userstyle) throw new Error("Invalid userstyle argument");
 
-const server = Deno.serve({
-  onListen() {
-    // Disable unnecessary post-startup log.
-  },
-}, (req: Request) => {
-  const pathname = new URL(req.url).pathname;
+createServer(async (req, res) => {
+  const pathname = new URL(req.url!, `http://localhost:${PORT}`).pathname;
 
   if (pathname.startsWith("/lib")) {
-    return serveDir(req, {
-      fsRoot: "lib",
-      urlRoot: "lib",
-    });
+    try {
+      return res.end(await readFile(path.join(".", pathname)));
+    } catch {
+      // Fall through to the 404 response.
+    }
   }
 
-  return new Response("404: Not Found", {
-    status: 404,
-  });
-});
+  res.statusCode = 404;
+  res.end("404: Not Found");
+}).listen(PORT);
 
 const userstylePath = path.join(
   REPO_ROOT,
@@ -46,22 +47,22 @@ const libPath = path.join(
   "lib",
 );
 
-const tempUserstylePath = await Deno.makeTempFile({
-  prefix: "userstyle_",
-  suffix: ".user.less",
-});
+const tempUserstylePath = path.join(
+  await mkdtemp(path.join(tmpdir(), "userstyle_")),
+  "catppuccin.user.less",
+);
 
 async function calculateLibChecksum(): Promise<string> {
   const files = [];
-  for await (const entry of Deno.readDir(libPath)) {
-    if (entry.isFile) {
+  for (const entry of await readdir(libPath, { withFileTypes: true })) {
+    if (entry.isFile()) {
       files.push(path.join(libPath, entry.name));
     }
   }
 
   const hash = createHash("sha256");
   for (const file of files) {
-    const content = await Deno.readTextFile(file);
+    const content = await readFile(file, "utf8");
     hash.update(content);
   }
 
@@ -71,7 +72,7 @@ async function calculateLibChecksum(): Promise<string> {
 let lastLibChecksum = await calculateLibChecksum();
 
 async function updateTempUserstyle() {
-  let contents = await Deno.readTextFile(userstylePath);
+  let contents = await readFile(userstylePath, "utf8");
   /* Appends a query parameter suffix to import URLs from userstyles.catppuccin.com, containing the library modules content checksum.  */
   const importRegex =
     /(@import\s+"https:\/\/userstyles\.catppuccin\.com\/lib\/[^\s]+\.less")/g;
@@ -85,10 +86,10 @@ async function updateTempUserstyle() {
   /* Then replace the remote userstyles.catppuccin.com host with the local(host) server URL for these imports. */
   contents = contents.replaceAll(
     "https://userstyles.catppuccin.com",
-    `http://localhost:${server.addr.port}`,
+    `http://localhost:${PORT}`,
   );
 
-  await Deno.writeTextFile(tempUserstylePath, contents);
+  await writeFile(tempUserstylePath, contents);
 }
 
 updateTempUserstyle();
@@ -102,10 +103,11 @@ const reload = debounce(() => {
   updateTempUserstyle();
 }, 200);
 
-const watcher = Deno.watchFs([userstylePath, libPath]);
-for await (const event of watcher) {
-  if (event.paths.some((path) => path.startsWith(libPath))) {
-    lastLibChecksum = await calculateLibChecksum();
-  }
-  reload();
+for (const watchPath of [userstylePath, libPath]) {
+  watch(watchPath, { recursive: true }, async () => {
+    if (watchPath === libPath) {
+      lastLibChecksum = await calculateLibChecksum();
+    }
+    reload();
+  });
 }
