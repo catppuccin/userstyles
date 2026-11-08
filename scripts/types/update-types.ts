@@ -1,4 +1,6 @@
-import { REPO_ROOT, USERSTYLES_SCHEMA } from "@/constants.ts";
+import { REPO_ROOT, USERSTYLES_SCHEMA } from "#/constants.ts";
+
+import { writeFileSync } from "node:fs";
 
 import * as path from "@std/path";
 import { compile, type JSONSchema } from "json-schema-to-typescript";
@@ -9,7 +11,7 @@ const types = await compile(
   USERSTYLES_SCHEMA as JSONSchema,
   "UserstylesSchema",
   {
-    bannerComment: "// deno-fmt-ignore-file",
+    bannerComment: "// dprint-ignore-file",
   },
 );
-Deno.writeTextFileSync(path.join(TYPES_ROOT, "userstyles.d.ts"), types);
+writeFileSync(path.join(TYPES_ROOT, "userstyles.d.ts"), types);

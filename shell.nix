@@ -1,9 +1,11 @@
 {
-  deno,
+  nodejs-slim,
+  pnpm,
   mkShellNoCC,
 }:
 mkShellNoCC {
   packages = [
-    deno
+    nodejs-slim
+    pnpm
   ];
 }
