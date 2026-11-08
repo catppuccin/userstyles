@@ -1,11 +1,11 @@
 {
-  nodejs,
+  nodejs-slim,
   pnpm,
   mkShellNoCC,
 }:
 mkShellNoCC {
   packages = [
-    nodejs
+    nodejs-slim
     pnpm
   ];
 }
