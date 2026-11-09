@@ -1,0 +1,370 @@
+/* ==UserStyle==
+@name tangled.sh Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/tangled
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/tangled
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/tangled/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Atangled
+@description Soothing pastel theme for tangled.sh
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/lib.less";
+
+@-moz-document domain("tangled.org") {
+  @import (css)
+    url("https://chroma.catppuccin.com/@{lightFlavor}-chroma-style.css")
+    (prefers-color-scheme: light);
+  @import (css)
+    url("https://chroma.catppuccin.com/@{darkFlavor}-chroma-style.css")
+    (prefers-color-scheme: dark);
+
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    /* sitewide background */
+    body {
+      background-color: @mantle;
+    }
+
+    /* sitewide basic text */
+    h1, h2, h3, a, p, li, strong, input, textarea, .dark\:text-white {
+      color: @text;
+    }
+
+    /* sitewide subtexts */
+    .text-gray-600.dark\:text-gray-300 {
+      color: @subtext1;
+    }
+    .text-gray-700.dark\:text-gray-400 {
+      color: @subtext0;
+    }
+    .text-gray-400.font-mono {
+      color: @overlay2;
+    }
+
+    /* sitewide code element */
+    code {
+      background-color: @surface0;
+      color: @text;
+    }
+
+    /* cloning and pushing instructions */
+    .bg-gray-100.dark\:bg-gray-700 {
+      background-color: @surface0;
+    }
+
+    /* top bar +new icon */
+    .btn-create::before {
+      background-color: @accent;
+      border-color: @accent;
+    }
+    .btn-create:hover::before {
+      background-color: fade(@accent, 60%);
+      border-color: fade(@accent, 20%);
+    }
+    .btn-create {
+      color: @crust;
+    }
+
+    /* top bar logout */
+    .text-red-400.dark\:text-red-400 {
+      color: @red;
+      &:hover {
+        color: lighten(@red, 5%);
+      }
+    }
+
+    /* footer segment headers */
+    .text-gray-900.dark\:text-gray-200 {
+      color: @subtext1;
+    }
+
+    /* footer copyright */
+    .text-gray-600.dark\:text-gray-400 {
+      color: @subtext0;
+    }
+
+    /* generic button */
+    .btn::before {
+      background-color: @surface0;
+      border-color: @surface1;
+    }
+    .btn:hover::before {
+      background-color: @surface1;
+    }
+    .btn {
+      color: @text;
+    }
+
+    /* timeline page list item */
+    .bg-white.dark\:bg-gray-800 {
+      background-color: @base;
+    }
+
+    /* profile punchcard component - reduce by 16.5% (ish) each step */
+    /* 100% */
+    .bg-green-500.dark\:bg-green-600 {
+      background-color: @accent;
+    }
+    /* 84% */
+    .bg-green-400.dark\:bg-green-700 {
+      background-color: fade(@accent, 84%);
+    }
+    /* 67% */
+    .bg-green-300.dark\:bg-green-800 {
+      background-color: fade(@accent, 67%);
+    }
+    /* 50% */
+    .bg-green-200.dark\:bg-green-900 {
+      background-color: fade(@accent, 50%);
+    }
+    /* none */
+    .bg-gray-200.dark\:bg-gray-700 {
+      background-color: @surface1;
+    }
+    /* future */
+    .border.border-gray-200.dark\:border-gray-700 {
+      border-color: @surface0;
+    }
+
+    /* profile activity list statuses (e.g. 3 open, 16 merged, 5 closed, etc.)
+    /* open PRs */
+    .bg-green-600.dark\:bg-green-700.text-white {
+      background-color: @green;
+      color: @crust;
+    }
+    .text-green-600.dark\:text-green-500 {
+      color: @green;
+    }
+    /* merged PRs */
+    .bg-purple-600.dark\:bg-purple-700.text-white {
+      background-color: @mauve;
+      color: @crust;
+    }
+    .text-purple-600.dark\:text-purple-500 {
+      color: @mauve;
+    }
+    /* closed PRs */
+    .bg-gray-800.dark\:bg-gray-700 {
+      background-color: @mantle;
+      color: @text;
+      > span.text-white, svg.text-white {
+        color: @text;
+      }
+    }
+    /* "No activity for this month" text */
+    div.text-gray-500.dark\:text-gray-400 {
+      color: @overlay1;
+    }
+
+    /* email verification statuses */
+    /* verified */
+    span.bg-green-100.text-green-800.dark\:bg-green-900.dark\:text-green-200 {
+      background-color: @green;
+      color: @crust;
+    }
+    /* primary */
+    span.bg-blue-100.text-blue-800.dark\:bg-blue-900.dark\:text-blue-200 {
+      background-color: @blue;
+      color: @crust;
+    }
+    /* unverified */
+    span.bg-yellow-100.text-yellow-800.dark\:bg-yellow-900.dark\:text-yellow-200 {
+      background-color: @yellow;
+      color: @crust;
+    }
+
+    /* settings delete button */
+    button.text-red-500.dark\:text-red-400 {
+      color: @red;
+      &:hover {
+        color: lighten(@red, 5%);
+      }
+    }
+
+    /* repository issues and PRs */
+    /* commit */
+    .text-gray-700.dark\:text-gray-300.bg-gray-100.dark\:bg-gray-900 {
+      color: @text;
+      background-color: @mantle;
+    }
+
+    /* verified commit */
+    .bg-green-100.text-green-800.dark\:bg-green-900.dark\:text-green-200 {
+      color: @crust;
+      background-color: @green;
+    }
+
+    /* open issue or PR in repo */
+    .bg-green-600.dark\:bg-green-700 {
+      color: @crust;
+      background-color: @green;
+      > span.text-white.dark\:text-white,
+      svg.text-white.dark\:text-white,
+      span.text-white,
+      svg.text-white {
+        color: @crust;
+      }
+    }
+
+    /* merged PR */
+    .bg-purple-600.dark\:bg-purple-700 {
+      background-color: @mauve;
+      > span.text-white, svg.text-white {
+        color: @crust;
+      }
+    }
+
+    /* ci run success checkmark */
+    svg.text-green-600 {
+      color: @green;
+    }
+
+    /* ci run failed cross */
+    svg.text-red-600, svg.text-red-500 {
+      color: @red;
+    }
+
+    /* ci in progress or waiting */
+    svg.text-orange-400.dark\:text-orange-300 {
+      color: @peach;
+    }
+
+    /* ci progress circle */
+    /* this is super hacky and hella unmaintainable if tangled even changes the colour somewhat */
+    /* i'm wholly prepared to drop this. */
+    circle[stroke*="#ef4444"] {
+      stroke: @red; // failed
+    }
+    circle[stroke*="#fb923c"] {
+      stroke: @peach; // in progress or waiting
+    }
+    circle[stroke*="#10b981"] {
+      stroke: @green; // success
+    }
+
+    /* repository settings tab list selected */
+    .bg-white.dark\:bg-gray-700 {
+      background-color: @surface0;
+    }
+
+    /* repository setting tab list item */
+    .bg-gray-100.dark\:bg-gray-800 {
+      background-color: @mantle;
+    }
+
+    /* delete repository warning */
+    h2.text-red-500.dark\:text-red-400 {
+      color: @red;
+    }
+
+    /* repository tabs (overview, issues, pulls, pipelines, settings tab bar) when hovering */
+    div.group-hover\:bg-gray-100\/25.group-hover\:dark\:bg-gray-700\/25:hover {
+      background-color: @base;
+    }
+
+    /* account settings public ssh key readout */
+    code.text-gray-500.dark\:text-gray-400 {
+      background-color: @base;
+      color: @subtext0;
+    }
+
+    /* codeblock background in markdown */
+    pre:has(> code) {
+      background-color: @mantle;
+      border-color: @surface1;
+      code {
+        background-color: @mantle;
+        color: @text; // code blocks in markdown do not yet have syntax highlighting so this should be fine
+      }
+    }
+
+    /* inline code in markdown */
+    article code {
+      background-color: @mantle;
+      color: @text;
+    }
+
+    /* links in markdown */
+    .prose a, article a {
+      color: @accent;
+    }
+
+    /* merge conflict in pr */
+    div.bg-red-50.dark\:bg-red-900.border-red-500 {
+      background-color: fade(@red, 15%);
+      border-color: @red;
+      .text-red-500.dark\:text-red-300 {
+        color: @red;
+      }
+    }
+
+    /* no conflicts, ready to merge in pr */
+    .bg-green-50.dark\:bg-green-900.border-green-500 {
+      background-color: fade(@green, 15%);
+      border-color: @green;
+      .text-green-500.dark\:text-green-300 {
+        color: @green;
+      }
+    }
+
+    /* git diffs */
+    /* add block */
+    .bg-green-100.dark\:bg-green-800\/30.text-green-700.dark\:text-green-400 {
+      background-color: fade(@green, 15%);
+      color: @green;
+    }
+
+    /* remove block */
+    .bg-red-100.dark\:bg-red-800\/30.text-red-700.dark\:text-red-400 {
+      background-color: fade(@red, 15%);
+      color: @red;
+    }
+
+    /* diff loc change count */
+    /* additions */
+    .bg-green-100.text-green-700.dark\:bg-green-800\/50.dark\:text-green-400 {
+      background-color: fade(@green, 15%);
+      color: @green;
+    }
+
+    /* removals */
+    .bg-red-100.text-red-700.dark\:bg-red-800\/50.dark\:text-red-400 {
+      background-color: fade(@red, 15%);
+      color: @red;
+    }
+
+    /* non markdown readme file */
+    pre.dark\:bg-gray-800 {
+      background-color: @base;
+    }
+
+    /* readme title */
+    .dark\:bg-gray-700 {
+      background-color: @surface0;
+    }
+    .dark\:border-gray-600 {
+      border-color: @surface1;
+    }
+    .dark\:text-gray-200 {
+      color: @text;
+    }
+  }
+}
