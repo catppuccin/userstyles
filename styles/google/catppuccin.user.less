@@ -31,9 +31,10 @@
     #lib.palette();
     #lib.defaults();
 
-    // Unset color-scheme from `#lib.defaults()`.
+    // Must match the ogs.google.com section below, otherwise the browser
+    // paints an opaque (white) backdrop behind the account menu iframe.
     iframe {
-      color-scheme: none !important;
+      color-scheme: if(@flavor = latte, light, dark) !important;
     }
 
     &,
@@ -2302,7 +2303,7 @@
 }
 
 @-moz-document regexp("^https?://(ogs\\.)?google\\..*") {
-  body {
+  :root {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
     }
@@ -2313,8 +2314,54 @@
 
   #catppuccin(@flavor) {
     #lib.palette();
+    #lib.defaults();
+
+    // Google redeclares these on a lot of inner elements
+    .aRDKUe,
+    .nz9sqb {
+      &,
+      * {
+        --gm3-sys-color-surface: @base !important;
+        --gm3-sys-color-surface-container: @surface0 !important;
+        --gm3-sys-color-surface-container-high: @surface0 !important;
+        --gm3-sys-color-surface-container-highest: @surface1 !important;
+        --gm3-sys-color-surface-container-low: @mantle !important;
+        --gm3-sys-color-surface-bright: @surface1 !important;
+        --gm3-sys-color-surface-variant: @surface1 !important;
+        --gm3-sys-color-on-surface: @text !important;
+        --gm3-sys-color-on-surface-variant: @subtext0 !important;
+      }
+    }
 
     .aRDKUe {
+      --action-items-add-account-icon-dark-background-color: @surface0;
+      --action-items-add-account-icon-dark-color: @blue;
+      --action-items-expandable-action-toggle-icon-dark-color: @text;
+
+      /* account menu rows */
+      .N2ncR {
+        --action-items-action-item-dark-background-color: @base;
+      }
+      .YLkvaf {
+        --action-items-expandable-action-toggle-icon-dark-background-color: @surface0;
+      }
+      .Agku8b.w5k6Yd,
+      .agfK1d.w5k6Yd {
+        &:hover,
+        &:focus-visible,
+        &:active {
+          background-color: @surface1 !important;
+          outline-color: @accent !important;
+          &::before {
+            background-color: transparent !important;
+          }
+        }
+      }
+      .wCni7d {
+        background: @surface1 !important;
+        color: @subtext0 !important;
+      }
+
       .rRF0wd {
         fill: @yellow !important;
       }
