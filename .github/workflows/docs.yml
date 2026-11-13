@@ -1,6 +1,10 @@
-name: Deploy Docs to GH Pages
+name: Build & Deploy Docs to GH Pages
 
 on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - ".github/workflows/docs.yml"
   push:
     branches: [main]
     paths:
@@ -9,8 +13,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 jobs:
   build:
@@ -24,8 +26,12 @@ jobs:
           package-manager: pnpm@10.14.0
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
