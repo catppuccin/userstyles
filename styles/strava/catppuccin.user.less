@@ -1,0 +1,1209 @@
+/* ==UserStyle==
+@name Strava Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/strava
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/strava
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/strava/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Astrava
+@description Soothing pastel theme for Strava
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/std/v1.less";
+
+@-moz-document domain("strava.com") {
+  :root {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    @card-bg: if(@flavor = latte, @base, @surface0);
+    @page-bg: if(@flavor = latte, @mantle, @base);
+    @subtle-bg: if(@flavor = latte, @surface0, @mantle);
+    @on-accent: if(@flavor = latte, @base, @crust);
+
+    /* Base surfaces */
+    &,
+    body {
+      background-color: @page-bg !important;
+      color: @text !important;
+    }
+
+    #wrap,
+    #content,
+    .container,
+    .container-fluid,
+    .row,
+    .page,
+    #app,
+    #root {
+      background-color: transparent !important;
+    }
+
+    a {
+      color: @accent !important;
+    }
+
+    a:hover,
+    a:focus {
+      color: @accent !important;
+    }
+
+    p,
+    li,
+    strong,
+    em,
+    blockquote,
+    figcaption,
+    dd,
+    dt {
+      color: @text !important;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: @text !important;
+    }
+
+    .media-body,
+    .media-heading,
+    .text-title1,
+    .text-title2,
+    .text-title3,
+    .text-title4 {
+      color: @text !important;
+    }
+
+    .text-footnote,
+    .text-caption,
+    .text-caption4 {
+      color: @subtext0 !important;
+    }
+
+    .activity-summary header,
+    [class*="activity-summary"] header,
+    section.with-border > header,
+    .with-border > header {
+      background-color: @subtle-bg !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    section.with-border,
+    .with-border {
+      border-color: @surface1 !important;
+    }
+
+    time,
+    small,
+    .small {
+      color: @subtext0 !important;
+    }
+
+    hr {
+      border-color: @surface1 !important;
+    }
+
+    /* Modern design tokens used by the dashboard and maps */
+    --color-corewhite: @card-bg;
+    --color-coren7: @page-bg;
+    --color-coren6: @subtle-bg;
+    --color-coreasphalt: @text;
+    --color-coreo3: @accent; /* Strava orange */
+    --color-extendedneutraln7: @page-bg;
+    --color-extendedneutraln6: @subtle-bg;
+    --color-extendedneutraln5: @surface2;
+    --color-extendedneutraln45: @overlay2;
+    --color-extendedneutraln4: @overlay1;
+    --color-extendedneutraln3: @subtext0;
+    --color-extendedneutraln2: @subtext1;
+    --color-extendedneutraln1: @text;
+    --color-extendedneutraln05: @text;
+    --color-extendedneutraln00: @crust;
+    --color-extendedorangeo7: fade(@accent, 20%);
+    --color-extendedorangeo6: fade(@accent, 35%);
+    --color-extendedorangeo5: @peach;
+    --color-extendedorangeo4: @peach;
+    --color-extendedorangeo3: @accent;
+    --color-extendedorangeo2: @accent;
+    --color-extendedorangeo1: @accent;
+    --color-extendedorangeo05: @accent;
+    --color-extendedorangeo00: @crust;
+    --color-extendedblueb7: fade(@blue, 20%);
+    --color-extendedblueb6: fade(@blue, 35%);
+    --color-extendedblueb5: @blue;
+    --color-extendedblueb4: @blue;
+    --color-extendedblueb3: @blue;
+    --color-extendedblueb2: @blue;
+    --color-extendedblueb1: @blue;
+    --color-extendedblueb05: @crust;
+    --color-extendedblueb00: @crust;
+    --color-extendedredr7: fade(@red, 20%);
+    --color-extendedredr6: fade(@red, 35%);
+    --color-extendedredr5: @red;
+    --color-extendedredr45: @red;
+    --color-extendedredr4: @red;
+    --color-extendedredr3: @red;
+    --color-extendedredr2: @red;
+    --color-extendedredr1: @red;
+    --color-extendedredr05: @crust;
+    --color-extendedredr00: @crust;
+    --color-extendedgreeng7: fade(@green, 20%);
+    --color-extendedgreeng6: fade(@green, 35%);
+    --color-extendedgreeng5: @green;
+    --color-extendedgreeng4: @green;
+    --color-extendedgreeng3: @green;
+    --color-extendedgreeng2: @green;
+    --color-extendedgreeng1: @green;
+    --color-extendedgreeng05: @crust;
+    --color-extendedgreeng00: @crust;
+    --color-extendedyellowy7: fade(@yellow, 20%);
+    --color-extendedyellowy6: fade(@yellow, 35%);
+    --color-extendedyellowy5: @yellow;
+    --color-extendedyellowy4: @yellow;
+    --color-extendedyellowy3: @yellow;
+    --color-extendedyellowy2: @yellow;
+    --color-extendedyellowy1: @yellow;
+    --color-extendedyellowy05: @crust;
+    --color-extendedyellowy00: @crust;
+    --color-extendedtealt7: fade(@teal, 20%);
+    --color-extendedtealt6: fade(@teal, 35%);
+    --color-extendedtealt5: @teal;
+    --color-extendedtealt4: @teal;
+    --color-extendedtealt3: @teal;
+    --color-extendedtealt2: @teal;
+    --color-extendedtealt1: @teal;
+    --color-extendedtealt05: @crust;
+    --color-extendedtealt00: @crust;
+    --color-extendedvioletv7: fade(@mauve, 20%);
+    --color-extendedvioletv6: fade(@mauve, 35%);
+    --color-extendedvioletv5: @mauve;
+    --color-extendedvioletv4: @mauve;
+    --color-extendedvioletv3: @mauve;
+    --color-extendedvioletv2: @mauve;
+    --color-extendedvioletv1: @mauve;
+    --color-extendedvioletv05: @crust;
+    --color-extendedvioletv00: @crust;
+    --color-extendedpinkp7: fade(@pink, 20%);
+    --color-extendedpinkp6: fade(@pink, 35%);
+    --color-extendedpinkp5: @pink;
+    --color-extendedpinkp4: @pink;
+    --color-extendedpinkp3: @pink;
+    --color-extendedpinkp2: @pink;
+    --color-extendedpinkp1: @pink;
+    --color-extendedpinkp05: @crust;
+    --color-extendedpinkp00: @crust;
+
+    /* Global header */
+    #global-header,
+    [class*="GlobalHeader_globalHeader"] {
+      background-color: @card-bg !important;
+      border-bottom-color: @surface1 !important;
+      box-shadow: 0 1px 2px fade(@crust, 30%) !important;
+      color: @text !important;
+    }
+
+    #global-header .nav-link,
+    #global-header .nav-link:visited,
+    [class*="GlobalHeader_globalHeader"] .nav-link,
+    [class*="GlobalHeader_globalHeader"] a {
+      color: @subtext1 !important;
+    }
+
+    #global-header .nav-link:hover,
+    #global-header .nav-link:focus,
+    #global-header .nav-link:active,
+    #global-header .nav-link.highlight,
+    [class*="GlobalHeader_globalHeader"] a:hover {
+      color: @accent !important;
+    }
+
+    #global-header .selected .nav-link,
+    #global-header .selected .nav-link:visited {
+      color: @text !important;
+    }
+
+    #global-header .selected.nav-item {
+      box-shadow: inset 0 -2px 0 0 @accent !important;
+    }
+
+    #global-header .drop-down-menu:hover .nav-link,
+    #global-header .drop-down-menu.active .nav-link,
+    #global-header .drop-down-menu:hover,
+    #global-header .drop-down-menu.active {
+      background-color: @card-bg !important;
+      color: @accent !important;
+      border-color: @surface1 !important;
+    }
+
+    #global-header .drop-down-menu .options,
+    #global-header .nav-group .drop-down-menu .options {
+      background-color: @card-bg !important;
+      border-color: @surface1 !important;
+    }
+
+    #global-header .drop-down-menu .options a,
+    #global-header .drop-down-menu .options .clickable {
+      color: @text !important;
+    }
+
+    #global-header .drop-down-menu .options a:hover,
+    #global-header .drop-down-menu .options .clickable:hover {
+      background-color: @surface0 !important;
+      color: @accent !important;
+    }
+
+    #global-header .nav-group .drop-down-menu.selected .options {
+      border-bottom-color: @accent !important;
+    }
+
+    #global-header .user-menu .options button:hover,
+    #global-header .global-search,
+    #global-header .search-mode .nav-container {
+      background-color: @surface0 !important;
+    }
+
+    #global-header .collapsable-nav .nav-container {
+      background-color: @card-bg !important;
+      border-top-color: @surface1 !important;
+    }
+
+    #global-header .collapsable-nav .nav-item,
+    #global-header .collapsable-nav .nav-object-group {
+      border-top-color: @surface1 !important;
+    }
+
+    #global-header .btn-mobile-menu,
+    #global-header .btn-mobile-menu:hover,
+    #global-header .btn-mobile-menu:focus,
+    #global-header .btn-mobile-menu:active {
+      background-color: @card-bg !important;
+      border-color: @subtext1 !important;
+    }
+
+    #global-header .btn-mobile-menu::before,
+    #global-header .btn-mobile-menu::after {
+      background-color: @subtext1 !important;
+    }
+
+    /* Brand logo */
+    [class*="GlobalHeader_logoGroup"] svg path,
+    #global-header .branding svg path {
+      fill: @accent !important;
+    }
+
+    #global-header .branding img,
+    [class*="GlobalHeader_logoGroup"] img {
+      filter: @accent-filter !important;
+    }
+
+    #global-header .branding {
+      filter: @accent-filter !important;
+    }
+
+    [class*="createButtonBase"],
+    [class*="createButton"] svg {
+      fill: @accent !important;
+    }
+
+    [class*="notificationsCount"] {
+      background-color: @accent !important;
+      color: @on-accent !important;
+    }
+
+    [class*="Search_searchIcon"] svg {
+      fill: @subtext0 !important;
+    }
+
+    [class*="Search_searchIcon"] svg:hover {
+      fill: @text !important;
+    }
+
+    /* Cards, panels and surfaces */
+    .card,
+    .panel,
+    .panel-default,
+    .well,
+    .list-group-item,
+    .feed-entry,
+    .entry,
+    .activity-entry,
+    .media,
+    [class*="Card_card"],
+    [class*="Card_feedEntry"],
+    [class*="FeedEntry_entryContainer"],
+    [class*="EntryBody_entryBody"],
+    [class*="Media_media"],
+    [class*="ActivityEntryBody_activityEntryContainer"] {
+      background-color: @card-bg !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    [class*="Card_card"] {
+      box-shadow: 0 8px 24px fade(@crust, 20%) !important;
+    }
+
+    .card-header,
+    .panel-heading,
+    .panel-footer,
+    .modal-header,
+    .modal-footer,
+    [class*="Card_cardSection"],
+    [class*="Card_cardFooter"] {
+      background-color: @subtle-bg !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .card-body,
+    .panel-body {
+      background-color: transparent !important;
+    }
+
+    [class*="Card_card"] a:not(.btn),
+    [class*="FeedEntry_entryContainer"] a:not(.btn),
+    [class*="ActivityEntryBody"] a:not(.btn) {
+      color: @text !important;
+    }
+
+    [class*="Card_card"] a:not(.btn):hover,
+    [class*="FeedEntry_entryContainer"] a:not(.btn):hover,
+    [class*="ActivityEntryBody"] a:not(.btn):hover {
+      color: @accent !important;
+    }
+
+    /* Feed */
+    [class*="ActivityEntryBody_activityName"],
+    [class*="AthleteName_athleteName"],
+    [class*="AthleteProfile_athleteName"] {
+      color: @text !important;
+    }
+
+    [class*="ActivityEntryBody_statLabel"],
+    [class*="ActivityEntryBody_statSubtext"],
+    [class*="Stat_statLabel"],
+    [class*="Stat_statSubtext"],
+    [class*="AthleteProfile_latestActivityLabel"],
+    [class*="RelativeEffort_textCaption"],
+    [class*="AthleteStreak_sectionLabel"] {
+      color: @subtext0 !important;
+    }
+
+    [class*="ActivityEntryBody_statText"],
+    [class*="Stat_statValue"],
+    [class*="AthleteProfileStat_statValue"] {
+      color: @text !important;
+    }
+
+    [class*="ActivityEntryBody_stat"] {
+      border-color: @surface1 !important;
+    }
+
+    [class*="KudosAndComments_hairline"],
+    [class*="EntryFooter_entryFooter"] {
+      border-color: @surface1 !important;
+    }
+
+    [class*="KudosAndComments_socialButton"],
+    [class*="KudosAndComments_countButton"] {
+      color: @subtext0 !important;
+    }
+
+    [class*="KudosAndComments_socialButton"]:hover,
+    [class*="KudosAndComments_countButton"]:hover {
+      color: @accent !important;
+    }
+
+    [class*="LocationAndTime_subtitleWrapper"],
+    [class*="LocationAndTime_location"],
+    [class*="LocationAndTime_device"],
+    [class*="HeaderWithOwnerMetadata_badgeAndDate"] {
+      color: @subtext0 !important;
+    }
+
+    [class*="AchievementCelebration_achievementCelebration"],
+    [class*="AchievementCelebration_celebrationBadge"] {
+      background-color: @subtle-bg !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    [class*="AchievementCelebration"] p,
+    [class*="AchievementCelebration"] span,
+    [class*="AchievementCelebration"] div {
+      color: @text !important;
+    }
+
+    [class*="achievementsSummary"] {
+      color: @subtext0 !important;
+    }
+
+    [class*="achievementsSummary"] strong {
+      color: @text !important;
+    }
+
+    [class*="NotificationsList_notifications"] {
+      background-color: @card-bg !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    [class*="NotificationsList_notifications"] li + li {
+      border-top-color: @surface1 !important;
+    }
+
+    [class*="NotificationsList_notifications"] li:hover,
+    [class*="NotificationsList_notifications"] a:hover {
+      background-color: @surface0 !important;
+    }
+
+    [class*="NotificationContent_notificationTitle"] {
+      color: @text !important;
+    }
+
+    [class*="NotificationContent_textContainer"] p {
+      color: @subtext1 !important;
+    }
+
+    [class*="NotificationContent_displayDate"] {
+      color: @subtext0 !important;
+    }
+
+    [class*="Notifications_notificationsButton"],
+    [class*="Notifications_navBarButton"] {
+      color: @accent !important;
+    }
+
+    [class*="Notifications_notificationsButton"] svg,
+    [class*="Notifications_navBarButton"] svg {
+      fill: @accent !important;
+      color: @accent !important;
+    }
+
+    [class*="Notifications_navBarButton"]:hover {
+      background-color: @surface0 !important;
+    }
+
+    /* Emotion-generated card class used by the notifications popup. The hash
+       changes between Strava builds, so match it as a substring. */
+    [class*="juEyw"] {
+      background-color: @card-bg !important;
+      color: @text !important;
+    }
+
+    /* Buttons */
+    .btn,
+    .button,
+    button,
+    input[type="submit"],
+    input[type="button"],
+    input[type="reset"],
+    [class*="Button_btn"],
+    [class*="Button--btn"] {
+      background-color: @card-bg !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+      text-shadow: none !important;
+    }
+
+    [class*="Button_icon"],
+    [class*="Button--icon"],
+    [class*="Search_searchIcon"],
+    [class*="Notifications_navBarButton"],
+    [class*="Notifications_notificationsButton"] {
+      background-color: transparent !important;
+      border-color: transparent !important;
+    }
+
+    [class*="Button_icon"]:hover,
+    [class*="Button--icon"]:hover,
+    [class*="Search_searchIcon"]:hover,
+    [class*="Notifications_navBarButton"]:hover {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+    }
+
+    .btn-default,
+    .btn-white,
+    .btn-minimal,
+    .minimal,
+    .button.minimal,
+    .btn-secondary,
+    .btn-outline,
+    .btn-link,
+    [class*="Button_default"],
+    [class*="Button_white"],
+    [class*="Button_secondary"],
+    [class*="Button_text"],
+    [class*="Button_link"] {
+      background-color: @card-bg !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+      box-shadow: none !important;
+    }
+
+    .btn-default:hover,
+    .btn-default:focus,
+    .btn-white:hover,
+    .btn-white:focus,
+    .btn-minimal:hover,
+    .btn-secondary:hover,
+    .btn-outline:hover,
+    [class*="Button_default"]:hover,
+    [class*="Button_white"]:hover,
+    [class*="Button_secondary"]:hover,
+    [class*="Button_text"]:hover {
+      background-color: @surface0 !important;
+      border-color: @surface2 !important;
+      color: @accent !important;
+    }
+
+    .btn-primary,
+    .btn-primary:link,
+    .btn-primary:visited,
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active,
+    .btn-primary.active,
+    .btn-primary.disabled,
+    [class*="Button_primary"],
+    [class*="Button--primary"],
+    [class*="Button_primary"]:hover,
+    [class*="Button_primary"]:focus,
+    [class*="Button_primary"]:active,
+    .tag.selected,
+    .pagination > .active > a,
+    .pagination > .active > span,
+    .switches .selected,
+    .switches .active {
+      background-color: @accent !important;
+      border-color: @accent !important;
+      color: @on-accent !important;
+      text-shadow: none !important;
+      box-shadow: none !important;
+    }
+
+    .btn-primary:hover,
+    [class*="Button_primary"]:hover,
+    .btn-primary:focus,
+    [class*="Button_primary"]:focus {
+      background-color: fade(@accent, 85%) !important;
+      border-color: fade(@accent, 85%) !important;
+      color: @on-accent !important;
+    }
+
+    .btn-danger,
+    .btn-danger:hover {
+      background-color: @red !important;
+      border-color: @red !important;
+      color: @on-accent !important;
+    }
+
+    .btn-success,
+    .btn-success:hover {
+      background-color: @green !important;
+      border-color: @green !important;
+      color: @on-accent !important;
+    }
+
+    .btn-warning,
+    .btn-warning:hover {
+      background-color: @yellow !important;
+      border-color: @yellow !important;
+      color: @crust !important;
+    }
+
+    .btn-info,
+    .btn-info:hover {
+      background-color: @blue !important;
+      border-color: @blue !important;
+      color: @on-accent !important;
+    }
+
+    .btn:disabled,
+    .btn.disabled,
+    [class*="Button_"]:disabled {
+      opacity: 0.5 !important;
+    }
+
+    /* Forms */
+    input,
+    textarea,
+    select,
+    .form-control,
+    .input-group-addon,
+    .uneditable-input,
+    [class*="Input_"],
+    [class*="Select_select"] {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+      box-shadow: none !important;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus,
+    .form-control:focus {
+      border-color: @accent !important;
+      box-shadow: 0 0 0 2px fade(@accent, 25%) !important;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: @subtext0 !important;
+    }
+
+    select option {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    .form-group label,
+    .control-label,
+    .setting-label {
+      color: @subtext0 !important;
+    }
+
+    .setting-value,
+    .setting-row {
+      color: @text !important;
+      border-color: @surface1 !important;
+    }
+
+    .help-block,
+    .text-muted,
+    .muted {
+      color: @subtext0 !important;
+    }
+
+    form.search,
+    .search-form,
+    .responsive-club-search-form {
+      background-color: @subtle-bg !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    /* React Select */
+    div[class^="css-"][class*="-control"] {
+      background-color: @card-bg !important;
+      border-color: @surface1 !important;
+      box-shadow: none !important;
+    }
+
+    div[class^="css-"][class*="-control"] * {
+      color: @text !important;
+    }
+
+    div[class^="css-"][class*="-singleValue"],
+    div[class^="css-"][class*="-placeholder"],
+    div[class^="css-"][class*="-input"] {
+      color: @text !important;
+    }
+
+    div[class^="css-"][class*="-indicatorContainer"],
+    div[class^="css-"][class*="-indicatorSeparator"] {
+      color: @subtext0 !important;
+      background-color: transparent !important;
+    }
+
+    div[class^="css-"][class*="-menu"] {
+      background-color: @card-bg !important;
+      border-color: @surface1 !important;
+    }
+
+    div[class^="css-"][class*="-option"] {
+      background-color: transparent !important;
+      color: @text !important;
+    }
+
+    div[class^="css-"][class*="-option"]:hover,
+    div[class^="css-"][class*="-option--is-focused"] {
+      background-color: @surface0 !important;
+    }
+
+    div[class^="css-"][class*="-option--is-selected"] {
+      background-color: @surface1 !important;
+    }
+
+    /* Tables */
+    table,
+    .table {
+      color: @text !important;
+      border-color: @surface1 !important;
+    }
+
+    .table > thead > tr > th,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > th,
+    table th {
+      background-color: @subtle-bg !important;
+      border-color: @surface1 !important;
+      color: @subtext0 !important;
+    }
+
+    .table > tbody > tr > td,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > td,
+    table td {
+      border-color: @surface1 !important;
+    }
+
+    .table-striped > tbody > tr:nth-of-type(odd),
+    .table-striped > tbody > tr:nth-child(odd) {
+      background-color: @subtle-bg !important;
+    }
+
+    .table-hover > tbody > tr:hover,
+    table.hoverable > tbody > tr:hover {
+      background-color: @surface0 !important;
+    }
+
+    /* Dropdowns, modals, popovers and tooltips */
+    .dropdown-menu,
+    .modal-content,
+    .popover,
+    .tooltip-inner,
+    [class*="Popover_popover"],
+    [class*="Menu_menu"],
+    [class*="Dropdown_menu"],
+    [class*="Modal_modal"] {
+      background-color: @card-bg !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+      box-shadow: 0 8px 24px fade(@crust, 30%) !important;
+    }
+
+    .dropdown-menu > li > a,
+    .dropdown-menu > li > button,
+    .dropdown-menu a,
+    [class*="Menu_menu"] a,
+    [class*="Popover_popover"] a {
+      color: @text !important;
+    }
+
+    .dropdown-menu > li > a:hover,
+    .dropdown-menu > li > a:focus,
+    .dropdown-menu > .active > a,
+    .dropdown-menu > .active > a:hover,
+    [class*="Menu_menu"] a:hover,
+    [class*="Popover_popover"] a:hover {
+      background-color: @surface0 !important;
+      color: @accent !important;
+    }
+
+    .dropdown-menu .divider,
+    .dropdown-menu .divider:hover {
+      background-color: @surface1 !important;
+    }
+
+    .modal-header,
+    .modal-footer {
+      border-color: @surface1 !important;
+    }
+
+    .close,
+    .modal-header .close {
+      color: @text !important;
+      text-shadow: none !important;
+      opacity: 0.7 !important;
+    }
+
+    .close:hover {
+      color: @accent !important;
+      opacity: 1 !important;
+    }
+
+    .tooltip-inner {
+      background-color: @surface2 !important;
+      color: @text !important;
+    }
+
+    .tooltip.top .tooltip-arrow {
+      border-top-color: @surface2 !important;
+    }
+
+    .tooltip.right .tooltip-arrow {
+      border-right-color: @surface2 !important;
+    }
+
+    .tooltip.bottom .tooltip-arrow {
+      border-bottom-color: @surface2 !important;
+    }
+
+    .tooltip.left .tooltip-arrow {
+      border-left-color: @surface2 !important;
+    }
+
+    /* Tabs and pills */
+    .nav-tabs {
+      border-color: @surface1 !important;
+    }
+
+    .tabs {
+      border-color: @surface1 !important;
+    }
+
+    .tabs > li > .tab {
+      background-color: transparent !important;
+      border-color: transparent !important;
+      color: @subtext0 !important;
+    }
+
+    .tabs > li > .tab:hover {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .tabs > li.selected > .tab,
+    .tabs > li[aria-selected="true"] > .tab {
+      background-color: @card-bg !important;
+      border-color: @surface1 @surface1 @card-bg !important;
+      color: @text !important;
+    }
+
+    .nav-tabs > li > a {
+      background-color: transparent !important;
+      border-color: transparent !important;
+      color: @subtext0 !important;
+    }
+
+    .nav-tabs > li > a:hover {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:hover,
+    .nav-tabs > li.active > a:focus {
+      background-color: @card-bg !important;
+      border-color: @surface1 @surface1 @card-bg !important;
+      color: @text !important;
+    }
+
+    .nav-pills > li.active > a,
+    .nav-pills > li.active > a:hover,
+    .nav-pills > li.active > a:focus,
+    [class*="Tabs_tab"][aria-selected="true"],
+    [class*="Tabs_tab"].active {
+      background-color: @accent !important;
+      color: @on-accent !important;
+    }
+
+    [class*="Tabs_tab"] {
+      color: @subtext0 !important;
+    }
+
+    [class*="Tabs_tab"]:hover {
+      color: @text !important;
+    }
+
+    [class*="Tabs_indicator"] {
+      background-color: @accent !important;
+    }
+
+    /* Labels, badges and tags */
+    .label,
+    .badge,
+    .tag,
+    [class*="Tag_tag"],
+    [class*="PillButton"] {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @subtext1 !important;
+    }
+
+    .label-primary,
+    .badge-primary,
+    .label-info,
+    .badge-info {
+      background-color: @blue !important;
+      color: @on-accent !important;
+    }
+
+    .label-success,
+    .badge-success {
+      background-color: @green !important;
+      color: @on-accent !important;
+    }
+
+    .label-warning,
+    .badge-warning {
+      background-color: @yellow !important;
+      color: @crust !important;
+    }
+
+    .label-danger,
+    .badge-danger {
+      background-color: @red !important;
+      color: @on-accent !important;
+    }
+
+    /* Alerts */
+    .alert {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+      text-shadow: none !important;
+    }
+
+    .alert-success {
+      background-color: fade(@green, 15%) !important;
+      border-color: fade(@green, 40%) !important;
+      color: @green !important;
+    }
+
+    .alert-info {
+      background-color: fade(@blue, 15%) !important;
+      border-color: fade(@blue, 40%) !important;
+      color: @blue !important;
+    }
+
+    .alert-warning {
+      background-color: fade(@yellow, 15%) !important;
+      border-color: fade(@yellow, 40%) !important;
+      color: @yellow !important;
+    }
+
+    .alert-danger,
+    .alert-error {
+      background-color: fade(@red, 15%) !important;
+      border-color: fade(@red, 40%) !important;
+      color: @red !important;
+    }
+
+    /* Pagination and progress */
+    .pagination a,
+    .pagination span,
+    .pagination em,
+    .pagination > li > a,
+    .pagination > li > span,
+    .selection {
+      background-color: @card-bg !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .pagination a:hover,
+    .pagination span:hover,
+    .pagination > li > a:hover,
+    .pagination > li > span:hover {
+      background-color: @surface0 !important;
+      border-color: @surface2 !important;
+      color: @accent !important;
+    }
+
+    .pagination > .active > em {
+      background-color: @accent !important;
+      border-color: @accent !important;
+      color: @on-accent !important;
+    }
+
+    .pagination > .disabled > a,
+    .pagination > .disabled > span {
+      background-color: @subtle-bg !important;
+      border-color: @surface1 !important;
+      color: @overlay0 !important;
+    }
+
+    .progress {
+      background-color: @surface0 !important;
+      box-shadow: none !important;
+    }
+
+    .progress-bar {
+      background-color: @accent !important;
+      box-shadow: none !important;
+      color: @on-accent !important;
+    }
+
+    /* Settings */
+    #settings-menu,
+    [class*="Settings_sidebar"],
+    [class*="Settings_nav"] {
+      background-color: @card-bg !important;
+      border-color: @surface1 !important;
+    }
+
+    #settings-menu a,
+    [class*="Settings_nav"] a {
+      background-color: transparent !important;
+      color: @subtext1 !important;
+    }
+
+    #settings-menu a:hover,
+    [class*="Settings_nav"] a:hover {
+      background-color: @surface0 !important;
+      color: @text !important;
+    }
+
+    #settings-menu .selected a,
+    #settings-menu .selected a:hover {
+      background-color: @accent !important;
+      color: @on-accent !important;
+      text-shadow: none !important;
+    }
+
+    /* Profile */
+    [class*="AthleteProfile_athleteProfile"],
+    [class*="AthleteProfile_athleteProfileBody"],
+    [class*="AthleteProfileHeaderMediaGrid"] {
+      background-color: transparent !important;
+      color: @text !important;
+    }
+
+    [class*="Avatar_imgWrapper"],
+    [class*="Avatar--imgWrapper"] {
+      background-color: @surface1 !important;
+    }
+
+    [class*="AvatarGroup_listItem"],
+    [class*="AvatarGroup_avatar"] {
+      border-color: @card-bg !important;
+    }
+
+    [class*="AthleteProfile_latestActivity"],
+    [class*="AthleteProfile_latestActivityLink"],
+    [class*="AthleteStreak_athleteStreak"],
+    [class*="AthleteProgressGoals_athleteProgressGoals"] {
+      background-color: @card-bg !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    [class*="DayBubble_day"] {
+      background-color: @surface0 !important;
+      border-color: @surface1 !important;
+      color: @subtext0 !important;
+    }
+
+    [class*="DayBubble_hasActivity"] {
+      background-color: @accent !important;
+      color: @on-accent !important;
+    }
+
+    #profile-heatmap-upsell {
+      background-color: @subtle-bg !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    /* Training, clubs and challenges */
+    [class*="ChallengeJoin_logo"],
+    [class*="YourChallenges_yourChallenges"],
+    [class*="YourClubs_yourClubs"] {
+      background-color: @card-bg !important;
+      border-color: @surface1 !important;
+    }
+
+    .footer-promos {
+      background-color: @subtle-bg !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    .club,
+    .challenge,
+    .training-plan,
+    [class*="TrainingPlan"] {
+      background-color: @card-bg !important;
+      border-color: @surface1 !important;
+      color: @text !important;
+    }
+
+    /* Charts */
+    .base-chart text,
+    .chart text,
+    #elevation-profile text {
+      fill: @subtext0 !important;
+    }
+
+    .base-chart .domain,
+    .base-chart .grid line,
+    .base-chart .grid path,
+    .chart .domain,
+    .chart .grid line,
+    .chart .grid path {
+      stroke: @surface1 !important;
+    }
+
+    .base-chart .line-chart-curr,
+    .base-chart .line-chart-curr path {
+      stroke: @accent !important;
+      background-color: @accent !important;
+    }
+
+    .base-chart text.avg-watts,
+    .base-chart line.avg-watts {
+      fill: @accent !important;
+      stroke: @accent !important;
+    }
+
+    /* Maps: the static route images need a filter to match the theme.
+       Only apply this to the dark flavors; Latte should keep the original map. */
+    & when not (@flavor = latte) {
+      img[src*="/v6/maps/"],
+      img[src*="sport-image.strava.com/muscle-heatmap/"],
+      .mapboxgl-canvas,
+      [class*="PhotosAndMapImage_activityMap"] img {
+        filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9) !important;
+      }
+    }
+
+    /* Scrollbars */
+    &,
+    * {
+      scrollbar-color: @surface2 @page-bg;
+    }
+
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: @page-bg;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: @surface2;
+      border-color: @page-bg;
+      border-width: 2px;
+      border-style: solid;
+      border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: @overlay1;
+    }
+
+    /* Selection */
+    ::selection {
+      background-color: fade(@accent, 30%) !important;
+      color: @text !important;
+    }
+  }
+}
