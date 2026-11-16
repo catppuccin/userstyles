@@ -1,0 +1,515 @@
+/* ==UserStyle==
+@name Airbnb Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/airbnb
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/airbnb
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/airbnb/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Aairbnb
+@description Soothing pastel theme for Airbnb
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/std/v1.less";
+
+@-moz-document regexp("^https?://([a-z0-9-]+[.])*airbnb[.](com[.]au|com[.]br|com[.]mx|com[.]ar|com[.]co|com[.]pe|com[.]uy|com[.]sg|com[.]tw|com[.]hk|com[.]ph|com[.]my|com[.]tr|com[.]vn|co[.]uk|co[.]nz|co[.]jp|co[.]kr|co[.]in|co[.]id|co[.]th|co[.]za|co[.]il|com|jp|ca|de|fr|es|it|nl|be|at|ch|ie|pt|se|no|dk|fi|pl|ru|cn|hk|gr|ae|cl|co)(/.*)?$") {
+  html [data-color-scheme="light"] {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  html [data-color-scheme="dark"] {
+    #catppuccin(@darkFlavor);
+  }
+
+  html [data-color-scheme="system"] {
+    @media (prefers-color-scheme: light) {
+      #catppuccin(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin(@darkFlavor);
+    }
+  }
+
+  // The palette lives on a `display: contents` wrapper, so the page background
+  // has to be painted on `body`, which cannot inherit its variables.
+  body:has([data-color-scheme="light"]) {
+    @media (prefers-color-scheme: light) {
+      #catppuccin-body(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin-body(@darkFlavor);
+    }
+  }
+
+  body:has([data-color-scheme="dark"]) {
+    #catppuccin-body(@darkFlavor);
+  }
+
+  body:has([data-color-scheme="system"]) {
+    @media (prefers-color-scheme: light) {
+      #catppuccin-body(@lightFlavor);
+    }
+    @media (prefers-color-scheme: dark) {
+      #catppuccin-body(@darkFlavor);
+    }
+  }
+
+  #catppuccin-body(@flavor) {
+    #lib.palette();
+
+    background-color: @base;
+    color: @text;
+  }
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+
+    // Colours that sit on top of photography must stay light, regardless of
+    // whether the active flavor is a light or a dark one.
+    @on-media: if(@flavor = latte, @base, @text);
+    @on-light-media: if(@flavor = latte, @text, @base);
+    @scrim: if(@flavor = latte, @text, @crust);
+    @inverse-screens: if(@flavor = latte, @text, @crust);
+
+    background-color: @base;
+    color: @text;
+
+    // ── Backgrounds ────────────────────────────────────────────────────────
+
+    --palette-bg-primary: @base;
+    --palette-bg-primary-hover: @mantle;
+    --palette-bg-primary-selected: @surface0;
+    --palette-bg-primary-disabled: @surface0;
+    --palette-bg-primary-invalid: fade(@red, 12%);
+    --palette-bg-primary-invalid-hover: fade(@red, 18%);
+    --palette-bg-primary-inverse: @text;
+    --palette-bg-primary-inverse-hover: @subtext0;
+    --palette-bg-primary-inverse-selected: @text;
+    --palette-bg-primary-inverse-disabled: @surface2;
+    --palette-bg-primary-inverse-screens: @inverse-screens;
+    --palette-bg-primary-inverse-error: @red;
+    --palette-bg-primary-inverse-error-hover: darken(@red, 8%);
+    --palette-bg-primary-inverse-invalid: @red;
+    --palette-bg-primary-inverse-invalid-hover: darken(@red, 8%);
+    --palette-bg-primary-core: @accent;
+    --palette-bg-primary-plus: @accent;
+    --palette-bg-primary-luxe: @text;
+    --palette-bg-primary-error: fade(@red, 12%);
+
+    --palette-bg-secondary: @mantle;
+    --palette-bg-secondary-disabled: @mantle;
+    --palette-bg-secondary-core: @accent;
+    --palette-bg-secondary-core-rtl: @accent;
+    --palette-bg-secondary-core-hover: darken(@accent, 8%);
+    --palette-bg-secondary-plus: @accent;
+    --palette-bg-secondary-plus-rtl: @accent;
+    --palette-bg-secondary-plus-hover: darken(@accent, 8%);
+    --palette-bg-secondary-luxe: @accent;
+    --palette-bg-secondary-luxe-rtl: @accent;
+    --palette-bg-secondary-luxe-hover: darken(@accent, 8%);
+
+    --palette-bg-tertiary: @surface0;
+    --palette-bg-tertiary-hover: @surface1;
+    --palette-bg-tertiary-selected: @surface1;
+    --palette-bg-tertiary-disabled: @surface0;
+    --palette-bg-tertiary-core: @accent;
+    --palette-bg-tertiary-legacy: @surface1;
+
+    --palette-bg-quaternary: @crust;
+    --palette-bg-quaternary-hover: @surface0;
+    --palette-bg-quaternary-pressed: @surface0;
+    --palette-bg-quaternary-selected: @surface0;
+    --palette-bg-quaternary-disabled: @mantle;
+
+    --palette-bg-surface-elevated: @mantle;
+    --palette-bg-surface-beige: @mantle;
+    --palette-bg-search-explore: @base;
+    --palette-bg-input: @base;
+    --palette-bg-input-disabled: @surface0;
+    --palette-bg-interactive: @surface0;
+    --palette-bg-interactive-selected: @text;
+    --palette-bg-loading: @surface0;
+    --palette-bg-divider: @surface1;
+    --palette-bg-stepper-disabled: @surface0;
+    --palette-bg-fill-disabled: @surface0;
+    --palette-bg-ai-badge: @mantle;
+    --palette-bg-on-banner-action: @on-media;
+    --palette-bg-brand-secondary: fade(@accent, 15%);
+    --palette-bg-link: @accent;
+    --palette-bg-success: fade(@green, 15%);
+    --palette-bg-success-secondary: fade(@green, 22%);
+    --palette-bg-discount: fade(@green, 15%);
+    --palette-bg-dataviz-progress-green: fade(@green, 25%);
+    --palette-bg-dataviz-progress-red: fade(@red, 25%);
+    --palette-bg-chart-brand: fade(@accent, 20%);
+    --palette-bg-default: @overlay1;
+    --palette-bg-default-disabled: @overlay0;
+    --palette-bg-placeholder: @surface0;
+    --palette-bg-cursor: @text;
+    --palette-bg-tooltip: @text;
+    --palette-bg-tooltip-button: @surface0;
+    --palette-bg-progress-active: @text;
+    --palette-bg-progress-inactive: @surface1;
+    --palette-bg-scrollbar-handle: @overlay0;
+    --palette-bg-scrollbar-handle-active: @overlay1;
+    --palette-bg-slider-track-active: @text;
+    --palette-bg-slider-track-inactive: @surface1;
+    --palette-bg-slider-track-disabled: @surface2;
+    --palette-bg-slider-handle-primary: @base;
+    --palette-bg-handle: @overlay1;
+    --palette-bg-handle-hover: @text;
+    --palette-bg-handle-home-indicator: @text;
+    --palette-bg-passthrough: transparent;
+    --palette-bg-isolated-focused: transparent;
+    --palette-bg-outline-focused: transparent;
+    --palette-bg-material-focused: fade(@base, 0.5%);
+    --palette-bg-pagination-dots-on-media: fade(@on-media, 60%);
+    --palette-bg-pagination-on-media: @on-media;
+
+    --palette-bg-invalid-filled: @red;
+    --palette-bg-invalid-filled-hover: darken(@red, 8%);
+    --palette-bg-invalid-tint-secondary: fade(@red, 22%);
+
+    --palette-bg-beige-primary: @text;
+    --palette-bg-beige-primary-hover: @text;
+    --palette-bg-beige-primary-pressed: @text;
+    --palette-bg-beige-secondary: @surface1;
+    --palette-bg-beige-secondary-hover: @surface2;
+    --palette-bg-beige-secondary-pressed: @surface2;
+    --palette-bg-beige-secondary-loading: @surface1;
+    --palette-bg-beige-disabled: @surface0;
+
+    --palette-bg-avatar-scheme-blue: fade(@blue, 20%);
+    --palette-bg-avatar-scheme-green: fade(@green, 20%);
+    --palette-bg-avatar-scheme-magenta: fade(@pink, 20%);
+    --palette-bg-avatar-scheme-orange: fade(@peach, 20%);
+    --palette-bg-avatar-scheme-purple: fade(@mauve, 20%);
+    --palette-bg-avatar-scheme-rausch: fade(@red, 20%);
+
+    // ── Text ───────────────────────────────────────────────────────────────
+
+    --palette-text-primary: @text;
+    --palette-text-primary-hover: @text;
+    --palette-text-primary-disabled: @overlay0;
+    --palette-text-primary-inverse: @base;
+    --palette-text-primary-core: @accent;
+    --palette-text-primary-invalid: @red;
+    --palette-text-primary-invalid-hover: darken(@red, 8%);
+    --palette-text-primary-error: @red;
+    --palette-text-primary-error-hover: darken(@red, 8%);
+
+    --palette-text-secondary: @subtext0;
+    --palette-text-secondary-disabled: @overlay0;
+    --palette-text-secondary-inverse: @subtext0;
+    --palette-text-secondary-invalid: @red;
+    --palette-text-secondary-invalid-hover: darken(@red, 8%);
+    --palette-text-secondary-error: @red;
+    --palette-text-secondary-error-hover: darken(@red, 8%);
+
+    --palette-text-tertiary: @overlay1;
+    --palette-text-quaternary: @subtext1;
+    --palette-text-focused: @text;
+    --palette-text-fill-disabled: @overlay0;
+    --palette-text-legal: @accent;
+    --palette-text-link-disabled: @overlay0;
+    --palette-text-brand: @accent;
+    --palette-text-brand-selected: @accent;
+    --palette-text-success: @green;
+    --palette-text-success-on-tint: @green;
+    --palette-text-placeholder: @overlay1;
+    --palette-text-number-placeholder: @overlay0;
+    --palette-text-chart-label: @subtext0;
+    --palette-text-on-banner-action: @on-light-media;
+
+    --palette-text-on-brand: @base;
+    --palette-text-on-material: @on-media;
+    --palette-text-material-inverse: @text;
+    --palette-text-material-inverse-disabled: fade(@text, 30%);
+    --palette-text-material-disabled: fade(@text, 25%);
+    --palette-text-material-tooltip: @on-media;
+    --palette-text-tooltip-secondary: @subtext0;
+    --palette-text-on-media: @on-media;
+    --palette-text-media-inverse: @on-light-media;
+
+    --palette-text-beige-primary: @text;
+    --palette-text-beige-secondary: @text;
+    --palette-text-beige-disabled: @overlay0;
+
+    --palette-text-avatar-scheme-blue: @blue;
+    --palette-text-avatar-scheme-green: @green;
+    --palette-text-avatar-scheme-magenta: @pink;
+    --palette-text-avatar-scheme-orange: @peach;
+    --palette-text-avatar-scheme-purple: @mauve;
+    --palette-text-avatar-scheme-rausch: @red;
+
+    // ── Icons ──────────────────────────────────────────────────────────────
+
+    --palette-icon-primary: @text;
+    --palette-icon-primary-hover: @text;
+    --palette-icon-primary-selected: @text;
+    --palette-icon-primary-disabled: @overlay0;
+    --palette-icon-primary-inverse: @base;
+    --palette-icon-primary-inverse-disabled: @overlay0;
+    --palette-icon-primary-invalid: @red;
+    --palette-icon-primary-invalid-hover: darken(@red, 8%);
+    --palette-icon-primary-error: @red;
+    --palette-icon-primary-error-hover: darken(@red, 8%);
+
+    --palette-icon-secondary: @subtext0;
+    --palette-icon-secondary-hover: @text;
+    --palette-icon-secondary-selected: @text;
+    --palette-icon-secondary-disabled: @overlay0;
+    --palette-icon-tertiary: @overlay1;
+    --palette-icon-tertiary-hover: @subtext0;
+    --palette-icon-tertiary-disabled: @overlay0;
+    --palette-icon-disabled: @overlay0;
+
+    --palette-icon-error: @red;
+    --palette-icon-invalid: @red;
+    --palette-icon-warning: @peach;
+    --palette-icon-info: @blue;
+    --palette-icon-location: @blue;
+    --palette-icon-success: @green;
+    --palette-icon-brand: @accent;
+    --palette-icon-core: @accent;
+    --palette-icon-core-selected: @accent;
+
+    --palette-icon-on-brand: @base;
+    --palette-icon-on-material: @on-media;
+    --palette-icon-material-inverse: @text;
+    --palette-icon-material-inverse-disabled: fade(@text, 30%);
+    --palette-icon-material-disabled: fade(@text, 30%);
+    --palette-icon-on-media: @on-media;
+    --palette-icon-badge-fill: fade(@text, 50%);
+
+    --palette-icon-beige-primary: @text;
+    --palette-icon-beige-secondary: @text;
+    --palette-icon-beige-disabled: @overlay0;
+
+    // ── Borders ────────────────────────────────────────────────────────────
+
+    --palette-border-primary: @text;
+    --palette-border-primary-hover: @subtext0;
+    --palette-border-primary-disabled: @surface1;
+    --palette-border-primary-inverse: @base;
+    --palette-border-primary-inverse-hover: @base;
+    --palette-border-primary-inverse-selected: @base;
+    --palette-border-primary-hover-selected: @subtext0;
+
+    --palette-border-secondary: @surface1;
+    --palette-border-secondary-hover: @text;
+    --palette-border-secondary-selected: @text;
+    --palette-border-secondary-disabled: @surface1;
+    --palette-border-secondary-error: @red;
+    --palette-border-secondary-invalid: @red;
+    --palette-border-secondary-outline-hover: @surface2;
+    --palette-border-secondary-outline-pressed: @surface2;
+    --palette-border-secondary-inverse: @subtext0;
+    --palette-border-secondary-legacy: @overlay1;
+
+    --palette-border-tertiary: @surface1;
+    --palette-border-tertiary-hover: @text;
+    --palette-border-tertiary-selected: @text;
+    --palette-border-tertiary-error: @red;
+    --palette-border-tertiary-error-hover: darken(@red, 8%);
+    --palette-border-tertiary-invalid: @red;
+
+    --palette-border-quaternary: @overlay1;
+    --palette-border-quaternary-hover: @text;
+    --palette-border-focus: @accent;
+    --palette-border-brand: @accent;
+    --palette-border-brand-secondary: @accent;
+    --palette-border-invalid: @red;
+    --palette-border-invalid-hover: darken(@red, 8%);
+    --palette-border-on-brand: @base;
+    --palette-border-on-media: @on-media;
+    --palette-border-dataviz-progress-green: @green;
+    --palette-border-dataviz-progress-red: @red;
+    --palette-border-chart-details: @surface1;
+    --palette-border-chart-brand: @accent;
+    --palette-border-input-line-active: @accent;
+
+    // ── Overlays, status, logos and loading ────────────────────────────────
+
+    --palette-overlay-scrim-primary: fade(@scrim, 45%);
+    --palette-overlay-scrim-secondary: fade(@scrim, 30%);
+
+    --palette-status-alert: @red;
+    --palette-status-success: @green;
+    --palette-status-warning: @peach;
+    --palette-status-neutral: @overlay1;
+    --palette-status-brand: @accent;
+
+    --palette-logo-brand: @accent;
+    --palette-logo-inverse: @on-media;
+    --palette-logo-black: @text;
+    --palette-logo-primary: @text;
+    --palette-logo-luxe: @text;
+
+    --palette-loading-primary: @text;
+    --palette-loading-primary-inverse: @base;
+    --palette-loading-secondary: @subtext0;
+    --palette-loading-tertiary: @overlay1;
+    --palette-loading-on-brand: @base;
+    --palette-loading-on-media: @on-media;
+    --palette-loading-material: @text;
+    --palette-loading-material-inverse: @text;
+    --palette-loading-beige-secondary: @text;
+
+    // ── Legacy palette aliases ─────────────────────────────────────────────
+
+    --palette-black: @text;
+    --palette-white: @base;
+    --palette-hof: @text;
+    --palette-faint: @mantle;
+    --palette-bebe: @surface0;
+    --palette-deco: @surface1;
+    --palette-foggy: @overlay1;
+    --palette-bobo: @overlay0;
+    --palette-spruce: @green;
+    --palette-ondo: @peach;
+    --palette-arches: @red;
+    --palette-arches2: @red;
+    --palette-arches12: fade(@red, 12%);
+    --palette-luxe: @text;
+    --palette-plus: @accent;
+    --palette-rausch: @accent;
+    --palette-product-rausch: @accent;
+    --palette-luxe-gradient-linear-gradient: @accent;
+    --palette-luxe-gradient-linear-gradient-rtl: @accent;
+    --palette-luxe-gradient-radial-gradient: darken(@accent, 8%);
+    --palette-plus-gradient-linear-gradient: @accent;
+    --palette-plus-gradient-linear-gradient-rtl: @accent;
+    --palette-plus-gradient-radial-gradient: darken(@accent, 8%);
+    --palette-rausch-gradient-linear-gradient: @accent;
+    --palette-rausch-gradient-linear-gradient-rtl: @accent;
+    --palette-rausch-gradient-radial-gradient: darken(@accent, 8%);
+
+    // ── Primitive scales ───────────────────────────────────────────────────
+    // Airbnb keeps using its raw grey and colour ramps for charts, legacy
+    // components and a few icons. Re-map them onto the Catppuccin ramps.
+
+    --palette-grey0: @base;
+    --palette-grey100: @mantle;
+    --palette-grey200: @surface0;
+    --palette-grey300: @surface1;
+    --palette-grey400: @surface2;
+    --palette-grey500: @overlay0;
+    --palette-grey600: @overlay1;
+    --palette-grey700: @overlay2;
+    --palette-grey800: @subtext0;
+    --palette-grey900: @subtext1;
+    --palette-grey1000: @text;
+    --palette-grey1100: @text;
+
+    --palette-beige100: @mantle;
+    --palette-beige200: @crust;
+    --palette-beige300: @surface0;
+    --palette-beige400: @surface1;
+    --palette-beige500: @surface2;
+    --palette-beige600: @overlay1;
+    --palette-beige700: @overlay1;
+    --palette-beige800: @subtext0;
+    --palette-beige900: @subtext1;
+    --palette-beige1000: @text;
+
+    .hue-scale(red; @red);
+    .hue-scale(green; @green);
+    .hue-scale(blue; @blue);
+    .hue-scale(orange; @peach);
+    .hue-scale(purple; @mauve);
+    .hue-scale(magenta; @pink);
+    .hue-scale(rausch; @accent);
+
+    // ── Materials and elevation ────────────────────────────────────────────
+
+    --material-backgrounds-extra-thin-background-color: fade(@base, 40%);
+    --material-backgrounds-thin-background-color: fade(@base, 50%);
+    --material-backgrounds-regular-background-color: fade(@base, 72%);
+    --material-backgrounds-thick-background-color: fade(@base, 86%);
+    --material-backgrounds-extra-thick-background-color: fade(@base, 93%);
+
+    --elevation-sharp-edge-background: @surface1;
+    --elevation-primary-border: 1px solid @surface1;
+    --elevation-secondary-border: 1px solid @surface1;
+    --elevation-tertiary-border: 1px solid @surface1;
+    --elevation-high-border: 1px solid @surface1;
+    --elevation-elevation0-box-shadow: 0 0 0 1px @surface1 inset;
+    --elevation-brand-glow-box-shadow: 0 2px 2px 0 fade(@accent, 20%);
+
+    // ── Fixes for hard-coded brand colours ─────────────────────────────────
+
+    .dir-ltr.atm_26_lq1x0x,
+    .dir-rtl.atm_26_lq1x0x,
+    .dir-ltr.atm_26_1jvf9e2,
+    .dir-rtl.atm_26_1jvf9e2 {
+      background-color: @accent;
+      background-image: none;
+    }
+
+    .dir.atm_26_8gm8f {
+      background-color: @accent;
+    }
+
+    .atm_1brqemy_1vcb06n {
+      --dls-brand-gradient-accent: @accent;
+    }
+
+    .atm_12miss0_8gm8f {
+      --histogram-bar_fill_active: @accent;
+    }
+
+    .atm_te8jws_1x1clz1 {
+      --reviews-modal-rating-bar-background-color: @surface1;
+    }
+
+    // The host landing page paints a hard-coded white glass layer behind its
+    // header instead of using a palette token.
+    header.c15gdd3h::after {
+      background-color: fade(@base, 90%) !important;
+    }
+
+    // Several landing-page sections hard-code a light background inline and
+    // rely on it for contrast. Re-map those sections onto the active flavor.
+    .atm_26_134j9ac[style*="--section_background-baseline:#"] {
+      --section_background: @base;
+      color: @text;
+
+      :is(h1, h2, h3, h4, h5, h6) {
+        color: @text;
+      }
+    }
+
+    // The Google Maps canvas is painted by a third party and stays light on
+    // its own, so flip it whenever a dark flavor is active.
+    & when not (@flavor = latte) {
+      [data-testid="map/GoogleMap"] {
+        filter: invert(1) hue-rotate(180deg) brightness(0.9);
+      }
+    }
+  }
+
+  .hue-scale(@scale; @scale-color) {
+    --palette-@{scale}100: mix(@scale-color, @base, 12%);
+    --palette-@{scale}200: mix(@scale-color, @base, 20%);
+    --palette-@{scale}300: mix(@scale-color, @base, 30%);
+    --palette-@{scale}400: mix(@scale-color, @base, 42%);
+    --palette-@{scale}500: mix(@scale-color, @base, 58%);
+    --palette-@{scale}600: @scale-color;
+    --palette-@{scale}700: mix(@text, @scale-color, 18%);
+    --palette-@{scale}800: mix(@text, @scale-color, 35%);
+    --palette-@{scale}900: mix(@text, @scale-color, 55%);
+    --palette-@{scale}1000: mix(@text, @scale-color, 75%);
+  }
+}
