@@ -17,7 +17,7 @@
 
 @import "https://userstyles.catppuccin.com/lib/std/v1.less";
 
-@-moz-document regexp("https:\\/\\/www.deepl.com\\/?(.*\\/)translator.*$") {
+@-moz-document domain("www.deepl.com"), domain("auth.deepl.com") {
   :root {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
@@ -31,265 +31,668 @@
     #lib.palette();
     #lib.defaults();
 
-    /* header */
-    .BasePageHeader-module--container--d81cb {
-      background-color: @mantle !important;
+    @hover: fade(@accent, 80%);
+    /* @surface0 and @surface1 are too dark behind text in Latte */
+    @surface-soft: if(@flavor = latte, @mantle, @surface0);
+    @surface-hover: if(@flavor = latte, @crust, @surface1);
+
+    /* Set inline on the root element */
+    color-scheme: if(@flavor = latte, light, dark) !important;
+
+    --dui-color-brand: @accent;
+    --dui-color-white: @base;
+
+    /* Design system: backgrounds */
+    --dui-color-background-app: @base;
+    --dui-color-background-overlay: fade(@crust, 60%);
+    --dui-color-background-surface: @base;
+    --dui-color-background-surface-raised: @surface-soft;
+    --dui-color-background-surface-canvas: @base;
+    --dui-color-background-surface-canvas-secondary: @mantle;
+    --dui-color-background-surface-secondary: @mantle;
+    --dui-color-background-surface-invert: @text;
+    --dui-color-background-surface-neutral: @surface0;
+    --dui-color-background-surface-neutral-hover: @surface-hover;
+    --dui-color-background-surface-neutral-muted: @surface-soft;
+    --dui-color-background-surface-neutral-muted-hover: @surface-hover;
+    --dui-color-background-surface-neutral-muted-pressed: @surface-hover;
+    --dui-color-background-surface-info: @blue;
+    --dui-color-background-surface-info-muted: @mantle;
+    --dui-color-background-surface-success: @green;
+    --dui-color-background-surface-success-muted: @mantle;
+    --dui-color-background-surface-warning: @yellow;
+    --dui-color-background-surface-warning-muted: @mantle;
+    --dui-color-background-surface-danger: @red;
+    --dui-color-background-surface-danger-muted: @mantle;
+    --dui-color-background-action-active: @surface-soft;
+    --dui-color-background-action-brand: @accent;
+    --dui-color-background-action-primary: @accent;
+    --dui-color-background-action-basic: @surface-soft;
+    --dui-color-background-action-basic-hover: @surface-hover;
+    --dui-color-background-action-basic-pressed: @surface-hover;
+    --dui-color-background-action-basic-raised-hover: @surface-hover;
+    --dui-color-background-action-basic-raised-pressed: @surface-hover;
+    --dui-color-background-action-ghost-hover: @surface-hover;
+    --dui-color-background-action-ghost-pressed: @surface-hover;
+    --dui-color-background-action-disabled: @surface-soft;
+    --dui-color-background-action-danger: @red;
+    --dui-color-background-action-danger-hover: @maroon;
+    --dui-color-background-action-danger-pressed: @maroon;
+
+    /* Design system: text */
+    --dui-color-text-default: @text;
+    --dui-color-text-default-invert: @base;
+    --dui-color-text-muted: @subtext1;
+    --dui-color-text-info: @blue;
+    --dui-color-text-info-muted: @blue;
+    --dui-color-text-success: @green;
+    --dui-color-text-success-muted: @green;
+    --dui-color-text-warning: @yellow;
+    --dui-color-text-danger: @red;
+    --dui-color-text-danger-muted: @red;
+    --dui-color-text-action: @text;
+    --dui-color-text-action-basic: @text;
+    --dui-color-text-action-ghost: @text;
+    --dui-color-text-action-active: @accent;
+    --dui-color-text-action-invert: @base;
+    --dui-color-text-action-primary: @base;
+    --dui-color-text-action-disabled: @overlay1;
+    --dui-color-text-link: @accent;
+    --dui-color-text-link-hover: @hover;
+    --dui-color-text-link-pressed: @hover;
+    --dui-color-text-link-disabled: @overlay1;
+    --dui-color-text-black: @text;
+    --dui-color-text-white: @base;
+
+    /* Design system: borders */
+    --dui-color-border-default: @surface1;
+    --dui-color-border-default-invert: @base;
+    --dui-color-border-focus: @accent;
+    --dui-color-border-surface-info: @blue;
+    --dui-color-border-surface-success: @green;
+    --dui-color-border-surface-warning: @yellow;
+    --dui-color-border-surface-danger: @red;
+    --dui-color-border-action-active: @accent;
+    --dui-color-border-action-basic-default: @surface1;
+    --dui-color-border-action-basic-hover: @surface2;
+    --dui-color-border-action-disabled: @surface1;
+    --dui-color-border-action-danger: @red;
+    --dui-color-border-action-success: @green;
+
+    /* Tailwind colours, gray is reversed since the site is light only */
+    --color-white: @base;
+    --color-black: @text;
+    --color-brand: @accent;
+    --color-gray-50: @mantle;
+    --color-gray-100: @surface0;
+    --color-gray-200: @surface1;
+    --color-gray-300: @surface2;
+    --color-gray-400: @overlay0;
+    --color-gray-500: @subtext1;
+    --color-gray-600: @subtext1;
+    --color-gray-700: @subtext1;
+    --color-gray-800: @text;
+    --color-gray-800-hex: @text;
+    --color-gray-900: @text;
+    --color-blue-50: @surface0;
+    --color-blue-200: @surface1;
+    --color-blue-300: @accent;
+    --color-blue-400: @accent;
+    --color-blue-500: @accent;
+    --color-blue-600: @hover;
+    --color-blue-800: @accent;
+    --color-green-500: @green;
+    --color-green-700: @green;
+    --color-red-400: @red;
+    --color-red-500: @red;
+    --color-yellow-700: @yellow;
+    --color-purple-500: @mauve;
+
+    /* Links */
+    --link-color: @accent;
+    --link-hover-color: @hover;
+
+    /* Wrappers redefine these, so set them on the button itself */
+    [data-dui-component="Button"] {
+      --dui-color-background-action-basic: @surface-soft;
+      --dui-color-background-action-basic-hover: @surface-hover;
+      --dui-color-background-action-basic-pressed: @surface-hover;
+      --dui-color-background-action-brand: @accent;
+      --dui-color-border-action-basic-default: @surface1;
+      --dui-color-border-action-basic-hover: @surface2;
+      --dui-color-text-action-basic: @text;
+      --dui-color-text-default-invert: @base;
+
+      .text-gray-500 {
+        color: @text;
+      }
     }
 
-    /* background */
-    body {
-      background-color: @base !important;
-      color: @text !important;
+    /* The track would match the button it sits in */
+    .Switch {
+      --dui-color-background-surface-neutral: @surface1;
+      --dui-color-background-surface-neutral-hover: @surface2;
+      --dui-color-background-surface-neutral-muted: @surface1;
     }
 
-    .bg-neutral-next-50,
-    .bg-white,
-    .contextual-menu-dragging-area,
-    input {
-      background-color: @base !important;
+    /* Coloured text is hard to read on these in Latte */
+    .Alert {
+      --dui-color-text-info: @text;
+      --dui-color-text-success: @text;
+      --dui-color-text-warning: @text;
+      --dui-color-text-danger: @text;
     }
 
-    .pageFooterV2-module--footerOuterContainer--0b055 {
-      background-color: @mantle !important;
+    /* Tailwind utilities are compiled to literal colours */
+    .border,
+    .border-t,
+    .border-b,
+    .border-l,
+    .border-r,
+    .border-default,
+    .border-t-default,
+    .border-b-default,
+    .border-action-basic-default,
+    .border-gray-200,
+    .border-redesign-quartz-gray-300,
+    .border-redesign-quartz-gray-400,
+    .border-redesign-sapphire-blue-100,
+    .border-redesign-sapphire-blue-200,
+    .border-redesign-amethyst-purple-200 {
+      border-color: @surface1;
     }
-
-    .scrollablePopiverListRoot-module--root--588fe {
-      background-color: @base !important;
-    }
-
-    /* text color */
-    h1,
-    h2,
-    h3,
-    h4,
-    p,
-    a,
-    button,
-    span,
-    input,
-    ul,
-    li,
-    .mb-3,
-    .mb-4,
-    .GlossaryModalWithIllustration-module--content--2bf03,
-    .lmt__glossary_editor_glossaryName {
-      color: @text !important;
-    }
-
-    .text-neutral-next-600 {
-      color: @subtext0 !important;
-    }
-
-    /* privacy notice */
-    .cookieBanner-module--container--9baef {
-      background-color: @surface0 !important;
-      color: @text !important;
-    }
-
-    .button-module--button--4f58d.button-module--color_primaryAlt3--cd3cf {
-      border-color: @text !important;
-    }
-
-    /* side menu */
-    .classicSidemenu-module--menuContainer--35157 {
-      background-color: @base !important;
-    }
-
-    /* borders */
-    .border-black {
-      border-color: @surface2 !important;
-    }
-
-    .border-neutral-next-100,
-    .StartFreeTrialButton-module--startFreeTrialButton--bd671 {
-      border-color: @surface0 !important;
-    }
-
-    .divide-y > :not([hidden]) ~ :not([hidden]) {
-      border-color: @base;
-    }
-
-    .TranslatorTab-module--active--0b6ea
-      .TranslatorTab-module--innerLower--8a080 {
-      background-color: @accent !important;
-    }
-
-    .ring-neutral-next-900 {
-      --tw-ring-color: @surface2;
-    }
-
-    .border-neutral-next-900 {
-      border-color: @surface2 !important;
-    }
-
-    input {
-      border-color: @surface0 !important;
-    }
-
-    /* hover */
-    button:hover,
-    .bg-blue-next-500:hover {
-      background-color: @surface1 !important;
-    }
-
-    a:hover {
-      background-color: @mantle !important;
-    }
-
-    .FlyoutMenuButton-module--flyoutMenuButton--97ae6:hover {
-      background-color: @mantle !important;
-    }
-
-    [class*="SourceTranslatorArea-module--focusBorder--"]:has(
-      div[contenteditable="true"]:focus
-    ) {
-      border-color: @accent;
-    }
-
-    [class*="PageHeaderLink-module--pageHeaderLink--"]:not(
-      [class*="PageHeaderLink-module--nohover--"]
-    ):hover {
-      color: @accent;
-      border-color: @accent;
-    }
-
-    .hover\:bg-\[\#B4DAE8\]:hover {
-      background-color: @surface2 !important;
-    }
-
-    /* highlight */
-    .bg-\[\#E1F0F5\] {
-      background-color: @surface1 !important;
-    }
-
-    /* buttons */
-    .TranslatorTab-module--cardButton--4b203,
-    .bg-\[\#EDF8FC\] {
-      background-color: @surface0 !important;
-      border-color: @surface0 !important;
-    }
-
-    .StartFreeTrialButton-module--startFreeTrialButton--bd671,
-    .bg-blue-next-50 {
-      background-color: @surface0 !important;
-    }
-
-    .bg-blue-next-500 {
-      background-color: @surface0;
+    .border-gray-100,
+    .border-b-gray-100,
+    .border-white,
+    .border-redesign-quartz-gray-100 {
       border-color: @surface0;
     }
-
-    .LanguageSelector-module--wrapper--f9f17 {
-      --button-background: @surface0 !important;
-      --button-border-color: @surface0 !important;
-      color: @base !important;
+    .border-redesign-quartz-gray-500,
+    .border-redesign-slate-gray-300,
+    .border-redesign-slate-gray-500,
+    .hover\:border-gray-400:hover {
+      border-color: @overlay0;
+    }
+    .divide-brand > :not(:last-child),
+    .divide-default > :not(:last-child),
+    .divide-gray-50 > :not(:last-child) {
+      border-color: @surface1;
+    }
+    .border-action-active,
+    .border-brand,
+    .border-focus,
+    .border-surface-info,
+    .border-redesign-sapphire-blue-400,
+    .hover\:border-action-active:hover,
+    .hover\:border-redesign-sapphire-blue-400:hover,
+    .focus\:border-redesign-sapphire-blue-400:focus,
+    .focus\:border-redesign-jade-green-400:focus,
+    .focus-within\:border-black:focus-within,
+    .focus-within\:border-focus:focus-within {
+      border-color: @accent;
+    }
+    .border-green-500,
+    .border-surface-success {
+      border-color: @green;
+    }
+    .border-surface-warning {
+      border-color: @yellow;
+    }
+    .border-surface-danger {
+      border-color: @red;
     }
 
-    .CareerBanner-module--container--2ac20 {
-      background-color: @surface0 !important;
+    .bg-app,
+    .bg-surface,
+    .bg-surface-canvas,
+    .bg-action-basic,
+    .bg-white,
+    .bg-redesign-quartz-gray-100 {
+      background-color: @base;
     }
-
-    /* glossary button */
-    .lmt__glossaryButton,
-    .lmt__glossaryButton__desktop:hover,
-    .ModalDialogContent-module--content--5751e {
-      background-color: @surface0 !important;
+    .bg-white\/10,
+    .bg-white\/30,
+    .bg-white\/50,
+    .hover\:bg-white\/50:hover {
+      background-color: fade(@text, 10%);
     }
-
-    .lmt__glossary_acceptButton,
-    .lmt__glossary_editor,
-    .lmt__glossary_editor_subBar_top,
-    .lmt__glossary_editor_subBar_bottom,
-    .lmt__glossary_editor_mainBar,
-    .Select-module--wrapper--53ec7 .Select-module--flyout--c91f3,
-    .lmt_firstEntry-content,
-    .lmt__glossary_newEntry_langButton,
-    .Select-module--wrapper--53ec7,
-    .Select-module--button--f032e {
-      background-color: @surface0 !important;
-      border-color: @surface0 !important;
-    }
-
-    .desktop-glossary-overwrites .lmt__language_select__menu {
-      background-color: @surface0 !important;
-      color: @text !important;
-    }
-
-    .lmt__glossary_newEntry_langDropdown.lmt__language_select__menu
-      button
-      .langName {
-      color: @text !important;
-    }
-
-    /* pro banner */
-    .ProBanner2021-module--wrapper--c7e3d,
-    .p-8 {
-      background: @base !important;
-    }
-
-    /* some button colors */
-    .badge-module--badge--c9ebe.badge-module--proDark--a4d4e {
-      background-color: @green;
-      color: @base !important;
-    }
-
-    .button-module--button--a854e.button-module--color_secondary--f171e {
-      background-color: @peach;
-      border-color: @peach !important;
-      color: @base !important;
-    }
-
-    .button-module--button--a854e.button-module--variant_outline--b937c {
-      background-color: @surface0 !important;
-      border-color: @surface0 !important;
-    }
-
-    .button-module--button--a854e.button-module--color_primary--bfa59 {
-      background-color: @blue !important;
-      border-color: @blue !important;
-      color: @base !important;
-    }
-
-    /* dropdowns */
-    .ProductUpdatesContainer-module--updateContainer--16394,
-    .ProductUpdateFooter-module--updateFooter--b46f0,
-    .LanguageSelector-module--flyout--6bfe6 {
+    [class*="_&]:bg-surface-canvas"] {
       background-color: @base !important;
-      border-color: @surface0 !important;
+    }
+    .bg-surface-canvas-secondary,
+    .bg-surface-secondary,
+    .bg-surface-info-muted,
+    .bg-surface-primary-muted,
+    .bg-surface-success-muted,
+    .bg-surface-warning-muted,
+    .bg-surface-danger-muted,
+    .bg-gray-50,
+    .bg-redesign-quartz-gray-200 {
+      background-color: @mantle;
+    }
+    .bg-brand,
+    .bg-redesign-slate-gray-500 {
+      --color-white: @text;
+      background-color: @crust;
+    }
+    .bg-action-disabled,
+    .bg-chat-bubble-participant,
+    .bg-redesign-quartz-gray-300,
+    .bg-redesign-sapphire-blue-100,
+    .bg-redesign-sapphire-blue-200,
+    .bg-redesign-sapphire-blue-300,
+    .bg-redesign-amethyst-purple-300,
+    .bg-redesign-amethyst-purple-400,
+    .bg-redesign-jade-green-400,
+    .bg-redesign-slate-gray-400\/80,
+    .bg-redesign-amethyst-purple-100,
+    .bg-redesign-amethyst-purple-200,
+    .bg-redesign-jade-green-200,
+    .hover\:bg-surface-canvas-secondary:hover,
+    .hover\:bg-gray-50:hover,
+    .hover\:bg-white:hover,
+    .hover\:bg-surface-primary-muted:hover,
+    .hover\:bg-surface-info-muted:hover,
+    .hover\:bg-redesign-quartz-gray-200:hover {
+      background-color: @surface0;
+    }
+    .bg-surface-raised,
+    .bg-surface-neutral,
+    .bg-surface-neutral-muted,
+    .bg-action-active {
+      background-color: @surface-soft;
+    }
+    .bg-redesign-quartz-gray-400,
+    .hover\:bg-action-active:hover,
+    .aria-selected\:bg-action-active[aria-selected="true"],
+    .hover\:bg-redesign-quartz-gray-300:hover,
+    .hover\:bg-redesign-quartz-gray-400:hover,
+    .hover\:bg-action-basic-hover:hover,
+    .hover\:bg-surface-neutral-muted:hover {
+      background-color: @surface-hover;
     }
 
-    /* allow mic/get extension prompt */
-    .bg-neutral-next-900,
-    .bg-blue-next-800 {
-      background-color: @surface0 !important;
+    /* Coloured blocks */
+    .bg-surface-info {
+      background-color: @blue;
+    }
+    .bg-redesign-sapphire-blue-400,
+    .bg-action-brand {
+      background-color: @accent;
+    }
+    a.bg-redesign-sapphire-blue-400 {
+      background-color: @surface0;
+    }
+    .hover\:bg-redesign-sapphire-blue-200:hover,
+    .hover\:bg-redesign-sapphire-blue-400:hover {
+      background-color: @surface-hover;
+    }
+    .bg-redesign-jade-green-300,
+    .bg-surface-success,
+    .bg-green-500 {
+      background-color: @green;
+    }
+    .bg-redesign-amber-yellow-300,
+    .bg-surface-warning {
+      background-color: @yellow;
+    }
+    .bg-surface-danger {
+      background-color: @red;
+    }
+    .text-default,
+    .text-action,
+    .text-action-basic,
+    .text-black,
+    .text-white,
+    .text-slate-900,
+    .text-gray-800,
+    .text-gray-900,
+    .hover\:text-gray-900:hover,
+    .text-redesign-slate-gray-400,
+    .text-redesign-slate-gray-500,
+    .text-redesign-quartz-gray-100,
+    .hover\:text-white:hover,
+    .hover\:text-redesign-slate-gray-500:hover {
+      color: @text;
+    }
+    .text-muted,
+    .text-gray-300,
+    .text-gray-400,
+    .text-gray-500,
+    .text-gray-600,
+    .text-gray-700,
+    .text-redesign-quartz-gray-400,
+    .text-redesign-quartz-gray-500,
+    .hover\:text-gray-300:hover {
+      color: @subtext1;
+    }
+    .text-brand,
+    .text-blue-600,
+    .text-link,
+    .text-action-active,
+    .text-blue-800,
+    .text-redesign-sapphire-blue-200,
+    .text-redesign-sapphire-blue-300,
+    .text-redesign-sapphire-blue-400,
+    .text-redesign-sapphire-blue-500,
+    .\[\&_a\]\:text-blue-500 a {
+      color: @accent;
+    }
+    .\!text-brand,
+    .\!text-blue-500 {
+      color: @accent !important;
+    }
+    .\!text-redesign-slate-gray-400,
+    .\!text-\[\#F5F5F5\],
+    .hover\:\!text-gray-900:hover {
       color: @text !important;
     }
-
-    /* icons, svgs and images */
-    svg {
-      color: @text !important;
+    .text-gray-50 {
+      color: @base;
+    }
+    .hover\:text-info-muted:hover,
+    .hover\:text-link:hover,
+    .hover\:text-link-hover:hover,
+    .hover\:text-redesign-sapphire-blue-400:hover {
+      color: @hover;
+    }
+    .focus\:text-redesign-jade-green-400:focus {
+      color: @green;
+    }
+    .text-info,
+    .text-info-muted {
+      color: @blue;
+    }
+    .text-success,
+    .text-success-muted,
+    .text-green-600,
+    .text-green-700 {
+      color: @green;
+    }
+    .text-warning,
+    .text-warning-muted {
+      color: @yellow;
+    }
+    .text-danger,
+    .text-danger-muted {
+      color: @red;
     }
 
-    .lmt__glossary_ad_checkmark,
-    .lmt__glossary_arrowDown {
-      border-color: @text !important;
+    /* Text on coloured blocks */
+    .bg-redesign-sapphire-blue-400,
+    .bg-redesign-jade-green-300,
+    .bg-redesign-amber-yellow-300,
+    .bg-surface-info,
+    .bg-surface-success,
+    .bg-surface-warning,
+    .bg-surface-danger {
+      color: @base;
+
+      > * {
+        color: inherit;
+      }
     }
 
-    path,
-    .DeeplLogoText-module--logoText--34a4f,
-    .ProBanner2021-module--lockitem--febe3,
-    .FlyoutMenuButton-module--flyoutMenuButton--97ae6::after,
-    #top-navi-sidemenu-opener,
-    .pageFooterV2-module--socialMediaLinks--71305,
-    .ProBanner2021-module--checkitem--2d8e7,
-    [src*="https://static.deepl.com/img/app_desktop.svg"] {
+    .bg-blue-500 {
+      background-color: @accent;
+      color: @base;
+    }
+    .group:hover {
+      .group-hover\:bg-brand {
+        background-color: @accent;
+      }
+      .group-hover\:text-white {
+        color: @base;
+      }
+    }
+    .bg-green-100 {
+      background-color: fade(@green, 20%);
+    }
+    .hover\:bg-green-200:hover {
+      background-color: fade(@green, 30%);
+    }
+    .active\:bg-redesign-jade-green-300:active,
+    .hover\:active\:bg-green-300:hover:active {
+      background-color: @surface1;
+    }
+    .before\:bg-gray-400::before,
+    .after\:bg-gray-400::after {
+      background-color: @surface1;
+    }
+    [class*="disabled:!text-[rgba(0,0,0,0.25)]"]:is(:disabled, [aria-disabled="true"]) {
+      background-color: @surface-soft !important;
+      color: @overlay1 !important;
+    }
+    [class*="[&[disabled]]:text-muted"][disabled] {
+      color: @subtext0;
+    }
+
+    /* Focus rings */
+    [class*="focus-visible:outline-"]:focus-visible,
+    [class*="focus:outline-redesign-"]:focus {
+      outline-color: @accent;
+    }
+    [class*="focus-visible:shadow-[inset_0_0_0_1px_#0070C9]"]:focus-visible {
+      box-shadow: inset 0 0 0 1px @accent;
+    }
+    [class*="focus-visible:ring-"]:focus-visible,
+    [class*="focus:ring-"]:focus,
+    [class*="[&[data-programmatic-focus]]:ring-"][data-programmatic-focus] {
+      --tw-ring-color: @accent;
+      --tw-ring-offset-color: @base;
+    }
+
+    /* Code samples, highlighted with inline colours */
+    pre span[style] {
+      &[style*="#191919" i] {
+        color: @text !important;
+      }
+      &[style*="#006143" i] {
+        color: @green !important;
+      }
+      &[style*="#5444AC" i] {
+        color: @mauve !important;
+      }
+      &[style*="#493D00" i] {
+        color: @peach !important;
+      }
+      &[style*="#0053A9" i] {
+        color: @blue !important;
+      }
+      &[style*="#6F6F6F" i] {
+        color: @overlay2 !important;
+      }
+    }
+
+    /* Terminal window on the developers page */
+    .bg-\[\#0F2B46\] {
+      background-color: @mantle;
+    }
+    [class*="shadow-[0_24px_60px_-20px_rgba(15,43,70,0.45)]"] {
+      box-shadow: 0 24px 60px -20px fade(@crust, 45%);
+    }
+    .bg-\[\#0d233b\] {
+      background-color: @crust;
+    }
+    .border-\[\#16324e\] {
+      border-color: @surface0;
+    }
+    .border-\[\#2c567c\],
+    .border-\[\#E5E7EA\] {
+      border-color: @surface1;
+    }
+    .hover\:border-\[\#3f6f9c\]:hover {
+      border-color: @surface2;
+    }
+    .bg-\[\#E5E7EA\] {
+      background-color: @surface0;
+    }
+    .bg-\[\#ff5f56\] {
+      background-color: @red;
+    }
+    .bg-\[\#ffbd2e\] {
+      background-color: @yellow;
+    }
+    .bg-\[\#27c93f\] {
+      background-color: @green;
+    }
+    .bg-\[\#7DE8C0\] {
+      background-color: @green;
+    }
+    .border-\[\#7DE8C0\] {
+      border-color: @green;
+    }
+    .hover\:bg-\[\#8ff0cd\]:hover {
+      background-color: fade(@green, 80%);
+    }
+    .hover\:bg-\[\#7DE8C0\]\/10:hover,
+    .hover\:bg-white\/\[0\.08\]:hover {
+      background-color: fade(@text, 10%);
+    }
+    .text-\[\#0A1E33\] {
+      color: @base;
+    }
+    .text-\[\#7DE8C0\],
+    .text-\[\#f0917f\] {
+      color: @green;
+    }
+    .text-\[\#c792ea\] {
+      color: @mauve;
+    }
+    .text-\[\#82aaff\] {
+      color: @blue;
+    }
+    .text-\[\#c7d2e0\] {
+      color: @subtext1;
+    }
+    .text-\[\#a8bccf\] {
+      color: @subtext0;
+    }
+    .text-\[\#8fa5ba\] {
+      color: @overlay2;
+    }
+    .text-\[\#7f9bb5\] {
+      color: @overlay1;
+    }
+    .outline-\[\#E5E5E5\],
+    .md\:outline-\[\#E5E5E5\] {
+      outline-color: @surface1;
+    }
+    [class*="bg-[rgba(171,171,171,0.10)]"] {
+      background-color: fade(@overlay0, 10%);
+    }
+
+    /* Icons with the brand colour hardcoded */
+    svg [fill="#0F2B46" i] {
+      fill: @text;
+    }
+    /* The shadow alone is lost on dark flavours */
+    [class*="_flyoutPanel"] {
+      box-shadow:
+        0 0 0 1px @surface0,
+        0 4px 16px fade(@crust, 50%);
+    }
+
+    /* HubSpot form, Stylus also styles its about:blank frame */
+    .hs-form {
+      label,
+      .hs-richtext {
+        color: @text !important;
+      }
+      a {
+        color: @accent !important;
+      }
+      .hs-input {
+        background-color: @mantle !important;
+        border-color: @surface1 !important;
+        color: @text !important;
+      }
+      .hs-button {
+        background-color: @accent !important;
+        border-color: @accent !important;
+        color: @base !important;
+      }
+    }
+
+    svg [stroke="#0F2B46" i] {
+      stroke: @text;
+    }
+
+    hr {
+      border-color: @surface1;
+    }
+
+    /* AI Labs is dark by design */
+    [class*="_aiLabsPage"] {
+      background-color: @base;
+
+      [style*="--ai-labs-footer-bg"] {
+        --ai-labs-footer-bg: fade(@mantle, 50%) !important;
+        --ai-labs-footer-border: @surface1 !important;
+      }
+      [data-language-selector-id^="ai-labs-footer"] button:first-of-type {
+        border-color: @surface1 !important;
+      }
+
+      .bg-slate-900\/70 {
+        background-color: fade(@base, 70%);
+      }
+      .from-redesign-slate-gray-500 {
+        --tw-gradient-from: @base;
+      }
+      .outline-white {
+        outline-color: @text;
+      }
+      a {
+        color: @text;
+      }
+      img[src*="ai-labs-logo"] {
+        filter: @text-filter;
+      }
+    }
+    .from-white {
+      --tw-gradient-from: @base;
+    }
+
+    input[class*="_input"] {
+      background-color: @base;
+    }
+    /* Form fields where the box around the input already has the field colour */
+    .__container > .__input {
+      background-color: transparent;
+    }
+
+    /* Login page logo, drawn with currentColor */
+    #logo {
+      color: @accent;
+    }
+
+    [class*="_logoText"] {
       filter: @text-filter;
     }
+    [class*="_logoImg"] {
+      @svg: escape(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 54 68"><path fill="@{accent}" d="M.19 17.27v26.81c0 1.4.73 2.67 1.92 3.37l23.06 13.39c1.2.7 2.66.7 3.85 0l23.06-13.39A3.9 3.9 0 0 0 54 44.08V17.27c0-1.39-.73-2.67-1.92-3.36L29.02.52a3.8 3.8 0 0 0-3.85 0L2.11 13.95a3.9 3.9 0 0 0-1.92 3.32M36.7 67.53l-.04-5.8.04-5.34-13.45 3.33"/><path fill="@{base}" d="M17.79 18.47a3.95 3.95 0 0 1 5.54 0 3.9 3.9 0 0 1 0 5.8 3.95 3.95 0 0 1-5.54 0 3.9 3.9 0 0 1 0-5.8m17.3 10.1a3.95 3.95 0 0 1 5.53 0 3.9 3.9 0 0 1 0 5.8 3.95 3.95 0 0 1-5.53 0 3.9 3.9 0 0 1 0-5.8m-17.3 10.68a3.95 3.95 0 0 1 5.54 0 3.9 3.9 0 0 1 0 5.8 3.95 3.95 0 0 1-5.54 0 3.9 3.9 0 0 1 0-5.8m4.69-15.71 11.53 6.7 1.92-1.09-11.53-6.73zm12.3 11.61L24.4 41.18l-1.92-1.12 10.38-6z"/></svg>'
+      );
+      content: url("data:image/svg+xml,@{svg}");
+    }
 
-    .Logo-module--logoImg--1ee7e,
-    .LogoLink-module--logoText--33735,
-    .deeplLogo-module--logo--ffd7a {
-      filter: @blue-filter;
+    /* The logos are an opaque image on white */
+    [class*="logoCloudWrapper"] {
+      &::before {
+        background: linear-gradient(90deg, @base, transparent);
+      }
+      &::after {
+        background: linear-gradient(270deg, @base, transparent);
+      }
+
+      /* The scroller is a stacking context, so blending has to happen here */
+      [class*="_scroller"] {
+        mix-blend-mode: if(@flavor = latte, multiply, screen);
+      }
+      img {
+        filter: if(@flavor = latte, none, invert(1));
+      }
     }
   }
 }
