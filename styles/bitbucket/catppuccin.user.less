@@ -1,0 +1,373 @@
+/* ==UserStyle==
+@name Bitbucket Catppuccin
+@namespace github.com/catppuccin/userstyles/styles/bitbucket
+@homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/bitbucket
+@version 2000.01.01
+@updateURL https://github.com/catppuccin/userstyles/raw/main/styles/bitbucket/catppuccin.user.less
+@supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Abitbucket
+@description Soothing pastel theme for Bitbucket
+@author Catppuccin
+@license MIT
+
+@preprocessor less
+@var select lightFlavor "Light Flavor" ["latte:Latte*", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha"]
+@var select darkFlavor "Dark Flavor" ["latte:Latte", "frappe:Frappé", "macchiato:Macchiato", "mocha:Mocha*"]
+@var select accentColor "Accent" ["rosewater:Rosewater", "flamingo:Flamingo", "pink:Pink", "mauve:Mauve*", "red:Red", "maroon:Maroon", "peach:Peach", "yellow:Yellow", "green:Green", "teal:Teal", "blue:Blue", "sapphire:Sapphire", "sky:Sky", "lavender:Lavender", "subtext0:Gray"]
+==/UserStyle== */
+
+@import "https://userstyles.catppuccin.com/lib/std/v1.less";
+
+@-moz-document domain("bitbucket.org") {
+  /* Theme the root and "subtree" containers (e.g. Pipelines logs); `:root:root` outranks legacy pages. */
+  :root:root[data-color-mode="dark"][data-theme],
+  :root [data-subtree-theme][data-color-mode="dark"][data-theme] {
+    #catppuccin(@darkFlavor);
+  }
+  :root:root[data-color-mode="light"][data-theme],
+  :root [data-subtree-theme][data-color-mode="light"][data-theme] {
+    #catppuccin(@lightFlavor);
+  }
+
+  @import url("https://python.catppuccin.com/pygments/catppuccin-variables.important.css");
+
+  #catppuccin(@flavor) {
+    #lib.palette();
+    #lib.defaults();
+    #lib.css-variables();
+
+    accent-color: @accent;
+
+    @fade-subtlest: 10%;
+    @fade-subtler: 20%;
+    @fade-subtle: 60%;
+    @fade-semantic: 15%;
+    @fade-border: 50%;
+    @fade-step: 10%;
+    @mix-hovered: 85%;
+    @mix-pressed: 70%;
+    @mix-boldest: 55%;
+
+    @accents: {
+      lime: @green;
+      red: @red;
+      orange: @peach;
+      yellow: @yellow;
+      green: @green;
+      teal: @teal;
+      blue: @blue;
+      purple: @mauve;
+      magenta: @pink;
+      gray: @overlay1;
+    };
+
+    @semantics: {
+      danger: @red;
+      warning: @yellow;
+      success: @green;
+      discovery: @mauve;
+      information: @blue;
+    };
+
+    each(@accents, {
+      --ds-background-accent-@{key}-subtlest: fade(@value, @fade-subtlest);
+      --ds-background-accent-@{key}-subtlest-hovered: fade(@value, @fade-subtlest + @fade-step);
+      --ds-background-accent-@{key}-subtlest-pressed: fade(@value, @fade-subtlest + @fade-step * 2);
+      --ds-background-accent-@{key}-subtler: fade(@value, @fade-subtler);
+      --ds-background-accent-@{key}-subtler-hovered: fade(@value, @fade-subtler + @fade-step);
+      --ds-background-accent-@{key}-subtler-pressed: fade(@value, @fade-subtler + @fade-step * 2);
+      --ds-background-accent-@{key}-subtle: fade(@value, @fade-subtle);
+      --ds-background-accent-@{key}-subtle-hovered: fade(@value, @fade-subtle - @fade-step);
+      --ds-background-accent-@{key}-subtle-pressed: fade(@value, @fade-subtle - @fade-step * 2);
+      --ds-background-accent-@{key}-bolder: @value;
+      --ds-background-accent-@{key}-bolder-hovered: mix(@value, @base, @mix-hovered);
+      --ds-background-accent-@{key}-bolder-pressed: mix(@value, @base, @mix-pressed);
+      --ds-border-accent-@{key}: @value;
+      --ds-border-accent-@{key}-subtle: fade(@value, @fade-border);
+      --ds-text-accent-@{key}: @value;
+      --ds-text-accent-@{key}-bolder: @value;
+      --ds-icon-accent-@{key}: @value;
+      --ds-chart-@{key}-bold: @value;
+      --ds-chart-@{key}-bold-hovered: mix(@value, @base, @mix-hovered);
+      --ds-chart-@{key}-bolder: mix(@value, @base, @mix-hovered);
+      --ds-chart-@{key}-bolder-hovered: mix(@value, @base, @mix-pressed);
+      --ds-chart-@{key}-boldest: mix(@value, @base, @mix-pressed);
+      --ds-chart-@{key}-boldest-hovered: mix(@value, @base, @mix-boldest);
+    });
+
+    each(@semantics, {
+      --ds-background-@{key}: fade(@value, @fade-semantic);
+      --ds-background-@{key}-hovered: fade(@value, @fade-semantic + @fade-step);
+      --ds-background-@{key}-pressed: fade(@value, @fade-semantic + @fade-step * 2);
+      --ds-background-@{key}-subtler: fade(@value, @fade-semantic + @fade-step);
+      --ds-background-@{key}-subtler-hovered: fade(@value, @fade-semantic + @fade-step * 2);
+      --ds-background-@{key}-subtler-pressed: fade(@value, @fade-semantic + @fade-step * 3);
+      --ds-background-@{key}-subtle: fade(@value, @fade-border);
+      --ds-background-@{key}-bold: @value;
+      --ds-background-@{key}-bold-hovered: mix(@value, @base, @mix-hovered);
+      --ds-background-@{key}-bold-pressed: mix(@value, @base, @mix-pressed);
+      --ds-border-@{key}: @value;
+      --ds-border-@{key}-subtle: fade(@value, @fade-border);
+      --ds-text-@{key}: @value;
+      --ds-text-@{key}-bolder: @value;
+      --ds-icon-@{key}: @value;
+      --ds-chart-@{key}: @value;
+      --ds-chart-@{key}-hovered: mix(@value, @base, @mix-hovered);
+      --ds-chart-@{key}-bold: mix(@value, @base, @mix-pressed);
+      --ds-chart-@{key}-bold-hovered: mix(@value, @base, @mix-boldest);
+    });
+
+    --ds-text-warning-inverse: @base;
+    --ds-icon-warning-inverse: @base;
+
+    /* Text */
+    --ds-text: @text;
+    --ds-text-subtle: @subtext1;
+    --ds-text-subtlest: @subtext0;
+    --ds-text-disabled: @overlay0;
+    --ds-text-inverse: @base;
+    --ds-text-selected: @accent;
+    --ds-text-brand: @accent;
+
+    /* Icons */
+    --ds-icon: @text;
+    --ds-icon-subtle: @subtext1;
+    --ds-icon-subtlest: @subtext0;
+    --ds-icon-disabled: @overlay0;
+    --ds-icon-inverse: @base;
+    --ds-icon-selected: @accent;
+    --ds-icon-brand: @accent;
+
+    /* Links */
+    --ds-link: @accent;
+    --ds-link-pressed: mix(@accent, @base, 80%);
+    --ds-link-visited: @mauve;
+    --ds-link-visited-pressed: mix(@mauve, @base, 80%);
+
+    /* Borders */
+    --ds-border: @surface0;
+    --ds-border-bold: @overlay0;
+    --ds-border-disabled: @surface0;
+    --ds-border-focused: @accent;
+    --ds-border-input: @surface2;
+    --ds-border-input-search: @surface1;
+    --ds-border-inverse: @base;
+    --ds-border-selected: @accent;
+    --ds-border-brand: @accent;
+    --ds-border-code: @surface0;
+
+    /* Surfaces */
+    --ds-surface: @base;
+    --ds-surface-hovered: @surface0;
+    --ds-surface-pressed: @surface1;
+    --ds-surface-sunken: @mantle;
+    --ds-surface-container: fade(@surface0, 50%);
+    --ds-surface-container-hovered: @surface0;
+    --ds-surface-container-pressed: @surface1;
+    --ds-surface-raised: @mantle;
+    --ds-surface-raised-hovered: @surface0;
+    --ds-surface-raised-pressed: @surface1;
+    --ds-surface-overlay: @mantle;
+    --ds-surface-overlay-hovered: @surface0;
+    --ds-surface-overlay-pressed: @surface1;
+    --ds-elevation-surface-current: @base;
+
+    /* Backgrounds */
+    --ds-background-disabled: fade(@surface0, 50%);
+    --ds-background-input: @mantle;
+    --ds-background-input-hovered: @surface0;
+    --ds-background-input-pressed: @mantle;
+    --ds-background-inverse-subtle: fade(@text, 16%);
+    --ds-background-inverse-subtle-hovered: fade(@text, 24%);
+    --ds-background-inverse-subtle-pressed: fade(@text, 32%);
+    --ds-background-neutral: @surface0;
+    --ds-background-neutral-hovered: @surface1;
+    --ds-background-neutral-pressed: @surface2;
+    --ds-background-neutral-subtle: transparent;
+    --ds-background-neutral-subtle-hovered: @surface0;
+    --ds-background-neutral-subtle-pressed: @surface1;
+    --ds-background-neutral-bold: @text;
+    --ds-background-neutral-bold-hovered: @subtext1;
+    --ds-background-neutral-bold-pressed: @subtext0;
+    --ds-background-selected: fade(@accent, @fade-semantic);
+    --ds-background-selected-hovered: fade(@accent, @fade-semantic + @fade-step);
+    --ds-background-selected-pressed: fade(@accent, @fade-semantic + @fade-step * 2);
+    --ds-background-selected-bold: @accent;
+    --ds-background-selected-bold-hovered: mix(@accent, @base, @mix-hovered);
+    --ds-background-selected-bold-pressed: mix(@accent, @base, @mix-pressed);
+    --ds-background-brand-subtlest: fade(@accent, @fade-semantic);
+    --ds-background-brand-subtlest-hovered: fade(@accent, @fade-semantic + @fade-step);
+    --ds-background-brand-subtlest-pressed: fade(@accent, @fade-semantic + @fade-step * 2);
+    --ds-background-brand-bold: @accent;
+    --ds-background-brand-bold-hovered: mix(@accent, @base, @mix-hovered);
+    --ds-background-brand-bold-pressed: mix(@accent, @base, @mix-pressed);
+    --ds-background-brand-boldest: @crust;
+    --ds-background-brand-boldest-hovered: @mantle;
+    --ds-background-brand-boldest-pressed: @surface0;
+
+    /* Code */
+    --ds-background-code-default: @base;
+    --ds-background-code-gutter: @mantle;
+    --ds-background-code-highlight: @surface0;
+    --ds-background-code-added-line: fade(@green, 15%);
+    --ds-background-code-added-highlight: fade(@green, 30%);
+    --ds-background-code-removed-line: fade(@red, 15%);
+    --ds-background-code-removed-highlight: fade(@red, 30%);
+    --ds-text-code-default: @text;
+    --ds-text-code-gutter: @overlay1;
+    --ds-text-code-comments: @overlay2;
+    --ds-text-code-keywords: @mauve;
+    --ds-text-code-strings: @green;
+    --ds-text-code-numbers: @peach;
+    --ds-text-code-functions: @blue;
+    --ds-text-code-operators: @sky;
+    --ds-text-code-tags: @blue;
+    --ds-text-code-accent-1: @pink;
+    --ds-text-code-accent-2: @yellow;
+
+    /* Bitbucket-specific variables */
+    --bb-background-code: @base;
+    --bb-diff-added: fade(@green, 15%);
+    --bb-diff-removed: fade(@red, 15%);
+    --bb-diff-color-blind-added: fade(@blue, 15%);
+    --bb-diff-color-blind-removed: fade(@yellow, 15%);
+    --ds-text-refreshed: @text;
+    --ds-comment-refreshed: @subtext0;
+
+    /* Interactions & misc */
+    --ds-interaction-hovered: fade(@text, 8%);
+    --ds-interaction-pressed: fade(@text, 16%);
+    --ds-skeleton: @surface0;
+    --ds-skeleton-subtle: fade(@surface0, 50%);
+    --ds-blanket: fade(@crust, 60%);
+    --ds-blanket-selected: fade(@accent, 8%);
+    --ds-blanket-danger: fade(@red, 8%);
+
+    /* Charts */
+    --ds-chart-categorical-1: @blue;
+    --ds-chart-categorical-1-hovered: mix(@blue, @base, @mix-hovered);
+    --ds-chart-categorical-2: @green;
+    --ds-chart-categorical-2-hovered: mix(@green, @base, @mix-hovered);
+    --ds-chart-categorical-3: @mauve;
+    --ds-chart-categorical-3-hovered: mix(@mauve, @base, @mix-hovered);
+    --ds-chart-categorical-4: @peach;
+    --ds-chart-categorical-4-hovered: mix(@peach, @base, @mix-hovered);
+    --ds-chart-categorical-5: @sapphire;
+    --ds-chart-categorical-5-hovered: mix(@sapphire, @base, @mix-hovered);
+    --ds-chart-categorical-6: @pink;
+    --ds-chart-categorical-6-hovered: mix(@pink, @base, @mix-hovered);
+    --ds-chart-categorical-7: @teal;
+    --ds-chart-categorical-7-hovered: mix(@teal, @base, @mix-hovered);
+    --ds-chart-categorical-8: @maroon;
+    --ds-chart-categorical-8-hovered: mix(@maroon, @base, @mix-hovered);
+    --ds-chart-neutral: @overlay1;
+    --ds-chart-neutral-hovered: @overlay0;
+    --ds-chart-brand: @accent;
+    --ds-chart-brand-hovered: mix(@accent, @base, @mix-hovered);
+
+    /* Monaco editor (source file viewer), which also redeclares these on its own containers */
+    &,
+    .monaco-editor,
+    .monaco-diff-editor,
+    .monaco-component {
+      --vscode-editor-background: @base;
+      --vscode-editor-foreground: @text;
+      --vscode-editorGutter-background: @base;
+      --vscode-editorLineNumber-foreground: @overlay1;
+      --vscode-editorLineNumber-activeForeground: @lavender;
+      --vscode-editorCursor-foreground: @rosewater;
+      --vscode-editor-selectionBackground: fade(@overlay2, 25%);
+      --vscode-editor-inactiveSelectionBackground: fade(@overlay2, 15%);
+      --vscode-editor-selectionHighlightBackground: fade(@overlay2, 15%);
+      --vscode-editor-lineHighlightBorder: @surface0;
+      --vscode-editor-rangeHighlightBackground: fade(@overlay2, 10%);
+      --vscode-editor-findMatchBackground: fade(@peach, 30%);
+      --vscode-editor-findMatchHighlightBackground: fade(@sky, 20%);
+      --vscode-editorBracketMatch-background: fade(@overlay2, 10%);
+      --vscode-editorBracketMatch-border: @overlay2;
+      --vscode-editorBracketHighlight-foreground1: @red;
+      --vscode-editorBracketHighlight-foreground2: @peach;
+      --vscode-editorBracketHighlight-foreground3: @yellow;
+      --vscode-editorBracketHighlight-foreground4: @green;
+      --vscode-editorBracketHighlight-foreground5: @sapphire;
+      --vscode-editorBracketHighlight-foreground6: @mauve;
+      --vscode-editorIndentGuide-background1: @surface1;
+      --vscode-editorIndentGuide-activeBackground1: @overlay2;
+      --vscode-editorWhitespace-foreground: fade(@overlay2, 40%);
+      --vscode-editorRuler-foreground: @surface1;
+      --vscode-editorCodeLens-foreground: @overlay1;
+      --vscode-editorLink-activeForeground: @accent;
+      --vscode-editorOverviewRuler-border: transparent;
+      --vscode-editorWidget-background: @mantle;
+      --vscode-editorWidget-border: @surface1;
+      --vscode-editorHoverWidget-background: @mantle;
+      --vscode-editorHoverWidget-border: @surface2;
+      --vscode-editorStickyScroll-background: @base;
+      --vscode-editorStickyScrollHover-background: @surface0;
+      --vscode-editorStickyScroll-shadow: @crust;
+      --vscode-focusBorder: @accent;
+      --vscode-scrollbar-shadow: @crust;
+      --vscode-scrollbarSlider-background: fade(@surface1, 50%);
+      --vscode-scrollbarSlider-hoverBackground: fade(@overlay0, 50%);
+      --vscode-scrollbarSlider-activeBackground: fade(@surface2, 50%);
+      --vscode-widget-shadow: fade(@crust, 50%);
+    }
+
+    .monaco-editor {
+      .current-line-exact,
+      .current-line-exact-margin {
+        border-color: @surface0;
+      }
+    }
+
+    /* Monaco names token colors by their position in the active theme's color map (`.mtkN`),
+       so map Bitbucket's `bitbucket-light` (vs) and `bitbucket-dark` (vs-dark) themes separately. */
+    @monaco-light: 1 text, 3 peach, 5 blue, 6 green, 7 green, 8 green, 9 peach,
+      10 peach, 12 overlay2, 13 peach, 14 mauve, 16 text, 17 red, 18 blue,
+      19 mauve, 20 pink, 21 pink, 22 peach, 23 sky, 27 blue, 28 yellow,
+      29 yellow, 31 text;
+    @monaco-dark: 1 text, 3 peach, 4 blue, 5 blue, 6 green, 7 green, 9 peach,
+      11 overlay2, 12 peach, 13 mauve, 14 overlay2, 15 overlay2, 16 text,
+      17 red, 18 mauve, 19 yellow, 20 pink, 21 peach, 22 sky, 25 pink, 27 blue,
+      28 yellow, 29 yellow, 31 text;
+
+    .monaco-editor.vs {
+      each(@monaco-light, {
+        @token: extract(@value, 1);
+        @color: extract(@value, 2);
+        .mtk@{token} {
+          color: @@color;
+        }
+      });
+    }
+    .monaco-editor.vs-dark {
+      each(@monaco-dark, {
+        @token: extract(@value, 1);
+        @color: extract(@value, 2);
+        .mtk@{token} {
+          color: @@color;
+        }
+      });
+    }
+
+    /* Shadows (mirroring the opacities Atlassian uses in each mode) */
+    & when (@flavor = latte) {
+      --ds-shadow-raised: 0 1px 1px fade(@text, 25%), 0 0 1px fade(@text, 31%);
+      --ds-shadow-overlay:
+        0 8px 12px fade(@text, 15%), 0 0 1px fade(@text, 31%);
+      --ds-shadow-overflow:
+        0 0 8px fade(@text, 16%), 0 0 1px fade(@text, 12%);
+      --ds-shadow-overflow-perimeter: fade(@text, 12%);
+      --ds-shadow-overflow-spread: fade(@text, 16%);
+    }
+    & when not (@flavor = latte) {
+      --ds-shadow-raised: 0 1px 1px fade(@crust, 50%), 0 0 1px fade(@crust, 50%);
+      --ds-shadow-overlay:
+        0 0 0 1px fade(@overlay2, 12%), 0 8px 12px fade(@crust, 36%),
+        0 0 1px 1px fade(@crust, 50%);
+      --ds-shadow-overflow:
+        0 0 12px fade(@crust, 56%), 0 0 1px fade(@crust, 50%);
+      --ds-shadow-overflow-perimeter: fade(@crust, 50%);
+      --ds-shadow-overflow-spread: fade(@crust, 56%);
+    }
+  }
+}
