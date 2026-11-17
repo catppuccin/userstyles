@@ -1,8 +1,9 @@
+import { readFile } from "node:fs/promises";
+
 import * as path from "@std/path";
-// @ts-types="npm:@types/less";
 import less from "less";
 
-import { REPO_ROOT } from "@/constants.ts";
+import { REPO_ROOT } from "#/constants.ts";
 
 const LIB_URL_PREFIX = "https://userstyles.catppuccin.com/lib";
 const LIB_DIRECTORY = path.join(REPO_ROOT, "lib");
@@ -28,7 +29,7 @@ class InterceptingFileManager extends less.FileManager {
 
     let cached = this.#cache.get(localPath);
     if (!cached) {
-      cached = Deno.readTextFile(localPath).catch(() => {
+      cached = readFile(localPath, "utf8").catch(() => {
         throw {
           type: "File",
           message: `${filename} failed: not found at ${localPath}`,

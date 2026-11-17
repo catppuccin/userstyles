@@ -1,11 +1,14 @@
-import type { UserstylesSchema } from "@/types/mod.ts";
-import { REPO_ROOT } from "@/constants.ts";
+import type { UserstylesSchema } from "#/types/mod.ts";
+import { REPO_ROOT } from "#/constants.ts";
+
+import { readFileSync } from "node:fs";
+import { writeFile } from "node:fs/promises";
 
 import * as path from "@std/path";
 import * as yaml from "@std/yaml";
 
 import { type ColorName, flavors } from "@catppuccin/palette";
-import { writeWithPreamble } from "@/generate/utils.ts";
+import { writeWithPreamble } from "#/generate/utils.ts";
 
 /**
  * Macchiato color definitions as hex values.
@@ -39,11 +42,11 @@ export async function syncIssueLabels(userstyles: UserstylesSchema.Userstyles) {
   );
 
   // .github/ISSUE_TEMPLATE/userstyle.yml
-  const userstyleIssueTemplate = Deno.readTextFileSync(path.join(
-    REPO_ROOT,
-    "scripts/generate/templates/userstyle-issue.yml",
-  ));
-  await Deno.writeTextFile(
+  const userstyleIssueTemplate = readFileSync(
+    path.join(REPO_ROOT, "scripts/generate/templates/userstyle-issue.yml"),
+    "utf8",
+  );
+  await writeFile(
     path.join(REPO_ROOT, ".github/ISSUE_TEMPLATE/userstyle.yml"),
     userstyleIssueTemplate.replace(
       `"$LABELS"`,

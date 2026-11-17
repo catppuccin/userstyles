@@ -60,7 +60,7 @@ There are two ways to do this:
 
 Once you have obtained the SVG contents, paste them in between the single quotes of `escape('')` in the following template:
 
-<!-- deno-fmt-ignore -->
+<!-- dprint-ignore -->
 ```less
 .xyz {
   @svg: escape('');

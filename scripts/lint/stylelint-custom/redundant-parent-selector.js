@@ -11,6 +11,8 @@ const {
 const ruleName = "catppuccin/no-redundant-parent-selector";
 
 const meta = {
+  url:
+    "https://github.com/catppuccin/userstyles/blob/main/scripts/lint/stylelint-custom/redundant-parent-selector.js",
   fixable: true,
 };
 
@@ -18,7 +20,7 @@ const messages = ruleMessages(ruleName, {
   rejected: () => `Redundant parent selector is not allowed`,
 });
 
-/** @type {import('npm:stylelint').Rule} */
+/** @type {import('stylelint').Rule} */
 const ruleFunction = (primary, _secondary, context) => {
   return (root, result) => {
     const validOptions = validateOptions(result, ruleName, {

@@ -1,4 +1,4 @@
-// deno-fmt-ignore-file
+// dprint-ignore-file
 
 /**
  * The name of the userstyle.

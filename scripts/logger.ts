@@ -2,6 +2,9 @@ import { sprintf } from "@std/fmt/printf";
 import * as color from "@std/fmt/colors";
 import core from "@actions/core";
 
+// `@std/fmt/colors` only reads `NO_COLOR` via `Deno.noColor`.
+color.setColorEnabled(!process.env.NO_COLOR);
+
 export type LoggerProps = core.AnnotationProperties & {
   file: string;
   content?: string;
@@ -84,7 +87,7 @@ export const log = {
     severity: "error" | "warning",
   ) {
     if (severity === "error") this.failed = true;
-    if (Deno.env.has("CI")) {
+    if ("CI" in process.env) {
       switch (severity) {
         case "error":
           core.error(message, props);
