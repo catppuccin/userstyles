@@ -34,7 +34,9 @@
 
     --bg: @base;
     --fg: @text;
+    --c10: @subtext0;
     --c30: @subtext1;
+    --c35: @subtext0;
     --c40: @overlay0;
     --c45: @surface2;
     --c50: @subtext0;
@@ -53,6 +55,17 @@
     --accent-1: @accent;
     --accent-2: @accent;
     --accent-3: fade(@accent, 25%);
+    --zebra: @mantle;
+    /* Needs to be set again, after setting variables, due to synchronity. */
+    --border: 1px solid var(--c80);
+    --counter-fg: var(--c75);
+    --hover: var(--accent-1);
+    --hover-icon: var(--c10);
+    --hover-disabled: var(--c40);
+
+    #message-box.note.hotkeys * {
+      border-color: var(--c80) !important;
+    }
 
     .slider {
       --color-on: fade(@accent, 25%);
@@ -175,26 +188,88 @@
         color: @blue;
       }
     }
+
+    .CodeMirror-linewidget .applies-to {
+      background-color: @mantle;
+
+      &::before {
+        background-color: @mantle;
+      }
+
+      input,
+      select {
+        background: @base;
+        border-color: @surface0;
+        color: @subtext0;
+      }
+    }
+
+    .find-open .cm-searching {
+      color: @base;
+      background-color: @accent;
+
+      &.search-target-match {
+        background-color: darken(@accent, 15%) !important;
+      }
+    }
+
+    button {
+      color: @text !important;
+      background: @mantle !important;
+      border-color: @surface0;
+      &:hover {
+        background-color: @surface0 !important;
+        border-color: @text;
+      }
+    }
+
     button:disabled,
     select:disabled,
     option:disabled,
     select[disabled] > option {
       color: @subtext0;
     }
-    .applies-to input,
-    .applies-to select {
-      background: @base;
-      border-color: @surface0;
-      color: @subtext0;
+
+    i:hover, button:hover i, input:hover, select:hover {
+      color: var(--accent-1) !important;
     }
-    button {
-      color: @text !important;
-      background: @mantle !important;
-      border-color: @surface0;
-      &:hover {
-        border-color: @text;
+
+    .csp-problem-indicator, .regexp-problem-indicator {
+      background-color: fade(@red, 30%) !important;
+    }
+
+    .target b::after {
+      color: @base !important;
+      background-color: @subtext0 !important;
+    }
+
+    #search-replace-dialog {
+      [data-type="main"] {
+        background-color: @surface0;
+      }
+
+      [data-type="status"] {
+        color: @subtext0;
+        background-color: @surface1;
+      }
+
+      [data-type="replace"] button:hover i,
+      i:hover,
+      [data-type="actions"] :hover {
+        color: var(--accent-1);
       }
     }
+
+    #disableAll-label {
+      &:hover {
+        background-color: fade(@accent, 30%);
+      }
+
+      #disableAll {
+        --color-off: @surface0;
+      }
+    }
+
     #save-button[disabled] {
       background: @surface0 !important;
     }
@@ -221,6 +296,10 @@
     h2 {
       color: @accent !important;
     }
+    #installed .entry.updatable.usercss:hover {
+      color: @text !important;
+      background-color: @surface0 !important;
+    }
     .installed .configure-usercss {
       i {
         color: @accent;
@@ -234,15 +313,37 @@
     #live-reload-install-hint {
       color: @teal;
     }
-    #menu.delete {
+
+    #menu {
       header {
-        background: fade(@red, 25%);
+        background-color: @red !important;
+
+        &, i {
+          color: @base;
+        }
+      }
+
+      &.enabled header {
+        background-color: @green !important;
+      }
+
+      .delete {
+        header {
+          background: fade(@red, 25%);
+
+          &, i {
+            color: @base;
+          }
+        }
       }
 
       > div,
       [data-cmd="delete"] {
         border-color: @red;
       }
+    }
+    .frame-url::before {
+      color: @subtext0 !important;
     }
     .entry.odd {
       background-color: fade(@surface0, 25%);
