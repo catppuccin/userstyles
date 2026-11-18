@@ -18,8 +18,6 @@
 @import "https://userstyles.catppuccin.com/lib/std/v1.less";
 
 @-moz-document domain("ollama.com") {
-  @import url("https://unpkg.com/@catppuccin/highlightjs@1.0.0/css/catppuccin-variables.css");
-
   :root {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
@@ -32,7 +30,6 @@
   #catppuccin(@flavor) {
     #lib.palette();
     #lib.defaults();
-    #lib.css-variables();
 
     background-color: @base;
     color: @text;
@@ -53,63 +50,70 @@
     --color-hover: @surface0;
     --color-press: @surface1;
 
-    /* Llama logos */
-    img[src="/public/ollama.png"],
-    img[src="/public/shades.png"],
-    img[src="/public/glasses.png"] {
+    /* Tailwind palette. Every color utility reads these, including opacity
+       variants such as `bg-black/5` and `text-black/60`. */
+    --color-white: @base;
+    --color-black: @text;
+    --color-neutral-50: @mantle;
+    --color-neutral-100: @surface0;
+    --color-neutral-200: @surface1;
+    --color-neutral-300: @overlay0;
+    --color-neutral-400: @overlay1;
+    --color-neutral-500: @subtext0;
+    --color-neutral-600: @subtext0;
+    --color-neutral-700: @subtext1;
+    --color-neutral-800: @subtext1;
+    --color-neutral-900: @text;
+    --color-neutral-950: @text;
+    --color-gray-200: @surface1;
+    --color-gray-400: @overlay1;
+    --color-gray-500: @subtext0;
+    --color-gray-600: @subtext1;
+    --color-gray-900: @text;
+    --color-slate-50: @mantle;
+    --color-slate-100: @surface0;
+    --color-red-50: fade(@red, 10%);
+    --color-red-200: fade(@red, 30%);
+    --color-red-300: fade(@red, 50%);
+    --color-red-400: @red;
+    --color-red-500: @red;
+    --color-red-600: @red;
+    --color-red-700: @red;
+    --color-green-100: fade(@green, 15%);
+    --color-green-500: @green;
+    --color-green-600: @green;
+    --color-green-700: @green;
+    --color-emerald-50: fade(@green, 10%);
+    --color-emerald-600: @green;
+    --color-cyan-50: fade(@sky, 10%);
+    --color-cyan-500: @sky;
+    --color-blue-200: fade(@accent, 30%);
+    --color-blue-300: @accent;
+    --color-blue-400: @accent;
+    --color-blue-500: @accent;
+    --color-blue-600: @accent;
+    // model capability pills (`bg-indigo-50 text-indigo-600`)
+    --color-indigo-50: @accent;
+    --color-indigo-600: @crust;
+
+    /* Llama logo and the customer logos on the home page */
+    img[src="/public/ollama-nav.png"],
+    img[src^="/public/logos/"] {
       filter: @text-filter;
     }
 
-    code,
-    pre {
-      background-color: @mantle;
-      color: @text !important;
+    /* Size pills on model pages; the color is hardcoded. */
+    .bg-\[\#ddf4ff\] {
+      background-color: fade(@accent, 10%);
     }
 
-    input,
-    textarea {
-      background-color: @mantle;
+    /* `--color-ink` is light in dark flavors, so flip the text on ink backgrounds. */
+    .bg-ink,
+    .has-\[\:checked\]\:bg-ink:has(:checked) {
+      color: @base;
     }
 
-    main,
-    section,
-    strong,
-    h3,
-    ul,
-    button,
-    li,
-    li::marker {
-      color: @text;
-    }
-    blockquote {
-      color: @subtext0;
-    }
-
-    #query,
-    #filter,
-    #search {
-      background-color: @mantle;
-      color: @text;
-    }
-    #readme,
-    #display,
-    #file-explorer {
-      color: @text;
-    }
-
-    .command {
-      color: @text;
-    }
-    .truncate {
-      color: @text;
-    }
-
-    /* Tailwind */
-
-    * {
-      border-color: @surface1;
-    }
-
+    /* Blog posts and model readmes */
     .prose {
       --tw-prose-body: @text;
       --tw-prose-headings: @text;
@@ -128,137 +132,6 @@
       --tw-prose-pre-bg: @mantle;
       --tw-prose-th-borders: @surface1;
       --tw-prose-td-borders: @surface0;
-    }
-
-    .text-white,
-    .text-black {
-      color: @text;
-    }
-    .text-gray-900 {
-      color: @subtext1;
-    }
-    .text-green-500,
-    .text-emerald-500,
-    .text-green-700 {
-      color: @green;
-    }
-    .text-yellow-900 {
-      color: @yellow;
-    }
-    .text-neutral-300,
-    .text-neutral-400,
-    .text-neutral-500 {
-      color: @subtext0;
-    }
-    .text-neutral-700,
-    .text-neutral-800,
-    .text-neutral-900 {
-      color: @subtext1 !important;
-    }
-    .text-red-500 {
-      color: @red;
-    }
-    .text-blue-500,
-    .text-blue-600 {
-      color: @accent;
-    }
-    /* Models page, color for non-weight pills/tags. Background color is solid from `.bg-indigo-50`. */
-    .text-indigo-600 {
-      color: @crust;
-    }
-    /* Cloud model pills. */
-    .bg-cyan-50 {
-      background-color: fade(@sky, 10%);
-    }
-    .text-cyan-500 {
-      color: @sky;
-    }
-    /* Opacity variants such as `text-black/60`. */
-    [class^="text-black/"],
-    [class*=" text-black/"] {
-      color: @subtext0;
-    }
-    .hover\:text-black:hover,
-    .aria-selected\:text-black[aria-selected="true"] {
-      color: @text;
-    }
-    /* OS picker on /download. */
-    .aria-selected\:bg-white[aria-selected="true"] {
-      background-color: @surface1;
-    }
-    /* `--color-ink` is light in dark flavors, so flip the text on ink backgrounds. */
-    .bg-ink,
-    .has-\[\:checked\]\:bg-ink:has(:checked) {
-      color: @base;
-    }
-
-    .bg-neutral-100 pre,
-    .bg-neutral-100 .command {
-      background-color: unset !important;
-    }
-    .bg-white {
-      background-color: @mantle;
-    }
-    .bg-black,
-    .hover\:bg-black:hover {
-      background-color: @surface0 !important;
-    }
-    .bg-neutral-50 {
-      background-color: @surface0;
-    }
-    .bg-neutral-100,
-    .hover\:bg-neutral-100:hover {
-      background-color: @surface2 !important;
-    }
-    .bg-neutral-700,
-    .bg-neutral-800 {
-      background-color: @surface1;
-    }
-    .bg-green-50 {
-      background-color: fade(@green, 10%);
-    }
-    .bg-yellow-50 {
-      background-color: fade(@yellow, 10%);
-    }
-    .bg-indigo-50 {
-      background-color: @accent;
-    }
-    .bg-\[\#ddf4ff\] {
-      background-color: fade(@accent, 10%);
-    }
-
-    .border {
-      border-color: @accent;
-    }
-    .border-neutral-200,
-    .border-neutral-300,
-    .divide-gray-200 > :not([hidden]) ~ :not([hidden]),
-    .divide-neutral-200 > :not([hidden]) ~ :not([hidden]) {
-      border-color: @surface1;
-    }
-    .focus\:border-blue-400:focus {
-      border-color: @accent;
-    }
-    .focus\:border-red-400:focus {
-      border-color: @red;
-    }
-
-    .ring-neutral-300 {
-      --tw-ring-color: @surface1 !important;
-    }
-    .ring-green-600\/20 {
-      --tw-ring-color: @green;
-    }
-    .ring-yellow-600\/20 {
-      --tw-ring-color: @yellow;
-    }
-    select:focus,
-    .ring-blue-300,
-    .focus\:ring-blue-300:focus {
-      --tw-ring-color: rgba(#lib.rgbify(@accent)[], var(--tw-ring-opacity));
-    }
-    .focus\:ring-red-300:focus {
-      --tw-ring-color: rgba(#lib.rgbify(@red)[], var(--tw-ring-opacity));
     }
 
     /* Prism code blocks on blog posts (default light Prism theme). */
