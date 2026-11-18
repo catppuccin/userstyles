@@ -2,7 +2,7 @@
 @name DeepL Catppuccin
 @namespace github.com/catppuccin/userstyles/styles/deepl
 @homepageURL https://github.com/catppuccin/userstyles/tree/main/styles/deepl
-@version 2026.11.16
+@version 2026.11.16.1
 @updateURL https://github.com/catppuccin/userstyles/raw/main/styles/deepl/catppuccin.user.less
 @supportURL https://github.com/catppuccin/userstyles/issues?q=is%3Aopen+is%3Aissue+label%3Adeepl
 @description Soothing pastel theme for DeepL
@@ -53,9 +53,12 @@
     --dui-color-background-surface-invert: @text;
     --dui-color-background-surface-neutral: @surface0;
     --dui-color-background-surface-neutral-hover: @surface-hover;
+    --dui-color-background-surface-neutral-pressed: @surface-hover;
     --dui-color-background-surface-neutral-muted: @surface-soft;
     --dui-color-background-surface-neutral-muted-hover: @surface-hover;
     --dui-color-background-surface-neutral-muted-pressed: @surface-hover;
+    --dui-color-background-surface-primary: @accent;
+    --dui-color-background-surface-primary-muted: @surface-soft;
     --dui-color-background-surface-info: @blue;
     --dui-color-background-surface-info-muted: @mantle;
     --dui-color-background-surface-success: @green;
@@ -64,9 +67,13 @@
     --dui-color-background-surface-warning-muted: @mantle;
     --dui-color-background-surface-danger: @red;
     --dui-color-background-surface-danger-muted: @mantle;
+    --dui-color-background-action: @base;
     --dui-color-background-action-active: @surface-soft;
+    --dui-color-background-action-active-alternative: @surface-soft;
     --dui-color-background-action-brand: @accent;
     --dui-color-background-action-primary: @accent;
+    --dui-color-background-action-primary-hover: @hover;
+    --dui-color-background-action-primary-pressed: @hover;
     --dui-color-background-action-basic: @surface-soft;
     --dui-color-background-action-basic-hover: @surface-hover;
     --dui-color-background-action-basic-pressed: @surface-hover;
@@ -88,12 +95,16 @@
     --dui-color-text-success: @green;
     --dui-color-text-success-muted: @green;
     --dui-color-text-warning: @yellow;
+    --dui-color-text-warning-muted: @yellow;
+    --dui-color-text-brand: @accent;
     --dui-color-text-danger: @red;
     --dui-color-text-danger-muted: @red;
     --dui-color-text-action: @text;
     --dui-color-text-action-basic: @text;
     --dui-color-text-action-ghost: @text;
     --dui-color-text-action-active: @accent;
+    --dui-color-text-action-active-alternative: @accent;
+    --dui-color-text-action-danger: @base;
     --dui-color-text-action-invert: @base;
     --dui-color-text-action-primary: @base;
     --dui-color-text-action-disabled: @overlay1;
@@ -113,8 +124,13 @@
     --dui-color-border-surface-warning: @yellow;
     --dui-color-border-surface-danger: @red;
     --dui-color-border-action-active: @accent;
+    --dui-color-border-action-active-alternative: @accent;
     --dui-color-border-action-basic-default: @surface1;
     --dui-color-border-action-basic-hover: @surface2;
+    --dui-color-border-action-basic-active: @accent;
+    --dui-color-border-action-basic-pressed: @surface2;
+    --dui-color-border-action-secondary-default: @surface1;
+    --dui-color-border-action-secondary-hover: @surface2;
     --dui-color-border-action-disabled: @surface1;
     --dui-color-border-action-danger: @red;
     --dui-color-border-action-success: @green;
@@ -181,6 +197,181 @@
       --dui-color-text-success: @text;
       --dui-color-text-warning: @text;
       --dui-color-text-danger: @text;
+    }
+
+    /* State variants of the utilities (hover:, focus:, active:, group-hover:
+       and so on) are compiled to literal colours too. These match them by
+       name, and the rules further down still win for the classes they list */
+    #states(@pre; @v; @post) {
+      @{pre}[class*="@{v}:bg-gray-"]@{post},
+      @{pre}[class*="@{v}:bg-white"]@{post},
+      @{pre}[class*="@{v}:bg-[#fff]"]@{post},
+      @{pre}[class*="@{v}:bg-black"]@{post},
+      @{pre}[class*="@{v}:bg-surface"]@{post},
+      @{pre}[class*="@{v}:bg-action-basic"]@{post},
+      @{pre}[class*="@{v}:bg-action-ghost"]@{post},
+      @{pre}[class*="@{v}:bg-redesign-quartz-gray"]@{post} {
+        background-color: @surface-hover;
+      }
+      @{pre}[class*="@{v}:!bg-"]@{post} {
+        background-color: @surface-hover !important;
+      }
+      @{pre}[class*="@{v}:bg-white/"]@{post},
+      @{pre}[class*="@{v}:bg-[rgba(255,255,255"]@{post} {
+        background-color: fade(@text, 10%);
+      }
+      @{pre}[class*="@{v}:outline-[rgba(255,255,255"]@{post} {
+        outline-color: fade(@text, 10%);
+      }
+      @{pre}[class*="@{v}:bg-blue-"]@{post},
+      @{pre}[class*="@{v}:bg-brand"]@{post},
+      @{pre}[class*="@{v}:bg-action-primary"]@{post},
+      @{pre}[class*="@{v}:bg-surface-info"]@{post} {
+        background-color: @hover;
+      }
+      @{pre}[class*="@{v}:bg-blue-50 "]@{post},
+      @{pre}[class$="@{v}:bg-blue-50"]@{post},
+      @{pre}[class*="@{v}:bg-blue-100"]@{post},
+      @{pre}[class*="@{v}:bg-blue-200"]@{post},
+      @{pre}[class*="@{v}:bg-surface-info-muted"]@{post},
+      @{pre}[class*="@{v}:bg-action-active"]@{post} {
+        background-color: fade(@accent, 15%);
+      }
+      @{pre}[class*="@{v}:bg-blue-50!"]@{post} {
+        background-color: fade(@accent, 15%) !important;
+      }
+      @{pre}[class*="@{v}:bg-red-"]@{post},
+      @{pre}[class*="@{v}:bg-action-danger"]@{post} {
+        background-color: @maroon;
+      }
+      @{pre}[class*="@{v}:bg-red-50 "]@{post},
+      @{pre}[class$="@{v}:bg-red-50"]@{post},
+      @{pre}[class*="@{v}:bg-red-100"]@{post} {
+        background-color: fade(@red, 15%);
+      }
+      @{pre}[class*="@{v}:bg-green-"]@{post},
+      @{pre}[class*="@{v}:bg-[#7DE8C0]"]@{post} {
+        background-color: fade(@green, 20%);
+      }
+      @{pre}[class*="@{v}:bg-[rgba(255,200,87"]@{post} {
+        background-color: fade(@yellow, 30%);
+      }
+
+      @{pre}[class*="@{v}:text-default"]@{post},
+      @{pre}[class*="@{v}:text-gray-"]@{post},
+      @{pre}[class*="@{v}:text-white"]@{post} {
+        color: @text;
+      }
+      @{pre}[class*="@{v}:text-blue-"]@{post},
+      @{pre}[class*="@{v}:text-link"]@{post},
+      @{pre}[class*="@{v}:text-action-active"]@{post} {
+        color: @hover;
+      }
+      @{pre}[class*="@{v}:!text-link"]@{post} {
+        color: @hover !important;
+      }
+      @{pre}[class*="@{v}:text-red-"]@{post} {
+        color: @maroon;
+      }
+
+      @{pre}[class*="@{v}:border-gray-"]@{post},
+      @{pre}[class*="@{v}:border-black"]@{post},
+      @{pre}[class*="@{v}:outline-gray-"]@{post} {
+        border-color: @surface2;
+        outline-color: @surface2;
+      }
+      @{pre}[class*="@{v}:border-blue-"]@{post},
+      @{pre}[class*="@{v}:border-brand"]@{post},
+      @{pre}[class*="@{v}:border-action-active"]@{post},
+      @{pre}[class*="@{v}:border-redesign-sapphire"]@{post},
+      @{pre}[class*="@{v}:border-[#7DE8C0]"]@{post} {
+        border-color: @accent;
+      }
+      @{pre}[class*="@{v}:border-red-"]@{post},
+      @{pre}[class*="@{v}:outline-red-"]@{post} {
+        border-color: @red;
+        outline-color: @red;
+      }
+    }
+    #states(~""; hover; ~":hover");
+    #states(~""; focus; ~":focus");
+    #states(~""; focus-within; ~":focus-within");
+    #states(~""; focus-visible; ~":focus-visible");
+    #states(~""; active; ~":active");
+    #states(~".group:hover "; group-hover; ~"");
+    .group:focus-within [class*="group-focus-within:bg-"],
+    .group:focus-visible [class*="group-focus-visible:bg-"] {
+      background-color: @surface-hover;
+    }
+
+    /* Checked, selected and open states */
+    [class*="checked]:bg-blue-"][data-state="checked"] {
+      background-color: @accent;
+    }
+    [class*="checked]:bg-red-"][data-state="checked"] {
+      background-color: @red;
+    }
+    [class*="checked']:bg-gray-"][data-state="checked"],
+    [class*="[state=open]:bg-action-ghost"][data-state="open"] {
+      background-color: @surface-hover;
+    }
+    [class*="checked]:border-blue-"][data-state="checked"],
+    [class*="checked])]:border-blue-"]:has([data-state="checked"]),
+    .group[data-state="checked"] [class*="checked]:border-blue-"],
+    .peer:checked ~ [class*="peer-checked:border-blue-"] {
+      border-color: @accent;
+    }
+    [class*="checked]:border-red-"][data-state="checked"] {
+      border-color: @red;
+    }
+    [class*="checked])]:bg-blue-"]:has([data-state="checked"]),
+    [class*="aria-selected:bg-surface-info-muted"][aria-selected="true"] {
+      background-color: fade(@accent, 15%);
+    }
+
+    /* Disabled controls are muted, whatever the family */
+    [class*="disabled:bg-"]:disabled,
+    [class*="aria-disabled:bg-"][aria-disabled="true"] {
+      background-color: @surface-soft;
+    }
+    [class*="disabled:border-"]:disabled,
+    [class*="aria-disabled:border-"][aria-disabled="true"] {
+      border-color: @surface1;
+    }
+    [class*="disabled:text-"]:disabled,
+    [class*="aria-disabled:text-"][aria-disabled="true"] {
+      color: @overlay1;
+    }
+    [class*="disabled:!text-white/"]:disabled,
+    [class*="_button]:!text-white"][data-disabled="true"] button {
+      color: @overlay1 !important;
+    }
+    [class*="_button]:!bg-gray-"][data-disabled="true"] button {
+      background-color: @surface1 !important;
+    }
+
+    /* Selected and open states set on a child or through :has() */
+    [class*="data-state=checked])]:!bg-"]:has([data-state="checked"]),
+    [class*="_button:hover]:!bg-surface-info-muted"] button:hover {
+      background-color: fade(@accent, 15%) !important;
+    }
+    [class*="[data-state=open]]:bg-surface-canvas-secondary"]
+      .AccordionItem[data-state="open"] {
+      background-color: @mantle;
+    }
+
+    /* Components that read the raw colour scales for their states */
+    .Table .__body .__row:hover,
+    .Table .__body .__row:focus-within {
+      background-color: @surface-hover;
+    }
+    .SidePanelResizer:hover,
+    .SidePanelResizer:focus-visible,
+    .SidePanelResizer.is-resizing {
+      background-color: @accent;
+    }
+    [class*="_controlButton"]:hover {
+      background-color: @green;
     }
 
     /* Tailwind utilities are compiled to literal colours */
@@ -259,6 +450,10 @@
     [class*="_&]:bg-surface-canvas"] {
       background-color: @base !important;
     }
+    /* Signed in, the app shell gets its own background */
+    &.is-logged-in [class*="_&]:bg-surface-canvas-secondary"] {
+      background-color: @mantle !important;
+    }
     .bg-surface-canvas-secondary,
     .bg-surface-secondary,
     .bg-surface-info-muted,
@@ -267,7 +462,8 @@
     .bg-surface-warning-muted,
     .bg-surface-danger-muted,
     .bg-gray-50,
-    .bg-redesign-quartz-gray-200 {
+    .bg-redesign-quartz-gray-200,
+    .sm\:bg-redesign-quartz-gray-200 {
       background-color: @mantle;
     }
     .bg-brand,
@@ -293,7 +489,8 @@
     .hover\:bg-white:hover,
     .hover\:bg-surface-primary-muted:hover,
     .hover\:bg-surface-info-muted:hover,
-    .hover\:bg-redesign-quartz-gray-200:hover {
+    .hover\:bg-redesign-quartz-gray-200:hover,
+    .sm\:hover\:bg-redesign-quartz-gray-300:hover {
       background-color: @surface0;
     }
     .bg-surface-raised,
@@ -589,9 +786,140 @@
     svg [fill="#0F2B46" i] {
       fill: @text;
     }
+    /* Icon tiles, the icons on them are dark */
+    .size-8.bg-redesign-sapphire-blue-300 {
+      background-color: @blue;
+    }
+    .size-8.bg-redesign-amethyst-purple-300 {
+      background-color: @mauve;
+    }
+    /* Sidebar logo when signed in, a dark blue image */
+    img[src*="deepl-logo-blue"] {
+      filter: @accent-filter;
+    }
+
+    /* Account pages */
+    .before\:bg-blue-500::before {
+      background-color: @accent;
+    }
+    .ui-selected\:border-b-action-active[data-headlessui-state~="selected"] {
+      border-bottom-color: @accent;
+    }
+
+    /* Toasts, the library behind them sets its own light colours */
+    [data-sonner-toaster][data-sonner-theme] {
+      --normal-bg: @surface-soft;
+      --normal-bg-hover: @surface-hover;
+      --normal-border: @surface1;
+      --normal-border-hover: @surface2;
+      --normal-text: @text;
+      --success-bg: @surface-soft;
+      --success-border: @green;
+      --success-text: @green;
+      --info-bg: @surface-soft;
+      --info-border: @blue;
+      --info-text: @blue;
+      --warning-bg: @surface-soft;
+      --warning-border: @yellow;
+      --warning-text: @yellow;
+      --error-bg: @surface-soft;
+      --error-border: @red;
+      --error-text: @red;
+    }
+    [data-sonner-toast][data-styled] {
+      [data-description] {
+        color: @subtext1;
+      }
+      [data-cancel] {
+        color: @text;
+        background-color: @surface-hover;
+      }
+    }
+
     /* The shadow alone is lost on dark flavours */
     [class*="_flyoutPanel"] {
       box-shadow: 0 0 0 1px @surface0, 0 4px 16px fade(@crust, 50%);
+    }
+
+    /* Promo banner under the header, a cream box with a glow at both ends */
+    .below-navigation-banner-wrapper {
+      background-color: @mantle;
+
+      /* The glow is drawn with inline gradients */
+      [style*="#b9a2ff"] {
+        background: linear-gradient(
+          90deg,
+          fade(@accent, 30%),
+          transparent 20%,
+          transparent 80%,
+          fade(@accent, 30%)
+        ) !important;
+      }
+      /* A green glow and cream dots on top of it */
+      [style*="radial-gradient"],
+      [style*="svg+xml"] {
+        display: none;
+      }
+    }
+
+    /* Sections on a light drawing or photo keep it in every flavour, so the
+       text and controls on them use a fixed dark and light pair */
+    @ink: if(@flavor = latte, @text, @crust);
+    @paper: if(@flavor = latte, @base, @text);
+
+    [class*="bg-[#fdfaf4]"]:not(.below-navigation-banner-wrapper),
+    section[style*="39L7ybTNHWMFDbzs2QtQil"] {
+      color: @ink;
+
+      h1,
+      h2,
+      h5,
+      legend,
+      .text-black,
+      .text-gray-900,
+      [class*="text-[var(--color-gray-800-hex)]"] {
+        color: @ink;
+      }
+      .text-gray-400,
+      .text-gray-500 {
+        color: fade(@ink, 70%);
+      }
+      .bg-white,
+      [class*="bg-white/"] {
+        background-color: fade(@paper, 70%);
+      }
+      [class*="bg-black/"] {
+        background-color: fade(@ink, 8%);
+      }
+      .\!text-black {
+        color: @ink !important;
+      }
+    }
+
+    /* Aure page: black buttons and cream cards */
+    .bg-black {
+      background-color: @crust;
+    }
+    .\!text-white,
+    .\!text-black {
+      color: @text !important;
+    }
+    /* The blurred strip behind its sticky header */
+    [class*="bg-white/"] {
+      background-color: fade(@base, 70%);
+    }
+    [class*="bg-[#fdf9f4]"] {
+      background-color: @surface-soft;
+
+      img {
+        filter: @text-filter;
+      }
+    }
+
+    /* Arrow on the product cards, only filled on hover */
+    [class*="_card"]:hover [class*="_arrowContainer"] {
+      color: @base;
+      background-color: @accent;
     }
 
     /* HubSpot form, Stylus also styles its about:blank frame */
@@ -654,9 +982,20 @@
     .from-white {
       --tw-gradient-from: @base;
     }
+    /* Preview cards on the Projects and Translation flows pages */
+    .from-surface-info-muted {
+      --tw-gradient-from: @mantle;
+    }
+    [class*="bg-surface-raised/95"] {
+      background-color: fade(@surface-soft, 95%);
+    }
 
     input[class*="_input"] {
       background-color: @base;
+    }
+    /* The share link field, plain inputs are white in the base sheet */
+    input.border-default {
+      background-color: @surface-soft;
     }
     /* Form fields where the box around the input already has the field colour */
     .__container > .__input {
