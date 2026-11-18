@@ -37,6 +37,22 @@
     background-color: @base;
     color: @text;
 
+    /* Design tokens behind the site's newer utilities (`text-ink`, `text-muted`,
+       `bg-fill`, `border-outline`, ...), also used by the account pages. */
+    --color-paper: @base;
+    --color-ink: @text;
+    --color-secondary: @subtext1;
+    --color-muted: @subtext0;
+    --color-faint: @overlay1;
+    --color-rule: @surface1;
+    --color-line: @surface1;
+    --color-outline: @surface2;
+    --color-grid: @surface0;
+    --color-fill: @mantle;
+    --color-fill-strong: @surface0;
+    --color-hover: @surface0;
+    --color-press: @surface1;
+
     /* Llama logos */
     img[src="/public/ollama.png"],
     img[src="/public/shades.png"],
@@ -50,7 +66,8 @@
       color: @text !important;
     }
 
-    input {
+    input,
+    textarea {
       background-color: @mantle;
     }
 
@@ -66,10 +83,6 @@
     }
     blockquote {
       color: @subtext0;
-    }
-
-    a[class~=""] {
-      color: @blue;
     }
 
     #query,
@@ -98,8 +111,23 @@
     }
 
     .prose {
+      --tw-prose-body: @text;
       --tw-prose-headings: @text;
+      --tw-prose-lead: @subtext1;
       --tw-prose-links: @accent;
+      --tw-prose-bold: @text;
+      --tw-prose-counters: @subtext0;
+      --tw-prose-bullets: @overlay1;
+      --tw-prose-hr: @surface1;
+      --tw-prose-quotes: @subtext1;
+      --tw-prose-quote-borders: @surface1;
+      --tw-prose-captions: @subtext0;
+      --tw-prose-kbd: @text;
+      --tw-prose-code: @text;
+      --tw-prose-pre-code: @text;
+      --tw-prose-pre-bg: @mantle;
+      --tw-prose-th-borders: @surface1;
+      --tw-prose-td-borders: @surface0;
     }
 
     .text-white,
@@ -137,6 +165,31 @@
     /* Models page, color for non-weight pills/tags. Background color is solid from `.bg-indigo-50`. */
     .text-indigo-600 {
       color: @crust;
+    }
+    /* Cloud model pills. */
+    .bg-cyan-50 {
+      background-color: fade(@sky, 10%);
+    }
+    .text-cyan-500 {
+      color: @sky;
+    }
+    /* Opacity variants such as `text-black/60`. */
+    [class^="text-black/"],
+    [class*=" text-black/"] {
+      color: @subtext0;
+    }
+    .hover\:text-black:hover,
+    .aria-selected\:text-black[aria-selected="true"] {
+      color: @text;
+    }
+    /* OS picker on /download. */
+    .aria-selected\:bg-white[aria-selected="true"] {
+      background-color: @surface1;
+    }
+    /* `--color-ink` is light in dark flavors, so flip the text on ink backgrounds. */
+    .bg-ink,
+    .has-\[\:checked\]\:bg-ink:has(:checked) {
+      color: @base;
     }
 
     .bg-neutral-100 pre,
@@ -206,6 +259,135 @@
     }
     .focus\:ring-red-300:focus {
       --tw-ring-color: rgba(#lib.rgbify(@red)[], var(--tw-ring-opacity));
+    }
+
+    /* Prism code blocks on blog posts (default light Prism theme). */
+    pre[class*="language-"],
+    code[class*="language-"] {
+      background-color: @mantle;
+      text-shadow: none;
+    }
+    pre .token,
+    code .token {
+      &.comment,
+      &.prolog,
+      &.doctype,
+      &.cdata {
+        color: @overlay2;
+      }
+      &.punctuation {
+        color: @subtext1;
+      }
+      &.property,
+      &.tag {
+        color: @teal;
+      }
+      &.boolean,
+      &.number,
+      &.constant {
+        color: @peach;
+      }
+      &.symbol {
+        color: @flamingo;
+      }
+      &.deleted,
+      &.important,
+      &.builtin {
+        color: @red;
+      }
+      &.selector,
+      &.attr-name,
+      &.function {
+        color: @blue;
+      }
+      &.string,
+      &.char,
+      &.inserted,
+      &.attr-value {
+        color: @green;
+      }
+      &.operator,
+      &.entity,
+      &.url {
+        background: none;
+        color: @sky;
+      }
+      &.atrule,
+      &.keyword,
+      &.variable {
+        color: @mauve;
+      }
+      &.class-name {
+        color: @yellow;
+      }
+      &.regex {
+        color: @pink;
+      }
+    }
+
+    /* Speech model demo widget (blog posts). */
+    .fig-title,
+    .sp-name {
+      color: @text;
+    }
+    .fig-sub,
+    .fig-note,
+    .sp-meta,
+    .sp-time,
+    .sp-foot {
+      color: @subtext0;
+    }
+    .sp-tabs,
+    .sp-box,
+    .sp-cmd,
+    .sp-foot,
+    .sp-play {
+      border-color: @surface1;
+    }
+    .sp-tabs button {
+      color: @subtext0;
+
+      &:hover,
+      &[aria-selected="true"] {
+        background-color: @surface0;
+        color: @text;
+      }
+    }
+    .sp-row:hover,
+    .sp-row.sp-on {
+      background-color: @surface0;
+    }
+    .sp-play {
+      background-color: @surface0;
+      color: @text;
+    }
+    .sp-playing .sp-play {
+      border-color: @accent;
+    }
+    .sp-base {
+      fill: @surface2;
+    }
+    .sp-done {
+      fill: @accent;
+    }
+
+    /* Vega charts in blog figures; colors come from presentation attributes. */
+    .fig-chart {
+      path[fill="#171717" i] {
+        fill: @accent;
+      }
+      text[fill="#171717" i] {
+        fill: @text;
+      }
+      [fill="#d9d6ce" i] {
+        fill: @surface2;
+      }
+      [fill="#8a8a8a" i] {
+        fill: @subtext0;
+      }
+      [stroke="#e7e5e0" i] {
+        stroke: @surface1;
+      }
     }
   }
 }
