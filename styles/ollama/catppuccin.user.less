@@ -18,6 +18,8 @@
 @import "https://userstyles.catppuccin.com/lib/std/v1.less";
 
 @-moz-document domain("ollama.com") {
+  @import url("https://prismjs.catppuccin.com/variables.important.css");
+
   :root {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
@@ -30,6 +32,7 @@
   #catppuccin(@flavor) {
     #lib.palette();
     #lib.defaults();
+    #lib.css-variables();
 
     background-color: @base;
     color: @text;
@@ -102,17 +105,7 @@
     }
 
     /* The Tailwind forms plugin hardcodes a white background on inputs */
-    input:not(
-      [type="checkbox"],
-      [type="radio"],
-      [type="submit"],
-      [type="button"],
-      [type="reset"],
-      [type="image"],
-      [type="file"],
-      [type="range"],
-      [type="color"]
-    ),
+    input:not([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="reset"], [type="image"], [type="file"], [type="range"], [type="color"]),
     textarea,
     select {
       background-color: @mantle;
@@ -150,67 +143,46 @@
       --tw-prose-td-borders: @surface0;
     }
 
-    /* Prism code blocks on blog posts (default light Prism theme). */
-    pre[class*="language-"],
-    code[class*="language-"] {
-      background-color: @mantle;
-      text-shadow: none;
+    /* The site's Prism theme puts a white background behind some tokens */
+    .token.operator,
+    .token.entity,
+    .token.url {
+      background: none;
     }
-    pre .token,
-    code .token {
-      &.comment,
-      &.prolog,
-      &.doctype,
-      &.cdata {
-        color: @overlay2;
+
+    /* Decision model demo widget (blog posts). */
+    .s1-mono {
+      color: @text;
+    }
+    .s1-top {
+      color: @subtext0;
+    }
+    .s1-tabs {
+      background-color: @mantle;
+
+      button {
+        color: @subtext0;
+
+        &:hover,
+        &[aria-selected="true"] {
+          color: @text;
+        }
+        &[aria-selected="true"] {
+          background-color: @surface0;
+        }
       }
-      &.punctuation {
-        color: @subtext1;
-      }
-      &.property,
-      &.tag {
-        color: @teal;
-      }
-      &.boolean,
-      &.number,
-      &.constant {
-        color: @peach;
-      }
-      &.symbol {
-        color: @flamingo;
-      }
-      &.deleted,
-      &.important,
-      &.builtin {
-        color: @red;
-      }
-      &.selector,
-      &.attr-name,
-      &.function {
-        color: @blue;
-      }
-      &.string,
-      &.char,
-      &.inserted,
-      &.attr-value {
-        color: @green;
-      }
-      &.operator,
-      &.entity,
-      &.url {
-        background: none;
-        color: @sky;
-      }
-      &.atrule,
-      &.keyword,
-      &.variable {
-        color: @mauve;
-      }
-      &.class-name {
-        color: @yellow;
-      }
-      &.regex {
-        color: @pink;
+    }
+    .s1-box,
+    .s1-term .s1-res,
+    .s1-replay {
+      border-color: @surface1;
+    }
+    .s1-replay {
+      background-color: @surface0;
+      color: @text;
+
+      &:hover {
+        background-color: @surface1;
       }
     }
 
