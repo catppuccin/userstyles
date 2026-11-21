@@ -4,7 +4,7 @@
 
 <!-- Please let us know for reviewing purposes whether or not your pull request was created in whole or in part using AI/LLMs. -->
 
-- [ ] I used AI (or AI-assistance) for this change.
+- [ ] I used AI (or AI-assistance) for this change and followed Catppuccin's [AI Contribution Policy](https://github.com/catppuccin/.github/blob/main/AI_POLICY.md).
 
 ## 🔧 What does this fix? 🔧
 
