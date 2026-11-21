@@ -1,20 +1,22 @@
-import { REPO_ROOT } from "@/constants.ts";
+import { REPO_ROOT } from "#/constants.ts";
+
+import { writeFileSync } from "node:fs";
+import { readFile } from "node:fs/promises";
 
 import { parseArgs } from "@std/cli";
 import * as path from "@std/path";
 import * as color from "@std/fmt/colors";
-// @ts-types="npm:@types/less";
 import less from "less";
 
-import { checkForMissingFiles } from "@/lint/file-checker.ts";
-import { log } from "@/logger.ts";
-import { verifyMetadata } from "@/lint/metadata.ts";
-import { runStylelint } from "@/lint/stylelint.ts";
-import { getUserstylesData, getUserstylesFiles } from "@/utils.ts";
+import { checkForMissingFiles } from "#/lint/file-checker.ts";
+import { log } from "#/logger.ts";
+import { verifyMetadata } from "#/lint/metadata.ts";
+import { runStylelint } from "#/lint/stylelint.ts";
+import { getUserstylesData, getUserstylesFiles } from "#/utils.ts";
 import stylelintConfig from "../../.stylelintrc.js";
-import "@/lint/library.ts";
+import "#/lint/library.ts";
 
-const args = parseArgs(Deno.args, { boolean: ["fix"] });
+const args = parseArgs(process.argv.slice(2), { boolean: ["fix"] });
 const userstyle = args._[0]?.toString().match(
   /(?<base>styles\/)?(?<userstyle>[a-z0-9_\-.]+)(?<trailing>\/)?(?<file>catppuccin\.user\.less)?/,
 )?.groups?.userstyle;
@@ -30,7 +32,7 @@ for (const style of stylesheets) {
   const dir = path.basename(path.dirname(style));
   const file = path.relative(REPO_ROOT, style);
 
-  let content = await Deno.readTextFile(style);
+  let content = await readFile(style, "utf8");
 
   // Verify the UserCSS metadata.
   const { globalVars, isLess, fixed } = await verifyMetadata(
@@ -60,7 +62,7 @@ for (const style of stylesheets) {
   // Lint with Stylelint.
   const results = await runStylelint(style, content, args.fix, stylelintConfig)
     .catch(() => didLintFail = true);
-  Deno.writeTextFileSync(file, typeof results === "string" ? results : content);
+  writeFileSync(file, typeof results === "string" ? results : content);
 }
 
 if (await checkForMissingFiles() === false) didLintFail = true;
@@ -74,8 +76,8 @@ if (didLintFail || log.failed) {
     console.log(
       `\n  ${
         color.bold(color.inverse(color.green(`${THIN_SPACE}TIP${THIN_SPACE}`)))
-      } Run ${color.bold("deno task lint:fix")} to fix autofixable issues.`,
+      } Run ${color.bold("pnpm lint:fix")} to fix autofixable issues.`,
     );
   }
-  Deno.exit(1);
+  process.exit(1);
 }

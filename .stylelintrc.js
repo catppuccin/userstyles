@@ -1,7 +1,7 @@
 // @ts-check
 
 /**
- * @type {import('npm:stylelint').Config}
+ * @type {import('stylelint').Config}
  */
 export default {
   extends: "stylelint-config-standard",
