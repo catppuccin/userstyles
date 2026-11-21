@@ -42,9 +42,11 @@
     #--variables() {
       &,
       [dark],
+      [light],
       [system-icons],
       [darker-dark-theme],
       &[dark],
+      &[light],
       &[system-icons],
       &[darker-dark-theme] {
         --efyt-control-bar-background-color: @mantle;
@@ -53,16 +55,24 @@
         /* Newest Variables */
         --yt-sys-color-baseline--base-background: @base;
         --yt-sys-color-baseline--menu-background: @mantle;
+        --yt-sys-color-baseline--surface-container: @mantle;
         --yt-sys-color-baseline--raised-background: @surface0;
         --yt-sys-color-baseline--additive-background: @surface0;
+        --yt-sys-color-baseline--inverted-background: @text;
+        --yt-sys-color-baseline--frosted-glass-desktop: fade(@base, 80%);
         --yt-sys-color-baseline--wordmark-text: @text;
         --yt-sys-color-baseline--text-primary: @text;
+        --yt-sys-color-baseline--text-primary-inverse: @crust;
         --yt-sys-color-baseline--text-secondary: @subtext0;
+        --yt-sys-color-baseline--text-disabled: @subtext1;
         --yt-sys-color-baseline--call-to-action: @accent;
         --yt-sys-color-baseline--suggested-action: mix(@accent, @base, 30%);
         --yt-sys-color-baseline--outline: @surface0;
         --yt-sys-color-baseline--outline-opaque: @surface1;
         --yt-sys-color-baseline--outline-inverse-opaque: @overlay0;
+        --yt-sys-color-baseline--button-chip-background-hover: @surface1;
+        --yt-sys-color-baseline--error-indicator: @red;
+        --yt-sys-color-baseline--themed-green: @green;
         --yt-sys-color-baseline--overlay-background-medium-light: fade(
           @black,
           60%
@@ -70,6 +80,20 @@
         --yt-sys-color-baseline--overlay-background-heavy: fade(@black, 80%);
         --yt-sys-color-baseline--overlay-background-solid: @crust;
         --yt-sys-color-baseline--overlay-text-primary: @text;
+
+        --app-drawer-content-container-background-color: @base;
+        --ytd-metadata-line-color: @subtext0;
+        --yt-basic-foreground-title-color: @subtext0;
+        --yt-button-color: @text;
+        --yt-button-icon-button-text-color: @subtext0;
+        --yt-button-compact-background-color: @surface0;
+        --yt-button-compact-text-color: @subtext0;
+        --yt-formatted-string-deemphasize-color: @subtext0;
+        --yt-compact-link-color: @text;
+        --yt-compact-link-icon-color: @text;
+        --ytd-menu-renderer-button-color: @text;
+        --ytd-text-inline-expander-button-color: @subtext0;
+        --reel-metadata-color: @text;
 
         --yt-spec-white-1: @text;
         --yt-spec-white-2: @subtext0;
@@ -381,6 +405,38 @@
         --dark-theme-secondary-color: @subtext0;
         --dark-theme-disabled-color: @subtext1;
         --dark-theme-divider-color: @overlay0;
+        --paper-dialog-background-color: @mantle;
+        --paper-listbox-background-color: @mantle;
+        --paper-listbox-color: @text;
+        --paper-menu-background-color: @mantle;
+        --paper-menu-color: @text;
+        --paper-menu-disabled-color: @subtext1;
+        --paper-checkbox-checked-color: @accent;
+        --paper-checkbox-checked-ink-color: @accent;
+        --paper-checkbox-checkmark-color: @crust;
+        --paper-checkbox-label-color: @text;
+        --paper-checkbox-unchecked-color: @text;
+        --paper-checkbox-unchecked-ink-color: @text;
+        --paper-radio-button-checked-color: @accent;
+        --paper-radio-button-checked-ink-color: @accent;
+        --paper-radio-button-label-color: @text;
+        --paper-radio-button-unchecked-color: @text;
+        --paper-radio-button-unchecked-ink-color: @text;
+        --paper-toggle-button-checked-bar-color: @subtext1;
+        --paper-toggle-button-checked-button-color: @accent;
+        --paper-toggle-button-checked-ink-color: @accent;
+        --paper-toggle-button-unchecked-bar-color: @subtext1;
+        --paper-toggle-button-unchecked-button-color: @subtext0;
+        --paper-toggle-button-unchecked-ink-color: @surface0;
+        --paper-spinner-color: @subtext0;
+        --paper-spinner-layer-1-color: @subtext0;
+        --paper-spinner-layer-2-color: @subtext0;
+        --paper-spinner-layer-3-color: @subtext0;
+        --paper-spinner-layer-4-color: @subtext0;
+        --paper-input-container-color: @subtext0;
+        --paper-input-container-input-color: @text;
+        --paper-input-container-focus-color: @accent;
+        --paper-input-container-invalid-color: @red;
       }
     }
 
@@ -405,6 +461,10 @@
       --ytd-macro-markers-list-item-title-color: @text;
       --ytd-macro-markers-list-item-secondary-color: @subtext1;
       --ytd-macro-markers-list-item-timestamp-background-color: @surface1;
+
+      h3.ytd-macro-markers-list-item-renderer {
+        color: @text;
+      }
     }
 
     ytd-playlist-panel-video-renderer {
@@ -413,12 +473,53 @@
       --yt-lightsource-primary-title-color: @text;
       --yt-lightsource-secondary-title-color: @text;
       --yt-active-playlist-panel-background-color: @surface0;
+
+      &[selected],
+      &:hover:not(.dragging) {
+        background-color: @surface0;
+      }
+
+      h4.ytd-playlist-panel-video-renderer,
+      #byline.ytd-playlist-panel-video-renderer {
+        color: @text;
+      }
+
+      #index.ytd-playlist-panel-video-renderer,
+      #video-info.ytd-playlist-panel-video-renderer {
+        color: @subtext0;
+      }
     }
 
-    ytd-playlist-panel-renderer[collapsible][collapsed][use-color-palette]
+    ytd-playlist-panel-renderer {
+      #container.ytd-playlist-panel-renderer {
+        border-color: @surface0;
+      }
+
       .header.ytd-playlist-panel-renderer {
-      --iron-icon-fill-color: @text;
-      background-color: @base;
+        background-color: @mantle;
+      }
+
+      .playlist-items.ytd-playlist-panel-renderer {
+        background-color: @base;
+      }
+
+      .title.ytd-playlist-panel-renderer,
+      #next-video-title.ytd-playlist-panel-renderer,
+      #trailing-button.ytd-playlist-panel-renderer {
+        color: @text;
+      }
+
+      .byline-title.ytd-playlist-panel-renderer,
+      .publisher.ytd-playlist-panel-renderer,
+      .index-message-wrapper.ytd-playlist-panel-renderer {
+        color: @subtext0;
+      }
+
+      &[collapsible][collapsed][use-color-palette]
+        .header.ytd-playlist-panel-renderer {
+        --iron-icon-fill-color: @text;
+        background-color: @base;
+      }
     }
 
     #container.ytd-masthead {
@@ -426,15 +527,54 @@
     }
 
     #background.ytd-masthead,
-    #frosted-glass {
+    #frosted-glass.ytd-app {
       --yt-frosted-glass-desktop: @base;
       --yt-spec-frosted-glass-desktop: @base;
+      background: @base !important;
     }
 
-    ytd-feed-filter-chip-bar-renderer[expand-instead-of-scroll]
-      #chips-wrapper.ytd-feed-filter-chip-bar-renderer {
+    ytd-masthead[frosted-glass-mode="without-chipbar"]:not([theater])
+      #background.ytd-masthead,
+    #frosted-glass.with-chipbar.ytd-app {
+      background: fade(@base, 80%) !important;
+    }
+
+    #guide-button.ytd-app,
+    #guide-icon.ytd-masthead,
+    yt-icon-button.ytd-masthead,
+    #buttons.ytd-masthead .ytd-masthead[is-icon-button],
+    #voice-search-button.ytd-masthead .ytd-masthead[is-icon-button] {
+      color: @text;
+    }
+
+    #guide-icon.ytd-app {
+      fill: @text;
+    }
+
+    #voice-search-button.ytd-masthead,
+    yt-icon-button.ytd-masthead:hover,
+    ytd-notification-topbar-button-renderer.ytd-masthead:hover,
+    ytd-topbar-menu-button-renderer.ytd-masthead:hover {
+      background-color: @surface0;
+    }
+
+    #chips-wrapper.ytd-feed-filter-chip-bar-renderer,
+    #left-arrow-button.ytd-feed-filter-chip-bar-renderer,
+    #right-arrow-button.ytd-feed-filter-chip-bar-renderer,
+    ytd-feed-filter-chip-bar-renderer[frosted-glass-mode="with-chipbar"]
+      ytd-button-renderer.ytd-feed-filter-chip-bar-renderer,
+    .ytChipBarViewModelLeftArrow,
+    .ytChipBarViewModelRightArrow {
       --iron-icon-fill-color: @text;
-      background-color: @base;
+      background: @base;
+    }
+
+    #left-arrow.ytd-feed-filter-chip-bar-renderer::after {
+      background: linear-gradient(to right, @base 20%, transparent 80%);
+    }
+
+    #right-arrow.ytd-feed-filter-chip-bar-renderer::before {
+      background: linear-gradient(to left, @base 20%, transparent 80%);
     }
 
     .ytp-progress-list when not(@flavor = latte) {
@@ -451,6 +591,21 @@
       --yt-lightsource-section4-color: @surface2;
       --yt-lightsource-primary-title-color: @text;
       --yt-lightsource-secondary-title-color: @subtext0;
+      background: @surface0;
+
+      &:not([is-expanded]) #header.ytd-expandable-metadata-renderer {
+        background-color: @surface0;
+      }
+
+      #collapsed-title.ytd-expandable-metadata-renderer,
+      #prominent-collapsed-label.ytd-expandable-metadata-renderer {
+        color: @text;
+      }
+
+      #expanded-title.ytd-expandable-metadata-renderer,
+      #collapsed-label.ytd-expandable-metadata-renderer {
+        color: @subtext0;
+      }
     }
 
     yt-live-chat-renderer {
@@ -478,10 +633,58 @@
       z-index: -1;
     }
 
-    ytd-app[is-shorts-page] {
-      background: var(
-        --yt-spec-base-background
-      ); // fix unset background on shorts page
+    ytd-app,
+    #guide-content.ytd-app {
+      background: @base;
+    }
+
+    /* Sidebar / Guide */
+    .guide-icon.ytd-mini-guide-entry-renderer,
+    .title.ytd-mini-guide-entry-renderer,
+    ytd-mini-guide-entry-renderer[is-active]
+      .guide-icon.ytd-mini-guide-entry-renderer,
+    .title.ytd-guide-entry-renderer,
+    .guide-icon.ytd-guide-entry-renderer,
+    ytd-guide-entry-renderer[active] .guide-icon.ytd-guide-entry-renderer,
+    #endpoint.yt-simple-endpoint.ytd-guide-entry-renderer,
+    #guide-section-title.ytd-guide-section-renderer,
+    yt-formatted-string.ytd-guide-signin-promo-renderer {
+      color: @text;
+    }
+
+    ytd-mini-guide-entry-renderer.hovered,
+    ytd-mini-guide-entry-renderer:focus,
+    ytd-mini-guide-entry-renderer:hover,
+    ytd-guide-entry-renderer[active],
+    #endpoint.yt-simple-endpoint.ytd-guide-entry-renderer:focus,
+    #endpoint.yt-simple-endpoint.ytd-guide-entry-renderer:hover {
+      background-color: @surface0;
+    }
+
+    #endpoint.yt-simple-endpoint.ytd-guide-entry-renderer:active {
+      background-color: @surface1;
+    }
+
+    #sections.ytd-guide-renderer > .ytd-guide-renderer:not(:last-child),
+    #guide-links-primary.ytd-guide-renderer,
+    ytd-guide-collapsible-section-entry-renderer.ytd-guide-section-renderer:not(
+        :first-child
+      ) {
+      border-color: @surface0;
+    }
+
+    #guide-links-primary.ytd-guide-renderer > a,
+    #guide-links-secondary.ytd-guide-renderer > a,
+    #footer.ytd-guide-renderer > #vat-notice {
+      color: @subtext0;
+    }
+
+    #footer.ytd-guide-renderer > #copyright {
+      color: @subtext1;
+    }
+
+    #newness-dot.ytd-guide-entry-renderer {
+      background-color: @accent;
     }
 
     #guide-skeleton .guide-ghost-icon,
@@ -526,7 +729,8 @@
       fill: @crust;
     }
 
-    .yt-spec-icon-shape {
+    .yt-spec-icon-shape,
+    .ytSpecIconShapeHost:not(:where(yt-share-target-renderer *)) {
       [fill="#FAFAFA"],
       [fill="#000"],
       [fill="#fff"],
@@ -548,8 +752,10 @@
 
     /* Buttons */
 
-    .yt-spec-button-shape-next--mono {
-      &.yt-spec-button-shape-next--tonal {
+    .yt-spec-button-shape-next--mono,
+    .ytSpecButtonShapeNextMono {
+      &.yt-spec-button-shape-next--tonal,
+      &.ytSpecButtonShapeNextTonal {
         color: @text;
         background-color: @surface0;
 
@@ -580,7 +786,8 @@
         }
       }
 
-      &.yt-spec-button-shape-next--outline {
+      &.yt-spec-button-shape-next--outline,
+      &.ytSpecButtonShapeNextOutline {
         color: @text;
         border-color: @surface2;
 
@@ -589,7 +796,8 @@
         }
       }
 
-      &.yt-spec-button-shape-next--text {
+      &.yt-spec-button-shape-next--text,
+      &.ytSpecButtonShapeNextText {
         color: @text;
 
         /* Accent for filled-in thumbs up (like button) */
@@ -602,7 +810,8 @@
         }
       }
 
-      &.yt-spec-button-shape-next--filled {
+      &.yt-spec-button-shape-next--filled,
+      &.ytSpecButtonShapeNextFilled {
         color: @base;
         background-color: @accent;
 
@@ -612,31 +821,37 @@
       }
     }
 
-    .yt-spec-button-shape-next--disabled {
+    .yt-spec-button-shape-next--disabled,
+    .ytSpecButtonShapeNextDisabled {
       color: @overlay1;
     }
 
-    .yt-spec-button-shape-next--overlay {
-      &.yt-spec-button-shape-next--tonal {
+    .yt-spec-button-shape-next--overlay,
+    .ytSpecButtonShapeNextOverlay {
+      &.yt-spec-button-shape-next--tonal,
+      &.ytSpecButtonShapeNextTonal {
         color: @text;
         background-color: @surface0;
         &:hover {
           background-color: @surface1;
         }
       }
-      &.yt-spec-button-shape-next--text {
+      &.yt-spec-button-shape-next--text,
+      &.ytSpecButtonShapeNextText {
         color: @text;
         &:hover {
           background-color: @surface0;
         }
       }
 
-      &.yt-spec-button-shape-next--filled {
+      &.yt-spec-button-shape-next--filled,
+      &.ytSpecButtonShapeNextFilled {
         color: @base;
         background-color: @accent;
       }
 
-      &.yt-spec-button-shape-next--outline {
+      &.yt-spec-button-shape-next--outline,
+      &.ytSpecButtonShapeNextOutline {
         color: @text;
         border-color: @surface1;
         &:hover {
@@ -645,8 +860,10 @@
       }
     }
 
-    .yt-spec-button-shape-next--call-to-action {
-      &.yt-spec-button-shape-next--outline {
+    .yt-spec-button-shape-next--call-to-action,
+    .ytSpecButtonShapeNextCallToAction {
+      &.yt-spec-button-shape-next--outline,
+      &.ytSpecButtonShapeNextOutline {
         color: @accent;
         border-color: @surface2;
 
@@ -656,7 +873,8 @@
         }
       }
 
-      &.yt-spec-button-shape-next--text {
+      &.yt-spec-button-shape-next--text,
+      &.ytSpecButtonShapeNextText {
         color: @accent;
 
         &:hover {
@@ -664,7 +882,8 @@
         }
       }
 
-      &.yt-spec-button-shape-next--filled {
+      &.yt-spec-button-shape-next--filled,
+      &.ytSpecButtonShapeNextFilled {
         color: @base;
         background-color: @accent;
 
@@ -674,12 +893,18 @@
       }
     }
 
-    .yt-spec-button-shape-next--disabled.yt-spec-button-shape-next--filled {
+    .yt-spec-button-shape-next--disabled.yt-spec-button-shape-next--filled,
+    .ytSpecButtonShapeNextDisabled.ytSpecButtonShapeNextFilled {
       color: @subtext0;
       background-color: fade(@surface1, 70%);
     }
 
     /* Search box */
+
+    .ytSearchboxComponentHost,
+    .ytSearchboxComponentHostDark {
+      color: var(--ytd-searchbox-text-color);
+    }
 
     .ytSearchboxComponentInputBox,
     .ytSearchboxComponentInputBoxDark {
@@ -690,14 +915,16 @@
     }
 
     .ytSearchboxComponentInputBoxHasFocus,
-    .ytSearchboxComponentInputBoxHasFocusDark {
+    .ytSearchboxComponentInputBoxHasFocusDark,
+    .ytSearchboxComponentInputBoxDark.ytSearchboxComponentInputBoxHasFocus {
       border-color: @accent;
     }
 
     .ytSuggestionComponentPersonalizedSuggestion {
       color: @text;
     }
-    .ytSuggestionComponentHighlighted {
+    .ytSuggestionComponentHighlighted,
+    .ytSuggestionComponentSuggestionHover:hover {
       background: @surface1;
     }
     .ytSuggestionComponentLargerRemovedText {
@@ -705,7 +932,8 @@
     }
 
     .ytSearchboxComponentSuggestionsContainer,
-    .ytSearchboxComponentSuggestionsContainerDark {
+    .ytSearchboxComponentSuggestionsContainerDark,
+    .ytSearchboxComponentSuggestionsContainerUnified {
       background: var(--yt-spec-raised-background);
       border-color: var(--yt-spec-raised-background);
     }
@@ -734,17 +962,80 @@
       --yt-saturated-raised-background: @surface1 !important;
       --yt-saturated-text-primary: @text !important;
       --yt-saturated-text-secondary: @subtext1 !important;
+      color: @text;
+
+      #description.ytd-watch-metadata {
+        background: @surface0;
+      }
+
+      #info-container.ytd-watch-metadata,
+      #description-placeholder.ytd-watch-metadata {
+        color: @subtext0;
+      }
     }
+
+    #owner-sub-count.ytd-video-owner-renderer {
+      color: @subtext0;
+    }
+
     // Video description text (expanded)
-    ytd-text-inline-expander
-      .ytAttributedStringLinkInheritColor:not(
-        .ytAttributedStringLink
-      ) {
-      color: @text !important;
+    ytd-text-inline-expander {
+      color: @text;
+
+      &[engagement-panel] {
+        background: @surface0;
+      }
+
+      .ytAttributedStringLinkInheritColor:not(.ytAttributedStringLink) {
+        color: @text !important;
+      }
     }
     // Video description YouTube links
     .ytAttributedStringHighlightTextDecorator {
       background-color: @surface2 !important;
+    }
+
+    /* Engagement panels */
+    ytd-watch-grid:not([darker-panels])
+      #panels.ytd-watch-grid
+      ytd-engagement-panel-section-list-renderer.ytd-watch-grid,
+    ytd-engagement-panel-section-list-renderer[match-content-theme]
+      #content.ytd-engagement-panel-section-list-renderer,
+    ytd-engagement-panel-section-list-renderer[dialog]
+      #content.ytd-engagement-panel-section-list-renderer,
+    ytd-engagement-panel-section-list-renderer[dropdown],
+    ytd-engagement-panel-section-list-renderer[dropdown]
+      #content.ytd-engagement-panel-section-list-renderer,
+    ytd-engagement-panel-section-list-renderer[dropdown]
+      #footer.ytd-engagement-panel-section-list-renderer,
+    #header.ytd-engagement-panel-title-header-renderer,
+    #subheader.ytd-engagement-panel-title-header-renderer:not(:empty) {
+      background-color: @mantle;
+    }
+
+    ytd-engagement-panel-section-list-renderer[is-persistent-panel],
+    ytd-engagement-panel-section-list-renderer[darker-panels],
+    ytd-engagement-panel-title-header-renderer[darker-panels]
+      #header.ytd-engagement-panel-title-header-renderer {
+      background-color: @base;
+    }
+
+    ytd-engagement-panel-section-list-renderer,
+    #subheader.ytd-engagement-panel-title-header-renderer:not(:empty),
+    .ytPanelHeaderViewModelHost,
+    .engagementPanelHeaderViewModelHostEnableDivider {
+      border-color: @surface0;
+    }
+
+    #header.ytd-engagement-panel-title-header-renderer,
+    .engagementPanelHeaderViewModelTitle {
+      color: @text;
+    }
+
+    #contextual-info.ytd-engagement-panel-title-header-renderer,
+    #subtitle.ytd-engagement-panel-title-header-renderer,
+    .engagementPanelHeaderViewModelCloseButton {
+      color: @subtext0;
     }
 
     /* Links */
@@ -1026,10 +1317,12 @@
     #shorts-container {
       --yt-spec-static-overlay-text-primary: @white;
 
-      .YtwFactoidRendererLabel {
+      .YtwFactoidRendererLabel,
+      .ytwFactoidRendererLabel {
         color: @subtext0;
       }
-      .YtwFactoidRendererValue {
+      .YtwFactoidRendererValue,
+      .ytwFactoidRendererValue {
         color: @text;
       }
 
@@ -1047,13 +1340,16 @@
         color: @white;
       }
 
-      /* Buy super thanks button */
-      .YtdShortsSuggestedActionStaticHostContainer {
-        background-color: fade(@black, 60%);
+      /* Suggested actions over video */
+      .YtdShortsSuggestedActionStaticHostContainer,
+      .ytShortsSuggestedActionViewModelStaticHostContainer {
+        background-color: @black;
 
         .YtdShortsSuggestedActionStaticHostLeadingIcon,
-        .YtdShortsSuggestedActionStaticHostPrimaryText {
-          color: @text;
+        .ytShortsSuggestedActionViewModelStaticHostLeadingIcon,
+        .YtdShortsSuggestedActionStaticHostPrimaryText,
+        .ytShortsSuggestedActionViewModelStaticHostPrimaryText {
+          color: @white;
         }
       }
     }
@@ -1061,6 +1357,7 @@
     .ytBadgeShapeThumbnailDefaultRedesign, // Timestamp
     // Play Next
     .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--tonal[style="background-color: rgba(0, 0, 0, 0.3);"],
+    .ytSpecButtonShapeNextOverlayDark.ytSpecButtonShapeNextTonal[style="background-color: rgba(0, 0, 0, 0.3);"],
     .ytdVolumeControlsBackgroundScrim, // Shorts Volume Slider
     .ytInlinePlayerControlsTopRightControlsCircleButton // Homepage
     {
@@ -1068,7 +1365,8 @@
       color: @white;
     }
 
-    .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--filled {
+    .yt-spec-button-shape-next--overlay-dark.yt-spec-button-shape-next--filled,
+    .ytSpecButtonShapeNextOverlayDark.ytSpecButtonShapeNextFilled {
       background: @accent;
       color: @base;
     }
@@ -1080,12 +1378,64 @@
       background-color: @surface0 !important;
     }
     // Title
-    .ytLockupMetadataViewModelTitle {
+    .ytLockupMetadataViewModelTitle,
+    #video-title.ytd-rich-grid-media,
+    h3.ytd-rich-grid-media,
+    #video-title.ytd-rich-grid-slim-media,
+    h3.ytd-rich-grid-slim-media,
+    #video-title.ytd-video-renderer,
+    .title-and-badge.ytd-video-renderer,
+    h3.ytd-compact-video-renderer,
+    #video-title.yt-simple-endpoint.ytd-grid-video-renderer,
+    h3.ytd-grid-video-renderer,
+    #title-container.ytd-shelf-renderer,
+    #title.ytd-shelf-renderer,
+    #title.ytd-rich-shelf-renderer,
+    #header.ytd-reel-shelf-renderer,
+    #title.ytd-reel-shelf-renderer {
       color: @text !important;
     }
     // Details
-    .ytLockupMetadataViewModelMetadata {
+    .ytLockupMetadataViewModelMetadata,
+    .ytLockupMetadataViewModelAttribution,
+    #attributed-channel-name.ytd-video-meta-block,
+    #channel-name.ytd-video-meta-block,
+    #video-info.ytd-video-meta-block,
+    #byline.ytd-video-meta-block,
+    #separator.ytd-video-meta-block,
+    #attributed-channel-name.ytd-video-renderer,
+    #channel-name.ytd-video-renderer,
+    #description-text.ytd-video-renderer,
+    .metadata-snippet-text.ytd-video-renderer,
+    .metadata-snippet-text-navigation.ytd-video-renderer,
+    #attributed-channel-name.ytd-grid-video-renderer,
+    #channel-name.ytd-grid-video-renderer,
+    #video-info.ytd-grid-video-renderer,
+    #subtitle.ytd-shelf-renderer,
+    #title-annotation.ytd-shelf-renderer,
+    #subtitle.ytd-rich-shelf-renderer,
+    #subtitle.ytd-reel-shelf-renderer {
+      --yt-endpoint-color: @subtext0;
+      --yt-endpoint-visited-color: @subtext0;
       color: @subtext0 !important;
+    }
+    #channel-name.ytd-video-meta-block[verified],
+    #channel-name.ytd-grid-video-renderer[verified] {
+      --yt-endpoint-color: @text;
+      --yt-endpoint-hover-color: @text;
+      --yt-endpoint-visited-color: @text;
+      color: @text !important;
+    }
+    ytd-rich-shelf-renderer[show-bottom-divider]
+      #dismissible.ytd-rich-shelf-renderer,
+    grid-shelf-view-model.ytd-item-section-renderer,
+    ytd-exploratory-results-renderer.ytd-item-section-renderer,
+    ytd-horizontal-card-list-renderer.ytd-item-section-renderer:not(
+        :first-child
+      ),
+    ytd-reel-shelf-renderer.ytd-item-section-renderer,
+    ytd-shelf-renderer.ytd-item-section-renderer {
+      border-color: @surface0;
     }
     // Badges (e.g. "CC", "New")
     .ytBadgeShapeThumbnailSpecial,
@@ -1190,26 +1540,72 @@
     /* Components */
 
     /* Menus and context sheets */
-    .ytContextualSheetLayoutHost, ytd-menu-popup-renderer {
+    .ytContextualSheetLayoutHost,
+    ytd-menu-popup-renderer,
+    ytd-multi-page-menu-renderer,
+    tp-yt-paper-listbox.yt-dropdown-menu {
       background-color: @mantle;
     }
-    .ytListItemViewModelTappable:hover {
+    .ytListItemViewModelTappable:hover,
+    .ytListItemViewModelHovered,
+    tp-yt-paper-item.ytd-menu-navigation-item-renderer:hover,
+    tp-yt-paper-item.ytd-menu-navigation-item-renderer:focus,
+    tp-yt-paper-item.ytd-menu-service-item-renderer:hover,
+    tp-yt-paper-item.ytd-menu-service-item-renderer:focus,
+    tp-yt-paper-listbox.yt-dropdown-menu tp-yt-paper-item.yt-dropdown-menu:hover,
+    tp-yt-paper-listbox.yt-dropdown-menu .iron-selected.yt-dropdown-menu,
+    #items.yt-multi-page-menu-section-renderer
+      > .yt-multi-page-menu-section-renderer:not(
+        [compact-link-style="compact-link-style-type-disclaimer"]
+      ):not(ytd-message-renderer):hover {
       background-color: @surface0;
     }
     .ytPanelHeaderViewModelTitle,
+    .ytListItemViewModelHost,
     .ytListItemViewModelTitle,
-    .ytListItemViewModelAccessory {
+    .ytListItemViewModelAccessory,
+    .ytListItemViewModelTrailingLabel,
+    yt-formatted-string.ytd-menu-navigation-item-renderer,
+    .ytIconWrapperHost.ytd-menu-navigation-item-renderer,
+    yt-icon.ytd-menu-navigation-item-renderer,
+    yt-formatted-string.title.ytd-menu-service-item-renderer,
+    .ytIconWrapperHost.ytd-menu-service-item-renderer,
+    yt-icon.ytd-menu-service-item-renderer,
+    #account-name.ytd-active-account-header-renderer,
+    #channel-handle.ytd-active-account-header-renderer,
+    #email.ytd-active-account-header-renderer,
+    h2.yt-multi-page-menu-section-renderer,
+    .text.ytd-notification-renderer,
+    .icon-avatar.ytd-notification-renderer yt-icon.ytd-notification-renderer {
       color: @text;
     }
-    .ytListItemViewModelSubtitle {
+    .ytListItemViewModelSubtitle,
+    .ytListItemViewModelSuperlabel,
+    .ytListItemViewModelSelectionText,
+    yt-formatted-string.subtitle-text.ytd-menu-service-item-renderer,
+    .metadata.ytd-notification-renderer {
       color: @subtext1;
     }
+    ytd-active-account-header-renderer,
+    #sections.ytd-multi-page-menu-renderer
+      > .ytd-multi-page-menu-renderer:not(:last-child),
+    #footer.ytd-multi-page-menu-renderer > .ytd-multi-page-menu-renderer {
+      border-color: @surface0;
+    }
     /* Dialogs */
-    .ytSpecDialogLayoutHost {
+    .ytSpecDialogLayoutHost,
+    yt-confirm-dialog-renderer[dialog][dialog][dialog] {
       background-color: @mantle;
 
-      .ytDialogHeaderViewModelText {
+      .ytDialogHeaderViewModelText,
+      .ytSpecDialogLayoutTitle,
+      .ytSpecDialogLayoutContent,
+      #title.yt-confirm-dialog-renderer {
         color: @text;
+      }
+
+      .body-text.yt-confirm-dialog-renderer {
+        color: @subtext0;
       }
     }
 
@@ -1255,18 +1651,68 @@
 
     /* Comments */
     .ytSubThreadConnection,
-    .ytSubThreadContinuation {
+    .ytSubThreadContinuation,
+    .continuation.ytd-comment-view-model {
       border-left-color: @surface1;
     }
     .ytSubThreadConnection {
       border-bottom-color: @surface1;
     }
     .ytSubThreadHovered > .ytSubThreadThreadline .ytSubThreadConnection,
-    .ytSubThreadHovered > .ytSubThreadThreadline .ytSubThreadContinuation {
+    .ytSubThreadHovered > .ytSubThreadThreadline .ytSubThreadContinuation,
+    ytd-comment-view-model[hovered] .continuation.ytd-comment-view-model {
       border-left-color: @overlay0;
     }
     .ytSubThreadHovered > .ytSubThreadThreadline .ytSubThreadConnection {
       border-bottom-color: @overlay0;
+    }
+    yt-formatted-string.ytd-comments-header-renderer,
+    #author-text.yt-simple-endpoint.ytd-comment-view-model,
+    #content-text.ytd-comment-view-model,
+    #vote-count-middle.ytd-comment-action-buttons-renderer,
+    ytd-comment-action-buttons-renderer[system-icons][is-liked]
+      #vote-count-left.ytd-comment-action-buttons-renderer,
+    ytd-comment-action-buttons-renderer[system-icons][is-liked]
+      #vote-count-middle.ytd-comment-action-buttons-renderer,
+    #dislike-button.ytd-comment-action-buttons-renderer:hover,
+    #like-button.ytd-comment-action-buttons-renderer:hover,
+    ytd-commentbox[is-creation-box] #contenteditable-textarea.ytd-commentbox {
+      color: @text;
+    }
+    #content-text.ytd-comment-view-model {
+      --yt-endpoint-color: @accent;
+      --yt-endpoint-hover-color: @accent;
+      --yt-endpoint-visited-color: @accent;
+    }
+    #simplebox-placeholder.ytd-comment-simplebox-renderer,
+    #published-time-text.ytd-comment-view-model,
+    .less-button.ytd-comment-view-model,
+    .more-button.ytd-comment-view-model,
+    .translate-button.ytd-comment-view-model,
+    ytd-comment-action-buttons-renderer,
+    #comment-count.ytd-comment-action-buttons-renderer,
+    #contenteditable-textarea.ytd-commentbox[aria-label]:empty::before {
+      color: @subtext0;
+    }
+    #placeholder-area.ytd-comment-simplebox-renderer,
+    ytd-comments-header-renderer[engagement-panel] {
+      border-color: @surface0;
+    }
+    .channel-owner.ytd-comment-view-model {
+      background-color: @subtext0;
+      color: @crust;
+    }
+    ytd-author-comment-badge-renderer {
+      --ytd-author-comment-badge-name-color: @text;
+
+      &[creator] {
+        --ytd-author-comment-badge-name-color: @crust;
+        --ytd-author-comment-badge-background-color: @text;
+
+        #icon.ytd-author-comment-badge-renderer {
+          color: @crust;
+        }
+      }
     }
 
     /* Profile Card */
@@ -1325,9 +1771,23 @@
     }
 
     /* Category tag pills */
-    .ytChipShapeInactive {
+    .ytChipShapeInactive,
+    .ytChipShapeActiveRedesign {
       background-color: @surface0;
       color: @text;
+    }
+    .ytChipShapeInactiveRedesign {
+      color: @subtext0;
+      border-color: @surface0;
+    }
+    .ytChipShapeDisabled {
+      background-color: @surface0;
+      color: @subtext1;
+    }
+    .ytChipShapeFocused {
+      background-color: @base;
+      color: @text;
+      outline-color: @text;
     }
     .ytChipShapeActive {
       background-color: @accent;
@@ -1506,15 +1966,18 @@
     }
 
     .yt-spec-bottom-sheet-layout__bottom-sheet-renderer-container,
+    .ytSpecBottomSheetLayoutContainer,
     .modern-styling {
       background: @surface0;
     }
 
-    .yt-spec-bottom-sheet-layout__bottom-sheet-layout-header-wrapper {
+    .yt-spec-bottom-sheet-layout__bottom-sheet-layout-header-wrapper,
+    .ytSpecBottomSheetLayoutHeaderWrapper {
       border-bottom-color: @surface0;
     }
 
-    .yt-spec-bottom-sheet-layout__bottom-sheet-content {
+    .yt-spec-bottom-sheet-layout__bottom-sheet-content,
+    .ytSpecBottomSheetLayoutBottomSheetContent {
       color: @text;
     }
 
@@ -1549,22 +2012,29 @@
 
     /* Buttons */
 
-    .yt-spec-touch-feedback-shape--touch-response {
-      .yt-spec-touch-feedback-shape__fill {
+    .yt-spec-touch-feedback-shape--touch-response,
+    .ytSpecTouchFeedbackShapeTouchResponse {
+      .yt-spec-touch-feedback-shape__fill,
+      .ytSpecTouchFeedbackShapeFill {
         background-color: @text;
       }
 
-      .yt-spec-touch-feedback-shape__stroke {
+      .yt-spec-touch-feedback-shape__stroke,
+      .ytSpecTouchFeedbackShapeStroke {
         border-color: @surface1;
       }
     }
 
     .yt-spec-touch-feedback-shape--overlay-touch-response-inverse
-      .yt-spec-touch-feedback-shape__fill {
+      .yt-spec-touch-feedback-shape__fill,
+    .ytSpecTouchFeedbackShapeOverlayTouchResponseInverse
+      .ytSpecTouchFeedbackShapeFill {
       background-color: @accent;
     }
     .yt-spec-touch-feedback-shape--overlay-touch-response
-      .yt-spec-touch-feedback-shape__fill {
+      .yt-spec-touch-feedback-shape__fill,
+    .ytSpecTouchFeedbackShapeOverlayTouchResponse
+      .ytSpecTouchFeedbackShapeFill {
       background-color: @text;
     }
   }
