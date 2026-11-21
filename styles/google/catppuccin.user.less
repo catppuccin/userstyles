@@ -31,9 +31,12 @@
     #lib.palette();
     #lib.defaults();
 
-    // Unset color-scheme from `#lib.defaults()`.
+    // Leave iframes on the browser's own scheme. The ogs.google.com section
+    // below does the same, otherwise the browser paints an opaque (white)
+    // backdrop behind the account menu iframe. It also keeps both sections
+    // on the same flavor.
     iframe {
-      color-scheme: none !important;
+      color-scheme: light dark !important;
     }
 
     &,
@@ -2302,6 +2305,11 @@
 }
 
 @-moz-document regexp("^https?://(ogs\\.)?google\\..*") {
+  // Same scheme as the `iframe` rule above
+  :root {
+    color-scheme: light dark !important;
+  }
+
   body {
     @media (prefers-color-scheme: light) {
       #catppuccin(@lightFlavor);
@@ -2313,8 +2321,64 @@
 
   #catppuccin(@flavor) {
     #lib.palette();
+    #lib.defaults();
 
-    .aRDKUe {
+    // Google redeclares these on a lot of inner elements
+    .SSPGKf,
+    .EHzcec {
+      &,
+      * {
+        --gm3-sys-color-surface: @base !important;
+        --gm3-sys-color-surface-container: @surface0 !important;
+        --gm3-sys-color-surface-container-high: @surface0 !important;
+        --gm3-sys-color-surface-container-highest: @surface1 !important;
+        --gm3-sys-color-surface-container-low: @mantle !important;
+        --gm3-sys-color-surface-bright: @surface1 !important;
+        --gm3-sys-color-surface-variant: @surface1 !important;
+        --gm3-sys-color-on-surface: @text !important;
+        --gm3-sys-color-on-surface-variant: @subtext0 !important;
+        --gm3-sys-color-primary: @blue !important;
+      }
+    }
+
+    // Google's light theme reads the names without `dark`
+    .SSPGKf {
+      --action-items-add-account-icon-background-color: @surface0;
+      --action-items-add-account-icon-dark-background-color: @surface0;
+      --action-items-add-account-icon-color: @blue;
+      --action-items-add-account-icon-dark-color: @blue;
+      --action-items-expandable-action-toggle-icon-color: @text;
+      --action-items-expandable-action-toggle-icon-dark-color: @text;
+      --action-items-action-pill-label-color: @text;
+      --action-items-action-pill-sub-label-color: @subtext0;
+
+      /* account menu rows */
+      .N2ncR {
+        --action-items-action-item-background-color: @base;
+        --action-items-action-item-dark-background-color: @base;
+      }
+      .YLkvaf {
+        --action-items-expandable-action-toggle-icon-background-color: @surface0;
+        --action-items-expandable-action-toggle-icon-dark-background-color: @surface0;
+      }
+      .Agku8b.w5k6Yd,
+      .agfK1d.w5k6Yd,
+      .JP6mTe.w5k6Yd {
+        &:hover,
+        &:focus-visible,
+        &:active {
+          background-color: @surface1 !important;
+          outline-color: @accent !important;
+          &::before {
+            background-color: transparent !important;
+          }
+        }
+      }
+      .wCni7d {
+        background: @surface1 !important;
+        color: @subtext0 !important;
+      }
+
       .rRF0wd {
         fill: @yellow !important;
       }
@@ -2381,21 +2445,21 @@
         background-color: @surface1 !important;
       }
     }
-    .nz9sqb.EHzcec {
+    .EHzcec {
       background: var(--gm3-sys-color-surface-container-high, @surface0);
+      // Google only fills some of the sections, so set the color it reads
+      // and leave the background to Google
       .LVal7b {
-        background: var(--gm3-sys-color-surface-container-low, @mantle);
+        --gm3-sys-color-surface-container-lowest: @mantle !important;
       }
-    }
-    .nz9sqb {
       .NQV3m {
-        color: var(--gm3-sys-color-primary, @blue);
-        border-color: var(--gm3-sys-color-outline, @surface2);
-        &:hover {
-          background-color: fade(@blue, 25%);
-        }
+        color: @blue;
+        border-color: @surface2;
+        &:hover,
         &:focus {
           background-color: fade(@blue, 25%);
+          border-color: @blue !important;
+          outline-color: @accent !important;
         }
       }
       .Rq5Gcb {
@@ -2404,25 +2468,42 @@
       .tX9u1b:hover {
         background-color: @surface0;
       }
+      /* edit button */
+      .XOaCHd {
+        background-color: @surface1;
+        &:hover::before,
+        &:focus::before,
+        &:active::before {
+          background-color: fade(@text, 8%) !important;
+        }
+        &:focus {
+          outline-color: @accent !important;
+        }
+      }
     }
-    .nz9sqb.o07G5 .tX9u1b:active,
-    .nz9sqb.o07G5 .tX9u1b:active:focus,
-    .nz9sqb.o07G5 .tX9u1b:active .Rq5Gcb,
-    .nz9sqb.o07G5 .tX9u1b:active:hover .Rq5Gcb {
+    /* tooltips */
+    .ne2Ple-z59Tgd {
+      color: @text !important;
+      background-color: @surface1 !important;
+    }
+    .EHzcec.o07G5 .tX9u1b:active,
+    .EHzcec.o07G5 .tX9u1b:active:focus,
+    .EHzcec.o07G5 .tX9u1b:active .Rq5Gcb,
+    .EHzcec.o07G5 .tX9u1b:active:hover .Rq5Gcb {
       background-color: @surface0;
     }
-    .aRDKUe .pRjiJb,
-    .aRDKUe .DmSTqc {
+    .SSPGKf .pRjiJb,
+    .SSPGKf .DmSTqc {
       color: @text;
     }
-    .aRDKUe .idKC9b,
-    .aRDKUe .MbHqJ {
+    .SSPGKf .idKC9b,
+    .SSPGKf .MbHqJ {
       color: @subtext0;
     }
-    .aRDKUe .GXg3Le {
+    .SSPGKf .GXg3Le {
       color: @blue;
     }
-    .aRDKUe .G5bXNb {
+    .SSPGKf .G5bXNb {
       background-color: @mantle;
       &:hover {
         background-color: @base;
