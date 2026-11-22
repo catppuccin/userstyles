@@ -83,11 +83,7 @@
       background-color: @base;
       border-color: @surface2;
     }
-    img:not(
-      [src^="/"],
-      [src*="cloudfront.net/dist"],
-      [src*="instructuremedia.com/build"]
-    ) {
+    img:not([src^="/"], [src*="cloudfront.net/dist"], [src*="instructuremedia.com/build"]) {
       /* force a white background for user-uploaded images */
       background-color: #fffd;
     }
@@ -131,10 +127,31 @@
       color: @subtext0;
     }
 
+    /* seen for overdue to-dos on new dashboard */
+    span[color="danger"] {
+      color: @red;
+    }
+
+    code,
+    pre {
+      background-color: @mantle;
+      border-color: @surface0;
+    }
+
+    code {
+      color: @red;
+    }
+
+    pre {
+      color: @text;
+      code {
+        color: @text;
+      }
+    }
+
     .user_content {
       /* for highlighted non-links in user-created content, revert to regular-ish text color */
-      [style~="background-color:"]:not([style~="color:"])
-        :not(a.external span) {
+      [style~="background-color:"]:not([style~="color:"]) :not(a.external span) {
         color: black;
       }
       /* just a special exception for pure black text and pure white backgrounds */
@@ -408,6 +425,12 @@
         color: @text;
       }
     }
+    span[type="button"] {
+      .neutral-button();
+    }
+    button[data-cid~="IconButton"] {
+      .neutral-button();
+    }
 
     /* this is for buttons that are accent-colored */
     @hover-accent-button: mix(@base, @accent, 20%);
@@ -457,18 +480,14 @@
       }
     }
 
-    span[type="button"] {
-      .neutral-button();
-    }
-
     /* this is for buttons that have no border/background until hovered */
     @hover-flush-button: fade(@surface1, 30%);
-    .flush-button() {
+    .flush-button(@hover-bg: @hover-flush-button) {
       color: @text;
       background-color: transparent;
       border-color: transparent;
       &:hover {
-        background-color: @hover-flush-button;
+        background-color: @hover-bg;
         > [class$="baseButton__content"] {
           background-color: @hover-flush-button;
         }
@@ -487,13 +506,7 @@
     }
 
     .btn:not(.btn-primary, .btn-link),
-    .Button:not(
-      .Button--link,
-      .Button--primary,
-      .Button--icon-action,
-      .Button--icon-action-danger,
-      .Button--icon-action-rev
-    ),
+    .Button:not(.Button--link, .Button--primary, .Button--icon-action, .Button--icon-action-danger, .Button--icon-action-rev),
     .ui-button {
       background-color: @surface0;
       color: @text;
@@ -899,9 +912,7 @@
       #dashboard section {
         background-color: @surface0;
 
-        [data-cid*="BaseButton"]:not([data-testid*="hide"]):not(
-          [data-testid^="color-picker"]
-        ) {
+        [data-cid*="BaseButton"]:not([data-testid*="hide"]):not([data-testid^="color-picker"]) {
           .neutral-button();
           &[aria-current="page"] {
             color: black;
@@ -933,30 +944,52 @@
           /* individual assignment cards */
           li > [data-testid^="listed-course-work-item"] > div {
             background-color: @surface1;
-            div:has(> span > svg) {
-              background-color: fade(@blue, 40%);
-            }
             a > span {
               color: @blue !important;
             }
 
-            span[data-testid^="due_soon-status-pill"] {
-              background-color: fade(@blue, 40%);
-              > span {
-                background-color: transparent;
+            &:has(span[data-testid^="due_soon-status-pill"]) {
+              div:has(> span > svg) {
+                background-color: fade(@blue, 40%);
+              }
+              span[data-testid^="due_soon-status-pill"] {
+                background-color: fade(@blue, 40%);
+                > span {
+                  background-color: transparent;
+                }
               }
             }
-            span[data-testid^="submitted-status-pill"] {
-              background-color: fade(@green, 40%);
-              > span {
-                background-color: transparent;
+            &:has(span[data-testid^="submitted-status-pill"]) {
+              div:has(> span > svg) {
+                background-color: fade(@green, 40%);
+              }
+              span[data-testid^="submitted-status-pill"] {
+                background-color: fade(@green, 40%);
+                > span {
+                  background-color: transparent;
+                }
               }
             }
-            /* not sure if this is the right id because i don't have missing work... */
-            span[data-testid^="missing-status-pill"] {
-              background-color: fade(@red, 40%);
-              > span {
-                background-color: transparent;
+            &:has(span[data-testid^="missing-status-pill"]) {
+              div:has(> span > svg) {
+                background-color: fade(@red, 40%);
+              }
+              span[data-testid^="missing-status-pill"] {
+                background-color: fade(@red, 40%);
+                > span {
+                  background-color: transparent;
+                }
+              }
+            }
+            &:has(span[data-testid^="late-status-pill"]) {
+              div:has(> span > svg) {
+                background-color: fade(@yellow, 40%);
+              }
+              span[data-testid^="late-status-pill"] {
+                background-color: fade(@yellow, 40%);
+                > span {
+                  background-color: transparent;
+                }
               }
             }
           }
@@ -1032,6 +1065,17 @@
           }
         }
 
+        &[data-testid^="widget-recent_grades-widget"] {
+          li {
+            div:has(> svg) {
+              background-color: @base;
+            }
+            span {
+              color: @text;
+            }
+          }
+        }
+
         &[data-testid="widget-announcements-widget"] {
           [data-testid^="announcement-item"] {
             border-color: @surface1;
@@ -1050,8 +1094,7 @@
         color: @mantle;
       }
     }
-    .NotificationBadge-styles__activityIndicator.NotificationBadge-styles__hasBadge
-      [class$="badge"] {
+    .NotificationBadge-styles__activityIndicator.NotificationBadge-styles__hasBadge [class$="badge"] {
       background-color: @accent;
     }
     .Day-styles__root {
@@ -1192,6 +1235,25 @@
         color: @text;
         background-color: @surface1;
         border-color: @surface2;
+      }
+
+      /* for the alternate formats popover for pdfs */
+      div[style] {
+        background-color: @surface1 !important;
+        li[class$="listItem"] {
+          color: @text;
+          &:not(:first-child) {
+            border-top-color: @surface2;
+          }
+
+          a[data-cid~="IconButton"] {
+            .flush-button(@surface2);
+          }
+        }
+      }
+      /* for the alternate formats download button */
+      span[style] {
+        background-color: transparent !important;
       }
     }
 
@@ -1509,10 +1571,7 @@
         border-color: @surface1;
       }
     }
-    :is(.calendar, #calendar-drag-and-drop-container)
-      .fc-row
-      :is(.fc-content-skeleton, .fc-helper-skeleton)
-      td {
+    :is(.calendar, #calendar-drag-and-drop-container) .fc-row :is(.fc-content-skeleton, .fc-helper-skeleton) td {
       border-color: @surface1;
     }
 
@@ -1750,11 +1809,7 @@
     #questions.assessment_results .question .answers .answer.wrong_answer {
       border-color: @red;
     }
-    #questions.assessment_results
-      .question
-      .answers
-      .answer.wrong_answer
-      .ui-selectmenu-status {
+    #questions.assessment_results .question .answers .answer.wrong_answer .ui-selectmenu-status {
       color: @red;
     }
 
@@ -1989,10 +2044,7 @@
       .tox-collection--list .tox-collection__group {
         border-color: @surface1;
       }
-      .tox-collection--list
-        .tox-collection__item--active:not(
-          .tox-collection__item--state-disabled
-        ),
+      .tox-collection--list .tox-collection__item--active:not(.tox-collection__item--state-disabled),
       .tox-collection__item--active {
         background-color: mix(@accent, @base, 30%);
       }
