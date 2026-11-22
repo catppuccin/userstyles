@@ -1,5 +1,5 @@
 {
-  description = "Catppuccin userstyles";
+  description = "Catppuccin Userstyles";
 
   inputs.nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
 
