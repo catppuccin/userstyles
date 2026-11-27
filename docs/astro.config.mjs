@@ -5,18 +5,18 @@ import starlightLinksValidator from "starlight-links-validator";
 import starlightImageZoom from "starlight-image-zoom";
 import starlightGitHubAlerts from "starlight-github-alerts";
 import starlightAutoSidebar from "starlight-auto-sidebar";
-import mermaid from "astro-mermaid";
 import { remarkHeadingId } from "remark-custom-heading-id";
+import mermaid from "./src/plugins/mermaid.ts";
 
 export default defineConfig({
   site: "https://userstyles.catppuccin.com",
   markdown: {
-    remarkPlugins: [remarkHeadingId],
+    remarkPlugins: [remarkHeadingId, mermaid],
   },
   integrations: [
-    mermaid(),
     starlight({
       title: "Catppuccin Userstyles",
+      customCss: ["./src/styles/pele.css"],
       favicon: "/favicon.png",
       logo: {
         dark: "/public/pepperjack-dark.png",
